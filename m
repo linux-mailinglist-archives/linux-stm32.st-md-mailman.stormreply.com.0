@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6829FD153E1
+	by mail.lfdr.de (Postfix) with ESMTPS id 97C10D153E5
 	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 21:35:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06799C57A51;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27956C5A4DF;
 	Mon, 12 Jan 2026 20:35:54 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7251C2909A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80AE7C57A51
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jan 2026 20:35:51 +0000 (UTC)
+ Mon, 12 Jan 2026 20:35:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768250152; x=1799786152;
- h=from:to:cc:subject:date:message-id:mime-version:
- content-transfer-encoding;
- bh=REqCyoJrIpewtMdGURz7oYk9zmr7BJajQXuF1TakMwI=;
- b=TyuTtnyQvmTyxhohp0FEYfNTsNdR+oiZQfT5NJizK++/HwYR5T64GsHn
- Yf/WnZhr7YmzMCsHU0PBhtayJAjsTzVV/VzkfNxCJdUnJoW1/M2QUMYVv
- Mrk1+baoYwsp43WMx2M0C3gjxzpBnheZSXFOg9HhUK2/WYmBX0adMm998
- EXzZTSO5BSYrW/ttoG65oXtX+gWXgxHitG7QaeJ4abWubT9Xq+BkYwgtH
- m2ojX2t3smPQZ6fglOlY23uL6o3ZGJ6zuFCaj/PRQ/31SMiusZU51tB1i
- XDmHrslFv/grpDBWlAnISJPTSsTEvVWSB4XW0ShyS1kD5olrroFissLKs g==;
-X-CSE-ConnectionGUID: TmkB5gNvSo+Xhgr7Barddw==
-X-CSE-MsgGUID: Z8Ai17J4Sc2SX+HOvGdHXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="80173660"
-X-IronPort-AV: E=Sophos;i="6.21,221,1763452800"; d="scan'208";a="80173660"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2026 12:35:49 -0800
-X-CSE-ConnectionGUID: qrF+XUj5Smmcrdyy5Dee6Q==
-X-CSE-MsgGUID: pPBsBLFtQSOQR4pxhpa//Q==
+ t=1768250153; x=1799786153;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:mime-version:content-transfer-encoding;
+ bh=dzIlNxBLNcrWr8IC/y57DQTFAbop0n5nPnrevzaacBI=;
+ b=OvBitfvto0UXgd7AN+V3j+DXI6Sewqao2X83napZA9kqL8QaHFYUqwXx
+ 45xffBVtaT8V68ehT+tfdGUfVlYE66cKQSDEARINRGW1ocYofSGPTohVc
+ aXfP/9Sd3jbmiHBCihCugspD5boucH3bbalKVJ41/lrFXWHw+wBNl+ks1
+ mI9BpWVbrL1GuD6I0M+840bZXuPRdflX8U+d+gW0Fj89p96R03omaqdAo
+ OijcD0QgbnY6lsCY9W4v+pixfPDxH/WBO4WgvFxEHlH717EQgbtkWLGIA
+ /x4UcE8yMKvpI52PkANJc259HJYSXGhkLqYQvHkJBNeqe1eis11xyUT2Y g==;
+X-CSE-ConnectionGUID: eFa8xZITS+q0RcP4GT4IBg==
+X-CSE-MsgGUID: wgfsYe1PSU2WABMVupB74w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="69515886"
+X-IronPort-AV: E=Sophos;i="6.21,221,1763452800"; d="scan'208";a="69515886"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2026 12:35:51 -0800
+X-CSE-ConnectionGUID: Wd9Pd5v0RsaC3tx7hFm2fQ==
+X-CSE-MsgGUID: aPk0SsUFTRe0eIv2P2Fwzg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,221,1763452800"; d="scan'208";a="208707588"
+X-IronPort-AV: E=Sophos;i="6.21,221,1763452800"; d="scan'208";a="209262083"
 Received: from black.igk.intel.com ([10.91.253.5])
- by orviesa004.jf.intel.com with ESMTP; 12 Jan 2026 12:35:38 -0800
+ by orviesa005.jf.intel.com with ESMTP; 12 Jan 2026 12:35:40 -0800
 Received: by black.igk.intel.com (Postfix, from userid 1003)
- id 6841594; Mon, 12 Jan 2026 21:35:37 +0100 (CET)
+ id 6FF4698; Mon, 12 Jan 2026 21:35:37 +0100 (CET)
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Mark Brown <broonie@kernel.org>,
  Varshini Rajendran <varshini.rajendran@microchip.com>,
@@ -98,9 +98,11 @@ To: Mark Brown <broonie@kernel.org>,
  linux-renesas-soc@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev,
  linux-tegra@vger.kernel.org, virtualization@lists.linux.dev
-Date: Mon, 12 Jan 2026 21:21:22 +0100
-Message-ID: <20260112203534.4186261-1-andriy.shevchenko@linux.intel.com>
+Date: Mon, 12 Jan 2026 21:21:23 +0100
+Message-ID: <20260112203534.4186261-2-andriy.shevchenko@linux.intel.com>
 X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260112203534.4186261-1-andriy.shevchenko@linux.intel.com>
+References: <20260112203534.4186261-1-andriy.shevchenko@linux.intel.com>
 MIME-Version: 1.0
 Cc: Kursad Oney <kursad.oney@broadcom.com>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
@@ -153,8 +155,8 @@ Cc: Kursad Oney <kursad.oney@broadcom.com>,
  Chunyan Zhang <zhang.lyra@gmail.com>, Paul Walmsley <pjw@kernel.org>,
  Vladimir Oltean <olteanv@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
  Daniel Mack <daniel@zonque.org>
-Subject: [Linux-stm32] [PATCH v2 0/4] spi: Make SPI core to take care of
-	fwnode assignment
+Subject: [Linux-stm32] [PATCH v2 1/4] spi: Propagate default fwnode to the
+	SPI controller device
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,113 +168,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SXQgc2VlbXMgYWxsIG9mIHRoZSBTUEkgZHJpdmVycyB3YW50IHRvIHByb3BhZ2F0ZSBmd25vZGUg
-KG9yIG9mX25vZGUpCm9mIHRoZSBwaHlzaWNhbCBkZXZpY2UgdG8gdGhlIFNQSSBkZXZpY2UuIE1h
-a2Ugc3VyZSB3ZSBkb24ndCBkdXBsaWNhdGUKaXQgb3ZlciBhbmQgb3ZlciBpbiBlYWNoIG5ldyBk
-cml2ZXIgKCsyIGluIHRoaXMgY3ljbGUpIGJ5IG1ha2luZyBjb3JlCnRvIHRha2UgY2FyZSBvZiB0
-aGF0LiBOb3RlLCBzaW1pbGFyIGlzIGRvbmUgYWxyZWFkeSBieSBJSU8gYW5kCknCskMgc3Vic3lz
-dGVtcy4KClRoZXJlIGlzIG9uZSBub3RpY2VhYmxlIGFuZCBxdWl0ZSBzcGVjaWZpYyBjYXNlIHRo
-YXQgaXMgdGFrZW4gY2FyZSBpbgp0aGUgZmlyc3QgcGF0Y2ggYW5kIG5vdyB3ZSBoYXZlIGEgY29u
-ZmlybWF0aW9uIGZyb20gQ2lycnVzIHRoYXQgZXZlcnl0aGluZwppcyBva2F5LiAgVGhlIHJlc3Qg
-aXMganVzdCBhIG1lY2hhbmljYWwgY29udmVyc2lvbiBhZnRlciBjaGVja2luZyB0aGF0CnRoZSBw
-YXJlbnQgZGV2aWNlIGlzIGFzc2lnbmVkIHRvIHRoZSBzYW1lIHRoYXQgcHJvdmlkZXMgdGhlIHJl
-c3BlY3RpdmUKZndub2RlLgoKQ2hhbmdlbG9nIHYyOgotIGNvbGxlY3RlZCB0YWdzCi0gZml4ZWQg
-Vz0xIHdhcm5pbmcgKHVudXNlZCB2YXJpYWJsZSkgaW4gc3BpLWRsbjIuYyAoTEtQKQoKdjE6IDIw
-MjYwMTA4MjAzMDA0LjM1Mzg0NDktMS1hbmRyaXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20K
-CkFuZHkgU2hldmNoZW5rbyAoNCk6CiAgc3BpOiBQcm9wYWdhdGUgZGVmYXVsdCBmd25vZGUgdG8g
-dGhlIFNQSSBjb250cm9sbGVyIGRldmljZQogIHNwaTogRHJvcCBkdXBsaWNhdGUgb2Zfbm9kZSBh
-c3NpZ25tZW50CiAgc3BpOiBEcm9wIGR1cGxpY2F0ZSBmd25vZGUgYXNzaWdubWVudAogIHNwaTog
-RHJvcCBkdXBsaWNhdGUgZGV2aWNlX3NldF9ub2RlKCkgY2FsbAoKIGRyaXZlcnMvc3BpL2F0bWVs
-LXF1YWRzcGkuYyAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWFpcm9oYS1zbmZpLmMg
-ICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktYWx0ZXJhLXBsYXRmb3JtLmMgICAgfCAyIC0t
-CiBkcml2ZXJzL3NwaS9zcGktYW1sb2dpYy1zcGlmYy1hMS5jICAgfCAxIC0KIGRyaXZlcnMvc3Bp
-L3NwaS1hbWxvZ2ljLXNwaXNnLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWFwcGxlLmMg
-ICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktYXI5MzR4LmMgICAgICAgICAgICAg
-fCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1hcm1hZGEtMzcwMC5jICAgICAgICB8IDQgKy0tLQogZHJp
-dmVycy9zcGkvc3BpLWFzcGVlZC1zbWMuYyAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkt
-YXRjc3BpMjAwLmMgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1hdGg3OS5jICAgICAg
-ICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWF0bWVsLmMgICAgICAgICAgICAgIHwgMSAt
-CiBkcml2ZXJzL3NwaS9zcGktYXhpLXNwaS1lbmdpbmUuYyAgICAgfCAxIC0KIGRyaXZlcnMvc3Bp
-L3NwaS1iY20tcXNwaS5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWJjbTI4MzUu
-YyAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktYmNtMjgzNWF1eC5jICAgICAgICAg
-fCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1iY202M3h4LWhzc3BpLmMgICAgICB8IDEgLQogZHJpdmVy
-cy9zcGkvc3BpLWJjbTYzeHguYyAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktYmNt
-YmNhLWhzc3BpLmMgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1jYWRlbmNlLXF1YWRzcGku
-YyAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWNhZGVuY2UteHNwaS5jICAgICAgIHwgMSAtCiBk
-cml2ZXJzL3NwaS9zcGktY2FkZW5jZS5jICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3Nw
-aS1jYXZpdW0tb2N0ZW9uLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWNhdml1bS10aHVu
-ZGVyeC5jICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktY2xwczcxMXguYyAgICAgICAgICAgfCAx
-IC0KIGRyaXZlcnMvc3BpL3NwaS1jczQybDQzLmMgICAgICAgICAgICB8IDggKysrKysrKysKIGRy
-aXZlcnMvc3BpL3NwaS1kYXZpbmNpLmMgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3Bp
-LWRsbjIuYyAgICAgICAgICAgICAgIHwgMyAtLS0KIGRyaXZlcnMvc3BpL3NwaS1kdy1jb3JlLmMg
-ICAgICAgICAgICB8IDIgLS0KIGRyaXZlcnMvc3BpL3NwaS1lcDkzeHguYyAgICAgICAgICAgICB8
-IDEgLQogZHJpdmVycy9zcGkvc3BpLWZhbGNvbi5jICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJz
-L3NwaS9zcGktZnNsLWRzcGkuYyAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1mc2wt
-ZXNwaS5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWZzbC1saWIuYyAgICAgICAg
-ICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktZnNsLWxwc3BpLmMgICAgICAgICAgfCAxIC0KIGRy
-aXZlcnMvc3BpL3NwaS1nZW5pLXFjb20uYyAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3Bp
-LWdwaW8uYyAgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktZ3hwLmMgICAgICAg
-ICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1oaXNpLWt1bnBlbmcuYyAgICAgICB8IDEg
-LQogZHJpdmVycy9zcGkvc3BpLWltZy1zcGZpLmMgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3Nw
-aS9zcGktaW14LmMgICAgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1pbmdlbmlj
-LmMgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWxhbnRpcS1zc2MuYyAgICAgICAg
-IHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbGpjYS5jICAgICAgICAgICAgICAgfCAxIC0KIGRyaXZl
-cnMvc3BpL3NwaS1sb29uZ3Nvbi1jb3JlLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLWxw
-ODg0MS1ydGMuYyAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbWVzb24tc3BpY2MuYyAg
-ICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1tZXNvbi1zcGlmYy5jICAgICAgICB8IDEgLQog
-ZHJpdmVycy9zcGkvc3BpLW1pY3JvY2hpcC1jb3JlLXNwaS5jIHwgMSAtCiBkcml2ZXJzL3NwaS9z
-cGktbXBjNTEyeC1wc2MuYyAgICAgICAgfCAyIC0tCiBkcml2ZXJzL3NwaS9zcGktbXBjNTJ4eC1w
-c2MuYyAgICAgICAgfCAyIC0tCiBkcml2ZXJzL3NwaS9zcGktbXBjNTJ4eC5jICAgICAgICAgICAg
-fCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1tcGZzLmMgICAgICAgICAgICAgICB8IDEgLQogZHJpdmVy
-cy9zcGkvc3BpLW10NjV4eC5jICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbXQ3
-NjIxLmMgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1tdGstbm9yLmMgICAgICAg
-ICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLW10ay1zbmZpLmMgICAgICAgICAgIHwgMSAtCiBk
-cml2ZXJzL3NwaS9zcGktbXV4LmMgICAgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3Nw
-aS1teGljLmMgICAgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLW5wY20tZml1LmMg
-ICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktbnBjbS1wc3BpLmMgICAgICAgICAgfCAx
-IC0KIGRyaXZlcnMvc3BpL3NwaS1ueHAtZnNwaS5jICAgICAgICAgICB8IDIgLS0KIGRyaXZlcnMv
-c3BpL3NwaS1ueHAteHNwaS5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLW9jLXRp
-bnkuYyAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktb3Jpb24uYyAgICAgICAgICAg
-ICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1wbDAyMi5jICAgICAgICAgICAgICB8IDEgLQogZHJp
-dmVycy9zcGkvc3BpLXB4YTJ4eC5jICAgICAgICAgICAgIHwgMiAtLQogZHJpdmVycy9zcGkvc3Bp
-LXFjb20tcXNwaS5jICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktcXBpYy1zbmFuZC5j
-ICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1xdXAuYyAgICAgICAgICAgICAgICB8IDEg
-LQogZHJpdmVycy9zcGkvc3BpLXJiNHh4LmMgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3Nw
-aS9zcGktcmVhbHRlay1ydGwtc25hbmQuYyAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1yZWFsdGVr
-LXJ0bC5jICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXJvY2tjaGlwLXNmYy5jICAgICAg
-IHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktcm9ja2NoaXAuYyAgICAgICAgICAgfCAxIC0KIGRyaXZl
-cnMvc3BpL3NwaS1yc3BpLmMgICAgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXJ6
-djJoLXJzcGkuYyAgICAgICAgIHwgMiAtLQogZHJpdmVycy9zcGkvc3BpLXJ6djJtLWNzaS5jICAg
-ICAgICAgIHwgMiAtLQogZHJpdmVycy9zcGkvc3BpLXMzYzY0eHguYyAgICAgICAgICAgIHwgMSAt
-CiBkcml2ZXJzL3NwaS9zcGktc2MxOGlzNjAyLmMgICAgICAgICAgfCAyIC0tCiBkcml2ZXJzL3Nw
-aS9zcGktc2cyMDQ0LW5vci5jICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1zaC1oc3Bp
-LmMgICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXNoLW1zaW9mLmMgICAgICAgICAg
-IHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktc2lmaXZlLmMgICAgICAgICAgICAgfCAxIC0KIGRyaXZl
-cnMvc3BpL3NwaS1zbGF2ZS1tdDI3eHguYyAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXNu
-LWYtb3NwaS5jICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktc3ByZC1hZGkuYyAgICAg
-ICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1zcHJkLmMgICAgICAgICAgICAgICB8IDEgLQog
-ZHJpdmVycy9zcGkvc3BpLXN0bTMyLW9zcGkuYyAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9z
-cGktc3RtMzItcXNwaS5jICAgICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS1zdG0zMi5jICAg
-ICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXN1bjRpLmMgICAgICAgICAgICAgIHwg
-MSAtCiBkcml2ZXJzL3NwaS9zcGktc3VuNmkuYyAgICAgICAgICAgICAgfCAxIC0KIGRyaXZlcnMv
-c3BpL3NwaS1zdW5wbHVzLXNwNzAyMS5jICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXN5bnF1
-YWNlci5jICAgICAgICAgIHwgMyAtLS0KIGRyaXZlcnMvc3BpL3NwaS10ZWdyYTExNC5jICAgICAg
-ICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXRlZ3JhMjAtc2ZsYXNoLmMgICAgIHwgMSAtCiBk
-cml2ZXJzL3NwaS9zcGktdGVncmEyMC1zbGluay5jICAgICAgfCAxIC0KIGRyaXZlcnMvc3BpL3Nw
-aS10ZWdyYTIxMC1xdWFkLmMgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXRpLXFzcGkuYyAg
-ICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGktdW5pcGhpZXIuYyAgICAgICAgICAgfCAx
-IC0KIGRyaXZlcnMvc3BpL3NwaS12aXJ0aW8uYyAgICAgICAgICAgICB8IDIgLS0KIGRyaXZlcnMv
-c3BpL3NwaS13cGNtLWZpdS5jICAgICAgICAgICB8IDEgLQogZHJpdmVycy9zcGkvc3BpLXhjb21t
-LmMgICAgICAgICAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGkteGlsaW54LmMgICAgICAgICAg
-ICAgfCAxIC0KIGRyaXZlcnMvc3BpL3NwaS14bHAuYyAgICAgICAgICAgICAgICB8IDEgLQogZHJp
-dmVycy9zcGkvc3BpLXh0ZW5zYS14dGZwZ2EuYyAgICAgIHwgMSAtCiBkcml2ZXJzL3NwaS9zcGku
-YyAgICAgICAgICAgICAgICAgICAgfCAzICsrKwogMTA4IGZpbGVzIGNoYW5nZWQsIDEyIGluc2Vy
-dGlvbnMoKyksIDEyMiBkZWxldGlvbnMoLSkKCi0tIAoyLjUwLjEKCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Most of the SPI controller drivers share the parent's fwnode
+by explicit assignment. Propagate the default by SPI core,
+so they may drop that in the code. Only corner cases may require
+a special treatment and we simply (re)assign the controller's
+fwnode explicitly (as it's done right now, no changes required
+for that).
+
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/spi/spi-cs42l43.c | 8 ++++++++
+ drivers/spi/spi.c         | 3 +++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/drivers/spi/spi-cs42l43.c b/drivers/spi/spi-cs42l43.c
+index 4b6b65f450a8..a4a650c8d740 100644
+--- a/drivers/spi/spi-cs42l43.c
++++ b/drivers/spi/spi-cs42l43.c
+@@ -371,6 +371,14 @@ static int cs42l43_spi_probe(struct platform_device *pdev)
+ 
+ 	fwnode_property_read_u32(xu_fwnode, "01fa-sidecar-instances", &nsidecars);
+ 
++	/*
++	 * Depending on the value of nsidecars we either create a software node
++	 * or assign an fwnode. We don't want software node to be attached to
++	 * the default one. That's why we need to clear the SPI controller fwnode
++	 * first.
++	 */
++	device_set_node(&priv->ctlr->dev, NULL);
++
+ 	if (nsidecars) {
+ 		struct software_node_ref_args args[] = {
+ 			SOFTWARE_NODE_REFERENCE(fwnode, 0, GPIO_ACTIVE_LOW),
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index f077ea74e299..b773c297f8b1 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -3072,6 +3072,9 @@ struct spi_controller *__spi_alloc_controller(struct device *dev,
+ 	else
+ 		ctlr->dev.class = &spi_controller_class;
+ 	ctlr->dev.parent = dev;
++
++	device_set_node(&ctlr->dev, dev_fwnode(dev));
++
+ 	pm_suspend_ignore_children(&ctlr->dev, true);
+ 	spi_controller_set_devdata(ctlr, (void *)ctlr + ctlr_size);
+ 
+-- 
+2.50.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
