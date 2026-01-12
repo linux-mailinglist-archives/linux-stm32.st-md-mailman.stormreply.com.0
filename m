@@ -2,152 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B0B84D1270F
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 13:04:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2CDDD12E19
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 14:45:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 66B79C3F945;
-	Mon, 12 Jan 2026 12:04:29 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6749AC3F945;
+	Mon, 12 Jan 2026 13:45:58 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86A5BC36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A990C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jan 2026 12:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768219468; x=1799755468;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=5BiEA3YT3OvxJlu4+BexDLoaIF8cPC1fj4FQDGyymNA=;
- b=ma3KOl2FcAYhdQSyvSTdHXOdbTmb5fyEEDlXUiyEnD3ClsDfwZ+bMJdO
- UOmPPNqNjgEUqpnsmUISqHYaO7fcxS7mjnWQ/FFLUpqAgQAyaaeNoxfVs
- hZFZI2Wx4FxXEMlNC/3h1Ef6qNoAU04DJIFEJLtH8tNIF0/grCoLqhJ9y
- 17AB0PZCk0ntcayYlGXxK/Zp5mQ5kdSJzBwAvahu6aMLL0gaQFvVMMIcE
- 9XENuS1Wq1w+D2tbPQtzE+KXDfwYha7h+yfJKbh9B2PKeIKC2WO6dUMJf
- 5Ca+9f3QMO2GRX50Eqg37sPmPlmIgbhQ9LRZ8P7V4RBf4ifkupCsbuc+x w==;
-X-CSE-ConnectionGUID: 4i702SXJTnCJGrr9Yd5X2A==
-X-CSE-MsgGUID: jHwdObPMTX2aDxSbTsSQDA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="80597355"
-X-IronPort-AV: E=Sophos;i="6.21,219,1763452800"; d="scan'208";a="80597355"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2026 04:04:25 -0800
-X-CSE-ConnectionGUID: XAibRldxTZ6xSE7cKV3erw==
-X-CSE-MsgGUID: kqm52HRnSw29im3jfiPOTw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,219,1763452800"; d="scan'208";a="208554124"
-Received: from dhhellew-desk2.ger.corp.intel.com (HELO localhost)
- ([10.245.245.37])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2026 04:03:57 -0800
-Date: Mon, 12 Jan 2026 14:03:54 +0200
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Charles Keepax <ckeepax@opensource.cirrus.com>
-Message-ID: <aWTjKvbThxx9hSuL@smile.fi.intel.com>
-References: <20260108203004.3538449-1-andriy.shevchenko@linux.intel.com>
- <20260108203004.3538449-2-andriy.shevchenko@linux.intel.com>
- <aWTgzqXrGMcdpFOr@opensource.cirrus.com>
+ Mon, 12 Jan 2026 13:45:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=avW/KaDunIxQhrdj8bFjXOe630cKt3gLzoDikVOnoMk=; b=H9qsQLhCSyxngrQPIlGbslrcbE
+ 2OOrhEs03G96dXGfTdBYTBgsUVSjvZbmqGOIaBWluGAQ14HdZTeQcYL+qDS+q3aXeRcZPLLohTFOn
+ 2GrJmbWew8Uyv2bkFMHdbaO2fstI/zVW/oWoAj3+NtNf4lnG3VwRCbbZdWsNNCaCuRnI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1vfIDx-002Trp-OL; Mon, 12 Jan 2026 14:44:49 +0100
+Date: Mon, 12 Jan 2026 14:44:49 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Message-ID: <a2a610a3-aead-4e85-8a4c-7b83ccf276dc@lunn.ch>
+References: <20260112-qcom-sa8255p-emac-v6-0-86a3d4b2ad83@oss.qualcomm.com>
+ <20260112-qcom-sa8255p-emac-v6-2-86a3d4b2ad83@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aWTgzqXrGMcdpFOr@opensource.cirrus.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Kursad Oney <kursad.oney@broadcom.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Longbin Li <looong.bin@gmail.com>, Conor Dooley <conor.dooley@microchip.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Md Sadre Alam <quic_mdalam@quicinc.com>,
- =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
- Jonathan Hunter <jonathanh@nvidia.com>,
+In-Reply-To: <20260112-qcom-sa8255p-emac-v6-2-86a3d4b2ad83@oss.qualcomm.com>
+Cc: Drew Fustini <fustini@kernel.org>, s32@nxp.com,
+ Heiko Stuebner <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Guo Ren <guoren@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
+ linux-amlogic@lists.infradead.org, Shawn Guo <shawnguo@kernel.org>,
+ linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- linux-samsung-soc@vger.kernel.org, Kevin Hilman <khilman@baylibre.com>,
- Huacai Chen <chenhuacai@kernel.org>, Carlos Song <carlos.song@nxp.com>,
- Haibo Chen <haibo.chen@nxp.com>, Tudor Ambarus <tudor.ambarus@linaro.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- David Lechner <dlechner@baylibre.com>, linux-sunxi@lists.linux.dev,
- Hang Zhou <929513338@qq.com>, Anand Gore <anand.gore@broadcom.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
- Prajna Rajendra Kumar <prajna.rajendrakumar@microchip.com>,
- Sven Peter <sven@kernel.org>, Philipp Stanner <phasta@kernel.org>,
- Scott Branden <sbranden@broadcom.com>, Haixu Cui <quic_haixcui@quicinc.com>,
- Daire McNamara <daire.mcnamara@microchip.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, Yogesh Gaur <yogeshgaur.83@gmail.com>,
- Luis de Arquer <luis.dearquer@inertim.com>,
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
- Xianwei Zhao <xianwei.zhao@amlogic.com>, Vladimir Oltean <olteanv@gmail.com>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Lixu Zhang <lixu.zhang@intel.com>, linux-aspeed@lists.ozlabs.org,
- Miquel Raynal <miquel.raynal@bootlin.com>,
- David Rhodes <david.rhodes@cirrus.com>, Max Filippov <jcmvbkbc@gmail.com>,
- Laxman Dewangan <ldewangan@nvidia.com>, Jonas Gorski <jonas.gorski@gmail.com>,
- Vishwaroop A <va@nvidia.com>, Samuel Holland <samuel.holland@sifive.com>,
- Andi Shyti <andi.shyti@kernel.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Shiji Yang <yangshiji66@outlook.com>, linux-rockchip@lists.infradead.org,
- asahi@lists.linux.dev, Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- Ryan Wanner <ryan.wanner@microchip.com>,
+ Rob Herring <robh@kernel.org>, Drew Fustini <dfustini@tenstorrent.com>,
+ Shuang Liang <liangshuang@eswincomputing.com>,
+ Samuel Holland <samuel@sholland.org>, sophgo@lists.linux.dev,
+ Kevin Hilman <khilman@baylibre.com>, Chen Wang <unicorn_wang@outlook.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
+ Jose Abreu <joabreu@synopsys.com>, Clark Wang <xiaoning.wang@nxp.com>,
+ Linux Team <linux-imx@nxp.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Emil Renner Berthing <kernel@esmil.dk>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Michael Hennerich <michael.hennerich@analog.com>,
+ Samin Guo <samin.guo@starfivetech.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Haojian Zhuang <haojian.zhuang@gmail.com>,
- Jassi Brar <jaswinder.singh@linaro.org>,
- Chris Packham <chris.packham@alliedtelesis.co.nz>,
- linux-rpi-kernel@lists.infradead.org, Nick Hawkins <nick.hawkins@hpe.com>,
- linux-amlogic@lists.infradead.org, Chen-Yu Tsai <wens@kernel.org>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
- CL Wang <cl634@andestech.com>, linux-renesas-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Rosen Penev <rosenp@gmail.com>,
- =?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>, imx@lists.linux.dev,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jean-Marie Verdun <verdun@hpe.com>,
- Jun Guo <jun.guo@cixtech.com>, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, Yinbo Zhu <zhuyinbo@loongson.cn>,
- Varshini Rajendran <varshini.rajendran@microchip.com>,
- Masahisa Kojima <masahisa.kojima@linaro.org>,
- Fabio Estevam <festevam@gmail.com>,
- Manikandan Muralidharan <manikandan.m@microchip.com>,
- Benjamin Fair <benjaminfair@google.com>, Jonathan Marek <jonathan@marek.ca>,
- Darshan R <rathod.darshan.0896@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Nancy Yuen <yuenn@google.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Joel Stanley <joel@jms.id.au>, Orson Zhai <orsonzhai@gmail.com>,
- Lorenzo Bianconi <lorenzo@kernel.org>,
- William Zhang <william.zhang@broadcom.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Ray Jui <rjui@broadcom.com>,
- James Clark <james.clark@linaro.org>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
- Richard Fitzgerald <rf@opensource.cirrus.com>, Mark Brown <broonie@kernel.org>,
- Sergio Perez Gonzalez <sperezglz@gmail.com>,
- Darshan Rathod <darshanrathod475@gmail.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>, Li-hao Kuo <lhjeff911@gmail.com>,
- Avi Fishman <avifishman70@gmail.com>, Linus Walleij <linusw@kernel.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Thierry Reding <thierry.reding@gmail.com>, Aaron Kling <webgeek1234@gmail.com>,
- Ray Liu <ray.liu@airoha.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- Patrick Venture <venture@google.com>, Neal Gompa <neal@gompa.dev>,
- Shawn Guo <shawnguo@kernel.org>, Tali Perry <tali.perry1@gmail.com>,
- linux-riscv@lists.infradead.org, Janne Grunau <j@jannau.net>,
- Gabor Juhos <j4g8y7@gmail.com>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Sunny Luo <sunny.luo@amlogic.com>, Kamal Dasu <kamal.dasu@broadcom.com>,
- Masami Hiramatsu <mhiramat@kernel.org>,
- =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <clement.legoffic@foss.st.com>,
- virtualization@lists.linux.dev,
- Alessandro Grassi <alessandro.grassi@mailbox.org>,
- linux-mediatek@lists.infradead.org, linux-tegra@vger.kernel.org,
- Han Xu <han.xu@nxp.com>, Qianfeng Rong <rongqianfeng@vivo.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Yang Shen <shenyang39@huawei.com>, patches@opensource.cirrus.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>,
- Paul Walmsley <pjw@kernel.org>, openbmc@lists.ozlabs.org,
- Daniel Mack <daniel@zonque.org>
-Subject: Re: [Linux-stm32] [PATCH v1 1/4] spi: Propagate default fwnode to
- the SPI controller device
+ linux-arm-msm@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Maxime Ripard <mripard@kernel.org>, Minda Chen <minda.chen@starfivetech.com>,
+ "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-sunxi@lists.linux.dev,
+ linux-mips@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Zhi Li <lizhi2@eswincomputing.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Inochi Amaoto <inochiama@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH RESEND net-next v6 2/7] net: stmmac:
+ qcom-ethqos: use generic device properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -164,25 +93,37 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 12, 2026 at 11:53:50AM +0000, Charles Keepax wrote:
-> On Thu, Jan 08, 2026 at 09:23:38PM +0100, Andy Shevchenko wrote:
-> > Most of the SPI controller drivers share the parent's fwnode
-> > by explicit assignment. Propagate the default by SPI core,
-> > so they may drop that in the code. Only corner cases may require
-> > a special treatment and we simply (re)assign the controller's
-> > fwnode explicitly (as it's done right now, no changes required
-> > for that).
+On Mon, Jan 12, 2026 at 11:15:41AM +0100, Bartosz Golaszewski wrote:
+> From: Bartosz Golaszewski <brgl@kernel.org>
 > 
-> Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-> Tested-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+> In order to drop the dependency on CONFIG_OF, convert all device property
+> getters from OF-specific to generic device properties and stop pulling
+> in any linux/of.h symbols.
 
-Thank you very much! I'm now pretty much confident about the change.
+Is the intention to read these properties from ACPI tables?
 
--- 
-With Best Regards,
-Andy Shevchenko
+If so, it would be nice to document these properties in
+Documentation/firmware-guide/acpi/dsd.
 
+> -	if (of_property_read_bool(np, "snps,tso"))
+> +	if (device_property_present(dev, "snps,tso"))
+>  		plat_dat->flags |= STMMAC_FLAG_TSO_EN;
 
+Do you actually need this in the ACPI binding? Is there a reason not
+to just hard code it enabled? You don't need to worry about backwards
+compatibility here, because this is the first ACPI device.
+
+> -	if (of_device_is_compatible(np, "qcom,qcs404-ethqos"))
+> +	if (device_is_compatible(dev, "qcom,qcs404-ethqos"))
+>  		plat_dat->flags |= STMMAC_FLAG_RX_CLK_RUNS_IN_LPI;
+
+What is your target hardware? Will qcom,qcs404-ethqos every use ACPI?
+
+Maybe this should actually stay as of_device_is_compatible, to make it
+clear this is an device tree only device? There is no need to mess up
+the ACPI binding with things which will never actually use ACPI.
+
+   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
