@@ -2,179 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114BBD116CC
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 10:13:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC07FD1177E
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 10:23:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFC56C1A97C;
-	Mon, 12 Jan 2026 09:13:29 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69DE4C3F945;
+	Mon, 12 Jan 2026 09:23:14 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 68B97C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 18D5CC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jan 2026 09:13:29 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60C9CJsl2823074; Mon, 12 Jan 2026 10:13:07 +0100
-Received: from du2pr03cu002.outbound.protection.outlook.com
- (mail-northeuropeazon11011054.outbound.protection.outlook.com [52.101.65.54])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4bkf00n0yn-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Mon, 12 Jan 2026 10:13:06 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TevNdSRzCRMX8QXWsyvu+wnofHl7fzeXw/D9Hoc3aHxAxL7o4365pBkOy9PMV1Nz7kjm4IqRC33fWqwNTM2Bnl0uxk9rqNtXerzeZqmg4MuVTt+srHEbRTd5BuRm/b+lbnuXZ3LpmqTzo8VMmfnKQA4V0IEaVzTxunwicmFLlbQE370odNinJehxUjSE/4Y2AoWit0zhlwqbX3YuXUfhd9soH203sS5ZbESn8fTSivPCVwnHxXdJI18CG6wlLjBfuHF+f3MGMyG/tvVGO2vsMVO7nbRv5Vl8btq0fQv3HJIISvS8ZcJ4rn91iI8Cnuci4teCb24Hz0MrGfI1R3bILw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Ui/5gIZR6C6mY/+UOBxf2CbwMTACctHjQKRDTnqv2I=;
- b=LUQdGmPGyN2Ob6VtUG91CR6yuNpcb7xJTp0nSQNibMzW1q67giuSImUgebIUVPGR1+iKqQ9Xqwym4shoSbqaWxRntrgHE2n3dNPr0LAO7WkLwG4nL+JQNaMF3z31JehAEXR2nfc/PyHfLt7CMa/LtfeGhUsGcxSH/bjNGfVf1FsV0D0rtexN7pjehMw5JOstFbn/f6drj5UsBkEs91kIs09Avfc/nwCsusotKUEsfpyEbQ2HYjkEckMt9OLx4GpJysE9ld7Zjk2J9ZU4UwaHatB1KmHpDKe4ve79A9oeQDnk/eo9YKoo/F/z3Z7FB0ghxJwejqwVfbxCGy0aqsfzaw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Ui/5gIZR6C6mY/+UOBxf2CbwMTACctHjQKRDTnqv2I=;
- b=fgqkg0q1AkS/u60tyOdTNWv9oXyt5Kmofzj6noIk71d/HGI1b9IjzDUQYhZ4nJnFocbv8ZWGogrZI2MK3JT+b7FX6KQqlXHToFsaQGUzUP7G9B5BJCJSDDO8sB6U3SNUXhpIcYz8NTEDeJGVTaBMimyKgAGN38Q4XxeP7MaOhNEpnSyASigIXNJydAyHeA2jKHzBhvpTtZ61Qzn+IT4RYX8ae3YtLRvd5HRci0UINH6AwfRVkj5XMBONTHyjjjgY0ss9AJ+IqxJsvtr+4qnktgeDpDNcCBjmzTxx0PS+eR+9CzpHjrzHfjswalI7CeWwxDQLKWlmkNStlqRmaOO72w==
-Received: from AS4P189CA0045.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:5dd::17)
- by VI0PR10MB9520.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:309::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.6; Mon, 12 Jan
- 2026 09:13:04 +0000
-Received: from AM1PEPF000252DA.eurprd07.prod.outlook.com
- (2603:10a6:20b:5dd:cafe::7) by AS4P189CA0045.outlook.office365.com
- (2603:10a6:20b:5dd::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9499.7 via Frontend Transport; Mon,
- 12 Jan 2026 09:13:01 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM1PEPF000252DA.mail.protection.outlook.com (10.167.16.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9520.1 via Frontend Transport; Mon, 12 Jan 2026 09:13:03 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 12 Jan
- 2026 10:14:19 +0100
-Received: from [10.48.86.212] (10.48.86.212) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 12 Jan
- 2026 10:13:02 +0100
-Message-ID: <63419046-0770-45fd-a602-3ee7e08ff579@foss.st.com>
-Date: Mon, 12 Jan 2026 10:13:02 +0100
+ Mon, 12 Jan 2026 09:23:12 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-4779adb38d3so41869155e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 12 Jan 2026 01:23:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1768209792; x=1768814592;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=pH7l/IngScfdGsuBC+TU2Q1UG3VpnMUzYFClpTkwAAs=;
+ b=hpNGD9FTZYi/c029XiFStTR9LsRhOkwmCBOtzfnRW5fFScrYnV7qtNwZhQ1nxhV782
+ 1WkN8VjC0S+2QD3PmA1+p31XzBq6hpt6lttVvlXrjWmtWEkaQEMADguGMfEhDiE0Q3W0
+ i/uc4nNGOef75aByn+W11RQGXNPg/y1M6UbpRLv6iQPuMHxex69k8r89LBUCDF1MFqE3
+ aG/S37+kh1SoKs4Dj0pQt4paagtD05eqeDF8j9+2nI0Ufh/wvqveOHxXPUPp2Ct5RwDo
+ vgkF0UAaBFjoIO2U6koH6JursWW7Dt8VaUCphI9frDA7GAp6R016nJdcV3jmv0iY5II5
+ 6zTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768209792; x=1768814592;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=pH7l/IngScfdGsuBC+TU2Q1UG3VpnMUzYFClpTkwAAs=;
+ b=s/lbAuevFVZ/wXk0P+gQdlfmeZLXySSDDXDMo3JRjbeV9ei2PrCcEhuVCjSjl019++
+ F6ogiS8F8YXZTIjIHr3WP64CpjmDyw0AtX0cP/NsCM6lHyn1ncxFNQPpsygxrjxWgbD9
+ aALLgariwgIqnDR0JBIA6mfWKUepB4Em4v0CGIfKzdxY8Lwl2ICdsRavCL0IrUFbBRGe
+ izGpXf8KbAuiXYBdAh+D6GBWwavH2PP/id72M7IaAIDmhiOMyWnraL8ApcxdeGKTIO5F
+ /Kt9N4nGpOAy/GFF03ADE3ZkZG1WQZQcP71cHgE0jqlBog9ZVTJpOVHURhS18Q5X1LKd
+ 1l7A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVkvkE1s0rvGTaPUONm7QhJZykmRmh+Xzv9pFygkvT1a4yUWVgSROEh8kl1vZNKVzTzq+c5ApMATJxLyA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyxMXvzyWN02eUTZniO946uEGlpwQhkwX6jox9P63V2KR2lIObG
+ 0CSU4Xc1ZJivN/zVkCJ8ozDMOGmu41LVPdmnK7Zrpys24gys2VVn9UlI
+X-Gm-Gg: AY/fxX4tMJJQie/iZ7l3KaRjlRovbqSpha/ggiweht9U51KrHATsDnApR2GXJZWiFqB
+ AiAA3mZhDaGZXPZz+lIKfDJfZaA7nego+dxbasXZ5oHQS9ohneW3+N90GIeb5jwGBrGOjhDRuME
+ cyJ91CfNa+G3A+PsYesFIDENin1Dxs9BADw1XHMqLy+FUEbyaxCA8/hz3Aw/ctp+/jJKq6dTBhf
+ EuOU3gqznMZ4CUgT7+8sue0wCChFvk0PJrON3c+KjV4nnMwb6k7mgaWSLhnnHIUweu0tXlX8oSq
+ cYqMFy7ujTy7MdN5HJLyKW01+KFs7pJKdiKNqErJ0xobdPppz7wLw0RUf0a0DH81wORKd8amtOe
+ mlS4jVjnhCi0FWJut8raiVnC9rxzEYTtiICehAvEzRH9/OUFbZPOxG0T/cOv7mdk/HA7ARGYRK9
+ 4dwMNyxeuYh2s=
+X-Google-Smtp-Source: AGHT+IEgPar+mXM5tZEw8XTR8zGlfzWecvjpL3x+Bjt2enom7FVlV7Q9qKVKAMWvUj+uzL/JY/TX0A==
+X-Received: by 2002:a05:600c:1d0c:b0:471:700:f281 with SMTP id
+ 5b1f17b1804b1-47d84b4093cmr171075305e9.25.1768209792166; 
+ Mon, 12 Jan 2026 01:23:12 -0800 (PST)
+Received: from eichest-laptop ([2a02:168:af72:0:6091:7b62:54d8:ee9e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47d7f41eb3bsm357831195e9.7.2026.01.12.01.23.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jan 2026 01:23:11 -0800 (PST)
+Date: Mon, 12 Jan 2026 10:23:09 +0100
+From: Stefan Eichenberger <eichest@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <aWS9fbfvuayJpo3a@eichest-laptop>
+References: <6ee0d55a-69de-4c28-8d9d-d7755d5c0808@bootlin.com>
+ <aVuxv3Pox-y5Dzln@eichest-laptop>
+ <a597b9d6-2b32-461f-ac90-2db5bb20cdb2@lunn.ch>
+ <aVvp70S2Lr3o_jyB@eichest-laptop>
+ <aVvwOYce1CFOLiBk@shell.armlinux.org.uk>
+ <aVv7wD2JFikGkt3F@eichest-laptop> <aWC_ZDu0HipuVhQS@eichest-laptop>
+ <8f70bd9d-747f-4ffa-b0f2-1020071b5adc@bootlin.com>
+ <aWJXNSiDLHLFGV8F@eichest-laptop>
+ <aWJ0iV6-_4XqpeHD@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Suzuki K Poulose
- <suzuki.poulose@arm.com>, Mike Leach <mike.leach@linaro.org>, James Clark
- <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Leo Yan <leo.yan@linux.dev>,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>, "Linus
- Walleij" <linusw@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20260109-debug_bus-v1-0-8f2142b5a738@foss.st.com>
- <20260109-debug_bus-v1-5-8f2142b5a738@foss.st.com>
- <429e4411-6372-482b-9a0c-be4befa8f016@kernel.org>
-Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <429e4411-6372-482b-9a0c-be4befa8f016@kernel.org>
-X-Originating-IP: [10.48.86.212]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM1PEPF000252DA:EE_|VI0PR10MB9520:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6bfe6018-9b27-4f79-06d3-08de51baca89
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|36860700013|7416014|376014|921020; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZjlwMkcya0pCRitMNVJIUWRxUHRBakNsS3Y1WGpqaW45T05yS0NtWUlybWYw?=
- =?utf-8?B?cDJrN1pDRC9ZSW9kQVJuc3VOb3c5SmlMTTdDcklpcmx1YURhYjc3Y1NOY2dL?=
- =?utf-8?B?MUNkK21qa3c1WXFlYnBwWFdTbXZ4Z3RqQ0RrUm1hTXVwWExlVGdmOGN2b21U?=
- =?utf-8?B?UEdSZFJUaWJBVzFDbnNxKzVYTWNSQlFqc1RNMkxaK3dCQTNERFU5cWJLN0Nv?=
- =?utf-8?B?aHptSGhEaDl2L1hXMVdZV1dSSzJKa2lrMkZPUG9QQnRKbnlreWI4VWpBWkdZ?=
- =?utf-8?B?WWdHL3RsY1pFS0MzWUFyZ0g2RFFNMjlMeWVQSGduOWRsWE9ibjRSQUNCZ01q?=
- =?utf-8?B?dUNFaStaZFUxWFRkakpDM3B4ZGhCUXh5bzFKWDBiVEdsSys5c3B5SlVNQmtJ?=
- =?utf-8?B?RTJzdzJ0b2l0WnpXTlBmT1ZBWW9zTEgwMVc5ZytEM2ZaTG4vRWFJNnVxWndM?=
- =?utf-8?B?RFJvWE8rUFJLVXNjYzRrSDRwVVlydU8vN3hvaGdCbzIxdEtHUEdTN3QrVUlG?=
- =?utf-8?B?czZlcnNxblQvMkw4YUd2bGp1TFl5RGFmSTNnL1ZoNGpReU5ZNUhjZWhLSWNX?=
- =?utf-8?B?UlFnNW15ZWs0QlFjeFRoZGZ0eHRHVEtHV250c251bFNMd0xlWTBFTDZyNVlq?=
- =?utf-8?B?dXhONE1hZDN3bldQSFJBd2xNRVlDUnRXR2pLNFp6MjBtSXFZMnBVQVNHbGxz?=
- =?utf-8?B?YzNuZEY5K3FUV1QxR1lUeGdid3pWUUdQMGhrVmx4RHJuejY3NlNDZjU4cHJj?=
- =?utf-8?B?UzhmVUhINzBTejhkUlpUVjAwOHlkWlI2c3lYL1JzUUh0MGt2NWJiZGE0ektD?=
- =?utf-8?B?aUREd3JDVXIycS9xL3Z0OGY3OU9TZHpHMENlWUZZdENqKzJBamRtS213NE9F?=
- =?utf-8?B?b1d1eXpBMFl2UktjdU5WWmpOS2RzRmdUdmZCU0g4MC80NHFLdkJVTVQ5NWpJ?=
- =?utf-8?B?aUVWcEZ1WXlYbVRSRm95VzJWYkRsQVVTMHhob3I1a3dDcUZFWkttRlZEeHBv?=
- =?utf-8?B?S2ExNTBNQUNDQWlqSWNZOVdybzlPbUx5WWhONWVGQmY3NExkSzM0ZXo2R052?=
- =?utf-8?B?bWtDYW41T29hQUc1OTZQYUVMdWVEZ1N3dThqR2JjN0dTV0xxbU15NGRrbnBZ?=
- =?utf-8?B?dmYzR0hWaDFNci9WOGFRUkplZE1xaTl6U3BzK3ZpcTRJNWtFMUFFUkRVcTA5?=
- =?utf-8?B?Z3VEU1pLK05DQ3hrVnVCZ0Z2OWJFQ01FY3lVUzhycDFxdThyamE0cy9FZnBZ?=
- =?utf-8?B?bUdEVUhHN2lIcEF1b0lFMCtiMHB5akVXYnBvYWFoa3M4MkE1Rzg5WUZQK0p0?=
- =?utf-8?B?QllydGR0cDN2NHdHTUNrODNjUG51OS9UYWZSeGJOb0Y5MXc3Yi82YlZRQ3JS?=
- =?utf-8?B?aisvYVAxQjhUdzZOUFFxcEQ4OTl2Y2VSbnZieGt3Sko2cUZ4WEJETnRJUUZS?=
- =?utf-8?B?cCtOWHJDaEhaNEVERG5kMmorNTZSRDFaMytxNTBHYUZTWXgzd3lKMzdEb05i?=
- =?utf-8?B?dlBDb2NXUS81am1tY085TFY0cFRIN2VVczA4MG5FU216OW9aa3dNNWptUVMz?=
- =?utf-8?B?bzlHTks2VEJReUx2N3lFd0hRd2lwSCtnTHBlUk5OSjNQNzlqM29ZbDZaRmRF?=
- =?utf-8?B?Y3B1YWZuUVVHUDJKaG90UmV6b0lRL3cyZVo0VUUvdDNJaWJ2RHBLa2JnaWl1?=
- =?utf-8?B?ek1UK3o3bENNeDh0YTJMemRJdEhPTGdBWlh6b29iZTU5STlpeDlNTnNsWUI4?=
- =?utf-8?B?S0ZUSDdQdGxjeU1JNXFiNVJDTWZNM3FSK1VYVVRtQU1JdDY5L0ExVzc3SkhN?=
- =?utf-8?B?NHlEdTQxYTZxSUJJMUVTbmdPblhKekhZUW8ydUk3d0pMZjdXUmVDZis3WjJU?=
- =?utf-8?B?WWlYemVYQldqbzJ5a2R1Y1p6K3RKb2pEMHhlZ1VabGd4R3A5SUlEUVdoNlRB?=
- =?utf-8?B?Um9tTStNZ1U3cVZ0eVpSbG50Qmp6OGpIaCs0anFIM3ZjenMvMjh5czJUSEIw?=
- =?utf-8?B?aVVIaGhkemlXTUN5WCtTWE9YOTVYdkJHYktMWlFRdzlFUlNPTGlwMVBka29a?=
- =?utf-8?B?bTJlTUF4dHJmMFpIbkZoZ0V4UlYyK1l2SFB0eDFDQlAwbGI1TmkrZ05nNmNX?=
- =?utf-8?Q?t4FFyu+12+B6EwC9cgcZOQE6H?=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(36860700013)(7416014)(376014)(921020);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jan 2026 09:13:03.6180 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6bfe6018-9b27-4f79-06d3-08de51baca89
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DA.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9520
-X-Proofpoint-GUID: r0LoMQg5gy8Rr1DpPDzdIF_lpV41kqIf
-X-Proofpoint-ORIG-GUID: r0LoMQg5gy8Rr1DpPDzdIF_lpV41kqIf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTEyMDA3MiBTYWx0ZWRfXz9eS0STuOtJs
- VXKKAGA0+7rO0JKb42UZ8mn2CYZl7eIprMzC70dCBsx3nZyVjCgo/6BSJOXkRFCKx/y+6HfypEa
- WFjvBCu089ixjWlTsrvLBK+g5ePhH0TkdW80CQeu37h8B5z2HKjl8tXVdQJgRzQBGDIyUB4cpVy
- Zjd9BHZXUfu0dVAzlErKGroai3Epx/8ktQ44USXhUWMroBCj3aXFW58LXq7ZRxc4edMo7sdVgxg
- wjKHzl41x6VVrc+Oloqpp783D3ZvsbGJZvMs6DNDsli0XX2HyvhqFvIPbudF5hetyjC/UdUsU8I
- 1M8RS7feIwc8F0L49BWcwnzJsPn0iUWE0+xjqNwmRXB933E1O+QjusV6b+junAQtxNv4z94TnSm
- aC+ZeSiFZWT1BwqPjwZQNX8HGn8+zyezsGFDh+8cDKuLYdv6hyX9LasjnrcrbGESnQSjD4ALNtc
- wqJko2gzYvr0AQ+Nppg==
-X-Authority-Analysis: v=2.4 cv=PeDyRyhd c=1 sm=1 tr=0 ts=6964bb22 cx=c_pps
- a=+0KVRcNz3+e5gX6inTwS6Q==:117 a=uCuRqK4WZKO1kjFMGfU4lQ==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=rg8MelPR9j8A:10 a=IkcTkHD0fZMA:10
- a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=8b9GpE9nAAAA:8 a=XT2IAGBCbescH1of7CkA:9
- a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.9,FMLib:17.12.100.49
- definitions=2026-01-12_02,2026-01-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015
- spamscore=0 malwarescore=0 phishscore=0 impostorscore=0 adultscore=0
- lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2512120000 definitions=main-2601120072
-Cc: devicetree@vger.kernel.org, coresight@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 05/11] drivers: bus: add the stm32 debug
-	bus driver
+Content-Disposition: inline
+In-Reply-To: <aWJ0iV6-_4XqpeHD@shell.armlinux.org.uk>
+Cc: robh@kernel.org, Andrew Lunn <andrew@lunn.ch>, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, imx@lists.linux.dev, festevam@gmail.com,
+ s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ francesco.dolcini@toradex.com, andrew+netdev@lunn.ch, edumazet@google.com,
+ kernel@pengutronix.de, netdev@vger.kernel.org, kuba@kernel.org,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>, pabeni@redhat.com,
+ shawnguo@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RESEND net-next v2] net: stmmac: dwmac:
+ Add a fixup for the Micrel KSZ9131 PHY
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -186,258 +98,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-
-
-On 1/11/26 12:27, Krzysztof Kozlowski wrote:
-> On 09/01/2026 11:55, Gatien Chevallier wrote:
->> Add the stm32 debug bus driver that is responsible of checking the
->> +
->> +static int stm32_dbg_bus_grant_access(struct stm32_firewall_controller *ctrl, u32 dbg_profile)
->> +{
->> +	struct tee_ioctl_invoke_arg inv_arg = {0};
->> +	struct tee_param param[1] = {0};
->> +	u32 session_id;
->> +	int ret;
->> +
->> +	if (dbg_profile != PERIPHERAL_DBG_PROFILE && dbg_profile != HDP_DBG_PROFILE)
->> +		return -EOPNOTSUPP;
->> +
->> +	ret = stm32_dbg_pta_open_session(&session_id);
->> +	if (ret)
->> +		return ret;
->> +
->> +	inv_arg.func = PTA_CMD_GRANT_DBG_ACCESS;
->> +	inv_arg.session = session_id;
->> +	inv_arg.num_params = 1;
->> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
->> +	param[0].u.value.a = dbg_profile;
->> +
->> +	ret = tee_client_invoke_func(stm32_dbg_bus_priv->ctx, &inv_arg, param);
->> +	if (ret < 0 || inv_arg.ret != 0) {
->> +		dev_dbg(stm32_dbg_bus_priv->dev,
->> +			"When invoking function, err %x, TEE returns: %x\n", ret, inv_arg.ret);
->> +		if (!ret)
->> +			ret = -EACCES;
->> +	}
->> +
->> +	stm32_dbg_pta_close_session(session_id);
->> +
->> +	return ret;
->> +}
->> +
->> +/* Implement mandatory release_access ops even if it does nothing*/
->> +static void stm32_dbg_bus_release_access(struct stm32_firewall_controller *ctrl, u32 dbg_profile)
->> +{
->> +}
->> +
->> +static int stm32_dbg_bus_plat_probe(struct platform_device *pdev)
->> +{
->> +	struct stm32_firewall_controller *dbg_controller;
->> +	int ret;
->> +
->> +	if (!stm32_dbg_bus_priv)
->> +		return dev_err_probe(&pdev->dev, -EPROBE_DEFER,
->> +				     "OP-TEE debug services not yet available\n");
->> +
->> +	dbg_controller = devm_kzalloc(&pdev->dev, sizeof(*dbg_controller), GFP_KERNEL);
->> +	if (!dbg_controller)
->> +		return dev_err_probe(&pdev->dev, -ENOMEM, "Couldn't allocate debug controller\n");
->> +
->> +	dbg_controller->dev = &pdev->dev;
->> +	dbg_controller->mmio = NULL;
->> +	dbg_controller->name = dev_driver_string(dbg_controller->dev);
->> +	dbg_controller->type = STM32_PERIPHERAL_FIREWALL;
->> +	dbg_controller->grant_access = stm32_dbg_bus_grant_access;
->> +	dbg_controller->release_access = stm32_dbg_bus_release_access;
->> +
->> +	stm32_dbg_bus_priv->dbg_clk = devm_clk_get_enabled(&pdev->dev, NULL);
->> +	if (IS_ERR(stm32_dbg_bus_priv->dbg_clk))
->> +		return PTR_ERR(stm32_dbg_bus_priv->dbg_clk);
->> +
->> +	ret = stm32_firewall_controller_register(dbg_controller);
->> +	if (ret) {
->> +		dev_err(dbg_controller->dev, "Couldn't register as a firewall controller: %d", ret);
->> +		return ret;
->> +	}
->> +
->> +	ret = stm32_firewall_populate_bus(dbg_controller);
->> +	if (ret) {
->> +		dev_err(dbg_controller->dev, "Couldn't populate debug bus: %d", ret);
->> +		stm32_firewall_controller_unregister(dbg_controller);
->> +		return ret;
->> +	}
->> +
->> +	pm_runtime_enable(&pdev->dev);
->> +
->> +	ret = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
->> +	if (ret) {
->> +		dev_err(dbg_controller->dev, "Couldn't populate the node: %d", ret);
->> +		stm32_firewall_controller_unregister(dbg_controller);
->> +		return ret;
+On Sat, Jan 10, 2026 at 03:47:21PM +0000, Russell King (Oracle) wrote:
+> On Sat, Jan 10, 2026 at 02:42:13PM +0100, Stefan Eichenberger wrote:
+> > Hi Maxime,
+> > 
+> > Not problem, thanks a lot for the feedback and the discussion. I will
+> > then proceed with the current approach and send a new version with an
+> > updated commit message.
 > 
-> Where do you depopulate on unbind?
+> We could add a flag to:
 > 
-
-Nowhere, so I'll add it for V2.
-
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static int __maybe_unused stm32_dbg_bus_runtime_suspend(struct device *dev)
->> +{
->> +	clk_disable_unprepare(stm32_dbg_bus_priv->dbg_clk);
->> +
->> +	return 0;
->> +}
->> +
->> +static int __maybe_unused stm32_dbg_bus_runtime_resume(struct device *dev)
->> +{
->> +	int ret = clk_prepare_enable(stm32_dbg_bus_priv->dbg_clk);
->> +
->> +	if (ret) {
->> +		dev_err(dev, "Failed to enable clock: %d\n", ret);
->> +		return ret;
->> +	}
->> +
->> +	return 0;
->> +}
->> +
->> +static const struct of_device_id stm32_dbg_bus_of_match[] = {
->> +	{ .compatible = "st,stm32mp131-dbg-bus", },
->> +	{ .compatible = "st,stm32mp151-dbg-bus", },
+> /* Generic phy_device::dev_flags */
+> #define PHY_F_NO_IRQ            0x80000000
+> #define PHY_F_RXC_ALWAYS_ON     0x40000000
 > 
-> So devices are fully compatible?
+> indicating that the MAC requires the full preamble, which the PHY can
+> then test for and configure appropiately.
 > 
-
-As it is a standard bus, yes. The goal of this driver is to be
-able to interface with the secure world to check the debug
-configuration.
-
->> +	{ },
->> +};
->> +MODULE_DEVICE_TABLE(of, stm32_dbg_bus_of_match);
->> +
->> +static const struct dev_pm_ops simple_pm_bus_pm_ops = {
->> +	SET_RUNTIME_PM_OPS(stm32_dbg_bus_runtime_suspend, stm32_dbg_bus_runtime_resume, NULL)
->> +	SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
->> +};
->> +
->> +static struct platform_driver stm32_dbg_bus_driver = {
->> +	.probe = stm32_dbg_bus_plat_probe,
->> +	.driver = {
->> +		.name = "stm32-dbg-bus",
->> +		.of_match_table = of_match_ptr(stm32_dbg_bus_of_match),
+> The question is, whether the requirement for the full preamble applies
+> to many MACs, and whether there are PHYs that default to producing
+> short preambles.
 > 
-> Warning :/. Why do people still keep copying of_match_ptr?
+> Looking at Marvell 88e151x, the only control it has is to pad odd
+> nibbles of preambles on copper (page 2, register 16, bit 6.)
 > 
-
-I'll remove that in V2.
-
->> +		.pm = pm_ptr(&simple_pm_bus_pm_ops),
->> +	},
->> +};
->> +
->> +static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
->> +{
->> +	return (ver->impl_id == TEE_IMPL_ID_OPTEE);
->> +}
->> +
->> +static int stm32_dbg_bus_probe(struct device *dev)
->> +{
->> +	struct stm32_dbg_bus *priv;
->> +
->> +	if (stm32_dbg_bus_priv)
->> +		return dev_err_probe(dev, -EBUSY,
->> +				     "A STM32 debug bus device is already initialized\n");
->> +
->> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
->> +	if (!priv)
->> +		return dev_err_probe(dev, -ENOMEM, "Cannot allocate priv data\n");
+> AR8035 seems to make no mention of preamble for the MII interfaces, so
+> I guess it has no control over it.
 > 
-> You NEVER print error allocations on kzalloc, even if with dev_err_probe
-> it is silenced.
-> 
+> I've not looked further than that.
 
-Ok, I'll keep that in mind and remove that for V2.
+From what I have seen only the S32 and i.MX8MP MAC require the full
+preamble because of the errata. I also checked the i.MX93 and i.MX8DX,
+they don't mention the errata, so I assume they are not affected.
 
-Best regards,
-Gatien
+Not sure if adding the flag would be a bit overkill. However, assuming
+we would do it that way. Would ndo_open be the right place to set the
+flag in the mac so that the phy knows about it?
 
->> +
->> +	/* Open context with TEE driver */
->> +	priv->ctx = tee_client_open_context(NULL, optee_ctx_match, NULL, NULL);
->> +	if (IS_ERR_OR_NULL(priv->ctx))
->> +		return dev_err_probe(dev, PTR_ERR_OR_ZERO(priv->ctx), "Cannot open TEE context\n");
->> +
->> +	stm32_dbg_bus_priv = priv;
->> +	stm32_dbg_bus_priv->dev = dev;
->> +
->> +	return 0;
->> +}
->> +
->> +static int stm32_dbg_bus_remove(struct device *dev)
->> +{
->> +	tee_client_close_context(stm32_dbg_bus_priv->ctx);
->> +	stm32_dbg_bus_priv = NULL;
->> +
->> +	return 0;
->> +}
->> +
->> +static const struct tee_client_device_id optee_dbg_bus_id_table[] = {
->> +	{UUID_INIT(0xdd05bc8b, 0x9f3b, 0x49f0,
->> +		   0xb6, 0x49, 0x01, 0xaa, 0x10, 0xc1, 0xc2, 0x10)},
->> +	{}
->> +};
->> +
->> +static struct tee_client_driver stm32_optee_dbg_bus_driver = {
->> +	.id_table = optee_dbg_bus_id_table,
->> +	.driver = {
->> +		.name = "optee_dbg_bus",
->> +		.bus = &tee_bus_type,
->> +		.probe = stm32_dbg_bus_probe,
->> +		.remove = stm32_dbg_bus_remove,
->> +	},
->> +};
->> +
->> +static int __init optee_dbg_bus_mod_init(void)
->> +{
->> +	int ret;
->> +
->> +	ret = driver_register(&stm32_optee_dbg_bus_driver.driver);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = platform_driver_register(&stm32_dbg_bus_driver);
->> +	if (ret)
->> +		driver_unregister(&stm32_optee_dbg_bus_driver.driver);
->> +
->> +	return ret;
->> +}
->> +
->> +static void __exit optee_dbg_bus_mod_exit(void)
->> +{
->> +	platform_driver_unregister(&stm32_dbg_bus_driver);
->> +	driver_unregister(&stm32_optee_dbg_bus_driver.driver);
->> +}
->> +
->> +module_init(optee_dbg_bus_mod_init);
->> +module_exit(optee_dbg_bus_mod_exit);
->> +
->> +MODULE_LICENSE("GPL");
->> +MODULE_AUTHOR("Gatien Chevallier <gatien.chevallier@foss.st.com>");
->> +MODULE_DESCRIPTION("OP-TEE based STM32 debug access bus driver");
->>
-> 
-> 
-> Best regards,
-> Krzysztof
+I would think about something like:
+- Add a flag STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD to stmmac.h
+- Add a flag PHY_F_KEEP_PREAMBLE_BEFORE_SFD to phy.h
+- Add STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD to priv->plat->flags in the
+  mac driver platform probe (e.g. dwmac-imx.c).
+- Set PHY_F_KEEP_PREAMBLE_BEFORE_SFD in stmmac_init_phy (during
+  ndo_open) if STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD is set under
+  priv->plat->flags.
+- If PHY_F_KEEP_PREAMBLE_BEFORE_SFD is set in the phy driver keep the
+  full preamble if the phy supports it during config_init.
+
+I could send the next version doing it that way, to see if that's the
+better approach.
+
+Regards,
+Stefan
 
 _______________________________________________
 Linux-stm32 mailing list
