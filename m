@@ -2,56 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45776D14B01
-	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 19:11:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CBE03D1519E
+	for <lists+linux-stm32@lfdr.de>; Mon, 12 Jan 2026 20:41:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 12328C5A4CA;
-	Mon, 12 Jan 2026 18:11:38 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DCC6C5A4CA;
+	Mon, 12 Jan 2026 19:41:16 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99D1CC2909A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 75AA8C2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 12 Jan 2026 18:11:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=kEdZ8ipMDP5kbCjgKjvgz5LuDWo/Bg325DpaKMx92Nk=; b=I6yAc8rs0wLFYhmxCiiv8ebj15
- XkPe0akP26icvs7tXlPei5/I8SdTjN4ZEJwWYRXnpEzqQlPmTiOojU4KIQ7x3RRJ5QnsJdIn7ZHfD
- Dc3+izULWXwlqoA5SR0nb2DotxtVCiyWRrRA/hoXuyRISUWZbCOTzkr0gjFhirV7VGhOZFTwlrEkC
- ixGnQ61MI8Vls+vU7emdW1hBKTFi95dxWIu1IhnF+wUSYWDff7h+DF/LlbMjtNDLeaR+SkEd49PmS
- oxNDg1vKIS+cfiLdvVo7FEzayPUqttnE0FBtWYQb340u2vPeTFQMBtt72qzyL56C5zJUnQOCwsovg
- dfsgZDzQ==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:58776 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vfMO2-000000006bp-2OWH;
- Mon, 12 Jan 2026 18:11:30 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vfMO1-00000002kJF-33UK; Mon, 12 Jan 2026 18:11:29 +0000
-In-Reply-To: <aWU4gnjv7-mcgphM@shell.armlinux.org.uk>
+ Mon, 12 Jan 2026 19:41:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=NM5C7qyiUf+omAX954ZXByyVcNHloTHTbWgqrTe5zU0=; b=fPS3IxPLiVG1Fc8gVGqT/ADz1w
+ FQFS8zYmG0ipq0/xvjQNUdWUvx74jk2bYwzbU9eKoy0vFJljti303UcfaEKpid3yMNBDnRo8Dfm6Q
+ kBlRr/u5LG7SNOB3taEsupSqTF6bah741PQqRdJBmO1Omrmxh0X1XrDL1+3C5KWamKd0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1vfNme-002X2X-W6; Mon, 12 Jan 2026 20:41:00 +0100
+Date: Mon, 12 Jan 2026 20:41:00 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <fa4e6b2f-c038-475a-82de-ee5832078aae@lunn.ch>
 References: <aWU4gnjv7-mcgphM@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>
+ <E1vfMNw-00000002kJ9-2XDx@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vfMO1-00000002kJF-33UK@rmk-PC.armlinux.org.uk>
-Date: Mon, 12 Jan 2026 18:11:29 +0000
+In-Reply-To: <E1vfMNw-00000002kJ9-2XDx@rmk-PC.armlinux.org.uk>
 Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Vinod Koul <vkoul@kernel.org>, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: qcom-ethqos:
- convert to set_clk_tx_rate() method
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: qcom-ethqos:
+	remove mac_base
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,78 +59,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Set the RGMII link clock using the set_clk_tx_rate() method rather than
-coding it into the .fix_mac_speed() method. This simplifies ethqos's
-ethqos_fix_mac_speed().
+On Mon, Jan 12, 2026 at 06:11:24PM +0000, Russell King (Oracle) wrote:
+> Since the blamed commit, ethqos->mac_base is only written, never
+> read. Let's remove it.
+> 
+> Fixes: 9b443e58a896 ("net: stmmac: qcom-ethqos: remove MAC_CTRL_REG modification")
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 869f924f3cde..d6df3ca757be 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -102,7 +102,6 @@ struct qcom_ethqos {
- 	void __iomem *rgmii_base;
- 	int (*configure_func)(struct qcom_ethqos *ethqos, int speed);
- 
--	unsigned int link_clk_rate;
- 	struct clk *link_clk;
- 	struct phy *serdes_phy;
- 	int serdes_speed;
-@@ -174,19 +173,18 @@ static void rgmii_dump(void *priv)
- 		rgmii_readl(ethqos, EMAC_SYSTEM_LOW_POWER_DEBUG));
- }
- 
--static void
--ethqos_update_link_clk(struct qcom_ethqos *ethqos, int speed)
-+static int ethqos_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
-+				  phy_interface_t interface, int speed)
- {
-+	struct qcom_ethqos *ethqos = bsp_priv;
- 	long rate;
- 
--	if (!phy_interface_mode_is_rgmii(ethqos->phy_mode))
--		return;
-+	if (!phy_interface_mode_is_rgmii(interface))
-+		return 0;
- 
- 	rate = rgmii_clock(speed);
- 	if (rate > 0)
--		ethqos->link_clk_rate = rate * 2;
--
--	clk_set_rate(ethqos->link_clk, ethqos->link_clk_rate);
-+		clk_set_rate(ethqos->link_clk, rate * 2);
- }
- 
- static void
-@@ -645,7 +643,6 @@ static void ethqos_fix_mac_speed(void *priv, int speed, unsigned int mode)
- 	struct qcom_ethqos *ethqos = priv;
- 
- 	qcom_ethqos_set_sgmii_loopback(ethqos, false);
--	ethqos_update_link_clk(ethqos, speed);
- 	ethqos_configure(ethqos, speed);
- }
- 
-@@ -797,10 +794,12 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 				     "Failed to get serdes phy\n");
- 
- 	ethqos->serdes_speed = SPEED_1000;
--	ethqos_update_link_clk(ethqos, SPEED_1000);
-+	ethqos_set_clk_tx_rate(ethqos, NULL, plat_dat->phy_interface,
-+			       SPEED_1000);
- 	ethqos_set_func_clk_en(ethqos);
- 
- 	plat_dat->bsp_priv = ethqos;
-+	plat_dat->set_clk_tx_rate = ethqos_set_clk_tx_rate;
- 	plat_dat->fix_mac_speed = ethqos_fix_mac_speed;
- 	plat_dat->dump_debug_regs = rgmii_dump;
- 	plat_dat->ptp_clk_freq_config = ethqos_ptp_clk_freq_config;
--- 
-2.47.3
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
