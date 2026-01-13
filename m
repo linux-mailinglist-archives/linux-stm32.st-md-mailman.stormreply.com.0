@@ -2,82 +2,154 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5457AD19933
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 15:45:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8207AD1A151
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 17:07:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA61CC8F283;
-	Tue, 13 Jan 2026 14:45:55 +0000 (UTC)
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com
- [209.85.160.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20BCAC8F282;
+	Tue, 13 Jan 2026 16:07:45 +0000 (UTC)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11020121.outbound.protection.outlook.com [52.101.228.121])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B48BEC0693D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5109EC5A4EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jan 2026 14:45:53 +0000 (UTC)
-Received: by mail-oa1-f48.google.com with SMTP id
- 586e51a60fabf-3f551ad50d1so2852539fac.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jan 2026 06:45:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1768315552; x=1768920352;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=cW3MAOTqLMsCycw/4wFcgcK9b5ywvkdR/GMT+4PTdHQ=;
- b=rLFvc0IwrzUEw/kwKAT8mR9LuJBvhLkVaRL3cQf6fZfnj+oGs/uyZySBbrUbnBPu20
- wtYInTJGt2DnLSs5+vy2Vd9skOE+i2MR4JUm321ZZDIwUO0CZp0d8AoDYBH7QfHbm8AL
- GPpdlZgiBgb98kOuyxbFUI0wJErmH7tKX4yHx4vczTZyMRxaQB2c/3YcrA+lxSRPu1vx
- hsl3S+KMCkZaB5grQotZ4QHJDotrizzBm9utkZFVBUrB8DghlCVpZ3qMC3YbSTIwdsTG
- SmJPjOHJjwU3qV3itP/JhCwaqzpbzB6OTIhrrkPQMJQ8xeLC2NLJ4/qNIuUSTUHGEmDI
- Guvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768315552; x=1768920352;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=cW3MAOTqLMsCycw/4wFcgcK9b5ywvkdR/GMT+4PTdHQ=;
- b=E2L62nsWTe8T//ob43Fuzr5MllXXaFKWaGapQ5WkvXVoDr2PQUTuhumU2wDCiQMSLf
- 0iz/T5zFQzMhMjV7vf6Wvc1qAOQJ5wBbOG3AcG+H20ISOrDcfys2csCyrztWYEpFO0Wh
- JCNE43zJ3IrG4q+IVG7vuqcbWElFJTgK8qh3lrCMQNekVWIYrsJ3dB+CNa/4dYh71nUM
- U3mq6pWxh1zqZ9sHeHe4EE2L8W/YyGUsYFQlCborY9pPWw5sxUeRjtmmK5Gg9L95uDnh
- 6WAlOoFVZR/j3YXlhIzV3Goqd8QJy5AFgJ0BestbnxS0KGDxv9knJkVnWulrwiZISya6
- vF2w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUaV5jXIHcFU2kwcDRAYW2foEk5B6fSiv0cEaKrc5iixfH9dp72iw48y7vzbureFAv5t3RzCzUdSqb27Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx9ysFn/ujhOCEjHD86akCyaOA/p+ez8vhFOa6l3MrMRYnXZgR9
- gc+WiBlAj5LprjTus4oZVrMm1unTddN8gFgWw/+2YIgVvHmWWmfM/P2RvD4Tkw44Qj7fc1+48iO
- ZdDOAm7Cl0AYCUMupS4HPKD+MlTzJOlTLCyCrJijmpw==
-X-Gm-Gg: AY/fxX4FFiZOkWNs+/l0MFrlzd5O3nhgRXje5NBpEouAM1Fsvh7fxhfa9IDJ1xoDBy3
- xzzo2gFNZ1+I1YfaXsRoucTcmO1+2G6SUBno5exRAX4kYLa1dd+nIGq12OKnxar+E/yWY5Wclh8
- 0fTNqebEr9rA1dmJdVrE31Bncm0injhq/9FcrlGZ4mb0joZsZMO6MbceVExq3RzMrRdrMGbpNZa
- TKmPt26o9AxffaaRAth4yyf1jXl/cWu+bzkZi6L50MJTmXF+/vYiH4bHlNkeK4LUvkhz1m/4Ygg
- AoEhm4LuVRNeyOEjvqWhrLOK7Q==
-X-Google-Smtp-Source: AGHT+IGMsKCWhXxncysaNn43dYmEYyDwcJaO6TjEgdKAgRTiQWieHjD3rHZkyoBEsAcvj9cD16CSqGEscd62IkICycg=
-X-Received: by 2002:a05:6870:55c7:b0:34b:cc55:9e85 with SMTP id
- 586e51a60fabf-3ffc0954865mr9095150fac.13.1768315552149; Tue, 13 Jan 2026
- 06:45:52 -0800 (PST)
+ Tue, 13 Jan 2026 16:07:43 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nOtGEw3bha7rHQpTKF8I6Muy58zcgZY7aJa9YXemyTT/vP0Lil1vEWUrFradiqhMJk3Ivhaz1LRudk1f8he7sTo2DCJEcYQID59lXHFcYO1TYvXykZARJghfp2pcA4B7NITbq948RlcHFRpP0tw16OmULDHDroJ3XtEFJJ44Hlb2vuoUHnUCht4N6pq/kFhAFHp11PiEdL5G+wfrvzWWcGafhjw9xJ6uSFwrBdu6ZnCQr6TDLU49J2syzl9kPC0HB+otzq9WLxhOO3IVMmPTAh9TSCusjJoCij6P85IfiEepho7Gt+s/FrLtWTwDTtYam4B73EY9CIXORCP9Ofev3g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=949QPzK8boFEecRA0fKPbQZdTAJAIVuK3CJTgsdmwBo=;
+ b=vsOkY8Mq2U/9uot1H6WwPKq8jD+ksefNnZfi3RHpkkIP0FZGjqowanzzqSTwe0C5APC3W7bIxL3+Ep0wsMR06gMmdQVQcx7a5xPmdleGZObuJvDgzwpi7UlwRG+qYEPTWIQ43Q1b4yICbAj286kaQLOR1h/fG593ELW9BSrUe11kVQD0ksW8u6KIDulHXC6rH23xxBaKfLTuXkaq91ZONia1KBEOYaAAu7xT2E+m6cvyNxgYvo1aPWHghDIrngFhYozJQxwXlpoU4l6sCrqKL6xiRclZZLYwb6ikUTVmPJc8K55KhoCeRy/sVilGdLNi7TXeFlud6fSQA+BUGnqG5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=949QPzK8boFEecRA0fKPbQZdTAJAIVuK3CJTgsdmwBo=;
+ b=GkD+pgieXHvxFxKFRQAXrhQ08Wp3rGPqWzuMAa3f8veNb7ofvTCDj6WbZdZDpIJ9bP5EtbbZX7lbfJQTOCUWNJAYdkn5jfXI47MYhMGCNMKP6G9wjoRaz/3RCZXOERaYHRf1q7Xq0Zt7VGfziFvVA3pppOVJxe204mCI4tLf4XU=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TYYP286MB1689.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:112::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.5; Tue, 13 Jan
+ 2026 16:07:39 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
+ 16:07:38 +0000
+Date: Wed, 14 Jan 2026 01:07:36 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Niklas Cassel <cassel@kernel.org>
+Message-ID: <6dplmb2csjthlzbzqrca34a5px5osavj5ziij7snfyxbhpumlb@b4wupbsld7ph>
+References: <20260113023715.3463724-1-den@valinux.co.jp>
+ <20260113023715.3463724-2-den@valinux.co.jp>
+ <aWYa59GgcB7jOfQq@ryzen>
+Content-Disposition: inline
+In-Reply-To: <aWYa59GgcB7jOfQq@ryzen>
+X-ClientProxiedBy: TY4P286CA0021.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:2b0::6) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 MIME-Version: 1.0
-References: <20260109-debug_bus-v1-0-8f2142b5a738@foss.st.com>
- <20260109-debug_bus-v1-5-8f2142b5a738@foss.st.com>
-In-Reply-To: <20260109-debug_bus-v1-5-8f2142b5a738@foss.st.com>
-From: Jens Wiklander <jens.wiklander@linaro.org>
-Date: Tue, 13 Jan 2026 15:45:40 +0100
-X-Gm-Features: AZwV_QiARd5ZYYBrSjJNdNCpX-7fBluIYLJTcntaG_DMT6Vl6m6kjiymZLCqUpY
-Message-ID: <CAHUa44Gc+q0qJ0XJ8Y-OMT2t9o0W_WeDMHg_S0HPC5i2Zmxhiw@mail.gmail.com>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, James Clark <james.clark@linaro.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>,
- linux-gpio@vger.kernel.org, Leo Yan <leo.yan@linux.dev>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, coresight@lists.linaro.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH 05/11] drivers: bus: add the stm32 debug
-	bus driver
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYYP286MB1689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 90d2828d-457f-4884-d2cd-08de52bddf37
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|10070799003|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?2FYQ86KB6a1ICrgGLto/G0aJHzbgC0StDWrNo3KjexOwKW2M7dKMK84DMq1X?=
+ =?us-ascii?Q?HeX0dDAlFfMuqhG1Mf8ic5rd0dot1Nfz18T/KFXiHHg7lf6IYuGkNawQNePq?=
+ =?us-ascii?Q?DnHrWGsbFvCB/6w3w+XCVfjtYHRXhXWeTn0IGtTil3P7O+9Nj/MgmHGNPH8j?=
+ =?us-ascii?Q?ITB70FfsqFWKwy7Huoz/junG0n/T3gP5IhdBe937l6J4JLEVHjLa6RqcRnQ8?=
+ =?us-ascii?Q?bXNEmIDrtf7prQfVORfkAsQ9dLO47R9Nbx3crwb+Hk4D8l4e9Ntd0TD5KSud?=
+ =?us-ascii?Q?8kZMaSShgegZi2Oqj2k2Kns8qk8jHLZWH7MlWG3JtT/if7AMIeoISzN7L3yD?=
+ =?us-ascii?Q?UMLgXs+oN8Jw+ALFzW26YIB8tcc5Hn2X804Car8jYnu7iOxPauVnd/CsQV9n?=
+ =?us-ascii?Q?4MuPamlCtSmHHURtaGhIvAPUOegcNCNEHdAWs4V2ywIfjZgqRWVmbwDwrC+S?=
+ =?us-ascii?Q?FNzcvc3R0noD0t9YV1X6Q9a0fhQxTw8Ojpt2F0eVlg8SmhH0mAVfEb4mlFi7?=
+ =?us-ascii?Q?uFQOdXycYJNpWIUTqMbrkMGSjFBlIZ7omn9lvKdvB7aSkSk2O4XOLksZOC2A?=
+ =?us-ascii?Q?V1Z0bZsQbD+mvmEkgie3khc6hxgkVWUfSxDYPTGPgEmwbmTXh6TXvBXjeHvH?=
+ =?us-ascii?Q?X46we0FrU0EtkJO4tfL0G+yWxZAFzmM7bbny/ANcYDsnuwW1o4z1Bg3W8NO7?=
+ =?us-ascii?Q?IuYF/TNDsyHIMoyLl865UUanfuGiIoshfeFj3Ic1lI4AyD6y1q9vpmho8/QG?=
+ =?us-ascii?Q?eIpD0+dECePaF231eZ7AJAu37i9lkTSYfVCAujbkXM4ZEJOFpeuKPS0h+KnU?=
+ =?us-ascii?Q?Clx3FZIhzglsaUtKbPVr4KaRZMRTkxgrKdmbhyvBoU7hW4jBxFOUSOUVMYRs?=
+ =?us-ascii?Q?Jeh8H+B8csrxdk//hIZ711s8AReJPdHCCCbm42nN3uXNWNfU0G8LQHUTjdyu?=
+ =?us-ascii?Q?oLajPGrQ3ucJU5aKRdoptR3EoAObVzFuzBqHZs6mgTdH22CLBThjg40sbIyn?=
+ =?us-ascii?Q?sHph/Z+4CVGg/1Zh6YLo7duK/Lh6IXjkuv2a/qh2L4ggwYr34Yc/pbYaSSih?=
+ =?us-ascii?Q?UOjse9BoXJDhZnO1LhXcLpwKGdDuegnW14JaLfEaqv5ngdCYpvqm1+PjgftW?=
+ =?us-ascii?Q?J9icuda7nelB+PxJWTRAdlHYupMLUjnzzMswtVV5evo+idjKrkcev7gliUSs?=
+ =?us-ascii?Q?iZ0zXy2FCR/xcBRKBR/s8r18DbaHGKbMikur7mYlWK5zd4/Dz0WzdMMlrSCo?=
+ =?us-ascii?Q?C7/T+vRn8SoF5pZPuWoUOS77OcZsfsi3bUH+hf497JutWloURfhJI6oQyWgU?=
+ =?us-ascii?Q?ydLGnjoEzvdL15tCdlVbF5YVwqjivbe86lvNR+0jvH4hhM1Qs1yvwWgOsSSD?=
+ =?us-ascii?Q?dWbEEwlODlQtZwqwMU0CByL3sD6tm/U0zeVR1eQnEXH6yZLAJJtmSMBLcTk3?=
+ =?us-ascii?Q?2XKDtaocHuE/i8UlJVYoS4iS5ZYuDmk7?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(10070799003)(1800799024); DIR:OUT;
+ SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?EcwK6tDPM1zmZ/x2FLZIsr1Y2381zUx/kFrngCnKSzpHo3SFJtGdctv/FwRh?=
+ =?us-ascii?Q?Xq1yEiDqnoXxBPRVyJ4DsLdPcyfp/A7aL7x6vpryyTw8YvkAtIU4B3FtEv1P?=
+ =?us-ascii?Q?sBVmh2hwJFEvXDk+fjjY+S/XuPBeuv27W5RZ4JJdL0WkcDu96/oaAzsefSY/?=
+ =?us-ascii?Q?AncoBAZRQnsiWa5XP64uykRRzPkF6zU2fjuYN2ulB9HLiSOCGvCg0MkqdUeR?=
+ =?us-ascii?Q?3Qso96lMp40KxdEKWa/iojLgPzHCf6i2koRg0sH1nIeW4siw0/DKE4WfTvRs?=
+ =?us-ascii?Q?ipQ8nCSeICmUyuwgSGlsvpaRLU9Zk7MxBQGaXSEzXROjLU8jInvKDYcee2tz?=
+ =?us-ascii?Q?gQJoM7xwlQak2ATkxrIXnL+G8LwC8JB37ewj3L+s/P6qb3GxWes1apD1rUQJ?=
+ =?us-ascii?Q?BCTXjCI5dA6D5jwMt1tD5xc0O7UVEYXcS/l/34vyB6eBFbJrRk4Go3aT5AOG?=
+ =?us-ascii?Q?6740JcYMzrk0nDA8v99wy/4dmxhAeNUaz4upWrTLIG737u2M9r4vfh427OhJ?=
+ =?us-ascii?Q?IUGnn5zHNUr3PiqljEepgHMELg7u2bFaZufi+9KOrBPKoKxuLpS7KHnjsWnD?=
+ =?us-ascii?Q?Wxyh18QZXp2LjAIhQsZafSeZEUjvBNoTV/uyLHUCffL3POy1rka6MR9NIR6w?=
+ =?us-ascii?Q?HG2pxUazXxkky8Jlc45U0SqZj6eSamqQCXRKBAa1gjs/cbEXpQk0QNpAdE1A?=
+ =?us-ascii?Q?vbaOztygHUoi944t0aKzI2ORpZ6813ZN+VxAiled6+wPhkbd5V6t1VNSuOYY?=
+ =?us-ascii?Q?tzzDNFGADwsyqUnJUKiAp6A/ptAXZ01ENvsKF0ZJOqMnlbAj8vbRfBW2ByxM?=
+ =?us-ascii?Q?xwcJiY9XIly7VW+FdWwgqLjB+9l6CROgOLU7PT/hjJYf5LV3sajf5h0QtkWj?=
+ =?us-ascii?Q?iRTEtY/gB0gYBW6ry3qbKY9sVA72Efk9wskM7Zg/WJB4iImWCcfW9zH7wKWN?=
+ =?us-ascii?Q?LtfuJpBZIltXLeD4XjoWN3/8jzpOIe6qgXovVULvQsbU0N24sbAufHKM0yn9?=
+ =?us-ascii?Q?Angtw5jJiuh64jK/4g7zjuZfvv3Hx1gvjiqsVU3oQM9bblVk+VUZpxjypX6J?=
+ =?us-ascii?Q?YOukMufXZgM1SjYipwYWpC4tBDqb3gkvKf/hyw/LpewUCgZ/uAk79ANpjMKl?=
+ =?us-ascii?Q?qG6bJKMrCWqPl26r8QIvWykL174eQLVcQIB8yKEXwASJkr+S/nw/kPbZJSDC?=
+ =?us-ascii?Q?neji35gNTAh+wXKLohxeDeMbgyrJoG4e4unnZJsyP+0CTk8GMP/HB1iiW4P5?=
+ =?us-ascii?Q?ugsqmEMeJVMlv6o+sYeqpk47JN2FCh8tx5/xI69/f2YvvqSIKL/EIuQSMH7D?=
+ =?us-ascii?Q?7OfG2zelkA0T2UA/nULKGoEkpY4JR/5HigKWa0LsuV0hZWMwvvLNInPUUiL7?=
+ =?us-ascii?Q?X5IWqQKKdQ/I4uD/aGprDkeJp80IWqWKAm7kY4JIfhTydAMP99JhjNv4iw+S?=
+ =?us-ascii?Q?9VqH12glt0x7e8AmTuVOA1LSa24v5hGzCgE7wN/yEBIALOGI2xLkC0NcgYkT?=
+ =?us-ascii?Q?A7rmaSSKDVm9aKbclGvGt+B87lGTa1zERQhGOw8d1SRlmWYNIZkDLBgPb2BF?=
+ =?us-ascii?Q?dewq/nEgY/vJ5WN56HpR6I3fpRneaFfKyLxxSSMgw/8OFQR6LVyZJdw0EFTm?=
+ =?us-ascii?Q?RGtYH4E9qt3zm5kjw1r6xsDqcCh1h8U95vIt0KTk3m6DxoeRwaEpFGczcjAA?=
+ =?us-ascii?Q?qFJ8J7kePc1a4bshGBDC8EXv/Fze6EhSWnq0gVtD0SaUA9YXw1LWGupJVbkk?=
+ =?us-ascii?Q?BCVdLmSr5joMk47nPdksdEa8S/GaJizmF5gJGe9QaoBnU0VzUnL6?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 90d2828d-457f-4884-d2cd-08de52bddf37
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 16:07:38.1216 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 76x3HgFb1Ocxk0pCD3R5z0ToHQF0Yw+EDK9VwP4Ckw0qIGeEM+/3ItJewOmn93bhK8e2OPupapsFd0FKoE/kgA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYP286MB1689
+Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
+ minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
+ kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
+ hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
+ linux-arm-kernel@axis.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
+ shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
+ mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
+ s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
+ linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
+ roy.zang@nxp.com, linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
+ linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
+ heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
+ shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v6 1/5] PCI: endpoint: Add BAR subrange
+	mapping support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,52 +161,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-SGksCgpPbiBGcmksIEphbiA5LCAyMDI2IGF0IDExOjU34oCvQU0gR2F0aWVuIENoZXZhbGxpZXIK
-PGdhdGllbi5jaGV2YWxsaWVyQGZvc3Muc3QuY29tPiB3cm90ZToKPgo+IEFkZCB0aGUgc3RtMzIg
-ZGVidWcgYnVzIGRyaXZlciB0aGF0IGlzIHJlc3BvbnNpYmxlIG9mIGNoZWNraW5nIHRoZQo+IGRl
-YnVnIHN1YnN5c3RlbSBhY2Nlc3NpYmlsaXR5IGJlZm9yZSBwcm9iaW5nIHRoZSByZWxhdGVkIHBl
-cmlwaGVyYWwKPiBkcml2ZXJzLgo+Cj4gVGhpcyBkcml2ZXIgaXMgT1AtVEVFIGRlcGVuZGVudCBh
-bmQgcmVsaWVzIG9uIHRoZSBTVE0zMiBkZWJ1ZyBhY2Nlc3MKPiBQVEEuCj4KPiBTaWduZWQtb2Zm
-LWJ5OiBHYXRpZW4gQ2hldmFsbGllciA8Z2F0aWVuLmNoZXZhbGxpZXJAZm9zcy5zdC5jb20+Cj4g
-LS0tCj4gIE1BSU5UQUlORVJTICAgICAgICAgICAgICAgICB8ICAgMSArCj4gIGRyaXZlcnMvYnVz
-L0tjb25maWcgICAgICAgICB8ICAxMCArKwo+ICBkcml2ZXJzL2J1cy9NYWtlZmlsZSAgICAgICAg
-fCAgIDEgKwo+ICBkcml2ZXJzL2J1cy9zdG0zMl9kYmdfYnVzLmMgfCAyODUgKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiAgNCBmaWxlcyBjaGFuZ2VkLCAyOTcg
-aW5zZXJ0aW9ucygrKQo+Cgpbc25pcF0KCj4gKwo+ICtzdGF0aWMgY29uc3Qgc3RydWN0IHRlZV9j
-bGllbnRfZGV2aWNlX2lkIG9wdGVlX2RiZ19idXNfaWRfdGFibGVbXSA9IHsKPiArICAgICAgIHtV
-VUlEX0lOSVQoMHhkZDA1YmM4YiwgMHg5ZjNiLCAweDQ5ZjAsCj4gKyAgICAgICAgICAgICAgICAg
-IDB4YjYsIDB4NDksIDB4MDEsIDB4YWEsIDB4MTAsIDB4YzEsIDB4YzIsIDB4MTApfSwKPiArICAg
-ICAgIHt9Cj4gK307Cj4gKwo+ICtzdGF0aWMgc3RydWN0IHRlZV9jbGllbnRfZHJpdmVyIHN0bTMy
-X29wdGVlX2RiZ19idXNfZHJpdmVyID0gewo+ICsgICAgICAgLmlkX3RhYmxlID0gb3B0ZWVfZGJn
-X2J1c19pZF90YWJsZSwKPiArICAgICAgIC5kcml2ZXIgPSB7Cj4gKyAgICAgICAgICAgICAgIC5u
-YW1lID0gIm9wdGVlX2RiZ19idXMiLAo+ICsgICAgICAgICAgICAgICAuYnVzID0gJnRlZV9idXNf
-dHlwZSwKPiArICAgICAgICAgICAgICAgLnByb2JlID0gc3RtMzJfZGJnX2J1c19wcm9iZSwKPiAr
-ICAgICAgICAgICAgICAgLnJlbW92ZSA9IHN0bTMyX2RiZ19idXNfcmVtb3ZlLAo+ICsgICAgICAg
-fSwKPiArfTsKCkp1c3QgYSBoZWFkcyB1cC4gV2l0aApodHRwczovL2xvcmUua2VybmVsLm9yZy9v
-cC10ZWUvY292ZXIuMTc2NTc5MTQ2My5naXQudS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbS8K
-d2UncmUgc3dpdGNoaW5nIHRvIHVzZSBidXMgbWV0aG9kcyBpbnN0ZWFkIG9mIGRldmljZV9kcml2
-ZXIgY2FsbGJhY2tzLgpUaGF0IHBsYW4gaXMgdG8gbWVyZ2UgdGhhdCBwYXRjaCBzZXQgaW4gdGhl
-IG5leHQgbWVyZ2Ugd2luZG93LgoKQ2hlZXJzLApKZW5zCgo+ICsKPiArc3RhdGljIGludCBfX2lu
-aXQgb3B0ZWVfZGJnX2J1c19tb2RfaW5pdCh2b2lkKQo+ICt7Cj4gKyAgICAgICBpbnQgcmV0Owo+
-ICsKPiArICAgICAgIHJldCA9IGRyaXZlcl9yZWdpc3Rlcigmc3RtMzJfb3B0ZWVfZGJnX2J1c19k
-cml2ZXIuZHJpdmVyKTsKPiArICAgICAgIGlmIChyZXQpCj4gKyAgICAgICAgICAgICAgIHJldHVy
-biByZXQ7Cj4gKwo+ICsgICAgICAgcmV0ID0gcGxhdGZvcm1fZHJpdmVyX3JlZ2lzdGVyKCZzdG0z
-Ml9kYmdfYnVzX2RyaXZlcik7Cj4gKyAgICAgICBpZiAocmV0KQo+ICsgICAgICAgICAgICAgICBk
-cml2ZXJfdW5yZWdpc3Rlcigmc3RtMzJfb3B0ZWVfZGJnX2J1c19kcml2ZXIuZHJpdmVyKTsKPiAr
-Cj4gKyAgICAgICByZXR1cm4gcmV0Owo+ICt9Cj4gKwo+ICtzdGF0aWMgdm9pZCBfX2V4aXQgb3B0
-ZWVfZGJnX2J1c19tb2RfZXhpdCh2b2lkKQo+ICt7Cj4gKyAgICAgICBwbGF0Zm9ybV9kcml2ZXJf
-dW5yZWdpc3Rlcigmc3RtMzJfZGJnX2J1c19kcml2ZXIpOwo+ICsgICAgICAgZHJpdmVyX3VucmVn
-aXN0ZXIoJnN0bTMyX29wdGVlX2RiZ19idXNfZHJpdmVyLmRyaXZlcik7Cj4gK30KPiArCj4gK21v
-ZHVsZV9pbml0KG9wdGVlX2RiZ19idXNfbW9kX2luaXQpOwo+ICttb2R1bGVfZXhpdChvcHRlZV9k
-YmdfYnVzX21vZF9leGl0KTsKPiArCj4gK01PRFVMRV9MSUNFTlNFKCJHUEwiKTsKPiArTU9EVUxF
-X0FVVEhPUigiR2F0aWVuIENoZXZhbGxpZXIgPGdhdGllbi5jaGV2YWxsaWVyQGZvc3Muc3QuY29t
-PiIpOwo+ICtNT0RVTEVfREVTQ1JJUFRJT04oIk9QLVRFRSBiYXNlZCBTVE0zMiBkZWJ1ZyBhY2Nl
-c3MgYnVzIGRyaXZlciIpOwo+Cj4gLS0KPiAyLjQzLjAKPgo+Cl9fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1h
-bi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Tue, Jan 13, 2026 at 11:13:59AM +0100, Niklas Cassel wrote:
+> On Tue, Jan 13, 2026 at 11:37:11AM +0900, Koichiro Den wrote:
+> > Extend the PCI endpoint core to support mapping subranges within a BAR.
+> > Introduce a new 'submap' field and a 'use_submap' flag in struct
+> > pci_epf_bar so an endpoint function driver can request inbound mappings
+> > that fully cover the BAR.
+> > 
+> > Add a subrange_mapping feature bit to struct pci_epc_features so EPC
+> > drivers can explicitly advertise support. Make pci_epc_set_bar() reject
+> > use_submap requests (-EINVAL) when the EPC does not advertise
+> > subrange_mapping, to avoid silently accepting a configuration that the
+> > controller cannot implement.
+> > 
+> > The submap array describes the complete BAR layout (no overlaps and no
+> > gaps are allowed to avoid exposing untranslated address ranges). This
+> > provides the generic infrastructure needed to map multiple logical
+> > regions into a single BAR at different offsets, without assuming a
+> > controller-specific inbound address translation mechanism. Also, the
+> > array must be sorted in ascending order by offset.
+> > 
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > ---
+> 
+> I think this patch should be after the:
+> "PCI: endpoint: Add dynamic_inbound_mapping EPC feature"
+> patch...
+> 
+> 
+> >  drivers/pci/endpoint/pci-epc-core.c |  3 +++
+> >  include/linux/pci-epc.h             |  3 +++
+> >  include/linux/pci-epf.h             | 31 +++++++++++++++++++++++++++++
+> >  3 files changed, 37 insertions(+)
+> > 
+> > diff --git a/drivers/pci/endpoint/pci-epc-core.c b/drivers/pci/endpoint/pci-epc-core.c
+> > index ca7f19cc973a..8d809a2c3ce9 100644
+> > --- a/drivers/pci/endpoint/pci-epc-core.c
+> > +++ b/drivers/pci/endpoint/pci-epc-core.c
+> > @@ -596,6 +596,9 @@ int pci_epc_set_bar(struct pci_epc *epc, u8 func_no, u8 vfunc_no,
+> >  	if (!epc_features)
+> >  		return -EINVAL;
+> >  
+> > +	if (epf_bar->use_submap && !epc_features->subrange_mapping)
+> > +		return -EINVAL;
+
+Hi Niklas,
+
+> 
+> ...then you can change this condition to:
+> 
+> 	if (epf_bar->use_submap &&
+> 	    !(epc_features->dynamic_inbound_mapping &&
+> 	      epc_features->subrange_mapping))
+> 		return -EINVAL;
+
+Somehow this slipped my mind.. Thanks for pointing this out.
+
+And I don't have any objections to the rest of the points you left comments
+on v6 (patch ordering, splitting, and doc refinements).
+
+I'll address them in v7.
+Thank you for the detailed review.
+
+Koichiro
+
+> 
+> 
+> > +
+> >  	if (epc_features->bar[bar].type == BAR_RESIZABLE &&
+> >  	    (epf_bar->size < SZ_1M || (u64)epf_bar->size > (SZ_128G * 1024)))
+> >  		return -EINVAL;
+> > diff --git a/include/linux/pci-epc.h b/include/linux/pci-epc.h
+> > index 4286bfdbfdfa..898a29e7d6f7 100644
+> > --- a/include/linux/pci-epc.h
+> > +++ b/include/linux/pci-epc.h
+> > @@ -223,6 +223,8 @@ struct pci_epc_bar_desc {
+> >  /**
+> >   * struct pci_epc_features - features supported by a EPC device per function
+> >   * @linkup_notifier: indicate if the EPC device can notify EPF driver on link up
+> > + * @subrange_mapping: indicate if the EPC device can map inbound subranges for a
+> > + *                    BAR
+> 
+> This text should probably also mention that this feature depends on the
+> dynamic_inbound_mapping feature.
+> 
+> 
+> With those comments fixed, looks good to me:
+> Reviewed-by: Niklas Cassel <cassel@kernel.org>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
