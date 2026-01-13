@@ -2,61 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9FDED168FF
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 04:53:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AC5BD16B04
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 06:18:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85A5FC57B41;
-	Tue, 13 Jan 2026 03:53:40 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02999C87ED6;
+	Tue, 13 Jan 2026 05:18:29 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 781F8C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0DE0CC0693D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jan 2026 03:53:39 +0000 (UTC)
+ Tue, 13 Jan 2026 05:18:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1768276420; x=1799812420;
+ t=1768281507; x=1799817507;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=/IRlg/HZqaWarHkvItRChuZKhbeASWJFIkTvLPcavzU=;
- b=RXhW6MyZDmAJd+sgR4VmeOztG+WhrJjTmGvTe6U32HQqTvqWfS/M/Nvk
- GyxryUSe2UpWKMlf7GFL+nJWtB401zz1CwPDwFZyVrLoMtU+bxx2D0szg
- 42+KQpvKvkWS2bjUvfizUXQBNfaVapJ3Dyb9rwqYO1OeXm9BZHSwKb8AU
- 4E3MCqrQmq/hkUqyY1xxC5+eJfJsUQVHDYYSonAE8ivfluz5+f61pVnEV
- o1pDFWEUsSKZMn76oCEhKNa0u/stzhT7uf5Xm/ZVS1yicgbdjzG7icsZd
- PsXzbhxLKlnpRj2VYhEJGU9Rq5B6hORQm9woP8EseZ/VnJ/6NJhGhxRyv w==;
-X-CSE-ConnectionGUID: 3lzOyO46TOycwAHCTbAotA==
-X-CSE-MsgGUID: HfAWbKH2R2OB8zmvmp+Vpg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="69613562"
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="69613562"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
- by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Jan 2026 19:53:37 -0800
-X-CSE-ConnectionGUID: ZcgYCdDKQQa6FHqWUrNpng==
-X-CSE-MsgGUID: mlgWcsnIQTGOQJ6oXCw5Ug==
+ bh=9iQZnMV3CUdtK45BwWJKiFUt0g3nkqqUh/ffW8zt9kc=;
+ b=e+jFnUf4lIfy1+GwYWhSmVtDOygfgCFX+iOMIypF5buAVJYhmUH3Jkur
+ PiChGlBonk3Rgir03UljEPHW/DucSrftgimOkTTbo5MSgNc72K+lkBj3q
+ qVhiSrsTc5v8n/t0/J7CjbFSgY5sDX92c+yEuWkpbBg+o/ycNQ1YI2VJl
+ 0ZrL5U7RO2SWjJ/LkHA2BsQtgtAAmERxNQbm/pHW3cojpvj3NFXiAF9mu
+ jKs2RmESa2vL2IIdqa15WxtkwGuC3UOhK25rw/WZYDS5PalaRmQE96wgS
+ KBVe/8JSq6qq9eflFUlAFVCXVgqku7Al5mJSom92yfHXrkGj6f3XzfZnD Q==;
+X-CSE-ConnectionGUID: uQd0dpdUQ/2DEKksQNl4FA==
+X-CSE-MsgGUID: V5ZJDJ18Sumd1/sMDFh0WA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11669"; a="73414876"
+X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="73414876"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 12 Jan 2026 21:18:19 -0800
+X-CSE-ConnectionGUID: 1LVxbLv/TOWxQqR2EIejXQ==
+X-CSE-MsgGUID: 6cF0U2x3R2+ZEDw6B0G6xA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="227496203"
+X-IronPort-AV: E=Sophos;i="6.21,222,1763452800"; d="scan'208";a="208801024"
 Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by fmviesa002.fm.intel.com with ESMTP; 12 Jan 2026 19:53:33 -0800
+ by orviesa004.jf.intel.com with ESMTP; 12 Jan 2026 21:18:15 -0800
 Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vfVTH-00000000EBU-1ImV;
- Tue, 13 Jan 2026 03:53:31 +0000
-Date: Tue, 13 Jan 2026 11:52:52 +0800
+ (envelope-from <lkp@intel.com>) id 1vfWnE-00000000EFc-1LjW;
+ Tue, 13 Jan 2026 05:18:12 +0000
+Date: Tue, 13 Jan 2026 13:17:35 +0800
 From: kernel test robot <lkp@intel.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-Message-ID: <202601131106.zgy17BPH-lkp@intel.com>
+Message-ID: <202601131202.sz9WCQgh-lkp@intel.com>
 References: <E1vfMO1-00000002kJF-33UK@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <E1vfMO1-00000002kJF-33UK@rmk-PC.armlinux.org.uk>
 Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
  Vinod Koul <vkoul@kernel.org>, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, oe-kbuild-all@lists.linux.dev,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: qcom-ethqos:
  convert to set_clk_tx_rate() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -85,21 +85,21 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-s
 base:   net-next/main
 patch link:    https://lore.kernel.org/r/E1vfMO1-00000002kJF-33UK%40rmk-PC.armlinux.org.uk
 patch subject: [PATCH net-next 2/2] net: stmmac: qcom-ethqos: convert to set_clk_tx_rate() method
-config: arc-allyesconfig (https://download.01.org/0day-ci/archive/20260113/202601131106.zgy17BPH-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260113/202601131106.zgy17BPH-lkp@intel.com/reproduce)
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20260113/202601131202.sz9WCQgh-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260113/202601131202.sz9WCQgh-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202601131106.zgy17BPH-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202601131202.sz9WCQgh-lkp@intel.com/
 
 All warnings (new ones prefixed by >>):
 
-   drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c: In function 'ethqos_set_clk_tx_rate':
->> drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c:188:1: warning: control reaches end of non-void function [-Wreturn-type]
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c:188:1: warning: non-void function does not return a value in all control paths [-Wreturn-type]
      188 | }
          | ^
+   1 warning generated.
 
 
 vim +188 drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
