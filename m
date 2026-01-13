@@ -2,154 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF4C7D1A3BB
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 17:27:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 13F3AD1AAB2
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 18:37:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9671FC90082;
-	Tue, 13 Jan 2026 16:27:33 +0000 (UTC)
-Received: from TYVP286CU001.outbound.protection.outlook.com
- (mail-japaneastazon11021134.outbound.protection.outlook.com [52.101.125.134])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFA50C8F282;
+	Tue, 13 Jan 2026 17:37:22 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9243BC5A4EF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19F3CC5A4EF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jan 2026 16:27:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CLfhDxqk/k/J5uMyyLifDACpB7bxflQTI470HsYHELjm8nZ/J+W6sd/d5QIMnXz/E4SOft/t9wUHFvXFX+LeMi5OyWoRXEjQ1MM6Mpj62s8GmrOPXgkkhUHfJr8t6yJq7nGaQ8ZYMCCulLirmFnQTRyrLyM87U7DhaIpYKELDqZEL0uxRRMDNOhSxne0uCU5nWhbny0BLpmEJYQSH93Zs+xE4rcXFZS3VP5TBhsuJenx5Vs8E93/xGyKdwYDr+j1J9KE4PDqJNEFZ+ydE+m3ihloRhaEfAMOD1316HVp8v33QaZWBYpi+P0fW7+YVfiz4JHYSfi7/pi3b3LZtz5MWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4Sp+AC0JcUSb3yhrypuBDJMjO8i0vbannE5uonMYB8A=;
- b=vocMMXnWQPzaJbwF3SZzEvBnvIFckEeaGm3TcKrd2jj894+lJeCNwt7ZUtCCqku7uGRVEZgKnCQc6RSCRauBvMinB8P4xEbOBgYkAIQZVDLc8kubKDebh5EAVY9neJ7eXuVV9p059Oc3dw+cKkFgnxBlVcqcvuq2X4zIDYtbrXcZ5nOMndXdVCHdkIrLAhvzhOsZkaId0W+ZLyvc4KC4JXS0oYiEeWP1MrhjGnDuVmXakv76UXcPuYzaIkBBz1jS+12diCLWPpYgMQ9UVel1uM0DRlJdCWs0aBAuz0fg8EUtkpt8x4FNx1iIFAqRn7w5jad+rNQ847xaWwKC7nExcg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4Sp+AC0JcUSb3yhrypuBDJMjO8i0vbannE5uonMYB8A=;
- b=NjTx6fqib9+ViCVBV1Jpe0z3T7qhhWh/2UZ2CBXl7byUSZBJlAwV3DWC/Oshtq5QPG830ZIO1Jkm8rTVUwnGcaokrtcy/yG9zPlktFhVtfKVpyBSOgMdkgg+dSUvkONJ1dQc0mfuDvGN6fhe5xAliVo5JaHGoPT1tvnIy5+bZhg=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by TYWP286MB2282.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:13d::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9499.7; Tue, 13 Jan
- 2026 16:27:29 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9499.005; Tue, 13 Jan 2026
- 16:27:29 +0000
-From: Koichiro Den <den@valinux.co.jp>
-To: jingoohan1@gmail.com, mani@kernel.org, lpieralisi@kernel.org,
- kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com,
- cassel@kernel.org
-Date: Wed, 14 Jan 2026 01:27:19 +0900
-Message-ID: <20260113162719.3710268-7-den@valinux.co.jp>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260113162719.3710268-1-den@valinux.co.jp>
-References: <20260113162719.3710268-1-den@valinux.co.jp>
-X-ClientProxiedBy: TYCPR01CA0038.jpnprd01.prod.outlook.com
- (2603:1096:405:1::26) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+ Tue, 13 Jan 2026 17:37:20 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-430f57cd471so3943965f8f.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 13 Jan 2026 09:37:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1768325840; x=1768930640;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=/CVOy4tPw1zWY0e6rYcKRwtfrfRvUlKFzd8YTNoGp5w=;
+ b=K7nLcJqhRNPCavqRyE0JWVNRyik2x4Vb/aN6jg8FIXpexmYuxMLsA41kJHhIO7ABrF
+ k9Xneel2zepZs5F7qDLb4KKuHndml77RW1KdEZz8utiC8vQIkrQ6PJxEe0Dpme+etJeo
+ qlo34vVDwBXIP1LUqWkeXDDOB3BdMY6HUieN591E6OjrXTOW3/QMOcm8RByznj84xAWe
+ brSaz/X0X9AoPsY/r4wWqtIYuw5Oepye8pbk5287EVpzDZ3xh/HHgEy6xcC1xlVtQXkQ
+ TI7/A1wrKp2GLXxIGXvTLWMY8+Dxsxs6GDn2uiwk83nVxZB2oS/7b7rco08vN79V7OYF
+ IHYg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768325840; x=1768930640;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=/CVOy4tPw1zWY0e6rYcKRwtfrfRvUlKFzd8YTNoGp5w=;
+ b=V5y118JeFxAnTyiOiVwGiewKPL5YXLDErDImUg7XGU4IdioFp2m6TnXd3/ey06YyR/
+ gBITxyINWfcacjjkucvsJCRWwvdXLHv4ScQbiB1Si9Y103LpzoOHwTQusr7aNkATpkkZ
+ AjaahZyDwVUxAjj6xcANFOGE1J2GirwKBIXpvBlZ8Q1VrByi3QG4BsaYFPI2soT0dIBY
+ PtJK44zmnWqL1A3ddmXiy0lSLZB5mYTvcOMRyNXfFsmKapsqJN4jUhQdmpu7zXEm5ESr
+ R33c2DsfatnxoWx/oAokA3MS0e/TOnXR7pXGe+cJ7qZCeQ6OhBcz1P+hTQ+CnJDgNelz
+ UoGw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWAOfq8ZOKJMYRYU35WO5hEXfLT642E9R4+1NMjnWtvX0er1x7qhzPeOCMensRKgoJ4I0GnMDnQj6DNPw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxGjFzekZkahLcMURCSHpg+6EB6F8Fjh2P7kIybQchw4NJiK2TY
+ 25HLT6Y4fEuU/JuzRLqx09smgwKyPtttWaTchB0CiKcDdoS4B/YrXQ8YWWkIdEEc1kQ=
+X-Gm-Gg: AY/fxX7Yb+Nv1Ku+NBwMA0qImK7KgQBcDqM6T7TavnhBvUOi5goFH+Af5pRt782TXYS
+ Bgklo1Mavy1hzOUPL9MRrQhqcDotQ3Bqyw7Q854qTa5YC3FhWCJBHA9aDnl1yPi8bdmy7BAeVzJ
+ x/mnGZi51jvARpKCSnosHDr48SlFz0+G6T6uAHw36KD19ufFbUrl4Q1UxDe1qFYdeLEEG6LiUd0
+ veFY+8zSqm9mF2M+HmYIthwDN68YvD8/LfPi/jffbibkiIeoBnXv6KE9EzF/YHJ751/5500zO8E
+ VALlFFDrJIA3wxTqss7ri2D+rUJLVHMZvg7lbRjqa6nxBRqYkZVGpGxk33D+OmN3xTehxdc3m29
+ ++cn9DwnVTkeK1HLIGGPWx/D6kyvjPhCaVZj43iswIP0fLA7Wq/mlKMbipVaMbI7z9XZvm9I9Xu
+ 2JbWp1NHYzs1iaZg==
+X-Google-Smtp-Source: AGHT+IHUReQqvVgC0db5F0/UgqAPwHgCcpq2ZD0lhm0g7XnDeEa3Phlj1/GEitKl8zvqkUFbSZC6XA==
+X-Received: by 2002:a05:6000:2dc9:b0:430:fced:902 with SMTP id
+ ffacd0b85a97d-432c36436fbmr29258778f8f.26.1768325840268; 
+ Tue, 13 Jan 2026 09:37:20 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-432d9610671sm28342147f8f.34.2026.01.13.09.37.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 13 Jan 2026 09:37:19 -0800 (PST)
+Date: Tue, 13 Jan 2026 18:37:17 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Marcos Paulo de Souza <mpdesouza@suse.com>
+Message-ID: <aWaCzZ8_UuyAa6xp@pathway.suse.cz>
+References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
+ <20251227-printk-cleanup-part3-v1-2-21a291bcf197@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYWP286MB2282:EE_
-X-MS-Office365-Filtering-Correlation-Id: 161d4cf4-b79d-4b65-ff8b-08de52c0a572
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|376014|7416014|366016|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?fCWf+S3sLvWqvaYHIW87OZV7ijNlYmXhkBS6H4WrSF3Gv1+n46e8aRlNkUaN?=
- =?us-ascii?Q?odVczY3jAWaoFj5Ym09snTCHrVS+04IcvlmqObxBYeeF2eww8JNIPGX3y3bp?=
- =?us-ascii?Q?BGnMefyjrr4v+FQZhDUIrUOG5yh7xI+7vnM2Nuu+2H8jM4igHevpZ3SNu/ww?=
- =?us-ascii?Q?55k/73RyrSQTB6oROBQdbUzdWlpZhkxQQys8ByDfF3R7dF5mDQ3Ywo1MD1vn?=
- =?us-ascii?Q?ytDX0AMSoHJj3zTojcTuT7Gi3KG1uSWmPpiTZiI4KF8kCgzctR/EnH7H/sUR?=
- =?us-ascii?Q?v4MwNbvjFSZBFawRJl3WcCR8BEh0KkmrLhAYjYKkWM1FME4aAzs8sBqw4us3?=
- =?us-ascii?Q?f6HKiMEql+zQ1MR/ip6KSX72j5RRcXH21erw8/idD/ICZMoQZJXUOS0vVy6A?=
- =?us-ascii?Q?+agFPWjJipn8CNPM3+sBAeJ1titqUogM+5aAXoQR4IkUIa+78y+UwEdDIvu2?=
- =?us-ascii?Q?u3tTQ4C7AH7ocNzoNgJLv4RNwtoAutUeVzV3oaUQrcNyB4VbzxVtQh3GNHxp?=
- =?us-ascii?Q?IDKA8bYYj9qSceCbC9hbUu9mGVo0PPsiiLLbRfl10V5k6kyL6g8Js2bthArz?=
- =?us-ascii?Q?8NOFCTdtrIpeEFHRJg+w38mbAJjN2jXs5ghIfoyciEtyIVbCp5l3u6+ISG9y?=
- =?us-ascii?Q?DJv1pbaUPmN7+y3mqCVNxc1SEVX0GG6SgUBw5/dDVuYlfVLs0bmfI1AQ+uet?=
- =?us-ascii?Q?uW0yDHyY6NdJ43v8soXHB+1uwfves+WGCtfnA2dmdjjRqP6q8GDE16F6/RiT?=
- =?us-ascii?Q?D8o/EWqJ3Hg6qm6oc667ViJF2rVbNxc3ndDIS9oTCRKdZINVIjWzCPt2i2SV?=
- =?us-ascii?Q?0Z3plQ6x6UAElu4VjusSFXs62Y5EpQ/MENUxO9pG31YwUffmh4LImjXkRStX?=
- =?us-ascii?Q?Im8pfywdxERE71uPTbxQxxY4RU3YbbKqkJMuRWjIedsW6kkjxn0z2tFpKcy/?=
- =?us-ascii?Q?Ppq01nAzXdJtSxCosITPW4X32VwsVZmm8Ns2M7uPAyx/Lm4d9jmwLTGt+Qxl?=
- =?us-ascii?Q?EezW3aImBicsIIfvnxHjQcsXk/dIJJxJwHT8Y5Ci/oj/jZsC9Mkye5NzQp1/?=
- =?us-ascii?Q?i1BHi/OMKigRcanwFf5mrVFgEwGKp51IypWiEN21cIPOCiTkhjmOzdwIqcSb?=
- =?us-ascii?Q?Y4fLLqniMf+IcbE2RRjFvjtsdG+E2CL7idIzV22uPMKAqSJQvxLuB+F5CSYy?=
- =?us-ascii?Q?nVy1l4d8sBUME1zM+ADqcGavfIq7qq9Lnoy43XD5Q/lVrNYUQlEsMnGNyLcC?=
- =?us-ascii?Q?4fzoCyz9J1nw8AQqvI0wJ2C1WIRqZ0+y/qJF2X1HRXnb43hH3M/a34N9B58q?=
- =?us-ascii?Q?MoEtvFEWNScYvXkz5o7WcwaqQWirLSHJvnRXMDLQADYZA99dRZ+WZA/JggD5?=
- =?us-ascii?Q?Z0T94z9CnhanW9OfJJ9l0PdtixkYdkCw2ETE1BEsjlQ5ayYHwXzaAVadBNbV?=
- =?us-ascii?Q?dySFVF4xqqjkc/nSQf81hKlH5XbEN0Vb?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(376014)(7416014)(366016)(1800799024); DIR:OUT;
- SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?g0674DZ1gDrUeW5GfXBM8Zn4b/VR2EuZ+g5sPZmTbqLZ2/AOEfZTrM3J/N/f?=
- =?us-ascii?Q?6CFgbw9TwQKGDZedlDycAOOWZXrPchFwrCGfCZiqEbHdVZXC9/OToFUHRUVW?=
- =?us-ascii?Q?ZFGMbIkibUbFSSEmoIK32npUqGL2Vt0FDqPjaloNMpAHORxuMkerw5nq3QzW?=
- =?us-ascii?Q?dHdx1DFlN0reB7OkFHv8SLpOJ00U6p/O4XZYLs03JPPp1i7/FSrbei1co7vg?=
- =?us-ascii?Q?b8iTwgl7f9KkdBAAVj1KeNXKf366cl95QLySAl+ZA2TgNM09KABe5Rz2zVLm?=
- =?us-ascii?Q?FKUXry+dEC0+gpGYdo7MqWG1LS/p2X/6Oed13VTwB0+AHg1aBxKdV5ZN/Dw0?=
- =?us-ascii?Q?CWVrxx8q6myyXo3H/lTog68PZyFJHL94kMlVAfLxAbBvGbPodT8SGdkx5o+S?=
- =?us-ascii?Q?5KLMy2WOjlKG3NYUTyD8f6Ajl5F+xmt9JKtgVyoicfPO20Xu9Xx9QgoDARqN?=
- =?us-ascii?Q?WBFM8K1czmh4ZjwmuiFppi95RC7qB0cdAxVQhKjivrhUEcoCgfLC9Z1owSa5?=
- =?us-ascii?Q?vxon8CtmDTpsW0K6oi957xgw5dDROytKNmzyexcE3ErXEgxCpU1LBzUN8gJm?=
- =?us-ascii?Q?58EjAroBFm2ONWcEXX7hD2G3vHJUkvfHxvwAy3v9EK2WtA5nU909j6MnP+8K?=
- =?us-ascii?Q?6LCKS0A0MsR/GfD2VvA3FQx15AJYQ+O8FCBDZ6D6brsDZ1rxzT2GZ1tkvOF8?=
- =?us-ascii?Q?RHc+vBzo+Wz1CFL0tEPN5viU0lsS4PFjw23swhn4Ccy5bOxYsGtOuBtuOiQ4?=
- =?us-ascii?Q?McCPGOKUezazzocHx1GQYlKzW/N2km1xV/k/Qr4w1qfWmvDY/+p41ribWRv+?=
- =?us-ascii?Q?I9tMoNrI85zK8sztR3fwLGQ+Lueoxb6zz/ve/dsuTdqJLb9x/ZrumUWPp9lc?=
- =?us-ascii?Q?2BcXjMP/7QhKL/jFXANa8kt1ypYkC5jmDfneGVNKfaFE2/Ddj3+JRHzSp/Tz?=
- =?us-ascii?Q?sLKihCMBLVoVpKQ1Ad9wadg8NPNePCaCxNE+mvGwVTU9dMGRmicabEG2E3xo?=
- =?us-ascii?Q?CReema4mS99N1Ok/VM24Z8rGmBuVnI9wccEMMhB+vLpUlzi2LMXamPGYcDgs?=
- =?us-ascii?Q?Dph3A5ls66v/QHOVYXd/KBmZQG0OJnDmQqOrf51ieFngLGDwTxzfhRVbWUCP?=
- =?us-ascii?Q?gcCXWW3/LJ7Gk7NP5YW9GlhIwskvVxTkYm6fdqTKG7i9619u707yyWIQ7/iW?=
- =?us-ascii?Q?BaZME5fYRiLIh/BU5QKR+Qp4REz0tThlLIJb9lT4MT1MvNdbB4Y7vwZqUcy9?=
- =?us-ascii?Q?Es+S6wtoVslPWKZMYdTA1lVs4zgl2nDTbpn/vY3ziFDKeTr9sBpnwzAgJUFc?=
- =?us-ascii?Q?bn80Oi9aykr6OP6d7B5GyzZSRNk6mWYukX9snpB773+ui5sp5UuL8PlLL2nI?=
- =?us-ascii?Q?c7GS/fDEU+seyO2CJRcsrH7ZLkfA750DTkNA3ljkQTKJfdCGv7xPy1FSiMTa?=
- =?us-ascii?Q?/XisuY9XhZfqjSeemikGMajau7TpW73pvR9z7BvBObju8UczPUYCJkXNHYpa?=
- =?us-ascii?Q?5BFpHFY8/5nyou77xZMV6xcEsyGMkKTspl4Zrty8jMdSNg59QS8MQY5Z3fxR?=
- =?us-ascii?Q?PHdLseIfI4oJfonRRNV52VINAc++wBfTHGHRkZY26JhzbP9CbmfAR+4wu5Xu?=
- =?us-ascii?Q?yR6YUparWdyjE8FNGKWuxSBFDVy6RHKfddjBNJHB5eL6q1If9rs9UXatqUis?=
- =?us-ascii?Q?WorC/jDwdnC+Hqi3XIjHD84O1nu1A3c3sEs/EZO2LO0KDNMTuoApcZpPFBxJ?=
- =?us-ascii?Q?Jf0psdomMHX/EICBvQvB++ezz2ESsJR5sBve8WxrUk7ZBFh9iFGO?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 161d4cf4-b79d-4b65-ff8b-08de52c0a572
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Jan 2026 16:27:29.6638 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: YZOLrORzW8i1B2SJvCZN9GeKYjqvmcYHYPO+Ic8NB2mB+w6skPWD1nJr7WpsTlhtLfheXgCOwZtKnVeK0IR3BA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWP286MB2282
-Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
- linux-pci@vger.kernel.org, shawn.lin@rock-chips.com, Frank.Li@nxp.com,
- christian.bruel@foss.st.com, thierry.reding@gmail.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de, kishon@kernel.org,
- srikanth.thokala@intel.com, jesper.nilsson@axis.com,
- hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
- linux-arm-kernel@axis.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 18255117159@163.com, s-vadapalli@ti.com, marek.vasut+renesas@gmail.com,
- hongxing.zhu@nxp.com, kernel@pengutronix.de, linux-arm-msm@vger.kernel.org,
- s.hauer@pengutronix.de, linux-tegra@vger.kernel.org,
- linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
- roy.zang@nxp.com, minghuan.Lian@nxp.com, linux.amoon@gmail.com,
- linuxppc-dev@lists.ozlabs.org, yoshihiro.shimoda.uh@renesas.com,
- linux-kernel@vger.kernel.org, vidyas@nvidia.com,
- linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org,
- mcoquelin.stm32@gmail.com, shawnguo@kernel.org,
- nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: [Linux-stm32] [PATCH v7 6/6] Documentation: PCI: endpoint: Clarify
-	pci_epc_set_bar() usage
+Content-Disposition: inline
+In-Reply-To: <20251227-printk-cleanup-part3-v1-2-21a291bcf197@suse.com>
+Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
+ kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ Shan-Chun Hung <schung@nuvoton.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+ Breno Leitao <leitao@debian.org>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, sparclinux@vger.kernel.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Richard Weinberger <richard@nod.at>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-serial@vger.kernel.org,
+ Daniel Thompson <danielt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, John Ogness <john.ogness@linutronix.de>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
+ Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
+ Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Tony Luck <tony.luck@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 02/19] printk: Introduce console_is_nbcon
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -166,64 +114,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-The current documentation implies that pci_epc_set_bar() is only used
-before the host enumerates the endpoint.
+On Sat 2025-12-27 09:16:09, Marcos Paulo de Souza wrote:
+> Besides checking if the current console is NBCON or not, console->flags
+> is also being read in order to serve as argument of the console_is_usable
+> function.
+> 
+> But CON_NBCON flag is unique: it's set just once in the console
+> registration and never cleared. In this case it can be possible to read
+> the flag when console_srcu_lock is held (which is the case when using
+> for_each_console).
+> 
+> This change makes possible to remove the flags argument from
+> console_is_usable in the next patches.
+> 
+> Signed-off-by: Petr Mladek <pmladek@suse.com>
+> Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
+> ---
+>  include/linux/console.h   | 27 +++++++++++++++++++++++++++
+>  kernel/debug/kdb/kdb_io.c |  2 +-
+>  kernel/printk/nbcon.c     |  2 +-
+>  kernel/printk/printk.c    | 15 ++++++---------
+>  4 files changed, 35 insertions(+), 11 deletions(-)
+> 
+> diff --git a/include/linux/console.h b/include/linux/console.h
+> index 35c03fc4ed51..dd4ec7a5bff9 100644
+> --- a/include/linux/console.h
+> +++ b/include/linux/console.h
+> @@ -561,6 +561,33 @@ static inline void console_srcu_write_flags(struct console *con, short flags)
+>  	WRITE_ONCE(con->flags, flags);
+>  }
+>  
+> +/**
+> + * console_srcu_is_nbcon - Locklessly check whether the console is nbcon
 
-In practice, some Endpoint Controllers support calling pci_epc_set_bar()
-multiple times for the same BAR (without clearing it) in order to update
-inbound address translations after the host has programmed the BAR base
-address, which some Endpoint Functions such as vNTB already relies on.
-Add document text for that.
+There is _srcu in the function name, see below.
 
-Also document the expected call flow for BAR subrange mapping
-(pci_epf_bar.use_submap / pci_epf_bar.submap), which may require
-a second pci_epc_set_bar() call after the host has programmed the BAR base
-address.
+> + * @con:	struct console pointer of console to check
+> + *
+> + * Requires console_srcu_read_lock to be held, which implies that @con might
+> + * be a registered console. The purpose of holding console_srcu_read_lock is
+> + * to guarantee that no exit/cleanup routines will run if the console
+> + * is currently undergoing unregistration.
+> + *
+> + * If the caller is holding the console_list_lock or it is _certain_ that
+> + * @con is not and will not become registered, the caller may read
+> + * @con->flags directly instead.
+> + *
+> + * Context: Any context.
+> + * Return: True when CON_NBCON flag is set.
+> + */
+> +static inline bool console_is_nbcon(const struct console *con)
 
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
-Signed-off-by: Koichiro Den <den@valinux.co.jp>
----
- Documentation/PCI/endpoint/pci-endpoint.rst | 24 +++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+And here it is without _srcu.
 
-diff --git a/Documentation/PCI/endpoint/pci-endpoint.rst b/Documentation/PCI/endpoint/pci-endpoint.rst
-index 0741c8cbd74e..09b892de9280 100644
---- a/Documentation/PCI/endpoint/pci-endpoint.rst
-+++ b/Documentation/PCI/endpoint/pci-endpoint.rst
-@@ -95,6 +95,30 @@ by the PCI endpoint function driver.
-    Register space of the function driver is usually configured
-    using this API.
- 
-+   Some endpoint controllers also support calling pci_epc_set_bar() again
-+   for the same BAR (without calling pci_epc_clear_bar()) to update inbound
-+   address translations after the host has programmed the BAR base address.
-+   Endpoint function drivers can check this capability via the
-+   dynamic_inbound_mapping EPC feature bit.
-+
-+   When pci_epf_bar.use_submap is set, the endpoint function driver is
-+   requesting BAR subrange mapping using pci_epf_bar.submap. This requires
-+   the EPC to advertise support via the subrange_mapping EPC feature bit.
-+
-+   When an EPF driver wants to make use of the inbound subrange mapping
-+   feature, it requires that the BAR base address has been programmed by
-+   the host during enumeration. Thus, it needs to call pci_epc_set_bar()
-+   twice for the same BAR (requires dynamic_inbound_mapping): first with
-+   use_submap cleared to configure the BAR size, then after the PCIe link
-+   is up and the host enumerates the endpoint and programs the BAR base
-+   address, again with use_submap set.
-+
-+   Note that when making use of the inbound subrange mapping feature, the
-+   EPF driver must not call pci_epc_clear_bar() between the two
-+   pci_epc_set_bar() calls, because clearing the BAR can clear/disable the
-+   BAR register or BAR decode on the endpoint while the host still expects
-+   the assigned BAR address to remain valid.
-+
- * pci_epc_clear_bar()
- 
-    The PCI endpoint function driver should use pci_epc_clear_bar() to reset
--- 
-2.51.0
+I would prefer the variant with _srcu to make it clear that it
+can be called only under _srcu. Similar to console_srcu_read_flags(con).
 
+> +{
+> +	WARN_ON_ONCE(!console_srcu_read_lock_is_held());
+> +
+> +	/*
+> +	 * The CON_NBCON flag is statically initialized and is never
+> +	 * set or cleared at runtime.
+> +	 */
+> +	return data_race(con->flags & CON_NBCON);
+> +}
+> +
+>  /* Variant of console_is_registered() when the console_list_lock is held. */
+>  static inline bool console_is_registered_locked(const struct console *con)
+>  {
+
+Otherwise, it looks good to me.
+
+With a consistent name, feel free to use:
+
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+
+Best Regards,
+Petr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
