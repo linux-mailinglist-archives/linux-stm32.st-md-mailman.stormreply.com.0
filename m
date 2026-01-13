@@ -2,41 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D9B5D17F24
-	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 11:18:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A053D18017
+	for <lists+linux-stm32@lfdr.de>; Tue, 13 Jan 2026 11:27:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5F55CC8F283;
-	Tue, 13 Jan 2026 10:18:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 07C6EC8F283;
+	Tue, 13 Jan 2026 10:27:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6358C8F282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C423EC8F282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 13 Jan 2026 10:18:05 +0000 (UTC)
+ Tue, 13 Jan 2026 10:27:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 9FFCB6000A;
- Tue, 13 Jan 2026 10:18:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE25C116C6;
- Tue, 13 Jan 2026 10:17:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 615B74075A;
+ Tue, 13 Jan 2026 10:27:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71FB0C116C6;
+ Tue, 13 Jan 2026 10:27:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768299484;
- bh=0fpbeQGAJF9xjq5Byej/gkDKIoAX4CGtzrNcpesJoYY=;
+ s=k20201202; t=1768300073;
+ bh=C8UgsS+YrsZDchnel7CNOtadN1mg/ONjw32g4J6+OCI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=SRp9YMANteq690cw3Tc7KijMkA6B5f5vSRAv1KYS88CI6bYfRan3AunIB+7E3+4Zf
- mH6JR+bx1yw1zxCxKPf3N1DLKskJu82uTfBstubAf28agXhdqU772iiBJkM5LgXEpy
- plOKWgaX4KN/pF6w30vo35DCBordFKJeLgvSIIfExlQb5H2XThPtbweNqsw40BnW02
- gumS3q0YECyjFfZOW1nnxfwdEnGYxO1CC4ikdXYnd7c3XwQmF7m/5skQdCXx7sdxre
- E0Rgup+mH27I+3bpVVUf7q1WahO6w+oqQMKt64/Evzkesa8eBewcfSH5ATrS9liPkS
- BVWMV4ydfdzuQ==
-Date: Tue, 13 Jan 2026 11:17:51 +0100
+ b=KHVExecNeP0XkZg6xghaAQoJqr/q0z3GdC0x9jlfMNdwId0ErGseOxuOiGwv29fD7
+ AvHvAxAYhEhEwlTtZ/HzVBPzak/DCiPS0cy2tK74aPn60U+CPG+/5TqEOYVmIpPOB+
+ t0lfLQrTlza7crImIQKqJobRsLqGMk0r+g0eXbY9SIXRxX+hMLbFEU7eN5Xkq1qwjt
+ tqZncLDnAqJDaSQnuMYsFLITR5wWfSPuJ4e3LtNOMwEMkXQnDUSM9mD8VFTfDQepbM
+ 3idXM1YFBgiHX990n6orktQZK0baqsg7qxAQ9euVwMmyZF8sanjixl845BLKqFX5sj
+ jWW9lS8W7E+tQ==
+Date: Tue, 13 Jan 2026 11:27:40 +0100
 From: Niklas Cassel <cassel@kernel.org>
 To: Koichiro Den <den@valinux.co.jp>
-Message-ID: <aWYbzzAeDSLYJJcB@ryzen>
+Message-ID: <aWYeHNoPEl9T-Qo-@ryzen>
 References: <20260113023715.3463724-1-den@valinux.co.jp>
- <20260113023715.3463724-6-den@valinux.co.jp>
+ <20260113023715.3463724-5-den@valinux.co.jp>
+ <aWYbTt6UjlXb9Uk-@ryzen>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260113023715.3463724-6-den@valinux.co.jp>
+In-Reply-To: <aWYbTt6UjlXb9Uk-@ryzen>
 Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
  linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
  minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
@@ -55,8 +56,8 @@ Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
  heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
  linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
  shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v6 5/5] Documentation: PCI: endpoint:
- Clarify pci_epc_set_bar() usage
+Subject: Re: [Linux-stm32] [PATCH v6 4/5] PCI: dwc: ep: Support BAR subrange
+ inbound mapping via Address Match Mode iATU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,83 +74,41 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 13, 2026 at 11:37:15AM +0900, Koichiro Den wrote:
-> The current documentation implies that pci_epc_set_bar() is only used
-> before the host enumerates the endpoint.
+On Tue, Jan 13, 2026 at 11:15:42AM +0100, Niklas Cassel wrote:
+> On Tue, Jan 13, 2026 at 11:37:14AM +0900, Koichiro Den wrote:
+> > @@ -626,11 +831,22 @@ static const struct pci_epc_features*
+> >  dw_pcie_ep_get_features(struct pci_epc *epc, u8 func_no, u8 vfunc_no)
+> >  {
+> >  	struct dw_pcie_ep *ep = epc_get_drvdata(epc);
+> > +	struct pci_epc_features *features;
+> >  
+> >  	if (!ep->ops->get_features)
+> >  		return NULL;
+> >  
+> > -	return ep->ops->get_features(ep);
+> > +	features = ep->ops->get_features(ep);
+> > +	if (!features)
+> > +		return NULL;
+> > +
+> > +	/* All DWC-based glue drivers support dynamic inbound mapping */
+> > +	features->dynamic_inbound_mapping = true;
 > 
-> In practice, some Endpoint Controllers support calling pci_epc_set_bar()
-> multiple times for the same BAR (without clearing it) in order to update
-> inbound address translations after the host has programmed the BAR base
-> address, which some Endpoint Functions such as vNTB already relies on.
-> Add document text for that.
+> I think you should create a separate patch, before this patch, that simply
+> sets:
+> features->dynamic_inbound_mapping = true;
 > 
-> Also document the expected call flow for BAR subrange mapping
-> (pci_epf_bar.use_submap / pci_epf_bar.submap), which may require
-> a second pci_epc_set_bar() call after the host has programmed the BAR base
-> address.
-> 
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
->  Documentation/PCI/endpoint/pci-endpoint.rst | 22 +++++++++++++++++++++
->  1 file changed, 22 insertions(+)
-> 
-> diff --git a/Documentation/PCI/endpoint/pci-endpoint.rst b/Documentation/PCI/endpoint/pci-endpoint.rst
-> index 0741c8cbd74e..d3d9abbbc71e 100644
-> --- a/Documentation/PCI/endpoint/pci-endpoint.rst
-> +++ b/Documentation/PCI/endpoint/pci-endpoint.rst
-> @@ -95,6 +95,28 @@ by the PCI endpoint function driver.
->     Register space of the function driver is usually configured
->     using this API.
->  
-> +   Some endpoint controllers also support calling pci_epc_set_bar() again
-> +   for the same BAR (without calling pci_epc_clear_bar()) to update inbound
-> +   address translations after the host has programmed the BAR base address.
-> +   Endpoint function drivers can check this capability via the
-> +   dynamic_inbound_mapping EPC feature bit.
-> +
-> +   When pci_epf_bar.use_submap is set, the endpoint function driver is
-> +   requesting BAR subrange mapping using pci_epf_bar.submap. This requires
-> +   the EPC to advertise support via the subrange_mapping EPC feature bit.
-> +
-> +   If the EPF driver wants to program inbound subrange mappings that are
-> +   based on the BAR base address programmed by the host during enumeration,
-> +   it needs to call pci_epc_set_bar() twice for the same BAR (requires
-> +   dynamic_inbound_mapping): first with use_submap cleared to configure the
-> +   BAR size, then after the PCIe link is up and the host enumerates the
-> +   endpoint and programs the BAR base address, again with use_submap set.
+> Since that is technically a different feature, independent of this
+> feature, so it deserves its own patch.
 
-"If the EPF driver wants to ..."
-
-Here you have phrased it in a way where it almost seems like this is an
-alternative way that you could use this feature.
-
-But in reality, dw_pcie_ep_ib_atu_addr() will return an error if
-dw_pcie_ep_read_bar_assigned() does not return an assigned PCI address.
-
-So perhaps write it something like:
-"When an EPF driver wants to make use of the inbound subrange mapping
-feature, it requires that the BAR base address has been programmed by
-the host during enumeration. Thus, it needs to ..."
+The commit message for that separate patch should mention that the reason
+why there are no code changes when exposing/enabling support for the
+dynamic_inbound_mapping feature, is because the actual code changes to the
+the DWC driver already in commit 4284c88fff0e ("PCI: designware-ep: Allow
+pci_epc_set_bar() update inbound map address").
 
 
-> +
-> +   Note that in this flow, the EPF driver must not call pci_epc_clear_bar()
-> +   between the two pci_epc_set_bar() calls, because clearing the BAR can
-> +   clear/disable the BAR register or BAR decode on the endpoint while the
-> +   host still expects the assigned BAR address to remain valid.
-
-"Note that in this flow, ..."
-
-This also somehow sounds like this is an alternative way, when it is the
-only way.
-
-Perhaps simply something like:
-"Note that when making use of the inbound subrange mapping feature,
-the EPF driver must not call pci_epc_clear_bar() ..."
-
-
-With that fixed, this looks good to me:
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
+Kind regards,
+Niklas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
