@@ -2,71 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60AEDD207B7
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jan 2026 18:16:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0C5CD2072C
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jan 2026 18:12:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 02BA3C8F275;
-	Wed, 14 Jan 2026 17:16:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6593BC8F270;
+	Wed, 14 Jan 2026 17:12:19 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43968C8F26F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4C45AC8F26F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jan 2026 16:38:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A323408E4;
- Wed, 14 Jan 2026 16:38:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80489C4CEF7;
- Wed, 14 Jan 2026 16:38:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768408730;
- bh=3O46Pj7m8kkRm5o6FCiKeQjNffkaPKNOyTPfHDTuyTM=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=rX3NXa+ZIaH3nFwhK4UUCK7Tl+BkdrM7lAWylErEBVX8n4+UiQ4G9G3ZhsgmdM3kk
- vN8PXFoQ+O9dscO4bKZ3M3QWmyyXJXre63JLVYqnzZ2NTakKl+OU0g0oj8iEefzjr3
- mgengyjgYNSq8vnqi/nIcJdbHx722ODGLyY8W8WF4jD1J44QYJo3q7W39OBPor2Wnp
- mtMB1YriAKD7oAMO5DENXpRw1aefTtMKh3nXtSKTmIbbZIhuLzX4/xt9jCGtUk6R4U
- 0bsnyWbYeo3xcvSjczR5clmShq482fExnV7dzxGfD2Q4FGvs3AgYwtJ9KizIe5aoQq
- liWKl6bOegsTQ==
-Date: Wed, 14 Jan 2026 16:38:39 +0000
-From: Daniel Thompson <danielt@kernel.org>
-To: Marcos Paulo de Souza <mpdesouza@suse.com>
-Message-ID: <aWfGj1eQhj2fAWB-@aspen.lan>
-References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
- <aVuz_hpbrk8oSCVC@aspen.lan> <aVvF2hivCm0vIlfE@aspen.lan>
- <a5d83903fe2d2c2eb21de1527007913ff00847c5.camel@suse.com>
- <89409a0f48e6998ff6dd2245691b9954f0e1e435.camel@suse.com>
+ Wed, 14 Jan 2026 17:12:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=iZVEm8Xn3I90+wHI7MytQ6KmTu4Lb6cFPmUPZvnv6MY=; b=kdg/Cn41mHPFQ8LySJEeTOi3sd
+ 6pj/btnlABLSKHAEQhrB13uUlT7KZ42ZGVrCXODgKyWMx4fJn1e/jZ9oV+URphGYFTeU1Y1IMCnEB
+ SBqFqyclFwzt9RHJu8Quo9LsRlzaChS0sBgQtYJgO+ZQZUXVqD0KQb0NK7QE2jzPkmXiw8qJYCgXO
+ i0HLsCsOA45wvQEzgxz6X5SlAt+ovgccgc/W71TkVp0m6GLkwTu1pSt7kVxS0j4nP+j6cyrXFvta2
+ VvDovruK0y4jBTP5v2uFq8vIhwbYmmYkPoubYf76zgZgcG52ySx5dE0nk5fqVGaGB0moQZChhdnhD
+ cFE9o8xg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39000)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vg4Pc-000000000QS-3uZj;
+ Wed, 14 Jan 2026 17:12:05 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vg4PZ-000000001p7-3qmo; Wed, 14 Jan 2026 17:12:02 +0000
+Date: Wed, 14 Jan 2026 17:12:01 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Marek Vasut <marex@nabladev.com>
+Message-ID: <aWfOYf_YmJFUakvP@shell.armlinux.org.uk>
+References: <20260114081809.12758-1-marex@nabladev.com>
+ <aWfEXX1iMHy3V5sK@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <89409a0f48e6998ff6dd2245691b9954f0e1e435.camel@suse.com>
-X-Mailman-Approved-At: Wed, 14 Jan 2026 17:16:04 +0000
-Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
- kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
- Michael Ellerman <mpe@ellerman.id.au>, Breno Leitao <leitao@debian.org>,
- Jiri Slaby <jirislaby@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, sparclinux@vger.kernel.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Richard Weinberger <richard@nod.at>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-serial@vger.kernel.org,
+In-Reply-To: <aWfEXX1iMHy3V5sK@shell.armlinux.org.uk>
+Cc: linux-kernel@vger.kernel.org, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Krzysztof Kozlowski <krzk@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Petr Mladek <pmladek@suse.com>, Jacky Huang <ychuang3@nuvoton.com>,
- John Ogness <john.ogness@linutronix.de>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
- Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
- Nicholas Piggin <npiggin@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, Tony Luck <tony.luck@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
- Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
- "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 00/19] printk cleanup - part 3
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next,
+ PATCH] net: stmmac: stm32: Do not suspend downed interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,27 +68,84 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 13, 2026 at 09:32:33PM -0300, Marcos Paulo de Souza wrote:
-> I talked with Petr Mladek and it would need to rework the way that we
-> register a console, and he's already working on it. For now I believe
-> that we could take a look in all the patches besides the last one that
-> currently breaks the earlycon with kgdb and maybe other usecases.
->
-> Sorry for not catching this issue before. I'll use kgdb next time to
-> make sure that it keeps working :)
+On Wed, Jan 14, 2026 at 04:29:17PM +0000, Russell King (Oracle) wrote:
+> On Wed, Jan 14, 2026 at 09:17:54AM +0100, Marek Vasut wrote:
+> > If an interface is down, the ETHnSTP clock are not running. Suspending
+> > such an interface will attempt to stop already stopped ETHnSTP clock,
+> > and produce a warning in the kernel log about this.
+> > 
+> > STM32MP25xx that is booted from NFS root via its first ethernet MAC
+> > (also the consumer of ck_ker_eth1stp) and with its second ethernet
+> > MAC downed produces the following warnings during suspend resume
+> > cycle. This can be provoked even using pm_test:
+> > 
+> > "
+> > $ echo devices > /sys/power/pm_test
+> > $ echo mem > /sys/power/state
+> > ...
+> > ck_ker_eth2stp already disabled
+> > ...
+> > ck_ker_eth2stp already unprepared
+> > ...
+> > "
+> > 
+> > Fix this by not manipulating with the clock during suspend resume
+> > of interfaces which are downed.
+> 
+> I don't think this is the correct fix. Looking back at my commits:
+> b51f34bc85e3 net: stmmac: platform: legacy hooks for suspend()/resume() methods
+> 07bbbfe7addf net: stmmac: add suspend()/resume() platform ops
+> 
+> I think I changed the behaviour of the suspend/resume callbacks
+> unintentionally. Sorry, I don't have time to complete this email
+> (meeting.)
 
-As I understood things the bug was in earlycon rather then kgdb.
+I think I'm going to start over, trying to figure out what happened.
 
-It was picked up by the kgdbtest suite since kgdb does some cool things
-with earlycon (thanks to Doug Anderson) so I added a few earlycon tests
-to the kgdbtest suite. However it wasn't kgdb itself that failed here.
+c7308b2f3d0d net: stmmac: stm32: convert to suspend()/resume() methods
 
-So... if you want to run https://gitlab.com/daniel-thompson/kgdbtest
-then certainly feel free but its probably less effort just to include
-a couple of earlycon checks in your testing.
+Did the conversion, and it always called stm32_dwmac_clk_disable() and
+where it exists, dwmac->ops->suspend() on suspend, provided
+stmmac_suspend() returns zero (which it will do, even if the interface
+is down. On resume, it always calls dwmac->ops->resume() and
+stm32_dwmac_init() before calling stmmac_resume().
 
+The conversion added hooks into ny new ->suspend() and ->resume()
+methods to handle the stm32_dwmac_clk_disable(), dwmac->ops->suspend(),
+dwmac->ops->resume() and stm32_dwmac_init() steps.
 
-Daniel.
+However, in 07bbbfe7addf I failed to realise that, in order to keep
+things compatible with how stuff works, we need to call
+priv->plat->suspend() even if the interface is down. This is where
+the bug is, not in your glue driver.
+
+Please try this:
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index a8a78fe7d01f..2acbb0107cd3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -8066,7 +8066,7 @@ int stmmac_suspend(struct device *dev)
+ 	u32 chan;
+ 
+ 	if (!ndev || !netif_running(ndev))
+-		return 0;
++		goto suspend_bsp;
+ 
+ 	mutex_lock(&priv->lock);
+ 
+@@ -8106,6 +8106,7 @@ int stmmac_suspend(struct device *dev)
+ 	if (stmmac_fpe_supported(priv))
+ 		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
+ 
++suspend_bsp:
+ 	if (priv->plat->suspend)
+ 		return priv->plat->suspend(dev, priv->plat->bsp_priv);
+ 
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
