@@ -2,104 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4825AD1FF1F
-	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jan 2026 16:51:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57988D2021B
+	for <lists+linux-stm32@lfdr.de>; Wed, 14 Jan 2026 17:16:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 138EDC8F270;
-	Wed, 14 Jan 2026 15:51:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAAB1C8F270;
+	Wed, 14 Jan 2026 16:16:42 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EC49C8F261
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CAECC8F261
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jan 2026 15:51:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1E5D34442B
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jan 2026 15:51:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0BFAC2BCB0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jan 2026 15:51:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768405885;
- bh=o+OEjagxl3Dsp9tfzVfdkpH30i7BI82gz0LPNnSdpig=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=FY1rCh7BTXtSgy430K1ImGXJbRWQzGMOIBH1z9f+jJLEcsC6lEv7EHrApo9FSgliZ
- y0vYkLCGAkjw4diqSoI/z84wIWno1qymsG+z8s8CZ6aSqUZ0RnZelrZf1g+YX7mLLh
- qSWBQht+cKzp68EJB5t86KporBJBJ9GcgcbofoXC29jfh+aE38gIMQRAmoTLZ8csqL
- 8CiGMfRZ1AThkmhU05KnfGCf7/WLdpvIhIRUDlq1p2+Vt99cFPyGWWI0cRZ5k49u3b
- 5UN6n7pRVDOGM0VuPvT8IyO5aPhYhSk4RCI6Pkkop+R+uEJMM/8YQut2l3/OrjM2ix
- G2m18gRBN2lZw==
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-59b7b27ebf2so5696315e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 14 Jan 2026 07:51:24 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWOqJV+JpEe1TB87SUD2r3kQGspZjURaPtt8mpssP8a1MCH94AvOpREuPcgR5aCzFSRALZVBH/PuywK2w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwIfe0ohV0wn3xE7CvHYcfR7IzNTe0T9i3eA111HU4OZL+wpQMB
- XBpnOMFcx8ZLiCVOWTvNstGWcVusa+vaslT7QtCFodPD9xT7Afrk4wQdtcqilLyu2GO4ZhRckIL
- s7vWuJ9quxJ736VhWF0glNrXKpT251fPqIFJbr0mm6g==
-X-Received: by 2002:a05:6512:2316:b0:59b:8472:48ca with SMTP id
- 2adb3069b0e04-59ba0f63088mr1131918e87.12.1768405882412; Wed, 14 Jan 2026
- 07:51:22 -0800 (PST)
+ Wed, 14 Jan 2026 16:16:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=jDEZj2tQ/lWE441pwvzkJV5WL54sUoxA3nZX64TSvWs=; b=UglqIB+1S2BMn0y/oTec/Afhcf
+ yhA5dUCtFPFLb/p3Om/n3BSg5GuABbW0u7WsnGhQfh25a6uF/CH6zjb+LpEDzP7RQBsKWjKoQKTcU
+ FAVu2lNhugMS8uZCf/X+urcd9gkmUMfVIfWEreUbEXt+/dWDSfUh38OEszcOlHG1Mi0mmS0DT5AT3
+ B/Z1SSOSOcstJIDGAWbP8iEIvaxp7CLyuKt3sTuW9g6ZQLRNbwgqP+8VE6On97ZJxB8wUzIcCbDuW
+ ga+f5WTl2BgzLwOknYY4qVSP4BmbGvyj/PpVGJTlBgnscypeUWszsgGhB9vvttXMcWfGHXN6nnfiP
+ AgGXLAQQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:52560)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vg3Xi-000000000M3-0AFG;
+ Wed, 14 Jan 2026 16:16:22 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vg3Xd-000000001mY-0K7W; Wed, 14 Jan 2026 16:16:17 +0000
+Date: Wed, 14 Jan 2026 16:16:16 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: SHUKLA Mamta <mamta.shukla@leica-geosystems.com>
+Message-ID: <aWfBUPxvykOdygLO@shell.armlinux.org.uk>
+References: <20260108-remove_ocp-v3-0-ea0190244b4c@kernel.org>
+ <20260108-remove_ocp-v3-1-ea0190244b4c@kernel.org>
+ <aV_W2yLmnHrTvbTP@shell.armlinux.org.uk>
+ <a2dc72ae-0798-4baa-b4d2-fa66c334576a@kernel.org>
+ <c18fbdf0-b8e2-4fa7-8bb7-a3fed8960970@leica-geosystems.com>
 MIME-Version: 1.0
-References: <20260112-qcom-sa8255p-emac-v6-0-86a3d4b2ad83@oss.qualcomm.com>
- <20260112-qcom-sa8255p-emac-v6-2-86a3d4b2ad83@oss.qualcomm.com>
- <a2a610a3-aead-4e85-8a4c-7b83ccf276dc@lunn.ch>
- <CAMRc=Mf8TTTcU9A3gc_LQF3Ow6Ww0omVJH6x-DQEnOSPXfaUQw@mail.gmail.com>
- <7865a1fb-91bb-4aec-ab3a-b53050d992e8@lunn.ch>
-In-Reply-To: <7865a1fb-91bb-4aec-ab3a-b53050d992e8@lunn.ch>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Wed, 14 Jan 2026 16:51:10 +0100
-X-Gmail-Original-Message-ID: <CAMRc=Md-z9+RdVPB9kKeVwWWJni7se7HfbhwGmvQ9Wd3CwJqeQ@mail.gmail.com>
-X-Gm-Features: AZwV_QiTx85beob9IcsRkXcH-FzLKf11MkfoXrcsCiRgQ4kLBhgc1kcRpkaBWZY
-Message-ID: <CAMRc=Md-z9+RdVPB9kKeVwWWJni7se7HfbhwGmvQ9Wd3CwJqeQ@mail.gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Drew Fustini <fustini@kernel.org>, s32@nxp.com,
- Heiko Stuebner <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
- imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Guo Ren <guoren@kernel.org>,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
- linux-amlogic@lists.infradead.org, Shawn Guo <shawnguo@kernel.org>,
- linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
- Rob Herring <robh@kernel.org>, Drew Fustini <dfustini@tenstorrent.com>,
- Shuang Liang <liangshuang@eswincomputing.com>,
- Samuel Holland <samuel@sholland.org>, sophgo@lists.linux.dev,
- Kevin Hilman <khilman@baylibre.com>, Chen Wang <unicorn_wang@outlook.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Magnus Damm <magnus.damm@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-rockchip@lists.infradead.org, Jose Abreu <joabreu@synopsys.com>,
- Clark Wang <xiaoning.wang@nxp.com>, Linux Team <linux-imx@nxp.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Emil Renner Berthing <kernel@esmil.dk>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Samin Guo <samin.guo@starfivetech.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-arm-msm@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
- David Wu <david.wu@rock-chips.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Maxime Ripard <mripard@kernel.org>, Minda Chen <minda.chen@starfivetech.com>,
- "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
- Shangjuan Wei <weishangjuan@eswincomputing.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-sunxi@lists.linux.dev,
- linux-mips@vger.kernel.org, Keguang Zhang <keguang.zhang@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Zhi Li <lizhi2@eswincomputing.com>, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Inochi Amaoto <inochiama@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Matthew Gerlach <matthew.gerlach@altera.com>,
- "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH RESEND net-next v6 2/7] net: stmmac:
- qcom-ethqos: use generic device properties
+Content-Disposition: inline
+In-Reply-To: <c18fbdf0-b8e2-4fa7-8bb7-a3fed8960970@leica-geosystems.com>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ GEO-CHHER-bsp-development <bsp-development.geo@leica-geosystems.com>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Dinh Nguyen <dinguyen@kernel.org>,
+ Eric Dumazet <edumazet@google.com>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH v3 1/3] net: stmmac: socfpga: add call to
+ assert/deassert ahb reset line
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,31 +73,107 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-T24gVHVlLCBKYW4gMTMsIDIwMjYgYXQgMTE6MDbigK9QTSBBbmRyZXcgTHVubiA8YW5kcmV3QGx1
-bm4uY2g+IHdyb3RlOgo+Cj4gT24gVHVlLCBKYW4gMTMsIDIwMjYgYXQgMDE6MzY6NTNQTSArMDEw
-MCwgQmFydG9zeiBHb2xhc3pld3NraSB3cm90ZToKPiA+IE9uIE1vbiwgSmFuIDEyLCAyMDI2IGF0
-IDI6NDXigK9QTSBBbmRyZXcgTHVubiA8YW5kcmV3QGx1bm4uY2g+IHdyb3RlOgo+ID4gPgo+ID4g
-PiBPbiBNb24sIEphbiAxMiwgMjAyNiBhdCAxMToxNTo0MUFNICswMTAwLCBCYXJ0b3N6IEdvbGFz
-emV3c2tpIHdyb3RlOgo+ID4gPiA+IEZyb206IEJhcnRvc3ogR29sYXN6ZXdza2kgPGJyZ2xAa2Vy
-bmVsLm9yZz4KPiA+ID4gPgo+ID4gPiA+IEluIG9yZGVyIHRvIGRyb3AgdGhlIGRlcGVuZGVuY3kg
-b24gQ09ORklHX09GLCBjb252ZXJ0IGFsbCBkZXZpY2UgcHJvcGVydHkKPiA+ID4gPiBnZXR0ZXJz
-IGZyb20gT0Ytc3BlY2lmaWMgdG8gZ2VuZXJpYyBkZXZpY2UgcHJvcGVydGllcyBhbmQgc3RvcCBw
-dWxsaW5nCj4gPiA+ID4gaW4gYW55IGxpbnV4L29mLmggc3ltYm9scy4KPiA+ID4KPiA+ID4gSXMg
-dGhlIGludGVudGlvbiB0byByZWFkIHRoZXNlIHByb3BlcnRpZXMgZnJvbSBBQ1BJIHRhYmxlcz8K
-PiA+ID4KPiA+Cj4gPiBOby4gT3RoZXIgdGhhbiBhIGNvdXBsZSBwcm9wZXJ0eSBnZXR0ZXJzIHdo
-aWNoIGNhbiB1c2UgdGhlIGZ3bm9kZQo+ID4gYWJzdHJhY3Rpb24sIHRoZXJlJ3Mgbm90aGluZyBo
-ZXJlIHRoYXQgcmVxdWlyZXMgdGhlIE9GIGRlcGVuZGVuY2UuCj4KPiBTbyB3aGF0IGlzIHRoZSBu
-ZWVkIGZvciBub3QgdXNpbmcgT0Y/IFdoeSBkbyB5b3Ugd2FudCB0aGlzIHBhdGNoPwo+CgpXZSd2
-ZSBoYWQgYSBoaWdoZXItbGV2ZWwgYWJzdHJhY3Rpb24gZm9yIE9GIG5vZGVzIGZvciB5ZWFycyBu
-b3cuIFNpbmNlCkknbSBhbHJlYWR5IHRvdWNoaW5nIHRoZSBkcml2ZXIsIGl0IG1ha2VzIHNlbnNl
-IHRvIHN3aXRjaCB0byB1c2luZyBpdCwKYXMgT0YtY2VudHJpYyBBUElzIGFyZSBub3QgcmVjb21t
-ZW5kZWQgaW4gbmV3IGNvZGUgZXZlbiBpZiBpdCdzIGFuCk9GLW9ubHkgZHJpdmVyLgoKQmFydG9z
-egpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+On Wed, Jan 14, 2026 at 02:09:27PM +0000, SHUKLA Mamta wrote:
+> Hello Dinh,
+> 
+> On Arria10 socfpga, both reset lines i.e stmmac_ocp_rst and stmmac_rst 
+> are needed since EMAC Controller on Arria10 supports Tx Rx FIFO with ECC
+> 
+> RAM and as per datasheet[1]:
+> 
+> `An EMAC ECC RAM reset asserts a reset to both the memory and the 
+> multiplexed EMAC bus interface clock, ap_clk. You should ensure that 
+> both the EMAC ECC RAM and the EMAC Module resets are deasserted before 
+> beginning transactions. Program the emac*ocp bits and the emac* bits in 
+> the per0modrst register of the Reset Manager to deassert reset in the 
+> EMAC's ECC RAM and the EMAC module, respectively.`
+> 
+> [1]https://docs.altera.com/r/docs/683711/22.3/intel-arria-10-hard-processor-system-technical-reference-manual/taking-the-ethernet-mac-out-of-reset
+
+Let's look at exactly what this is saying.
+
+"An EMAC ECC RAM reset asserts a reset to both the memory and the
+multiplexed EMAC bus interface clock, ap_clk."
+
+1. Asserting the EMAC ECC RAM reset asserts reset to two items:
+    - memory
+    - the EMAC bus interface clock, ap_clk.
+   This is not referring to any other modules, but it does suggest that
+   the bus clock will be affected in some way, potentially stopping the
+   clock.
+
+"You should ensure that both the EMAC ECC RAM and the EMAC Module resets
+are deasserted before beginning transactions."
+
+2. This states that both resets (EMAC ECC RAM and EMAC module) need to
+   be deasserted in order to access the EMAC. This is logical.
+
+   If the EMAC ECC RAM reset is asserted, then, because it affects the
+   bus interface clock, this may mean that accesses over the APB bus
+   can not be performed because there could be no clock to allow them
+   to complete. Thus attempting an access will probably stall the
+   processor. (We've seen SoCs where this happens.)
+
+   As having the DWMAC reset asserted means that the entire DWMAC
+   hardware would be held in reset, including the bus interface,
+   meaning that it will not respond to accesses. Whether that also
+   hangs the processor is questionable, because APB has error reporting.
+
+"Program the emac*ocp bits and the emac* bits in the per0modrst register
+of the Reset Manager to deassert reset in the EMAC's ECC RAM and the EMAC
+module, respectively.`
+
+3. This states where the reset bits allegedly are in the register set.
+   There is a link to https://docs.altera.com/r/docs/683711/22.3/intel-arria-10-hard-processor-system-technical-reference-manual/module-reset-signals
+   but interestingly, the per0modrst (which implies per0 group) doesn't
+   list emac*ocp resets. In fact, there is only one reference to "ocp"
+   on that web page, which is in a diagram of the reset controller,
+   specifically its bus interface.
+
+So, the quoted section doesn't state anything about the requirements for
+resetting the dwmac core.
+
+What it does state is that both resets need to be deasserted before any
+access is made, which is reasonable.
+
+> OTOH, we can't have both scp and ahb rst together while setting phy 
+> mode, since they are basically same reset lines and having both leads to 
+> warning:
+
+So it seems that you actually have a single reset bit, and you have
+that represented as a single shared reset - shared between your
+"stmamc_rst" and "stmmac_ocp_rst".
+
+I notice Documentation/devicetree/bindings/net/altr,socfpga-stmmac.yaml
+doesn't describe the resets, but has:
+  # TODO: Determine how to handle the Arria10 reset-name, stmmaceth-ocp, that
+  # does not validate against net/snps,dwmac.yaml.
+
+as dwmac describes at least one reset between one called "stmmaceth"
+and the other called "ahb".
+
+The only possibility I see for these "EMAC ECC RAM" resets are in
+Table 25.  RAM Clear Group, Generated Module Resets, there's a bunch
+of signals described there "emacN(tx|rx)_sec_ram_rst_n, and that
+table suggests that these resets are asserted and deasserted on
+cold and warm system level resets.
+
+Given that there seems to be no way for software to control these
+EMAC ECC RAM resets, they seem to be outside the realm of needing
+to be handled within the driver, and also should not be described
+in DT.
+
+Maybe I missed something?
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
