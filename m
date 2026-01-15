@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C8A43D2CEDC
+	by mail.lfdr.de (Postfix) with ESMTPS id E2679D2CEDF
 	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jan 2026 08:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50AC5C8F298;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EDE6C8F29A;
 	Fri, 16 Jan 2026 07:08:31 +0000 (UTC)
-Received: from mail-wr1-f66.google.com (mail-wr1-f66.google.com
- [209.85.221.66])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5DB41C87ED5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE98BC0693F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 11:05:55 +0000 (UTC)
-Received: by mail-wr1-f66.google.com with SMTP id
- ffacd0b85a97d-432d2670932so671731f8f.2
+ Thu, 15 Jan 2026 12:13:06 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-47f5c2283b6so5175515e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 03:05:55 -0800 (PST)
+ Thu, 15 Jan 2026 04:13:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1768475155; x=1769079955;
+ d=suse.com; s=google; t=1768479186; x=1769083986;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=AuZzUvIQYamq4W1YoLrzX7y0En5/TpcBTyFE7gx3A0A=;
- b=Sv3DLdqYyR+cL8ljfcC10TpQwu4f2cagjPx47VsV4b3MaZjUDuFNiIKskhAyxkD+r8
- xjTZJk1Uesutf2Jj7GvnY8vc61JxBISva5q9m4DP4ljDxiNTLIKRv/za5LnbeAxV+wXN
- ICICjFwC0/XKs64oAUX2nWwuRZHK007/8JqnrORhYqHtEgDxNgYZWI7hfINInSNnr1SU
- 3AzJRw7aQsfd1vzjwv9+s2NquF89i3NxCakFil+2hLgbDrII8r5N8eLpE/b07+sOYH4o
- Gf0pjApGLbGjrG+ve3KLvg8tyJTLLyf3pPx79/ZHqFrfbzLDSH3/zaPZqtpB/g4nwSVB
- hKzA==
+ bh=tARhp8b6WpUCQdTEvi4pG8l7ncFl190/VBWtO1OWxSE=;
+ b=YfDNhhIN53gUOQRrjFugzs6/b2I169jpvxwlmqM/XAnomHeNI40HcAqNEPKdt5qniI
+ NtJ+uoVcj0kRmOLNHzG0f1qHzd7uT0uKY6pVRrRLJBGgVXrMSEQn6TZdqd4qqwNyhiea
+ nu9DKKsCALkuBNWvJOxyv2h5OvJyDOCJDU+3PhYpSCgn3BGeOmwN8CHuslo6QZvtUH9I
+ XOFmxBDWg6mgP+36gHvqdr50ypIyPhDWFpQh4rd/OJt94Xokn7JMnwVRnIX+SLq8hZhv
+ BCuXhwDZZlqMpe03lW4VUeZ6l1fELkAtVcivsGQdtyvyfL7SJ1e4FnDIinQS3RuxZb24
+ +5tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768475155; x=1769079955;
+ d=1e100.net; s=20230601; t=1768479186; x=1769083986;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=AuZzUvIQYamq4W1YoLrzX7y0En5/TpcBTyFE7gx3A0A=;
- b=ZAM8jHiR5mIBIvEnXkQydX172do/sgUYRBPB+H1m4stW9w+HD8jdv+K3uoAuQKJckk
- MUa2tKJCnKxI9YJZ+3G4V600eoG/7iLRpg9QxI5nYR5YI6naWaQQ2mYi+JU7fnebM7Z8
- 2k6C/bojvy8tRkavpOKph3LxlGYlpD/MybfGLfnOHGwbhHt5BgWBwr/xgRavgu6spcMc
- XyA/vSVcHox99ARf8BZQPD4Ir1UOTt5VP2Ttds0HyVh06PqjtAPs9jE5xNrNMRZUCXKr
- eeAqh9tmlStCdEutdjlehS6gM2wSMgLkUYxrjDa2EVr3Ahe4Gp3cn2nDgn8xyfZpy5KW
- UdOQ==
+ bh=tARhp8b6WpUCQdTEvi4pG8l7ncFl190/VBWtO1OWxSE=;
+ b=wkOnAr4MAlVQYlVO1sPwPH+dXLsewHuwOiWhcy2ltA4qcRHkb6uswREAPqoujsKpw1
+ 5QD3csL0apbS31HnjAMXThSmBKs5vV9+r4oX9LZ53iV8jvhOmd9i6OTnYe6NaBHV9RLH
+ 0Z0lzoNJYNYqCJdwbpss69KHVPNeOAgKtcPwqT38NtSPOoxK6vPQzxnD02CbcyiyaqZg
+ cWldXraODaEiNoun5ANb5lZU71KOwH7yqtIBVyM9CpX93BvVfyw1Zh6aG2hJyOIPcMCN
+ kSkEdil3cX7/ciJ3wzH52HqucpcG9a3C6gTJ1RZe2+YgqWzLPC59vrLsIZBKzXZkeZG2
+ 39NA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWi0GTqTIpeBV1lnuFB7b0W9TcVIQjrCbG7dx3DWQVOVQEnNFrYzXDgnO3ABd6ZnSxXSvd931JmUx0Zbw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyD5dNeo5Mw/26FFmw1DEBxHaWgKPioTxdXk000TitHZHeKTI5v
- rdeDtWxMUndhpcL4IY20nP1Y2IJYniViSxjEb0TKoDXbWp+21DBNu9EuAbasjOXfUPU=
-X-Gm-Gg: AY/fxX50ItlpVnQRyszFFm4xc1pRSvaI3Wg0B9FFhL0xWQu26W6akD7hPNNyE1lJV4N
- 7U1Ufaett4UTXnPOAS2VqgsEbNuvHCld1x/jXw3gsI51X3Sa9dSMZMZVrzcGj/E4Myxu0CFV6am
- IU3ZPWUfv9tz8VX4RMYIJGG2lox/h3rWs99OVheQQNs0eIiHJ9s4hzidkMIif62UkgDYQW6dO3B
- VLjOHrHkXidAmwNew7hLkjJcG4A520c8pojF4eKcFs7J43xNTOCpis1jGCbYaICrgp7WlHzFguB
- 6paUmE7SFV07ruKag5YOWyjGx68IvJaFfKRc4sYbz4SMcCc+Brb5XUaXlzlQAOBhxzH0ozSGFF6
- k6niAJm50V65bD8qvS4RlJ4WstFQAliCaov6PigeND8z7qIQDeUYl+9QF+D5mvwb3D7xngNxTrN
- VTwCmkzpAxjVXxPQ==
-X-Received: by 2002:a05:6000:2f84:b0:430:fa9a:74d with SMTP id
- ffacd0b85a97d-4342d3912bcmr7103110f8f.24.1768475154515; 
- Thu, 15 Jan 2026 03:05:54 -0800 (PST)
+ AJvYcCU5lxMBCX4JRRBqQ11BuDC4gMDZxQH6YQxVN2qmz5YmIHzGFIQhGm0uP9iPgfhrw7XLv6zmV4gxJf/09g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy+KZztGOtMAqX2ABrxasLNdFiQjAnb35jHOMu7HGC6yztIIHWi
+ BAhLowGtzlvBr5whLEZfusRliNUBSoqPBbYctVdMLfDNJlNFZT/s+TXpUvu/EFNBzwM=
+X-Gm-Gg: AY/fxX6futafOXIQRAtCWwupZwqNkJ4hppd1HpxBicX59ISvSIxXeQYmP24WCqVgRPL
+ SXFtr8bYtYXYAh5lDxBgxVi9IU+u/3Nrn7Yy/OBo5wWwZwb++vMYS5OPHR4mV1q5Efjz2M0xh7e
+ fJxPBeaZq6rAD8N3CBEh4LP9vAEdztYUfq5WIKLxuXFC7pzjPELnrI7lk8DNz1YsOl02v4Nn6M0
+ c8ueNvvXm+O1gtzVCb/xsnwzf9pfOBvInp2DMjm88tCDrozz/2iv71yimMIiBHGDeKgT2woIu3o
+ B7ata40GZXp1UJv9begGiLJMBMA+L8oHJRafbQ6ZsrakCEnhCHAGF3huQFqaM0hK5yMfeOdm2pm
+ CG8HzQRPLgNhw1Zsm2hWQxWIZG99tYeHXcjy14RGYXf1VzE/lB3tFc5918+pClOY7YDz4/lIwlW
+ GOLCNp9Zl2AhzD6A==
+X-Received: by 2002:a05:600c:1c20:b0:47e:e712:aa88 with SMTP id
+ 5b1f17b1804b1-47ee712ac96mr42613125e9.31.1768479186231; 
+ Thu, 15 Jan 2026 04:13:06 -0800 (PST)
 Received: from pathway.suse.cz ([176.114.240.130])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6d909fsm5297949f8f.31.2026.01.15.03.05.52
+ 5b1f17b1804b1-4801bc3e57fsm22590935e9.5.2026.01.15.04.13.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jan 2026 03:05:53 -0800 (PST)
-Date: Thu, 15 Jan 2026 12:05:51 +0100
+ Thu, 15 Jan 2026 04:13:05 -0800 (PST)
+Date: Thu, 15 Jan 2026 13:13:02 +0100
 From: Petr Mladek <pmladek@suse.com>
 To: Marcos Paulo de Souza <mpdesouza@suse.com>
-Message-ID: <aWjKD4jv8CySV0Rj@pathway.suse.cz>
+Message-ID: <aWjZzuY31bg95jiy@pathway.suse.cz>
 References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
- <20251227-printk-cleanup-part3-v1-10-21a291bcf197@suse.com>
+ <20251227-printk-cleanup-part3-v1-11-21a291bcf197@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251227-printk-cleanup-part3-v1-10-21a291bcf197@suse.com>
+In-Reply-To: <20251227-printk-cleanup-part3-v1-11-21a291bcf197@suse.com>
 X-Mailman-Approved-At: Fri, 16 Jan 2026 07:08:29 +0000
 Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
  kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
@@ -88,8 +88,7 @@ Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
  Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
  Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
  Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Laurentiu Tudor <laurentiu.tudor@nxp.com>, Tony Luck <tony.luck@intel.com>,
+ linux-arm-kernel@lists.infradead.org, Tony Luck <tony.luck@intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Douglas Anderson <dianders@chromium.org>,
  "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
@@ -97,7 +96,7 @@ Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
  Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
  Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
  "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 10/19] fs: pstore: platform: Migrate to
+Subject: Re: [Linux-stm32] [PATCH 11/19] powerpc: kernel: udbg: Migrate to
  register_console_force helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -115,62 +114,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat 2025-12-27 09:16:17, Marcos Paulo de Souza wrote:
+On Sat 2025-12-27 09:16:18, Marcos Paulo de Souza wrote:
 > The register_console_force function was introduced to register consoles
 > even on the presence of default consoles, replacing the CON_ENABLE flag
 > that was forcing the same behavior.
 > 
 > No functional changes.
+> 
+> Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
 
-> --- a/fs/pstore/platform.c
-> +++ b/fs/pstore/platform.c
-> @@ -418,10 +418,10 @@ static void pstore_register_console(void)
->  		sizeof(pstore_console.name));
->  	/*
->  	 * Always initialize flags here since prior unregister_console()
-> -	 * calls may have changed settings (specifically CON_ENABLED).
-> +	 * calls may have changed settings.
->  	 */
-> -	pstore_console.flags = CON_PRINTBUFFER | CON_ENABLED | CON_ANYTIME;
-> -	register_console(&pstore_console);
-> +	pstore_console.flags = CON_PRINTBUFFER | CON_ANYTIME;
+LGTM, nice cleanup!
 
-As the original comment suggests, this was done primary because
-of CON_ENABLED flag. Otherwise, the console was not registered again.
-
-register_console() might remove CON_PRINTBUFFER when there was
-a boot console and the newly registered console will get associated
-with /dev/console. But I consider this a corner case. Other console
-drivers ignore this scenario.
-
-I suggest to define the two flags statically in
-struct console pstore_console definition as it is done by
-other console drivers. Remove this explicit dynamic assigment.
-And add the following into the commit message:
-
-<proposal>
-Define the remaining console flags statically in the structure definition
-as it is done by other console drivers.
-
-The flags were re-defined primary because of the CON_ENABLED flag.
-Otherwise, the re-registration failed.
-
-The CON_PRINTBUFFER might get cleared when a boot console was registered
-and the pstrore console got associated with /dev/console. In this
-case, the pstore console would not re-play the entire ring buffer
-on re-registration. But it is a corner case. And it actually might
-be a desired behavior.
-</proposal>
-
-Otherwise, the next generations of kernel developers might think that
-the re-assigment was there because of CON_PRINTBUFFER flag.
-And it might cause non-necessary headaches ;-)
-
-
-> +	register_console_force(&pstore_console);
->  }
->  
->  static void pstore_unregister_console(void)
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 
 Best Regards,
 Petr
