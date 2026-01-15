@@ -2,49 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0184AD2A71C
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jan 2026 03:58:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71858D2CED3
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jan 2026 08:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C21B1C8F290;
-	Fri, 16 Jan 2026 02:58:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11350C8F28E;
+	Fri, 16 Jan 2026 07:08:31 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 032F6C8F290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 253EDC8F274
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 16 Jan 2026 02:58:56 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C331C43300;
- Fri, 16 Jan 2026 02:58:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4182C116D0;
- Fri, 16 Jan 2026 02:58:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768532334;
- bh=J/VRZLz5Y13tzcUGlFZbC7tPCdmM0aLjt2QZN4qLbrg=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=FdOT9TPHU+LhbSrLGTtlmmXFRb1e6bgdCDXom0+7F83Nhzdx6GFQHbHoylT0WRGhY
- 3vMt2nNaJi45xR+kJ2+XJtImNvh78p9oakYeN86wlMKpA7MvPvL4uo+5mrEJhJ6Lul
- /OUfOOLRHeEZZgXKS1wojHxAezR6vin9l7vDm6r693cNm9+oUpKs2qUO5/8pjyJkyK
- rTHvDrxtGqo9p/M3HlKefCnRkiqpfb8QFjA08pSNQ+aDQKMTmKqjdYN731LjtAe09N
- f8rpw+Bqo1v9arayO+ZjUyuMTbvS3iKqICfyMJXr6Jz6m4NZmOrUnfR8ffVqWuQ6oY
- zkDxxmGBLUocQ==
-From: Jakub Kicinski <kuba@kernel.org>
-To: rmk+kernel@armlinux.org.uk
-Date: Thu, 15 Jan 2026 18:58:52 -0800
-Message-ID: <20260116025852.354716-1-kuba@kernel.org>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <E1vg4wc-00000003SGl-1dZi@rmk-PC.armlinux.org.uk>
-References: <E1vg4wc-00000003SGl-1dZi@rmk-PC.armlinux.org.uk>
+ Thu, 15 Jan 2026 10:16:36 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-47ee2715254so3279435e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 15 Jan 2026 02:16:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1768472195; x=1769076995;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=zwLrvsF0GMvPSCBeAjAWQZcmbWMJVYh05GZu4CqMmyk=;
+ b=TF9tpKTMMWxRuGevDP3Bbx0dpGys89CPFIfpGsaJNxXjDLPdLF8/S6jr5HLg3eZ3Pg
+ 3FXkZ9TLV57mlAVtqsfc05jzCMApWPmiqE1xRr5hkssrPVB8mvQs3JkHwtJrhHfMTP4d
+ /MLxz2BgQONRTDyGdiXqmtC+8ieP6LlWNSIx3MhIpCKM2yeojIVovOduxfqmVkltLMJN
+ wdaSmVYcyTOu8KbIj9nzG5w5hduuXL2iaBRLrWCbT+Te2MIhEj7LQdNCXRDgJnmR83v5
+ W0/48NuTesyB9uvYw2I9AYWULmRWYZ74b0FBgwhcpOWI1B5sENn1wlleaDmtzYVrRP9N
+ /yzg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768472195; x=1769076995;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=zwLrvsF0GMvPSCBeAjAWQZcmbWMJVYh05GZu4CqMmyk=;
+ b=B1yk12L9cRbgmF2O82SbuLbO0oDaunXNyj5omRWhqHuHPZycyOGNBWmm3VgtrBkItK
+ +W3AXtPcKXafd2HJ5pDGj9lFOKRpFaTFqwKZyU5GQooWl0EX+px2HnVlfPTEtR0vTaSg
+ X8NM7eBN4NFFRudSgf+Q2vNeDaTglvzPfiBAFRifbnF1peINUGwxVpxFK+jcxkMIk/cP
+ 92DCu0idgZsSxIVwCSVHANAn02e9rAlrvvyxYVdMH8EfKqML38f2DcNvR625NVjzt1GO
+ Qf+0v1KG0dpodgEcTafS+E1sO/O5SeyfoiG295/2A8i8gUIt7oG2seWdm4itM4tnw3no
+ d5CQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXkUWoeyCNgR5OtCzAE9mLJF7SKUXa91YME7VJMgXlyhUD36GFHel2RVU+Q/7xuw/hflAfbjRDogZw0Tw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzzfaCejgZJ6GfDox7OV+l/x+4t7/xw3S2X95dzdOPdU1pNoO2k
+ u6Rwy8MlduogRmFgfA87s8udUJ8nYUe6d3NQIg0xv87JDr0ZQOvnOQX/EQPhDOJlmmM=
+X-Gm-Gg: AY/fxX5FObwxWjRHgzlRtVxJ/IGUqi2gVzmyqWK6IexXYyN41LaE6bbe/+4QQyWt396
+ 5jLRra+55sNV43K8IDtf1jsS4fEHC9RRuKua1HNO2rMgBCyqUF/HGVD55Wmm2I4N4aj1sszhjgn
+ TqxbKl/eXlItqb97obTHEBfAfjbxXMHZBlNuGHGpGR7TnIutk5qTpDQHuIiPy85OhLOpGHhsc5O
+ VCBD4CRvkrfxWOyUQpY2kHdrKfPog/2SvLbn5i3tJ0XvwxueLaAC6k74qH1BKXCTeNUv73zPaj5
+ 6h8dbPIl1XYAsEpM/tcHc3n1iNPpSrTrGgNifgbTwt1SJ/hOBSjcR/0wgv+U2lpqcYdj/SBNawN
+ RUNVOD1x6I7gQRtmuvPYKC1uRiobjAE9FpOST4Jazi8DUvvYSv7MJ1khZAYFOB4RH9Xdbo9l2sI
+ zc2AGYZ4NSKW2riptb6ZCHrPXl
+X-Received: by 2002:a05:600c:608c:b0:477:a246:8398 with SMTP id
+ 5b1f17b1804b1-47ee32e0829mr58296485e9.2.1768472195426; 
+ Thu, 15 Jan 2026 02:16:35 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-47ee28144aasm39739585e9.11.2026.01.15.02.16.33
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 15 Jan 2026 02:16:34 -0800 (PST)
+Date: Thu, 15 Jan 2026 11:16:31 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Marcos Paulo de Souza <mpdesouza@suse.com>
+Message-ID: <aWi-f9LBJtxGWgWs@pathway.suse.cz>
+References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
+ <20251227-printk-cleanup-part3-v1-7-21a291bcf197@suse.com>
 MIME-Version: 1.0
-Cc: konrad.dybcio@oss.qualcomm.com, andrew@lunn.ch, mohd.anwar@oss.qualcomm.com,
- edumazet@google.com, neil.armstrong@linaro.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- vkoul@kernel.org, mcoquelin.stm32@gmail.com, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [net-next,
-	12/14] net: stmmac: add support for reading inband SGMII status
+Content-Disposition: inline
+In-Reply-To: <20251227-printk-cleanup-part3-v1-7-21a291bcf197@suse.com>
+X-Mailman-Approved-At: Fri, 16 Jan 2026 07:08:29 +0000
+Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
+ kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ Shan-Chun Hung <schung@nuvoton.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+ Breno Leitao <leitao@debian.org>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, sparclinux@vger.kernel.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Richard Weinberger <richard@nod.at>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-serial@vger.kernel.org,
+ Daniel Thompson <danielt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, John Ogness <john.ogness@linutronix.de>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
+ Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
+ Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Tony Luck <tony.luck@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 07/19] drivers: netconsole: Migrate to
+ register_console_force helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,59 +114,22 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
+On Sat 2025-12-27 09:16:14, Marcos Paulo de Souza wrote:
+> The register_console_force function was introduced to register consoles
+> even on the presence of default consoles, replacing the CON_ENABLE flag
+> that was forcing the same behavior.
 
-For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
----
-net: stmmac: add support for reading inband SGMII status
+I would add "No functional changes." like you did in the other
+similar patches ;-)
 
-This commit adds support for reading link status, speed, and duplex for
-SGMII links from the RGSMII status register.
+> Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-> index 73fc56ce5e55..12fc5038d913 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+Nice clean up!
 
-[ ... ]
+Reviewed-by: Petr Mladek <pmladek@suse.com>
 
-> @@ -97,7 +107,7 @@ static void dwmac_integrated_pcs_get_state(struct phylink_pcs *pcs,
->  					   struct phylink_link_state *state)
->  {
->  	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
-> -	u32 status, lpa;
-> +	u32 status, lpa, rgsmii;
->
->  	status = readl(spcs->base + GMAC_AN_STATUS);
->
-> @@ -111,7 +121,35 @@ static void dwmac_integrated_pcs_get_state(struct phylink_pcs *pcs,
->
->  		phylink_mii_c22_pcs_decode_state(state, neg_mode, status, lpa);
->  	} else {
-> -		state->link = false;
-> +		rgsmii = field_get(spcs->rgsmii_status_mask,
-> +				   readl(spcs->rgsmii));
-> +		state->link = !!(status & GMAC_RGSMIII_LNKSTS);
-                            ^^^^^^
-
-Should this be checking rgsmii instead of status here? The status
-variable contains the GMAC_AN_STATUS register which is equivalent to
-MII_BMSR according to the comment at line 7. In BMSR, the link status
-bit is BMSR_LSTATUS (bit 2), not bit 3.
-
-GMAC_RGSMIII_LNKSTS is defined as BIT(3), which is the correct bit
-position for the RGSMII status register (matching GMAC_RGSMIIIS_LNKSTS
-in dwmac1000.h), but it appears to be applied to the wrong register
-variable.
-
-The code later uses rgsmii correctly for speed and duplex extraction.
-Was the intent to use rgsmii for the link status check as well?
-
-> +
-> +		if (state->link && neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED) {
-
-[ ... ]
+Best Regards,
+Petr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
