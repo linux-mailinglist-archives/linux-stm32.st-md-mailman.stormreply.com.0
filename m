@@ -2,59 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71032D25384
-	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jan 2026 16:15:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F04C8D2544F
+	for <lists+linux-stm32@lfdr.de>; Thu, 15 Jan 2026 16:21:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 260A5C8F285;
-	Thu, 15 Jan 2026 15:15:59 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9DD58C8F285;
+	Thu, 15 Jan 2026 15:21:40 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89BDBC87ED5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B7597C87ED5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 15:15:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QOLovP1nf5K8/XFRLq/JOQI95IJezXEIyYwgpMIfHxg=; b=RrA0c2Crm8jwm+G3tWPYeyiqT7
- zErC1h99cNML2NBK9REG2mW04hcq38xBMii0CtX5baQwyTf8qSB+aKaO+QM16CHsyH9H/x2aTuxXM
- ILfkpky1HEd40uBy+7wNq7YihR+5WgT3rnxPGL3ikENUP57iAluJPkWrrF+YrdYlpNbGPFz8tsnbm
- m2rGB7I1S1E8qmyGtbzKZZuc1Ow0GJno4sJnG6IV9aMMxUZzPXN+MAEceecT5UJxepEK9pPRiWEUf
- nTa3+MGFhxPa6YurSLP0sHO2oC5Q9T0m8M4LzafOZ69dGyIIToW9uQSqyf8XcRUdBk9k0K86Gmyfl
- UaBs1WYw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59658)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vgP4Z-000000001PW-0scZ;
- Thu, 15 Jan 2026 15:15:43 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vgP4U-000000002kl-1vG7; Thu, 15 Jan 2026 15:15:38 +0000
-Date: Thu, 15 Jan 2026 15:15:38 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <aWkEmockEyLsZKMd@shell.armlinux.org.uk>
-References: <aWfWDsCoBc3YRKKo@shell.armlinux.org.uk>
- <E1vg4w2-00000003SG5-2FH5@rmk-PC.armlinux.org.uk>
- <a91a0937-93cd-40f2-9759-8823fb08f48c@bootlin.com>
+ Thu, 15 Jan 2026 15:21:39 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8F46F6001A;
+ Thu, 15 Jan 2026 15:21:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17EBFC16AAE;
+ Thu, 15 Jan 2026 15:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768490498;
+ bh=Tt0EYm72yfv5arwvfEiESNjf8n0aJTfAVjQfOYQykeU=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QI7srDK/FhDXgZgja3pcyeu8mCCZXuUfO0oaumMkvJLpDBbxgXYV0dL86YPgf3Z0s
+ JS5xTfYR/dI+NP0Ac+z8jTX+Sk/KoKgegd40WfIvfyr6itWJ7nlEgeQVHMtujECjAA
+ 9sLrYvJuucxJeRjo3nRQzbbwEUvzk5zZVckQfEWAMZBWPinnu4Me7RXC0Nk18jOM4Q
+ V5xf/4JizZXKaU1UFVxvgUe241yU7L2jzNnBDn2MI9exJ8/7mF565LjjA5rAqffhq1
+ hA1PlVxKRt1vdrt4C8Y6ZwGZAVP2V/m7QsCY3GxHieqrNSmLUdYRDlFLKmnYwh5CLb
+ ijXqpgpnqqKoA==
+Date: Thu, 15 Jan 2026 16:21:21 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Frank Li <Frank.li@nxp.com>
+Message-ID: <aWkF6rT0Du7iJwHh@ryzen>
+References: <20260115084928.55701-1-den@valinux.co.jp>
+ <20260115084928.55701-3-den@valinux.co.jp>
+ <aWj/Sr63+hl7CBe/@lizhi-Precision-Tower-5810>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <a91a0937-93cd-40f2-9759-8823fb08f48c@bootlin.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Andrew Lunn <andrew@lunn.ch>, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- linux-phy@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 05/14] net: stmmac: add stmmac
- core serdes support
+In-Reply-To: <aWj/Sr63+hl7CBe/@lizhi-Precision-Tower-5810>
+Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, minghuan.Lian@nxp.com,
+ Koichiro Den <den@valinux.co.jp>, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
+ kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
+ hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
+ linux-arm-kernel@axis.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
+ shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
+ mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
+ s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
+ linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
+ roy.zang@nxp.com, linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
+ linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
+ heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ linux-renesas-soc@vger.kernel.org, thierry.reding@gmail.com,
+ mhiramat@kernel.org, kernel@pengutronix.de, shawnguo@kernel.org,
+ nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v8 2/5] PCI: endpoint: Add BAR subrange
+	mapping support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,29 +75,35 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 15, 2026 at 03:48:40PM +0100, Maxime Chevallier wrote:
-> Hi Russell,
+On Thu, Jan 15, 2026 at 09:52:58AM -0500, Frank Li wrote:
+> > @@ -127,6 +150,10 @@ struct pci_epf_bar {
+> >  	size_t		mem_size;
+> >  	enum pci_barno	barno;
+> >  	int		flags;
+> > +
+> > +	/* Optional sub-range mapping */
+> > +	unsigned int	num_submap;
+> > +	struct pci_epf_bar_submap	*submap;
 > 
-> On 14/01/2026 18:45, Russell King (Oracle) wrote:
-> > Rather than having platform glue implement SerDes PHY support, add it
-> > to the core driver, specifically to the stmmac integrated PCS driver
-> > as the SerDes is connected to the integrated PCS.
-> > 
-> > Platforms using external PCS can also populate plat->serdes, and the
-> > core driver will call phy_init() and phy_exit() when the administrative
-> > state of the interface changes, but the other phy methods will not be
-> > called.
-> > 
-> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> struct pci_epf_bar_submap submap[] __counted_by(num_submap);
 > 
-> Unfortunately I have no way to test. But still,
+> Not sure if use this simplify alloc/free.
 
-I am hoping Mohd Ayaan Anwar will be able to do at least some testing
-on the qcom-ethqos hardware.
+Your suggestion changes the submap from a pointer to a flexible array
+member.
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+A flexible array member must always be last in the struct,
+and you can only have one flexible array member per struct.
+
+Additionally, using a flexible array member requires the struct to
+always be allocated on the heap. You can't allocate a struct with a
+flexible array member on the stack.
+
+So I'm not sure that if your suggestion is something we want.
+
+
+Kind regards,
+Niklas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
