@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71858D2CED3
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EA51D2CED4
 	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jan 2026 08:08:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11350C8F28E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22C7DC8F290;
 	Fri, 16 Jan 2026 07:08:31 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com
+ [209.85.221.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 253EDC8F274
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5051C8F274
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 10:16:36 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-47ee2715254so3279435e9.3
+ Thu, 15 Jan 2026 10:20:04 +0000 (UTC)
+Received: by mail-wr1-f46.google.com with SMTP id
+ ffacd0b85a97d-42fb2314f52so347528f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 02:16:36 -0800 (PST)
+ Thu, 15 Jan 2026 02:20:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1768472195; x=1769076995;
+ d=suse.com; s=google; t=1768472404; x=1769077204;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=zwLrvsF0GMvPSCBeAjAWQZcmbWMJVYh05GZu4CqMmyk=;
- b=TF9tpKTMMWxRuGevDP3Bbx0dpGys89CPFIfpGsaJNxXjDLPdLF8/S6jr5HLg3eZ3Pg
- 3FXkZ9TLV57mlAVtqsfc05jzCMApWPmiqE1xRr5hkssrPVB8mvQs3JkHwtJrhHfMTP4d
- /MLxz2BgQONRTDyGdiXqmtC+8ieP6LlWNSIx3MhIpCKM2yeojIVovOduxfqmVkltLMJN
- wdaSmVYcyTOu8KbIj9nzG5w5hduuXL2iaBRLrWCbT+Te2MIhEj7LQdNCXRDgJnmR83v5
- W0/48NuTesyB9uvYw2I9AYWULmRWYZ74b0FBgwhcpOWI1B5sENn1wlleaDmtzYVrRP9N
- /yzg==
+ bh=Blw9ol92Adxv0ebGIyoRpKSiGhl8JOSAW1An3S4C+Hw=;
+ b=eKTCC8VxuZAJFAFoSnixjyRyJ1rPS21mvodPUqyLQOlTrVurH93kVjcZN5TgB9sfNP
+ mfFdUOaexn97RriwEAFRL3BVf1uHiczH91uIpSoDKr69cHYfKSPALoyEM//4rc6u7yi5
+ uaTFfaEzNXRml67RmuAtMupdH0u7fGsJSfKdytjT/gzoiJVM2LZQzBrZlX574M08yjGA
+ 7GFU33DVPVamfcB/NqkBiWgvZ9boVAMI0sE5b5qatsYukqBcFQy6AHm4Z60JjCnqsDIG
+ 4iYMVYweLHgwXVTCxmMIhGp5x3pcJ803ci4MUHDK33b87UJXQgWXc+/VsKfBoGwFd0AO
+ Q3sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768472195; x=1769076995;
+ d=1e100.net; s=20230601; t=1768472404; x=1769077204;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=zwLrvsF0GMvPSCBeAjAWQZcmbWMJVYh05GZu4CqMmyk=;
- b=B1yk12L9cRbgmF2O82SbuLbO0oDaunXNyj5omRWhqHuHPZycyOGNBWmm3VgtrBkItK
- +W3AXtPcKXafd2HJ5pDGj9lFOKRpFaTFqwKZyU5GQooWl0EX+px2HnVlfPTEtR0vTaSg
- X8NM7eBN4NFFRudSgf+Q2vNeDaTglvzPfiBAFRifbnF1peINUGwxVpxFK+jcxkMIk/cP
- 92DCu0idgZsSxIVwCSVHANAn02e9rAlrvvyxYVdMH8EfKqML38f2DcNvR625NVjzt1GO
- Qf+0v1KG0dpodgEcTafS+E1sO/O5SeyfoiG295/2A8i8gUIt7oG2seWdm4itM4tnw3no
- d5CQ==
+ bh=Blw9ol92Adxv0ebGIyoRpKSiGhl8JOSAW1An3S4C+Hw=;
+ b=oeaMS+Auxpa75L+evY9xCrfImSiJ8A8hEMyQVdg7pyHJt9YUKSaqDnxPCsn5nXeuKI
+ CtZByXqMVa+n8rFdbjEhou1KjvTNZAm7HBeps/q5KPdNOyG0n/+sPa+/wvSpYQR7KH5o
+ nwoJW6HmAR5OHjc7olFlbaHN/bt1rma0Y+bqgacxAdROCLXbI67HWubFdG5kjxzJOsXq
+ cZrKXVTBdUhgkIP1Yvoe96HUCY8Kgd99fZoBPeANnu5ky2+gR8oQjfxXpwr1OftF3F/q
+ KezxHqs73uRHQ1AfQ54YPcx3+KhCLxRaNUOLQaptSXT+EP09q3BQNhHRoS6BLEytLcJ5
+ o5vg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXkUWoeyCNgR5OtCzAE9mLJF7SKUXa91YME7VJMgXlyhUD36GFHel2RVU+Q/7xuw/hflAfbjRDogZw0Tw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzzfaCejgZJ6GfDox7OV+l/x+4t7/xw3S2X95dzdOPdU1pNoO2k
- u6Rwy8MlduogRmFgfA87s8udUJ8nYUe6d3NQIg0xv87JDr0ZQOvnOQX/EQPhDOJlmmM=
-X-Gm-Gg: AY/fxX5FObwxWjRHgzlRtVxJ/IGUqi2gVzmyqWK6IexXYyN41LaE6bbe/+4QQyWt396
- 5jLRra+55sNV43K8IDtf1jsS4fEHC9RRuKua1HNO2rMgBCyqUF/HGVD55Wmm2I4N4aj1sszhjgn
- TqxbKl/eXlItqb97obTHEBfAfjbxXMHZBlNuGHGpGR7TnIutk5qTpDQHuIiPy85OhLOpGHhsc5O
- VCBD4CRvkrfxWOyUQpY2kHdrKfPog/2SvLbn5i3tJ0XvwxueLaAC6k74qH1BKXCTeNUv73zPaj5
- 6h8dbPIl1XYAsEpM/tcHc3n1iNPpSrTrGgNifgbTwt1SJ/hOBSjcR/0wgv+U2lpqcYdj/SBNawN
- RUNVOD1x6I7gQRtmuvPYKC1uRiobjAE9FpOST4Jazi8DUvvYSv7MJ1khZAYFOB4RH9Xdbo9l2sI
- zc2AGYZ4NSKW2riptb6ZCHrPXl
-X-Received: by 2002:a05:600c:608c:b0:477:a246:8398 with SMTP id
- 5b1f17b1804b1-47ee32e0829mr58296485e9.2.1768472195426; 
- Thu, 15 Jan 2026 02:16:35 -0800 (PST)
+ AJvYcCVD+X0MN5UGD/Sx0wW4Iurl/llrc/ewb4GASx49x0lVauGBFjNnz1I29cerDH4vFYza3Al+boG+D6p1IA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw1O9rHGIbXbQeLlZ5LvvGxPacZKdZbgF/a79ssMrBpWQjLJZOA
+ cyQnP48Iw4VZo1Rm09dCMgSITC4AGGHnJv1eGnt6bP39H0sR1uh+dCFETiWQ5YL0pVA=
+X-Gm-Gg: AY/fxX4af+FCcm6lqTfsmUpvmMJGlhaIYqXlGf9zYdieK/i+t5nzRa4ghilpubcvzeN
+ TPAP71T1ZtlBJ9W7V7sJECTTFbaZMQVF60pI9eCY3ahws95Y1TFIFi2hghLSXGCK0IebRIUOqMf
+ zEw/Khp2UrrqfkJrhX/XEm1n6gAraRB+4u3zNeoUJHhP0t3K6Z1tvvaVzV4fEjjMZgPZfJgn+am
+ akmxRCrN1Uu7+EKzr/4ymQyIlp7nT+XwIPpIDyKx9+x12yv2PgiUHXijgNfywVCOHXzqtiTXF91
+ gYYDeRXx/bBAmMlYjICZGQMIgbZdcogFFYNy1bUyqXLFKxn5FebkqLKuuWYzwG2xnXJsMqwSk8u
+ f7L5yOA4wOAazEn6QiodXe92WnH3wbGOizH4OYx/ZzgrkMkVUue5SygM7Dfcar3nkqSu85AbCED
+ Tm/tREuHA+6w2bQA==
+X-Received: by 2002:a5d:6b41:0:b0:432:a9db:f99d with SMTP id
+ ffacd0b85a97d-4342c535db3mr5505744f8f.36.1768472403629; 
+ Thu, 15 Jan 2026 02:20:03 -0800 (PST)
 Received: from pathway.suse.cz ([176.114.240.130])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-47ee28144aasm39739585e9.11.2026.01.15.02.16.33
+ ffacd0b85a97d-434af653632sm5139931f8f.11.2026.01.15.02.20.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jan 2026 02:16:34 -0800 (PST)
-Date: Thu, 15 Jan 2026 11:16:31 +0100
+ Thu, 15 Jan 2026 02:20:02 -0800 (PST)
+Date: Thu, 15 Jan 2026 11:20:00 +0100
 From: Petr Mladek <pmladek@suse.com>
 To: Marcos Paulo de Souza <mpdesouza@suse.com>
-Message-ID: <aWi-f9LBJtxGWgWs@pathway.suse.cz>
+Message-ID: <aWi_UJcrphO9Esxw@pathway.suse.cz>
 References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
- <20251227-printk-cleanup-part3-v1-7-21a291bcf197@suse.com>
+ <20251227-printk-cleanup-part3-v1-8-21a291bcf197@suse.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20251227-printk-cleanup-part3-v1-7-21a291bcf197@suse.com>
+In-Reply-To: <20251227-printk-cleanup-part3-v1-8-21a291bcf197@suse.com>
 X-Mailman-Approved-At: Fri, 16 Jan 2026 07:08:29 +0000
 Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
  kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
@@ -88,7 +88,8 @@ Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
  Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
  Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
  Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Tony Luck <tony.luck@intel.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Tony Luck <tony.luck@intel.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Douglas Anderson <dianders@chromium.org>,
  "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
@@ -96,7 +97,7 @@ Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
  Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
  Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
  "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 07/19] drivers: netconsole: Migrate to
+Subject: Re: [Linux-stm32] [PATCH 08/19] debug: debug_core: Migrate to
  register_console_force helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -114,17 +115,16 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat 2025-12-27 09:16:14, Marcos Paulo de Souza wrote:
+On Sat 2025-12-27 09:16:15, Marcos Paulo de Souza wrote:
 > The register_console_force function was introduced to register consoles
 > even on the presence of default consoles, replacing the CON_ENABLE flag
 > that was forcing the same behavior.
-
-I would add "No functional changes." like you did in the other
-similar patches ;-)
-
+> 
+> No functional changes.
+> 
 > Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
 
-Nice clean up!
+LGTM, nice cleanup!
 
 Reviewed-by: Petr Mladek <pmladek@suse.com>
 
