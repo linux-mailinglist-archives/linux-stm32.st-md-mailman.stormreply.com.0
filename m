@@ -2,156 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4294D3A1E7
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 09:43:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 881C2D3A37E
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 10:43:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7373FC87ED3;
-	Mon, 19 Jan 2026 08:43:06 +0000 (UTC)
-Received: from TY3P286CU002.outbound.protection.outlook.com
- (mail-japaneastazon11020094.outbound.protection.outlook.com [52.101.229.94])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3883DC87ED4;
+	Mon, 19 Jan 2026 09:43:37 +0000 (UTC)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9B28C1A979
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28385C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jan 2026 08:43:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Y1awrpf8iyx/4AaHiW5P1y63988WDmz2g5DOpLrnxkbHjmwAl6Gqu5KT9Rab0tuhmQ8CqKsGex+P3cC2zPTBoWG8laMqxxJ6DTYM7/PGMkkzZTckiBcUDApF9UVinxO4fAB7fkr60HbaBIjke62zgi0ckaDI7QprbIp5Mlynadedang8HzV/p0zKee+KCRpGpw9VBDLtAhkD5FdDwi2Tau7ywq0bfCut4/KF1Eol7quXWTlGLdmPusZkWE5LQZE7if3EV6/f2exO8cCodhKNrmW9wTRZnPdi5ux5k3qB/fmhIcaWgcq+UxIoC4k72Wpy4nNHVTFmms9E4NC204digA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/lV+w7eZBFX7ePrPvea7+3BPjYWCupo8uSBcuZffwZ0=;
- b=eNPHe9tcaoetLZO/7Zx+qAl7mJ2Y9E9e131SZEECu4cOTmugBZEs/vnPB5v1Hk6K5pF0FFE3lmklh/Z4KyZLkNknPbmErP15s0ldsrkn2ZPF8NWUGsO1ost9X1UII5Woq77pAn1jUfdg+6hQSfo2IvGthHY+tMZUEaYduPDaP7TcE+m2X1pAowlmkqTE8IIqJ/gdIHIwfL7nr2qOQ2ZKXntOoh/lMLu/n9By1ReYzYL14VPU7yrlvUmu03OE624Wr7b9jujcM/wO3TwnvKTYCBwtYD7+KaS3wnE1WaJFhAI3AzCfAXUAnP2j36XSw8rEQ+iRy01rt0FgWgFskPzXwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/lV+w7eZBFX7ePrPvea7+3BPjYWCupo8uSBcuZffwZ0=;
- b=ACGZVvgUZIW4ichtWO7FKPEvS5+zlk4tPWARa4+xZOkwz0U7w+IICwcdty3wkYKFjPxvFASjDDrp8xTPrrO9HOKH8qQ34dP1aa6KzV1PmGwO8aH3/TC/JnsFvgC2jo2rVHgY1qlB8boxn9N4+HVACcbMdx0GWhQDGL9VZHgN4D8=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
- by OSCP286MB5100.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:347::12)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.11; Mon, 19 Jan
- 2026 08:43:00 +0000
-Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9520.009; Mon, 19 Jan 2026
- 08:43:00 +0000
-Date: Mon, 19 Jan 2026 17:42:58 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Frank Li <Frank.li@nxp.com>
-Message-ID: <q7ekxsclf63eyj4fcpweu5pj3mgzpj3jhqqqoglcdbg3mg2y5w@j6s6rujwtz3h>
-References: <20260115084928.55701-1-den@valinux.co.jp>
- <20260115084928.55701-3-den@valinux.co.jp>
- <aWj/Sr63+hl7CBe/@lizhi-Precision-Tower-5810>
-Content-Disposition: inline
-In-Reply-To: <aWj/Sr63+hl7CBe/@lizhi-Precision-Tower-5810>
-X-ClientProxiedBy: TY4P301CA0018.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:2b1::16) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:38f::10)
+ Fri, 16 Jan 2026 10:00:01 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-432d256c2e6so1442727f8f.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 16 Jan 2026 02:00:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1768557601; x=1769162401;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ik7nBSUvqjiZji8p0UMpcxyJ9CmKYvj/STnQwZRmw6o=;
+ b=KMmfqL93z62qX3M9anOMaTbbqa4c3s+fFXAkwW/yp2fGFq7xUkP8HmN0iWO22dfEsE
+ wQ4twTLaeVVSdIT7LR9n1PkqjJV7+SbaoDyeKydGEJsT4PCC8DhFea6mPFaUEsW38f1a
+ ZhSYxrQDg0SniluOh/7ZzkUb+rqFTtxViXYS2917pu1o1aqiBZ5BureXGbYBUQ6ttGw9
+ LjdGn0bSQw6mnnZH7BIrsdnnQ1DuQ3iNVfv8J+GhRlvBlDJzj8OKvovJ5fyVP+DJg/F7
+ MdPVAuf986yuO91kOLDCnF+cs/GW0YBWCapxxBJoggyskpOtmZJXsnEzUW+pJBWu7+qL
+ Dyng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768557601; x=1769162401;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ik7nBSUvqjiZji8p0UMpcxyJ9CmKYvj/STnQwZRmw6o=;
+ b=DuGJWUkCfPc3XUPP2tLNUgYv/gbKHRsGckq5OqIc05g7UPgag+JkWw9bBRBrNmPP1d
+ 1qBvtXllBMKHt7YlmRrdJEdwSB4HQhTNt/jDlbAnbyiu4LX0TsJasTO+vifpfuUyrnLj
+ ESzHhOruKh+E+Fq8gsgN8PNCT5wckeBx74tHJSI6HmV0GQiWBSwICR0+uwDMdzaSD8C+
+ +New7ANFsIPb91rRURlSsQARMi1i0ort1py3E/bF2dk1x/4E1X75VNx026dgfyG6abxq
+ O/e1SF15mzhAI3Xq7TtZUI9kbJ1IMY74bd4gdKSMt90DJ6vPmfXVUnJs2td7hXdYassx
+ RKqA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVjIOdYbDfGCmGdMM24SvM2aXhmhw9rrrWJ+8nd9Vwq2nVlkcYoIeePIruQzIqp5Nyv8GItFpwa3vgO/A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxULKoGiWtxkAYvDrCqjlcSmDtY/Rv9Elv7vzS5LOETaoFkYgte
+ lnW+WaDI7gkJvdbrhnXztfIKSu3hNx55fEXJubUzV+M0Pe8FcoGQzfSKdBG8xvWGfb8=
+X-Gm-Gg: AY/fxX7xqJsGjmMwUEGw6M0V9uL+Ay+azecRNpFOhamEaZQMpdvodAE2uM8Q5kiOxiV
+ Hro/Ouu/yd+wcSFagvhjcktXZnqXHE3LjyXTccdJERJVB/mWsGIbhNY/iO+fcEf9dw4DbTs44mx
+ LyBgXdSE1xw3tw0pc+uj235P14dZef5iyVR1v5uPvUQNMPSF869Mrcl1uleJ/MtORY1ZlJg0HgQ
+ 2YVa4utOoca9nGCp1U+3nsnc9Fjb7PSh6vX9KESATEzSQjIH3Nk1Zd8E+TX4Fu1rEkihiw7mmt3
+ b0fXOwcWRCnFkITIepZ1ynsrcfVPt/ouLFHMd44ZInGCNzclxuoFbl6wd/MIUbYZg4GuARtnd5+
+ mmdqxi4yYN8Ho5FCQWlwcuYcCOxEteucD/EBZowV9B4IHkA0M+4g1OJ81UZoOhry6JMzCPgSmHM
+ hesRSRcl8A4vGkEw==
+X-Received: by 2002:a05:6000:26ce:b0:432:dfea:1fa8 with SMTP id
+ ffacd0b85a97d-43569bc5767mr3019291f8f.45.1768557601174; 
+ Fri, 16 Jan 2026 02:00:01 -0800 (PST)
+Received: from pathway.suse.cz ([176.114.240.130])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-43569921f6esm4337797f8f.4.2026.01.16.01.59.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Jan 2026 02:00:00 -0800 (PST)
+Date: Fri, 16 Jan 2026 10:59:57 +0100
+From: Petr Mladek <pmladek@suse.com>
+To: Marcos Paulo de Souza <mpdesouza@suse.com>
+Message-ID: <aWoMHbbn-BmmbZMg@pathway.suse.cz>
+References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
+ <20251227-printk-cleanup-part3-v1-15-21a291bcf197@suse.com>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OSCP286MB5100:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7598be33-7f66-46a9-3ec5-08de5736c075
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|10070799003|366016|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?KtF+ZAhHRSKBFkHf1Nap5qeGHxHingRgHwuSpGhn5k1774DEm0W2IwdrrR3k?=
- =?us-ascii?Q?SxviAEvpYd+XS06tx+fgopumsQtUvhkZFU3wDEqIV/H56eyVyf4QaKwsdXGZ?=
- =?us-ascii?Q?giaKfykSEvu6ZIa4sPDXJf02xL+U/GSzb1iiAg0l9gKVZAPFGdTVSO7pXkRU?=
- =?us-ascii?Q?DSoJLsTE8rB6sA9MNyd02vu91M+Z3TTc02UMUNiw5MmPpvoXcaarkkkgCq6P?=
- =?us-ascii?Q?fvC1Tcy9Gf+pYGiYIzzoH3fctPKkN1oGujeKmo6z6P25+qEL2ix/zdDS2Z/n?=
- =?us-ascii?Q?ksqxnhfzrMhteHYEj/RhaW7a/rJuOy99BA7DN5cytXp+76MWFuXKcZabINEE?=
- =?us-ascii?Q?06zG5J2LZZYRicYLpkfdccZyL1a+fH7zTgMBa7ITBilQn5Dfki68L/602IcP?=
- =?us-ascii?Q?wun2uTJGU5CIrVqB6UEQBdEjVRRqiM2aIjFUHRQ95hcbvo4D1uUCpt2RJpvz?=
- =?us-ascii?Q?fsAuFakrhIh2DrCTSKpzsMku2m7jPeMirVGq6CdTOyEk9/yKKk53gV/rVEsF?=
- =?us-ascii?Q?0SpqXp8hhQ0FfgkkEM7n5peyxbUlUxI0QtFVp9tMofudGfLAJQpD4T9Ix81C?=
- =?us-ascii?Q?twmOZtYC9k0traXQBOn4QY++jIWsCuA95zHEgRHSGSsMowglpRIFjF5OIcYB?=
- =?us-ascii?Q?m9JDXHFPaGH5FFZzWybI7Og/7ATl6OQH/BesK45AQaobqRwWzlKwUCjybYNJ?=
- =?us-ascii?Q?5lIr6x+0YHgSUHrnIP+eCG2PXsMma0B+XLskih7KMM9kDYWxVnBeAnk+C7Rb?=
- =?us-ascii?Q?SsfZHU3ZippoaEQvXJJfjE3QvPQAGXiXjqYZfOA96djpuWTFZb3MQodeAict?=
- =?us-ascii?Q?txe/Knr5iTh9hhsq1LTfxwiwa5qJzv3mPEjpVCeVJ13xzTMwCElN+sQOXpgY?=
- =?us-ascii?Q?0Xpl01tb/JEJh0SaJ7vvoG5RmE/+UniIMpKwmEtDmXSM/4DrKOcjx4BA591B?=
- =?us-ascii?Q?Bpc/WmaNSm7H1sajLp4WHJrRbXOk3a5Wnj5wbQgvKcnq1Z2sF2w+IGc+uIWC?=
- =?us-ascii?Q?0tUht0VwDc2UwI8WLUcM4GY9CiSOY6aYMQDiNDmaH9uAeGe3vv/sjCR2lgqb?=
- =?us-ascii?Q?Dz83gsddVXFVeZ6IlAQ/Ef7J3LPDK6twzL3nqHvmxIIaXofHnwfAkjWV5zQl?=
- =?us-ascii?Q?le4E/l4DZbHz1ep4vwZX3vq6BBzOK78KSrfUQSj547NZGyVSE4HFoO5a/nXe?=
- =?us-ascii?Q?cqiswrHQnkceVozJSXWNRdwKzJdFSpDNwoc6r8UYembRscDUUfdRnW6YK92o?=
- =?us-ascii?Q?1q2HR5HUHQLH5pmu+YQawOANOZJ9x/jryMfut7EV8L5UvR+RCBdvkOPRYeWE?=
- =?us-ascii?Q?++phcv2nwYhxNFZMaZ1NsGssBk8CGxyWUk9UbDUYRZn01daFojv+10YBXe6i?=
- =?us-ascii?Q?6TIV3RBwVCsweHMHy+IritxObQt4MjuzIEwCkLjJgq5ArlnTmFXJB6X3sH9c?=
- =?us-ascii?Q?Zh0d3IjAO2ZooFSRXC7aGdfbi9b6N9FVfzm94Skj+yIa6rjX8zxwSIcAbJAw?=
- =?us-ascii?Q?NfTMNxbbnk7i7R7rdVcvsGk/qn4GoWFicGTRC1crmr5oA5YYdwJfTJp1XvJr?=
- =?us-ascii?Q?dYiCwWtFDrWW3mMv09k=3D?=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024); DIR:OUT;
- SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Qxy3IX+1ECURuFb0HLQNoEdZ9ZdihxBosZtyNLNDtFSHpcb2dkZdLZQl/A8N?=
- =?us-ascii?Q?rXYEv1VWYstxAh8eh/yYiMd5rcKF+QaZcPym90vZBoOgdPCMDhCBAHW+ivfd?=
- =?us-ascii?Q?MOIh/7aIKPv+Fy3xruIqIC4BLeCAhZrfdqbNSYHwVH4SMK5CILD6ogBKISPx?=
- =?us-ascii?Q?0UlK3hUpjjS+TbkNU0vJ8tz7IMViHarOQAhiJwt9ggIhdRgUjl5tf3VgR0+d?=
- =?us-ascii?Q?ZpfpJxlSbBzF2jEe3h7nW4nDxqNlsYPDLsP7rlG9mTB0O8StrLOHxaj0qZNJ?=
- =?us-ascii?Q?s2+1/NYH8Fjg7zLDfIM6XRFkkxPR9MJmZCnKehV2cXzd+PL/Y639iZnqFkdK?=
- =?us-ascii?Q?NofBWRzb0h8OYNvaNlXUEmal+oENvn+U/inFnYgnAf+t1iVvldYEUXTaQHCY?=
- =?us-ascii?Q?FWKxGR0w/jlxwCxGlhvgSQbCvhks/YbGm1wi03MOx+YAF+TjaaaH7nMiDuks?=
- =?us-ascii?Q?UzmG9w/97rZGp0xJWnKEIJhc/EBm0CDvbeOu59iZDL5Xf8QBS8Zc6r5czGsb?=
- =?us-ascii?Q?6/nrBSkyMQ8sScG+PBw6UQPUHUXjrdv4udxmSVUC3moqO3SZK+FKnZL5aWVZ?=
- =?us-ascii?Q?KSF6M1t9pgNWbVD4GmikLrZYSDBlzSy3oyaCRLLmeDetqFwM+iutUoNNdFla?=
- =?us-ascii?Q?UHQPDfjSJUuq1zXGESXObXvvTDpc0POkgejze+rmLZN+x3tu63trJjFm6wPG?=
- =?us-ascii?Q?kfAl2E8XUrmT/20saTFvLO3mzgWdomric3afCMNVJyA08TaFMKvpOx5ufKX6?=
- =?us-ascii?Q?BX16LRCnPerQ9HXa7+mT29PMfWzIv/73nK0aJTdDoVElScKZBwxh8Lq6VjhL?=
- =?us-ascii?Q?bs68auRLqPgaeF2k5694ecMUHJ782k5JIow8sgrCoX0mTI6mY6AHx6CMClrF?=
- =?us-ascii?Q?3JT5cUm0kY0TSuvHdswQ1s533fzQFWWa/8O4tR32IThLVKw1nG3/4V7lNbhV?=
- =?us-ascii?Q?3CO7wZiAG8pLJrAQHtdM1VjYZPKl6MQUX2OJQ6gfODFY+Tpndl97s7H5rkTd?=
- =?us-ascii?Q?HmiQ7Bu5VH+CdXXXGIHjqvjBQUIqxsIS+6dtMfcriwtLlylE35RwyKC/CVdo?=
- =?us-ascii?Q?cDABrZIvnjugWqWAU7lTTM6/A8vm4gcWOkYCfzc0e17PGmoevPEWEGPggD/i?=
- =?us-ascii?Q?2QgwFRLGgXcI/5DMCp8IfkBCudwMO4DNoZ78SwTzIuvs42meJDc4Ap7H2Rbm?=
- =?us-ascii?Q?ggoVoEWymNy8a1pZoVtu96gDLt+jkO7H1EDFCYw5L4jHM4uawGPY+PtLtL/A?=
- =?us-ascii?Q?ztKvNqfaViwgABiub5LKC0rgs1kizpkiEkM+pP8qdcIdcimaTZBHC/b2qtKj?=
- =?us-ascii?Q?+Xde2epeElUR1VZpXF0wjG6/vQCu3W0CYS7baJ07jniIAJj7ZK362ZXQxkPr?=
- =?us-ascii?Q?ehDgDWfDiHIvUQgihhjeB3bgaXjByi8JGUcUDT+m95O9ILw2TbxK3cyQNQNP?=
- =?us-ascii?Q?JyrhndJ6Pn89sAWFGU9g7xiWUqkUNYKV30fjw+YnOW63RfJXkXUVHwAN5Y7e?=
- =?us-ascii?Q?PNgO1S9dAYUo0xc14hFcdn6hSkqkEWSMaVMKXPSdqkUSBfsVQFNw3EuM7asI?=
- =?us-ascii?Q?vgzN9DBPeX3r+2YxGijcujsa6DFJTAjdVA5iR8AFips+0y8jnNuElNnAPi3Y?=
- =?us-ascii?Q?PFME0D5YeASaKdyWbUbX/lmUIOjISs/T/UGwk+TZj+Uj4wEUa27USbu4OaMD?=
- =?us-ascii?Q?1P0JV5RDGpWXbPGYGijCT0/skXvwVd+MThO1ESm3qh97eyBeTRTWjwRoiZGX?=
- =?us-ascii?Q?p5qIbcUrUH+1xLubtoNY1wCu0WYCXuCJ6Cux8SMXfgidX7tY5gGl?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7598be33-7f66-46a9-3ec5-08de5736c075
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Jan 2026 08:43:00.3266 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: R/JfPrvfM0oOkUfdsDS8sbWxotC7jHacNuDvsFGDsHRqIBaxfM9rGHZPV6m07Hp9+aSnrRKBuZvtWm+28shd2A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSCP286MB5100
-Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, christian.bruel@foss.st.com,
- minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
- kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
- hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
- linux-arm-kernel@axis.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
- shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
- mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
- s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
- linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
- roy.zang@nxp.com, linux-tegra@vger.kernel.org, cassel@kernel.org,
- linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
- heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
- linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
- shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v8 2/5] PCI: endpoint: Add BAR subrange
-	mapping support
+Content-Disposition: inline
+In-Reply-To: <20251227-printk-cleanup-part3-v1-15-21a291bcf197@suse.com>
+X-Mailman-Approved-At: Mon, 19 Jan 2026 09:43:36 +0000
+Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
+ kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+ Shan-Chun Hung <schung@nuvoton.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
+ Breno Leitao <leitao@debian.org>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Anton Ivanov <anton.ivanov@cambridgegreys.com>, sparclinux@vger.kernel.org,
+ Madhavan Srinivasan <maddy@linux.ibm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Richard Weinberger <richard@nod.at>,
+ Christophe Leroy <christophe.leroy@csgroup.eu>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>, linux-serial@vger.kernel.org,
+ Daniel Thompson <danielt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, John Ogness <john.ogness@linutronix.de>,
+ Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
+ Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
+ Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Laurentiu Tudor <laurentiu.tudor@nxp.com>, Tony Luck <tony.luck@intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 15/19] drivers: tty: serial: mux.c:
+ Migrate to register_console_force helper
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,140 +115,59 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Thu, Jan 15, 2026 at 09:52:58AM -0500, Frank Li wrote:
-> On Thu, Jan 15, 2026 at 05:49:25PM +0900, Koichiro Den wrote:
-> > Extend the PCI endpoint core to support mapping subranges within a BAR.
-> > Add an optional 'submap' field in struct pci_epf_bar so an endpoint
-> > function driver can request inbound mappings that fully cover the BAR.
-> >
-> > Introduce a new EPC feature bit, subrange_mapping, and reject submap
-> > requests from pci_epc_set_bar() unless the controller advertises both
-> > subrange_mapping and dynamic_inbound_mapping features.
-> >
-> > The submap array describes the complete BAR layout (no overlaps and no
-> > gaps are allowed to avoid exposing untranslated address ranges). This
-> > provides the generic infrastructure needed to map multiple logical
-> > regions into a single BAR at different offsets, without assuming a
-> > controller-specific inbound address translation mechanism.
-> >
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> >  drivers/pci/endpoint/pci-epc-core.c |  8 ++++++++
-> >  include/linux/pci-epc.h             |  4 ++++
-> >  include/linux/pci-epf.h             | 27 +++++++++++++++++++++++++++
-> >  3 files changed, 39 insertions(+)
-> >
-> > diff --git a/drivers/pci/endpoint/pci-epc-core.c b/drivers/pci/endpoint/pci-epc-core.c
-> > index ca7f19cc973a..068155819c57 100644
-> > --- a/drivers/pci/endpoint/pci-epc-core.c
-> > +++ b/drivers/pci/endpoint/pci-epc-core.c
-> > @@ -596,6 +596,14 @@ int pci_epc_set_bar(struct pci_epc *epc, u8 func_no, u8 vfunc_no,
-> >  	if (!epc_features)
-> >  		return -EINVAL;
-> >
-> > +	if (epf_bar->num_submap && !epf_bar->submap)
-> > +		return -EINVAL;
-> > +
-> > +	if (epf_bar->num_submap &&
-> > +	    !(epc_features->dynamic_inbound_mapping &&
-> > +	      epc_features->subrange_mapping))
-> > +		return -EINVAL;
-> > +
-> >  	if (epc_features->bar[bar].type == BAR_RESIZABLE &&
-> >  	    (epf_bar->size < SZ_1M || (u64)epf_bar->size > (SZ_128G * 1024)))
-> >  		return -EINVAL;
-> > diff --git a/include/linux/pci-epc.h b/include/linux/pci-epc.h
-> > index 4c8516756c56..c021c7af175f 100644
-> > --- a/include/linux/pci-epc.h
-> > +++ b/include/linux/pci-epc.h
-> > @@ -227,6 +227,9 @@ struct pci_epc_bar_desc {
-> >   *                           inbound mappings for an already configured BAR
-> >   *                           (i.e. allow calling pci_epc_set_bar() again
-> >   *                           without first calling pci_epc_clear_bar())
-> > + * @subrange_mapping: indicate if the EPC device can map inbound subranges for a
-> > + *                    BAR. This feature depends on @dynamic_inbound_mapping
-> > + *                    feature.
-> >   * @msi_capable: indicate if the endpoint function has MSI capability
-> >   * @msix_capable: indicate if the endpoint function has MSI-X capability
-> >   * @intx_capable: indicate if the endpoint can raise INTx interrupts
-> > @@ -236,6 +239,7 @@ struct pci_epc_bar_desc {
-> >  struct pci_epc_features {
-> >  	unsigned int	linkup_notifier : 1;
-> >  	unsigned int	dynamic_inbound_mapping : 1;
-> > +	unsigned int	subrange_mapping : 1;
-> >  	unsigned int	msi_capable : 1;
-> >  	unsigned int	msix_capable : 1;
-> >  	unsigned int	intx_capable : 1;
-> > diff --git a/include/linux/pci-epf.h b/include/linux/pci-epf.h
-> > index 48f68c4dcfa5..46f817da6e24 100644
-> > --- a/include/linux/pci-epf.h
-> > +++ b/include/linux/pci-epf.h
-> > @@ -110,6 +110,26 @@ struct pci_epf_driver {
-> >
-> >  #define to_pci_epf_driver(drv) container_of_const((drv), struct pci_epf_driver, driver)
-> >
-> > +/**
-> > + * struct pci_epf_bar_submap - BAR subrange for inbound mapping
-> > + * @phys_addr: target physical/DMA address for this subrange
-> > + * @size: the size of the subrange to be mapped
-> > + *
-> > + * When pci_epf_bar.num_submap is >0, pci_epf_bar.submap describes the
-> > + * complete BAR layout. This allows an EPC driver to program multiple
-> > + * inbound translation windows for a single BAR when supported by the
-> > + * controller. The array order defines the BAR layout (submap[0] at offset
-> > + * 0, and each immediately follows the previous one).
-> > + *
-> > + * Note that the subranges:
-> > + * - must be non-overlapping
-> > + * - must exactly cover the BAR (i.e. no holes)
+On Sat 2025-12-27 09:16:22, Marcos Paulo de Souza wrote:
+> The register_console_force function was introduced to register consoles
+> even on the presence of default consoles, replacing the CON_ENABLE flag
+> that was forcing the same behavior.
 > 
-> It is impossible after use 'size'. It can be removed.
+> --- a/drivers/tty/serial/mux.c
+> +++ b/drivers/tty/serial/mux.c
+> @@ -390,7 +390,7 @@ static struct console mux_console = {
+>  	.write =	mux_console_write,
+>  	.device =	uart_console_device,
+>  	.setup =	mux_console_setup,
+> -	.flags =	CON_ENABLED | CON_PRINTBUFFER,
+> +	.flags =	CON_PRINTBUFFER,
+>  	.index =	0,
+>  	.data =		&mux_driver,
+>  };
+> @@ -547,7 +547,7 @@ static int __init mux_init(void)
+>  		mod_timer(&mux_timer, jiffies + MUX_POLL_DELAY);
+>  
+>  #ifdef CONFIG_SERIAL_MUX_CONSOLE
+> -	        register_console(&mux_console);
+> +		register_console_force(&mux_console);
 
-Agreed, those notes (ie non-overlapping/no holes) are redundant now.
-Thanks for pointing it out. I'll drop them.
+The situation here is the same as in 16th patch for
+ma35d1serial_console().
 
-Koichiro
+Also "mux_console" is assigned to
 
-> 
-> > + */
-> > +struct pci_epf_bar_submap {
-> > +	dma_addr_t	phys_addr;
-> > +	size_t		size;
-> > +};
-> > +
-> >  /**
-> >   * struct pci_epf_bar - represents the BAR of EPF device
-> >   * @phys_addr: physical address that should be mapped to the BAR
-> > @@ -119,6 +139,9 @@ struct pci_epf_driver {
-> >   *            requirement
-> >   * @barno: BAR number
-> >   * @flags: flags that are set for the BAR
-> > + * @num_submap: number of entries in @submap
-> > + * @submap: array of subrange descriptors allocated by the caller. See
-> > + *          struct pci_epf_bar_submap for the restrictions in detail.
-> >   */
-> >  struct pci_epf_bar {
-> >  	dma_addr_t	phys_addr;
-> > @@ -127,6 +150,10 @@ struct pci_epf_bar {
-> >  	size_t		mem_size;
-> >  	enum pci_barno	barno;
-> >  	int		flags;
-> > +
-> > +	/* Optional sub-range mapping */
-> > +	unsigned int	num_submap;
-> > +	struct pci_epf_bar_submap	*submap;
-> 
-> struct pci_epf_bar_submap submap[] __counted_by(num_submap);
-> 
-> Not sure if use this simplify alloc/free.
-> 
-> Frank
-> >  };
-> >
-> >  /**
-> > --
-> > 2.51.0
-> >
+static int __init mux_probe(struct parisc_device *dev)
+{
+[...]
+		mux_driver.cons = MUX_CONSOLE;
+
+		status = uart_register_driver(&mux_driver);
+[...]
+		status = uart_add_one_port(&mux_driver, port);
+[...]
+}
+
+So, that it can get registered also by:
+
+  + mux_probe()
+    + uart_add_one_port()
+      + serial_ctrl_register_port()
+	+ serial_core_register_port()
+	  + serial_core_add_one_port()
+	    + uart_configure_port()
+	      + register_console()
+
+And we would need to pass the "force" information via CON_FORCE flag.
+
+Best Regards,
+Petr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
