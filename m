@@ -2,102 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 29C9FD2CEE8
-	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jan 2026 08:08:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A83AD2D5E8
+	for <lists+linux-stm32@lfdr.de>; Fri, 16 Jan 2026 08:42:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E355DC90082;
-	Fri, 16 Jan 2026 07:08:31 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3370AC8F28E;
+	Fri, 16 Jan 2026 07:42:29 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70476C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6EC51C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 16:28:49 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-432d256c2e6so892731f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 15 Jan 2026 08:28:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1768494529; x=1769099329;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=URJX5xTHolO9FC46ryjpGruJ5TGEDEyfrbwATuqwgLQ=;
- b=bZv5CCEv41D9bnhwvnOgIJBZC3TNd0gIaujqZ8izyERo/7ugV9vtldyOEyKnnh8l3t
- ZprSNiZmiWHo/ttWkTtlLeCWy/sUPdttTlYc1XjvSNdATOqzW80VlhnlqxACm9xtqzUM
- ceefd1qGyxM9mYG0O3Xfe1l4tl6j1h4kx+8QCdpazgh17QqLUoIU3AL2sahcjZwD6dK5
- UTN032i/twDpz7GUM+8OAMG5pKREejkNHbGoGqEpUN21zWaWtenCfGrFc6Dt26V9FDMI
- xT5lxx0HNJmFPhk0i+YHPvUxEA+tFtl+DtnJ6ziNzdy7XUGoQImk4xj9gbTBQjmfZLs6
- wWkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768494529; x=1769099329;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=URJX5xTHolO9FC46ryjpGruJ5TGEDEyfrbwATuqwgLQ=;
- b=AXPOKG5EHxF3vrZwHs2lxFb6YuTgXoNyv32ehTWMyMOxop8CnIdGw9tH/AQhMPDk5a
- ENSRNnfQ/6NbVjbqjWSCfPHUTu5iXWpdImI624soTWlvASHloNn5+wWuoq54RrfOqSVJ
- tM56qMFep5nIPmZNzogk2YMOzwZx6hoYzWzEnn2sYrV+03UOGLBSpQX2EIK/Zn1Mx4P7
- yRJx7me+asCI2C+IweK2lGpLcXyyximQTadhomSHb+Np7hgl/vh+0FH7594meu3G9AWD
- Lf1qGszyut81S1s/Y48faBahJdfdMCXViO6Ni+pPqABCkwIcqf42ecvKzsQyvrTL5vPI
- MN7w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUC+7/j9ntSDCYGz/9RKClQup9vAKIO1F1MccK1UYfZuuxQ6dzsDD7YFwCF791t1STJKwk9pnhWVNbB/w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyidobpzqR0njz5ShpF7zalCNvg/dzZqsrU09mCe0rHPXRt8wRk
- NpT7dWTxFsdeZbI9UY1+Jetq8+Kngl0kTI7aduM7xHyt1JL7sMUR8vw/6qjw+RVnb4k=
-X-Gm-Gg: AY/fxX63LAeLlyb3eGH3CmoZa5kqpOc+muRJeUAvQqzrp+Cix3hNtYICZDIdTnkViFm
- dQGs+wFg1kzFvsKlyB2Hx7ghV6bgXLovm+SBSQn68zOnsmMMc+FAaxsDyfUHcHyLEm5M7oKvqrX
- A4giTNGyD9ml7wu7uH+pW2rRCbPfRiI1GvZla89M+hWP3hAvVMWh6BU8h9fFlisDBLlpBBTTKnj
- TUYY5onJv4yuZcK4CcsFBbjR/GuQShpks4WBrgkbjFfpKiv4feS3UyF4Az+zKcKdMTgbMa+UVv6
- ok/iiHnoTVXGkkKP4pMwU3jD6sE11ZvC+VtWOD6UaTgg15h0bSW9nDH6sYmIKhsY8biV+E1S6dT
- H0Fv17ojhKlnCUBvcT2J2PF5bEPEZfHm/mbe/pKC4TXwghFUQ1AvOjzbklTUGUsUnzjj0PjFWqO
- UytoegMJDMyojPng==
-X-Received: by 2002:a5d:64c5:0:b0:430:fd0f:2910 with SMTP id
- ffacd0b85a97d-4342c501a57mr9777353f8f.26.1768494528600; 
- Thu, 15 Jan 2026 08:28:48 -0800 (PST)
-Received: from pathway.suse.cz ([176.114.240.130])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-434af6e148bsm6604069f8f.33.2026.01.15.08.28.46
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Jan 2026 08:28:47 -0800 (PST)
-Date: Thu, 15 Jan 2026 17:28:44 +0100
-From: Petr Mladek <pmladek@suse.com>
-To: Marcos Paulo de Souza <mpdesouza@suse.com>
-Message-ID: <aWkVvCu74HhV7W9s@pathway.suse.cz>
-References: <20251227-printk-cleanup-part3-v1-0-21a291bcf197@suse.com>
- <20251227-printk-cleanup-part3-v1-16-21a291bcf197@suse.com>
+ Fri, 16 Jan 2026 07:42:27 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 6F1524E4210E;
+ Fri, 16 Jan 2026 07:42:26 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3BFAA60732;
+ Fri, 16 Jan 2026 07:42:26 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 3447610B682A5; Fri, 16 Jan 2026 08:42:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1768549345; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=yu0jn8jm2n1dkDHVZT2M5vZAAWPa36+CBjxCNEHcarQ=;
+ b=vj1GLVy4mLMrVpEO5LpZbGlurcpuETR5klnfjVo+8fv/PjmgKPiXfjNUNxcn7nIpwwXmV5
+ i3Ns43oQtBAphJKcvvkbmCKRQIdJby4QyhiTQ6xzBDysgft/nDLQaO24ofhZoH+HFpk1TN
+ VzK3u8D62QnWMvD7slJev5FpqOu9oueArL39PBNgDf4UcoOY0SNi/oJnx2XsT2wunUdap8
+ Bo3dahe/gopBzNTzHixtjt3t+539bTS7uiJu0bt848VAQBWT8OZ68DC3+XKcYVr2eJsb0/
+ L6pFWlt/ecYPkEP0+iKG4OTiuWpxKBsD0ruaNwZmuZwQPfcWVjSrNYqAQqUZ0A==
+Message-ID: <ab2d7cc9-e7d9-47fb-95ad-90ae4f5f1f67@bootlin.com>
+Date: Fri, 16 Jan 2026 08:42:19 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20251227-printk-cleanup-part3-v1-16-21a291bcf197@suse.com>
-X-Mailman-Approved-At: Fri, 16 Jan 2026 07:08:29 +0000
-Cc: Andreas Larsson <andreas@gaisler.com>, Kees Cook <kees@kernel.org>,
- kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- Shan-Chun Hung <schung@nuvoton.com>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>,
- Breno Leitao <leitao@debian.org>, Jiri Slaby <jirislaby@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Anton Ivanov <anton.ivanov@cambridgegreys.com>, sparclinux@vger.kernel.org,
- Madhavan Srinivasan <maddy@linux.ibm.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Richard Weinberger <richard@nod.at>,
- Christophe Leroy <christophe.leroy@csgroup.eu>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>, linux-serial@vger.kernel.org,
- Daniel Thompson <danielt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Jacky Huang <ychuang3@nuvoton.com>, John Ogness <john.ogness@linutronix.de>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, linux-um@lists.infradead.org,
- Steven Rostedt <rostedt@goodmis.org>, linux-m68k@lists.linux-m68k.org,
- Nicholas Piggin <npiggin@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Tony Luck <tony.luck@intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Douglas Anderson <dianders@chromium.org>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jason Wessel <jason.wessel@windriver.com>, linux-fsdevel@vger.kernel.org,
- Johannes Berg <johannes@sipsolutions.net>, linuxppc-dev@lists.ozlabs.org,
- "David S. Miller" <davem@davemloft.net>, linux-hardening@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 16/19] drivers: tty: serial:
- ma35d1_serial: Migrate to register_console_force helper
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+References: <E1vgY1k-00000003vOC-0Z1H@rmk-PC.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <E1vgY1k-00000003vOC-0Z1H@rmk-PC.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix dwmac4 transmit
+ performance regression
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,113 +64,145 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Sat 2025-12-27 09:16:23, Marcos Paulo de Souza wrote:
-> The register_console_force function was introduced to register consoles
-> even on the presence of default consoles, replacing the CON_ENABLE flag
-> that was forcing the same behavior.
+Hi Russell,
+
+On 16/01/2026 01:49, Russell King (Oracle) wrote:
+> dwmac4's transmit performance dropped by a factor of four due to an
+> incorrect assumption about which definitions are for what. This
+> highlights the need for sane register macros.
 > 
-> No functional changes.
+> Commit 8409495bf6c9 ("net: stmmac: cores: remove many xxx_SHIFT
+> definitions") changed the way the txpbl value is merged into the
+> register:
 > 
-> Signed-off-by: Marcos Paulo de Souza <mpdesouza@suse.com>
+>         value = readl(ioaddr + DMA_CHAN_TX_CONTROL(dwmac4_addrs, chan));
+> -       value = value | (txpbl << DMA_BUS_MODE_PBL_SHIFT);
+> +       value = value | FIELD_PREP(DMA_BUS_MODE_PBL, txpbl);
+> 
+> With the following in the header file:
+> 
+>  #define DMA_BUS_MODE_PBL               BIT(16)
+> -#define DMA_BUS_MODE_PBL_SHIFT         16
+> 
+> The assumption here was that DMA_BUS_MODE_PBL was the mask for
+> DMA_BUS_MODE_PBL_SHIFT, but this turns out not to be the case.
+> 
+> The field is actually six bits wide, buts 21:16, and is called
+> TXPBL.
+> 
+> What's even more confusing is, there turns out to be a PBLX8
+> single bit in the DMA_CHAN_CONTROL register (0x1100 for channel 0),
+> and DMA_BUS_MODE_PBL seems to be used for that. However, this bit
+> et.al. was listed under a comment "/* DMA SYS Bus Mode bitmap */"
+> which is for register 0x1004.
+> 
+> Fix this up by adding an appropriately named field definition under
+> the DMA_CHAN_TX_CONTROL() register address definition.
+> 
+> Move the RPBL mask definition under DMA_CHAN_RX_CONTROL(), correctly
+> renaming it as well.
+> 
+> Also move the PBL bit definition under DMA_CHAN_CONTROL(), correctly
+> renaming it.
+> 
+> This removes confusion over the PBL fields.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+
+Good job finding the problem ! However you need a Fixes tag, even though
+ths is is for net-next.
+
+It would also have been nice to be in CC, I spent some time on the bisect...
+
+Besides that, problem solved on an imx8mp setup :)
+
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
 > ---
->  drivers/tty/serial/ma35d1_serial.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c | 8 ++++----
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h | 7 ++++---
+>  2 files changed, 8 insertions(+), 7 deletions(-)
 > 
-> diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
-> index 285b0fe41a86..d1e03dee5579 100644
-> --- a/drivers/tty/serial/ma35d1_serial.c
-> +++ b/drivers/tty/serial/ma35d1_serial.c
-> @@ -633,7 +633,7 @@ static struct console ma35d1serial_console = {
->  	.write   = ma35d1serial_console_write,
->  	.device  = uart_console_device,
->  	.setup   = ma35d1serial_console_setup,
-> -	.flags   = CON_PRINTBUFFER | CON_ENABLED,
-> +	.flags   = CON_PRINTBUFFER,
->  	.index   = -1,
->  	.data    = &ma35d1serial_reg,
->  };
-> @@ -657,7 +657,7 @@ static void ma35d1serial_console_init_port(void)
->  static int __init ma35d1serial_console_init(void)
->  {
->  	ma35d1serial_console_init_port();
-> -	register_console(&ma35d1serial_console);
-> +	register_console_force(&ma35d1serial_console);
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> index 7036beccfc85..aaa83e9ff4f0 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+> @@ -52,7 +52,7 @@ static void dwmac4_dma_init_rx_chan(struct stmmac_priv *priv,
+>  	u32 rxpbl = dma_cfg->rxpbl ?: dma_cfg->pbl;
+>  
+>  	value = readl(ioaddr + DMA_CHAN_RX_CONTROL(dwmac4_addrs, chan));
+> -	value = value | FIELD_PREP(DMA_BUS_MODE_RPBL_MASK, rxpbl);
+> +	value = value | FIELD_PREP(DMA_CHAN_RX_CTRL_RXPBL_MASK, rxpbl);
+>  	writel(value, ioaddr + DMA_CHAN_RX_CONTROL(dwmac4_addrs, chan));
+>  
+>  	if (IS_ENABLED(CONFIG_ARCH_DMA_ADDR_T_64BIT) && likely(dma_cfg->eame))
+> @@ -73,7 +73,7 @@ static void dwmac4_dma_init_tx_chan(struct stmmac_priv *priv,
+>  	u32 txpbl = dma_cfg->txpbl ?: dma_cfg->pbl;
+>  
+>  	value = readl(ioaddr + DMA_CHAN_TX_CONTROL(dwmac4_addrs, chan));
+> -	value = value | FIELD_PREP(DMA_BUS_MODE_PBL, txpbl);
+> +	value = value | FIELD_PREP(DMA_CHAN_TX_CTRL_TXPBL_MASK, txpbl);
+>  
+>  	/* Enable OSP to get best performance */
+>  	value |= DMA_CONTROL_OSP;
+> @@ -98,7 +98,7 @@ static void dwmac4_dma_init_channel(struct stmmac_priv *priv,
+>  	/* common channel control register config */
+>  	value = readl(ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+>  	if (dma_cfg->pblx8)
+> -		value = value | DMA_BUS_MODE_PBL;
+> +		value = value | DMA_CHAN_CTRL_PBLX8;
+>  	writel(value, ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+>  
+>  	/* Mask interrupts by writing to CSR7 */
+> @@ -116,7 +116,7 @@ static void dwmac410_dma_init_channel(struct stmmac_priv *priv,
+>  	/* common channel control register config */
+>  	value = readl(ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+>  	if (dma_cfg->pblx8)
+> -		value = value | DMA_BUS_MODE_PBL;
+> +		value = value | DMA_CHAN_CTRL_PBLX8;
+>  
+>  	writel(value, ioaddr + DMA_CHAN_CONTROL(dwmac4_addrs, chan));
+>  
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+> index 5f1e2916f099..9d9077a4ac9f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
+> @@ -24,8 +24,6 @@
+>  
+>  #define DMA_SYS_BUS_MODE		0x00001004
+>  
+> -#define DMA_BUS_MODE_PBL		BIT(16)
+> -#define DMA_BUS_MODE_RPBL_MASK		GENMASK(21, 16)
+>  #define DMA_BUS_MODE_MB			BIT(14)
+>  #define DMA_BUS_MODE_FB			BIT(0)
+>  
+> @@ -68,19 +66,22 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
+>  
+>  #define DMA_CHAN_CONTROL(addrs, x)	dma_chanx_base_addr(addrs, x)
+>  
+> +#define DMA_CHAN_CTRL_PBLX8		BIT(16)
+>  #define DMA_CONTROL_SPH			BIT(24)
+>  
+>  #define DMA_CHAN_TX_CONTROL(addrs, x)	(dma_chanx_base_addr(addrs, x) + 0x4)
+>  
+>  #define DMA_CONTROL_EDSE		BIT(28)
+> +#define DMA_CHAN_TX_CTRL_TXPBL_MASK	GENMASK(21, 16)
+>  #define DMA_CONTROL_TSE			BIT(12)
+>  #define DMA_CONTROL_OSP			BIT(4)
+>  #define DMA_CONTROL_ST			BIT(0)
+>  
+>  #define DMA_CHAN_RX_CONTROL(addrs, x)	(dma_chanx_base_addr(addrs, x) + 0x8)
+>  
+> -#define DMA_CONTROL_SR			BIT(0)
+> +#define DMA_CHAN_RX_CTRL_RXPBL_MASK	GENMASK(21, 16)
+>  #define DMA_RBSZ_MASK			GENMASK(14, 1)
+> +#define DMA_CONTROL_SR			BIT(0)
+>  
+>  #define DMA_CHAN_TX_BASE_ADDR_HI(addrs, x)	(dma_chanx_base_addr(addrs, x) + 0x10)
+>  #define DMA_CHAN_TX_BASE_ADDR(addrs, x)	(dma_chanx_base_addr(addrs, x) + 0x14)
 
-Sigh, I am afraid that this is not enough.
-
-I double checked how "ma35d1serial_console" was used. I guess
-that it could get registered also via the generic uart device
-driver code. I see the following:
-
-#ifdef CONFIG_SERIAL_NUVOTON_MA35D1_CONSOLE
-[...]
-#define MA35D1SERIAL_CONSOLE    (&ma35d1serial_console)
-#else
-#define MA35D1SERIAL_CONSOLE    NULL
-#endif
-
-static struct uart_driver ma35d1serial_reg = {
-[...]
-	.cons         = MA35D1SERIAL_CONSOLE,
-[...]
-};
-
-static int __init ma35d1serial_init(void)
-{
-[...]
-	ret = uart_register_driver(&ma35d1serial_reg);
-[...]
-	ret = platform_driver_register(&ma35d1serial_driver);
-[...]
-}
-
-And the gneric code:
-
-uart_configure_port(struct uart_driver *drv, struct uart_state *state,
-		    struct uart_port *port)
-{
-[...]
-		/*
-		 * If this driver supports console, and it hasn't been
-		 * successfully registered yet, try to re-register it.
-		 * It may be that the port was not available.
-		 */
-		if (port->cons && !console_is_registered(port->cons))
-			register_console(port->cons);
-
-[...]
-}
-
-, which can called via from:
-
-  + mux_probe()
-    + uart_add_one_port()
-      + serial_ctrl_register_port()
-	+serial_core_register_port()
-	  + serial_core_add_one_port()
-	    + uart_configure_port()
-	      + register_console()
-
-
-Honestly, I am not 100% sure. The struct console is assigned to
-.cons in struct uart_driver. And uart_configure_port() function
-passes port->cons from struct uart_port *port. But I believe
-that they can get assigned somewhere in the maze of
-the init/probe code.
-
-I would feel more comfortable if we kept the information as
-as flag in struct console so that even the generic callbacks
-could use it.
-
-Anyway, it makes sense to create a sepate flag for this
-purpose, e.g. CON_FORCE or CON_FORCE_ENABLE.
-
->  	return 0;
->  }
->  console_initcall(ma35d1serial_console_init);
-
-Best Regards,
-Petr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
