@@ -2,52 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C15CD38ED3
-	for <lists+linux-stm32@lfdr.de>; Sat, 17 Jan 2026 14:52:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83375D3900C
+	for <lists+linux-stm32@lfdr.de>; Sat, 17 Jan 2026 18:27:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3672BC8F290;
-	Sat, 17 Jan 2026 13:52:50 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D825C8F299;
+	Sat, 17 Jan 2026 17:27:54 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B96ACC8F28F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BDA9C5663A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 17 Jan 2026 13:52:48 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 8005F1A28EA;
- Sat, 17 Jan 2026 13:52:47 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 40F5B60708;
- Sat, 17 Jan 2026 13:52:47 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 892EF10B69083; Sat, 17 Jan 2026 14:52:40 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1768657966; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=5gDixT1C1g9aXGEdjl/pZkav3MxrZ1blNqQfJLK1BvE=;
- b=WKcU6NrvukifFmQkh8Va7m7KICHp61NXtJxizqM8LdcErwoE6rzE6E54u19h1ifDeJPIxI
- 4mqKwlC3c0cA+f6Qj6CGlzfvbLaRWhgzLGLjkIE1OT70IQBYXzMzbzzNYGsPmuDrfAXdba
- rAHuSNuxHb3pNuARUDSg2t+VTtm4RwQt4yNc0/cMjTvJA0QgFwLYRRD6EqFtwYacSPXK6M
- 02Bbkt09P7mNAA+lKnonX9NqJKinXZzdd6VJyBl3daHersl+UcO3yoTyp5rqI2+ssqU7iF
- KrsYy34nmQRZvReF0srgsRxMadFk9pXF4o7+q9Qkl/FdfmrCfYSn/Hh8iEahsg==
-Message-ID: <194679cb-f8e0-4195-b85b-8726b9f5b4f6@bootlin.com>
-Date: Sat, 17 Jan 2026 14:52:39 +0100
+ Sat, 17 Jan 2026 17:27:52 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CA02040AD1;
+ Sat, 17 Jan 2026 17:27:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A34AC4CEF7;
+ Sat, 17 Jan 2026 17:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1768670870;
+ bh=++XfjfVbehtvX+zItNtLRdUZNU19QrZhA/cVj+pJQsQ=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=h+3iD9c2PGGLIXDkm1POypnGhpKpQcUChPeMaFmpAw8fxoT2RVVSdr0We+wefLP3F
+ ogcqdnQeA4DRfgxXj8J+4rD277A8gDTObFX+8hOlfGCFnZKVnmgdSchK7eKORbvne/
+ VUKo69xpbfYwP/IRbgUh5NfHpbnDbvaPq++zGKg0gIMx5bu0MiYrA8DEDkayIBTCdH
+ wJgPuzTYN9wPzJPXqvBtNg6T3Jv7JXNI/lQ47wsj5rNNKOTenT7WGeHWbMSMw+WNAi
+ 5KxWlqcXeL0P6rIm+N9UNMQe7QCSxWMUY6CkbkQChmIDWbculQaa+eAinSj60+SgmM
+ Xpew9Hb6NKi2Q==
+Date: Sat, 17 Jan 2026 09:27:48 -0800
+From: Jakub Kicinski <kuba@kernel.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>
+Message-ID: <20260117092748.672bc961@kernel.org>
+In-Reply-To: <cover.1768311583.git.dan.carpenter@linaro.org>
+References: <cover.1768311583.git.dan.carpenter@linaro.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
-References: <E1vgtBc-00000005D6v-040n@rmk-PC.armlinux.org.uk>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <E1vgtBc-00000005D6v-040n@rmk-PC.armlinux.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next] net: stmmac: enable RPS and
-	RBU interrupts
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Frank Li <Frank.li@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ linaro-s32@linaro.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
+ Matthias Brugger <mbrugger@suse.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 0/3] s32g: Use a syscon for GPR
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,67 +67,14 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hi Russell,
+On Tue, 13 Jan 2026 17:13:23 +0300 Dan Carpenter wrote:
+> Dan Carpenter (3):
+>   net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
+>   dt-bindings: net: nxp,s32-dwmac: Use the GPR syscon
+>   dts: s32g: Add GPR syscon region
 
-On 17/01/2026 00:25, Russell King (Oracle) wrote:
-> Enable receive process stopped and receive buffer unavailable
-> interrupts, so that the statistic counters can be updated.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
-> 
-> Maxime,
-> 
-> You may find this patch useful, as it makes the "rx_buf_unav_irq"
-> and "rx_process_stopped_irq" ethtool statistic counters functional.
-> This means that the lack of receive descriptors can still be detected
-> even if the receive side doesn't actually stall.
-
-Nice ! I'll give a test and take a deeper look after the weekend :)
-
-Thanks,
-
-Maxime
-
-> 
-> I'm not sure why we publish these statistic counters if we don't
-> enable the interrupts to allow them to ever be non-zero.
-> 
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-> index 9d9077a4ac9f..d7f86b398abe 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-> @@ -99,6 +99,8 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
->  #define DMA_CHAN_INTR_ENA_NIE_4_10	BIT(15)
->  #define DMA_CHAN_INTR_ENA_AIE_4_10	BIT(14)
->  #define DMA_CHAN_INTR_ENA_FBE		BIT(12)
-> +#define DMA_CHAN_INTR_ENA_RPS		BIT(8)
-> +#define DMA_CHAN_INTR_ENA_RBU		BIT(7)
->  #define DMA_CHAN_INTR_ENA_RIE		BIT(6)
->  #define DMA_CHAN_INTR_ENA_TIE		BIT(0)
->  
-> @@ -107,6 +109,8 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
->  					 DMA_CHAN_INTR_ENA_TIE)
->  
->  #define DMA_CHAN_INTR_ABNORMAL		(DMA_CHAN_INTR_ENA_AIE | \
-> +					 DMA_CHAN_INTR_ENA_RPS | \
-> +					 DMA_CHAN_INTR_ENA_RBU | \
->  					 DMA_CHAN_INTR_ENA_FBE)
->  /* DMA default interrupt mask for 4.00 */
->  #define DMA_CHAN_INTR_DEFAULT_MASK	(DMA_CHAN_INTR_NORMAL | \
-> @@ -119,6 +123,8 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
->  					 DMA_CHAN_INTR_ENA_TIE)
->  
->  #define DMA_CHAN_INTR_ABNORMAL_4_10	(DMA_CHAN_INTR_ENA_AIE_4_10 | \
-> +					 DMA_CHAN_INTR_ENA_RPS | \
-> +					 DMA_CHAN_INTR_ENA_RBU | \
->  					 DMA_CHAN_INTR_ENA_FBE)
->  /* DMA default interrupt mask for 4.10a */
->  #define DMA_CHAN_INTR_DEFAULT_MASK_4_10	(DMA_CHAN_INTR_NORMAL_4_10 | \
-
+For v4 could you CC netdev on all 3? Even tho we won't apply patch 3 
+if patchwork sees just a subset of the series it won't kick off our CI.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
