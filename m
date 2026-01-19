@@ -2,42 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69FFFD3A771
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 12:53:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3AC8D3A8D8
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 13:32:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22567C87ED3;
-	Mon, 19 Jan 2026 11:53:48 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47187C555BE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B91F4C87ED4;
+	Mon, 19 Jan 2026 12:32:58 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61B84C87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jan 2026 11:53:47 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id C383E1517;
- Mon, 19 Jan 2026 03:53:39 -0800 (PST)
-Received: from ewhatever.cambridge.arm.com (ewhatever.cambridge.arm.com
- [10.1.197.1])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 670523F632;
- Mon, 19 Jan 2026 03:53:44 -0800 (PST)
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-To: Mike Leach <mike.leach@linaro.org>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Tingwei Zhang <quic_tingwei@quicinc.com>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Kim Phillips <kim.phillips@arm.com>,
- Sai Prakash Ranjan <quic_saipraka@quicinc.com>, coresight@lists.linaro.org,
- James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@linux.dev>,
- Antonio Borneo <antonio.borneo@foss.st.com>
-Date: Mon, 19 Jan 2026 11:53:30 +0000
-Message-ID: <176882354697.1800388.2817378483525119566.b4-ty@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260108152427.357379-1-antonio.borneo@foss.st.com>
-References: <20260108152427.357379-1-antonio.borneo@foss.st.com>
+ Mon, 19 Jan 2026 12:32:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ru0nxSOEAUS0c1CIJ001g/HVYfV6kPWDtKRmcrJjgng=; b=kObIpteAPzCuUxauZeML37Pk7E
+ pk151CM3jRglHjSj9s073pEL6WuAapJhIvJZdtVR7cZXkv2KIfkGK3kQTz38a841qfLNrgqjkRQev
+ q/jgyT1H/R0yP006BvGPaWHNbEi5hELEfS5AplPbSIS2gOyDtVoSBGD7LtStxhTrPGaFp3dBPD5AG
+ 5Ok+rz/tlc/VHSbviizcy5+yMMHW5a5Y/UoTEhLHjXzASkAzvr4lMnj0fOQB15fA72Hu0Ib+XOHdS
+ ojjqx8TnSoG/OeBbo+y0F+ciPOub6obVqBapbNYhLzFDLR8KHg2GujY1oHbfnpxkw2Yy3EmfROUQc
+ V2xtvRpQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40468)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vhoR4-00000000517-35y5;
+ Mon, 19 Jan 2026 12:32:46 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vhoR0-000000006Y5-2Egz; Mon, 19 Jan 2026 12:32:42 +0000
+Date: Mon, 19 Jan 2026 12:32:42 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aW4kakF3Ly7VaxN6@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: [Linux-stm32] [PATCH] coresight: etm3x: Fix cpulocked warning
-	on cpuhp
+Content-Disposition: inline
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-phy@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 00/14] net: stmmac: SerDes, PCS,
+ BASE-X, and inband goodies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -54,27 +67,90 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
+This is the v1 submission: if it doesn't get tested but review goes
+well, it'll end up in net-next and mainline without testing on the
+affected hardware!
 
-On Thu, 08 Jan 2026 16:24:27 +0100, Antonio Borneo wrote:
-> When changes [1] and [2] have been applied to the driver etm4x, the
-> same modifications have been also collapsed in [3] and applied in
-> one shot to the driver etm3x.
-> While doing this, the driver etm3x has not been aligned to etm4x on
-> the use of non cpuslocked version of cpuhp callback setup APIs.
-> 
-> The current code triggers two run-time warnings when the kernel is
-> compiled with CONFIG_PROVE_LOCKING=y.
-> 
-> [...]
+Mentioned previously, I've been trying to sort out the PCS support in
+stmmac, and this series represents the current state of play.
 
-Applied, thanks!
+Previous posted patches centred around merely getting autonegotiation
+to be configured correctly, to a point where the manual configuration
+can be removed from the qcom-ethqos driver. The qcom-ethqos driver
+uses both SGMII and 2500BASE-X, manually configuring the dwmac's
+integrated PCS appropriately.
 
-[1/1] coresight: etm3x: Fix cpulocked warning on cpuhp
-      https://git.kernel.org/coresight/c/1feb0377b9b8
+This *untested* series attempts to take this further. The patches:
 
-Best regards,
+- clean up qcom-ethqos only-written mac_base member.
+- convert qcom-ethqos to use the set_clk_tx_rate() method for setting
+  the link clock rate.
+- add support for phy_set_mode_ext() to the qcom "SGMII" ethernet
+  SerDes driver (which is really only what it needs. Note that
+  phy_set_mode_ext() is an expected call to be made, where as
+  phy_set_speed() is optional and not. See PHY documentation.)
+- add platform-glue independent SerDes support to the stmmac core
+  driver. Currently, only qcom-ethqos will make use of this, and
+  I suspect as we haven't had this, it's going to be difficult to
+  convert other platform glue to use this - but had this existed
+  earlier, we could've pushed people to use PHY to abstract some
+  of the platform glue differences. Adding it now makes it available
+  for future platform glue.
+- convert qcom-ethqos to use this core SerDes support.
+- arrange for stmmac_pcs.c to supply the phy_intf_sel field value
+  if the integrated PCS will be used. (PHY_INTF_SEL_SGMII requires
+  the integrated PCS rather than an external PCS.)
+- add BASE-X support to the integrated PCS driver, and use it for
+  BASE-X modes. This fully supports in-band mode, including reading
+  the link partner advertisement.
+- add in-band support for SGMII, reading the state from the RGSMII
+  status field.
+
+As we leave qcom-ethqos' manual configuration of the PCS in place at
+the moment, the last patch adds reporting of any changes in its
+configuration that the qcom-ethqos driver does beyond what phylink
+requested, thus providing a path to debug and eventually remove
+qcom-ethqos' manual configuration.
+
+One patch is not included in this set - which adds a phy_intf_sel
+value for external PCS (using PHY_INTF_SEL_GMII_MII). I believe all
+external PCS use this mode when connected to a MAC capable of up to
+2.5G. However, no platform glue that provides the mac_select_pcs()
+method also provide the set_phy_intf_sel() method, so we can safely
+ignore this for now.
+
+I would like to get this into net-next before the next merge window,
+so testing would be appreciated. If there are issues with these patches
+applied, please check whether the issue exists without these patches
+and only report regressions caused by this patch set. For example,
+I'm aware that qcom-ethqos has issues with 10Mbps mode due to an AQR
+PHY being insanely provisioned to use SGMII in 1000M mode but with
+rate matching with 10M media. This is not an issue that is relevant
+to this patch series, but a problem with the PHY provisioning.
+
+rfc->v1:
+ - fix SGMII link status
+ - avoid calling phy_get_mode() if PHY is null
+
+ drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/common.h       |   1 -
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  74 ++-----
+ .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   |   9 +-
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |   8 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  69 +++++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 220 +++++++++++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   |  53 ++---
+ .../net/ethernet/stmicro/stmmac/stmmac_serdes.c    | 111 +++++++++++
+ .../net/ethernet/stmicro/stmmac/stmmac_serdes.h    |  16 ++
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c          |  43 ++++
+ include/linux/stmmac.h                             |   2 +
+ 12 files changed, 483 insertions(+), 125 deletions(-)
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_serdes.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_serdes.h
+
 -- 
-Suzuki K Poulose <suzuki.poulose@arm.com>
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
