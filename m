@@ -2,49 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ABC75D3ABAB
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 15:22:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A0C46D3AB95
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 15:21:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79ED5C36B3C;
-	Mon, 19 Jan 2026 14:22:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A359C36B3C;
+	Mon, 19 Jan 2026 14:21:48 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6801C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CECCC36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jan 2026 14:22:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id C38C46014E;
- Mon, 19 Jan 2026 14:22:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77E53C116C6;
- Mon, 19 Jan 2026 14:22:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1768832570;
- bh=iel0DGd+o7YdAm/0CQY6DbLhXg4Ch8q2C+sIyw5cVsc=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=pmUW/8TuBqOMdEh45Xlya+A5LFhiUXZft+YkLYZz4MX4TTLLgBukSekW26UUGCdkX
- qfIn6ICpmnU59KzLoU2ByoGuW6poqy/zlv/SpaKB4T0Um/6RZ9vdGfFy5EeZQD0JhP
- mm9x6VxltaUS7QnJ8v++HTqT8EYHEMKgxuMLsGbYTAyrI0mYLU91wXq89X1VzT3/LE
- fcjZ/XowaofkMOrgURSQlr6CRWBHZq5GRuAGsADPX9WvlvKAgKu763o3oQ4TPM8twP
- rQ+ziX0YQ2wCJh7uFYWF4sQM0U2ybqAFvhr5TpmUDL+cSustp0arkyYD81hX7RJUMo
- Vo5eGNM5rFnVA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 7891E3A55FAF; Mon, 19 Jan 2026 14:19:21 +0000 (UTC)
+ Mon, 19 Jan 2026 14:21:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=+DI6q3ezeAcW/RwFwkGoz60ZMnTmsonDvKRYBklNGiQ=; b=sOUgVvXT4Q1xtFJSB7gY92yeP6
+ OH+GeF/DoJaESvHWaNKLLWGqxQ85uzRbbayLSmcv7OmLFxe1bYnR7FY9GcnH4ZZq0FsdiQNgNAO0m
+ u5J1dzPNQWT+hZ9/kOofsazeIP+WuQfLFirZGeauJM22Fv4kp67jHO78CysKdc8KbU/yJwrh8rGEB
+ zutz0SYQU8pvbijtAaIcK5Kp5tGXsMfoBK02lbW1nk57t/88VwrKiIrItkuElgqVgTrGwwm5ipzX7
+ Z/7lo9PFUYnInTbfItlh9lz1CbEfqQrcENBvjLhhDyv+I/5IVfc/gjptMlOcsRSunZ6iX5euc7A30
+ R7BuOtFQ==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38882 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <rmk@armlinux.org.uk>) id 1vhq8O-000000005HT-3eys;
+ Mon, 19 Jan 2026 14:21:36 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1vhq8O-00000005N5s-0Ke5; Mon, 19 Jan 2026 14:21:36 +0000
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Tao Wang <tao03.wang@horizon.auto>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176883236002.1426077.3751892963025257662.git-patchwork-notify@kernel.org>
-Date: Mon, 19 Jan 2026 14:19:20 +0000
-References: <E1vgY1k-00000003vOC-0Z1H@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1vgY1k-00000003vOC-0Z1H@rmk-PC.armlinux.org.uk>
-To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix dwmac4 transmit
- performance regression
+Content-Disposition: inline
+Message-Id: <E1vhq8O-00000005N5s-0Ke5@rmk-PC.armlinux.org.uk>
+Date: Mon, 19 Jan 2026 14:21:36 +0000
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net] net: stmmac: fix resume: calculate tso
+	last_segment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,31 +65,80 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Hello:
+Tao Wang reports that sometimes, after resume, stmmac can watchdog:
+NETDEV WATCHDOG: CPU: x: transmit queue x timed out xx ms
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+When this occurs, the DMA transmit descriptors contain:
+eth0: 221 [0x0000000876d10dd0]: 0x73660cbe 0x8 0x42 0xb04416a0
+eth0: 222 [0x0000000876d10de0]: 0x77731d40 0x8 0x16a0 0x90000000
 
-On Fri, 16 Jan 2026 00:49:24 +0000 you wrote:
-> dwmac4's transmit performance dropped by a factor of four due to an
-> incorrect assumption about which definitions are for what. This
-> highlights the need for sane register macros.
-> 
-> Commit 8409495bf6c9 ("net: stmmac: cores: remove many xxx_SHIFT
-> definitions") changed the way the txpbl value is merged into the
-> register:
-> 
-> [...]
+where descriptor 221 is the TSO header and 222 is the TSO payload.
+tdes3 for descriptor 221 (0xb04416a0) has both bit 29 (first
+descriptor) and bit 28 (last descriptor) set, which is incorrect.
+The following packet also has bit 28 set, but isn't marked as a
+first descriptor, and this causes the transmit DMA to stall.
 
-Here is the summary with links:
-  - [net-next] net: stmmac: fix dwmac4 transmit performance regression
-    https://git.kernel.org/netdev/net-next/c/5ccde4c81e84
+This occurs because stmmac_tso_allocator() populates the first
+descriptor, but does not set .last_segment correctly. There are two
+places where this matters: one is later in stmmac_tso_xmit() where
+we use it to update the TSO header descriptor. The other is in the
+ring/chain mode clean_desc3() which is a performance optimisation.
 
-You are awesome, thank you!
+Rather than using tx_q->tx_skbuff_dma[].last_segment to determine
+whether the first descriptor entry is the only segment, calculate the
+number of descriptor entries used. If there is only one descriptor,
+then the first is also the last, so mark it as such.
+
+Further work will be necessary to either eliminate .last_segment
+entirely or set it correctly. Code analysis also indicates that a
+similar issue exists with .is_jumbo. These will be the subject of
+a future patch.
+
+Reported-by: Tao Wang <tao03.wang@horizon.auto>
+Fixes: c2837423cb54 ("net: stmmac: Rework TX Coalesce logic")
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++---
+ 1 file changed, 9 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 7b16d1207b80..af9395d054a3 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4320,11 +4320,11 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	unsigned int first_entry, tx_packets;
+ 	struct stmmac_txq_stats *txq_stats;
+ 	struct stmmac_tx_queue *tx_q;
++	bool set_ic, is_last_segment;
+ 	u32 pay_len, mss, queue;
+ 	int i, first_tx, nfrags;
+ 	u8 proto_hdr_len, hdr;
+ 	dma_addr_t des;
+-	bool set_ic;
+ 
+ 	/* Always insert VLAN tag to SKB payload for TSO frames.
+ 	 *
+@@ -4512,10 +4512,16 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		stmmac_enable_tx_timestamp(priv, first);
+ 	}
+ 
++	/* If we only have one entry used, then the first entry is the last
++	 * segment.
++	 */
++	is_last_segment = ((tx_q->cur_tx - first_entry) &
++			   (priv->dma_conf.dma_tx_size - 1)) == 1;
++
+ 	/* Complete the first descriptor before granting the DMA */
+ 	stmmac_prepare_tso_tx_desc(priv, first, 1, proto_hdr_len, 0, 1,
+-				   tx_q->tx_skbuff_dma[first_entry].last_segment,
+-				   hdr / 4, (skb->len - proto_hdr_len));
++				   is_last_segment, hdr / 4,
++				   skb->len - proto_hdr_len);
+ 
+ 	/* If context desc is used to change MSS */
+ 	if (mss_desc) {
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.47.3
 
 _______________________________________________
 Linux-stm32 mailing list
