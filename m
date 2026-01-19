@@ -2,47 +2,35 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A37E6D3AEDD
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 16:22:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F00CD3AF6D
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 16:46:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5CBD9C36B3C;
-	Mon, 19 Jan 2026 15:22:43 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD5B0C36B2A
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9EA4C35E3C;
+	Mon, 19 Jan 2026 15:46:10 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33318C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jan 2026 15:22:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=t2bBOzwMAYRPjjO4lNowgGiSlgdU4XZZkvdsScnElFg=; b=O8wDb4mrkaMfRoOkguXYrBTU0J
- OesoB9GT+1MQrogutipTMxmJeZBU0K57dc43hHA9LAiPkGpuH13kbBK1T5gKort1JsDxQaJOTclsX
- wL5Ri+OMBYkuFiJJ9o14NQgVIAh7+o2Qk5yuVn1cdTzKZujgjP9nyJMWUycOZxill7VY=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1vhr5C-003WIK-Nn; Mon, 19 Jan 2026 16:22:22 +0100
-Date: Mon, 19 Jan 2026 16:22:22 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Joey Lu <a0987203069@gmail.com>
-Message-ID: <04df4909-4fdb-4046-917f-2f2e47832c62@lunn.ch>
-References: <20260119073342.3132502-1-a0987203069@gmail.com>
- <20260119073342.3132502-3-a0987203069@gmail.com>
+ Mon, 19 Jan 2026 15:46:10 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8C6DDFEC;
+ Mon, 19 Jan 2026 07:46:02 -0800 (PST)
+Received: from localhost (e132581.arm.com [10.1.196.87])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id B89EF3F694;
+ Mon, 19 Jan 2026 07:46:08 -0800 (PST)
+Date: Mon, 19 Jan 2026 15:46:06 +0000
+From: Leo Yan <leo.yan@arm.com>
+To: James Clark <james.clark@linaro.org>
+Message-ID: <20260119154606.GE2732125@e132581.arm.com>
+References: <20251217-fix_stm_kconfig-v1-1-531fb3674549@arm.com>
+ <8d48dd55-d78d-4cbf-88b0-5427a731ba7d@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260119073342.3132502-3-a0987203069@gmail.com>
-Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
- yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- richardcochran@gmail.com, peppe.cavallaro@st.com,
- linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v8 2/3] arm64: dts: nuvoton: Add
-	Ethernet nodes
+In-Reply-To: <8d48dd55-d78d-4cbf-88b0-5427a731ba7d@linaro.org>
+Cc: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] stm class: Fix Kconfig symbols
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,27 +47,38 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Mon, Jan 19, 2026 at 03:33:40PM +0800, Joey Lu wrote:
-> Add GMAC nodes for our MA35D1 development boards:
-> two RGMII interfaces for SOM board, and one RGMII
-> and one RMII interface for IoT board.
+On Mon, Jan 19, 2026 at 12:35:23PM +0000, James Clark wrote:
+
+[...]
+
+> > @@ -28,7 +28,7 @@ config STM_PROTO_BASIC
+> >   config STM_PROTO_SYS_T
+> >   	tristate "MIPI SyS-T STM framing protocol driver"
+> > -	default CONFIG_STM
+> > +	default STM
 > 
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->  .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 12 +++++
->  .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 10 ++++
->  arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 54 +++++++++++++++++++
+> The help below here says "If you don't know what this is, say N." which
+> makes me wonder if this should be on by default or not?
 
-I'm somewhat confused with your naming here.
+STM_PROTO_BASIC is a must have config when enabling STM.  While
+STM_PROTO_SYS_T is not mandatory, but it is useful to build it so that
+users can select the protocol dynamically at runtime.
 
-A SoM generally needs a carrier board. So the SoM is described as a
-.dtsi file, which the carrier board .dts file can then include.
+> Also everything is in an "if STM" block, so "default STM" is a bit
+> redundant. It's not that obvious what the intention was.
 
-Where are the PHYs? Sometimes the PHYs are on the SoM, sometimes they
-are on the carrier board. If they are not actually on the SoM, the
-PHYs should not be listed as part of the SoM.
+They are two different things.
 
-     Andrew
+"if STM" expresses a dependency (the module depends on STM), while
+"default STM" means the module will be selected by default if STM is
+enabled.
+
+Thanks,
+Leo
+
+P.s. I also tried using the "select" and "imply" syntax to enable the
+protocol configurations.  Based on testing, I did not observe any
+difference compared to using the "default" syntax.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
