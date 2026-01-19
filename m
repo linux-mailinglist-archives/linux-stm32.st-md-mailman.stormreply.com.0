@@ -2,53 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0C46D3AB95
-	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 15:21:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14DFBD3ABDD
+	for <lists+linux-stm32@lfdr.de>; Mon, 19 Jan 2026 15:27:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A359C36B3C;
-	Mon, 19 Jan 2026 14:21:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8B9DC36B3C;
+	Mon, 19 Jan 2026 14:27:52 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CECCC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D97DAC36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jan 2026 14:21:46 +0000 (UTC)
+ Mon, 19 Jan 2026 14:27:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+DI6q3ezeAcW/RwFwkGoz60ZMnTmsonDvKRYBklNGiQ=; b=sOUgVvXT4Q1xtFJSB7gY92yeP6
- OH+GeF/DoJaESvHWaNKLLWGqxQ85uzRbbayLSmcv7OmLFxe1bYnR7FY9GcnH4ZZq0FsdiQNgNAO0m
- u5J1dzPNQWT+hZ9/kOofsazeIP+WuQfLFirZGeauJM22Fv4kp67jHO78CysKdc8KbU/yJwrh8rGEB
- zutz0SYQU8pvbijtAaIcK5Kp5tGXsMfoBK02lbW1nk57t/88VwrKiIrItkuElgqVgTrGwwm5ipzX7
- Z/7lo9PFUYnInTbfItlh9lz1CbEfqQrcENBvjLhhDyv+I/5IVfc/gjptMlOcsRSunZ6iX5euc7A30
- R7BuOtFQ==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38882 helo=rmk-PC.armlinux.org.uk)
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=oa6ROnre6vr29aI4SNzN9w1inyxLiiLWv/B/wldB++Y=; b=EByHMWRUchgU/DLs8hq0L/dHWD
+ 5zjuKjJVshFuMrahXJ97rRLOWXT4lg8Khdi+FurcsHRmp9K23Qrr+pb9Ni802OPXiWGImH1MB9899
+ 5YA6gGkGVdQdoZSZnI+kqH67ez+gy3ye1dCYk1mn5x97JQ1Jga0290Ng8Fb/XNyttVviHN9IadMhS
+ PCzgIDyYIoJ2+mVJzUsBlBKiqRex1wSbhd3dBWFvXjw/SkAr1K0VYS8HkVag3ITLGt5mOLMyCjt31
+ JAeD9vVdIE81zOjAwOyJJQRjGN8+Nqsh0jMUmARIYdqc18JVL18kVri1ry9Cr/E2+NMB5a27FijmA
+ +KotNvRA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45064)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vhq8O-000000005HT-3eys;
- Mon, 19 Jan 2026 14:21:36 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vhq8O-00000005N5s-0Ke5; Mon, 19 Jan 2026 14:21:36 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Tao Wang <tao03.wang@horizon.auto>
+ (envelope-from <linux@armlinux.org.uk>) id 1vhqEH-000000005IS-46Rj;
+ Mon, 19 Jan 2026 14:27:42 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vhqEE-000000006d8-2VLt; Mon, 19 Jan 2026 14:27:38 +0000
+Date: Mon, 19 Jan 2026 14:27:38 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>
+Message-ID: <aW4_WsnDdhpajY93@shell.armlinux.org.uk>
+References: <aW4kakF3Ly7VaxN6@shell.armlinux.org.uk>
+ <E1vhoT1-00000005H2a-3EnB@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vhq8O-00000005N5s-0Ke5@rmk-PC.armlinux.org.uk>
-Date: Mon, 19 Jan 2026 14:21:36 +0000
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+In-Reply-To: <E1vhoT1-00000005H2a-3EnB@rmk-PC.armlinux.org.uk>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, linux-phy@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: fix resume: calculate tso
-	last_segment
+Subject: Re: [Linux-stm32] [PATCH net-next 14/14] net: stmmac: report PCS
+ configuration changes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,81 +69,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-Tao Wang reports that sometimes, after resume, stmmac can watchdog:
-NETDEV WATCHDOG: CPU: x: transmit queue x timed out xx ms
+On Mon, Jan 19, 2026 at 12:34:47PM +0000, Russell King (Oracle) wrote:
+> Report if/when qcom-ethqos changes the PCS configuration. With phylink
+> now setting the PCS configuration, there should be no need for drivers
+> to change this.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> index f9e7a7ed840b..6a1e30b10740 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> @@ -71,6 +71,7 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+>  				  bool srgmi_ral)
+>  {
+>  	u32 value = readl(ioaddr + GMAC_AN_CTRL(reg));
+> +	u32 old = value, diff;
+>  
+>  	/* Enable and restart the Auto-Negotiation */
+>  	if (ane)
+> @@ -84,6 +85,20 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+>  	if (srgmi_ral)
+>  		value |= GMAC_AN_CTRL_SGMRAL;
+>  
+> +	diff = old ^ value;
+> +	if (diff & ~GMAC_AN_CTRL_RAN) {
+> +		pr_warn("dwmac: PCS configuration changed from phylink by glue, please report: 0x%08x -> 0x%08x\n",
+> +			old & ~GMAC_AN_CTRL_RAN, value & ~GMAC_AN_CTRL_RAN);
+> +#define REPORT_BIT(x) \
+> +		if (diff & GMAC_AN_CTRL_##x) \
+> +			pr_warn("dwmac: %8s %u -> %u\n", #x, \
+> +				!!(old & GMAC_AN_CTRL_##x), \
+> +				!!(value & GMAC_AN_CTRL_##x))
+> +		REPORT_BIT(ANE);
+> +		REPORT_BIT(SGMRAL);
+> +#undef REPORT_BIT
 
-When this occurs, the DMA transmit descriptors contain:
-eth0: 221 [0x0000000876d10dd0]: 0x73660cbe 0x8 0x42 0xb04416a0
-eth0: 222 [0x0000000876d10de0]: 0x77731d40 0x8 0x16a0 0x90000000
+I notice in patchwork, checkpatch doesn't like the "if" starting the in
+the macro definition. While that would be true of definitions in kernel
+header files which can be used anwhere, for such a simple limited usage
+here, wrapping the thing in do { } while(0) is needless baggage, over-
+complicates the code, and makes it less readable. So, IMHO, checkpatch
+is wrong.
 
-where descriptor 221 is the TSO header and 222 is the TSO payload.
-tdes3 for descriptor 221 (0xb04416a0) has both bit 29 (first
-descriptor) and bit 28 (last descriptor) set, which is incorrect.
-The following packet also has bit 28 set, but isn't marked as a
-first descriptor, and this causes the transmit DMA to stall.
-
-This occurs because stmmac_tso_allocator() populates the first
-descriptor, but does not set .last_segment correctly. There are two
-places where this matters: one is later in stmmac_tso_xmit() where
-we use it to update the TSO header descriptor. The other is in the
-ring/chain mode clean_desc3() which is a performance optimisation.
-
-Rather than using tx_q->tx_skbuff_dma[].last_segment to determine
-whether the first descriptor entry is the only segment, calculate the
-number of descriptor entries used. If there is only one descriptor,
-then the first is also the last, so mark it as such.
-
-Further work will be necessary to either eliminate .last_segment
-entirely or set it correctly. Code analysis also indicates that a
-similar issue exists with .is_jumbo. These will be the subject of
-a future patch.
-
-Reported-by: Tao Wang <tao03.wang@horizon.auto>
-Fixes: c2837423cb54 ("net: stmmac: Rework TX Coalesce logic")
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 7b16d1207b80..af9395d054a3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4320,11 +4320,11 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 	unsigned int first_entry, tx_packets;
- 	struct stmmac_txq_stats *txq_stats;
- 	struct stmmac_tx_queue *tx_q;
-+	bool set_ic, is_last_segment;
- 	u32 pay_len, mss, queue;
- 	int i, first_tx, nfrags;
- 	u8 proto_hdr_len, hdr;
- 	dma_addr_t des;
--	bool set_ic;
- 
- 	/* Always insert VLAN tag to SKB payload for TSO frames.
- 	 *
-@@ -4512,10 +4512,16 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
- 		stmmac_enable_tx_timestamp(priv, first);
- 	}
- 
-+	/* If we only have one entry used, then the first entry is the last
-+	 * segment.
-+	 */
-+	is_last_segment = ((tx_q->cur_tx - first_entry) &
-+			   (priv->dma_conf.dma_tx_size - 1)) == 1;
-+
- 	/* Complete the first descriptor before granting the DMA */
- 	stmmac_prepare_tso_tx_desc(priv, first, 1, proto_hdr_len, 0, 1,
--				   tx_q->tx_skbuff_dma[first_entry].last_segment,
--				   hdr / 4, (skb->len - proto_hdr_len));
-+				   is_last_segment, hdr / 4,
-+				   skb->len - proto_hdr_len);
- 
- 	/* If context desc is used to change MSS */
- 	if (mss_desc) {
 -- 
-2.47.3
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
