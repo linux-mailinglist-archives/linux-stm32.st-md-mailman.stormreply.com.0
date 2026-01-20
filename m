@@ -2,70 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kGAsH+3nb2lhUQAAu9opvQ
+	id gF5rEO/nb2lhUQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:09 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:11 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 126874B6F5
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 11D794B6FD
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B663BC349C4;
-	Tue, 20 Jan 2026 20:39:08 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBE68C56612;
+	Tue, 20 Jan 2026 20:39:10 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B009C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB62EC3F944
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 20:39:07 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-4801eb2c0a5so38868645e9.3
+ Tue, 20 Jan 2026 20:39:09 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-47ee301a06aso54954455e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 12:39:07 -0800 (PST)
+ Tue, 20 Jan 2026 12:39:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768941547; x=1769546347;
+ d=gmail.com; s=20230601; t=1768941549; x=1769546349;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=qrKCUKKckHcjjuwU+EHrOyUAQd4woAILl74Bd1qw4Gk=;
- b=I0Fp2Vg/K0DHkPCrVZKB/DBWfUYcNJPuxGGsZarErWLCjkWPpcLIQiupkURg8Xypjl
- QDnQWM4WktNeFGccVxiCS8gr6/JSnIJ5QQEJbZyYpgXoKcy9wvgxisQCWeQoEvDQiEqi
- 23DpnwN4L8JXiE2c0GFxCc/94rz99Z4HL4CXbK6Szz+nUgDv9UxIFPgv9/mCSvySzqSQ
- b9bo//vajYAm3EgRi1dIKAM9j3Vl+60GMSUoPoqbUXwL/0wOB+yVnC+wjZrDT4NgQthv
- iJrRBWGtb8yIu/LZ6fmaClEAigmYnIQkfC+3ZUvsfg7VSvVGqMfbMbUasj4h9Gd38GrT
- Ualw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768941547; x=1769546347;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=qrKCUKKckHcjjuwU+EHrOyUAQd4woAILl74Bd1qw4Gk=;
- b=bofcOR7m9+V5iVpcAEWoFCBXC4fZze66nEPUu5UcQgdnx74/xagMMfedNZfyrU3T93
- FeU5EbFfjRThJ6yf8VMiEK6gulgc5S6e38mae+ZO1N/UQ8McvqlvHI4l84F4jWB/9UG1
- zJsa2FK8xbd8rl6idGZjaGRFiqCaBxIuS1NlQmVfRTzpoBPsyCPW0PvQFxWFqVN6HcnN
- D3hyDRfpsJoNCjXA7AXnWnuOif8KTrdXMBN2T7SGWGw+jxiduea7S+HxPiTuzsjttqYk
- bDtFaekyUn+celoRoevnmGMRPs8JRTA2Ctc/p5mjU9VYFSBIPmK3z/sX41+tjZSvIAn9
- YWiQ==
+ bh=u6EvQ/5He659QnltZ2hQ5JWhAbcs5AVgWTzcueB+MkM=;
+ b=fj0dNg4YSmTPjbhL/Mn1m6Uz4vQW1zgGifharpIkt5jLIBuoMq+yefKfccpg3nclLF
+ Jlvx3443e3wUENY6tWzWvceIFlyIoqvyTiFcmWxjYG82MVzuSGIdWzeRH+7Ovs6QfzRI
+ NSw4H5AxUP7+uQ6uLYYMfr4FZMpwmDmQ6DLlZvsj+GhSAZtegtjQVyS8Yvqd0Qx1L8AG
+ 5vEad5KrDfs+p6d/N+fu0XACDswsa9x3rh9bxcgG9wJj+bUga4/o7565vhpGAO5Mxarz
+ ix0yCOLL6SRGAME4D28hgCACwQtmBv6i7CV3kxIsfQLYC9scMB9xxHtHpy+qReO/rY1q
+ 7jLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1768941549; x=1769546349;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=u6EvQ/5He659QnltZ2hQ5JWhAbcs5AVgWTzcueB+MkM=;
+ b=QLit4us+Frshb8UAUUcx3LpD9lhel0OWVdfvA1UNX0PaszSNNpplVsq3eJEerses7P
+ HmzmgShULckFxzRAs0XS7hxtp5Uywt/DJvCMyJiEaE8noDfEshJgpuSY035ckDh10uMZ
+ IiPoILSuw9hx64DPf2qjw68Z9rYEdM4BBRhQWsDC8HpNAzadMvlXaxMyoQ5gQeGCSQem
+ J0UurDgL58wB8maZhe5vj0vsiZpaTork3GajXbOByoEG9BXDTjPrpxOv3gUSdrV3wjo5
+ RMylX8sw1Ej2YDMC6cRbr2si0qlANc8lmuClNhy6TfMGXKf8hmyUbuC2UtO0dcRxBV3l
+ mGEw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXwnu8MS2d6gB8zqkk7r6H4ATky5eJRWTo1FHFsWrmUdcPz+pLBQTXxXL8lC/i8xLnK/h8nETI1GaDmMw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz+RZRubYM0qaFYO3ZVxvD/NEWedDny72XlGCISRuTu2LvptOw6
- Wr7imJQj4jyfBzjFbGyy6sW/PyD8C92AQOjLrWZPxV5eUK4aQyQfMbru
-X-Gm-Gg: AY/fxX41Qo3GZjwrlIfq313w/6SIXUhX63PP79gMPykOx+c/qHI7SqFcKdNiAED2ij6
- ALCO5bZToKxi4JKlnKM/ANlNjUncNY8Cvd6fR4m6h01mfqti30ng5fTK55Sh4+qU7s6eKRQ5irs
- aOalNYKdIytWv1fl7KLp7gZ5rjGn6NX8l8Ly8Mrex8TKJJScXqH00+5wlaN0jwjBPBDXh3jPkkn
- +rIfNc1Hb7D63VCvsS67seNEl832LuSZGvDjXkGAtuSp3WlLU1VK6KZxSVSL78v3Q12jWTCce44
- FPERKfV7efTycmbkicuUZrTiitIMODEs/uHVq5WjZRTwnlYkxbS2/XGL+PdZ56pwd/wY/kiBzqd
- ST3YrtpgIpOup7sVDvqZPqQSiaTU7zxcBat6LEgnqAWqiq8+fInK4J1mdDnvLMSb27wDR9dcf6p
- rZy39Iy7Vi3G7gSHzg
-X-Received: by 2002:a05:600c:414f:b0:480:20f1:7abd with SMTP id
- 5b1f17b1804b1-48020f17c12mr160684545e9.31.1768941546639; 
- Tue, 20 Jan 2026 12:39:06 -0800 (PST)
+ AJvYcCUsQnnax91O1/vwS0KHvk5Aug9njKQ05qYQGh6iDEC19NcwDC3jcjwm5UNdwzN6zjkOIrnbl7+WrnTBLw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyYOIBo3Im6N1ZqtWyx/awlKlLnOpsQlCQb/su2quR5vA23ne5p
+ iyzBAeLp4b9hD+yauH13fcr9ioedYFnUF8vy24OORhLDe1lJwEWsOMMY
+X-Gm-Gg: AY/fxX5HAef8ycsXMG26jHQ0sWArx4t+KenIPjx4BVruQZkO4NozzkHbeiCB7rDrlOR
+ Qmjt6cGzBKL9tTNSi0y5qsa6gqjplJrh9CsJLiSnp6BEJAHC2F3rI7VcUN/wn8E+uOR2LnPJyxu
+ E5LMj0SqjxRmJSh1N3EX8Bb0CHvIS4ZCeSm6oi3W7eFwndMfn1yE1pj9bUWvYcuedUWT0YfJUV/
+ hvjSdixS7lVxGygKVZ08cQYqHsvM9oDxp82AG94W3bj0+JKjreA1f9yt6pyK7EbCdtBNQGiY6IS
+ IaFWSllYYVCd7OSKTYSk5IJITg+OOMNBRVjHxUizAr0c/L4bnS1TqfKFmtPIpM1JA4iWoS8x9PA
+ 59a38+rJrwIRAiuSUZTT/UKqsjGdU9yDmjAGxoAv3739Wat0UwZhDKc8PUvShwarrBTf36OGEap
+ aVXgQK2bhpt3QagLUwtBwGPmrOzj0=
+X-Received: by 2002:a05:600c:4e0f:b0:47e:e779:36e with SMTP id
+ 5b1f17b1804b1-4801eb0375amr194243815e9.19.1768941549092; 
+ Tue, 20 Jan 2026 12:39:09 -0800 (PST)
 Received: from eichest-laptop.lan ([2a02:168:af72:0:378b:c660:2f9c:b651])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48042c3a7c1sm850425e9.13.2026.01.20.12.39.05
+ 5b1f17b1804b1-48042c3a7c1sm850425e9.13.2026.01.20.12.39.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 12:39:06 -0800 (PST)
+ Tue, 20 Jan 2026 12:39:08 -0800 (PST)
 From: Stefan Eichenberger <eichest@gmail.com>
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
@@ -73,14 +74,18 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kernel@pengutronix.de, festevam@gmail.com, hkallweit1@gmail.com,
  linux@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
  maxime.chevallier@bootlin.com, francesco.dolcini@toradex.com
-Date: Tue, 20 Jan 2026 21:30:01 +0100
-Message-ID: <20260120203905.23805-1-eichest@gmail.com>
+Date: Tue, 20 Jan 2026 21:30:02 +0100
+Message-ID: <20260120203905.23805-2-eichest@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260120203905.23805-1-eichest@gmail.com>
+References: <20260120203905.23805-1-eichest@gmail.com>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev
-Subject: [Linux-stm32] [PATCH net-next v3 0/3] net: stmmac: dwmac: enforce
-	preamble before SFD for i.MX8MP
+Cc: netdev@vger.kernel.org,
+ Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev
+Subject: [Linux-stm32] [PATCH net-next v3 1/3] net: phy: add a new
+	phy_device flag to keep preamble before sfd
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,75 +108,66 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:shawnguo@kernel.org,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:hkallweit1@gmail.com,m:linux@armlinux.org.uk,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:francesco.dolcini@toradex.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:shawnguo@kernel.org,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:hkallweit1@gmail.com,m:linux@armlinux.org.uk,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:francesco.dolcini@toradex.com,m:netdev@vger.kernel.org,m:stefan.eichenberger@toradex.com,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	GREYLIST(0.00)[pass,meta];
 	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,pengutronix.de,armlinux.org.uk,st-md-mailman.stormreply.com,bootlin.com,toradex.com];
 	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[eichest@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TO_DN_NONE(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[eichest@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[eichest@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 126874B6F5
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,toradex.com:email]
+X-Rspamd-Queue-Id: 11D794B6FD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This series adds a new phy_device flag PHY_F_KEEP_PREAMBLE_BEFORE_SFD
-that allows a MAC driver to request to keep the preamble bytes before
-the start frame delimiter (SFD) when receiving frames from the PHY.
+From: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 
-This flag is set in the stmmac driver for the i.MX8MP SoC due to errata
-(ERR050694), which causes it to drop frames without a preamble.
+Add a new flag, PHY_F_KEEP_PREAMBLE_BEFORE_SFD, to indicate that the PHY
+shall not remove the preamble before the SFD if it supports it. MACs
+that do not support receiving frames without a preamble can set this
+flag.
 
-The Micrel KSZ9131 PHY supports keeping the preamble before SFD by
-setting an undocumented flag, that was confirmed by NXP and Micrel. This
-new feature has been added to the Micrel PHY driver for the KSZ9131 PHY.
+Signed-off-by: Stefan Eichenberger <stefan.eichenberger@toradex.com>
+---
+ include/linux/phy.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-Changes since v2:
-- Instead of using phy_register_fixup add a new phy_device::dev_flags
-  flag PHY_F_KEEP_PREAMBLE_BEFORE_SFD so that a MAC can request to keep
-  the preamble before SFD if needed (Russell)
-- Link to v2: https://lore.kernel.org/all/20260105100245.19317-1-eichest@gmail.com/
-
-Changes since v1:
-- Use phy_register_fixup_for_uid() instead of adding a new device tree
-  property
-- I will send the conversion of the micrel.txt binding as a separate
-  patch series
-- Link to v1: https://lore.kernel.org/all/20251212084657.29239-1-eichest@gmail.com/
-
-Stefan Eichenberger (3):
-  net: phy: add a new phy_device flag to keep preamble before sfd
-  net: phy: micrel: add option to keep the preamble before sfd for
-    KSZ9131
-  net: stmmac: dwmac-imx: keep preamble before sfd on i.MX8MP
-
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c   |  6 +++++-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c |  8 +++++++-
- drivers/net/phy/micrel.c                          | 14 +++++++++++++-
- include/linux/phy.h                               |  5 +++--
- include/linux/stmmac.h                            |  1 +
- 5 files changed, 29 insertions(+), 5 deletions(-)
-
+diff --git a/include/linux/phy.h b/include/linux/phy.h
+index fbbe028cc4b7b..a978173c0e2a1 100644
+--- a/include/linux/phy.h
++++ b/include/linux/phy.h
+@@ -802,8 +802,9 @@ struct phy_device {
+ };
+ 
+ /* Generic phy_device::dev_flags */
+-#define PHY_F_NO_IRQ		0x80000000
+-#define PHY_F_RXC_ALWAYS_ON	0x40000000
++#define PHY_F_NO_IRQ			0x80000000
++#define PHY_F_RXC_ALWAYS_ON		0x40000000
++#define PHY_F_KEEP_PREAMBLE_BEFORE_SFD	0x20000000
+ 
+ #define to_phy_device(__dev)	container_of_const(to_mdio_device(__dev), struct phy_device, mdio)
+ 
 -- 
 2.51.0
 
