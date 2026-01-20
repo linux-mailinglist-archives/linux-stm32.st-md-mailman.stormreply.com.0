@@ -2,49 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KEaXE0+qb2lUEwAAu9opvQ
+	id sIb9IHOkb2n0DgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 17:16:15 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 16:51:15 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA8524737A
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 17:16:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2C7DA46BD2
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 16:51:15 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B3BE2C58D7C;
-	Tue, 20 Jan 2026 13:48:53 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4371EC5A4C4;
+	Tue, 20 Jan 2026 13:57:00 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4CF6C57B72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 715FCC57B72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 13:48:52 +0000 (UTC)
+ Tue, 20 Jan 2026 13:56:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=qyLmoKDip8mb9xeBIhPS2JElYYtGvtICGd4heml4sBM=; b=Sxbab9wUBTL3beDPBjlCANIkOu
- 0pvVFyMTIUssN8KrOHq2Ohdgune2ofMMYij8VIOwcnEonn1KJM3X4MrFmt1RtFGU3r4KEubWXyuxF
- s4S6Fqly7efORJ5dkw/biM3rPfErfBr34I3BA2QdIFhst29jEQbmpqL9aTu6h95/OVbE=;
+ bh=QtbdNomdPucfxnW3rL++HESsroFk6TDesTIE5AoPiVQ=; b=oI5F92+YDAysPNopnvpJdE5ILn
+ TIHf/z42aRZw8xLvonGdJy4BsvmKVOC6ctX7R4KDZO02EHBbu2CY6UrEk/JXHaYcLEbSyfbbz+k4n
+ z4j1Fh0gT+oKgP7jaLDxmEaFpioFiRLlTNzFXE8gsOCHaOwjEl53Dsp/xPGVO7LaygsM=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1viC5c-003gSB-9P; Tue, 20 Jan 2026 14:48:12 +0100
-Date: Tue, 20 Jan 2026 14:48:12 +0100
+ id 1viCDa-003gVE-Ex; Tue, 20 Jan 2026 14:56:26 +0100
+Date: Tue, 20 Jan 2026 14:56:26 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <9334905d-d11b-49d4-92b1-61e8cf644f0f@lunn.ch>
+Message-ID: <f8e4c5ec-94b1-4da0-8a40-976770514828@lunn.ch>
 References: <20260120043609.910302-1-inochiama@gmail.com>
- <20260120043609.910302-2-inochiama@gmail.com>
- <aW9fL7r0AM0flALJ@pie> <aW9ou-lsQQ5dVzqW@inochi.infowork>
+ <20260120043609.910302-4-inochiama@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aW9ou-lsQQ5dVzqW@inochi.infowork>
-Cc: Yao Zi <me@ziyao.cc>, Longbin Li <looong.bin@gmail.com>,
- Eric Dumazet <edumazet@google.com>, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Shangjuan Wei <weishangjuan@eswincomputing.com>,
+In-Reply-To: <20260120043609.910302-4-inochiama@gmail.com>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Shangjuan Wei <weishangjuan@eswincomputing.com>,
  Alexandre Ghiti <alex@ghiti.fr>, Yanteng Si <siyanteng@cqsoftware.com.cn>,
- Jose Abreu <joabreu@synopsys.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Jose Abreu <joabreu@synopsys.com>, Quentin Schulz <quentin.schulz@cherry.de>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Albert Ou <aou@eecs.berkeley.edu>, Yao Zi <ziyao@disroot.org>,
@@ -55,13 +54,13 @@ Cc: Yao Zi <me@ziyao.cc>, Longbin Li <looong.bin@gmail.com>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
  spacemit@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, Quentin Schulz <quentin.schulz@cherry.de>,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Palmer Dabbelt <palmer@dabbelt.com>, Boon Khai Ng <boon.khai.ng@altera.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paul Walmsley <pjw@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] dt-bindings: net: Add
- support for Spacemit K3 dwmac
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Add glue layer
+ for Spacemit K3 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,9 +90,9 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_COUNT_THREE(0.00)[3];
 	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	FORGED_RECIPIENTS(0.00)[m:inochiama@gmail.com,m:me@ziyao.cc,m:looong.bin@gmail.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:vladimir.oltean@nxp.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:ziyao@disroot.org,m:richardcochran@gmail.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:rmk+kernel@armlinux.org.uk,m:yong.liang.choong@linux.intel.com,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:quentin.schulz@cherry.de,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:conor@ke
- rnel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[36];
+	FORGED_RECIPIENTS(0.00)[m:inochiama@gmail.com,m:vladimir.oltean@nxp.com,m:looong.bin@gmail.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:quentin.schulz@cherry.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:ziyao@disroot.org,m:richardcochran@gmail.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:rmk+kernel@armlinux.org.uk,m:yong.liang.choong@linux.intel.com,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:conor@kernel.org,m:rmk
+ @armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -104,31 +103,62 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[ziyao.cc,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,nxp.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,disroot.org,bp.renesas.com,armlinux.org.uk,linux.intel.com,st.com,lists.linux.dev,gentoo.org,cherry.de,lunn.ch,dabbelt.com,altera.com,davemloft.net];
+	FREEMAIL_CC(0.00)[nxp.com,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,cherry.de,redhat.com,vger.kernel.org,eecs.berkeley.edu,disroot.org,bp.renesas.com,armlinux.org.uk,linux.intel.com,st.com,lists.linux.dev,gentoo.org,lunn.ch,dabbelt.com,altera.com,davemloft.net];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: DA8524737A
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid]
+X-Rspamd-Queue-Id: 2C7DA46BD2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-> IIRC, the "phy" clock is used to pass the phy from the mac core, I will
-> double check if it is possible to connect to the phy directly.
+> +/* Note: the delay step value is at 0.1ps */
+> +static const unsigned int k3_delay_step_10x[4] = {
+> +	367, 493, 559, 685
+> +};
 
-Are you saying this is the reference clock output from the MAC being
-fed to the PHY? That would be a clock provider, not a clock consumer.
+Am i reading it correctly that RGMII delays are limited to these four
+values?
 
-Or is it the reference clock output from the PHY going to the MAC?
-Then the MAC would be a consumer.
+If so, please add this list to the DT binding.
 
-And there are some designs which have a third party generate the
-clock, and both the MAC and the PHY consume it.
+> +static int spacemit_dwmac_detected_delay_value(unsigned int delay,
+> +					       unsigned int *config)
+> +{
+> +	int i;
+> +	int code, best_code = 0;
+> +	unsigned int best_delay = 0;
+> +	unsigned int best_config = 0;
+> +
+> +	if (delay == 0)
+> +		return 0;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(k3_delay_step_10x); i++) {
+> +		unsigned int step = k3_delay_step_10x[i];
+> +
+> +		for (code = 1; code <= MAX_DLINE_DELAY_CODE; code++) {
+> +			/*
+> +			 * Note K3 require a specific factor for calculate
+> +			 * the delay, in this scenario it is 0.9. So the
+> +			 * formula is code * step / 10 * 0.9
+> +			 */
+> +			unsigned int tmp = code * step * 9 / 10 / 10;
+> +
+> +			if (abs(tmp - delay) < abs(best_delay - delay)) {
+> +				best_code = code;
+> +				best_delay = tmp;
+> +				best_config = i;
+> +			}
+> +		}
+> +	}
 
-     Andrew
+With the four values listed in DT, i would make this a straight match,
+not the nearest, and return -EINVAL otherwise.
+
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
