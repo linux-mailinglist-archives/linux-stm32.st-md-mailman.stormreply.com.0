@@ -2,97 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Original-To: lists+linux-stm32@lfdr.de
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F4059D3BE9E
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 06:05:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DEBFD3C1AB
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 09:18:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2578C36B3C;
-	Tue, 20 Jan 2026 05:05:51 +0000 (UTC)
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11DF7C36B3C;
+	Tue, 20 Jan 2026 08:18:50 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23D26C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B475C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 05:05:51 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-1233b172f02so6114996c88.0
+ Tue, 20 Jan 2026 08:18:49 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-b86ff9ff9feso58630966b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 19 Jan 2026 21:05:51 -0800 (PST)
+ Tue, 20 Jan 2026 00:18:49 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768885549; x=1769490349;
+ d=gmail.com; s=20230601; t=1768897128; x=1769501928;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=gFedj4f11o/3T9vWUp8OttHw6rjgwlEi4dqKoM80zmU=;
- b=i6kDfxk2TDIFrwq/iDWTvIanB3/DEesd/w89iapiIzHDf9OPmEiUeHv3G9wPGEsbmg
- MPOuWsbz1QUIiIsASM05pOYNwFzl7b6flxgiHw/xSGSRV4gGMF8ZoJvWF66CPy4nb7nF
- 0/kvSlmcV0VNR4yLnbmbenGyKk5fbhI2jG38A9Rx205/hhwMwi88b9tA2NOCGQEPxpDB
- 6Ep3dlng+XUqlzPjckDbVYirqV6wDJkjd10lPVO3W+Tm2whL8TO1GoJ0kYrOyNfvAR63
- qe72h28HQHdJIPGJ4jvcShD1eU0B3BLZ4vJ0DSJayczmqJDDJQdjuuwt1Ao49Y23aqWi
- 5FiQ==
+ bh=TJbdw+xcDYuOTpLf6yNuSRnoYdJpj1gSQsdBtW0Vq6o=;
+ b=iJTB8qiJZ42pZH0kgTIb1onDNvlwct5Rgyawv5RZHgxI2LGi5zPG/ISZMhN1PVVEkL
+ Faoh/tKWMb0C+UCwChz/ORoVBuyWQD42h+MvM4jgyHVsneRaSJDLKDsmPsKRwe4Ecgy6
+ wWXUZpqFU26srTPT3MYOVerOBVpldGwv9eqWXYFw7xmDHPcAydFWcHgVLXS30pRvqeAe
+ 0kQHgZVw3uhtJZ8uriF9i5SGaffeDnbJu1sUBbAHIg1/cr9x1bXCnP+BP3aAKvPsFlun
+ tZYTFOoR6E4OxH3YAn6bdyqC5cZmOgqiAEjO4yRjvywnPO10c4jM0XwhSgxztnBJ6rFK
+ qiEQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768885549; x=1769490349;
+ d=1e100.net; s=20230601; t=1768897128; x=1769501928;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=gFedj4f11o/3T9vWUp8OttHw6rjgwlEi4dqKoM80zmU=;
- b=lFXKGjdo49JfaSXnndhT8jEf7vgvJwZHHA4ruz9HSeJdWM/UUtJg4UlfpgWQpGGv6K
- IWzm5+gy4x51MDJ0CSr8SALKNS+KoOtrxH2CH5g5Zxxipf8OcQAEPQDkdm4K1epgEv11
- Ce68FpEo88C6Uxv1FX930nwSwGnFln84jIzStjZK+2Wkiu+f5UlwLCeq0XNwbilFIQkU
- eF6Hea0aiy+SDQ99aqdKRr0SAGY6HlJIuvhnSqEjBgxU8F/XE22+0qWbrHzh63qyyBP8
- /Lgg+tNDRBDJijTmzQtdQLe2tPOxW+BtXGtixPSbSAby1+GBScZsspxTK3SJ0ofgmR/M
- 8TwA==
+ bh=TJbdw+xcDYuOTpLf6yNuSRnoYdJpj1gSQsdBtW0Vq6o=;
+ b=SnNevV3k6rDrmRyRz+BYwP9I+iztWrvDVfT2Kxuv6T3syOCceE/guGPIv05gA9G1K1
+ iLSyLXOu64RssST5CNmu72Gw7/fM5TI0iRRhgR2AnlSxe7g1L162bbuAFek2rdZLSUcl
+ N28uBzAW2bpjgzk0hf8qltuljc2im5KoXYPITBV1uasBEiSj9Re6G2FBP8ib/ySg28IE
+ SCSaJyu7dlm15TuPUhv8veKbO/zK55kjWlS8AaQmTWYwvr3A3FcTrdT/5RTbXJaKoVyq
+ Ab4qI0kubosYmZsHFDIuC0FaTWg9PwJYp1ok3J6M3c15raLWEUm9h93Fu2fFmDefWfmG
+ SvLw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW0lIDCy6nd4awWoPg8VRIdPRJvdEHcxD4o5Q8daPid+cLqE6cE14ayt/fXtXtIIEerpxEw/G4g7mws4g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxltrDOWkqZvMj7kFoVxA2joXLRduibVWIQqO+BwITMPXeoM8gV
- X1t4Xex1lZ8hgbjXmES8pmynOnRjwMkbNCYm91SPMIoSzg4y0JWRANPK
-X-Gm-Gg: AY/fxX5QUwFTYbkJex5YohjjEUIDg1UHJB+/9PZyyfXO5Kvm2Vbeb/WsuqfQyXD7mpV
- h4rcNanY4BOe3HT+VYg/cxPis/xyJffwET4CrkTTPKGyW+AuYhBBnQm2woKDyp8hsxttpWpPeOF
- TotyUyjGrvA/zxJfkbYdavm+Kli4m+nsYWkj6H5p/oXZVa6nJmWyTmEAXzu8zgyMYI4dA1eyCnr
- aoONaEz6nPKiJBFwHrInXzj9O/O8hQJtJ/iDsiVLY4I6WLjTS7/cyWZGi19WF1FURRbN4ZocbXR
- Aquoel7Q0/0vk3boK2uMouPUDWV/npMThfgKow+mBSnd7tN+8hZ/fuHt2zShTfQSgNPtfSwtbHQ
- 9oDlAlLT8grFRnWPSSsaEjS8safpO5ZuowgSvMVQK5HL5eNvq6mKj3oHx2VClxFmsKsXkKQHrsl
- yQokNWRIGqsbqhAyj5L+XV
-X-Received: by 2002:a05:7022:672a:b0:119:e56b:98bf with SMTP id
- a92af1059eb24-1246aac3151mr600082c88.38.1768885549389; 
- Mon, 19 Jan 2026 21:05:49 -0800 (PST)
-Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
+ AJvYcCWEToP4ysEZ4Wmuc2Pbqu+yR/M16iQqAj0de+Q1+CKAtQ6R0qF0IAW7ln4xTClt0N10Kxp5DNbeVlRYOg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxeqsz9hohOa0WwpLyjkZFQpFyrl1PzFVlL54khsnk8M+pisr4U
+ C1RwKSYAxriN3YCsj2PMWY1odJBAi0pdjd4Y0Tjfdta1io5RzE+Bbn+b
+X-Gm-Gg: AY/fxX5KQCgM7n5SGR5P1JemIwqJSPjIXwuZSy7tOIGFzgRzoxxAB+7tJS8KZ3SK/yS
+ jupkZLbNMUXAzwwlXL0s6oGnOKwWb3Pwf7vd6KpH8Q8sQMVTvmiD/uOkn81YTjVsYkbIPPhHfJP
+ z4dOcBqJxvWwEtxDBiG8kmn1TZilSjEHyKl+M2ovb0z8svhMF1hcjxGluVBuEXceVrwqDR0mZoq
+ dEXLnSPjtdSRJkC1Wu4GWBKudd4AG6y7T1/Uu6ACPWBPBeeu74c+Nci0h1+OSL3Dmriowu90ZKl
+ srUIpVaEtXE+mnC9ZwKoBxXsRFjs2aqZ3CtQgtSLonJS4D+7T2QX1o3eqQB5+DGCy4gMdtxn9Ws
+ UuAzFFkGwi00FQmlEBY98XthTdCOOs5yD7XnKj8949NVkMmpt7Df8MMtXmQr2IKpQgqnkDPKzYj
+ LljEc=
+X-Received: by 2002:a17:907:3c8a:b0:b87:6f58:a844 with SMTP id
+ a640c23a62f3a-b8792b3a359mr743051066b.0.1768897127986; 
+ Tue, 20 Jan 2026 00:18:47 -0800 (PST)
+Received: from skbuf ([2a02:2f04:d501:d900:619a:24df:1726:f869])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1244af10736sm19178432c88.14.2026.01.19.21.05.48
+ a640c23a62f3a-b8795c38208sm1344223966b.71.2026.01.20.00.18.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 19 Jan 2026 21:05:48 -0800 (PST)
-Date: Tue, 20 Jan 2026 13:05:39 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
- Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <aW8MJpERR3TmsiKg@inochi.infowork>
-References: <20260120043609.910302-1-inochiama@gmail.com>
- <20260120043609.910302-4-inochiama@gmail.com>
- <aW8LAFhCRWlMVemz@shell.armlinux.org.uk>
+ Tue, 20 Jan 2026 00:18:47 -0800 (PST)
+Date: Tue, 20 Jan 2026 10:18:44 +0200
+From: Vladimir Oltean <olteanv@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <20260120081844.7e6aq2urhxrylywi@skbuf>
+References: <E1vhoSH-00000005H1f-2cq9@rmk-PC.armlinux.org.uk>
+ <20260119192125.1245102-1-kuba@kernel.org>
+ <aW8M9ZiiftGBQIRM@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aW8LAFhCRWlMVemz@shell.armlinux.org.uk>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
- Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Shangjuan Wei <weishangjuan@eswincomputing.com>,
- Alexandre Ghiti <alex@ghiti.fr>, Yanteng Si <siyanteng@cqsoftware.com.cn>,
- Jose Abreu <joabreu@synopsys.com>, Quentin Schulz <quentin.schulz@cherry.de>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Albert Ou <aou@eecs.berkeley.edu>, Yao Zi <ziyao@disroot.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
- spacemit@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Add glue layer
- for Spacemit K3 SoC
+In-Reply-To: <aW8M9ZiiftGBQIRM@shell.armlinux.org.uk>
+Cc: neil.armstrong@linaro.org, mohd.anwar@oss.qualcomm.com, vkoul@kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, andrew@lunn.ch,
+ mcoquelin.stm32@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [net-next,
+	05/14] net: stmmac: add stmmac core serdes support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,94 +96,193 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 
-On Tue, Jan 20, 2026 at 04:56:32AM +0000, Russell King (Oracle) wrote:
-> On Tue, Jan 20, 2026 at 12:36:08PM +0800, Inochi Amaoto wrote:
-> > Adds Spacemit dwmac driver support on the Spacemit K3 SoC.
+On Tue, Jan 20, 2026 at 05:04:53AM +0000, Russell King (Oracle) wrote:
+> On Mon, Jan 19, 2026 at 11:21:25AM -0800, Jakub Kicinski wrote:
+> > This is an AI-generated review of your patch. The human sending this
+> > email has considered the AI review valid, or at least plausible.
+> > 
+> > For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+> > ---
+> > net: stmmac: add stmmac core serdes support
+> > 
+> > This commit adds SerDes PHY support to the stmmac core driver, moving it
+> > from platform glue into the integrated PCS driver. The SerDes is managed
+> > through phy_init/phy_exit for lifecycle and phy_power_on/phy_power_off
+> > for the power state.
+> > 
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> > > index 2f826fe7229b..4d1902f3a58f 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> > 
+> > [ ... ]
+> > 
+> > > static int dwmac_integrated_pcs_enable(struct phylink_pcs *pcs)
+> > > {
+> > > 	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
+> > > +	struct stmmac_priv *priv = spcs->priv;
+> > > +	int ret;
+> > >
+> > > -	stmmac_mac_irq_modify(spcs->priv, 0, spcs->int_mask);
+> > > +	ret = dwmac_serdes_power_on(priv);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	if (spcs->interface != PHY_INTERFACE_MODE_NA) {
+> > > +		ret = dwmac_serdes_set_mode(priv, spcs->interface);
+> > > +		if (ret)
+> > > +			return ret;
+> >                         ^^^^^^^^^^
+> > 
+> > If dwmac_serdes_set_mode() fails here, doesn't this leave the SerDes in
+> > a powered-on state? dwmac_serdes_power_on() succeeded at this point but
+> > there's no corresponding dwmac_serdes_power_off() call before returning
+> > the error.
+> > 
+> > Looking at phylink_major_config(), it appears to discard the return
+> > value from phylink_pcs_enable(), so the caller won't know to call
+> > pcs_disable() to clean up the power state.
 > 
-> Some more information would be useful. E.g. describing why you need to
-> fix the RGMII mode.
+> This AI analysis is incorrect.
 > 
-
-OK. I will add this.
-
-> > +/* ctrl register bits */
-> > +#define PHY_INTF_RGMII			BIT(3)
-> > +#define PHY_INTF_MII			BIT(4)
-> > +
-> > +#define WAKE_IRQ_EN			BIT(9)
-> > +#define PHY_IRQ_EN			BIT(12)
-> > +
-> > +/* dline register bits */
-> > +#define RGMII_RX_DLINE_EN		BIT(0)
-> > +#define RGMII_RX_DLINE_STEP		GENMASK(5, 4)
-> > +#define RGMII_RX_DLINE_CODE		GENMASK(15, 8)
-> > +#define RGMII_TX_DLINE_EN		BIT(16)
-> > +#define RGMII_TX_DLINE_STEP		GENMASK(21, 20)
-> > +#define RGMII_TX_DLINE_CODE		GENMASK(31, 24)
-> > +
-> > +#define MAX_DLINE_DELAY_CODE		0xff
-> > +
-> > +struct spacemit_dwmac {
-> > +	struct device *dev;
-> > +	struct clk *tx;
-> > +};
+> By the time phylink_pcs_enable() has been called, the PCS is already
+> plumbed in to phylink. It _will_ have phylink_pcs_disable() called on
+> it at some point in the future, either by having the PCS displaced
+> by another in a subsequent phylink_major_config(), or by a driver
+> calling phylink_stop().
 > 
-> This structure seems unused.
+> If we clean up here, then we will call dwmac_serdes_power_off() twice.
 > 
+> Yes, it's not "nice" but that's the way phylink is right now, and
+> without reworking phylink to record that pcs_enable() has failed
+> to avoid a subsequent pcs_disable(), and to stop the major config
+> (which then potentially causes a whole bunch of other issues). I
+> don't even want to think about that horrid scenario at the moment.
 
-Yeah, I forgot this, will remove in the next version.
+Isn't it sufficient to set pl->pcs to NULL when pcs_enable() fails and
+after calling pcs_disable(), though?
 
-> > +
-> > +/* Note: the delay step value is at 0.1ps */
-> > +static const unsigned int k3_delay_step_10x[4] = {
-> > +	367, 493, 559, 685
-> > +};
-> > +
-> > +static int spacemit_dwmac_set_delay(struct regmap *apmu,
-> > +				    unsigned int dline_offset,
-> > +				    unsigned int tx_code, unsigned int tx_config,
-> > +				    unsigned int rx_code, unsigned int rx_config)
-> > +{
-> > +	unsigned int mask, val;
-> > +
-> > +	mask = RGMII_RX_DLINE_STEP | RGMII_TX_DLINE_CODE | RGMII_TX_DLINE_EN |
-> > +	       RGMII_TX_DLINE_STEP | RGMII_RX_DLINE_CODE | RGMII_RX_DLINE_EN;
-> > +	val = FIELD_PREP(RGMII_TX_DLINE_CODE, tx_config) |
-> > +	      FIELD_PREP(RGMII_TX_DLINE_CODE, tx_code) | RGMII_TX_DLINE_EN |
-> > +	      FIELD_PREP(RGMII_TX_DLINE_CODE, rx_config) |
-> > +	      FIELD_PREP(RGMII_RX_DLINE_CODE, rx_code) | RGMII_RX_DLINE_EN;
-> 
-> These FIELD_PREP() fields look wrong. Did you mean to use DLINE_CODE
-> both tx_config and tx_code, and did you mean to use TX_DLINE_CODE for
-> rx_config ?
-> 
+I had to deal with the same issue when preparing patches that integrate
+SerDes support into the Lynx PCS.
 
-This should be RGMII_TX_DLINE_CODE. This is a copy paste error, I
-will fix it.
+I had these patches (please pardon the unadapted commit messages for the
+present situation):
 
-> > +	plat_dat->clk_tx_i = devm_clk_get_enabled(&pdev->dev, "tx");
-> > +	if (IS_ERR(plat_dat->clk_tx_i))
-> > +		return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat->clk_tx_i),
-> > +				     "failed to get tx clock\n");
-> 
-> You set plat_dat->clk_tx_i, but you don't point
-> plat_dat->set_clk_tx_rate at anything, which means the stmmac core
-> does nothing with this.
-> 
+-- >8 --
+Subject: [PATCH] net: phylink: handle return code from phylink_pcs_enable()
 
-Yes, the vendor told me that the internal tx clock rate will be auto
-changed when the speed rate is changed. So no software interaction
-is needed.
+I am trying to make phylink_pcs_ops :: pcs_enable() something that is
+handled sufficiently carefully by phylink, such that we can expect that
+when we return an error code here, no other phylink_pcs_ops call is
+being made. This way, the API can be considered sufficiently reliable to
+allocate memory in pcs_enable() which is freed in pcs_disable().
 
-> Given the last two points, has RGMII mode been tested on this
-> hardware?
-> 
+Currently this does not take place. The pcs_enable() method has an int
+return code, which is ignored. If the PCS returns an error, the
+initialization of the phylink instance is not stopped, but continues on
+like a train, most likely triggering faults somewhere else.
 
-In fact I only tested the rgmii-id, which does not change the internal
-id. I will try the rgmii mode.
+Like this:
 
-Regards,
-Inochi
+$ ip link set endpmac2 up
+fsl_dpaa2_eth dpni.1 endpmac2: configuring for c73/10gbase-kr link mode
+fsl_dpaa2_eth dpni.1 endpmac2: pcs_enable() failed: -ENOMEM // added by me
+Unable to handle kernel paging request at virtual address fffffffffffffff4
+Call trace:
+ mtip_backplane_get_state+0x34/0x2b4
+ lynx_pcs_get_state+0x30/0x180
+ phylink_resolve+0x2c0/0x764
+ process_scheduled_works+0x228/0x330
+ worker_thread+0x28c/0x450
+
+Do a minimal handling of the error by clearing pl->pcs, so that we lose
+access to its ops, and thus are unable to call anything else (which
+would be invalid anyway).
+
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+ drivers/net/phy/phylink.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index 32ffa4f9e5b2..a8459116b701 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -1315,8 +1315,15 @@ static void phylink_major_config(struct phylink *pl, bool restart,
+ 		}
+ 	}
+ 
+-	if (pl->pcs_state == PCS_STATE_STARTING || pcs_changed)
+-		phylink_pcs_enable(pl->pcs);
++	if (pl->pcs_state == PCS_STATE_STARTING || pcs_changed) {
++		err = phylink_pcs_enable(pl->pcs);
++		if (err < 0) {
++			phylink_err(pl, "pcs_enable() failed: %pe\n",
++				    ERR_PTR(err));
++			pl->pcs = NULL;
++			return;
++		}
++	}
+ 
+ 	err = phylink_pcs_config(pl->pcs, pl->pcs_neg_mode, state,
+ 				 !!(pl->link_config.pause & MLO_PAUSE_AN));
+-- >8 --
+
+-- >8 --
+Subject: [PATCH] net: phylink: suppress pcs->ops->pcs_get_state() calls after
+ phylink_stop()
+
+I am attempting to make phylink_pcs_ops :: pcs_disable() treated
+sufficiently carefully by phylink so as to be able to free memory
+allocations from this PCS callback, and do not suffer from faults
+attempting to access that memory later from other phylink_pcs callbacks.
+
+Currently, nothing prevents this situation from happening:
+
+$ ip link set endpmac2 up
+$ ip link set endpmac2 down
+$ ethtool endpmac2
+Unable to handle kernel paging request at virtual address 0000100000000034
+Call trace:
+ __mutex_lock+0xb8/0x574
+ __mutex_lock_slowpath+0x14/0x20
+ mutex_lock+0x24/0x58
+ mtip_backplane_get_state+0x44/0x24c
+ lynx_pcs_get_state+0x30/0x180
+ phylink_ethtool_ksettings_get+0x178/0x218
+ dpaa2_eth_get_link_ksettings+0x54/0xa4
+ __ethtool_get_link_ksettings+0x68/0xa8
+ linkmodes_prepare_data+0x44/0xc4
+ ethnl_default_doit+0x118/0x39c
+ genl_rcv_msg+0x29c/0x314
+ netlink_rcv_skb+0x11c/0x134
+ genl_rcv+0x34/0x4c
+
+However, the case where "ethtool endpmac2" is executed as the first
+thing (before the interface is brought up) does not crash. What's
+different is that second situation is that phylink_major_config() did
+not run yet, so pl->pcs is still NULL inside phylink_mac_pcs_get_state().
+In plain English, "as long as the PCS is disabled, the link is naturally
+down, no need to ask".
+
+Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+---
+ drivers/net/phy/phylink.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
+index a8459116b701..f78d0e0f7cfb 100644
+--- a/drivers/net/phy/phylink.c
++++ b/drivers/net/phy/phylink.c
+@@ -2527,6 +2527,7 @@ void phylink_stop(struct phylink *pl)
+ 	pl->pcs_state = PCS_STATE_DOWN;
+
+ 	phylink_pcs_disable(pl->pcs);
++	pl->pcs = NULL;
+ }
+ EXPORT_SYMBOL_GPL(phylink_stop);
+
+-- >8 --
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
