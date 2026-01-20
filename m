@@ -2,71 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gF5rEO/nb2lhUQAAu9opvQ
+	id OKrvFPDnb2lhUQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:11 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:12 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D794B6FD
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 243F64B70A
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBE68C56612;
-	Tue, 20 Jan 2026 20:39:10 +0000 (UTC)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
- [209.85.128.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E315FC349C4;
+	Tue, 20 Jan 2026 20:39:11 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB62EC3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9DA4C3F944
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 20:39:09 +0000 (UTC)
-Received: by mail-wm1-f48.google.com with SMTP id
- 5b1f17b1804b1-47ee301a06aso54954455e9.0
+ Tue, 20 Jan 2026 20:39:10 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4801d21c411so21043755e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 12:39:09 -0800 (PST)
+ Tue, 20 Jan 2026 12:39:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768941549; x=1769546349;
+ d=gmail.com; s=20230601; t=1768941550; x=1769546350;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=u6EvQ/5He659QnltZ2hQ5JWhAbcs5AVgWTzcueB+MkM=;
- b=fj0dNg4YSmTPjbhL/Mn1m6Uz4vQW1zgGifharpIkt5jLIBuoMq+yefKfccpg3nclLF
- Jlvx3443e3wUENY6tWzWvceIFlyIoqvyTiFcmWxjYG82MVzuSGIdWzeRH+7Ovs6QfzRI
- NSw4H5AxUP7+uQ6uLYYMfr4FZMpwmDmQ6DLlZvsj+GhSAZtegtjQVyS8Yvqd0Qx1L8AG
- 5vEad5KrDfs+p6d/N+fu0XACDswsa9x3rh9bxcgG9wJj+bUga4/o7565vhpGAO5Mxarz
- ix0yCOLL6SRGAME4D28hgCACwQtmBv6i7CV3kxIsfQLYC9scMB9xxHtHpy+qReO/rY1q
- 7jLQ==
+ bh=b2eD+o7ZJqt8UHgxhoi1YhoZ79UecJ91Sm+qVMqrNb8=;
+ b=hk2ZGhLY5I9XFi/PzIYnjRklE1lNJKwuQnJMSKh5wKdT4SWpDbxNCSbCHyWKcA3eIu
+ 7Kv9zt8wt/JE8Ij8EttG+05ifTDYgAD+RJ6RfWJKqQ5+rcQs6t6uE54r23lmNIdzD3Dy
+ j9Aa6JLV3IcdZi/Uf3GUopix5s7+IQuh1oZj5MvYKmMLt2Kyc0kALz4YYXOXo9e6ZWdt
+ ULiV5LYYptKG5zFAlj60TDGjYYNnlpQGFbgw4nUliQyoMsWWaZUUZ2gCzWQG/A+LJco4
+ pFflFzwxWZ2XiIsfJbLIPGKrq0EEUUEuEu9ryoakRuhpuu0KN5jjTxeji4xU0e+ZYkPH
+ aDpw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768941549; x=1769546349;
+ d=1e100.net; s=20230601; t=1768941550; x=1769546350;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=u6EvQ/5He659QnltZ2hQ5JWhAbcs5AVgWTzcueB+MkM=;
- b=QLit4us+Frshb8UAUUcx3LpD9lhel0OWVdfvA1UNX0PaszSNNpplVsq3eJEerses7P
- HmzmgShULckFxzRAs0XS7hxtp5Uywt/DJvCMyJiEaE8noDfEshJgpuSY035ckDh10uMZ
- IiPoILSuw9hx64DPf2qjw68Z9rYEdM4BBRhQWsDC8HpNAzadMvlXaxMyoQ5gQeGCSQem
- J0UurDgL58wB8maZhe5vj0vsiZpaTork3GajXbOByoEG9BXDTjPrpxOv3gUSdrV3wjo5
- RMylX8sw1Ej2YDMC6cRbr2si0qlANc8lmuClNhy6TfMGXKf8hmyUbuC2UtO0dcRxBV3l
- mGEw==
+ bh=b2eD+o7ZJqt8UHgxhoi1YhoZ79UecJ91Sm+qVMqrNb8=;
+ b=btR4JutOP51W5HY6Y8CSOKId4wG8RglWXex7d8O5mmGLLlU4PqONsTPbR3A6rCEKNG
+ J0Zt0lwa/i4PZTH3A2au8H2bo6fJ8XG/20LH+Cs8v3salJhp9Hw2eGCjzlW36tORyNHX
+ GH0qKrA8ZO85xkoLQOLJ8FxAFcfDrGuh/6Xr/i8p5tXYjGlJLXrIBSOI6d2plMszX7il
+ F7jdgIuQXOnreAN5sWEf75r5e0jXhIgL/4HuDh4C95iNlFkj/bVWvz50I1VcdWKsIfXE
+ SXLhW0BtDby8gTA0gyGwjm+8HCD5+mQsEpZ8KYWdlPNMkPSS5gXheyXQds89WkQBatu5
+ VvtQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUsQnnax91O1/vwS0KHvk5Aug9njKQ05qYQGh6iDEC19NcwDC3jcjwm5UNdwzN6zjkOIrnbl7+WrnTBLw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyYOIBo3Im6N1ZqtWyx/awlKlLnOpsQlCQb/su2quR5vA23ne5p
- iyzBAeLp4b9hD+yauH13fcr9ioedYFnUF8vy24OORhLDe1lJwEWsOMMY
-X-Gm-Gg: AY/fxX5HAef8ycsXMG26jHQ0sWArx4t+KenIPjx4BVruQZkO4NozzkHbeiCB7rDrlOR
- Qmjt6cGzBKL9tTNSi0y5qsa6gqjplJrh9CsJLiSnp6BEJAHC2F3rI7VcUN/wn8E+uOR2LnPJyxu
- E5LMj0SqjxRmJSh1N3EX8Bb0CHvIS4ZCeSm6oi3W7eFwndMfn1yE1pj9bUWvYcuedUWT0YfJUV/
- hvjSdixS7lVxGygKVZ08cQYqHsvM9oDxp82AG94W3bj0+JKjreA1f9yt6pyK7EbCdtBNQGiY6IS
- IaFWSllYYVCd7OSKTYSk5IJITg+OOMNBRVjHxUizAr0c/L4bnS1TqfKFmtPIpM1JA4iWoS8x9PA
- 59a38+rJrwIRAiuSUZTT/UKqsjGdU9yDmjAGxoAv3739Wat0UwZhDKc8PUvShwarrBTf36OGEap
- aVXgQK2bhpt3QagLUwtBwGPmrOzj0=
-X-Received: by 2002:a05:600c:4e0f:b0:47e:e779:36e with SMTP id
- 5b1f17b1804b1-4801eb0375amr194243815e9.19.1768941549092; 
- Tue, 20 Jan 2026 12:39:09 -0800 (PST)
+ AJvYcCUAzapfxOSTvh6ozjiRNEBF3GuM/4WrHuyqAQcafu0fDQ2yGnHVRqA3wbD9kaWzUhmCCO5ApfERa9E5jg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyVkTqYx+JYq12zGZPJFCGxattsadL/i//SXxHtFYwr8cpGWn1r
+ C94yUxVsQJfdsBwDxcF5pyZqKPYofSwd0/xLvqUYxy1xSuMW7NpldPEb
+X-Gm-Gg: AY/fxX79rUtRKavPdK5tCmBo9zt3Sg7zt+Ic1GK//18JotYlNac27RAzWJajQggKLh4
+ 0+a7M/GONQu1B96Gmz0SLnZ5rNntLWd1BXhu+YYHZWGO8BM1Ar3GgxDFaAA32Uk6kuole7bBIRa
+ oaU/aw4W0Z0VPIOs6X+aUOYvvZmj8TLw2jQDYpfXXl7Df5C+t4lWcj0aKB7Dq/PSnYTwwv0MStL
+ uZ2TSgUPKJ/b3tgs1/kczC2mYh8nMYH2UYjhjrmMqv+/6Tsz6td95kAJMyeT8ADnSSaYwq4/Zmv
+ fTQh01ew711gr4UB0FUZR7JUw+VZ4ivBHbSsojtqt7wKe1yqyBZcXXXTMcYP8d1Zq21a2DlN50A
+ 8XyFrK0nk+44Y42IJAzz/6K9CFHnY1hyC7sztWAWvvdymv3I0t9MAi2Ikqkwbw2oQU3Wdoy4hh+
+ 2hIzNLMJc4uMBCDo5U
+X-Received: by 2002:a05:600c:8b55:b0:477:9f34:17b8 with SMTP id
+ 5b1f17b1804b1-4801e2fbd61mr211779815e9.1.1768941550130; 
+ Tue, 20 Jan 2026 12:39:10 -0800 (PST)
 Received: from eichest-laptop.lan ([2a02:168:af72:0:378b:c660:2f9c:b651])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48042c3a7c1sm850425e9.13.2026.01.20.12.39.08
+ 5b1f17b1804b1-48042c3a7c1sm850425e9.13.2026.01.20.12.39.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 12:39:08 -0800 (PST)
+ Tue, 20 Jan 2026 12:39:09 -0800 (PST)
 From: Stefan Eichenberger <eichest@gmail.com>
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
@@ -74,8 +74,8 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kernel@pengutronix.de, festevam@gmail.com, hkallweit1@gmail.com,
  linux@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
  maxime.chevallier@bootlin.com, francesco.dolcini@toradex.com
-Date: Tue, 20 Jan 2026 21:30:02 +0100
-Message-ID: <20260120203905.23805-2-eichest@gmail.com>
+Date: Tue, 20 Jan 2026 21:30:03 +0100
+Message-ID: <20260120203905.23805-3-eichest@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260120203905.23805-1-eichest@gmail.com>
 References: <20260120203905.23805-1-eichest@gmail.com>
@@ -84,8 +84,8 @@ Cc: netdev@vger.kernel.org,
  Stefan Eichenberger <stefan.eichenberger@toradex.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  imx@lists.linux.dev
-Subject: [Linux-stm32] [PATCH net-next v3 1/3] net: phy: add a new
-	phy_device flag to keep preamble before sfd
+Subject: [Linux-stm32] [PATCH net-next v3 2/3] net: phy: micrel: add option
+	to keep the preamble before sfd for KSZ9131
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,39 +135,58 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,toradex.com:email]
-X-Rspamd-Queue-Id: 11D794B6FD
+	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:url,st-md-mailman.stormreply.com:rdns,toradex.com:email]
+X-Rspamd-Queue-Id: 243F64B70A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 
-Add a new flag, PHY_F_KEEP_PREAMBLE_BEFORE_SFD, to indicate that the PHY
-shall not remove the preamble before the SFD if it supports it. MACs
-that do not support receiving frames without a preamble can set this
-flag.
+If the PHY_F_KEEP_PREAMBLE_BEFORE_SFD flag is set in the
+phy_device::dev_flags field, the preamble will be kept before the start
+frame delimiter (SFD) on the KSZ9131 PHY. This flag is not officially
+documented by Micrel. However, information provided by NXP and Micrel
+indicates that this flag ensures the PHY sends the full preamble instead
+of removing it. The full discussion can be found on the NXP forum:
+https://community.nxp.com/t5/i-MX-Processors/iMX8MP-eqos-not-working-for-10base-t/m-p/2151032
 
 Signed-off-by: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 ---
- include/linux/phy.h | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/phy/micrel.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index fbbe028cc4b7b..a978173c0e2a1 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -802,8 +802,9 @@ struct phy_device {
- };
+diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
+index 05de68b9f7191..a51bfe4a8d7b5 100644
+--- a/drivers/net/phy/micrel.c
++++ b/drivers/net/phy/micrel.c
+@@ -101,6 +101,14 @@
+ #define LAN8814_CABLE_DIAG_VCT_DATA_MASK	GENMASK(7, 0)
+ #define LAN8814_PAIR_BIT_SHIFT			12
  
- /* Generic phy_device::dev_flags */
--#define PHY_F_NO_IRQ		0x80000000
--#define PHY_F_RXC_ALWAYS_ON	0x40000000
-+#define PHY_F_NO_IRQ			0x80000000
-+#define PHY_F_RXC_ALWAYS_ON		0x40000000
-+#define PHY_F_KEEP_PREAMBLE_BEFORE_SFD	0x20000000
++/* KSZ9x31 remote loopback register */
++#define KSZ9x31_REMOTE_LOOPBACK			0x11
++/* This is an undocumented bit of the KSZ9131RNX.
++ * It was reported by NXP in cooperation with Micrel.
++ */
++#define KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE	BIT(2)
++#define KSZ9x31_REMOTE_LOOPBACK_EN		BIT(8)
++
+ #define LAN8814_SKUS				0xB
  
- #define to_phy_device(__dev)	container_of_const(to_mdio_device(__dev), struct phy_device, mdio)
+ #define LAN8814_WIRE_PAIR_MASK			0xF
+@@ -1500,7 +1508,11 @@ static int ksz9131_config_init(struct phy_device *phydev)
+ 	if (ret < 0)
+ 		return ret;
  
+-	return 0;
++	if (phydev->dev_flags & PHY_F_KEEP_PREAMBLE_BEFORE_SFD)
++		ret = phy_modify(phydev, KSZ9x31_REMOTE_LOOPBACK, 0,
++				 KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE);
++
++	return ret;
+ }
+ 
+ #define MII_KSZ9131_AUTO_MDIX		0x1C
 -- 
 2.51.0
 
