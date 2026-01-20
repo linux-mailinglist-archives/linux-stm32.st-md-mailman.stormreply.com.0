@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0ICHNrKScGkaYgAAu9opvQ
+	id MIwRALOScGkaYgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 09:47:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 09:47:47 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76BF953D28
+	by mail.lfdr.de (Postfix) with ESMTPS id 76C9853D29
 	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 09:47:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2711AC36B3C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 37363C3F944;
 	Wed, 21 Jan 2026 08:47:46 +0000 (UTC)
 Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com
  [136.143.188.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3411BC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 03F36C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 10:57:10 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1768906567; cv=none; 
+ Tue, 20 Jan 2026 11:14:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1768907647; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Ak6+zhg/djoSET/jxpadpQyRcrriZ+Hb4IrbOf1xk69NlUklGQMlAFWHFwmYe3Yesq3b5hQ22GYGsF+HGH1Bt05MaD92p74uwnxUUFvPhFQ84McpHwHIm1iz+EQW9QgEc5Xc5zFv6FwCsoa2iYSN8/h5UXVatAvvTisNw1EldZo=
+ b=MLm/apznCo1vkrhgqdt2z6fqtnb1SbIVdgzHikdkv35tmySWGCVPqd99XhKn9owM3TbqWCkOIMUUwMS+4V/TExvZibsn+8Ef//q7UoIpTE2r5lb8zot88oM3B8j424J46SwRKKCxuFyolNStCD9T4Odg+1rktwEjUujOY7kupJg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1768906567;
+ s=zohoarc; t=1768907647;
  h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ONSVQRKcPO7Hdq9rjeCJBLbi+rJef9ClGejj6CnM0wY=; 
- b=NOJakvj5baRnkmXoB7LumnUit/KQxGV92PkXR478iuA98Tdt3Of/28od+qlx0Eepp+TIkIeLBAt5wPapNsAjtx9Doj78v/gkaJqNN5QnZPeD1wRDB6IAZiGhCl9gjGgBF3uF+8QEDy5fAE724YLlr0+UDLbM8smzAJ233CuTkzg=
+ bh=tJlvsdjO7MakrXAnTGrsJvCK8GVpY/2Oni8KztKsRFI=; 
+ b=h7QuZ28EnDC7OQBna/NjX26H1HsexkJZmeY1FtM/izwfHFAZwH8EL5v++SrxWlMuY3MvlCvGBkrSFHFJvTyjQxl9FabP5zAfyzp91rYyIofRWW4ljwoTCkP2u5S7awWzTYW51Qlgz5vSOqZkTV7986ETKQgVlqL8SVgq5v9KunM=
 ARC-Authentication-Results: i=1; mx.zohomail.com; dkim=pass  header.i=ziyao.cc;
  spf=pass  smtp.mailfrom=me@ziyao.cc;
  dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1768906567; 
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1768907647; 
  s=zmail; d=ziyao.cc; i=me@ziyao.cc;
  h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
- bh=ONSVQRKcPO7Hdq9rjeCJBLbi+rJef9ClGejj6CnM0wY=;
- b=UfbY76hCP8zX5WETuGgn6VZM3NN+FjaN8LWv69wwAVNk0zvq8H3HC8pdZHJp2V4c
- sfOY8cbsd+bhCiZhPaWpES7/nq72N3qz3r2DaTdaXMj1PJmH1Q7eUkPXygOtrxsg6XT
- wISiqo24iESoNSprYd3gvxcv3ZhFDNNxXiO9pccg=
-Received: by mx.zohomail.com with SMTPS id 1768906565127972.0399174349235;
- Tue, 20 Jan 2026 02:56:05 -0800 (PST)
-Date: Tue, 20 Jan 2026 10:55:43 +0000
+ bh=tJlvsdjO7MakrXAnTGrsJvCK8GVpY/2Oni8KztKsRFI=;
+ b=IQ5J3XJXRxRY9SMaPXJbxjogepRElpYKptpWbrV3D841tGD/EIepXwW76IZohqcy
+ tnt4sfgsqRQ+Nlu3e54z/Hy1Q5EUkmVxxbP0+LS0HVeGOdWosQZsgLuN1Jw6Fudw2GR
+ WCsTFNyASwHiRvKnThPceu0ee3SM5iJpw8xp1sd8=
+Received: by mx.zohomail.com with SMTPS id 176890764538613.18629924577317;
+ Tue, 20 Jan 2026 03:14:05 -0800 (PST)
+Date: Tue, 20 Jan 2026 11:13:50 +0000
 From: Yao Zi <me@ziyao.cc>
 To: Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S. Miller" <davem@davemloft.net>,
@@ -64,20 +64,20 @@ To: Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Quentin Schulz <quentin.schulz@cherry.de>,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Jose Abreu <joabreu@synopsys.com>
-Message-ID: <aW9fL7r0AM0flALJ@pie>
+Message-ID: <aW9jbqBSgkiLLw8r@pie>
 References: <20260120043609.910302-1-inochiama@gmail.com>
- <20260120043609.910302-2-inochiama@gmail.com>
+ <20260120043609.910302-4-inochiama@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260120043609.910302-2-inochiama@gmail.com>
+In-Reply-To: <20260120043609.910302-4-inochiama@gmail.com>
 X-ZohoMailClient: External
 X-Mailman-Approved-At: Wed, 21 Jan 2026 08:47:44 +0000
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Longbin Li <looong.bin@gmail.com>,
  linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] dt-bindings: net: Add
- support for Spacemit K3 dwmac
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Add glue layer
+ for Spacemit K3 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,49 +129,143 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 76BF953D28
+X-Rspamd-Queue-Id: 76C9853D29
 X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
 X-Spam: Yes
 
-On Tue, Jan 20, 2026 at 12:36:06PM +0800, Inochi Amaoto wrote:
-> The GMAC IP on Spacemit K3 is almost a standard Synopsys DesignWare
-> MAC (version 5.40a) with some extra clock.
-> 
-> Add necessary compatible string for this device.
+On Tue, Jan 20, 2026 at 12:36:08PM +0800, Inochi Amaoto wrote:
+> Adds Spacemit dwmac driver support on the Spacemit K3 SoC.
 > 
 > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
 > ---
->  .../devicetree/bindings/net/snps,dwmac.yaml   |   3 +
->  .../bindings/net/spacemit,k3-dwmac.yaml       | 107 ++++++++++++++++++
->  2 files changed, 110 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/spacemit,k3-dwmac.yaml
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 +
+>  drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+>  .../ethernet/stmicro/stmmac/dwmac-spacemit.c  | 224 ++++++++++++++++++
+>  3 files changed, 237 insertions(+)
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
 
 ...
 
-> diff --git a/Documentation/devicetree/bindings/net/spacemit,k3-dwmac.yaml b/Documentation/devicetree/bindings/net/spacemit,k3-dwmac.yaml
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
 > new file mode 100644
-> index 000000000000..58dd98f79e8a
+> index 000000000000..72744e60d02a
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/spacemit,k3-dwmac.yaml
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+> @@ -0,0 +1,224 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Spacemit DWMAC platform driver
+> + *
+> + * Copyright (C) 2026 Inochi Amaoto <inochiama@gmail.com>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/math.h>
+
+These are the only two headers listed out-of-order. Is this intended?
+
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
 
 ...
 
-> +  clocks:
-> +    minItems: 3
-> +    items:
-> +      - description: GMAC main clock
-> +      - description: PTP clock
-> +      - description: TX clock
-> +      - description: PHY clock
+> +static int spacemit_dwmac_detected_delay_value(unsigned int delay,
+> +					       unsigned int *config)
+> +{
+> +	int i;
+> +	int code, best_code = 0;
+> +	unsigned int best_delay = 0;
+> +	unsigned int best_config = 0;
+> +
+> +	if (delay == 0)
+> +		return 0;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(k3_delay_step_10x); i++) {
+> +		unsigned int step = k3_delay_step_10x[i];
+> +
+> +		for (code = 1; code <= MAX_DLINE_DELAY_CODE; code++) {
+> +			/*
+> +			 * Note K3 require a specific factor for calculate
+> +			 * the delay, in this scenario it is 0.9. So the
+> +			 * formula is code * step / 10 * 0.9
+> +			 */
+> +			unsigned int tmp = code * step * 9 / 10 / 10;
+> +
+> +			if (abs(tmp - delay) < abs(best_delay - delay)) {
+> +				best_code = code;
+> +				best_delay = tmp;
+> +				best_config = i;
+> +			}
 
-Why does the MAC require "phy" clock? Shouldn't this be handled in PHY
-driver instead, or I get its meaning wrong?
+Is the inner loop really necessary? Could it be replaced by
 
-Also, I don't see "phy" clock is acquired anywhere in the driver. Is it
-really necessary for the MAC?
+	this_code = DIV_ROUND_CLOSEST(delay * 10 * 10, step * 9);
+	this_delay = this_code * step * 9 / 10 / 10;
 
-Best regards,
+Then comparing abs(this_delay - delay) and abs(best_delay - delay)?
+
+> +		}
+> +	}
+> +
+> +	*config = best_config;
+> +
+> +	return best_code;
+> +}
+
+...
+
+> +static int spacemit_dwmac_update_ifconfig(struct plat_stmmacenet_data *plat_dat,
+> +					  struct stmmac_resources *stmmac_res,
+> +					  struct regmap *apmu,
+> +					  unsigned int ctrl_offset)
+> +{
+> +	unsigned int mask = PHY_INTF_MII | PHY_INTF_RGMII | WAKE_IRQ_EN;
+> +	unsigned int val = 0;
+> +
+> +	switch (plat_dat->phy_interface) {
+> +	case PHY_INTERFACE_MODE_MII:
+> +		val |= PHY_INTF_MII;
+> +		break;
+
+The OR operation seems unnecessary and could be replaced with an
+assignment. Same for PHY_INTERFACE_MODE_RGMII's case.
+
+> +
+> +	case PHY_INTERFACE_MODE_RMII:
+> +		break;
+> +
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> +		val |= PHY_INTF_RGMII;
+> +		break;
+> +
+> +	default:
+> +		return -EOPNOTSUPP;
+> +	}
+
+...
+
+> +static int spacemit_dwmac_probe(struct platform_device *pdev)
+> +{
+
+...
+
+> +	of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps", &tx_delay);
+> +	of_property_read_u32(pdev->dev.of_node, "rx-internal-delay-ps", &rx_delay);
+
+According to of.h, of_property_read_u32, which in turn calls
+of_property_read_u32_array, could fail with -ENODATA if there's no value
+associated with the property. Should the case be handled?
+
+Regards,
 Yao Zi
 _______________________________________________
 Linux-stm32 mailing list
