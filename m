@@ -2,71 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OKrvFPDnb2lhUQAAu9opvQ
+	id cNaDEvLnb2lhUQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:12 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:14 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 243F64B70A
-	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3501D4B71A
+	for <lists+linux-stm32@lfdr.de>; Tue, 20 Jan 2026 21:39:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E315FC349C4;
-	Tue, 20 Jan 2026 20:39:11 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F142AC349C4;
+	Tue, 20 Jan 2026 20:39:13 +0000 (UTC)
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com
+ [209.85.128.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9DA4C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E2D5C3F944
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 20:39:10 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4801d21c411so21043755e9.3
+ Tue, 20 Jan 2026 20:39:12 +0000 (UTC)
+Received: by mail-wm1-f49.google.com with SMTP id
+ 5b1f17b1804b1-48039fdc8aeso10332995e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 20 Jan 2026 12:39:10 -0800 (PST)
+ Tue, 20 Jan 2026 12:39:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1768941550; x=1769546350;
+ d=gmail.com; s=20230601; t=1768941552; x=1769546352;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=b2eD+o7ZJqt8UHgxhoi1YhoZ79UecJ91Sm+qVMqrNb8=;
- b=hk2ZGhLY5I9XFi/PzIYnjRklE1lNJKwuQnJMSKh5wKdT4SWpDbxNCSbCHyWKcA3eIu
- 7Kv9zt8wt/JE8Ij8EttG+05ifTDYgAD+RJ6RfWJKqQ5+rcQs6t6uE54r23lmNIdzD3Dy
- j9Aa6JLV3IcdZi/Uf3GUopix5s7+IQuh1oZj5MvYKmMLt2Kyc0kALz4YYXOXo9e6ZWdt
- ULiV5LYYptKG5zFAlj60TDGjYYNnlpQGFbgw4nUliQyoMsWWaZUUZ2gCzWQG/A+LJco4
- pFflFzwxWZ2XiIsfJbLIPGKrq0EEUUEuEu9ryoakRuhpuu0KN5jjTxeji4xU0e+ZYkPH
- aDpw==
+ bh=FS2abDDltV4uyJ83wWZDF+in02lUwUwLBKewiaizUbw=;
+ b=epGuOPHsDzzf0nWCbnFQyv61E8ydqkxwqKh7xWc6cqDvROAvj09cYQa6RHLGrIE6Gd
+ tnf1V8wZCxbLXdaCNPFNiFKrE2h/HhzjiS4wU+vdZcpRL12O1c3uxmxtyJpYpFuhUR9Z
+ RjfSbviLszGdhRydkBCZmDHGWkKZM4An9DafEUAk+DqIFnqfOQR5M/X6EuALHYMpTx8V
+ 5pi74M9jH2NBKyAs+NK146iRy1LEEtjH/jriByuwTKxi9kWggVN/gyTJ/APa3KEiay8/
+ UTjw4XgzdsGuawuEYpFuDpGLhm32gpI8QTQ3EKxplT0IIeyetfsypnHHlhJIViSeZNsV
+ 9R5g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1768941550; x=1769546350;
+ d=1e100.net; s=20230601; t=1768941552; x=1769546352;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=b2eD+o7ZJqt8UHgxhoi1YhoZ79UecJ91Sm+qVMqrNb8=;
- b=btR4JutOP51W5HY6Y8CSOKId4wG8RglWXex7d8O5mmGLLlU4PqONsTPbR3A6rCEKNG
- J0Zt0lwa/i4PZTH3A2au8H2bo6fJ8XG/20LH+Cs8v3salJhp9Hw2eGCjzlW36tORyNHX
- GH0qKrA8ZO85xkoLQOLJ8FxAFcfDrGuh/6Xr/i8p5tXYjGlJLXrIBSOI6d2plMszX7il
- F7jdgIuQXOnreAN5sWEf75r5e0jXhIgL/4HuDh4C95iNlFkj/bVWvz50I1VcdWKsIfXE
- SXLhW0BtDby8gTA0gyGwjm+8HCD5+mQsEpZ8KYWdlPNMkPSS5gXheyXQds89WkQBatu5
- VvtQ==
+ bh=FS2abDDltV4uyJ83wWZDF+in02lUwUwLBKewiaizUbw=;
+ b=Z5N3kSPVI4zY24UhuPmvvfzPnr1dBpEoHWE4ZClIf0CWgBpA1P6gSD3Gsbynx+qIro
+ ZRmOhfaq1HjorTvCxg5T8xLvQse2bbJ8eXS0DA8i0XEZmczgPEOGBNEn70nGeF8OR9xY
+ rmgGWGSTH+GSRDY25YNmPey2DNIZH4VD/mfoBo2VQ2ue4aGrY3SQWz3Utp2ZFCvoR74a
+ W7ybdnuoAbxhN+HePuEmNceYX3FJDqj8SFwbzxSi1Cak3H5HrYzKviZCD2s5DQp1rKqY
+ fCogOjRkSBOUx96XdZzQysGYsJ8r7py86JGUBq/qfFoK7TNBHYSMYNHSka7Zy79S2NDD
+ JcBA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUAzapfxOSTvh6ozjiRNEBF3GuM/4WrHuyqAQcafu0fDQ2yGnHVRqA3wbD9kaWzUhmCCO5ApfERa9E5jg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyVkTqYx+JYq12zGZPJFCGxattsadL/i//SXxHtFYwr8cpGWn1r
- C94yUxVsQJfdsBwDxcF5pyZqKPYofSwd0/xLvqUYxy1xSuMW7NpldPEb
-X-Gm-Gg: AY/fxX79rUtRKavPdK5tCmBo9zt3Sg7zt+Ic1GK//18JotYlNac27RAzWJajQggKLh4
- 0+a7M/GONQu1B96Gmz0SLnZ5rNntLWd1BXhu+YYHZWGO8BM1Ar3GgxDFaAA32Uk6kuole7bBIRa
- oaU/aw4W0Z0VPIOs6X+aUOYvvZmj8TLw2jQDYpfXXl7Df5C+t4lWcj0aKB7Dq/PSnYTwwv0MStL
- uZ2TSgUPKJ/b3tgs1/kczC2mYh8nMYH2UYjhjrmMqv+/6Tsz6td95kAJMyeT8ADnSSaYwq4/Zmv
- fTQh01ew711gr4UB0FUZR7JUw+VZ4ivBHbSsojtqt7wKe1yqyBZcXXXTMcYP8d1Zq21a2DlN50A
- 8XyFrK0nk+44Y42IJAzz/6K9CFHnY1hyC7sztWAWvvdymv3I0t9MAi2Ikqkwbw2oQU3Wdoy4hh+
- 2hIzNLMJc4uMBCDo5U
-X-Received: by 2002:a05:600c:8b55:b0:477:9f34:17b8 with SMTP id
- 5b1f17b1804b1-4801e2fbd61mr211779815e9.1.1768941550130; 
- Tue, 20 Jan 2026 12:39:10 -0800 (PST)
+ AJvYcCWYT5+IvC112k+fxrM6hxr2S6i30dV9dua+ZD5DLWfghP1zVgXy1CWd6REgnfUynyLwf6bmtLnvbApXxA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YylvcFWv4+AbkDfjRpgdh9PNpD/JKKocGw0j/l3W5WSGt6ey9lo
+ CkMUFAeMx/RuoEXxOxa6/2b1WP+1JVxnVGm1gwydC5RfC5kT7D8fHhuZ
+X-Gm-Gg: AY/fxX6MCtTN7yWdzpPTz5JeNcTG4DSkmN6gqmosEp9aU6vfbqVnS9zOVJddR+ggk0m
+ C0QwZoqYkvpYL9ZyszdVTa1iDFCqfe/nSSnrc33UW8EGSjOEUJa7WViOBBMl9SQW8BQ2LkDUsrm
+ eXd1cqOhtdCdXbxi16zBDtGsOboUqitq7wZs+iyqzOnSparIpTX0rIGztLxJdNb3cR2Su/2bKlT
+ ffh+TfenRrnBkmKM8N1B3eFI/UKI5GCDLQaJP5XpC5mhs54anuHkGfwFlRqWZHYgu+yNsO6bkyl
+ VpF3MK41BIUXh1m9aE2VTizdBZJvhk2DEHnyeLgBeOC9ZqIii/KMtrzlTSrgsQUxZKwXNLm/CPb
+ yhtf4GTAT8BfrnfSr4y8uwUPLRPMQ2lVjzT3kYNsJ4xVmiEtkx3ZwnUJ2PpzKHYEGcBDy7TlIKC
+ T+zQ9ay7YQp6Etn5Ko
+X-Received: by 2002:a05:600c:190d:b0:477:abea:9028 with SMTP id
+ 5b1f17b1804b1-4803e79bbbamr44181875e9.6.1768941551414; 
+ Tue, 20 Jan 2026 12:39:11 -0800 (PST)
 Received: from eichest-laptop.lan ([2a02:168:af72:0:378b:c660:2f9c:b651])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-48042c3a7c1sm850425e9.13.2026.01.20.12.39.09
+ 5b1f17b1804b1-48042c3a7c1sm850425e9.13.2026.01.20.12.39.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 20 Jan 2026 12:39:09 -0800 (PST)
+ Tue, 20 Jan 2026 12:39:10 -0800 (PST)
 From: Stefan Eichenberger <eichest@gmail.com>
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
@@ -74,8 +74,8 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kernel@pengutronix.de, festevam@gmail.com, hkallweit1@gmail.com,
  linux@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
  maxime.chevallier@bootlin.com, francesco.dolcini@toradex.com
-Date: Tue, 20 Jan 2026 21:30:03 +0100
-Message-ID: <20260120203905.23805-3-eichest@gmail.com>
+Date: Tue, 20 Jan 2026 21:30:04 +0100
+Message-ID: <20260120203905.23805-4-eichest@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260120203905.23805-1-eichest@gmail.com>
 References: <20260120203905.23805-1-eichest@gmail.com>
@@ -84,8 +84,8 @@ Cc: netdev@vger.kernel.org,
  Stefan Eichenberger <stefan.eichenberger@toradex.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  imx@lists.linux.dev
-Subject: [Linux-stm32] [PATCH net-next v3 2/3] net: phy: micrel: add option
-	to keep the preamble before sfd for KSZ9131
+Subject: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: dwmac-imx: keep
+	preamble before sfd on i.MX8MP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -135,58 +135,134 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:url,st-md-mailman.stormreply.com:rdns,toradex.com:email]
-X-Rspamd-Queue-Id: 243F64B70A
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,toradex.com:email]
+X-Rspamd-Queue-Id: 3501D4B71A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 
-If the PHY_F_KEEP_PREAMBLE_BEFORE_SFD flag is set in the
-phy_device::dev_flags field, the preamble will be kept before the start
-frame delimiter (SFD) on the KSZ9131 PHY. This flag is not officially
-documented by Micrel. However, information provided by NXP and Micrel
-indicates that this flag ensures the PHY sends the full preamble instead
-of removing it. The full discussion can be found on the NXP forum:
-https://community.nxp.com/t5/i-MX-Processors/iMX8MP-eqos-not-working-for-10base-t/m-p/2151032
+The stmmac implementation used by NXP for the i.MX8MP SoC is subject to
+errata ERR050694. According to this errata, when no preamble byte is
+transferred before the SFD from the PHY to the MAC, the MAC will discard
+the frame.
+
+Setting the PHY_F_KEEP_PREAMBLE_BEFORE_SFD flag instructs PHYs that
+support it to keep the preamble byte before the SFD. This ensures that
+the MAC successfully receives frames.
+
+As this is an issue in the MAC implementation, only enable the flag for
+the i.MX8MP SoC where the errata applies but not for other SoCs using a
+working stmmac implementation.
+
+The exact wording of the errata ERR050694 from NXP:
+The IEEE 802.3 standard states that, in MII/GMII modes, the byte
+preceding the SFD (0xD5), SMD-S (0xE6,0x4C, 0x7F, or 0xB3), or SMD-C
+(0x61, 0x52, 0x9E, or 0x2A) byte can be a non-PREAMBLE byte or there can
+be no preceding preamble byte. The MAC receiver must successfully
+receive a packet without any preamble(0x55) byte preceding the SFD,
+SMD-S, or SMD-C byte.
+However due to the defect, in configurations where frame preemption is
+enabled, when preamble byte does not precede the SFD, SMD-S, or SMD-C
+byte, the received packet is discarded by the MAC receiver. This is
+because, the start-of-packet detection logic of the MAC receiver
+incorrectly checks for a preamble byte.
+
+NXP refers to IEEE 802.3 where in clause 35.2.3.2.2 Receive case (GMII)
+they show two tables one where the preamble is preceding the SFD and one
+where it is not. The text says:
+The operation of 1000 Mb/s PHYs can result in shrinkage of the preamble
+between transmission at the source GMII and reception at the destination
+GMII. Table 35-3 depicts the case where no preamble bytes are conveyed
+across the GMII. This case may not be possible with a specific PHY, but
+illustrates the minimum preamble with which MAC shall be able to
+operate. Table 35-4 depicts the case where the entire preamble is
+conveyed across the GMII.
+
+This workaround was tested on a Verdin iMX8MP by enforcing 10 MBit/s:
+ethtool -s end0 speed 10
+Without keeping the preamble, no packet were received. With keeping the
+preamble, everything worked as expected.
 
 Signed-off-by: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 ---
- drivers/net/phy/micrel.c | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c   | 6 +++++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 +++++++-
+ include/linux/stmmac.h                            | 1 +
+ 3 files changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/phy/micrel.c b/drivers/net/phy/micrel.c
-index 05de68b9f7191..a51bfe4a8d7b5 100644
---- a/drivers/net/phy/micrel.c
-+++ b/drivers/net/phy/micrel.c
-@@ -101,6 +101,14 @@
- #define LAN8814_CABLE_DIAG_VCT_DATA_MASK	GENMASK(7, 0)
- #define LAN8814_PAIR_BIT_SHIFT			12
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+index db288fbd5a4df..c722ff2dc1fcb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+@@ -320,6 +320,9 @@ static int imx_dwmac_probe(struct platform_device *pdev)
+ 	if (data->flags & STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY)
+ 		plat_dat->flags |= STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY;
  
-+/* KSZ9x31 remote loopback register */
-+#define KSZ9x31_REMOTE_LOOPBACK			0x11
-+/* This is an undocumented bit of the KSZ9131RNX.
-+ * It was reported by NXP in cooperation with Micrel.
-+ */
-+#define KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE	BIT(2)
-+#define KSZ9x31_REMOTE_LOOPBACK_EN		BIT(8)
++	if (data->flags & STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD)
++		plat_dat->flags |= STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD;
 +
- #define LAN8814_SKUS				0xB
+ 	/* Default TX Q0 to use TSO and rest TXQ for TBS */
+ 	for (int i = 1; i < plat_dat->tx_queues_to_use; i++)
+ 		plat_dat->tx_queues_cfg[i].tbs_en = 1;
+@@ -355,7 +358,8 @@ static struct imx_dwmac_ops imx8mp_dwmac_data = {
+ 	.addr_width = 34,
+ 	.mac_rgmii_txclk_auto_adj = false,
+ 	.set_intf_mode = imx8mp_set_intf_mode,
+-	.flags = STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY,
++	.flags = STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY |
++		 STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD,
+ };
  
- #define LAN8814_WIRE_PAIR_MASK			0xF
-@@ -1500,7 +1508,11 @@ static int ksz9131_config_init(struct phy_device *phydev)
- 	if (ret < 0)
- 		return ret;
+ static struct imx_dwmac_ops imx8dxl_dwmac_data = {
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index da206b24aaed9..08a6082fc0c02 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1205,6 +1205,7 @@ static int stmmac_init_phy(struct net_device *dev)
+ 	struct fwnode_handle *phy_fwnode;
+ 	struct fwnode_handle *fwnode;
+ 	struct ethtool_keee eee;
++	u32 dev_flags = 0;
+ 	int ret;
  
--	return 0;
-+	if (phydev->dev_flags & PHY_F_KEEP_PREAMBLE_BEFORE_SFD)
-+		ret = phy_modify(phydev, KSZ9x31_REMOTE_LOOPBACK, 0,
-+				 KSZ9x31_REMOTE_LOOPBACK_KEEP_PREAMBLE);
+ 	if (!phylink_expects_phy(priv->phylink))
+@@ -1223,6 +1224,9 @@ static int stmmac_init_phy(struct net_device *dev)
+ 	else
+ 		phy_fwnode = NULL;
+ 
++	if (priv->plat->flags & STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD)
++		dev_flags |= PHY_F_KEEP_PREAMBLE_BEFORE_SFD;
 +
-+	return ret;
- }
+ 	/* Some DT bindings do not set-up the PHY handle. Let's try to
+ 	 * manually parse it
+ 	 */
+@@ -1241,10 +1245,12 @@ static int stmmac_init_phy(struct net_device *dev)
+ 			return -ENODEV;
+ 		}
  
- #define MII_KSZ9131_AUTO_MDIX		0x1C
++		phydev->dev_flags |= dev_flags;
++
+ 		ret = phylink_connect_phy(priv->phylink, phydev);
+ 	} else {
+ 		fwnode_handle_put(phy_fwnode);
+-		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, 0);
++		ret = phylink_fwnode_phy_connect(priv->phylink, fwnode, dev_flags);
+ 	}
+ 
+ 	if (ret) {
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index f1054b9c2d8ac..e308c98c7bd33 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -191,6 +191,7 @@ enum dwmac_core_type {
+ #define STMMAC_FLAG_EN_TX_LPI_CLOCKGATING	BIT(11)
+ #define STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP	BIT(12)
+ #define STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY	BIT(13)
++#define STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD	BIT(14)
+ 
+ struct mac_device_info;
+ 
 -- 
 2.51.0
 
