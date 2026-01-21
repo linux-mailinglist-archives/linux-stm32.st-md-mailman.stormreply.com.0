@@ -2,45 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qPgqG20DcWmgbAAAu9opvQ
+	id sEs6FRcEcWmgbAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 17:48:45 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 17:51:35 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C321D5A1CF
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 17:48:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6EFF5A272
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 17:51:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 702C6C349C4;
-	Wed, 21 Jan 2026 16:48:44 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A5DBC349C4;
+	Wed, 21 Jan 2026 16:51:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 929A2C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39C54C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 16:48:42 +0000 (UTC)
+ Wed, 21 Jan 2026 16:51:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 29CD1429C1;
- Wed, 21 Jan 2026 16:48:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB832C4CEF1;
- Wed, 21 Jan 2026 16:48:40 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4CFB660134;
+ Wed, 21 Jan 2026 16:51:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAEE3C116D0;
+ Wed, 21 Jan 2026 16:51:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769014121;
- bh=viQ/ZjRt2/nAfrGtn9g7M0a5Fvjd270JBciUGtEbosg=;
+ s=k20201202; t=1769014292;
+ bh=OD2weKQVu5afNnnaJHsVFj6sjP31I+KsXAHkql5SBio=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ubIr1egXRauYdq4ec44596HfpRg5ku9y1x9TzbovE2AagaVSENR+ncZr1bA1UhFdC
- 3p7yYIKSC+ad4KTO+u+obOZxKQJ5wNb44iBPwbNCuR0T2WRaSVOzEQHQhKdNe4FsdT
- skmfH1rZgTgTpuZBgE852h/QsplWhnnBoGHd2AwY7m/JjVhcWtV6FhrIdadtA+oK/s
- 0pBNmdaywpsBdU7IlxX2N9GFEXzsPTKoD40EKD+unUyV2rfJQB1Gk3vp1hh6GtGO9y
- LFK+mjqKybMyiyGjm8zZWfdVk6Tqp0p0KbeaVIglfRX3VhXRKR51fBA1wK25/tEgK4
- kBYOCdhYNU5+A==
-Date: Wed, 21 Jan 2026 10:48:40 -0600
+ b=Pxe5dpW0oV7Fx/KuG/gqoY+j0avJFpVC5BnGQS2ndGimBq9yonpL9y3R0BBJdjDmd
+ DqIUk375l2m8leReV4e0PWxAf6FnKbdJiKgqEPpcWrqt9TodnFFi4koktffWlY4d35
+ 3OGz1/3lYObDwke9GTNIuh97Od70tes/vONMugxRMq+dkFbtAeXAGp8Akha4Cb1WSh
+ WKlhMECAHKPKVHn6ZrTLo6KZzofQzh9dL37iDoDbtslHAvqhZFan/Ktx5J3GCExbjY
+ XGzQ8R2HcMj5RIKvk5YLNK+1QhUG/nZzVjD7LgocOGhND1obOHGl41Fmn3XwShNRA5
+ 5n8Xfg/FjNtlw==
+Date: Wed, 21 Jan 2026 10:51:31 -0600
 From: "Rob Herring (Arm)" <robh@kernel.org>
 To: Marek Vasut <marex@nabladev.com>
-Message-ID: <176901406635.3440858.3601461880570246394.robh@kernel.org>
+Message-ID: <176901428941.3446132.15166576906093812833.robh@kernel.org>
 References: <20260121085347.10368-1-marex@nabladev.com>
+ <20260121085347.10368-2-marex@nabladev.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260121085347.10368-1-marex@nabladev.com>
+In-Reply-To: <20260121085347.10368-2-marex@nabladev.com>
 Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
  devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Neil Armstrong <neil.armstrong@linaro.org>, linux-kernel@vger.kernel.org,
@@ -48,8 +49,8 @@ Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Raphael Gallais-Pou <rgallaispou@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 1/3] dt-bindings: eeprom: at25: Document
- Microchip 25AA010A
+Subject: Re: [Linux-stm32] [PATCH 2/3] dt-bindings: display/lvds-codec:
+ Document OnSemi FIN3385
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,22 +69,22 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [5.79 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
 	FORGED_RECIPIENTS(0.00)[m:marex@nabladev.com,m:cniedermaier@dh-electronics.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:neil.armstrong@linaro.org,m:linux-kernel@vger.kernel.org,m:kernel@dh-electronics.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:rgallaispou@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -99,15 +100,14 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: C321D5A1CF
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: D6EFF5A272
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 
-On Wed, 21 Jan 2026 09:53:19 +0100, Marek Vasut wrote:
-> The Microchip 25AA010A is a 1 Kbit SPI EEPROM with 16 Byte page.
-> Product page is at https://www.microchip.com/en-us/product/25AA010A
+On Wed, 21 Jan 2026 09:53:20 +0100, Marek Vasut wrote:
+> Add compatible string for OnSemi FIN3385, a FlatLink LVDS transmitter.
 > 
 > Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
@@ -126,11 +126,12 @@ On Wed, 21 Jan 2026 09:53:19 +0100, Marek Vasut wrote:
 > Cc: linux-kernel@vger.kernel.org
 > Cc: linux-stm32@st-md-mailman.stormreply.com
 > ---
->  Documentation/devicetree/bindings/eeprom/at25.yaml | 1 +
+>  Documentation/devicetree/bindings/display/bridge/lvds-codec.yaml | 1 +
 >  1 file changed, 1 insertion(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Applied, thanks!
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
