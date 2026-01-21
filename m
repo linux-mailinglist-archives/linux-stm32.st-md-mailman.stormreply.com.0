@@ -2,58 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6BMaF/nucGk+awAAu9opvQ
+	id YAeCAvXwcGk+awAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 16:21:29 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 16:29:57 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E36325919C
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 16:21:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9EE4459318
+	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 16:29:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7D7C9C349C4;
-	Wed, 21 Jan 2026 15:21:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3829BC349C4;
+	Wed, 21 Jan 2026 15:29:56 +0000 (UTC)
+Received: from mail-wm1-f67.google.com (mail-wm1-f67.google.com
+ [209.85.128.67])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5E0C8C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F392BC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 15:21:27 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0D3AC43D50;
- Wed, 21 Jan 2026 15:21:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50F2C4CEF1;
- Wed, 21 Jan 2026 15:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769008885;
- bh=L9QnTSalVdaocEzIxFlwNpJxuLWUieZvADC7B/XVsmI=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=dlPOVgmAQL1Y8YIv7RMBVbBMLYq3hBniGba1bc2IbnBR/Hk7L/Jcn0hDwLB2RDcFK
- 7jU/KKFJvhfMSEFh+qPuG2hTytqVt8IN4OMovEGVS7wD6Om/EiK09GFW3xvuZfFXAs
- ruLkpeMhVP8wCNQM1Wx4f/7ylOYluz8sqDWNKLLLdBln7gvJqY3WkNC5L3wisN2SPh
- rf6g/yrraiPiKEgtDOsWgajeENFKWg/B4BcP9bjHzqf2JWmEL9oim61rUFtfGMYX3V
- ILiqiQ2KqoWkm7XyRq+hXm8wu6NpjDN6RB5AuUw+vx0eOTi2a17VaditwevoGqSoqv
- pThQymOXNrnFg==
-Date: Wed, 21 Jan 2026 09:21:24 -0600
-From: Rob Herring <robh@kernel.org>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Message-ID: <20260121152124.GA3179930-robh@kernel.org>
-References: <20260121-debug_bus-v3-0-4d32451180d0@foss.st.com>
- <20260121-debug_bus-v3-3-4d32451180d0@foss.st.com>
+ Wed, 21 Jan 2026 15:29:54 +0000 (UTC)
+Received: by mail-wm1-f67.google.com with SMTP id
+ 5b1f17b1804b1-4801bc32725so34739475e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 21 Jan 2026 07:29:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1769009394; x=1769614194;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=ZVraHTvGYWHeUSeCM7zloSyYdx+u7Hx5nno7KP+9/hA=;
+ b=qb9DuALqOo5+wldjytBQA+H6rKPWQJwIIxOKcS61eAQXC2RsJnrB5Y2Hdm8CMNHKbH
+ 7UrTDZesHh4L0CHPCGB99SV9zujTIQx7rW6SVHavK1T7vIsxAcgt/NzbxboW2gERlroc
+ 2/qO0TtCydX2u2ArmRDlbKDhklw3VIkjFQ8rrfVADj7mmdGoZ8uryxh4WXarbXYMaEpo
+ VTYDNJErfDyeLW7TEOkXUCZGbcVoLV5DszYmozL6tH/xvUrelduf4SunOxznZJTM0gQr
+ zMRojI6bQA3eLxg8Nit8rim28g9zLwVYvMwlwCaHXsaHiwWsUm23gV5n+beDm0yPs5LW
+ f/Dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769009394; x=1769614194;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=ZVraHTvGYWHeUSeCM7zloSyYdx+u7Hx5nno7KP+9/hA=;
+ b=vOxFHux6bTG6WL8LH1V0A1Af3FwN8jbS8KStmptGI3MSjDEL8oRPh1DgjN9WQTm2K5
+ JcVgfrajL4i1J7CUtVtHf6cC2aLnPVadMRpF/Qlq74CBMQGiKRajBFM3BRksxIxUrubA
+ arJwbpMlIBS/f97VTxA8qLjj2kjaxoHDcai4HuT+1EvvVEyqlxs3XolWK2h6XqitFkl2
+ FuGDUXD4XJKdNlrMzafBvMtQf1FUXja4jmoKHhLqZinQDxu7TwT6lLjpu7UihEXyPBCL
+ uAlpiaARe6NXpDtWPbORxzarn8T7cfNxWGQMbNCjiZOUtp5A6/a9SG6jh9UP7O+3lGhe
+ cjWg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXrfdnEvnql9QHUb5076MIVI/VNtb+zSqc+cBpclA73y92Vx1vtzOmGQk8+DS+/pr1NabWUTksG9hPVMQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwbrcmYRW3a47c40+EqnIoPcJJd/bcbUEgzlP5/zb0yhAGme9wt
+ X1IVIkFsJKBsaeTc/w6FabCya0dGwoyuQWMcY/M47hbpK/VZT8qbQ6JFEzqT3l74zBU=
+X-Gm-Gg: AZuq6aLK5QmqZ8yQW2hjd7hTdoiPsKnLGoJC/QH4As42qwBwsnBkJVuNMd3Fci9ydAc
+ e+RQyKM9WQag3EbFTR4MET/st88yZVJOEZg2WYqpngVwSoL1rJvgy3rq/YwrlO42lNhjbvhHlTx
+ G4kSUsekTPOM8Wgp0C2GKvGVGJQqtHkk5X7I5tPBMZflat9n3HQOBs92NH6dxEWUFfwORj9Bq54
+ c48WJZMpQ2PjkLMIL8Gu79Dbem3wyMqMP1Ap+TvQ3FAufIPuUvaI5hBy0u3s4iV4niWS+R5AfxQ
+ AqVSzqOKNioXNP2v+LV7a0as8iufl+kTJBRhYUfAoN75xP4Mtm6xCJE35lFz0gEW6vssVQ6Pi48
+ ztT5YjDSsuZDNemKUGR0W2IebdF+W8ID5G+4PaVefNhk5Cg4dGsumjTaDfwijRytG/MHOEctVkR
+ OHbRxWBTQ9P4LkBxbdsBI0Fs+K+Vviuzc1ophBTIyLF33jE9y5hEZnMtZ62nGr+1ZX64XNwucP1
+ A==
+X-Received: by 2002:a05:600c:310e:b0:47d:885d:d2ff with SMTP id
+ 5b1f17b1804b1-4801eb11002mr229658175e9.29.1769009394082; 
+ Wed, 21 Jan 2026 07:29:54 -0800 (PST)
+Received: from ?IPV6:2a05:6e02:1041:c10:ebda:5627:9bc:1ede?
+ ([2a05:6e02:1041:c10:ebda:5627:9bc:1ede])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-43596090493sm9305361f8f.25.2026.01.21.07.29.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 21 Jan 2026 07:29:53 -0800 (PST)
+Message-ID: <9131900c-f095-4c2a-a6c6-15b875d5b8ec@linaro.org>
+Date: Wed, 21 Jan 2026 16:29:52 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260121-debug_bus-v3-3-4d32451180d0@foss.st.com>
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>, linux-kernel@vger.kernel.org,
- James Clark <james.clark@linaro.org>, linux-stm32@st-md-mailman.stormreply.com,
- =?iso-8859-1?Q?Cl=E9ment?= Le Goffic <legoffic.clement@gmail.com>,
- linux-gpio@vger.kernel.org, Leo Yan <leo.yan@linux.dev>,
- jens.wiklander@linaro.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- coresight@lists.linaro.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v3 03/12] dt-bindings: bus: document the
-	stm32 debug bus
+User-Agent: Mozilla Thunderbird
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ linux-pm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260114092808.273695-1-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@linaro.org>
+In-Reply-To: <20260114092808.273695-1-andriy.shevchenko@linux.intel.com>
+Cc: Zhang Rui <rui.zhang@intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v1 1/1] thermal: stm32: Use predefined
+ HZ_PER_MHZ instead of a custom one
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,155 +97,57 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	R_DKIM_REJECT(1.00)[linaro.org:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:suzuki.poulose@arm.com,m:linux-kernel@vger.kernel.org,m:james.clark@linaro.org,m:linux-stm32@st-md-mailman.stormreply.com,m:legoffic.clement@gmail.com,m:linux-gpio@vger.kernel.org,m:leo.yan@linux.dev,m:jens.wiklander@linaro.org,m:mcoquelin.stm32@gmail.com,m:coresight@lists.linaro.org,m:krzk+dt@kernel.org,m:linusw@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mike.leach@linaro.org,m:conor@kernel.org,m:legofficclement@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andriy.shevchenko@linux.intel.com,m:linux-pm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:rui.zhang@intel.com,m:mcoquelin.stm32@gmail.com,m:lukasz.luba@arm.com,m:rafael@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,linaro.org,arm.com,st-md-mailman.stormreply.com,gmail.com,linux.dev,lists.linaro.org,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER(0.00)[daniel.lezcano@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[daniel.lezcano@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[intel.com,gmail.com,arm.com,kernel.org];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	REDIRECTOR_URL(0.00)[twitter.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,devicetree.org:url,stormreply.com:email,stormreply.com:url,st.com:email,2.252.41.0:email,stm-ict-prod-mailman-01.stormreply.prv:helo,2.252.95.176:email]
-X-Rspamd-Queue-Id: E36325919C
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,intel.com:email,stormreply.com:email,stormreply.com:url,linaro.org:mid,linaro.org:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 9EE4459318
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Wed, Jan 21, 2026 at 01:34:37PM +0100, Gatien Chevallier wrote:
-> Document the stm32 debug bus. The debug bus is responsible for
-> checking the debug sub-system accessibility before probing any related
-> drivers.
-> 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
->  .../bindings/bus/st,stm32mp131-dbg-bus.yaml        | 79 ++++++++++++++++++++++
->  1 file changed, 79 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml
-> new file mode 100644
-> index 000000000000..2db35e41e76c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/st,stm32mp131-dbg-bus.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32 Coresight bus
-> +
-> +maintainers:
-> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
-> +
-> +description:
-> +  The STM32 debug bus is in charge of checking the debug configuration
-> +  of the platform before probing the peripheral drivers that rely on the debug
-> +  domain.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - st,stm32mp131-dbg-bus
-> +          - st,stm32mp151-dbg-bus
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#access-controller-cells":
-> +    const: 1
-> +    description:
-> +      Contains the debug profile necessary to access the peripheral.
-> +
-> +patternProperties:
-> +  "^.*@[0-9a-f]+$":
-> +    description: Debug related peripherals
-> +    type: object
-> +
-> +    additionalProperties: true
-> +
-> +    required:
-> +      - access-controllers
-> +
-> +required:
-> +  - "#access-controller-cells"
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - compatible
-> +  - ranges
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +
-> +    dbg_bus: bus@50080000 {
-> +      compatible = "st,stm32mp131-dbg-bus";
-> +      reg = <0x50080000 0x3f80000>;
-
-That's a lot of registers... Yet the bus driver doesn't access any. 
-Looks to me like this belongs in ranges instead if there aren't any bus 
-registers. Or its size should be just the registers and then the whole 
-region size goes in ranges.
-
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +      #access-controller-cells = <1>;
-> +      ranges;
-> +
-> +      cs_cti_trace: cti@50094000 {
-> +        compatible = "arm,coresight-cti", "arm,primecell";
-> +        reg = <0x50094000 0x1000>;
-> +        clocks = <&rcc CK_DBG>;
-> +        clock-names = "apb_pclk";
-> +        access-controllers = <&dbg_bus 0>;
-> +      };
-> +    };
-> 
-> -- 
-> 2.43.0
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMS8xNC8yNiAxMDoyOCwgQW5keSBTaGV2Y2hlbmtvIHdyb3RlOgo+IFVzZSBwcmVkZWZpbmVk
+IEhaX1BFUl9NSFogaW5zdGVhZCBvZiBhIGN1c3RvbSBvbmUuIE5vIGZ1bmN0aW9uYWwgY2hhbmdl
+cy4KPiAKPiBTaWduZWQtb2ZmLWJ5OiBBbmR5IFNoZXZjaGVua28gPGFuZHJpeS5zaGV2Y2hlbmtv
+QGxpbnV4LmludGVsLmNvbT4KPiAtLS0KCkFwcGxpZWQsIHRoYW5rcwoKCi0tIAo8aHR0cDovL3d3
+dy5saW5hcm8ub3JnLz4gTGluYXJvLm9yZyDilIIgT3BlbiBzb3VyY2Ugc29mdHdhcmUgZm9yIEFS
+TSBTb0NzCgpGb2xsb3cgTGluYXJvOiAgPGh0dHA6Ly93d3cuZmFjZWJvb2suY29tL3BhZ2VzL0xp
+bmFybz4gRmFjZWJvb2sgfAo8aHR0cDovL3R3aXR0ZXIuY29tLyMhL2xpbmFyb29yZz4gVHdpdHRl
+ciB8CjxodHRwOi8vd3d3LmxpbmFyby5vcmcvbGluYXJvLWJsb2cvPiBCbG9nCl9fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
+bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
