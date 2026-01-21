@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4LzgMeEDcWmgbAAAu9opvQ
+	id oGbIOuEDcWmgbAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 17:50:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9488F5A216
+	by mail.lfdr.de (Postfix) with ESMTPS id BB3C75A217
 	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 17:50:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2A3E8C57A52;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B612C58D7C;
 	Wed, 21 Jan 2026 16:50:41 +0000 (UTC)
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
- [209.85.221.53])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8940C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD669C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 16:15:11 +0000 (UTC)
-Received: by mail-wr1-f53.google.com with SMTP id
- ffacd0b85a97d-42fed090e5fso4037116f8f.1
+ Wed, 21 Jan 2026 16:16:57 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-42fbbc3df8fso3972358f8f.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 08:15:11 -0800 (PST)
+ Wed, 21 Jan 2026 08:16:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1769012111; x=1769616911;
+ d=suse.com; s=google; t=1769012217; x=1769617017;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=jwSOT/yQWEA+mh+MAPkTqG/wbQ6a0oX9ZNNu12ekmpY=;
- b=ftu6b/Aol/DJNdVqSSEtcDSX2ty2XmMJAAUrY0P2wcR5bBm+I33Xaw3BUTaA4oodlm
- IKQvjxwIQSFnRhcPWN+48Q1tsG9Zb4Z1BdYgEdN15D3Ck9w8p/DgiXKsgLSTUoXfCqb9
- EbPmvMeRlK22ocvzWmNPbCpS6mcg9YDYni80mKwQ78KrLhMP9QM8iuKfaLuTeNDPiZGP
- oL9iCtLV2QcDPli2JQPt4AfRgVqwQ+sZOj1A1S490nh+d2mI4hb56qe6PBz+7DBcobnk
- B/O1y3H+pdOcoeRu5n7nqzKo1r52fp8JPJOdAy5fcM8+E/SA/u4jV2Uss5Xej6uxxP8+
- yP0w==
+ bh=BzzB/JdMiWn1k4ZgZ9PFa4Ldz6czCrDQgy/x5b2bitI=;
+ b=Mkd3dJK4vMuTIJOOnYidBCED0U9pu38vaixBkS/xBAcZgF28/Dtfzm5G9sdgQJCrSI
+ qXQWElVq94qSdmT6G5h7JOnJLg1NNSM1Cc30cS2VLp6FstOifNj70Japbjl+u6Dew4Gc
+ msddj1eGtqN5Fi8d7okGdrFeo95Xqf2uuj9CV6mh3Ya6n+FWAXmaDFfMMVMhvv08hh2k
+ coHmHF7DN/Au7U9OL2h+zCeSVamAAElqf47az6u5NSBi3CTd6D31oKnTYVPjLqzY5yep
+ 6I/ioWYd5HXbIdsHjWlkv14rr6P9JSQLJ1haWehB8/TFVoLfbo1rK96nWVdzL02pzG7/
+ pkUQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769012111; x=1769616911;
+ d=1e100.net; s=20230601; t=1769012217; x=1769617017;
  h=content-transfer-encoding:in-reply-to:autocrypt:from
  :content-language:references:cc:to:subject:user-agent:mime-version
  :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=jwSOT/yQWEA+mh+MAPkTqG/wbQ6a0oX9ZNNu12ekmpY=;
- b=KkuUzPl5+HJWzCJZwrIfL+VBVAD08qA+7Lw4nxavsPlxA0AbPtVBl25Bfi60ei8/Cg
- vNmQUcifu6vqGs+WxKKIFFz9AC9U9nIVwFETUqOPXSX0Sm6Pp/LRKcdCkROQ4+dBPWKl
- +QF440qbwZLgj4cMINgkbtkobaOzNozFTt8q8y2tZeI2siCNZgmOTy3MUu3ZwxVxDN3u
- +pRxq5zdLgNPUB3Yq3aPS3DYQjhzRO3ydQvlYCbZ4eWubzJEWUmzC4AAdWHD9Mdcd4Nc
- JZbO36qUplLhI0EAjJlr4XaPWIK5hbFcFheZDeduwRop80MwkHUNUVdNc+aOX//yZI+h
- rm9g==
+ bh=BzzB/JdMiWn1k4ZgZ9PFa4Ldz6czCrDQgy/x5b2bitI=;
+ b=nm5f2zkBBQR96iIFPDbbRFueFrIFAulYsR5XDVbvf2os4a1E0DdW8tZIGDogQ7uLf4
+ 7/Q6ocX7M53isJu0s65cG62j+MMNgj94hAcUpaNTlHX3jHhnVJZasn7kBYFh92sjjlVs
+ bPLvAzmDB3dFAWQstR1d5DDAD12GQkiYac6VNb0dceq9cLEj/fnXaOJQ3DBEllupm5MA
+ 7UcmRcp5LpSfLpo4zUBx8JJFrfE4vtPrtfS/YfcLWLVKG9w+aiN6wZMhTFtFgPVR7b9v
+ s0AskfXGnyMPpsdTbomc9cd5PkAhsNQYEbjnVtCSyq6IS1OaJXKc/zxwio381gJ0g7Ic
+ odow==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX5X189lgO6agh2YFDou1kV56MNDtFl+isNOZSa2ZP9rtql8rjuVMOQ+xUi2Q7dFmkd+7T27ik4Q/j+0Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwshIfMytn+SEKQcd0615LUV3YqAlDYjIk4kNkXhCBlN6eTn9ZJ
- hrCYSDWPnauzA1nwo/wUZKl6aHNPISW3qbLaK4Wox1Akgn3/ud9AzxPgzizxxtwzDS4=
-X-Gm-Gg: AZuq6aKLXSWSY/FQJhh6qcMAynuTvmVjno8FcddbfZ0LlTAwCkiaPd+AgLXFdCHB988
- gIDrJlZ/KK98cynRSLYdgPT8Pds9uFbS67jDehLpET3gBaIAhtxa6jrgo8tLwQztH2BXJtFpAk2
- +F9ekDbppuALOg9I+uvfcAOIBaPH8R+lSxWP7GCe9yf8pFpqK/fW2QfBmRNRHXux5mZVA4Pqa7G
- gOD23B4pC4ssh66tB1zataUlI6Zv0N7JTiFQCXIgSBY9sEn6VSEfvqzTwjEBRPfj7SLZo9q12bJ
- mwu7kH1HL4hepmRToNcXMy5uzF+kLuF7equtocDd1mLlmodhJD1Isb7iX0LyDplCxUSGKxSFqA4
- L0pFBkQHGcieqwRPXA0EZj3A2ZiNx4SaxrtflW9Cmh0WsPadmHP2drk84nmeVcPV2Yjw/etzMox
- TJf0momMGhOQZcqAud8GRmkAOsnaqfffdVn0Hp8m3NImJ+OfEeSwKLTg==
-X-Received: by 2002:a5d:5848:0:b0:432:a9d9:b674 with SMTP id
- ffacd0b85a97d-43569bd4899mr24188248f8f.63.1769012110431; 
- Wed, 21 Jan 2026 08:15:10 -0800 (PST)
+ AJvYcCVCXKbuNRHCbQN4ddmHIoRVTomGRE9oHob9n4sZd6BiOI/UvFZ9J/TsWpqnOeYXZhprlvnzRLhbvKA0zw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxRIc9PEHG0Kcb5Ztlw62wBEyhTg8oPzcvhS9pk2e5iy8owoU5r
+ J4iJYEBeBozojn7EwFhwb+cUnqh1BCzr4cFNj4lNTDD4+LRRzsU+ODZfd/byycxqb8o=
+X-Gm-Gg: AZuq6aJQfH6Jk3jzKIvB+oNQ+QlgEVRGG9H+a1RotZKomoAewqmmDCI8tIHmF325Kdm
+ E0OeaxUahPHPHeVsGG/S1lznvERUmOgHzXCvd3X5Yel7ScjRVnE5VO1+0LiWmL2aN7E1hFLXdbc
+ fCFaP+z+k718k4QbrY0sqjKdWP0qVA3vYdIKX6VyKkZ2H8C46Mwd1qWRJ4VQP2uUaQFohSU0Re1
+ 2/98diXB2pddd7uRlNhd1T2YWv74sshloTOuESP+/5KFjTKUEGDv7YOUaLi4g6RtYacrQt9sE5U
+ XMGCpjidRYR4JIQT/IjWU67x8x1vEdcxxXBbX6UkrxVefTldmPiTjg2tvdglD69JOiR0B6agOrP
+ iDfTp5BtkPwlkiwBCmYWNaJKalazJe+Xcb6YN+qEO+z8TsIBQAlTaqb5lbR2Hc2KduPwB6wlyY3
+ 6X38HQCfhCPnjrYzDaL28jq6f+i9vBgDbegFWQ0+s4WoLefLNgO2elKJEQ7tJDroDA
+X-Received: by 2002:a05:6000:220e:b0:435:9770:9eb8 with SMTP id
+ ffacd0b85a97d-4359770a243mr7280369f8f.25.1769012216858; 
+ Wed, 21 Jan 2026 08:16:56 -0800 (PST)
 Received: from [192.168.0.29] (static-95-59-231-77.ipcom.comunitel.net.
  [77.231.59.95]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43595e0a705sm9859116f8f.14.2026.01.21.08.15.09
+ ffacd0b85a97d-4358e24cef3sm12633429f8f.0.2026.01.21.08.16.55
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 21 Jan 2026 08:15:10 -0800 (PST)
-Message-ID: <ea1af06b-fb85-4131-bad3-00d12c032c1f@suse.com>
-Date: Wed, 21 Jan 2026 17:15:08 +0100
+ Wed, 21 Jan 2026 08:16:56 -0800 (PST)
+Message-ID: <1e2d0c75-35d1-4096-a96f-c3fc6f7ce52a@suse.com>
+Date: Wed, 21 Jan 2026 17:16:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: jan.petrous@oss.nxp.com, Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -85,7 +85,7 @@ To: jan.petrous@oss.nxp.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 References: <20260121-dwmac_multi_irq-v2-0-3b829230d071@oss.nxp.com>
- <20260121-dwmac_multi_irq-v2-3-3b829230d071@oss.nxp.com>
+ <20260121-dwmac_multi_irq-v2-4-3b829230d071@oss.nxp.com>
 Content-Language: en-US, ca-ES, es-ES
 From: Matthias Brugger <mbrugger@suse.com>
 Autocrypt: addr=mbrugger@suse.com; keydata=
@@ -131,13 +131,13 @@ Autocrypt: addr=mbrugger@suse.com; keydata=
  LV6nybxdRG/jp8ZQdQQixPA9azZDzuTu+NjKtzIA5qtfZfmm8xC+kAwAMZ/ZnfCsKwN0bbnD
  YfO3B5Q131ASmu0kbwY03Mw4PhxDzZNrt4a89Y95dq5YkMtVH2Me1ZP063cFCCYCkvEAK/C8
  PVrr2NoUqi/bxI8fFQJD1jVj8K0=
-In-Reply-To: <20260121-dwmac_multi_irq-v2-3-3b829230d071@oss.nxp.com>
+In-Reply-To: <20260121-dwmac_multi_irq-v2-4-3b829230d071@oss.nxp.com>
 X-Mailman-Approved-At: Wed, 21 Jan 2026 16:50:39 +0000
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC v2 3/4] arm64: dts: s32: set Ethernet
-	channel irqs
+Subject: Re: [Linux-stm32] [PATCH RFC v2 4/4] stmmac: s32: enable support
+	for Multi-IRQ mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -186,8 +186,8 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,suse.com:email,suse.com:mid,stormreply.com:email,stormreply.com:url,nxp.com:email,4033c000:email]
-X-Rspamd-Queue-Id: 9488F5A216
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,suse.com:email,suse.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,4033c000:email,nxp.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: BB3C75A217
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -196,114 +196,109 @@ X-Rspamd-Server: lfdr
 On 21/01/2026 15:23, Jan Petrous via B4 Relay wrote:
 > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 > 
-> The GMAC Ethernet controller found on S32G2/S32G3 and S32R45
-> contains up to 5 RX and 5 TX channels.
-> It can operate in two interrupt modes:
+> To get enabled Multi-IRQ mode, the driver checks:
 > 
->    1) Sharing IRQ mode: only MAC IRQ line is used
->       for all channels.
+>    1) property of 'snps,mtl-xx-config' subnode
+>       defines 'snps,xx-queues-to-use' bigger then one, ie:
 > 
->    2) Multiple IRQ mode: every channel uses two IRQ lines,
->       one for RX and second for TX.
+>       ethernet@4033c000 {
+>           compatible = "nxp,s32g2-dwmac";
+>           ...
+>           snps,mtl-rx-config = <&mtl_rx_setup>;
+>           ...
 > 
-> Specify all IRQ twins for all channels.
+>           mtl_rx_setup: rx-queues-config {
+>               snps,rx-queues-to-use = <2>;
+>           };
+> 
+>    2) queue based IRQs are set, ie:
+> 
+>       ethernet@4033c000 {
+>           compatible = "nxp,s32g2-dwmac";
+>           ...
+>           interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
+>                        /* CHN 0: tx, rx */
+>                        <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
+>                        <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
+>                        /* CHN 1: tx, rx */
+>                        <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
+>                        <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
+>           interrupt-names = "macirq",
+>                             "tx-queue-0", "rx-queue-0",
+>                             "tx-queue-1", "rx-queue-1";
+> 
+> If those prerequisites are met, the driver switch to Multi-IRQ mode,
+> using per-queue IRQs for rx/tx data pathr:
+> 
+> [    1.387045] s32-dwmac 4033c000.ethernet: Multi-IRQ mode (per queue IRQ) selected
+> 
+> Now the driver owns all queues IRQs:
+> 
+> root@s32g399aevb3:~# grep eth /proc/interrupts
+>   29:    0    0    0    0    0    0    0    0    GICv3  89 Level   eth0:mac
+>   30:    0    0    0    0    0    0    0    0    GICv3  91 Level   eth0:rx-0
+>   31:    0    0    0    0    0    0    0    0    GICv3  93 Level   eth0:rx-1
+>   32:    0    0    0    0    0    0    0    0    GICv3  95 Level   eth0:rx-2
+>   33:    0    0    0    0    0    0    0    0    GICv3  97 Level   eth0:rx-3
+>   34:    0    0    0    0    0    0    0    0    GICv3  99 Level   eth0:rx-4
+>   35:    0    0    0    0    0    0    0    0    GICv3  90 Level   eth0:tx-0
+>   36:    0    0    0    0    0    0    0    0    GICv3  92 Level   eth0:tx-1
+>   37:    0    0    0    0    0    0    0    0    GICv3  94 Level   eth0:tx-2
+>   38:    0    0    0    0    0    0    0    0    GICv3  96 Level   eth0:tx-3
+>   39:    0    0    0    0    0    0    0    0    GICv3  98 Level   eth0:tx-4
+> 
+> Otherwise, if one of the prerequisite don't met, the driver
+> continue with MAC IRQ mode:
+> 
+> [    1.387045] s32-dwmac 4033c000.ethernet: MAC IRQ mode selected
+> 
+> And only MAC IRQ will be attached:
+> 
+> root@s32g399aevb3:~# grep eth /proc/interrupts
+>   29:    0    0    0    0    0    0    0    0    GICv3  89 Level   eth0:mac
+> 
+> What represents the original MAC IRQ mode and is fully backward
+> compatible.
 > 
 > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 
 Reviewed-by: Matthias Brugger <mbrugger@suse.com>
 
 > ---
->   arch/arm64/boot/dts/freescale/s32g2.dtsi | 26 +++++++++++++++++++++++---
->   arch/arm64/boot/dts/freescale/s32g3.dtsi | 26 +++++++++++++++++++++++---
->   2 files changed, 46 insertions(+), 6 deletions(-)
+>   drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c | 13 ++++++++++++-
+>   1 file changed, 12 insertions(+), 1 deletion(-)
 > 
-> diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/dts/freescale/s32g2.dtsi
-> index 51d00dac12de..5a553d503137 100644
-> --- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
-> @@ -3,7 +3,7 @@
->    * NXP S32G2 SoC family
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> index 5a485ee98fa7..823700219534 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> @@ -2,7 +2,7 @@
+>   /*
+>    * NXP S32G/R GMAC glue layer
 >    *
->    * Copyright (c) 2021 SUSE LLC
-> - * Copyright 2017-2021, 2024-2025 NXP
-> + * Copyright 2017-2021, 2024-2026 NXP
+> - * Copyright 2019-2024 NXP
+> + * Copyright 2019-2026 NXP
+>    *
 >    */
 >   
->   #include <dt-bindings/interrupt-controller/arm-gic.h>
-> @@ -732,8 +732,28 @@ gmac0: ethernet@4033c000 {
->   			reg = <0x4033c000 0x2000>, /* gmac IP */
->   			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
->   			interrupt-parent = <&gic>;
-> -			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "macirq";
-> +			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 0: tx, rx */
-> +				     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 1: tx, rx */
-> +				     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 2: tx, rx */
-> +				     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 3: tx, rx */
-> +				     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 4: tx, rx */
-> +				     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq",
-> +					  "tx-queue-0", "rx-queue-0",
-> +					  "tx-queue-1", "rx-queue-1",
-> +					  "tx-queue-2", "rx-queue-2",
-> +					  "tx-queue-3", "rx-queue-3",
-> +					  "tx-queue-4", "rx-queue-4";
->   			snps,mtl-rx-config = <&mtl_rx_setup>;
->   			snps,mtl-tx-config = <&mtl_tx_setup>;
->   			status = "disabled";
-> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-> index eff7673e7f34..e1f248d3aedb 100644
-> --- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
-> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
-> @@ -1,6 +1,6 @@
->   // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
->   /*
-> - * Copyright 2021-2025 NXP
-> + * Copyright 2021-2026 NXP
->    *
->    * Authors: Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
->    *          Ciprian Costea <ciprianmarian.costea@nxp.com>
-> @@ -809,8 +809,28 @@ gmac0: ethernet@4033c000 {
->   			reg = <0x4033c000 0x2000>, /* gmac IP */
->   			      <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
->   			interrupt-parent = <&gic>;
-> -			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> -			interrupt-names = "macirq";
-> +			interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 0: tx, rx */
-> +				     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 1: tx, rx */
-> +				     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 2: tx, rx */
-> +				     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 3: tx, rx */
-> +				     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
-> +				     /* CHN 4: tx, rx */
-> +				     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names = "macirq",
-> +					  "tx-queue-0", "rx-queue-0",
-> +					  "tx-queue-1", "rx-queue-1",
-> +					  "tx-queue-2", "rx-queue-2",
-> +					  "tx-queue-3", "rx-queue-3",
-> +					  "tx-queue-4", "rx-queue-4";
->   			snps,mtl-rx-config = <&mtl_rx_setup>;
->   			snps,mtl-tx-config = <&mtl_tx_setup>;
->   			status = "disabled";
+> @@ -149,6 +149,17 @@ static int s32_dwmac_probe(struct platform_device *pdev)
+>   	plat->core_type = DWMAC_CORE_GMAC4;
+>   	plat->pmt = 1;
+>   	plat->flags |= STMMAC_FLAG_SPH_DISABLE;
+> +
+> +	/* Check for multi-IRQ config. Assumption: symetrical rx/tx queues */
+> +	if (plat->rx_queues_to_use > 1 &&
+> +	    (res.rx_irq[0] >= 0 || res.tx_irq[0] >= 0)) {
+> +		plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
+> +		dev_info(dev, "Multi-IRQ mode (per queue IRQ) selected\n");
+> +	} else {
+> +		dev_info(dev, "MAC IRQ mode selected\n");
+> +	}
+> +
+> +	plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
+>   	plat->rx_fifo_size = 20480;
+>   	plat->tx_fifo_size = 20480;
+>   
 > 
 
 _______________________________________________
