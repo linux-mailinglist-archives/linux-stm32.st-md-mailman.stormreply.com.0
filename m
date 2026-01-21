@@ -2,117 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kIxVEARZcWkNEwAAu9opvQ
+	id EDdWDc1ncWmaGgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 23:53:56 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 00:57:01 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFB2D5F1A2
-	for <lists+linux-stm32@lfdr.de>; Wed, 21 Jan 2026 23:53:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF3AC5FBAD
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 00:57:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88D41C349C4;
-	Wed, 21 Jan 2026 22:53:55 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 943D6C36B3C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75815C35E3C;
+	Wed, 21 Jan 2026 23:57:00 +0000 (UTC)
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF5A7C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 22:53:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1769036032;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=UiEPj0ZcSawildEgR+9wJ/AtCxMbPbzcmfyb7UYIQ4E=;
- b=iHOtLHV1w7oSuPv+8F+UuBYkNIL+S59QcmkP0xKN1x8tnPUz2hkM9BDiW8ESUku4bt3n3V
- 7SjcjFWhdZdVwIE75Xlyu/3mmaYW2VXPTgmxbr2Szk2X59tO/1nrg90gCqlT+QtMgxZEZF
- SqqmiRbwXzm/wY8vfNOt0LIgaJMzPk4=
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
- [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-673-CJRhIKjoOAeksNBTICw2Kw-1; Wed, 21 Jan 2026 17:53:51 -0500
-X-MC-Unique: CJRhIKjoOAeksNBTICw2Kw-1
-X-Mimecast-MFC-AGG-ID: CJRhIKjoOAeksNBTICw2Kw_1769036031
-Received: by mail-qt1-f198.google.com with SMTP id
- d75a77b69052e-502aaf2d18bso12606421cf.0
+ Wed, 21 Jan 2026 23:56:58 +0000 (UTC)
+Received: by mail-dl1-f54.google.com with SMTP id
+ a92af1059eb24-12448c4d404so445512c88.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 14:53:51 -0800 (PST)
+ Wed, 21 Jan 2026 15:56:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1769039817; x=1769644617;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=jp0I2O5rvzmCmzT9e9dhaVxnINQFtm8fPyCPAakfKbA=;
+ b=nhox8ZGwFw7rQjSMdE5igpQEooEmGPg68TcxdQ3nEYYNb7FW7J4Y+ChbwdVsuhMAVn
+ 0rxJNEX5LETkA+T0Z0OuhyFnC/nn6v1PbVRDv7+jSsR4M/uFgVcqjr/Lu08TcyNtVmHT
+ jMmUL+anOLK4JbUL6O6OP7w1apdZSFYt9OwoDwx2zQrCsKAjIv7J9bz5oreU7VbEaaAd
+ 6oMixi55UVpL5jr/FuAjo1aRwwZwOF5yfJ4FD02grrEnG2vpVtwY5PigMrrCWMVUU278
+ Z1PVmwnltnFbpbtX0/sR3i3axPMH074J9BYP8DWf5Le08UdHk5jphn/8OmAM2WdaUXUu
+ yv/w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769036031; x=1769640831;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=UiEPj0ZcSawildEgR+9wJ/AtCxMbPbzcmfyb7UYIQ4E=;
- b=b5hfWKSGRiwfLvPTMDAkRpA0veZ9Mxy7eW/wyMuXzNY+c8+nSg1FwlbNpn0Rypwx9m
- Z3cAL9jQvhx25IKTCGFPFMpOTLKlQjaeA+2canWdmEP19oJKAX7OyEGNk8lTJrnVNA9j
- 6KUbr1K0u+Aeiy3d/Svx4YOpObifLI4wnLnTXKFDsZ+FYPv7hE43FjqsMxU4netY8Kxb
- wqlp5roOOlqmmL1F/8v4VrGuSlxrlgH+NZ9OOMHQyt2HDIc9udqnJxXmda/20XtsodWW
- OH5+sU+L6HK8vw9QJcMXOqRxoWnx8pYJ97sTt2O6DermpHVj9KKefUgWRBYY6/hW9OXs
- POjg==
+ d=1e100.net; s=20230601; t=1769039817; x=1769644617;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=jp0I2O5rvzmCmzT9e9dhaVxnINQFtm8fPyCPAakfKbA=;
+ b=qcPXh4zly+jPa67PLaULMkEoG7V8VhnnnL1vLVexhtCNvVyCvGYG/nKlvq3X6cvas5
+ RaUB2FBZnC3yWBNUrx/WSqgHAkiWYjtswqk4CuJ1SgWc87JEcksRx82XKGkdT8+LEb1v
+ 2KrwsVWULvQM8sx7TYfGdyX9qLm07oKkwe6+daIM9Xjo1S3lau17f24wLSScWAHP39NC
+ 4NUM678t8y4fQhninskRQwhD05pIsf/mc8QiFkfp7/DkxPgxkYtpjg7BZBLaczNWR1cQ
+ HYpcWzyC6ujCLhLVzkJ/jVn7pBiwFaAogeHTKwg7wWSGpwz4H0v9d4o+UkpRS68twhuq
+ l77A==
 X-Forwarded-Encrypted: i=1;
- AJvYcCX/l8GA1I6EBoIXrN3XuS51I1NNfYWScVySZ4G8/wxGcQ9IuWVGsW2TzJTHn5exAiPE7UiIQ3QIf33/OA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzBrgL0UAFIynMR7JPJ1XJWzVuFsdLsxe91E/XtuNzAaR+xWON+
- EjVfXc59RTDmj0xEilj8wrCMwFuap6Y31/Whr4uTC8xW9X2VSqGXDdSTD7/jkgdMvBBrkGvNQ59
- anCLNwIPXprPCh9Bcbhx7mH4oSIGZ9u4qfrTKjqKPrKrbdAm38RmUG3DMlRBEnSw2Rm+C0ZP2lC
- zRnxnSdg==
-X-Gm-Gg: AZuq6aIWA6y1Fg24XwqhPOn1FS6S6MTmt1v0ivP5l+6Rb6bDlZrtOFY+rMzUB3tOuFx
- cZSWvFdrxqZj1UnYsBf9NdC72NK6lIYnqWgC2VwKbt53h9vm4zgFyJFksBWrwcpQqiXH+UwXIIZ
- 2u5h8jnSwmP9sm4GYj+QNbXQ66SjN3sGI7W7B4JBowVD/lJBdxZt5mOXJsWGp+MtICtIZ1HiKS5
- uISfGES/cDj8kse29QkfqKX9EW4ux1YTvhI1VTuBHgjtz8GP9JeLpXMg1wNCZVV29H2xnh1YTCt
- 2rl7CjH8F3J/gCNadFOokjDgrtbAV9XgffieOOaF4jGBOLX44RvHOzdlMW1EFFO0bpXwUxbB8vV
- 3IPDrOKjc
-X-Received: by 2002:ac8:5fca:0:b0:4e7:2210:295f with SMTP id
- d75a77b69052e-502d84b0ca5mr87957051cf.13.1769036030773; 
- Wed, 21 Jan 2026 14:53:50 -0800 (PST)
-X-Received: by 2002:ac8:5fca:0:b0:4e7:2210:295f with SMTP id
- d75a77b69052e-502d84b0ca5mr87956771cf.13.1769036030338; 
- Wed, 21 Jan 2026 14:53:50 -0800 (PST)
-Received: from redhat.com ([2600:382:8125:73a8:e201:8ac3:bd7d:6acd])
+ AJvYcCUmgjRSb7zY2+JmHNZmUSGnjW5CPteJvRFYPLGNRrTQB/S8zTpGhj39JXS5zmGGkL+5op6HFSSS3Fo3vA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YylYCvtCiuaiKjbIBfrBr3XZceRpBHRCl7MeUyyE/JIt5Ube5YC
+ ztMC52HvTXXAGkVmKqxxMXid/CREoYlONDSuLgAul7TV3jYixKe2HsI3
+X-Gm-Gg: AZuq6aKdVVm77rKiTCNb69viNuRdPJ16Qax07ZHPwecokvvfIZbl8Kzsc4EcWfUMyvs
+ BG4FwB0YqFl+FeXCWN5A/JjOOVBVUX3b/3qlyU2MfZmhaxjLIOa6SXOkl7EWgvtcsgVhV2hGgFK
+ tyRVHjbJ73n1a82E+IEH01L2itSC7S+nMnLk4/E1F8D0CtIkGL3O1LvHzaxAK93uXZ6e7WBq8g0
+ t1AUjqPSOeNcJZeH+yNFSv4z8kLPEPWQ8U+obI85MFoJGQkoQFPY/0P31i3UAXc6a0uPPZv4Awo
+ ulNtC+tuXaWmdOwhsJIMU7DafcBkC6HTD0HfgCcUu7pudqytJve846U4S/YgyzJENI9dR4daqf7
+ jtcSRWlaKokSTQxKUuZMPW4O41+U4EzsxhZ7NLcWqHDAhqzJrznZNvI7cosYgYTOgSiITxwZjCM
+ MYvRdu3ubEqA==
+X-Received: by 2002:a05:7022:4389:b0:122:33e:6d41 with SMTP id
+ a92af1059eb24-1246aaac67cmr4335389c88.23.1769039816566; 
+ Wed, 21 Jan 2026 15:56:56 -0800 (PST)
+Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
  by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-502a1f1abb9sm117138811cf.30.2026.01.21.14.53.46
+ a92af1059eb24-1244ac5842csm27914226c88.1.2026.01.21.15.56.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 14:53:49 -0800 (PST)
-Date: Wed, 21 Jan 2026 17:53:44 -0500
-From: Brian Masney <bmasney@redhat.com>
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>
-Message-ID: <aXFY-FxqeBv4BsHd@redhat.com>
-References: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
+ Wed, 21 Jan 2026 15:56:56 -0800 (PST)
+Date: Thu, 22 Jan 2026 07:56:45 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
+ Inochi Amaoto <inochiama@gmail.com>
+Message-ID: <aXFnmXIwSdKCS9Uc@inochi.infowork>
+References: <20260120043609.910302-1-inochiama@gmail.com>
+ <20260120043609.910302-4-inochiama@gmail.com>
+ <aW8LAFhCRWlMVemz@shell.armlinux.org.uk>
+ <aW8MJpERR3TmsiKg@inochi.infowork>
+ <aXDAmDEpUArE1_en@shell.armlinux.org.uk>
 MIME-Version: 1.0
-In-Reply-To: <20260108-clk-divider-round-rate-v1-0-535a3ed73bf3@redhat.com>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: k_mzyW1W8TACgf5tEO8bTfUDNRgB_W_fKe1IPxjVcLs_1769036031
-X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- Shan-Chun Hung <schung@nuvoton.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, linux-clk@vger.kernel.org,
- linux-rtc@vger.kernel.org, Samuel Holland <samuel@sholland.org>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Chen Wang <unicorn_wang@outlook.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, Orson Zhai <orsonzhai@gmail.com>,
- Keguang Zhang <keguang.zhang@gmail.com>, linux-sunxi@lists.linux.dev,
- Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- Simona Vetter <simona@ffwll.ch>, Jacky Huang <ychuang3@nuvoton.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-actions@lists.infradead.org, Maxime Ripard <mripard@kernel.org>,
- Vladimir Zapolskiy <vz@mleia.com>, sophgo@lists.linux.dev,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Chen-Yu Tsai <wens@kernel.org>,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- Sean Paul <sean@poorly.run>, Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Taichi Sugaya <sugaya.taichi@socionext.com>,
- Inochi Amaoto <inochiama@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- linux-mips@vger.kernel.org, Jessica Zhang <jesszhan0024@gmail.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Takao Orito <orito.takao@socionext.com>, freedreno@lists.freedesktop.org,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>
-Subject: Re: [Linux-stm32] [PATCH 00/27] clk: remove deprecated API
- divider_round_rate() and friends
+In-Reply-To: <aXDAmDEpUArE1_en@shell.armlinux.org.uk>
+Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Shangjuan Wei <weishangjuan@eswincomputing.com>,
+ Alexandre Ghiti <alex@ghiti.fr>, Yanteng Si <siyanteng@cqsoftware.com.cn>,
+ Jose Abreu <joabreu@synopsys.com>, Quentin Schulz <quentin.schulz@cherry.de>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Albert Ou <aou@eecs.berkeley.edu>, Yao Zi <ziyao@disroot.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Choong Yong Liang <yong.liang.choong@linux.intel.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ spacemit@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 3/3] net: stmmac: Add glue layer
+ for Spacemit K3 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,61 +116,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[redhat.com : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:mturquette@baylibre.com,m:sboyd@kernel.org,m:alexandre.belloni@bootlin.com,m:baolin.wang@linux.alibaba.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:linux-phy@lists.infradead.org,m:schung@nuvoton.com,m:marijn.suijten@somainline.org,m:airlied@gmail.com,m:linux-clk@vger.kernel.org,m:linux-rtc@vger.kernel.org,m:samuel@sholland.org,m:zhang.lyra@gmail.com,m:unicorn_wang@outlook.com,m:jernej.skrabec@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:orsonzhai@gmail.com,m:keguang.zhang@gmail.com,m:linux-sunxi@lists.linux.dev,m:piotr.wojtaszczyk@timesys.com,m:simona@ffwll.ch,m:ychuang3@nuvoton.com,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-actions@lists.infradead.org,m:mripard@kernel.org,m:vz@mleia.com,m:sophgo@lists.linux.dev,m:abhinav.kumar@linux.dev,m:robin.clark@oss.qualcomm.com,m:wens@kernel.org,m:michal.simek@amd.com,m:linux-arm-kernel@lists.infradead.org,m:sean@poorly.run,m:neil.armstrong@linaro.org,m:lumag@kernel.
- org,m:sugaya.taichi@socionext.com,m:inochiama@gmail.com,m:andersson@kernel.org,m:linux-mips@vger.kernel.org,m:jesszhan0024@gmail.com,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:orito.takao@socionext.com,m:freedreno@lists.freedesktop.org,m:afaerber@suse.de,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:keguangzhang@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[bmasney@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[47];
-	FREEMAIL_CC(0.00)[bootlin.com,linux.alibaba.com,lists.freedesktop.org,vger.kernel.org,lists.infradead.org,nuvoton.com,somainline.org,gmail.com,sholland.org,outlook.com,st-md-mailman.stormreply.com,lists.linux.dev,timesys.com,ffwll.ch,kernel.org,mleia.com,linux.dev,oss.qualcomm.com,amd.com,poorly.run,linaro.org,socionext.com,suse.de];
-	MIME_TRACE(0.00)[0:+];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:inochiama@gmail.com,m:vladimir.oltean@nxp.com,m:looong.bin@gmail.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:quentin.schulz@cherry.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:ziyao@disroot.org,m:richardcochran@gmail.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:yong.liang.choong@linux.intel.com,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:conor@kernel.org,m:krzk@ker
+ nel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[armlinux.org.uk,gmail.com];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[36];
+	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[redhat.com:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[bmasney@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[nxp.com,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,cherry.de,redhat.com,vger.kernel.org,eecs.berkeley.edu,disroot.org,bp.renesas.com,linux.intel.com,st.com,lists.linux.dev,gentoo.org,lunn.ch,dabbelt.com,altera.com,davemloft.net];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: DFB2D5F1A2
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: BF3AC5FBAD
 X-Rspamd-Action: no action
 
-Hi Stephen,
+On Wed, Jan 21, 2026 at 12:03:36PM +0000, Russell King (Oracle) wrote:
+> On Tue, Jan 20, 2026 at 01:05:39PM +0800, Inochi Amaoto wrote:
+> > > > +	mask = RGMII_RX_DLINE_STEP | RGMII_TX_DLINE_CODE | RGMII_TX_DLINE_EN |
+> > > > +	       RGMII_TX_DLINE_STEP | RGMII_RX_DLINE_CODE | RGMII_RX_DLINE_EN;
+> > > > +	val = FIELD_PREP(RGMII_TX_DLINE_CODE, tx_config) |
+> > > > +	      FIELD_PREP(RGMII_TX_DLINE_CODE, tx_code) | RGMII_TX_DLINE_EN |
+> > > > +	      FIELD_PREP(RGMII_TX_DLINE_CODE, rx_config) |
+> > > > +	      FIELD_PREP(RGMII_RX_DLINE_CODE, rx_code) | RGMII_RX_DLINE_EN;
+> > > 
+> > > These FIELD_PREP() fields look wrong. Did you mean to use DLINE_CODE
+> > > both tx_config and tx_code, and did you mean to use TX_DLINE_CODE for
+> > > rx_config ?
+> > > 
+> > 
+> > This should be RGMII_TX_DLINE_CODE. This is a copy paste error, I
+> > will fix it.
+> 
+> Are you sure?
+> 
+> In that case, please change this to:
+> 
+> 	val = FIELD_PREP(RGMII_TX_DLINE_CODE, tx_config | tx_code |
+> 					      rx_config | rx_code) |
+> 	      RGMII_TX_DLINE_EN | RGMII_RX_DLINE_EN;
+> 
+> If that isn't what you meant, then your reply is wrong, and it seems
+> you're confused, which makes me then question how reliable your
+> replies are.
+> 
 
-On Thu, Jan 08, 2026 at 04:16:18PM -0500, Brian Masney wrote:
-> Here's a series that gets rid of the deprecated APIs
-> divider_round_rate(), divider_round_rate_parent(), and
-> divider_ro_round_rate_parent() since these functions are just wrappers
-> for the determine_rate variant.
+That's wrong, I think I have reply it in a wrong way, it should be
 
-I sent you a GIT PULL for what can go to Linus for the upcoming merge
-window from this series:
+RGMII_TX_DLINE_STEP -> tx_config
+RGMII_TX_DLINE_CODE -> tx_code
+RGMII_RX_DLINE_STEP -> rx_config
+RGMII_RX_DLINE_CODE -> rx_code
 
-https://lore.kernel.org/linux-clk/aXFYU324yQ6uBmk0@redhat.com/T/#u
+The RGMII_[RX|TX]_DLINE_STEP register selects which step is used for
+rx/tx delay. The RGMII_[RX|TX]_DLINE_CODE register provides the factor
+used for calculating the delay. These register are computed in the
+spacemit_dwmac_detected_delay_value(). And finally we can got a delay
+with "code * step / 10 * 0.9" for both rx and tx.
 
-Thanks,
+> > > > +	plat_dat->clk_tx_i = devm_clk_get_enabled(&pdev->dev, "tx");
+> > > > +	if (IS_ERR(plat_dat->clk_tx_i))
+> > > > +		return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat->clk_tx_i),
+> > > > +				     "failed to get tx clock\n");
+> > > 
+> > > You set plat_dat->clk_tx_i, but you don't point
+> > > plat_dat->set_clk_tx_rate at anything, which means the stmmac core
+> > > does nothing with this.
+> > > 
+> > 
+> > Yes, the vendor told me that the internal tx clock rate will be auto
+> > changed when the speed rate is changed. So no software interaction
+> > is needed.
+> 
+> Please do not assign a clock to clk_tx_i that is not the dwmac
+> clk_tx_i input. clk_tx_i is a name used by the Synopsys DWMAC for a
+> specific clock.
+> 
+> As you don't need to do anything with it other than to get and enable
+> it, consider using just a local variable here.
+> 
 
-Brian
+OK, I will use a local variable here.
 
+Regards,
+Inochi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
