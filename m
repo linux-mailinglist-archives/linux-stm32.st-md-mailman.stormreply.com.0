@@ -2,103 +2,149 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0BigEotvcWkPHAAAu9opvQ
+	id GJp6CpHOcWnSMQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 01:30:03 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 08:15:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFFD15FF06
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 01:30:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76296626DC
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 08:15:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 818BFC349C4;
-	Thu, 22 Jan 2026 00:30:02 +0000 (UTC)
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
- [74.125.82.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16ABBC57A52;
+	Thu, 22 Jan 2026 07:15:28 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013001.outbound.protection.outlook.com
+ [40.107.162.1])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5470C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30989C3F944
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jan 2026 00:30:00 +0000 (UTC)
-Received: by mail-dy1-f176.google.com with SMTP id
- 5a478bee46e88-2b70abe3417so889714eec.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 16:29:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769041798; x=1769646598;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=aLRvrHf0GT+SLm7VDguQ+pvYrJH4LqQuaP1lqxnXl2s=;
- b=PCh/+PAjnwFPskBOW9eoipMmuS6EOi5eUEULRuPPmGIGeQo41R9sbtJoYB5Yqv0C8g
- areowtki90IEnG2tU2ndh8ctS/55g/shJAevQPJ1s9JxlAzRc/ijqkLMQGev86SR0r7u
- w4uEiwPuKNKgchSGFrthJerMGHjzck1hfvzg4M2j73qwlNeMX/87+5iKXlIh+2/ibMPF
- eOebV5CBA81fU9oE9oCYIB8PLeNjvFUqqzdF2ej9NyqVr6GThnu54UQiaVB2Lxz6zx3b
- sHiZF9VuUHMC29HQkjvw0161HgR3CXf6cxyPbzziV0L7sis+giUv8EPchYww9roL6YTy
- hVjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769041798; x=1769646598;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aLRvrHf0GT+SLm7VDguQ+pvYrJH4LqQuaP1lqxnXl2s=;
- b=j2Jf8z6eh+mjCQj1DH9wyQ2puxahzl68NQB0zELAYVcQBtUbjcEPt6hSFCmbQ+iZFr
- KDdnPqiQN2QyhsZBSAzc7knSGuHJ3fghLm6eJk1LB8EDWO/jHlw6geDNmBrFXpfN8tzr
- 3nvz8bPzUZKz301gli3xEs5+gkGn7y9tgpneFLGv8zkinnu++dIghkJhrmNUnVdIeUdW
- d5ToAfPHYKL9xqY2jLdc81ETJIDnDktBrqE5rwLi4Tc5SxTNjAqMgFsMvfydl7ow8O+1
- lzxirLYdt9+k1YpFRFGG8R+XdLdwyQLnUEXXeaB6wKISfFppQxn6S4HyRq/ikaihYSfQ
- uBZw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUBqc7G/RZWX9iDyMhrCNyNpMYmuYCAyDtJPCTCCrlasEuZK5of61sggwwxLoUhV2yIOtkCUlemMG+ZpA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yxxy23urAIrZxY/Jk/F+SxUATSGpS1a2DmGcjPHO3dU7IZ8q8Wm
- jFu7CCIOJXLE3iLxW2pC/IjJ4iSw6nV9hURT5dVgg6SSIONqtPMk01rj
-X-Gm-Gg: AZuq6aJhDPNviDwuG1ICb29G4XWgwn/3Hd8KydtVJrtrVV3smzod8NoBqhgu3ElTOUw
- e9cQ38YtMbtX4/jPcNUr+atP7FFdOAEjcr7qf08v7RiaAcc+OvoxTe5+IWF9RNXX8d5SftYySvp
- uOm4oshKv5m9tIxepYTOzwLcKhnkcK/2XuOcXri80eUHMKPC0KNpaFrpWz+xqJaWXvv/O7ByDo4
- rgQuALTgV01wpjpO6XMcx+zEabdQPbG/HQdGMJjvZkgoTe0GVZj9iEBLTulsOrrn228n+WmiCmN
- aM9OS8kBVwMh+0NDu7Ca2xXWsNDHxiCsLPPgUIQPueR5a/PtgBCSL703fBVPmnGXgIlrGuheGzy
- 8QjBnAeyeXc2zOiokWa4LjAuUzs2wOjJRV9yHB9dVyvBiKut8A/b1esRJdsEyEjJWWLZqGYAx/v
- Wpk2VcV63ZMb050hB5AL4j
-X-Received: by 2002:a05:7300:324b:b0:2b0:580b:856c with SMTP id
- 5a478bee46e88-2b6b41005a9mr13294371eec.28.1769041796817; 
- Wed, 21 Jan 2026 16:29:56 -0800 (PST)
-Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1244ac6c2besm29548495c88.5.2026.01.21.16.29.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 16:29:56 -0800 (PST)
-Date: Thu, 22 Jan 2026 08:29:46 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
- Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <aXFvWzw1BlooyG7s@inochi.infowork>
-References: <20260121071315.940130-1-inochiama@gmail.com>
- <20260121071315.940130-4-inochiama@gmail.com>
- <aXDBCsfaNrgfGjNK@shell.armlinux.org.uk>
+ Thu, 22 Jan 2026 07:15:27 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=fclG4YEAzvhLZXDuoGiePNXkPa0DD34cAkK16d0CaBoAcDcNPIwFSve9F8Ht7gl/S4GqigC2mdGoyOcy7pnw6DqP2n9fWpXTCKYcZFxNGN9kdR/N6gsyy/NNETq+2AA/wC1to51DYVtnWhdOrqXXW9HTenxeWLb+dEw5sJv76OTv9GCbVywwZ5l9w6QSGy5/pcY2ulYVszxB64W6zpGNg7ceOOW6DPVd1oxJ8a9NU/S74hDBj3sZAAJEAHmBklxf7NVgMvb2+79yywJ5JclMfnXb0VJUBHGkJpfGZu4hCTc7JZ+/h15UjUJJRvNkUvudcQ2zFAbK6CNqshAmIgaxdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sW+z01Gtpwb/2mqrid4Y8qcEjub3Wkvn2hLahGAskD4=;
+ b=iYm+AmOs08/jdKbqMJ08rihRr51jL7GtGBpgCo8CeIxDJFCeUf3oIU7GDrBwiLIZpImonbB5sNAqttrb+0Alyc4OXaV69MQCA2JVIn6XDBaOSqJbMYoqdeotubOk20kcSISEQZzLKAWgGkpb7MzXleg8Rl//VGYrKLsQizmoAiYV6TNpYcB3uUihVzbcZsNT52Vz6Pv+xyrYi/M0m+BeQD+X/PT4Vd2Id1LnzKuyVQfqp4NUafSJTaLHU++8cpuEAJDbKHo25cuXaFptMmGao2SOCqLfWpD/88JnGbyCkORJJ3sxbNAaWoA0AkSEvtCoxhd+lykKshh5IFsxdTUZfg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sW+z01Gtpwb/2mqrid4Y8qcEjub3Wkvn2hLahGAskD4=;
+ b=oVSd3dxdWIUZ8XK1xJVBo9sm6D2/MXY5fzd3+nnNYD3S/nZ+KCoHfsiPig5fkLma9vQ1F28wriCDUmYQ3h1UgfXfCmHVM5yPdQmLV3F3KSCYmZBygfOnQfpAKkh9w9C6H75bTWV/KzaC/vggnOt8iMgLv90o9dzP6RCqA94vSSxRYToAQb0pUm5a5hHqtyDRcAIbubmqZhqptfW6EPg9XoIxrXVYmiaGhkn7wad4GTn96+vBR08KMTIHZCKA1jKVA6eebqGvZRm+8UZPDhfUlpwSb5n0n/EcwqbUs6v76TjeJes+hZGW04maojwtk/qViCwLr+vytDBzaWpRJm9gpQ==
+Received: from AS4P190CA0036.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5d1::7)
+ by PR3PR10MB3883.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:40::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.9; Thu, 22 Jan
+ 2026 07:15:24 +0000
+Received: from AM4PEPF00027A69.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d1:cafe::6) by AS4P190CA0036.outlook.office365.com
+ (2603:10a6:20b:5d1::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Thu,
+ 22 Jan 2026 07:15:19 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM4PEPF00027A69.mail.protection.outlook.com (10.167.16.87) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Thu, 22 Jan 2026 07:15:23 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 22 Jan
+ 2026 08:16:43 +0100
+Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 22 Jan
+ 2026 08:15:22 +0100
+Message-ID: <7ee1a963-4e55-4499-b316-0d352683c6c1@foss.st.com>
+Date: Thu, 22 Jan 2026 08:15:23 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aXDBCsfaNrgfGjNK@shell.armlinux.org.uk>
-Cc: Vladimir Oltean <vladimir.oltean@nxp.com>,
- Longbin Li <looong.bin@gmail.com>, Eric Dumazet <edumazet@google.com>,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Shangjuan Wei <weishangjuan@eswincomputing.com>,
- Alexandre Ghiti <alex@ghiti.fr>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Yanteng Si <siyanteng@cqsoftware.com.cn>, Jose Abreu <joabreu@synopsys.com>,
- Quentin Schulz <quentin.schulz@cherry.de>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
- Yao Zi <ziyao@disroot.org>, Richard Cochran <richardcochran@gmail.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Choong Yong Liang <yong.liang.choong@linux.intel.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
- spacemit@lists.linux.dev, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Palmer Dabbelt <palmer@dabbelt.com>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 3/3] net: stmmac: Add glue
- layer for Spacemit K3 SoC
+User-Agent: Mozilla Thunderbird
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Patrick Delaunay <patrick.delaunay@foss.st.com>
+References: <20260109-upstream_uboot_properties-v4-0-75e06657c600@foss.st.com>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20260109-upstream_uboot_properties-v4-0-75e06657c600@foss.st.com>
+X-Originating-IP: [10.48.87.93]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM4PEPF00027A69:EE_|PR3PR10MB3883:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0e2e7432-c320-4289-4d1e-08de598602ac
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700013|13003099007; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?YjNISExrRk9tbUs5ZUJaZVpsMHJWTTdUT243TDFzQlRZY2FSZi9aTFkxS2ZW?=
+ =?utf-8?B?TWpFWExZU0VySkdsSHFuS0xva3ZvWkhHVkV2ZDJNbE50S0tlY2RmRkErZG9t?=
+ =?utf-8?B?YWl3RExDTnFWd3d0Q29LUDVBY2tMRm11QldRSnhVMFNrRXEzaHlCMHdzYzgx?=
+ =?utf-8?B?cXZSQkJlN3VBekF5S1pSNWFJN3FxM1RXYUFneWFjNzdWaUFxNTkwT3Fabnl3?=
+ =?utf-8?B?YkVLWHVMeVhqUGY3KzJaOVEyamJnWHA2c2kvTGtMVmEyK1FmWFl2SEhrUUdL?=
+ =?utf-8?B?TWE2SnZTVi9IN2RMM2dzS0FoaklqalJsS3kxdTUxWUpWd3FXM1BTQVcycHJK?=
+ =?utf-8?B?SzlaZFkvVE0ySVZHZVh0d0E1ejFMbHUwRzBPNHZ2dzJQRDBrSFkxWEZ5dGcx?=
+ =?utf-8?B?SW1saHBBd0JWN2VoaHVkOStDQ0pMWUJiSTFkOXJSZ09KRXQ3cDZDaEV6N1dL?=
+ =?utf-8?B?aWtmaVdic3pFV1YwaUNmNDJGVkZYeDRjMTB2NlFuSmFITUR5UFpMVVJCbndY?=
+ =?utf-8?B?MVRBNlBCQThTUFZ6Z2NJa2hWVlRnOFA0MzJCMlVvZkphZGZFSHpBYW1RV04v?=
+ =?utf-8?B?WUVqdjlreXZTRStWbjZldE9rK1lic2lvalpTdjlGaWJ1N3NVYnZBaGgwV3BJ?=
+ =?utf-8?B?QTBXSnBwbUpEN2ZOeUlvd0RQL1NzOGh0bzl2NEdVY1ZkdlpRUXN4STVnSnZX?=
+ =?utf-8?B?TmpuVWJ6RUpZR2lLSktpUmVRUnh6RzhWa0lLTHMwbld6R1dhSmdPRnhYT2RX?=
+ =?utf-8?B?QnlNMmpGTXIzVHpVRjJWcWJud2VoSDdlSHQxREZpdzU4VmJka0c5Y2ZXWHMv?=
+ =?utf-8?B?ME9pMVpsN3NSSWsvelJQelRNL0lQWnk2dTVvNHN0KzVtR3Z4NWlDeDdIRlNx?=
+ =?utf-8?B?RnFxQkg1QVpMR0VMaDNGeWNkdUZrS0V5czBjRWNaWVk3Y1ZBQ1VnZEhMT2lh?=
+ =?utf-8?B?MG1GZlJMdkRMUUpielhqem9yQnpPenA1N2NyL2JYZjcwMVpQUlhHMForclRa?=
+ =?utf-8?B?K092UndZM2N1b1p0MnZUWHN1N3RXZE1zOWM3SjJsRUw1dTF2dXloREV4VHd1?=
+ =?utf-8?B?Uko5bDU5S0xOR0MvTm9ZRlNubzMrY1A5TldBb0Vwa2d2a0NJRG9pYXRNcEcr?=
+ =?utf-8?B?Znc1cTZtSnFIRHF1eG1rL2ZlVlJ0d1RTKzN0OVQ5eHhtaDFLeHRBUk5VOE9z?=
+ =?utf-8?B?TjJHTG50NWZOSWRMc2xvTXc5WG83enlhYlVoZ2tZa1JJTWh4bWlDOG9LU3FV?=
+ =?utf-8?B?MVlEYUQ3eVY4VkkvNFZvb0s5aVFidU02VE1kbVQ4L1pISk4wL3pEMTRGMmFU?=
+ =?utf-8?B?NXF0N1M2a3lqb24vRWJTUGJtR2tNSmFGcWFxVGIwY2IyRXAxb3ZsSXZmanNz?=
+ =?utf-8?B?SG1nZng1SitVckR3eUFxN3ljbEhCUnU0ei9aNHRuZVhvMHprNW8zbHRKeTcz?=
+ =?utf-8?B?cHhoOXppM2dvdXU5cnpjMlZNQVEzQ3NHSFFUS1QrRG55Y0ZzYUFDSVBEMUF4?=
+ =?utf-8?B?VHNMTzEwOEZCeXpRVlMxQ2RvbXBFdE5pYW9oRi9WM3BxOTQvWEdaYndXQW12?=
+ =?utf-8?B?dTFXdzJIQjdGRFVTZ1BmMGZJOUNyZUJVRzU2SXl5Q1JuQTlGVDJzR25HVVVE?=
+ =?utf-8?B?aWlQR243TFlSOGlxL1orWU02NFlYNUtSUU1oRkoxcm5rVnBuVUxjcUYrVzI5?=
+ =?utf-8?B?R0VuLzF2ckY2S0tqb1JIUnF3UEFDYXUwd3NkN0ZjMFk4TTFKY2l0YXE5VXkx?=
+ =?utf-8?B?Vmg4SlZZdXc5emNSNld3ZFYyZjJFcC9abnY0Ym8waEtOMm5FaVlMZ0lqNE9G?=
+ =?utf-8?B?dXdxVyt1ZHQ2aCtBNFc3NWdsaXdkek1CdGxyQ3RFWEtzTEVUaExGK3NLNWZN?=
+ =?utf-8?B?RUQyaTVyNTc3MkF2L1RSMWxBM2VweDVqYmw2ZG95amVkVTQ3YjA3YTR4WC9w?=
+ =?utf-8?B?cmthdjIxV3YxdVpzdG5meEZsZ2xaMDR3Zjg5UlZZaldCZVlvOUZWZUxnaWVS?=
+ =?utf-8?B?NENlVTdsK1R4d2poYUJWZVNmcmh4VHorYy9oMVdoOW43NWpwNFBmWHNLTlBN?=
+ =?utf-8?B?Mnd1b3U4MWEwUGEyNE04MkNNUDE1cTNxOC9tNUs1MW1HVVllYjAwR3hGemN0?=
+ =?utf-8?B?dDgxRDc5Znd2YVZRTEU4YWVBUng3SHFIZHQ0cXBxSDZySFRQVFB2Mm9YQUN4?=
+ =?utf-8?B?akV2dENlZWF3Mm9jNlR6WlBoNE4zcmdiS2FuL1BZSmpDWndPTGdjR0ptK0xo?=
+ =?utf-8?Q?HS+MWYNfXI1Btg+y0MtBhOvHABxY40V63fc8k+urOU=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: VovF8RatRRekLrovR7P9Uff0rRD6EW0OPsXm8gLkdFE6TSpqgMrJ09Q3Crqu0gm72JNOzxpFMnW3w7EjJ4GG9ZVT0yurk9i3U0XePNY7Jw4LYNpbgiMArUJUXjUuPHW9CsJvutvEEarEVJjG369PHdvd2fRXiMw6tsOnDNvJ5cuQfMkT+po/xu0/gqApuI9DhbPofx46rVOl1kr5UFLoYsiV/FR1aIwQrayR4Boij1hd4GNaRYhtK3i0lxl+xc+gr++sAlbHpZkj7LqP/jto33tZd313nsox3q1zgaohtJE9GkDzNlGqsF+fHeaSpkG5amU1qnMiU92hS9THa3S7RlVTIWlZyAekzCqMIvl5zKe2Nndx7zx009+ish/hOC5mUGq/LsBYnELvb+lTXv6T5XG+CxDMDRdYYFcxVZzbZhaNTwIQGe05nXDS6o7mNpMqsMoXZoERLfhaw1pbmF2Hb6DPReRP3Q0Gzkt5uMuCq8LWvTtvdbvFA8gXwUEaeikQ38vB2Smfru+5IJvgUjWcKZRxskJzPfg+chtnsM+Z+5qAxGdDqFBGyYJmA7F2FN/yvImFgOi/bz5EvkhmlFcce7uLNWRfMBfbclXl76KqQr6ze56/JiF5DL77gn0n1zyy2v64Vc/nKquXZyDH+XpnQy6Q+hekt9y9xpXLlW+VOldisaBXSZjje6BWlizxWxIQ
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 07:15:23.7759 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0e2e7432-c320-4289-4d1e-08de598602ac
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A69.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB3883
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v4 0/6] Add boot phase tags for
+	STMicroelectronics boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,91 +161,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:inochiama@gmail.com,m:vladimir.oltean@nxp.com,m:looong.bin@gmail.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:jernej.skrabec@gmail.com,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:quentin.schulz@cherry.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:ziyao@disroot.org,m:richardcochran@gmail.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:yong.liang.choong@linux.intel.com,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:
- jernejskrabec@gmail.com,m:conor@kernel.org,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[armlinux.org.uk,gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrick.delaunay@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st.com:email,st-md-mailman.stormreply.com:rdns,foss.st.com:mid];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[nxp.com,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,cherry.de,redhat.com,vger.kernel.org,eecs.berkeley.edu,disroot.org,bp.renesas.com,linux.intel.com,st.com,lists.linux.dev,gentoo.org,lunn.ch,dabbelt.com,altera.com,davemloft.net];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	HAS_XOIP(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: DFFD15FF06
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 76296626DC
 X-Rspamd-Action: no action
 
-On Wed, Jan 21, 2026 at 12:05:30PM +0000, Russell King (Oracle) wrote:
-> On Wed, Jan 21, 2026 at 03:13:11PM +0800, Inochi Amaoto wrote:
-> > +	mask = RGMII_RX_DLINE_STEP | RGMII_TX_DLINE_CODE | RGMII_TX_DLINE_EN |
-> > +	       RGMII_TX_DLINE_STEP | RGMII_RX_DLINE_CODE | RGMII_RX_DLINE_EN;
-> > +	val = FIELD_PREP(RGMII_TX_DLINE_STEP, tx_config) |
-> > +	      FIELD_PREP(RGMII_TX_DLINE_CODE, tx_code) | RGMII_TX_DLINE_EN |
-> > +	      FIELD_PREP(RGMII_RX_DLINE_STEP, rx_config) |
-> > +	      FIELD_PREP(RGMII_RX_DLINE_CODE, rx_code) | RGMII_RX_DLINE_EN;
-> 
-> So your reply where you basically stated that all the RGMII.*DLINE.*
-> constants here should be the same was nonsense. How can we trust your
-> replies?
-> 
-> > +static int spacemit_dwmac_fix_delay(struct plat_stmmacenet_data *plat_dat,
-> > +				    struct regmap *apmu,
-> > +				    unsigned int dline_offset,
-> > +				    unsigned int tx_delay, unsigned int rx_delay)
-> > +{
-> > +	bool mac_rxid = rx_delay != 0;
-> > +	bool mac_txid = tx_delay != 0;
-> > +	unsigned int rx_config = 0;
-> > +	unsigned int tx_config = 0;
-> > +	int rx_code;
-> > +	int tx_code;
-> > +
-> > +	plat_dat->phy_interface = phy_fix_phy_mode_for_mac_delays(plat_dat->phy_interface,
-> > +								  mac_txid,
-> > +								  mac_rxid);
-> 
-> Maybe Andrew can confirm, but this function was to fix up existing
-> broken DT, and shouldn't be used by brand new drivers.
-> 
-> > +	plat_dat->clk_tx_i = devm_clk_get_enabled(&pdev->dev, "tx");
-> > +	if (IS_ERR(plat_dat->clk_tx_i))
-> > +		return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat->clk_tx_i),
-> > +				     "failed to get tx clock\n");
-> 
-> As stated on the previous series, please don't abuse clk_tx_i for
-> soemthing that isn't the dwmac's clk_tx_i signal.
-> 
 
-I have seen this comments, I will switch to a local variable in the
-next version
 
-Regards,
-Inochi
+On 1/9/26 10:22, Patrice Chotard wrote:
+> The bootph-all flag was introduced in dt-schema
+> (dtschema/schemas/bootph.yaml) to define node usage across
+> different boot phases.
+>     
+> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
+> present in all boot stages, so add missing bootph-all phase flag
+> to these nodes to support SD boot.
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+> ---
+> Changes in v4:
+> - Remove useless nodes in stm32mp15-scmi.dtsi
+> - Link to v3: https://lore.kernel.org/r/20260108-upstream_uboot_properties-v3-0-c1b9d4f2ce8d@foss.st.com
+> 
+> Changes in v3:
+> - Remove duplicate bootph-all property in ltdc node
+> - Link to v2: https://lore.kernel.org/r/20251114-upstream_uboot_properties-v2-0-3784ff668ae0@foss.st.com
+> 
+> Changes in v2:
+> - Fix 'pinmux' is a required property for arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dtb
+> - Add bootph-all property for lvds and ltdc nodes for stm32mp2
+> 
+> ---
+
+Initial implementation allows to factorize and add bootph-* properties in a limited number of DT files.
+
+But after internal discussion with Alexandre, choice has been done to add bootph-* properties in board 
+DT files only instead of SoCs/pinctrl/boards DT files. 
+
+This impacts a greater number of DT boards files.
+A new series revision will be send to match this requirement.
+
+Patrice
+
+
+> Patrice Chotard (6):
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics f4 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics f7 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics h7 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp13 boards
+>       ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp15 boards
+>       arm64: dts: st: Add boot phase tags for STMicroelectronics mp2 boards
+> 
+>  arch/arm/boot/dts/st/stm32429i-eval.dts       | 11 +++++
+>  arch/arm/boot/dts/st/stm32746g-eval.dts       | 10 +++++
+>  arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi     | 12 ++++++
+>  arch/arm/boot/dts/st/stm32f429-disco.dts      | 11 +++++
+>  arch/arm/boot/dts/st/stm32f429.dtsi           |  9 ++++
+>  arch/arm/boot/dts/st/stm32f469-disco.dts      | 12 ++++++
+>  arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi     | 11 +++++
+>  arch/arm/boot/dts/st/stm32f746-disco.dts      | 12 ++++++
+>  arch/arm/boot/dts/st/stm32f746.dtsi           |  5 +++
+>  arch/arm/boot/dts/st/stm32f769-disco.dts      | 12 ++++++
+>  arch/arm/boot/dts/st/stm32h743.dtsi           | 19 +++++++++
+>  arch/arm/boot/dts/st/stm32mp131.dtsi          | 21 ++++++++++
+>  arch/arm/boot/dts/st/stm32mp135f-dk.dts       | 11 +++++
+>  arch/arm/boot/dts/st/stm32mp15-scmi.dtsi      |  2 +
+>  arch/arm/boot/dts/st/stm32mp151.dtsi          | 29 +++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 14 +++++++
+>  arch/arm/boot/dts/st/stm32mp157a-dk1.dts      | 43 +++++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-dk2.dts      | 43 +++++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 14 +++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ed1.dts      | 60 +++++++++++++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 25 +++++++++++
+>  arch/arm/boot/dts/st/stm32mp157c-ev1.dts      | 36 ++++++++++++++++
+>  arch/arm64/boot/dts/st/stm32mp211.dtsi        |  7 ++++
+>  arch/arm64/boot/dts/st/stm32mp215f-dk.dts     |  1 +
+>  arch/arm64/boot/dts/st/stm32mp231.dtsi        | 22 ++++++++++
+>  arch/arm64/boot/dts/st/stm32mp235f-dk.dts     | 11 +++++
+>  arch/arm64/boot/dts/st/stm32mp251.dtsi        | 25 +++++++++++
+>  arch/arm64/boot/dts/st/stm32mp255.dtsi        |  3 +-
+>  arch/arm64/boot/dts/st/stm32mp257f-dk.dts     | 11 +++++
+>  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    | 11 +++++
+>  30 files changed, 512 insertions(+), 1 deletion(-)
+> ---
+> base-commit: 53c18dc078bb6d9e9dfe2cc0671ab78588c44723
+> change-id: 20251112-upstream_uboot_properties-22480b0b4b1c
+> 
+> Best regards,
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
