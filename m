@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cLHxGYqCcWk1IAAAu9opvQ
+	id 0BigEotvcWkPHAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 02:51:06 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 01:30:03 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F127E608AD
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 02:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DFFD15FF06
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 01:30:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FEF9C35E3C;
-	Thu, 22 Jan 2026 01:51:05 +0000 (UTC)
-Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com
- [209.85.167.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 818BFC349C4;
+	Thu, 22 Jan 2026 00:30:02 +0000 (UTC)
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com
+ [74.125.82.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D8BFC36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5470C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jan 2026 01:51:04 +0000 (UTC)
-Received: by mail-oi1-f177.google.com with SMTP id
- 5614622812f47-45c719bb855so285358b6e.1
+ Thu, 22 Jan 2026 00:30:00 +0000 (UTC)
+Received: by mail-dy1-f176.google.com with SMTP id
+ 5a478bee46e88-2b70abe3417so889714eec.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 21 Jan 2026 17:51:04 -0800 (PST)
+ Wed, 21 Jan 2026 16:29:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1769046663; x=1769651463;
+ d=gmail.com; s=20230601; t=1769041798; x=1769646598;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=pGEOJU/uiNboJwAtLEE6S07BEXT+vA5BV+sOD/aPObo=;
- b=YdjnaFd4vuwpsYAC12L5E3afagfwYx+IHDTusOIEmCyStvsr+e3WL3wJ7J+fZWmVl2
- sv+89eb8xpyOj32v9Pxcila/zxCsG7GA5Dtq0owYpgGhIolMMmXlNh+R00IPKkGymQhW
- HX7TRxsuP3I3VqS4a55TIQ6Ml1jq5UDPzW3bA56vt+uxdpxV6ZdIE44zziwyLzW7d8he
- y15+WbkFNqH+GhcuUFo18EBNhRJDDFGgvRKs3Qc8h3oFRTv1R/6BwZNVLqOxfpv6JT38
- eTzzNywTie8XKjq0DZJUkmQjhMPQBiMztbEokMDnisP/JgA67aMQf+sVfEtehRF370Qm
- afPQ==
+ bh=aLRvrHf0GT+SLm7VDguQ+pvYrJH4LqQuaP1lqxnXl2s=;
+ b=PCh/+PAjnwFPskBOW9eoipMmuS6EOi5eUEULRuPPmGIGeQo41R9sbtJoYB5Yqv0C8g
+ areowtki90IEnG2tU2ndh8ctS/55g/shJAevQPJ1s9JxlAzRc/ijqkLMQGev86SR0r7u
+ w4uEiwPuKNKgchSGFrthJerMGHjzck1hfvzg4M2j73qwlNeMX/87+5iKXlIh+2/ibMPF
+ eOebV5CBA81fU9oE9oCYIB8PLeNjvFUqqzdF2ej9NyqVr6GThnu54UQiaVB2Lxz6zx3b
+ sHiZF9VuUHMC29HQkjvw0161HgR3CXf6cxyPbzziV0L7sis+giUv8EPchYww9roL6YTy
+ hVjQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769046663; x=1769651463;
+ d=1e100.net; s=20230601; t=1769041798; x=1769646598;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=pGEOJU/uiNboJwAtLEE6S07BEXT+vA5BV+sOD/aPObo=;
- b=Y5vSLPlZr4RNS+IRi20sCFNXHXrm0YeYtM52OrlwjaT26LxvDxaSk0zZIHdpSmCEtX
- BZC2S51zw7oQ26uJbh1z6h1hHd3beuC3DsyTEwHJcaPrgwv0/4wsLiLtRDrDzGfiV4Uq
- bLhKGNvZdA4nmqdE4PpiczMpkvKxM2oV5XERAjAxGE0RrUCgeQtuH24SLSqV0d14lOqq
- BjfnG399yfW8kdfwnxvB7bnfN9wwT9/yfff1fkX19Mw668RdCUUd1J9dAIu3bXpu89lI
- 1rkvzI618R2cHH39MIz5/MDH+5LFJp2/yvVVt9vn1VonEqFSxI2/Ey2+RYgqYpsLM9oY
- qoVA==
+ bh=aLRvrHf0GT+SLm7VDguQ+pvYrJH4LqQuaP1lqxnXl2s=;
+ b=j2Jf8z6eh+mjCQj1DH9wyQ2puxahzl68NQB0zELAYVcQBtUbjcEPt6hSFCmbQ+iZFr
+ KDdnPqiQN2QyhsZBSAzc7knSGuHJ3fghLm6eJk1LB8EDWO/jHlw6geDNmBrFXpfN8tzr
+ 3nvz8bPzUZKz301gli3xEs5+gkGn7y9tgpneFLGv8zkinnu++dIghkJhrmNUnVdIeUdW
+ d5ToAfPHYKL9xqY2jLdc81ETJIDnDktBrqE5rwLi4Tc5SxTNjAqMgFsMvfydl7ow8O+1
+ lzxirLYdt9+k1YpFRFGG8R+XdLdwyQLnUEXXeaB6wKISfFppQxn6S4HyRq/ikaihYSfQ
+ uBZw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV36shX2HvAVC2+RnDMaZBB/YNpUHzgCkC4SiDn35TBSHlWU/qNq9SXELyHomwCNvSj8XkSUVJF9hLVAQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzeOMJrvgaWDk1CEe02IyJVJQCEw10S+gaUqwlH34erWUINPPon
- kO3p9tJBRqa0ER4q0T3xodiJnMQ6EW7SNHxxduuTpg7pQ1retAdYMi97
-X-Gm-Gg: AZuq6aLAxhafZG7uK2VV8l0hCHnjUSsR7oaqsGIUZdGYvcOiPVdXzUzmV6Wkt88VeMX
- 01lZo6M98GLi+Zb3mUQ0yfw8m91FI2h0hcNldoD7SwE68/u2Cm50+Au7aYl+PpvKRYirC3xWj/P
- YcLixa3MXTwTo0bzjYwvicNRDDnpZRBhkilesc4UZ+VftDGxla/q0A+HMZyVLXAtp7I+F7BU2NU
- cYTWdNyx32cclGSNSi+T/g5cKpcxuwG/X+SII3BrcHjP4VCUtGC4nXDX3gcgsW2RQqM0QVOz8cE
- JshXzY7sxD2zkZ3lZ6osclapGjwPXxkSHZchCiYcr5YXetsjQvbuB3Lurpo9ptWqqQ3tjdrATTR
- Gn5gwR3djzuSia7JDid45VzvPZqJ+Wg/kr7fqOhvD7ILuQnG98pn1aDTp/ysYuKWrJBw6YQvRiZ
- XYu9h075xBOA==
-X-Received: by 2002:a05:7301:408c:b0:2b7:143a:9a8f with SMTP id
- 5a478bee46e88-2b7143a9e6bmr2183820eec.7.1769039928585; 
- Wed, 21 Jan 2026 15:58:48 -0800 (PST)
+ AJvYcCUBqc7G/RZWX9iDyMhrCNyNpMYmuYCAyDtJPCTCCrlasEuZK5of61sggwwxLoUhV2yIOtkCUlemMG+ZpA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxxy23urAIrZxY/Jk/F+SxUATSGpS1a2DmGcjPHO3dU7IZ8q8Wm
+ jFu7CCIOJXLE3iLxW2pC/IjJ4iSw6nV9hURT5dVgg6SSIONqtPMk01rj
+X-Gm-Gg: AZuq6aJhDPNviDwuG1ICb29G4XWgwn/3Hd8KydtVJrtrVV3smzod8NoBqhgu3ElTOUw
+ e9cQ38YtMbtX4/jPcNUr+atP7FFdOAEjcr7qf08v7RiaAcc+OvoxTe5+IWF9RNXX8d5SftYySvp
+ uOm4oshKv5m9tIxepYTOzwLcKhnkcK/2XuOcXri80eUHMKPC0KNpaFrpWz+xqJaWXvv/O7ByDo4
+ rgQuALTgV01wpjpO6XMcx+zEabdQPbG/HQdGMJjvZkgoTe0GVZj9iEBLTulsOrrn228n+WmiCmN
+ aM9OS8kBVwMh+0NDu7Ca2xXWsNDHxiCsLPPgUIQPueR5a/PtgBCSL703fBVPmnGXgIlrGuheGzy
+ 8QjBnAeyeXc2zOiokWa4LjAuUzs2wOjJRV9yHB9dVyvBiKut8A/b1esRJdsEyEjJWWLZqGYAx/v
+ Wpk2VcV63ZMb050hB5AL4j
+X-Received: by 2002:a05:7300:324b:b0:2b0:580b:856c with SMTP id
+ 5a478bee46e88-2b6b41005a9mr13294371eec.28.1769041796817; 
+ Wed, 21 Jan 2026 16:29:56 -0800 (PST)
 Received: from localhost ([2001:19f0:ac00:4eb8:5400:5ff:fe30:7df3])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2b6b361f5d4sm23459514eec.17.2026.01.21.15.58.47
+ a92af1059eb24-1244ac6c2besm29548495c88.5.2026.01.21.16.29.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 21 Jan 2026 15:58:48 -0800 (PST)
-Date: Thu, 22 Jan 2026 07:58:37 +0800
+ Wed, 21 Jan 2026 16:29:56 -0800 (PST)
+Date: Thu, 22 Jan 2026 08:29:46 +0800
 From: Inochi Amaoto <inochiama@gmail.com>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>, 
  Inochi Amaoto <inochiama@gmail.com>
-Message-ID: <aXFVIK57ZNMD_Sbg@inochi.infowork>
+Message-ID: <aXFvWzw1BlooyG7s@inochi.infowork>
 References: <20260121071315.940130-1-inochiama@gmail.com>
  <20260121071315.940130-4-inochiama@gmail.com>
  <aXDBCsfaNrgfGjNK@shell.armlinux.org.uk>
@@ -122,37 +122,36 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RCPT_COUNT_TWELVE(0.00)[37];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:inochiama@gmail.com,m:vladimir.oltean@nxp.com,m:looong.bin@gmail.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:jernej.skrabec@gmail.com,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:quentin.schulz@cherry.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:ziyao@disroot.org,m:richardcochran@gmail.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:yong.liang.choong@linux.intel.com,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:
  jernejskrabec@gmail.com,m:conor@kernel.org,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[armlinux.org.uk,gmail.com];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[37];
 	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[nxp.com,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,cherry.de,redhat.com,vger.kernel.org,eecs.berkeley.edu,disroot.org,bp.renesas.com,linux.intel.com,st.com,lists.linux.dev,gentoo.org,lunn.ch,dabbelt.com,altera.com,davemloft.net];
 	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[nxp.com,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,cherry.de,redhat.com,vger.kernel.org,eecs.berkeley.edu,disroot.org,bp.renesas.com,linux.intel.com,st.com,lists.linux.dev,gentoo.org,lunn.ch,dabbelt.com,altera.com,davemloft.net];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,inochi.infowork:mid,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: F127E608AD
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: DFFD15FF06
 X-Rspamd-Action: no action
 
 On Wed, Jan 21, 2026 at 12:05:30PM +0000, Russell King (Oracle) wrote:
@@ -168,15 +167,6 @@ On Wed, Jan 21, 2026 at 12:05:30PM +0000, Russell King (Oracle) wrote:
 > constants here should be the same was nonsense. How can we trust your
 > replies?
 > 
-
-Sorry, I have found there is a mistake for replying you.
-Now I give a detailed description about this registers.
-You can check it at 
-https://lore.kernel.org/netdev/aXFnmXIwSdKCS9Uc@inochi.infowork/
-
-Regards,
-Inochi
-
 > > +static int spacemit_dwmac_fix_delay(struct plat_stmmacenet_data *plat_dat,
 > > +				    struct regmap *apmu,
 > > +				    unsigned int dline_offset,
@@ -204,9 +194,12 @@ Inochi
 > As stated on the previous series, please don't abuse clk_tx_i for
 > soemthing that isn't the dwmac's clk_tx_i signal.
 > 
-> -- 
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+
+I have seen this comments, I will switch to a local variable in the
+next version
+
+Regards,
+Inochi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
