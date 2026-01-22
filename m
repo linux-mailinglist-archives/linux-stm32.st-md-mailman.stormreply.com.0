@@ -2,149 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GJp6CpHOcWnSMQAAu9opvQ
+	id EPQgMJTkcWk+MgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 08:15:29 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 09:49:24 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 76296626DC
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 08:15:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0A706369E
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 09:49:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16ABBC57A52;
-	Thu, 22 Jan 2026 07:15:28 +0000 (UTC)
-Received: from PA4PR04CU001.outbound.protection.outlook.com
- (mail-francecentralazon11013001.outbound.protection.outlook.com
- [40.107.162.1])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AFB4C5A4C0;
+	Thu, 22 Jan 2026 08:49:23 +0000 (UTC)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11020089.outbound.protection.outlook.com [52.101.228.89])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30989C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12692C57B72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jan 2026 07:15:27 +0000 (UTC)
+ Thu, 22 Jan 2026 08:49:21 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fclG4YEAzvhLZXDuoGiePNXkPa0DD34cAkK16d0CaBoAcDcNPIwFSve9F8Ht7gl/S4GqigC2mdGoyOcy7pnw6DqP2n9fWpXTCKYcZFxNGN9kdR/N6gsyy/NNETq+2AA/wC1to51DYVtnWhdOrqXXW9HTenxeWLb+dEw5sJv76OTv9GCbVywwZ5l9w6QSGy5/pcY2ulYVszxB64W6zpGNg7ceOOW6DPVd1oxJ8a9NU/S74hDBj3sZAAJEAHmBklxf7NVgMvb2+79yywJ5JclMfnXb0VJUBHGkJpfGZu4hCTc7JZ+/h15UjUJJRvNkUvudcQ2zFAbK6CNqshAmIgaxdg==
+ b=Qdf/JYHTz7fgPTrjm1MzvLubOOpQ72dw+64has5x6ZXLPiBTAM+1dbKXMuT6U+LRZB9w3t1+vpQgjQacyZsxZdrXKTToaYskd4N3RGSnkU2ohQBv8Dp+P0Q4ceAgZ2m5xRBT4bF6Wta/gQ/q4fsnePGKgxgq9U7YFlgvU4t5PMRne29HeGLQolJ85RS8PQQFkphqJimqR36QXOQ9wnr1bUZH/4KRsMpIoyW/V1TGWHmPtlIex0+8TKftu0d2pNDkW5tOoTiqV4RBHHhe3AZuVmE62b2C+aQM4g5XmglhLyUcV3E9fn8OflQmx0xQxVH7a1L5wj7p5UUaAbUGbAMwsQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sW+z01Gtpwb/2mqrid4Y8qcEjub3Wkvn2hLahGAskD4=;
- b=iYm+AmOs08/jdKbqMJ08rihRr51jL7GtGBpgCo8CeIxDJFCeUf3oIU7GDrBwiLIZpImonbB5sNAqttrb+0Alyc4OXaV69MQCA2JVIn6XDBaOSqJbMYoqdeotubOk20kcSISEQZzLKAWgGkpb7MzXleg8Rl//VGYrKLsQizmoAiYV6TNpYcB3uUihVzbcZsNT52Vz6Pv+xyrYi/M0m+BeQD+X/PT4Vd2Id1LnzKuyVQfqp4NUafSJTaLHU++8cpuEAJDbKHo25cuXaFptMmGao2SOCqLfWpD/88JnGbyCkORJJ3sxbNAaWoA0AkSEvtCoxhd+lykKshh5IFsxdTUZfg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=Cc7PNXwsqrG1UZuUgPLY0U/x6PkZe//P+PHZOfj2ljU=;
+ b=r8J4DfK9Exqum+wsYWTfyS60U/O5C/TUQdO1Yvwa6Xlppq2V8IFM3X5/ZrJ2dn89I2fJ+Vf7ogsyoav1+6GIzLFKhqvKLyt2rOEgxQyX+a+ZqWi0CivKY7Yo8OSRHzWO/idKc6n7vJ9mv7Dac/Ra3VpDxuL0gIANBORvGyIkH2ZlpN8b08IEteFrX3PedlCoWQq55dSfsjloBgTcR3fS811qZZ1jUiHGlNX5vK2m9cBsak9aOCf5uf2CB3FsWCURVZcyr1o5btnQjGN0dNf2kn6OWNx4SOpfHurv7Ve8TmbyVnm9+1EFdLH4hGaye0umOsgQ4n/cLa5IOkJvjK9VWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sW+z01Gtpwb/2mqrid4Y8qcEjub3Wkvn2hLahGAskD4=;
- b=oVSd3dxdWIUZ8XK1xJVBo9sm6D2/MXY5fzd3+nnNYD3S/nZ+KCoHfsiPig5fkLma9vQ1F28wriCDUmYQ3h1UgfXfCmHVM5yPdQmLV3F3KSCYmZBygfOnQfpAKkh9w9C6H75bTWV/KzaC/vggnOt8iMgLv90o9dzP6RCqA94vSSxRYToAQb0pUm5a5hHqtyDRcAIbubmqZhqptfW6EPg9XoIxrXVYmiaGhkn7wad4GTn96+vBR08KMTIHZCKA1jKVA6eebqGvZRm+8UZPDhfUlpwSb5n0n/EcwqbUs6v76TjeJes+hZGW04maojwtk/qViCwLr+vytDBzaWpRJm9gpQ==
-Received: from AS4P190CA0036.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5d1::7)
- by PR3PR10MB3883.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:40::15) with
+ bh=Cc7PNXwsqrG1UZuUgPLY0U/x6PkZe//P+PHZOfj2ljU=;
+ b=fRLcHDS9Vi6JlSIL6VGyjeq6aDJ7kvw7BfSzgGOQViSqPAtvx4mgxnAeujZfERYRml9Dv8lcWjNBpIIYUCxx1tWnMvZKS1Sii1JmSxIc9YZT4bl5vzqaC7DUXhanlIQlBRxSaQoDkBR+ThwAk2H8cdEqN8EL8F0UusPlmfbI+uI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by OS9P286MB6581.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:419::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9520.9; Thu, 22 Jan
- 2026 07:15:24 +0000
-Received: from AM4PEPF00027A69.eurprd04.prod.outlook.com
- (2603:10a6:20b:5d1:cafe::6) by AS4P190CA0036.outlook.office365.com
- (2603:10a6:20b:5d1::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Thu,
- 22 Jan 2026 07:15:19 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM4PEPF00027A69.mail.protection.outlook.com (10.167.16.87) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Thu, 22 Jan 2026 07:15:23 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 22 Jan
- 2026 08:16:43 +0100
-Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 22 Jan
- 2026 08:15:22 +0100
-Message-ID: <7ee1a963-4e55-4499-b316-0d352683c6c1@foss.st.com>
-Date: Thu, 22 Jan 2026 08:15:23 +0100
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.10; Thu, 22 Jan
+ 2026 08:49:18 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9542.009; Thu, 22 Jan 2026
+ 08:49:17 +0000
+From: Koichiro Den <den@valinux.co.jp>
+To: jingoohan1@gmail.com, mani@kernel.org, lpieralisi@kernel.org,
+ kwilczynski@kernel.org, robh@kernel.org, bhelgaas@google.com,
+ cassel@kernel.org
+Date: Thu, 22 Jan 2026 17:49:04 +0900
+Message-ID: <20260122084909.2390865-1-den@valinux.co.jp>
+X-Mailer: git-send-email 2.51.0
+X-ClientProxiedBy: TYCP286CA0323.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3b7::15) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Patrick Delaunay <patrick.delaunay@foss.st.com>
-References: <20260109-upstream_uboot_properties-v4-0-75e06657c600@foss.st.com>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20260109-upstream_uboot_properties-v4-0-75e06657c600@foss.st.com>
-X-Originating-IP: [10.48.87.93]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A69:EE_|PR3PR10MB3883:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0e2e7432-c320-4289-4d1e-08de598602ac
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|OS9P286MB6581:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5267aa78-e120-4e0a-4370-08de5993204a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700013|13003099007; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YjNISExrRk9tbUs5ZUJaZVpsMHJWTTdUT243TDFzQlRZY2FSZi9aTFkxS2ZW?=
- =?utf-8?B?TWpFWExZU0VySkdsSHFuS0xva3ZvWkhHVkV2ZDJNbE50S0tlY2RmRkErZG9t?=
- =?utf-8?B?YWl3RExDTnFWd3d0Q29LUDVBY2tMRm11QldRSnhVMFNrRXEzaHlCMHdzYzgx?=
- =?utf-8?B?cXZSQkJlN3VBekF5S1pSNWFJN3FxM1RXYUFneWFjNzdWaUFxNTkwT3Fabnl3?=
- =?utf-8?B?YkVLWHVMeVhqUGY3KzJaOVEyamJnWHA2c2kvTGtMVmEyK1FmWFl2SEhrUUdL?=
- =?utf-8?B?TWE2SnZTVi9IN2RMM2dzS0FoaklqalJsS3kxdTUxWUpWd3FXM1BTQVcycHJK?=
- =?utf-8?B?SzlaZFkvVE0ySVZHZVh0d0E1ejFMbHUwRzBPNHZ2dzJQRDBrSFkxWEZ5dGcx?=
- =?utf-8?B?SW1saHBBd0JWN2VoaHVkOStDQ0pMWUJiSTFkOXJSZ09KRXQ3cDZDaEV6N1dL?=
- =?utf-8?B?aWtmaVdic3pFV1YwaUNmNDJGVkZYeDRjMTB2NlFuSmFITUR5UFpMVVJCbndY?=
- =?utf-8?B?MVRBNlBCQThTUFZ6Z2NJa2hWVlRnOFA0MzJCMlVvZkphZGZFSHpBYW1RV04v?=
- =?utf-8?B?WUVqdjlreXZTRStWbjZldE9rK1lic2lvalpTdjlGaWJ1N3NVYnZBaGgwV3BJ?=
- =?utf-8?B?QTBXSnBwbUpEN2ZOeUlvd0RQL1NzOGh0bzl2NEdVY1ZkdlpRUXN4STVnSnZX?=
- =?utf-8?B?TmpuVWJ6RUpZR2lLSktpUmVRUnh6RzhWa0lLTHMwbld6R1dhSmdPRnhYT2RX?=
- =?utf-8?B?QnlNMmpGTXIzVHpVRjJWcWJud2VoSDdlSHQxREZpdzU4VmJka0c5Y2ZXWHMv?=
- =?utf-8?B?ME9pMVpsN3NSSWsvelJQelRNL0lQWnk2dTVvNHN0KzVtR3Z4NWlDeDdIRlNx?=
- =?utf-8?B?RnFxQkg1QVpMR0VMaDNGeWNkdUZrS0V5czBjRWNaWVk3Y1ZBQ1VnZEhMT2lh?=
- =?utf-8?B?MG1GZlJMdkRMUUpielhqem9yQnpPenA1N2NyL2JYZjcwMVpQUlhHMForclRa?=
- =?utf-8?B?K092UndZM2N1b1p0MnZUWHN1N3RXZE1zOWM3SjJsRUw1dTF2dXloREV4VHd1?=
- =?utf-8?B?Uko5bDU5S0xOR0MvTm9ZRlNubzMrY1A5TldBb0Vwa2d2a0NJRG9pYXRNcEcr?=
- =?utf-8?B?Znc1cTZtSnFIRHF1eG1rL2ZlVlJ0d1RTKzN0OVQ5eHhtaDFLeHRBUk5VOE9z?=
- =?utf-8?B?TjJHTG50NWZOSWRMc2xvTXc5WG83enlhYlVoZ2tZa1JJTWh4bWlDOG9LU3FV?=
- =?utf-8?B?MVlEYUQ3eVY4VkkvNFZvb0s5aVFidU02VE1kbVQ4L1pISk4wL3pEMTRGMmFU?=
- =?utf-8?B?NXF0N1M2a3lqb24vRWJTUGJtR2tNSmFGcWFxVGIwY2IyRXAxb3ZsSXZmanNz?=
- =?utf-8?B?SG1nZng1SitVckR3eUFxN3ljbEhCUnU0ei9aNHRuZVhvMHprNW8zbHRKeTcz?=
- =?utf-8?B?cHhoOXppM2dvdXU5cnpjMlZNQVEzQ3NHSFFUS1QrRG55Y0ZzYUFDSVBEMUF4?=
- =?utf-8?B?VHNMTzEwOEZCeXpRVlMxQ2RvbXBFdE5pYW9oRi9WM3BxOTQvWEdaYndXQW12?=
- =?utf-8?B?dTFXdzJIQjdGRFVTZ1BmMGZJOUNyZUJVRzU2SXl5Q1JuQTlGVDJzR25HVVVE?=
- =?utf-8?B?aWlQR243TFlSOGlxL1orWU02NFlYNUtSUU1oRkoxcm5rVnBuVUxjcUYrVzI5?=
- =?utf-8?B?R0VuLzF2ckY2S0tqb1JIUnF3UEFDYXUwd3NkN0ZjMFk4TTFKY2l0YXE5VXkx?=
- =?utf-8?B?Vmg4SlZZdXc5emNSNld3ZFYyZjJFcC9abnY0Ym8waEtOMm5FaVlMZ0lqNE9G?=
- =?utf-8?B?dXdxVyt1ZHQ2aCtBNFc3NWdsaXdkek1CdGxyQ3RFWEtzTEVUaExGK3NLNWZN?=
- =?utf-8?B?RUQyaTVyNTc3MkF2L1RSMWxBM2VweDVqYmw2ZG95amVkVTQ3YjA3YTR4WC9w?=
- =?utf-8?B?cmthdjIxV3YxdVpzdG5meEZsZ2xaMDR3Zjg5UlZZaldCZVlvOUZWZUxnaWVS?=
- =?utf-8?B?NENlVTdsK1R4d2poYUJWZVNmcmh4VHorYy9oMVdoOW43NWpwNFBmWHNLTlBN?=
- =?utf-8?B?Mnd1b3U4MWEwUGEyNE04MkNNUDE1cTNxOC9tNUs1MW1HVVllYjAwR3hGemN0?=
- =?utf-8?B?dDgxRDc5Znd2YVZRTEU4YWVBUng3SHFIZHQ0cXBxSDZySFRQVFB2Mm9YQUN4?=
- =?utf-8?B?akV2dENlZWF3Mm9jNlR6WlBoNE4zcmdiS2FuL1BZSmpDWndPTGdjR0ptK0xo?=
- =?utf-8?Q?HS+MWYNfXI1Btg+y0MtBhOvHABxY40V63fc8k+urOU=3D?=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700013)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: VovF8RatRRekLrovR7P9Uff0rRD6EW0OPsXm8gLkdFE6TSpqgMrJ09Q3Crqu0gm72JNOzxpFMnW3w7EjJ4GG9ZVT0yurk9i3U0XePNY7Jw4LYNpbgiMArUJUXjUuPHW9CsJvutvEEarEVJjG369PHdvd2fRXiMw6tsOnDNvJ5cuQfMkT+po/xu0/gqApuI9DhbPofx46rVOl1kr5UFLoYsiV/FR1aIwQrayR4Boij1hd4GNaRYhtK3i0lxl+xc+gr++sAlbHpZkj7LqP/jto33tZd313nsox3q1zgaohtJE9GkDzNlGqsF+fHeaSpkG5amU1qnMiU92hS9THa3S7RlVTIWlZyAekzCqMIvl5zKe2Nndx7zx009+ish/hOC5mUGq/LsBYnELvb+lTXv6T5XG+CxDMDRdYYFcxVZzbZhaNTwIQGe05nXDS6o7mNpMqsMoXZoERLfhaw1pbmF2Hb6DPReRP3Q0Gzkt5uMuCq8LWvTtvdbvFA8gXwUEaeikQ38vB2Smfru+5IJvgUjWcKZRxskJzPfg+chtnsM+Z+5qAxGdDqFBGyYJmA7F2FN/yvImFgOi/bz5EvkhmlFcce7uLNWRfMBfbclXl76KqQr6ze56/JiF5DL77gn0n1zyy2v64Vc/nKquXZyDH+XpnQy6Q+hekt9y9xpXLlW+VOldisaBXSZjje6BWlizxWxIQ
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 07:15:23.7759 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0e2e7432-c320-4289-4d1e-08de598602ac
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A69.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB3883
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v4 0/6] Add boot phase tags for
-	STMicroelectronics boards
+ ARA:13230040|376014|7416014|10070799003|366016|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?ETHuRQRwQsA7bCM5NU1oLLGMVyNAlhWLFGy0B5i1Vf8E5GElAlgg62c33i/I?=
+ =?us-ascii?Q?plkk4I3hcyXtRqps5Fj4FFomY+edXJiTWnkEmFEUe64yHyyZttNkCE8XXVKe?=
+ =?us-ascii?Q?e0pQ+b0oA+HQty9d6hLJdeSxptrpLHaGIiU6AV1EZwfLvnQziUnH7NxPaI8A?=
+ =?us-ascii?Q?sKCWptciKWj2TxFa7UG6neFNDQgZOn9wsI9ZAJn4lxYZH5iW2k0ERJsjA9tA?=
+ =?us-ascii?Q?SlioROHuNJ76D07OQ97x7GZMiwf0SZzd8T39/I7xvb/K13saG11XU52rIDKS?=
+ =?us-ascii?Q?lnkwxRpPCiS1BYh16eOfvp3/TKh/kx+sf4i/jUtyF/rQVLKDtg1vaYpwgLaD?=
+ =?us-ascii?Q?h6NeMMM9K756tS5k+cb/7xBddouCHSDazCUFC9BDhKH1O/UPA772ZZwpyDPO?=
+ =?us-ascii?Q?meR19+jrV2btKpyJP6mvhNHZ1xNpgiI824tttbQzup/PFelzbIRsi/CU2Yk7?=
+ =?us-ascii?Q?+pAPSOwT8fm5gNdk8Hzmtk0BIfDugW4EkXkF4CTJjaD2oii7aM4lo8SbI0Vc?=
+ =?us-ascii?Q?olENom0NLa+jFbfeL5YvZEorlPYoJsGXz2INUJn1QCm6PQQ6zfrznL9xohoZ?=
+ =?us-ascii?Q?XGzMiS3TN7SJAUXGOd1jCspB6mkdZo+1NmquMcNIuQQxROExZAUHwhNGOKUV?=
+ =?us-ascii?Q?HXpVmiN6TY3TTbbfX0u23eLHvyA7uJGWT0LjWXAnTXgFFwLxOTmq7e5l5T3I?=
+ =?us-ascii?Q?tcAhy3JmILnhaJOhRmZHfVutz5a3gh+nRulBIK+ExgkzZmMnSaULgYN1iqjW?=
+ =?us-ascii?Q?3+2tuUh7YqYGgdRhILqvebJRWZi07r2uIi+JVt2EoLGPoJupwUiVyW6V0EGL?=
+ =?us-ascii?Q?guyB1AY8kxrOzahM2w+SfWB9NjzZolKzNs/ShgDPvkhHJrdtGuxM05vPQOxR?=
+ =?us-ascii?Q?XGFXtS2aA10d+P+NJAUaEMFavMK7Sb9b0+Yz1c3iIym/Dsp6V2RQWe4mlzGK?=
+ =?us-ascii?Q?tWbcMaj5sNOVQlQtWj2QZqAROYrnXG8qbFXW3gD+Q24FWiYYVrGoj+nzdUUk?=
+ =?us-ascii?Q?0PdlF4M7G9ap5SjDAw/tQrPwYjDgLXThX7jGrhmXTTCNfK80ixOrLGb2fcAN?=
+ =?us-ascii?Q?1tU5I3WZdUC0tTrZeqrIcQU5aM7vanCbAt8qKI8+iPk1hE/S255D1npfv8H3?=
+ =?us-ascii?Q?fuW7ZXJs6PyRU6tqAV7x84pPcurH3EFLs7rcHUkQcre4P+43wOxuhsmCwldT?=
+ =?us-ascii?Q?GNSOlDUPh6MgUQTGF45W7b7010dUhTRiKvFF2pf2AO5nyxg+2Vz2Ztk2Z+I/?=
+ =?us-ascii?Q?4w9QTixFuJK/IfT1WPAbYlbDLDN863f7zbXo4HIVgqXv7YAfpq5AhZtqYK2O?=
+ =?us-ascii?Q?9B57ClDlT6jPME6ugdPc/bk4T2EMAJJZ/VrdlOSlPHjrn1SDerHpHdR0tXDq?=
+ =?us-ascii?Q?oWS5Lyr96+cTRWV6Bq5+PG9r0COJMUz5LM/QbQek3RuZitGBtQZ+QcgpqbZY?=
+ =?us-ascii?Q?D5XsrzeWjnm4y0rQCjdpbvDxMpLS8rAZ2x0bVwk6uU3l6VqSEz/AvwlfTpWZ?=
+ =?us-ascii?Q?PVpTQlCUcz4PlFiatzco0HNLqyEfeAmYjh9CoYfKJhH7Wm7wkzn1Ys1cjx8i?=
+ =?us-ascii?Q?Ab7GLyh3d1elHc+VCvc=3D?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(10070799003)(366016)(1800799024); DIR:OUT;
+ SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9UViOPS3aVlb3YyiirBFR/DtC9MuXqBedTzPpbFahB4np5xnzPUBN4qha9HO?=
+ =?us-ascii?Q?kM8F9BdmECtx9X2MUdH9mT1sZffr9gFdvEwXp2ykPn7A47mavpm0ghVHkTX2?=
+ =?us-ascii?Q?R9UN44uQFCUznXrrfgpn94jfCsK1v5WVNaDcRQJKzq4UjncnGTCre5mHiKXf?=
+ =?us-ascii?Q?bEiVKC2CDdc2YKiRuwVBxt9hNTvqz26HB54cHGwkatCekCOtC0d1E/77/gHi?=
+ =?us-ascii?Q?p3R8XNv9k5CR4qERud/hIVrCFOQrFP18YdKQMLmlZ2X3gonj2c60ZAnWAAWK?=
+ =?us-ascii?Q?b16B499c1tgbCc0sESRH4yMnmRvyo5BhCKPIXFXg7/VkK+Wj1/mDwsl97VM0?=
+ =?us-ascii?Q?bT9YIThliLXV/2Fq+P/WTKokJs2y9Vtr/lEcuyWTfTiuObzHKzb8mL13nE17?=
+ =?us-ascii?Q?caUWwi6gKBErG9tt5HqYJl3vA5mMdbxq+9+G0xZias/y4mUKUu7Y733XEWoD?=
+ =?us-ascii?Q?uiCcpj6YdGKdVwOhA10xQE83HFSymyMtJA7Y6eGTk2VQqqa++SbCQxF7vkF/?=
+ =?us-ascii?Q?6UMTo76UDccQg7s0VTTqiR8rfU+aNhfDFQdOtGrR0kdXdb52D31/H87sIpQw?=
+ =?us-ascii?Q?qZgpkHe35Av0nJj0GR0s2+hDiGyvxdyUv84QO6wlVZqr4qxFHlI3R35TN+pT?=
+ =?us-ascii?Q?5k0za1lGl0dTZ3qsacOU+B8+FMH2G9go2FhvMQhfqB93k8sSyeautIHivyVE?=
+ =?us-ascii?Q?zFYtCLZVP/swIvzFyYle3ZiKjcI2zXiP+qB1J8bKpeLOIya9kKX/ZGyx1HWN?=
+ =?us-ascii?Q?SfuMX52SKtPwGH+zY8KPohDvgICNEAhO3PEkOdj0rTmKTbzgP2AzXk44QyKx?=
+ =?us-ascii?Q?s8bpeEVFABFP/duuZOACZFzxSGAW1Rebj/b79gd1Cl/m9Pwl6Qq33vkrob6Q?=
+ =?us-ascii?Q?N/846xJwa0lQSFW0tAs9qn0KM9eg5yOxcqKxgRneY8LEEf45gGLohYkeaRoe?=
+ =?us-ascii?Q?j3CzX+NcfWkIe4O0wlvJ2iMQDkPqJ2XGs/1ZXhdqvIPJfLXxDPiiLqW7MSup?=
+ =?us-ascii?Q?oNH8uQo9t6vbdJ6/Zu3Fijw2qgsAqr1fPVvo33dRFfbYTv0DWkUkrL9trOlo?=
+ =?us-ascii?Q?FPpHhIJM7CywjB39ZWuuTnDbWSJ+feRxgEi/3lTPxzy2nNfcF1HPkhseUX0Z?=
+ =?us-ascii?Q?XoB5eVAv3jZCZ1vnp8/l5WJeFd/vKSnpnaZvnnxUx8kW4ADo6xECUiXT5tMG?=
+ =?us-ascii?Q?wzg0px9+qAADO5SGEF77lpJAkUdRRdIJnSitajuOYfTpGW0DUZ8QeNDteX3R?=
+ =?us-ascii?Q?1n2rMaYHcA+RZuQT18KNZc2GwK4CxV883cPEhT3jFYqbpS2TKOQqK+wXRg2E?=
+ =?us-ascii?Q?v5JXksB4JS2g2RtPw/nerN/kBox0L484huM6p7oTdgyDleZJFlUhrk4vDkID?=
+ =?us-ascii?Q?DlDC/RQD1RP/gDSyOvDz3Lj5qlMA2QR0+HpYKoIxwl8uDab/6xMer0Zg4+eR?=
+ =?us-ascii?Q?1e4RP+vhJnwe7+GWOsSgZwOv1lT5vrvCaAbPhZXZVBcB9+LgKjv+ESxAN7SY?=
+ =?us-ascii?Q?yW7N+0yQ0tsXcyA3tcoTK2gAu9arfss432X44wnLCM7CGbrilhyqXqU6nXDZ?=
+ =?us-ascii?Q?vOErrqpz7j54z+BCKI/pL357WfeEF3nPt/yji+Dwtt8gfz2mszPmgR27ySUZ?=
+ =?us-ascii?Q?pqzyIIZeItBIg6b3KhTbUQN/VbxJqIED1EUZMFl+zzNOvBsDuU4tB+JxlQFc?=
+ =?us-ascii?Q?KczREHFjSD3nhk5KGaWVQBnXGLbo+/BEfnG8A9IAbQF1DQpQwL6OEFNJ2CDg?=
+ =?us-ascii?Q?xKzyq9+BVnD0GAfjuTg+eHpDXP2ASyhmB4mb7MdHkgclRNaxwu7B?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5267aa78-e120-4e0a-4370-08de5993204a
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jan 2026 08:49:17.1232 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: xDFs+WKskWcBClcC+/tGMJKbgGskbeYAlrxa7JpjBY7hln+ukjVDNuWKwhQtdqU/2UfFs3kNRt9nbJ8HrhgrUg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9P286MB6581
+Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
+ linux-pci@vger.kernel.org, shawn.lin@rock-chips.com, Frank.Li@nxp.com,
+ christian.bruel@foss.st.com, thierry.reding@gmail.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de, kishon@kernel.org,
+ srikanth.thokala@intel.com, jesper.nilsson@axis.com,
+ hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
+ linux-arm-kernel@axis.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ 18255117159@163.com, s-vadapalli@ti.com, marek.vasut+renesas@gmail.com,
+ hongxing.zhu@nxp.com, kernel@pengutronix.de, linux-arm-msm@vger.kernel.org,
+ s.hauer@pengutronix.de, linux-tegra@vger.kernel.org,
+ linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
+ roy.zang@nxp.com, minghuan.Lian@nxp.com, linux.amoon@gmail.com,
+ linuxppc-dev@lists.ozlabs.org, yoshihiro.shimoda.uh@renesas.com,
+ linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org,
+ mcoquelin.stm32@gmail.com, shawnguo@kernel.org,
+ nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
+Subject: [Linux-stm32] [PATCH v9 0/5] PCI: endpoint: BAR subrange mapping
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -161,126 +171,236 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
+	R_DKIM_REJECT(1.00)[valinux.co.jp:s=selector1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[valinux.co.jp : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrick.delaunay@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st.com:email,st-md-mailman.stormreply.com:rdns,foss.st.com:mid];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:jingoohan1@gmail.com,m:mani@kernel.org,m:lpieralisi@kernel.org,m:kwilczynski@kernel.org,m:robh@kernel.org,m:bhelgaas@google.com,m:cassel@kernel.org,m:imx@lists.linux.dev,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:linux-pci@vger.kernel.org,m:shawn.lin@rock-chips.com,m:Frank.Li@nxp.com,m:christian.bruel@foss.st.com,m:thierry.reding@gmail.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:heiko@sntech.de,m:kishon@kernel.org,m:srikanth.thokala@intel.com,m:jesper.nilsson@axis.com,m:hayashi.kunihiko@socionext.com,m:jirislaby@kernel.org,m:magnus.damm@gmail.com,m:linux-arm-kernel@axis.com,m:jonathanh@nvidia.com,m:linux-rockchip@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:18255117159@163.com,m:s-vadapalli@ti.com,m:marek.vasut+renesas@gmail.com,m:hongxing.zhu@nxp.com,m:kernel@pengutronix.de,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-tegra@vger.kernel.org,m:linux-omap@vger.kernel.org,m:rongqianfeng@vivo.com,
+ m:mingkai.hu@nxp.com,m:roy.zang@nxp.com,m:minghuan.Lian@nxp.com,m:linux.amoon@gmail.com,m:linuxppc-dev@lists.ozlabs.org,m:yoshihiro.shimoda.uh@renesas.com,m:linux-kernel@vger.kernel.org,m:vidyas@nvidia.com,m:linux-renesas-soc@vger.kernel.org,m:mhiramat@kernel.org,m:mcoquelin.stm32@gmail.com,m:shawnguo@kernel.org,m:nicolas.frattaroli@collabora.com,m:l.stach@pengutronix.de,m:geert@glider.be,m:thierryreding@gmail.com,m:magnusdamm@gmail.com,m:marekvasut@gmail.com,m:linuxamoon@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[den@valinux.co.jp,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,ti.com,glider.be,vger.kernel.org,rock-chips.com,nxp.com,foss.st.com,gmail.com,st-md-mailman.stormreply.com,sntech.de,kernel.org,intel.com,axis.com,socionext.com,nvidia.com,lists.infradead.org,163.com,pengutronix.de,vivo.com,lists.ozlabs.org,renesas.com,collabora.com];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org,google.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	HAS_XOIP(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	DKIM_TRACE(0.00)[valinux.co.jp:-];
+	TO_DN_NONE(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[den@valinux.co.jp,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_GT_50(0.00)[52];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 76296626DC
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,valinux.co.jp:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: E0A706369E
 X-Rspamd-Action: no action
 
+This series proposes support for mapping subranges within a PCIe endpoint
+BAR and enables controllers to program inbound address translation for
+those subranges.
+
+Note: This series is a spin-off from a larger RFC series:
+      https://lore.kernel.org/all/20260118135440.1958279-1-den@valinux.co.jp/
+      The first user will likely be epf-vntb for Remote eDMA-backed NTB
+      transport, demonstrated in that RFC series.
 
 
-On 1/9/26 10:22, Patrice Chotard wrote:
-> The bootph-all flag was introduced in dt-schema
-> (dtschema/schemas/bootph.yaml) to define node usage across
-> different boot phases.
->     
-> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-> present in all boot stages, so add missing bootph-all phase flag
-> to these nodes to support SD boot.
-> 
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> ---
-> Changes in v4:
-> - Remove useless nodes in stm32mp15-scmi.dtsi
-> - Link to v3: https://lore.kernel.org/r/20260108-upstream_uboot_properties-v3-0-c1b9d4f2ce8d@foss.st.com
-> 
-> Changes in v3:
-> - Remove duplicate bootph-all property in ltdc node
-> - Link to v2: https://lore.kernel.org/r/20251114-upstream_uboot_properties-v2-0-3784ff668ae0@foss.st.com
-> 
-> Changes in v2:
-> - Fix 'pinmux' is a required property for arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dtb
-> - Add bootph-all property for lvds and ltdc nodes for stm32mp2
-> 
-> ---
+Motivation
+==========
 
-Initial implementation allows to factorize and add bootph-* properties in a limited number of DT files.
+(This section is identical to my earlier explanation at:
+https://lore.kernel.org/linux-pci/waapztvy6jyjqtfcoo3rbgvagi4z3p5afw6x2acgf5bxatcui6@nkodhtqqtetr)
 
-But after internal discussion with Alexandre, choice has been done to add bootph-* properties in board 
-DT files only instead of SoCs/pinctrl/boards DT files. 
+The motivation for BAR subrange mapping is that some EP platforms
+effectively have only two practically usable BARs, while needing multiple
+logically independent inbound mapping.
 
-This impacts a greater number of DT boards files.
-A new series revision will be send to match this requirement.
+For example, on Renesas R-Car Gen4 Spider, 64-bit BAR0 and BAR2 are the
+only practically usable BARs, since BAR4 is only 256 bytes. epf-vntb
+already needs two separate regions (config+spad and MW1 for the
+data-plane), leaving no spare BAR. Adding ntb_msi requires yet another MW,
+which simply does not fit unless an existing BAR is further divided.
 
-Patrice
+In theory, some vNTB regions (e.g. config+spad and dynamically allocated
+memory-backed MWs) could be tightly packed into a single physically
+contiguous BAR region to barely make it work. However, it immediately makes
+features mutually exclusive (e.g. ntb_msi / ntb_edma cannot coexist), and
+the layout becomes extremely fragile.
+
+Similarly, for remote eDMA-backed NTB transport, the host needs separate
+inbound access to the eDMA register block and the LL regions, which are
+distinct local address ranges. Without subrange mapping, the only choice is
+unnatural layout (e.g. dedicating one BAR entirely to eDMA register block,
+and another one to everything else that can be packed into a single locally
+contiguous memory region), even when this is barely possible.
+
+So while some cases might be made to work by aggressive packing, they are
+already at the limit on platforms such as R-Car Spider. BAR subrange
+mapping allows these features to be implemented in a straightforward,
+loosely-coupled, and extensible way on platforms with severely constrained
+BAR resources.
 
 
-> Patrice Chotard (6):
->       ARM: dts: stm32: Add boot phase tags for STMicroelectronics f4 boards
->       ARM: dts: stm32: Add boot phase tags for STMicroelectronics f7 boards
->       ARM: dts: stm32: Add boot phase tags for STMicroelectronics h7 boards
->       ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp13 boards
->       ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp15 boards
->       arm64: dts: st: Add boot phase tags for STMicroelectronics mp2 boards
-> 
->  arch/arm/boot/dts/st/stm32429i-eval.dts       | 11 +++++
->  arch/arm/boot/dts/st/stm32746g-eval.dts       | 10 +++++
->  arch/arm/boot/dts/st/stm32f4-pinctrl.dtsi     | 12 ++++++
->  arch/arm/boot/dts/st/stm32f429-disco.dts      | 11 +++++
->  arch/arm/boot/dts/st/stm32f429.dtsi           |  9 ++++
->  arch/arm/boot/dts/st/stm32f469-disco.dts      | 12 ++++++
->  arch/arm/boot/dts/st/stm32f7-pinctrl.dtsi     | 11 +++++
->  arch/arm/boot/dts/st/stm32f746-disco.dts      | 12 ++++++
->  arch/arm/boot/dts/st/stm32f746.dtsi           |  5 +++
->  arch/arm/boot/dts/st/stm32f769-disco.dts      | 12 ++++++
->  arch/arm/boot/dts/st/stm32h743.dtsi           | 19 +++++++++
->  arch/arm/boot/dts/st/stm32mp131.dtsi          | 21 ++++++++++
->  arch/arm/boot/dts/st/stm32mp135f-dk.dts       | 11 +++++
->  arch/arm/boot/dts/st/stm32mp15-scmi.dtsi      |  2 +
->  arch/arm/boot/dts/st/stm32mp151.dtsi          | 29 +++++++++++++
->  arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 14 +++++++
->  arch/arm/boot/dts/st/stm32mp157a-dk1.dts      | 43 +++++++++++++++++++
->  arch/arm/boot/dts/st/stm32mp157c-dk2.dts      | 43 +++++++++++++++++++
->  arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 14 +++++++
->  arch/arm/boot/dts/st/stm32mp157c-ed1.dts      | 60 +++++++++++++++++++++++++++
->  arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 25 +++++++++++
->  arch/arm/boot/dts/st/stm32mp157c-ev1.dts      | 36 ++++++++++++++++
->  arch/arm64/boot/dts/st/stm32mp211.dtsi        |  7 ++++
->  arch/arm64/boot/dts/st/stm32mp215f-dk.dts     |  1 +
->  arch/arm64/boot/dts/st/stm32mp231.dtsi        | 22 ++++++++++
->  arch/arm64/boot/dts/st/stm32mp235f-dk.dts     | 11 +++++
->  arch/arm64/boot/dts/st/stm32mp251.dtsi        | 25 +++++++++++
->  arch/arm64/boot/dts/st/stm32mp255.dtsi        |  3 +-
->  arch/arm64/boot/dts/st/stm32mp257f-dk.dts     | 11 +++++
->  arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    | 11 +++++
->  30 files changed, 512 insertions(+), 1 deletion(-)
-> ---
-> base-commit: 53c18dc078bb6d9e9dfe2cc0671ab78588c44723
-> change-id: 20251112-upstream_uboot_properties-22480b0b4b1c
-> 
-> Best regards,
+Patch layout
+============
+
+- Patch 1/5 introduces dynamic_inbound_mapping feature bit. This can be
+  used as a safeguard to check whether a BAR can really be reconfigured
+  without clearing/resetting it.
+
+- Patch 2/5 introduces generic BAR subrange mapping support in the PCI
+  endpoint core.
+
+- Patch 3/5 advertises dynamic inbound mapping support via
+  DWC_EPC_COMMON_FEATURES for all DWC-based glue drivers.
+
+- Patch 4/5 adds an implementation for the DesignWare PCIe endpoint
+  controller using Address Match Mode IB iATU. It also advertises
+  subrange_mapping support via DWC_EPC_COMMON_FEATURES.
+
+- Patch 5/5 updates a documentation for pci_epc_set_bar().
+
+
+Kernel base
+===========
+
+- repo: git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
+- branch: controller/dwc
+- commit: 86291f774fe8 ("PCI: dwc: Remove duplicate
+                         dw_pcie_ep_hide_ext_capability() function")
+
+
+Changelog
+=========
+
+* v8->v9 changes:
+  - Dropped now meaningless source code comments, which should have been
+    removed in v8 (feedback from Frank).
+  - Added motivation text to the cover letter and to Patch 2/5 and Patch
+    4/5.
+  - Rebased onto the latest controller/dwc branch (see "Kernel base"
+    section above).
+
+* v7->v8 changes:
+  - Drop the explicit submap offset and use_submap fields. The submap
+    array order now defines BAR offsets (gapless decomposition). Commit
+    messages and source code documentations are adjusted accordingly.
+  - Drop the no-longer-needed dw_pcie_ib_map and add ib_atu_indexes field
+    to track iatu indexes used for teardown.
+  - Move inbound mapping teardown into dw_pcie_ep_set_bar() to cover all
+    BAR transition cases.
+  - Centralize feature bit advertisement via DWC_EPC_COMMON_FEATURES.
+  - Added a (epf_bar->num_submap && !epf_bar->submap) check in
+    pci_epc_set_bar().
+  - Note that some Reviewed-by tags are dropped, as the changes need to be
+    re-reviewed.
+
+* v6->v7 changes:
+  - Added missing check of dynamic_inbound_mapping feature bit in
+    pci_epc_set_bar() when use_submap is set true.
+  - Addressed the remaining review comments from Niklas (patch reordering,
+    splitting, and source code comment/documentation refinements).
+
+* v5->v6 changes:
+  - Added a new feature bit dynamic_inbound_mapping and set it centrally
+    in dw_pcie_ep_get_features() for all DWC-based glue drivers.
+  - Updated documentation for pci_epc_set_bar().
+  - Dropped a needless and harmful dw_pcie_ep_clear_bar() call on the error
+    path.
+  - Fixed "Bar Match Mode" to "BAR Match Mode" in a source code comment.
+
+* v4->v5 changes:
+  - Added subrange_mapping to struct pci_epc_features and enforced a
+    strict capability check in pci_epc_set_bar() (reject use_submap when
+    unsupported).
+  - Changed DWC-based glue drivers to return a mutable features pointer
+    and set subrange_mapping centrally at the DWC midlayer.
+  - Split the series into 3 patches accordingly.
+
+* v3->v4 changes:
+  - Drop unused includes that should have been removed in v3
+
+* v2->v3 changes:
+  - Remove submap copying and sorting from dw_pcie_ep_ib_atu_addr(), and
+    require callers to pass a sorted submap. The related source code
+    comments are updated accordingly.
+  - Refine source code comments and commit messages, including normalizing
+    "Address Match Mode" wording.
+  - Add const qualifiers where applicable.
+
+* v1->v2 changes:
+  - Introduced stricter submap validation: no holes/overlaps and the
+    subranges must exactly cover the whole BAR. Added
+    dw_pcie_ep_validate_submap() to enforce alignment and full-coverage
+    constraints.
+  - Enforced one-shot (all-or-nothing) submap programming to avoid leaving
+    half-programmed BAR state:
+    * Dropped incremental/overwrite logic that is no longer needed with the
+      one-shot design.
+    * Added dw_pcie_ep_clear_ib_maps() and used it from multiple places to
+      tear down BAR match / address match inbound mappings without code
+      duplication.
+  - Updated kernel source code comments and commit messages, including a
+    small refinement made along the way.
+  - Changed num_submap type to unsigned int.
+
+v8: https://lore.kernel.org/all/20260115084928.55701-1-den@valinux.co.jp/
+v7: https://lore.kernel.org/all/20260113162719.3710268-1-den@valinux.co.jp/
+v6: https://lore.kernel.org/all/20260113023715.3463724-1-den@valinux.co.jp/
+v5: https://lore.kernel.org/all/20260108172403.2629671-1-den@valinux.co.jp/
+v4: https://lore.kernel.org/all/20260108044148.2352800-1-den@valinux.co.jp/
+v3: https://lore.kernel.org/all/20260108024829.2255501-1-den@valinux.co.jp/
+v2: https://lore.kernel.org/all/20260107041358.1986701-1-den@valinux.co.jp/
+v1: https://lore.kernel.org/all/20260105080214.1254325-1-den@valinux.co.jp/
+
+
+Thank you for reviewing,
+
+
+Koichiro Den (5):
+  PCI: endpoint: Add dynamic_inbound_mapping EPC feature
+  PCI: endpoint: Add BAR subrange mapping support
+  PCI: dwc: Advertise dynamic inbound mapping support
+  PCI: dwc: ep: Support BAR subrange inbound mapping via Address Match
+    Mode iATU
+  Documentation: PCI: endpoint: Clarify pci_epc_set_bar() usage
+
+ Documentation/PCI/endpoint/pci-endpoint.rst   |  24 +++
+ drivers/pci/controller/dwc/pci-dra7xx.c       |   1 +
+ drivers/pci/controller/dwc/pci-imx6.c         |   3 +
+ drivers/pci/controller/dwc/pci-keystone.c     |   1 +
+ drivers/pci/controller/dwc/pcie-artpec6.c     |   1 +
+ .../pci/controller/dwc/pcie-designware-ep.c   | 203 +++++++++++++++++-
+ .../pci/controller/dwc/pcie-designware-plat.c |   1 +
+ drivers/pci/controller/dwc/pcie-designware.h  |   8 +
+ drivers/pci/controller/dwc/pcie-dw-rockchip.c |   2 +
+ drivers/pci/controller/dwc/pcie-keembay.c     |   1 +
+ drivers/pci/controller/dwc/pcie-qcom-ep.c     |   1 +
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c   |   1 +
+ drivers/pci/controller/dwc/pcie-stm32-ep.c    |   1 +
+ drivers/pci/controller/dwc/pcie-tegra194.c    |   1 +
+ drivers/pci/controller/dwc/pcie-uniphier-ep.c |   2 +
+ drivers/pci/endpoint/pci-epc-core.c           |   8 +
+ include/linux/pci-epc.h                       |   9 +
+ include/linux/pci-epf.h                       |  23 ++
+ 18 files changed, 281 insertions(+), 10 deletions(-)
+
+-- 
+2.51.0
 
 _______________________________________________
 Linux-stm32 mailing list
