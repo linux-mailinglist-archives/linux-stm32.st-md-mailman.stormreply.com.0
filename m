@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oLJYE/fncWkONAAAu9opvQ
+	id YLqnJOvocWkONAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 10:03:51 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 10:07:55 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF0B1642A8
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 10:03:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1AEFB64395
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 10:07:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74794C58D7C;
-	Thu, 22 Jan 2026 09:03:50 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C1754C58D7C;
+	Thu, 22 Jan 2026 09:07:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66109C57B72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2CB5FC57B72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jan 2026 09:03:49 +0000 (UTC)
+ Thu, 22 Jan 2026 09:07:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id F2702408EA;
- Thu, 22 Jan 2026 09:03:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B24C116C6;
- Thu, 22 Jan 2026 09:03:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 034DC600C4;
+ Thu, 22 Jan 2026 09:07:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850BEC116C6;
+ Thu, 22 Jan 2026 09:07:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769072627;
- bh=/MehKJmORgEwpJF+msBgFBXkm59BZbIQr2N6eBZwaBU=;
+ s=k20201202; t=1769072871;
+ bh=AgonMyAfa9uiPAYfh9C/Bgq2TL9WZTm/OGzex9FWfw4=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=mzS2xZFueyQor31YESEgMROI8UCRsNdNneVBo50jCEGgFSMndbkcVLiq094C9Jgwo
- 35xH5C7NvzIFyWXvYPRYokoInGijcOBS0s7kTSD2rs1/MqN9zduYtpaudJCO+JuAqG
- qcWHYywg7hKt7GdHjeGmWDOUYJB6iwtmm/ueYCQLgRuZFzV2GbCuKXuU2MXYlJakLG
- aH44EBU6o0ftXLIKcH4ybHu24Fk6i93FHqusQwGGBCq7PliSXGB5LtBmwErA8ofuSI
- 1bNHoT4dAhRVT8PtymGXeVJ7cNMHyPdS0U6tbkBKYlgKT3Kc03EbDVdYMvih9iEmwv
- v/QGCAMt1Lw/Q==
-Date: Thu, 22 Jan 2026 10:03:33 +0100
+ b=hgCpabng6JJHn8xRpFIZe3jTHR9hU+5UBwyWFBOynni6OUUO5/1LoqwoNeWABlfHH
+ gFmvsu+Ub6HroBHFQTsKy+WnxPMz/gQd32yzv35wwosxYpo/r5KPPNHf3S8poDZQ1t
+ HISyuOKpUtPye2gQr26v0sinjWCgnIQYxi5rUZ8wg/pqcqs5ipg8mXkbJumpMhnWR7
+ EXBy2GsYM/M4JjzUfFP3ECw10Z7D8Bfohlp4OSOeSOPVyRSQRir/Lo2mT1CUbha70Z
+ A3+ca+pqctDTrEzrRZ1OKIfJYqzm2ukB26n/6MxUMKSJjmcRWe9D5UpYHAncWnxW3r
+ TwSzrWaOtE4jA==
+Date: Thu, 22 Jan 2026 10:07:37 +0100
 From: Niklas Cassel <cassel@kernel.org>
 To: Koichiro Den <den@valinux.co.jp>
-Message-ID: <aXHn3zuxxfBN1yps@ryzen>
+Message-ID: <aXHo2YDMkMnFb2LI@ryzen>
 References: <20260122084909.2390865-1-den@valinux.co.jp>
- <20260122084909.2390865-3-den@valinux.co.jp>
+ <20260122084909.2390865-6-den@valinux.co.jp>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260122084909.2390865-3-den@valinux.co.jp>
+In-Reply-To: <20260122084909.2390865-6-den@valinux.co.jp>
 Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
  linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
  minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
@@ -60,8 +60,8 @@ Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
  heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
  linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
  shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v9 2/5] PCI: endpoint: Add BAR subrange
-	mapping support
+Subject: Re: [Linux-stm32] [PATCH v9 5/5] Documentation: PCI: endpoint:
+ Clarify pci_epc_set_bar() usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,12 +81,12 @@ X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
@@ -113,33 +113,26 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[valinux.co.jp:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: CF0B1642A8
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,nxp.com:email,valinux.co.jp:email]
+X-Rspamd-Queue-Id: 1AEFB64395
 X-Rspamd-Action: no action
 
-On Thu, Jan 22, 2026 at 05:49:06PM +0900, Koichiro Den wrote:
-> Some endpoint platforms have only a small number of usable BARs. At the
-> same time, EPF drivers (e.g. vNTB) may need multiple independent inbound
-> regions (control/scratchpad, one or more memory windows, and optionally
-> MSI or other feature-related regions). Subrange mapping allows these to
-> share a single BAR without consuming additional BARs that may not be
-> available, or forcing a fragile layout by aggressively packing into a
-> single contiguous memory range.
+On Thu, Jan 22, 2026 at 05:49:09PM +0900, Koichiro Den wrote:
+> The current documentation implies that pci_epc_set_bar() is only used
+> before the host enumerates the endpoint.
 > 
-> Extend the PCI endpoint core to support mapping subranges within a BAR.
-> Add an optional 'submap' field in struct pci_epf_bar so an endpoint
-> function driver can request inbound mappings that fully cover the BAR.
+> In practice, some Endpoint Controllers support calling pci_epc_set_bar()
+> multiple times for the same BAR (without clearing it) in order to update
+> inbound address translations after the host has programmed the BAR base
+> address, which some Endpoint Functions such as vNTB already rely on.
+> Add document text for that.
 > 
-> Introduce a new EPC feature bit, subrange_mapping, and reject submap
-> requests from pci_epc_set_bar() unless the controller advertises both
-> subrange_mapping and dynamic_inbound_mapping features.
+> Also document the expected call flow for BAR subrange mapping
+> (pci_epf_bar.num_submap / pci_epf_bar.submap), which may require a
+> second pci_epc_set_bar() call after the host has programmed the BAR base
+> address.
 > 
-> The submap array describes the complete BAR layout (no overlaps and no
-> gaps are allowed to avoid exposing untranslated address ranges). This
-> provides the generic infrastructure needed to map multiple logical
-> regions into a single BAR at different offsets, without assuming a
-> controller-specific inbound address translation mechanism.
-> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 > Signed-off-by: Koichiro Den <den@valinux.co.jp>
 > ---
 
