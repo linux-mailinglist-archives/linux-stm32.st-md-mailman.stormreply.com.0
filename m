@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MNtYLXMhcmmPdQAAu9opvQ
+	id mImgM4MhcmmPdQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 14:09:07 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 14:09:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DC20670F9
-	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 14:09:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73F956710F
+	for <lists+linux-stm32@lfdr.de>; Thu, 22 Jan 2026 14:09:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 255E3C87EDE;
-	Thu, 22 Jan 2026 13:09:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36D3DC87EDE;
+	Thu, 22 Jan 2026 13:09:23 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B96AFC57B72
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5133C57B72
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 22 Jan 2026 13:09:05 +0000 (UTC)
+ Thu, 22 Jan 2026 13:09:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=wHvbVKv9/zKXVJFpreFL9ZeQOMLHCXmdTB4TETl1fLM=; b=WrJ+q7qdUPhJYKCLJ7eUEzhepc
- oyWzi2KU26WuvcFOpquRXdXv0XFOY4Cc+iznUZt/2eEC82CBXPVwTdSgQy1FrqVRnrFeTbevXQkmC
- GT8CZTbMnw2yAQdZCeWySss/LW6koGoaaAarzqpPLCQWSxlYFf1jPqaiuSbjPOK+Z9Iw=;
+ bh=KkhVBB+QgzcCgYyqL44Qur19CLLRdKf0hGWKGZRHDXM=; b=3wbYFeC4l3BuZgViSmTjQ/upiU
+ dBWtE6sepWEKwD6lbSg8mRK7p26bIka0HVof7t/10AMQrdbIO5y8JFcbLVA319b37CaMPRi7FeKcT
+ TX/GWvVdkBXLRZ1Xb+iIo0rrO9sySy3HvUK95WGYquFBA2tSAjxiRZ21T91QCfGPoXmo=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1viuQi-003yFR-9F; Thu, 22 Jan 2026 14:08:56 +0100
-Date: Thu, 22 Jan 2026 14:08:56 +0100
+ id 1viuR0-003yGm-Mo; Thu, 22 Jan 2026 14:09:14 +0100
+Date: Thu, 22 Jan 2026 14:09:14 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: Stefan Eichenberger <eichest@gmail.com>
-Message-ID: <949e9bc1-9016-45e6-8b94-d1160dc51c3d@lunn.ch>
+Message-ID: <96f2c395-82f0-4399-be3b-6b0e3f07f90e@lunn.ch>
 References: <20260120203905.23805-1-eichest@gmail.com>
- <20260120203905.23805-3-eichest@gmail.com>
+ <20260120203905.23805-4-eichest@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260120203905.23805-3-eichest@gmail.com>
+In-Reply-To: <20260120203905.23805-4-eichest@gmail.com>
 Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org, kernel@pengutronix.de,
  Stefan Eichenberger <stefan.eichenberger@toradex.com>, festevam@gmail.com,
  s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
@@ -46,8 +46,8 @@ Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org, kernel@pengutronix.de,
  francesco.dolcini@toradex.com, kuba@kernel.org, pabeni@redhat.com,
  shawnguo@kernel.org, davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] net: phy: micrel: add
- option to keep the preamble before sfd for KSZ9131
+Subject: Re: [Linux-stm32] [PATCH net-next v3 3/3] net: stmmac: dwmac-imx:
+ keep preamble before sfd on i.MX8MP
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,20 +97,54 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,lunn.ch:email,nxp.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,toradex.com:email]
-X-Rspamd-Queue-Id: 5DC20670F9
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,lunn.ch:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,toradex.com:email]
+X-Rspamd-Queue-Id: 73F956710F
 X-Rspamd-Action: no action
 
-On Tue, Jan 20, 2026 at 09:30:03PM +0100, Stefan Eichenberger wrote:
+On Tue, Jan 20, 2026 at 09:30:04PM +0100, Stefan Eichenberger wrote:
 > From: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 > 
-> If the PHY_F_KEEP_PREAMBLE_BEFORE_SFD flag is set in the
-> phy_device::dev_flags field, the preamble will be kept before the start
-> frame delimiter (SFD) on the KSZ9131 PHY. This flag is not officially
-> documented by Micrel. However, information provided by NXP and Micrel
-> indicates that this flag ensures the PHY sends the full preamble instead
-> of removing it. The full discussion can be found on the NXP forum:
-> https://community.nxp.com/t5/i-MX-Processors/iMX8MP-eqos-not-working-for-10base-t/m-p/2151032
+> The stmmac implementation used by NXP for the i.MX8MP SoC is subject to
+> errata ERR050694. According to this errata, when no preamble byte is
+> transferred before the SFD from the PHY to the MAC, the MAC will discard
+> the frame.
+> 
+> Setting the PHY_F_KEEP_PREAMBLE_BEFORE_SFD flag instructs PHYs that
+> support it to keep the preamble byte before the SFD. This ensures that
+> the MAC successfully receives frames.
+> 
+> As this is an issue in the MAC implementation, only enable the flag for
+> the i.MX8MP SoC where the errata applies but not for other SoCs using a
+> working stmmac implementation.
+> 
+> The exact wording of the errata ERR050694 from NXP:
+> The IEEE 802.3 standard states that, in MII/GMII modes, the byte
+> preceding the SFD (0xD5), SMD-S (0xE6,0x4C, 0x7F, or 0xB3), or SMD-C
+> (0x61, 0x52, 0x9E, or 0x2A) byte can be a non-PREAMBLE byte or there can
+> be no preceding preamble byte. The MAC receiver must successfully
+> receive a packet without any preamble(0x55) byte preceding the SFD,
+> SMD-S, or SMD-C byte.
+> However due to the defect, in configurations where frame preemption is
+> enabled, when preamble byte does not precede the SFD, SMD-S, or SMD-C
+> byte, the received packet is discarded by the MAC receiver. This is
+> because, the start-of-packet detection logic of the MAC receiver
+> incorrectly checks for a preamble byte.
+> 
+> NXP refers to IEEE 802.3 where in clause 35.2.3.2.2 Receive case (GMII)
+> they show two tables one where the preamble is preceding the SFD and one
+> where it is not. The text says:
+> The operation of 1000 Mb/s PHYs can result in shrinkage of the preamble
+> between transmission at the source GMII and reception at the destination
+> GMII. Table 35-3 depicts the case where no preamble bytes are conveyed
+> across the GMII. This case may not be possible with a specific PHY, but
+> illustrates the minimum preamble with which MAC shall be able to
+> operate. Table 35-4 depicts the case where the entire preamble is
+> conveyed across the GMII.
+> 
+> This workaround was tested on a Verdin iMX8MP by enforcing 10 MBit/s:
+> ethtool -s end0 speed 10
+> Without keeping the preamble, no packet were received. With keeping the
+> preamble, everything worked as expected.
 > 
 > Signed-off-by: Stefan Eichenberger <stefan.eichenberger@toradex.com>
 
