@@ -2,135 +2,165 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uB4POBJ5c2kfwAAAu9opvQ
+	id wEV0F5SFc2krxAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 14:35:14 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 15:28:36 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EAB776503
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 14:35:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF542770D1
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 15:28:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CB90C8F264;
-	Fri, 23 Jan 2026 13:35:14 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71171C8F264;
+	Fri, 23 Jan 2026 14:28:35 +0000 (UTC)
+Received: from TY3P286CU002.outbound.protection.outlook.com
+ (mail-japaneastazon11020079.outbound.protection.outlook.com [52.101.229.79])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1945C030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DEF2EC030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 13:35:11 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60NCQtLw3503291
- for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 23 Jan 2026 13:35:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=O9Cy4SLjAsob13FAw6G7LSUf
- poB5IQOhJ0cwKNKdsJM=; b=GL0sO9IVrNhDjicwy5RJXHqwJlgfytS/7K3wsG0v
- LhdUI5ZDKzSUtmNemT1zhe8DDh6eslWs+st9L20H0uy+X6HGuin5SmQWzVuo5m1c
- wkPqTy7E4GyPTb8PU+I8m/A7smCsrx3POjrXXXAzYBQMD+6a3wg12tiVqFnnfg5A
- n8UpBwGnoa3fV/349JtVuF+dw9zR8AnI6S4mZ8tq1FTJcBo6y1yOs6M7R3aScX2G
- 3fisC2uPCzdxYQXPEyb6ngzTqaC6hFUsXsbHiat1K9dRIR8TiM2685O4KNNgYh0Z
- hR0sQxPS0kA5ivIdZsI8xCgPdKTP6/oCKwctWQqmyFzXrg==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
- [209.85.214.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bus983jdm-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 13:35:09 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id
- d9443c01a7336-2a0b7eb0a56so20102595ad.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 05:35:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769175309; x=1769780109;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=O9Cy4SLjAsob13FAw6G7LSUfpoB5IQOhJ0cwKNKdsJM=;
- b=P7H271+LnxzUSmPvXsbO61AcZAKMCZFp/kTQlClFXc9XFduysbXsLiwV54aJDRm8mO
- pLOFKZS5Ln/CMUOcWTqNBDzKrv6pho6T2POebQpOnLX+wcDGojDSXgoE5G8NW1Ol+7g+
- 65S7t0VoTP/9cZeq2BwoRySjkVW2eyG/3u4U8ww6DtI6hNFfzRofGAvWTMNsaoNvaLAw
- k4QNOnxc4+YZkeX8H3td95xpWaWQ5CUoSDai0NsqStXExh+xVWZS2k1Opq9FUeZyJlBZ
- KedRnsil8PNV0ezJQdQKIvsesHfP7rmIdW/10QvO/hFjhOr1+z9viOYE00y6i5kEyHR/
- hxxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769175309; x=1769780109;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=O9Cy4SLjAsob13FAw6G7LSUfpoB5IQOhJ0cwKNKdsJM=;
- b=P+uLZPI8j80TWwYWnGlVO2qXTc27TG4+AsGvcFo6/CoOwxDKXSPkyHL5cQdlhgUNbk
- sTs/fQffrpxKDscyeOuNDLPBwZRh3deqGq+mBzug3MrX/Tj+nPu9XjtlYN7aEZj6nB5k
- UdIzT7fN4r9Xdx1EF6zBNZ6imxZCw/CMWIWzIFxcoqyExtJ34aUuv8LKzpOMYTGi8jO3
- WRKByEf/U9GyHWlXycjMQRNUIB4YCU1rtUCOLU4ldbqMEp+SNO12J80UwcteGBMxsVUG
- bY4dQVC5IWA9ttvWUFtG+Yk061g4ZWkPGlkbAlMjpCKsH/8zubJTV6JK+AJ11KkNvrZa
- 9aEg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVNoZM1AeirITQOsTpAY5dyMSPIF+2TTUXBC1Lm4Ajm6mH68pCPDJntlFSTB9nt54kQ7lmeeHH95K0Emg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy3sBgx9r01ZzQ2L6JW1h1bubIdKZFNSZWkXSleZsBE4CQJ7JXW
- Bh8dqLnQ7Lf1id+qg8Ty5PYAoN8qTmQQFAzUjRh4Rr7h9BdC93fTcKY8JR+kVpZTJ7H4eXYwQrw
- vQrR3VYZQcT3+kNzGTxddDlBtA+mIx40rPtTN3MnSTPGfx9rFroa5SbfFCnpzoNV0XI2wq104kb
- V4YIDrWS0=
-X-Gm-Gg: AZuq6aLRxy4VZasmMob36mphMSORgxURN58pQt3evOjX/eOeBIQu3ka68sAo0OwwOdE
- iN7yFzcaB7yore/PRDsEc344+NLTxmf35zja2UFWSghMgxCkj3uNSXCpOYDfNrkyncdihzg2YV1
- Qc4UGPc1Pe0RSNX0bRUMn8uF0f2glaYnW80Wfs/dX54WZIGGLiXzTWDhkgjpbPAX4zlGp3umffM
- JQ7Cmk6CsCtTfXXr0VkSYJxSoFCufu2Q5ly9sE/Xm95RdsLANDuhAvB07WKnhqGGdL3QynYFK2w
- Fu0E/JOfdRy6dGTj0R/IKRdcLLNPku028AjrqBKOf4ZMu1xEKhXPYT5d2t9A6INR4O+beZjlvfU
- 1l7jgdpcsD2Y7NE/pwxBT8T0=
-X-Received: by 2002:a17:902:f549:b0:295:888e:9fff with SMTP id
- d9443c01a7336-2a7fe55eb73mr27275715ad.20.1769175308630; 
- Fri, 23 Jan 2026 05:35:08 -0800 (PST)
-X-Received: by 2002:a17:902:f549:b0:295:888e:9fff with SMTP id
- d9443c01a7336-2a7fe55eb73mr27275115ad.20.1769175307878; 
- Fri, 23 Jan 2026 05:35:07 -0800 (PST)
-Received: from oss.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2a802fae223sm20914885ad.77.2026.01.23.05.35.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 23 Jan 2026 05:35:07 -0800 (PST)
-Date: Fri, 23 Jan 2026 19:05:00 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aXN5BFXMshnhwBQ7@oss.qualcomm.com>
-References: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
-MIME-Version: 1.0
+ Fri, 23 Jan 2026 14:28:33 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JC7N19/BRTxZYOBTx9pdcb0oIc7/PAL7ipjh2K5iSkizKYiP26gzZIaZSSNTwuQPuMEYw4YHpOZ0T2dNLKQbcDUg2PVR4s7x1ty3eWtGYNj9JUfTRkapzw2wrTeEC7gm3ZlZQLAFHAWZpNnZEZwnrnyPRBLqMBqLACUoz0xEayWNrH8MjJJE5kKLF5Fj2L9FOS+RQBiMzDwIxO7yWoitsr3V5nK14wT6AlkMVgGtCm0ZHmjqb5UlaeNAECcUVYTKIYrLWg8yIQUQHjxXEC2zTdfVQ/dXjqf6IkI8GArmkUZ/grjgaPQWNl6GAGoPh5gY5kg1CRAWZFy5oIgQFaWLig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ytnkaAICS/2Id7jXbgU8CoJYMoDKfH/xTA0PQeJfwkE=;
+ b=hDJRkh5fDd4+57Pp9Oh6rwvQKXGzLsuvV0ITY+9UUczN4NsKHKIeigA3U+xEcCYEuo5ylj03iBJSOJvVy6MWauvgtKqnbeN7CSRVuxlyLSneHoBPbMIlWHU2MdZdfOlr2k318T6OT0U+qu50Lnm6qH9XoCwVwTCswXL0yPE8k0dmde5Cv1yJSN7O5pdgQiOY98tVz5Hw1ngN1G1A/Op8wIMsHj8+nV4Oeebu8zlKb4zIIOa7Wj1Sw0QZ058Gg6F2CrpHMuUbW3oRdI/VieBAeYjPFrMR6r1Q6iEkpO6QDTkKRQ0Zrp9YgtHSebQjn1Q591HJe5KDJWt4SFKhQLccCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ytnkaAICS/2Id7jXbgU8CoJYMoDKfH/xTA0PQeJfwkE=;
+ b=Zi/Gxgb0R+b9EsSKv9hT3kkZHJe4Wb65YFnhMb6A1ORCF/nIg/4enwWmkqgkGTCkt+FC9odBc/LwBxa4vsnda2z429H8W7kY19K0bL50bDWA/WgwQcCpJ/NS6RwzVML+P8leooJIBU96TmAi8rJljvBXiwTdFOnexNKW7RCn3uM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:38f::10)
+ by TYRP286MB5430.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:191::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Fri, 23 Jan
+ 2026 14:28:30 +0000
+Received: from TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32]) by TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::2305:327c:28ec:9b32%5]) with mapi id 15.20.9542.010; Fri, 23 Jan 2026
+ 14:28:30 +0000
+Date: Fri, 23 Jan 2026 23:28:28 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Niklas Cassel <cassel@kernel.org>
+Message-ID: <tyudbsfjh2b7rzcascz4blv4uhkesemxqby6r5mmvgyfqrms45@mshhj53p53pt>
+References: <20260122084909.2390865-1-den@valinux.co.jp>
+ <20260122084909.2390865-5-den@valinux.co.jp>
+ <aXHsd7-WWAGyhy_w@ryzen>
+ <s6bnqkbuugi7oio7ybekdbk3dokpbe2bui2wjltdwajxix2app@wosgmhrfsriv>
+ <19D609EC-F850-4B43-A83C-0B8C70E641B5@kernel.org>
+ <l7wknbayighcczjkqfwhbaqrepjtbgxxstgkntoqvnrs7dnm6g@wvmy67ky37pv>
+ <aXM2hwCrziK2I8OL@ryzen>
 Content-Disposition: inline
-In-Reply-To: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTIzMDExMSBTYWx0ZWRfXwfeHGN31Sej6
- QqM8doHKKXFqzSdHaEGbWls3L3zhJu5XBFf6v3td/snP3TJR6/4ZQUzmq1gyOAK5bKnssVmIs32
- eue+rMGcGF7vQdj5X7rCDfphMXqEP04y3YBt93gKzScoY7alAKDCb8sMohmnNcBtsA2Ze3M2igC
- mRctWVwMaq7kWzHkAJ2hqIf3M0AW9kLSyskHsHgkoUDHm2eU6mWuUtyyKe15JX9crkeuzhtAR+y
- 9GWjgj57Vssj9h4pA2plGZoU4YYIgzmkJ1yB60nTR8j+g/rsBvYLM2Ud+0zSJaqAIeR/SaBSfp0
- SEM0h6DlYDb2UVEM3H33a1kWSM2Afkv9BjygwcIebPP/rNy3z6erSXjeoeCqBJzaRsinJ8nxf+w
- 1DVLfaWR43T5uIkQyZOg3sJhrL3hLSjmlo53jchYi6sZ7gRaDCBKxm/vTsR0rZ0dhGNW+9kcTAk
- 51rt/IdcNP7Ypj7zj7Q==
-X-Authority-Analysis: v=2.4 cv=JuX8bc4C c=1 sm=1 tr=0 ts=6973790d cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0r2zT4SsX8YMVSwxOEMA:9 a=GhYN8kBgHxEzIWPn:21
- a=CjuIK1q_8ugA:10 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: 3svgaPV31_5Hteibg-x-9eYJczbC_EUI
-X-Proofpoint-ORIG-GUID: 3svgaPV31_5Hteibg-x-9eYJczbC_EUI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.20,FMLib:17.12.100.49
- definitions=2026-01-23_02,2026-01-22_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 spamscore=0 bulkscore=0 lowpriorityscore=0
- phishscore=0 suspectscore=0 clxscore=1011 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601230111
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Andrew Lunn <andrew@lunn.ch>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-phy@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/14] net: stmmac: SerDes, PCS,
- BASE-X, and inband goodies
+In-Reply-To: <aXM2hwCrziK2I8OL@ryzen>
+X-ClientProxiedBy: TYCP286CA0115.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:29c::19) To TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:38f::10)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB7722:EE_|TYRP286MB5430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 085d56e8-448c-4ba3-5caa-08de5a8badfa
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|10070799003|376014|7416014; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?teFzt6ongHxglH4Jao1c+WGnHlNpaeP3L3J4xRGbakyLOSXQvEq8DHI2frKB?=
+ =?us-ascii?Q?4A6pGE+v5nFX1RVEHSNhMmmSb1Ggg4htHw/EHkbni3fGfYXYSCKgTNlqHs57?=
+ =?us-ascii?Q?IR/R9RW8f4zzaTvz8SyMLpvr+U3OjVVZgBEVMhaLyFHvqdfmYdUffURb5xIg?=
+ =?us-ascii?Q?9HD/UzRbCG9ju/1PbO1rfrhke0UB1hn+cFhThfjqv5XnOpwec/8kB9RYrwqN?=
+ =?us-ascii?Q?sn076+sm4mfy+svM/5GLtBfMFD65PINpAFLhjluXTohyFH9ZOUrsolXzBG4u?=
+ =?us-ascii?Q?UTFSMaxBsmHU/iUEfojQFWcobgXLoclnn/l5SJCZ1XP8A25hLp/6G/gpO87h?=
+ =?us-ascii?Q?l3W3iJ5AXnZprg5iu80FpaNhSK2qexgKGoCmb55EY+PPtDWDWK8OGJ3FbgS0?=
+ =?us-ascii?Q?u6WRGHWPIrrly7cfA9jz+YPhxgpcbDT50xeQlh4bLXhSkgvw9GEl5mOXcEbV?=
+ =?us-ascii?Q?JiKHL537V1uGQ+qJ/w3SIu9rWEZuW9dFdG3XkxpeBfTPQ7yWU2W/gAlbmKWE?=
+ =?us-ascii?Q?29BeeNHX77KuG4UArskukdVKWkljEOR/7ASLs3h+5SJLbxHb4GNffG+V/9LV?=
+ =?us-ascii?Q?/4j8bsuz4SHsVU/itA1PK5Xda7I4nX+vb/mFLWyYhUzXb4wcNKdVTpgcp8OH?=
+ =?us-ascii?Q?MUB22J90zL90vijIB3S73GeF0lRnauHtox2e+vGz89nw2IvnHwtd4LAJB7CM?=
+ =?us-ascii?Q?dUl9FkxfFE2UBJrRJB6tX4B4p63IA6iIhV05WkVJp6dHjmWY+BN703Rf/Q0o?=
+ =?us-ascii?Q?IS2aozGT+PtxP7Ds0tb5pcBqnFMLAKmQliQtDvDk4LjJJFm4K/VWRkLdDFNu?=
+ =?us-ascii?Q?f1m7WYPGd1bPT/Wi7yC9LjmPcxFXkSf+TbK9ZaMneOSlF01HZg2//pI1iGX8?=
+ =?us-ascii?Q?nCeeBDid8ZRVPZsdRP6RtCjmjXp6b7SyZ+HpTD/t3qu/oLlMOqCRVf47pv3V?=
+ =?us-ascii?Q?I12paQ3gqRyciiJouJHp9w/yJTMEsPSOB6t86WUnQQH7JDumOsn/Y8hHdmMI?=
+ =?us-ascii?Q?WsUB60Eb1qZv6KoZKNUlAY1C7UC6GCB42qjd88c/yAjCYCK78iF8bp6GV6Hk?=
+ =?us-ascii?Q?BbZ6x0Hdp5NNsIcX5gU9OUj6dNR9t2rNDkPEvIVyXOcWf6+3JIAzsWngT39B?=
+ =?us-ascii?Q?A+NYBjybImAZ59wcSNqf6xq0e0qrqh7p4wKj0ZtZvGcbnTm5b3cC+PNv+4ay?=
+ =?us-ascii?Q?b9Z5/2MvMfDAdYpev6/NOQ0FSR9To2k/DScVVvhL9i8aUFQ1vuDGGEW+Hkt0?=
+ =?us-ascii?Q?dM3X6ND96l+1O+przXfB7GgHAct80tpj1ONPxK4pay+MlEcAqTDu08AIUxMz?=
+ =?us-ascii?Q?DFA3SoOooa4ecNqoJzrk4rRF5Sn2t5OuSq91/rl+828IsjGBd/libvINpLDD?=
+ =?us-ascii?Q?uYIXm+v9zbrgwnbymTrbXib5+MljrzNHk/u1FhMfdHr+Ygx6vMrdlmt7UWau?=
+ =?us-ascii?Q?HUdq2LNidVtKdVJ9vCBK7jlcVEjIB/x9XlRClXdmyM6xtwD5UKslS4WHUwVR?=
+ =?us-ascii?Q?cmsRKUxECT1H7N3S7Q9hMpFHXS2xEOD/1H8T/igEV2z+r53RLqxOmipj5SwN?=
+ =?us-ascii?Q?2y8+0Ubk1goyML7M7SytUk4d5PVOkhBKC6JTB/hz?=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(10070799003)(376014)(7416014); DIR:OUT;
+ SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?+yWVREqRY2nbvDcwzGyoD0OOhdvQ/c0V1015Aof8YRinZxmeOOkKjpv+3soo?=
+ =?us-ascii?Q?YMoZO/Nsw2VRv2I24Mhc0t4KAAFp4OUTkvI2zbKimAvjmHIhBw6GE5hMsIFp?=
+ =?us-ascii?Q?dj1adkCIxZNV5fso7HZ6vm5k/B49/wVbhJ6dTpWjWHkSLVHslaoLS2sZkexT?=
+ =?us-ascii?Q?K77OYfBin5JRzPbSF1YXlOrmXAVcfydDS8dYY2GLOO8EmSM2rsExb9q0JEfy?=
+ =?us-ascii?Q?Shtzebxzc9XpaQ2aCsCKC8GRadtKNBXJZ/9fPCmhut4yX73ADhLsQ+sGyaKG?=
+ =?us-ascii?Q?KT612o1iiecxtPGcu5zHqJWaHKz4NO4WWr5F13sjx1KUUt2vER9NFs1S+fCL?=
+ =?us-ascii?Q?wiwZrBaSie36DX0YivXeo1Yxh5mR9sv1sYEiQd+3OS+yTP6doAzc8ARouoOx?=
+ =?us-ascii?Q?v5LRHqjaxjEOHCnvPszcDDMQVvRZ+354n3QVAOPK4vs9S+aJPB6qf+/5sF9V?=
+ =?us-ascii?Q?MahGEWubG8KGlHsO1q35sBi+/4EpnFyq0DhVuXdRIqMNJX0sXSvxyr93uxWg?=
+ =?us-ascii?Q?wIZ+ncNWDwZAokAg13c41hrz/CfUzNBocVeFwOymeiAqy/zmkpXRL8hphdpZ?=
+ =?us-ascii?Q?h0H1alwOUNtOrU1lNbuQn+B+FBygVx8QHmvjVg++FLAYEulIML11aY/Szwbr?=
+ =?us-ascii?Q?x2edHytBBjgCN1vNwKW4jxlSP1lDlf2ItcsgpN22J7YEdsWd1hRg9b6ilR7F?=
+ =?us-ascii?Q?ATgEKBXIU1wT350L5dEWTdt2sswEosaP9T+p90iAolan7CHW1TxL6JWqwdPz?=
+ =?us-ascii?Q?VHzHp1hbaIxkWmAlHOTLqSyI3LnuwfWFn4VQvjXrYtax4LSCpKdwGt7tTutE?=
+ =?us-ascii?Q?kdlYxSsI155x5cVzTIj8URV8NQJ9vvRFG6mYyZpGcyMd3oDBKKqWmA87P51E?=
+ =?us-ascii?Q?Edy+ITk+KRIdjpEUB8nxLsUQ38li3OFj25HBFysYEoSXuW/AjEddMSzZzd9l?=
+ =?us-ascii?Q?fRozVqCE1Ow1D9INYnkXLp2S/T6U13Rv1eMoLd0krqFYgyq+SNqSTwcc5GhA?=
+ =?us-ascii?Q?L3/xmM7QcYouvwlBUIPoMwZsVbra3wAY7L40J4yjZV1pjsAGc21G7Zyj0D4b?=
+ =?us-ascii?Q?sNBICXD+RajmbjFnfses0J88GMYny5/W8wwtwESNaVS0XCgUENYPKmQ901kX?=
+ =?us-ascii?Q?7U+l8iQkyrvPyaa5JoSRAWsT4OCJvBZGtPRn9JgxRIGgiyd+89X5Sjjks7VI?=
+ =?us-ascii?Q?LecUzJOTniCYA4FpOM3JqZAlZf+zWdCGG/wbZl4o2vGknqts4yCzN9N56ITb?=
+ =?us-ascii?Q?ZOg2lF41w3YX5ydmDY8n7xCIilVhlbIYyk1pMvCCaE7NDyeQ6VLXLoESmKXH?=
+ =?us-ascii?Q?Pxu0j+5uKTlbVKBIqqRL/hDb/SjgmmCo1JR4e+tQNcWovlR0u7Oix4j8LMfA?=
+ =?us-ascii?Q?jOXRk7x+u/xWY3z/TtmVUtKMz/Eld8U3EiVSh5Nms4acvlZazk9B0r9nKJwK?=
+ =?us-ascii?Q?w9PKLnRF8JAuyWUfNV+OJ8baWDPULLmw0nKNA1lM2UnoFDjgasuGJeXpnmI8?=
+ =?us-ascii?Q?e4x0gZGxCdaKrM5k40e+3jN66QuZ2Jev5QyG8+IpFZmR8Ls2rJdLMIBM/RTq?=
+ =?us-ascii?Q?wIPbziB/F5ZOfG6L/ZSXZGlRancNjPgJXaG4p5gMAnyi9rHnUACnU1qOTUVA?=
+ =?us-ascii?Q?BecMiJ7IHjvFB9qIfXqiXNkgUHkGXYdYx/phfPBVCSdELni6xnMxyDf9D4m+?=
+ =?us-ascii?Q?qSAXIp2IkXDNGlg96Ixk2FYvcv7A0UglaikzaanfUmuWRrRQjdkFbXM87NNd?=
+ =?us-ascii?Q?EP7+gbVFWYfZsb8sPTIjH42ILJHFeGqSg+XDWibTUi0OmXn6w1PA?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 085d56e8-448c-4ba3-5caa-08de5a8badfa
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB7722.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 14:28:29.9571 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: InOf8FpzC3J3dvoe1hHhzNoM5Em6OjsdSgQc/nLGN5jLulc3OUmT7PcUJ3G3qOwFi+YO0gH/JV7+JpnGpuxRZg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRP286MB5430
+Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
+ minghuan.Lian@nxp.com, thierry.reding@gmail.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
+ kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
+ hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
+ linux-arm-kernel@axis.com, jonathanh@nvidia.com,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
+ shawn.lin@rock-chips.com, srikanth.thokala@intel.com, hongxing.zhu@nxp.com,
+ mcoquelin.stm32@gmail.com, mani@kernel.org, linux-arm-msm@vger.kernel.org,
+ s.hauer@pengutronix.de, linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com,
+ linux-omap@vger.kernel.org, rongqianfeng@vivo.com, mingkai.hu@nxp.com,
+ roy.zang@nxp.com, linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
+ linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
+ heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
+ shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v9 4/5] PCI: dwc: ep: Support BAR subrange
+ inbound mapping via Address Match Mode iATU
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -147,305 +177,132 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.89 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[valinux.co.jp:s=selector1];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[valinux.co.jp : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:konrad.dybcio@oss.qualcomm.com,m:andrew@lunn.ch,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:cassel@kernel.org,m:imx@lists.linux.dev,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:linux-pci@vger.kernel.org,m:lpieralisi@kernel.org,m:Frank.Li@nxp.com,m:minghuan.Lian@nxp.com,m:thierry.reding@gmail.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:marek.vasut+renesas@gmail.com,m:kishon@kernel.org,m:robh@kernel.org,m:jesper.nilsson@axis.com,m:hayashi.kunihiko@socionext.com,m:jirislaby@kernel.org,m:magnus.damm@gmail.com,m:linux-arm-kernel@axis.com,m:jonathanh@nvidia.com,m:linux-rockchip@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:18255117159@163.com,m:s-vadapalli@ti.com,m:kwilczynski@kernel.org,m:shawn.lin@rock-chips.com,m:srikanth.thokala@intel.com,m:hongxing.zhu@nxp.com,m:mcoquelin.stm32@gmail.com,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:linuxppc-dev@lists.ozlabs.org,m:bhelgaas@google.com,m:linux-omap@vger.kernel.org,m:rongqianfeng@vivo.com,m:mingkai.hu@nxp.com,m:roy.zang@nxp.com,m
+ :linux-tegra@vger.kernel.org,m:christian.bruel@foss.st.com,m:linux.amoon@gmail.com,m:jingoohan1@gmail.com,m:yoshihiro.shimoda.uh@renesas.com,m:heiko@sntech.de,m:linux-kernel@vger.kernel.org,m:vidyas@nvidia.com,m:linux-renesas-soc@vger.kernel.org,m:mhiramat@kernel.org,m:kernel@pengutronix.de,m:shawnguo@kernel.org,m:nicolas.frattaroli@collabora.com,m:l.stach@pengutronix.de,m:geert@glider.be,m:thierryreding@gmail.com,m:marekvasut@gmail.com,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,m:linuxamoon@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,lunn.ch,linaro.org,vger.kernel.org,st-md-mailman.stormreply.com,google.com,kernel.org,gmail.com,lists.infradead.org,redhat.com,davemloft.net];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
+	FORGED_SENDER(0.00)[den@valinux.co.jp,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_SPAM(0.00)[0.467];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[valinux.co.jp:-];
 	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[52];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[den@valinux.co.jp,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,ti.com,glider.be,vger.kernel.org,kernel.org,nxp.com,gmail.com,st-md-mailman.stormreply.com,axis.com,socionext.com,nvidia.com,lists.infradead.org,163.com,rock-chips.com,intel.com,pengutronix.de,lists.ozlabs.org,google.com,vivo.com,foss.st.com,renesas.com,sntech.de,collabora.com];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	NEURAL_SPAM(0.00)[0.681];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 6EAB776503
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: CF542770D1
 X-Rspamd-Action: no action
 
-Hello Russell,
-On Fri, Jan 23, 2026 at 09:52:00AM +0000, Russell King (Oracle) wrote:
-> This is the v1 submission: if it doesn't get tested but review goes
-> well, it'll end up in net-next and mainline without testing on the
-> affected hardware!
+On Fri, Jan 23, 2026 at 09:51:19AM +0100, Niklas Cassel wrote:
+> On Fri, Jan 23, 2026 at 10:16:21AM +0900, Koichiro Den wrote:
+> > >
+> > > There might be other EPC drivers that don't disable all BARs in their .init(), so I would say that simply checking if the BAR has an address is not sufficient to guarantee that an EPF driver has called set_bar().
+> > >
+> >
+> > Even if an EPC driver does not reset the BAR in their .init() and some
+> > default translation is left exposed, wouldn't it be safe as long as
+> > dw_pcie_ep_ib_atu_addr() succeeds in programming inbound mappings for the
+> > entire BAR?
 > 
-> Mentioned previously, I've been trying to sort out the PCS support in
-> stmmac, and this series represents the current state of play.
+> For e.g. on RK3588, the default HW configuration of the DWC controller has
+> all 5 BARs as enabled, with a size of 1 GB.
 > 
-> Previous posted patches centred around merely getting autonegotiation
-> to be configured correctly, to a point where the manual configuration
-> can be removed from the qcom-ethqos driver. The qcom-ethqos driver
-> uses both SGMII and 2500BASE-X, manually configuring the dwmac's
-> integrated PCS appropriately.
+> There is no inbound address translation for these BARs by default.
 > 
+> So for it to be safe, the size of the set_bar() call would have to
+> match the current size of the BAR, but how should the EPF driver know
+> that when it has not called set_bar() yet?
+> 
+> dw_pcie_ep_read_bar_assigned() does not return the current size of the
+> BAR. So you can't verify that the set_bar() call has the same size as
+> the BARs "default size".
 
-Thank you for CC'ing me on this series. Sorry, but I have been M.I.A.
-for the past couple of months due to some health issues, which caused a
-backlog at work that I had to power through. I haven't been able to
-monitor the mailing list for stmmac patches.
+I wasn't considering either of the following cases as unsafe:
+- succeeding by chance in programming via a one-shot set_bar() with submaps
+- such a set_bar() failing (due to incorrect size recognition)
 
-I tested v1 last night and just picked up v2. Here are my observations
-and logs (phylink logs are enabled). I haven't had time to debug the
-issues, but they are not seen on the net-next tree. One thing that I
-remember from our last discussion is the need to test with comma
-detection enabled; I will test that next.
+while as I mentioned in my previous reply, the first case effectively
+becomes a loophole that contradicts the docs and git commit messages.
 
-Tested on the QCS9100 Ride R3 board with 2X AQR115C PHYs. I have one
-more board that I can test next week (IQ8275, which has a single
-QCA8081 PHY, but that is limited to 2.5G because the PHY switches its
-mode according to the speed).
+However, since v8, the second case clears any existing mappings, which
+could indeed lead to an unsafe situtation.
 
-1.  Boot up at 2.5G: Continous TX timeouts keep issuing a reset,
-resulting in a broken data path.
+> 
+> 
+> >
+> > That said, such usage apparently contradicts the documented usage (1st
+> > set_bar with no submap, then with submap) described in the docs and commit
+> > messages in this series, and allowing it would make things unnecessarily
+> > complicated. So I agree that adding such a safeguard is the right approach.
+> >
+> > >
+> > > I think the safest option is my second suggestion because then we know that we will only call
+> > > dw_pcie_ep_ib_atu_addr()
+> > >
+> > > When:
+> > >
+> > > 1) If ep->epf_bar[bar] is set:
+> > > https://github.com/torvalds/linux/blob/v6.19-rc6/drivers/pci/controller/dwc/pcie-designware-ep.c#L363
+> > >
+> > >
+> > > 2) All the other requirements to dynamically update a BAR is also met:
+> > >
+> > > https://github.com/torvalds/linux/blob/v6.19-rc6/drivers/pci/controller/dwc/pcie-designware-ep.c#L368-L370
+> > >
+> >
+> > That makes sense, and it ensures that the behavior always accords with the
+> > docs and commit messages in this series.
+> 
+> I think it makes most sense to put the "use_addr_translation = true"
+> 
+> after the check:
+> 
+> 		/*
+> 		 * We can only dynamically change a BAR if the new BAR size and
+> 		 * BAR flags do not differ from the existing configuration.
+> 		 */
+> 		if (ep->epf_bar[bar]->barno != bar ||
+> 		    ep->epf_bar[bar]->size != size ||
+> 		    ep->epf_bar[bar]->flags != flags)
+> 			return -EINVAL;
+> 
+> 
+> So we know that dw_pcie_ep_ib_atu_addr() is only called when the size is the
+> same.
 
-	[    7.492567] qcom-ethqos 23040000.ethernet: User ID: 0x20, Synopsys ID: 0x52
-	[    7.492576] qcom-ethqos 23040000.ethernet:   DWMAC4/5
-	[    7.492601] qcom-ethqos 23040000.ethernet: Using 36/40 bits DMA host/device width
-	[    9.556835] qcom-ethqos 23040000.ethernet eth1: PHY stmmac-0:08 uses interfaces 4,23,27, validating 23
-	[    9.566440] qcom-ethqos 23040000.ethernet eth1:  interface 23 (2500base-x) rate match pause supports 0-7,9,13-14,47
-	[    9.577175] qcom-ethqos 23040000.ethernet eth1: PHY [stmmac-0:08] driver [Aquantia AQR115C] (irq=333)
-	[    9.586679] qcom-ethqos 23040000.ethernet eth1: phy: 2500base-x setting supported 00000000,00000000,00008000,000062ff advertising 00000000,00000000,00008000,000062ff
-	[    9.615015] qcom-ethqos 23040000.ethernet eth1: Enabling Safety Features
-	[    9.622371] qcom-ethqos 23040000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-	[    9.631155] qcom-ethqos 23040000.ethernet eth1: registered PTP clock
-	[    9.637701] qcom-ethqos 23040000.ethernet eth1: configuring for phy/2500base-x link mode
-	[    9.646026] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/2500base-x
-	[    9.654175] qcom-ethqos 23040000.ethernet eth1: interface 2500base-x inband modes: pcs=00 phy=00
-	[    9.663212] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/2500base-x
-	[    9.671797] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/2500base-x/none adv=00000000,00000000,00000000,00000000 pause=00
-	[    9.695529] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   14.219898] qcom-ethqos 23040000.ethernet eth1: phy link up 2500base-x/2.5Gbps/Full/none/off/nolpi
-	[   14.231487] qcom-ethqos 23040000.ethernet eth1: Link is Up - 2.5Gbps/Full - flow control off
-	[   26.308402] qcom-ethqos 23040000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transmit queue 3 timed out 5512 ms
-	[   26.319068] qcom-ethqos 23040000.ethernet eth1: Reset adapter.
-	[   26.328258] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   26.885477] qcom-ethqos 23040000.ethernet eth1: Timeout accessing MAC_VLAN_Tag_Filter
-	[   26.893552] qcom-ethqos 23040000.ethernet eth1: failed to kill vid 0081/0
-	[   26.900711] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
-	[   26.908972] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-1
-	[   26.917145] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-2
-	[   26.925232] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-3
-	[   27.836839] qcom-ethqos 23040000.ethernet eth1: PHY stmmac-0:08 uses interfaces 4,23,27, validating 23
-	[   27.846435] qcom-ethqos 23040000.ethernet eth1:  interface 23 (2500base-x) rate match pause supports 0-7,9,13-14,47
-	[   27.857175] qcom-ethqos 23040000.ethernet eth1: PHY [stmmac-0:08] driver [Aquantia AQR115C] (irq=333)
-	[   27.866659] qcom-ethqos 23040000.ethernet eth1: phy: 2500base-x setting supported 00000000,00000000,00008000,000062ff advertising 00000000,00000000,00008000,000062ff
-	[   27.892561] qcom-ethqos 23040000.ethernet eth1: Enabling Safety Features
-	[   27.899700] qcom-ethqos 23040000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-	[   27.908831] qcom-ethqos 23040000.ethernet eth1: registered PTP clock
-	[   27.915373] qcom-ethqos 23040000.ethernet eth1: configuring for phy/2500base-x link mode
-	[   27.923697] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/2500base-x
-	[   27.931850] qcom-ethqos 23040000.ethernet eth1: interface 2500base-x inband modes: pcs=00 phy=00
-	[   27.940894] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/2500base-x
-	[   27.949481] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/2500base-x/none adv=00000000,00000000,00000000,00000000 pause=00
-	[   27.965702] 8021q: adding VLAN 0 to HW filter on device eth1
-	[   27.971735] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   32.552893] qcom-ethqos 23040000.ethernet eth1: phy link up 2500base-x/2.5Gbps/Full/none/off/nolpi
-	[   32.564571] qcom-ethqos 23040000.ethernet eth1: Link is Up - 2.5Gbps/Full - flow control off
-	[   44.292394] qcom-ethqos 23040000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transmit queue 2 timed out 5548 ms
-	[   44.293874] qcom-ethqos 23040000.ethernet eth1: Reset adapter.
-	[   44.295010] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   44.846480] qcom-ethqos 23040000.ethernet eth1: Timeout accessing MAC_VLAN_Tag_Filter
-	[   44.846503] qcom-ethqos 23040000.ethernet eth1: failed to kill vid 0081/0
-	[   44.846652] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
-	[   44.847116] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-1
-	[   44.847529] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-2
-	[   44.847965] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-3
-	[   45.752841] qcom-ethqos 23040000.ethernet eth1: PHY stmmac-0:08 uses interfaces 4,23,27, validating 23
-	[   45.752865] qcom-ethqos 23040000.ethernet eth1:  interface 23 (2500base-x) rate match pause supports 0-7,9,13-14,47
-	[   45.752875] qcom-ethqos 23040000.ethernet eth1: PHY [stmmac-0:08] driver [Aquantia AQR115C] (irq=333)
-	[   45.752881] qcom-ethqos 23040000.ethernet eth1: phy: 2500base-x setting supported 00000000,00000000,00008000,000062ff advertising 00000000,00000000,00008000,000062ff
-	[   45.764640] qcom-ethqos 23040000.ethernet eth1: Enabling Safety Features
-	[   45.764958] qcom-ethqos 23040000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-	[   45.765223] qcom-ethqos 23040000.ethernet eth1: registered PTP clock
-	[   45.765228] qcom-ethqos 23040000.ethernet eth1: configuring for phy/2500base-x link mode
-	[   45.765232] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/2500base-x
-	[   45.765236] qcom-ethqos 23040000.ethernet eth1: interface 2500base-x inband modes: pcs=00 phy=00
-	[   45.765240] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/2500base-x
-	[   45.765243] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/2500base-x/none adv=00000000,00000000,00000000,00000000 pause=00
-	[   45.775210] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   45.776826] 8021q: adding VLAN 0 to HW filter on device eth1
-	[   50.455049] qcom-ethqos 23040000.ethernet eth1: phy link up 2500base-x/2.5Gbps/Full/none/off/nolpi
-	[   50.457389] qcom-ethqos 23040000.ethernet eth1: Link is Up - 2.5Gbps/Full - flow control off
+I'll send v10 with the fix, possibly adding a BAR_SUBRANGE_TEST to pci
+endpoint test as well.
 
-2. Boot up at 1G: link state is flapping + the same TX timeout issue as
-above. Also, a warning due to qcom-ethqos toggling ANE. For the link
-state flapping issue, the MAC/IOMACRO configuration looks fine to me, do
-we need to handle something in the PHY?
+Kind regards,
+Koichiro
 
-	<Console gets flooded due to the flapping of the link state>
-	[   34.444213] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[   34.444229] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[   34.444257] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[   34.444262] qcom-ethqos 23040000.ethernet eth1: pcs link up
-	[   34.444818] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[   34.444832] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[   34.444862] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[   34.444867] qcom-ethqos 23040000.ethernet eth1: pcs link up
-	[   34.445124] dwmac: PCS configuration changed from phylink by glue, please report: 0x00040000 -> 0x00041000
-	[   34.445154] qcom-ethqos 23040000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
-	[   34.445426] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[   34.445439] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[   34.445480] qcom-ethqos 23040000.ethernet eth1: Link is Down
-	[   34.445509] qcom-ethqos 23040000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
-	[   34.449951] qcom-ethqos 23040000.ethernet: PCS ANE process completed
-	[   34.449957] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[   34.449966] qcom-ethqos 23040000.ethernet eth1: pcs link up
-	[   40.476697] qcom-ethqos 23040000.ethernet eth1: NETDEV WATCHDOG: CPU: 0: transmit queue 2 timed out 5004 ms
-	[   40.477296] qcom-ethqos 23040000.ethernet eth1: Reset adapter.
-	[   40.479898] qcom-ethqos 23040000.ethernet eth1: phy link down sgmii/Unknown/Unknown/none/off/nolpi
-	[   40.517655] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
-	[   40.518174] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-1
-	[   40.518623] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-2
-	[   40.518986] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-3
-	[   41.405148] qcom-ethqos 23040000.ethernet eth1: PHY stmmac-0:08 uses interfaces 4,23,27, validating 23
-	[   41.405175] qcom-ethqos 23040000.ethernet eth1:  interface 23 (2500base-x) rate match pause supports 0-7,9,13-14,47
-	[   41.405185] qcom-ethqos 23040000.ethernet eth1: PHY [stmmac-0:08] driver [Aquantia AQR115C] (irq=340)
-	[   41.405192] qcom-ethqos 23040000.ethernet eth1: phy: sgmii setting supported 00000000,00000000,00008000,000062ff advertising 00000000,00000000,00008000,000062ff
-	[   41.416920] qcom-ethqos 23040000.ethernet eth1: Enabling Safety Features
-	[   41.417226] qcom-ethqos 23040000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-	[   41.418826] qcom-ethqos 23040000.ethernet eth1: registered PTP clock
-	[   41.418832] qcom-ethqos 23040000.ethernet eth1: configuring for phy/sgmii link mode
-	[   41.418836] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/sgmii
-	[   41.418842] qcom-ethqos 23040000.ethernet eth1: interface sgmii inband modes: pcs=03 phy=03
-	[   41.418846] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/sgmii
-	[   41.418849] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/sgmii/none adv=00000000,00000000,00000000,00000000 pause=00
-	[   41.425947] 8021q: adding VLAN 0 to HW filter on device eth1
-	[   41.432191] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   44.979659] qcom-ethqos 23040000.ethernet eth1: phy link up sgmii/1Gbps/Full/none/off/nolpi
-	[   44.982047] dwmac: PCS configuration changed from phylink by glue, please report: 0x00040000 -> 0x00041000
-	[   44.982092] qcom-ethqos 23040000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
-	[   45.019087] qcom-ethqos 23040000.ethernet: PCS ANE process completed
-	[   45.019101] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[   45.019120] qcom-ethqos 23040000.ethernet eth1: pcs link up
-
-3. Switching from 2.5G to 1G: similar continuous Tx timeouts, warning
-due to ANE.
-
-	[   97.318077] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[   97.877280] qcom-ethqos 23040000.ethernet eth1: Timeout accessing MAC_VLAN_Tag_Filter
-	[   97.877309] qcom-ethqos 23040000.ethernet eth1: failed to kill vid 0081/0
-	[   97.877507] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
-	[   97.878080] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-1
-	[   97.878530] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-2
-	[   97.879004] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-3
-	[   98.784839] qcom-ethqos 23040000.ethernet eth1: PHY stmmac-0:08 uses interfaces 4,23,27, validating 23
-	[   98.784865] qcom-ethqos 23040000.ethernet eth1:  interface 23 (2500base-x) rate match pause supports 0-7,9,13-14,47
-	[   98.784876] qcom-ethqos 23040000.ethernet eth1: PHY [stmmac-0:08] driver [Aquantia AQR115C] (irq=333)
-	[   98.784883] qcom-ethqos 23040000.ethernet eth1: phy: 2500base-x setting supported 00000000,00000000,00008000,000062ff advertising 00000000,00000000,00008000,000062ff
-	[   98.796612] qcom-ethqos 23040000.ethernet eth1: Enabling Safety Features
-	[   98.796912] qcom-ethqos 23040000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
-	[   98.798518] qcom-ethqos 23040000.ethernet eth1: registered PTP clock
-	[   98.798522] qcom-ethqos 23040000.ethernet eth1: configuring for phy/2500base-x link mode
-	[   98.798526] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/2500base-x
-	[   98.798530] qcom-ethqos 23040000.ethernet eth1: interface 2500base-x inband modes: pcs=00 phy=00
-	[   98.798534] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/2500base-x
-	[   98.798537] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/2500base-x/none adv=00000000,00000000,00000000,00000000 pause=00
-	[   98.802000] 8021q: adding VLAN 0 to HW filter on device eth1
-	[   98.808472] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[  102.180528] qcom-ethqos 23040000.ethernet eth1: phy link up sgmii/1Gbps/Full/none/off/nolpi
-	[  102.182972] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/sgmii
-	[  102.182986] qcom-ethqos 23040000.ethernet eth1: interface sgmii inband modes: pcs=03 phy=03
-	[  102.182994] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/sgmii
-	[  102.183000] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/sgmii/none adv=00000000,00000000,00000000,00000000 pause=00
-	[  102.186901] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[  102.186913] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[  102.186952] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[  102.186955] qcom-ethqos 23040000.ethernet eth1: pcs link up
-	[  102.187089] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[  102.187092] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[  102.187123] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[  102.187126] qcom-ethqos 23040000.ethernet eth1: pcs link up
-	[  102.187169] dwmac: PCS configuration changed from phylink by glue, please report: 0x00040000 -> 0x00041000
-	[  102.187175] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[  102.187178] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[  102.187206] qcom-ethqos 23040000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
-	[  102.187213] qcom-ethqos 23040000.ethernet: PCS Link Down
-	[  102.187217] qcom-ethqos 23040000.ethernet eth1: pcs link down
-	[  102.187218] qcom-ethqos 23040000.ethernet eth1: Link is Down
-	[  102.187273] qcom-ethqos 23040000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
-	[  102.220947] qcom-ethqos 23040000.ethernet: PCS ANE process completed
-	[  102.220958] qcom-ethqos 23040000.ethernet: PCS Link Up
-	[  102.220972] qcom-ethqos 23040000.ethernet eth1: pcs link up
-	[  114.309051] qcom-ethqos 23040000.ethernet eth1: NETDEV WATCHDOG: CPU: 2: transmit queue 3 timed out 5588 ms
-	[  114.309141] qcom-ethqos 23040000.ethernet eth1: Reset adapter.
-
-4. Switching from 1G to 2.5G - similar issues + a NULL pointer
-dereference. I am checking on the reason for it.
-
-	[ 1235.996004] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
-	[ 1240.517716] qcom-ethqos 23040000.ethernet eth1: phy link up 2500base-x/2.5Gbps/Full/none/off/nolpi
-	[ 1240.529470] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/2500base-x
-	[ 1240.537642] qcom-ethqos 23040000.ethernet eth1: interface 2500base-x inband modes: pcs=00 phy=00
-	[ 1240.546702] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/2500base-x
-	[ 1240.555441] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
-	[ 1240.564481] Mem abort info:
-	[ 1240.567377]   ESR = 0x0000000096000044
-	[ 1240.571242]   EC = 0x25: DABT (current EL), IL = 32 bits
-	[ 1240.576720]   SET = 0, FnV = 0
-	[ 1240.579874]   EA = 0, S1PTW = 0
-	[ 1240.583123]   FSC = 0x04: level 0 translation fault
-	[ 1240.588162] Data abort info:
-	[ 1240.591149]   ISV = 0, ISS = 0x00000044, ISS2 = 0x00000000
-	[ 1240.596799]   CM = 0, WnR = 1, TnD = 0, TagAccess = 0
-	[ 1240.602007]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
-	[ 1240.607483] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000137f96000
-	[ 1240.614107] [0000000000000010] pgd=0000000000000000, p4d=0000000000000000
-	[ 1240.621093] Internal error: Oops: 0000000096000044 [#1]  SMP
-	[ 1240.626910] Modules linked in: --
-	[ 1240.737142] CPU: 1 UID: 0 PID: 55 Comm: kworker/u33:0 Not tainted 6.19.0-rc5-00581-g73cb8467a63e #1 PREEMPT
-	[ 1240.747223] Hardware name: Qualcomm Technologies, Inc. Lemans Ride Rev3 (DT)
-	[ 1240.754461] Workqueue: events_power_efficient phylink_resolve
-	[ 1240.760368] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-	[ 1240.767509] pc : phylink_major_config+0x408/0x948
-	[ 1240.772340] lr : phylink_major_config+0x3fc/0x948
-	[ 1240.777167] sp : ffff800080353c60
-	[ 1240.780568] x29: ffff800080353cb0 x28: ffffb305068a8a00 x27: ffffb305068a8000
-	[ 1240.787894] x26: ffff000080092100 x25: 0000000000000000 x24: 0000000000000000
-	[ 1240.795219] x23: 0000000000000001 x22: 0000000000000000 x21: ffffb3050555b3d0
-	[ 1240.802544] x20: ffff800080353d10 x19: ffff0000b6059400 x18: 00000000ffffffff
-	[ 1240.809870] x17: 74756f2f79687020 x16: ffffb305045e4f18 x15: 6769666e6f632072
-	[ 1240.817195] x14: 6f6a616d203a3168 x13: 782d657361623030 x12: ffffb305068c6a98
-	[ 1240.824521] x11: 0000000000000583 x10: 0000000000000018 x9 : ffffb305068c6a98
-	[ 1240.831849] x8 : 0000000100006583 x7 : 0000000000000000 x6 : ffff00008083cc40
-	[ 1240.839174] x5 : ffff00008083cc40 x4 : 0000000000000001 x3 : 0000000000000001
-	[ 1240.846498] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000b269e5a8
-	[ 1240.853824] Call trace:
-	[ 1240.856339]  phylink_major_config+0x408/0x948 (P)
-	[ 1240.861167]  phylink_resolve+0x294/0x6e4
-	[ 1240.865196]  process_one_work+0x148/0x28c
-	[ 1240.869316]  worker_thread+0x2d8/0x3d8
-	[ 1240.873171]  kthread+0x134/0x208
-	[ 1240.876490]  ret_from_fork+0x10/0x20
-	[ 1240.880168] Code: d63f0020 f9400e60 b4000040 f900081f (f9000ad3)
-	[ 1240.886423] ---[ end trace 0000000000000000 ]---
-
-That's all I have right now. I will try to test out with comma detection
-enabled and share the results in a day or so.
-
-	Ayaan
+> 
+> 
+> Kind regards,
+> Niklas
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
