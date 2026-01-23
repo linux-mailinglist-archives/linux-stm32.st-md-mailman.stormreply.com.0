@@ -2,63 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +OZ0H2mvc2nOxwAAu9opvQ
+	id CC7VHHzPc2kCywAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 18:27:05 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 20:43:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8CA578FDB
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 18:27:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A1DF7A3EB
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 20:43:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D966C8F264;
-	Fri, 23 Jan 2026 17:27:04 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1232C8F264;
+	Fri, 23 Jan 2026 19:43:55 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CEC02C87EDF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05C5BC030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 17:27:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=ATqUy5/Sp0hLV7kTQCotJYn2id+kgnBDhi2Bfu1dxMw=; b=WbE7SAtucfXWKA5HnfaYgijWAA
- 7L0Et33+VW7YE0lTPtIg91YcJfGT/yqR4XWo1hOw3m7+aVG65JgF7eEHkVJ2uucFrEz9d3yS0RouW
- pT+Tki0zV5+Z5Jy3b1t3Syzoa/LXYZcZEwiBOglSDeN7qf+1Dhgk0Mv06lfV2fsphs/ho1GU7SiPk
- 7Lup2A1+JyjmwnTix8YwXKrcGF4aBOn7KZ/kjR695XoY5LJlDU4d/Hqm0YJmltDvCL7s3/OAaJ++m
- ZpZK6f8PfdvQq5KpcTqsfmSNWwQZtHE4V5fTLx3oUaU2CZ+leNEvhXGF4mPe+8IT6GbIMaS6sLY5/
- Fp2PCgHA==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:42282)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vjKvr-000000002Mn-2kBY;
- Fri, 23 Jan 2026 17:26:51 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vjKvn-000000002GB-2S0Y; Fri, 23 Jan 2026 17:26:47 +0000
-Date: Fri, 23 Jan 2026 17:26:47 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Message-ID: <aXOvV-XRmn_Pe-ca@shell.armlinux.org.uk>
-References: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
- <aXN5BFXMshnhwBQ7@oss.qualcomm.com>
+ Fri, 23 Jan 2026 19:43:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=F8X2Qe2GBeiLawBUjaVg5sWcX14l13OwMuQdvbXbuto=; b=Vi+KKTJLvBDJ5gb1XmjMzrFfkX
+ OepU/znm3KgM9lIw1eqmtwwZaaIIc04+Kb5MXIY8ibH0se3h5pJYgGgOoehALiJkRZRsIouKr4gb7
+ sQrYHEdDO4+llUaEt7gA4Xx4tPCXIMjC3PEVTfgD5gpy5lbkCp9fO4+EWuDZXPkY3TlU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1vjN4M-004JUt-2V; Fri, 23 Jan 2026 20:43:46 +0100
+Date: Fri, 23 Jan 2026 20:43:46 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Bo Gan <ganboing@gmail.com>
+Message-ID: <bd202cfa-d6eb-4d0e-982d-b49795dd25f7@lunn.ch>
+References: <20260109080601.1262-1-lizhi2@eswincomputing.com>
+ <20260109080859.1285-1-lizhi2@eswincomputing.com>
+ <00b7b42f-2f9d-402a-82f0-21641ea894a1@lunn.ch>
+ <308b676.2d03.19bb0caebed.Coremail.lizhi2@eswincomputing.com>
+ <59cec617-0189-4dc3-bc3f-6346155a62ae@lunn.ch>
+ <4e2a55e7.3662.19be8cb9c3c.Coremail.lizhi2@eswincomputing.com>
+ <c5c0bfdb-316d-4796-afa0-f6f018ceb414@lunn.ch>
+ <abf12a3f-9cdd-472d-a02e-af4da594b84f@gmail.com>
+ <e6f7da45-3dec-4af6-a5b1-a72210bf24f4@kernel.org>
+ <43923bf9-6202-4147-8eac-5bd7bb653fd4@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aXN5BFXMshnhwBQ7@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Andrew Lunn <andrew@lunn.ch>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-phy@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/14] net: stmmac: SerDes, PCS,
- BASE-X, and inband goodies
+In-Reply-To: <43923bf9-6202-4147-8eac-5bd7bb653fd4@gmail.com>
+Cc: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ weishangjuan@eswincomputing.com, ningyu@eswincomputing.com,
+ Krzysztof Kozlowski <krzk@kernel.org>, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, rmk+kernel@armlinux.org.uk,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
+ linmin@eswincomputing.com, edumazet@google.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] dt-bindings: ethernet: eswin: add
+ clock sampling control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,109 +75,85 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:mohd.anwar@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:andrew@lunn.ch,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FORGED_RECIPIENTS(0.00)[m:ganboing@gmail.com,m:lizhi2@eswincomputing.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:ningyu@eswincomputing.com,m:krzk@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:rmk+kernel@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,lunn.ch,linaro.org,vger.kernel.org,st-md-mailman.stormreply.com,google.com,kernel.org,gmail.com,lists.infradead.org,redhat.com,davemloft.net];
-	NEURAL_SPAM(0.00)[0.830];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[lunn.ch:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[eswincomputing.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,armlinux.org.uk,lists.infradead.org,einfochips.com,google.com,lunn.ch,gmail.com,davemloft.net];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: D8CA578FDB
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	NEURAL_SPAM(0.00)[0.846];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 0A1DF7A3EB
 X-Rspamd-Action: no action
 
-On Fri, Jan 23, 2026 at 07:05:00PM +0530, Mohd Ayaan Anwar wrote:
-> Hello Russell,
-> On Fri, Jan 23, 2026 at 09:52:00AM +0000, Russell King (Oracle) wrote:
-> > This is the v1 submission: if it doesn't get tested but review goes
-> > well, it'll end up in net-next and mainline without testing on the
-> > affected hardware!
-> > 
-> > Mentioned previously, I've been trying to sort out the PCS support in
-> > stmmac, and this series represents the current state of play.
-> > 
-> > Previous posted patches centred around merely getting autonegotiation
-> > to be configured correctly, to a point where the manual configuration
-> > can be removed from the qcom-ethqos driver. The qcom-ethqos driver
-> > uses both SGMII and 2500BASE-X, manually configuring the dwmac's
-> > integrated PCS appropriately.
-> > 
+On Fri, Jan 23, 2026 at 02:47:18AM -0800, Bo Gan wrote:
+> Hi Krzysztof,
 > 
-> Thank you for CC'ing me on this series. Sorry, but I have been M.I.A.
-> for the past couple of months due to some health issues, which caused a
-> backlog at work that I had to power through. I haven't been able to
-> monitor the mailing list for stmmac patches.
-
-Sorry to hear that, but if it's any consolation, you're not alone. On
-new year's eve, I had three teeth extracted, including one that was
-laying horizontally in the palate of the mouth buried in bone, and
-needed in bone graft (modern bone grafts are quite different from what
-you'd expect btw.) It's been quite sore/painful as it heals.
-
-> I tested v1 last night and just picked up v2. Here are my observations
-> and logs (phylink logs are enabled). I haven't had time to debug the
-> issues, but they are not seen on the net-next tree. One thing that I
-> remember from our last discussion is the need to test with comma
-> detection enabled; I will test that next.
+> On 1/23/26 02:07, Krzysztof Kozlowski wrote:
+> > On 23/01/2026 08:39, Bo Gan wrote:
+> > > > I assume the address of the interface is fixed. So you can just key
+> > > > off that to distinguish the two instances.
+> > > > 
+> > > > Since this is an internal property, not a board property, it is not
+> > > > clear it actually belongs on DT.
+> > > > 
+> > > >       Andrew
+> > > 
+> > > IMO, they should be in DT to provide maximum flexibility. The SoC .dtsi
+> > 
+> > This is not the purpose of DT. Please rather use arguments in terms of
+> > DT rules (see docs, presentations).
+> > 
+> Any examples? links? Thank you for your patience.
 > 
-> Tested on the QCS9100 Ride R3 board with 2X AQR115C PHYs. I have one
-> more board that I can test next week (IQ8275, which has a single
-> QCA8081 PHY, but that is limited to 2.5G because the PHY switches its
-> mode according to the speed).
+> I'd say if the board .dts never overrides the eswin,rx-clk-invert, (E.g.,
+> the SoC .dtsi has rx-clk-invert, later the board /delete-property/'s it)
+> then yes, it can be treated as something inherent to the mac, and then
+> "use arguments in terms of DT rules". I was thinking about use cases like:
+> https://lore.kernel.org/all/20230714104521.18751-3-samin.guo@starfivetech.com/
 
-Thanks for testing!
+Your device should be compliant with the RGMII standard by
+default. There should not be a DT property to ask it nicely to follow
+the standard.
 
-Given the results you've given, my suggestion would be that the
-following patches are probably the most risky:
+Properties like
 
-Patch 2 "net: stmmac: qcom-ethqos: convert to set_clk_tx_rate() method"
+motorcomm,tx-clk-adj-enabled;
+motorcomm,tx-clk-100-inverted;
+motorcomm,tx-clk-1000-inverted;
 
-This changes the way the clock is configured. It would be worth
-testing that and giving a tested-by for the first two patches if
-that's successful.
+are for broken boards which break the standard and require the MAC do
+also break the standard so that everything works. We should not start
+out with the assumption you need to support broken boards which ignore
+the standard.
 
-Patch 6 "net: stmmac: qcom-ethqos: convert to dwmac generic SerDes
-support"
+       Andrew
 
-This changes how the SerDes is handled, which is a significant change.
-It's possible that the PHY calibration needs some other state to be
-appropriately configured, and that's not happening in the same order.
-
-Either of these two would account for what appears to be an unstable
-SerDes link.
-
-As for the NULL pointer deref, I'll look at that in a bit (waiting
-for a build to complete so I can hopefully pinpoint where the oops
-is happening.)
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
