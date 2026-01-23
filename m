@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qBmwOAhVc2mSuwAAu9opvQ
+	id GChjEQ9Vc2kDuwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:01:28 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:01:35 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C516574B4F
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:01:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E69E774B66
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:01:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 866B7C8F26A;
-	Fri, 23 Jan 2026 11:01:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB38FC8F26A;
+	Fri, 23 Jan 2026 11:01:34 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58AD3C8F264
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 812B1C8F264
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 11:01:27 +0000 (UTC)
+ Fri, 23 Jan 2026 11:01:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=C9X93ngFdepZJ7tlo3uK6JHD/4lpqLqmjUTQoYX79KQ=; b=nvQh7NG1A+rE9MGH1ZNoosBYsC
- aqOn+JbCxR+IQaruD+m8hdWlfo2zCjLA+a6wQpIfggw7GIir9FFMEkhKmhTyOg1vQpWQLtrdtTt0n
- mPSHZbZQ3nOJ53+05kyVCBt6OvaYqCSnP0H3F9aGLM21CUzPMg2CO9TCeqUZIZS6c4vQ1c3X3Ky0q
- rnjokF82F9sYjbUgPz0IV+QCnPZw2KRCebFmc0kCKVaqYarox6V+OHSBAS8XDNMdo1npCS9jzapD9
- wQ81AzRsuWO+k+7SBYcP8pKwfyCyG6MJ+yp1BGx+mLrvx8/gQ5PZP9LXoMYc4X+1u1vnErLaaW7Sg
- ueb+m4iQ==;
+ bh=0pAMmV06WpTBpCMnulw6ANqIkvdXlb2C/XPgyVldDps=; b=Pf8Pk5Gd0ZvF/1sYeTFDn/SnJJ
+ 4+8CMGILcOgQqd00g6ekLouax+SUGvMFrsy/miCb2qiC3SarF4zYU8LyHCzRbLuf8PP8/43X53Arm
+ M2g8TIg8zORqRJ8u5VNOQWWvobFTkBLvAOSu6dBtdfgJODLvatzr1B7kDYELEnf/CtvDPqBMYqFjl
+ NUgH8SwUHJyi6hQfTcE0hYDP9CHQcxPJPU8dCfiuIKp9aDdZP6Th93Soa/WUvqkjZvqAxVgRCaYoa
+ 5Xr6Y29490aOkLqTZys2g0Ff3/PnEuNdaNLZS49YqGTW/RnmIMgbNAIrYzaRQfN/3tkfzEkErgeGt
+ T2uicy2g==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42140 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:50526 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vjEuh-000000001pF-2LNz;
- Fri, 23 Jan 2026 11:01:16 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vjEuo-000000001pb-16OS;
+ Fri, 23 Jan 2026 11:01:22 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vjEuf-00000005ggc-3vy3; Fri, 23 Jan 2026 11:01:13 +0000
+ id 1vjEul-00000005ggi-0CAA; Fri, 23 Jan 2026 11:01:19 +0000
 In-Reply-To: <aXNUlVZilT-CTgph@shell.armlinux.org.uk>
 References: <aXNUlVZilT-CTgph@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vjEuf-00000005ggc-3vy3@rmk-PC.armlinux.org.uk>
-Date: Fri, 23 Jan 2026 11:01:13 +0000
+Message-Id: <E1vjEul-00000005ggi-0CAA@rmk-PC.armlinux.org.uk>
+Date: Fri, 23 Jan 2026 11:01:19 +0000
 Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 11/21] net: stmmac: rk: use
- rk_encode_wm16() for RGMII clocks
+Subject: [Linux-stm32] [PATCH net-next 12/21] net: stmmac: rk: use
+ rk_encode_wm16() for RMII speed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +92,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.023];
+	NEURAL_HAM(-0.00)[-0.038];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -104,399 +104,298 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: C516574B4F
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: E69E774B66
 X-Rspamd-Action: no action
 
-As all of the RGMII clock selection bitfields (gmii_clk_sel) use the
-same encoding, parameterise this by providing the bitfield mask in
-the BSP private data.
-
-This is the last user of GRF_FIELD_CONST(), so remove that definition
-as well.
-
-One additional change is for RK3328 - as only gmac2io supports RGMII,
-only initialise the mask for this instance.
+The RMII speed configuration is encoded as a single bit, which is set
+for 100M and clean for 10M. Provide the bitfield definition in
+struct rk_clock_fields, moving it out of struct rk_reg_speed_data's
+rmii_10 and rmii_100 initialisers. Update rk_set_reg_speed() to handle
+the new definition location of this bit.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 100 +++++++-----------
- 1 file changed, 36 insertions(+), 64 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 69 +++++++++----------
+ 1 file changed, 31 insertions(+), 38 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index f2b7917b6a30..0f94304e721a 100644
+index 0f94304e721a..48852054390d 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -26,10 +26,11 @@
+@@ -28,6 +28,7 @@ struct rk_priv_data;
  
- struct rk_priv_data;
+ struct rk_clock_fields {
+ 	u16 gmii_clk_sel_mask;
++	u16 mac_speed_mask;
+ };
  
-+struct rk_clock_fields {
-+	u16 gmii_clk_sel_mask;
-+};
-+
  struct rk_reg_speed_data {
--	unsigned int rgmii_10;
--	unsigned int rgmii_100;
--	unsigned int rgmii_1000;
- 	unsigned int rmii_10;
- 	unsigned int rmii_100;
- };
-@@ -51,6 +52,7 @@ struct rk_gmac_ops {
- 	u16 gmac_rmii_mode_mask;
+@@ -171,10 +172,12 @@ static int rk_set_reg_speed(struct rk_priv_data *bsp_priv,
  
- 	u16 clock_grf_reg;
-+	struct rk_clock_fields clock;
- 
- 	bool clock_grf_reg_in_php;
- 	bool php_grf_required;
-@@ -104,12 +106,24 @@ struct rk_priv_data {
- 	u16 gmac_rmii_mode_mask;
- 
- 	u16 clock_grf_reg;
-+	struct rk_clock_fields clock;
- };
- 
- #define GMAC_CLK_DIV1_125M		0
- #define GMAC_CLK_DIV50_2_5M		2
- #define GMAC_CLK_DIV5_25M		3
- 
-+static int rk_gmac_rgmii_clk_div(int speed)
-+{
-+	if (speed == SPEED_10)
-+		return GMAC_CLK_DIV50_2_5M;
-+	if (speed == SPEED_100)
-+		return GMAC_CLK_DIV5_25M;
-+	if (speed == SPEED_1000)
-+		return GMAC_CLK_DIV1_125M;
-+	return -EINVAL;
-+}
-+
- static int rk_get_phy_intf_sel(phy_interface_t interface)
- {
- 	int ret = stmmac_get_phy_intf_sel(interface);
-@@ -148,20 +162,14 @@ static int rk_set_reg_speed(struct rk_priv_data *bsp_priv,
- 			    phy_interface_t interface, int speed)
- {
- 	unsigned int val;
-+	int ret;
- 
- 	if (phy_interface_mode_is_rgmii(interface)) {
--		if (speed == SPEED_10) {
--			val = rsd->rgmii_10;
--		} else if (speed == SPEED_100) {
--			val = rsd->rgmii_100;
--		} else if (speed == SPEED_1000) {
--			val = rsd->rgmii_1000;
--		} else {
--			/* Phylink will not allow inappropriate speeds for
--			 * interface modes, so this should never happen.
--			 */
--			return -EINVAL;
--		}
-+		ret = rk_gmac_rgmii_clk_div(speed);
-+		if (ret < 0)
-+			return ret;
-+
-+		val = rk_encode_wm16(ret, bsp_priv->clock.gmii_clk_sel_mask);
+ 		val = rk_encode_wm16(ret, bsp_priv->clock.gmii_clk_sel_mask);
  	} else if (interface == PHY_INTERFACE_MODE_RMII) {
++		val = rk_encode_wm16(speed == SPEED_100,
++				     bsp_priv->clock.mac_speed_mask);
  		if (speed == SPEED_10) {
- 			val = rsd->rmii_10;
-@@ -202,8 +210,6 @@ static int rk_set_clk_mac_speed(struct rk_priv_data *bsp_priv,
- 
- #define GRF_FIELD(hi, lo, val)		\
- 	FIELD_PREP_WM16(GENMASK_U16(hi, lo), val)
--#define GRF_FIELD_CONST(hi, lo, val)	\
--	FIELD_PREP_WM16_CONST(GENMASK_U16(hi, lo), val)
- 
- #define GRF_BIT(nr)			(BIT(nr) | BIT(nr+16))
- #define GRF_CLR_BIT(nr)			(BIT(nr+16))
-@@ -349,7 +355,6 @@ static const struct rk_gmac_ops px30_ops = {
- #define RK3128_GMAC_SPEED_100M         GRF_BIT(10)
+-			val = rsd->rmii_10;
++			val |= rsd->rmii_10;
+ 		} else if (speed == SPEED_100) {
+-			val = rsd->rmii_100;
++			val |= rsd->rmii_100;
+ 		} else {
+ 			/* Phylink will not allow inappropriate speeds for
+ 			 * interface modes, so this should never happen.
+@@ -351,8 +354,6 @@ static const struct rk_gmac_ops px30_ops = {
+ /* RK3128_GRF_MAC_CON1 */
+ #define RK3128_GMAC_FLOW_CTRL          GRF_BIT(9)
+ #define RK3128_GMAC_FLOW_CTRL_CLR      GRF_CLR_BIT(9)
+-#define RK3128_GMAC_SPEED_10M          GRF_CLR_BIT(10)
+-#define RK3128_GMAC_SPEED_100M         GRF_BIT(10)
  #define RK3128_GMAC_RMII_CLK_25M       GRF_BIT(11)
  #define RK3128_GMAC_RMII_CLK_2_5M      GRF_CLR_BIT(11)
--#define RK3128_GMAC_CLK(val)           GRF_FIELD_CONST(13, 12, val)
  
- static void rk3128_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
-@@ -365,9 +370,6 @@ static void rk3128_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -370,8 +371,8 @@ static void rk3128_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3128_reg_speed_data = {
--	.rgmii_10 = RK3128_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3128_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3128_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3128_GMAC_RMII_CLK_2_5M | RK3128_GMAC_SPEED_10M,
- 	.rmii_100 = RK3128_GMAC_RMII_CLK_25M | RK3128_GMAC_SPEED_100M,
+-	.rmii_10 = RK3128_GMAC_RMII_CLK_2_5M | RK3128_GMAC_SPEED_10M,
+-	.rmii_100 = RK3128_GMAC_RMII_CLK_25M | RK3128_GMAC_SPEED_100M,
++	.rmii_10 = RK3128_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3128_GMAC_RMII_CLK_25M,
  };
-@@ -389,6 +391,7 @@ static const struct rk_gmac_ops rk3128_ops = {
- 	.gmac_rmii_mode_mask = BIT_U16(14),
+ 
+ static int rk3128_set_speed(struct rk_priv_data *bsp_priv,
+@@ -392,6 +393,7 @@ static const struct rk_gmac_ops rk3128_ops = {
  
  	.clock_grf_reg = RK3128_GRF_MAC_CON1,
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(13, 12),
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(13, 12),
++	.clock.mac_speed_mask = BIT_U16(10),
  };
  
  #define RK3228_GRF_MAC_CON0	0x0900
-@@ -407,7 +410,6 @@ static const struct rk_gmac_ops rk3128_ops = {
- #define RK3228_GMAC_SPEED_100M		GRF_BIT(2)
+@@ -406,8 +408,6 @@ static const struct rk_gmac_ops rk3128_ops = {
+ /* RK3228_GRF_MAC_CON1 */
+ #define RK3228_GMAC_FLOW_CTRL		GRF_BIT(3)
+ #define RK3228_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
+-#define RK3228_GMAC_SPEED_10M		GRF_CLR_BIT(2)
+-#define RK3228_GMAC_SPEED_100M		GRF_BIT(2)
  #define RK3228_GMAC_RMII_CLK_25M	GRF_BIT(7)
  #define RK3228_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(7)
--#define RK3228_GMAC_CLK(val)		GRF_FIELD_CONST(9, 8, val)
  #define RK3228_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(0)
- #define RK3228_GMAC_TXCLK_DLY_DISABLE	GRF_CLR_BIT(0)
- #define RK3228_GMAC_RXCLK_DLY_ENABLE	GRF_BIT(1)
-@@ -434,9 +436,6 @@ static void rk3228_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -436,8 +436,8 @@ static void rk3228_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3228_reg_speed_data = {
--	.rgmii_10 = RK3228_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3228_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3228_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3228_GMAC_RMII_CLK_2_5M | RK3228_GMAC_SPEED_10M,
- 	.rmii_100 = RK3228_GMAC_RMII_CLK_25M | RK3228_GMAC_SPEED_100M,
+-	.rmii_10 = RK3228_GMAC_RMII_CLK_2_5M | RK3228_GMAC_SPEED_10M,
+-	.rmii_100 = RK3228_GMAC_RMII_CLK_25M | RK3228_GMAC_SPEED_100M,
++	.rmii_10 = RK3228_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3228_GMAC_RMII_CLK_25M,
  };
-@@ -468,6 +467,7 @@ static const struct rk_gmac_ops rk3228_ops = {
- 	.gmac_rmii_mode_mask = BIT_U16(10),
+ 
+ static int rk3228_set_speed(struct rk_priv_data *bsp_priv,
+@@ -468,6 +468,7 @@ static const struct rk_gmac_ops rk3228_ops = {
  
  	.clock_grf_reg = RK3228_GRF_MAC_CON1,
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(9, 8),
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(9, 8),
++	.clock.mac_speed_mask = BIT_U16(2),
  };
  
  #define RK3288_GRF_SOC_CON1	0x0248
-@@ -480,7 +480,6 @@ static const struct rk_gmac_ops rk3228_ops = {
- #define RK3288_GMAC_SPEED_100M		GRF_BIT(10)
+@@ -476,8 +477,6 @@ static const struct rk_gmac_ops rk3228_ops = {
+ /*RK3288_GRF_SOC_CON1*/
+ #define RK3288_GMAC_FLOW_CTRL		GRF_BIT(9)
+ #define RK3288_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(9)
+-#define RK3288_GMAC_SPEED_10M		GRF_CLR_BIT(10)
+-#define RK3288_GMAC_SPEED_100M		GRF_BIT(10)
  #define RK3288_GMAC_RMII_CLK_25M	GRF_BIT(11)
  #define RK3288_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(11)
--#define RK3288_GMAC_CLK(val)		GRF_FIELD_CONST(13, 12, val)
  
- /*RK3288_GRF_SOC_CON3*/
- #define RK3288_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(14)
-@@ -504,9 +503,6 @@ static void rk3288_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -503,8 +502,8 @@ static void rk3288_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3288_reg_speed_data = {
--	.rgmii_10 = RK3288_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3288_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3288_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3288_GMAC_RMII_CLK_2_5M | RK3288_GMAC_SPEED_10M,
- 	.rmii_100 = RK3288_GMAC_RMII_CLK_25M | RK3288_GMAC_SPEED_100M,
+-	.rmii_10 = RK3288_GMAC_RMII_CLK_2_5M | RK3288_GMAC_SPEED_10M,
+-	.rmii_100 = RK3288_GMAC_RMII_CLK_25M | RK3288_GMAC_SPEED_100M,
++	.rmii_10 = RK3288_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3288_GMAC_RMII_CLK_25M,
  };
-@@ -528,6 +524,7 @@ static const struct rk_gmac_ops rk3288_ops = {
- 	.gmac_rmii_mode_mask = BIT_U16(14),
+ 
+ static int rk3288_set_speed(struct rk_priv_data *bsp_priv,
+@@ -525,6 +524,7 @@ static const struct rk_gmac_ops rk3288_ops = {
  
  	.clock_grf_reg = RK3288_GRF_SOC_CON1,
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(13, 12),
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(13, 12),
++	.clock.mac_speed_mask = BIT_U16(10),
  };
  
  #define RK3308_GRF_MAC_CON0		0x04a0
-@@ -580,7 +577,6 @@ static const struct rk_gmac_ops rk3308_ops = {
- #define RK3328_GMAC_SPEED_100M		GRF_BIT(2)
+@@ -532,16 +532,12 @@ static const struct rk_gmac_ops rk3288_ops = {
+ /* RK3308_GRF_MAC_CON0 */
+ #define RK3308_GMAC_FLOW_CTRL		GRF_BIT(3)
+ #define RK3308_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
+-#define RK3308_GMAC_SPEED_10M		GRF_CLR_BIT(0)
+-#define RK3308_GMAC_SPEED_100M		GRF_BIT(0)
+ 
+ static void rk3308_set_to_rmii(struct rk_priv_data *bsp_priv)
+ {
+ }
+ 
+ static const struct rk_reg_speed_data rk3308_reg_speed_data = {
+-	.rmii_10 = RK3308_GMAC_SPEED_10M,
+-	.rmii_100 = RK3308_GMAC_SPEED_100M,
+ };
+ 
+ static int rk3308_set_speed(struct rk_priv_data *bsp_priv,
+@@ -559,6 +555,7 @@ static const struct rk_gmac_ops rk3308_ops = {
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(4, 2),
+ 
+ 	.clock_grf_reg = RK3308_GRF_MAC_CON0,
++	.clock.mac_speed_mask = BIT_U16(0),
+ };
+ 
+ #define RK3328_GRF_MAC_CON0	0x0900
+@@ -573,8 +570,6 @@ static const struct rk_gmac_ops rk3308_ops = {
+ /* RK3328_GRF_MAC_CON1 */
+ #define RK3328_GMAC_FLOW_CTRL		GRF_BIT(3)
+ #define RK3328_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
+-#define RK3328_GMAC_SPEED_10M		GRF_CLR_BIT(2)
+-#define RK3328_GMAC_SPEED_100M		GRF_BIT(2)
  #define RK3328_GMAC_RMII_CLK_25M	GRF_BIT(7)
  #define RK3328_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(7)
--#define RK3328_GMAC_CLK(val)		GRF_FIELD_CONST(12, 11, val)
  #define RK3328_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(0)
- #define RK3328_GMAC_RXCLK_DLY_ENABLE	GRF_BIT(1)
- 
-@@ -593,6 +589,7 @@ static int rk3328_init(struct rk_priv_data *bsp_priv)
- 	case 0: /* gmac2io */
- 		bsp_priv->gmac_grf_reg = RK3328_GRF_MAC_CON1;
- 		bsp_priv->clock_grf_reg = RK3328_GRF_MAC_CON1;
-+		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(12, 11);
- 		return 0;
- 
- 	case 1: /* gmac2phy */
-@@ -622,9 +619,6 @@ static void rk3328_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -619,8 +614,8 @@ static void rk3328_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3328_reg_speed_data = {
--	.rgmii_10 = RK3328_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3328_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3328_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3328_GMAC_RMII_CLK_2_5M | RK3328_GMAC_SPEED_10M,
- 	.rmii_100 = RK3328_GMAC_RMII_CLK_25M | RK3328_GMAC_SPEED_100M,
+-	.rmii_10 = RK3328_GMAC_RMII_CLK_2_5M | RK3328_GMAC_SPEED_10M,
+-	.rmii_100 = RK3328_GMAC_RMII_CLK_25M | RK3328_GMAC_SPEED_100M,
++	.rmii_10 = RK3328_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3328_GMAC_RMII_CLK_25M,
  };
-@@ -673,7 +667,6 @@ static const struct rk_gmac_ops rk3328_ops = {
- #define RK3366_GMAC_SPEED_100M		GRF_BIT(7)
+ 
+ static int rk3328_set_speed(struct rk_priv_data *bsp_priv,
+@@ -649,6 +644,8 @@ static const struct rk_gmac_ops rk3328_ops = {
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
+ 	.gmac_rmii_mode_mask = BIT_U16(9),
+ 
++	.clock.mac_speed_mask = BIT_U16(2),
++
+ 	.regs_valid = true,
+ 	.regs = {
+ 		0xff540000, /* gmac2io */
+@@ -663,8 +660,6 @@ static const struct rk_gmac_ops rk3328_ops = {
+ /* RK3366_GRF_SOC_CON6 */
+ #define RK3366_GMAC_FLOW_CTRL		GRF_BIT(8)
+ #define RK3366_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
+-#define RK3366_GMAC_SPEED_10M		GRF_CLR_BIT(7)
+-#define RK3366_GMAC_SPEED_100M		GRF_BIT(7)
  #define RK3366_GMAC_RMII_CLK_25M	GRF_BIT(3)
  #define RK3366_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(3)
--#define RK3366_GMAC_CLK(val)		GRF_FIELD_CONST(5, 4, val)
  
- /* RK3366_GRF_SOC_CON7 */
- #define RK3366_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(7)
-@@ -697,9 +690,6 @@ static void rk3366_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -690,8 +685,8 @@ static void rk3366_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3366_reg_speed_data = {
--	.rgmii_10 = RK3366_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3366_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3366_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3366_GMAC_RMII_CLK_2_5M | RK3366_GMAC_SPEED_10M,
- 	.rmii_100 = RK3366_GMAC_RMII_CLK_25M | RK3366_GMAC_SPEED_100M,
+-	.rmii_10 = RK3366_GMAC_RMII_CLK_2_5M | RK3366_GMAC_SPEED_10M,
+-	.rmii_100 = RK3366_GMAC_RMII_CLK_25M | RK3366_GMAC_SPEED_100M,
++	.rmii_10 = RK3366_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3366_GMAC_RMII_CLK_25M,
  };
-@@ -721,6 +711,7 @@ static const struct rk_gmac_ops rk3366_ops = {
- 	.gmac_rmii_mode_mask = BIT_U16(6),
+ 
+ static int rk3366_set_speed(struct rk_priv_data *bsp_priv,
+@@ -712,6 +707,7 @@ static const struct rk_gmac_ops rk3366_ops = {
  
  	.clock_grf_reg = RK3366_GRF_SOC_CON6,
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
++	.clock.mac_speed_mask = BIT_U16(7),
  };
  
  #define RK3368_GRF_SOC_CON15	0x043c
-@@ -733,7 +724,6 @@ static const struct rk_gmac_ops rk3366_ops = {
- #define RK3368_GMAC_SPEED_100M		GRF_BIT(7)
+@@ -720,8 +716,6 @@ static const struct rk_gmac_ops rk3366_ops = {
+ /* RK3368_GRF_SOC_CON15 */
+ #define RK3368_GMAC_FLOW_CTRL		GRF_BIT(8)
+ #define RK3368_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
+-#define RK3368_GMAC_SPEED_10M		GRF_CLR_BIT(7)
+-#define RK3368_GMAC_SPEED_100M		GRF_BIT(7)
  #define RK3368_GMAC_RMII_CLK_25M	GRF_BIT(3)
  #define RK3368_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(3)
--#define RK3368_GMAC_CLK(val)		GRF_FIELD_CONST(5, 4, val)
  
- /* RK3368_GRF_SOC_CON16 */
- #define RK3368_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(7)
-@@ -757,9 +747,6 @@ static void rk3368_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -747,8 +741,8 @@ static void rk3368_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3368_reg_speed_data = {
--	.rgmii_10 = RK3368_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3368_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3368_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3368_GMAC_RMII_CLK_2_5M | RK3368_GMAC_SPEED_10M,
- 	.rmii_100 = RK3368_GMAC_RMII_CLK_25M | RK3368_GMAC_SPEED_100M,
+-	.rmii_10 = RK3368_GMAC_RMII_CLK_2_5M | RK3368_GMAC_SPEED_10M,
+-	.rmii_100 = RK3368_GMAC_RMII_CLK_25M | RK3368_GMAC_SPEED_100M,
++	.rmii_10 = RK3368_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3368_GMAC_RMII_CLK_25M,
  };
-@@ -781,6 +768,7 @@ static const struct rk_gmac_ops rk3368_ops = {
- 	.gmac_rmii_mode_mask = BIT_U16(6),
+ 
+ static int rk3368_set_speed(struct rk_priv_data *bsp_priv,
+@@ -769,6 +763,7 @@ static const struct rk_gmac_ops rk3368_ops = {
  
  	.clock_grf_reg = RK3368_GRF_SOC_CON15,
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
++	.clock.mac_speed_mask = BIT_U16(7),
  };
  
  #define RK3399_GRF_SOC_CON5	0xc214
-@@ -793,7 +781,6 @@ static const struct rk_gmac_ops rk3368_ops = {
- #define RK3399_GMAC_SPEED_100M		GRF_BIT(7)
+@@ -777,8 +772,6 @@ static const struct rk_gmac_ops rk3368_ops = {
+ /* RK3399_GRF_SOC_CON5 */
+ #define RK3399_GMAC_FLOW_CTRL		GRF_BIT(8)
+ #define RK3399_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(8)
+-#define RK3399_GMAC_SPEED_10M		GRF_CLR_BIT(7)
+-#define RK3399_GMAC_SPEED_100M		GRF_BIT(7)
  #define RK3399_GMAC_RMII_CLK_25M	GRF_BIT(3)
  #define RK3399_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(3)
--#define RK3399_GMAC_CLK(val)		GRF_FIELD_CONST(5, 4, val)
  
- /* RK3399_GRF_SOC_CON6 */
- #define RK3399_GMAC_TXCLK_DLY_ENABLE	GRF_BIT(7)
-@@ -817,9 +804,6 @@ static void rk3399_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -804,8 +797,8 @@ static void rk3399_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
  static const struct rk_reg_speed_data rk3399_reg_speed_data = {
--	.rgmii_10 = RK3399_GMAC_CLK(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3399_GMAC_CLK(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3399_GMAC_CLK(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3399_GMAC_RMII_CLK_2_5M | RK3399_GMAC_SPEED_10M,
- 	.rmii_100 = RK3399_GMAC_RMII_CLK_25M | RK3399_GMAC_SPEED_100M,
+-	.rmii_10 = RK3399_GMAC_RMII_CLK_2_5M | RK3399_GMAC_SPEED_10M,
+-	.rmii_100 = RK3399_GMAC_RMII_CLK_25M | RK3399_GMAC_SPEED_100M,
++	.rmii_10 = RK3399_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RK3399_GMAC_RMII_CLK_25M,
  };
-@@ -841,6 +825,7 @@ static const struct rk_gmac_ops rk3399_ops = {
- 	.gmac_rmii_mode_mask = BIT_U16(6),
+ 
+ static int rk3399_set_speed(struct rk_priv_data *bsp_priv,
+@@ -826,6 +819,7 @@ static const struct rk_gmac_ops rk3399_ops = {
  
  	.clock_grf_reg = RK3399_GRF_SOC_CON5,
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
++	.clock.mac_speed_mask = BIT_U16(7),
  };
  
  #define RK3506_GRF_SOC_CON8		0x0020
-@@ -946,8 +931,6 @@ static const struct rk_gmac_ops rk3506_ops = {
- #define RK3528_GMAC1_CLK_RMII_DIV2	GRF_BIT(10)
- #define RK3528_GMAC1_CLK_RMII_DIV20	GRF_CLR_BIT(10)
+@@ -1370,8 +1364,6 @@ static const struct rk_gmac_ops rk3588_ops = {
+ /* RV1108_GRF_GMAC_CON0 */
+ #define RV1108_GMAC_FLOW_CTRL		GRF_BIT(3)
+ #define RV1108_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
+-#define RV1108_GMAC_SPEED_10M		GRF_CLR_BIT(2)
+-#define RV1108_GMAC_SPEED_100M		GRF_BIT(2)
+ #define RV1108_GMAC_RMII_CLK_25M	GRF_BIT(7)
+ #define RV1108_GMAC_RMII_CLK_2_5M	GRF_CLR_BIT(7)
  
--#define RK3528_GMAC1_CLK_RGMII(val)	GRF_FIELD_CONST(11, 10, val)
--
- #define RK3528_GMAC0_CLK_RMII_GATE	GRF_BIT(2)
- #define RK3528_GMAC0_CLK_RMII_NOGATE	GRF_CLR_BIT(2)
- #define RK3528_GMAC1_CLK_RMII_GATE	GRF_BIT(9)
-@@ -962,6 +945,7 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- 
- 	case 1:
- 		bsp_priv->clock_grf_reg = RK3528_VPU_GRF_GMAC_CON5;
-+		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(11, 10);
- 		return 0;
- 
- 	default:
-@@ -999,9 +983,6 @@ static const struct rk_reg_speed_data rk3528_gmac0_reg_speed_data = {
- };
- 
- static const struct rk_reg_speed_data rk3528_gmac1_reg_speed_data = {
--	.rgmii_10 = RK3528_GMAC1_CLK_RGMII(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3528_GMAC1_CLK_RGMII(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3528_GMAC1_CLK_RGMII(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3528_GMAC1_CLK_RMII_DIV20,
- 	.rmii_100 = RK3528_GMAC1_CLK_RMII_DIV2,
- };
-@@ -1159,8 +1140,6 @@ static const struct rk_gmac_ops rk3568_ops = {
- #define RK3576_GMAC_CLK_RMII_DIV2		GRF_BIT(5)
- #define RK3576_GMAC_CLK_RMII_DIV20		GRF_CLR_BIT(5)
- 
--#define RK3576_GMAC_CLK_RGMII(val)		GRF_FIELD_CONST(6, 5, val)
--
- #define RK3576_GMAC_CLK_RMII_GATE		GRF_BIT(4)
- #define RK3576_GMAC_CLK_RMII_NOGATE		GRF_CLR_BIT(4)
- 
-@@ -1210,9 +1189,6 @@ static void rk3576_set_to_rmii(struct rk_priv_data *bsp_priv)
+@@ -1380,8 +1372,8 @@ static void rv1108_set_to_rmii(struct rk_priv_data *bsp_priv)
  }
  
- static const struct rk_reg_speed_data rk3578_reg_speed_data = {
--	.rgmii_10 = RK3576_GMAC_CLK_RGMII(GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3576_GMAC_CLK_RGMII(GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3576_GMAC_CLK_RGMII(GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3576_GMAC_CLK_RMII_DIV20,
- 	.rmii_100 = RK3576_GMAC_CLK_RMII_DIV2,
- };
-@@ -1249,6 +1225,8 @@ static const struct rk_gmac_ops rk3576_ops = {
- 
- 	.gmac_rmii_mode_mask = BIT_U16(3),
- 
-+	.clock.gmii_clk_sel_mask = GENMASK_U16(6, 5),
-+
- 	.php_grf_required = true,
- 	.regs_valid = true,
- 	.regs = {
-@@ -1284,9 +1262,6 @@ static const struct rk_gmac_ops rk3576_ops = {
- #define RK3588_GMA_CLK_RMII_DIV2(id)		GRF_BIT(5 * (id) + 2)
- #define RK3588_GMA_CLK_RMII_DIV20(id)		GRF_CLR_BIT(5 * (id) + 2)
- 
--#define RK3588_GMAC_CLK_RGMII(id, val)		\
--	(GRF_FIELD_CONST(3, 2, val) << ((id) * 5))
--
- #define RK3588_GMAC_CLK_RMII_GATE(id)		GRF_BIT(5 * (id) + 1)
- #define RK3588_GMAC_CLK_RMII_NOGATE(id)		GRF_CLR_BIT(5 * (id) + 1)
- 
-@@ -1295,10 +1270,12 @@ static int rk3588_init(struct rk_priv_data *bsp_priv)
- 	switch (bsp_priv->id) {
- 	case 0:
- 		bsp_priv->gmac_phy_intf_sel_mask = GENMASK_U16(5, 3);
-+		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(3, 2);
- 		return 0;
- 
- 	case 1:
- 		bsp_priv->gmac_phy_intf_sel_mask = GENMASK_U16(11, 9);
-+		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(8, 7);
- 		return 0;
- 
- 	default:
-@@ -1333,17 +1310,11 @@ static void rk3588_set_to_rmii(struct rk_priv_data *bsp_priv)
- }
- 
- static const struct rk_reg_speed_data rk3588_gmac0_speed_data = {
--	.rgmii_10 = RK3588_GMAC_CLK_RGMII(0, GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3588_GMAC_CLK_RGMII(0, GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3588_GMAC_CLK_RGMII(0, GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3588_GMA_CLK_RMII_DIV20(0),
- 	.rmii_100 = RK3588_GMA_CLK_RMII_DIV2(0),
+ static const struct rk_reg_speed_data rv1108_reg_speed_data = {
+-	.rmii_10 = RV1108_GMAC_RMII_CLK_2_5M | RV1108_GMAC_SPEED_10M,
+-	.rmii_100 = RV1108_GMAC_RMII_CLK_25M | RV1108_GMAC_SPEED_100M,
++	.rmii_10 = RV1108_GMAC_RMII_CLK_2_5M,
++	.rmii_100 = RV1108_GMAC_RMII_CLK_25M,
  };
  
- static const struct rk_reg_speed_data rk3588_gmac1_speed_data = {
--	.rgmii_10 = RK3588_GMAC_CLK_RGMII(1, GMAC_CLK_DIV50_2_5M),
--	.rgmii_100 = RK3588_GMAC_CLK_RGMII(1, GMAC_CLK_DIV5_25M),
--	.rgmii_1000 = RK3588_GMAC_CLK_RGMII(1, GMAC_CLK_DIV1_125M),
- 	.rmii_10 = RK3588_GMA_CLK_RMII_DIV20(1),
- 	.rmii_100 = RK3588_GMA_CLK_RMII_DIV2(1),
+ static int rv1108_set_speed(struct rk_priv_data *bsp_priv,
+@@ -1399,6 +1391,7 @@ static const struct rk_gmac_ops rv1108_ops = {
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
+ 
+ 	.clock_grf_reg = RV1108_GRF_GMAC_CON0,
++	.clock.mac_speed_mask = BIT_U16(2),
  };
-@@ -1712,6 +1683,7 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
  
- 	/* Set the default clock control register related parameters */
- 	bsp_priv->clock_grf_reg = ops->clock_grf_reg;
-+	bsp_priv->clock = ops->clock;
- 
- 	if (ops->init) {
- 		ret = ops->init(bsp_priv);
+ #define RV1126_GRF_GMAC_CON0		0X0070
 -- 
 2.47.3
 
