@@ -2,71 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KDdzD/9Jc2mHuQAAu9opvQ
+	id UCChAgxKc2mHuQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 11:14:23 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 11:14:36 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A80AA7419A
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 11:14:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8182C741D7
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 11:14:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58906C87EDF;
-	Fri, 23 Jan 2026 10:14:22 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011060.outbound.protection.outlook.com [52.101.65.60])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 462F9C8F26B;
+	Fri, 23 Jan 2026 10:14:35 +0000 (UTC)
+Received: from OSPPR02CU001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013042.outbound.protection.outlook.com [40.107.159.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79B6BC030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 916BAC8F264
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 10:14:21 +0000 (UTC)
+ Fri, 23 Jan 2026 10:14:34 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=u0AEooozk4hMZR6x8Nv0A5GopYmjzfDostTy4eueuPkgxpRMfTDwKKpH53YnMO8Mb94IkSaHvhvg+BusBBh6Rvz5cKtFbrcU/meyHz8WWb42QFMAqdhTCsa7eYnULcLYJds8jwTBri4W8T2Lo1wKyzD9YSojVHNY2tOsaYGtc4inY4EPOWqh/6z+UpCocJDIUMasa9t4OzlOtje5b0xOxB7Ol+wFEu4xsuxPUi8qjqnCchV93Ov9qLgYw2BWeObOO3AC1TafRPvFEET0LpYwaqwQfITA9pDPYhw9pia5kT9ggGHBaG0Z+9XzSQ8YgBv8leNSClVNl4xd09XwfKhxhA==
+ b=Ey5aE+7VAoniTbCYW49hFyGriswJapvFxMMFXK0YTUfdV9wC19XXKKxPHaZw8C5ZsTxuLpasWPkVnKCvUv/ytFh8AIZDEJkBzy4CcenbC3YqzccnB2q0t1FJFS2+x2kv1+t8QfYSkt1cxjCfTZ6g+T2TXDp7hDm6lsJQxgX2dB4nE6iE11WyDRo8jhBJoYJBcKM3grvDomhhtiqUJ88NdjtZgloG17xKaiyc8MSrbp+XiwFZhB6kgkWuwfIuc0m4pFzUEnpJ19t0vg50L+AcB+8PBpEl8YviG6J3nIcjbr7wgi0EF7XfesMTgea3AuBdcyj5+4i4MYO7kTFmZy9ylg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pjRn17qTj5JIzb79hd2QW4bSxWOXcG7YBW2By7jO6Ro=;
- b=xaXEvOsrKGYC+due4bjDUyb7o+1rZY0ZC2Pey+HepmwuMu87ZOUeCq3NtdV2rd3zrTxrvgFSKE1th1IYzbAtosw5dyuc5PxbJMf/P+d/jMgcmbnKTy8TjtXIswh31i57vBM+DC76OFegmgUtNUlxDG6WRAJtMTVNtiCY4mLipCttbd0mMLnxT8+fSf9cET4lchvN/Ej+5z777O6vC2pX+2ffrfQkA2LGVrPx62gBxupNZPjwnpBnTVl0HC0Wr4YGpAJI17M5dTqMCewhxXWku9ryIk4Nyx6Fa6kX/wQzYeTyyTVbqgCZNf4vuC5s45ksO5SOKc8bPxhpRpIeC/n5fA==
+ bh=6v/PI7R1mVhQR8EuPqU7o9W3qgnM8/sNOtT1B/C6FUw=;
+ b=pGf4TD9r1wwwZ+B71k+Cc60NPkVVUhW9ii1ifVxZ8UpcDp5cItpzk123Bi+PxzjtSl+rBKULVCxew7SkPtiZky/pjQXAmqGT9ZT9D/CA42J9ltLVEpCrkpgCq8Q72esUcE5fBjBaznBVWzMkUucNJ92lvp5Bf/857173VbLTN1Rbu1KnO5M2BZvyz28S/j8FJd4oMKXnTUxonTdPK8b5SgpqYh4d/Ay5Uoz0d2hHFKW0EQslK3Itesd70Rjk2NsXWx8kLehl3ccf9h4OHFpdC/b+OQ8ImFJJzd7+XJMNbwHJKasSJ2BTzCVVrDkkVvXkzB+zVq20eG56nCOFtCNskA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=dh-electronics.com smtp.mailfrom=foss.st.com; 
+ 164.130.1.59) smtp.rcpttodomain=dh-electronics.com smtp.mailfrom=foss.st.com; 
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pjRn17qTj5JIzb79hd2QW4bSxWOXcG7YBW2By7jO6Ro=;
- b=augjAaoEUW3lkQw8N1sosV8CJwUClydgsBoHQ01TgoN/RdRk7TaoYkZMu1Nf+ZqaUUYgTIT7nNWSx7hJ8+y3E3VVtNNUrj7sAg0IHtROqzYCliYDum/8w5UHrLzaB2H0PSmF0mZszpMg3qM/SX2lSPvneBFRA85Ef1ZzqYBUTfgbQKmTtwsWAbMtyjX4W++u+3A2kPdj0j3W/OUjLANQDyrEivzLX4nVnFpSOrqXlQKQqPege/B/dVUjyz2hKGOO8ZmRvmIc4lmUDFkzIuJ9Ym1nZo4lKV/6PV6y3R4xM/IV99WnPPx+Km1HzLOXOcog3skXVZhIN7ZMIGc5a22dsQ==
-Received: from AM0P190CA0017.EURP190.PROD.OUTLOOK.COM (2603:10a6:208:190::27)
- by AM7PR10MB3939.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:171::19)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=6v/PI7R1mVhQR8EuPqU7o9W3qgnM8/sNOtT1B/C6FUw=;
+ b=iV29Z4M6I7+nnC7jtMuFd2+6jZbP+H7BLWjeq8hYr+SN/Vb6d5SNhR2NkDcoGU4T6xESoibdACrMUagwrhQ09qW5ipncvDInyg3iHpddiGbILwp+L3TrzOR30sUN88TLX1+8QjnwFXqxUMRAD9jCRVt79vO1gBlbK4Cl95qwMAx+p3G5iZq7PYlkzsIvrXj30dnugNb6AK17cS42jPvr7AbSVUJEWPyPp82uxOlqIf9vQ80LpTiTBGwpfOH+AgrOVjaGOIxlPKc6P/i0hHXOlWotq2aJhA0CvjGaQu6PX8OaskD/dK4ozYEqg+pO6HNKieZ7qQe6/gPxXrqfPWXzDA==
+Received: from DUZP191CA0056.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:4fa::14)
+ by AM9PR10MB4104.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1f2::5) with
+ Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.11; Fri, 23 Jan
- 2026 10:14:18 +0000
-Received: from AM4PEPF00027A6B.eurprd04.prod.outlook.com
- (2603:10a6:208:190:cafe::3c) by AM0P190CA0017.outlook.office365.com
- (2603:10a6:208:190::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.10 via Frontend Transport; Fri,
- 23 Jan 2026 10:14:05 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ 2026 10:14:27 +0000
+Received: from DB3PEPF0000885D.eurprd02.prod.outlook.com
+ (2603:10a6:10:4fa:cafe::4f) by DUZP191CA0056.outlook.office365.com
+ (2603:10a6:10:4fa::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.11 via Frontend Transport; Fri,
+ 23 Jan 2026 10:14:23 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM4PEPF00027A6B.mail.protection.outlook.com (10.167.16.89) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB3PEPF0000885D.mail.protection.outlook.com (10.167.242.8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Fri, 23 Jan 2026 10:14:17 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9564.3 via Frontend Transport; Fri, 23 Jan 2026 10:14:25 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 23 Jan
- 2026 11:15:27 +0100
+ 2026 11:15:38 +0100
 Received: from localhost (10.252.18.201) by STKDAG1NODE1.st.com
  (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 23 Jan
  2026 11:14:06 +0100
 From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Fri, 23 Jan 2026 11:14:05 +0100
+Date: Fri, 23 Jan 2026 11:14:06 +0100
 MIME-Version: 1.0
-Message-ID: <20260123-upstream_uboot_properties-v5-3-5167929d5af5@foss.st.com>
+Message-ID: <20260123-upstream_uboot_properties-v5-4-5167929d5af5@foss.st.com>
 References: <20260123-upstream_uboot_properties-v5-0-5167929d5af5@foss.st.com>
 In-Reply-To: <20260123-upstream_uboot_properties-v5-0-5167929d5af5@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -80,71 +80,71 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
  (10.75.128.132)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00027A6B:EE_|AM7PR10MB3939:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b8e7a83-b4b2-450a-ec30-08de5a682af5
+X-MS-TrafficTypeDiagnostic: DB3PEPF0000885D:EE_|AM9PR10MB4104:EE_
+X-MS-Office365-Filtering-Correlation-Id: f452d2b7-cb29-4429-8f61-08de5a682f6a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|376014|7416014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?cysrajAxQm9rNWpTNkNaLzE4RUNDamVQczkyamRpaGc0cmlwb0tlc2dZUHpk?=
- =?utf-8?B?VnZsY1ppVzkrQTJBeklUV2lBWE52cUo4L2k3V1BsV0pKdUhjWVdwUW5BdGNw?=
- =?utf-8?B?VEQxc1hyVCtGRWY4QWR5WjdrRlhScHpDT2Zmck8wNTMwOVhzQjlWSng0T3NM?=
- =?utf-8?B?b0FIcWlwanV3dC8rZUN0VVRnYzBXcWRCVjYyK1JzZzZ6bW1LemlvbFJxdGtO?=
- =?utf-8?B?Q2hETDhERG8rMUVlK3FYRHd6WVl4S3FuakJwZXhDOUtHNERlQlI4eERnS1FR?=
- =?utf-8?B?Y0owSDY5dmZoYjVSTk43b0RpcmVPN20zTTM3VHh6WDI2MDFrOVFlOC9XeG9T?=
- =?utf-8?B?U1V4MTV5ZnMya2hlejRreGlpK2tiZTd5dVFJNTdwUTNRdnpPM3AySzN0bHlY?=
- =?utf-8?B?VHRoZmN0b3JlaVVOb0ttMGQ3ZXZ0MUJFT1cwRis1dVQ5WFNGQTZuUk5CUElV?=
- =?utf-8?B?dDNiVVQzOTFTT1Z1ekI4ZHNHYjJWU0lCV21QSjZiWTBvVHkzTjkza2lLSVk1?=
- =?utf-8?B?ci9kK2c0U29iU0hRUEs3RXJPZFJOaitrSFRPaldVM0pOd3d5YXRSNlcvTGVV?=
- =?utf-8?B?c2RpM0hFZjhVY3orbVppY2hibmJPZlpKU3M5cXpnZmNOOStGQldBTEZOakZs?=
- =?utf-8?B?MDhtV29rR3FZVlNCakNxcHVCWGM4QURFSUVkclhKcEJQRzRsZDVaMmJRUkZm?=
- =?utf-8?B?SGhWaHhXQjB4VC9TeUF1a3FrYk1XSDFjTDZPNWFDcXpJWWRIYk94ZFd1V0pa?=
- =?utf-8?B?Slo5UURRVWFYM3NCMFoxUStULzRmeStvTWVTRXdCand5TSt5Vmtla3kvK0FN?=
- =?utf-8?B?QmhvQ05XNy9vcnczYmRkR09FWXJMbVpxNjhlTkZzNGdyeURkcThJK0ZFNWVj?=
- =?utf-8?B?TTlwTUtSUVFsNTBGeDhwdUtaRjc3MWhIQXlIOEJHc09IWHVFVGN2OG8xaGl1?=
- =?utf-8?B?eFZabGlmWFJVclZhbXBvUWx2QmxqL3lOVjh0UW9tUUtpUVZoMUFlK3JmRDI1?=
- =?utf-8?B?THhEcElNdTV5Tmo5d3VZWjFDM1RVTG9UTnR4bEVEbkJodXN4NzNlUCtRU0tx?=
- =?utf-8?B?azZlWDJ1V1RWZEZERGE1U2dTdUtLNi9RWjhlM3NmK2VyTWRrWkk2NkVoTTFi?=
- =?utf-8?B?WHFncEUwYUJJVVJXN25ZcmRYc3E5cldIUy9iem9BR0drV3R0L2VDQmtBWTlv?=
- =?utf-8?B?OWI0RkxXS1JCNmpIZXpiVWtJZll4cTJoWEhHR0E5OU12Yk1rVFJra3cvSUZJ?=
- =?utf-8?B?TlNkMEhRUUpXK1c2cmx4dEFhRjdUYnVsWjFCWHNHaEF1R1RqaWRmaWpvM3hr?=
- =?utf-8?B?eStnSWNGM0c1WVhPbm01SjNncmNad2w5K2xOQnhGUTlTSzJkZjNHbUdsTCs0?=
- =?utf-8?B?WGFsTWQvRENzckljQmxFWW1Xb3JBelcyR2dURXF5SzlvRmk1NUZhRjNHM2c2?=
- =?utf-8?B?QktSR0tleEdHVWxYNHZ1ditTOFhrdExqc1BmVjRTeHhualMybm1sMnkvYzMv?=
- =?utf-8?B?bUJWdHhRYUk3ZnluM21oTDNkRFlod1lHeVBZUUIrTUhxTmVPN0lNem1BQ2Nr?=
- =?utf-8?B?RExKTHBZNUtxZ0hMREM2Smxyc2pIRW5rSDFqbFdSbDN4bFQ1SVo3eHFyRnNn?=
- =?utf-8?B?ZlluZEpiT3IyV3BaUXhaclVJQmxqS0R6c3dvSUx0Q1lTT21iaGxKL1VzMzl2?=
- =?utf-8?B?NlVlOWJNZmJnQTJkV3pxRGY3UDJiWXpHZGluVjI3ME53NXB5RmlHQVZGT2lW?=
- =?utf-8?B?dmlHUDZtSDd5a3N4Q1ZBTjVwOHFvVWJEZVl1UFRpOWFpNTU5bzduZFl1WXVY?=
- =?utf-8?B?RHBTY0lmQldMZWlZSmx3aDMzOTQrYnZQN2hpa2IySy9OeWJmY0pTTzRSMjBs?=
- =?utf-8?B?akJQUnZDcHpUbjl2SjZWaVJZQjVXbmJ4WHBWc2loQXNNNWMxdjRob1E4M0hv?=
- =?utf-8?B?cE9LSlpkQ2kvYlVRWE15QTZWRXF3UmQ2MWpLQkdIamlWN0NqaE9aNXFHM0U1?=
- =?utf-8?B?VzFJMmUzODlia2Z0bitidDZPMEN6TGxDYllxTG1lWlJrUHA5MlM4WVlBUHA1?=
- =?utf-8?B?VXkxb2lxOThidlZFM0FNQmxCRVpXMFRwYW8zVDdmUVZ5WEp3NFlsSWVwdG9a?=
- =?utf-8?B?MHkzcWs4VG5VOHdzKzZkNDNLNjdXUUpOd3EyUmF3S1N5ek1TL21mZ1hRdmgx?=
- =?utf-8?B?cHJPYWt4N2I3SFF6RHJJamFnN2JNL0tzWTdiT1FSODVTVVJvZk0vRjdVZ3lz?=
- =?utf-8?B?MGJLRzJweGQ2SDdIdmlYV3hlSFd3PT0=?=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ ARA:13230040|82310400026|7416014|376014|1800799024|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?VHZMcEhscS9BWkp3NytCUnN4ZWFQblM0SjJmZldpRDdKLzZsd1hUQU5saDdx?=
+ =?utf-8?B?K3Y1T2d3Yk0rTnZCL1R2cGZKOThGb2c4UVFnM1k1MFZVdFpLUGR5MWh0a21w?=
+ =?utf-8?B?c3RWdkpvU1hZaldsMnoyM3hvNXF3NGRhSVJac09tV2NBVXlqNEU3VTc3d2dB?=
+ =?utf-8?B?Q2JhSkRhb3doOVhTSEZObXYxb3ZGcW5HVmgrTVVrcDBDaXF5eEl2ZVF2REI4?=
+ =?utf-8?B?WHlUOTcvbUJjSUx1VHZMa1BTMytKYk5QaFoyajJ2cVRaZmJ2cHFjM08vdzYx?=
+ =?utf-8?B?aHFjUzNQeDBaZDBaVHlYMmF6MEtGbEpYVDQ1TXFOUWVmU1NwcDdEcGNTdDlp?=
+ =?utf-8?B?RXVTZGtpcWRMeFJKeUE5NGlwMndyVHZrVWtTZkRNdWVYNnBjU2VpVnhFRnB4?=
+ =?utf-8?B?eHRMUDljUHBqVXVETHV3UmI5VE13RUdEVmJ6YUEyblk4RGxNYkdSaERHUUhV?=
+ =?utf-8?B?L1ZBRzFSYWJFK0VKM0UxNGNadGVGYUVlR2NYOUdOcnA0U2d4Y1JEYjJSRDBw?=
+ =?utf-8?B?b1NxZTVXdUgwUzdiem5obUV2OHFHZUJFUnJzMFRnRm94OExRVzB0RThmVDJ0?=
+ =?utf-8?B?U3p4VVBla3JiaGJKYW8vTXNpVmRHbSt0WkV1NEJJU3FTMVhqaTBQOGZXbVpa?=
+ =?utf-8?B?SWFlczQ3SXNnbzdEdzRhMWVVZExsTUxIeGg0OS9NMHd6WWgvNnFwNzJld2Fw?=
+ =?utf-8?B?SkxFT3NnSVc3Z1RDVmhYSUJNL2EwSTc0clROZ2RTL05lRkVNbEpRNkxoYzN3?=
+ =?utf-8?B?Tk5JTDVnVUN4dm10bURTYlVMRWl3UUJjby84Rlk3azBYTkVxcTVmRWIwZTNI?=
+ =?utf-8?B?S2FsMUx0VUNnVHNsNnNFRXFqUDV4dW5xZHN4TDFOVGJaOXpNOU5TakNGNGhh?=
+ =?utf-8?B?YSt2eU1zeTVjei8xVUZVekVXbDJmMmZSRksyYTJLTUpwMkJqbGI4cHlmalJN?=
+ =?utf-8?B?VERSc1VzNDdhN2krUjdEaFprM0lKcFR3T1NaOHZlaEtuM0VOdFNxOXI1ZTVo?=
+ =?utf-8?B?QlJGakdvYnRrY0QxdGRwcFd6SmVTYXJEMTB0Z2V5WnphRDFkR0NhejBMclBo?=
+ =?utf-8?B?MElxTHF2dkVJelY5bzVXQVJUbEJMTmJ6RXl4VlRRRDFaU3J4Qkh0THpQV1gr?=
+ =?utf-8?B?SUw5Ympxb3FVWUQ5TDhFdXVNVjlOSG5BOTg0M3lnakNQRWM4TGFNVzRMSWRr?=
+ =?utf-8?B?Y3I3bHpLdTk4QW1CaFFwbFIyUUk0cGdldFFHZjNzOUhUSklvcnhFZFpGQlFx?=
+ =?utf-8?B?ZHF1a0xGWHNHQks2eHVQenN0cEsrclA5cWhZS2tlRVFSQnU5U1BNSmNXL0Nl?=
+ =?utf-8?B?aFlIa1ZQSklLQ2hxWTY2c1haSnlWMyt3QlRCajQwbzZjd3hQU0k5R1o2alJ0?=
+ =?utf-8?B?c2g0T2dhSVFhbTZUakJRQTVMbkwzSmtaMXRvZWppbWJtTFZXa0pXYzhoTFNO?=
+ =?utf-8?B?RnV3MkJFSndEek1od1g0cjN4MGc5WTNObnU5dVpUM3FsQmhxTSszV01zSXpn?=
+ =?utf-8?B?WlBoU29EM3MzU25GV3R2WlVya0d1dEJKQU10L084RnpIN0xhUldwT3E0U25V?=
+ =?utf-8?B?UmxvOTFjSTkvZFpwYVlHT2kyT3VNQjNXQnRXS2psRE5NSWxiM0hEQ3RNYkFZ?=
+ =?utf-8?B?RHprZkNQT2N2czFCY0hOeEhwRGg2djBUMGNTZWhPNG1VNkt5ajFsSCs4WU9K?=
+ =?utf-8?B?Ti9rRVA1Ym5pcGdseHJoYXJ2WittT0gzWU01VVV6aldlbjZJaGg2b2VodjVw?=
+ =?utf-8?B?dUdGdmRmSVVwT3pxbTRldkhhVzZCa2tQeDNNR2RsZ1dWVUJqeXhjTngzVW5v?=
+ =?utf-8?B?WnV1alk1b244d01Lc2QzVmxlN1NZbUp6aVpnTVpqYlExN3NSRk1rQTNwQ0lr?=
+ =?utf-8?B?Q3BGMGdyZVIrdDVBMmVzNElpdytaUElVeUNPeVJ4bm9PL3JabHRCRGt5SGp6?=
+ =?utf-8?B?dFBLY2NOM21KYlcvdkF1RnF2em1kWkc4TnU4ZkpTUWxTWTV1MmNIZ1RBTEFK?=
+ =?utf-8?B?QzNBYkFSdnBnb2tQb2Q0TnRNTEpFOG9jb2RieitIOTJSV0RmV3oxY3U3TS9s?=
+ =?utf-8?B?YXNESi9YTE8rNkowcUlMdThja2k5bXZybURCOXROZmY2bVpCN0xLTS9ITUlP?=
+ =?utf-8?B?YnBzMG5kbDBhR1ZIUnlZV3VhbnNmbGNic2tQb3RJZys5OHRDMHhyeWdiWnlV?=
+ =?utf-8?B?THcvRkhwK0pRbm9SaVZLZ1B5SHg3N093ZGgyREg3d0lBTkFEanJidk5YMUMy?=
+ =?utf-8?B?NGkvdlFqZVlFYjVibDBRd2lrQUhBPT0=?=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(376014)(7416014); DIR:OUT;
+ SFS:(13230040)(82310400026)(7416014)(376014)(1800799024)(36860700013); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: asbhLMhgYyttAjku9ceUqI/FVwTWtD6N/dqMvI5A0VkI5HcDUYGPb+H0SziNn+RcUIfzT7vYpcHfnsf30KQkGLk7Xk3oJgxHvSBE7xHR1etqYKcbqJ03CLAK48q0CYL1SJnMGJnlanrS0NzzqH8M6mEv5NxcsXBcQCgaDWQk6jJAlNDjeSEXJ4tCFH9cPVx04B43UqDVVZhP2Ie3V79T3h8WsfJGZSaUmbZkCUScZ2FDvdTYcD21Xhr9Xmg53izjPkfpq8Xoojx5BDzj89+9shtbVQAZWSrcVtNLD0TbPiHkFgBxUuhSF6fAJrhdqdY62Laio01NyBlcp52KIgRaZVRQoXc9fFci4e4po+0INFhzYqJJ4aZAS9eX0y30rwS95QEnhGFjlQOJ9OAbTkm4ieKyRCleLKXioqjtmEiR3sy10VPYsMmdQVzXvYUvQHL2bk8P7a4XrAZ2hwNoHzEyWuDlwd+7bDnHic8/FzkgQmWo5MUr+sSmcuamQBwQUS3+BSp6xOMN96NSkFO5galIK9z9woadHpRDFNZD018Owq2HujsKHLbTemplGEnds22wm0HwkqrLzfoyal8MMFCBYgRorhioKKelp7Gjyp7oWh2HEi5smjqczOIdILmvgdTIgFN5JYsB9HUQ6/U2ZLA210hHNVx79x613WV+x4SsPKOhDbChuhs5Wu3BHvDSN/j5RlfXWpqwd4A4RvSqMHir3g==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: ipkEoszTd7vhX/Sj/Rre7fuAMeaB30Ia5TQIPbRJfE3AY+bsutQdJOWlJFw3HKA6TF7G5jwattERBW6T5W/wA7pObj+cw3DomNQEkVelTUxafxLyKmZ06hYn/bi3YoFaRQnLNxEang7XjXImkVrkYL2b7Qrxxfl18lXl9eA+jwev7IDXyyioONYv1dqG//w9sjIutQeMnCzcjtQ7jN/D8hNmhC1pVTni7QGdWafMFFUH2UnrOERDI6IlG0iK3ydFpelhkraz0yvrsGX50W4JSXcxc4FXXhxyhVNEQ8Q3Ybahw0mhRMFe0hk0cB2NILODc5tEj15BASVHZBUxZdpZYaXsdctF2DxxTT7ZC9C0a5VEWAygFxedwNztmAo0eMcoA97FeGHVycYZz9IVkpKMPxfFYGj9ZyClqxqqZ6Yw5N0kVwnUGvHJwDATd+r+XsVa8cPw4dYGSHWLxQEkHW5fMo/pU4DwVIe9kFlHSRhBW4v5YSoibA9vpND2+vDIr0X4eoZ/UddMR20YlVPs5Jxxf9F74tK6WGedAyXXnNEiSSsA9UKYTM8c4H8IPANBD9+OWl6Tmk4hjrJmCZE8k1j9vFV6jyy2x1PX7fN/j5Wt5ad051NKJBT5OrjTpwlB5irDzHrMTnOqCVPQbjUPp52Evmumw5CKQWKG5wHquP9AR3qfaKJ9SvWHGdqlkbdujIpoLkj0Y2wIM51+5bW44rzGdg==
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 10:14:17.6171 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b8e7a83-b4b2-450a-ec30-08de5a682af5
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jan 2026 10:14:25.0746 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f452d2b7-cb29-4429-8f61-08de5a682f6a
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM4PEPF00027A6B.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DB3PEPF0000885D.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3939
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR10MB4104
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 3/6] ARM: dts: stm32: Add boot phase tags
- for STMicroelectronics h7 boards
+Subject: [Linux-stm32] [PATCH v5 4/6] ARM: dts: stm32: Add boot phase tags
+ for STMicroelectronics mp13 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -167,14 +167,14 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrick.delaunay@foss.st.com,m:cniedermaier@dh-electronics.com,m:marex@denx.de,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@dh-electronics.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrick.delaunay@foss.st.com,m:cniedermaier@dh-electronics.com,m:marex@denx.de,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@dh-electronics.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
@@ -183,22 +183,23 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,0.0.0.0:email,foss.st.com:mid];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,0.0.0.19:email,0.0.0.0:email,foss.st.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st.com:email];
 	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
 	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	DBL_PROHIBIT(0.00)[0.0.0.12:email,0.0.0.58:email,0.0.0.10:email];
+	NEURAL_HAM(-0.00)[-0.997];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.996];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: A80AA7419A
+X-Rspamd-Queue-Id: 8182C741D7
 X-Rspamd-Action: no action
 
 The bootph-all flag was introduced in dt-schema
@@ -211,316 +212,104 @@ to these nodes to support SD boot.
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/arm/boot/dts/st/stm32h743i-disco.dts  | 69 ++++++++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32h743i-eval.dts   | 69 ++++++++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32h747i-disco.dts  | 69 ++++++++++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32h750i-art-pi.dts | 69 ++++++++++++++++++++++++++++++
- 4 files changed, 276 insertions(+)
+ arch/arm/boot/dts/st/stm32mp131.dtsi             |   4 +-
+ arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts |  21 ++++
+ arch/arm/boot/dts/st/stm32mp135f-dk.dts          | 101 ++++++++++++++++
+ arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi  | 145 +++++++++++++++++++----
+ 4 files changed, 247 insertions(+), 24 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32h743i-disco.dts b/arch/arm/boot/dts/st/stm32h743i-disco.dts
-index 8451a54a9a08..368035d96158 100644
---- a/arch/arm/boot/dts/st/stm32h743i-disco.dts
-+++ b/arch/arm/boot/dts/st/stm32h743i-disco.dts
-@@ -73,6 +73,59 @@ v3v3: regulator-v3v3 {
+diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+index fd730aa37c22..80c97bc830eb 100644
+--- a/arch/arm/boot/dts/st/stm32mp131.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+@@ -30,7 +30,7 @@ arm-pmu {
+ 	};
  
- &clk_hse {
- 	clock-frequency = <25000000>;
-+	bootph-all;
-+};
-+
-+&clk_lse {
-+	bootph-all;
-+};
-+
-+&clk_i2s {
-+	bootph-all;
-+};
-+
-+&gpioa {
-+	bootph-all;
-+};
-+
-+&gpiob {
-+	bootph-all;
-+};
-+
-+&gpioc {
-+	bootph-all;
-+};
-+
-+&gpiod {
-+	bootph-all;
-+};
-+
-+&gpioe {
-+	bootph-all;
-+};
-+
-+&gpiof {
-+	bootph-all;
-+};
-+
-+&gpiog {
-+	bootph-all;
-+};
-+
-+&gpioh {
-+	bootph-all;
-+};
-+
-+&gpioi {
-+	bootph-all;
-+};
-+
-+&gpioj {
-+	bootph-all;
-+};
-+
-+&gpiok {
-+	bootph-all;
- };
+ 	firmware {
+-		optee {
++		optee: optee {
+ 			method = "smc";
+ 			compatible = "linaro,optee-tz";
+ 			interrupt-parent = <&intc>;
+@@ -85,7 +85,7 @@ intc: interrupt-controller@a0021000 {
+ 		      <0xa0022000 0x2000>;
+ 	};
  
- &mac {
-@@ -92,6 +145,18 @@ phy0: ethernet-phy@0 {
+-	psci {
++	psci: psci {
+ 		compatible = "arm,psci-1.0";
+ 		method = "smc";
+ 	};
+diff --git a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
+index 9902849ed040..526ab2e1a93c 100644
+--- a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
++++ b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
+@@ -350,6 +350,21 @@ timer@12 {
  	};
  };
  
-+&pinctrl {
++&uart4 {
 +	bootph-all;
 +};
 +
-+&pwrcfg {
++&uart4_pins_b {
 +	bootph-all;
-+};
 +
-+&rcc {
-+	bootph-all;
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-@@ -104,6 +169,10 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&timer5 {
-+	bootph-all;
-+};
-+
- &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm/boot/dts/st/stm32h743i-eval.dts b/arch/arm/boot/dts/st/stm32h743i-eval.dts
-index 4b0ced27b80e..ec525411431a 100644
---- a/arch/arm/boot/dts/st/stm32h743i-eval.dts
-+++ b/arch/arm/boot/dts/st/stm32h743i-eval.dts
-@@ -99,6 +99,59 @@ adc1: adc@0 {
- 
- &clk_hse {
- 	clock-frequency = <25000000>;
-+	bootph-all;
-+};
-+
-+&clk_lse {
-+	bootph-all;
-+};
-+
-+&clk_i2s {
-+	bootph-all;
-+};
-+
-+&gpioa {
-+	bootph-all;
-+};
-+
-+&gpiob {
-+	bootph-all;
-+};
-+
-+&gpioc {
-+	bootph-all;
-+};
-+
-+&gpiod {
-+	bootph-all;
-+};
-+
-+&gpioe {
-+	bootph-all;
-+};
-+
-+&gpiof {
-+	bootph-all;
-+};
-+
-+&gpiog {
-+	bootph-all;
-+};
-+
-+&gpioh {
-+	bootph-all;
-+};
-+
-+&gpioi {
-+	bootph-all;
-+};
-+
-+&gpioj {
-+	bootph-all;
-+};
-+
-+&gpiok {
-+	bootph-all;
- };
- 
- &i2c1 {
-@@ -130,6 +183,18 @@ phy0: ethernet-phy@0 {
- 	};
- };
- 
-+&pinctrl {
-+	bootph-all;
-+};
-+
-+&pwrcfg {
-+	bootph-all;
-+};
-+
-+&rcc {
-+	bootph-all;
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_dir_pins_a>;
-@@ -144,6 +209,10 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&timer5 {
++	pins1 {
 +		bootph-all;
-+};
-+
- &usart1 {
- 	pinctrl-0 = <&usart1_pins_a>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm/boot/dts/st/stm32h747i-disco.dts b/arch/arm/boot/dts/st/stm32h747i-disco.dts
-index 99f0255dae8e..a481326ad9e6 100644
---- a/arch/arm/boot/dts/st/stm32h747i-disco.dts
-+++ b/arch/arm/boot/dts/st/stm32h747i-disco.dts
-@@ -91,6 +91,59 @@ button-5 {
- 
- &clk_hse {
- 	clock-frequency = <25000000>;
-+	bootph-all;
-+};
-+
-+&clk_lse {
-+	bootph-all;
-+};
-+
-+&clk_i2s {
-+	bootph-all;
-+};
-+
-+&gpioa {
-+	bootph-all;
-+};
-+
-+&gpiob {
-+	bootph-all;
-+};
-+
-+&gpioc {
-+	bootph-all;
-+};
-+
-+&gpiod {
-+	bootph-all;
-+};
-+
-+&gpioe {
-+	bootph-all;
-+};
-+
-+&gpiof {
-+	bootph-all;
-+};
-+
-+&gpiog {
-+	bootph-all;
-+};
-+
-+&gpioh {
-+	bootph-all;
-+};
-+
-+&gpioi {
-+	bootph-all;
-+};
-+
-+&gpioj {
-+	bootph-all;
-+};
-+
-+&gpiok {
-+	bootph-all;
- };
- 
- &mac {
-@@ -110,6 +163,18 @@ phy0: ethernet-phy@0 {
- 	};
- };
- 
-+&pinctrl {
-+	bootph-all;
-+};
-+
-+&pwrcfg {
-+	bootph-all;
-+};
-+
-+&rcc {
-+	bootph-all;
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-@@ -123,6 +188,10 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&timer5 {
++	};
++	pins2 {
 +		bootph-all;
++	};
 +};
 +
- &usart1 {
+ &usart1 { /* Expansion connector: RX:pin33 TX:pin37 */
+ 	pinctrl-names = "default", "sleep", "idle";
  	pinctrl-0 = <&usart1_pins_b>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm/boot/dts/st/stm32h750i-art-pi.dts b/arch/arm/boot/dts/st/stm32h750i-art-pi.dts
-index 56c53e262da7..8dddc70c37a1 100644
---- a/arch/arm/boot/dts/st/stm32h750i-art-pi.dts
-+++ b/arch/arm/boot/dts/st/stm32h750i-art-pi.dts
-@@ -114,6 +114,15 @@ wlan_pwr: regulator-wlan {
- 
- &clk_hse {
- 	clock-frequency = <25000000>;
-+	bootph-all;
-+};
-+
-+&clk_lse {
-+	bootph-all;
-+};
-+
-+&clk_i2s {
-+	bootph-all;
+@@ -367,6 +382,10 @@ &usart2 { /* Expansion connector: RX:pin10 TX:pin8 RTS:pin11 CTS:pin36 */
+ 	status = "okay";
  };
  
- &dma1 {
-@@ -124,6 +133,50 @@ &dma2 {
++&usbphyc {
++	bootph-all;
++};
++
+ &usbh_ehci {
+ 	phys = <&usbphyc_port0>;
  	status = "okay";
+@@ -432,6 +451,7 @@ connector {
+ 
+ /* LDO2 is expansion connector 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
+ &vdd_ldo2 {
++	bootph-all;
+ 	regulator-always-on;
+ 	regulator-boot-on;
+ 	regulator-min-microvolt = <3300000>;
+@@ -440,6 +460,7 @@ &vdd_ldo2 {
+ 
+ /* LDO5 is carrier board 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
+ &vdd_sd {
++	bootph-all;
+ 	regulator-always-on;
+ 	regulator-boot-on;
+ 	regulator-min-microvolt = <3300000>;
+diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+index 9764a6bfa5b4..83bc5ea90c3a 100644
+--- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
++++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+@@ -161,6 +161,10 @@ channel@12 {
+ 	};
+ };
+ 
++&bsec {
++	bootph-all;
++};
++
+ &crc1 {
+ 	status = "okay";
+ };
+@@ -208,6 +212,42 @@ phy0_eth1: ethernet-phy@0 {
+ 	};
  };
  
 +&gpioa {
@@ -559,47 +348,332 @@ index 56c53e262da7..8dddc70c37a1 100644
 +	bootph-all;
 +};
 +
-+&gpioj {
+ &i2c1 {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&i2c1_pins_a>;
+@@ -342,6 +382,7 @@ goodix: goodix-ts@5d {
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
 +	bootph-all;
-+};
-+
-+&gpiok {
-+	bootph-all;
-+};
-+
- &mac {
- 	status = "disabled";
- 	pinctrl-0 = <&ethernet_rmii>;
-@@ -141,6 +194,18 @@ phy0: ethernet-phy@0 {
+ 	status = "okay";
+ };
+ 
+@@ -349,6 +390,7 @@ &ltdc {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&ltdc_pins_a>;
+ 	pinctrl-1 = <&ltdc_sleep_pins_a>;
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+@@ -358,6 +400,22 @@ ltdc_out_rgb: endpoint {
  	};
  };
  
++&optee {
++	bootph-all;
++};
++
 +&pinctrl {
 +	bootph-all;
 +};
 +
-+&pwrcfg {
-+	bootph-all;
++&psci {
++	bootph-some-ram;
 +};
 +
 +&rcc {
 +	bootph-all;
 +};
 +
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-@@ -196,6 +261,10 @@ partition@0 {
+ &rtc {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&rtc_rsvd_pins_a>;
+@@ -369,6 +427,14 @@ rtc_lsco_pins_a: rtc-lsco-0 {
  	};
  };
  
-+&timer5 {
-+		bootph-all;
++&scmi {
++	bootph-all;
 +};
 +
- &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-names = "default";
++&scmi_clk {
++	bootph-all;
++};
++
+ &scmi_regu {
+ 	scmi_vdd_adc: regulator@10 {
+ 		reg = <VOLTD_SCMI_STPMIC1_LDO1>;
+@@ -392,6 +458,10 @@ scmi_v3v3_sw: regulator@19 {
+ 	};
+ };
+ 
++&scmi_reset {
++	bootph-all;
++};
++
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_clk_pins_a>;
+@@ -402,9 +472,24 @@ &sdmmc1 {
+ 	st,neg-edge;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&scmi_vdd_sd>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc1_clk_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
+ /* Wifi */
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+@@ -436,6 +521,10 @@ &spi5 {
+ 	status = "disabled";
+ };
+ 
++&syscfg {
++	bootph-all;
++};
++
+ &timers3 {
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+@@ -517,9 +606,20 @@ &uart4 {
+ 	pinctrl-2 = <&uart4_idle_pins_a>;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart8 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&uart8_pins_a>;
+@@ -583,6 +683,7 @@ usbotg_hs_ep: endpoint {
+ };
+ 
+ &usbphyc {
++	bootph-all;
+ 	status = "okay";
+ };
+ 
+diff --git a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
+index c18156807027..4efaca84a72c 100644
+--- a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
+@@ -54,6 +54,46 @@ vin: vin {
+ 	};
+ };
+ 
++&bsec {
++	bootph-all;
++};
++
++&gpioa {
++	bootph-all;
++};
++
++&gpiob {
++	bootph-all;
++};
++
++&gpioc {
++	bootph-all;
++};
++
++&gpiod {
++	bootph-all;
++};
++
++&gpioe {
++	bootph-all;
++};
++
++&gpiof {
++	bootph-all;
++};
++
++&gpiog {
++	bootph-all;
++};
++
++&gpioh {
++	bootph-all;
++};
++
++&gpioi {
++	bootph-all;
++};
++
+ &i2c3 {
+ 	i2c-scl-rising-time-ns = <96>;
+ 	i2c-scl-falling-time-ns = <3>;
+@@ -216,9 +256,18 @@ eeprom0wl: eeprom@58 {
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
++&pinctrl {
++	bootph-all;
++};
++
++&psci {
++	bootph-some-ram;
++};
++
+ &qspi {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&qspi_clk_pins_a
+@@ -229,6 +278,7 @@ &qspi_bk1_sleep_pins_a
+ 		     &qspi_cs1_sleep_pins_a>;
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
++	bootph-all;
+ 	status = "okay";
+ 
+ 	flash0: flash@0 {
+@@ -238,37 +288,35 @@ flash0: flash@0 {
+ 		spi-max-frequency = <108000000>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
++		bootph-all;
+ 	};
+ };
+ 
+-/* Console UART */
+-&uart4 {
+-	pinctrl-names = "default", "sleep", "idle";
+-	pinctrl-0 = <&uart4_pins_b>;
+-	pinctrl-1 = <&uart4_sleep_pins_b>;
+-	pinctrl-2 = <&uart4_idle_pins_b>;
+-	/delete-property/dmas;
+-	/delete-property/dma-names;
+-	status = "okay";
++&qspi_clk_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
+ };
+ 
+-/* Bluetooth */
+-&uart7 {
+-	pinctrl-names = "default", "sleep", "idle";
+-	pinctrl-0 = <&uart7_pins_a>;
+-	pinctrl-1 = <&uart7_sleep_pins_a>;
+-	pinctrl-2 = <&uart7_idle_pins_a>;
+-	uart-has-rtscts;
+-	status = "okay";
++&qspi_bk1_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
++};
+ 
+-	bluetooth {
+-		compatible = "infineon,cyw43439-bt", "brcm,bcm4329-bt";
+-		max-speed = <3000000>;
+-		device-wakeup-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
+-		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
++&qspi_cs1_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
+ 	};
+ };
+ 
++&rcc {
++	bootph-all;
++};
++
+ /* SDIO WiFi */
+ &sdmmc1 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+@@ -312,3 +360,56 @@ &sdmmc2 {
+ 	vqmmc-supply = <&vdd>;
+ 	status = "okay";
+ };
++
++&syscfg {
++	bootph-all;
++};
++
++/* Console UART */
++&uart4 {
++	pinctrl-names = "default", "sleep", "idle";
++	pinctrl-0 = <&uart4_pins_b>;
++	pinctrl-1 = <&uart4_sleep_pins_b>;
++	pinctrl-2 = <&uart4_idle_pins_b>;
++	/delete-property/dmas;
++	/delete-property/dma-names;
++	status = "okay";
++};
++
++/* Bluetooth */
++&uart7 {
++	pinctrl-names = "default", "sleep", "idle";
++	pinctrl-0 = <&uart7_pins_a>;
++	pinctrl-1 = <&uart7_sleep_pins_a>;
++	pinctrl-2 = <&uart7_idle_pins_a>;
++	uart-has-rtscts;
++	status = "okay";
++
++	bluetooth {
++		compatible = "infineon,cyw43439-bt", "brcm,bcm4329-bt";
++		max-speed = <3000000>;
++		device-wakeup-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
++		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&vdd {
++	bootph-all;
++};
++
++&vddcpu {
++	bootph-all;
++};
++
++
++&vddcore {
++	bootph-all;
++};
++
++&vdd_ddr {
++	bootph-all;
++};
++
++&vref_ddr {
++	bootph-all;
++};
 
 -- 
 2.43.0
