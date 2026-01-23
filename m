@@ -2,61 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CC7VHHzPc2kCywAAu9opvQ
+	id +BZOOS7Rc2kCywAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 20:43:56 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 20:51:10 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A1DF7A3EB
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 20:43:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE097A504
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 20:51:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1232C8F264;
-	Fri, 23 Jan 2026 19:43:55 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27517C8F264;
+	Fri, 23 Jan 2026 19:51:10 +0000 (UTC)
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 05C5BC030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F6E9C030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 19:43:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=F8X2Qe2GBeiLawBUjaVg5sWcX14l13OwMuQdvbXbuto=; b=Vi+KKTJLvBDJ5gb1XmjMzrFfkX
- OepU/znm3KgM9lIw1eqmtwwZaaIIc04+Kb5MXIY8ibH0se3h5pJYgGgOoehALiJkRZRsIouKr4gb7
- sQrYHEdDO4+llUaEt7gA4Xx4tPCXIMjC3PEVTfgD5gpy5lbkCp9fO4+EWuDZXPkY3TlU=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1vjN4M-004JUt-2V; Fri, 23 Jan 2026 20:43:46 +0100
-Date: Fri, 23 Jan 2026 20:43:46 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Bo Gan <ganboing@gmail.com>
-Message-ID: <bd202cfa-d6eb-4d0e-982d-b49795dd25f7@lunn.ch>
-References: <20260109080601.1262-1-lizhi2@eswincomputing.com>
- <20260109080859.1285-1-lizhi2@eswincomputing.com>
- <00b7b42f-2f9d-402a-82f0-21641ea894a1@lunn.ch>
- <308b676.2d03.19bb0caebed.Coremail.lizhi2@eswincomputing.com>
- <59cec617-0189-4dc3-bc3f-6346155a62ae@lunn.ch>
- <4e2a55e7.3662.19be8cb9c3c.Coremail.lizhi2@eswincomputing.com>
- <c5c0bfdb-316d-4796-afa0-f6f018ceb414@lunn.ch>
- <abf12a3f-9cdd-472d-a02e-af4da594b84f@gmail.com>
- <e6f7da45-3dec-4af6-a5b1-a72210bf24f4@kernel.org>
- <43923bf9-6202-4147-8eac-5bd7bb653fd4@gmail.com>
+ Fri, 23 Jan 2026 19:51:09 +0000 (UTC)
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-4801bc328easo29631965e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 23 Jan 2026 11:51:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1769197868; x=1769802668;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=8jNsJjXS8M5t/mEUZRdZlxrFzfCZpFMkBqFJLBshMIk=;
+ b=EdcDDxeg60ZUA6yLN3ES36WuFQHe6duzicT2vb71lvq43mOfiD+tkcuinvOTEBr/e6
+ TLfREVY4b3NC08TJeSo0KO5XabHwLUYbvv9gEab4gdvOhaaqUzul+H2docyr5FAcYWEF
+ Eh6pJLru0jFdnCqiMV92lC+sdYMAROiWv1sWeFO38t/cxEqzc4RdZcCOBEeS5bK13sWQ
+ hyZiXSeSWc51w5Bw/wcplwBLikDrqBPny+db2hxylQw57XbD51YLrfzzdkUIqS+i/D6D
+ HOlnwnJStYfe0G1i3esDBaU3eb2ZsbIvzCiJI9c0WmGs6gqwJnkumSj1IiKXYFRNHovs
+ GrAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769197868; x=1769802668;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8jNsJjXS8M5t/mEUZRdZlxrFzfCZpFMkBqFJLBshMIk=;
+ b=E9ZYxrJ6E5xXodIPjSx+Rq/jMd5zrD3hfqy1OAcPQmfVXC7KGEDXk3UxLmxuTZJ//9
+ CXoQnJ2akMTiG+8kHkvW/NgImTwVk9Lri8MVJNxEAvIBiLMu9zq1EMXQDA026BuFmeVT
+ fbz426CL5MDHm4vFlLtOc9mwFPZ6+I1hMdQUSrSkqxA1/2QaK5QVuzOQI+RrJWNlzwSK
+ Jr39pOvLGyQyFO06PaUvQLoPyQhhiM7/J2L2Jpo3Vt5kJvdtzRjlAO//Hl6wL7nHTF7N
+ WK7IVyqp7AZM7kOU0zdde8QVupeK7Vi86oqpevdpeCLUSz3lYzgsU3pb9xSYSTYVFyA4
+ tAyg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUDxY8KF+H+i4cT5wpPIWlYtpG1/0LvGd+xyvhd0GUZlHyCw66YxzVFzLFSpg2lRHylGM9HRYrSCJoR7w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwlOfR7EFlhCe4cg5gZ0fMQUkDK6xzsHjMYZS87U9yG05DCkzLP
+ jXgrtfrq8yAhw4x3BOKDDy6Yb6Ma+xo10iU4kvXgX/lfM96GgK8+2ahfZjNPOKw/8iI=
+X-Gm-Gg: AZuq6aJKtj3lxr2rVSC4Cnw6N3bhk2vwsIhzmq6B8EAPTUN8Ao4wad9ULAJ9TuOqniS
+ o+KJaYSGyMgSWugVE9lr8RhMU1IXburMlPO2U2b9pmIiu7055HGVTKPwecp4jT4pslQoCXTzS/t
+ EMm8EfIL8NjYMmQI/VnVFzgvPwi0px1GrzHSpXhAgjop/NGaoSmYS47E24G4s+1eRshfXR0qYsU
+ /11wni4kMk/hatcIGomX+iqrhB853+FfZADNr0q8ocKtJ1OsQhBPXbu+NzShuIOIeJ5U4E8W8ZA
+ vLGV+7GpqsI9cDy8RhZGQb7+uTKePDfHc//Hay+3Jtn/NK8Zi+kqMug5zHBsKSFGfpH/pASdTFg
+ 7mPhiTnYBl8TZYHn+5zRfuxRqR+yg2eaKBGjyNOmEe8829MA9WajEgsh1TnHK071juCzmbbxJoz
+ ltV72L7NUTTLmT/hP5
+X-Received: by 2002:a05:600c:5494:b0:480:1e9e:f9d with SMTP id
+ 5b1f17b1804b1-4804c94810fmr65373435e9.8.1769197868314; 
+ Fri, 23 Jan 2026 11:51:08 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4804d8a5c32sm94300895e9.11.2026.01.23.11.51.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 23 Jan 2026 11:51:07 -0800 (PST)
+Date: Fri, 23 Jan 2026 22:51:04 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Chester Lin <chester62515@gmail.com>
+Message-ID: <cover.1769195864.git.dan.carpenter@linaro.org>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <43923bf9-6202-4147-8eac-5bd7bb653fd4@gmail.com>
-Cc: =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- weishangjuan@eswincomputing.com, ningyu@eswincomputing.com,
- Krzysztof Kozlowski <krzk@kernel.org>, kuba@kernel.org, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, rmk+kernel@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, edumazet@google.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH v1 1/2] dt-bindings: ethernet: eswin: add
- clock sampling control
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Frank Li <Frank.li@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linaro-s32@linaro.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Matthias Brugger <mbrugger@suse.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH v4 0/3] s32g: Use a syscon for GPR
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,86 +103,164 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
+	R_DKIM_REJECT(1.00)[linaro.org:s=google];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FORGED_RECIPIENTS(0.00)[m:ganboing@gmail.com,m:lizhi2@eswincomputing.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:ningyu@eswincomputing.com,m:krzk@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:rmk+kernel@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:chester62515@gmail.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:Frank.li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:linaro-s32@linaro.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:jan.petrous@oss.nxp.com,m:linux-arm-kernel@lists.infradead.org,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[dan.carpenter@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[lunn.ch:-];
+	DKIM_TRACE(0.00)[linaro.org:-];
+	RCPT_COUNT_TWELVE(0.00)[26];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.457];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[eswincomputing.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,armlinux.org.uk,lists.infradead.org,einfochips.com,google.com,lunn.ch,gmail.com,davemloft.net];
+	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,linaro.org,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	NEURAL_SPAM(0.00)[0.846];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 0A1DF7A3EB
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: 7FE097A504
 X-Rspamd-Action: no action
 
-On Fri, Jan 23, 2026 at 02:47:18AM -0800, Bo Gan wrote:
-> Hi Krzysztof,
-> 
-> On 1/23/26 02:07, Krzysztof Kozlowski wrote:
-> > On 23/01/2026 08:39, Bo Gan wrote:
-> > > > I assume the address of the interface is fixed. So you can just key
-> > > > off that to distinguish the two instances.
-> > > > 
-> > > > Since this is an internal property, not a board property, it is not
-> > > > clear it actually belongs on DT.
-> > > > 
-> > > >       Andrew
-> > > 
-> > > IMO, they should be in DT to provide maximum flexibility. The SoC .dtsi
-> > 
-> > This is not the purpose of DT. Please rather use arguments in terms of
-> > DT rules (see docs, presentations).
-> > 
-> Any examples? links? Thank you for your patience.
-> 
-> I'd say if the board .dts never overrides the eswin,rx-clk-invert, (E.g.,
-> the SoC .dtsi has rx-clk-invert, later the board /delete-property/'s it)
-> then yes, it can be treated as something inherent to the mac, and then
-> "use arguments in terms of DT rules". I was thinking about use cases like:
-> https://lore.kernel.org/all/20230714104521.18751-3-samin.guo@starfivetech.com/
+The s32g devices have a GPR register region which holds a number of
+miscellaneous registers.  Currently only the stmmac/dwmac-s32.c uses
+anything from there and we just add a line to the device tree to
+access that GMAC_0_CTRL_STS register:
 
-Your device should be compliant with the RGMII standard by
-default. There should not be a DT property to ask it nicely to follow
-the standard.
+                        reg = <0x4033c000 0x2000>, /* gmac IP */
+                              <0x4007c004 0x4>;    /* GMAC_0_CTRL_STS */
 
-Properties like
+I have included the whole list of registers below.
 
-motorcomm,tx-clk-adj-enabled;
-motorcomm,tx-clk-100-inverted;
-motorcomm,tx-clk-1000-inverted;
+We still have to maintain backwards compatibility to this format,
+of course, but it would be better to access these registers through a
+syscon.  Putting all the registers together is more organized and shows
+how the hardware actually is implemented.
 
-are for broken boards which break the standard and require the MAC do
-also break the standard so that everything works. We should not start
-out with the assumption you need to support broken boards which ignore
-the standard.
+Secondly, in some versions of this chipset those registers can only be
+accessed via SCMI.  It's relatively straight forward to handle this
+by writing a syscon driver and registering it with of_syscon_register_regmap()
+but it's complicated to deal with if the registers aren't grouped
+together.
 
-       Andrew
+Changes since v3:
+* Fix the yaml file format
+* Add netdev to the CC list on all emails so the CI triggers
+
+Changes since v2:
+* Improve the documentation in .../bindings/net/nxp,s32-dwmac.yaml
+* "[PATCH v2 2/4] dt-bindings: mfd: syscon: Document the GPR syscon
+  for the NXP S32 SoCs" was applied so drop it.
+
+Changes since v1:
+* Add imx@lists.linux.dev to the CC list.
+* Fix forward porting bug.  s/PHY_INTF_SEL_RGMII/S32_PHY_INTF_SEL_RGMII/
+* Use the correct SoC names nxp,s32g2-gpr and nxp,s32g3-gpr instead of
+  nxp,s32g-gpr which is the SoC family.
+* Fix the phandle name by adding the vendor prefix
+* Fix the documentation for the phandle
+* Remove #address-cells and #size-cells from the syscon block
+
+Here is the whole list of registers in the GPR region
+
+Starting from 0x4007C000
+
+0  Software-Triggered Faults (SW_NCF)
+4  GMAC Control (GMAC_0_CTRL_STS)
+28 CMU Status 1 (CMU_STATUS_REG1)
+2C CMUs Status 2 (CMU_STATUS_REG2)
+30 FCCU EOUT Override Clear (FCCU_EOUT_OVERRIDE_CLEAR_REG)
+38 SRC POR Control (SRC_POR_CTRL_REG)
+54 GPR21 (GPR21)
+5C GPR23 (GPR23)
+60 GPR24 Register (GPR24)
+CC Debug Control (DEBUG_CONTROL)
+F0 Timestamp Control (TIMESTAMP_CONTROL_REGISTER)
+F4 FlexRay OS Tick Input Select (FLEXRAY_OS_TICK_INPUT_SELECT_REG)
+FC GPR63 Register (GPR63)
+
+Starting from 0x4007CA00
+
+0  Coherency Enable for PFE Ports (PFE_COH_EN)
+4  PFE EMAC Interface Mode (PFE_EMACX_INTF_SEL)
+20 PFE EMACX Power Control (PFE_PWR_CTRL)
+28 Error Injection on Cortex-M7 AHB and AXI Pipe (CM7_TCM_AHB_SLICE)
+2C Error Injection AHBP Gasket Cortex-M7 (ERROR_INJECTION_AHBP_GASKET_CM7)
+40 LLCE Subsystem Status (LLCE_STAT)
+44 LLCE Power Control (LLCE_CTRL)
+48 DDR Urgent Control (DDR_URGENT_CTRL)
+4C FTM Global Load Control (FLXTIM_CTRL)
+50 FTM LDOK Status (FLXTIM_STAT)
+54 Top CMU Status (CMU_STAT)
+58 Accelerator NoC No Pending Trans Status (NOC_NOPEND_TRANS)
+90 SerDes RD/WD Toggle Control (PCIE_TOGGLE)
+94 SerDes Toggle Done Status (PCIE_TOGGLEDONE_STAT)
+E0 Generic Control 0 (GENCTRL0)
+E4 Generic Control 1 (GENCTRL1)
+F0 Generic Status 0 (GENSTAT0)
+FC Cortex-M7 AXI Parity Error and AHBP Gasket Error Alarm (CM7_AXI_AHBP_GASKET_ERROR_ALARM)
+
+Starting from 4007C800
+
+4  GPR01 Register (GPR01)
+30 GPR12 Register (GPR12)
+58 GPR22 Register (GPR22)
+70 GPR28 Register (GPR28)
+74 GPR29 Register (GPR29)
+
+Starting from 4007CB00
+
+4 WKUP Pad Pullup/Pulldown Select (WKUP_PUS)
+
+Dan Carpenter (3):
+  net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
+  dt-bindings: net: nxp,s32-dwmac: Use the GPR syscon
+  dts: s32g: Add GPR syscon region
+
+ .../bindings/net/nxp,s32-dwmac.yaml           | 12 ++++++++++
+ arch/arm64/boot/dts/freescale/s32g2.dtsi      |  6 +++++
+ arch/arm64/boot/dts/freescale/s32g3.dtsi      |  6 +++++
+ .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 23 +++++++++++++++----
+ 4 files changed, 42 insertions(+), 5 deletions(-)
+
+-- 
+2.51.0
+*** BLURB HERE ***
+
+Dan Carpenter (3):
+  net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
+  dt-bindings: net: nxp,s32-dwmac: Use the GPR syscon
+  dts: s32g: Add GPR syscon region
+
+ .../bindings/net/nxp,s32-dwmac.yaml           | 13 +++++++++++
+ arch/arm64/boot/dts/freescale/s32g2.dtsi      |  6 +++++
+ arch/arm64/boot/dts/freescale/s32g3.dtsi      |  6 +++++
+ .../net/ethernet/stmicro/stmmac/dwmac-s32.c   | 23 +++++++++++++++----
+ 4 files changed, 43 insertions(+), 5 deletions(-)
+
+-- 
+2.51.0
 
 _______________________________________________
 Linux-stm32 mailing list
