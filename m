@@ -2,58 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WI3DBn1Vc2kDuwAAu9opvQ
+	id wMX0DONXc2nruwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:03:25 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:13:39 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FC3674C13
-	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:03:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A469D74DD7
+	for <lists+linux-stm32@lfdr.de>; Fri, 23 Jan 2026 12:13:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 630AAC8F26A;
-	Fri, 23 Jan 2026 11:03:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47526C8F264;
+	Fri, 23 Jan 2026 11:13:38 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AC945C8F264
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD8C3C87EDF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 23 Jan 2026 11:03:22 +0000 (UTC)
+ Fri, 23 Jan 2026 11:13:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3vbOcszqA5Hufjdy8TMCsw0OsErRSBDMsgH/AbrRhjY=; b=mctqiiGGN8WR5x1MAnPYxzVOrB
- hW/YNnc4+XsqzbSjcux3yWUSkWbrcV89QTkMfoUzcGw4uKE3c9ZyEE+zcwU8CJI6HNLipjvR+MZME
- NwFANr6Ocw1GWk+idpJmjFUBg0MHJa7kVbZ1L6DS67liOjlrsJCLOh0ETHSyHBnVQHCwoN+9pqm9v
- U9+hgr0TByN7XR8nS+ip30jhH2e4hAf4rJUF+gGhYRsmRPYlOqJqZhGjgnePGibL9j2SXs20J2Uip
- emZT6Lmwjj3r+yM2pcs7XZ5+kMKiJ2RhZ//syit5ACxyFD6tunNJU8r/5JfiVs/3J0BaDlP1XP0Ws
- 7ZtzbRJw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:55782 helo=rmk-PC.armlinux.org.uk)
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=rW6hIs7kbRE6sqC+VHhb8yfuCQxkSIbxM4EYUPiSqtQ=; b=zlxp6bbSAdrUvEEckC6IDgQkwS
+ smUH7veqqcf/A7ifQVrNarkgkN6fyrAyh3Wv9wXroHnUW1bGNyYswwd5gBGipBhCXXr/rouJDvOMn
+ e8L4drbydog/ojOmYaOIufuu3h8sPcPxTRcvhK9TtkuzOJ381J8hnTW+JNGn1KuSw3e98I4p+y/2q
+ tRG88KVUkDCOeiLMp26CFEdZDCOEUx303vTo87F9X9yacUkoK5+gEuN6C0dMaUzZtvaKhvvHxAwoT
+ zh/oFMfJltVh8yijjuPpiNLrclGxwHjLL1AqiNQzC0u9QkaGSpJN7zV7MFB8hLR1LsaU++zvruHgs
+ urysKlsA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39500)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vjEvV-000000001sJ-42NE;
- Fri, 23 Jan 2026 11:02:06 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vjEvV-00000005ghc-0ZkO; Fri, 23 Jan 2026 11:02:05 +0000
-In-Reply-To: <aXNUlVZilT-CTgph@shell.armlinux.org.uk>
-References: <aXNUlVZilT-CTgph@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+ (envelope-from <linux@armlinux.org.uk>) id 1vjF6X-000000001uQ-3Rne;
+ Fri, 23 Jan 2026 11:13:29 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vjF6V-0000000022q-0aE9; Fri, 23 Jan 2026 11:13:27 +0000
+Date: Fri, 23 Jan 2026 11:13:26 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <aXNX1oi7nWLcPK28@shell.armlinux.org.uk>
+References: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vjEvV-00000005ghc-0ZkO@rmk-PC.armlinux.org.uk>
-Date: Fri, 23 Jan 2026 11:02:05 +0000
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+In-Reply-To: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, linux-phy@lists.infradead.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 21/21] net: stmmac: rk: rk3506,
- rk3528 and kk3588 have rmii_mode in clock register
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/14] net: stmmac: SerDes, PCS,
+ BASE-X, and inband goodies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,235 +79,148 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[kernel];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:konrad.dybcio@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:mohd.anwar@oss.qualcomm.com,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[15];
 	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	NEURAL_SPAM(0.00)[0.006];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	NEURAL_SPAM(0.00)[0.193];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 9FC3674C13
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,stormreply.com:url,stormreply.com:email,shell.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: A469D74DD7
 X-Rspamd-Action: no action
 
-rk3506, rk3528 and rk3588 have the rmii_mode bit in the clock GRF
-register rather than the gmac GRF register. Provide a mask for this
-field in the clock register, and convert these SoCs to use this.
-Add the necessary code in rk_gmac_powerup() to write this field.
+According to patchwork, this doesn't apply to net-next. That's odd,
+it was generated on last night's net next, and although there has been
+further work, it rebases cleanly on top of this morning's. How can
+these changes:
 
-This allows us to get rid of these SoCs set_to_rmii() function. As
-such, we need to mark these SoCs as supporting RMII mode.
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c   |  6 +++++-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++++++++----
+ 2 files changed, 21 insertions(+), 5 deletions(-)
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 62 +++++++------------
- 1 file changed, 22 insertions(+), 40 deletions(-)
+which happened in net-next overnight result in this change in patch 1:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index ebbc09ea572a..759deb66ef2a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -38,6 +38,7 @@ struct rk_clock_fields {
- 	u16 gmii_clk_sel_mask;
- 	u16 rmii_clk_sel_mask;
- 	u16 rmii_gate_en_mask;
-+	u16 rmii_mode_mask;
- 	u16 mac_speed_mask;
- };
- 
-@@ -695,21 +696,15 @@ static int rk3506_init(struct rk_priv_data *bsp_priv)
- 	}
- }
- 
--static void rk3506_set_to_rmii(struct rk_priv_data *bsp_priv)
--{
--	unsigned int id = bsp_priv->id, offset;
--
--	offset = (id == 1) ? RK3506_GRF_SOC_CON11 : RK3506_GRF_SOC_CON8;
--	regmap_write(bsp_priv->grf, offset, RK3506_GMAC_RMII_MODE);
--}
--
- static const struct rk_gmac_ops rk3506_ops = {
- 	.init = rk3506_init,
--	.set_to_rmii = rk3506_set_to_rmii,
- 
- 	.clock.io_clksel_io_mask = BIT_U16(5),
- 	.clock.rmii_clk_sel_mask = BIT_U16(3),
- 	.clock.rmii_gate_en_mask = BIT_U16(2),
-+	.clock.rmii_mode_mask = BIT_U16(1),
-+
-+	.supports_rmii = true,
- 
- 	.regs_valid = true,
- 	.regs = {
-@@ -733,10 +728,6 @@ static const struct rk_gmac_ops rk3506_ops = {
- #define RK3528_GMAC_CLK_RX_DL_CFG(val)	GRF_FIELD(15, 8, val)
- #define RK3528_GMAC_CLK_TX_DL_CFG(val)	GRF_FIELD(7, 0, val)
- 
--#define RK3528_GMAC0_PHY_INTF_SEL_RMII	GRF_BIT(1)
--#define RK3528_GMAC1_PHY_INTF_SEL_RGMII	GRF_CLR_BIT(8)
--#define RK3528_GMAC1_PHY_INTF_SEL_RMII	GRF_BIT(8)
--
- static int rk3528_init(struct rk_priv_data *bsp_priv)
- {
- 	switch (bsp_priv->id) {
-@@ -744,6 +735,7 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock_grf_reg = RK3528_VO_GRF_GMAC_CON;
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(3);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(2);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(1);
- 		bsp_priv->supports_rgmii = false;
- 		return 0;
- 
-@@ -753,6 +745,7 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(11, 10);
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(10);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(9);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(8);
- 		return 0;
- 
- 	default:
-@@ -763,9 +756,6 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- static void rk3528_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
--	regmap_write(bsp_priv->grf, RK3528_VPU_GRF_GMAC_CON5,
--		     RK3528_GMAC1_PHY_INTF_SEL_RGMII);
--
- 	regmap_write(bsp_priv->grf, RK3528_VPU_GRF_GMAC_CON5,
- 		     DELAY_ENABLE(RK3528, tx_delay, rx_delay));
- 
-@@ -774,16 +764,6 @@ static void rk3528_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 		     RK3528_GMAC_CLK_TX_DL_CFG(tx_delay));
- }
- 
--static void rk3528_set_to_rmii(struct rk_priv_data *bsp_priv)
--{
--	if (bsp_priv->id == 1)
--		regmap_write(bsp_priv->grf, RK3528_VPU_GRF_GMAC_CON5,
--			     RK3528_GMAC1_PHY_INTF_SEL_RMII);
--	else
--		regmap_write(bsp_priv->grf, RK3528_VO_GRF_GMAC_CON,
--			     RK3528_GMAC0_PHY_INTF_SEL_RMII);
--}
--
- static void rk3528_integrated_phy_powerup(struct rk_priv_data *bsp_priv)
- {
- 	rk_gmac_integrated_fephy_powerup(bsp_priv, RK3528_VO_GRF_MACPHY_CON0);
-@@ -797,9 +777,11 @@ static void rk3528_integrated_phy_powerdown(struct rk_priv_data *bsp_priv)
- static const struct rk_gmac_ops rk3528_ops = {
- 	.init = rk3528_init,
- 	.set_to_rgmii = rk3528_set_to_rgmii,
--	.set_to_rmii = rk3528_set_to_rmii,
- 	.integrated_phy_powerup = rk3528_integrated_phy_powerup,
- 	.integrated_phy_powerdown = rk3528_integrated_phy_powerdown,
-+
-+	.supports_rmii = true,
-+
- 	.regs_valid = true,
- 	.regs = {
- 		0xffbd0000, /* gmac0 */
-@@ -975,9 +957,6 @@ static const struct rk_gmac_ops rk3576_ops = {
- #define RK3588_GRF_GMAC_CON0			0X0008
- #define RK3588_GRF_CLK_CON1			0X0070
- 
--#define RK3588_GMAC_CLK_RMII_MODE(id)		GRF_BIT(5 * (id))
--#define RK3588_GMAC_CLK_RGMII_MODE(id)		GRF_CLR_BIT(5 * (id))
--
- static int rk3588_init(struct rk_priv_data *bsp_priv)
- {
- 	switch (bsp_priv->id) {
-@@ -987,6 +966,7 @@ static int rk3588_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(3, 2);
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(2);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(1);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(0);
- 		return 0;
- 
- 	case 1:
-@@ -995,6 +975,7 @@ static int rk3588_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(8, 7);
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(7);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(6);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(5);
- 		return 0;
- 
- 	default:
-@@ -1010,9 +991,6 @@ static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 	offset_con = bsp_priv->id == 1 ? RK3588_GRF_GMAC_CON9 :
- 					 RK3588_GRF_GMAC_CON8;
- 
--	regmap_write(bsp_priv->php_grf, RK3588_GRF_CLK_CON1,
--		     RK3588_GMAC_CLK_RGMII_MODE(id));
--
- 	regmap_write(bsp_priv->grf, RK3588_GRF_GMAC_CON7,
- 		     RK3588_GMAC_RXCLK_DLY_ENABLE(id) |
- 		     RK3588_GMAC_TXCLK_DLY_ENABLE(id));
-@@ -1022,22 +1000,17 @@ static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 		     RK3588_GMAC_CLK_TX_DL_CFG(tx_delay));
- }
- 
--static void rk3588_set_to_rmii(struct rk_priv_data *bsp_priv)
--{
--	regmap_write(bsp_priv->php_grf, RK3588_GRF_CLK_CON1,
--		     RK3588_GMAC_CLK_RMII_MODE(bsp_priv->id));
--}
--
- static const struct rk_gmac_ops rk3588_ops = {
- 	.init = rk3588_init,
- 	.set_to_rgmii = rk3588_set_to_rgmii,
--	.set_to_rmii = rk3588_set_to_rmii,
- 
- 	.gmac_grf_reg = RK3588_GRF_GMAC_CON0,
- 
- 	.clock_grf_reg_in_php = true,
- 	.clock_grf_reg = RK3588_GRF_CLK_CON1,
- 
-+	.supports_rmii = true,
-+
- 	.php_grf_required = true,
- 	.regs_valid = true,
- 	.regs = {
-@@ -1412,6 +1385,15 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
- 			return ret;
- 	}
- 
-+	if (bsp_priv->clock.rmii_mode_mask) {
-+		val = rk_encode_wm16(ret == PHY_INTF_SEL_RMII,
-+				     bsp_priv->clock.rmii_mode_mask);
-+
-+		ret = rk_write_clock_grf_reg(bsp_priv, val);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	/*rmii or rgmii*/
- 	switch (bsp_priv->phy_iface) {
- 	case PHY_INTERFACE_MODE_RGMII:
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 3 ---
+ 1 file changed, 3 deletions(-)
+
+failing to apply?
+
+No, patchwork is clearly wrong.
+
+On Fri, Jan 23, 2026 at 09:52:00AM +0000, Russell King (Oracle) wrote:
+> This is the v1 submission: if it doesn't get tested but review goes
+> well, it'll end up in net-next and mainline without testing on the
+> affected hardware!
+> 
+> Mentioned previously, I've been trying to sort out the PCS support in
+> stmmac, and this series represents the current state of play.
+> 
+> Previous posted patches centred around merely getting autonegotiation
+> to be configured correctly, to a point where the manual configuration
+> can be removed from the qcom-ethqos driver. The qcom-ethqos driver
+> uses both SGMII and 2500BASE-X, manually configuring the dwmac's
+> integrated PCS appropriately.
+> 
+> This *untested* series attempts to take this further. The patches:
+> 
+> - clean up qcom-ethqos only-written mac_base member.
+> - convert qcom-ethqos to use the set_clk_tx_rate() method for setting
+>   the link clock rate.
+> - add support for phy_set_mode_ext() to the qcom "SGMII" ethernet
+>   SerDes driver (which is really only what it needs. Note that
+>   phy_set_mode_ext() is an expected call to be made, where as
+>   phy_set_speed() is optional and not. See PHY documentation.)
+> - add platform-glue independent SerDes support to the stmmac core
+>   driver. Currently, only qcom-ethqos will make use of this, and
+>   I suspect as we haven't had this, it's going to be difficult to
+>   convert other platform glue to use this - but had this existed
+>   earlier, we could've pushed people to use PHY to abstract some
+>   of the platform glue differences. Adding it now makes it available
+>   for future platform glue.
+> - convert qcom-ethqos to use this core SerDes support.
+> - arrange for stmmac_pcs.c to supply the phy_intf_sel field value
+>   if the integrated PCS will be used. (PHY_INTF_SEL_SGMII requires
+>   the integrated PCS rather than an external PCS.)
+> - add BASE-X support to the integrated PCS driver, and use it for
+>   BASE-X modes. This fully supports in-band mode, including reading
+>   the link partner advertisement.
+> - add in-band support for SGMII, reading the state from the RGSMII
+>   status field.
+> 
+> As we leave qcom-ethqos' manual configuration of the PCS in place at
+> the moment, the last patch adds reporting of any changes in its
+> configuration that the qcom-ethqos driver does beyond what phylink
+> requested, thus providing a path to debug and eventually remove
+> qcom-ethqos' manual configuration.
+> 
+> One patch is not included in this set - which adds a phy_intf_sel
+> value for external PCS (using PHY_INTF_SEL_GMII_MII). I believe all
+> external PCS use this mode when connected to a MAC capable of up to
+> 2.5G. However, no platform glue that provides the mac_select_pcs()
+> method also provide the set_phy_intf_sel() method, so we can safely
+> ignore this for now.
+> 
+> I would like to get this into net-next before the next merge window,
+> so testing would be appreciated. If there are issues with these patches
+> applied, please check whether the issue exists without these patches
+> and only report regressions caused by this patch set. For example,
+> I'm aware that qcom-ethqos has issues with 10Mbps mode due to an AQR
+> PHY being insanely provisioned to use SGMII in 1000M mode but with
+> rate matching with 10M media. This is not an issue that is relevant
+> to this patch series, but a problem with the PHY provisioning.
+> 
+> rfc->v1:
+>  - fix SGMII link status
+>  - avoid calling phy_get_mode() if PHY is null
+> v2:
+>  - fix further AI review bot dribble that could've been raised on
+>    the rfc version but wasn't.
+>  
+>  drivers/net/ethernet/stmicro/stmmac/Makefile       |   2 +-
+>  drivers/net/ethernet/stmicro/stmmac/common.h       |   1 -
+>  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    |  74 ++-----
+>  drivers/net/ethernet/stmicro/stmmac/dwmac1000.h    |  12 +-
+>  .../net/ethernet/stmicro/stmmac/dwmac1000_core.c   |  11 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4.h       |  10 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c  |  10 +-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  |  69 +++++--
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 222 +++++++++++++++++++--
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   |  53 ++---
+>  .../net/ethernet/stmicro/stmmac/stmmac_serdes.c    | 111 +++++++++++
+>  .../net/ethernet/stmicro/stmmac/stmmac_serdes.h    |  16 ++
+>  drivers/phy/qualcomm/phy-qcom-sgmii-eth.c          |  43 ++++
+>  include/linux/stmmac.h                             |   2 +
+>  14 files changed, 491 insertions(+), 145 deletions(-)
+> 
+> -- 
+> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> 
+
 -- 
-2.47.3
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
