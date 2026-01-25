@@ -2,56 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 67KfMnWXdmnoSgEAu9opvQ
+	id oJ4rInWXdmniSgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A87AD82ABC
-	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E751E82A9E
+	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5ADC7C87EDB;
-	Sun, 25 Jan 2026 22:14:11 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5980C87EDC;
+	Sun, 25 Jan 2026 22:16:29 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A97AC87ED5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E0DAC87ED5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Jan 2026 22:14:09 +0000 (UTC)
+ Sun, 25 Jan 2026 22:16:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 321A4600C3;
- Sun, 25 Jan 2026 22:14:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED55EC4CEF1;
- Sun, 25 Jan 2026 22:14:06 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CBA1442A5C;
+ Sun, 25 Jan 2026 22:16:27 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25263C4CEF1;
+ Sun, 25 Jan 2026 22:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769379247;
- bh=iZlQMjT87MAKVDpNXN3PnkGFzV2iu5aW29TTIBiz4LU=;
+ s=k20201202; t=1769379387;
+ bh=IXmYEQa3v2AXOgV7ZGc0qQyUfP6Kstj5GKYZ3gYVCpA=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=J6akJgre43BvTHV/oVpuun6heVrwS1teSyBWH6FuCNcPiuDiEFO1PgpjDWyLdqP8N
- QOsluSCZROsPBl5eVixeH74A1gNrAVod6jue+z9olPAMdcM6v7L2iSrq5h1cH8v+52
- 6XUIosoZiM4ohYRhYXi2143dPv+iUUh2syQRhIbAJx5NOkLnNCVfklF1UNtAqQ50kS
- D6bIljup//yXFN3doJv8I4aRgDuvNMdEjZJKQ8s4WFqcLSzfu59UkUrrqWYXtIuQtr
- SMQP64HzuOLGlgr2mhNknQFPUmOw+okgeif9F50vg+UrLJCvKw8pS3r53domFjqAI4
- x9N3q6FO5pbdA==
+ b=lO3FJpY9D/lRWbrbZt5lKv/9RNiUf0XAQ1CTBQnkGmRGICX0fbqjXxP3cx+iV41YZ
+ 2utOyn6n0/g5qTZkOhbkLhGHcfrXFbMoL+AcVvrF+yrLOepU0BHU1RdYBGxG4+uaGs
+ ZHDv1uNdNkK1PTXcronHbCVGe6m2jf5qYi78kqwd2QX6moWWnHHXRyDxQDrun7kcJ6
+ idTmkGO0oedSkBaAqDsnZKbNbYUU1hgU/2z7LhEoa9FlY+ICoSDW4ky8q2I0jGC1Fa
+ 7t3qMbx8v/CBRxOGNIbP9l8+3LZeaXMk+1krgyH8on91VQj7ChHyv5ktPAGVI6Lbpg
+ aE2Hkpc3PV+nA==
 From: Jakub Kicinski <kuba@kernel.org>
-To: jan.petrous@oss.nxp.com
-Date: Sun, 25 Jan 2026 14:14:05 -0800
-Message-ID: <20260125221405.3395497-1-kuba@kernel.org>
+To: rmk+kernel@armlinux.org.uk
+Date: Sun, 25 Jan 2026 14:16:25 -0800
+Message-ID: <20260125221625.3396113-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260123-dwmac_multi_irq-v3-4-cc53f2be8961@oss.nxp.com>
-References: <20260123-dwmac_multi_irq-v3-4-cc53f2be8961@oss.nxp.com>
+In-Reply-To: <E1vjEu1-00000005gfq-05H8@rmk-PC.armlinux.org.uk>
+References: <E1vjEu1-00000005gfq-05H8@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-Cc: imx@lists.linux.dev, s32@nxp.com, edumazet@google.com,
- ghennadi.procopciuc@oss.nxp.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com,
- s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
- chester62515@gmail.com, mbrugger@suse.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, kernel@pengutronix.de,
- krzk+dt@kernel.org, shawnguo@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [v3,
-	4/4] stmmac: s32: enable support for Multi-IRQ mode
+Cc: andrew@lunn.ch, heiko@sntech.de, linux-rockchip@lists.infradead.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, Jakub Kicinski <kuba@kernel.org>,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [net-next,
+	03/21] net: stmmac: rk: convert rk3328 to use bsp_priv->id
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,40 +64,39 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.79 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	MID_CONTAINS_FROM(1.00)[];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jan.petrous@oss.nxp.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	GREYLIST(0.00)[pass,body];
-	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.957];
+	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:url,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: A87AD82ABC
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,linux.dev:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: E751E82A9E
 X-Rspamd-Action: no action
 
 This is an AI-generated review of your patch. The human sending this
@@ -110,45 +104,120 @@ email has considered the AI review valid, or at least plausible.
 
 For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
 ---
-stmmac: s32: enable support for Multi-IRQ mode
+net: stmmac: rk: convert to mask-based interface mode configuration
 
-This patch enables Multi-IRQ mode for the S32 DWMAC driver when both
-multi-queue and per-queue IRQs are configured. The driver now selects
-between Multi-IRQ and MAC IRQ modes based on device tree configuration.
+This commit converts many Rockchip GMAC implementations to use a new
+centralized mask-based infrastructure for configuring PHY interface
+mode. The PHY_INTF_SEL and RMII mode configuration is moved from
+individual set_to_rgmii()/set_to_rmii() functions to rk_gmac_powerup().
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> index 5a485ee98fa7..342091045714 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index 4117f6863ff0..48fc5b58092f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 
 [ ... ]
 
-> @@ -149,6 +149,16 @@ static int s32_dwmac_probe(struct platform_device *pdev)
->  	plat->core_type = DWMAC_CORE_GMAC4;
->  	plat->pmt = 1;
->  	plat->flags |= STMMAC_FLAG_SPH_DISABLE;
+> @@ -1198,9 +1225,6 @@ static const struct rk_gmac_ops rk3576_ops = {
+>  #define RK3588_GRF_GMAC_CON0			0X0008
+>  #define RK3588_GRF_CLK_CON1			0X0070
+
+The comment above this definition says "/* php_grf */" indicating that
+RK3588_GRF_GMAC_CON0 is in the php_grf address space.
+
+> -#define RK3588_GMAC_PHY_INTF_SEL(id, val)	\
+> -	(GRF_FIELD(5, 3, val) << ((id) * 6))
+> -
+
+[ ... ]
+
+> +static int rk3588_init(struct rk_priv_data *bsp_priv)
+> +{
+> +	switch (bsp_priv->id) {
+> +	case 0:
+> +		bsp_priv->gmac_phy_intf_sel_mask = GENMASK_U16(5, 3);
+> +		return 0;
 > +
-> +	/* Check for multi-IRQ config. Assumption: symetrical rx/tx queues */
-> +	if (plat->rx_queues_to_use > 1 &&
-> +	    (res.rx_irq[0] >= 0 || res.tx_irq[0] >= 0)) {
-                        ^^^^            ^^^^
-
-Should these checks be "> 0" instead of ">= 0"?
-
-stmmac_get_platform_resources() initializes the res structure with
-memset(0), then only writes positive IRQ values when per-queue IRQs are
-found in the device tree. If no "rx-queue-0" or "tx-queue-0" interrupt
-names are defined, rx_irq[0] and tx_irq[0] remain 0 from the memset.
-
-Since 0 >= 0 evaluates to true, this condition will enable Multi-IRQ
-mode even when no per-queue IRQs are available. The commit message states
-that "queue based IRQs are set" is a prerequisite, but the current check
-does not properly verify this.
-
-> +		plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
-> +		dev_info(dev, "Multi-IRQ mode (per queue IRQ) selected\n");
+> +	case 1:
+> +		bsp_priv->gmac_phy_intf_sel_mask = GENMASK_U16(11, 9);
+> +		return 0;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
 
 [ ... ]
+
+>  static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
+>  				int tx_delay, int rx_delay)
+>  {
+>  	u32 offset_con, id = bsp_priv->id;
+>
+>  	offset_con = bsp_priv->id == 1 ? RK3588_GRF_GMAC_CON9 :
+>  					 RK3588_GRF_GMAC_CON8;
+>
+> -	regmap_write(bsp_priv->php_grf, RK3588_GRF_GMAC_CON0,
+> -		     RK3588_GMAC_PHY_INTF_SEL(id, PHY_INTF_SEL_RGMII));
+
+This removed code wrote to php_grf, but the new centralized code in
+rk_gmac_powerup() writes to grf instead. Is this intentional?
+
+[ ... ]
+
+>  static void rk3588_set_to_rmii(struct rk_priv_data *bsp_priv)
+>  {
+> -	regmap_write(bsp_priv->php_grf, RK3588_GRF_GMAC_CON0,
+> -		     RK3588_GMAC_PHY_INTF_SEL(bsp_priv->id, PHY_INTF_SEL_RMII));
+
+Same here - the original wrote to php_grf.
+
+[ ... ]
+
+>  static const struct rk_gmac_ops rk3588_ops = {
+> +	.init = rk3588_init,
+>  	.set_to_rgmii = rk3588_set_to_rgmii,
+>  	.set_to_rmii = rk3588_set_to_rmii,
+>  	.set_speed = rk3588_set_gmac_speed,
+>  	.set_clock_selection = rk3588_set_clock_selection,
+> +
+> +	.gmac_grf_reg = RK3588_GRF_GMAC_CON0,
+
+This sets gmac_grf_reg to RK3588_GRF_GMAC_CON0, which is then used by
+rk_gmac_powerup() to write to bsp_priv->grf.
+
+[ ... ]
+
+> @@ -1654,6 +1696,7 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
+>  static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+>  {
+>  	struct device *dev = bsp_priv->dev;
+> +	u32 val;
+>  	int ret;
+
+[ ... ]
+
+> +	if (bsp_priv->gmac_phy_intf_sel_mask ||
+> +	    bsp_priv->gmac_rmii_mode_mask) {
+> +		/* If defined, encode the phy_intf_sel value */
+> +		val = rk_encode_wm16(ret, bsp_priv->gmac_phy_intf_sel_mask);
+> +
+> +		/* If defined, encode the RMII mode mask setting. */
+> +		val |= rk_encode_wm16(ret == PHY_INTF_SEL_RMII,
+> +				      bsp_priv->gmac_rmii_mode_mask);
+> +
+> +		ret = regmap_write(bsp_priv->grf, bsp_priv->gmac_grf_reg, val);
+                                 ^^^^^^^^^^^^
+
+For RK3588, this writes to bsp_priv->grf at offset RK3588_GRF_GMAC_CON0
+(0x0008). However, the original code wrote to bsp_priv->php_grf at the
+same offset. These are different regmaps obtained from different device
+tree phandles (rockchip,grf vs rockchip,php-grf).
+
+Does RK3588 need a mechanism to write the PHY_INTF_SEL to php_grf rather
+than grf? The clock register already has clock_grf_reg_in_php support
+to select which regmap to use, but there does not appear to be a similar
+mechanism for gmac_grf_reg.
 -- 
 pw-bot: cr
 _______________________________________________
