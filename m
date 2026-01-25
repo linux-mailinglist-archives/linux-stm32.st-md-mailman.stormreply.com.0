@@ -2,52 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 7FMBHXWXdmniSgEAu9opvQ
+	id 6hasJHWXdmnmSgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE31882A9C
+	by mail.lfdr.de (Postfix) with ESMTPS id F169482AA0
 	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9F2AC8F26F;
-	Sun, 25 Jan 2026 22:16:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8594C8F269;
+	Sun, 25 Jan 2026 22:16:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CAB4C8F269
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E57D1C87ED5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Jan 2026 22:16:32 +0000 (UTC)
+ Sun, 25 Jan 2026 22:16:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2CC2443C6E;
- Sun, 25 Jan 2026 22:16:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FC34C2BC86;
- Sun, 25 Jan 2026 22:16:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id F3C726011E;
+ Sun, 25 Jan 2026 22:16:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27ABFC19425;
+ Sun, 25 Jan 2026 22:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769379391;
- bh=f3JOuPvjWSkZ5OMkpcZPMBzYMykOzPVsEuZRDZjmfrI=;
+ s=k20201202; t=1769379392;
+ bh=6tZOcoDzLjLZcLcPdF7/WrSy+zSdMZm9sx0zi040qLs=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=nXjfi6DjXDT+vEwmrnTDrefeneyQCEW+WZwgmEKzn38xGlSOO+2cmjTFNuwg4R603
- 12t5u2HmnuowyrtWuCvDdWJDMnDl49qtRdVLCjTOjOukCdCcjCrrKM68vD1RoFyzFI
- bOwW9u0mSjkmJq5j4A4PhChil8zodhleWEavBL0NERPAwqPS8n/yKfLAadL/lzzPRG
- 7VQyrV0OniqAL9ep3Mm1KWlS2em+XkTeKGIh9gh20VZXfTPZKbI0QZ0QZqo0S8n+8M
- 8R44ka8/76H+Q6kWJtih6ovCy4DUZDybt3XOjBoCN1e3oaMnn5McaCxkI+kA17o3w2
- ucZB241H8e4jQ==
+ b=mhAo3cqiV3m5SxW526CCIL5J+nR3v9o0BKXcdtdln/txsFUNcEtkPC9z86vdxHAHs
+ /j45rTwFWkBzTS6CTNz7S9PnQylV6tPQBA1wTY47zsmbFIHhyj+Ddm1/kq87McwBbH
+ UIjNYuWt+q5z7OSRQXXgWmOv9pxjoHLfCLA4iswiDqAyUbnaVqgVxD0tAP0CZgDZzE
+ nNlHu3drq4RpNMHdqAj3pNq2laOHJonC8+u5XfUA6LDEFW7bCAv680sTJXwKT7WZaC
+ 5rYjAl9yw68Vy4lh6j5Cr9n4TkHYx6CU7H3mrViRLVGz1wBR9o35l2gBHx7U3UrlbP
+ l/fctiky0mCtQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: rmk+kernel@armlinux.org.uk
-Date: Sun, 25 Jan 2026 14:16:29 -0800
-Message-ID: <20260125221629.3396169-1-kuba@kernel.org>
+Date: Sun, 25 Jan 2026 14:16:31 -0800
+Message-ID: <20260125221631.3396200-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <E1vjEvA-00000005ghD-2i2t@rmk-PC.armlinux.org.uk>
-References: <E1vjEvA-00000005ghD-2i2t@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vjEvF-00000005ghI-3CYC@rmk-PC.armlinux.org.uk>
+References: <E1vjEvF-00000005ghI-3CYC@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Cc: andrew@lunn.ch, heiko@sntech.de, linux-rockchip@lists.infradead.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  andrew+netdev@lunn.ch, edumazet@google.com, Jakub Kicinski <kuba@kernel.org>,
  pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [net-next,
-	17/21] net: stmmac: rk: replace empty set_to_rmii() with
-	supports_rmii
+	18/21] net: stmmac: rk: rk3328: gmac2phy only supports RMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +96,7 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,linux.dev:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: DE31882A9C
+X-Rspamd-Queue-Id: F169482AA0
 X-Rspamd-Action: no action
 
 This is an AI-generated review of your patch. The human sending this
@@ -107,9 +106,10 @@ For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
 ---
 net: stmmac: rk: rk3506, rk3528 and kk3588 have rmii_mode in clock register
 
-This patch consolidates RMII mode configuration for rk3506, rk3528, and
-rk3588 by moving the rmii_mode bit writes from per-SoC set_to_rmii()
-functions into a centralized block in rk_gmac_powerup().
+This commit consolidates RMII mode configuration for rk3506, rk3528, and
+rk3588 by adding a rmii_mode_mask field to rk_clock_fields, removing the
+per-SoC set_to_rmii() functions, and adding common code in rk_gmac_powerup()
+to write this field.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 > index ebbc09ea572a..759deb66ef2a 100644
@@ -119,10 +119,10 @@ functions into a centralized block in rk_gmac_powerup().
 [ ... ]
 
 > @@ -1412,6 +1385,15 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
-> 			return ret;
-> 	}
+>  			return ret;
+>  	}
 
-The context above this hunk is relevant. Earlier in rk_gmac_powerup():
+The code above (not shown in the diff, but present in the function) is:
 
     ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
     ...
@@ -130,27 +130,25 @@ The context above this hunk is relevant. Earlier in rk_gmac_powerup():
         bsp_priv->gmac_rmii_mode_mask) {
         ...
         ret = regmap_write(bsp_priv->grf, bsp_priv->gmac_grf_reg, val);
-        ...
+        if (ret < 0)
+            return ret;
     }
 
-At this point, if the first if-block executed, ret has been overwritten by
-regmap_write() and will be 0 on success.
+At this point, if the block above executed, ret holds the return value from
+regmap_write() (0 on success), not the interface selector.
 
 > +	if (bsp_priv->clock.rmii_mode_mask) {
 > +		val = rk_encode_wm16(ret == PHY_INTF_SEL_RMII,
 > +				     bsp_priv->clock.rmii_mode_mask);
 
-For RK3588, both gmac_phy_intf_sel_mask and clock.rmii_mode_mask are set.
-The first if-block will execute and overwrite ret with the regmap_write()
-return value (0 on success).
+For rk3588, both gmac_phy_intf_sel_mask and clock.rmii_mode_mask are set in
+rk3588_init(). When the preceding block executes, it overwrites ret with
+the regmap_write() return value. Then here, ret == PHY_INTF_SEL_RMII
+compares 0 == 4 which is always false, so the rmii_mode bit will never be
+set for rk3588 in RMII mode.
 
-When this second if-block runs, ret will be 0 rather than the original
-PHY_INTF_SEL_RMII value (which is 4). This means ret == PHY_INTF_SEL_RMII
-will always evaluate to false for RK3588, causing the rmii_mode bit to be
-cleared instead of set when RMII mode is configured.
-
-Should ret be saved before the first if-block and restored here, or should
-a separate variable hold the phy interface selection?
+Should ret be saved before the preceding block so its original value
+(the interface selector) can be used here?
 
 > +
 > +		ret = rk_write_clock_grf_reg(bsp_priv, val);
