@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ZHWrInWXdmnkSgEAu9opvQ
+	id 7FMBHXWXdmniSgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EC6BD82A9F
+	by mail.lfdr.de (Postfix) with ESMTPS id DE31882A9C
 	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 23:21:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCE51C87EDD;
-	Sun, 25 Jan 2026 22:16:31 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9F2AC8F26F;
+	Sun, 25 Jan 2026 22:16:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4F5FC87EDD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6CAB4C8F269
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Jan 2026 22:16:30 +0000 (UTC)
+ Sun, 25 Jan 2026 22:16:32 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B1A9F600C3;
- Sun, 25 Jan 2026 22:16:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E478AC16AAE;
- Sun, 25 Jan 2026 22:16:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2CC2443C6E;
+ Sun, 25 Jan 2026 22:16:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FC34C2BC86;
+ Sun, 25 Jan 2026 22:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769379389;
- bh=d0e6wGR5CvLacjw6Dk5QUSRgUBj7IzlbzM3eQMWWIE4=;
+ s=k20201202; t=1769379391;
+ bh=f3JOuPvjWSkZ5OMkpcZPMBzYMykOzPVsEuZRDZjmfrI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=dJ2VaWe9Y681uA5O6VXiK85/AuwwpVof+DzkmFwm5UjvHuE6pywUzUvbVAVvOXG9l
- hfwQi9rV09LguQ+rVHfvrDcDP6YSxfApFjuMrydLFiQonchAFn2tRes4gM0d6+UyZU
- dW0vnCZjSE5R1FACd/AZN94Rzc8fBePyCwj8e02cLWvaF5lhQpnRzsL5mTsd3yyZay
- Ht5v6d9voDwxlVedzgNIlVB0UA/Bqe+yW6MJdfp1dsH05KSmnmJgcxTE3FKNu+K3Do
- yLa4swLHRjCesVqles3HfHIx6KR6dMZFmPjLGp9PnykUiMtH8pbTWHFeRUv5uwCy8X
- oyLyoEBWa5sQA==
+ b=nXjfi6DjXDT+vEwmrnTDrefeneyQCEW+WZwgmEKzn38xGlSOO+2cmjTFNuwg4R603
+ 12t5u2HmnuowyrtWuCvDdWJDMnDl49qtRdVLCjTOjOukCdCcjCrrKM68vD1RoFyzFI
+ bOwW9u0mSjkmJq5j4A4PhChil8zodhleWEavBL0NERPAwqPS8n/yKfLAadL/lzzPRG
+ 7VQyrV0OniqAL9ep3Mm1KWlS2em+XkTeKGIh9gh20VZXfTPZKbI0QZ0QZqo0S8n+8M
+ 8R44ka8/76H+Q6kWJtih6ovCy4DUZDybt3XOjBoCN1e3oaMnn5McaCxkI+kA17o3w2
+ ucZB241H8e4jQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: rmk+kernel@armlinux.org.uk
-Date: Sun, 25 Jan 2026 14:16:27 -0800
-Message-ID: <20260125221627.3396138-1-kuba@kernel.org>
+Date: Sun, 25 Jan 2026 14:16:29 -0800
+Message-ID: <20260125221629.3396169-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <E1vjEuL-00000005ggE-1z5W@rmk-PC.armlinux.org.uk>
-References: <E1vjEuL-00000005ggE-1z5W@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vjEvA-00000005ghD-2i2t@rmk-PC.armlinux.org.uk>
+References: <E1vjEvA-00000005ghD-2i2t@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Cc: andrew@lunn.ch, heiko@sntech.de, linux-rockchip@lists.infradead.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  andrew+netdev@lunn.ch, edumazet@google.com, Jakub Kicinski <kuba@kernel.org>,
  pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [net-next,
-	07/21] net: stmmac: rk: convert to mask-based interface mode
-	configuration
+	17/21] net: stmmac: rk: replace empty set_to_rmii() with
+	supports_rmii
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,8 +96,8 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	NEURAL_HAM(-0.00)[-1.000];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,linux.dev:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: EC6BD82A9F
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,linux.dev:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: DE31882A9C
 X-Rspamd-Action: no action
 
 This is an AI-generated review of your patch. The human sending this
@@ -105,97 +105,60 @@ email has considered the AI review valid, or at least plausible.
 
 For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
 ---
-net: stmmac: rk: convert to mask-based interface mode configuration
+net: stmmac: rk: rk3506, rk3528 and kk3588 have rmii_mode in clock register
 
-This patch consolidates PHY interface mode configuration into a common
-infrastructure. It introduces mask fields for phy_intf_sel and rmii_mode,
-and moves the register writes from SoC-specific set_to_rgmii/set_to_rmii
-functions into the common rk_gmac_powerup() function.
+This patch consolidates RMII mode configuration for rk3506, rk3528, and
+rk3588 by moving the rmii_mode bit writes from per-SoC set_to_rmii()
+functions into a centralized block in rk_gmac_powerup().
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> index 4117f6863ff0..48fc5b58092f 100644
+> index ebbc09ea572a..759deb66ef2a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 
 [ ... ]
 
-> @@ -1198,9 +1225,6 @@ static const struct rk_gmac_ops rk3576_ops = {
->  #define RK3588_GRF_GMAC_CON0			0X0008
->  #define RK3588_GRF_CLK_CON1			0X0070
+> @@ -1412,6 +1385,15 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
+> 			return ret;
+> 	}
 
-The comment above these defines says "/* php_grf */" indicating that
-RK3588_GRF_GMAC_CON0 is in the php_grf register space.
+The context above this hunk is relevant. Earlier in rk_gmac_powerup():
 
-[ ... ]
+    ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
+    ...
+    if (bsp_priv->gmac_phy_intf_sel_mask ||
+        bsp_priv->gmac_rmii_mode_mask) {
+        ...
+        ret = regmap_write(bsp_priv->grf, bsp_priv->gmac_grf_reg, val);
+        ...
+    }
 
-> +static int rk3588_init(struct rk_priv_data *bsp_priv)
-> +{
-> +	switch (bsp_priv->id) {
-> +	case 0:
-> +		bsp_priv->gmac_phy_intf_sel_mask = GENMASK_U16(5, 3);
-> +		return 0;
+At this point, if the first if-block executed, ret has been overwritten by
+regmap_write() and will be 0 on success.
+
+> +	if (bsp_priv->clock.rmii_mode_mask) {
+> +		val = rk_encode_wm16(ret == PHY_INTF_SEL_RMII,
+> +				     bsp_priv->clock.rmii_mode_mask);
+
+For RK3588, both gmac_phy_intf_sel_mask and clock.rmii_mode_mask are set.
+The first if-block will execute and overwrite ret with the regmap_write()
+return value (0 on success).
+
+When this second if-block runs, ret will be 0 rather than the original
+PHY_INTF_SEL_RMII value (which is 4). This means ret == PHY_INTF_SEL_RMII
+will always evaluate to false for RK3588, causing the rmii_mode bit to be
+cleared instead of set when RMII mode is configured.
+
+Should ret be saved before the first if-block and restored here, or should
+a separate variable hold the phy interface selection?
+
 > +
-> +	case 1:
-> +		bsp_priv->gmac_phy_intf_sel_mask = GENMASK_U16(11, 9);
-> +		return 0;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-[ ... ]
-
-> @@ -1296,10 +1330,14 @@ static void rk3588_set_clock_selection(struct rk_priv_data *bsp_priv, bool input
->  }
->
->  static const struct rk_gmac_ops rk3588_ops = {
-> +	.init = rk3588_init,
->  	.set_to_rgmii = rk3588_set_to_rgmii,
->  	.set_to_rmii = rk3588_set_to_rmii,
->  	.set_speed = rk3588_set_gmac_speed,
->  	.set_clock_selection = rk3588_set_clock_selection,
-> +
-> +	.gmac_grf_reg = RK3588_GRF_GMAC_CON0,
-
-rk3588_ops sets gmac_grf_reg to RK3588_GRF_GMAC_CON0, and rk3588_init()
-sets gmac_phy_intf_sel_mask. This enables the new common code path in
-rk_gmac_powerup().
-
-[ ... ]
-
-> @@ -1664,6 +1707,24 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
->  	if (ret)
->  		return ret;
->
-> +	ret = rk_get_phy_intf_sel(bsp_priv->phy_iface);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (bsp_priv->gmac_phy_intf_sel_mask ||
-> +	    bsp_priv->gmac_rmii_mode_mask) {
-> +		/* If defined, encode the phy_intf_sel value */
-> +		val = rk_encode_wm16(ret, bsp_priv->gmac_phy_intf_sel_mask);
-> +
-> +		/* If defined, encode the RMII mode mask setting. */
-> +		val |= rk_encode_wm16(ret == PHY_INTF_SEL_RMII,
-> +				      bsp_priv->gmac_rmii_mode_mask);
-> +
-> +		ret = regmap_write(bsp_priv->grf, bsp_priv->gmac_grf_reg, val);
-                                          ^^^^
-
-For rk3588, does this write to the wrong regmap? The old code in
-rk3588_set_to_rgmii() and rk3588_set_to_rmii() wrote the PHY_INTF_SEL
-register to bsp_priv->php_grf:
-
-    regmap_write(bsp_priv->php_grf, RK3588_GRF_GMAC_CON0,
-                 RK3588_GMAC_PHY_INTF_SEL(id, PHY_INTF_SEL_RGMII));
-
-But the new common code writes to bsp_priv->grf instead. The comment in
-the source indicates RK3588_GRF_GMAC_CON0 is in the php_grf register
-space. Should this be using php_grf for rk3588?
-
+> +		ret = rk_write_clock_grf_reg(bsp_priv, val);
 > +		if (ret < 0)
 > +			return ret;
 > +	}
+
+[ ... ]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
