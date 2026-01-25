@@ -2,60 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 3R0qLsW3eWl9ygEAu9opvQ
+	id eEofFExmdmkmQQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 08:16:21 +0100
+	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 19:51:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0BD69DA3F
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 08:16:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D0AEA81CD3
+	for <lists+linux-stm32@lfdr.de>; Sun, 25 Jan 2026 19:51:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DCCBC01FBF;
-	Wed, 28 Jan 2026 07:16:20 +0000 (UTC)
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B143C87ED5;
+	Sun, 25 Jan 2026 18:51:55 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 135BEC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E45DDC36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 25 Jan 2026 13:54:41 +0000 (UTC)
-Received: from localhost.localdomain (unknown [36.112.3.223])
- by APP-03 (Coremail) with SMTP id rQCowAAnDOOFIHZp7ZOsBg--.946S2;
- Sun, 25 Jan 2026 21:54:13 +0800 (CST)
-From: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
-To: ast@kernel.org, daniel@iogearbox.net, davem@davemloft.net, kuba@kernel.org,
- hawk@kernel.org, john.fastabend@gmail.com, sdf@fomichev.me,
- andrew+netdev@lunn.ch, edumazet@google.com, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- boon.leong.ong@intel.com
-Date: Sun, 25 Jan 2026 21:54:12 +0800
-Message-Id: <20260125135412.2070798-1-lihaoxiang@isrc.iscas.ac.cn>
-X-Mailer: git-send-email 2.25.1
+ Sun, 25 Jan 2026 18:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=from:to:cc:subject:date:message-id
+ :mime-version:content-transfer-encoding; s=k1; bh=1cYkOR6p+28OeK
+ pILTeDYy1YUmgndRIsJrSEImzjWWs=; b=GUb3b+DY+9mJpJ7B3Rk9AyWsPIlsID
+ gYiUHWLfH4MhylfpJpW6wK1EEp4qmRvMXufRAsUMyjw3n6a7jZTjlMDlAiAJeytr
+ PDYusfLDkbrdpScgSILsNpYpTv9wxWk3n8sIRRm98T1X5yszKvRP0oq5bX6qilP5
+ LjHLu7d1lAZJzkgT7s2l3Qa9JZdRes785y0OH4j4PHwtTrndA/aCfpLOjcH1lb4z
+ BtZ0JoJOhdKJB5uQXdN4teK3yDzq+Q8ww2MIjkXg7v93zhNt8uES1joQCXP5zbLl
+ u9kPE+ySeVYAst58JG+Fjj7CLKQTVDUGyLh4C9GbhtN1nhxaNB2QPgsw==
+Received: (qmail 2369426 invoked from network); 25 Jan 2026 19:51:47 +0100
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 25 Jan 2026 19:51:47 +0100
+X-UD-Smtp-Session: l3s3148p1@Xefl4TpJKhBtKXAW
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org
+Date: Sun, 25 Jan 2026 19:46:51 +0100
+Message-ID: <20260125184654.17843-6-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-X-CM-TRANSID: rQCowAAnDOOFIHZp7ZOsBg--.946S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZF43Xw4kWFWUJrWkAr4ruFg_yoWDZFX_Ka
- 12vrnxXa15JF4jkw45Gr43ZryI9F1kur1v9F42va9xCFZYgFZxXFZ8ur95AF13W34rZFyD
- Gws7A34xA347tjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUb3xFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr
- 1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
- n2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
- AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
- 17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
- IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
- IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
- C2KfnxnUUI43ZEXa7sRRKZX5UUUUU==
-X-Originating-IP: [36.112.3.223]
-X-CM-SenderInfo: 5olkt0x0ld0ww6lv2u4olvutnvoduhdfq/1tbiCRASE2l1qZiRLwAAsL
-X-Mailman-Approved-At: Wed, 28 Jan 2026 07:16:18 +0000
-Cc: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, bpf@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] fix a potential memory leak in
-	stmmac_xdp_enable_pool()
+Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-omap@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, Boqun Feng <boqun.feng@gmail.com>,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Wilken Gottwalt <wilken.gottwalt@posteo.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-spi@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: [Linux-stm32] [RFC PATCH 0/4] hwspinlock: refactor headers into
+	public provider/consumer pair
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,73 +80,121 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.29 / 15.00];
+X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
-	DATE_IN_PAST(1.00)[65];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DMARC_NA(0.00)[iscas.ac.cn];
-	FORGED_RECIPIENTS(0.00)[m:ast@kernel.org,m:daniel@iogearbox.net,m:davem@davemloft.net,m:kuba@kernel.org,m:hawk@kernel.org,m:john.fastabend@gmail.com,m:sdf@fomichev.me,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:boon.leong.ong@intel.com,m:lihaoxiang@isrc.iscas.ac.cn,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:stable@vger.kernel.org,m:bpf@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:johnfastabend@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FREEMAIL_TO(0.00)[kernel.org,iogearbox.net,davemloft.net,gmail.com,fomichev.me,lunn.ch,google.com,redhat.com,foss.st.com,intel.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[lihaoxiang@isrc.iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[renesas];
+	DMARC_NA(0.00)[sang-engineering.com];
+	FORGED_RECIPIENTS(0.00)[m:linux-renesas-soc@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:wsa+renesas@sang-engineering.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:wilken.gottwalt@posteo.net,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:tglx@kernel.org,m:mcoqueli
+ n.stm32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:wsa@sang-engineering.com,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[sang-engineering.com:-];
+	RCPT_COUNT_TWELVE(0.00)[42];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[lihaoxiang@isrc.iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
-	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,sang-engineering.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,posteo.net,sholland.org];
+	NEURAL_HAM(-0.00)[-0.980];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,iscas.ac.cn:email]
-X-Rspamd-Queue-Id: A0BD69DA3F
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: D0AEA81CD3
 X-Rspamd-Action: no action
 
-In stmmac_xdp_enable_pool(), if stmmac_xsk_wakeup() fails,
-the memory allocated by xsk_pool_dma_map() should be released.
-Add xsk_pool_dma_unmap() to do so.
+TLDR: I want to create a hwspinlock provider outside of the hwspinlock
+directory. So, I refactored the headers into a provider/consumer pair.
+Which seems to me like a reasonable seperation anyhow. No functional
+changes. My build tests went fine and buildbots are happy, too.
 
-Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Haoxiang Li <lihaoxiang@isrc.iscas.ac.cn>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Longer explanation:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
-index d7e4db7224b0..7d89d6066ea3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
-@@ -48,8 +48,10 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
- 		napi_enable(&ch->rxtx_napi);
- 
- 		err = stmmac_xsk_wakeup(priv->dev, queue, XDP_WAKEUP_RX);
--		if (err)
-+		if (err) {
-+			xsk_pool_dma_unmap(pool, STMMAC_RX_DMA_ATTR);
- 			return err;
-+		}
- 	}
- 
- 	return 0;
+There is a device (MFIS) in newer Renesas SoCs which combines various
+things like hwspinlocks, mailboxes and other stuff. Sadly, these are not
+strictly separated. Registers are kind of mixed and its register
+unprotection scheme will need one of its own locks. I tried various
+paths to handle this device (MFD, auxiliary bus) but I concluded that
+the sub-device dependencies give enough reasons for a single driver in
+drivers/soc/. So, this series will allow me to instantiate a hwspinlock
+provider from the other directory.
+
+Patches 1+2 do the actual refactoring with a fallback being in place. I
+used '-B' with git-format-patch in this RFC, so the actual changes are
+more visible when the headers are moved.
+
+Patch 3 converts all the users. There are not many. We could try to get
+all the acks for this single patch. Or I can break it into single
+patches and send them to subsystems. I don't mind.
+
+Patch 4 simply removes the fallback.
+
+Looking forward to comments on this approach. If the hwspinlock
+maintainers like it as is, I would kindly propose to apply patches 1+2
+after 7.0-rc1 comes out. This might sound a bit hasty, but a) I want to
+avoid chasing a moving target and b) this would remove one dependency of
+the hwspinlock driver I originally intend to upstream, of course.
+
+I would take care of patches 3+4 as needed.
+
+A branch can be found here:
+
+git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/hwspinlock/refactor-includes
+
+Patches are based on linux-next as of 2026-01-21.
+
+Opinions?
+
+Thanks and happy hacking,
+
+   Wolfram
+
+
+Wolfram Sang (4):
+  hwspinlock: refactor existing headers into provider.h
+  hwspinlock: refactor existing headers into consumer.h
+  treewide: convert hwspinlock users to the new consumer header file
+  hwspinlock: remove old header file
+
+ Documentation/locking/hwspinlock.rst          |  2 +-
+ MAINTAINERS                                   |  2 +-
+ drivers/base/regmap/regmap.c                  |  2 +-
+ drivers/hwspinlock/hwspinlock_core.c          |  5 +--
+ drivers/hwspinlock/omap_hwspinlock.c          |  4 +-
+ drivers/hwspinlock/qcom_hwspinlock.c          |  4 +-
+ drivers/hwspinlock/sprd_hwspinlock.c          |  4 +-
+ drivers/hwspinlock/stm32_hwspinlock.c         |  4 +-
+ drivers/hwspinlock/sun6i_hwspinlock.c         |  4 +-
+ drivers/hwspinlock/u8500_hsem.c               |  5 +--
+ drivers/iio/adc/sc27xx_adc.c                  |  2 +-
+ drivers/irqchip/irq-stm32mp-exti.c            |  2 +-
+ drivers/mfd/syscon.c                          |  2 +-
+ drivers/nvmem/sc27xx-efuse.c                  |  2 +-
+ drivers/nvmem/sprd-efuse.c                    |  2 +-
+ drivers/pinctrl/stm32/pinctrl-stm32.c         |  2 +-
+ drivers/soc/qcom/smem.c                       |  2 +-
+ drivers/spi/spi-sprd-adi.c                    |  2 +-
+ .../{hwspinlock.h => hwspinlock/consumer.h}   | 22 ++--------
+ .../linux/hwspinlock/provider.h               | 40 ++++++++++++-------
+ 20 files changed, 49 insertions(+), 65 deletions(-)
+ rename include/linux/{hwspinlock.h => hwspinlock/consumer.h} (94%)
+ rename drivers/hwspinlock/hwspinlock_internal.h => include/linux/hwspinlock/provider.h (78%)
+
 -- 
-2.25.1
+2.47.3
 
 _______________________________________________
 Linux-stm32 mailing list
