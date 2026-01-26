@@ -2,59 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aMxGL+KPd2m9hgEAu9opvQ
+	id CJvjKMOTd2n0iwEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 17:01:38 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 17:18:11 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 416A38A721
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 17:01:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 405158A954
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 17:18:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0B45C87EDB;
-	Mon, 26 Jan 2026 16:01:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3CCEC87EDB;
+	Mon, 26 Jan 2026 16:18:10 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84F92C030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F563C030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 16:01:36 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3DD6D40DF6;
- Mon, 26 Jan 2026 16:01:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA1FAC116C6;
- Mon, 26 Jan 2026 16:01:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769443295;
- bh=vbKOKo1zqwByHLjQtZsnbrccfQFl5y8geWYwihFRq24=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Lv48+hpvfTsHWMpL2abDkYYBE7hAds8hj8Zp5X6/XmVEmhic146EMnkENPQuRymhj
- ZRDrCiDmBFyXzlfWKA/+BpJSBX1IFnuz3yFbv0Aga9FAzsY9lPhGKKgacbQAXlAUl1
- 4LKJyr8N9Ri/NmncXH7qkWRo/fVK+c2qByK0m/PkRMeUcEv33AsYsgnPZOpigfLVPw
- 2DxDngwxhwfVPspu2PvUQnrf51kjIyeAf8ZSb6R/CxmqMyHCBbniSAMnZv2BIXU+R5
- mgnwO6u4E6jEBck2yVdqf4f4BghaHdP8aDdDGhDvqyW7M69MBHIDKnnpAzV5dMyXPI
- NnIIw93NUqj2Q==
-Date: Mon, 26 Jan 2026 16:01:27 +0000
-From: Simon Horman <horms@kernel.org>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aXeP1y7cK0XRx3Wo@horms.kernel.org>
-References: <8f2139e8adf02b485a4c84d558fc23f78cf04add.1769195864.git.dan.carpenter@linaro.org>
- <20260126152430.1390514-1-horms@kernel.org>
- <aXeJYo-0iiNuXVGH@shell.armlinux.org.uk>
+ Mon, 26 Jan 2026 16:18:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=9GmR4U/6sjLZ6b4mP0qhVrXUe9sv8qZlxLz11xmTSMI=; b=W1YU4JX6USsiOCe6sebt6DfqKV
+ 35oiUK67jY8GYTFhaQHQnJr7jygPAsCtrIu5rnCvug/xXLZroQ0DSeAfCpfjfTVkrq/K7Xoeo+q0Q
+ L0dqUFWsLX1sJC4HMsEqu1rVFuXOAvC2s3nooFLuqXT8ljvjzLMl5zveu3qUBIJ2bTDA=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1vkPHf-004oR8-T2; Mon, 26 Jan 2026 17:17:47 +0100
+Date: Mon, 26 Jan 2026 17:17:47 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Joey Lu <a0987203069@gmail.com>
+Message-ID: <ea3a1f85-0f27-498c-b03b-110456a751da@lunn.ch>
+References: <20260126102257.2619862-1-a0987203069@gmail.com>
+ <20260126102257.2619862-3-a0987203069@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aXeJYo-0iiNuXVGH@shell.armlinux.org.uk>
-Cc: imx@lists.linux.dev, s32@nxp.com, Frank.li@nxp.com, edumazet@google.com,
- ghennadi.procopciuc@oss.nxp.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, dan.carpenter@linaro.org,
- robh@kernel.org, kuba@kernel.org, pabeni@redhat.com, linaro-s32@linaro.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org, kernel@pengutronix.de,
- s.hauer@pengutronix.de, jan.petrous@oss.nxp.com,
- linux-arm-kernel@lists.infradead.org, chester62515@gmail.com,
- mbrugger@suse.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com, krzk+dt@kernel.org,
- shawnguo@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [v4,
- 1/3] net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
+In-Reply-To: <20260126102257.2619862-3-a0987203069@gmail.com>
+Cc: ychuang3@nuvoton.com, edumazet@google.com, schung@nuvoton.com,
+ yclu4@nuvoton.com, linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v9 2/3] arm64: dts: nuvoton: Add
+	Ethernet nodes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,107 +64,226 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,linaro.org,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FORGED_RECIPIENTS(0.00)[m:a0987203069@gmail.com,m:ychuang3@nuvoton.com,m:edumazet@google.com,m:schung@nuvoton.com,m:yclu4@nuvoton.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:openbmc@lists.ozlabs.org,m:joabreu@synopsys.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:richardcochran@gmail.com,m:peppe.cavallaro@st.com,m:linux-arm-kernel@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:imx@lists.linux.dev,m:s32@nxp.com,m:Frank.li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:dan.carpenter@linaro.org,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:linaro-s32@linaro.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:s.hauer@pengutronix.de,m:jan.petrous@oss.nxp.com,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[lunn.ch:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.991];
+	DBL_PROHIBIT(0.00)[0.0.0.1:email,2.111.199.128:email,2.100.46.192:email];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[nuvoton.com,google.com,st-md-mailman.stormreply.com,kernel.org,lists.ozlabs.org,synopsys.com,redhat.com,vger.kernel.org,gmail.com,st.com,lists.infradead.org,lunn.ch,davemloft.net];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[horms.kernel.org:mid,linux.dev:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 416A38A721
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[0.0.0.0:email]
+X-Rspamd-Queue-Id: 405158A954
 X-Rspamd-Action: no action
 
-On Mon, Jan 26, 2026 at 03:33:54PM +0000, Russell King (Oracle) wrote:
-> On Mon, Jan 26, 2026 at 03:24:30PM +0000, Simon Horman wrote:
-> > This is an AI-generated review of your patch. The human sending this
-> > email has considered the AI review valid, or at least plausible.
-> > 
-> > For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
-> > ---
-> >     net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
-> > 
-> > This commit adds syscon/regmap support for accessing the GMAC_0_CTRL_STS
-> > register on s32 chipsets, while maintaining backwards compatibility with
-> > the existing direct MMIO approach for older device trees.
-> > 
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> > > index 5a485ee98fa7..2e6bb41f49e1 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
-> > 
-> > [ ... ]
-> > 
-> > > @@ -40,7 +44,10 @@ struct s32_priv_data {
-> > >
-> > >  static int s32_gmac_write_phy_intf_select(struct s32_priv_data *gmac)
-> > >  {
-> > > -	writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-> > > +	if (gmac->ctrl_sts)
-> > > +		writel(S32_PHY_INTF_SEL_RGMII, gmac->ctrl_sts);
-> > > +	else
-> > > +		regmap_write(gmac->sts_regmap, gmac->sts_offset, S32_PHY_INTF_SEL_RGMII);
-> > 
-> > Should the regmap_write() return value be checked here? The function
-> > returns int and the caller s32_gmac_init() checks the return value
-> > expecting errors to be propagated. For comparison, dwmac-sun55i.c in
-> > sun55i_gmac200_set_syscon() does check regmap_write() return value:
-> > 
-> >     ret = regmap_write(regmap, SYSCON_REG, reg);
-> >     if (ret < 0)
-> >         return dev_err_probe(dev, ret, "Failed to write to syscon\n");
+On Mon, Jan 26, 2026 at 06:22:56PM +0800, Joey Lu wrote:
+> Add GMAC nodes for our MA35D1 development boards:
+> two RGMII interfaces for SOM board, and one RGMII
+> and one RMII interface for IoT board.
 > 
-> AI is wrong on this last line - s32_gmac_write_phy_intf_select() is
-> called from s32_gmac_init(), which is called from plat_dat->init.
-> 
-> plat_dat->init is called from two paths:
-> 
-> 1. stmmac_pltfr_probe() -> stmmac_dvr_probe() -> plat_dat->init()
-> 
-> 2. stmmac_resume() -> plat_dat->resume() -> stmmac_plat_resume() ->
->    stmmac_pltfr_init() -> plat_dat->init()
-> 
-> In the resume path, it is not appropriate to use dev_err_probe()
-> because we're not in the probe path.
+> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+> ---
+>  .../boot/dts/nuvoton/ma35d1-iot-512m.dts      | 33 +++++++++++++++++++
+>  .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 32 ++++++++++++++++++
+>  arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 32 ++++++++++++++++++
 
-Hi Russell,
+Did you answer my question about what these represent?
 
-I agree that using dev_err_probe() is not appropriate here.
-And, FWIIW, I took that part to be an illustration that
-sun55i_gmac200_set_syscon() handles a similar case,
-rather than a suggestion of how to handle it here.
+I _think_ your .dts{i} files are all messed up and need
+re-architecturing.
 
-But at any rate, I think the key question is should the case
-where regmap_write() returns an error be handled in
-s32_gmac_write_phy_intf_select() (by some means)?
+arch/arm64/boot/dts/nuvoton/ma35d1.dtsi should represent the SoC.
+
+There should be a .dtsi file which represents everything on the SOM.
+This includes the SoC .dtsi file.
+
+There should be a .dts file for the carrier board. It should include
+the SOM .dtsi file.
+
+You said one of the boards does not use the SOM, so it can directly
+import the SoC .dtsi file.
+
+>  3 files changed, 97 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+> index 9482bec1aa57..ee32cedf3d9b 100644
+> --- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
+> @@ -18,6 +18,8 @@ aliases {
+>  		serial12 = &uart12;
+>  		serial13 = &uart13;
+>  		serial14 = &uart14;
+> +		ethernet0 = &gmac0;
+> +		ethernet1 = &gmac1;
+>  	};
+>  
+>  	chosen {
+> @@ -126,3 +128,34 @@ &uart14 {
+>  	pinctrl-0 = <&pinctrl_uart14>;
+>  	status = "okay";
+>  };
+> +
+> +&gmac0 {
+> +	phy-handle = <&eth_phy0>;
+
+This is a .dts file, so represents a board. You said the PHYs are on
+the board, not the SOM. So this is correct.
+
+
+> +	status = "okay";
+> +
+> +	mdio0: mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+
+The MDIO bus is a property of the SoC. It always exists, even if it is
+not used. So the mdio node should be in the SoC .dtsi file.
+
+> +		eth_phy0: ethernet-phy@0 {
+> +			reg = <0>;
+> +		};
+
+The PHY is a property of the board, so should be in the board .dts
+file. 
+
+> +	};
+> +};
+> +
+> +&gmac1 {
+> +	phy-mode = "rmii";
+> +	phy-handle = <&eth_phy1>;
+> +	status = "okay";
+
+Correct.
+
+> +
+> +	mdio1: mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+
+Wrong.
+
+> +
+> +		eth_phy1: ethernet-phy@1 {
+> +			reg = <1>;
+> +		};
+
+Correct.
+
+> +	};
+> +};
+> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+> index f6f20a17e501..b1b3e45280d5 100644
+> --- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+> @@ -18,6 +18,8 @@ aliases {
+>  		serial12 = &uart12;
+>  		serial14 = &uart14;
+>  		serial16 = &uart16;
+> +		ethernet0 = &gmac0;
+> +		ethernet1 = &gmac1;
+>  	};
+>  
+>  	chosen {
+> @@ -129,3 +131,33 @@ &uart16 {
+>  	pinctrl-0 = <&pinctrl_uart16>;
+>  	status = "okay";
+>  };
+> +
+> +&gmac0 {
+> +	phy-handle = <&eth_phy0>;
+> +	status = "okay";
+> +
+> +	mdio0: mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		eth_phy0: ethernet-phy@0 {
+> +			reg = <0>;
+> +		};
+> +	};
+> +};
+> +
+> +&gmac1 {
+> +	phy-handle = <&eth_phy1>;
+> +	status = "okay";
+> +
+> +	mdio1: mdio {
+> +		compatible = "snps,dwmac-mdio";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		eth_phy1: ethernet-phy@1 {
+> +			reg = <1>;
+> +		};
+> +	};
+> +};
+
+Same problem as above.
+
+> --- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+
+This represents the SoC.
+
+> @@ -379,5 +379,37 @@ uart16: serial@40880000 {
+>  			clocks = <&clk UART16_GATE>;
+>  			status = "disabled";
+>  		};
+> +
+> +		gmac0: ethernet@40120000 {
+> +			compatible = "nuvoton,ma35d1-dwmac";
+> +			reg = <0x0 0x40120000 0x0 0x10000>;
+> +			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names = "macirq";
+> +			clocks = <&clk EMAC0_GATE>, <&clk EPLL_DIV8>;
+> +			clock-names = "stmmaceth", "ptp_ref";
+> +
+> +			nuvoton,sys = <&sys 0>;
+> +			resets = <&sys MA35D1_RESET_GMAC0>;
+> +			reset-names = "stmmaceth";
+> +
+> +			phy-mode = "rgmii-id";
+
+PHY mode is a property of the board. The board might have extra long
+clock lines, so needs 'rgmii'. The board might use MII?
+
+Please think about the hierarchy.  SoC -> SoM -> board. Put the
+properties at the correct level.
+
+    Andrew
+
+---
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
