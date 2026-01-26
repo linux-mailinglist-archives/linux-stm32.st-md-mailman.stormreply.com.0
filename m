@@ -2,58 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8F4vLDZUd2mdeAEAu9opvQ
+	id CDSxDXVbd2maeQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 12:47:02 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:17:57 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D16187CC4
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 12:47:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A719F8819B
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:17:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32137C8F26F;
-	Mon, 26 Jan 2026 11:47:02 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AA91C87EDC;
+	Mon, 26 Jan 2026 12:17:56 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2236FC8F269
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F0FAC030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 11:47:00 +0000 (UTC)
+ Mon, 26 Jan 2026 12:17:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
+ :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
+ Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Fk0OFdSv4z1lOiwA5ccWO4V+Shu5Ym4b7St2WuN3K3Q=; b=Hz1wQJGUWp2XQJS6YDkqg35Ay7
- jJN/6+aKcGSW6E5Uw4npDTZhHbcHDO4ALQ6p+xiPpR8ZHQdYEph3ct3hLodZZKUH06iZ6/SKRgMGs
- XHmFC3GK2LroOIMkKrkdyTK4dmsauRhv7nF2AqSqoDGPS3HX9/IIiJDYFYLGhk3CqVHw6rwvHjaoh
- w3KFLMllsZwlyGNRlVmv1tzljA0YjoWmMeF8X+mBsHCBMVdNiNpxFR9m46x+BTlHFhPWK+k+ke0wj
- T5dyFC17mb1deLOXl8RR1U/L6CMCwTnGp3cjB09p53DBXcZKT8twkqKPYM57AMFj1st5rKrT1tgLC
- O5k8S+ug==;
+ bh=7j0Vk4RZICiGr3kMEvEbjecwBLCRWMDYUxPd+pEqMpc=; b=FzzvkoOKwdf67baLwyTkXQCvt9
+ 3s0SANG2yvzz/sb2hrTuOd55a4J6bELFRvVi/oQWlJuhtweonEhn4OkaBrs4oD599WPvU59xZm4xH
+ MfkoNtDzPAChX07vwmSvDOrcrz66sPKi6c6ZnZiO9AtBMadu3MYpqFSVMnvptwjXgB2/OYiZ+FDRn
+ 8QVmriGNd1fzca2z5dKW8jdgZP2SmTCSh9FI9jgvQlX/WgwFRSWTXG63+De88mrCp7newRL+iqQ+f
+ VRi6Wseu30B+EI4iGFyAg74xMWsV4KGVCI8/qqRi4UpWNF1xCmr79/rEyw6mTMffarKw9shGAdmP/
+ buqN7+BQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:33560 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39956 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vkL3U-000000004k8-0OwF;
- Mon, 26 Jan 2026 11:46:52 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vkLXP-000000004m8-23Z0;
+ Mon, 26 Jan 2026 12:17:47 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vkL3S-00000005uuG-2qFN; Mon, 26 Jan 2026 11:46:50 +0000
-In-Reply-To: <aXdTi4ViCkhhXvFI@shell.armlinux.org.uk>
-References: <aXdTi4ViCkhhXvFI@shell.armlinux.org.uk>
+ id 1vkLXO-00000005uxQ-31ZV; Mon, 26 Jan 2026 12:17:46 +0000
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vkL3S-00000005uuG-2qFN@rmk-PC.armlinux.org.uk>
-Date: Mon, 26 Jan 2026 11:46:50 +0000
-Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+Message-Id: <E1vkLXO-00000005uxQ-31ZV@rmk-PC.armlinux.org.uk>
+Date: Mon, 26 Jan 2026 12:17:46 +0000
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 22/22] net: stmmac: rk: rk3506,
- rk3528 and kk3588 have rmii_mode in clock register
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: report active PHY
+	interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,237 +69,210 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 6D16187CC4
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: A719F8819B
 X-Rspamd-Action: no action
 
-rk3506, rk3528 and rk3588 have the rmii_mode bit in the clock GRF
-register rather than the gmac GRF register. Provide a mask for this
-field in the clock register, and convert these SoCs to use this.
-Add the necessary code in rk_gmac_powerup() to write this field.
-
-This allows us to get rid of these SoCs set_to_rmii() function. As
-such, we need to mark these SoCs as supporting RMII mode.
+Report the active PHY interface from the point of view of the dwmac
+hardware to the kernel log, where the core supports reading this.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 62 +++++++------------
- 1 file changed, 22 insertions(+), 40 deletions(-)
+I recently sent this to aid some debug for socfpga folks, but I think
+printing the active PHY interface as read from the HW feature registers
+is useful information about the state of the driver, particularly for
+debugging reported issues.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 443d3bd62cae..3a03b2d57140 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -38,6 +38,7 @@ struct rk_clock_fields {
- 	u16 gmii_clk_sel_mask;
- 	u16 rmii_clk_sel_mask;
- 	u16 rmii_gate_en_mask;
-+	u16 rmii_mode_mask;
- 	u16 mac_speed_mask;
+ drivers/net/ethernet/stmicro/stmmac/common.h  |  6 +++
+ .../ethernet/stmicro/stmmac/dwmac1000_dma.c   |  2 +
+ .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  1 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 52 +++++++++++++++++++
+ 6 files changed, 64 insertions(+)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index 49df46be3669..1c5a4af85b58 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -323,6 +323,10 @@ struct stmmac_safety_stats {
+ #define PHY_INTF_SEL_SMII	6
+ #define PHY_INTF_SEL_REVMII	7
+ 
++/* XGMAC uses a different encoding - from the AgileX5 documentation */
++#define PHY_INTF_GMII		0
++#define PHY_INTF_RGMII		1
++
+ /* MSI defines */
+ #define STMMAC_MSI_VEC_MAX	32
+ 
+@@ -512,6 +516,8 @@ struct dma_features {
+ 	unsigned int dbgmem;
+ 	/* Number of Policing Counters */
+ 	unsigned int pcsel;
++	/* Active PHY interface, PHY_INTF_SEL_xxx */
++	u8 actphyif;
  };
  
-@@ -708,21 +709,15 @@ static int rk3506_init(struct rk_priv_data *bsp_priv)
- 	}
+ /* RX Buffer size must be multiple of 4/8/16 bytes */
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+index a62f1271b6ea..3ac7a7949529 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
+@@ -239,6 +239,8 @@ static int dwmac1000_get_hw_feature(void __iomem *ioaddr,
+ 	/* Alternate (enhanced) DESC mode */
+ 	dma_cap->enh_desc = (hw_cap & DMA_HW_FEAT_ENHDESSEL) >> 24;
+ 
++	dma_cap->actphyif = FIELD_GET(DMA_HW_FEAT_ACTPHYIF, hw_cap);
++
+ 	return 0;
  }
  
--static void rk3506_set_to_rmii(struct rk_priv_data *bsp_priv)
--{
--	unsigned int id = bsp_priv->id, offset;
--
--	offset = (id == 1) ? RK3506_GRF_SOC_CON11 : RK3506_GRF_SOC_CON8;
--	regmap_write(bsp_priv->grf, offset, RK3506_GMAC_RMII_MODE);
--}
--
- static const struct rk_gmac_ops rk3506_ops = {
- 	.init = rk3506_init,
--	.set_to_rmii = rk3506_set_to_rmii,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+index aaa83e9ff4f0..60b880cdd9da 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
+@@ -382,6 +382,8 @@ static int dwmac4_get_hw_feature(void __iomem *ioaddr,
+ 	dma_cap->vlins = (hw_cap & GMAC_HW_FEAT_SAVLANINS) >> 27;
+ 	dma_cap->arpoffsel = (hw_cap & GMAC_HW_FEAT_ARPOFFSEL) >> 9;
  
- 	.clock.io_clksel_io_mask = BIT_U16(5),
- 	.clock.rmii_clk_sel_mask = BIT_U16(3),
- 	.clock.rmii_gate_en_mask = BIT_U16(2),
-+	.clock.rmii_mode_mask = BIT_U16(1),
++	dma_cap->actphyif = FIELD_GET(DMA_HW_FEAT_ACTPHYIF, hw_cap);
 +
-+	.supports_rmii = true,
+ 	/* MAC HW feature1 */
+ 	hw_cap = readl(ioaddr + GMAC_HW_FEATURE1);
+ 	dma_cap->l3l4fnum = (hw_cap & GMAC_HW_FEAT_L3L4FNUM) >> 27;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+index b5c91c109c43..51943705a2b0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+@@ -107,6 +107,7 @@
+ #define XGMAC_HWFEAT_VXN		BIT(29)
+ #define XGMAC_HWFEAT_SAVLANINS		BIT(27)
+ #define XGMAC_HWFEAT_TSSTSSEL		GENMASK(26, 25)
++#define XGMAC_HWFEAT_PHYSEL		GENMASK(24, 23)
+ #define XGMAC_HWFEAT_ADDMACADRSEL	GENMASK(22, 18)
+ #define XGMAC_HWFEAT_RXCOESEL		BIT(16)
+ #define XGMAC_HWFEAT_TXCOESEL		BIT(14)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+index 9bb547f3c3c9..03437f1cf3df 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
+@@ -364,6 +364,7 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
+ 	dma_cap->vxn = (hw_cap & XGMAC_HWFEAT_VXN) >> 29;
+ 	dma_cap->vlins = (hw_cap & XGMAC_HWFEAT_SAVLANINS) >> 27;
+ 	dma_cap->tssrc = (hw_cap & XGMAC_HWFEAT_TSSTSSEL) >> 25;
++	dma_cap->actphyif = FIELD_GET(XGMAC_HWFEAT_PHYSEL, hw_cap);
+ 	dma_cap->multi_addr = (hw_cap & XGMAC_HWFEAT_ADDMACADRSEL) >> 18;
+ 	dma_cap->rx_coe = (hw_cap & XGMAC_HWFEAT_RXCOESEL) >> 16;
+ 	dma_cap->tx_coe = (hw_cap & XGMAC_HWFEAT_TXCOESEL) >> 14;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 347a0078f622..db0ea48a5637 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -127,6 +127,22 @@ static unsigned int chain_mode;
+ module_param(chain_mode, int, 0444);
+ MODULE_PARM_DESC(chain_mode, "To use chain instead of ring mode");
  
- 	.regs_valid = true,
- 	.regs = {
-@@ -746,10 +741,6 @@ static const struct rk_gmac_ops rk3506_ops = {
- #define RK3528_GMAC_CLK_RX_DL_CFG(val)	GRF_FIELD(15, 8, val)
- #define RK3528_GMAC_CLK_TX_DL_CFG(val)	GRF_FIELD(7, 0, val)
- 
--#define RK3528_GMAC0_PHY_INTF_SEL_RMII	GRF_BIT(1)
--#define RK3528_GMAC1_PHY_INTF_SEL_RGMII	GRF_CLR_BIT(8)
--#define RK3528_GMAC1_PHY_INTF_SEL_RMII	GRF_BIT(8)
--
- static int rk3528_init(struct rk_priv_data *bsp_priv)
- {
- 	switch (bsp_priv->id) {
-@@ -757,6 +748,7 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock_grf_reg = RK3528_VO_GRF_GMAC_CON;
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(3);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(2);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(1);
- 		bsp_priv->supports_rgmii = false;
- 		return 0;
- 
-@@ -766,6 +758,7 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(11, 10);
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(10);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(9);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(8);
- 		return 0;
- 
- 	default:
-@@ -776,9 +769,6 @@ static int rk3528_init(struct rk_priv_data *bsp_priv)
- static void rk3528_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 				int tx_delay, int rx_delay)
- {
--	regmap_write(bsp_priv->grf, RK3528_VPU_GRF_GMAC_CON5,
--		     RK3528_GMAC1_PHY_INTF_SEL_RGMII);
--
- 	regmap_write(bsp_priv->grf, RK3528_VPU_GRF_GMAC_CON5,
- 		     DELAY_ENABLE(RK3528, tx_delay, rx_delay));
- 
-@@ -787,16 +777,6 @@ static void rk3528_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 		     RK3528_GMAC_CLK_TX_DL_CFG(tx_delay));
++static const char *stmmac_dwmac_actphyif[8] = {
++	[PHY_INTF_SEL_GMII_MII]	= "GMII/MII",
++	[PHY_INTF_SEL_RGMII]	= "RGMII",
++	[PHY_INTF_SEL_SGMII]	= "SGMII",
++	[PHY_INTF_SEL_TBI]	= "TBI",
++	[PHY_INTF_SEL_RMII]	= "RMII",
++	[PHY_INTF_SEL_RTBI]	= "RTBI",
++	[PHY_INTF_SEL_SMII]	= "SMII",
++	[PHY_INTF_SEL_REVMII]	= "REVMII",
++};
++
++static const char *stmmac_dwxgmac_phyif[4] = {
++	[PHY_INTF_GMII]		= "GMII",
++	[PHY_INTF_RGMII]	= "RGMII",
++};
++
+ static irqreturn_t stmmac_interrupt(int irq, void *dev_id);
+ /* For MSI interrupts handling */
+ static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id);
+@@ -7270,6 +7286,41 @@ static void stmmac_service_task(struct work_struct *work)
+ 	clear_bit(STMMAC_SERVICE_SCHED, &priv->state);
  }
  
--static void rk3528_set_to_rmii(struct rk_priv_data *bsp_priv)
--{
--	if (bsp_priv->id == 1)
--		regmap_write(bsp_priv->grf, RK3528_VPU_GRF_GMAC_CON5,
--			     RK3528_GMAC1_PHY_INTF_SEL_RMII);
--	else
--		regmap_write(bsp_priv->grf, RK3528_VO_GRF_GMAC_CON,
--			     RK3528_GMAC0_PHY_INTF_SEL_RMII);
--}
--
- static void rk3528_integrated_phy_powerup(struct rk_priv_data *bsp_priv)
- {
- 	rk_gmac_integrated_fephy_powerup(bsp_priv, RK3528_VO_GRF_MACPHY_CON0);
-@@ -810,9 +790,11 @@ static void rk3528_integrated_phy_powerdown(struct rk_priv_data *bsp_priv)
- static const struct rk_gmac_ops rk3528_ops = {
- 	.init = rk3528_init,
- 	.set_to_rgmii = rk3528_set_to_rgmii,
--	.set_to_rmii = rk3528_set_to_rmii,
- 	.integrated_phy_powerup = rk3528_integrated_phy_powerup,
- 	.integrated_phy_powerdown = rk3528_integrated_phy_powerdown,
++static void stmmac_print_actphyif(struct stmmac_priv *priv)
++{
++	const char **phyif_table;
++	const char *actphyif_str;
++	size_t phyif_table_size;
 +
-+	.supports_rmii = true,
++	switch (priv->plat->core_type) {
++	case DWMAC_CORE_MAC100:
++		return;
 +
- 	.regs_valid = true,
- 	.regs = {
- 		0xffbd0000, /* gmac0 */
-@@ -988,9 +970,6 @@ static const struct rk_gmac_ops rk3576_ops = {
- #define RK3588_GRF_GMAC_CON0			0X0008
- #define RK3588_GRF_CLK_CON1			0X0070
- 
--#define RK3588_GMAC_CLK_RMII_MODE(id)		GRF_BIT(5 * (id))
--#define RK3588_GMAC_CLK_RGMII_MODE(id)		GRF_CLR_BIT(5 * (id))
--
- static int rk3588_init(struct rk_priv_data *bsp_priv)
- {
- 	switch (bsp_priv->id) {
-@@ -1000,6 +979,7 @@ static int rk3588_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(3, 2);
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(2);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(1);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(0);
- 		return 0;
- 
- 	case 1:
-@@ -1008,6 +988,7 @@ static int rk3588_init(struct rk_priv_data *bsp_priv)
- 		bsp_priv->clock.gmii_clk_sel_mask = GENMASK_U16(8, 7);
- 		bsp_priv->clock.rmii_clk_sel_mask = BIT_U16(7);
- 		bsp_priv->clock.rmii_gate_en_mask = BIT_U16(6);
-+		bsp_priv->clock.rmii_mode_mask = BIT_U16(5);
- 		return 0;
- 
- 	default:
-@@ -1023,9 +1004,6 @@ static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 	offset_con = bsp_priv->id == 1 ? RK3588_GRF_GMAC_CON9 :
- 					 RK3588_GRF_GMAC_CON8;
- 
--	regmap_write(bsp_priv->php_grf, RK3588_GRF_CLK_CON1,
--		     RK3588_GMAC_CLK_RGMII_MODE(id));
--
- 	regmap_write(bsp_priv->grf, RK3588_GRF_GMAC_CON7,
- 		     RK3588_GMAC_RXCLK_DLY_ENABLE(id) |
- 		     RK3588_GMAC_TXCLK_DLY_ENABLE(id));
-@@ -1035,16 +1013,9 @@ static void rk3588_set_to_rgmii(struct rk_priv_data *bsp_priv,
- 		     RK3588_GMAC_CLK_TX_DL_CFG(tx_delay));
- }
- 
--static void rk3588_set_to_rmii(struct rk_priv_data *bsp_priv)
--{
--	regmap_write(bsp_priv->php_grf, RK3588_GRF_CLK_CON1,
--		     RK3588_GMAC_CLK_RMII_MODE(bsp_priv->id));
--}
--
- static const struct rk_gmac_ops rk3588_ops = {
- 	.init = rk3588_init,
- 	.set_to_rgmii = rk3588_set_to_rgmii,
--	.set_to_rmii = rk3588_set_to_rmii,
- 
- 	.gmac_grf_reg_in_php = true,
- 	.gmac_grf_reg = RK3588_GRF_GMAC_CON0,
-@@ -1052,6 +1023,8 @@ static const struct rk_gmac_ops rk3588_ops = {
- 	.clock_grf_reg_in_php = true,
- 	.clock_grf_reg = RK3588_GRF_CLK_CON1,
- 
-+	.supports_rmii = true,
++	case DWMAC_CORE_GMAC:
++	case DWMAC_CORE_GMAC4:
++		phyif_table = stmmac_dwmac_actphyif;
++		phyif_table_size = ARRAY_SIZE(stmmac_dwmac_actphyif);
++		break;
 +
- 	.php_grf_required = true,
- 	.regs_valid = true,
- 	.regs = {
-@@ -1429,6 +1402,15 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
- 			return ret;
- 	}
- 
-+	if (bsp_priv->clock.rmii_mode_mask) {
-+		val = rk_encode_wm16(intf == PHY_INTF_SEL_RMII,
-+				     bsp_priv->clock.rmii_mode_mask);
-+
-+		ret = rk_write_clock_grf_reg(bsp_priv, val);
-+		if (ret < 0)
-+			return ret;
++	case DWMAC_CORE_XGMAC:
++		phyif_table = stmmac_dwxgmac_phyif;
++		phyif_table_size = ARRAY_SIZE(stmmac_dwxgmac_phyif);
++		break;
 +	}
 +
- 	/*rmii or rgmii*/
- 	switch (bsp_priv->phy_iface) {
- 	case PHY_INTERFACE_MODE_RGMII:
++
++	if (priv->dma_cap.actphyif < phyif_table_size)
++		actphyif_str = phyif_table[priv->dma_cap.actphyif];
++	else
++		actphyif_str = NULL;
++
++	if (!actphyif_str)
++		actphyif_str = "unknown";
++
++	dev_info(priv->device, "Active PHY interface: %s (%u)\n",
++		 actphyif_str, priv->dma_cap.actphyif);
++}
++
+ /**
+  *  stmmac_hw_init - Init the MAC device
+  *  @priv: driver private structure
+@@ -7326,6 +7377,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 		else if (priv->dma_cap.rx_coe_type1)
+ 			priv->plat->rx_coe = STMMAC_RX_COE_TYPE1;
+ 
++		stmmac_print_actphyif(priv);
+ 	} else {
+ 		dev_info(priv->device, "No HW DMA feature register supported\n");
+ 	}
 -- 
 2.47.3
 
