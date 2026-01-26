@@ -2,68 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ONAlBA9Bd2mMdQEAu9opvQ
+	id 0FaKDQ5Cd2mMdQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:25:19 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:29:34 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94D4E86D4E
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:25:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C4FFF86EEE
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:29:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E116C87EDD;
-	Mon, 26 Jan 2026 10:25:18 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8456FC87EDC;
+	Mon, 26 Jan 2026 10:29:33 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48469C87EDC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBFCFC030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 10:25:17 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 43EE4600B0;
- Mon, 26 Jan 2026 10:25:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABA5C116C6;
- Mon, 26 Jan 2026 10:25:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769423116;
- bh=X15mCfB1eLkM+Q70lpbeFtmKLy3xRRhtPt0DJGPJd1I=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=kigC4KnPkwuten2W4vry7/Q7uLnx5jkxhwNDPy0SmE0+vvbSCHF02ake/mqQ6lpDx
- k3o+5GdnskVWEhwFv+soH8UL3BFwTStxAXpVkb7npdZKtA0UMIAzg1tVPsbpFK6Rg6
- 4I1DwGLJocJGNLwVtaDzP5qs/IXjbThjudzizPR9NNoCayirZ5zFwD+EhinoKSrkqO
- FEa8FbY08hWJdyw1ez2QCO5ymgyh4sujmDe9gD6sM5qhEicDEJ9FfhMQgnchnA1N6u
- xE9gTZtR5iqv2+uoDoCPjx2r7bV7yVpvWCG0stjTBpjqqoqt2A+mm+zAfNOJhw0pf0
- WqfejPPvWWhng==
-Date: Mon, 26 Jan 2026 11:25:03 +0100
-From: Niklas Cassel <cassel@kernel.org>
-To: Koichiro Den <den@valinux.co.jp>
-Message-ID: <aXdA_6shI23JBswI@ryzen>
-References: <20260124145012.2794108-1-den@valinux.co.jp>
- <20260124145012.2794108-5-den@valinux.co.jp>
+ Mon, 26 Jan 2026 10:29:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=F2bF
+ S/uMFLgtEVC0YCnMXZC86wb3SDlDFVJk5gHDbHs=; b=jHX8+Wl7CjOEdsajEoyd
+ YLJSni1KMKFnTnF6HUkKy4i7hdARKm53juZzr7ZafJR47rtHoNyWJaaKdHJ/2sso
+ LqYQH5W3d0RaRaQ8Q8J1G9u4nNTashMNVexC1gLUhUwVMKjdwdx0vBnOcNj2BbqO
+ OzdLxlpS3qYwey2EMbughKgdVpyf2lbwjuTyiOgPikJmtfRlj0LYKeoBgjXrSvoV
+ mlK/IzdLZzcuzrQK6IypnN/vpPwAKgfyOgmhmg2cICJBgE71R+rc1lx8MlV6l5v8
+ F39Y7wqyE8Wvnw4+qlOC0DvLTWsXo+ZALNH34HFE5YzYV8NWVP6e4yVnRLb2de1H
+ 6g==
+Received: (qmail 2710669 invoked from network); 26 Jan 2026 11:29:27 +0100
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 26 Jan 2026 11:29:27 +0100
+X-UD-Smtp-Session: l3s3148p1@tFg7+0dJFMUujnvz
+Date: Mon, 26 Jan 2026 11:29:26 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Message-ID: <aXdCBu6kzdw1NWay@ninjato>
+References: <20260125184654.17843-6-wsa+renesas@sang-engineering.com>
+ <aXc7DxsqiCGdfzxi@smile.fi.intel.com> <aXc-Zxw05XQLb1Dy@ninjato>
+ <aXdAB2bLTy6u8G8c@smile.fi.intel.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260124145012.2794108-5-den@valinux.co.jp>
-Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
- linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
- minghuan.Lian@nxp.com, thierry.reding@gmail.com,
- linux-kselftest@vger.kernel.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, marek.vasut+renesas@gmail.com,
- kishon@kernel.org, robh@kernel.org, jesper.nilsson@axis.com,
- hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
- linux-arm-kernel@axis.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 18255117159@163.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
- shawn.lin@rock-chips.com, srikanth.thokala@intel.com, shuah@kernel.org,
- hongxing.zhu@nxp.com, mcoquelin.stm32@gmail.com, mani@kernel.org,
- linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com, linux-omap@vger.kernel.org,
- rongqianfeng@vivo.com, mingkai.hu@nxp.com, roy.zang@nxp.com,
- linux-tegra@vger.kernel.org, christian.bruel@foss.st.com,
- linux.amoon@gmail.com, jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
- heiko@sntech.de, linux-kernel@vger.kernel.org, vidyas@nvidia.com,
- linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org, kernel@pengutronix.de,
- shawnguo@kernel.org, nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v10 4/8] PCI: dwc: ep: Support BAR
- subrange inbound mapping via Address Match Mode iATU
+In-Reply-To: <aXdAB2bLTy6u8G8c@smile.fi.intel.com>
+Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-omap@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, Boqun Feng <boqun.feng@gmail.com>,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Wilken Gottwalt <wilken.gottwalt@posteo.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/4] hwspinlock: refactor headers into
+ public provider/consumer pair
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,75 +83,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[renesas];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[cassel@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:den@valinux.co.jp,m:imx@lists.linux.dev,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:linux-pci@vger.kernel.org,m:lpieralisi@kernel.org,m:Frank.Li@nxp.com,m:minghuan.Lian@nxp.com,m:thierry.reding@gmail.com,m:linux-kselftest@vger.kernel.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:marek.vasut+renesas@gmail.com,m:kishon@kernel.org,m:robh@kernel.org,m:jesper.nilsson@axis.com,m:hayashi.kunihiko@socionext.com,m:jirislaby@kernel.org,m:magnus.damm@gmail.com,m:linux-arm-kernel@axis.com,m:jonathanh@nvidia.com,m:linux-rockchip@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:18255117159@163.com,m:s-vadapalli@ti.com,m:kwilczynski@kernel.org,m:shawn.lin@rock-chips.com,m:srikanth.thokala@intel.com,m:shuah@kernel.org,m:hongxing.zhu@nxp.com,m:mcoquelin.stm32@gmail.com,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:linuxppc-dev@lists.ozlabs.org,m:bhelgaas@google.com,m:linux-omap@vger.kernel.org,m:rongqianfe
- ng@vivo.com,m:mingkai.hu@nxp.com,m:roy.zang@nxp.com,m:linux-tegra@vger.kernel.org,m:christian.bruel@foss.st.com,m:linux.amoon@gmail.com,m:jingoohan1@gmail.com,m:yoshihiro.shimoda.uh@renesas.com,m:heiko@sntech.de,m:linux-kernel@vger.kernel.org,m:vidyas@nvidia.com,m:linux-renesas-soc@vger.kernel.org,m:mhiramat@kernel.org,m:kernel@pengutronix.de,m:shawnguo@kernel.org,m:nicolas.frattaroli@collabora.com,m:l.stach@pengutronix.de,m:geert@glider.be,m:thierryreding@gmail.com,m:marekvasut@gmail.com,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,m:linuxamoon@gmail.com,s:lists@lfdr.de];
+	DMARC_NA(0.00)[sang-engineering.com];
+	FORGED_RECIPIENTS(0.00)[m:andriy.shevchenko@intel.com,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:wilken.gottwalt@posteo.net,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:tglx@kernel.org,m:mcoquelin.stm
+ 32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[42];
+	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCPT_COUNT_GT_50(0.00)[54];
-	NEURAL_HAM(-0.00)[-0.993];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[cassel@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,ti.com,glider.be,vger.kernel.org,kernel.org,nxp.com,gmail.com,st-md-mailman.stormreply.com,axis.com,socionext.com,nvidia.com,lists.infradead.org,163.com,rock-chips.com,intel.com,pengutronix.de,lists.ozlabs.org,google.com,vivo.com,foss.st.com,renesas.com,sntech.de,collabora.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	DKIM_TRACE(0.00)[sang-engineering.com:-];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,posteo.net,sholland.org];
+	NEURAL_HAM(-0.00)[-0.997];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,nxp.com:email]
-X-Rspamd-Queue-Id: 94D4E86D4E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: C4FFF86EEE
 X-Rspamd-Action: no action
 
-On Sat, Jan 24, 2026 at 11:50:08PM +0900, Koichiro Den wrote:
-> Extend dw_pcie_ep_set_bar() to support inbound mappings for BAR
-> subranges using Address Match Mode IB iATU when pci_epf_bar.num_submap
-> is non-zero.
-> 
-> Rename the existing BAR-match helper into dw_pcie_ep_ib_atu_bar() and
-> introduce dw_pcie_ep_ib_atu_addr() for Address Match Mode. When
-> num_submap is non-zero, read the assigned BAR base address and program
-> one inbound iATU window per subrange. Validate the submap array before
-> programming:
-> - each subrange is aligned to pci->region_align
-> - subranges cover the whole BAR (no gaps and no overlaps)
-> 
-> Track Address Match Mode mappings and tear them down on clear_bar() and
-> on set_bar() error paths to avoid leaving half-programmed state or
-> untranslated BAR holes.
-> 
-> Advertise this capability by extending the common feature bit
-> initializer macro (DWC_EPC_COMMON_FEATURES).
-> 
-> This enables multiple inbound windows within a single BAR, which is
-> useful on platforms where usable BARs are scarce but EPFs need multiple
-> inbound regions.
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> ---
 
-Reviewed-by: Niklas Cassel <cassel@kernel.org>
+> > Providers need it, especially the 'priv' member. Consumers won't see it.
+> 
+> But can't we make it opaque?
+> 
+> We may have getters and setters for the priv member...
+
+I think we could do that.
+
+Two drivers use the bank member, but only for the device
+(lock->bank->dev). That can probably be refactored away, I'd guess.
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
