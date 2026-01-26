@@ -2,55 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CDSxDXVbd2maeQEAu9opvQ
+	id YC6QCRRfd2n8eQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:17:57 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:33:24 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A719F8819B
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:17:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 94D5E884BC
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:33:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AA91C87EDC;
-	Mon, 26 Jan 2026 12:17:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DB2CC87EDC;
+	Mon, 26 Jan 2026 12:33:23 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F0FAC030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32825C87EDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 12:17:54 +0000 (UTC)
+ Mon, 26 Jan 2026 12:33:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
  :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
  Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7j0Vk4RZICiGr3kMEvEbjecwBLCRWMDYUxPd+pEqMpc=; b=FzzvkoOKwdf67baLwyTkXQCvt9
- 3s0SANG2yvzz/sb2hrTuOd55a4J6bELFRvVi/oQWlJuhtweonEhn4OkaBrs4oD599WPvU59xZm4xH
- MfkoNtDzPAChX07vwmSvDOrcrz66sPKi6c6ZnZiO9AtBMadu3MYpqFSVMnvptwjXgB2/OYiZ+FDRn
- 8QVmriGNd1fzca2z5dKW8jdgZP2SmTCSh9FI9jgvQlX/WgwFRSWTXG63+De88mrCp7newRL+iqQ+f
- VRi6Wseu30B+EI4iGFyAg74xMWsV4KGVCI8/qqRi4UpWNF1xCmr79/rEyw6mTMffarKw9shGAdmP/
- buqN7+BQ==;
+ bh=Wg/dOnG781SWjs7CoGEbkT1P6etmPjivu2HuJgD0COY=; b=hWxLtS7BpmMeAI9fBkfEvqzDge
+ DXnVM4bgozkpzZaoqlIZweq2goDdXp9qbnd8XA5qnSFEmxOAI25winOvkWxW+z3qNwmVxIK7cPMpC
+ 2AUw8cF5Rqtgbw1QlCr6XA1nxQA2SjBOzdvVo+chp/GU79rCeFuXDcncy1FTwmD95EM5NPXNfafaZ
+ SiShaRwGILyh2SKZBEGPUisDLB3MAXNchj/12Rh4e24PS3O7X/9SipnuATgsWmsVXD6IymczsfOwZ
+ 2jyAod1I/FEWcdM2E9zoRpl0PK6Hhn6XO+/auKezJ5rwlMR7Gfgdy3rmgvDRDHoL1zkU3PpuCTMA6
+ eMFx1IsA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39956 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:50600 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vkLXP-000000004m8-23Z0;
- Mon, 26 Jan 2026 12:17:47 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vkLmM-000000004oZ-40gK;
+ Mon, 26 Jan 2026 12:33:14 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vkLXO-00000005uxQ-31ZV; Mon, 26 Jan 2026 12:17:46 +0000
+ id 1vkLmM-00000005vE1-0nop; Mon, 26 Jan 2026 12:33:14 +0000
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vkLXO-00000005uxQ-31ZV@rmk-PC.armlinux.org.uk>
-Date: Mon, 26 Jan 2026 12:17:46 +0000
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+Message-Id: <E1vkLmM-00000005vE1-0nop@rmk-PC.armlinux.org.uk>
+Date: Mon, 26 Jan 2026 12:33:14 +0000
+Cc: imx@lists.linux.dev, netdev@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: report active PHY
-	interface
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: don't pass ioaddr to
+ fix_soc_reset() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,200 +83,119 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kernel@pengutronix.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:shawnguo@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: A719F8819B
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: 94D5E884BC
 X-Rspamd-Action: no action
 
-Report the active PHY interface from the point of view of the dwmac
-hardware to the kernel log, where the core supports reading this.
+As the stmmac_priv struct is passed to the fix_soc_reset() method which
+has the ioaddr, there is no need to pass ioaddr separately. Pass just
+the stmmac_priv struct. Fix up the glues that use it.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
-I recently sent this to aid some debug for socfpga folks, but I think
-printing the active PHY interface as read from the HW feature registers
-is useful information about the state of the driver, particularly for
-debugging reported issues.
+ drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c      | 8 +++++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 6 ++++--
+ drivers/net/ethernet/stmicro/stmmac/hwif.c           | 2 +-
+ include/linux/stmmac.h                               | 2 +-
+ 4 files changed, 11 insertions(+), 7 deletions(-)
 
- drivers/net/ethernet/stmicro/stmmac/common.h  |  6 +++
- .../ethernet/stmicro/stmmac/dwmac1000_dma.c   |  2 +
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +
- .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  1 +
- .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  1 +
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 52 +++++++++++++++++++
- 6 files changed, 64 insertions(+)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 49df46be3669..1c5a4af85b58 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -323,6 +323,10 @@ struct stmmac_safety_stats {
- #define PHY_INTF_SEL_SMII	6
- #define PHY_INTF_SEL_REVMII	7
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+index c722ff2dc1fc..97de4726208e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
+@@ -46,7 +46,7 @@ struct imx_dwmac_ops {
+ 	u32 flags;
+ 	bool mac_rgmii_txclk_auto_adj;
  
-+/* XGMAC uses a different encoding - from the AgileX5 documentation */
-+#define PHY_INTF_GMII		0
-+#define PHY_INTF_RGMII		1
-+
- /* MSI defines */
- #define STMMAC_MSI_VEC_MAX	32
- 
-@@ -512,6 +516,8 @@ struct dma_features {
- 	unsigned int dbgmem;
- 	/* Number of Policing Counters */
- 	unsigned int pcsel;
-+	/* Active PHY interface, PHY_INTF_SEL_xxx */
-+	u8 actphyif;
+-	int (*fix_soc_reset)(struct stmmac_priv *priv, void __iomem *ioaddr);
++	int (*fix_soc_reset)(struct stmmac_priv *priv);
+ 	int (*set_intf_mode)(struct imx_priv_data *dwmac, u8 phy_intf_sel);
+ 	void (*fix_mac_speed)(void *priv, int speed, unsigned int mode);
  };
- 
- /* RX Buffer size must be multiple of 4/8/16 bytes */
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-index a62f1271b6ea..3ac7a7949529 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_dma.c
-@@ -239,6 +239,8 @@ static int dwmac1000_get_hw_feature(void __iomem *ioaddr,
- 	/* Alternate (enhanced) DESC mode */
- 	dma_cap->enh_desc = (hw_cap & DMA_HW_FEAT_ENHDESSEL) >> 24;
- 
-+	dma_cap->actphyif = FIELD_GET(DMA_HW_FEAT_ACTPHYIF, hw_cap);
-+
- 	return 0;
+@@ -220,12 +220,14 @@ static void imx93_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+ 	writel(old_ctrl, dwmac->base_addr + MAC_CTRL_REG);
  }
  
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-index aaa83e9ff4f0..60b880cdd9da 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-@@ -382,6 +382,8 @@ static int dwmac4_get_hw_feature(void __iomem *ioaddr,
- 	dma_cap->vlins = (hw_cap & GMAC_HW_FEAT_SAVLANINS) >> 27;
- 	dma_cap->arpoffsel = (hw_cap & GMAC_HW_FEAT_ARPOFFSEL) >> 9;
+-static int imx_dwmac_mx93_reset(struct stmmac_priv *priv, void __iomem *ioaddr)
++static int imx_dwmac_mx93_reset(struct stmmac_priv *priv)
+ {
+ 	struct plat_stmmacenet_data *plat_dat = priv->plat;
+-	u32 value = readl(ioaddr + DMA_BUS_MODE);
++	void __iomem *ioaddr = priv->ioaddr;
++	u32 value;
  
-+	dma_cap->actphyif = FIELD_GET(DMA_HW_FEAT_ACTPHYIF, hw_cap);
-+
- 	/* MAC HW feature1 */
- 	hw_cap = readl(ioaddr + GMAC_HW_FEATURE1);
- 	dma_cap->l3l4fnum = (hw_cap & GMAC_HW_FEAT_L3L4FNUM) >> 27;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-index b5c91c109c43..51943705a2b0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
-@@ -107,6 +107,7 @@
- #define XGMAC_HWFEAT_VXN		BIT(29)
- #define XGMAC_HWFEAT_SAVLANINS		BIT(27)
- #define XGMAC_HWFEAT_TSSTSSEL		GENMASK(26, 25)
-+#define XGMAC_HWFEAT_PHYSEL		GENMASK(24, 23)
- #define XGMAC_HWFEAT_ADDMACADRSEL	GENMASK(22, 18)
- #define XGMAC_HWFEAT_RXCOESEL		BIT(16)
- #define XGMAC_HWFEAT_TXCOESEL		BIT(14)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-index 9bb547f3c3c9..03437f1cf3df 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c
-@@ -364,6 +364,7 @@ static int dwxgmac2_get_hw_feature(void __iomem *ioaddr,
- 	dma_cap->vxn = (hw_cap & XGMAC_HWFEAT_VXN) >> 29;
- 	dma_cap->vlins = (hw_cap & XGMAC_HWFEAT_SAVLANINS) >> 27;
- 	dma_cap->tssrc = (hw_cap & XGMAC_HWFEAT_TSSTSSEL) >> 25;
-+	dma_cap->actphyif = FIELD_GET(XGMAC_HWFEAT_PHYSEL, hw_cap);
- 	dma_cap->multi_addr = (hw_cap & XGMAC_HWFEAT_ADDMACADRSEL) >> 18;
- 	dma_cap->rx_coe = (hw_cap & XGMAC_HWFEAT_RXCOESEL) >> 16;
- 	dma_cap->tx_coe = (hw_cap & XGMAC_HWFEAT_TXCOESEL) >> 14;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 347a0078f622..db0ea48a5637 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -127,6 +127,22 @@ static unsigned int chain_mode;
- module_param(chain_mode, int, 0444);
- MODULE_PARM_DESC(chain_mode, "To use chain instead of ring mode");
+ 	/* DMA SW reset */
++	value = readl(ioaddr + DMA_BUS_MODE);
+ 	value |= DMA_BUS_MODE_SFT_RESET;
+ 	writel(value, ioaddr + DMA_BUS_MODE);
  
-+static const char *stmmac_dwmac_actphyif[8] = {
-+	[PHY_INTF_SEL_GMII_MII]	= "GMII/MII",
-+	[PHY_INTF_SEL_RGMII]	= "RGMII",
-+	[PHY_INTF_SEL_SGMII]	= "SGMII",
-+	[PHY_INTF_SEL_TBI]	= "TBI",
-+	[PHY_INTF_SEL_RMII]	= "RMII",
-+	[PHY_INTF_SEL_RTBI]	= "RTBI",
-+	[PHY_INTF_SEL_SMII]	= "SMII",
-+	[PHY_INTF_SEL_REVMII]	= "REVMII",
-+};
-+
-+static const char *stmmac_dwxgmac_phyif[4] = {
-+	[PHY_INTF_GMII]		= "GMII",
-+	[PHY_INTF_RGMII]	= "RGMII",
-+};
-+
- static irqreturn_t stmmac_interrupt(int irq, void *dev_id);
- /* For MSI interrupts handling */
- static irqreturn_t stmmac_mac_interrupt(int irq, void *dev_id);
-@@ -7270,6 +7286,41 @@ static void stmmac_service_task(struct work_struct *work)
- 	clear_bit(STMMAC_SERVICE_SCHED, &priv->state);
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+index 4f2b5bd6cb31..ed0b534d8d7b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+@@ -485,10 +485,12 @@ static int loongson_dwmac_acpi_config(struct pci_dev *pdev,
  }
  
-+static void stmmac_print_actphyif(struct stmmac_priv *priv)
-+{
-+	const char **phyif_table;
-+	const char *actphyif_str;
-+	size_t phyif_table_size;
-+
-+	switch (priv->plat->core_type) {
-+	case DWMAC_CORE_MAC100:
-+		return;
-+
-+	case DWMAC_CORE_GMAC:
-+	case DWMAC_CORE_GMAC4:
-+		phyif_table = stmmac_dwmac_actphyif;
-+		phyif_table_size = ARRAY_SIZE(stmmac_dwmac_actphyif);
-+		break;
-+
-+	case DWMAC_CORE_XGMAC:
-+		phyif_table = stmmac_dwxgmac_phyif;
-+		phyif_table_size = ARRAY_SIZE(stmmac_dwxgmac_phyif);
-+		break;
-+	}
-+
-+
-+	if (priv->dma_cap.actphyif < phyif_table_size)
-+		actphyif_str = phyif_table[priv->dma_cap.actphyif];
-+	else
-+		actphyif_str = NULL;
-+
-+	if (!actphyif_str)
-+		actphyif_str = "unknown";
-+
-+	dev_info(priv->device, "Active PHY interface: %s (%u)\n",
-+		 actphyif_str, priv->dma_cap.actphyif);
-+}
-+
- /**
-  *  stmmac_hw_init - Init the MAC device
-  *  @priv: driver private structure
-@@ -7326,6 +7377,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 		else if (priv->dma_cap.rx_coe_type1)
- 			priv->plat->rx_coe = STMMAC_RX_COE_TYPE1;
+ /* Loongson's DWMAC device may take nearly two seconds to complete DMA reset */
+-static int loongson_dwmac_fix_reset(struct stmmac_priv *priv, void __iomem *ioaddr)
++static int loongson_dwmac_fix_reset(struct stmmac_priv *priv)
+ {
+-	u32 value = readl(ioaddr + DMA_BUS_MODE);
++	void __iomem *ioaddr = priv->ioaddr;
++	u32 value;
  
-+		stmmac_print_actphyif(priv);
- 	} else {
- 		dev_info(priv->device, "No HW DMA feature register supported\n");
- 	}
++	value = readl(ioaddr + DMA_BUS_MODE);
+ 	if (value & DMA_BUS_MODE_SFT_RESET) {
+ 		netdev_err(priv->dev, "the PHY clock is missing\n");
+ 		return -EINVAL;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index 014f7cd79a3c..7e69ff4b9a98 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -109,7 +109,7 @@ int stmmac_reset(struct stmmac_priv *priv)
+ 	void __iomem *ioaddr = priv->ioaddr;
+ 
+ 	if (plat && plat->fix_soc_reset)
+-		return plat->fix_soc_reset(priv, ioaddr);
++		return plat->fix_soc_reset(priv);
+ 
+ 	return stmmac_do_callback(priv, dma, reset, ioaddr);
+ }
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index e308c98c7bd3..5199451dd0bc 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -257,7 +257,7 @@ struct plat_stmmacenet_data {
+ 	int (*set_clk_tx_rate)(void *priv, struct clk *clk_tx_i,
+ 			       phy_interface_t interface, int speed);
+ 	void (*fix_mac_speed)(void *priv, int speed, unsigned int mode);
+-	int (*fix_soc_reset)(struct stmmac_priv *priv, void __iomem *ioaddr);
++	int (*fix_soc_reset)(struct stmmac_priv *priv);
+ 	int (*serdes_powerup)(struct net_device *ndev, void *priv);
+ 	void (*serdes_powerdown)(struct net_device *ndev, void *priv);
+ 	int (*mac_finish)(struct net_device *ndev,
 -- 
 2.47.3
 
