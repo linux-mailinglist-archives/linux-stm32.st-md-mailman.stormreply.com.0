@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8EbrNzdid2n8eQEAu9opvQ
+	id QEXgJjlsd2nCfQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:46:47 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 14:29:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6969E886FD
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 13:46:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1E37888D41
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 14:29:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1F5FEC87EDC;
-	Mon, 26 Jan 2026 12:46:47 +0000 (UTC)
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0A87C87EDC;
+	Mon, 26 Jan 2026 13:29:28 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B422BC87EDB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E51E0C87EDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 12:46:45 +0000 (UTC)
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 3AE6F200EE2;
- Mon, 26 Jan 2026 13:46:45 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id 23B2A200E9A;
- Mon, 26 Jan 2026 13:46:45 +0100 (CET)
-Received: from lsv051416.swis.nl-cdc01.nxp.com
- (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id D33D62035B;
- Mon, 26 Jan 2026 13:46:44 +0100 (CET)
-Date: Mon, 26 Jan 2026 13:46:45 +0100
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Conor Dooley <conor@kernel.org>
-Message-ID: <aXdiNb92B4HH+ZFt@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260123-dwmac_multi_irq-v3-0-cc53f2be8961@oss.nxp.com>
- <20260123-dwmac_multi_irq-v3-2-cc53f2be8961@oss.nxp.com>
- <20260123-dinner-aloft-e57deb6c546a@spud>
+ Mon, 26 Jan 2026 13:29:27 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id C2393C21A84;
+ Mon, 26 Jan 2026 13:29:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 150F460717;
+ Mon, 26 Jan 2026 13:29:27 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 99E0E119A8633; Mon, 26 Jan 2026 14:29:19 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1769434166; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=4VpehwRlJ7i5t1l2Yl9R834m3oPT3yev9rVS4TQ1wVY=;
+ b=BCrSE+mwhylQ4tQixlFfLMNCHR1HqfQYOItuKPvQ6/aoZHerpdcVoSB7In1NJ5PwEqF5kM
+ irzRf74H31TNzv3Dyj3h7OlEmNZJUVjQUUhru8R1ff2RPeqJGgi8gnt9PkNMTXXUKq/k+Y
+ DlzUB+84WjuXD4FN6wGA7IwcLNav2zCTomQZNN75hCIiWBBzZc/dtSls6bNK+hDxUGcDkp
+ 5rLG/zkVRryOwJ9NSRIri6OQ8llqfnNXCmbfz3K+MiooPSWiRR+e9iZZIhRt93ZDxZlDXA
+ T62L6mnYQ4tO7Amw1WOFEWb04bfT1scWymEKbqOvFPiaHJGhS6TPLuFUFV15Nw==
+Message-ID: <2ce008fd-cb9b-4f5d-bdb0-cccb1f09eae8@bootlin.com>
+Date: Mon, 26 Jan 2026 14:29:18 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260123-dinner-aloft-e57deb6c546a@spud>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>
+References: <E1vkLmM-00000005vE1-0nop@rmk-PC.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <E1vkLmM-00000005vE1-0nop@rmk-PC.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: imx@lists.linux.dev, netdev@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v3 2/4] dt-bindings: net: nxp,
- s32-dwmac: Declare per-queue interrupts
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: don't pass ioaddr
+ to fix_soc_reset() method
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,66 +72,56 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[nxp.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[24];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:conor@kernel.org,m:imx@lists.linux.dev,m:s32@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jan.petrous@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kernel@pengutronix.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:shawnguo@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[jan.petrous@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	R_DKIM_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[bootlin.com:-];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,nxp.com:email]
-X-Rspamd-Queue-Id: 6969E886FD
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,bootlin.com:email,armlinux.org.uk:email]
+X-Rspamd-Queue-Id: 1E37888D41
 X-Rspamd-Action: no action
 
-On Fri, Jan 23, 2026 at 05:13:03PM +0000, Conor Dooley wrote:
-> On Fri, Jan 23, 2026 at 11:09:55AM +0100, Jan Petrous via B4 Relay wrote:
-> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> > 
-> > The DWMAC IP on NXP S32G/R SoCs has connected queue-based IRQ lines,
-> > set them to allow using Multi-IRQ mode when supported.
+Hi,
+
+On 26/01/2026 13:33, Russell King (Oracle) wrote:
+> As the stmmac_priv struct is passed to the fix_soc_reset() method which
+> has the ioaddr, there is no need to pass ioaddr separately. Pass just
+> the stmmac_priv struct. Fix up the glues that use it.
 > 
-> The binding only supports s32{g,r} devices, why is the existing minimum
-> retained? What devices are going to not have all 11 interrupts
-> connected?
-> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-The original idea was to support backward compatibility, as older DTs
-didn't contain queue-based interrupt lines described.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-But now, when you asked, I started to think it is not needed,
-the requirement for backward compatibility is managed inside the driver
-and yaml shall describe the hardware not used configuration.
-
-Is it my understanding right? Should I provide v4 with minimum = 11?
-
-BR.
-/Jan
-
+Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
