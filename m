@@ -2,63 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EI+IHleud2ngkAEAu9opvQ
+	id yKI5JI6yd2l2kQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 19:11:35 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 19:29:34 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 103B48BEB1
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 19:11:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F7768C189
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 19:29:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9FE3C87EDB;
-	Mon, 26 Jan 2026 18:11:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7D6FC87EDB;
+	Mon, 26 Jan 2026 18:29:33 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A48F4C030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CC16C030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 18:11:33 +0000 (UTC)
+ Mon, 26 Jan 2026 18:29:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=vicu6lpUE90FAgN2xtfuOumDUR1Qg4VnW5GWRXk4y9o=; b=NrPEk1J1La77hJglDtJdiD8za9
- IGx3mDMOahM9R9I2Epz3BcUKZV0mEwhrhJowvHeWenHhHLJRQmcsbU5jlB66JkVEvQS2Co5khEXlF
- asdrMDH6hVzJxOHU2z65VzC4+izMIh1i573mzJbt9dxmqTpS+HtuGU2tgNpoX+XId54JueRF3XNIF
- LpV/dq8Ej88/zNas8S35JPhVSeA8skdIZWOdx3nPPsnkHPXiP97M1UY8xNnAHJVZi6ipsJJ1MHpZF
- PAlyizJyryjDuVP54qj98ob9nRsfq+XB3t4GOkzjGe85CZRYRnTbfos0P7CnvrtLmXfVuSo8b1zma
- Zh7SYR1Q==;
+ bh=Qh2+4EAwmLQeQZACP33br3DlT9jNVGAtBcqIW3K6GBY=; b=1oXHcVOEbBsPeKtD7teuUoyUKA
+ rEBoh0VAB/JUFwdTHamwVXxwBqSyg+KkaZ322sjhe0tRa2s7gqMStIkRCsySN7cZA88CYuQcsSHcC
+ j+TqI2EKxYDKw1sNcGyXmSgoTZXLfKB32XKFjCtebURP5xz4/EEQyoTsQwric7NIr0IyMg97NRH5Y
+ v+FcwuOtnXLHiujV4gsTpe3Hmt/e8M9mUR5dZFRTH42BRUeA/DlcylNQGh2GVhWuy+m+QMtUSl6ik
+ w4uHLniv9u0Vqhat1i6uZLKRlsN0UazPmmom41ZzD8iCUNRvSJFj15FQw+6nX2T4rG7lZK0J1cKuP
+ n20j5Y7A==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36042)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:58892)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vkR3c-000000005Co-0yVO;
- Mon, 26 Jan 2026 18:11:24 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1vkRKr-000000005Ew-2moS;
+ Mon, 26 Jan 2026 18:29:13 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vkR3X-00000000595-3RUR; Mon, 26 Jan 2026 18:11:19 +0000
-Date: Mon, 26 Jan 2026 18:11:19 +0000
+ id 1vkRKn-0000000059Q-1LXH; Mon, 26 Jan 2026 18:29:09 +0000
+Date: Mon, 26 Jan 2026 18:29:09 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Message-ID: <aXeuR_YLoAFYEAVi@shell.armlinux.org.uk>
-References: <20260126172503.238724-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Min Lin <linmin@eswincomputing.com>
+Message-ID: <aXeydXuWEMDz-yVM@shell.armlinux.org.uk>
+References: <308b676.2d03.19bb0caebed.Coremail.lizhi2@eswincomputing.com>
+ <59cec617-0189-4dc3-bc3f-6346155a62ae@lunn.ch>
+ <4e2a55e7.3662.19be8cb9c3c.Coremail.lizhi2@eswincomputing.com>
+ <c5c0bfdb-316d-4796-afa0-f6f018ceb414@lunn.ch>
+ <abf12a3f-9cdd-472d-a02e-af4da594b84f@gmail.com>
+ <e6f7da45-3dec-4af6-a5b1-a72210bf24f4@kernel.org>
+ <43923bf9-6202-4147-8eac-5bd7bb653fd4@gmail.com>
+ <bd202cfa-d6eb-4d0e-982d-b49795dd25f7@lunn.ch>
+ <009aefc4-fbc9-4f91-9230-23d18c281bf3@gmail.com>
+ <73ea5619.2b71.19bf847c80d.Coremail.linmin@eswincomputing.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260126172503.238724-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>, netdev@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-renesas-soc@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC PATCH net-next] net: stmmac: Preserve
- bootloader MAC address across unconditional reset
+In-Reply-To: <73ea5619.2b71.19bf847c80d.Coremail.linmin@eswincomputing.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Bo Gan <ganboing@gmail.com>,
+ edumazet@google.com, =?utf-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ weishangjuan@eswincomputing.com, ningyu@eswincomputing.com,
+ Krzysztof Kozlowski <krzk@kernel.org>, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH v1 1/2] dt-bindings: ethernet: eswin: add
+ clock sampling control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,145 +95,71 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:linmin@eswincomputing.com,m:andrew@lunn.ch,m:ganboing@gmail.com,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:ningyu@eswincomputing.com,m:krzk@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FORGED_RECIPIENTS(0.00)[m:prabhakar.csengg@gmail.com,m:linux-kernel@vger.kernel.org,m:p.zabel@pengutronix.de,m:geert+renesas@glider.be,m:netdev@vger.kernel.org,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:fabrizio.castro.jz@renesas.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-renesas-soc@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:biju.das.jz@bp.renesas.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:prabhakarcsengg@gmail.com,m:geert@glider.be,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FREEMAIL_CC(0.00)[lunn.ch,gmail.com,google.com,eswincomputing.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,lists.infradead.org,einfochips.com,davemloft.net];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-1.000];
+	NEURAL_HAM(-0.00)[-0.986];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,pengutronix.de,glider.be,bp.renesas.com,renesas.com,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas,netdev];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
 	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,renesas.com:email,shell.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 103B48BEB1
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,shell.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: 2F7768C189
 X-Rspamd-Action: no action
 
-On Mon, Jan 26, 2026 at 05:25:03PM +0000, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> 
-> Commit 90f522a20e3d1 ("NET: dwmac: Make dwmac reset unconditional")
-> asserts a reset in probe when a reset controller is present. This reset
-> clears the MAC address registers, so a valid address programmed by the
-> bootloader gets lost and the driver falls back to a random address.
-> 
-> Read the MAC address from the hardware registers before resetting the
-> hardware. Keep the existing address selection logic when no valid
-> address is found, and program the selected address back into the MAC
-> after probe so it remains consistent in hardware.
-> 
-> Export stmmac_bus_clks_config() so the early read path can enable the
-> bus clocks before accessing the MAC registers.
+On Mon, Jan 26, 2026 at 11:10:12AM +0800, Min Lin wrote:
+> Due to chip backend reasons, there is already a ~4-5ns skew between the RX
+> clock and data of the eth1 MAC controller inside the silicon.
 
-I don't think this is a good idea. stmmac_bus_clks_config() is specific
-to using platform devices, but the core stmmac driver also supports
-PCI that doesn't use stmmac_bus_clks_config().
+Let's analyse this.
 
-stmmac_bus_clks_config() handles:
+	TXC / RXC	TXC / RXC
+Speed	Clock rate	Clock period
+1G	125MHz		8ns
+100M	25MHz		40ns
+10M	2.5MHz		400ns
 
- - plat_dat->stmmac_clk
- - plat_dat->pclk
- - any clock handled by the plat_dat->clks_config() method
+The required skew for TXC and RXC at the receiver is specified to be
+between 1 and 2.6ns irrespective of the speed. The edge of the clock
+is also important: the rising edge indicates the lower 4 bits, and
+the falling edge indicates the upper 4 bits.
 
-For platform devices, stmmac_probe_config_dt() gets these two clocks
-from DT, and prepares and enables them both. So, by the time the
-probe function is called, these clocks are already running.
+At 1G speed, with a "4 to 5ns" skew in the chip. If this is accurate,
+then inverting the clock and adding 1ns of additional skew by some
+means (PCB trace, or at the MAC or PHY) will give the required clock
+at the receiver.
 
-For those handled by the platform glue, the glues that populate
-this function:
+The timing table in the RGMII standard (3.3) allows for Tcyc (the
+clock rate) to be scaled, but there is no allowance for scaling
+TskewR (the required 1 to 2.6ns skew.) This skew parameter is
+fixed.
 
-eic7700: eic7700_clks_config() - this is called from the init/exit
-handlers. Will be invoked to enable the clocks by stmmac_dvr_probe().
+So, at the other speeds, you are completely unable to meet the timing
+specification, whether irrespective of the clock inversion. In effect,
+the only speed that you can meet the specification is 1G.
 
-imx: imx_dwmac_clks_config() - called by imx_dwmac_probe() to enable
-clocks prior to stmmac_dvr_probe() being invoked.
+Thus, I think this is something that needs a lot more than just "do
+we need to invert the clock". You also need to prevent 10M and 100M
+being supported IMHO.
 
-mediaktek: mediatek_dwmac_clks_config() - called by
-mediatek_dwmac_probe() to enable clocks prior to stmmac_dvr_probe()
-being invoked.
-
-qcom-ethqos: ethqos_clks_config() - called by qcom_ethqos_probe() to
-enable clocks prior to stmmac_dvr_probe() being invoked.
-
-So, I can confidently say that all clocks should be running by the
-time __stmmac_dvr_probe() is called, and thus there should be no
-requirement to call stmmac_bus_clks_config() in this code.
-
-
-The next problem: you place this code to read registers from stmmac
-before:
-
-	ret = reset_control_deassert(priv->plat->stmmac_ahb_rst);
-
-Sadly, the binding documentation is too vague to pin down what this
-is, as dwmac can have AHB master (which generates bus cycles for
-accessing memory) and AHB slave (which would be the target for
-register accesses) interfaces.
-
-The problem here is that if some platform glue has wired this reset
-such that it resets the AHB slave side, that will prevent register
-access, and thus your attempt to read the MAC across all devices
-will fail.
-
-
-The next question that comes up is that we have a perfectly good way
-that's been around for years to pass a MAC address from the boot
-loader into the kernel for any network interface. I notice that it
-isn't mentioned in the DT bindings, presumably to prevent people
-from adding it to their in-kernel DT files.
-
-	mac-address =
-	local-mac-address =
-
-The old documentation in ethernet.txt was:
-
-- mac-address: array of 6 bytes, specifies the MAC address that was last used by
-  the boot program; should be used in cases where the MAC address assigned to
-  the device by the boot program is different from the "local-mac-address"
-  property;
-- local-mac-address: array of 6 bytes, specifies the MAC address that was
-  assigned to the network device;
-
-Given that these are interfaces between the boot loader and the kernel,
-they can't be deprecated, as platforms will rely upon these properties
-to pass the MAC address from the boot loader to the kernel. For example
-on one of my systems:
-
-$ vdir /sys/class/net/eth0/of_node/
-total 0
--r--r--r-- 1 root root  4 Jan 26 18:08 gop-port-id
--r--r--r-- 1 root root 50 Jan 26 18:08 interrupt-names
--r--r--r-- 1 root root 80 Jan 26 18:08 interrupts
--r--r--r-- 1 root root  6 Jan 26 18:08 local-mac-address
--r--r--r-- 1 root root 14 Jan 26 18:08 name
--r--r--r-- 1 root root  4 Jan 26 18:08 phy
--r--r--r-- 1 root root 10 Jan 26 18:08 phy-mode
--r--r--r-- 1 root root  8 Jan 26 18:08 phys
--r--r--r-- 1 root root  4 Jan 26 18:08 port-id
--r--r--r-- 1 root root  4 Jan 26 18:08 reg
--r--r--r-- 1 root root  5 Jan 26 18:08 status
-
-where "local-mac-address" states the MAC address to be used for eth0,
-as specified by the boot loader.
-
-I don't think stmmac needs this extra complication provided platforms
-make use of mechanisms that already exist... and I feel it's time to
-start saying no to platform specific quirks that can be handled by
-those mechanisms.
-
-Thanks.
+I can't get my head around why someone would come up with this crazy,
+crippled design, but maybe they didn't bother reading the RGMII
+specification and ensuring that their design met the requirements
+before implementing the hardware.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
