@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KK/uDCFUd2nMeAEAu9opvQ
+	id yChCGCNUd2mdeAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 12:46:41 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 12:46:43 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 130B687C92
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 12:46:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1BBC187C99
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 12:46:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBE2FC8F26F;
-	Mon, 26 Jan 2026 11:46:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D916EC8F26F;
+	Mon, 26 Jan 2026 11:46:42 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80599C8F269
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59D77C8F271
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 11:46:39 +0000 (UTC)
+ Mon, 26 Jan 2026 11:46:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=BWJI/F0u2R5xSnrKEywicHI8UfJK9mUbUyeAxJ3Rkl4=; b=nrNsrQJnuo4cEYihZWXZy/2XPH
- Vu+8WmUYAbaE+SGPxyre9XTzonMqA+J8RKtZVza6n/bvsQWaA111eu8uOSuyUpLoYxm7+Js1W4Co2
- tKP4DRKKvjwKCNjd+gm/G/qk7BQyQgdBeSJjuGy6v+n2txtmCDw+LUfaLd8I7OQ1M3jRae5tS4HII
- XbrYl1Wf/6b1QHpaeJlWOtF1yrMBt7PVCwnYNu460cb+z/0kJDKphZhALEnqDBMpU5aDw3Zw+CAII
- f2KmQH3QweMU++Hk3I/+GFiEqaV50IXa3LvTXENy4REqwI0KZp0VwiEGBzAdpVPFZF2cNW0Ey5TCj
- t+xjIj2g==;
+ bh=BcRCQGbERQBlu4r4BtiUcXeI1plsUu7iFbuJ2kGSDVQ=; b=k2Px6AenQDTIHL0HQl6O5oWCWN
+ yc3teZUR0SbiOdUYPjc8f2OTn17KZinIRfhdUiGbxOcHIgmo8ZsKoz9TKVduXZb0yn4BX3uCH0XW0
+ dZPyq/QblfAWoIgY2+bqU4Gqrhj1SsVYmgYp3/gOSpMYFOFAdqW4ip3Lp4DmX8vJ/Z+LLY30D427t
+ sWYW2xo6bbn4nK8l42SYHlAdUf6YknGnzqp0w57tCQgcaj3b9i1MhwVdSfnQz/B2vTQj4nxA+Y5Cp
+ KKAmqIdw70IRdsHys6f9V33Zr6083TaD5gxoB4cPPblDKX8TzbztsSIxUbNwBEvKNy/p4Ese4tEln
+ tzVh67rA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:34036 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:55406 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vkL35-000000004iF-0egA;
- Mon, 26 Jan 2026 11:46:27 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vkL39-000000004ib-2rj1;
+ Mon, 26 Jan 2026 11:46:31 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vkL33-00000005utm-0Ge0; Mon, 26 Jan 2026 11:46:25 +0000
+ id 1vkL38-00000005uts-0kDd; Mon, 26 Jan 2026 11:46:30 +0000
 In-Reply-To: <aXdTi4ViCkhhXvFI@shell.armlinux.org.uk>
 References: <aXdTi4ViCkhhXvFI@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vkL33-00000005utm-0Ge0@rmk-PC.armlinux.org.uk>
-Date: Mon, 26 Jan 2026 11:46:25 +0000
+Message-Id: <E1vkL38-00000005uts-0kDd@rmk-PC.armlinux.org.uk>
+Date: Mon, 26 Jan 2026 11:46:30 +0000
 Cc: Heiko Stuebner <heiko@sntech.de>, linux-rockchip@lists.infradead.org,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 17/22] net: stmmac: rk: introduce
- flags indicating support for RGMII/RMII
+Subject: [Linux-stm32] [PATCH net-next v2 18/22] net: stmmac: rk: replace
+ empty set_to_rmii() with supports_rmii
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,10 +82,10 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -104,122 +104,299 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: 130B687C92
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 1BBC187C99
 X-Rspamd-Action: no action
 
-Introduce two boolean flags into struct rk_priv_data indicating
-whether RGMII and/or RMII is supported for this instance. Use these
-to configure the supported_interfaces mask for phylink, validate the
-interface mode. Initialise these from equivalent flags in the
-rk_gmac_ops or depending on the presence of the ops->set_to_rgmii and
-ops->set_to_mii methods. Finally, make ops->set_to_* optional.
-
-This will allow us to get rid of empty set_to_rmii() methods.
+Rather than providing a now-empty set_to_rmii() method to indicate
+that RMII is supported, switch to setting ops->supports_rmii instead.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 35 +++++++++++++------
- 1 file changed, 25 insertions(+), 10 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 86 ++++++-------------
+ 1 file changed, 24 insertions(+), 62 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-index 9211260a86ff..ad6093f9d9eb 100644
+index ad6093f9d9eb..4f9b3705d264 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-@@ -53,6 +53,8 @@ struct rk_gmac_ops {
+@@ -268,12 +268,7 @@ static void rk_gmac_integrated_fephy_powerdown(struct rk_priv_data *priv,
  
- 	bool gmac_grf_reg_in_php;
- 	bool clock_grf_reg_in_php;
-+	bool supports_rgmii;
-+	bool supports_rmii;
- 	bool php_grf_required;
- 	bool regs_valid;
- 	u32 regs[];
-@@ -86,6 +88,8 @@ struct rk_priv_data {
- 	bool clk_enabled;
- 	bool clock_input;
- 	bool integrated_phy;
-+	bool supports_rgmii;
-+	bool supports_rmii;
+ #define PX30_GRF_GMAC_CON1		0x0904
  
- 	struct clk_bulk_data *clks;
- 	int num_clks;
-@@ -1415,6 +1419,9 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
- 	bsp_priv->clock_grf_reg = ops->clock_grf_reg;
- 	bsp_priv->clock = ops->clock;
+-static void px30_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops px30_ops = {
+-	.set_to_rmii = px30_set_to_rmii,
+ 	.set_speed = rk_set_clk_mac_speed,
  
-+	bsp_priv->supports_rgmii = ops->supports_rgmii || !!ops->set_to_rgmii;
-+	bsp_priv->supports_rmii = ops->supports_rmii || !!ops->set_to_rmii;
+ 	.gmac_grf_reg = PX30_GRF_GMAC_CON1,
+@@ -281,6 +276,8 @@ static const struct rk_gmac_ops px30_ops = {
+ 
+ 	.clock_grf_reg = PX30_GRF_GMAC_CON1,
+ 	.clock.mac_speed_mask = BIT_U16(2),
 +
- 	if (ops->init) {
- 		ret = ops->init(bsp_priv);
- 		if (ret) {
-@@ -1433,11 +1440,11 @@ static int rk_gmac_check_ops(struct rk_priv_data *bsp_priv)
- 	case PHY_INTERFACE_MODE_RGMII_ID:
- 	case PHY_INTERFACE_MODE_RGMII_RXID:
- 	case PHY_INTERFACE_MODE_RGMII_TXID:
--		if (!bsp_priv->ops->set_to_rgmii)
-+		if (!bsp_priv->supports_rgmii)
- 			return -EINVAL;
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
--		if (!bsp_priv->ops->set_to_rmii)
-+		if (!bsp_priv->supports_rmii)
- 			return -EINVAL;
- 		break;
- 	default:
-@@ -1486,24 +1493,32 @@ static int rk_gmac_powerup(struct rk_priv_data *bsp_priv)
- 	switch (bsp_priv->phy_iface) {
- 	case PHY_INTERFACE_MODE_RGMII:
- 		dev_info(dev, "init for RGMII\n");
--		bsp_priv->ops->set_to_rgmii(bsp_priv, bsp_priv->tx_delay,
--					    bsp_priv->rx_delay);
-+		if (bsp_priv->ops->set_to_rgmii)
-+			bsp_priv->ops->set_to_rgmii(bsp_priv,
-+						    bsp_priv->tx_delay,
-+						    bsp_priv->rx_delay);
- 		break;
- 	case PHY_INTERFACE_MODE_RGMII_ID:
- 		dev_info(dev, "init for RGMII_ID\n");
--		bsp_priv->ops->set_to_rgmii(bsp_priv, 0, 0);
-+		if (bsp_priv->ops->set_to_rgmii)
-+			bsp_priv->ops->set_to_rgmii(bsp_priv, 0, 0);
- 		break;
- 	case PHY_INTERFACE_MODE_RGMII_RXID:
- 		dev_info(dev, "init for RGMII_RXID\n");
--		bsp_priv->ops->set_to_rgmii(bsp_priv, bsp_priv->tx_delay, 0);
-+		if (bsp_priv->ops->set_to_rgmii)
-+			bsp_priv->ops->set_to_rgmii(bsp_priv,
-+						    bsp_priv->tx_delay, 0);
- 		break;
- 	case PHY_INTERFACE_MODE_RGMII_TXID:
- 		dev_info(dev, "init for RGMII_TXID\n");
--		bsp_priv->ops->set_to_rgmii(bsp_priv, 0, bsp_priv->rx_delay);
-+		if (bsp_priv->ops->set_to_rgmii)
-+			bsp_priv->ops->set_to_rgmii(bsp_priv,
-+						    0, bsp_priv->rx_delay);
- 		break;
- 	case PHY_INTERFACE_MODE_RMII:
- 		dev_info(dev, "init for RMII\n");
--		bsp_priv->ops->set_to_rmii(bsp_priv);
-+		if (bsp_priv->ops->set_to_rmii)
-+			bsp_priv->ops->set_to_rmii(bsp_priv);
- 		break;
- 	default:
- 		dev_err(dev, "NO interface defined!\n");
-@@ -1539,10 +1554,10 @@ static void rk_get_interfaces(struct stmmac_priv *priv, void *bsp_priv,
- {
- 	struct rk_priv_data *rk = bsp_priv;
++	.supports_rmii = true,
+ };
  
--	if (rk->ops->set_to_rgmii)
-+	if (rk->supports_rgmii)
- 		phy_interface_set_rgmii(interfaces);
- 
--	if (rk->ops->set_to_rmii)
-+	if (rk->supports_rmii)
- 		__set_bit(PHY_INTERFACE_MODE_RMII, interfaces);
+ #define RK3128_GRF_MAC_CON0	0x0168
+@@ -307,13 +304,8 @@ static void rk3128_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3128_GMAC_CLK_TX_DL_CFG(tx_delay));
  }
  
+-static void rk3128_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3128_ops = {
+ 	.set_to_rgmii = rk3128_set_to_rgmii,
+-	.set_to_rmii = rk3128_set_to_rmii,
+ 
+ 	.gmac_grf_reg = RK3128_GRF_MAC_CON1,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(8, 6),
+@@ -323,6 +315,8 @@ static const struct rk_gmac_ops rk3128_ops = {
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(13, 12),
+ 	.clock.rmii_clk_sel_mask = BIT_U16(11),
+ 	.clock.mac_speed_mask = BIT_U16(10),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RK3228_GRF_MAC_CON0	0x0900
+@@ -410,13 +404,8 @@ static void rk3288_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3288_GMAC_CLK_TX_DL_CFG(tx_delay));
+ }
+ 
+-static void rk3288_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3288_ops = {
+ 	.set_to_rgmii = rk3288_set_to_rgmii,
+-	.set_to_rmii = rk3288_set_to_rmii,
+ 
+ 	.gmac_grf_reg = RK3288_GRF_SOC_CON1,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(8, 6),
+@@ -426,6 +415,8 @@ static const struct rk_gmac_ops rk3288_ops = {
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(13, 12),
+ 	.clock.rmii_clk_sel_mask = BIT_U16(11),
+ 	.clock.mac_speed_mask = BIT_U16(10),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RK3308_GRF_MAC_CON0		0x04a0
+@@ -434,18 +425,14 @@ static const struct rk_gmac_ops rk3288_ops = {
+ #define RK3308_GMAC_FLOW_CTRL		GRF_BIT(3)
+ #define RK3308_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
+ 
+-static void rk3308_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3308_ops = {
+-	.set_to_rmii = rk3308_set_to_rmii,
+-
+ 	.gmac_grf_reg = RK3308_GRF_MAC_CON0,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(4, 2),
+ 
+ 	.clock_grf_reg = RK3308_GRF_MAC_CON0,
+ 	.clock.mac_speed_mask = BIT_U16(0),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RK3328_GRF_MAC_CON0	0x0900
+@@ -497,10 +484,6 @@ static void rk3328_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3328_GMAC_CLK_TX_DL_CFG(tx_delay));
+ }
+ 
+-static void rk3328_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static void rk3328_integrated_phy_powerup(struct rk_priv_data *priv)
+ {
+ 	regmap_write(priv->grf, RK3328_GRF_MACPHY_CON1,
+@@ -512,7 +495,6 @@ static void rk3328_integrated_phy_powerup(struct rk_priv_data *priv)
+ static const struct rk_gmac_ops rk3328_ops = {
+ 	.init = rk3328_init,
+ 	.set_to_rgmii = rk3328_set_to_rgmii,
+-	.set_to_rmii = rk3328_set_to_rmii,
+ 	.integrated_phy_powerup = rk3328_integrated_phy_powerup,
+ 	.integrated_phy_powerdown = rk_gmac_integrated_ephy_powerdown,
+ 
+@@ -522,6 +504,8 @@ static const struct rk_gmac_ops rk3328_ops = {
+ 	.clock.rmii_clk_sel_mask = BIT_U16(7),
+ 	.clock.mac_speed_mask = BIT_U16(2),
+ 
++	.supports_rmii = true,
++
+ 	.regs_valid = true,
+ 	.regs = {
+ 		0xff540000, /* gmac2io */
+@@ -554,13 +538,8 @@ static void rk3366_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3366_GMAC_CLK_TX_DL_CFG(tx_delay));
+ }
+ 
+-static void rk3366_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3366_ops = {
+ 	.set_to_rgmii = rk3366_set_to_rgmii,
+-	.set_to_rmii = rk3366_set_to_rmii,
+ 
+ 	.gmac_grf_reg = RK3366_GRF_SOC_CON6,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(11, 9),
+@@ -570,6 +549,8 @@ static const struct rk_gmac_ops rk3366_ops = {
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
+ 	.clock.rmii_clk_sel_mask = BIT_U16(3),
+ 	.clock.mac_speed_mask = BIT_U16(7),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RK3368_GRF_SOC_CON15	0x043c
+@@ -596,13 +577,8 @@ static void rk3368_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3368_GMAC_CLK_TX_DL_CFG(tx_delay));
+ }
+ 
+-static void rk3368_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3368_ops = {
+ 	.set_to_rgmii = rk3368_set_to_rgmii,
+-	.set_to_rmii = rk3368_set_to_rmii,
+ 
+ 	.gmac_grf_reg = RK3368_GRF_SOC_CON15,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(11, 9),
+@@ -612,6 +588,8 @@ static const struct rk_gmac_ops rk3368_ops = {
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
+ 	.clock.rmii_clk_sel_mask = BIT_U16(3),
+ 	.clock.mac_speed_mask = BIT_U16(7),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RK3399_GRF_SOC_CON5	0xc214
+@@ -638,13 +616,8 @@ static void rk3399_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3399_GMAC_CLK_TX_DL_CFG(tx_delay));
+ }
+ 
+-static void rk3399_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3399_ops = {
+ 	.set_to_rgmii = rk3399_set_to_rgmii,
+-	.set_to_rmii = rk3399_set_to_rmii,
+ 
+ 	.gmac_grf_reg = RK3399_GRF_SOC_CON5,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(11, 9),
+@@ -654,6 +627,8 @@ static const struct rk_gmac_ops rk3399_ops = {
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(5, 4),
+ 	.clock.rmii_clk_sel_mask = BIT_U16(3),
+ 	.clock.mac_speed_mask = BIT_U16(7),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RK3506_GRF_SOC_CON8		0x0020
+@@ -884,18 +859,15 @@ static void rk3568_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3568_GMAC_TXCLK_DLY_ENABLE);
+ }
+ 
+-static void rk3568_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rk3568_ops = {
+ 	.init = rk3568_init,
+ 	.set_to_rgmii = rk3568_set_to_rgmii,
+-	.set_to_rmii = rk3568_set_to_rmii,
+ 	.set_speed = rk_set_clk_mac_speed,
+ 
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
+ 
++	.supports_rmii = true,
++
+ 	.regs_valid = true,
+ 	.regs = {
+ 		0xfe2a0000, /* gmac0 */
+@@ -969,10 +941,6 @@ static void rk3576_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RK3576_GMAC_CLK_RX_DL_CFG(rx_delay));
+ }
+ 
+-static void rk3576_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static void rk3576_set_clock_selection(struct rk_priv_data *bsp_priv, bool input,
+ 				       bool enable)
+ {
+@@ -992,7 +960,6 @@ static void rk3576_set_clock_selection(struct rk_priv_data *bsp_priv, bool input
+ static const struct rk_gmac_ops rk3576_ops = {
+ 	.init = rk3576_init,
+ 	.set_to_rgmii = rk3576_set_to_rgmii,
+-	.set_to_rmii = rk3576_set_to_rmii,
+ 	.set_clock_selection = rk3576_set_clock_selection,
+ 
+ 	.gmac_rmii_mode_mask = BIT_U16(3),
+@@ -1000,6 +967,8 @@ static const struct rk_gmac_ops rk3576_ops = {
+ 	.clock.gmii_clk_sel_mask = GENMASK_U16(6, 5),
+ 	.clock.rmii_clk_sel_mask = BIT_U16(5),
+ 
++	.supports_rmii = true,
++
+ 	.php_grf_required = true,
+ 	.regs_valid = true,
+ 	.regs = {
+@@ -1120,19 +1089,15 @@ static const struct rk_gmac_ops rk3588_ops = {
+ #define RV1108_GMAC_FLOW_CTRL		GRF_BIT(3)
+ #define RV1108_GMAC_FLOW_CTRL_CLR	GRF_CLR_BIT(3)
+ 
+-static void rv1108_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rv1108_ops = {
+-	.set_to_rmii = rv1108_set_to_rmii,
+-
+ 	.gmac_grf_reg = RV1108_GRF_GMAC_CON0,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
+ 
+ 	.clock_grf_reg = RV1108_GRF_GMAC_CON0,
+ 	.clock.rmii_clk_sel_mask = BIT_U16(7),
+ 	.clock.mac_speed_mask = BIT_U16(2),
++
++	.supports_rmii = true,
+ };
+ 
+ #define RV1126_GRF_GMAC_CON0		0X0070
+@@ -1176,17 +1141,14 @@ static void rv1126_set_to_rgmii(struct rk_priv_data *bsp_priv,
+ 		     RV1126_GMAC_M1_CLK_TX_DL_CFG(tx_delay));
+ }
+ 
+-static void rv1126_set_to_rmii(struct rk_priv_data *bsp_priv)
+-{
+-}
+-
+ static const struct rk_gmac_ops rv1126_ops = {
+ 	.set_to_rgmii = rv1126_set_to_rgmii,
+-	.set_to_rmii = rv1126_set_to_rmii,
+ 	.set_speed = rk_set_clk_mac_speed,
+ 
+ 	.gmac_grf_reg = RV1126_GRF_GMAC_CON0,
+ 	.gmac_phy_intf_sel_mask = GENMASK_U16(6, 4),
++
++	.supports_rmii = true,
+ };
+ 
+ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
 -- 
 2.47.3
 
