@@ -2,53 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4PdQNg4/d2mMdQEAu9opvQ
+	id 6KBBFxhAd2mMdQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:16:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:21:12 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74CEB86A24
-	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:16:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F272886BCE
+	for <lists+linux-stm32@lfdr.de>; Mon, 26 Jan 2026 11:21:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E978C87EDC;
-	Mon, 26 Jan 2026 10:16:46 +0000 (UTC)
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73109C87EDC;
+	Mon, 26 Jan 2026 10:21:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E7CAC030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A80AC030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 26 Jan 2026 10:16:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=k1; bh=aJni
- A+7mtqd+T2ckN/JR/8Xw3cbywiTK+2rTfmY54To=; b=crwXK+AsGfSv2yCVxPH0
- pZmwvGK9TVs/dpCMF5DDZXl/rKoCfMRa6pWWFbpVr8FgJhyH8SgAFLgRQwPJ+KXw
- oE/8vzv6gsqP5fBmUVYiVUDe3V4OdQYklAKK3H5ra/FiPiHgcBv2xqMepClGaI2K
- zH8eVVkJlxdVGHd+8l9UQwVQ/3Puexv2GfqR2JWVRmV8d5YQqtFDAAdH7fb0ZQgI
- Y0OSb/dLYL9eBDPZ5lzY9g+2xVNLKfXq5gFgLCd/wFxFlxKCKaXz3oG97Y117hjJ
- HNgFFZ8cI3G7C9ET9WnsPS3vbRs+6w/NJChfna7Sl0Qdzs5ZWuNOxDznae6t2PKX
- 2Q==
-Received: (qmail 2705781 invoked from network); 26 Jan 2026 11:16:41 +0100
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 26 Jan 2026 11:16:41 +0100
-X-UD-Smtp-Session: l3s3148p1@swKezUdJzpAujnvz
-Date: Mon, 26 Jan 2026 11:16:41 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Wilken Gottwalt <wilken.gottwalt@posteo.net>
-Message-ID: <aXc_CcoiXlqE5WPU@ninjato>
+ Mon, 26 Jan 2026 10:21:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1769422871; x=1800958871;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=yHsGG1s+KxBZfz9QWTQm5s8Fht+yShIb5G86SJ5W6iE=;
+ b=HfDloZp/L2PzQplyA0/y2fjHQV8gIqhgUVT9ClHw1HJOGvKoWYHWUTqi
+ VnmjkU1GGFshnmG3Ija6RrQKbAiNbQR5X/zmb9+M+MbHbAhJKWrJhU1XQ
+ 7wOg2/tcfx/xKSAMCSTg09wNR+UQE6OHGzSnGgzPdJn1exETKMQvxUBFK
+ cMcOOv/JO9ozA74v6fshj25QMUqhg+Z71bCc7zvlehPkizzxmpvRl2cHc
+ X1+wHoMOpF53aSHbrvQ3thE5VLE6+CljdU/qjMkZSXbmHhVNlp0HB3yie
+ TZPYMQw141vzpSt7IECXXu1kHenWqpCtF7Tddg6yKeVEKTlGrzyvjlo1/ A==;
+X-CSE-ConnectionGUID: lX3SrqiESUOFW4E94mfJSw==
+X-CSE-MsgGUID: 3np8dRmyRbC+Yo22xXojMg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11682"; a="70498301"
+X-IronPort-AV: E=Sophos;i="6.21,254,1763452800"; d="scan'208";a="70498301"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2026 02:21:09 -0800
+X-CSE-ConnectionGUID: YnKlWPcCRcqfgZi/t7/nLQ==
+X-CSE-MsgGUID: eFzilmYxS/OtDc1LQB6YAQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,254,1763452800"; d="scan'208";a="206878454"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.122])
+ by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Jan 2026 02:20:58 -0800
+Date: Mon, 26 Jan 2026 12:20:55 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Message-ID: <aXdAB2bLTy6u8G8c@smile.fi.intel.com>
 References: <20260125184654.17843-6-wsa+renesas@sang-engineering.com>
- <aXc7DxsqiCGdfzxi@smile.fi.intel.com>
- <20260126111440.67394323@posteo.net>
+ <aXc7DxsqiCGdfzxi@smile.fi.intel.com> <aXc-Zxw05XQLb1Dy@ninjato>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260126111440.67394323@posteo.net>
+In-Reply-To: <aXc-Zxw05XQLb1Dy@ninjato>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+ linux-remoteproc@vger.kernel.org,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
  Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
  Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-omap@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>,
- Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Lee Jones <lee@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-omap@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
  Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
  Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
  Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
@@ -58,6 +73,7 @@ Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
  linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Wilken Gottwalt <wilken.gottwalt@posteo.net>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
  linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
@@ -82,50 +98,60 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.79 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[renesas];
 	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[sang-engineering.com];
-	FORGED_RECIPIENTS(0.00)[m:wilken.gottwalt@posteo.net,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:andriy.shevchenko@intel.com,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:tglx@kernel.org,m:mcoquelin.stm
- 32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:wsa+renesas@sang-engineering.com,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:wilken.gottwalt@posteo.net,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:tglx@kernel.org,m:mcoqueli
+ n.stm32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:wsa@sang-engineering.com,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[42];
-	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,posteo.net,sholland.org];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[sang-engineering.com:-];
+	DKIM_TRACE(0.00)[intel.com:-];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,intel.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,sholland.org];
-	NEURAL_HAM(-0.00)[-0.998];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.998];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 74CEB86A24
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,smile.fi.intel.com:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: F272886BCE
 X-Rspamd-Action: no action
 
+On Mon, Jan 26, 2026 at 11:13:59AM +0100, Wolfram Sang wrote:
+> 
+> > I don't like the idea of sharing internal stuff. Why would we need to have
+> > a struct hwspinlock to be visible?
+> 
+> Providers need it, especially the 'priv' member. Consumers won't see it.
 
-> wrote the sun6i hwspinlock driver. Currently it is impossible to write external
-> (out-of-kernel-tree) drivers because of internal structures. And it was a pain
+But can't we make it opaque?
 
-Although my use case is more "out-of-directory" than "out-of-tree" ;)
+We may have getters and setters for the priv member...
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
 _______________________________________________
 Linux-stm32 mailing list
