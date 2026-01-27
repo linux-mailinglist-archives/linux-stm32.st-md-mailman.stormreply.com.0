@@ -2,57 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UJVaFeAoeGl7oQEAu9opvQ
+	id IFeQB3EreGl7oQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 03:54:24 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 04:05:21 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DFE018F41E
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 03:54:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F4478F5C1
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 04:05:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C2DBC36B30;
-	Tue, 27 Jan 2026 02:54:23 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23D4CC36B30;
+	Tue, 27 Jan 2026 03:05:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBCA6C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1288CC36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 02:54:21 +0000 (UTC)
+ Tue, 27 Jan 2026 03:05:18 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A02E7439C0;
- Tue, 27 Jan 2026 02:54:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030B4C116C6;
- Tue, 27 Jan 2026 02:54:19 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D3523436A4;
+ Tue, 27 Jan 2026 03:05:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4736C116C6;
+ Tue, 27 Jan 2026 03:05:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769482460;
- bh=t5Ws8K9ruX9jK+rrFbsHhjSSQv/nHotDIXG0CEYJYd8=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=gwrFUzI00eEw/Xbx59fhVsGFJm6+EaEH58Fw34xJ2gBMcoAuxFP3JYa77vY6YQpsb
- CUXwOZopU/dGFO8MasO7NZGLZFWB67RIr9HPG7u6whk3ifg1rP6xqMHJZx9AHshYZN
- TTQtK5Z15YmL/Yi02BXYkdARCr0TwsfaRkVgeu3NZxJ4jU64ZFv8sFYdK+f68iHbxY
- t77HU3V+bmyt5ybyLh/WIcR2MOrhHmtuIBs+wLrp49R0h4Xy/FNW8Z+LnsPXMoI6Jr
- fOZPLFajNKmCGntEK6lwFdhpxpU4aA+AsJEIwt/dPoEifECT4uHoiCkYCyVW9uzjfG
- sZ/R6K6MGG7MA==
-Date: Mon, 26 Jan 2026 18:54:19 -0800
+ s=k20201202; t=1769483117;
+ bh=0eIazrYKt2H5dVz7aR3WwR1CWkD2A4VVVnLg5inRWCo=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=bsteKB38Vgdxvn6fjaonze1NGEu4h/x6dfnvShLEL5ZXBp6d78jL3+k0oIrPtrL+W
+ JHpww+J6XLaI8onnyqSBQJVjRb12xmCEaS4TMyuDwq6K2tOQz+pRYNQmAR58Kvkxek
+ kKKnilR3gJVsaXrW6PD0/KWxsNcOw1a91QXE8cNlprmiTDGns7cfmc66XiiN/ax1cJ
+ JofwEocyUtpkGH3rPHgThSTr8DSpgIUhh+CgrHJb0JUbKA5oHdKB2XWFdgj/OlnTgA
+ r+98poQyyjsQVifmEX6PEfHp1XmeQNa+NCJQ+shpBhFekKHzv20ZVeVRhh2KGrjnfn
+ S5XJNivEjJjqg==
 From: Jakub Kicinski <kuba@kernel.org>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20260126185419.626ba56e@kernel.org>
-In-Reply-To: <aXgbEYvjcXqQKRIx@shell.armlinux.org.uk>
-References: <aXdTi4ViCkhhXvFI@shell.armlinux.org.uk>
- <E1vkL28-00000005usi-30YC@rmk-PC.armlinux.org.uk>
- <aXd7aSk7KIxlQd5z@shell.armlinux.org.uk>
- <20260126165144.25055591@kernel.org>
- <aXgN2UjiI_OxWHH-@shell.armlinux.org.uk>
- <20260126171606.6153aa1a@kernel.org>
- <aXgbEYvjcXqQKRIx@shell.armlinux.org.uk>
+To: lihaoxiang@isrc.iscas.ac.cn
+Date: Mon, 26 Jan 2026 19:04:47 -0800
+Message-ID: <20260127030447.3838706-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260125135412.2070798-1-lihaoxiang@isrc.iscas.ac.cn>
+References: <20260125135412.2070798-1-lihaoxiang@isrc.iscas.ac.cn>
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
- linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 06/22] net: stmmac: rk: add
- SoC specific ->init() method
+Cc: hawk@kernel.org, daniel@iogearbox.net, davem@davemloft.net,
+ netdev@vger.kernel.org, john.fastabend@gmail.com, ast@kernel.org,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ edumazet@google.com, sdf@fomichev.me, mcoquelin.stm32@gmail.com,
+ boon.leong.ong@intel.com, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, pabeni@redhat.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] fix a potential memory leak in
+	stmmac_xdp_enable_pool()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,92 +66,92 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
+X-Spamd-Result: default: False [5.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_CONTAINS_FROM(1.00)[];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:lihaoxiang@isrc.iscas.ac.cn,m:hawk@kernel.org,m:daniel@iogearbox.net,m:davem@davemloft.net,m:netdev@vger.kernel.org,m:john.fastabend@gmail.com,m:ast@kernel.org,m:stable@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:sdf@fomichev.me,m:mcoquelin.stm32@gmail.com,m:boon.leong.ong@intel.com,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:johnfastabend@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[kernel.org,iogearbox.net,davemloft.net,vger.kernel.org,gmail.com,lunn.ch,google.com,fomichev.me,intel.com,redhat.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	NEURAL_HAM(-0.00)[-0.966];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: DFE018F41E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:url]
+X-Rspamd-Queue-Id: 9F4478F5C1
 X-Rspamd-Action: no action
 
-On Tue, 27 Jan 2026 01:55:29 +0000 Russell King (Oracle) wrote:
-> On Mon, Jan 26, 2026 at 05:16:06PM -0800, Jakub Kicinski wrote:
-> > On Tue, 27 Jan 2026 00:59:05 +0000 Russell King (Oracle) wrote:  
-> > > This sounds like my contributions to netdev aren't valued, and if that's
-> > > the case, I will stop.  
-> > 
-> > Quite the opposite, what I'm saying is that your complaints make me
-> > feel like the weekends spent on trying to make this project come out 
-> > of stone age testing-wise are not appreciated. Of course your
-> > contributions are appreciated.
-> > 
-> > The AI code reviews on existing buggy code are indeed very painful.
-> > Not sure what we can do here to make the contributing easier.
-> > It costs us around $2 now to review a single patch so we can't afford
-> > public access. I think Google is working on making Gemini code reviews
-> > public and free, hopefully that materializes.  
-> 
-> For a series of this size and complexity, the AI reviews are valued
-> because it's finding real issues that I can't test for.
-> 
-> The big problem is that the AI only finds one issue with a patch, not
-> all the issues. So, it's going to take multiple submissions to get to
-> a point where the AI review of this series is clean.
-> 
-> I suspect the problem with "AI only finds one issue" is that the AI
-> systems aren't advanced enough to do anything else yet.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 
-Yes, looking at its "reasoning" output it both goes down different
-investigation paths each time but more importantly it runs out of
-tokens at some point, so it won't cover all the same paths each time.
+For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+---
+fix a potential memory leak in stmmac_xdp_enable_pool()
 
-> So, do I continue fixing the AI issues each day and resubmitting a new
-> version of this series each day this week, costing $44 each time?
+This patch adds xsk_pool_dma_unmap() to the error path when
+stmmac_xsk_wakeup() fails, to release the DMA mapping allocated
+earlier by xsk_pool_dma_map().
 
-I think so.. I don't want to change our process because of AI, but 
-some ways to save cost rhyme with our normal recommendations.
-Keep the series under 15 patches. Split the series up, and extract
-trivial patches out so that they can be applied and not reposted.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+> index d7e4db7224b0..7d89d6066ea3 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_xdp.c
+> @@ -48,8 +48,10 @@ static int stmmac_xdp_enable_pool(struct stmmac_priv *priv,
+>  		napi_enable(&ch->rxtx_napi);
+>
+>  		err = stmmac_xsk_wakeup(priv->dev, queue, XDP_WAKEUP_RX);
+> -		if (err)
+> +		if (err) {
+> +			xsk_pool_dma_unmap(pool, STMMAC_RX_DMA_ATTR);
+>  			return err;
+> +		}
 
-> Do we reach a point where it gets merged even though the AI review
-> still has issues?
+Is the error cleanup here complete? Looking at stmmac_xdp_enable_pool(),
+before this point the code has already executed:
 
-Whether the comment comes from AI is secondary, so it's just a question
-of whether we merge code knowing that it has issues. Rarely, I guess.
+  set_bit(queue, priv->af_xdp_zc_qps);
+  stmmac_enable_rx_queue(priv, queue);
+  stmmac_enable_tx_queue(priv, queue);
+  napi_enable(&ch->rxtx_napi);
 
-> These are honest questions... and if they haven't been considered, I
-> think they need to be, because I can see this series becoming very
-> expensive.
+When stmmac_xsk_wakeup() fails, the patch unmaps the DMA pool but does not
+appear to reverse these other state changes. Comparing with the cleanup
+sequence in stmmac_xdp_disable_pool(), should the error path also:
+
+  - call clear_bit(queue, priv->af_xdp_zc_qps)
+  - disable the queues and NAPI that were just enabled
+
+The DMA descriptors allocated by stmmac_enable_rx_queue() and
+stmmac_enable_tx_queue() would also be leaked on this error path.
+
+>  	}
+>
+>  	return 0;
+-- 
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
