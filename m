@@ -2,59 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AL9rFhCdeGlurQEAu9opvQ
+	id iBHtHm+keGmGrgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 12:10:08 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 12:41:35 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9E8593663
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 12:10:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D3F993BA1
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 12:41:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E0FAC56603;
-	Tue, 27 Jan 2026 11:10:07 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2054C01FBF;
+	Tue, 27 Jan 2026 11:41:34 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3A7EC555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E92EAC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 11:10:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=C5kmyXmetHxPdh/WTT268j77oIgJM0XUtVp82QU84iQ=; b=B7evQ+ODdW2+aP46GJqcq6oiXA
- nmadI0zNatIr0NlH/4vZgZi9HrdbVb7+BswGQtdfEM1XFFn3cKR9koHBQ1RFmoi+i+cH0r+eQEAXb
- FqoWxcqvdS7jf61YZtl0nFhUFloIRf6fCpNdRv/cOQp77qDKDp5CFbxNmXDkGdz/MutbVhS4SepXK
- EMZyXrERK8+QTdh+STKGqZZOzYke+CcgrqBr0VOdKrAKbCjYnrMW5FEbfrTd7Dqe2kBQkAwm5LHBO
- DBH0fkvEGP5xUlDYg0Dh/7O/boi9g/rQqw+nmv1Lem/OcUqY9Qf/vIO7lsq4CF3B+YVnzPRuQ8cc2
- S44uKfAQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46790)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vkgxO-0000000061k-14b8;
- Tue, 27 Jan 2026 11:10:02 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vkgxK-000000005rw-19Ps; Tue, 27 Jan 2026 11:09:58 +0000
-Date: Tue, 27 Jan 2026 11:09:58 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Jakub Kicinski <kuba@kernel.org>
-Message-ID: <aXidBha0FahIS6Du@shell.armlinux.org.uk>
-References: <E1vkL28-00000005usi-30YC@rmk-PC.armlinux.org.uk>
- <20260127004020.3785641-1-kuba@kernel.org>
- <aXgMIYPiL9JK-c_K@shell.armlinux.org.uk>
+ Tue, 27 Jan 2026 11:41:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=jjft
+ 8BNeQcJsJ7Q11OQxvOD2FcnLqb+zVi7vsmsrKrA=; b=HMKf9MJHWxg4cDoC0MI5
+ PucL2VvzlUC0YI8iulenVBfr4MKGN1Ebz/YS1t187Hww6Lia4sqg0KTw3F3qaA8d
+ fVpnblfy4xEeohABEyTM7oqNa6BOGfLVxxr8rmkvMhfQK1nrI0ib+mawvB2j67eb
+ escveoPg+49prmLwiAVDxa5Olq9jqrb6Oy2VLTS9slta+ejYZ8tAxILuEUEqjzd2
+ B497UTAZnMHLfG99P4I4tAefPug2NI2ICiFMumiJtdHcDFX8eRFkkgXPgVb3IwCd
+ FkzdQ2TxXtfOYU07f71N22Yc46fbmeUV+2jRLzGsvUZzhJUb6Bnj7QG1Sfroih7i
+ Vg==
+Received: (qmail 3194881 invoked from network); 27 Jan 2026 12:41:27 +0100
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 27 Jan 2026 12:41:27 +0100
+X-UD-Smtp-Session: l3s3148p1@x4iaGl1JPqYujnvZ
+Date: Tue, 27 Jan 2026 12:41:27 +0100
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Message-ID: <aXikZ5wc6bvgRqF6@ninjato>
+References: <20260125184654.17843-6-wsa+renesas@sang-engineering.com>
+ <aXc7DxsqiCGdfzxi@smile.fi.intel.com> <aXc-Zxw05XQLb1Dy@ninjato>
+ <aXdAB2bLTy6u8G8c@smile.fi.intel.com> <aXdCBu6kzdw1NWay@ninjato>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aXgMIYPiL9JK-c_K@shell.armlinux.org.uk>
-Cc: andrew@lunn.ch, heiko@sntech.de, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
- edumazet@google.com, pabeni@redhat.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [net-next, v2,
- 06/22] net: stmmac: rk: add SoC specific ->init() method
+In-Reply-To: <aXdCBu6kzdw1NWay@ninjato>
+Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
+ Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-omap@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, Boqun Feng <boqun.feng@gmail.com>,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Wilken Gottwalt <wilken.gottwalt@posteo.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/4] hwspinlock: refactor headers into
+ public provider/consumer pair
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,105 +83,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [3.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	TAGGED_FROM(0.00)[renesas];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:pabeni@redhat.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	DMARC_NA(0.00)[sang-engineering.com];
+	FORGED_RECIPIENTS(0.00)[m:andriy.shevchenko@intel.com,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:wilken.gottwalt@posteo.net,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:tglx@kernel.org,m:mcoquelin.stm
+ 32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[42];
+	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[sang-engineering.com:-];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,posteo.net,sholland.org];
+	NEURAL_HAM(-0.00)[-0.996];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,linux.dev:url,armlinux.org.uk:url]
-X-Rspamd-Queue-Id: E9E8593663
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: 1D3F993BA1
 X-Rspamd-Action: no action
 
-On Tue, Jan 27, 2026 at 12:51:45AM +0000, Russell King (Oracle) wrote:
-> On Mon, Jan 26, 2026 at 04:40:20PM -0800, Jakub Kicinski wrote:
-> > This is an AI-generated review of your patch. The human sending this
-> > email has considered the AI review valid, or at least plausible.
+Hi all,
+
+> > > Providers need it, especially the 'priv' member. Consumers won't see it.
 > > 
-> > For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
-> > ---
-> > net: stmmac: rk: add SoC specific ->init() method
+> > But can't we make it opaque?
 > > 
-> > This commit adds infrastructure for SoC-specific initialization by adding
-> > an init callback to rk_gmac_ops and calling it from rk_gmac_setup().
-> > 
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > index 7f8ffd1549bc..4117f6863ff0 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > 
-> > [ ... ]
-> > 
-> > > @@ -1618,6 +1619,14 @@ static struct rk_priv_data *rk_gmac_setup(struct platform_device *pdev,
-> > >
-> > >  	bsp_priv->dev = dev;
-> > >
-> > > +	if (ops->init) {
-> > > +		ret = ops->init(bsp_priv);
-> > > +		if (ret) {
-> > > +			dev_err_probe(dev, ret, "failed to init BSP\n");
-> > > +			return ERR_PTR(ret);
-> >                         ^^^^^^^^^^^^^^^
-> > 
-> > If ops->init() fails here, does bsp_priv->phy_reset need to be released?
-> > 
-> > Earlier in rk_gmac_setup(), at line 1610, the code calls:
-> > 
-> >     bsp_priv->phy_reset = of_reset_control_get(plat->phy_node, NULL);
-> > 
-> > of_reset_control_get() is not a devm-managed function, so the reset control
-> > would need to be explicitly released with reset_control_put() on error paths.
-> > 
-> > This new error return happens after phy_reset could have been acquired (when
-> > the device has an integrated PHY), but before the function successfully
-> > returns. If this path is taken, it appears the reset control would be leaked.
-> > 
-> > Currently no SoC sets ops->init so this path cannot trigger, but when a
-> > future SoC implements this callback, the leak would occur on init failure
-> > for devices with integrated PHYs.
+> > We may have getters and setters for the priv member...
 > 
-> However, the driver does not release this resource when cleaning up, so
-> that's already a bug as the driver currently stands. I think this could
-> be converted to devm_reset_control_get(), which would resolve both
-> leakages, but not sure.
+> I think we could do that.
+> 
+> Two drivers use the bank member, but only for the device
+> (lock->bank->dev). That can probably be refactored away, I'd guess.
 
-Note that fixing this is going to add yet another patch to the series,
-because this is a pre-existing bug in the driver. It can't be replaced
-with devm_reset_control_get(), because this driver is getting resources
-for a foreign device (we don't have the struct device pointer.)
+I am willing to develop this series in the above direction. Before
+though, I'd like to know from hwspinlock maintainers if they agree to
+this refactoring in general.
 
-So, it isn't going to be a simple patch to fix this.
+Thanks and happy hacking,
 
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+   Wolfram
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
