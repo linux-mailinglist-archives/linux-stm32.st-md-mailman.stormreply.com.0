@@ -2,53 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iHMjNs0OeWmHuwEAu9opvQ
+	id mNOILusSeWkcvAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 20:15:25 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 20:32:59 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 586BD99B75
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 20:15:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 62C8499E8A
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 20:32:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFB73C01FBF;
-	Tue, 27 Jan 2026 19:15:24 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3E8DC555BE;
+	Tue, 27 Jan 2026 19:32:58 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DFDF9C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8D60C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 19:15:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
- Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=+1dnhRLMtu5/XnmCGlow67PwZlHIqJ0tA39/W+z0sa4=; b=nVfyn7gNVN46zpKefERfl0P78F
- qqk4M4PqywOmVjgz096jYEBxIyHPFepOJq44+uCvDUX/LRjfqHLKERY6bgrKiFdqgqiRf8WELZAAj
- hG2sYe81JS3R5/20qG6xBSdUssacygS1XMQFVuUiWZkjNmAb2gbI8Pdnc8mvHy2k5y5Ek670b62mU
- BdzV6w1i5aQ/hgxhWXQlLKNjgAiBeNnMeaFOonoyiagngR+2i0Dae+jojwPIIs1AY/9ouLVNavuAP
- aEzXD/tIWI1kEISc56BfN6wyvmUKay9wzfA21W1bO4J8kOtvu35R3XJp55Y6k/Mz8uIjZHneEcYr8
- VI0VZ/Wg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
- by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1vkoX1-0000000EtmN-2ijV; Tue, 27 Jan 2026 19:15:19 +0000
-Message-ID: <d46a7e44-cddf-425c-a233-911c2d949b9b@infradead.org>
-Date: Tue, 27 Jan 2026 11:15:17 -0800
+ Tue, 27 Jan 2026 19:32:56 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id C76BF601DE;
+ Tue, 27 Jan 2026 19:32:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E238BC116C6;
+ Tue, 27 Jan 2026 19:32:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1769542375;
+ bh=c8lDWX4D3RavtMw9/plTwOleLSxCRDavxuXHfl8Y4Is=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Us1RXAi/IEvWuS9/cJUHqRKGTDB/ch+lkjjBuCKN1HTYGwxxBh3UH14PJFLIbcRrS
+ 5yIV+yXpYK/FKWIm2D2hKKrJ+Wh61IO55bd+rVTgZeX+UE3M2ppjvB1zFE3OjN8RIM
+ 12qYoEfhc9J69L5n4UBuT8O7n98rkvpaNhSgwtIH11ToI6Esj7DjGBgJp7l2y75BWx
+ mKuNhCLTWN5CJaCnvtH6/QnXZnJ8BjBnPS7hzd2jK1FGTYEAGMzacgILU8XhUKwOuj
+ +H4kW9QMyvDcJBcC407wtZQOEd7822/MUB6jZBNsO6GFmJ9MobEMcbzsvv8bv3ENEo
+ 4VPeO1aqPngUg==
+Date: Tue, 27 Jan 2026 19:32:48 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Jan Petrous <jan.petrous@oss.nxp.com>
+Message-ID: <20260127-crock-catty-e62e4f699f5a@spud>
+References: <20260123-dwmac_multi_irq-v3-0-cc53f2be8961@oss.nxp.com>
+ <20260123-dwmac_multi_irq-v3-2-cc53f2be8961@oss.nxp.com>
+ <20260123-dinner-aloft-e57deb6c546a@spud>
+ <aXdiNb92B4HH+ZFt@lsv051416.swis.nl-cdc01.nxp.com>
+ <20260126-blinker-secluding-a745f60caccb@spud>
+ <aXi07hPBrl7EYezi@lsv051416.swis.nl-cdc01.nxp.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Leo Yan <leo.yan@arm.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+In-Reply-To: <aXi07hPBrl7EYezi@lsv051416.swis.nl-cdc01.nxp.com>
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Eric Dumazet <edumazet@google.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- James Clark <james.clark@linaro.org>
-References: <20260127-fix_stm_kconfig-v2-1-3c067e00f82e@arm.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260127-fix_stm_kconfig-v2-1-3c067e00f82e@arm.com>
-Cc: coresight@lists.linaro.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v2] stm class: Fix Kconfig symbols
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v3 2/4] dt-bindings: net: nxp,
+ s32-dwmac: Declare per-queue interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,113 +73,143 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============7425749997607350485=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [3.19 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[infradead.org:s=bombadil.20210309];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
-	MIME_GOOD(-0.10)[text/plain];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[arm.com,linux.intel.com,gmail.com,foss.st.com,linuxfoundation.org,linaro.org];
-	FORGED_SENDER(0.00)[rdunlap@infradead.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:leo.yan@arm.com,m:alexander.shishkin@linux.intel.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:gregkh@linuxfoundation.org,m:james.clark@linaro.org,m:coresight@lists.linaro.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jan.petrous@oss.nxp.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[conor@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[24];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[conor@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rdunlap@infradead.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[infradead.org:-];
-	MID_RHS_MATCH_FROM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.994];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,infradead.org:mid,arm.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 586BD99B75
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: 62C8499E8A
 X-Rspamd-Action: no action
 
-On 1/27/26 10:14 AM, Leo Yan wrote:
-> Kconfig symbols must not include the CONFIG_ prefix.  Remove the CONFIG_
-> prefix for default values to work.
-> 
-> The STM_PROTO_SYS_T config is selected by default when STM is enabled.
-> However, its description currently says "If you don't know what this is,
-> say N," which contradicts the default behavior.  Update the description
-> to say "Y" to align with the default setting.
-> 
-> Fixes: a02509f301c6 ("stm class: Factor out default framing protocol")
-> Fixes: d69d5e83110f ("stm class: Add MIPI SyS-T protocol support")
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
 
-Greg has already merged a patch to fix the symbols:
-https://patch.msgid.link/20251228190502.2480758-1-rdunlap@infradead.org
+--===============7425749997607350485==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="WkvxyB8JqVtHXRO6"
+Content-Disposition: inline
 
 
-> ---
-> Changes in v2:
-> - Updated STM_PROTO_BASIC description to align with default selection
->   (James).
-> - Link to v1: https://lore.kernel.org/r/20251217-fix_stm_kconfig-v1-1-531fb3674549@arm.com
-> ---
->  drivers/hwtracing/stm/Kconfig | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/stm/Kconfig b/drivers/hwtracing/stm/Kconfig
-> index eda6b11d40a1f9ab49a1ec1e6faae8ee178c5ed3..8ab079785189052945521e9b0a93a0d458de37e0 100644
-> --- a/drivers/hwtracing/stm/Kconfig
-> +++ b/drivers/hwtracing/stm/Kconfig
-> @@ -13,7 +13,7 @@ if STM
->  
->  config STM_PROTO_BASIC
->  	tristate "Basic STM framing protocol driver"
-> -	default CONFIG_STM
-> +	default STM
->  	help
->  	  This is a simple framing protocol for sending data over STM
->  	  devices. This was the protocol that the STM framework used
-> @@ -28,7 +28,7 @@ config STM_PROTO_BASIC
->  
->  config STM_PROTO_SYS_T
->  	tristate "MIPI SyS-T STM framing protocol driver"
-> -	default CONFIG_STM
-> +	default STM
->  	help
->  	  This is an implementation of MIPI SyS-T protocol to be used
->  	  over the STP transport. In addition to the data payload, it
-> @@ -38,7 +38,7 @@ config STM_PROTO_SYS_T
->  	  The receiving side must be able to decode this protocol in
->  	  addition to the MIPI STP, in order to extract the data.
->  
-> -	  If you don't know what this is, say N.
-> +	  If you don't know what this is, say Y.
->  
->  config STM_DUMMY
->  	tristate "Dummy STM driver"
-> 
-> ---
-> base-commit: fcb70a56f4d81450114034b2c61f48ce7444a0e2
-> change-id: 20251216-fix_stm_kconfig-a72f40c7612c
-> 
-> Best regards,
+--WkvxyB8JqVtHXRO6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Jan 27, 2026 at 01:51:58PM +0100, Jan Petrous wrote:
+> On Mon, Jan 26, 2026 at 08:00:33PM +0000, Conor Dooley wrote:
+> > On Mon, Jan 26, 2026 at 01:46:45PM +0100, Jan Petrous wrote:
+> > > On Fri, Jan 23, 2026 at 05:13:03PM +0000, Conor Dooley wrote:
+> > > > On Fri, Jan 23, 2026 at 11:09:55AM +0100, Jan Petrous via B4 Relay =
+wrote:
+> > > > > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+> > > > >=20
+> > > > > The DWMAC IP on NXP S32G/R SoCs has connected queue-based IRQ lin=
+es,
+> > > > > set them to allow using Multi-IRQ mode when supported.
+> > > >=20
+> > > > The binding only supports s32{g,r} devices, why is the existing min=
+imum
+> > > > retained? What devices are going to not have all 11 interrupts
+> > > > connected?
+> > > >=20
+> > >=20
+> > > The original idea was to support backward compatibility, as older DTs
+> > > didn't contain queue-based interrupt lines described.
+> > >=20
+> > > But now, when you asked, I started to think it is not needed,
+> > > the requirement for backward compatibility is managed inside the driv=
+er
+> > > and yaml shall describe the hardware not used configuration.
+> >=20
+> > Just to be clear, cos the last portion of that "yaml shall..." isn't to
+> > me, you mean that the driver will support 1 or 11 interrupts but you
+> > will make the binding only allow 11? That would be fine.
+> > Just note in the commit message that all of these devices have the 11
+> > interrupts.
+> >=20
+>=20
+> Well, all those supported devices have 11 interrupts connected (1x MAC),
+> then 5x RX (queue0..queue4) and  5x TX (queue0..queue4).
+>=20
+> Until now, the driver was using on MAC IRQ, so the only one shared line.
+> Now, we are enabling support for per-queue interrupts, what means for
+> supported SoCs up to 11 IRQs as the DWMAC IP on S32G/R has 5 queues.
+>=20
+> The driver can still opearate on this one shared IRQ mode, but
+> if the DT node configuration describes all IRQs, then the driver switch
+> to multi-IRQ mode. What allows better distribution of processor core
+> load.
+
+> So the 11 IRQs are the maximum value, in the case when all queues are
+> used. But I can imagine some other use-cases, when not all queues
+> are enabled, ie. only queue0 and quque1. In that case, the driver will
+
+Since all of the devices have 11 interrupts, this would be software
+configuration and the devicetree should contain all 11 even if shared
+mode is desired, to reflect how the hardware is configured. I think
+minItems should be changed to 11, unless another device gets added later
+that does not have all 11 connected.
+
+> use some subset of all IRQs.
+> That means that DT can contain only lesser interrupt list then maximum.
+>=20
+> I feel like having "minItems: 1" shall cover such use-case.
+
+
+--WkvxyB8JqVtHXRO6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaXkS3QAKCRB4tDGHoIJi
+0jI2AP0WP0sgcNZESXVAvwbBqgu4z6UoHTvYjGRucW4qVxBD2AD+LhuETgd5tQxm
+i4Feuiwe6K3mZ5APrN+lkwC0B8lkkg4=
+=nLqP
+-----END PGP SIGNATURE-----
+
+--WkvxyB8JqVtHXRO6--
+
+--===============7425749997607350485==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============7425749997607350485==--
