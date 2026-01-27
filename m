@@ -2,93 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sGCdOIDFeGmltAEAu9opvQ
+	id qD0FFXzSeGmNtQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 15:02:40 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 15:58:04 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89DF8954C2
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 15:02:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DB01596262
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 15:58:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1ECB6C555BE;
-	Tue, 27 Jan 2026 14:02:40 +0000 (UTC)
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87DC3C555BE;
+	Tue, 27 Jan 2026 14:58:03 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2910C01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89197C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 14:02:38 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-8230c839409so4550468b3a.3
+ Tue, 27 Jan 2026 14:58:02 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60RAb25D700433
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 27 Jan 2026 14:58:00 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=LWpVchwqvdGyEWC9dq5KQLLm
+ 6bzYdAUNcEvylYGhyMk=; b=JfZPlapfYbLDmW8jIqIUG1zzsRs6BdzYsI20J1Ga
+ vpqifUaODyp/EbBsE7VGur1lPvpwW2LyLCCFu9I9wj22Hc9AhTiXQrKopV5k0Teq
+ R2GHzgjEQhEZnhP/yJV39yPxTvSDUm3uEQXB8csExTNm5EFWRdThOxM2rIRWZjSF
+ lgmeGNIPVSSdJYSop2kWFXzJgUBarZXUnJMiTbjdzPTUWIl7z3yKiORpQP41xppw
+ 2UW04TuaCRTUoHoF9aX7whiNoViKOmS5QqbJZe6DyAvoRmxvYgOWzrpfyNfBujJ1
+ jO40wm+ddDMn7K30vv0vgDucLij7LxCP8PCy5FRB8JEDuQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4bxew3u6vw-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 06:02:38 -0800 (PST)
+ Tue, 27 Jan 2026 14:58:00 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-34cc8bf226cso5872079a91.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 27 Jan 2026 06:58:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1769525880; x=1770130680;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=LWpVchwqvdGyEWC9dq5KQLLm6bzYdAUNcEvylYGhyMk=;
+ b=bflbBr9tI+1z7Db3ueLarwIuoMWokCW2xk2TCf8OqQGzAQrLMISZNEmO92F7nohT8J
+ E6cyRFh+Fl9GR/R8M8oMDrS257aya3L8XUf4NULyv4lgY+ZySk3hb5LpTJPASNK8ZRui
+ bPHkRfCFgRlaY6sKVN8x0GYsCedVDuvfESLi8+UUjMbYyJvDn29fkzGOt4e5Tb1B+Oxo
+ Cs+nx8y8+VKUAIFrKbM+sraqbcCfwdlVUFI3NPdTGfsy3IseIRizoMYQuOCEHTMJBOZj
+ Eslc/LScZciLpYymBHTaD/xYKbWxvPRTa00dA8hcMrWp0Sz/ZeF5Ifluojgupkq/Z8lb
+ ApGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769522557; x=1770127357;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=75PQCFMMISya6miWyFTo5NFlD+yMTmEC4MBoTSgZA6E=;
- b=Gs2iQ4PXA6VgZ8poWYz/UtEEinqKpr59iM6DE073ZlkHBEK7EI3kldedjWprOcZLcG
- QRq+qrCNT4PVCUczQhLdDo6B0MapBeiHnisjrMMER7sfSYznpR+HDN8MM/H7QaHYjlI1
- wdy33lhYemLzwV18cc70uEqFPwSb2rICXAKR7D745boK+tKyU5Jjtr0mjWrsSVIpj6a0
- UHVk6Iw0DQUM2boyzi/qS4lxLbRPPS6qNJDRlt25dqaYLetgNATdockA5b/WwjhCosnO
- mlH9DQmUbyQTHMS3rWZMJGLWk1pSLeQmIjyotyGcvvObNfOmnWnArhmFguUS+u2xD4P2
- 6obw==
+ d=1e100.net; s=20230601; t=1769525880; x=1770130680;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LWpVchwqvdGyEWC9dq5KQLLm6bzYdAUNcEvylYGhyMk=;
+ b=MVz49nsl8P3lyorD9H/xWW0feII1rXIZTOp0yqr0QDfaJRm4Upj7F04Sk1oD2T7CVq
+ m2Y1Ps+E0OWg3MIjYh/KR/CSMhrSh3cTUi/vtD9nyjxQywvG9ubTrnB5dL5SXfTHvqpL
+ yO9tujL7RNAJx+WrDZPMOj/GdhlCiKnGcQEleqMPxxDVxh3DW/+adnzQbtlnM4JXYA43
+ L6vz+qZiqyJfQkqktLigOljSniDT4kD7Uh0h6F4Usg0POCn9fQDgzJkdzwCvfU2vv+pP
+ WcjQCn4TbT1ATtFCBXFD6/eEksNfw3Xb2AQu8hg3QYJZsfb3UGDWyCGI+txLzcvuCrUI
+ SwCw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWVl/iqkFtDuFy4dB4iBb9kANk20XFZUcyu8MBrK8bVGqSQpHD9LD3oWQeP2KcKfn08RZtOw8lYrOpqhw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw9FBOUe2uWvlvYswkH5AFe+wP0m7X/7IbEc5O2NH0LwwR6WPAu
- CtHP0IZhdz/XTu0iq5bWu5gnMdnl/KoC9A9VZzScabTNCYwHIXuh6BrgS9zxMXUU
-X-Gm-Gg: AZuq6aJNSYMpg8ebTuLofl0Q6QuyrLlyYg/UGggyBrxpfQcxHqv+EyOHeYTY7j55Luj
- 3ML68pG5PVK3IjXQz16nbOCwGwmq52TFE2pKhZ1PhBAtkODd3bkvwhXUO3f9X5mh5Sk3qiUOpWK
- kpzTryIcKpwov0tOT4mNcuywB1DIXrDcAt6bG4tiv7frkdXhNFG6vR5misRL1VxboyCBDUJ8ae4
- 6/WJlH/ZFHw4ymRDMrRK6xQ8zKQzHuuPMtnVs5EiDORTXxSS717UKNaPU+DSSpYh2QbrVVbBGCa
- nfALyfvSRE6AWJ+zVkQZ7LHlcsqbAdCG0EMYRX1vKjTmxVaUx9aci4HSKdrdByu7cb6ZEIqszMP
- Rz2PIlRZjeCwc5tbt3dH4dAM0wRr580ILYjTSmxwuriUlKXhuzwvWq177Fb9+dTGiMvvVqKbq0W
- 29B6e4X6bKESJXIyQU/HmsauGKmiwCabawUfca5heX8lk85FgS0H1BRhDv9AGhXXo=
-X-Received: by 2002:a05:6a21:2e18:b0:366:2416:194 with SMTP id
- adf61e73a8af0-38ec6421ecfmr1674981637.47.1769522556682; 
- Tue, 27 Jan 2026 06:02:36 -0800 (PST)
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com.
- [209.85.210.179]) by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c635a3f1ebesm11460895a12.19.2026.01.27.06.02.36
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 27 Jan 2026 06:02:36 -0800 (PST)
-Received: by mail-pf1-f179.google.com with SMTP id
- d2e1a72fcca58-81f5381d168so5316778b3a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 06:02:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AJvYcCWoHA4HBh6v4SNmtwat45wlQ5thFXdFvzQF1RhAuI8zjzIjKg+PpwBntxA4tGI2jI1CP/wGTY2Kgx+X4w==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:6122:78b:b0:563:8339:6201 with SMTP id
- 71dfb90a1353d-566795e7f59mr418577e0c.17.1769522244153; Tue, 27 Jan 2026
- 05:57:24 -0800 (PST)
+ AJvYcCWn2iVe+wXvPvJRKSIq/eCpOvzviVfuuIoi5HRF2BqxI4gM7MhC40r0GhrHkv3qdFvc7Ah4soGvOJIFbg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyOWGOvmfKbDTxiX5EBpjtjC9A4ioIGyk2cBtxqMYiDGqBv4CAc
+ FVAXmB1ci5YCjD+N9XkEpJsy/ruoG4Um7uetPs2StlnQHQiydVSICMxmoYaCEpI54TNdBE7Kpe2
+ lJtJGHfWc7Ako12dJclCTqDqDPPDuvWPPAusG8+r3H9oiGNvqsOidfMbjqqrcGX9xoD3oqCs5Fl
+ M8QAyCy7k=
+X-Gm-Gg: AZuq6aKfC4pPvpuUcEFqjTEVe1F+rJDwx35D/UjFMCtD1Oi0SNYkUaVnovI8oy9RXXT
+ qMy5St+ev+UrMEKG8Ge4P6n4okvpokGjVOWGNuLn78P+Y0qK+Fvu22KQ2nQTPCBJgqvAEoJ5k8z
+ Yt+bYOjk99tXs86BAYJZBWDwRIhwZm17eFKgsVI0y8TBt1HgPboV/GJHaSN1a6s19XyviC+GZWF
+ MnPI3+nBkxYzQFNnlbMuuCQgZU+514C0DAjDDHBlUZpXNebLoESvYGIzE7LaWiHIaV/treVeTLR
+ pjtskqcl6vn1uO2ZD+svtkwUx3qjvxBY7DlJxjFG+cAoT7MO8pMD/DihBDG4nIy7oVuErepSu8+
+ uBN5f7jWeVNM1BN1sCQyMWNk=
+X-Received: by 2002:a17:90b:5627:b0:34a:47d0:9a82 with SMTP id
+ 98e67ed59e1d1-353fed70718mr2006695a91.23.1769525879553; 
+ Tue, 27 Jan 2026 06:57:59 -0800 (PST)
+X-Received: by 2002:a17:90b:5627:b0:34a:47d0:9a82 with SMTP id
+ 98e67ed59e1d1-353fed70718mr2006667a91.23.1769525878954; 
+ Tue, 27 Jan 2026 06:57:58 -0800 (PST)
+Received: from oss.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3536b050e08sm4712102a91.1.2026.01.27.06.57.53
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Jan 2026 06:57:58 -0800 (PST)
+Date: Tue, 27 Jan 2026 20:27:50 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <aXjSbu6L6ICYOPiJ@oss.qualcomm.com>
+References: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
+ <aXN5BFXMshnhwBQ7@oss.qualcomm.com>
+ <aXPo5R1Q-qWG3r3l@shell.armlinux.org.uk>
 MIME-Version: 1.0
-References: <20260126172503.238724-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <aXeuR_YLoAFYEAVi@shell.armlinux.org.uk>
- <CA+V-a8t5RKY9vyFDg0V3AWcBovBdWbcvqdPeiPYmHRA8v2=UGQ@mail.gmail.com>
-In-Reply-To: <CA+V-a8t5RKY9vyFDg0V3AWcBovBdWbcvqdPeiPYmHRA8v2=UGQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 27 Jan 2026 14:57:13 +0100
-X-Gmail-Original-Message-ID: <CAMuHMdXOMMyYrbPr8H3O+oj7QeGg324jXdV1QUaUhQF4sxTyfg@mail.gmail.com>
-X-Gm-Features: AZwV_QgbBo9gCTeM_9WEMxs9EnfZIFfAoe0fWXmaoPkXJK4PoXh0OCn_st1Xl0A
-Message-ID: <CAMuHMdXOMMyYrbPr8H3O+oj7QeGg324jXdV1QUaUhQF4sxTyfg@mail.gmail.com>
-To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Cc: linux-kernel@vger.kernel.org, Philipp Zabel <p.zabel@pengutronix.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>, netdev@vger.kernel.org,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Biju Das <biju.das.jz@bp.renesas.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [RFC PATCH net-next] net: stmmac: Preserve
- bootloader MAC address across unconditional reset
+Content-Disposition: inline
+In-Reply-To: <aXPo5R1Q-qWG3r3l@shell.armlinux.org.uk>
+X-Proofpoint-ORIG-GUID: 1pqFHN8yotZGOLlFzVkrV9n4CtvINmu5
+X-Proofpoint-GUID: 1pqFHN8yotZGOLlFzVkrV9n4CtvINmu5
+X-Authority-Analysis: v=2.4 cv=J8CnLQnS c=1 sm=1 tr=0 ts=6978d278 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=-kEnI-koradUIOcFO3kA:9 a=CjuIK1q_8ugA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI3MDEyMyBTYWx0ZWRfX10jAUmXbTwmf
+ akuYABJTDRj2jm0q3Dmi/RgRSjGAoMjUoVPMM383riIKliXjFuLYy1QiydQqPl7whQl0Rh4TEg8
+ uMd4Wx9q1n1LwTvobX0B8aPNx6ykGhL5wqynpT9qVPEXN9FGnhx+0K4pj/xUEm+feH6AKUMzcRu
+ 4oCs8WgEd6ZSWP8p5B8TO/iahIH5RY7TH4/jfkLJZ9vHP3xJEwybwGLHF/JD1219jE7rJgBLEdT
+ aTDJcyiMSeFccA1mxIgUdBIdlalhz5sSeWMKxyd7nLYeky+Yvv/vx0XGvEBrcO657UqBxJLdMEI
+ HgRjocpbctINU+2un0f2TIxX55AA1Z4ry9AxCg6od3MD7UYZuOvsj2sd58Jo5JGpBSkF4fsYgen
+ 9drCmuvGgCII3Y9FojW84UimFUmiMyvy1wRCquvMVcgedMh5un0huIGfdetWdqBvjhMpcDNyGPq
+ X+9WNrEBlp2HKuW+9dw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-27_03,2026-01-27_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 adultscore=0 impostorscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601270123
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Andrew Lunn <andrew@lunn.ch>, Neil Armstrong <neil.armstrong@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ netdev@vger.kernel.org, linux-phy@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/14] net: stmmac: SerDes, PCS,
+ BASE-X, and inband goodies
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,69 +144,188 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,lunn.ch,linaro.org,vger.kernel.org,st-md-mailman.stormreply.com,google.com,kernel.org,gmail.com,lists.infradead.org,redhat.com,davemloft.net];
 	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[linux-m68k.org];
-	FORGED_RECIPIENTS(0.00)[m:prabhakar.csengg@gmail.com,m:linux-kernel@vger.kernel.org,m:p.zabel@pengutronix.de,m:geert+renesas@glider.be,m:netdev@vger.kernel.org,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:fabrizio.castro.jz@renesas.com,m:linux-renesas-soc@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:biju.das.jz@bp.renesas.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:prabhakarcsengg@gmail.com,m:geert@glider.be,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FORGED_SENDER(0.00)[geert@linux-m68k.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:konrad.dybcio@oss.qualcomm.com,m:andrew@lunn.ch,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,pengutronix.de,glider.be,bp.renesas.com,st-md-mailman.stormreply.com,armlinux.org.uk,renesas.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[geert@linux-m68k.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
+	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	R_DKIM_NA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,mail.gmail.com:mid,st-md-mailman.stormreply.com:rdns,linux-m68k.org:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 89DF8954C2
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid]
+X-Rspamd-Queue-Id: DB01596262
 X-Rspamd-Action: no action
 
-SGkgUHJhYmhha2FyLAoKT24gVHVlLCAyNyBKYW4gMjAyNiBhdCAxNDozOSwgTGFkLCBQcmFiaGFr
-YXIgPHByYWJoYWthci5jc2VuZ2dAZ21haWwuY29tPiB3cm90ZToKPiBPbiBNb24sIEphbiAyNiwg
-MjAyNiBhdCA2OjEx4oCvUE0gUnVzc2VsbCBLaW5nIChPcmFjbGUpCj4gPGxpbnV4QGFybWxpbnV4
-Lm9yZy51az4gd3JvdGU6Cj4gPiBPbiBNb24sIEphbiAyNiwgMjAyNiBhdCAwNToyNTowM1BNICsw
-MDAwLCBQcmFiaGFrYXIgd3JvdGU6Cj4gPiB3aGVyZSAibG9jYWwtbWFjLWFkZHJlc3MiIHN0YXRl
-cyB0aGUgTUFDIGFkZHJlc3MgdG8gYmUgdXNlZCBmb3IgZXRoMCwKPiA+IGFzIHNwZWNpZmllZCBi
-eSB0aGUgYm9vdCBsb2FkZXIuCj4gPgo+IFRoYW5rcyBmb3IgdGhlIHBvaW50ZXIsIEkgd2lsbCB1
-c2UgdGhlIGFib3ZlLW1lbnRpb25lZCBtZXRob2Qgd2l0aAo+IHdoaWNoIHdlIHdvbid0IGJlIG5l
-ZWRpbmcgdGhpcyBwYXRjaCBvbiB0aGUgUlovVDJIIHBsYXRmb3JtLgoKVGhpcyBzaG91bGQgYWxy
-ZWFkeSB3b3JrIG91dC1vZi10aGUtYm94LCBhcwphcmNoL2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMv
-cnp0MmgtbjJoLWV2ay1jb21tb24uZHRzaSBhbHJlYWR5IGhhczoKCiAgICBhbGlhc2VzIHsKICAg
-ICAgICAgICAgZXRoZXJuZXQzID0gJmdtYWMxOwogICAgICAgICAgICBldGhlcm5ldDIgPSAmZ21h
-YzI7CgpTbyBqdXN0IG1ha2Ugc3VyZSB0byBzZXQgdGhlICJldGgyYWRkciIgYW5kICJldGgzYWRk
-ciIgZW52aXJvbm1lbnQKdmFyaWFibGVzIGluIFUtQm9vdC4KCkdye29ldGplLGVldGluZ31zLAoK
-ICAgICAgICAgICAgICAgICAgICAgICAgR2VlcnQKCi0tIApHZWVydCBVeXR0ZXJob2V2ZW4gLS0g
-VGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdlZXJ0QGxpbnV4LW02OGsub3Jn
-CgpJbiBwZXJzb25hbCBjb252ZXJzYXRpb25zIHdpdGggdGVjaG5pY2FsIHBlb3BsZSwgSSBjYWxs
-IG15c2VsZiBhIGhhY2tlci4gQnV0CndoZW4gSSdtIHRhbGtpbmcgdG8gam91cm5hbGlzdHMgSSBq
-dXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRoaW5nIGxpa2UgdGhhdC4KICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAtLSBMaW51cyBUb3J2YWxkcwpfX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGlu
-dXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxt
-YW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Fri, Jan 23, 2026 at 09:32:21PM +0000, Russell King (Oracle) wrote:
+> 
+> and the failing store is the one for that last line of C code - in
+> other words, pcs = NULL.
+> 
+> This means that mac_select_pcs() returned NULL when being asked
+> "which PCS should be used for 2500base-X" ?
+> 
+> This suggests that the SerDes detection of support for 2500BASE-X
+> isn't working, meaning that stmmac_mac_select_pcs() ends up returning
+> NULL, rather than &priv->integrated_pcs->pcs.
+> 
+> That would only happen if:
+> 
+>                 /* Only allow 2500Base-X if the SerDes has support. */
+>                 ret = dwmac_serdes_validate(priv, PHY_INTERFACE_MODE_2500BASEX);
+>                 if (ret == 0)
+>                         __set_bit(PHY_INTERFACE_MODE_2500BASEX,
+>                                   spcs->pcs.supported_interfaces);
+> 
+> fails, meaning we don't set that interface mode for the PCS.
+> dwmac_serdes_validate() calls phy_validate() for PHY_MODE_ETHERNET
+> with the PHY interface mode as the sub mode.
+> 
+> Patch 3 adds the required methods to phy-qcom-sgmii-eth.c to allow
+> phy_validate() to indicate whether this is supported or not:
+> 
+>         .validate       = qcom_dwmac_sgmii_phy_validate,
+> 
+> and its implementation is:
+> 
+>         int ret = qcom_dwmac_sgmii_phy_speed(mode, submode);
+> 
+>         return ret < 0 ? ret : 0;
+> 
+> where qcom_dwmac_sgmii_phy_speed() is:
+> 
+>         if (mode != PHY_MODE_ETHERNET)
+>                 return -EINVAL;
+> 
+>         if (submode == PHY_INTERFACE_MODE_SGMII ||
+>             submode == PHY_INTERFACE_MODE_1000BASEX)
+>                 return SPEED_1000;
+> 
+>         if (submode == PHY_INTERFACE_MODE_2500BASEX)
+>                 return SPEED_2500;
+> 
+>         return -EINVAL;
+> 
+> So, this should be returning a positive integer (SPEED_2500), which
+> should cause phy_validate(serdes, PHY_MODE_ETHERNET,
+> PHY_INTERFACE_MODE_2500BASEX, NULL) to return success (zero). That
+> should result in PHY_INTERFACE_MODE_2500BASEX being set in
+> spcs->pcs.supported_interfaces, and thus &priv->integrated_pcs->pcs
+> being returned for PHY_INTERFACE_MODE_2500BASEX.
+> 
+> Is the particular hardware you're running this oopsing test on not
+> using a SerDes PHY? If that's the case, how does it switch between
+> 2.5Gbps and 1Gbps data rate on the SerDes?
+> 
+
+It is using the same SerDes PHY (qcom_dwmac_sgmii_phy_driver).
+
+I added additional debug prints, and I think the crash is due to
+BMSR_ESTATEN not being set in GMAC_AN_STATUS.
+
+During pcs_init, BIT(8) of GMAC_AN_STATUS is 0:
+[    7.985913] [DBG] GMAC_AN_STATUS = 8
+
+Therefore, this check:
+	if (readl(spcs->base + GMAC_AN_STATUS) & BMSR_ESTATEN) {
+		__set_bit(PHY_INTERFACE_MODE_1000BASEX,
+			  spcs->pcs.supported_interfaces);
+
+		/* Only allow 2500Base-X if the SerDes has support. */
+		ret = dwmac_serdes_validate(priv, PHY_INTERFACE_MODE_2500BASEX);
+		if (ret == 0)
+			__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+				  spcs->pcs.supported_interfaces);
+	}
+fails, and PHY_INTERFACE_MODE_2500BASEX never gets set in
+pcs.supported_interfaces. Pardon my naivete, but does the
+BMSR_ESTATEN bit not being set break some standard?
+
+If I remove the check, the NULL pointer dereference is not observed
+anymore. Although the SerDes link is still unstable.
+
+I also tried enabling comma detect during dwmac_integrated_pcs_config,
+but I am still seeing the Tx timeouts. I remember that when I had
+tested the patches in October (without the SerDes driver changes),
+the link state used to flap, but the data path became functional
+after the link stabilized.
+
+	Ayaan
+
+---
+Full Logs (Speed Change: 1G -> 2.5G)
+[  244.817499] qcom-ethqos 23040000.ethernet eth1: pcs link down
+[  257.066210] dwmac: PCS configuration changed from phylink by glue, please report: 0x00040000 -> 0x00041000
+[  257.076143] dwmac:      ANE 0 -> 1
+[  257.079668] qcom-ethqos 23040000.ethernet eth1: Link is Up - 1Gbps/Full - flow control off
+[  264.260852] qcom-ethqos 23040000.ethernet eth1: NETDEV WATCHDOG: CPU: 7: transmit queue 3 timed out 5472 ms
+[  264.271394] qcom-ethqos 23040000.ethernet eth1: Reset adapter.
+[  264.280493] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
+[  264.842309] qcom-ethqos 23040000.ethernet eth1: Timeout accessing MAC_VLAN_Tag_Filter
+[  264.850391] qcom-ethqos 23040000.ethernet eth1: failed to kill vid 0081/0
+[  264.857547] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-0
+[  264.865795] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-1
+[  264.873939] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-2
+[  264.882111] qcom-ethqos 23040000.ethernet eth1: Register MEM_TYPE_PAGE_POOL RxQ-3
+[  265.792807] qcom-ethqos 23040000.ethernet eth1: PHY stmmac-0:08 uses interfaces 4,23,27, validating 23
+[  265.802389] [DBG] stmmac_mac_select_pcs - testing for 23 (2500base-x) on priv->integrated_pcs->pcs.supported_interfaces = 4
+[  265.802399] qcom-ethqos 23040000.ethernet eth1:  interface 23 (2500base-x) rate match pause supports 0-7,9,13-14,47
+[  265.824572] qcom-ethqos 23040000.ethernet eth1: PHY [stmmac-0:08] driver [Aquantia AQR115C] (irq=334)
+[  265.834055] qcom-ethqos 23040000.ethernet eth1: phy: sgmii setting supported 00000000,00000000,00008000,000062ff advertising 00000000,00000000,00008000,000062ff
+[  265.852828] [DBG] qcom_dwmac_sgmii_phy_speed called with mode=15, submode=4
+[  265.852837] [DBG] qcom_dwmac_sgmii_phy_validate - qcom_dwmac_sgmii_phy_speed returned 1000
+[  265.868580] qcom-ethqos 23040000.ethernet eth1: Enabling Safety Features
+[  265.884237] qcom-ethqos 23040000.ethernet eth1: IEEE 1588-2008 Advanced Timestamp supported
+[  265.893946] qcom-ethqos 23040000.ethernet eth1: registered PTP clock
+[  265.900561] qcom-ethqos 23040000.ethernet eth1: configuring for phy/sgmii link mode
+[  265.908451] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/sgmii
+[  265.916159] [DBG] stmmac_mac_select_pcs - testing for 4 (sgmii) on priv->integrated_pcs->pcs.supported_interfaces = 4
+[  265.916166] qcom-ethqos 23040000.ethernet eth1: interface sgmii inband modes: pcs=03 phy=03
+[  265.935652] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/sgmii
+[  265.943795] qcom-ethqos 23040000.ethernet eth1: phylink_mac_config: mode=phy/sgmii/none adv=00000000,00000000,00000000,00000000 pause=00
+[  265.956407] [DBG] qcom_dwmac_sgmii_phy_speed called with mode=15, submode=4
+[  265.956408] [DBG] qcom_dwmac_sgmii_phy_set_mode - qcom_dwmac_sgmii_phy_speed returned 1000
+[  265.976997] qcom-ethqos 23040000.ethernet eth1: phy link down 2500base-x/Unknown/Unknown/none/off/nolpi
+[  270.556001] qcom-ethqos 23040000.ethernet eth1: phy link up 2500base-x/2.5Gbps/Full/none/off/nolpi
+[  270.567649] qcom-ethqos 23040000.ethernet eth1: major config, requested phy/2500base-x
+[  270.575823] [DBG] stmmac_mac_select_pcs - testing for 23 (2500base-x) on priv->integrated_pcs->pcs.supported_interfaces = 4
+[  270.575831] qcom-ethqos 23040000.ethernet eth1: mac_select_pcs returned NULL
+[  270.594521] qcom-ethqos 23040000.ethernet eth1: interface 2500base-x inband modes: pcs=00 phy=00
+[  270.603554] qcom-ethqos 23040000.ethernet eth1: major config, active phy/outband/2500base-x
+[  270.612286] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000010
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
