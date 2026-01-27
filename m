@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AKM6GF6EeGmqqgEAu9opvQ
+	id EHVFHIuEeGmqqgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 10:24:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 10:25:31 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0146191A7E
-	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 10:24:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 08E2191A97
+	for <lists+linux-stm32@lfdr.de>; Tue, 27 Jan 2026 10:25:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9D9FC56603;
-	Tue, 27 Jan 2026 09:24:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2FC7C56612;
+	Tue, 27 Jan 2026 09:25:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CF1DC555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 225AEC56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 09:24:43 +0000 (UTC)
+ Tue, 27 Jan 2026 09:25:29 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 12E9860121
+ by sea.source.kernel.org (Postfix) with ESMTP id 0E0CC44062
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 09:24:43 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA9F7C2BC87
+ Tue, 27 Jan 2026 09:25:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4186C16AAE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 09:24:42 +0000 (UTC)
+ Tue, 27 Jan 2026 09:25:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769505882;
- bh=IAlcWCtQdB6zFcgT1AEpGn9kuon/qBctbh//4Nuyblo=;
+ s=k20201202; t=1769505927;
+ bh=4fhNaoxeEqHkgipGOWq15FtPWpaf67z94Gjy73GwHac=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=m5B4fFTRykSx1iXEUZ9o6PvTZRS69FB882HHAz9VKjMB4EiGb1+Sjpt4v1YU+X2sJ
- iFcHLvFGJ9tcRarjXkzPGwmmgjOyp9eYPgR79CBtDuerf1x5yCMhvbnxenXuoi4CHX
- 67vgFROGS4FNLu0cfQsesjaP/DXhZImHOy7OxNrQnT0kII4qslvsA2WlY5p4ABnUta
- O8KMX4J6OylXZehLVg0k/7CzLbM3YLqQQZ3KzO3nEeeHr4rzzugkF5s04CN8ENSv5T
- Q2cL9PWH71aewyr5fDuTzxdfgDVD2F9COfFaTobjUz8lV9nL3+Wzgvpz1waiKBRMAS
- YbI5GreoSvQnQ==
-Received: by mail-yx1-f52.google.com with SMTP id
- 956f58d0204a3-6446c1a7a1cso4381807d50.3
+ b=Xql7HytjIomnGYTsyU+yL/RmeJzSAwfYRCSswOLPckmrBUB9YIpSMUl/X9729DuGm
+ 8c5WR+EEN94vlIk1jb5NC0skDFoqLBPtDBJQN0ZEiQfESE2BosVrgh9iofMFGXKjXF
+ 4MXtweJh+rum68lIDMcNWgJDouo6o5xmfQSHq1ZnMTcsEY2+YrzntGz0M456rtHiJi
+ K0dZvzBerdzbZ9icNgYQ8os6X/ru9bfIQFLRRASdx2DoiCamLH+2iqFa6PcfM0zKtV
+ EuDwZXx/oTg0TgyZCBleRBowWqki1kd+WGxftWQnQhmDcO9LhfelvFcL+xaRohr4Je
+ 9WDl/ffGAHtDQ==
+Received: by mail-yw1-f180.google.com with SMTP id
+ 00721157ae682-79274e0e56bso53525447b3.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 27 Jan 2026 01:24:42 -0800 (PST)
+ Tue, 27 Jan 2026 01:25:27 -0800 (PST)
 X-Forwarded-Encrypted: i=1;
- AJvYcCWPLjroJO3GhVohNkFmoNvkvc+H/ww4/cVY9HXgzY2mNgeKvM3WraGLCPTJonQya5vYT2btEBJTyn/iaQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzVQEom7qYuuVRkf4co98e3ZswgQfUBlHi6alP75qI7+Qde2w4X
- RkMJZ+It66juGVrZeYM1Vlo1rVMFDr2oheQyzKhrdus2PVSd8ZUcBjVnj6xCglb48hfgpPyomCC
- MNfT/zKo32M2OJ/ezB5awpQaOPjkYn2c=
-X-Received: by 2002:a05:690e:128d:b0:649:6ae3:59d8 with SMTP id
- 956f58d0204a3-6498fc1489bmr707379d50.16.1769505882102; Tue, 27 Jan 2026
- 01:24:42 -0800 (PST)
+ AJvYcCUELyQptbbFellrhhtZfX9H1QuOicAhT3KP2BkLJ82RPnvCZk7qZlA1W6P20zJgScdzZXLKsYu0Flz/OQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxdV64jOedcqNZy/HC1xRIW5ZLowm8wE+FDbFydMiGfKekJLsCb
+ 3undGr61Wc3zJAzRjD1aEIC7pkLJove3cxrRUn4RPuVDDXFRNXnW2Gk2+0ID9w95CqTwKEaVtzH
+ UzTNX68Gp5vmS/c+9mreaZBrrj2lTvBU=
+X-Received: by 2002:a05:690e:130c:b0:646:5127:9d14 with SMTP id
+ 956f58d0204a3-6498fc68930mr540909d50.79.1769505927330; Tue, 27 Jan 2026
+ 01:25:27 -0800 (PST)
 MIME-Version: 1.0
 References: <20260123-debug_bus-v5-0-90b670844241@foss.st.com>
- <20260123-debug_bus-v5-5-90b670844241@foss.st.com>
-In-Reply-To: <20260123-debug_bus-v5-5-90b670844241@foss.st.com>
+ <20260123-debug_bus-v5-12-90b670844241@foss.st.com>
+In-Reply-To: <20260123-debug_bus-v5-12-90b670844241@foss.st.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 27 Jan 2026 10:24:31 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=MPPM5HWYJzc3ckbnP5GVjfvSobmKE1xx=5Ud6964NZg@mail.gmail.com>
-X-Gm-Features: AZwV_QhQdyIiz4UerqYl3hvl_Hh7MKvqx_tg7HoHtzwKBdCqkSeZ5Xn1a3ShfdI
-Message-ID: <CAD++jL=MPPM5HWYJzc3ckbnP5GVjfvSobmKE1xx=5Ud6964NZg@mail.gmail.com>
+Date: Tue, 27 Jan 2026 10:25:16 +0100
+X-Gmail-Original-Message-ID: <CAD++jLm0vj7ODP6xq=YmCbF2WomKSnY7PAMiSL2zQ-DNUdKfYw@mail.gmail.com>
+X-Gm-Features: AZwV_QjVWNP4X4nR8KbNY0bXRJ0Tx9Nx3_diLL7W3D_y2HIVAXBmR108tXoT0LI
+Message-ID: <CAD++jLm0vj7ODP6xq=YmCbF2WomKSnY7PAMiSL2zQ-DNUdKfYw@mail.gmail.com>
 To: Gatien Chevallier <gatien.chevallier@foss.st.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Mathieu Poirier <mathieu.poirier@linaro.org>,
@@ -67,8 +67,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, coresight@lists.linaro.org,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, jens.wiklander@linaro.org,
  linux-arm-kernel@lists.infradead.org, Mike Leach <mike.leach@linaro.org>
-Subject: Re: [Linux-stm32] [PATCH v5 05/12] bus: stm32_firewall: add
- stm32_firewall_get_grant_all_access() API
+Subject: Re: [Linux-stm32] [PATCH v5 12/12] pinctrl: stm32: add firewall
+ checks before probing the HDP driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,8 +86,8 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.89 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
@@ -120,19 +120,19 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,st-md-mailman.stormreply.com:rdns,st.com:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 0146191A7E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st.com:email,mail.gmail.com:mid]
+X-Rspamd-Queue-Id: 08E2191A97
 X-Rspamd-Action: no action
 
-T24gRnJpLCBKYW4gMjMsIDIwMjYgYXQgMTE6NDDigK9BTSBHYXRpZW4gQ2hldmFsbGllcgo8Z2F0
-aWVuLmNoZXZhbGxpZXJAZm9zcy5zdC5jb20+IHdyb3RlOgoKPiBBZGQgdGhlIHN0bTMyX2ZpcmV3
-YWxsX2dldF9ncmFudF9hbGxfYWNjZXNzKCkgQVBJIHRvIGJlIGFibGUgdG8gZmV0Y2gKPiBhbGwg
-ZmlyZXdhbGwgcmVmZXJlbmNlcyBpbiBhbiBhY2Nlc3MtY29udHJvbGxlcnMgcHJvcGVydHkgYW5k
-IHRyeSB0byBncmFudAo+IGFjY2VzcyB0byBhbGwgb2YgdGhlbS4KPgo+IFNpZ25lZC1vZmYtYnk6
-IEdhdGllbiBDaGV2YWxsaWVyIDxnYXRpZW4uY2hldmFsbGllckBmb3NzLnN0LmNvbT4KCkV4Y2Vs
-bGVudCwganVzdCB3aGF0IEkgd2FudGVkLgpUaGFua3MgR2F0aWVuIQoKUmV2aWV3ZWQtYnk6IExp
-bnVzIFdhbGxlaWogPGxpbnVzd0BrZXJuZWwub3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIg
-bWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0
-cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgt
-c3RtMzIK
+T24gRnJpLCBKYW4gMjMsIDIwMjYgYXQgMTE6NDLigK9BTSBHYXRpZW4gQ2hldmFsbGllcgo8Z2F0
+aWVuLmNoZXZhbGxpZXJAZm9zcy5zdC5jb20+IHdyb3RlOgoKPiBCZWNhdXNlIHRoZSBIRFAgcGVy
+aXBoZXJhbCBib3RoIGRlcGVuZHMgb24gZGVidWcgYW5kIGZpcmV3YWxsCj4gY29uZmlndXJhdGlv
+biwgd2hlbiBDT05GSUdfU1RNMzJfRklSRVdBTEwgaXMgcHJlc2VudCwgdXNlIHRoZQo+IHN0bTMy
+IGZpcmV3YWxsIGZyYW1ld29yayB0byBiZSBhYmxlIHRvIGNoZWNrIHRoZXNlIGNvbmZpZ3VyYXRp
+b24gYWdhaW5zdAo+IHRoZSByZWxldmFudCBjb250cm9sbGVycy4KPgo+IFNpZ25lZC1vZmYtYnk6
+IEdhdGllbiBDaGV2YWxsaWVyIDxnYXRpZW4uY2hldmFsbGllckBmb3NzLnN0LmNvbT4KCkxlYW4g
+YW5kIGNsZWFuIQpSZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXN3QGtlcm5lbC5vcmc+
+CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQt
+bWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
