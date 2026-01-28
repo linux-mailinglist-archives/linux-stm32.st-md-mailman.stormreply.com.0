@@ -2,184 +2,147 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OMpUJhccemlS2QEAu9opvQ
+	id oLceIJcuemlq3wEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:24:23 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 16:43:19 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15B20A2B74
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:24:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AB1CA4497
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 16:43:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EA2BC56612;
-	Wed, 28 Jan 2026 14:24:22 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CCD1C56612;
+	Wed, 28 Jan 2026 15:43:18 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91DABC56603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 140EAC56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Jan 2026 14:24:21 +0000 (UTC)
-Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60SENwAg1879419; Wed, 28 Jan 2026 15:23:58 +0100
-Received: from du2pr03cu002.outbound.protection.outlook.com
- (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4by7qrju57-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Wed, 28 Jan 2026 15:23:57 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=y50j7fJnVPG6opPbeTnPxhQj/DapL6C4Br+7/l9yBBgMIUyJo628jmV1v3Q02V6ztLN9VTpT88WabQwp4WK8Ng6fQp0bM1vmcRizn8vlY3i07150N2xvCRIJhyMOqHJhbJtx1A/y29+EfN6idEr3eKcshDhvWn8XwnPi3ScbWm0fGPLM9O51ohYW2LgojRTU2POjmSidMyNuyUy37uxt6NUvibVYAlFlBDiYPzn6yINdzGiiMXNRia83MvW/tF2KDfOJ9+CNseuDpNpb/NuWmdXLmWDIupKnENjvunFd89tm1Oe7lehPa1ULoCoWK/tuoWxGCB9ZPM4zdDqFB3vSqg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OSsByna+3EOBAQ4u24lZoWXeWlHVuaT6+ZzPeUT93Os=;
- b=iSdf58eGYNfSPYZK6wYKE+9ZGzyrSK58/TGMz0lCT4XS2wJwpsqq8KG6mPBb1Lm9QCCDLJgJvEWMuX51w9pZVvqT3cuFk/zWjFtljJb5cOHdXsAeNS9zuIkJCbtH6bEUljlMvpEz79uLWyp+/6myFnxhhwyxWx8A6kT2wOPYvAl3m73eERnV/8jsf1Hp8mcgA54e4G9Cb7UXrFyXbcrNUU+zLJYKafO419RyGVKDOEJd2RXh5GPKfCS2qlGlIT9T2laGd3zNEM4ikaLi9oBzFBouCQVKAqtMmJ2thbe/f5bg6rFVZ7PtDUsXnuKklLzicbJpscZJQOflzpHwOrScdQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=arm.com smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OSsByna+3EOBAQ4u24lZoWXeWlHVuaT6+ZzPeUT93Os=;
- b=S4SOxhCqYDyjT55nTnwDuMvctBWKvB/gMx/4WLr1OVoCHtkKxKbpdxsSKQU1t9qJDiuPWNGwUQyiLiICaEwWSTvaApPmNC6nDWPjgPBz5DQ3FQ8gnM2sweq88jVxb2jz0b1T+5itRR0v1FwmFoSoK1VvCkd5DTM9tPgFxR8I8o3EmDCkI5bvD+axAEXTr8GOLvu5e3QMLfxQF12GqIUn3Qyu39vuYOWQ5NQsGbTzH69ICrpJavm7y76FjUSGq1t4LhAN9cIQnE55dKaVg4LzrJLAaWru1ub3afOyiicxFgoRl6AO3YLQb/3cEXdEPbqd0fJW8Nedl8MPyXfqJEpXBg==
-Received: from DUZPR01CA0071.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:3c2::16) by DU0PR10MB5172.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:10:344::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
- 2026 14:23:53 +0000
-Received: from DB1PEPF000509FF.eurprd03.prod.outlook.com
- (2603:10a6:10:3c2:cafe::65) by DUZPR01CA0071.outlook.office365.com
- (2603:10a6:10:3c2::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.8 via Frontend Transport; Wed,
- 28 Jan 2026 14:23:52 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509FF.mail.protection.outlook.com (10.167.242.41) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 14:23:52 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 28 Jan
- 2026 15:25:34 +0100
-Received: from [10.252.24.160] (10.252.24.160) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 28 Jan
- 2026 15:23:50 +0100
-Message-ID: <089559fd-3c9a-4ff4-8732-bb23fa907be8@foss.st.com>
-Date: Wed, 28 Jan 2026 15:23:45 +0100
+ Wed, 28 Jan 2026 15:43:16 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60SFecNv590974
+ for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 28 Jan 2026 15:43:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=z3yfVqchQWMJHTTJ91dDeCW7/cxzdTD+XvS
+ cNCLq/go=; b=pI5MwmJIgCsNpLQMgIKMm77mkOWsaYQ8K1qX8GIeyLq7rkfQ8lp
+ WC2zilQEJ8qk07yht+8SPVwfGZSt54mO0wC9cc7nPbR+Jy9FJtgrCTA06CdiYyLU
+ lozTWufwmQBAatB9iXrXZBMkIdJI2xQ4RZPakz9i2izUURmKOmP3X2yawMkALrVd
+ YGCec5XpK9Wk5QuK9o+t3Tk/Cft092gofZptDFguVgkabJnPxysFaNocv9r1mJYl
+ Xyg2NP23edokFNyxLAYu4FPi2UHimGlLf0yv1BlnwM4tEutYWpE2q62tme1Wfpnd
+ lObeRG77Sdi5XW2FzKzUnxXtHEAUxTuascA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4byna7g0d1-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 Jan 2026 15:43:15 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8c71500f274so620385a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 28 Jan 2026 07:43:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1769614995; x=1770219795;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=z3yfVqchQWMJHTTJ91dDeCW7/cxzdTD+XvScNCLq/go=;
+ b=g3gnsLf8J9U0cCsGGE1BnMGK91r2yczQz6igN32RqILi72BmbY5L6xYF6HVbD4lIq1
+ p/5u61QRKHEWctiDHGvA1vv6kFBzvrkgR5CcVScKIlIVzGSBHylPA+nRne8+bpbKjS5X
+ /SA5F5IhAkZLaSdPsgXzwsosFnfNyZExDOjKaFswgvsHFkF7qtLkZgKBQRxcWC0ET5RE
+ CcJQlOUvqMf7K3xUox/rAvc+a4RMiD4U9F8pe6LFz7tFIDnYaalZ1GRPCq1uWl97CJbM
+ PhWYmEwMo7+BKVRrwSKC0i0/nQ/77MK8ahKcyNM4EhMH/QFP8TQjv+Og6Tk1DcX19HrO
+ /JNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1769614995; x=1770219795;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=z3yfVqchQWMJHTTJ91dDeCW7/cxzdTD+XvScNCLq/go=;
+ b=Bnsl6ShuZr94ndJFmiE7qq0Fyp8VNxti+irXQbYLNpIzvzsixfBaKSOEwFf2PyDh4g
+ 1bFLK1/TIRgsBS96HPISAY232A4qx8hgkuHfqPfHjOp2/eD2V41ZQvB24OdWuALVoSIR
+ /KsZXG4Ow2T5z3SQnYgJfwpF+E0QnmQ3quJNbdKSPy419C6D0xYqMakQ6rpYw30+KaKE
+ fb/GkBVgeUkkg5q5HZx4apZlp28wH1545iJAggzsov/Sv3kqGs5QzQ1XxrT02ecOMMHO
+ I6o3enpUxlYr2OerOnS7f5oPEBjfjaIk3gH3OLFamRnPvfU8LKXQFmYtwukB55An5gZC
+ oWTQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCX3BO7Cn/Qw71S38FzERVH4ZO0t/vUN77gB6dlDMH+4cfmaDgwae7dNESOJzVhlVAl+SbQboHY/RZR0TQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxtouBEhaJeJL/A3dP++OW2lANSHzwr/4kTR2UZ0xf8EGl7zPJo
+ YmQHFMye965XXo/lF01Nj7cZsiWerLZqBK3oQXYbPbuULtgVGIEPtAuFgHYCkUOYM3ATMktD6RD
+ eNDXkD8ARlS9zBxpgge97M0RTqpYsAWtTKYE57nfzr6Jp0Ejyla7A7DNPBoQTHf/ShzsHz3V2ev
+ wrf2J3Lx4=
+X-Gm-Gg: AZuq6aKoDjvNuJBUR6rEWzNPt/88o+8gdmrFJ+Jgrqq2fO8KgoF0MA8mf4W9niU22ST
+ PW/WISJSzTPR0ELBr3yLyIhbAcTqhSvuaGiDwzgFwRimmWmhEfPxpiDZqRAWYd2oydwqiclCQY7
+ /17Zi5+phMHy3GNi5VuCrbDFsyyzky/qidGP4Cz/jwFYwlANXki+SCvamKxcVMIL/a6EwAvgXH5
+ CDXCCOFc3eyiEcPxm9oIzYmExvoG4ZNclOoUImOUZtFX6lx6wEBmOBiVVD9j/JhS+UQwoIHzrVT
+ 6YtVKWzyrS9iVTV409fKQXGQIoQXGV910geZ5nvMH8Vg++vi5RLNElYDHY850eFwYQ7E3h8SPWv
+ yhssxs2GAoRquREPDAddGqwU1Tg==
+X-Received: by 2002:a05:620a:f10:b0:8c1:ab1c:f2da with SMTP id
+ af79cd13be357-8c70b90f77dmr676222985a.70.1769614993378; 
+ Wed, 28 Jan 2026 07:43:13 -0800 (PST)
+X-Received: by 2002:a05:620a:f10:b0:8c1:ab1c:f2da with SMTP id
+ af79cd13be357-8c70b90f77dmr676206585a.70.1769614991262; 
+ Wed, 28 Jan 2026 07:43:11 -0800 (PST)
+Received: from quoll ([178.197.218.229]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-435e1354205sm8003551f8f.41.2026.01.28.07.43.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 28 Jan 2026 07:43:10 -0800 (PST)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Wed, 28 Jan 2026 16:43:07 +0100
+Message-ID: <20260128154306.133047-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
- <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>,
- Leo Yan <leo.yan@linux.dev>, =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?=
- <legoffic.clement@gmail.com>, Linus Walleij <linusw@kernel.org>, "Maxime
- Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, <jens.wiklander@linaro.org>
-References: <20260123-debug_bus-v5-0-90b670844241@foss.st.com>
- <20260123-debug_bus-v5-3-90b670844241@foss.st.com>
-Content-Language: en-US
-From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
-In-Reply-To: <20260123-debug_bus-v5-3-90b670844241@foss.st.com>
-X-Originating-IP: [10.252.24.160]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FF:EE_|DU0PR10MB5172:EE_
-X-MS-Office365-Filtering-Correlation-Id: 00396c4e-7e4d-4f27-1ed2-08de5e78dce3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|1800799024|82310400026|7416014|376014|921020|13003099007;
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q2tZL0x3dW1rV1RsK0plMEViMU54K3k0WS9rUlVuclZwbzdNMlhIRTQ2WFFP?=
- =?utf-8?B?NENTMDU1dTlSeHBMWno1d082V3VUeVVlTGdiQklvYnovbDVhbnRKeHJ5akFV?=
- =?utf-8?B?Q1hKbWRVMTVHMXBsd3MwUy9aaGxxdHg3eXYrb1FHSHVOSGhTUzROd0xqVENv?=
- =?utf-8?B?Yi9QdnN4Ym9rcTB0WkdoK3NtRzlFRVp1ZGJobUtWMFlkY2JGTG5TekFadEs0?=
- =?utf-8?B?cE1wZE1UNDlGU1BwazlkQnJiRkxITHRtWlo2SmVOWHFMa2VobWRjeXFPN09R?=
- =?utf-8?B?K2hndEZWQ0V6SHpFc21JMlhpR2lMNnJqVVg3MUtaWjlwcVpHWElGTlpNTjZ2?=
- =?utf-8?B?bFFNZndzM083TjVSVDI2RkF3aTVkNzlHeFJ5RHBhUE5pQjNucG03UFptL1Fz?=
- =?utf-8?B?OUg5Y1J4eWllRFhLUHI1MUZRaVo3Q1ZmTFNJMlRnYXU0VjRIdmdNc05TVms4?=
- =?utf-8?B?RHk3d1k0UUM4dWNxeFRkN2g2dllXblV0TGVMcEc1MWU1SnNpekVXV2NtSC83?=
- =?utf-8?B?NXk4RFlHRkNnUzlmRXdVR1BTcnVSWWVMVDR1T3BFRC9FK3VMN0JHV2xIYTYz?=
- =?utf-8?B?TnIyTXRxZ1VpbGF6UzdHQ0dxMElyOTRPVFVsZnQ5M09GR2FzT2NqQnpTcXJV?=
- =?utf-8?B?L0pZTHBycmdJL3BxNXUzQll4OGtxRzBpNWdicStrWG1HRms2WTAwcklsOHVy?=
- =?utf-8?B?NUVxOVk5bEJyd3luZmlTcDBwazFweHVUNURnSm9wRXhyMlMvZzFsOEk0UlJM?=
- =?utf-8?B?MER2Z3JmMzBKOXJOd2xqalFMK2Uyd1IrRkN4UDNBQW5ZZGFZYngvdnBKL0x1?=
- =?utf-8?B?bXNBUDhTNW1qaGVtUXlHMVptTDFCaUd3ZEduaE54S3Z4ekREaVRxSzVIRlVW?=
- =?utf-8?B?SXQvNGd2MklYT3ZUaUJMb3hIUWNpRzJCZnNpNmZjb0I4UlBySklORElmV1BB?=
- =?utf-8?B?WEdqZEhxRis3b1RRMk1DdlJmaXQzQzJUZU1meEdzbHE2VHlaSklydldQWWtY?=
- =?utf-8?B?WmVQU1lEOXh4TFpwbUhiL0JxS05KOTFtZGd0dTB2N3lvTTdVQTZNYklDOG1N?=
- =?utf-8?B?dGxnKzhCTk1TcUdZK3BMZXczZlU0V3hRb284M1Jra1hwcmtVZ1ZZaG9maWtE?=
- =?utf-8?B?TDBENGE2WU9kbGZnb2JmMFhmellxczNYNWxZRW9qTXRXcXhzYlUxVjhCRHVE?=
- =?utf-8?B?TEpwc1JTZ0FtM0FwNk1Ua3FCZ1RucmRJdDZqaXlCM2poYTgvWmxDRGlPT1V3?=
- =?utf-8?B?Yy84S1d5dHpqZ2cvNTU0R3R3NjRheWxXakdEMzJ2a09EUjcyZjAzY0ZoZDM1?=
- =?utf-8?B?UHhhMUNtUUIxS3h4TEw5YVMwQ3RvQVZGZlFjVHNzeEcyTlh3UUFTdUZJOUJz?=
- =?utf-8?B?NThHRzJUQnI1dTBDSmlXVkdOc2xPNEoraVdnNkJBRDJiTWFvVGhJbjI0c1Nj?=
- =?utf-8?B?NHg2UVVUOEZwNUV5QVdCcXZWV3kwanBxNGZKNjNpNitHekQ3Q3d1SmdzN0pM?=
- =?utf-8?B?azI4dUc5eU1OS1QvRXg3a0ZPMzFUYkViU05mTmNBV2x0aURzTWJ2OGZMOGgr?=
- =?utf-8?B?NXIrWWppeSs1V3FtWS9IT3R1dHFaVFJDYTdmLy9zQXhFOHYvWDQ5L2Ixc2tw?=
- =?utf-8?B?ejBkK3BmMm5tL3FzZ0VyQmZXenNDenQvNUFGWkhuT3V4V3I4ZGRNMVVIY3F5?=
- =?utf-8?B?cWdlQnQxTTczVC9MeXJONU9zVE56clBqb2pCWmpwc3QzeTNvMkxqYVZNM0g4?=
- =?utf-8?B?RmpWSHEyZ3AyODdwVEFnV28rODdweVJITE5FeVR5Zld1MGhHcWNkcUozN0dj?=
- =?utf-8?B?MWVjTnVaWWlHNXNwdFdSTVFZSGFNVld5aGpZMm9tWHJnQnRlR2RadllzdjRm?=
- =?utf-8?B?UXpKc0Roa2xpbzNHR2taYWFiOUJyNlZpdjEzTnBqbjAvRmM2eWVZcU5CdDg2?=
- =?utf-8?B?OWdwdXJkYnJTZGs0QWFQQlJFVXJwcDB6a0sxcS9oakREekpZS2RxTTRBY1U5?=
- =?utf-8?B?ZWYreVJmNkNScU1OMDRHbHBjMjE3ZENRWE1EWlJHc05VUmRmTzRveTZNTk1q?=
- =?utf-8?B?ZUkvYjl1VTRLM0g3b2ZRcU5jVHRxNXQ4azdFWU9yQjNoaStSTFJDZVVhOFJW?=
- =?utf-8?B?eVo0dUhKK0V0b1BObG9zakxYanVRUU0xZjRuaHN1MWZaUEcyWEZTcUZ5ZjMw?=
- =?utf-8?Q?ZWQ3VbKr+x/gfobF9k3A4hfKh+xxXdvdqpysEqteWu9c?=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014)(921020)(13003099007);
- DIR:OUT; SFP:1101; 
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 14:23:52.7010 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 00396c4e-7e4d-4f27-1ed2-08de5e78dce3
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509FF.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB5172
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDExOCBTYWx0ZWRfX7qvRay5fbKSU
- Vmof64jd4f6GrZbx67ccNBgJr1n+cLtdHZwD1SFLnMvncwBny9GcdIfNkbKaRCeRyzaF4HTczKt
- q8rzGchz68Px0St4q7Obf35+nDSw3BsEDhR7CLvqNZpDKzyQQXH9U63qGqverQf32OjfKAMwmB9
- XOgJw+vF91Iw7k33X3b7tMtQl4jzXbCT0HEr1gA6x9T/+dDOK5AE1CUpmUMTJPmHltDoNEfbRAP
- gYFTBIcMAp7KojaEAc7FJPHPVj5g+1DYN2JG+AdHKXqLGTJadpTA81+RfuH4SQBJo1GCmtK60mD
- ECDfvYRwRsI32BXFm8a/HwvrBq7RezTeIv3Cc+EpbizQyiiwsWPTgPoCEurG3+bXdsk+8o7O7rW
- vjmSfULScJ2Bt8L0dCm1g3KoPjitBZXyr57Xww46xMtyRaa7YHFn9MeIhdxW+I6MTaE2dIgvBQa
- +rAnt7RwFjf7bRsZxjg==
-X-Authority-Analysis: v=2.4 cv=GrJPO01C c=1 sm=1 tr=0 ts=697a1bfd cx=c_pps
- a=u8ACBDucoOS8YlAhSULG+Q==:117 a=d6reE3nDawwanmLcZTMRXA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Zux3bmLXDHQA:10 a=IkcTkHD0fZMA:10
- a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=gEfo2CItAAAA:8 a=8b9GpE9nAAAA:8
- a=kNDfFFd5X_yhIQaZrEQA:9 a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22
- a=T3LWEMljR5ZiDmsYVIUa:22
-X-Proofpoint-ORIG-GUID: KKgZwB2jAHHxXd8f6Yl-Mqiw8pLQtG1E
-X-Proofpoint-GUID: KKgZwB2jAHHxXd8f6Yl-Mqiw8pLQtG1E
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1670;
+ i=krzysztof.kozlowski@oss.qualcomm.com; 
+ h=from:subject; bh=uAdUi2PcEKOUBFsGcYGabugs1F7YktxD7G4E6g/mjeY=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpei6K6nwUOJpgDl7kWWIEgfjSRExvZiycp4pGw
+ WfIx5JujLyJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaXouigAKCRDBN2bmhouD
+ 11PBD/0ZygzFDBZ9XPkkHolSm/vx7daUl7dBNJxgRosngJmB203l5VWqsZXQ/g4yv8v8/rB/H7I
+ VzabTmmP4kzKBzfVQ0WL1ww92RpfDkZ29rJea7Zq6MC7UiMnO+b8O0mkszoghxJdjwCo/uvLUWW
+ aRW1oP8QlTD9XP2xUfeNqLjOt95WzAq6zjCqwYrJz/GltGbgdTr7K1rtjfnafvsE1w86wiL60Xf
+ MCN4atase69g18LHCtU1Br4YP5BxluqTT8XlUhd2L9Xvbq5Cg4GMno/uBXfuSdIDWUATz4Ay1Xl
+ gnPF6WAC0UdsktUYcxUEH/XrXekTzCOWOvTl0cy0VaGXQc3tkmM145rLWPptxIW3vKpbRu+v2TC
+ NFsCbL2RW9IAeCfVF0kQcFBldmWdoNNDS1/Xr59vg09eRR/LqhFkpIez1Q8OBLV7VqtJgJE201F
+ z8KXLnIuWLhu65H8X39TBy88FsfNjUxu0pHucFIOq8sy8sLVokM1xSd7ibHNvUevoF2vb7lSBUy
+ sl5q8WWctr/ZkbRaxh/UukLybUgKnNbn+0nYc2ErpR0cKQWrNMJZ4IjpmOoRH6wipwqIn4MSb1M
+ wiYvnA7e2dQ2yLa1nuMuKQEAVPytnLnrNaZGisqLxoiKMF2u6vVPr5En5bihzfrwyQOQbu34kmN
+ kSoH2O7xd0PyLwA==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-GUID: Ui9nuOiT8VXKrgMlLbZ8xjvyCVyQcgRN
+X-Authority-Analysis: v=2.4 cv=J72nLQnS c=1 sm=1 tr=0 ts=697a2e93 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=Eb9f15NH/cHKzfGOmZSO4Q==:17
+ a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=EUspDBNiAAAA:8 a=euIjOI2ikgTaeCi9kv0A:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: Ui9nuOiT8VXKrgMlLbZ8xjvyCVyQcgRN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDEzMCBTYWx0ZWRfX3V3PbG58OTiA
+ 59nw8WoxUPZ570xNKyuqzNYhgfbrk83X7H+EW1IghrnNffqDFLVlTtBJcb6FPDfOG+Smxfk+Joc
+ bqrPCJCRhQoHGmxlrZQCxKhb3H1ZAh9PkhVHNulDSwWfkAeTQj7xHvFiEgzlZQKRS9UCoMVZFGO
+ SBhdPTm0W8oT5xvx9WstHiZ4i6dU8RkfAUBi/VZYbZP22h/21aX+jsekPkplhaoRYOwE66yJ3mG
+ zcWE/8vNSo3TI5g6dfKWorrciMRrkztsoLV+A4ryIOV9Vh+ephejruIDkXYw/YZ9bH7StCScxqi
+ EtdV4kQvrm4XA+5gx+/9o24cD3jYeoGTV+V0gIRXMpoSLffit6pWHzBrjIlMjuBE4TibNYRxBRG
+ nTbK/piNK1AfRzBhwaJ8ipO6499OJF2xkeWb+l7pZSk5UViqYJboTIG1HY21S0Nwvph3lS5EzEq
+ xDxi4cL9/0k+W2mz/8A==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-01-28_02,2026-01-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 malwarescore=0 spamscore=0 phishscore=0
+ definitions=2026-01-28_03,2026-01-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 phishscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 suspectscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601280118
-Cc: devicetree@vger.kernel.org, coresight@lists.linaro.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 03/12] dt-bindings: bus: document the
-	stm32 debug bus
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601280130
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [Linux-stm32] [PATCH] clk: qcom: sm8750: Constify 'qcom_cc_desc' in
+	SM8750 camcc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -191,150 +154,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [6.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:suzuki.poulose@arm.com,m:mike.leach@linaro.org,m:james.clark@linaro.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:leo.yan@linux.dev,m:legoffic.clement@gmail.com,m:linusw@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:jens.wiklander@linaro.org,m:devicetree@vger.kernel.org,m:coresight@lists.linaro.org,m:linux-kernel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:legofficclement@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FREEMAIL_TO(0.00)[arm.com,linaro.org,kernel.org,linux.dev,gmail.com,foss.st.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,foss.st.com:mid];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	DBL_PROHIBIT(0.00)[2.252.41.0:email,2.252.95.176:email];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-arm-msm@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzysztof.kozlowski@oss.qualcomm.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	FROM_NEQ_ENVFROM(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: 15B20A2B74
-X-Rspamd-Action: no action
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,qualcomm.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 0AB1CA4497
+X-Rspamd-Action: add header
+X-Spam: Yes
 
-Hello,
+'struct qcom_cc_desc' is passed to qcom_cc_map() and
+qcom_cc_really_probe() only as pointer to const, so make the memory
+const for safety.
 
-Does this binding file satisfy the feedback received?
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ drivers/clk/qcom/cambistmclkcc-sm8750.c | 2 +-
+ drivers/clk/qcom/camcc-sm8750.c         | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Thanks,
-Gatien
-
-On 1/23/26 11:39, Gatien Chevallier wrote:
-> Document the stm32 debug bus. The debug bus is responsible for
-> checking the debug sub-system accessibility before probing any related
-> drivers.
-> 
-> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-> ---
->   .../bindings/bus/st,stm32mp131-dbg-bus.yaml        | 76 ++++++++++++++++++++++
->   1 file changed, 76 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml
-> new file mode 100644
-> index 000000000000..6c74433efbe3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml
-> @@ -0,0 +1,76 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/st,stm32mp131-dbg-bus.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: STM32 Coresight bus
-> +
-> +maintainers:
-> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
-> +
-> +description:
-> +  The STM32 debug bus is in charge of checking the debug configuration
-> +  of the platform before probing the peripheral drivers that rely on the debug
-> +  domain.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - st,stm32mp131-dbg-bus
-> +          - st,stm32mp151-dbg-bus
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +  ranges:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  "#access-controller-cells":
-> +    const: 1
-> +    description:
-> +      Contains the debug profile necessary to access the peripheral.
-> +
-> +patternProperties:
-> +  "@[0-9a-f]+$":
-> +    description: Debug related peripherals
-> +    type: object
-> +
-> +    additionalProperties: true
-> +
-> +    required:
-> +      - access-controllers
-> +
-> +required:
-> +  - "#access-controller-cells"
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +  - compatible
-> +  - ranges
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/stm32mp1-clks.h>
-> +
-> +    dbg_bus: bus@50080000 {
-> +      compatible = "st,stm32mp131-dbg-bus";
-> +      #address-cells = <1>;
-> +      #size-cells = <1>;
-> +      #access-controller-cells = <1>;
-> +      ranges = <0x50080000 0x50080000 0x3f80000>;
-> +
-> +      cti@50094000 {
-> +        compatible = "arm,coresight-cti", "arm,primecell";
-> +        reg = <0x50094000 0x1000>;
-> +        clocks = <&rcc CK_DBG>;
-> +        clock-names = "apb_pclk";
-> +        access-controllers = <&dbg_bus 0>;
-> +      };
-> +    };
-> 
+diff --git a/drivers/clk/qcom/cambistmclkcc-sm8750.c b/drivers/clk/qcom/cambistmclkcc-sm8750.c
+index 952581f86db5..d889a8f6561d 100644
+--- a/drivers/clk/qcom/cambistmclkcc-sm8750.c
++++ b/drivers/clk/qcom/cambistmclkcc-sm8750.c
+@@ -421,7 +421,7 @@ static struct qcom_cc_driver_data cam_bist_mclk_cc_sm8750_driver_data = {
+ 	.num_clk_cbcrs = ARRAY_SIZE(cam_bist_mclk_cc_sm8750_critical_cbcrs),
+ };
+ 
+-static struct qcom_cc_desc cam_bist_mclk_cc_sm8750_desc = {
++static const struct qcom_cc_desc cam_bist_mclk_cc_sm8750_desc = {
+ 	.config = &cam_bist_mclk_cc_sm8750_regmap_config,
+ 	.clks = cam_bist_mclk_cc_sm8750_clocks,
+ 	.num_clks = ARRAY_SIZE(cam_bist_mclk_cc_sm8750_clocks),
+diff --git a/drivers/clk/qcom/camcc-sm8750.c b/drivers/clk/qcom/camcc-sm8750.c
+index c09fa75be457..a797b783d4a9 100644
+--- a/drivers/clk/qcom/camcc-sm8750.c
++++ b/drivers/clk/qcom/camcc-sm8750.c
+@@ -2673,7 +2673,7 @@ static struct qcom_cc_driver_data cam_cc_sm8750_driver_data = {
+ 	.num_clk_cbcrs = ARRAY_SIZE(cam_cc_sm8750_critical_cbcrs),
+ };
+ 
+-static struct qcom_cc_desc cam_cc_sm8750_desc = {
++static const struct qcom_cc_desc cam_cc_sm8750_desc = {
+ 	.config = &cam_cc_sm8750_regmap_config,
+ 	.clks = cam_cc_sm8750_clocks,
+ 	.num_clks = ARRAY_SIZE(cam_cc_sm8750_clocks),
+-- 
+2.51.0
 
 _______________________________________________
 Linux-stm32 mailing list
