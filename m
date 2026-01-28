@@ -2,49 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id F096AbvNeWnezgEAu9opvQ
+	id cCcJBbvNeWnezgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 09:50:03 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0B479E688
+	by mail.lfdr.de (Postfix) with ESMTPS id 002409E689
 	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 09:49:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67848C56603;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 80E2CC36B3D;
 	Wed, 28 Jan 2026 08:49:59 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AEF1EC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5A67C01FBF
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 28 Jan 2026 08:49:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A15E060097;
+ by tor.source.kernel.org (Postfix) with ESMTP id CAB6D60127;
  Wed, 28 Jan 2026 08:49:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4D44FC4CEF1;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 74133C2BCAF;
  Wed, 28 Jan 2026 08:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1769590197;
- bh=IAtIePMXc1hmU13gkaxKX/Izf4Y00HbYO1dEaABAnWI=;
- h=From:Subject:Date:To:Cc:Reply-To:From;
- b=ULIebGONiZVML58ySSdC0FIGCNabdR3u1YoyPBZxz/wnRBRTi9NSCa0/G4ThZNVAG
- RRPWRT7jIArtJAU/yhppvhY0TnBWTNqixc7ai6qQaccXGtWF+f0IkBh3Zxxg/sW/YL
- Eerx3KxsFad8O2x981WiVcbqNEkk/GPR0+rRm+GIvFnBseMSoYKKYkdGIY7DmZFpcY
- sjGT64Jjn6U/Uxw/9ZFQNeLmw8Cqs4UDBx/qDHURFOsNpbbkkgKrR4T7xWIVTjpWzC
- dOsMpKvB2r6qDyDrJjZ7Z3ZpbuKWMlNIb0y5yNDfMdqlaK56uz6qmJOeY6IDlVZwbw
- fwSeFBr2ik3Uw==
+ bh=POOrLQ7MmklMY5XTpUxtW8dqPF4Tvcgft6k5w8JnMlE=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+ b=tEg9vszDuW1kv1ToIAwHlG+dwwZK/yrjOu1gaooKQuDfJvRhxDmFQl/dXVHNIH0Fc
+ 0AWXjiBNsxGpxGSFsQpWb3u+f2E8QKPYyBdLiTbDlwbb4lxQFjA3AXehSTETKpgrdT
+ xt7dpKSCT9PLGJnWz8nL2lPSdFK92l1RXez6d2nnEsxaJ7qGCsimscHau5m3K+VRKP
+ V6XkIwVk3sJHGLffTfzNdDs+VjupxSrNERu+u7mNLWHmCzcjEA+RmzvNQbVKxaLrIG
+ 7R3/LhnP6lK8PmQxnm7GAzFSE0mPB8eeLgJJKMqaYEt7xreXyB2KWjkXdMfLuiXApC
+ A/56EeaKbkrAw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 1C008D35694;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 57B5ED35693;
  Wed, 28 Jan 2026 08:49:57 +0000 (UTC)
 From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
-Date: Wed, 28 Jan 2026 09:49:51 +0100
-Message-Id: <20260128-dwmac_multi_irq-v4-0-82fa34fcf2f2@oss.nxp.com>
+Date: Wed, 28 Jan 2026 09:49:52 +0100
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAK/NeWkC/2XN3w6CIBTH8VdxXIeDg6J01Xu05hQh2fJPYGRzv
- nvoamt5+f1t53Nm5JQ1yqFjNCOrvHGm70IkhwjJpuyuCps6NAICKQUicP1sS1m0j9toCmPvWNS
- 55iThICVF4WqwSptpE8+X0I1xY29f2wNP1/Vj0WRneYoJZjzlUFZECZ2deufibhpi2bdo1Tx8B
- U4CsRdgFaocBDBSk4zuBfYrsL3AgiBlyjRUKhf8T1iW5Q1olangNAEAAA==
+Message-Id: <20260128-dwmac_multi_irq-v4-1-82fa34fcf2f2@oss.nxp.com>
+References: <20260128-dwmac_multi_irq-v4-0-82fa34fcf2f2@oss.nxp.com>
+In-Reply-To: <20260128-dwmac_multi_irq-v4-0-82fa34fcf2f2@oss.nxp.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
@@ -59,11 +57,11 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 X-Mailer: b4 0.14.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1769590195; l=2886;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1769590195; l=2269;
  i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
- bh=IAtIePMXc1hmU13gkaxKX/Izf4Y00HbYO1dEaABAnWI=;
- b=SHOlXnzIZIVdjrIlXnziKXdC27jDr7jo8BXdloQM7k+ZRboMdkalAGJUTS6PJAusVqeu86fTZ
- u5IcrlFevUxBk6eROYlQ0oxQB6zsoBkLnJgrihq9TUA8KVzD1RhIV0A
+ bh=qCsESZBMy89pwsWTlxW82yylaPKe2lczm3jPGKQ5OYY=;
+ b=VTScslSigOVSXikeYjCNy8XZUc/zMqLNQ9WJMKt8jU5KLP3y90Unql11i5nx3T1X3ZSd/vrIG
+ 1jaXsww1JA4BX8KFy5E+Slg2CCyUubJAciN3Zyn4yTuZv/pgWluT4G+
 X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
  pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
 X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
@@ -72,8 +70,8 @@ X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
  "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 0/4] Support multi-channel IRQs in stmmac
- platform drivers
+Subject: [Linux-stm32] [PATCH v4 1/4] net: stmmac: platform: read channels
+	irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,19 +96,19 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:chester62515@gmail.com,m:mbrugger@suse.com,m:ghennadi.procopciuc@oss.nxp.com,m:s32@nxp.com,m:shawnguo@kernel.org,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:jan.petrous@oss.nxp.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[jan.petrous.oss.nxp.com];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[25];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,suse.com,oss.nxp.com,nxp.com,pengutronix.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
@@ -126,82 +124,80 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.nxp.com:mid,oss.nxp.com:replyto,nxp.com:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: C0B479E688
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,nxp.com:email,suse.com:email,oss.nxp.com:mid,oss.nxp.com:replyto]
+X-Rspamd-Queue-Id: 002409E689
 X-Rspamd-Action: no action
 
-The stmmac core supports two interrupt modes, controlled by the
-flag STMMAC_FLAG_MULTI_MSI_EN:
+From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
 
-- When the flag is set, the driver uses multi-channel IRQ mode (Multi-IRQ).
-- Otherwise, a single IRQ line is requested (aka MAC-IRQ):
+Read IRQ resources for all rx/tx channels, to allow Multi-IRQ mode
+for platform glue drivers.
 
-static int stmmac_request_irq(struct net_device *dev)
-{
-        /* Request the IRQ lines */
-        if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN)
-                ret = stmmac_request_irq_multi_msi(dev);
-        else
-                ret = stmmac_request_irq_single(dev);
-}
-
-At present, only PCI drivers (Intel and Loongson) make use of the Multi-IRQ
-mode. This concept can be extended to DT-based embedded glue drivers
-(dwmac-xxx.c).
-
-This series adds support for reading per-channel IRQs from the DT node and
-reuses the existing STMMAC_FLAG_MULTI_MSI_EN flag to enable multi-IRQ
-operation in platform drivers.
-
-The final decision if Multi-IRQ gets enabled remains on glue driver
-to allow implementing any reguirements/limitions the focused platform
-needs.
-
-NXP S32G2/S32G3/S32R SoCs integrate the DWMAC IP with multi-channel
-interrupt support. The dwmac-s32.c driver change is provided as an example of
-enabling multi-IRQ mode for non-PCI drivers.
-
+Reviewed-by: Matthias Brugger <mbrugger@suse.com>
 Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
-Changes in v4:
-- Fixed IRQ reading check
-- Made cleaner the IRQ validity (to get AI reviewer happy)
-- Fixed minItems of interrupts property in yaml
-- Link to v3: https://lore.kernel.org/r/20260123-dwmac_multi_irq-v3-0-cc53f2be8961@oss.nxp.com
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 38 +++++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
 
-Changes in v3:
-- removed RFC prefix
-- rebased on v6.19-rc6
-- fixed forgotten extra line setting to Multi-IRQ unconditionally
-- fixed yaml
-- Link to v2: https://lore.kernel.org/r/20260121-dwmac_multi_irq-v2-0-3b829230d071@oss.nxp.com
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 8979a50b5507..94854bfb6e0d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -700,6 +700,9 @@ EXPORT_SYMBOL_GPL(stmmac_pltfr_find_clk);
+ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 				  struct stmmac_resources *stmmac_res)
+ {
++	char name[16];
++	int i;
++
+ 	memset(stmmac_res, 0, sizeof(*stmmac_res));
+ 
+ 	/* Get IRQ information early to have an ability to ask for deferred
+@@ -743,7 +746,40 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
+ 
+ 	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
+ 
+-	return PTR_ERR_OR_ZERO(stmmac_res->addr);
++	if (IS_ERR(stmmac_res->addr))
++		return PTR_ERR(stmmac_res->addr);
++
++	/* RX channels irq */
++	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
++		scnprintf(name, sizeof(name), "rx-queue-%d", i);
++		stmmac_res->rx_irq[i] = platform_get_irq_byname_optional(pdev,
++									 name);
++		if (stmmac_res->rx_irq[i] <= 0) {
++			if (stmmac_res->rx_irq[i] == -EPROBE_DEFER)
++				return -EPROBE_DEFER;
++			dev_dbg(&pdev->dev, "IRQ rx-queue-%d not found\n", i);
++
++			/* Stop on first unset rx-queue-%i property member */
++			break;
++		}
++	}
++
++	/* TX channels irq */
++	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
++		scnprintf(name, sizeof(name), "tx-queue-%d", i);
++		stmmac_res->tx_irq[i] = platform_get_irq_byname_optional(pdev,
++									 name);
++		if (stmmac_res->tx_irq[i] <= 0) {
++			if (stmmac_res->tx_irq[i] == -EPROBE_DEFER)
++				return -EPROBE_DEFER;
++			dev_dbg(&pdev->dev, "IRQ tx-queue-%d not found\n", i);
++
++			/* Stop on first unset tx-queue-%i property member */
++			break;
++		}
++	}
++
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(stmmac_get_platform_resources);
+ 
 
-Changes in v2:
-- Fixed incorrect buffer len for 'rx-queue-%d' property check
-- Added backward compatibility to not break old settings
-- Fixed DT example in yaml
-- Link to v1: https://lore.kernel.org/r/20251214-dwmac_multi_irq-v1-0-36562ab0e9f7@oss.nxp.com
-
----
-Jan Petrous (OSS) (4):
-      net: stmmac: platform: read channels irq
-      dt-bindings: net: nxp,s32-dwmac: Declare per-queue interrupts
-      arm64: dts: s32: set Ethernet channel irqs
-      stmmac: s32: enable support for Multi-IRQ mode
-
- .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 44 +++++++++++++++++++---
- arch/arm64/boot/dts/freescale/s32g2.dtsi           | 26 +++++++++++--
- arch/arm64/boot/dts/freescale/s32g3.dtsi           | 26 +++++++++++--
- drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c    | 12 +++++-
- .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 38 ++++++++++++++++++-
- 5 files changed, 133 insertions(+), 13 deletions(-)
----
-base-commit: 24d479d26b25bce5faea3ddd9fa8f3a6c3129ea7
-change-id: 20251209-dwmac_multi_irq-9d8f60462cc1
-
-Best regards,
 -- 
-Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+2.47.0
 
 
 _______________________________________________
