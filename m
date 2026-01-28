@@ -2,61 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sP6QGsgUemlS2QEAu9opvQ
+	id KMaqL8IZemlS2QEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 14:53:12 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:14:26 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6628A252E
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 14:53:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A5E5A294A
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:14:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87326C56612;
-	Wed, 28 Jan 2026 13:53:11 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3F94C56612;
+	Wed, 28 Jan 2026 14:14:25 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1137FC56603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8C9D7C56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Jan 2026 13:53:09 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <p.zabel@pengutronix.de>)
- id 1vl5yd-000670-RO; Wed, 28 Jan 2026 14:52:59 +0100
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e]
- helo=lupine)
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <p.zabel@pengutronix.de>) id 1vl5yc-002vZ3-1y;
- Wed, 28 Jan 2026 14:52:57 +0100
-Received: from pza by lupine with local (Exim 4.98.2)
- (envelope-from <p.zabel@pengutronix.de>) id 1vl5yb-00000000BPZ-3Yu7;
- Wed, 28 Jan 2026 14:52:57 +0100
-Message-ID: <52ea6b98b27235f10008406de45cdcecc2a7b105.camel@pengutronix.de>
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Date: Wed, 28 Jan 2026 14:52:57 +0100
-In-Reply-To: <aXn-7LWRk5cZjno8@shell.armlinux.org.uk>
-References: <aXnrzIbZN-gaZTia@shell.armlinux.org.uk>
- <E1vl3Fv-00000006v3L-215v@rmk-PC.armlinux.org.uk>
- <c8a10b5355b750cfc83a7f746347175ab40b64d7.camel@pengutronix.de>
- <aXn-7LWRk5cZjno8@shell.armlinux.org.uk>
-User-Agent: Evolution 3.56.2-0+deb13u1 
+ Wed, 28 Jan 2026 14:14:24 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 99FEC4E4221B;
+ Wed, 28 Jan 2026 14:14:23 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5C4BE6071F;
+ Wed, 28 Jan 2026 14:14:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 99C28119A880F; Wed, 28 Jan 2026 15:14:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1769609662; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=Ihz3yFLvfwz7g5/dljDb7S5GJKxmDcCGi9AFt75Q+Jk=;
+ b=RSrp9fJa/M8eOIGibDfwPpaadNoi16B6bkrtuqA5ZPtAE4g2e/UKzzpRzeCh963tJORuh8
+ u/QxqRnXt66s4pr0swCK5TfwUxtX3f45uO+4y3XTOb23vCAKIXtNtHwd6UWI0BPq9LKvXg
+ 1NHsw8jm4loW9Em7L9KTZRVCo7FI1Tc93TeDB1ny9EQTlMW9U+tzNid+SfIDwtkwQ6jxOq
+ vDWtD81O/76sh/ZvVe1VpG2x/dnDfN4vbck9Z+sylp2H53tsu4kTBuW0OLIRVCDG1w0MsE
+ ZX3hST/ttuB9nRFIGm3kVbJA96HU/u/Khec0UciazKPeAD8CsKiZAllGu654aQ==
+Message-ID: <b1971281-2df1-4f61-9a66-9caa9ee187cf@bootlin.com>
+Date: Wed, 28 Jan 2026 15:14:15 +0100
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiko Stuebner <heiko@sntech.de>,
- linux-rockchip@lists.infradead.org, netdev@vger.kernel.org,
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>
+References: <aXnpTy6XckPGcmg0@shell.armlinux.org.uk>
+ <E1vl36F-00000006url-1fWA@rmk-PC.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <E1vl36F-00000006url-1fWA@rmk-PC.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: Drew Fustini <fustini@kernel.org>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: rk: fix missing
- reset_control_put()
+ Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, linux-riscv@lists.infradead.org,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Fu Wei <wefu@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: report active
+	PHY interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,95 +71,71 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.29 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_SENDER(0.00)[p.zabel@pengutronix.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:fustini@kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:guoren@kernel.org,m:kuba@kernel.org,m:linux-riscv@lists.infradead.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:wefu@redhat.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DMARC_NA(0.00)[pengutronix.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[p.zabel@pengutronix.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_COUNT_FIVE(0.00)[5];
+	DKIM_TRACE(0.00)[bootlin.com:-];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: D6628A252E
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: 4A5E5A294A
 X-Rspamd-Action: no action
 
-On Mi, 2026-01-28 at 12:19 +0000, Russell King (Oracle) wrote:
-> On Wed, Jan 28, 2026 at 01:04:21PM +0100, Philipp Zabel wrote:
-> > On Mi, 2026-01-28 at 10:58 +0000, Russell King (Oracle) wrote:
-> > > rk_gmac_setup() delves into the PHY's DT node to retrieve its reset
-> > > control using of_reset_control_get(). However, it never releases it
-> > > when the driver is removed. Add reset_control_put() to rk_gmac_exit()
-> > > to clean this up.
-> > > 
-> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> > > ---
-> > >  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 2 ++
-> > >  1 file changed, 2 insertions(+)
-> > > 
-> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > index 5f8d2031b97c..bc69cbb5a7d4 100644
-> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> > > @@ -1784,6 +1784,8 @@ static void rk_gmac_exit(struct device *dev, void *bsp_priv_)
-> > >  
-> > >  	if (priv->plat->phy_node && bsp_priv->integrated_phy)
-> > >  		clk_put(bsp_priv->clk_phy);
-> > > +
-> > > +	reset_control_put(bsp_priv->phy_reset);
-> > >  }
-> > >  
-> > >  static int rk_gmac_probe(struct platform_device *pdev)
-> > 
-> > This is fine because the driver sets plat_dat->suspend, and so
-> > rk_gmac_exit() is never called via stmmac_pltfr_exit() during suspend.
-> > 
-> > It does look a bit sketchy to release resources in the rk_gmac_exit()
-> > counterpart to rk_gmac_init(), which never requested the resources,
-> > though. Maybe use devm_add_action_or_reset() to register the release of
-> > the reset during remove?
+Hi,
+
+On 28/01/2026 11:48, Russell King (Oracle) wrote:
+> Report the active PHY interface from the point of view of the dwmac
+> hardware to the kernel log, where the core supports reading this.
 > 
-> Thanks, but I think a sense of proportion is required here. This
-> patch is the result of introducing the ->init() method, and AI
-> noticing that there was no cleanup of this resource. This was the
-> simplest way to implement that cleanup.
-> 
-> However, your review commit also applies to bsp_priv->clk_phy which
-> has the same problem - this also isn't obtained in rk_gmac_init(),
-> but in rk_gmac_clk_init().
->
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-> Given that, and the fact that this entire series is already
-> considerably big (it was 21 patches, then 22, now 23, and with this
-> it's going to become 24 patches) I'm going to say that this issue
-> can be addressed at a later time.
+Tested with dwmac-socfpga on CycloneV :
 
-No objection,
+RGMII interface : 
 
-Reviewed-by: Philipp Zabel <p.zabel@pengutronix.de>
+[    0.898925] socfpga-dwmac ff700000.ethernet: Active PHY interface: RGMII (1)
 
-regards
-Philipp
+1000BaseX/SGMII interface connected to Lynx PCS :
+
+[    1.003223] socfpga-dwmac ff702000.ethernet: Active PHY interface: GMII/MII (0)
+
+Nice.
+
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Thanks,
+
+Maxime
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
