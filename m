@@ -2,59 +2,184 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6CMuLwsaemlS2QEAu9opvQ
+	id OMpUJhccemlS2QEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:15:39 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:24:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 453A9A2986
-	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:15:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 15B20A2B74
+	for <lists+linux-stm32@lfdr.de>; Wed, 28 Jan 2026 15:24:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09662C56612;
-	Wed, 28 Jan 2026 14:15:39 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EA2BC56612;
+	Wed, 28 Jan 2026 14:24:22 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
+ [185.132.182.106])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3ABAC56603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91DABC56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Jan 2026 14:15:37 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 5561B1A2ABC;
- Wed, 28 Jan 2026 14:15:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 235796071F;
- Wed, 28 Jan 2026 14:15:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 97CFC119A880E; Wed, 28 Jan 2026 15:15:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1769609736; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=JzIHVDwFjCIwEjLThlMak+eaj2p5mVb9GNydSBLEdFY=;
- b=2laH6QUhpYYvedtbtK1TszrakUYndSaoMPZaLGLxQjTtGVjD7aGeF+DbC9TmEefWfX62Fm
- gIwU0WSgtC4YkPybIWcrIK2XaM8Le2TNik5+kLG/e0q+ZQBvah2yYHnpg7nBhponAxEYVw
- kF2p+eWpeZQn5ONETh64nPywAe3yLa1yLoMHt+DWGwZzHAyBNWshe4ma6ifcAwZHevNnR4
- tjCqa0Gj5r1k8INjkOOtv7xuzz+YT5OdnPZ62x2CzES5G6sXm8b5oj+kWgOyfPqvzwoSVS
- ly2jTDoCeHscriEYmFOWCjzZFD1Fc9qggGWZx5zLC3i+di4YixudZFyqQUtHGA==
-Message-ID: <cca153df-ae6d-4644-97ca-653f3078564d@bootlin.com>
-Date: Wed, 28 Jan 2026 15:15:32 +0100
+ Wed, 28 Jan 2026 14:24:21 +0000 (UTC)
+Received: from pps.filterd (m0369458.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60SENwAg1879419; Wed, 28 Jan 2026 15:23:58 +0100
+Received: from du2pr03cu002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4by7qrju57-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Wed, 28 Jan 2026 15:23:57 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y50j7fJnVPG6opPbeTnPxhQj/DapL6C4Br+7/l9yBBgMIUyJo628jmV1v3Q02V6ztLN9VTpT88WabQwp4WK8Ng6fQp0bM1vmcRizn8vlY3i07150N2xvCRIJhyMOqHJhbJtx1A/y29+EfN6idEr3eKcshDhvWn8XwnPi3ScbWm0fGPLM9O51ohYW2LgojRTU2POjmSidMyNuyUy37uxt6NUvibVYAlFlBDiYPzn6yINdzGiiMXNRia83MvW/tF2KDfOJ9+CNseuDpNpb/NuWmdXLmWDIupKnENjvunFd89tm1Oe7lehPa1ULoCoWK/tuoWxGCB9ZPM4zdDqFB3vSqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OSsByna+3EOBAQ4u24lZoWXeWlHVuaT6+ZzPeUT93Os=;
+ b=iSdf58eGYNfSPYZK6wYKE+9ZGzyrSK58/TGMz0lCT4XS2wJwpsqq8KG6mPBb1Lm9QCCDLJgJvEWMuX51w9pZVvqT3cuFk/zWjFtljJb5cOHdXsAeNS9zuIkJCbtH6bEUljlMvpEz79uLWyp+/6myFnxhhwyxWx8A6kT2wOPYvAl3m73eERnV/8jsf1Hp8mcgA54e4G9Cb7UXrFyXbcrNUU+zLJYKafO419RyGVKDOEJd2RXh5GPKfCS2qlGlIT9T2laGd3zNEM4ikaLi9oBzFBouCQVKAqtMmJ2thbe/f5bg6rFVZ7PtDUsXnuKklLzicbJpscZJQOflzpHwOrScdQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=arm.com smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OSsByna+3EOBAQ4u24lZoWXeWlHVuaT6+ZzPeUT93Os=;
+ b=S4SOxhCqYDyjT55nTnwDuMvctBWKvB/gMx/4WLr1OVoCHtkKxKbpdxsSKQU1t9qJDiuPWNGwUQyiLiICaEwWSTvaApPmNC6nDWPjgPBz5DQ3FQ8gnM2sweq88jVxb2jz0b1T+5itRR0v1FwmFoSoK1VvCkd5DTM9tPgFxR8I8o3EmDCkI5bvD+axAEXTr8GOLvu5e3QMLfxQF12GqIUn3Qyu39vuYOWQ5NQsGbTzH69ICrpJavm7y76FjUSGq1t4LhAN9cIQnE55dKaVg4LzrJLAaWru1ub3afOyiicxFgoRl6AO3YLQb/3cEXdEPbqd0fJW8Nedl8MPyXfqJEpXBg==
+Received: from DUZPR01CA0071.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c2::16) by DU0PR10MB5172.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:10:344::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9542.15; Wed, 28 Jan
+ 2026 14:23:53 +0000
+Received: from DB1PEPF000509FF.eurprd03.prod.outlook.com
+ (2603:10a6:10:3c2:cafe::65) by DUZPR01CA0071.outlook.office365.com
+ (2603:10a6:10:3c2::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.8 via Frontend Transport; Wed,
+ 28 Jan 2026 14:23:52 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509FF.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Wed, 28 Jan 2026 14:23:52 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 28 Jan
+ 2026 15:25:34 +0100
+Received: from [10.252.24.160] (10.252.24.160) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 28 Jan
+ 2026 15:23:50 +0100
+Message-ID: <089559fd-3c9a-4ff4-8732-bb23fa907be8@foss.st.com>
+Date: Wed, 28 Jan 2026 15:23:45 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>
-References: <aXnpTy6XckPGcmg0@shell.armlinux.org.uk>
- <E1vl36A-00000006urf-19ox@rmk-PC.armlinux.org.uk>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Leo Yan <leo.yan@linux.dev>, =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?=
+ <legoffic.clement@gmail.com>, Linus Walleij <linusw@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, <jens.wiklander@linaro.org>
+References: <20260123-debug_bus-v5-0-90b670844241@foss.st.com>
+ <20260123-debug_bus-v5-3-90b670844241@foss.st.com>
 Content-Language: en-US
-In-Reply-To: <E1vl36A-00000006urf-19ox@rmk-PC.armlinux.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: Drew Fustini <fustini@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Guo Ren <guoren@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, linux-riscv@lists.infradead.org,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org, Fu Wei <wefu@redhat.com>
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: thead: avoid
- conflicts with PHY_INTF_* definitions
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+In-Reply-To: <20260123-debug_bus-v5-3-90b670844241@foss.st.com>
+X-Originating-IP: [10.252.24.160]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509FF:EE_|DU0PR10MB5172:EE_
+X-MS-Office365-Filtering-Correlation-Id: 00396c4e-7e4d-4f27-1ed2-08de5e78dce3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|1800799024|82310400026|7416014|376014|921020|13003099007;
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?Q2tZL0x3dW1rV1RsK0plMEViMU54K3k0WS9rUlVuclZwbzdNMlhIRTQ2WFFP?=
+ =?utf-8?B?NENTMDU1dTlSeHBMWno1d082V3VUeVVlTGdiQklvYnovbDVhbnRKeHJ5akFV?=
+ =?utf-8?B?Q1hKbWRVMTVHMXBsd3MwUy9aaGxxdHg3eXYrb1FHSHVOSGhTUzROd0xqVENv?=
+ =?utf-8?B?Yi9QdnN4Ym9rcTB0WkdoK3NtRzlFRVp1ZGJobUtWMFlkY2JGTG5TekFadEs0?=
+ =?utf-8?B?cE1wZE1UNDlGU1BwazlkQnJiRkxITHRtWlo2SmVOWHFMa2VobWRjeXFPN09R?=
+ =?utf-8?B?K2hndEZWQ0V6SHpFc21JMlhpR2lMNnJqVVg3MUtaWjlwcVpHWElGTlpNTjZ2?=
+ =?utf-8?B?bFFNZndzM083TjVSVDI2RkF3aTVkNzlHeFJ5RHBhUE5pQjNucG03UFptL1Fz?=
+ =?utf-8?B?OUg5Y1J4eWllRFhLUHI1MUZRaVo3Q1ZmTFNJMlRnYXU0VjRIdmdNc05TVms4?=
+ =?utf-8?B?RHk3d1k0UUM4dWNxeFRkN2g2dllXblV0TGVMcEc1MWU1SnNpekVXV2NtSC83?=
+ =?utf-8?B?NXk4RFlHRkNnUzlmRXdVR1BTcnVSWWVMVDR1T3BFRC9FK3VMN0JHV2xIYTYz?=
+ =?utf-8?B?TnIyTXRxZ1VpbGF6UzdHQ0dxMElyOTRPVFVsZnQ5M09GR2FzT2NqQnpTcXJV?=
+ =?utf-8?B?L0pZTHBycmdJL3BxNXUzQll4OGtxRzBpNWdicStrWG1HRms2WTAwcklsOHVy?=
+ =?utf-8?B?NUVxOVk5bEJyd3luZmlTcDBwazFweHVUNURnSm9wRXhyMlMvZzFsOEk0UlJM?=
+ =?utf-8?B?MER2Z3JmMzBKOXJOd2xqalFMK2Uyd1IrRkN4UDNBQW5ZZGFZYngvdnBKL0x1?=
+ =?utf-8?B?bXNBUDhTNW1qaGVtUXlHMVptTDFCaUd3ZEduaE54S3Z4ekREaVRxSzVIRlVW?=
+ =?utf-8?B?SXQvNGd2MklYT3ZUaUJMb3hIUWNpRzJCZnNpNmZjb0I4UlBySklORElmV1BB?=
+ =?utf-8?B?WEdqZEhxRis3b1RRMk1DdlJmaXQzQzJUZU1meEdzbHE2VHlaSklydldQWWtY?=
+ =?utf-8?B?WmVQU1lEOXh4TFpwbUhiL0JxS05KOTFtZGd0dTB2N3lvTTdVQTZNYklDOG1N?=
+ =?utf-8?B?dGxnKzhCTk1TcUdZK3BMZXczZlU0V3hRb284M1Jra1hwcmtVZ1ZZaG9maWtE?=
+ =?utf-8?B?TDBENGE2WU9kbGZnb2JmMFhmellxczNYNWxZRW9qTXRXcXhzYlUxVjhCRHVE?=
+ =?utf-8?B?TEpwc1JTZ0FtM0FwNk1Ua3FCZ1RucmRJdDZqaXlCM2poYTgvWmxDRGlPT1V3?=
+ =?utf-8?B?Yy84S1d5dHpqZ2cvNTU0R3R3NjRheWxXakdEMzJ2a09EUjcyZjAzY0ZoZDM1?=
+ =?utf-8?B?UHhhMUNtUUIxS3h4TEw5YVMwQ3RvQVZGZlFjVHNzeEcyTlh3UUFTdUZJOUJz?=
+ =?utf-8?B?NThHRzJUQnI1dTBDSmlXVkdOc2xPNEoraVdnNkJBRDJiTWFvVGhJbjI0c1Nj?=
+ =?utf-8?B?NHg2UVVUOEZwNUV5QVdCcXZWV3kwanBxNGZKNjNpNitHekQ3Q3d1SmdzN0pM?=
+ =?utf-8?B?azI4dUc5eU1OS1QvRXg3a0ZPMzFUYkViU05mTmNBV2x0aURzTWJ2OGZMOGgr?=
+ =?utf-8?B?NXIrWWppeSs1V3FtWS9IT3R1dHFaVFJDYTdmLy9zQXhFOHYvWDQ5L2Ixc2tw?=
+ =?utf-8?B?ejBkK3BmMm5tL3FzZ0VyQmZXenNDenQvNUFGWkhuT3V4V3I4ZGRNMVVIY3F5?=
+ =?utf-8?B?cWdlQnQxTTczVC9MeXJONU9zVE56clBqb2pCWmpwc3QzeTNvMkxqYVZNM0g4?=
+ =?utf-8?B?RmpWSHEyZ3AyODdwVEFnV28rODdweVJITE5FeVR5Zld1MGhHcWNkcUozN0dj?=
+ =?utf-8?B?MWVjTnVaWWlHNXNwdFdSTVFZSGFNVld5aGpZMm9tWHJnQnRlR2RadllzdjRm?=
+ =?utf-8?B?UXpKc0Roa2xpbzNHR2taYWFiOUJyNlZpdjEzTnBqbjAvRmM2eWVZcU5CdDg2?=
+ =?utf-8?B?OWdwdXJkYnJTZGs0QWFQQlJFVXJwcDB6a0sxcS9oakREekpZS2RxTTRBY1U5?=
+ =?utf-8?B?ZWYreVJmNkNScU1OMDRHbHBjMjE3ZENRWE1EWlJHc05VUmRmTzRveTZNTk1q?=
+ =?utf-8?B?ZUkvYjl1VTRLM0g3b2ZRcU5jVHRxNXQ4azdFWU9yQjNoaStSTFJDZVVhOFJW?=
+ =?utf-8?B?eVo0dUhKK0V0b1BObG9zakxYanVRUU0xZjRuaHN1MWZaUEcyWEZTcUZ5ZjMw?=
+ =?utf-8?Q?ZWQ3VbKr+x/gfobF9k3A4hfKh+xxXdvdqpysEqteWu9c?=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(7416014)(376014)(921020)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jan 2026 14:23:52.7010 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 00396c4e-7e4d-4f27-1ed2-08de5e78dce3
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509FF.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB5172
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI4MDExOCBTYWx0ZWRfX7qvRay5fbKSU
+ Vmof64jd4f6GrZbx67ccNBgJr1n+cLtdHZwD1SFLnMvncwBny9GcdIfNkbKaRCeRyzaF4HTczKt
+ q8rzGchz68Px0St4q7Obf35+nDSw3BsEDhR7CLvqNZpDKzyQQXH9U63qGqverQf32OjfKAMwmB9
+ XOgJw+vF91Iw7k33X3b7tMtQl4jzXbCT0HEr1gA6x9T/+dDOK5AE1CUpmUMTJPmHltDoNEfbRAP
+ gYFTBIcMAp7KojaEAc7FJPHPVj5g+1DYN2JG+AdHKXqLGTJadpTA81+RfuH4SQBJo1GCmtK60mD
+ ECDfvYRwRsI32BXFm8a/HwvrBq7RezTeIv3Cc+EpbizQyiiwsWPTgPoCEurG3+bXdsk+8o7O7rW
+ vjmSfULScJ2Bt8L0dCm1g3KoPjitBZXyr57Xww46xMtyRaa7YHFn9MeIhdxW+I6MTaE2dIgvBQa
+ +rAnt7RwFjf7bRsZxjg==
+X-Authority-Analysis: v=2.4 cv=GrJPO01C c=1 sm=1 tr=0 ts=697a1bfd cx=c_pps
+ a=u8ACBDucoOS8YlAhSULG+Q==:117 a=d6reE3nDawwanmLcZTMRXA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Zux3bmLXDHQA:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=gEfo2CItAAAA:8 a=8b9GpE9nAAAA:8
+ a=kNDfFFd5X_yhIQaZrEQA:9 a=QEXdDO2ut3YA:10 a=sptkURWiP4Gy88Gu7hUp:22
+ a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-ORIG-GUID: KKgZwB2jAHHxXd8f6Yl-Mqiw8pLQtG1E
+X-Proofpoint-GUID: KKgZwB2jAHHxXd8f6Yl-Mqiw8pLQtG1E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-01-28_02,2026-01-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 adultscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 malwarescore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601280118
+Cc: devicetree@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 03/12] dt-bindings: bus: document the
+	stm32 debug bus
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,59 +191,151 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:fustini@kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:guoren@kernel.org,m:kuba@kernel.org,m:linux-riscv@lists.infradead.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:wefu@redhat.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:suzuki.poulose@arm.com,m:mike.leach@linaro.org,m:james.clark@linaro.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:leo.yan@linux.dev,m:legoffic.clement@gmail.com,m:linusw@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:jens.wiklander@linaro.org,m:devicetree@vger.kernel.org,m:coresight@lists.linaro.org,m:linux-kernel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:legofficclement@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	ARC_NA(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FREEMAIL_TO(0.00)[arm.com,linaro.org,kernel.org,linux.dev,gmail.com,foss.st.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[bootlin.com:-];
+	FORGED_SENDER(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,foss.st.com:mid];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	HAS_XOIP(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	DBL_PROHIBIT(0.00)[2.252.41.0:email,2.252.95.176:email];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	NEURAL_HAM(-0.00)[-1.000];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,bootlin.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 453A9A2986
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 15B20A2B74
 X-Rspamd-Action: no action
 
-Hi,
+Hello,
 
-On 28/01/2026 11:48, Russell King (Oracle) wrote:
-> Avoid conflicts between stmmac PHY_INTF_* and GMAC_INTF_CTRL register
-> definitions by replacing the PHY_ prefix with GMAC_.
+Does this binding file satisfy the feedback received?
+
+Thanks,
+Gatien
+
+On 1/23/26 11:39, Gatien Chevallier wrote:
+> Document the stm32 debug bus. The debug bus is responsible for
+> checking the debug sub-system accessibility before probing any related
+> drivers.
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+>   .../bindings/bus/st,stm32mp131-dbg-bus.yaml        | 76 ++++++++++++++++++++++
+>   1 file changed, 76 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml b/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml
+> new file mode 100644
+> index 000000000000..6c74433efbe3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/bus/st,stm32mp131-dbg-bus.yaml
+> @@ -0,0 +1,76 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/bus/st,stm32mp131-dbg-bus.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STM32 Coresight bus
+> +
+> +maintainers:
+> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
+> +
+> +description:
+> +  The STM32 debug bus is in charge of checking the debug configuration
+> +  of the platform before probing the peripheral drivers that rely on the debug
+> +  domain.
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - st,stm32mp131-dbg-bus
+> +          - st,stm32mp151-dbg-bus
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +  ranges:
+> +    minItems: 1
+> +    maxItems: 2
+> +
+> +  "#access-controller-cells":
+> +    const: 1
+> +    description:
+> +      Contains the debug profile necessary to access the peripheral.
+> +
+> +patternProperties:
+> +  "@[0-9a-f]+$":
+> +    description: Debug related peripherals
+> +    type: object
+> +
+> +    additionalProperties: true
+> +
+> +    required:
+> +      - access-controllers
+> +
+> +required:
+> +  - "#access-controller-cells"
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +  - compatible
+> +  - ranges
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/stm32mp1-clks.h>
+> +
+> +    dbg_bus: bus@50080000 {
+> +      compatible = "st,stm32mp131-dbg-bus";
+> +      #address-cells = <1>;
+> +      #size-cells = <1>;
+> +      #access-controller-cells = <1>;
+> +      ranges = <0x50080000 0x50080000 0x3f80000>;
+> +
+> +      cti@50094000 {
+> +        compatible = "arm,coresight-cti", "arm,primecell";
+> +        reg = <0x50094000 0x1000>;
+> +        clocks = <&rcc CK_DBG>;
+> +        clock-names = "apb_pclk";
+> +        access-controllers = <&dbg_bus 0>;
+> +      };
+> +    };
+> 
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
