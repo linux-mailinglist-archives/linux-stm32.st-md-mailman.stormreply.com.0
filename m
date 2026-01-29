@@ -2,139 +2,178 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2FFBJtcLe2k6AwIAu9opvQ
+	id qMAmOSZZe2mZEAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 08:27:19 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 13:57:10 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FD68AC947
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 08:27:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6604CB0317
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 13:57:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A6F6C5663A;
-	Thu, 29 Jan 2026 07:27:18 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C83B0C56603;
+	Thu, 29 Jan 2026 12:57:09 +0000 (UTC)
+Received: from mx07-00178001.pphosted.com (mx08-00178001.pphosted.com
+ [91.207.212.93])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94965C1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8233AC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jan 2026 07:27:17 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60T2ojYt2663817
- for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 29 Jan 2026 07:27:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ySOUOkIINh0fLQ8YNyshi4af
- ZbpfENdrNzzg6IBH0jw=; b=XQZpLCMlWMKYiSGGuigMRDbLlRF0eNdStZr7ltiv
- gFqnqnzIVXMcJpfmQXcT9igO9cgoFpKrpW1Ciy6YYpHIiInuZPpxK2hO1FAwo14n
- shAFYbqkzCoanUMiAwMDcChR6p0K300HUyOPjmLEAqLTUhUNQugKAVdruml6UeTS
- yxErv16vuxLJy9cQ8m2lkHZxIbkvD5TTpPi1ypj7IVaS/y3xcUzFNZ8hpFoFSEUf
- URLd7hVa2JUkOxIT7w9KzfWerTbTpDMCe7pFzbvUFY2vRdUYvu3PRS9YNHL9lgVf
- w+JcU/9v7mIOaO6sg1NFh8Zmxv+rX7KauhHIOQq/00UGZg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4byphgj9a5-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jan 2026 07:27:15 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-c3dfa080662so517276a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 28 Jan 2026 23:27:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769671635; x=1770276435;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ySOUOkIINh0fLQ8YNyshi4afZbpfENdrNzzg6IBH0jw=;
- b=e5zoEQaBUU9J4sFc83G1qXDJOFZYzQEw3+7zbOGrtyZwiGlG7i49dRQAsixjdjAtA0
- 5uSxC5nKAFmNCtgD0VlckpiMshC1u6N2mLoHA8FvK8FCqOvOWN6pKN4cBFVsUbboIXai
- fAp+xZ9bE91OvHoJ9MxkyJqhTNzjyKKImb5JXg6BOe8snMpZmHS3+ixCxulxY64FXHkh
- AU6gArmZOGmUwvAT596bUGk3WVMAPAZ6b8PdxWBOO/2L81TFGnG3/PJhiZWFsRNcUffS
- NF1A1y/Og54YGDdxYDTRhoGqStklHnxALWqaggcAeduyGMQ7KaoaykOsQRM+ONX5x9yu
- 06LQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769671635; x=1770276435;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ySOUOkIINh0fLQ8YNyshi4afZbpfENdrNzzg6IBH0jw=;
- b=HdUbxOgRgdjOrtWvO5SnyRaBhilq5ILMELQDd6zyHvR+7YkX97Z6dJwBPJHnqT7QjO
- eL9OuoAixj6FddOLOJ2AZw1WtrUlQVg7o/yRCYZWXB99ilkuiO1EnutHhcdlVrrx6bEY
- pKj2jkPp42IaOElCwjOG1jb68YrVRSnN4637vRN4Jmx1A0jkoHVBSjqej/MGFQPgp0Pd
- rkCXqxZEiG2j7NU51j8Iha8PIROyaBOkCJPWW2vZ6jF8IMbnCkRApAUqMqY4JYg33sUh
- 5x+HZQV99RMW6QhCWsnQAR9OtXV3z7fwG4fYe5tWNJvdBeTtRbmoF4IlLk/EEcgWUOvy
- jGLA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVpSr91wwMI7edXZxuuzU+ntEJPgwvS6cTWfW3u1AfUg9xu4c3HDCeGrspj9+Qahu8UU8eWm5OGiqLU3Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwcYRanthor2peJtQtRyGncOIlUTefR1qiyt7CA/UgdGE2RAYaK
- AtJXPBv07fly3FBxUHFtzrvwG0s3/rVJ1XImmtZIHFkma+68R/cWe+fmzfhruBFOpaIdFX7DTxb
- wXvmXY8siGHX5L79JT5V1UHf5ru46V8VH1i5lMSm/FX6cPDtlvxQXm9QhYXd5ccClITdYtFZUhW
- ZGCnbhi/s=
-X-Gm-Gg: AZuq6aK1jf14G7txZl2efb6K1xR9Em6C3Y6gtfkVrzrMhBeRSPFHhDHtQVWZtCR8t8q
- 71/jLVHUQYke2tGJi15fjLR4uL9Jzl/O+KRz7R9XG8uPmwXVa6bd2aK4lVg4JBDPZBWD8JAN8GC
- FEtEg8QZbvuPcebuTwQBkwnSd5kW+FQdwBl+uar3bps2A/WATToqok8+ueejXfN58jLP/YUT8RE
- 8rjiIWGTz5XUtkb4kgx8WO/b2B9sgSoSWltgDAXK+neSWZORmTWHD9T4VxACovuxawtPkiEtpEI
- GelWT7IJ6/6ZM5FppJ7d9ZMxn5evon9aQOdv2lWDKJlV9TbUsj1/zTRQIHTJ2Aaq4JxDdHjlTRK
- OUEicWKjOtmI3mLlUQMLZSts=
-X-Received: by 2002:a05:6a00:94ee:b0:823:5745:cfd8 with SMTP id
- d2e1a72fcca58-823920ddbd2mr2231133b3a.32.1769671634922; 
- Wed, 28 Jan 2026 23:27:14 -0800 (PST)
-X-Received: by 2002:a05:6a00:94ee:b0:823:5745:cfd8 with SMTP id
- d2e1a72fcca58-823920ddbd2mr2231101b3a.32.1769671634411; 
- Wed, 28 Jan 2026 23:27:14 -0800 (PST)
-Received: from oss.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82379b2305fsm5035336b3a.10.2026.01.28.23.27.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 28 Jan 2026 23:27:13 -0800 (PST)
-Date: Thu, 29 Jan 2026 12:57:05 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aXsLyb+x76/WaXcs@oss.qualcomm.com>
-References: <aXNEwBW3OA1xLEUj@shell.armlinux.org.uk>
- <aXN5BFXMshnhwBQ7@oss.qualcomm.com>
- <aXPo5R1Q-qWG3r3l@shell.armlinux.org.uk>
- <aXjSbu6L6ICYOPiJ@oss.qualcomm.com>
- <aXjdAZeUl2Dsu4mE@shell.armlinux.org.uk>
+ Thu, 29 Jan 2026 12:57:08 +0000 (UTC)
+Received: from pps.filterd (m0046661.ppops.net [127.0.0.1])
+ by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 60TCrqQZ1027564; Thu, 29 Jan 2026 13:57:01 +0100
+Received: from osppr02cu001.outbound.protection.outlook.com
+ (mail-norwayeastazon11013059.outbound.protection.outlook.com [40.107.159.59])
+ by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4byk2km8ws-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Thu, 29 Jan 2026 13:57:01 +0100 (CET)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tQ+ZfJpL8DF4IiPGdGME7d1ExxgiwihDJdHKQG4tSmX5SZwh6MBtG7MKdBwM6J0I3XZf6gRgnwtriDYEeawXWFgiPUkAy64cy+m3ZbR3t6nYuP1Wdp175VOhp04VJsu2KL7z+5MT8KHyhGNaz39Yk9aM/BXYS0a9865rpXH1HWSvZfeYgxDIxLctSN5k8ZnMGfbko/Nwz8/v63j8zpeAIO5edhqsfLViN3eJC19PPeGwPhLC+wgJAlL2ib1s+vZhVQyxVhiVSFMZ7D4khLEtMIlZEjJFcqqC+Xhf8VT8JsLH0NrAYEyYN4Sy79wRjSytQcqlpv3Wqti4iWEnABTI0Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=za/h0i1/6FNCaeCXAWZBq6Qzg2NepPH8tjAe9+8KgHQ=;
+ b=GEnmywTdW/3SzNvQalrR05S7h33+rkfU1OgvfQ7el7u1m8lshVmtZG75dTvmd5lnCWfNm4S+fQhIitB7GqYUEd9RPH17c04mLxLSyLY1Jw4atOUkpGM7m/I30VDfAPaqBtqzdfEOwGUVLrBHoTg2E9+fyzUrJqME7IjhmrxWPbPXE6us8VEEQcMyp7sjNpQp48iYfpLo4c3fdQg70oQsIoqoCjOfOR7JorE6kPi08j2waGTwwhxqbnJv0M1dO43kS+4QlQoocfh0XLRm5bbXFv8pEU77BYdbnGI3sQltJVcq+EnVas/D/+o+pdYyHUUmLLF1DYhVDdQpTWS6rCSjIQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=lists.infradead.org
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=za/h0i1/6FNCaeCXAWZBq6Qzg2NepPH8tjAe9+8KgHQ=;
+ b=HCOznOxBrIawZx2tHd3Z5Nh3BvxmPL4DcPn5ZkXeqWS+aC1MrPvjtquHYl8kuL/z22mOev3dfoqNzyLmm3oWyjSpESXlK+adrKAWrlUCTaJja1xT54oW10NLUeIStXdddPU4h/6+PqGFUyQbJcU/vwF8Ts7BxqA3qzfx11XrYb2DxwgFlizQPboQb4BCLQns+QQn4T8JIrfBkxUVuG4rTqX5bpK2mZf7+9Nmjnp9+dC0s7S4+s2obN1cgWON9xsg4t3fhUj0UuN5g0ztdWccWWPXAcMQy1jPD6jJh8dcFBtglXs/k4Z/x2u/ta9JhZh/EYIObBEp6llW8DygHO6h7A==
+Received: from DUZPR01CA0259.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b9::7) by VI1PR10MB3536.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:800:134::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.10; Thu, 29 Jan
+ 2026 12:56:53 +0000
+Received: from DB5PEPF00014B9B.eurprd02.prod.outlook.com
+ (2603:10a6:10:4b9:cafe::2f) by DUZPR01CA0259.outlook.office365.com
+ (2603:10a6:10:4b9::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.10 via Frontend Transport; Thu,
+ 29 Jan 2026 12:56:51 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB5PEPF00014B9B.mail.protection.outlook.com (10.167.8.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9564.3 via Frontend Transport; Thu, 29 Jan 2026 12:56:53 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 29 Jan
+ 2026 13:58:36 +0100
+Received: from localhost (10.48.86.212) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 29 Jan
+ 2026 13:56:52 +0100
+From: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Date: Thu, 29 Jan 2026 13:56:17 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aXjdAZeUl2Dsu4mE@shell.armlinux.org.uk>
-X-Proofpoint-ORIG-GUID: lVPvt_eQf6_6965aDnX-jYip0gcKGBi2
-X-Proofpoint-GUID: lVPvt_eQf6_6965aDnX-jYip0gcKGBi2
-X-Authority-Analysis: v=2.4 cv=J/inLQnS c=1 sm=1 tr=0 ts=697b0bd4 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u3xWUgpTUxrHMWPZussA:9 a=CjuIK1q_8ugA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI5MDA0MiBTYWx0ZWRfX0ucRqWnVEVPA
- jVme4Eut7r+VdQii0ShcEGTksSEZItxCzQ5db4gq8LqVpWRVnYna7Qrd+8D/WeQC9KyrmuRPYsa
- 03dOOPMBFSpi569Tg51bQoHDx3ceOnOP06eYP5xf/4ksO73/1n7H2KqnI+gi7WGb+GYgkWQrg0S
- Slc7dxumaz0UzHkGwF3pgOaIJcrQFWy0DpeLa4iWjKscU2BsIDp1zoRLJwSF35azidFpVFKZyzR
- emI3Nosn1t4RnwvES20dPOohfXxL/qPP1VT4FSZE3RL3ULxsExPf6EujpPCh8OXUwgCVI7yj/MR
- elMmLJQIe6fphyVGiNcAKb90cGWgc/z1oVHAg6NYN8Cb1dFvlcA28D2+1fKVL3+fXjRZWFxS0Fr
- nJaVkfiDrLDPkrzKl91sjd2fB9M4sahfPVH01Z5CpN+SBoRcIP2xhXokvBSXUcj5yvsp+PqEB6s
- FM17bTYPGkG6rc99PIg==
+Message-ID: <20260129-fix_cid_check_rifsc-v1-1-ef280ccf764d@foss.st.com>
+X-B4-Tracking: v=1; b=H4sIAPBYe2kC/x2MQQqAIBAAvxJ7TtAtwvpKhNS61hJYKEQQ/T3pO
+ DAzD2ROwhmG6oHEl2Q5YgFTV0DbHFdW4gsDauy0wV4FuR2Jd7Qx7S5JyKSWgFqjtdRyA6U8Exf
+ tv47T+37IX+XAZQAAAA==
+X-Change-ID: 20260129-fix_cid_check_rifsc-bf200288c4e3
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.14.3
+X-Originating-IP: [10.48.86.212]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB5PEPF00014B9B:EE_|VI1PR10MB3536:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2e1a776f-b5a2-4c58-20b3-08de5f35e039
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|82310400026|36860700013; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?NmRkL1JibkhqT2NQVFAwUGV2OWIxcWVQSHBGeGx2aE5kc3ZDSkcrZ0ptTUdV?=
+ =?utf-8?B?UG94Y2NpcVhmUlNiOWNGeGxRNSt6MTM0Z1AzZnVQSGE3Y3FEU3k0Z0EwTTQz?=
+ =?utf-8?B?ZkFOMlRaVjVFQUpPaWFlRVZxTEpsbnpibjRJR2k5aHoreVZNVDJwYVdPMldH?=
+ =?utf-8?B?bi9JcG9veUd0OWszV1MvOUdONzQvMlVLc285ZEF0em9vL256VXlXT1hyeGRm?=
+ =?utf-8?B?TURURTBaKythNy9ZQitla1Zjam1TUEFMUDg4azVFSUdxOUZxdzhqdFAwWVU1?=
+ =?utf-8?B?eVYrYWJlYmRkL1Y4c3J5SDNMT2RxSFR3V0dhRkFPakxWZmFWd0pQV0Z5MkpO?=
+ =?utf-8?B?UFJtN1p0K1pZcENYbk9VSzI2aVVqL0xveFk1cDhFWGVJQnMyMGhZUzRqOENT?=
+ =?utf-8?B?RnpRdnh4U3ZOMEx0eFBwMitRZkdjcUpLV2FHVXAzUE9md2ZNZEV0c3lYYmQy?=
+ =?utf-8?B?ZWl2YWdpNVpuNFlqS0VGcit6RDRuMkl1N0FiNGxZMDd0dEIxUHowemEwS3A0?=
+ =?utf-8?B?VXQzYlF2QUY3RFc4VS9IbUp1M3FHZkw3bHp4K3UxRWJ1Z2U2Wkg4em0zYjkx?=
+ =?utf-8?B?M2xpN2JEUWQ2SHNBUjloT1FyZEZuR3hMWDVoZUQxdEFRODVkdGgwUmd2UHdw?=
+ =?utf-8?B?S3lQR2lrNXgrdG5GN0MvcURjZjVaaXZObHRKU2ExWEk2dm05Y2d4bjE3cHJF?=
+ =?utf-8?B?b2Z6RDFzZU1FNS9oRk9LRUR3a3lSczk1VmdOMmpGRUJFaUJtVGdhWS9LKzJa?=
+ =?utf-8?B?K0U4NGZ6UkVrUHFndFI1UWl4NlUvcDBnNmNrUUtRR2xCWEJWWWViRDlyMGdk?=
+ =?utf-8?B?ckRFVjBiSk1aNGNGcVI3cGlGWCsyVy9UbzlTbzEwZGxROWxGQWZkV0szRmJ6?=
+ =?utf-8?B?Q0lKUG84bkhZZHhLWlNHeVByWXNXSVQxT2F2ZzdIWUUrNHE5dWVMeEFzSVhw?=
+ =?utf-8?B?K0JWcUVtWTJnYXZSbW9iS1pTVlQ2NnI1aThCdWZnOG9EKzdsVEJmMi85K1h0?=
+ =?utf-8?B?M09vd2lobUYzc0ZtTGhNRS9pOTF0eG4zNDRPaFJPY2dSZVQzUFoxNmVwUU4v?=
+ =?utf-8?B?aTJpcDgyUVZTa2lNZFEvMjhEZ3M1aUtBUC9ldFlCRUxYTGxPQzdnMTlLM3o2?=
+ =?utf-8?B?OTRZbkRVNy9aSjJ1SHNRVldqd1dEcENZYTR3czRGanQxR0ZVNDNWODRTVjdo?=
+ =?utf-8?B?SDBYaWlFVTB4b0xiRzdwa2htaVM0eVVRWkRXeXk3UkNhSVgzTi8yeWliQk9S?=
+ =?utf-8?B?ZUtMaEZWdUZmck40YXRFU05YRmRVYlhlQk55ai9jemx0M3FVZ1VQYnFscGlV?=
+ =?utf-8?B?eUVXZXBIV3BQRWUwVzRCdzMzQ2Y4NWJIaTRQMUVEWWVJbElDUDFzWTd4U2lq?=
+ =?utf-8?B?RjNGaGtiT0JiektlWFlxZUZjRkZ3Um8vaTI2NnJFOUdDQzlTdE1PSkw3VDR2?=
+ =?utf-8?B?QjZiK3kwaTRSQ3pjOUx4Qm1YZXB5OW1KZnlNZmVyMGxtQnBSYWoyWGIwL09F?=
+ =?utf-8?B?R0R2WlA0RjdHUWxjTlJJOVk0NGNxcFVTeHVMSmYxbWZWQjFha3A1bXZUaUIx?=
+ =?utf-8?B?VVhPTkdaUGNKdGFFQ2tWKzJyVE8wcUdkanVpd0s1Wms5MzhFeGVyQUpWN25h?=
+ =?utf-8?B?OFRIL2tsWmpTeVN2eG5UakJlSmRUZWY5WUJHekRZSEhuQkVWclJiYWZ1dmI0?=
+ =?utf-8?B?ZzJKUVNSZTErVEttQS84U2x5MDhrK0RIbThFK0MxSWc5M242TURSam83cmRn?=
+ =?utf-8?B?R2ExMWZKUXZhMGpZVFBCZktVaGg4VmdrRDN6ajRyR0E5V0NPd1V6Y3hvdGZ5?=
+ =?utf-8?B?dGRwSEp4L25HWGlDMlNyRy9YSTVUYlNuSHdTWElqWkJaN3RGRXl6dGprS1ZK?=
+ =?utf-8?B?UlNUQWhTbkh4SW85aGUxQXBlNE02YnlSazBiVEd3YnkxL3FvUVZKUW00SXd4?=
+ =?utf-8?B?SEJLNWtzTzNBWE1PMEJBOGpld3hEVDZ5WnBIWGJJS2M2VDMxL3BYc1YwRE1u?=
+ =?utf-8?B?RU14OVhCQlBnRlB1cE1GaldKRDZFcTRJUW9KZGUzRFFuWThRU05naDFEMHAy?=
+ =?utf-8?B?WCtFTGV4TjFsY1lQV05FVy92WFJhUFZNL1dGQ3hMSXRFOG9BRjBWM0xEVFVa?=
+ =?utf-8?B?Q0RwY3lKVVRlNzdUMWdmT3NuWlJpeVVuVHJOSGJVS29WOVFVVk9Vbm5ob1U3?=
+ =?utf-8?B?ZUtua3VEdVBIVVJFYWxiV1RTU1hhUW9kVVRJMldOVExQUGY2ZzdpeVc1SUtz?=
+ =?utf-8?B?eVV1ME9SOWVoVDlEcWl1M1pKdEl3PT0=?=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(82310400026)(36860700013); DIR:OUT;
+ SFP:1101; 
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jan 2026 12:56:53.1739 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2e1a776f-b5a2-4c58-20b3-08de5f35e039
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B9B.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3536
+X-Proofpoint-ORIG-GUID: 4X6wqCHxY4AYV2yZGLxCgr3g3j_-PFmu
+X-Authority-Analysis: v=2.4 cv=Lb8xKzfi c=1 sm=1 tr=0 ts=697b591d cx=c_pps
+ a=wn3I2JnDdEmzcqpN0poLFw==:117 a=d6reE3nDawwanmLcZTMRXA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=rg8MelPR9j8A:10 a=IkcTkHD0fZMA:10
+ a=vUbySO9Y5rIA:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=8b9GpE9nAAAA:8 a=qOaWUdmZZxA87Nd_ETsA:9
+ a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
+X-Proofpoint-GUID: 4X6wqCHxY4AYV2yZGLxCgr3g3j_-PFmu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTI5MDA4NyBTYWx0ZWRfX95aEVhf9UYWA
+ 9BQhma7DUjedhuZQyhXh9FTzhYhHPGCcg/5KObbSWHJq5mFlncvkS5hMSt5Rc80uaI7jgpF13pA
+ vNKoQ0mfT5LT1F0SsS1ACWz2YJvylsnyMRlofrsmBjIk4idcH5OojCHWB3TyDRhEomUSqw3akbc
+ /n07T+yFCJmIg8CYGtn4oUiy2dHpVLsBGD4yl1HIRyp5oDMYG6Wph1GBh4HS5keotghFRCq66vk
+ ikkfcfzjdZb0ZSrxOnbqr5YkDIbABO8gzAc5koKrCMdZKdbiU4ZDxr/J7kB4vq9wExGOE5lDTUI
+ oV1HaLnFmayKBxdp3WRUcatxZxI5NaeReh/gHlJ/N3G+hI9BkHW8hKTn66dd3LX4nKMWYxGq71J
+ Z7UU98v6hBoN1tOkVgY/K2CbZKGocC05zhEY0/4p6oJpCDpZvJ1ntJGqtoK9YZXFODEseZWIHEu
+ 9QzkHdJ119UAmljDmtA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-01-29_01,2026-01-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0 malwarescore=0 impostorscore=0 spamscore=0
- clxscore=1015 bulkscore=0 lowpriorityscore=0 priorityscore=1501 phishscore=0
+ definitions=2026-01-29_02,2026-01-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 clxscore=1015
+ lowpriorityscore=0 spamscore=0 adultscore=0 impostorscore=0 bulkscore=0
+ priorityscore=1501 suspectscore=0 malwarescore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601290042
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Andrew Lunn <andrew@lunn.ch>, Neil Armstrong <neil.armstrong@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- netdev@vger.kernel.org, linux-phy@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Heiner Kallweit <hkallweit1@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/14] net: stmmac: SerDes, PCS,
- BASE-X, and inband goodies
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2601290087
+Cc: linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] bus: rifsc: fix RIF configuration check for
+	peripherals
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,93 +190,141 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,lunn.ch,linaro.org,vger.kernel.org,st-md-mailman.stormreply.com,google.com,kernel.org,gmail.com,lists.infradead.org,redhat.com,davemloft.net];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:konrad.dybcio@oss.qualcomm.com,m:andrew@lunn.ch,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_TO(0.00)[foss.st.com,gmail.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,oss.qualcomm.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 2FD68AC947
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,foss.st.com:mid];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 6604CB0317
 X-Rspamd-Action: no action
 
-On Tue, Jan 27, 2026 at 03:42:57PM +0000, Russell King (Oracle) wrote:
-> On Tue, Jan 27, 2026 at 08:27:50PM +0530, Mohd Ayaan Anwar wrote:
-> > During pcs_init, BIT(8) of GMAC_AN_STATUS is 0:
-> > [    7.985913] [DBG] GMAC_AN_STATUS = 8
-> 
-> Hmm. This means that your hardware doesn't support TBI or RTBI modes
-> (which is what the dwmac core uses for BASE-X) and what it's actually
-> offering is an up-clocked Cisco SGMII implementation.
-> 
-> With AN disabled, this is compatible with 2500BASE-X implementations
-> that do not require AN.
+Peripheral holding CID0 cannot be accessed, remove this completely
+incorrect check. While there, fix  and simplify the semaphore checking
+that should be performed when the CID filtering is enabled.
 
-Yes, this hardware implements what some vendors call OCSGMII (i.e.
-2500BASE-X without in-band signalling).
+Fixes: a18208457253 ("bus: rifsc: introduce RIFSC firewall controller driver")
+Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+---
+ drivers/bus/stm32_rifsc.c | 52 ++++++++++++++++-------------------------------
+ 1 file changed, 18 insertions(+), 34 deletions(-)
 
-> > I also tried enabling comma detect during dwmac_integrated_pcs_config,
-> > but I am still seeing the Tx timeouts. I remember that when I had
-> > tested the patches in October (without the SerDes driver changes),
-> > the link state used to flap, but the data path became functional
-> > after the link stabilized.
-> 
-> I wonder whether the SerDes needs to be calibrated after the link has
-> come up and the clocks configured. phy_calibdate() will re-invoke the
-> programming of the SerDes, so you could try adding that at the bottom
-> of ethqos_configure_sgmii():
-> 
-> 	return phy_calibrate(priv->plat->serdes);
-> 
-> which will do the calibration after the clocks have been set, and see
-> whether that stabilises the link.
+diff --git a/drivers/bus/stm32_rifsc.c b/drivers/bus/stm32_rifsc.c
+index debeaf8ea1bd..5682c086ba1e 100644
+--- a/drivers/bus/stm32_rifsc.c
++++ b/drivers/bus/stm32_rifsc.c
+@@ -688,34 +688,6 @@ static int stm32_rifsc_grant_access(struct stm32_firewall_controller *ctrl, u32
+ 	sec_reg_value = readl(rifsc_controller->mmio + RIFSC_RISC_SECCFGR0 + 0x4 * reg_id);
+ 	cid_reg_value = readl(rifsc_controller->mmio + RIFSC_RISC_PER0_CIDCFGR + 0x8 * firewall_id);
+ 
+-	/* First check conditions for semaphore mode, which doesn't take into account static CID. */
+-	if ((cid_reg_value & CIDCFGR_SEMEN) && (cid_reg_value & CIDCFGR_CFEN)) {
+-		if (cid_reg_value & BIT(RIF_CID1 + SEMWL_SHIFT)) {
+-			/* Static CID is irrelevant if semaphore mode */
+-			goto skip_cid_check;
+-		} else {
+-			dev_dbg(rifsc_controller->dev,
+-				"Invalid bus semaphore configuration: index %d\n", firewall_id);
+-			return -EACCES;
+-		}
+-	}
+-
+-	/*
+-	 * Skip CID check if CID filtering isn't enabled or filtering is enabled on CID0, which
+-	 * corresponds to whatever CID.
+-	 */
+-	if (!(cid_reg_value & CIDCFGR_CFEN) ||
+-	    FIELD_GET(RIFSC_RISC_SCID_MASK, cid_reg_value) == RIF_CID0)
+-		goto skip_cid_check;
+-
+-	/* Coherency check with the CID configuration */
+-	if (FIELD_GET(RIFSC_RISC_SCID_MASK, cid_reg_value) != RIF_CID1) {
+-		dev_dbg(rifsc_controller->dev, "Invalid CID configuration for peripheral: %d\n",
+-			firewall_id);
+-		return -EACCES;
+-	}
+-
+-skip_cid_check:
+ 	/* Check security configuration */
+ 	if (sec_reg_value & BIT(reg_offset)) {
+ 		dev_dbg(rifsc_controller->dev,
+@@ -723,19 +695,31 @@ static int stm32_rifsc_grant_access(struct stm32_firewall_controller *ctrl, u32
+ 		return -EACCES;
+ 	}
+ 
+-	/*
+-	 * If the peripheral is in semaphore mode, take the semaphore so that
+-	 * the CID1 has the ownership.
+-	 */
+-	if ((cid_reg_value & CIDCFGR_SEMEN) && (cid_reg_value & CIDCFGR_CFEN)) {
++	/* Skip CID check if CID filtering isn't enabled */
++	if (!(cid_reg_value & CIDCFGR_CFEN))
++		goto skip_cid_check;
++
++	/* First check conditions for semaphore mode, which doesn't take into account static CID. */
++	if (cid_reg_value & CIDCFGR_SEMEN) {
++		if (!(cid_reg_value & BIT(RIF_CID1 + SEMWL_SHIFT))) {
++			dev_dbg(rifsc_controller->dev,
++				"Invalid bus semaphore configuration: index %d\n", firewall_id);
++			return -EACCES;
++		}
++
+ 		rc = stm32_rif_acquire_semaphore(rifsc_controller, firewall_id);
+ 		if (rc) {
+-			dev_err(rifsc_controller->dev,
++			dev_dbg(rifsc_controller->dev,
+ 				"Couldn't acquire semaphore for peripheral: %d\n", firewall_id);
+ 			return rc;
+ 		}
++	} else if (FIELD_GET(RIFSC_RISC_SCID_MASK, cid_reg_value) != RIF_CID1) {
++		dev_dbg(rifsc_controller->dev, "Invalid CID configuration for peripheral: %d\n",
++			firewall_id);
++		return -EACCES;
+ 	}
+ 
++skip_cid_check:
+ 	return 0;
+ }
+ 
 
-Somehow booting up with a 2.5G link is more unstable after adding this.
-Behaviour at 1G is pretty similar. I kept comma detection disabled
-during these tests.
+---
+base-commit: 63804fed149a6750ffd28610c5c1c98cce6bd377
+change-id: 20260129-fix_cid_check_rifsc-bf200288c4e3
 
-I was thinking about the "good" sequence (i.e., the current net-next
-tree):
-	-> phylink_up
-	  -> mac_link_up
-	    -> fix_mac_speed
-	      -> SerDes configured via phy_set_speed
-	      -> stmmac_pcs_ctrl_ane(priv, enable/disable, 0)
-
-Please let me know if you want me to try any other experiments.
-Maybe I need to do some more testing after playing around with the
-sequence followed by this series?
-
-	Ayaan
+Best regards,
+-- 
+Gatien Chevallier <gatien.chevallier@foss.st.com>
 
 _______________________________________________
 Linux-stm32 mailing list
