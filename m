@@ -2,40 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SCIiAJ6ne2lWHgIAu9opvQ
+	id iDeqNkSpe2m8HgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 19:31:58 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 19:39:00 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E20F4B398A
-	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 19:31:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80111B3A4E
+	for <lists+linux-stm32@lfdr.de>; Thu, 29 Jan 2026 19:39:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76A94C01FBF;
-	Thu, 29 Jan 2026 18:31:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16140C01FBF;
+	Thu, 29 Jan 2026 18:39:00 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47EF5C36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66D40C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 29 Jan 2026 18:31:55 +0000 (UTC)
+ Thu, 29 Jan 2026 18:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
- Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+ Content-Type:In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
  Message-ID:Sender:Reply-To:Content-ID:Content-Description;
- bh=YGRHN0NuHwElPQUY8BXhrl0wGLg1RNdWY25QjXUQOmc=; b=OdaVR5gJx6pc0tyvMig3CXe2Uv
- c4Wgc4spSdcGCFHRJKbtfmqGLXmP+ip99uAk1kyqzprlh9CYlGkVeUdngcFQvteofNTH0DYF/FqPH
- D+ZFVyJ17aYY4sLASwxwIJiyJ7ttACh9Ekr20H3tlz7yv8xXwacW0AVGu9v+bIhUr09fiJk2lcuW9
- V4k8qISvnAOH0C460FKJY1kKKto5AaOI6qZF/iZSG8AVkqHNF2R5PY9xcf06KSAfRxDgyCOEQkKjO
- 18hrPAQ88z65+wegtKGdKo2mNetw5SkDhDTaR04P7zI0iKoQbO619uIrYSX6YDYAyXMprnKX5KEEX
- izI1Gvig==;
+ bh=yZm7KO5pw9/R6i1YoD9nUCzfryvpA/gVSTAcmV7o7jY=; b=yW2gX0WGPYwXSQBveO5NIwlLMW
+ nN2w7zkgq+zWEn6MgNKPDk6yMrZlyZtyKt04z3eWnHTXVu9/V+rp0dYxgxu/n+1o+2Vs39s1oxn+A
+ npA/2DOS0bnqsilWSRwD0cQdf1h65e8VAKw+oVmLAyO/I28zp0ogSe+l7cBbo4AqHZYAtG7QrCZSc
+ EFfOQ9G/RZNN/cUuD0uIeGTg+BIJ+khBmsLROnZPKurM1eNpKRsHfmoEbWtMBI8XRnAySo7WYznZw
+ 8pTd4EW8M2HEuQwDgD/qM+yVBx3hXMqr3pMdtvl+2cK6mCzMWasAcqHBZnsP+r2cgfXsy2qumlOv+
+ 7yXzfiMg==;
 Received: from [50.53.43.113] (helo=[192.168.254.34])
  by bombadil.infradead.org with esmtpsa (Exim 4.98.2 #2 (Red Hat Linux))
- id 1vlWo1-00000000WJV-0iC8; Thu, 29 Jan 2026 18:31:49 +0000
-Message-ID: <0ed08d07-5736-4874-9a0f-0f848e8419b6@infradead.org>
-Date: Thu, 29 Jan 2026 10:31:47 -0800
+ id 1vlWup-00000000WYl-1efr; Thu, 29 Jan 2026 18:38:51 +0000
+Message-ID: <9ed4124e-a6f4-4994-a80e-860a1123c8ba@infradead.org>
+Date: Thu, 29 Jan 2026 10:38:50 -0800
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+From: Randy Dunlap <rdunlap@infradead.org>
 To: Yingchao Deng <yingchao.deng@oss.qualcomm.com>,
  Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
  <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
@@ -44,9 +45,9 @@ To: Yingchao Deng <yingchao.deng@oss.qualcomm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20260129-p_ost-v5-1-2b14fff39428@oss.qualcomm.com>
+ <0ed08d07-5736-4874-9a0f-0f848e8419b6@infradead.org>
 Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260129-p_ost-v5-1-2b14fff39428@oss.qualcomm.com>
+In-Reply-To: <0ed08d07-5736-4874-9a0f-0f848e8419b6@infradead.org>
 Cc: linux-doc@vger.kernel.org, quic_yingdeng@quicinc.com,
  linux-kernel@vger.kernel.org, Yuanfang Zhang <yuanfang.zhang@oss.qualcomm.com>,
  Jinlong Mao <jinlong.mao@oss.qualcomm.com>,
@@ -104,41 +105,71 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: E20F4B398A
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,infradead.org:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 80111B3A4E
 X-Rspamd-Action: no action
 
 
 
-On 1/29/26 6:25 AM, Yingchao Deng wrote:
-> diff --git a/drivers/hwtracing/stm/Kconfig b/drivers/hwtracing/stm/Kconfig
-> index eda6b11d40a1..daa4aa09f64d 100644
-> --- a/drivers/hwtracing/stm/Kconfig
-> +++ b/drivers/hwtracing/stm/Kconfig
-> @@ -40,6 +40,20 @@ config STM_PROTO_SYS_T
->  
->  	  If you don't know what this is, say N.
->  
-> +config STM_PROTO_OST
-> +	tristate "MIPI OST STM framing protocol driver"
-> +	default CONFIG_STM
-
-	default STM
-
-Other places where you may have seen this (and copied it) already have
-patches.
-
-> +	help
-> +	  This is an implementation of MIPI OST protocol to be used
-> +	  over the STP transport. In addition to the data payload, it
-> +	  also carries additional metadata for entity, better
-> +	  means of trace source identification, etc.
+On 1/29/26 10:31 AM, Randy Dunlap wrote:
+> diff --git a/Documentation/trace/p_ost.rst b/Documentation/trace/p_ost.rst
+> new file mode 100644
+> index 000000000000..df93b889eb4c
+> --- /dev/null
+> +++ b/Documentation/trace/p_ost.rst
+> @@ -0,0 +1,36 @@
+> +.. SPDX-License-Identifier: GPL-2.0
 > +
-> +	  The receiving side must be able to decode this protocol in
-> +	  addition to the MIPI STP, in order to extract the data.
+> +===================
+> +MIPI OST over STP
+> +===================
 > +
-> +	  If you don't know what this is, say N.
+> +The OST(Open System Trace) driver is used with STM class devices to
+
+   The OST (Open System Trace) driver
+
+> +generate standardized trace stream. Trace sources can be identified
+> +by different entity ids.
 > +
+> +CONFIG_STM_PROTO_OST is for p_ost driver enablement. Once this config
+> +is enabled, you can select the p_ost protocol by command below:
+> +
+> +# mkdir /sys/kernel/config/stp-policy/stm0:p_ost.policy
+> +
+> +The policy name format is extended like this:
+> +    <device_name>:<protocol_name>.<policy_name>
+> +
+> +With coresight-stm device, it will be look like "stm0:p_ost.policy".
+
+   With {a | the} coresight-stm device,
+
+> +
+> +With MIPI OST protocol driver, the attributes for each protocol node is:
+
+   With the MIPI OST protocol driver,                                   are:
+
+> +# mkdir /sys/kernel/config/stp-policy/stm0:p_ost.policy/default
+> +# ls /sys/kernel/config/stp-policy/stm0:p_ost.policy/default
+> +channels  entity    masters
+> +
+> +The entity here is the set the entity that p_ost supports. Currently
+
+                   is the set of {entities | features} that p_ost supports. Currently
+
+> +p_ost supports ftrace, console and diag entity.
+
+                                           entities.
+
+> +
+> +Set entity:
+> +# echo 'ftrace' > /sys/kernel/config/stp-policy/stm0:p_ost.policy/default/entity
+> +
+> +Get available and currently selected (shown in square brackets) entity that p_ost supports:
+> +# cat /sys/kernel/config/stp-policy/stm0:p_ost.policy/default/entity
+> +[ftrace] console diag
+> +
+> +See Documentation/ABI/testing/configfs-stp-policy-p_ost for more details.
+
 
 -- 
 ~Randy
