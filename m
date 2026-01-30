@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0HacF4McfGmAKgIAu9opvQ
+	id QCNGEIUcfGmAKgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 03:50:43 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 03:50:45 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E712B68E9
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 03:50:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 22EA4B68F7
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 03:50:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9328C01FBF;
-	Fri, 30 Jan 2026 02:50:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9906C01FBF;
+	Fri, 30 Jan 2026 02:50:44 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4967FC01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5EB5C1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jan 2026 02:50:41 +0000 (UTC)
+ Fri, 30 Jan 2026 02:50:43 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1086D41536;
- Fri, 30 Jan 2026 02:50:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E027EC19422;
- Fri, 30 Jan 2026 02:50:39 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 20A5D6012B;
+ Fri, 30 Jan 2026 02:50:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCD91C19421;
+ Fri, 30 Jan 2026 02:50:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1769741439;
- bh=fFgZmrixKo+SlJgXhkmwmrwWZxofEJUJAMLt9IoJXLM=;
+ s=k20201202; t=1769741442;
+ bh=DDD2HhaWU8hgGNcvsxgeR8SKHG9Tsx5ygB6TGhAYZ04=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=C2J7m/XRRBFXSSXPheKz/iyRCfTpPfDgpBariyA+Ed38qU9AIFnqf+uemOUJV7ZPJ
- 8lFbJd43qu/LfhtLc+LUThihjkLCC5A7OqGJoe5ZMpVH5joczyBujzCai4ufGTV8gS
- FOfq9QPg/bxK+vhFUU4AqS17KznsMHgguDXPCRI55IXdLg+ocV4E/9LIrpmyaUfTNO
- H+V1h5r6bizUhIuKjd/vDeMh1H14NHrf6B7sJcxtKtYbLCIDTnZYLHV1tkV0pKj8Gt
- 4HCsgmtnHkLetkLL6Y18o6GQwzRDuYHEEJxGjRSuRlznRIfuzlEwzrr3ArhXEGrbCX
- VgfNru9HDua9Q==
+ b=e69iaom0KVVwNSrLlbLpYVy3WJJtrfzlkmiBdfoFdUpZCoO4RgyJ1CkGIaJ/Ik1CY
+ b0Q129iqFKEDsJANqfrCLO1TS5owegvwSOQbLrEjpl8P6lpUpUQlSX0/8nY76rctyO
+ 2wOH8tTmpiilNk3ZvG6GtOTo7VMPqGUXf+xaItER3DuzLXhfu7xi0LFce0PCDT9lCu
+ I9zVRAn6eMazlpssdqX66pNZq82Ks1jPd5r0QkNMzUQOeAlqOA2eX/Sq9YkcAxcL6Z
+ 5pSpPpwf+4IwzZr2nT+VcBVx5KIYPf982ywliNkwJ6SssAP18bCFtmfhfGlG50hRCr
+ Ut+9fOZNRNCkw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- C8DB1380CEE0; Fri, 30 Jan 2026 02:50:33 +0000 (UTC)
+ C8D1E380CEE0; Fri, 30 Jan 2026 02:50:36 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <176974143235.3149010.13136116647525256549.git-patchwork-notify@kernel.org>
-Date: Fri, 30 Jan 2026 02:50:32 +0000
-References: <E1vl39x-00000006uvc-0A3S@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1vl39x-00000006uvc-0A3S@rmk-PC.armlinux.org.uk>
-To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Cc: andrew@lunn.ch, vkoul@kernel.org, linux-arm-msm@vger.kernel.org,
+Message-Id: <176974143534.3149010.10116225722696356568.git-patchwork-notify@kernel.org>
+Date: Fri, 30 Jan 2026 02:50:35 +0000
+References: <aXnpTy6XckPGcmg0@shell.armlinux.org.uk>
+In-Reply-To: <aXnpTy6XckPGcmg0@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: fustini@kernel.org, andrew@lunn.ch, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, netdev@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: remove
-	mac_base
+ edumazet@google.com, guoren@kernel.org, kuba@kernel.org,
+ linux-riscv@lists.infradead.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org, wefu@redhat.com
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: report active
+	phy interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,8 +81,8 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:fustini@kernel.org,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:guoren@kernel.org,m:kuba@kernel.org,m:linux-riscv@lists.infradead.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:wefu@redhat.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -95,34 +96,38 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FROM_NO_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,lunn.ch:email,qualcomm.com:email]
-X-Rspamd-Queue-Id: 0E712B68E9
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: 22EA4B68F7
 X-Rspamd-Action: no action
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 28 Jan 2026 10:52:29 +0000 you wrote:
-> In commit 9b443e58a896 ("net: stmmac: qcom-ethqos: remove MAC_CTRL_REG
-> modification"), ethqos->mac_base is only written, never read. Let's
-> remove it.
+On Wed, 28 Jan 2026 10:47:43 +0000 you wrote:
+> The original patch needs dwmac-thead fixed so the PHY_INTF* definitions
+> do not clash.
 > 
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-> Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> 
-> [...]
+>  drivers/net/ethernet/stmicro/stmmac/common.h       |  6 +++
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-thead.c  | 10 ++---
+>  .../net/ethernet/stmicro/stmmac/dwmac1000_dma.c    |  2 +
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c   |  2 +
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h     |  1 +
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_dma.c |  1 +
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 52 ++++++++++++++++++++++
+>  7 files changed, 69 insertions(+), 5 deletions(-)
 
 Here is the summary with links:
-  - [net-next] net: stmmac: qcom-ethqos: remove mac_base
-    https://git.kernel.org/netdev/net-next/c/d414ed34a861
+  - [net-next,1/2] net: stmmac: thead: avoid conflicts with PHY_INTF_* definitions
+    https://git.kernel.org/netdev/net-next/c/88afa0dd655c
+  - [net-next,2/2] net: stmmac: report active PHY interface
+    https://git.kernel.org/netdev/net-next/c/d9009f72ed88
 
 You are awesome, thank you!
 -- 
