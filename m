@@ -2,55 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GGcmD3zqfGmdPQIAu9opvQ
+	id SAEoNNHzfGk5PgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 18:29:32 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 19:09:21 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D60A6BD259
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 18:29:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66174BD989
+	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 19:09:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77DB6C56603;
-	Fri, 30 Jan 2026 17:29:31 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3A99C56612;
+	Fri, 30 Jan 2026 18:09:20 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 789DEC36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6943EC56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jan 2026 17:29:30 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id A2C504E42358;
- Fri, 30 Jan 2026 17:29:29 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 5A8BF6075A;
- Fri, 30 Jan 2026 17:29:29 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 97C22119A8875; Fri, 30 Jan 2026 18:29:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1769794168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=BZzFWgEUHdwooMtG4TuZHw8S0x/mQPwXY7nuasg2QDI=;
- b=XVPFzqWE/z0q/vA8cfnLwOCF3GNHBAMElHHkvpKxj31B01szcfHhv/MKqqagCBZ8AupfGP
- iJnYgAFQPPqjQz2LP7F9tPLSXhQ/rveMFz5B1N3+K0PJTHrk2FIjdlIEuMWQ6nEoy35VIu
- fGu7Mpkvbtq2hLUetqyQN58STUftYZ1PBBZ+NbZsE2+H+nXU6U4z6X2rRJZh7AbmyIuUWv
- jcKaGmFoFFRS9yFM7L7bkbIVuuA5wPQmKwXIPbUig+QD8Q6t9z6n0nK0TnDyodFKE1FDdk
- EgQqGJaF7h7V+QOEE/qTXrfJRJrssg1ZsYssc42w0PaeeYTQTsBNqNZgyGvmjg==
-Message-ID: <9dfdeee0-7758-439b-a2a5-a7f243427cf4@bootlin.com>
-Date: Fri, 30 Jan 2026 18:29:23 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Andrew Lunn <andrew@lunn.ch>
+ Fri, 30 Jan 2026 18:09:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=NJGHCJHC/C1S/dc48iAgg6S72Ja9f72htrzVxmHBznY=; b=y8g5IMvGwzIvn9WkzEVPh4AHot
+ IhhlsFV8sIPDLGDtax1wUOk9cjSIdE3slCsK0mabLqDgtmwGIDcfBwEi0E/4UX/Wl7s24kMfe8Tu8
+ bBA6ZgW1hDAYrFBJgDCUuzEnNC3CeL/cDDlgYJB1UNz9gvduqe34eGAgsaSzMh+7xC3RcurkARW78
+ V8fuuT8N+sUlCYCX82GH0yKvOzWgh5dVUK8XwQBH3W3F2qOGg/GL0fQPkF+AUJCqK9G+Gn24ZuTjc
+ k1azLxitSHg3NYX4yx9lGo1ieKhr+UPiKMCEHk3v7xTN7VHl5/YV97PgUcQH6S4K+XUAQJwSsF/xI
+ UyDV2bGA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46880)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vlsvh-000000001Km-0cQA;
+ Fri, 30 Jan 2026 18:09:13 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vlsvd-000000000it-3G8k; Fri, 30 Jan 2026 18:09:09 +0000
+Date: Fri, 30 Jan 2026 18:09:09 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Message-ID: <aXzzxeRsbnF8-nAq@shell.armlinux.org.uk>
 References: <aXyRlFw7ZuhRPiKo@shell.armlinux.org.uk>
  <E1vlmOQ-00000006zuz-0ffN@rmk-PC.armlinux.org.uk>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <E1vlmOQ-00000006zuz-0ffN@rmk-PC.armlinux.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+ <9dfdeee0-7758-439b-a2a5-a7f243427cf4@bootlin.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <9dfdeee0-7758-439b-a2a5-a7f243427cf4@bootlin.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net-next 1/3] net: stmmac: clear
  half-duplex caps where unsupported
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -69,67 +72,72 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:maxime.chevallier@bootlin.com,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[bootlin.com:-];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.991];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.958];
 	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,bootlin.com:mid,bootlin.com:email,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: D60A6BD259
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,armlinux.org.uk:url,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 66174BD989
 X-Rspamd-Action: no action
 
-Hi,
-
-On 30/01/2026 12:10, Russell King (Oracle) wrote:
-> Where a core supports hardware features, but does not indicate support
-> for half-duplex, clear phylink's half-duplex 1G, 100M and 10M
-> capability bits to disallow half-duplex operation and advertisement of
-> these link modes.
+On Fri, Jan 30, 2026 at 06:29:23PM +0100, Maxime Chevallier wrote:
+> Hi,
 > 
-> This will avoid the need for special code in the PCS driver to do this
-> based on the ESTATUS register bits, as the support in the PCS is
-> dependent on the same synthesis choice as the MAC core.
+> On 30/01/2026 12:10, Russell King (Oracle) wrote:
+> > Where a core supports hardware features, but does not indicate support
+> > for half-duplex, clear phylink's half-duplex 1G, 100M and 10M
+> > capability bits to disallow half-duplex operation and advertisement of
+> > these link modes.
+> > 
+> > This will avoid the need for special code in the PCS driver to do this
+> > based on the ESTATUS register bits, as the support in the PCS is
+> > dependent on the same synthesis choice as the MAC core.
+> > 
+> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Gave it a quick test on socfpga, as this impacts all variants,
+> and we seem to be good so,
+> 
+> Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Gave it a quick test on socfpga, as this impacts all variants,
-and we seem to be good so,
+If you look at /sys/kernel/debug/stmmaceth/ethX/dma_cap, it should
+say whether half duplex is supported (I guess in your case it will
+be, it's probably very unlikely not to be.) However, would be worth
+knowing whether the if() is taken or not!
 
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
-
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
