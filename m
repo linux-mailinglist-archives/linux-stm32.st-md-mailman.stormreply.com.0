@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mhNjEvMOfWlvQAIAu9opvQ
+	id sDQcLNpffWnpRgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 21:05:07 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 02:50:18 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0D9BE4C3
-	for <lists+linux-stm32@lfdr.de>; Fri, 30 Jan 2026 21:05:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 774BFC01C0
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 02:50:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20D4CC56612;
-	Fri, 30 Jan 2026 20:05:06 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A9BAC56612;
+	Sat, 31 Jan 2026 01:50:18 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3246FC56603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E7E6C56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 30 Jan 2026 20:05:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=XkZOk7FqUkLdlqp2VaiHJPS5cbES3nLzbHstV3AGmGc=; b=RF6+jDvsep//mrz7LBk9SpZ0TI
- z2g/rs+QEsbyulobRblX3QGeUrKHDwrdKLvRrPIiS4ReOXKvvzi2BemIO5SKccuncQZXXlHuunvaV
- +3uV33J40n5CgEQCqOdaSKURuiyxMPnIAsnQJiyWJwZV9S6fpheOqNmMxO9+Cbm9K7AGTtsN1QPsU
- qqYnazJnI8qALiU0qWCxSDtKMYeIbMV2E67Qduw0O4bolUOPtYQSLgG9RygNCwH1pT7RlfFJw5ry/
- orqcxB6H559vtz+e/eZZBcKmg9j4TzeOAwO6YPjRUPpXvwIGriY9XJMSeo0D3yqxciAWQwvuyBN2F
- 5mCsG+uA==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:40108 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vluji-000000001Ox-3M4H;
- Fri, 30 Jan 2026 20:04:58 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vlujh-00000007Hkw-2p6r; Fri, 30 Jan 2026 20:04:57 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Marek Vasut <marex@nabladev.com>
+ Sat, 31 Jan 2026 01:50:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 4CE7E41A93;
+ Sat, 31 Jan 2026 01:50:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249B2C116D0;
+ Sat, 31 Jan 2026 01:50:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1769824215;
+ bh=KveGONG7UJdElvqV315bWlMz8AD27Y9PZLI+Vh0KgjU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=GX4SYWdycMxo+2vTLOeR/ZBoTMWGL8AgvbwdETbXxJVMdby1l6Dl/yDEby0l+bAq9
+ 9c6Q3Ki4B+bTUnQbsrudX3kJlBk7gdDK6na9gXWgC1zrDWUW1D8AI/xuaO62XKAHNz
+ 7KBl252hzYi7jCPIyLfasU49uL767ZC6Z4XMBFGqjlwJeCKovdwCkF4QZXfgLvw6ZD
+ D/mcX2MYw6EilRtyq7BbVr626UBsoRRvZTRjwOMFTTTQq0bay74A5d7p/9ms1wP+5m
+ xCmKiBfwRLNb5F0zTpAInNgI6E6+gWD86d68SAQ6+GF/qJ1X8ABgRJC3WNeCF52EYt
+ aYEQDXnTXp2bg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 8BC98380CFFB; Sat, 31 Jan 2026 01:50:08 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vlujh-00000007Hkw-2p6r@rmk-PC.armlinux.org.uk>
-Date: Fri, 30 Jan 2026 20:04:57 +0000
-Cc: Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net] net: stmmac: fix stm32 (and potentially
- others) resume regression
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <176982420710.3961929.13739265763800349219.git-patchwork-notify@kernel.org>
+Date: Sat, 31 Jan 2026 01:50:07 +0000
+References: <20260129-stmmac-spell-v1-1-c7df9a96e482@kernel.org>
+In-Reply-To: <20260129-stmmac-spell-v1-1-c7df9a96e482@kernel.org>
+To: Simon Horman <horms@kernel.org>
+Cc: imx@lists.linux.dev, linux-sunxi@lists.linux.dev, wens@kernel.org,
+ kernel@pengutronix.de, samuel@sholland.org, festevam@gmail.com,
+ s.hauer@pengutronix.de, jernej.skrabec@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, shawnguo@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: spelling corrections
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,100 +67,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
+	FREEMAIL_CC(0.00)[lists.linux.dev,kernel.org,pengutronix.de,sholland.org,gmail.com,st-md-mailman.stormreply.com,lunn.ch,google.com,vger.kernel.org,redhat.com,davemloft.net,lists.infradead.org];
+	TAGGED_FROM(0.00)[netdevbpf];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:marex@nabladev.com,m:pabeni@redhat.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FORGED_RECIPIENTS(0.00)[m:horms@kernel.org,m:imx@lists.linux.dev,m:linux-sunxi@lists.linux.dev,m:wens@kernel.org,m:kernel@pengutronix.de,m:samuel@sholland.org,m:festevam@gmail.com,m:s.hauer@pengutronix.de,m:jernej.skrabec@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:shawnguo@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:jernejskrabec@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.988];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FROM_NO_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,nabladev.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: BC0D9BE4C3
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 774BFC01C0
 X-Rspamd-Action: no action
 
-Marek reported that suspending stm32 causes the following errors when
-the interface is administratively down:
+Hello:
 
-	$ echo devices > /sys/power/pm_test
-	$ echo mem > /sys/power/state
-	...
-	ck_ker_eth2stp already disabled
-	...
-	ck_ker_eth2stp already unprepared
-	...
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On suspend, stm32 starts the eth2stp clock in its suspend method, and
-stops it in the resume method. This is because the blamed commit omits
-the call to the platform glue ->suspend() method, but does make the
-call to the platform glue ->resume() method.
+On Thu, 29 Jan 2026 17:35:03 +0000 you wrote:
+> Correct spelling as flagged by codespell.
+> 
+> Signed-off-by: Simon Horman <horms@kernel.org>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c        |  4 ++--
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c      |  4 ++--
+>  drivers/net/ethernet/stmicro/stmmac/dwmac1000.h        |  2 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c    |  2 +-
+>  drivers/net/ethernet/stmicro/stmmac/enh_desc.c         |  2 +-
+>  drivers/net/ethernet/stmicro/stmmac/mmc_core.c         |  4 ++--
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_hwtstamp.c  |  2 +-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c      | 10 +++++-----
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c      |  2 +-
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_selftests.c |  2 +-
+>  10 files changed, 17 insertions(+), 17 deletions(-)
 
-This problem affects all other converted drivers as well - e.g. looking
-at the PCIe drivers, pci_save_state() will not be called, but
-pci_restore_state() will be. Similar issues affect all other drivers.
+Here is the summary with links:
+  - [net-next] net: stmmac: spelling corrections
+    https://git.kernel.org/netdev/net-next/c/96e1c895b5ec
 
-Fix this by always calling the ->suspend() method, even when the network
-interface is down. This fixes all the conversions to the platform glue
-->suspend() and ->resume() methods.
-
-Link: https://lore.kernel.org/r/20260114081809.12758-1-marex@nabladev.com
-Fixes: 07bbbfe7addf ("net: stmmac: add suspend()/resume() platform ops")
-Reported-by: Marek Vasut <marex@nabladev.com>
-Tested-by: Marek Vasut <marex@nabladev.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3f42843cd9ed..a379221b96a3 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -8042,7 +8042,7 @@ int stmmac_suspend(struct device *dev)
- 	u32 chan;
- 
- 	if (!ndev || !netif_running(ndev))
--		return 0;
-+		goto suspend_bsp;
- 
- 	mutex_lock(&priv->lock);
- 
-@@ -8082,6 +8082,7 @@ int stmmac_suspend(struct device *dev)
- 	if (stmmac_fpe_supported(priv))
- 		ethtool_mmsv_stop(&priv->fpe_cfg.mmsv);
- 
-+suspend_bsp:
- 	if (priv->plat->suspend)
- 		return priv->plat->suspend(dev, priv->plat->bsp_priv);
- 
+You are awesome, thank you!
 -- 
-2.47.3
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
 _______________________________________________
 Linux-stm32 mailing list
