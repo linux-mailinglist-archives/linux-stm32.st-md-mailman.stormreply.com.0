@@ -2,50 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QJirMIxtfWmSSAIAu9opvQ
+	id OB8hFCBvfWmTSAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 03:48:44 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 03:55:28 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 637C1C0577
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 03:48:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFC22C065A
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 03:55:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFE3EC5663A;
-	Sat, 31 Jan 2026 02:48:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 738E1C5663A;
+	Sat, 31 Jan 2026 02:55:27 +0000 (UTC)
 Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4248C56612
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30B16C56612
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Jan 2026 02:48:41 +0000 (UTC)
+ Sat, 31 Jan 2026 02:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
- from:content-type:reply-to; bh=ykINfR+68595rbydHn6nTQMnB5GoHxZgrU275cHex9c=; 
- b=O+8c0mX09K+V1RawkhytBx8jZqlVw7Ah/1SBBsVzh9QQiphRIJdqV8a6h+KHop7h2mcC3iSgDce
- oWjYZb/gyMXLpqV5UJMGF6xQXBiNeZn1QZgDDsKGXUvdNTa2Zmn1wIBFfd6fXLXj+O793g554Df28
- 1Q/2mr3bOAQmcScDidTW+fsTsRqAs/T/sQHXxPLaSCmj+c427GhUNFuRtvnCARSgC+BLOuso+PQQQ
- hJkprPR3IYIqbQi+gitcBSRVG7FvueB2PQpDYEv09FRAemhHm02sVnG2UUFnuZFh9B3OZ61Ot8odW
- p8oT1b0bUp7obduwG15WPW1Gpu52+7VYrItQ==;
+ from:content-type:reply-to; bh=PARnfAmO8TS3qYl2afHb4aIaOUKMPPe+CbKLTktcDqM=; 
+ b=ssxFzetOSSB93G/sh3CKAllOFkdW+kQt5lLgf812PrjAHbaKyYx/ruV/td2SyK6S3LmVmX76ooq
+ YagM7Xw4pe5mg1cSm0tjfR4aBPlL2HJ9776nbzi1Oou3q40WWTkMlFnVMhG2KaKQW4tkKUreXl+E0
+ ayt8+bpPWdTMyF2ME/rInx9/EuTRKujxESoL+z0pOzWaaW//7R9ikj3BOljCI9t9NPAE6YNxABc2V
+ A+rfC2CMMBgkoO0rcU7k1Ecgg0BI8vvMFOTPtwCS8ghB7+HIakI3H/edxlxuFADYreMlSpJud6nLF
+ gv+gse+4s9jNyTtlkhTzbvkjmf3zR37YX6ng==;
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
  by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
- id 1vm126-003RrU-0m; Sat, 31 Jan 2026 10:48:23 +0800
+ id 1vm18X-003S0A-1M; Sat, 31 Jan 2026 10:55:02 +0800
 Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Sat, 31 Jan 2026 10:48:22 +0800
-Date: Sat, 31 Jan 2026 10:48:22 +0800
+ Sat, 31 Jan 2026 10:55:01 +0800
+Date: Sat, 31 Jan 2026 10:55:01 +0800
 From: Herbert Xu <herbert@gondor.apana.org.au>
 To: Thorsten Blum <thorsten.blum@linux.dev>
-Message-ID: <aX1tdmQERL25z2Al@gondor.apana.org.au>
-References: <20260109142039.220729-2-thorsten.blum@linux.dev>
+Message-ID: <aX1vBYvzyxT4zdBK@gondor.apana.org.au>
+References: <20260113083130.790316-2-thorsten.blum@linux.dev>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260109142039.220729-2-thorsten.blum@linux.dev>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+In-Reply-To: <20260113083130.790316-2-thorsten.blum@linux.dev>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Eric Biggers <ebiggers@google.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-crypto@vger.kernel.org,
  Sakari Ailus <sakari.ailus@linux.intel.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] crypto: stm32 - Remove unnecessary checks
- before calling memcpy
+ Maxime =?iso-8859-1?Q?M=E9r=E9?= <maxime.mere@foss.st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Colin Ian King <colin.i.king@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH] crypto: stm32 - Replace min_t(size_t)
+	with just min()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,36 +81,38 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:thorsten.blum@linux.dev,m:mcoquelin.stm32@gmail.com,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:thorsten.blum@linux.dev,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:ebiggers@google.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-crypto@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:maxime.mere@foss.st.com,m:davem@davemloft.net,m:colin.i.king@gmail.com,m:mcoquelinstm32@gmail.com,m:coliniking@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.infradead.org,gmail.com,google.com,vger.kernel.org,st-md-mailman.stormreply.com,linux.intel.com,foss.st.com,davemloft.net];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,davemloft.net,linux.intel.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[apana.org.au:url,apana.org.au:email,gondor.apana.org.au:mid,linux.dev:email,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 637C1C0577
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gondor.apana.org.au:mid,apana.org.au:url,apana.org.au:email,linux.dev:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: CFC22C065A
 X-Rspamd-Action: no action
 
-On Fri, Jan 09, 2026 at 03:20:36PM +0100, Thorsten Blum wrote:
-> memcpy() can be safely called with size 0, which is a no-op. Remove the
-> unnecessary checks before calling memcpy().
+On Tue, Jan 13, 2026 at 09:31:28AM +0100, Thorsten Blum wrote:
+> In most cases, min_t(size_t) and explicit casting are unnecessary
+> because the values ->hw_blocksize, ->payload_{in,out}, and ->header_in
+> are already of type 'size_t'. Use the simpler min() macro instead.
 > 
 > Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 > ---
->  drivers/crypto/stm32/stm32-hash.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  drivers/crypto/stm32/stm32-cryp.c | 29 ++++++++++++++---------------
+>  1 file changed, 14 insertions(+), 15 deletions(-)
 
 Patch applied.  Thanks.
 -- 
