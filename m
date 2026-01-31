@@ -2,131 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gNeDGu8vfmlfWQIAu9opvQ
+	id eJ6yDj0+fmk6WgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 17:38:07 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 18:39:09 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EC18C30AB
-	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 17:38:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF444C3568
+	for <lists+linux-stm32@lfdr.de>; Sat, 31 Jan 2026 18:39:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF21C0693F;
-	Sat, 31 Jan 2026 16:38:06 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39F14C0693F;
+	Sat, 31 Jan 2026 17:39:08 +0000 (UTC)
+Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1BB2CFAC40
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 72D01C0693D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Jan 2026 16:38:04 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 60VEs2DF1106904
- for <linux-stm32@st-md-mailman.stormreply.com>; Sat, 31 Jan 2026 16:38:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=J50vAf4p6pBlGcfz7i0jIrGJ
- w+GAmstYwfRJL62C4qc=; b=g4++Jq9iWAPk3s6pcZPMglEaYIh5vVQ17pyXSuVJ
- nMytMkfzHNqJZFXZBl02yusZX//QuRM/j9X3gRWf0TL8etmKhWqVloCjgeXj1R82
- /Im9SfNapYLWXeS6zCo8kmW7SBNuJiovBMo/mCaN7MceJ+ciko9CudXzPez6t0Kw
- 5Uoo1nVp+PUG2fu6YT4BFSOlhxn/ptIZ3mFfwlTiw3hcMsg5LPQ01dni4s4boNu/
- dZLmR18JlOu7X0kBs2D/FdFpXX/kvnFMpURN2E6QtC9wmnUdrYRuaZZZHiuRwvRD
- V842pUfJUr06E7OLLCsVTBHO9FMvJ5tisfW7M5vjswmAzg==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4c1avx14ad-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Jan 2026 16:38:03 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c551e6fe4b4so1964316a12.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 31 Jan 2026 08:38:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1769877482; x=1770482282;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=J50vAf4p6pBlGcfz7i0jIrGJw+GAmstYwfRJL62C4qc=;
- b=Cz6u0/dc+yPpScLu3P1SCOBwMIPT3bNSOLBYq7CfMLMuMS9uRLNioq6C93CNv9bv3A
- E+i7ReMUci1R2oH2S+K6MnANyszNALEJcqcRbeHmGOzCg1PEgbGvSkISO2GbFYQyowpP
- nk0LB8klgGaOrNTW1kwm32ZVcfqHrQPcKduzmMhEojk30dx539fExzH22DQigXMfFJ+I
- QO3KKx8nKfz92Cmn99J9niGZofKuVX5/o2F0GS40nAlkPnrh5E2A0/lpiuAMgANakK1G
- YGlVMawAdXAoSgfGp3b/w+E0sz9CgrjxNRxqXZzy24mw5Elzbe1+KRPuWmRCnLVjPBjb
- y5Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1769877482; x=1770482282;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=J50vAf4p6pBlGcfz7i0jIrGJw+GAmstYwfRJL62C4qc=;
- b=NYh4j5MCdWcnRn9rkaALUujxsBi0tUmfywSouZFXitADSkMxgvFEjYCYrb1DISjeC7
- lrcFrykelBvk7EFTOCuIRCmtF83bBGfcL9tcBPRP8RLwrDjkW/6x8e0EIsLT6U9vwIcs
- toC/Sv/MUW94cnjxQ3Z41StcfSMCfrzAavLNxyQGLcff+ei/INJo9IoeRLpr0OZjs7Jh
- N5tlIDtQc/b2z9DUnUEARiUrG1ubt8TQA9DO2XIdk3mZ7PKdnJcPy/pGAXl2cEz6WVbE
- j8CltkBQtHyhRJ1ZJ0mKX0mxwvU/BpX9pj4QpQz37Rads0ocLuuw/pvlAfhA0y0rahab
- vk4w==
-X-Forwarded-Encrypted: i=1;
- AJvYcCWwnHpNjCiqZBbZldJSFL09f/HXEjPVPHwT8qRlMGctjJrD9fLqcQV4k0zch+zoh5G+zTUzVIMl2baqbw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxvG86U44q/ozdog1an5281MKQ6VuRm4WPzgfrLlY+xAuDOZxIs
- hGUWPM6/ntnornu6hC6lWhsqE5oHWY/gDtdspsSyDi9XtVhym9Tic8S2UEbC+xgj+wli1FDDRsp
- GveyHwxIhU5J0S2c1h6zsXuq9jhKIa+u74hcQLBnVWZghQ0ekQvqWm1rf5Q37dizEP99vgFrQ+9
- cKdfiEPCQ=
-X-Gm-Gg: AZuq6aI3VihcDSSVPQ0pLrVLUR/67NOSIs/KLfXUGtLXcZA4Rbi/Fy7o/p2L6lyOhIy
- MFVfH6aVPJOc16WY3lR8SE6H66s/3f/WyNAd/0dzb/E0R4cvmNuR9FVFbojcdqDd3tpKAnA6KMN
- AOuICSGgVaAEDbSg82QDRarZ8aP5J468ysKEp7/UEoOe4xjnJCJIdU5Nhy63PAb3CRMZHojkWWM
- oGN7ONMf8QRSZOlb89vx4ys5pR+DFQ1qAXNRiB68WJVI0nV7LsGSAIhSbmgVdGcqnY/yH3HKkNP
- 6dsQnYNbHXHdRfC9ROy0afdtiQaAjflgo95n7sr6dSyIhXVH6YnDRyAJvFx0RIjNzZZoZJnPaMT
- oUI2M1KrdXvM11Zw8R3P3LHY=
-X-Received: by 2002:a05:6a20:a11d:b0:38e:5535:bb4a with SMTP id
- adf61e73a8af0-392e0012363mr6614260637.11.1769877482166; 
- Sat, 31 Jan 2026 08:38:02 -0800 (PST)
-X-Received: by 2002:a05:6a20:a11d:b0:38e:5535:bb4a with SMTP id
- adf61e73a8af0-392e0012363mr6614233637.11.1769877481572; 
- Sat, 31 Jan 2026 08:38:01 -0800 (PST)
-Received: from oss.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c64276ef9fcsm10392441a12.1.2026.01.31.08.37.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 31 Jan 2026 08:38:01 -0800 (PST)
-Date: Sat, 31 Jan 2026 22:07:55 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aX4v499Zz0CymZI5@oss.qualcomm.com>
-References: <aXyRlFw7ZuhRPiKo@shell.armlinux.org.uk>
+ Sat, 31 Jan 2026 17:39:06 +0000 (UTC)
+Received: (wp-smtpd smtp.wp.pl 37907 invoked from network);
+ 31 Jan 2026 18:39:04 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
+ t=1769881144; bh=M+axLeKRgG/0ccqAhDUsNc7nO3Sf4H51zV4dDiQpsoM=;
+ h=From:To:Cc:Subject;
+ b=LzA+WqGxwaE5L3WiYfTZ/uYpZ3G6tKHToOteEn0RaZgJDVT+y6fvAF3cTTkK1dy93
+ 4az/uuIxk28teAkeadKF3uM++rCZcDj2X5CfKdnF9E2uXBhEKy0CIF9Rya4XlPgv1r
+ ywl6DIJz2aDhtLffsgizSPR7IRFAzL0Ad5nkgCzspOLFujp9AanlY/u03V+m3dUviq
+ 15EyBQRdA0z2sOwBolnBAOubLhDj18hTTUxAz0k7YrPEec0Owdb6kJv33bDQSrX2EN
+ zRc8tcReLjz0F2SUIaMwMjvgCxHeiZc/X6jENsAcE8TDUVPjiv6UU66UWEVmiSQm4Q
+ vJpEfeUZE14GQ==
+Received: from 83.24.122.77.ipv4.supernova.orange.pl (HELO laptop-olek.lan)
+ (olek2@wp.pl@[83.24.122.77]) (envelope-sender <olek2@wp.pl>)
+ by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+ for <herbert@gondor.apana.org.au>; 31 Jan 2026 18:39:04 +0100
+From: Aleksander Jan Bajkowski <olek2@wp.pl>
+To: herbert@gondor.apana.org.au, davem@davemloft.net,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 31 Jan 2026 18:38:47 +0100
+Message-ID: <20260131173902.3487-1-olek2@wp.pl>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aXyRlFw7ZuhRPiKo@shell.armlinux.org.uk>
-X-Proofpoint-ORIG-GUID: -vhrOgxYAO5QqbqKu2q3sspu-ZmdxT1l
-X-Proofpoint-GUID: -vhrOgxYAO5QqbqKu2q3sspu-ZmdxT1l
-X-Authority-Analysis: v=2.4 cv=P4w3RyAu c=1 sm=1 tr=0 ts=697e2feb cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=vUbySO9Y5rIA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=EUspDBNiAAAA:8 a=TRWK8DKzUZuuTiZSCyoA:9
- a=CjuIK1q_8ugA:10 a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMTMxMDEzOSBTYWx0ZWRfX0e2t7oPTWZW9
- 9+tCyaJPU22FtdDNfOZTnaVrQ461ptSHznAOO4csE6l7LhnsYMN4B+LCyQyefdnFV/412WZZo9/
- 9j3uYaqwzjUHlgHleIw0qKHAS/C6x+yL09YSHCge566AZMhMbOm5xbAYTZSoIwh1hVUFpv1IxSJ
- YBX0fJ9ELu0+lnSXOBy528RZXY8+5JfHcf1SBE8shCoynJuXPGFem4YIVklGT0m2855szUoENq/
- esmuOoOplCecboFRnbB77wo46UO6rCnEla9DpcwZBeKnY8g9dWnTx31MRs6Olk1vUzyJ0OcOXNQ
- BGIf/C4I81guTqevtwYMa7rmlt44Dl/+mxlWcfLliZNu9XwOxBWrVT3Lb4A/H328AKvnOa8PHQ0
- QsQbJuhbnVfgentgT2R9IgJ1NMUrHftjaCUdrPTCgtcHZcPq5u5lBa603UPs3MX1qlDgxThcyvM
- 3LHcaIauaRJAJQAdo9w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-01-31_03,2026-01-30_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 suspectscore=0 spamscore=0 clxscore=1015
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
- definitions=main-2601310139
-Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/3] net: stmmac: pcs preparation
+X-WP-DKIM-Status: good (id: wp.pl) 
+X-WP-MailID: 8e27bc5858491f7cc13cdfde030e73a7
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000009 [kar3]                               
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Subject: [Linux-stm32] [PATCH v2] crypto: testmgr - Add test vectors for
+	authenc(hmac(sha384), cbc(aes))
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,62 +65,402 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[wp.pl:s=20241105];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[wp.pl : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-crypto@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:olek2@wp.pl,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.989];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_FROM(0.00)[wp.pl];
+	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[wp.pl];
+	DKIM_TRACE(0.00)[wp.pl:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,qualcomm.com:email,oss.qualcomm.com:mid]
-X-Rspamd-Queue-Id: 0EC18C30AB
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: BF444C3568
 X-Rspamd-Action: no action
 
-On Fri, Jan 30, 2026 at 11:10:12AM +0000, Russell King (Oracle) wrote:
-> Hi,
-> 
-> These three patches prepare for the PCS changes, which, subject to
-> Qualcomm testing, should be coming in the next cycle.
-> 
->  .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  2 --
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c   | 31 +++++++++++++++++++---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h   | 24 ++---------------
->  4 files changed, 44 insertions(+), 31 deletions(-)
-> 
+Test vectors were generated starting from existing CBC(AES) test vectors
+(RFC3602, NIST SP800-38A) and adding HMAC(SHA384) computed with Python
+script. Then, the results were double-checked on Mediatek MT7981 (safexcel)
+and NXP P2020 (talitos). Both platforms pass self-tests.
 
-No issues found on the QCS9100 Ride R3 board, so:
+Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+---
+v2:
+ - typo in commit name
+---
+ crypto/testmgr.c |   7 ++
+ crypto/testmgr.h | 311 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 318 insertions(+)
 
-Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index a302be53896d..50cf685a3c6f 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -4174,6 +4174,13 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.alg = "authenc(hmac(sha256),rfc3686(ctr(aes)))",
+ 		.test = alg_test_null,
+ 		.fips_allowed = 1,
++	}, {
++		.alg = "authenc(hmac(sha384),cbc(aes))",
++		.generic_driver = "authenc(hmac-sha384-lib,cbc(aes-generic))",
++		.test = alg_test_aead,
++		.suite = {
++			.aead = __VECS(hmac_sha384_aes_cbc_tv_temp)
++		}
+ 	}, {
+ 		.alg = "authenc(hmac(sha384),cbc(des))",
+ 		.generic_driver = "authenc(hmac-sha384-lib,cbc(des-generic))",
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index 80bf5f1b67a6..8f38e96c0ee1 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -16574,6 +16574,317 @@ static const struct aead_testvec hmac_sha256_aes_cbc_tv_temp[] = {
+ 	},
+ };
+ 
++static const struct aead_testvec hmac_sha384_aes_cbc_tv_temp[] = {
++	{ /* RFC 3602 Case 1 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x06\xa9\x21\x40\x36\xb8\xa1\x5b"
++			  "\x51\x2e\x03\xd5\x34\x12\x00\x06",
++		.klen   = 8 + 48 + 16,
++		.iv     = "\x3d\xaf\xba\x42\x9d\x9e\xb4\x30"
++			  "\xb4\x22\xda\x80\x2c\x9f\xac\x41",
++		.assoc	= "\x3d\xaf\xba\x42\x9d\x9e\xb4\x30"
++			  "\xb4\x22\xda\x80\x2c\x9f\xac\x41",
++		.alen   = 16,
++		.ptext	= "Single block msg",
++		.plen	= 16,
++		.ctext	= "\xe3\x53\x77\x9c\x10\x79\xae\xb8"
++			  "\x27\x08\x94\x2d\xbe\x77\x18\x1a"
++			  "\x79\x1c\xf1\x22\x95\x80\xe0\x60"
++			  "\x7f\xf9\x92\x60\x83\xbd\x60\x9c"
++			  "\xf6\x62\x8b\xa9\x7d\x56\xe2\xaf"
++			  "\x80\x43\xbc\x41\x4a\x63\x0b\xa0"
++			  "\x16\x25\xe2\xfe\x0a\x96\xf6\xa5"
++			  "\x6c\x0b\xc2\x53\xb4\x27\xd9\x42",
++		.clen	= 16 + 48,
++	}, { /* RFC 3602 Case 2 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\x30\x31\x32\x33\x34\x35\x36\x37"
++			  "\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f"
++			  "\x40\x41\x42\x43\x44\x45\x46\x47"
++			  "\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f"
++			  "\xc2\x86\x69\x6d\x88\x7c\x9a\xa0"
++			  "\x61\x1b\xbb\x3e\x20\x25\xa4\x5a",
++		.klen   = 8 + 48 + 16,
++		.iv     = "\x56\x2e\x17\x99\x6d\x09\x3d\x28"
++			  "\xdd\xb3\xba\x69\x5a\x2e\x6f\x58",
++		.assoc	= "\x56\x2e\x17\x99\x6d\x09\x3d\x28"
++			  "\xdd\xb3\xba\x69\x5a\x2e\x6f\x58",
++		.alen   = 16,
++		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
++		.plen	= 32,
++		.ctext	= "\xd2\x96\xcd\x94\xc2\xcc\xcf\x8a"
++			  "\x3a\x86\x30\x28\xb5\xe1\xdc\x0a"
++			  "\x75\x86\x60\x2d\x25\x3c\xff\xf9"
++			  "\x1b\x82\x66\xbe\xa6\xd6\x1a\xb1"
++			  "\x4e\x5b\xa8\x65\x51\xc6\x58\xaf"
++			  "\x31\x57\x50\x3d\x01\xa1\xa4\x3f"
++			  "\x42\xd1\xd7\x31\x76\x8d\xf8\xc8"
++			  "\xe4\xd2\x7e\xc5\x23\xe7\xc6\x2e"
++			  "\x2d\xfd\x9d\xc1\xac\x50\x1e\xcf"
++			  "\xa0\x10\xeb\x1a\x9c\xb7\xe1\xca",
++		.clen	= 32 + 48,
++	}, { /* RFC 3602 Case 3 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"            /* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x22\x33\x44\x55\x66\x77\x88\x99"
++			  "\xaa\xbb\xcc\xdd\xee\xff\x11\x22"
++			  "\x33\x44\x55\x66\x77\x88\x99\xaa"
++			  "\xbb\xcc\xdd\xee\xff\x11\x22\x33"
++			  "\x6c\x3e\xa0\x47\x76\x30\xce\x21"
++			  "\xa2\xce\x33\x4a\xa7\x46\xc2\xcd",
++		.klen   = 8 + 48 + 16,
++		.iv     = "\xc7\x82\xdc\x4c\x09\x8c\x66\xcb"
++			  "\xd9\xcd\x27\xd8\x25\x68\x2c\x81",
++		.assoc	= "\xc7\x82\xdc\x4c\x09\x8c\x66\xcb"
++			  "\xd9\xcd\x27\xd8\x25\x68\x2c\x81",
++		.alen   = 16,
++		.ptext	= "This is a 48-byte message (exactly 3 AES blocks)",
++		.plen	= 48,
++		.ctext	= "\xd0\xa0\x2b\x38\x36\x45\x17\x53"
++			  "\xd4\x93\x66\x5d\x33\xf0\xe8\x86"
++			  "\x2d\xea\x54\xcd\xb2\x93\xab\xc7"
++			  "\x50\x69\x39\x27\x67\x72\xf8\xd5"
++			  "\x02\x1c\x19\x21\x6b\xad\x52\x5c"
++			  "\x85\x79\x69\x5d\x83\xba\x26\x84"
++			  "\xa1\x52\xe7\xda\xf7\x05\xb6\xca"
++			  "\xad\x0f\x51\xed\x5a\xd3\x0f\xdf"
++			  "\xde\xeb\x3f\x31\xed\x3a\x43\x93"
++			  "\x3b\xb7\xca\xc8\x1b\xe7\x3b\x61"
++			  "\x6a\x05\xfd\x2d\x6a\x5c\xb1\x0d"
++			  "\x6e\x7a\xeb\x1c\x84\xec\xdb\xde",
++		.clen	= 48 + 48,
++	}, { /* RFC 3602 Case 4 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x22\x33\x44\x55\x66\x77\x88\x99"
++			  "\xaa\xbb\xcc\xdd\xee\xff\x11\x22"
++			  "\x33\x44\x55\x66\x77\x88\x99\xaa"
++			  "\xbb\xcc\xdd\xee\xff\x11\x22\x33"
++			  "\x56\xe4\x7a\x38\xc5\x59\x89\x74"
++			  "\xbc\x46\x90\x3d\xba\x29\x03\x49",
++		.klen   = 8 + 48 + 16,
++		.iv     = "\x8c\xe8\x2e\xef\xbe\xa0\xda\x3c"
++			  "\x44\x69\x9e\xd7\xdb\x51\xb7\xd9",
++		.assoc	= "\x8c\xe8\x2e\xef\xbe\xa0\xda\x3c"
++			  "\x44\x69\x9e\xd7\xdb\x51\xb7\xd9",
++		.alen   = 16,
++		.ptext	= "\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7"
++			  "\xa8\xa9\xaa\xab\xac\xad\xae\xaf"
++			  "\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7"
++			  "\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf"
++			  "\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7"
++			  "\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf"
++			  "\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7"
++			  "\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf",
++		.plen	= 64,
++		.ctext	= "\xc3\x0e\x32\xff\xed\xc0\x77\x4e"
++			  "\x6a\xff\x6a\xf0\x86\x9f\x71\xaa"
++			  "\x0f\x3a\xf0\x7a\x9a\x31\xa9\xc6"
++			  "\x84\xdb\x20\x7e\xb0\xef\x8e\x4e"
++			  "\x35\x90\x7a\xa6\x32\xc3\xff\xdf"
++			  "\x86\x8b\xb7\xb2\x9d\x3d\x46\xad"
++			  "\x83\xce\x9f\x9a\x10\x2e\xe9\x9d"
++			  "\x49\xa5\x3e\x87\xf4\xc3\xda\x55"
++			  "\x85\x7b\x91\xe0\x29\xeb\xd3\x59"
++			  "\x7c\xe3\x67\x14\xbe\x71\x2a\xd2"
++			  "\x8a\x1a\xd2\x35\x78\x6b\x69\xba"
++			  "\x64\xa5\x04\x00\x19\xc3\x4c\xae"
++			  "\x71\xff\x76\x9f\xbb\xc3\x29\x22"
++			  "\xc2\xc6\x51\xf1\xe6\x29\x5e\xa5",
++		.clen	= 64 + 48,
++	}, { /* RFC 3602 Case 5 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"            /* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x22\x33\x44\x55\x66\x77\x88\x99"
++			  "\xaa\xbb\xcc\xdd\xee\xff\x11\x22"
++			  "\x33\x44\x55\x66\x77\x88\x99\xaa"
++			  "\xbb\xcc\xdd\xee\xff\x11\x22\x33"
++			  "\x90\xd3\x82\xb4\x10\xee\xba\x7a"
++			  "\xd9\x38\xc4\x6c\xec\x1a\x82\xbf",
++		.klen   = 8 + 48 + 16,
++		.iv     = "\xe9\x6e\x8c\x08\xab\x46\x57\x63"
++			  "\xfd\x09\x8d\x45\xdd\x3f\xf8\x93",
++		.assoc  = "\x00\x00\x43\x21\x00\x00\x00\x01"
++			  "\xe9\x6e\x8c\x08\xab\x46\x57\x63"
++			  "\xfd\x09\x8d\x45\xdd\x3f\xf8\x93",
++		.alen   = 24,
++		.ptext	= "\x08\x00\x0e\xbd\xa7\x0a\x00\x00"
++			  "\x8e\x9c\x08\x3d\xb9\x5b\x07\x00"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\x30\x31\x32\x33\x34\x35\x36\x37"
++			  "\x01\x02\x03\x04\x05\x06\x07\x08"
++			  "\x09\x0a\x0b\x0c\x0d\x0e\x0e\x01",
++		.plen	= 80,
++		.ctext	= "\xf6\x63\xc2\x5d\x32\x5c\x18\xc6"
++			  "\xa9\x45\x3e\x19\x4e\x12\x08\x49"
++			  "\xa4\x87\x0b\x66\xcc\x6b\x99\x65"
++			  "\x33\x00\x13\xb4\x89\x8d\xc8\x56"
++			  "\xa4\x69\x9e\x52\x3a\x55\xdb\x08"
++			  "\x0b\x59\xec\x3a\x8e\x4b\x7e\x52"
++			  "\x77\x5b\x07\xd1\xdb\x34\xed\x9c"
++			  "\x53\x8a\xb5\x0c\x55\x1b\x87\x4a"
++			  "\xa2\x69\xad\xd0\x47\xad\x2d\x59"
++			  "\x13\xac\x19\xb7\xcf\xba\xd4\xa6"
++			  "\x57\x5f\xb4\xd7\x74\x6f\x18\x97"
++			  "\xb7\xde\xfc\xf3\x4e\x0d\x29\x4d"
++			  "\xa0\xff\x39\x9e\x2d\xbf\x27\xac"
++			  "\x54\xb9\x8a\x3e\xab\x3b\xac\xd3"
++			  "\x36\x43\x74\xfc\xc2\x64\x81\x8a"
++			  "\x2c\x15\x72\xdf\x3f\x9d\x5b\xa4",
++		.clen	= 80 + 48,
++	}, { /* NIST SP800-38A F.2.3 CBC-AES192.Encrypt */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"            /* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x18"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x22\x33\x44\x55\x66\x77\x88\x99"
++			  "\xaa\xbb\xcc\xdd\xee\xff\x11\x22"
++			  "\x33\x44\x55\x66\x77\x88\x99\xaa"
++			  "\xbb\xcc\xdd\xee\xff\x11\x22\x33"
++			  "\x8e\x73\xb0\xf7\xda\x0e\x64\x52"
++			  "\xc8\x10\xf3\x2b\x80\x90\x79\xe5"
++			  "\x62\xf8\xea\xd2\x52\x2c\x6b\x7b",
++		.klen   = 8 + 48 + 24,
++		.iv     = "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.assoc	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.alen   = 16,
++		.ptext	= "\x6b\xc1\xbe\xe2\x2e\x40\x9f\x96"
++			  "\xe9\x3d\x7e\x11\x73\x93\x17\x2a"
++			  "\xae\x2d\x8a\x57\x1e\x03\xac\x9c"
++			  "\x9e\xb7\x6f\xac\x45\xaf\x8e\x51"
++			  "\x30\xc8\x1c\x46\xa3\x5c\xe4\x11"
++			  "\xe5\xfb\xc1\x19\x1a\x0a\x52\xef"
++			  "\xf6\x9f\x24\x45\xdf\x4f\x9b\x17"
++			  "\xad\x2b\x41\x7b\xe6\x6c\x37\x10",
++		.plen	= 64,
++		.ctext	= "\x4f\x02\x1d\xb2\x43\xbc\x63\x3d"
++			  "\x71\x78\x18\x3a\x9f\xa0\x71\xe8"
++			  "\xb4\xd9\xad\xa9\xad\x7d\xed\xf4"
++			  "\xe5\xe7\x38\x76\x3f\x69\x14\x5a"
++			  "\x57\x1b\x24\x20\x12\xfb\x7a\xe0"
++			  "\x7f\xa9\xba\xac\x3d\xf1\x02\xe0"
++			  "\x08\xb0\xe2\x79\x88\x59\x88\x81"
++			  "\xd9\x20\xa9\xe6\x4f\x56\x15\xcd"
++			  "\x29\x9b\x42\x47\x0b\xbf\xf3\x54"
++			  "\x54\x95\xb0\x89\xd5\xa0\xc3\x78"
++			  "\x60\x6c\x18\x39\x6d\xc9\xfb\x2a"
++			  "\x34\x1c\xed\x95\x10\x1e\x43\x0a"
++			  "\x72\xce\x26\xbc\x74\xd9\x6f\xa2"
++			  "\xf1\xd9\xd0\xb1\xdf\x3d\x93\x14",
++		.clen	= 64 + 48,
++	}, { /* NIST SP800-38A F.2.5 CBC-AES256.Encrypt */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x20"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x22\x33\x44\x55\x66\x77\x88\x99"
++			  "\xaa\xbb\xcc\xdd\xee\xff\x11\x22"
++			  "\x33\x44\x55\x66\x77\x88\x99\xaa"
++			  "\xbb\xcc\xdd\xee\xff\x11\x22\x33"
++			  "\x60\x3d\xeb\x10\x15\xca\x71\xbe"
++			  "\x2b\x73\xae\xf0\x85\x7d\x77\x81"
++			  "\x1f\x35\x2c\x07\x3b\x61\x08\xd7"
++			  "\x2d\x98\x10\xa3\x09\x14\xdf\xf4",
++		.klen   = 8 + 48 + 32,
++		.iv     = "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.assoc	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.alen   = 16,
++		.ptext	= "\x6b\xc1\xbe\xe2\x2e\x40\x9f\x96"
++			  "\xe9\x3d\x7e\x11\x73\x93\x17\x2a"
++			  "\xae\x2d\x8a\x57\x1e\x03\xac\x9c"
++			  "\x9e\xb7\x6f\xac\x45\xaf\x8e\x51"
++			  "\x30\xc8\x1c\x46\xa3\x5c\xe4\x11"
++			  "\xe5\xfb\xc1\x19\x1a\x0a\x52\xef"
++			  "\xf6\x9f\x24\x45\xdf\x4f\x9b\x17"
++			  "\xad\x2b\x41\x7b\xe6\x6c\x37\x10",
++		.plen	= 64,
++		.ctext	= "\xf5\x8c\x4c\x04\xd6\xe5\xf1\xba"
++			  "\x77\x9e\xab\xfb\x5f\x7b\xfb\xd6"
++			  "\x9c\xfc\x4e\x96\x7e\xdb\x80\x8d"
++			  "\x67\x9f\x77\x7b\xc6\x70\x2c\x7d"
++			  "\x39\xf2\x33\x69\xa9\xd9\xba\xcf"
++			  "\xa5\x30\xe2\x63\x04\x23\x14\x61"
++			  "\xb2\xeb\x05\xe2\xc3\x9b\xe9\xfc"
++			  "\xda\x6c\x19\x07\x8c\x6a\x9d\x1b"
++			  "\x9f\x50\xce\x64\xd9\xa3\xc9\x7a"
++			  "\x15\x3a\x3d\x46\x9a\x90\xf3\x06"
++			  "\x22\xad\xc5\x24\x77\x50\xb8\xfe"
++			  "\xbe\x37\x16\x86\x34\x5f\xaf\x97"
++			  "\x00\x9d\x86\xc8\x32\x4f\x72\x2f"
++			  "\x48\x97\xad\xb6\xb9\x77\x33\xbc",
++		.clen	= 64 + 48,
++	},
++};
++
+ static const struct aead_testvec hmac_sha512_aes_cbc_tv_temp[] = {
+ 	{ /* RFC 3602 Case 1 */
+ #ifdef __LITTLE_ENDIAN
+-- 
+2.47.3
 
-	Ayaan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
