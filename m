@@ -2,182 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id INbhMXWtgGmiAQMAu9opvQ
+	id 3FnsHGmbgWlYHwMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 02 Feb 2026 14:58:13 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 07:53:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5920CD02C
-	for <lists+linux-stm32@lfdr.de>; Mon, 02 Feb 2026 14:58:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA1C7D57AC
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 07:53:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32F05C8F270;
-	Mon,  2 Feb 2026 13:58:13 +0000 (UTC)
-Received: from mx07-00178001.pphosted.com (mx07-00178001.pphosted.com
- [185.132.182.106])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 952B5C87EC8;
+	Tue,  3 Feb 2026 06:53:28 +0000 (UTC)
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
+ [209.85.218.44])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE8C0C8F261
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73FD3C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  2 Feb 2026 13:58:11 +0000 (UTC)
-Received: from pps.filterd (m0241204.ppops.net [127.0.0.1])
- by mx07-00178001.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 612Da6Mk2888215; Mon, 2 Feb 2026 14:58:01 +0100
-Received: from osppr02cu001.outbound.protection.outlook.com
- (mail-norwayeastazon11013000.outbound.protection.outlook.com [40.107.159.0])
- by mx07-00178001.pphosted.com (PPS) with ESMTPS id 4c1apvx2qa-1
- (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
- Mon, 02 Feb 2026 14:58:00 +0100 (CET)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OzJjIr+KvBGQPyBW67KG0EmDr2dUmcg2yq+d07SAqJsmEWNShRJP2lm4z4JKA9yVZRKuA041TsCCWf0D48Wo5w0ui0TcTqJl1AjAc3Sl3KmsAmkVUzxld82kk2+LAo0v/dHREoRzuqcduvYISfPMfjAZOLDk6hVhb0bwjh+fjemSPUq4T1oFRCCqmTJc2ys8Xc1YOsYdP2BBs3qGmCEY+8IkJLe1wvAB+47Z3qieZTU/y5p9LgdvCH+bIr8McU8CwARhhSAP57g8/Jg0cUpuUOuxz81FJDK8hNUN8k7v0d6DsrbOUhoVEu91fF8ftmR7Ll8+9EkxO2Y26qm731Keqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hp5517Pusd7fHxVUXRM0gf5oDQeFk1ntBoqH6qnQnrM=;
- b=D9zLZcDvFgUNV6ah8izMf5fsGqRFT8cZjNOlGx03s8uVeuDj/kaWW998gVJI0fl0SLWz2PtQMKq+Av2WMOsA9ZBByscssyez1hXlhhnZwlr06CEcCWF0UD7Z4yzgaDOj0PIviURVZwSsl7PSWaJG672lHB7V6bmtjuNV07Oe84a/hywQWjiWb0T24IZ3dFtsKbdcz8GnO4ck5cQ1ppPzTZc1NvJg1HPGmT4qt9jFdoNI/tP9KTkvowxr1ISZyIjZTl0Eg2vH+N2QTHGQLnEle3VnLFXhdl3N/OxFLRji2gHNKKBBejf8frGop9hYr5RS0Z5vc/UN2AkuI+y9NFHhDw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hp5517Pusd7fHxVUXRM0gf5oDQeFk1ntBoqH6qnQnrM=;
- b=XyO1WDKqHrLowLGiFTStzuAHzNJWYXG9CeonC9hSgJ2ukOL2MTR+6c9e2IU+3OQHh2jGqJfc0sYmdLbq8a3aFTDsm1RDsVwF/l/kf9oIHYiFGI9RMTMaIkxuRILx4MlkboybrzZpRJoSPlagAOcI7taD3DqR9tTW8XR3hjDNGMlqZpDJZ5f8BPg4VucShvs+pJbI40IhXgP4mbqgJ1XXS8YbklXFKq7Rvf15OllC1ukE8+mcb4iQ6EZt4GLhPGZTPO7ZCGaSe5BE0oBgvrQSaCW7s6fTqGy0JCCyTiw3CWVuV3LUKJ3RhaFfLUBbTzVCvu0UX4GmNel2BPkDYRT9Kw==
-Received: from AS4P190CA0001.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5de::7)
- by DB9PR10MB5593.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:30c::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Mon, 2 Feb
- 2026 13:57:55 +0000
-Received: from AMS0EPF00000199.eurprd05.prod.outlook.com
- (2603:10a6:20b:5de:cafe::68) by AS4P190CA0001.outlook.office365.com
- (2603:10a6:20b:5de::7) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.16 via Frontend Transport; Mon,
- 2 Feb 2026 13:57:56 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS0EPF00000199.mail.protection.outlook.com (10.167.16.245) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Mon, 2 Feb 2026 13:57:55 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 2 Feb
- 2026 14:59:40 +0100
-Received: from localhost (10.252.7.227) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Mon, 2 Feb
- 2026 14:57:54 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Mon, 2 Feb 2026 14:57:38 +0100
+ Mon,  2 Feb 2026 20:51:27 +0000 (UTC)
+Received: by mail-ej1-f44.google.com with SMTP id
+ a640c23a62f3a-b8871718b00so837266066b.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 02 Feb 2026 12:51:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770065487; x=1770670287;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=MjBpuLkcLUaCRKPdP4eX6OjLAhe9FJoKGb09vlloYBU=;
+ b=bIbyRiP73pIDIXD9sah5iYzLrf6chLEb5kxDIzuC2ULxKBQSGEyFyLiKNSf0sjOYRH
+ CWvFvg+fXDaY6T6XqyEs+uLGcJfow2ttzML0jF0hfIaYArjFVGtKRDElvVpMXCBTaacC
+ 06rsVZrn1cKd01zyBt7BtGpc5eg+4Pqg7/Ns/wP5IN+Ei8zsNCrcspxqd6Uifs7dT0ad
+ n6vafvbAYt6tKlMdtju3PUKAFDyEVnpwe0WlZHkrDkq1x2prGKdZ2BFckxW2UGpSrC7o
+ 3hAMPfjN0ahbRJQHtrMHqqan+bOO46EO1YuH0VCiQLYMxS4GRSZulscBlX32M+DQcjn4
+ 9jmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770065487; x=1770670287;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=MjBpuLkcLUaCRKPdP4eX6OjLAhe9FJoKGb09vlloYBU=;
+ b=CZ3vfoFcjYvVtzaFEMy5UHTmV0FN95ZvvhV2lUlCMohMqiyoyX129+rmUI1IYDeTrI
+ +hKWAOOklVq7yx216e0Ner5OmkiieZKMeEdbAxKFb6AQaVX9Vtr+TeJ/gKssUtcwVcl+
+ WcdxGCz0dcW2GzRWj/Gn9OwjxMpIUZONhxUSmsxpgFWmOzol6w+LEGqGdP+3q4hrvB2A
+ ZMlSYbZSvrwg543kZNwoOzzGVTuDEellbf48b1Qbt9xKnKyM+byVvb+kjGYCkcwoeHT9
+ OWzo4iH6RF0eBw/PjXBD8880pJ9g6uk5G95ssMG8B5aqqDCQPGNuGlwz19Im/VxTcaUi
+ f1BQ==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWMCot3Mbax4ugLpvYMyE5/CELkIOPPvhW4tUhZu3aLPJ7mpZDfm3KnAh/zI2niDC3yVZ+jV4dkUD1/eA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz7N4YqPHCeIBEGC+VAr+QM/HdER5wmmDmzarMadmJBWXFKtrNo
+ Ytmyij44JNM1+54dU4cYUQK53Tcvt7Pqj1jpl7VYpfSdxMpo7arAEZHjSDDMkQ==
+X-Gm-Gg: AZuq6aLP3h5q4LVQ3j2Rq0DIjfTjiiQ4jVwMTJ5Hv8SQJ82Hl+nBcCtWwMEMAls21uT
+ 1kNORvhFNw5Of5KnXTz/da60eQSBAA3JqaYmQgqz9WkshNIdncnWMsf7vDUx9qmJXOjdeRb5sdi
+ 79FwK82hAu/aLDP/+iaEs5ilGWdhbMasQJjO9av6kvrbqnla8966z97tl1fu9pN2fguYonMxEYf
+ aiJgl1G0k6ccZc45AKarTEJYszBae70+lmlLg3QcBuCQ8x7pmfdDYEUmkOOG+cEYtv+jchxVr1X
+ kMiHSOW/4BuOdQdm0oB937tsLNyikq4w2Vwes/BEi/+2MU/JXaGcpPvTpXI/JxGnOlVmsGai6H4
+ ++YzFdvAg2228P3Q2oe63QCEdKcxBhk2bk8cCyVJ5nYkSEfgbgIWICNU9H/HENw4Fb8MOnVI9pf
+ vSdKo4Pb4OYvbflJeyC6/f1xYs
+X-Received: by 2002:a05:600c:1385:b0:47e:dc64:f1c6 with SMTP id
+ 5b1f17b1804b1-482db493eb4mr189595615e9.6.1770058495160; 
+ Mon, 02 Feb 2026 10:54:55 -0800 (PST)
+Received: from [192.168.0.7] ([86.124.200.187])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-482db623407sm125687055e9.0.2026.02.02.10.54.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 02 Feb 2026 10:54:54 -0800 (PST)
+Message-ID: <f95f73b9-d024-4697-bca1-02fb8bc044af@gmail.com>
+Date: Mon, 2 Feb 2026 20:54:52 +0200
 MIME-Version: 1.0
-Message-ID: <20260202-stm32-dcmipp-pixel-pipes-support-v1-13-8d8d51f5e014@foss.st.com>
-References: <20260202-stm32-dcmipp-pixel-pipes-support-v1-0-8d8d51f5e014@foss.st.com>
-In-Reply-To: <20260202-stm32-dcmipp-pixel-pipes-support-v1-0-8d8d51f5e014@foss.st.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.252.7.227]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000199:EE_|DB9PR10MB5593:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4b582dd4-fc98-44fe-83d0-08de62631086
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|36860700013|82310400026; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?YlhuYmV1S2tkN0RqV2NFZVRLZFQ0aFN5ZEZvL3FVM0QwZlkxSStLSGZrV2pL?=
- =?utf-8?B?TjVxOW84WjB2WHlVd2ZxNHFpSmtHUmU3NUtDY1RPMGlZSmhVMGlpRjkvMFBI?=
- =?utf-8?B?R0g4aUcyamhzMmNYaC9BTFBNbHFzb0JLQUFzV0JWRWUzRnhYTlFoSzIrcXgw?=
- =?utf-8?B?TDVab3hsclpaQ2tCUzl5eG53eTBGbURZR2l3RmlnblZlcUpkVXNTQXVtWFlo?=
- =?utf-8?B?VjNtOENmS2xrdkhoUUpnTkdUMFV4eFlrZjF5R1FqYnloQlBRRDNqQUZMTTF1?=
- =?utf-8?B?bmkvcFM0bk1OL01yUUF3MDc5LzREK3pOYTU5TXAySTZmbGFmWkkwZkpNL2Z4?=
- =?utf-8?B?eitwd2dWdFJ5ZStUbmFPeVlJUlNWcVRIZDgzQ0xhTG0xYmI1WVp6VVJhL1FO?=
- =?utf-8?B?N3F2NDF0STB1a1RtWXNpZjVObmJnbFdPUm4zUlNjS2plVjJ2eW0rMkNPeXZB?=
- =?utf-8?B?OXM0cU5DQjYvU3FxMkRxenU5ZUpPK3lMQjFEYmk3UHEvY1JSM2pGWDFjTDYy?=
- =?utf-8?B?M3ZESHVaeU1MVG1jWUp5eTZ0VDlKck5KNElRZm1hY2IybkVhd1FuWm9TaXVW?=
- =?utf-8?B?K3N5anRTU0NmY2dOcmQ0NEU4TjhQc0NvVGs4b2hiMFN6TS9CVUVnaDR6Nm9Z?=
- =?utf-8?B?N0xTdEcrb3VkRkRoM0grT3JtN3VuUW5NNThhT01GUVRUWVlrS2ZHYWhGakhW?=
- =?utf-8?B?eDVKWlNCUjNnMFZISGluSWRzVk9UMG5VOFhaZktIQkJzdmgrdVMyTWxOekJQ?=
- =?utf-8?B?VnZLZHdUTmFTemQ4bmI3amExNTlUSWxBUXVSNnFKbW1DSGVaQ2ZrL1hiUjhC?=
- =?utf-8?B?d2lLejA5d1U1cTBPVGF3bVBmeFdFV0lHOXdYWkZqcUU5UU93M3dFczVNNFhw?=
- =?utf-8?B?ODRZTEdJS0cvTlBRWDMwRHpqOVRtT3FnUjh3bW5LMVNrUlczYXlhUHlZZHBH?=
- =?utf-8?B?MVFEUXNtcTZhYUE4V2x1NC9kUE1RdHR0UlZGUmM5U0VzcUtuazhSQjF4Rmpq?=
- =?utf-8?B?NHV5Qm1zaGxybmpUYTdEUXdPQW9VQk9SekNyNkRQVGE1MVVQTW5zTUZLK3E4?=
- =?utf-8?B?em5iQjJheFMyRE9oTE9yUmhRZDF2a0ZtTWhYRmVlMkF4dEIvRS8wTmkyYkNP?=
- =?utf-8?B?WmxwcndxV1pBQWFpWkZ5MDY3dW01K3VGUlNaVmw3NjZnR0NDaXJncVZwUjFs?=
- =?utf-8?B?aWFNdE9IOVlyNTZlVFJneVlXKzlBQ0IwWFNKNFRZSmNUSXJKYTlXaEI4N0k4?=
- =?utf-8?B?M0Q0cUtLS0tCNzJmREtqQ0VaQ1FaSHdNZzVEeWx3VGVvWHBlWWg5TytFd0ly?=
- =?utf-8?B?ZXM2RUhzTVNPWmdvazlMOWMwOEx5Y3Bjekt6OHd0Wjg5a29mNXZIUlBqdDA2?=
- =?utf-8?B?Y0x1Rk9BTENWYVphTERsYW5TSDNBbnRZbmsyVlpIMjhjU1d5enJ1bmJyWjRR?=
- =?utf-8?B?c2FreEhGL0RNRXpTT0ovM0JTTlhxQS9mQzcydlI3a013cXJ4c2UxOFFKN3Fx?=
- =?utf-8?B?ZFI4ell2NjlCWHFsZVRLcXdCaTl4RXN5c0xHS3hWOTV6YzFLWSt1Wm1PYjZ3?=
- =?utf-8?B?cUcwZ0pmRXJFcFBkMUlYNWNidE1LWjVTTkZYL2VKb2s3elVlTitoY29ncjlY?=
- =?utf-8?B?U3E1QVBpNldqRUxRWVdOZTdqT3cvODJwbWVEU3lScEprOTYwaUpOak9WQ0d2?=
- =?utf-8?B?bVhLRlBlRmZueVozdjFZM3RNQTlOd1Avd3RYUW9OWjdOQnFuSmlGaS9EMXRt?=
- =?utf-8?B?Y2JSaFQyVkZUYlowUTR4M1NFeHhTS1V4R3VKOWdkRHgyOFlVazFvNWRQNDc0?=
- =?utf-8?B?d2NQRm1RelVGMTdVMElnTm0zQ0orK3NCWGViM09PRVRPR0VqOEl4WHpBT0lL?=
- =?utf-8?B?ODFkWkF0QnlabnlsY0szZUIxa29nUWVVaGIwYWFmdzByWjhseEZXZ0V0dDlB?=
- =?utf-8?B?VWExRGdIL1MzelJGdW1YdmNtT2tpWEFzaUtCRi8xSWhsN0pSSnJIb3U3ZEk4?=
- =?utf-8?B?bDh1WFVURllyeWk3WklRVHdQY1VOL2NsbUpkWHZhNGlFSE1FZitEUkJqZmZo?=
- =?utf-8?B?ME9XVVdCa3A3YWhlU2lrN1dFZXJSeEpnNHRhc2YxWlZkOHQ4Tys0OWttd3lq?=
- =?utf-8?B?WGtIRTBKTDJiY3BxanZ2cW96Z0Q2bkFIbitId1JOenFhdXdjU0RTbkFJc2xV?=
- =?utf-8?B?NDQ3bjg3dDhwbWhSUmNtOFA1MXpPNnAwTGhabDRvdHZJL291RGhHSXNwbDh6?=
- =?utf-8?B?NGtYZU95engwWU9rZnpzVjlvT0ZnPT0=?=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(36860700013)(82310400026); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kz52gn3YQeOj0HlIY67nGKH0zgkiZ6mFuWOZLCrLwJmoKXTGzBnoEUkiut1k0lPSt5RhM1TPokKjQ9c9O5MkIv0Jja9kSD58OYcyeP3z4VZVHLu7WzJRcFNlSwzImvVCZ4xXo4ZQrXXkCGPPn4ZIlDlOKDQfxftCeqKxwFCrKZGrWEBdNdo7kOMf7J+5NNyfgFFsVztl5dkO1WdcZRr/d1ezbVok6y9ZI34RVqm/3/QeuPE9gGbIgSAJZBAKHVLMrlzSyzGF9XBzkEDdXuRbFKeL2HgIKmI+3eTfPW9ZO3e6+fGdWM9qz8vO7ceyLKprPW1+t2FbZgcYLyxEcnVeqtSaqZrgPZdpao8JgOgU7SUHDlS4Jwl9dTLfhhyp1y+kYSl9dUrx0KGhdlbgF/diFBldYDVaqPf2SleNk21YcRvyKOE/ITOnXTGj3hYhjztF
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Feb 2026 13:57:55.0830 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4b582dd4-fc98-44fe-83d0-08de62631086
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000199.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB5593
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjAyMDEwOSBTYWx0ZWRfXzU0cqVqnXvxe
- N3P7ykY10Yxwnh2r9eg0r3pSyYosqXudcOXCokCiElbhge+lfhBi4ukkhgb3NQgctT8ctKljtkD
- OT4jZ0ci/QO5OJ8UaOu3AMKiCFvDY9zeKSB9mYIAIGfK7RuAlT2NZdTcTm2Z25RPleIqzE2VVJj
- PxOm5yRTgMcuddExYzrMBWfL1sQ5sKVksnsNRsLFb8jONssbYlfsEbYhMgIJ1xUlGWVXp8klo21
- YLmFmCIxS+/NMwqIyjqwzhqFzpACNhNfR3i2I1pKUhlkM0yoVoJusLrlGQiS54dCEtaRbegmNx+
- NB230q1rtIblqIODb02Cnnza3cIuSD3kiOVMXkMS8Z00cbZgla3AXhzVlkFmujEC9SoC05o0PxU
- oDxBYJGQ5cLA5VaPu39eIPj53J/7P5rV6QvVGE2lyihkf6CGAz5eyEc0+CsHnN2AUV2iOl1p5Am
- OMPoNthoQZ757wn1s5g==
-X-Authority-Analysis: v=2.4 cv=ILwPywvG c=1 sm=1 tr=0 ts=6980ad69 cx=c_pps
- a=896zWVB3lkap0gFnCg6oog==:117 a=d6reE3nDawwanmLcZTMRXA==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=Xa52oM6mtQYA:10 a=IkcTkHD0fZMA:10
- a=HzLeVaNsDn8A:10 a=s63m1ICgrNkA:10 a=KrXZwBdWH7kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=8b9GpE9nAAAA:8 a=GFosw7tHZT6EbzkxW0YA:9
- a=QEXdDO2ut3YA:10 a=T3LWEMljR5ZiDmsYVIUa:22
-X-Proofpoint-GUID: NP5-ck1UpfT4XBS0HrBf56tHIO8-RS6-
-X-Proofpoint-ORIG-GUID: NP5-ck1UpfT4XBS0HrBf56tHIO8-RS6-
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-02-02_04,2026-01-30_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
- adultscore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0
- priorityscore=1501 clxscore=1015 malwarescore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602020109
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 13/13] media: stm32: dcmipp: instantiate &
- link stm32mp25 subdevs
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+References: <E1vNUjC-0000000FhjR-0h6P@rmk-PC.armlinux.org.uk>
+Content-Language: en-US
+From: Ovidiu Panait <ovidiu.panait.oss@gmail.com>
+In-Reply-To: <E1vNUjC-0000000FhjR-0h6P@rmk-PC.armlinux.org.uk>
+X-Mailman-Approved-At: Tue, 03 Feb 2026 06:53:28 +0000
+Cc: Andrew Lunn <andrew@lunn.ch>, imx@lists.linux.dev,
+ Eric Dumazet <edumazet@google.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Stefan Klug <stefan.klug@ideasonboard.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ Emanuele Ghidoli <ghidoliemanuele@gmail.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Clark Wang <xiaoning.wang@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Wei Fang <wei.fang@nxp.com>,
+ Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH RFC net-next] net: stmmac: provide flag to
+	disable EEE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -194,127 +113,151 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:hugues.fruchet@foss.st.com,m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-media@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com];
+	TAGGED_FROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[ovidiupanaitoss@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:imx@lists.linux.dev,m:edumazet@google.com,m:laurent.pinchart@ideasonboard.com,m:stefan.klug@ideasonboard.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:ghidoliemanuele@gmail.com,m:kieran.bingham@ideasonboard.com,m:o.rempel@pengutronix.de,m:xiaoning.wang@nxp.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:dan.scally@ideasonboard.com,m:linux-arm-kernel@lists.infradead.org,m:netdev@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:wei.fang@nxp.com,m:shawnguo@kernel.org,m:davem@davemloft.net,m:hkallweit1@gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[26];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_SPAM(0.00)[0.768];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ovidiupanaitoss@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lunn.ch,lists.linux.dev,google.com,ideasonboard.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,pengutronix.de,nxp.com,redhat.com,lists.infradead.org,vger.kernel.org,davemloft.net];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	RCVD_COUNT_SEVEN(0.00)[9]
-X-Rspamd-Queue-Id: B5920CD02C
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: EA1C7D57AC
 X-Rspamd-Action: no action
 
-Add topology of the two pixel pipes (main & aux) of the stm32mp25.
-Do not make the link from dcmipp_input immutable and enabled by
-default since not all pipes are always used together so when a pipeline
-is not being used its link should be disconnected to allow proper
-pipeline check.
-Not doing this would most probably lead to pipeline start failure due
-to incompatible pads configurations on the unused pipe.
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 42 ++++++++++++++++++++--
- 1 file changed, 40 insertions(+), 2 deletions(-)
+Hi Russell,
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index a52b3b0e3c37..44440f8ea9f5 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -75,6 +75,11 @@ static const struct dcmipp_pipeline_config stm32mp13_pipe_cfg = {
- 	.hw_revision	= DCMIPP_STM32MP13_VERR
- };
- 
-+#define	ID_MAIN_ISP 3
-+#define	ID_MAIN_POSTPROC 4
-+#define	ID_MAIN_CAPTURE	5
-+#define	ID_AUX_POSTPROC 6
-+#define	ID_AUX_CAPTURE 7
- static const struct dcmipp_ent_config stm32mp25_ent_config[] = {
- 	{
- 		.name = "dcmipp_input",
-@@ -91,13 +96,46 @@ static const struct dcmipp_ent_config stm32mp25_ent_config[] = {
- 		.init = dcmipp_capture_ent_init,
- 		.release = dcmipp_capture_ent_release,
- 	},
-+	{
-+		.name = "dcmipp_main_isp",
-+		.init = dcmipp_isp_ent_init,
-+		.release = dcmipp_isp_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_main_postproc",
-+		.init = dcmipp_pixelproc_ent_init,
-+		.release = dcmipp_pixelproc_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_main_capture",
-+		.init = dcmipp_capture_ent_init,
-+		.release = dcmipp_capture_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_aux_postproc",
-+		.init = dcmipp_pixelproc_ent_init,
-+		.release = dcmipp_pixelproc_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_aux_capture",
-+		.init = dcmipp_capture_ent_init,
-+		.release = dcmipp_capture_ent_release,
-+	},
- };
- 
- static const struct dcmipp_ent_link stm32mp25_ent_links[] = {
--	DCMIPP_ENT_LINK(ID_INPUT, 1, ID_DUMP_BYTEPROC, 0,
--			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_INPUT, 1, ID_DUMP_BYTEPROC, 0, 0),
- 	DCMIPP_ENT_LINK(ID_DUMP_BYTEPROC, 1, ID_DUMP_CAPTURE,  0,
- 			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_INPUT,	2, ID_MAIN_ISP,  0, 0),
-+	DCMIPP_ENT_LINK(ID_MAIN_ISP,	1, ID_MAIN_POSTPROC,  0,
-+			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_MAIN_ISP,	2, ID_AUX_POSTPROC,  0, 0),
-+	DCMIPP_ENT_LINK(ID_MAIN_POSTPROC,	1, ID_MAIN_CAPTURE,  0,
-+			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_INPUT,	3, ID_AUX_POSTPROC,  0, 0),
-+	DCMIPP_ENT_LINK(ID_AUX_POSTPROC,	1, ID_AUX_CAPTURE,  0,
-+			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
- };
- 
- #define DCMIPP_STM32MP25_VERR  0x30
+On 11/24/25 1:27 PM, Russell King (Oracle) wrote:
+> Some platforms have problems when EEE is enabled, and thus need a way
+> to disable stmmac EEE support. Add a flag before the other LPI related
+> flags which tells stmmac to avoid populating the phylink LPI
+> capabilities, which causes phylink to call phy_disable_eee() for any
+> PHY that is attached to the affected phylink instance.
+> 
+> iMX8MP is an example - the lpi_intr_o signal is wired to an OR gate
+> along with the main dwmac interrupts. Since lpi_intr_o is synchronous
+> to the receive clock domain, and takes four clock cycles to clear, this
+> leads to interrupt storms as the interrupt remains asserted for some
+> time after the LPI control and status register is read.
+> 
+> This problem becomes worse when the receive clock from the PHY stops
+> when the receive path enters LPI state - which means that lpi_intr_o
+> can not deassert until the clock restarts. Since the LPI state of the
+> receive path depends on the link partner, this is out of our control.
+> We could disable RX clock stop at the PHY, but that doesn't get around
+> the slow-to-deassert lpi_intr_o mentioned in the above paragraph.
+> 
+> Previously, iMX8MP worked around this by disabling gigabit EEE, but
+> this is insufficient - the problem is also visible at 100M speeds,
+> where the receive clock is slower.
+> 
+> There is extensive discussion and investigation in the thread linked
+> below, the result of which is summarised in this commit message.
+> 
 
--- 
-2.34.1
+We are seeing the same lpi_intr_o interrupt storm on the Renesas RZ/V2H
+EVK (dwmac-renesas-gbeth.c). On this platform, lpi_intr_o is routed as a
+separate, dedicated interrupt line to the CPU rather than being OR'd
+with the main DWMAC interrupt as on iMX8MP. This corresponds to the
+"eth_lpi" interrupt in the stmmac bindings:
+"""
+- description: The interrupt that occurs when Rx exits the LPI state
+const: eth_lpi
+"""
+
+Looking through the other glue drivers/device-trees, it looks to me that
+every platform that defines a separate "eth_lpi" irq might have the
+interrupt storm problem.
+
+To fix this issue on these platforms, rather than disabling EEE
+altogether, would it be possible to just not request the eth_lpi
+interrupt and let EEE continue to work? Perhaps a new flag could let
+each platform decide.
+
+If not, maybe this patch could be merged to add the flag that disables
+EEE and I will just send a patch to disable EEE on our platforms as well.
+
+Thanks,
+Ovidiu
+
+
+> Reported-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> Link: https://lore.kernel.org/r/20251026122905.29028-1-laurent.pinchart@ideasonboard.com
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+> For Laurent to add to a patch series appropriately adding
+> STMMAC_FLAG_EEE_DISABLE to dwmac-imx.c
+> 
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++++-
+>  include/linux/stmmac.h                            | 9 +++++----
+>  2 files changed, 11 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 6cacedb2c9b3..ca0eee58a8a8 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -1324,7 +1324,12 @@ static int stmmac_phylink_setup(struct stmmac_priv *priv)
+>  				 config->supported_interfaces,
+>  				 pcs->supported_interfaces);
+>  
+> -	if (priv->dma_cap.eee) {
+> +	/* Some platforms, e.g. iMX8MP, wire lpi_intr_o to the same interrupt
+> +	 * used for stmmac's main interrupts, which leads to interrupt storms.
+> +	 * STMMAC_FLAG_EEE_DISABLE allows EEE to be disabled on such platforms.
+> +	 */
+> +	if (priv->dma_cap.eee &&
+> +	    !(priv->plat->flags & STMMAC_FLAG_EEE_DISABLE)) {
+>  		/* Assume all supported interfaces also support LPI */
+>  		memcpy(config->lpi_interfaces, config->supported_interfaces,
+>  		       sizeof(config->lpi_interfaces));
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index f1054b9c2d8a..5ed49d5363ee 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -187,10 +187,11 @@ enum dwmac_core_type {
+>  #define STMMAC_FLAG_MULTI_MSI_EN		BIT(7)
+>  #define STMMAC_FLAG_EXT_SNAPSHOT_EN		BIT(8)
+>  #define STMMAC_FLAG_INT_SNAPSHOT_EN		BIT(9)
+> -#define STMMAC_FLAG_RX_CLK_RUNS_IN_LPI		BIT(10)
+> -#define STMMAC_FLAG_EN_TX_LPI_CLOCKGATING	BIT(11)
+> -#define STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP	BIT(12)
+> -#define STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY	BIT(13)
+> +#define STMMAC_FLAG_EEE_DISABLE			BIT(10)
+> +#define STMMAC_FLAG_RX_CLK_RUNS_IN_LPI		BIT(11)
+> +#define STMMAC_FLAG_EN_TX_LPI_CLOCKGATING	BIT(12)
+> +#define STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP	BIT(13)
+> +#define STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY	BIT(14)
+>  
+>  struct mac_device_info;
+>  
 
 _______________________________________________
 Linux-stm32 mailing list
