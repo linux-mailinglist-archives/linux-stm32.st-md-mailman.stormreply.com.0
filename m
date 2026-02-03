@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wJOVOYTHgWk0JwMAu9opvQ
+	id WDx+M4XHgWl1JwMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 11:01:40 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 11:01:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E167D73EE
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 11:01:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAD69D73FC
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 11:01:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 616E9C87EC9;
-	Tue,  3 Feb 2026 10:01:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7192AC87EC6;
+	Tue,  3 Feb 2026 10:01:38 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B289BC32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F3B0C32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Feb 2026 10:01:28 +0000 (UTC)
+ Tue,  3 Feb 2026 10:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=+glT1WUCuKKRwLLSyDdKdz7/iH8B4iVFWpjJ7rAM32I=; b=RgBvXZX3BO0h4gx+wAS1NsQHr0
- wxM1Nx375bb/gzMAB8DAwmbHT8eBprkmKNQQLUj84gIHxeU817sFFR+KRvzmRxw8/fkBCtTQAemJV
- 8Q9kUiLj51RCcvAd3ShmWlG+YIE8bCL+uVQ4opsTe+jsatHsFho9HqBc9z2lhiDFtG8OfyHp1DsKF
- 1Qgn17OeG5AmgG5yS9TCt6EeUYDJpr5wXvHQbwbj4875y4FEw4NVjTOLw8IL2I5hn47UCv0KS2oRY
- jWAtub3QW/+VRmpS3GSs3sce3hz7LrqpYzWOVBOk4PN5pF5NHa8+/FamY3l5Hei3DN+YsAxY5M+G+
- fIEYMvig==;
+ bh=UENQcPP3bF2ZA0ADQ4abpHHj29Ib66umM+PFjhQQHc8=; b=yH6Ed3idSUHAp6Lx+IkGjLwpve
+ IRjQphIw8UGp9DcXazS3s2pSSQmisnwPXCWIM5g944Qvh9hkJbLZ3KL9KnpSQu7/7g7scRNGKGG9K
+ 6ACw0TVHKzVs6fSG8+naujz/PxO/7DXPII6/qzAAHDg5pAfxw8AgMqe1IhaFXuRfRpazLXlYEc61A
+ t2Gm0QLAVG/DjMTUgsg4B9/1l2v8YRuGiO41J6vNgorE4lFVpsLWfxXbQoLFdv4eCq7EktqP8TpLT
+ DcGVu5NtOUuJhfjujpEgD/jVfsp/DF6fQOIyCsQnNfM0J9qC6F97F37kL+O3RnNSwWYDmHTBXHThC
+ pgsweyRQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:40622 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57930 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vnDDp-000000004xC-2P37;
- Tue, 03 Feb 2026 10:01:25 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vnDDu-000000004xS-2otx;
+ Tue, 03 Feb 2026 10:01:30 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vnDDo-00000007Xx9-3RZ8; Tue, 03 Feb 2026 10:01:24 +0000
+ id 1vnDDt-00000007XxF-3uUK; Tue, 03 Feb 2026 10:01:29 +0000
 In-Reply-To: <aYHHWm5UkD1JVa7D@shell.armlinux.org.uk>
 References: <aYHHWm5UkD1JVa7D@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vnDDo-00000007Xx9-3RZ8@rmk-PC.armlinux.org.uk>
-Date: Tue, 03 Feb 2026 10:01:24 +0000
+Message-Id: <E1vnDDt-00000007XxF-3uUK@rmk-PC.armlinux.org.uk>
+Date: Tue, 03 Feb 2026 10:01:29 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/4] net: stmmac: add missing serdes
- power down in error paths
+Subject: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: move serdes power
+ methods to stmmac_[open|release]()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,85 +72,122 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	TAGGED_FROM(0.00)[kernel];
-	RCVD_COUNT_THREE(0.00)[4];
-	RSPAMD_URIBL_FAIL(0.00)[stormreply.com:query timed out];
-	ARC_NA(0.00)[];
-	ASN_FAIL(0.00)[89.6.209.52.asn.rspamd.com:query timed out];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.988];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.989];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 9E167D73EE
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: AAD69D73FC
 X-Rspamd-Action: no action
 
-The open path is missing cleanup of a successful serdes power up if
-stmmac_hw_setup() or stmmac_request_irq() fails.
-
-stmmac_resume() is also missing cleanup of the serdes power up if
-stmmac_hw_setup() fails.
-
-Add the missing cleanups.
+Move the SerDes power up and down calls for the non-"after linkup"
+case out of __stmmac_open() and __stmmac_release() into the
+stmmac_open() and stmmac_release() methods, which means the SerDes
+will only change power state on administrative changes or suspend/
+resume, not while changing the interface MTU.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 21 +++++++++----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 9efdde915229..05b0b080bade 100644
+index 05b0b080bade..d561b0a0f5ac 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4137,7 +4137,7 @@ static int __stmmac_open(struct net_device *dev,
- 	if (!(priv->plat->flags & STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP)) {
- 		ret = stmmac_legacy_serdes_power_up(priv);
- 		if (ret < 0)
--			goto init_error;
-+			return ret;
- 	}
+@@ -4134,12 +4134,6 @@ static int __stmmac_open(struct net_device *dev,
  
+ 	stmmac_reset_queues_param(priv);
+ 
+-	if (!(priv->plat->flags & STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP)) {
+-		ret = stmmac_legacy_serdes_power_up(priv);
+-		if (ret < 0)
+-			return ret;
+-	}
+-
  	ret = stmmac_hw_setup(dev);
-@@ -4170,6 +4170,7 @@ static int __stmmac_open(struct net_device *dev,
+ 	if (ret < 0) {
+ 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
+@@ -4170,7 +4164,6 @@ static int __stmmac_open(struct net_device *dev,
  
  	stmmac_release_ptp(priv);
  init_error:
-+	stmmac_legacy_serdes_power_down(priv);
+-	stmmac_legacy_serdes_power_down(priv);
  	return ret;
  }
  
-@@ -8273,6 +8274,7 @@ int stmmac_resume(struct device *dev)
- 	ret = stmmac_hw_setup(ndev);
- 	if (ret < 0) {
- 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
-+		stmmac_legacy_serdes_power_down(priv);
- 		mutex_unlock(&priv->lock);
- 		rtnl_unlock();
- 		return ret;
+@@ -4196,9 +4189,15 @@ static int stmmac_open(struct net_device *dev)
+ 	if (ret)
+ 		goto err_runtime_pm;
+ 
++	if (!(priv->plat->flags & STMMAC_FLAG_SERDES_UP_AFTER_PHY_LINKUP)) {
++		ret = stmmac_legacy_serdes_power_up(priv);
++		if (ret < 0)
++			goto err_disconnect_phy;
++	}
++
+ 	ret = __stmmac_open(dev, dma_conf);
+ 	if (ret)
+-		goto err_disconnect_phy;
++		goto err_serdes;
+ 
+ 	kfree(dma_conf);
+ 
+@@ -4207,6 +4206,8 @@ static int stmmac_open(struct net_device *dev)
+ 
+ 	return ret;
+ 
++err_serdes:
++	stmmac_legacy_serdes_power_down(priv);
+ err_disconnect_phy:
+ 	phylink_disconnect_phy(priv->phylink);
+ err_runtime_pm:
+@@ -4241,9 +4242,6 @@ static void __stmmac_release(struct net_device *dev)
+ 	/* Release and free the Rx/Tx resources */
+ 	free_dma_desc_resources(priv, &priv->dma_conf);
+ 
+-	/* Powerdown Serdes if there is */
+-	stmmac_legacy_serdes_power_down(priv);
+-
+ 	stmmac_release_ptp(priv);
+ 
+ 	if (stmmac_fpe_supported(priv))
+@@ -4269,6 +4267,7 @@ static int stmmac_release(struct net_device *dev)
+ 
+ 	__stmmac_release(dev);
+ 
++	stmmac_legacy_serdes_power_down(priv);
+ 	phylink_disconnect_phy(priv->phylink);
+ 	pm_runtime_put(priv->device);
+ 
 -- 
 2.47.3
 
