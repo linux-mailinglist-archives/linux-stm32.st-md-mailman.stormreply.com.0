@@ -2,71 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CLtmNQAGgmn3OAMAu9opvQ
+	id gCXnMQAGgmmYNgMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 15:28:16 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8464DDA912
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FEABDA911
 	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 15:28:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36C3BC87ECF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1733BC87ECD;
 	Tue,  3 Feb 2026 14:28:16 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013034.outbound.protection.outlook.com [52.101.72.34])
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012071.outbound.protection.outlook.com [52.101.66.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A2F3DC87ECC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4A85FC87ECD
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  3 Feb 2026 14:28:14 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BchKYVqwJX9q2+zuDvi4zwSvpktPgGFiHdCr2V0LPtJga6fjbe++G5x6icT5h0aFZlg86w4POe6gUvMOZIPW2ItONPQSsCaSYsvtL0u4AjyOZIt4prGDvD3XGoiqFs1ESPa6t5x+sKiUUHU20uvbclssTnOteu46p0/nLS0GZSYC4lnsxHVhs4qv1fVeIpSmrDy9Hmk2/1yjKt+RathHrXzMNvF5PGOi0D+r+HMi8x4U2Ur9P6jCaeUE1YN7iWSBUWknPXc1S6LXKdwdYCdRUOB3vuvq3ejvHVz0COD4m5TZ/H3C6Iny2yTnz9JsuSaVaUOBlz9nTceBh33arn3anQ==
+ b=ftmbYeqltCSNH9vjB1VjdDR24l1F9gsnB/TmHq+DMHxmlFWF8dVPT3OyIndrPVfnbqIs743jV2O96VR/RYP2GIfZVfcrwpjEHjkQUVldSfRTHok9K1IkClpju80SO8bRt5UDcO7NIKKGGHPu3e244cXDaLS8/2cjVPIwOUTFc6cJLRmutlI6LfHeRcwuvxd0P5O/rZ5dCdojOtbB6r70nkJaz02nBL32E4QC6eH1qErLCi0vGCRsnVxtaPfP5+IiAroKpuT5VG197NkYFEmlV8D7P9ufEA1VAKg+GcX12fhqAMF7z+mTwvwdbx7dUHQgqYR9gTOxRm7Bx2WjLay7Uw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=dwq7UWY5KJ2LdZG2zOLcv5CQYXlgsIeYbTVQDO2TEKw=;
- b=Pf321zb2IVq2+bRjgMesxk0R3iPfwd1ynPTNunetGVdK45czR1xBcypU84vHw6g1JPDY7JBuep67hxJ8FgKjgSIWp9tZpuROpN6lMe6shU5qLvaxjoZxjDNpu2/FxY9qJO3IJjTgiP/W5fVfQ50jOSN9/B+FsvrEWh19lh22Jvm5ZxqV4uGLOCFE5bkyaGCToI8Yh4qhKAD1suLWM0RtS++UpCV3nSXJBUMQgTpAGDEcCatbMzOPo+R4BxlSrGoyaUULvNsvLi3FcbQCenhCJgP2iRD88Q3SaVHl97LM88l2XEt8SowQ7rsZIsEDfoAK8ImJEW73VYC9CeheDnK6SQ==
+ bh=sReCfrhhWZ7achV+SNq5w0wVFGM2b14B0bPXF3S9Ng4=;
+ b=MDNw8+DAMt4dIvxDej5Si0uIvLPxRwSyFuaSlxwdHsQHY4PVu0BvTZxpPT6Q0IscDrCpLJvjFZxCKhYww5Qc7e0uaZCx2LFzcg2F0E0Lcy3zrOZoIJNOvS9nBXOxD1U1gPeo3cLRxKxzI0crw+WME4eDQ5ET/3ylY9s1OmYp6+FZx06VhsTl83RXyDlAUTSJYKtQIZCmnt8MYvuVbBanK4yFPVr0qrTemPcAI51cLquYwxwKe09Cq0xH47GxEZHF787bjwl8NJNau/EHxP9SNSNj/onDpqVY6Xehupvyjbhg/Cmnig6N3LGqNWLx1MGoAHo09oV5kPHn/6ED+sOzlQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
  smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
  header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=dwq7UWY5KJ2LdZG2zOLcv5CQYXlgsIeYbTVQDO2TEKw=;
- b=T3WOYhXQ5fU/t7/wGxpb6sFx23fK3BNycfJgDzVg9vyT+V1fC2FIJeMdNWrxwzyUERWlmT2K5Um5iP3UKl1/ISK4XKcyvN1UnHcxQS5OjF2ghUggjA7vu8CqqcPWIYUKp2gBKxNfHgquqVuVeki7OSeJU5hdqCXHAdd/FW6JPpk2fcNTLWN4BpeJKZtIfgVsOwG1dCfR6YVxNfIPgBtfnokqRq1T4sptEfsV+Xn/s/LDsRb2qk3VDXIWmFRO6ro6ZkeaAqNEZv9fCUCxMC6If0iHGOYF6p5rE+IPj28peVGMZV1rhmWzaSaC+zB/ChqCWoV1XNcFHOOx6ezMPq+cIw==
-Received: from AM8P191CA0019.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::24)
- by AS1PR10MB5553.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:474::13)
- with Microsoft SMTP Server (version=TLS1_2,
+ bh=sReCfrhhWZ7achV+SNq5w0wVFGM2b14B0bPXF3S9Ng4=;
+ b=gEY75rOQI7iWh1PN9GmdAqjB1k7P5ktKiYpILcUuNEzGzlNZ4zE8Hi0iXeVZJup9+jY9HPg7VBRW2vL9WKXC5tZWCpJrYQJzOrvHYVsiiB8r9+gJ7PMXSSuERWbAFM0kpR2FgfzWjseJB+CV98sMst2earVW4s+Fumn1LN8EKSC5Nq9rRE5jFCTjpr9d45hEe56CZjjtZJMCx6VQBEBkTi5gUMWR5a4KuIxGnnIdyu/FMbfD2YIHw0YTDLMCOen5U0cDrYNIl/+eSgaHVjOwIBLUyguA2ROG6OaQ9R1qZM2PQiI2OZfzfNvzLI5ktWqJW7KdbVo5BJEg8vhiLUzCoQ==
+Received: from AM5PR0301CA0019.eurprd03.prod.outlook.com
+ (2603:10a6:206:14::32) by GV1PR10MB8823.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:150:1d6::17) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Tue, 3 Feb
- 2026 14:28:10 +0000
-Received: from AMS1EPF0000004C.eurprd04.prod.outlook.com
- (2603:10a6:20b:21a:cafe::de) by AM8P191CA0019.outlook.office365.com
- (2603:10a6:20b:21a::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.12 via Frontend Transport; Tue,
- 3 Feb 2026 14:28:09 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ 2026 14:28:11 +0000
+Received: from AM3PEPF00009B9F.eurprd04.prod.outlook.com
+ (2603:10a6:206:14:cafe::a7) by AM5PR0301CA0019.outlook.office365.com
+ (2603:10a6:206:14::32) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.16 via Frontend Transport; Tue,
+ 3 Feb 2026 14:28:14 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS1EPF0000004C.mail.protection.outlook.com (10.167.16.137) with Microsoft
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AM3PEPF00009B9F.mail.protection.outlook.com (10.167.16.24) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Tue, 3 Feb 2026 14:28:10 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ 15.20.9587.10 via Frontend Transport; Tue, 3 Feb 2026 14:28:11 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 3 Feb
- 2026 15:29:56 +0100
+ 2026 15:29:49 +0100
 Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 3 Feb
- 2026 15:28:09 +0100
+ 2026 15:28:10 +0100
 From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Tue, 3 Feb 2026 15:28:11 +0100
+Date: Tue, 3 Feb 2026 15:28:12 +0100
 MIME-Version: 1.0
-Message-ID: <20260203-upstream_uboot_properties-v6-5-0a2280e84d31@foss.st.com>
+Message-ID: <20260203-upstream_uboot_properties-v6-6-0a2280e84d31@foss.st.com>
 References: <20260203-upstream_uboot_properties-v6-0-0a2280e84d31@foss.st.com>
 In-Reply-To: <20260203-upstream_uboot_properties-v6-0-0a2280e84d31@foss.st.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -80,71 +80,71 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
  (10.75.128.132)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000004C:EE_|AS1PR10MB5553:EE_
-X-MS-Office365-Filtering-Correlation-Id: 39d0b838-6355-4ef4-1a48-08de633074fc
+X-MS-TrafficTypeDiagnostic: AM3PEPF00009B9F:EE_|GV1PR10MB8823:EE_
+X-MS-Office365-Filtering-Correlation-Id: 83f24b73-ce88-4fb1-8a17-08de6330756a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700013|82310400026|7416014|376014; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?OWVwZ282RWJPYTFpa3pqdkZ0WnNoVXZtYWJLQlplVWQ5OTMzWGlxeG5MQzNv?=
- =?utf-8?B?bjMvSnhwQ2xPZzZRSDMxZzRmSWJ3SVpkczBmdFgrNXFOQmswaVBvbG9KQTBk?=
- =?utf-8?B?N2R5NTZBZjUrK3laWFpNcmx2TWhOcUFyRVlUQVdqbllRWWNzdTlKaGtuQ3FH?=
- =?utf-8?B?WkhQMUdqYUdDcDVyR0UwTkVOOGNtTDJpMUJtaWVJekpoY2lIMjlHUk01ZUFl?=
- =?utf-8?B?Nkh0QWxseUhTakx5Tms1dHZaWUZyallqK0p3U0pEOUtQS2xzellybVo5NWFD?=
- =?utf-8?B?SmRGZDJ3cFRxMjN6QTVudGs2WDlJTysvZXYyQk1HeTRGYXZmbWovSjhBTFBl?=
- =?utf-8?B?cksvMk1wZGRtcS80L0MxVndMRi9UajVPS2RiZjhqV2FYaU9rZ3IydXZFMkhx?=
- =?utf-8?B?SkpnUzgvRHJodnI3Qzg2aDRHWERYNzZJLzArTHBEMFFnSnJKbFplRlluMENO?=
- =?utf-8?B?WjdMeTVrSnFnQyszU2tLcWJxaDBXNEJZTlUrUkY4bERCSVBKL1p6SzNDOE04?=
- =?utf-8?B?OXM5dnBVdEJmYVdaN081emZRdGQ5TzBSQzVhS0thRHJtRC9scCtORkVrTVhv?=
- =?utf-8?B?dGRWV0hDWWd1R21jNjZIakdKRktmMm5HS1REdVBibUh0SEFkRDdWNC9YTyty?=
- =?utf-8?B?QzdDVmQyQXlOaVVIYndUL3NVdWIzRGo5azJ1YVFhUThDRFZvbWVERk85SEhi?=
- =?utf-8?B?WGR6ZmN4VjByd1hnZVRsSmxNN1BHWG5KaXk2a3pZL2hxK3hmM05QSkowUEVY?=
- =?utf-8?B?TjVkMktLWU1CbEdTNktGVXlqWC9HdGJJNG4rVFo5NlA0NmZCVjd5ajBscmh4?=
- =?utf-8?B?RTlUbW1xVDNPM2N2YTN3bkcxM0g3MGJKOFZRaENxb1RJNHBueE5USWRWbnIy?=
- =?utf-8?B?QzZERkgyRmJ0emxXdlVqQXZETDM0d0tkQTFDN09XclBLQ3RPWGlFU2c1dEZJ?=
- =?utf-8?B?S1Z6ZEorNEMrZWN1Q2FwcDNqNU1UYmhuaDlrMVQzc0dPN1lDekRwTGlkZFMr?=
- =?utf-8?B?bmM0OHRhZ0FKRjBIelVIRGowQlN2ZEdlQTlYZnkxSWNFTnNacE5PTEREeXk5?=
- =?utf-8?B?Q05tMHNBK3E2SDFSUzNVLzJ0cE9sUXVLTStHT3VUU0wrY0NqbmhFVmlscWlC?=
- =?utf-8?B?VHZDTWtUUEVhU0xJKzdFczlQMjVhQzNvZ3lla2VpT1RoWGtPc3VZZVN3WHhX?=
- =?utf-8?B?bkJZanhTSWNpRjFZVjNmbWFNU2dTMURpVmlpYTNQbGwrVDRJbnZkWnBzWHNX?=
- =?utf-8?B?Q0ZkUk9adXdDODkyYmhoM1hUTUpwa29DRmxRbGRpUkFvSzd1alVwWmJXemVI?=
- =?utf-8?B?SG9QQ3V4d2RGU2lMQ2RQbFVXRUNMQXFQdFQrRGR3SW9UVU1oY3BVMmlIT2NT?=
- =?utf-8?B?VnlMcGV5a3dPS0RENXFsL1dxdlhHMlByeTNVZVY5aytSVjVMUmtvTVFJUFBD?=
- =?utf-8?B?ME05VzFoK0JGRG1zR3ZETTFFMk9TL00ydU1YM3VHdXVobm5oR3d5ZmM2NElD?=
- =?utf-8?B?TGhXbmJ4eGFvN0NWVlFCU0lVbHRXZTlDSkR0WVgyZVljRm4ydlgxZWRKY1Fu?=
- =?utf-8?B?UVpRMnpTMlBFeHlGUjRNS28xNFY3RnVBQnZ5eUZKQXpkY1lUNFVFakEwSFF1?=
- =?utf-8?B?ZFhndEp3SFlTN2Z0QW9tMmpIWTEzOXFwbEZ0RVpZWnowZHZkM21xNnU0eFZP?=
- =?utf-8?B?Uzg0bHZQOG5UUURhRmdTWkw0aTZ4R2ExSkZNSTJLeXFHSmpYbzdzNGdTNzgw?=
- =?utf-8?B?cXZ1UDc0YWZTVW03dTR2enNTYTdSRlkvdko2Y3ZNblJCOW1pa2E4bmNwQmFX?=
- =?utf-8?B?bklNc3FuL2RMenpNbUxDQkFPZXM4S2dVZUh6djFNK0l2SkVxQm94c1pyelgr?=
- =?utf-8?B?THltTzN2ZjJpMC8zUkxSL05rM3dSamt2bXFKYWFIMmswRjlVZkV6bG1TNFdP?=
- =?utf-8?B?SnhqRmZHZ0t6VlhPcEY4S2h4V1pZemM2aTBNSWlqeVB4OWI2MlNrVXYvSmNR?=
- =?utf-8?B?cEc0TFRJdGEvU0sxNnVJY2o4d0JraUJlUW5LdytEbjFtWEg2NzMvL1NVZUlv?=
- =?utf-8?B?VjU1dk5OdGZRdGlmOEhpRWd5S0N0TDdqUFRKenJ5U0Y5WE5Bb0F0RFRkMld5?=
- =?utf-8?B?M0ltaVNrZVlWWXdhb1MxNjVrWFNjM2dpVmVLZU90NmlJTWNweGtseXZUOGRs?=
- =?utf-8?B?MHA4eXZqaW13c0hCVVhqRkN1UE9yVTg5WDRoa3NTT2lSNTQwTms5amRhM2J0?=
- =?utf-8?B?SkhjZ2pTSDg0NFVzNlZFUTZJVzBnPT0=?=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ ARA:13230040|82310400026|7416014|36860700013|376014|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?R0xwRHdKYTE3d3BVdmVRc2lVRDdwOC9DWEVJcm8rT1RwVUt2NXRVZkhveTdC?=
+ =?utf-8?B?TGkvK3BScHNNQmo1Qk03TUZ5b2ZOMHZqSUpiRytHNE9pRWN0WWJtWmZEZ1Uv?=
+ =?utf-8?B?N3hzYzcxSzJlVldpTFNFNXVZYXQ1TUhhVUdKVk00NFFZWXExOTk3eHp3N0Mx?=
+ =?utf-8?B?WTlva3J5Y0tRZnhCZnhrVVVZK1BXUW5RQmZCamdiUkN1bXdlL3lKSWVLSnJq?=
+ =?utf-8?B?bStYcGFHRDVyL2RSV3hOb1EvL0QxSHpQSEZxak81eVc2UGdxeGhyaW1YWHRz?=
+ =?utf-8?B?Q1Y5d2w2dEZ4VHUvUC82U3gvNXMwbXNHVGloZlo4R1h1UzdwVWZseXN0THVE?=
+ =?utf-8?B?bi85ZFl6MkpoNTl6c3Brb0hYVWVjbzdRcGxwWTZGcGZySGJRN2g5SFJnMTJH?=
+ =?utf-8?B?MEN1THo4TGpDRk15cWZXVlF3cUdBTCtXSGhMaTdjR0ZCcTVRR25LVXlnTC9V?=
+ =?utf-8?B?MVZKYUtLcHd0R0VQNHhNWHdjQURWTjhtWnBNVzFoanlIYmVwSGZIdGYwMits?=
+ =?utf-8?B?ZUU0c1UwajlSbE45OWg4TlBBbG9ZZFBQZUIvSzhRWU1Cd3hMSkM0TGVIVmxr?=
+ =?utf-8?B?TEpyOWdyR3BnMHh2ME9ZbHBLS015cnlGdlhlZ3U5bjh3N2U1REVldHdtUHhh?=
+ =?utf-8?B?UHhpVFN1WmU4TUlWY3l0LzU1cTJQRnB4TDVrZnpva2ZZOHBkVXNJN0xVQkpJ?=
+ =?utf-8?B?VFJLd0lQMzUzL285SW8zVUJwWERsTmtBeWlPVGZINzRyTU53anIvREpnbU41?=
+ =?utf-8?B?NTE2VzE4cTRyb0lDRis1MHNlcGg2Tk52MGg5b3J1b0JKUVB3SzBMc3YwT3Ra?=
+ =?utf-8?B?SHZYTmRQMUFmYWk2dEpndkVmYzdFQ2x0cEZ4Z3dvUVdMTVBuSFAvdkJvUzVn?=
+ =?utf-8?B?Y3kxbXdlWUNxT0Evb0xBTUZ4Uk9vekZ3MHdjbjJsazNJeFRpc3JJV0RRMFlD?=
+ =?utf-8?B?R2Z0czQ4eFNFQ2VobmFCNTczNDJQRlMwdGRuMjdWMTNzOHZvTWhLdWhremdv?=
+ =?utf-8?B?aXhjQ0tQMzFWejMyZllTbEpPcVpiQk1pSkwzY3dpalQvaWcrS1VBNkFxTG84?=
+ =?utf-8?B?d1RmNUZ3UjNFM2NmVVJWeHBaR0xKbDF1WFlaR3dBNmY1dEhyWXMvcEhvVEJ4?=
+ =?utf-8?B?UkdCek5ZV1YrRE1wZEJoRUQ1WldCenBUQXRUOWdseXpJSENZb2dYaGdPK2Ns?=
+ =?utf-8?B?V2R6bmM0enNwNVFvai9Hb3lFZ0p2WUl4cU9MYk5vRFI0YXRMK2JlK05TMEdD?=
+ =?utf-8?B?QWNlWmdxMjMrb1JkVVVibXEzTjlTTkhFczV2bmpxMnJWbm5wWGhiVFl1ZXRT?=
+ =?utf-8?B?OHhMa05xOU9sTXlvUEZIR1dLQmNxTFB6N3ZZWnhEMlJ0WUxLdHJRazlhSGFE?=
+ =?utf-8?B?T05HQTBDNzhrUHdzUHlIRjcydHV5MTZCYUR6RncwcjZISG5RdnlRRC9SYk9X?=
+ =?utf-8?B?cEE5NGhlUkJkalFNTTNZZFByZEdma1RCU3JNb3hoeWpXL2RFeUxUZGthLzhK?=
+ =?utf-8?B?a3JGUjBRT2IzRGpBaEUxeDlRLzJhUmFuWExGSkwreUFlTStxNXk4ZlpXeUFD?=
+ =?utf-8?B?RDdMYUtUMlFRVjI2U1c1dC80QVRtWEVPMzd4Ykp6RGRyWDZXZEREUjJUc2My?=
+ =?utf-8?B?YlAwbHZPMVU5Wkd6NXVJcFFzdEVBVjZSWlFoSFM5cSszamcyWTBZNUhYa2Zz?=
+ =?utf-8?B?WTdYaDVpWUNOSC9LTDF6NkVxRXNQL294YjhoQnpyZ3VHNXpjOXVteTBRaDVx?=
+ =?utf-8?B?VEhCQ2VOdnBidFNWZ0d3cno4U1FMK1phNk5iV2VYWFhoOTZmUlo5LzhKR3hD?=
+ =?utf-8?B?SDBvdTJwbzlsbW8xNlIxc3UzR0pVZ2NReVZ4VGxOc25OVThyNzJNTUxqWTls?=
+ =?utf-8?B?MnR2OEJ6eVQyK1ZMSXlTbVFpUjJ2d1NBOWxPNFBtUVlTMS9nUndVVVlSNzZV?=
+ =?utf-8?B?UWttN0VodzdQK2lsbHB4ZXY1Sk9XUjNUTE5zbkVwSVREaHB5cElqNThSa2tU?=
+ =?utf-8?B?Mi9kejFjT0g0Myt0TURCclA2UzU0ajhWWHRJNlBuVElneFJVUzBHaW45dG5E?=
+ =?utf-8?B?UWtqL0xsVHZwUUtadkZENzEveW45TWlKL2d2MHUvdmZ6TUZlYWdKVFkyTTFJ?=
+ =?utf-8?B?OVlGNW1iK0VXbkt1OExaRkUyTVovS3N0alZKSUcrU2NMRTBnVXowdTlXbzgw?=
+ =?utf-8?B?UkI3MWVUK2RaNGJoZTcxWkdyTFhKS0ZMbWZmcktPZEVmbjcyRGZ6aHVMSmt1?=
+ =?utf-8?B?UlZXOVV3aDAzekhNQk1uRmxpbE1RPT0=?=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700013)(82310400026)(7416014)(376014); DIR:OUT;
+ SFS:(13230040)(82310400026)(7416014)(36860700013)(376014)(1800799024); DIR:OUT;
  SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: DPQ8npYR1ZjUoz3bh31+ZNXzcuT/kx3TmtF7tBEhGff/BgT0QPQ9Q+hY5Zl4w/5VJ5H8X3/DJCaG6EzabQwnbx+16b6LMiFRlSqKFHu7uPhlKWeClhqkWT4XqWg7AUxf0f0sLFs1W+jELye73kWBgaki9Ih7o4jYayovS7GBmVHQudEn3iflDfVh/vimp9jE4U3hwEA+uCTc79amgTDTo8VZrzNlhfjY/RDcn46yiOcRVHZAZHVGg2WdTNR/yb96Gh/hIjnCKHEPLeEw7PEjucUK11/eNlA8ikQW5FmfgKo4koTyBoaFGXltuYoNkmJ9cFC/2ld+nQcDGisFRWESreJQEwHN1cUEL7Aup4tH6rI6zJfUJIV6bVjvEfjpBEOsOShr3Mz2HX2F9WWpm4bQ0rkA/1p6IFwt7P0M5IvkXNyi2evYfo5vv5coP2GCm9my
+X-MS-Exchange-AntiSpam-MessageData-0: 1wy0WNDKBw0uo+Zf/79nhG4UU8I6Fg94CFP15gk0lqNwnNJRbDwDFU90Zt8vady/mBA7V5iARO4s7RiIfQEO/dYHg8KEYyMzKTouCB7Xh+LVPW+fS6LtFrqf6WjYy/n3lybbWhXeMkErEC5R4JO3d/KQVGNFZCdFc0y4fu6smcxqxxphY3OnMP4o6Agu3LipadVHdzydxwENDKcLlKpHdiqZkNljOLspdvU5IdD3wMN+6DmlPMTKJJyBdizAwt3avOrOXrepHF1DP7dFUc3fCarB7O2taF84IFD2B/tgzPZJEL4cKyCZRCY1xwEa8Q5ounM62S0u4sqbqPRQNm+NpnrDL/HNSpkxaDuRab1o4cmBhn3fDmgkSDHUy6UKEIKXwGYM5jmERELXkmjtgTR/dLiKp6sEdaVzFRqMQMgI7V5AIIzgeFy/j+tNc81B7B62
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2026 14:28:10.4557 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 39d0b838-6355-4ef4-1a48-08de633074fc
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2026 14:28:11.1785 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 83f24b73-ce88-4fb1-8a17-08de6330756a
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF0000004C.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: AM3PEPF00009B9F.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR10MB5553
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB8823
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 5/7] ARM: dts: stm32: Add boot phase tags
- for STMicroelectronics mp13 boards
+Subject: [Linux-stm32] [PATCH v6 6/7] ARM: dts: stm32: Add boot phase tags
+ for STMicroelectronics mp15 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -161,18 +161,19 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.09 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrick.delaunay@foss.st.com,m:cniedermaier@dh-electronics.com,m:marex@denx.de,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@dh-electronics.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
@@ -182,23 +183,23 @@ X-Spamd-Result: default: False [4.09 / 15.00];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[foss.st.com:mid,0.0.0.0:email,0.0.0.12:email,0.0.0.10:email,0.0.0.58:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[foss.st.com:mid,0.0.0.38:email,0.0.0.0:email,0.0.0.1:email,0.0.0.33:email,2.67.213.128:email,0.0.0.50:email,0.0.0.6:email,0.0.0.2:email];
+	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	DBL_PROHIBIT(0.00)[0.0.0.19:email];
+	TO_DN_SOME(0.00)[];
+	DBL_PROHIBIT(0.00)[0.0.0.3:email,0.0.0.19:email];
 	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 8464DDA912
+X-Rspamd-Queue-Id: 5FEABDA911
 X-Rspamd-Action: no action
 
 The bootph-all flag was introduced in dt-schema
@@ -211,27 +212,42 @@ to these nodes to support SD boot.
 
 Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 ---
- arch/arm/boot/dts/st/stm32mp131.dtsi             |   4 +-
- arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts |  21 +++++
- arch/arm/boot/dts/st/stm32mp135f-dk.dts          | 101 +++++++++++++++++++++++
- arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi  | 101 +++++++++++++++++++++++
- 4 files changed, 225 insertions(+), 2 deletions(-)
+ arch/arm/boot/dts/st/stm32mp151.dtsi               |   2 +-
+ arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts      |  19 +++
+ .../st/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts |   1 +
+ .../dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts  |  25 +++
+ .../dts/st/stm32mp157a-icore-stm32mp1-edimm2.2.dts |  26 ++++
+ .../boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi    | 100 ++++++++++++
+ ...m32mp157a-microgea-stm32mp1-microdev2.0-of7.dts |  27 ++++
+ .../stm32mp157a-microgea-stm32mp1-microdev2.0.dts  |  27 ++++
+ .../boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi |  97 ++++++++++++
+ arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts      |   5 +
+ arch/arm/boot/dts/st/stm32mp157c-dk2.dts           |   1 +
+ arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts      |  19 +++
+ arch/arm/boot/dts/st/stm32mp157c-ed1.dts           | 151 ++++++++++++++++++
+ arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts      |   5 +
+ arch/arm/boot/dts/st/stm32mp157c-ev1.dts           |  38 +++++
+ arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts       |   1 +
+ arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi  | 119 ++++++++++++++
+ arch/arm/boot/dts/st/stm32mp157c-odyssey.dts       |  21 +++
+ arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts  |   1 +
+ arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi     |   5 +
+ arch/arm/boot/dts/st/stm32mp157f-dk2.dts           |   1 +
+ arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi   |   1 +
+ arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi    | 172 +++++++++++++++++++++
+ .../boot/dts/st/stm32mp15xx-dhcor-avenger96.dtsi   |  55 +++++++
+ .../boot/dts/st/stm32mp15xx-dhcor-drc-compact.dtsi |  50 ++++++
+ arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi    | 157 +++++++++++++++++++
+ .../boot/dts/st/stm32mp15xx-dhcor-testbench.dtsi   |  50 ++++++
+ arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi          | 122 +++++++++++++++
+ 28 files changed, 1297 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index b9657ff91c23..3d77bdaa945a 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -36,7 +36,7 @@ arm_wdt: watchdog {
- 	};
- 
- 	firmware {
--		optee {
-+		optee: optee {
- 			method = "smc";
- 			compatible = "linaro,optee-tz";
- 			interrupt-parent = <&intc>;
-@@ -91,7 +91,7 @@ intc: interrupt-controller@a0021000 {
- 		      <0xa0022000 0x2000>;
+diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+index b1b568dfd126..ada55b2c1aa2 100644
+--- a/arch/arm/boot/dts/st/stm32mp151.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+@@ -30,7 +30,7 @@ arm-pmu {
+ 		interrupt-parent = <&intc>;
  	};
  
 -	psci {
@@ -239,21 +255,33 @@ index b9657ff91c23..3d77bdaa945a 100644
  		compatible = "arm,psci-1.0";
  		method = "smc";
  	};
-diff --git a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-index 9902849ed040..526ab2e1a93c 100644
---- a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-+++ b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
-@@ -350,6 +350,21 @@ timer@12 {
- 	};
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
+index 847b360f02fc..b81b6e168b67 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
+@@ -65,6 +65,7 @@ &m4_rproc {
+ &optee {
+ 	interrupt-parent = <&intc>;
+ 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++	bootph-some-ram;
  };
  
+ &rcc {
+@@ -85,3 +86,21 @@ &rng1 {
+ &rtc {
+ 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
+ };
++
++&scmi {
++	bootph-some-ram;
++};
++
 +&uart4 {
 +	bootph-all;
 +};
 +
-+&uart4_pins_b {
++&uart4_pins_a {
 +	bootph-all;
-+
 +	pins1 {
 +		bootph-all;
 +	};
@@ -261,53 +289,491 @@ index 9902849ed040..526ab2e1a93c 100644
 +		bootph-all;
 +	};
 +};
-+
- &usart1 { /* Expansion connector: RX:pin33 TX:pin37 */
- 	pinctrl-names = "default", "sleep", "idle";
- 	pinctrl-0 = <&usart1_pins_b>;
-@@ -367,6 +382,10 @@ &usart2 { /* Expansion connector: RX:pin10 TX:pin8 RTS:pin11 CTS:pin36 */
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
+index df97e03d2a5a..4ad1313efca9 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2-of10.dts
+@@ -92,6 +92,7 @@ bridge_out: endpoint {
+ };
+ 
+ &ltdc {
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts
+index 60ce4425a7fd..ac4e313ca371 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts
+@@ -35,15 +35,40 @@ &sdmmc1 {
+ 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+ 	st,neg-edge;
+ 	vmmc-supply = <&v3v3>;
++	bootph-all;
  	status = "okay";
  };
  
-+&usbphyc {
++&sdmmc1_b4_pins_a {
 +	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++	};
 +};
 +
- &usbh_ehci {
- 	phys = <&usbphyc_port0>;
- 	status = "okay";
-@@ -432,6 +451,7 @@ connector {
- 
- /* LDO2 is expansion connector 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
- &vdd_ldo2 {
+ &uart4 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-1 = <&uart4_sleep_pins_a>;
+ 	pinctrl-2 = <&uart4_idle_pins_a>;
 +	bootph-all;
- 	regulator-always-on;
- 	regulator-boot-on;
- 	regulator-min-microvolt = <3300000>;
-@@ -440,6 +460,7 @@ &vdd_ldo2 {
- 
- /* LDO5 is carrier board 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
- &vdd_sd {
-+	bootph-all;
- 	regulator-always-on;
- 	regulator-boot-on;
- 	regulator-min-microvolt = <3300000>;
-diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-index 8dcf68b212b4..59c0d41acd54 100644
---- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-+++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-@@ -179,6 +179,10 @@ &arm_wdt {
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
  	status = "okay";
+ };
++
++&uart4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++		bias-pull-up;
++	};
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-edimm2.2.dts b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+index f8e404346396..cc24a29fba15 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-edimm2.2.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-edimm2.2.dts
+@@ -92,6 +92,7 @@ bridge_out_panel: endpoint {
+ };
+ 
+ &ltdc {
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+@@ -110,15 +111,40 @@ &sdmmc1 {
+ 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+ 	st,neg-edge;
+ 	vmmc-supply = <&v3v3>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart4 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-1 = <&uart4_sleep_pins_a>;
+ 	pinctrl-2 = <&uart4_idle_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
++
++&uart4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++		bias-pull-up;
++	};
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi
+index 569a7e940ecc..db93934019d1 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1.dtsi
+@@ -61,6 +61,7 @@ vddcore: regulator-vddcore {
+ 		regulator-min-microvolt = <1200000>;
+ 		regulator-max-microvolt = <1200000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	vdd: regulator-vdd {
+@@ -69,6 +70,7 @@ vdd: regulator-vdd {
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	vdd_usb: regulator-vdd-usb {
+@@ -77,6 +79,7 @@ vdd_usb: regulator-vdd-usb {
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	vdda: regulator-vdda {
+@@ -85,6 +88,7 @@ vdda: regulator-vdda {
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	vdd_ddr: regulator-vdd-ddr {
+@@ -93,6 +97,7 @@ vdd_ddr: regulator-vdd-ddr {
+ 		regulator-min-microvolt = <1350000>;
+ 		regulator-max-microvolt = <1350000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	vtt_ddr: regulator-vtt-ddr {
+@@ -102,6 +107,7 @@ vtt_ddr: regulator-vtt-ddr {
+ 		regulator-max-microvolt = <675000>;
+ 		regulator-always-on;
+ 		vin-supply = <&vdd>;
++		bootph-all;
+ 	};
+ 
+ 	vref_ddr: regulator-vref-ddr {
+@@ -111,6 +117,7 @@ vref_ddr: regulator-vref-ddr {
+ 		regulator-max-microvolt = <675000>;
+ 		regulator-always-on;
+ 		vin-supply = <&vdd>;
++		bootph-all;
+ 	};
+ 
+ 	vdd_sd: regulator-vdd-sd {
+@@ -119,6 +126,7 @@ vdd_sd: regulator-vdd-sd {
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	v3v3: regulator-v3v3 {
+@@ -127,6 +135,7 @@ v3v3: regulator-v3v3 {
+ 		regulator-min-microvolt = <3300000>;
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	v2v8: regulator-v2v8 {
+@@ -136,6 +145,7 @@ v2v8: regulator-v2v8 {
+ 		regulator-max-microvolt = <2800000>;
+ 		regulator-always-on;
+ 		vin-supply = <&v3v3>;
++		bootph-all;
+ 	};
+ 
+ 	v1v8: regulator-v1v8 {
+@@ -145,13 +155,86 @@ v1v8: regulator-v1v8 {
+ 		regulator-max-microvolt = <1800000>;
+ 		regulator-always-on;
+ 		vin-supply = <&v3v3>;
++		bootph-all;
+ 	};
  };
  
 +&bsec {
 +	bootph-all;
 +};
 +
- &crc1 {
++&clk_hse {
++	bootph-all;
++};
++
++&clk_hsi {
++	bootph-all;
++};
++
++&clk_lse {
++	bootph-all;
++};
++
++&clk_lsi {
++	bootph-all;
++};
++
++&clk_csi {
++	bootph-all;
++};
++
+ &dts {
  	status = "okay";
  };
-@@ -226,6 +230,42 @@ phy0_eth1: ethernet-phy@0 {
+ 
++&gpioa {
++	bootph-all;
++};
++
++&gpiob {
++	bootph-all;
++};
++
++&gpioc {
++	bootph-all;
++};
++
++&gpiod {
++	bootph-all;
++};
++
++&gpioe {
++	bootph-all;
++};
++
++&gpiof {
++	bootph-all;
++};
++
++&gpiog {
++	bootph-all;
++};
++
++&gpioh {
++	bootph-all;
++};
++
++&gpioi {
++	bootph-all;
++};
++
++&gpioj {
++	bootph-all;
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
++};
++
+ &i2c2 {
+ 	i2c-scl-falling-time-ns = <20>;
+ 	i2c-scl-rising-time-ns = <185>;
+@@ -167,6 +250,7 @@ &ipcc {
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
+@@ -180,6 +264,22 @@ &m4_rproc {
+ 	status = "okay";
+ };
+ 
++&pinctrl {
++	bootph-all;
++};
++
++&pinctrl_z {
++	bootph-all;
++};
++
++&psci {
++	bootph-some-ram;
++};
++
++&rcc {
++	bootph-all;
++};
++
+ &rng1 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+index 5116a7785201..7bfd7da4a8db 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0-of7.dts
+@@ -78,6 +78,7 @@ &i2c2 {
+ &ltdc {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&ltdc_pins>;
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+@@ -134,19 +135,45 @@ &sdmmc1 {
+ 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+ 	st,neg-edge;
+ 	vmmc-supply = <&vdd>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-all;
++
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart4 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-1 = <&uart4_sleep_pins_a>;
+ 	pinctrl-2 = <&uart4_idle_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_a {
++	bootph-all;
++
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++	};
++};
++
+ /* J31: RS323 */
+ &uart8 {
+ 	pinctrl-names = "default";
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0.dts b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+index d949559be020..a1f79659d7c5 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
++++ b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1-microdev2.0.dts
+@@ -36,19 +36,46 @@ &sdmmc1 {
+ 	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
+ 	st,neg-edge;
+ 	vmmc-supply = <&vdd>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-all;
++
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart4 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-1 = <&uart4_sleep_pins_a>;
+ 	pinctrl-2 = <&uart4_idle_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_a {
++	bootph-all;
++
++	pins1 {
++		bootph-all;
++	};
++
++	pins2 {
++		bootph-all;
++		bias-pull-up;
++	};
++};
++
+ /* J31: RS323 */
+ &uart8 {
+ 	pinctrl-names = "default";
+diff --git a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi
+index a75f50cf7123..4f6f4712d634 100644
+--- a/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp157a-microgea-stm32mp1.dtsi
+@@ -61,6 +61,7 @@ vin: regulator-vin {
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+ 		regulator-always-on;
++		bootph-all;
+ 	};
+ 
+ 	vddcore: regulator-vddcore {
+@@ -70,6 +71,7 @@ vddcore: regulator-vddcore {
+ 		regulator-max-microvolt = <1200000>;
+ 		regulator-always-on;
+ 		vin-supply = <&vin>;
++		bootph-all;
+ 	};
+ 
+ 	vdd: regulator-vdd {
+@@ -79,6 +81,7 @@ vdd: regulator-vdd {
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-always-on;
+ 		vin-supply = <&vin>;
++		bootph-all;
+ 	};
+ 
+ 	vddq_ddr: regulator-vddq-ddr {
+@@ -88,9 +91,34 @@ vddq_ddr: regulator-vddq-ddr {
+ 		regulator-max-microvolt = <1350000>;
+ 		regulator-always-on;
+ 		vin-supply = <&vin>;
++		bootph-all;
+ 	};
+ };
+ 
++&bsec {
++	bootph-all;
++};
++
++&clk_hse {
++	bootph-all;
++};
++
++&clk_hsi {
++	bootph-all;
++};
++
++&clk_lse {
++	bootph-all;
++};
++
++&clk_lsi {
++	bootph-all;
++};
++
++&clk_csi {
++	bootph-all;
++};
++
+ &dts {
+ 	status = "okay";
+ };
+@@ -113,12 +141,61 @@ nand@0 {
  	};
  };
  
@@ -347,10 +813,21 @@ index 8dcf68b212b4..59c0d41acd54 100644
 +	bootph-all;
 +};
 +
- &i2c1 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&i2c1_pins_a>;
-@@ -360,6 +400,7 @@ goodix: goodix-ts@5d {
++&gpioj {
++	bootph-all;
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
++};
++
+ &ipcc {
+ 	status = "okay";
+ };
  
  &iwdg2 {
  	timeout-sec = <32>;
@@ -358,23 +835,15 @@ index 8dcf68b212b4..59c0d41acd54 100644
  	status = "okay";
  };
  
-@@ -367,6 +408,7 @@ &ltdc {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&ltdc_pins_a>;
- 	pinctrl-1 = <&ltdc_sleep_pins_a>;
-+	bootph-some-ram;
+@@ -132,6 +209,26 @@ &m4_rproc {
  	status = "okay";
- 
- 	port {
-@@ -376,6 +418,22 @@ ltdc_out_rgb: endpoint {
- 	};
  };
  
-+&optee {
++&pinctrl {
 +	bootph-all;
 +};
 +
-+&pinctrl {
++&pinctrl_z {
 +	bootph-all;
 +};
 +
@@ -382,80 +851,306 @@ index 8dcf68b212b4..59c0d41acd54 100644
 +	bootph-some-ram;
 +};
 +
++&pwr_regulators {
++	bootph-all;
++};
++
 +&rcc {
 +	bootph-all;
 +};
 +
+ &rng1 {
+ 	status = "okay";
+ };
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
+index 43280289759d..e192d033626e 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
+@@ -71,6 +71,7 @@ &m4_rproc {
+ &optee {
+ 	interrupt-parent = <&intc>;
+ 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++	bootph-some-ram;
+ };
+ 
+ &rcc {
+@@ -91,3 +92,7 @@ &rng1 {
  &rtc {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&rtc_rsvd_pins_a>;
-@@ -387,6 +445,14 @@ rtc_lsco_pins_a: rtc-lsco-0 {
- 	};
+ 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
  };
- 
++
 +&scmi {
++	bootph-some-ram;
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
+index 1ec3b8f2faa9..bf9fdf0d611c 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-dk2.dts
+@@ -80,6 +80,7 @@ touchscreen@38 {
+ };
+ 
+ &ltdc {
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
+index 6f27d794d270..f053a70cb254 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
+@@ -70,6 +70,7 @@ &m4_rproc {
+ &optee {
+ 	interrupt-parent = <&intc>;
+ 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++	bootph-some-ram;
+ };
+ 
+ &rcc {
+@@ -90,3 +91,21 @@ &rng1 {
+ &rtc {
+ 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
+ };
++
++&scmi {
++	bootph-some-ram;
++};
++
++&uart4 {
 +	bootph-all;
 +};
 +
-+&scmi_clk {
++&uart4_pins_a {
 +	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
 +};
-+
- &scmi_regu {
- 	scmi_vdd_adc: regulator@10 {
- 		reg = <VOLTD_SCMI_STPMIC1_LDO1>;
-@@ -410,6 +476,10 @@ scmi_v3v3_sw: regulator@19 {
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+index 49dd555cc228..ef71ebd65518 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-ed1.dts
+@@ -145,6 +145,31 @@ channel@6 {
  	};
  };
  
-+&scmi_reset {
++
++&bsec {
 +	bootph-all;
 +};
 +
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_clk_pins_a>;
-@@ -420,9 +490,24 @@ &sdmmc1 {
- 	st,neg-edge;
- 	bus-width = <4>;
- 	vmmc-supply = <&scmi_vdd_sd>;
++&clk_hse {
++	bootph-all;
++};
++
++&clk_hsi {
++	bootph-all;
++};
++
++&clk_lse {
++	bootph-all;
++};
++
++&clk_lsi {
++	bootph-all;
++};
++
++&clk_csi {
++	bootph-all;
++};
++
+ &crc1 {
+ 	status = "okay";
+ };
+@@ -170,6 +195,54 @@ &dts {
+ 	status = "okay";
+ };
+ 
++&gpioa {
++	bootph-all;
++};
++
++&gpiob {
++	bootph-all;
++};
++
++&gpioc {
++	bootph-all;
++};
++
++&gpiod {
++	bootph-all;
++};
++
++&gpioe {
++	bootph-all;
++};
++
++&gpiof {
++	bootph-all;
++};
++
++&gpiog {
++	bootph-all;
++};
++
++&gpioh {
++	bootph-all;
++};
++
++&gpioi {
++	bootph-all;
++};
++
++&gpioj {
++	bootph-all;
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
++};
++
+ &hash1 {
+ 	status = "okay";
+ };
+@@ -181,7 +254,9 @@ &i2c4 {
+ 	i2c-scl-rising-time-ns = <185>;
+ 	i2c-scl-falling-time-ns = <20>;
+ 	clock-frequency = <400000>;
++	bootph-all;
+ 	status = "okay";
++
+ 	/* spare dmas for other usage */
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+@@ -192,6 +267,7 @@ pmic: stpmic@33 {
+ 		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-controller;
+ 		#interrupt-cells = <2>;
++		bootph-all;
+ 		status = "okay";
+ 
+ 		regulators {
+@@ -327,12 +403,20 @@ watchdog {
+ 	};
+ };
+ 
++&i2c4_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
++};
++
+ &ipcc {
+ 	status = "okay";
+ };
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
+@@ -348,9 +432,26 @@ &m4_rproc {
+ 	status = "okay";
+ };
+ 
++&pinctrl {
++	bootph-all;
++};
++
++&pinctrl_z {
++	bootph-all;
++};
++
++&psci {
++	bootph-some-ram;
++};
++
+ &pwr_regulators {
+ 	vdd-supply = <&vdd>;
+ 	vdd_3v3_usbfs-supply = <&vdd_usb>;
++	bootph-all;
++};
++
++&rcc {
++	bootph-all;
+ };
+ 
+ &rng1 {
+@@ -378,9 +479,30 @@ &sdmmc1 {
+ 	sd-uhs-sdr25;
+ 	sd-uhs-sdr50;
+ 	sd-uhs-ddr50;
 +	bootph-pre-ram;
  	status = "okay";
  };
  
 +&sdmmc1_b4_pins_a {
 +	bootph-pre-ram;
-+	pins {
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
 +		bootph-pre-ram;
 +	};
 +};
 +
-+&sdmmc1_clk_pins_a {
++&sdmmc1_dir_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
+@@ -394,9 +516,27 @@ &sdmmc2 {
+ 	vmmc-supply = <&v3v3>;
+ 	vqmmc-supply = <&vdd>;
+ 	mmc-ddr-3_3v;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc2_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc2_d47_pins_a {
 +	bootph-pre-ram;
 +	pins {
 +		bootph-pre-ram;
 +	};
 +};
 +
- /* Wifi */
- &sdmmc2 {
- 	pinctrl-names = "default", "opendrain", "sleep";
-@@ -454,6 +539,10 @@ &spi5 {
- 	status = "disabled";
- };
- 
-+&syscfg {
-+	bootph-all;
-+};
-+
- &timers3 {
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
-@@ -535,9 +624,20 @@ &uart4 {
+ &timers6 {
+ 	status = "okay";
+ 	/* spare dmas for other usage */
+@@ -412,11 +552,22 @@ &uart4 {
+ 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-1 = <&uart4_sleep_pins_a>;
  	pinctrl-2 = <&uart4_idle_pins_a>;
++	bootph-all;
  	/delete-property/dmas;
  	/delete-property/dma-names;
-+	bootph-all;
  	status = "okay";
  };
  
@@ -469,26 +1164,140 @@ index 8dcf68b212b4..59c0d41acd54 100644
 +	};
 +};
 +
- &uart8 {
- 	pinctrl-names = "default", "sleep", "idle";
- 	pinctrl-0 = <&uart8_pins_a>;
-@@ -601,6 +701,7 @@ usbotg_hs_ep: endpoint {
+ &usbotg_hs {
+ 	vbus-supply = <&vbus_otg>;
+ };
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
+index 6ae391bffee5..17295d67ab85 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
+@@ -75,6 +75,7 @@ &m4_rproc {
+ &optee {
+ 	interrupt-parent = <&intc>;
+ 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++	bootph-some-ram;
  };
  
- &usbphyc {
-+	bootph-all;
+ &rcc {
+@@ -95,3 +96,7 @@ &rng1 {
+ &rtc {
+ 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
+ };
++
++&scmi {
++	bootph-some-ram;
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
+index 4e46d58bf61f..47d08c1fb061 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
+@@ -231,6 +231,7 @@ &i2c5 {
+ };
+ 
+ &ltdc {
++	bootph-some-ram;
  	status = "okay";
+ 
+ 	port {
+@@ -262,6 +263,7 @@ &qspi_bk2_sleep_pins_a
+ 	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
++	bootph-pre-ram;
+ 	status = "okay";
+ 
+ 	flash0: flash@0 {
+@@ -271,6 +273,7 @@ flash0: flash@0 {
+ 		spi-max-frequency = <108000000>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
++		bootph-pre-ram;
+ 	};
+ 
+ 	flash1: flash@1 {
+@@ -283,6 +286,41 @@ flash1: flash@1 {
+ 	};
  };
  
-diff --git a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
-index 54ece71085c1..4efaca84a72c 100644
---- a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
-@@ -54,6 +54,46 @@ vin: vin {
++&qspi_clk_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_bk1_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_cs1_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_bk2_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_cs2_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc3 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts b/arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts
+index eada9cf257be..9f513045c559 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-lxa-mc1.dts
+@@ -158,6 +158,7 @@ &ltdc {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&ltdc_pins_c>;
+ 	pinctrl-1 = <&ltdc_sleep_pins_c>;
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi b/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi
+index cf7485251490..1c5517f57ecd 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp157c-odyssey-som.dtsi
+@@ -75,11 +75,84 @@ led-blue {
  	};
  };
  
 +&bsec {
++	bootph-all;
++};
++
++&clk_hse {
++	bootph-all;
++};
++
++&clk_hsi {
++	bootph-all;
++};
++
++&clk_lse {
++	bootph-all;
++};
++
++&clk_lsi {
++	bootph-all;
++};
++
++&clk_csi {
 +	bootph-all;
 +};
 +
@@ -528,10 +1337,49 @@ index 54ece71085c1..4efaca84a72c 100644
 +	bootph-all;
 +};
 +
- &i2c3 {
- 	i2c-scl-rising-time-ns = <96>;
- 	i2c-scl-falling-time-ns = <3>;
-@@ -216,9 +256,18 @@ eeprom0wl: eeprom@58 {
++&gpioj {
++	bootph-all;
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
++};
++
+ &i2c2 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c2_pins_a>;
+ 	i2c-scl-rising-time-ns = <185>;
+ 	i2c-scl-falling-time-ns = <20>;
++	bootph-all;
+ 	status = "okay";
+ 	/* spare dmas for other usage */
+ 	/delete-property/dmas;
+@@ -91,6 +164,7 @@ pmic: stpmic@33 {
+ 		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-controller;
+ 		#interrupt-cells = <2>;
++		bootph-all;
+ 
+ 		regulators {
+ 			compatible = "st,stpmic1-regulators";
+@@ -218,12 +292,20 @@ watchdog {
+ 	};
+ };
+ 
++&i2c2_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
++};
++
+ &ipcc {
+ 	status = "okay";
+ };
  
  &iwdg2 {
  	timeout-sec = <32>;
@@ -539,7 +1387,15 @@ index 54ece71085c1..4efaca84a72c 100644
  	status = "okay";
  };
  
+@@ -237,6 +319,26 @@ &m4_rproc {
+ 	status = "okay";
+ };
+ 
 +&pinctrl {
++	bootph-all;
++};
++
++&pinctrl_z {
 +	bootph-all;
 +};
 +
@@ -547,89 +1403,1214 @@ index 54ece71085c1..4efaca84a72c 100644
 +	bootph-some-ram;
 +};
 +
- &qspi {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&qspi_clk_pins_a
-@@ -229,6 +278,7 @@ &qspi_bk1_sleep_pins_a
- 		     &qspi_cs1_sleep_pins_a>;
- 	#address-cells = <1>;
- 	#size-cells = <0>;
++&pwr_regulators {
 +	bootph-all;
- 	status = "okay";
- 
- 	flash0: flash@0 {
-@@ -238,9 +288,35 @@ flash0: flash@0 {
- 		spi-max-frequency = <108000000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
-+		bootph-all;
- 	};
- };
- 
-+&qspi_clk_pins_a {
-+	bootph-all;
-+	pins {
-+		bootph-all;
-+	};
-+};
-+
-+&qspi_bk1_pins_a {
-+	bootph-all;
-+	pins {
-+		bootph-all;
-+	};
-+};
-+
-+&qspi_cs1_pins_a {
-+	bootph-all;
-+	pins {
-+		bootph-all;
-+	};
 +};
 +
 +&rcc {
 +	bootph-all;
 +};
 +
- /* SDIO WiFi */
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
-@@ -285,6 +361,10 @@ &sdmmc2 {
+ &rng1 {
+ 	status = "okay";
+ };
+@@ -258,6 +360,23 @@ &sdmmc2 {
+ 	vmmc-supply = <&v3v3>;
+ 	vqmmc-supply = <&vdd>;
+ 	mmc-ddr-3_3v;
++	bootph-pre-ram;
  	status = "okay";
  };
  
-+&syscfg {
-+	bootph-all;
++&sdmmc2_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
 +};
 +
- /* Console UART */
++&sdmmc2_d47_pins_d {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-odyssey.dts b/arch/arm/boot/dts/st/stm32mp157c-odyssey.dts
+index a8b3f7a54703..92bc25b3f563 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-odyssey.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-odyssey.dts
+@@ -75,14 +75,35 @@ &sdmmc1 {
+ 	st,neg-edge;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&v3v3>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
  &uart4 {
- 	pinctrl-names = "default", "sleep", "idle";
-@@ -312,3 +392,24 @@ bluetooth {
- 		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart4_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts b/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts
+index 36e6055b5665..b404ea3752d9 100644
+--- a/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts
++++ b/arch/arm/boot/dts/st/stm32mp157c-osd32mp1-red.dts
+@@ -131,6 +131,7 @@ i2s2_endpoint: endpoint {
+ };
+ 
+ &ltdc {
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi b/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
+index 89de85a2eff3..5d29c2154b46 100644
+--- a/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp157f-dk2-scmi.dtsi
+@@ -87,6 +87,7 @@ &mdma1 {
+ &optee {
+ 	interrupt-parent = <&intc>;
+ 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++	bootph-some-ram;
+ };
+ 
+ &pwr_regulators {
+@@ -114,6 +115,10 @@ &rtc {
+ 	clocks = <&scmi_clk CK_SCMI_RTCAPB>, <&scmi_clk CK_SCMI_RTC>;
+ };
+ 
++&scmi {
++	bootph-some-ram;
++};
++
+ &scmi_reguls {
+ 	scmi_vddcore: regulator@3 {
+ 		reg = <VOLTD_SCMI_STPMIC1_BUCK1>;
+diff --git a/arch/arm/boot/dts/st/stm32mp157f-dk2.dts b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
+index 8fa61e54d026..4d857b3575fd 100644
+--- a/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
++++ b/arch/arm/boot/dts/st/stm32mp157f-dk2.dts
+@@ -97,6 +97,7 @@ stpmic@33 {
+ };
+ 
+ &ltdc {
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi
+index 5c77202ee196..2e02cd8e7e0d 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-pdk2.dtsi
+@@ -201,6 +201,7 @@ &ltdc {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&ltdc_pins_b>;
+ 	pinctrl-1 = <&ltdc_sleep_pins_b>;
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
+index 4cc633683c6b..2c40ceaf1f33 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
+@@ -103,6 +103,10 @@ channel@1 {
  	};
  };
-+
-+&vdd {
+ 
++&bsec {
 +	bootph-all;
 +};
 +
-+&vddcpu {
+ &crc1 {
+ 	status = "okay";
+ };
+@@ -121,6 +125,26 @@ dac2: dac@2 {
+ 	};
+ };
+ 
++&clk_hse {
 +	bootph-all;
 +};
 +
-+
-+&vddcore {
++&clk_hsi {
 +	bootph-all;
 +};
 +
-+&vdd_ddr {
++&clk_lse {
 +	bootph-all;
 +};
 +
-+&vref_ddr {
++&clk_lsi {
 +	bootph-all;
 +};
++
++&clk_csi {
++	bootph-all;
++};
++
+ &dts {
+ 	status = "okay";
+ };
+@@ -190,6 +214,7 @@ &gpioa {
+ 			  "", "", "DHCOM-K", "",
+ 			  "", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpiob {
+@@ -197,6 +222,7 @@ &gpiob {
+ 			  "", "", "", "",
+ 			  "DHCOM-Q", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpioc {
+@@ -204,6 +230,7 @@ &gpioc {
+ 			  "", "", "DHCOM-E", "",
+ 			  "", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpiod {
+@@ -211,6 +238,7 @@ &gpiod {
+ 			  "", "", "DHCOM-B", "",
+ 			  "", "", "", "DHCOM-F",
+ 			  "DHCOM-D", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpioe {
+@@ -218,6 +246,7 @@ &gpioe {
+ 			  "", "", "DHCOM-P", "",
+ 			  "", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpiof {
+@@ -225,6 +254,7 @@ &gpiof {
+ 			  "", "", "", "",
+ 			  "", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpiog {
+@@ -232,6 +262,7 @@ &gpiog {
+ 			  "", "", "", "",
+ 			  "DHCOM-L", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
+ };
+ 
+ &gpioh {
+@@ -239,6 +270,7 @@ &gpioh {
+ 			  "", "", "", "DHCOM-N",
+ 			  "DHCOM-J", "DHCOM-W", "DHCOM-V", "DHCOM-U",
+ 			  "DHCOM-T", "", "DHCOM-S", "";
++	bootph-all;
+ };
+ 
+ &gpioi {
+@@ -246,6 +278,20 @@ &gpioi {
+ 			  "DHCOM-R", "DHCOM-M", "", "",
+ 			  "", "", "", "",
+ 			  "", "", "", "";
++	bootph-all;
++};
++
++&gpioj {
++	bootph-all;
++
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
+ };
+ 
+ &i2c4 {
+@@ -253,6 +299,8 @@ &i2c4 {
+ 	pinctrl-0 = <&i2c4_pins_a>;
+ 	i2c-scl-rising-time-ns = <185>;
+ 	i2c-scl-falling-time-ns = <20>;
++	bootph-all;
++	bootph-pre-ram;
+ 	status = "okay";
+ 	/* spare dmas for other usage */
+ 	/delete-property/dmas;
+@@ -269,6 +317,8 @@ pmic: stpmic@33 {
+ 		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-controller;
+ 		#interrupt-cells = <2>;
++		bootph-all;
++		bootph-pre-ram;
+ 
+ 		regulators {
+ 			compatible = "st,stpmic1-regulators";
+@@ -279,6 +329,7 @@ regulators {
+ 			ldo6-supply = <&v3v3>;
+ 			pwr_sw1-supply = <&bst_out>;
+ 			pwr_sw2-supply = <&bst_out>;
++			bootph-pre-ram;
+ 
+ 			vddcore: buck1 {
+ 				regulator-name = "vddcore";
+@@ -409,12 +460,20 @@ eeprom@50 {
+ 	};
+ };
+ 
++&i2c4_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
++};
++
+ &ipcc {
+ 	status = "okay";
+ };
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
+@@ -428,9 +487,22 @@ &m4_rproc {
+ 	status = "okay";
+ };
+ 
++&pinctrl {
++	bootph-all;
++};
++
++&pinctrl_z {
++	bootph-all;
++};
++
++&psci {
++	bootph-some-ram;
++};
++
+ &pwr_regulators {
+ 	vdd-supply = <&vdd>;
+ 	vdd_3v3_usbfs-supply = <&vdd_usb>;
++	bootph-all;
+ };
+ 
+ &qspi {
+@@ -444,6 +516,7 @@ &qspi_bk1_sleep_pins_a
+ 	reg = <0x58003000 0x1000>, <0x70000000 0x4000000>;
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
++	bootph-pre-ram;
+ 	status = "okay";
+ 
+ 	flash0: flash@0 {
+@@ -453,6 +526,28 @@ flash0: flash@0 {
+ 		spi-max-frequency = <108000000>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
++		bootph-pre-ram;
++	};
++};
++
++&qspi_clk_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_bk1_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_cs1_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
+ 	};
+ };
+ 
+@@ -469,6 +564,15 @@ &rcc {
+ 	assigned-clocks = <&rcc CK_MCO2>, <&rcc PLL4_P>;
+ 	assigned-clock-parents = <&rcc PLL4_P>;
+ 	assigned-clock-rates = <50000000>, <100000000>;
++	bootph-all;
++};
++
++&reg11 {
++	bootph-pre-ram;
++};
++
++&reg18 {
++	bootph-pre-ram;
+ };
+ 
+ &rng1 {
+@@ -495,6 +599,7 @@ &sdmmc1 {
+ 	st,ckin-gpios = <&gpioe 4 0>;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&vdd_sd>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
+@@ -504,11 +609,24 @@ &sdmmc1_b4_pins_a {
+ 	 * - optional on SoMs with SD voltage translator
+ 	 * - mandatory on SoMs without SD voltage translator
+ 	 */
++	bootph-pre-ram;
+ 	pins1 {
+ 		bias-pull-up;
++		bootph-pre-ram;
+ 	};
+ 	pins2 {
+ 		bias-pull-up;
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc1_dir_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
+ 	};
+ };
+ 
+@@ -525,9 +643,24 @@ &sdmmc2 {
+ 	vmmc-supply = <&v3v3>;
+ 	vqmmc-supply = <&v3v3>;
+ 	mmc-ddr-3_3v;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc2_b4_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc2_d47_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc3 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
+@@ -545,7 +678,46 @@ &sdmmc3 {
+ &uart4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart4_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
++
++&uart4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
++
++&usb33 {
++	bootph-pre-ram;
++};
++
++&usbotg_hs_pins_a {
++	bootph-pre-ram;
++};
++
++&usbotg_hs {
++	bootph-pre-ram;
++};
++
++&usbphyc {
++	bootph-pre-ram;
++};
++
++&usbphyc_port0 {
++	bootph-pre-ram;
++};
++
++&usbphyc_port1 {
++	bootph-pre-ram;
++};
++
++&vdd_usb {
++	bootph-pre-ram;
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-avenger96.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-avenger96.dtsi
+index aceeff6c38ba..e7e2203ab11a 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-avenger96.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-avenger96.dtsi
+@@ -355,6 +355,7 @@ &ltdc {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&ltdc_pins_d>;
+ 	pinctrl-1 = <&ltdc_sleep_pins_d>;
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+@@ -402,9 +403,30 @@ &sdmmc1 {
+ 	bus-width = <4>;
+ 	vmmc-supply = <&vdd_sd>;
+ 	vqmmc-supply = <&sd_switch>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc1_dir_pins_b {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_c>;
+@@ -418,9 +440,27 @@ &sdmmc2 {
+ 	st,neg-edge;
+ 	vmmc-supply = <&v3v3>;
+ 	vqmmc-supply = <&vdd_io>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc2_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc2_d47_pins_c {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc3 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc3_b4_pins_b>;
+@@ -455,11 +495,22 @@ &uart4 {
+ 	label = "LS-UART1";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart4_pins_b>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_b {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart7 {
+ 	/* On Low speed expansion header */
+ 	label = "LS-UART0";
+@@ -512,3 +563,7 @@ &usbphyc_port0 {
+ &usbphyc_port1 {
+ 	phy-supply = <&vdd_usb>;
+ };
++
++&vdd_io {
++	bootph-pre-ram;
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-drc-compact.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-drc-compact.dtsi
+index bc4ddcbdd5cf..9c6a04b4c2e3 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-drc-compact.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-drc-compact.dtsi
+@@ -231,9 +231,30 @@ &sdmmc1 {	/* MicroSD */
+ 	bus-width = <4>;
+ 	vmmc-supply = <&vdd>;
+ 	vqmmc-supply = <&vdd>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc1_dir_pins_b {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc2 {	/* eMMC */
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_c>;
+@@ -246,9 +267,27 @@ &sdmmc2 {	/* eMMC */
+ 	st,neg-edge;
+ 	vmmc-supply = <&v3v3>;
+ 	vqmmc-supply = <&vdd>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc2_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc2_d47_pins_c {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc3 {	/* SDIO Wi-Fi */
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
+@@ -276,11 +315,22 @@ &uart4 {
+ 	label = "UART0";
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart4_pins_d>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_d {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart5 {	/* X11 UART */
+ 	label = "X11-UART5";
+ 	pinctrl-names = "default";
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi
+index 89881a26c614..3d469e29d41a 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-som.dtsi
+@@ -63,6 +63,30 @@ retram: retram@38000000 {
+ 	};
+ };
+ 
++&bsec {
++	bootph-all;
++};
++
++&clk_hse {
++	bootph-all;
++};
++
++&clk_hsi {
++	bootph-all;
++};
++
++&clk_lse {
++	bootph-all;
++};
++
++&clk_lsi {
++	bootph-all;
++};
++
++&clk_csi {
++	bootph-all;
++};
++
+ &crc1 {
+ 	status = "okay";
+ };
+@@ -71,11 +95,61 @@ &dts {
+ 	status = "okay";
+ };
+ 
++&gpioa {
++	bootph-all;
++};
++
++&gpiob {
++	bootph-all;
++};
++
++&gpioc {
++	bootph-all;
++};
++
++&gpiod {
++	bootph-all;
++};
++
++&gpioe {
++	bootph-all;
++};
++
++&gpiof {
++	bootph-all;
++};
++
++&gpiog {
++	bootph-all;
++};
++
++&gpioh {
++	bootph-all;
++};
++
++&gpioi {
++	bootph-all;
++};
++
++&gpioj {
++	bootph-all;
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
++};
++
+ &i2c4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&i2c4_pins_a>;
+ 	i2c-scl-rising-time-ns = <185>;
+ 	i2c-scl-falling-time-ns = <20>;
++	bootph-all;
++	bootph-pre-ram;
+ 	status = "okay";
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+@@ -86,6 +160,8 @@ pmic: stpmic@33 {
+ 		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-controller;
+ 		#interrupt-cells = <2>;
++		bootph-all;
++		bootph-pre-ram;
+ 		status = "okay";
+ 
+ 		regulators {
+@@ -98,6 +174,7 @@ regulators {
+ 			ldo6-supply = <&v3v3>;
+ 			pwr_sw1-supply = <&bst_out>;
+ 			pwr_sw2-supply = <&bst_out>;
++			bootph-pre-ram;
+ 
+ 			vddcore: buck1 {
+ 				regulator-name = "vddcore";
+@@ -215,12 +292,20 @@ watchdog {
+ 	};
+ };
+ 
++&i2c4_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
++};
++
+ &ipcc {
+ 	status = "okay";
+ };
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
+@@ -234,9 +319,23 @@ &m4_rproc {
+ 	status = "okay";
+ };
+ 
++&pinctrl {
++	bootph-all;
++};
++
++&pinctrl_z {
++	bootph-all;
++};
++
++&psci {
++	bootph-some-ram;
++};
++
+ &pwr_regulators {
+ 	vdd-supply = <&vdd>;
+ 	vdd_3v3_usbfs-supply = <&vdd_usb>;
++	bootph-all;
++	bootph-pre-ram;
+ };
+ 
+ &qspi {
+@@ -250,6 +349,7 @@ &qspi_bk1_sleep_pins_a
+ 	reg = <0x58003000 0x1000>, <0x70000000 0x200000>;
+ 	#address-cells = <1>;
+ 	#size-cells = <0>;
++	bootph-pre-ram;
+ 	status = "okay";
+ 
+ 	flash0: flash@0 {
+@@ -262,6 +362,35 @@ flash0: flash@0 {
+ 	};
+ };
+ 
++&qspi_clk_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_bk1_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&qspi_cs1_pins_a {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
++&reg11 {
++	bootph-pre-ram;
++};
++
++&reg18 {
++	bootph-pre-ram;
++};
++
+ &rng1 {
+ 	status = "okay";
+ };
+@@ -269,3 +398,31 @@ &rng1 {
+ &rtc {
+ 	status = "okay";
+ };
++
++&usb33 {
++	bootph-pre-ram;
++};
++
++&usbotg_hs_pins_a {
++	bootph-pre-ram;
++};
++
++&usbotg_hs {
++	bootph-pre-ram;
++};
++
++&usbphyc {
++	bootph-pre-ram;
++};
++
++&usbphyc_port0 {
++	bootph-pre-ram;
++};
++
++&usbphyc_port1 {
++	bootph-pre-ram;
++};
++
++&vdd_usb {
++	bootph-pre-ram;
++};
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-testbench.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-testbench.dtsi
+index 6e79c4b6fe32..3b5debd0ffc9 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dhcor-testbench.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcor-testbench.dtsi
+@@ -131,9 +131,30 @@ &sdmmc1 {
+ 	bus-width = <4>;
+ 	vmmc-supply = <&vdd_sd>;
+ 	vqmmc-supply = <&sd_switch>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc1_dir_pins_b {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc2 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_c>;
+@@ -147,17 +168,46 @@ &sdmmc2 {
+ 	st,neg-edge;
+ 	vmmc-supply = <&v3v3>;
+ 	vqmmc-supply = <&v3v3>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc2_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
++&sdmmc2_d47_pins_c {
++	bootph-pre-ram;
++	pins {
++		bootph-pre-ram;
++	};
++};
++
+ &uart4 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart4_pins_b>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_b {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart7 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&uart7_pins_a>;
+diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
+index 7ed2b01958fe..036d37366f2a 100644
+--- a/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
++++ b/arch/arm/boot/dts/st/stm32mp15xx-dkx.dtsi
+@@ -144,6 +144,10 @@ channel@19 {
+ 	};
+ };
+ 
++&bsec {
++	bootph-all;
++};
++
+ &cec {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&cec_pins_b>;
+@@ -151,6 +155,26 @@ &cec {
+ 	status = "okay";
+ };
+ 
++&clk_hse {
++	bootph-all;
++};
++
++&clk_hsi {
++	bootph-all;
++};
++
++&clk_lse {
++	bootph-all;
++};
++
++&clk_lsi {
++	bootph-all;
++};
++
++&clk_csi {
++	bootph-all;
++};
++
+ &crc1 {
+ 	status = "okay";
+ };
+@@ -159,6 +183,54 @@ &dts {
+ 	status = "okay";
+ };
+ 
++&gpioa {
++	bootph-all;
++};
++
++&gpiob {
++	bootph-all;
++};
++
++&gpioc {
++	bootph-all;
++};
++
++&gpiod {
++	bootph-all;
++};
++
++&gpioe {
++	bootph-all;
++};
++
++&gpiof {
++	bootph-all;
++};
++
++&gpiog {
++	bootph-all;
++};
++
++&gpioh {
++	bootph-all;
++};
++
++&gpioi {
++	bootph-all;
++};
++
++&gpioj {
++	bootph-all;
++};
++
++&gpiok {
++	bootph-all;
++};
++
++&gpioz {
++	bootph-all;
++};
++
+ &ethernet0 {
+ 	status = "okay";
+ 	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
+@@ -264,6 +336,7 @@ &i2c4 {
+ 	i2c-scl-rising-time-ns = <185>;
+ 	i2c-scl-falling-time-ns = <20>;
+ 	clock-frequency = <400000>;
++	bootph-all;
+ 	status = "okay";
+ 	/* spare dmas for other usage */
+ 	/delete-property/dmas;
+@@ -299,6 +372,7 @@ pmic: stpmic@33 {
+ 		interrupts-extended = <&gpioa 0 IRQ_TYPE_EDGE_FALLING>;
+ 		interrupt-controller;
+ 		#interrupt-cells = <2>;
++		bootph-all;
+ 		status = "okay";
+ 
+ 		regulators {
+@@ -437,6 +511,13 @@ watchdog {
+ 	};
+ };
+ 
++&i2c4_pins_a {
++	bootph-all;
++	pins {
++		bootph-all;
++	};
++};
++
+ &i2c5 {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&i2c5_pins_a>;
+@@ -473,6 +554,7 @@ &ipcc {
+ 
+ &iwdg2 {
+ 	timeout-sec = <32>;
++	bootph-all;
+ 	status = "okay";
+ };
+ 
+@@ -480,6 +562,7 @@ &ltdc {
+ 	pinctrl-names = "default", "sleep";
+ 	pinctrl-0 = <&ltdc_pins_a>;
+ 	pinctrl-1 = <&ltdc_sleep_pins_a>;
++	bootph-some-ram;
+ 	status = "okay";
+ 
+ 	port {
+@@ -501,9 +584,26 @@ &m4_rproc {
+ 	status = "okay";
+ };
+ 
++&pinctrl {
++	bootph-all;
++};
++
++&pinctrl_z {
++	bootph-all;
++};
++
++&psci {
++	bootph-some-ram;
++};
++
+ &pwr_regulators {
+ 	vdd-supply = <&vdd>;
+ 	vdd_3v3_usbfs-supply = <&vdd_usb>;
++	bootph-all;
++};
++
++&rcc {
++	bootph-all;
+ };
+ 
+ &rng1 {
+@@ -568,9 +668,20 @@ &sdmmc1 {
+ 	st,neg-edge;
+ 	bus-width = <4>;
+ 	vmmc-supply = <&v3v3>;
++	bootph-pre-ram;
+ 	status = "okay";
+ };
+ 
++&sdmmc1_b4_pins_a {
++	bootph-pre-ram;
++	pins1 {
++		bootph-pre-ram;
++	};
++	pins2 {
++		bootph-pre-ram;
++	};
++};
++
+ &sdmmc3 {
+ 	pinctrl-names = "default", "opendrain", "sleep";
+ 	pinctrl-0 = <&sdmmc3_b4_pins_a>;
+@@ -691,11 +802,22 @@ &uart4 {
+ 	pinctrl-0 = <&uart4_pins_a>;
+ 	pinctrl-1 = <&uart4_sleep_pins_a>;
+ 	pinctrl-2 = <&uart4_idle_pins_a>;
++	bootph-all;
+ 	/delete-property/dmas;
+ 	/delete-property/dma-names;
+ 	status = "okay";
+ };
+ 
++&uart4_pins_a {
++	bootph-all;
++	pins1 {
++		bootph-all;
++	};
++	pins2 {
++		bootph-all;
++	};
++};
++
+ &uart7 {
+ 	pinctrl-names = "default", "sleep", "idle";
+ 	pinctrl-0 = <&uart7_pins_c>;
 
 -- 
 2.43.0
