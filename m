@@ -2,150 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oG0rEgUGgmn3OAMAu9opvQ
+	id +LPAM4ALgmmCOQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 15:28:21 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 15:51:44 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1CFEDA93D
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 15:28:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 75CEEDAD01
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Feb 2026 15:51:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 854F6C87ECA;
-	Tue,  3 Feb 2026 14:28:20 +0000 (UTC)
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013043.outbound.protection.outlook.com
- [52.101.83.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09E26C0693E;
+	Tue,  3 Feb 2026 14:51:44 +0000 (UTC)
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com
+ [209.85.128.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A3A1C87EC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B12DC32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Feb 2026 14:28:19 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=tkBfQBwoJP42COXz0FyYSNRbwL3L/r9YGlu98cf1uT6rF52UDhieMUljJRQRRs/NaStBHozsQdbAC4o7UPWXJgzWN4+szYbYQpfLXc2y+Hrasl83Qj7TQ6P2KR+zQRFUhI+sZ9z8Hmr/wwDoBZDL6y+62IqkTKaiSwiUBhtsF/D1flcjrm7EkD/th7rLGUFAFZqYTxphNuKKS30II4nDJMckBluEpBRLeMVrVVOCW6CJpCcxBbgkqAVh/KjyvPcTVUn5GKOilJ0O+xJ+l+wVkJbGnYMrMItizGXlsgHazaPAS8iDcaMbceQVNWYJ5Bv5huko6IqSULVIWSrP4U7S3Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ogF6oPDiZuG+9J1dIodEHs5idcwFQHu2/LQgA/A00CA=;
- b=VsLxGKC4463Rf9GLVFZGCsvAG7qlNSg9r7jKsTjjN4SlCwEkZLrW4uyxt9RGxqQ8ZLenMlczU/rU43CiIPfVRRzEM4by1pmjKmRKzEWeR6OnTE+KSNME4Fh0cXPVR0WUnJOJmw6A0v0OZvWQqGb9cI87UaS07Tb7vvo0HXElAKA1aZ7zQEFGAg7Gl+r1H0vUFr1RuO/y9cxp7YjfIm0hRStxLo1wG5Sa5aivXQBZXO+57/tAt0eYG2jh6uooE2ZkNy9N6jYQt6sG7+VpEQu2GNBfYWyTo2cT8m0/M+EzrpKWBU85sj8bsCsWJdwp/xZvUc8Et/b/Y2jMWZd2kFN6ug==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=st-md-mailman.stormreply.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ogF6oPDiZuG+9J1dIodEHs5idcwFQHu2/LQgA/A00CA=;
- b=hWJtuIsaiN7C6hkTa7+wvHn5zaH0wj9sM0pOEJvRZaWXpTpYOaW8Bp9GGsf053jv0fiV7EhhpzRM05w2OczU3k2az8cGU4o7AoLPHKGRAwi1H9Rww8Zbx0zo1Qs+PqUtfDmIT2el06fJlFRmwfttphWKv2nQ9rBK/BtekYT94kerzohubLc8JM/OQZDkWjp7KvBmAUXsZdx6vIbkfvhx9CpKg2RFC/nYFT7czi/ibufvTOZTZrq18T6gtUQIB8eGjFwLMKbWKE53717UNs3hvcwKrIGse+r2drQfUoATI1sw6c0axLbcZdRlRk1YreTsO1eKNI/jJJbW+dfP3qa5gQ==
-Received: from AM8P191CA0023.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::28)
- by GVXPR10MB9663.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:2bf::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Tue, 3 Feb
- 2026 14:28:12 +0000
-Received: from AMS1EPF0000004A.eurprd04.prod.outlook.com
- (2603:10a6:20b:21a:cafe::8a) by AM8P191CA0023.outlook.office365.com
- (2603:10a6:20b:21a::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9564.16 via Frontend Transport; Tue,
- 3 Feb 2026 14:28:12 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS1EPF0000004A.mail.protection.outlook.com (10.167.16.134) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9587.10 via Frontend Transport; Tue, 3 Feb 2026 14:28:11 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 3 Feb
- 2026 15:29:58 +0100
-Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 3 Feb
- 2026 15:28:11 +0100
-From: Patrice Chotard <patrice.chotard@foss.st.com>
-Date: Tue, 3 Feb 2026 15:28:13 +0100
+ Tue,  3 Feb 2026 14:51:42 +0000 (UTC)
+Received: by mail-wm1-f46.google.com with SMTP id
+ 5b1f17b1804b1-481188b7760so38788655e9.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 03 Feb 2026 06:51:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1770130302; x=1770735102;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=gVDbMP2h4x/mUb6G2s8x3K2KoBv6D/1Du/nOa/GGM5s=;
+ b=aXh5eSCZD8/WLX2CSyNyiA7Hq2Ppaw7EA9cZ0rKHcF+1/tKtEIVss1eMGIbAkbN3yY
+ c8CjFXaf9q9UEot5Q6atY+p4ILOqEINOiN+UZJbpg5vaKdkaqvJq4Pz0goVjf+rFDbME
+ mO3nStdX5GiQEFkIuEFagbRgmNvmbdzl8W2jKfvmpRIKMt5MDFl3Jz229ELE05XGoBlx
+ nTqQlMVu/WKrumTNrIfJ19kxKp3ae7lT8cHSK6Xi1hZJFgXX6JxwzOAVebTnBziu1rJh
+ 56fLftb7ODyfGL7mM+GlDU6ZwmlXb6Yn+n2xe09mk/wewwCtCP3E8c+GrL6U9PvjX1ub
+ BoCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770130302; x=1770735102;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=gVDbMP2h4x/mUb6G2s8x3K2KoBv6D/1Du/nOa/GGM5s=;
+ b=rgav9x/jwwuJi2TyWlClTjal5JbuxftOoXm0g3wZrPlWGVY1L3zelh0oEkm6iHFOh6
+ m3EKNm+1iugf2ntN/Cbmwu6Skeq6QvMaBpngfTIj2zj1zCr66i/77urI8Ip5j5HjlQJd
+ oXeeYK/uOO6EUpQJULjnMpQm7J+rMDAS08twBbb7Uh3QFUOV2I3J/AGM+bLp5Pz7OpDU
+ LGjP236j6TxaV4RT3qPBuFssVjtLe7wboc0m1MCZdogWyspjeafuzVqzWmsxcdLqGLT/
+ nIfxhXtVY8dKNGYZobmXNySCC/uo5AxcqOcQzo7RpJ34qGpTk/PtfchW0JQokIx6u6aM
+ 2wDg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUJmIvcziI5G1GVTQHibLRnnO7z4bem3ekQ9ktoSooEDRxpEoKiZZ/LgeYVnLPolVr9Lf07fURvxl2PpQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy/YmWo1+I2ao9PGQ8njhqyQicC0fWSUBsGOvjMNVFjGHY3HjHg
+ ZYLlTQeqsfK7w7/IXaFf0eMGaLXF737Tn0EV4I0Xxdc+o1iVcrMFHX4MoxOMyzfDmJE=
+X-Gm-Gg: AZuq6aLw0zGT/6gs342Gi4m23lbcKSwi6qB9x1d4J0AWpHk8YCa56v0kkYwRZ4QcJFA
+ SMJzFOMzCmytsDWwcz55zxmV+QtnQletVY0OSKS/SmcKEud7QG9CX03m6DXct7gFemVJvod3YeC
+ v5lO1va6M9vrw6W/7D14rRO4WPk6bWgybUj/acMBpP29rDoxvhUXNDzllZTAFOiYbU0a/gK9v3h
+ KzaIuzTybj57VNaeC6MS1LB3NE0tM0IE0QDQVIfpxaacBDwKpv2/XDlbunkRLy2zjHrzFjzX+37
+ U63/a/bRs439KgemAmqXUvjar0hMRNVidZIk1nfkQrGaDcR7Mg6BXgG/fRLKNBvatmGxdKrdz+d
+ JNpCdaTokpFnkcat58SZdnOEWUCnUqdD5Mnl7JfNrI8RjZFqh7VVWKWVt3FRoFgNB2lKDt2cUb5
+ qWf2JuxzaXH7NJfePH
+X-Received: by 2002:a05:600c:859b:b0:482:df17:bbbc with SMTP id
+ 5b1f17b1804b1-482df17bd2cmr154388865e9.20.1770130302262; 
+ Tue, 03 Feb 2026 06:51:42 -0800 (PST)
+Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-482dffd47c2sm121508595e9.0.2026.02.03.06.51.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Feb 2026 06:51:41 -0800 (PST)
+Date: Tue, 3 Feb 2026 17:51:38 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Paolo Abeni <pabeni@redhat.com>
+Message-ID: <aYILejxAJef9F8bn@stanley.mountain>
+References: <cover.1769764941.git.dan.carpenter@linaro.org>
+ <bdb7cd69-7dcd-4e8a-b04a-14a2eb902311@redhat.com>
 MIME-Version: 1.0
-Message-ID: <20260203-upstream_uboot_properties-v6-7-0a2280e84d31@foss.st.com>
-References: <20260203-upstream_uboot_properties-v6-0-0a2280e84d31@foss.st.com>
-In-Reply-To: <20260203-upstream_uboot_properties-v6-0-0a2280e84d31@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Patrick Delaunay <patrick.delaunay@foss.st.com>, Christoph Niedermaier
- <cniedermaier@dh-electronics.com>, Marek Vasut <marex@denx.de>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.48.87.93]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000004A:EE_|GVXPR10MB9663:EE_
-X-MS-Office365-Filtering-Correlation-Id: d1f2e7a4-3a2b-4c08-071b-08de633075c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|82310400026|1800799024|36860700013; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?ZHVibHRBUWNZaGdGeHdhbXU5Y2RlTSsrSC9uTExlckRYUE45VGV2WnZETG9L?=
- =?utf-8?B?SVdVbkVhZVNSTEhQVmF2MUl1aEZ2b0NOOFE2UHo2UnZma0ZCZWg3NWdpTk9R?=
- =?utf-8?B?TGdPM0t0dkR5QlpZQk9Od2ZvQUxUZEJYNmxlVW1zeWJYQUMwRnNET1VmWElH?=
- =?utf-8?B?Y0hjbUJBNWNyN0FpSlVmMWFZZGJCSTRORzN1UzNFd0JwWEQ3a1NacUZqeUQ3?=
- =?utf-8?B?Q0lNTFRtdUdraUNzZ0xyNHFONGVHTDcxUTVPbFQxZVdwdXhzK1NPTUVxak81?=
- =?utf-8?B?dmxuZmdsMzBuOHRaT2VtL2FMZWlSVk8rY2pCcFlIVjBYblZGL3RKbVE5ZGVG?=
- =?utf-8?B?S256K2pGVkZwbmRvRElJRXBGVGdPMEpyMDFWZzh4RU1RUVd2ZmZCWTdEUjhx?=
- =?utf-8?B?L2JOakNhbVAwdUpmVExGdHhpb080SUQxcVNYeE5WQnc1UzNReFFVNzArMHBY?=
- =?utf-8?B?OWV2YXVsQzRVWCswU2xjSWRUeUNyb0QyRHcrZFlmbjIxZGE5bk9keHVKeG5l?=
- =?utf-8?B?TmRSSnJSVGVVMWx5MWZLWmNqaFdRTmU1NC9GZlRBRUU1b2svWGFaWStHUExZ?=
- =?utf-8?B?ellrbnFxeU9UbTFEd0dvdHJZODdrV2JjSnBBS0ZmVnRua21yc1dCQ3BPRkxM?=
- =?utf-8?B?c0k0cU9WZHZwWjN4dnI1TURyYUt1WHdGOW44VXEyVitScVh5RlhDOVdZMjVY?=
- =?utf-8?B?MzdXQmRpMkJKb3d0d2x3bzB1VFo3NTNuRUppMS9lNkhXNGNucjZLcEF3dzFS?=
- =?utf-8?B?NXppUlJCVXRVSEx5UDNQbG9lbWFPRFRVemVxcVlMQko5VWFxWWJNRENiQ3VN?=
- =?utf-8?B?YjdGUjc5b0p5YjRTZFRBYlQyejhFT1pPaWZRMjhCU2xNNG1OaCt6Qks4TVZ2?=
- =?utf-8?B?VDBZcXliVVNCeWJySVpmRmQ0VDE5QWRGN1IwZDVXOWRXSGd0K0NlMWM5REQw?=
- =?utf-8?B?RlFNeEJFSFc4WFFNTHQ1UEE4dGV0V3lQVzlCR3VFSU03YkpBRFdnVVd1R0FD?=
- =?utf-8?B?Q3k4bWFNUGFVUmdIVTR2MHZQTC95TEk4VnJXQ1FXT2daMDZyLzVFbVlqR25w?=
- =?utf-8?B?eHlxdzNOYm5aS3Q5WFI3L1JxMkN1M25UeW12THMrby8zUmlUa0FuWERjVTBa?=
- =?utf-8?B?akJwR1czQ09iRk1RS2xINHJwcVNhdnZ2OWU3Z25Xb3FwY0tBTm5TRDhiK243?=
- =?utf-8?B?WjdneEJBNFpLTVRod09tMnhSNG9JdnRJN3pFSHNYKzVYR05CREFSZWpYWU1m?=
- =?utf-8?B?OC9lSTMxNHFtSUF4ZVlsbGFRVjVnSERpVzNoR0c1b3FSZ0VnOXA4djQ4YU9J?=
- =?utf-8?B?MlEzb05YcU1OVzlBYk9LNmt6QU92MG9NSHdBcmJUZTlrdnpPWEJqdGkyS1Ji?=
- =?utf-8?B?cU0rRFpoVGxMMElITCtFTXZoajVzNFBQNmZ0SnpHNDlTTHJ2RHlXcEFVL1hE?=
- =?utf-8?B?a3Q0dmJiSFN1azBkbXZHd09XaEtMWk5ObHVQOUtvSXZjTnRyZkwwSXpwYnhx?=
- =?utf-8?B?T2k3ZUJxZjJzQmlFZHFBU29nWmdYVk5ha3VpczRyVjU1Tko2VTRNRUhFRFBH?=
- =?utf-8?B?MmpxRXorcHk2cVJJZGRCS2YyR3llZk96SG5zNkVJay92dHgrd1d5enMremF3?=
- =?utf-8?B?ZTN2Mmh1YTlBazFiMGhtdHB4SGlHQTlJZGFLZjFwcjhBSnpvR0Zoc2t3NFA1?=
- =?utf-8?B?Q3o5V2puNWJpKzF2MG9BUjhVUTdpSnJjL2Y5V1ZLNDlISXNYZ09yUUp5cVFm?=
- =?utf-8?B?WnJYdzlrVWp2ZFJNaWxYLzhVOXZldHo2b2JtZHBmYlErSVNkMVN6WUJqS3Rk?=
- =?utf-8?B?VDdYc2NLa09KbWszd0t6eG9MOExIcXlXcU9TMVY1aUd3Zlo4L0djRUxUdVpQ?=
- =?utf-8?B?WXBwdTZqYWd0MkIzeS9nTGpvNGdOQ3FVbktKUzhrSnVCWThvVWsxWVFRejA3?=
- =?utf-8?B?dndyVnowUUVWQkFoQk96VytGakl1Q1V1emlpRnkwbzBBaGtYOS95OXpKckpr?=
- =?utf-8?B?TmxnUE50SFAwTmZTV3E5VzJvMk9lcHR6QUppUXVaMit0WjJ6bUsxVXg3YWRz?=
- =?utf-8?B?bVJQMjFpNXlGbnZJQmlOcjlvV1hKU3VBTTBJWmhyRTZqcFVVK05xR1c0Z1RU?=
- =?utf-8?B?ZGJuNWxSRXZWcDNkVHA3enloSmkwdUh1KzBwWnV2UkhiaTFLV3ZpeUh5ZEtF?=
- =?utf-8?B?eFhZQ1dvMW5zVEp1dTJmWndTalhHMkpMR3IzTlFwWVovWjZiMG00dTEzdVRB?=
- =?utf-8?B?QjhoUTZVWThoZ1BYU2o3STA4M2tnPT0=?=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(82310400026)(1800799024)(36860700013); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: +BxFQ0KklLuBJntYn61GoIJwVo0GZde0PVs8+oH8eD4FM5spf5grg3MYzuy8F6rVrnffBTIAK5EYNeaeCEPN3kCJqrN68vJUGEqN4SawTYr1hVrBzhJzKt4kqrqHOUa7UQsOPU8vd/vRpN5iKi0g8oqHSQ1esCEHFfDPYKbvXh+6knQxWC9xt8cvYrN0HGxa6BR8nAa9nPsLClpkR9dO1XXn6+E/B8nMzs6XyVkfxjZpz4taZNgo4V3Z9iqL0v13h1jOlliDeRUd3FnQ0/+pAI01S0pyT1fLvdmIkWMrTXOBwpAQ/cfnCiLIIvMEBvaSdjQKQq3BO7qkeLV90yMOVkW6MYjzn0u3aT09MyfNw5kAQBI8R0EUsFDMcZowNNIALQfc9EBPe/eCMK8G7eJTeRbOcofZT1N8A4aRr+gk9uSTzjmD3HYOu241WCI2VHpn
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Feb 2026 14:28:11.7790 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d1f2e7a4-3a2b-4c08-071b-08de633075c7
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF0000004A.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB9663
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, kernel@dh-electronics.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 7/7] arm64: dts: st: Add boot phase tags
- for STMicroelectronics mp2 boards
+Content-Disposition: inline
+In-Reply-To: <bdb7cd69-7dcd-4e8a-b04a-14a2eb902311@redhat.com>
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Frank Li <Frank.Li@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ linaro-s32@linaro.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
+ Matthias Brugger <mbrugger@suse.com>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v6 0/3] s32g: Use a syscon for GPR
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,643 +106,66 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[linaro.org:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrick.delaunay@foss.st.com,m:cniedermaier@dh-electronics.com,m:marex@denx.de,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@dh-electronics.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[dan.carpenter@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com,dh-electronics.com,denx.de];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:pabeni@redhat.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:linaro-s32@linaro.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:s.hauer@pengutronix.de,m:jan.petrous@oss.nxp.com,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[foss.st.com:mid,0.0.0.1:email,0.0.0.0:email,0.0.0.23:email,0.0.0.7:email,480e0000:email];
-	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	DBL_PROHIBIT(0.00)[2.221.203.144:email,0.0.0.16:email];
-	NEURAL_HAM(-0.00)[-1.000];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,linaro.org,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: E1CFEDA93D
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 75CEEDAD01
 X-Rspamd-Action: no action
 
-The bootph-all flag was introduced in dt-schema
-(dtschema/schemas/bootph.yaml) to define node usage across
-different boot phases.
+On Tue, Feb 03, 2026 at 12:18:54PM +0100, Paolo Abeni wrote:
+> On 1/30/26 2:19 PM, Dan Carpenter wrote:
+> > 
+> > Dan Carpenter (3):
+> >   net: stmmac: s32: use a syscon for S32_PHY_INTF_SEL_RGMII
+> >   dt-bindings: net: nxp,s32-dwmac: Use the GPR syscon
+> >   dts: s32g: Add GPR syscon region
+> 
+> It looks like patch 3/3 depends on 1/3 but it should land in a different
+> tree, as patches 1 && 2 looks suitable for 'net-next' and 3/3 should
+> probably go via the arm/freescale tree.
 
-To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-present in all boot stages, so add missing bootph-all phase flag
-to these nodes to support SD boot.
+Yep.  The driver needs to be updated first before the device tree.
+(The new driver is compatible with old device trees, of course).
 
-Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
----
- arch/arm64/boot/dts/st/stm32mp211.dtsi     |   4 +-
- arch/arm64/boot/dts/st/stm32mp215f-dk.dts  |  29 ++++++++
- arch/arm64/boot/dts/st/stm32mp231.dtsi     |   4 +-
- arch/arm64/boot/dts/st/stm32mp235f-dk.dts  |  95 ++++++++++++++++++++++++++
- arch/arm64/boot/dts/st/stm32mp251.dtsi     |   4 +-
- arch/arm64/boot/dts/st/stm32mp255.dtsi     |   2 +-
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts  | 103 ++++++++++++++++++++++++++++
- arch/arm64/boot/dts/st/stm32mp257f-ev1.dts | 105 +++++++++++++++++++++++++++++
- 8 files changed, 339 insertions(+), 7 deletions(-)
+> 
+> We either need explicit ack from freescale maintainers or this should be
+> split across subtrees, right?
+> 
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-index cd078a16065e..7ddda11a6cc9 100644
---- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
-@@ -47,7 +47,7 @@ ck_flexgen_51: clock-200000000 {
- 	};
- 
- 	firmware {
--		optee {
-+		optee: optee {
- 			compatible = "linaro,optee-tz";
- 			method = "smc";
- 		};
-@@ -70,7 +70,7 @@ scmi_reset: protocol@16 {
- 		};
- 	};
- 
--	psci {
-+	psci: psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
- 	};
-diff --git a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-index 7bdaeaa5ab0f..6841433199eb 100644
---- a/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp215f-dk.dts
-@@ -44,6 +44,35 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&optee {
-+	bootph-all;
-+};
-+
-+&psci {
-+	bootph-all;
-+};
-+
-+&rifsc {
-+	bootph-all;
-+};
-+
-+&scmi {
-+	bootph-all;
-+};
-+
-+&scmi_clk {
-+	bootph-all;
-+};
-+
-+&scmi_reset {
-+	bootph-all;
-+};
-+
-+&syscfg {
-+	bootph-all;
-+};
-+
- &usart2 {
-+	bootph-all;
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-index b5d81d1ee153..142a57006823 100644
---- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
-@@ -59,7 +59,7 @@ optee: optee {
- 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
- 		};
- 
--		scmi {
-+		scmi: scmi {
- 			compatible = "linaro,scmi-optee";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-@@ -111,7 +111,7 @@ scmi_vdda18adc: regulator@7 {
- 		};
- 	};
- 
--	psci {
-+	psci: psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
- 
-diff --git a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-index 5ecc5ef61590..2f6157957d13 100644
---- a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-@@ -95,6 +95,10 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&bsec {
-+	bootph-all;
-+};
-+
- &ethernet1 {
- 	pinctrl-0 = <&eth1_rgmii_pins_b>;
- 	pinctrl-1 = <&eth1_rgmii_sleep_pins_b>;
-@@ -117,6 +121,78 @@ phy1_eth1: ethernet-phy@1 {
- 	};
- };
- 
-+&gpioa {
-+	bootph-all;
-+};
-+
-+&gpiob {
-+	bootph-all;
-+};
-+
-+&gpioc {
-+	bootph-all;
-+};
-+
-+&gpiod {
-+	bootph-all;
-+};
-+
-+&gpioe {
-+	bootph-all;
-+};
-+
-+&gpiof {
-+	bootph-all;
-+};
-+
-+&gpiog {
-+	bootph-all;
-+};
-+
-+&gpioh {
-+	bootph-all;
-+};
-+
-+&gpioi {
-+	bootph-all;
-+};
-+
-+&gpioz {
-+	bootph-all;
-+};
-+
-+&optee {
-+	bootph-all;
-+};
-+
-+&pinctrl {
-+	bootph-all;
-+};
-+
-+&pinctrl_z {
-+	bootph-all;
-+};
-+
-+&psci {
-+	bootph-all;
-+};
-+
-+&rcc {
-+	bootph-all;
-+};
-+
-+&rifsc {
-+	bootph-all;
-+};
-+
-+&scmi {
-+	bootph-all;
-+};
-+
-+&scmi_clk {
-+	bootph-all;
-+};
-+
- &scmi_regu {
- 	scmi_vddio1: regulator@0 {
- 		regulator-min-microvolt = <1800000>;
-@@ -128,6 +204,10 @@ scmi_vdd_sdcard: regulator@23 {
- 	};
- };
- 
-+&scmi_reset {
-+	bootph-all;
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-@@ -142,12 +222,27 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&syscfg {
-+	bootph-all;
-+};
-+
- &usart2 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
- };
-+
-+&usart2_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 8b925ed0d881..80ff8a43801e 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -68,7 +68,7 @@ optee: optee {
- 			interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(1) | IRQ_TYPE_LEVEL_LOW)>;
- 		};
- 
--		scmi {
-+		scmi: scmi {
- 			compatible = "linaro,scmi-optee";
- 			#address-cells = <1>;
- 			#size-cells = <0>;
-@@ -139,7 +139,7 @@ v2m0: v2m@48090000 {
- 		};
- 	};
- 
--	psci {
-+	psci: psci {
- 		compatible = "arm,psci-1.0";
- 		method = "smc";
- 
-diff --git a/arch/arm64/boot/dts/st/stm32mp255.dtsi b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-index 7a598f53a2a0..3ba4e6166586 100644
---- a/arch/arm64/boot/dts/st/stm32mp255.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp255.dtsi
-@@ -40,4 +40,4 @@ venc: venc@480e0000 {
- 		clocks = <&rcc CK_BUS_VENC>;
- 		access-controllers = <&rifsc 90>;
- 	};
--};
-\ No newline at end of file
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-index 4135e7c0d9a3..a6853d4aa45b 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-@@ -102,6 +102,10 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&bsec {
-+	bootph-all;
-+};
-+
- &ethernet1 {
- 	pinctrl-0 = <&eth1_rgmii_pins_b>;
- 	pinctrl-1 = <&eth1_rgmii_sleep_pins_b>;
-@@ -124,6 +128,86 @@ phy1_eth1: ethernet-phy@1 {
- 	};
- };
- 
-+&gpioa {
-+	bootph-all;
-+};
-+
-+&gpiob {
-+	bootph-all;
-+};
-+
-+&gpioc {
-+	bootph-all;
-+};
-+
-+&gpiod {
-+	bootph-all;
-+};
-+
-+&gpioe {
-+	bootph-all;
-+};
-+
-+&gpiof {
-+	bootph-all;
-+};
-+
-+&gpiog {
-+	bootph-all;
-+};
-+
-+&gpioh {
-+	bootph-all;
-+};
-+
-+&gpioi {
-+	bootph-all;
-+};
-+
-+&gpioj {
-+	bootph-all;
-+};
-+
-+&gpiok {
-+	bootph-all;
-+};
-+
-+&gpioz {
-+	bootph-all;
-+};
-+
-+&optee {
-+	bootph-all;
-+};
-+
-+&pinctrl {
-+	bootph-all;
-+};
-+
-+&pinctrl_z {
-+	bootph-all;
-+};
-+
-+&psci {
-+	bootph-all;
-+};
-+
-+&rcc {
-+	bootph-all;
-+};
-+
-+&rifsc {
-+	bootph-all;
-+};
-+
-+&scmi {
-+	bootph-all;
-+};
-+
-+&scmi_clk {
-+	bootph-all;
-+};
-+
- &scmi_regu {
- 	scmi_vddio1: regulator@0 {
- 		regulator-min-microvolt = <1800000>;
-@@ -135,6 +219,10 @@ scmi_vdd_sdcard: regulator@23 {
- 	};
- };
- 
-+&scmi_reset {
-+	bootph-all;
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-@@ -149,12 +237,27 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&syscfg {
-+	bootph-all;
-+};
-+
- &usart2 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
- };
-+
-+&usart2_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-index 852a73b0c516..cbf08d4304f3 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-@@ -167,6 +167,10 @@ &arm_wdt {
- 	status = "okay";
- };
- 
-+&bsec {
-+	bootph-all;
-+};
-+
- &combophy {
- 	clocks = <&rcc CK_BUS_USB3PCIEPHY>, <&rcc CK_KER_USB3PCIEPHY>, <&pad_clk>;
- 	clock-names = "apb", "ker", "pad";
-@@ -253,6 +257,54 @@ phy0_eth2: ethernet-phy@1 {
- 	};
- };
- 
-+&gpioa {
-+	bootph-all;
-+};
-+
-+&gpiob {
-+	bootph-all;
-+};
-+
-+&gpioc {
-+	bootph-all;
-+};
-+
-+&gpiod {
-+	bootph-all;
-+};
-+
-+&gpioe {
-+	bootph-all;
-+};
-+
-+&gpiof {
-+	bootph-all;
-+};
-+
-+&gpiog {
-+	bootph-all;
-+};
-+
-+&gpioh {
-+	bootph-all;
-+};
-+
-+&gpioi {
-+	bootph-all;
-+};
-+
-+&gpioj {
-+	bootph-all;
-+};
-+
-+&gpiok {
-+	bootph-all;
-+};
-+
-+&gpioz {
-+	bootph-all;
-+};
-+
- &i2c2 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&i2c2_pins_a>;
-@@ -338,6 +390,7 @@ timer {
- };
- 
- &ltdc {
-+	bootph-all;
- 	status = "okay";
- 	port {
- 		ltdc_ep0_out: endpoint {
-@@ -347,6 +400,7 @@ ltdc_ep0_out: endpoint {
- };
- 
- &lvds {
-+	bootph-all;
- 	status = "okay";
- 	ports {
- 		#address-cells = <1>;
-@@ -368,6 +422,10 @@ lvds_out0: endpoint {
- 	};
- };
- 
-+&optee {
-+	bootph-all;
-+};
-+
- &pcie_ep {
- 	pinctrl-names = "default", "init";
- 	pinctrl-0 = <&pcie_pins_a>;
-@@ -389,10 +447,38 @@ pcie@0,0 {
- 	};
- };
- 
-+&pinctrl {
-+	bootph-all;
-+};
-+
-+&pinctrl_z {
-+	bootph-all;
-+};
-+
-+&psci {
-+	bootph-all;
-+};
-+
-+&rcc {
-+	bootph-all;
-+};
-+
- &rtc {
- 	status = "okay";
- };
- 
-+&rifsc {
-+	bootph-all;
-+};
-+
-+&scmi {
-+	bootph-all;
-+};
-+
-+&scmi_clk {
-+	bootph-all;
-+};
-+
- &scmi_regu {
- 	scmi_vddio1: regulator@0 {
- 		regulator-min-microvolt = <1800000>;
-@@ -424,6 +510,10 @@ scmi_vdd_sdcard: regulator@23 {
- 	};
- };
- 
-+&scmi_reset {
-+	bootph-all;
-+};
-+
- &sdmmc1 {
- 	pinctrl-names = "default", "opendrain", "sleep";
- 	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-@@ -438,6 +528,10 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&syscfg {
-+	bootph-all;
-+};
-+
- &spi3 {
- 	pinctrl-names = "default", "sleep";
- 	pinctrl-0 = <&spi3_pins_a>;
-@@ -515,11 +609,22 @@ &usart2 {
- 	pinctrl-0 = <&usart2_pins_a>;
- 	pinctrl-1 = <&usart2_idle_pins_a>;
- 	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	bootph-all;
- 	/delete-property/dmas;
- 	/delete-property/dma-names;
- 	status = "okay";
- };
- 
-+&usart2_pins_a {
-+	bootph-all;
-+	pins1 {
-+		bootph-all;
-+	};
-+	pins2 {
-+		bootph-all;
-+	};
-+};
-+
- &usart6 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart6_pins_a>;
-
--- 
-2.43.0
-
+regards,
+dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
