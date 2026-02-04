@@ -2,94 +2,150 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uGYiHrg2g2kwjAMAu9opvQ
+	id +HAMA1xeg2mJlQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 13:08:24 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 15:57:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 133BCE5943
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 13:08:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E859E7A4A
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 15:57:31 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 84512C87ECA;
-	Wed,  4 Feb 2026 12:08:23 +0000 (UTC)
-Received: from mail-wr1-f68.google.com (mail-wr1-f68.google.com
- [209.85.221.68])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A669C87ECB;
+	Wed,  4 Feb 2026 14:57:31 +0000 (UTC)
+Received: from DM1PR04CU001.outbound.protection.outlook.com
+ (mail-centralusazon11010059.outbound.protection.outlook.com [52.101.61.59])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10D5CC87EC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5145BC87ECA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Feb 2026 12:08:21 +0000 (UTC)
-Received: by mail-wr1-f68.google.com with SMTP id
- ffacd0b85a97d-4358fb60802so459177f8f.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 04 Feb 2026 04:08:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1770206901; x=1770811701;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ioG9uYV0HuJP9D1DgqNAsKhOMqjhdFQVQ0SW047PMUE=;
- b=sj578L5WvG7SZ1vgwvPVQXXWNdFwETTj25/Ase4ag3oQXMr6U3yDCTV76riO15+Tfd
- FdBTfsAdYC87b9eMic0bpO70lYfl9b+56ExH7D8dl7HLnsUSh1nmlmLbujtQtqOJ4tiv
- /APjr95Z29xYQh35UYtrsm1RMFeZ74NL5TB7Cdu7QoIVviaaGiA8giV1odrfICXC9dcS
- eZXYQbjA9pYn7gHxhuqjZx2AyX0Ebxk69l+C0yOce8eKjkOZXRH94X2lN3qZ3hSEjsHg
- 0lr9mHbSuXY1hWK6hkccGEYvyKWJoIOUBUNU/KIgFz6xT0rqFO8T21TbrSK6YzChS24h
- y1hQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770206901; x=1770811701;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ioG9uYV0HuJP9D1DgqNAsKhOMqjhdFQVQ0SW047PMUE=;
- b=tyf6hojQz9O0mH7Zh4o6KburKlc9dt0n75F7hk3JcCrQY+DUPtDAU/wf/HGY4wlD9a
- AR2Hqq0yZynQjIbZTyV8E/Zfh7ksLrO3l9Yi2ZYekPaKfgux2PYKKMNmljnTpZdBhq4a
- Rtgjg7yKs6nzJnmes7ham3rKpO1QMu6BwTFdRMPctyZA5X3IWb72j2QwIESd08eJZbvJ
- TqnfG33zKOz9r8S28zS2XgoG6EDqMJ9d9MNl2p9JUUPhkyMY7SmMkXFUMkTLt3d88+gw
- qFZ+Un9MkxS2WsRKNtBE2k6cOauualKiiqrC7XN8CYHEwxWKJq3Ej9vLpxLN273DrEUn
- VTmg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVMGd97aH1A5Xr4vDSKAULnXTA68hUYepBodzC6GJKavfFcUg04GMaVzdbRp3Gi+P6xVJPZJ/saXBlt1A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyuXghWOPYwoWb0EaB3R2YYBhkzysxYX4N9XLU1jTJDfL1Da4j0
- zjTepGf+oT68jyfEH3nhBjPNvInBwYHf2OCdgRundwVH5aPRPtaSiRrAC+2NfrgXtbc=
-X-Gm-Gg: AZuq6aL5WeGgCOpFBfqDxV04X14NL64MhKFfX3zYr6/OsJu9m9x4CqHeJzzkZi7BTjD
- d/dMe5YwtUAQiNfOTWYaxRtNJOu1P8O8pcIKdSE7deIEPPlzyVabH8A61L5dGKrYuwkvfxFpbKj
- t8z2ZrbkjeHyK+spOz1DIkTXFa0XgZub9wgp8us9IuQU5Wd1vwKE2dYRztCovMcbAp5wzTJtiJB
- JIymsMo7vJA2tamhWJbcYCUdKA1Itixn2ojK1dDh8PY2sav12QiNNcO+T80+D3G6q8tA8UD/uhO
- IP62mv3QjsMWlonxt7zCsioqn0RCmjgeFisLFcshcUJ7LQmkx1E3DpRVOw0sDTq6eoKAZ7Nf2to
- L8Ycl+eNYQayxg3OYDzZgitB0b3DEtv/e/drIOoSe3IOTstbA6W3seXBlE1iC91eEYXx44sTHmO
- F3SwGptEiafVy7axdk2hYYAELw8Ew=
-X-Received: by 2002:a05:6000:288a:b0:435:92c6:d556 with SMTP id
- ffacd0b85a97d-43617c84202mr4190603f8f.16.1770206901187; 
- Wed, 04 Feb 2026 04:08:21 -0800 (PST)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-43618057f7csm5851345f8f.23.2026.02.04.04.08.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 04 Feb 2026 04:08:20 -0800 (PST)
-Date: Wed, 4 Feb 2026 15:08:17 +0300
-From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>
-Message-ID: <aYM2sXq2FXCISrCI@stanley.mountain>
-References: <cover.1769764941.git.dan.carpenter@linaro.org>
- <bdb7cd69-7dcd-4e8a-b04a-14a2eb902311@redhat.com>
- <20260203145438.5a850b61@kernel.org>
+ Wed,  4 Feb 2026 14:57:30 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=y0Mfrf3y94Dsgn9nsgiBuGHm85UYSTQ/T1pn4pwdD9ZaL8xRuC3Zk6A7vX6kp57HYjplcKmr/OaMBciNXxhsq63mCS3HAj0Kf10dsHRW7JHXW1yzpEhFqKURG6wC3NHfC4WXFp+US+D1ZbAugyKdKBYyzG3VsNE+05ygzmE3MLwD+c7Y2CuwKQ+rC+M6weoFt4kM3MKHEsrMoFRPrv4hzTlvGiSuVxueBFiY2nZ4oykxKj8jT+nwCPplATX2O8+FeNoYmesc1ARuq9hLL6tmlvA3XSDc004+p6tNCs716ZVQCzlZkPVWy+w44AAMNI2mXhs9tdZzob1MMK7tXuMFBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=iAwzZKXPwavdvGgh8Ogi72CTj+uPLhKTOZ66oHbcpJw=;
+ b=qemrrJx+QCmC5D8YtKoBgfWwHHVfk1gjelF8vHx+fNSboLg2chedD4O5e27csjRP3LBzAPrectMmoq4sgUIPuMoc+TZwY65IZWCHa6V95oP0qMkY3LbI9YzSaW8iGMQDvAxuJRirdxPB860D8+Zk87PqNJLhbJjPPzQ9Wv5GmDeBpSMM6X81dOCG4tLuRfjlvJLpE8RSbs1IKpvKrO9ugmLLDL6a663YkXCgw5dNwkVPrlsoIP89pHD4xpQ1hbt9rtd0kIlUoLU4KyX19ZvU3pBpYv1rYIAqrLCyHKy6m8CYwS4xdDGLq6OHe3qE5JOAErLao9625YlJ67QUowXKYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ smtp.mailfrom=ti.com; dmarc=pass (p=quarantine sp=none pct=100) action=none
+ header.from=ti.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=iAwzZKXPwavdvGgh8Ogi72CTj+uPLhKTOZ66oHbcpJw=;
+ b=rdy+erDt1M06APQCmS0s/lw6NLPYox/ca/ICeNVwsgSB3dv7GI0P5P0G+k5UVVq2d8ogoQ18hU4wSMrTTGtdXeKcL+ZlSxXKIQBuDC9RkclFHMynvhqdlOuZPLBIivZ8PM2kUqxa5Huge4B+S/mGIWSf4APKmTw4Lw8M8fuzCnw=
+Received: from PH7PR02CA0008.namprd02.prod.outlook.com (2603:10b6:510:33d::27)
+ by SJ2PR10MB7705.namprd10.prod.outlook.com (2603:10b6:a03:57b::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.13; Wed, 4 Feb
+ 2026 14:57:23 +0000
+Received: from MW1PEPF0001615B.namprd21.prod.outlook.com
+ (2603:10b6:510:33d:cafe::71) by PH7PR02CA0008.outlook.office365.com
+ (2603:10b6:510:33d::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9542.16 via Frontend Transport; Wed,
+ 4 Feb 2026 14:57:06 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none; dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ MW1PEPF0001615B.mail.protection.outlook.com (10.167.249.86) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.0 via Frontend Transport; Wed, 4 Feb 2026 14:57:23 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 4 Feb
+ 2026 08:57:16 -0600
+Received: from DLEE202.ent.ti.com (157.170.170.77) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20; Wed, 4 Feb
+ 2026 08:57:16 -0600
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.20 via Frontend
+ Transport; Wed, 4 Feb 2026 08:57:16 -0600
+Received: from [10.249.42.149] ([10.249.42.149])
+ by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 614EvG2P1299303;
+ Wed, 4 Feb 2026 08:57:16 -0600
+Message-ID: <4a4e50f4-9e02-4ca2-8b3f-b01caa7df35e@ti.com>
+Date: Wed, 4 Feb 2026 08:57:16 -0600
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260203145438.5a850b61@kernel.org>
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- Frank Li <Frank.Li@nxp.com>, Eric Dumazet <edumazet@google.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Paolo Abeni <pabeni@redhat.com>, linaro-s32@linaro.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Sascha Hauer <s.hauer@pengutronix.de>, Jan Petrous <jan.petrous@oss.nxp.com>,
- linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
- Matthias Brugger <mbrugger@suse.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v6 0/3] s32g: Use a syscon for GPR
+User-Agent: Mozilla Thunderbird
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>, Bjorn Andersson
+ <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>
+References: <20260204105216.3929071-1-arnaud.pouliquen@foss.st.com>
+ <20260204105216.3929071-2-arnaud.pouliquen@foss.st.com>
+Content-Language: en-US
+From: Andrew Davis <afd@ti.com>
+In-Reply-To: <20260204105216.3929071-2-arnaud.pouliquen@foss.st.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF0001615B:EE_|SJ2PR10MB7705:EE_
+X-MS-Office365-Filtering-Correlation-Id: 72d75d01-116b-4c71-2fe6-08de63fdb435
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|36860700013|82310400026; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?akJaYVhRcTVGcWtCaVRudkNUNUpjNDdIeVRxcWR3RTRVZktDcVBrN3RuNkVZ?=
+ =?utf-8?B?UDlZeHBYZ3RoejlJVnM0QTcvblBBeDJoQ0dmSVg2emUvRFBqNUtQM3YzZjU1?=
+ =?utf-8?B?UFV1djB0T3NwVnBnSjJ5aDFXWWwyZXhZcm9PNzd6OTVCUmpSVUswbHVJeG9E?=
+ =?utf-8?B?VHVHaXRiZVBvNXN5VlFLcU9JZ256S051bVNLcldNWXc0c2JPcGU1UmRmV1Nq?=
+ =?utf-8?B?azlTRkFsd2lOSGIzSzRwV2lFTWlmbi8zZ1V0ZE9hVEM3ZDcvMFFsWHJxRmgx?=
+ =?utf-8?B?MmQ5RG5PQk5VL2J3WVBuWWJXV1pTRzVsNG5oRDFrZU1WVk1jSVhSWUtBVm92?=
+ =?utf-8?B?NkF0MEZUNkdhYlErZXd5eHRsT3EwVTQ5aU56K2RKa05EMFFtMFhmcVVvNFZk?=
+ =?utf-8?B?Q3VGZTBEaVFjYUpCcU5oSmVqUExLMEJONW1iTDUyUENYV1BPZmtBeWFNVFRB?=
+ =?utf-8?B?ZXZ6KzAvbWlyUk9wM1FtSmdpWEJQR3FYTTVVRDBwelNKbXEzSmlTZTFtdG0x?=
+ =?utf-8?B?R2VsdnpndERia3FFUHhWTHA4WFoxT0dFQUhjdWRMazNjcjRjV0RMcU92YmRp?=
+ =?utf-8?B?dGV0cHZrWEZLbm1mMGlSSjhXdW4yZUlXZ3lsNzdWT3BXSW1FU2xPZDVVaEph?=
+ =?utf-8?B?Vy9BNi9qUzE1bHd3MUkxN2pXWHVKK1NkY3N0Z3BicDNyTHNRUURRb2VTeDBq?=
+ =?utf-8?B?OUpmY25QZGxtY0tuVVptQU0xblZMLzhNR3BaUDVuTXk2RTh5TDk1ZVN4aFRk?=
+ =?utf-8?B?V2xLaUE2cHBGQmxHdm1vSTBCNXAvOG1qMmFQMHZCdjZKOGwzMGdxZkplR0Vv?=
+ =?utf-8?B?YUJkcUIrVnNVVjUwRzY3ak5XQTJaNlVDT2xXVWFQc0pyVVVtdUNSSldjS3RY?=
+ =?utf-8?B?Y1dlUlJGSnlJamNyQ29XVGZPcVFTR051QXlLWUVJeFE0SWQrUFRpSWs1bStl?=
+ =?utf-8?B?dnlOQXJiSXo2M1R1QXIwWml0S3hmQmlRcXd0ZUsrUWFSeU13NUJ3ZmhBTnRW?=
+ =?utf-8?B?c3FEZUw3aFlzaDIwSWEwdExCWERITGEwajBwbGUxeWQ1T2NmNHo1ODZMWEdX?=
+ =?utf-8?B?MTBvM29YUWxieDc4Ky80bEExOENhaUtHTTFUbGZRcGZDQmZsTnU1WCtjTlBC?=
+ =?utf-8?B?OWxVZkRDTWN2UExvelVxTXF2UWNwd3FlNllLT2pJL1lZYXlJUWRHR2YvRDAv?=
+ =?utf-8?B?ZGF2SHBmWVkvalRGckpXUUo1QlFScmpKZTFEL0NBV0FPc00weDBpd1lsc2FK?=
+ =?utf-8?B?NGRuRkhPSkx2OFZ2STRGZitRcnN0Nm5NT3RGbjZzZm1TdVBVUDdjYjZraFoz?=
+ =?utf-8?B?QVIvUkVnNmJxSUdMQnVlMzVwaTNIWSs5NUE1RUt3YmMvT2xjVDJReWFwR1RZ?=
+ =?utf-8?B?bTBqZE5RdURaNDVISUJQQ2cyVnpHeGd1aGtwZWMxQjJ4WHdSNVMwMTFYOVRI?=
+ =?utf-8?B?cytFc3dZeElyakRrM2wvNkFaZ2pjOHBPQzN4QktQYU1ad3hMODRxbnlzZDlC?=
+ =?utf-8?B?TDZFMmhFc2RzRFZzdVNkSmxZRUtoVVdOR0NabjFTTGt0ME5ZczhOeHRZRVBp?=
+ =?utf-8?B?UFNMVDBGYlB2SWtwUllCUDhEempHL21YTW1hM1ExOXVPOGdPSklEU2kwTHV5?=
+ =?utf-8?B?RC9BL3d1OGtlYS9WZnRmUzNDNHNMbmdONXovU05OMElQWmgwb0hmUjBxODZN?=
+ =?utf-8?B?NloyYlh2a05kMmE4OUE4c05mRGlabWEvd1ZwWlFJM3RobFdrUWU4d2NGckRI?=
+ =?utf-8?B?bnF6R3B1TXBRV20xRnFUanl3WFgyNDJCbmg0UGpBNTBFNkZmbmhjQUFvcHIr?=
+ =?utf-8?B?WmFNOVc1Qi9kMzBNaEtMYU9tZ01HdEh1Y3lNNENTbmJudWlvMkJQUEhuQ29W?=
+ =?utf-8?B?bW5sQUFWclNuVzVXZy9sY2t5NTQ5UEhKbVI1VDFwZTRrMkR3V2M3OEZnWTNq?=
+ =?utf-8?B?NmpaVyszTkVUejY5OHBuejRjVW42YUkwTVRFbzVMMWc4bHNvT2lDUTZCMTdK?=
+ =?utf-8?B?ZzZiZnJ4UWdYaUNKV0lLVWpPZFhWYW9veExnQk1lQ0FFZGF0emQyRG9UMW9w?=
+ =?utf-8?B?SlZidnd2anBKMDUvSUN2WTVZNkxCUGxGUVlDbEFTQlg4L00xeVlVMmJwaHN1?=
+ =?utf-8?B?L0RnMlR1WkU0WUFFR3BndzBZVERKYmlPMTArMDRoK3lHYUp6Qk1uUkhBSlRN?=
+ =?utf-8?Q?06+m/tdF5gz1DGNiYWqPUvs=3D?=
+X-Forefront-Antispam-Report: CIP:198.47.23.194; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:lewvzet200.ext.ti.com; PTR:InfoDomainNonexistent;
+ CAT:NONE; SFS:(13230040)(1800799024)(376014)(36860700013)(82310400026);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: rBYRJjTdHsmWjlYzqIxHaJgx0wftOEo/IsmLKh/HUj84rLXGqZRo9p4IhjCbjbsmPPbqVCSdbPMRymqMJkQpQMQh/8iV9Da7DX7KKG7G/IYYFmngd7QecywtNg32/1iXyYOyixqCHHRg3K8mOnaAW1YCXiRfAq2WY8X8R0/gyuPcBo/3kiHdO0BvvUQvQpX6XHwTlmai8xU1Rf+yr1HDDPA5IcpJ80FGTSqjWzA/snkz+KfgJVj/SXjgdr/tbdyjUYl3yeiTMSgoiN5JQ1mSvmd5nZN1bPI12yg8z9gHfUsnWLh4hjr1v8IXkY2rchJOuvtE+VpLhuOPvjTocB21FbCdQmpyCLHuyhPK6khMx24gQ7GciYJyKyA+kb01ovcwzotx/wL3SMQSW7QpVsfL6kCd2oYtkUW4LmVFFytLrxeQOpdAde3fKtQ1iDOw5PpT
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2026 14:57:23.3147 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 72d75d01-116b-4c71-2fe6-08de63fdb435
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7; Ip=[198.47.23.194];
+ Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource: MW1PEPF0001615B.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7705
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH v3 1/2] remoteproc: core: support fixed
+ device index from DT aliases
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,72 +157,195 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [4.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[ti.com : SPF not aligned (relaxed),quarantine];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[ti.com:s=selector1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[linaro.org:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER(0.00)[dan.carpenter@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[25];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:robh@kernel.org,m:imx@lists.linux.dev,m:s32@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:pabeni@redhat.com,m:linaro-s32@linaro.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:s.hauer@pengutronix.de,m:jan.petrous@oss.nxp.com,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:arnaud.pouliquen@foss.st.com,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[afd@ti.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dan.carpenter@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,redhat.com,linaro.org,vger.kernel.org,kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	MISSING_XM_UA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[ti.com:-];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:email,ti.com:mid,4.135.171.0:email];
+	RCPT_COUNT_FIVE(0.00)[6];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[afd@ti.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stanley.mountain:mid,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 133BCE5943
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCVD_COUNT_SEVEN(0.00)[9]
+X-Rspamd-Queue-Id: 8E859E7A4A
 X-Rspamd-Action: no action
 
-On Tue, Feb 03, 2026 at 02:54:38PM -0800, Jakub Kicinski wrote:
-> On Tue, 3 Feb 2026 12:18:54 +0100 Paolo Abeni wrote:
-> > It looks like patch 3/3 depends on 1/3 but it should land in a different
-> > tree, as patches 1 && 2 looks suitable for 'net-next' and 3/3 should
-> > probably go via the arm/freescale tree.
-> > 
-> > We either need explicit ack from freescale maintainers or this should be
-> > split across subtrees, right?
+On 2/4/26 4:52 AM, Arnaud Pouliquen wrote:
+> On systems with multiple remote processors, the remoteproc device
+> enumeration is not stable as it depends on the probe ordering.
+> As a result, the /sys/class/remoteproc/remoteproc<x> entries do not
+> always refer to the same remote processor instance, which complicates
+> userspace applications.
 > 
-> FWIW normally we don't touch the dts patch at all, unless the
-> maintainer chimes in and tells us to take it. No waiting for acks.
-> Off the top of my head us taking dts patches only happens if 
-> the person posting the patch _is_ the platform maintainer..
+
+While I will agree it is slightly more complicated in userspace to lookup
+the device by name string rather than by some static number, there seems to
+be a good reason for not doing this also.
+
+Much like network interfaces where the /dev/eth<x> can change each boot and
+attempts to make that static from kernel has been turned down: having static
+indexes doesn't make userspace software any more portable.
+
+Say you lock your M33 core to rproc<1> on one SoC, it doesn't mean your next
+SoC will have the same rproc order, or even have a M33 at all. So you still
+need your userspace code to lookup and check the name, otherwise you make
+bad assumptions. Not having static IDs forces software to do the correct
+thing here.
+
+The only valid reason I can think up is maybe this makes board specific
+documentation easier. One can say:
+
+"On the STM32MP257F-DK, check that the M33 has booted by running
+`cat /sys/class/remoteproc/remoteproc3/status`"
+
+without having to first find the right number by checking each
+`remoteproc<x>/name`. But wouldn't adding something like a named
+sysfs dir syslinks work even better?
+
+`cat /sys/class/remoteproc/m33@76000000/status`
+
+(and yes I know someone here at TI did this alias naming for our
+keystone platforms, but if not for possible backwards compat breaks
+I'd love to remove that one also)
+
+Andrew
+
+> Inspired by the SPI implementation, this commit allows board-specific
+> numbering to be defined in device tree while still supporting dynamically
+> registered remote processors.
 > 
-> For this series we're waiting for the bindings to be reviewed.
+> For instance, on STM32MP25 Soc this can be used by defining:
+> 
+>      aliases {
+>          rproc0 = &m33_rproc;
+>          rproc1 = &m0_rproc;
+>      };
+> 
+> When a "rproc<x>" DT alias is present, use it to assign a fixed
+> "/sys/class/remoteproc/remoteproc<x>" entry.
+> If no remoteproc alias is defined, keep the legacy index allocation.
+> If only some remoteproc instances have an alias, allocate dynamic
+> index starting after the highest alias index declared.
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> Tested-by: Peng Fan <peng.fan@nxp.com>
+> ---
+> V3:
+> - fix double space typo
+> - add Peng Fan's Tested-by
+> 
+> V2:
+> - Introduces rproc_get_index based on Mathieu Poirier's suggestion.
+>    An update compared to Mathieu's version is that the call to
+>    ida_alloc_range is retained if an alias is found for the remote device,
+>    to balance with ida_free().
+> - Rename DT alias stem from "remoteproc" to "rproc" to be consistent with
+>    keytone driver.
+> ---
+>   drivers/remoteproc/remoteproc_core.c | 40 ++++++++++++++++++++++++++--
+>   include/linux/remoteproc.h           |  3 +++
+>   2 files changed, 41 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/remoteproc/remoteproc_core.c b/drivers/remoteproc/remoteproc_core.c
+> index aada2780b343..4a02814c5d04 100644
+> --- a/drivers/remoteproc/remoteproc_core.c
+> +++ b/drivers/remoteproc/remoteproc_core.c
+> @@ -2433,6 +2433,43 @@ static int rproc_alloc_ops(struct rproc *rproc, const struct rproc_ops *ops)
+>   	return 0;
+>   }
+>   
+> +/**
+> + * rproc_get_index - assign a unique device index for a remote processor
+> + * @dev: device associated with the remote processor
+> + *
+> + * Look for a static index coming from the "rproc" DT alias
+> + * (e.g. "rproc0"). If none is found, start allocating
+> + * dynamic IDs after the highest alias in use.
+> + *
+> + * Return: a non-negative index on success, or a negative error code on failure.
+> + */
+> +static int rproc_get_index(struct device *dev)
+> +{
+> +	int index;
+> +
+> +	/* No DT to deal with */
+> +	if (!dev->of_node)
+> +		goto legacy;
+> +
+> +	/* See if an alias has been assigned to this remoteproc */
+> +	index = of_alias_get_id(dev->of_node, RPROC_ALIAS);
+> +	if (index >= 0)
+> +		return ida_alloc_range(&rproc_dev_index, index, index,
+> +				       GFP_KERNEL);
+> +	/*
+> +	 * No alias has been assigned to this remoteproc device. See if any
+> +	 * "rproc" aliases have been assigned and start allocating after
+> +	 * the highest one if it is the case.
+> +	 */
+> +	index = of_alias_get_highest_id(RPROC_ALIAS);
+> +	if (index >= 0)
+> +		return ida_alloc_range(&rproc_dev_index, index + 1, ~0,
+> +				       GFP_KERNEL);
+> +
+> +legacy:
+> +	return ida_alloc(&rproc_dev_index, GFP_KERNEL);
+> +}
+> +
+>   /**
+>    * rproc_alloc() - allocate a remote processor handle
+>    * @dev: the underlying device
+> @@ -2481,8 +2518,7 @@ struct rproc *rproc_alloc(struct device *dev, const char *name,
+>   	rproc->dev.driver_data = rproc;
+>   	idr_init(&rproc->notifyids);
+>   
+> -	/* Assign a unique device index and name */
+> -	rproc->index = ida_alloc(&rproc_dev_index, GFP_KERNEL);
+> +	rproc->index = rproc_get_index(dev);
+>   	if (rproc->index < 0) {
+>   		dev_err(dev, "ida_alloc failed: %d\n", rproc->index);
+>   		goto put_device;
+> diff --git a/include/linux/remoteproc.h b/include/linux/remoteproc.h
+> index b4795698d8c2..3feb2456ecc4 100644
+> --- a/include/linux/remoteproc.h
+> +++ b/include/linux/remoteproc.h
+> @@ -503,6 +503,9 @@ enum rproc_features {
+>   	RPROC_MAX_FEATURES,
+>   };
+>   
+> + /* device tree remoteproc Alias stem */
+> + #define RPROC_ALIAS "rproc"
+> +
+>   /**
+>    * struct rproc - represents a physical remote processor device
+>    * @node: list node of this rproc object
 
-Ugh.  Crap.  Rob already reviewed them.  I included his Reviewed-by tag
-in v5 but I accidentally removed it that from v6.  I'm so sorry.
-
-https://lore.kernel.org/all/939fdaf94038613486bdbba510a92a1e57e18c71.1769592679.git.dan.carpenter@linaro.org/
-
-regards,
-dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
