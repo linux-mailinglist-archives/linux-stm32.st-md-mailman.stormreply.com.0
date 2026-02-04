@@ -2,59 +2,134 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2I6ZJ5Ihg2ltiAMAu9opvQ
+	id 0JHbK/Akg2k/iQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 11:38:10 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 11:52:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21958E4A44
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 11:38:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 46978E4CAB
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Feb 2026 11:52:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A47D4C87ECA;
-	Wed,  4 Feb 2026 10:38:09 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC6DFC87ECA;
+	Wed,  4 Feb 2026 10:52:31 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013065.outbound.protection.outlook.com [52.101.72.65])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B3E57C87EC6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B9DDC87EC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Feb 2026 10:38:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=cmBXQFWwMJpNA6HYvHV+pn0Z7Isl9C8hhe8elfOnPD4=; b=hfQ2YHQGZIQm0RQasJiJholAJ4
- W8EaKCsaNrbAclFFje09t0ZJg3V9Fysk4jo/8059NJOFCFZgN/uWmgEX9nf9F51qmlixOhJoIZcXS
- zRvFZQUduZdslxT/ACRO61vDTzJXkSkV2TMbzk1elI+uJMF90wlldW4LupYMH1q3o5AuFSP3X6+Uu
- tMms6oQxwtYvFBotgzcJrjThgJPJRxAsb7B5FfliZBocxzscxeM1A2FssY7mqQoTe4Q7TJ/jaYv0W
- P8QVYnPm25HlblUSdiFXh71VdJFlp+zxJ2XxTyFo/jjzy7k4Wf+3dXsT02dIA3tacRcz8tOS0MXkc
- b4/hjrgw==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53300 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vnaGl-000000006DG-3gVg;
- Wed, 04 Feb 2026 10:37:59 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vnaGl-00000007i9f-0ZMw; Wed, 04 Feb 2026 10:37:59 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
+ Wed,  4 Feb 2026 10:52:31 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xwiJizSMB6NcssoKcm831+B3411mz6GALzdXodYZOCBEeBadI3RQTCYr2pClHnQ7flPZOz6t01/TX2YTGZIJQk8Y7r9NQYP6qQY/LBuIitqQdkk9BUeDEgvHsrI/lPnK6BinAc6dmSSiISXHBwRa3TbySPWGXNlM21HDPX1Uc6WD2oYtBRTvJy410QWgsamk5iJA0yh35YVW7pXkdUlIIRCtrEMyfAku8YFaNWaHvDgqSl/YJ125dbhQnAvgROHtKq3m5RVKmZZJdVOPSIBOEtgzy1AGdqarA6gaYLar/coMsLZeEDZ7fdDo4Hd3CdRRmm4rXgkH8jI28im8dfjbVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ugMjX0I1GVK6nnxGsWLjBY4WHWqeUVMXmOz2kHAaSAs=;
+ b=sDYQHNut9aFQd5wuaOfPPxNRJIKj9m4DvOwsCBalag+KgVYxZQktgd4+C8BBCFcrotOQNxQ0Jl0Bp5ZOOWD8jATGjIEvpV2okxqnoT7CYqpR//g42VdXPbWqRqenOJWU3ASV1zdQ75U/I2nAO4UWuIPTPXgnRi+RuPBubLaOgo+/Jp+C+rrKNcal1yaU/sK2gYnGlgDDX2d6nveXoCWKRWiv1W4C8svd65RQS1tC2Vm98clAcKOf+8Z0P1WXTZpSz2QdEC5Di907G5p5N43jQFoT0K3KFnUDktdY4SKyNPUDAsjRgS7oiQ9DRCQLGacZSwuLbbp1ns70xhG6Xy8CqA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ugMjX0I1GVK6nnxGsWLjBY4WHWqeUVMXmOz2kHAaSAs=;
+ b=dP5nLVbUfSaqW8ZqSvcs2VHcZRnbfK3/m64OC8ig+idq5HiKytszYyLW+rxmVWp+VQ0DpKcgq2qRaET8qXSJbBaBxXU1g8MNZRKGa21+htCHAu4GJSwACKy3vfaiVIBax/BbxtIDi/4TFZB0JySHm8cGEUE20TD5QCnxkm3EhDdSiZLDedhJWbzdMl5AAAsBJd+AeMRU7C+YVEKMBzE6FbImFzeicKUpN0PhUzL6LwR8S3x6oXH9zCRiP2RT16xxC9Wd0pEqKKbBIkhNa6KQ+Ku0CqeZ/JZiaUusQCS1RuykVWXtsEUiD56WljBQrq8QtaULrP9GT68KfyhKaS58NA==
+Received: from DBBPR09CA0034.eurprd09.prod.outlook.com (2603:10a6:10:d4::22)
+ by DB4PR10MB6118.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:38d::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9564.16; Wed, 4 Feb
+ 2026 10:52:29 +0000
+Received: from DU6PEPF0000B620.eurprd02.prod.outlook.com
+ (2603:10a6:10:d4:cafe::66) by DBBPR09CA0034.outlook.office365.com
+ (2603:10a6:10:d4::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9587.14 via Frontend Transport; Wed,
+ 4 Feb 2026 10:52:28 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU6PEPF0000B620.mail.protection.outlook.com (10.167.8.136) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9587.10 via Frontend Transport; Wed, 4 Feb 2026 10:52:28 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 4 Feb
+ 2026 11:54:07 +0100
+Received: from localhost (10.48.87.127) by STKDAG1NODE2.st.com (10.75.128.133)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 4 Feb
+ 2026 11:52:27 +0100
+From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>
+Date: Wed, 4 Feb 2026 11:52:14 +0100
+Message-ID: <20260204105216.3929071-1-arnaud.pouliquen@foss.st.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vnaGl-00000007i9f-0ZMw@rmk-PC.armlinux.org.uk>
-Date: Wed, 04 Feb 2026 10:37:59 +0000
-Cc: imx@lists.linux.dev, netdev@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Shawn Guo <shawnguo@kernel.org>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: imx: fix iMX93 register
-	definitions
+X-Originating-IP: [10.48.87.127]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000B620:EE_|DB4PR10MB6118:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2480cd61-c2db-45be-845a-08de63db7d8c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|36860700013|1800799024; 
+X-Microsoft-Antispam-Message-Info: =?us-ascii?Q?w3rhYhnGpE0LjqXyLRkpq4LubuwGd3hiy9EjWL6ZASVqBEwwgYipZT6P9Vcs?=
+ =?us-ascii?Q?gt1lRRH5JCjCzYGR0GvB+/wwPEUBVns2LQHueiMzO5s35KMFMLSX7uqUE66C?=
+ =?us-ascii?Q?p4YGRLH3U/SXRt010aORWkEFzUEaUiI7nKZYLSDUGNUQS/sn1gJueA1vlO7C?=
+ =?us-ascii?Q?4cmwxqgc8SUavjA3w2viZoG4PrxK16gsB+dJof403uSoIwB3xpzqJJiCWRUe?=
+ =?us-ascii?Q?7Kn9AGeORRqmXz0qghw2w3Q6zVVkwCGWGXXug4/TWPpfvx4pRUO3/QB3QZek?=
+ =?us-ascii?Q?gE1FSh2So1/LR9tVjnvvjanhEPfRAAb9qtf/KAT1EMDNKRIiCZfQQOqQ+Nj0?=
+ =?us-ascii?Q?kC6315MlPCuO9Psq2LZeFsbKj9UPn6vIBdcRphcm/ObAvMWiAqtnXQ4m46sI?=
+ =?us-ascii?Q?Adcu6bRwJ1cfpMDpCIRIT3BFWE2mFbb5KIejJCt481MJpfx4wwJ6N1ju0Bvt?=
+ =?us-ascii?Q?F8L3rWe2wQBIiTVaiKYmMlbq/NQ0R8P0BWzfLGkloZPNWNTZqbugxRjnothx?=
+ =?us-ascii?Q?A3mvyPF4Ht8FsbIFi3LZTT+bBSkVkR4FinqUZZqOt/35jXWvv+tBL8VvhYKM?=
+ =?us-ascii?Q?T9N59s0IhHt42VWw5tTTPRbBGe7fYeFGLbg4qmHfs9rOM4SPIfbXC6bNLhBv?=
+ =?us-ascii?Q?SUlJIHWHevuO0ZBtLm9GxBtcke+mnDzbd9QcmQeScoxe32xpInE+64Tu5EH8?=
+ =?us-ascii?Q?csn8Q7DO49+aOmVPyCULaNOmBwdRnVw2Sy4aLJpxltoLJvsXz52HtuoxT6HB?=
+ =?us-ascii?Q?5jZx8T65W+kjRMoh8cCkc5pvbZMTrqNjtexFuO8sqG7h9EOMIZRIf4rnhQjc?=
+ =?us-ascii?Q?d62efWHAHaNjr/DibdpRZ2vsN5MRHuuNCtf1GBLXU9S0wppcbghc8bJHWQMH?=
+ =?us-ascii?Q?WsjESFIeiLbWamvolcygwmi5RAWu/VrMvFTw5y/7DWmRK1rbLcESAZqJk41F?=
+ =?us-ascii?Q?IxBgNr+KJJVZqVrbPrJWpn+oF4Q4dfdyfNUauwX/XNrA9tD118xQ3QvO8BFF?=
+ =?us-ascii?Q?h5TpO7X94U449XLxTCYspLx8ouOnsUnCTnxTxIw1M3IS8zER7MeP6n/X3xuR?=
+ =?us-ascii?Q?tEwoyq9U6wI9iTHTW2kmKgJx9qOxS3ddBz3fVxOHjUaqoNeHt8IKSRMqsdI/?=
+ =?us-ascii?Q?9twLovzTUaBBcTrgMVQCvZguRyihQVnkDTUp4ih59m1srC6hOxefhOhraXKl?=
+ =?us-ascii?Q?zFzS1x/UAAYUKmC1D0kmzaMurjVlYXXmokKlJPS3456fY+IrE0LNcIZueobK?=
+ =?us-ascii?Q?CL8BTvM2TGn2XD2vy1tvjzjfJh800qKJODQvk5Ss8Fz0PHlvNkIWwXfqwBZM?=
+ =?us-ascii?Q?AAlPC2rRqKH946nMqGvrLJ4JzoREs7xCUX6FIvwMsppInuuQaKm+xFb3nKgr?=
+ =?us-ascii?Q?oWx1iOdvkEeIWQ6ZYY9WqVFCn+aD5FTfXyXuRjDIv3VuiJKYjTnSvTmAOt5O?=
+ =?us-ascii?Q?Jk1x9af7HOpFfloRjKonHo2MWXRD/ETdU9Lx/t2XRgoG4w89PKlToZMNaZBD?=
+ =?us-ascii?Q?UDRfJdJYcWoe3fRPOxWigC4XPiOtooaeEkRp2oRfDbf2+myVxU0dfp4ox4HT?=
+ =?us-ascii?Q?r4dSEz2Fj66/JeYppuccUCq3DJxxcsN9houHw/H1pvn5JwLsmKjMUm59/4lX?=
+ =?us-ascii?Q?9IV4aEYNjL4ymwBFZJYNawzqnTvhwN9wrd+bqCzL2FBLLjspNqm+tU2T3GWF?=
+ =?us-ascii?Q?LInV2g=3D=3D?=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(36860700013)(1800799024); DIR:OUT;
+ SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: BmocXddSiWwV3fHYxBMGpAhvoVUDYLeab8IvlNBQmoZPQlF4MtZR+MSCvJ2lQa3AtlkJq/M166hjS4uVk2PM+f1iR6NX+441a11pxyJSr76W+BGD9Pz4qPXO1pyTcYcUu5H1hV2U3H4wTvPo4wAz3eiBcuSp2L8b7OBxV+2o/gGajCcUJQWujtjKszdw4TgqatHUdJ6flLwXUQC1orccDShFkhmgyVWoR0FGLrWWO7RP90xhuorRBYlY+tsnhL6DL9e3bBAEv4v6xNL6Xo7NdgG+UcamMt7FGZmCR4t7zYsKmtH8SKYUNGwmdtAOKLJgv9UQPa7vF7RdiEVwbP6YXcOLRxZaxBBcGCUhwzTx754I1hKGziFOgmKYf0pjRIZ+QrYNGzrIc1CmDo61NXSacKPH3178piln7BKerONxDV8QQgT1dblq6yUzglNMie8e
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Feb 2026 10:52:28.7495 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2480cd61-c2db-45be-845a-08de63db7d8c
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF0000B620.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB4PR10MB6118
+Cc: Andrew Davis <afd@ti.com>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v3 0/2] Support remoteproc fixed device index
+	from DT aliases
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,131 +146,76 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+X-Spamd-Result: default: False [3.89 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kernel@pengutronix.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:shawnguo@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:afd@ti.com,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:email,stormreply.com:url,stormreply.com:email];
+	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	HAS_XOIP(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: 21958E4A44
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 46978E4CAB
 X-Rspamd-Action: no action
 
-When looking at the iMX93 documentation, the definitions in the driver
-do not correspond with the documentation, which makes the driver
-confusing.
+On systems with multiple remote processors, the remoteproc device
+enumeration is not stable as it depends on the probe ordering.
+As a result, the /sys/class/remoteproc/remoteproc<x> entries do not
+always refer to the same remote processor instance, which complicates
+userspace applications.
 
-The driver, for example, re-uses a definition for bit 0 for two
-different registers, where this bit have completely different purposes.
+This series:
 
-Fix this by renaming the second register, and adding a definition that
-reflects the true purpose of bit 0 in the first register (EQOS enable.)
+- Introduces support for "rproc" device tree aliases to fix remoteproc device
+  names and their corresponding /sys/class/remoteproc/remoteproc<x> entries.
+- Updates the keystone_remoteproc driver, which also uses DT aliases, to adopt
+  a common RPROC_ALIAS definition. Although it already uses the "rproc" alias
+  to construct the firmware name, the change proposed in this series should be
+  compatible.
 
-Replace MX93_GPR_ENET_QOS_INTF_MODE_MASK with MX93_GPR_ENET_QOS_ENABLE
-and MX93_GPR_ENET_QOS_INTF_SEL_MASK as MX93_GPR_ENET_QOS_INTF_MODE_MASK
-is not a register field.
+Please refer to the patch commit messages for details on the implementation.
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../net/ethernet/stmicro/stmmac/dwmac-imx.c   | 25 +++++++++++--------
- 1 file changed, 14 insertions(+), 11 deletions(-)
+V3 update:
+fix typo and add Tested-by: Peng Fan <peng.fan@nxp.com>
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index ecc0c3483423..c4e85197629d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -28,11 +28,11 @@
- #define GPR_ENET_QOS_CLK_TX_CLK_SEL	(0x1 << 20)
- #define GPR_ENET_QOS_RGMII_EN		(0x1 << 21)
- 
--#define MX93_GPR_ENET_QOS_INTF_MODE_MASK	GENMASK(3, 0)
- #define MX93_GPR_ENET_QOS_INTF_SEL_MASK		GENMASK(3, 1)
--#define MX93_GPR_ENET_QOS_CLK_GEN_EN		(0x1 << 0)
--#define MX93_GPR_ENET_QOS_CLK_SEL_MASK		BIT_MASK(0)
--#define MX93_GPR_CLK_SEL_OFFSET			(4)
-+#define MX93_GPR_ENET_QOS_ENABLE		BIT(0)
-+
-+#define MX93_ENET_CLK_SEL_OFFSET		(4)
-+#define MX93_ENET_QOS_CLK_TX_SEL_MASK		BIT_MASK(0)
- 
- #define DMA_BUS_MODE			0x00001000
- #define DMA_BUS_MODE_SFT_RESET		(0x1 << 0)
-@@ -95,17 +95,18 @@ static int imx93_set_intf_mode(struct imx_priv_data *dwmac, u8 phy_intf_sel)
- 	if (phy_intf_sel == PHY_INTF_SEL_RMII && dwmac->rmii_refclk_ext) {
- 		ret = regmap_clear_bits(dwmac->intf_regmap,
- 					dwmac->intf_reg_off +
--					MX93_GPR_CLK_SEL_OFFSET,
--					MX93_GPR_ENET_QOS_CLK_SEL_MASK);
-+					MX93_ENET_CLK_SEL_OFFSET,
-+					MX93_ENET_QOS_CLK_TX_SEL_MASK);
- 		if (ret)
- 			return ret;
- 	}
- 
- 	val = FIELD_PREP(MX93_GPR_ENET_QOS_INTF_SEL_MASK, phy_intf_sel) |
--	      MX93_GPR_ENET_QOS_CLK_GEN_EN;
-+	      MX93_GPR_ENET_QOS_ENABLE;
- 
- 	return regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
--				  MX93_GPR_ENET_QOS_INTF_MODE_MASK, val);
-+				  MX93_GPR_ENET_QOS_INTF_SEL_MASK |
-+				  MX93_GPR_ENET_QOS_ENABLE, val);
- };
- 
- static int imx_dwmac_clks_config(void *priv, bool enabled)
-@@ -205,7 +206,8 @@ static void imx93_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
- 	old_ctrl = readl(dwmac->base_addr + MAC_CTRL_REG);
- 	ctrl = old_ctrl & ~CTRL_SPEED_MASK;
- 	regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
--			   MX93_GPR_ENET_QOS_INTF_MODE_MASK, 0);
-+			   MX93_GPR_ENET_QOS_INTF_SEL_MASK |
-+			   MX93_GPR_ENET_QOS_ENABLE, 0);
- 	writel(ctrl, dwmac->base_addr + MAC_CTRL_REG);
- 
- 	 /* Ensure the settings for CTRL are applied. */
-@@ -213,9 +215,10 @@ static void imx93_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
- 
- 	usleep_range(10, 20);
- 	iface &= MX93_GPR_ENET_QOS_INTF_SEL_MASK;
--	iface |= MX93_GPR_ENET_QOS_CLK_GEN_EN;
-+	iface |= MX93_GPR_ENET_QOS_ENABLE;
- 	regmap_update_bits(dwmac->intf_regmap, dwmac->intf_reg_off,
--			   MX93_GPR_ENET_QOS_INTF_MODE_MASK, iface);
-+			   MX93_GPR_ENET_QOS_INTF_SEL_MASK |
-+			   MX93_GPR_ENET_QOS_ENABLE, iface);
- 
- 	writel(old_ctrl, dwmac->base_addr + MAC_CTRL_REG);
- }
+Arnaud Pouliquen (2):
+  remoteproc: core: support fixed device index from DT aliases
+  remoteproc: keystone: use RPROC_ALIAS definition
+
+ drivers/remoteproc/keystone_remoteproc.c |  2 +-
+ drivers/remoteproc/remoteproc_core.c     | 40 ++++++++++++++++++++++--
+ include/linux/remoteproc.h               |  3 ++
+ 3 files changed, 42 insertions(+), 3 deletions(-)
+
+
+base-commit: 63804fed149a6750ffd28610c5c1c98cce6bd377
 -- 
-2.47.3
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
