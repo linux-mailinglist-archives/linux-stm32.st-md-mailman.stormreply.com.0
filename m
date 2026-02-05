@@ -2,53 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WHtIG1tKhGk/2QMAu9opvQ
+	id 8NFKDEplhGkh2wMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 08:44:27 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 10:39:22 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA380EF8A7
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 08:44:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB336F0E9A
+	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 10:39:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9396EC87ED4;
-	Thu,  5 Feb 2026 07:44:26 +0000 (UTC)
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B484C87ECD;
+	Thu,  5 Feb 2026 09:39:21 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D2CBC87ECF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42174C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Feb 2026 07:44:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de; 
- s=gloria202408;
- h=Content-Type:Content-Transfer-Encoding:MIME-Version:
- References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
- bh=Ntdpc/kmU25S8F1eDNB57650TuUB4jKAVLcNz3WP428=; b=JD9cFskb0ndPxsKG6mTXNaig4G
- AjzKOFM/uI2N0j2aUVwUgcC3SwPYbKsfsc1pabUNvUYnLLVx209LS6nhZAnvXY5BX8ICUrdVb19fB
- wewmjBHYAs1usCTPHRkN+XodwpBydq99GjSElbGrZ60yAKYLCsDkDcI2lDDLpJbL4ceI7O3CDkc9e
- gcwDxAN6xJeO50QVSckVR8cfFj13SswOLKmnJ2uunwIVKPVIny+RCf1Dqu85I4ryNCdQe+UbEhdnH
- /3DMcq2+DuBck+ZT3iQb9/jkiVArfTRJLr/lktcrqnP/yb2Z08mPU/+Yf0zqn1Ed+RylgHGgzBWXu
- ch73Pyqg==;
-Received: from i53875afe.versanet.de ([83.135.90.254] helo=diego.localnet)
- by gloria.sntech.de with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.94.2)
- (envelope-from <heiko@sntech.de>)
- id 1vnu28-0074Ju-66; Thu, 05 Feb 2026 08:44:12 +0100
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Date: Thu, 05 Feb 2026 08:44:11 +0100
-Message-ID: <3561842.ZfL8zNpBrT@diego>
-In-Reply-To: <aYPHjS0wrtXlRb1a@shell.armlinux.org.uk>
-References: <aYMN2gZMfLPKuukG@shell.armlinux.org.uk>
- <20297648.sWSEgdgrri@diego>
- <aYPHjS0wrtXlRb1a@shell.armlinux.org.uk>
+ Thu,  5 Feb 2026 09:39:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=dpdEjTwUa2nIvssyS9tGP8C8RHluBGKgaX0/8wOSLqY=; b=QHr++8aDpN/fqF0E0cSew5phMI
+ eOaaHQaJem+IazKxQZH7RxAdBMUpjfUNxVqyhuRscxO36yvJg+GRBQyAoHUH0WcBLhHyiRRsh1RgQ
+ beaCJEKCRn3JxrS1R7cpvCkJXtetHGrGo0Fd9ettY94gAuW7M50+Jt2adpl6dnSqhCPom978IV6W7
+ VAEnODHHo+wjSFRjfnNdunhiVM15F0PIx9pI57/uRyKMaVfYVz/JtqMEmNchlvHblcysBhFfLMpOz
+ s2/Onlz03KvzKqJ2rFt/pZcWV8xcYc2aTEb33F0p+axybcHjHIBmTrf0MB+Ma6NM4tdfDXmJzFoID
+ xij5+MNw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:43544)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vnvpA-0000000077B-0RIT;
+ Thu, 05 Feb 2026 09:38:56 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vnvp4-000000006FN-2Zn1; Thu, 05 Feb 2026 09:38:50 +0000
+Date: Thu, 5 Feb 2026 09:38:50 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Joey Lu <a0987203069@gmail.com>
+Message-ID: <aYRlKk-cCIhqGWX7@shell.armlinux.org.uk>
+References: <20260205014006.735408-1-a0987203069@gmail.com>
+ <20260205014006.735408-4-a0987203069@gmail.com>
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] Re: [PATCH net-next 5/6] net: stmmac: rk: use
- rk_encode_wm16() for clock selection
+Content-Disposition: inline
+In-Reply-To: <20260205014006.735408-4-a0987203069@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, ychuang3@nuvoton.com, edumazet@google.com,
+ schung@nuvoton.com, yclu4@nuvoton.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ openbmc@lists.ozlabs.org, joabreu@synopsys.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ richardcochran@gmail.com, peppe.cavallaro@st.com,
+ linux-arm-kernel@lists.infradead.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v11 3/3] net: stmmac:
+ dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,98 +70,223 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.99 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[sntech.de:s=gloria202408];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[sntech.de : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[heiko@sntech.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	FORGED_RECIPIENTS(0.00)[m:a0987203069@gmail.com,m:andrew@lunn.ch,m:ychuang3@nuvoton.com,m:edumazet@google.com,m:schung@nuvoton.com,m:yclu4@nuvoton.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:openbmc@lists.ozlabs.org,m:joabreu@synopsys.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:richardcochran@gmail.com,m:peppe.cavallaro@st.com,m:linux-arm-kernel@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lunn.ch,nuvoton.com,google.com,st-md-mailman.stormreply.com,kernel.org,lists.ozlabs.org,synopsys.com,redhat.com,vger.kernel.org,gmail.com,st.com,lists.infradead.org,davemloft.net];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[heiko@sntech.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[sntech.de:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
 	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sntech.de:email,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: EA380EF8A7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,armlinux.org.uk:url,shell.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: BB336F0E9A
 X-Rspamd-Action: no action
 
-SGkgUnVzc2VsbCwKCkFtIE1pdHR3b2NoLCA0LiBGZWJydWFyIDIwMjYsIDIzOjI2OjIxIE1pdHRl
-bGV1cm9ww6Rpc2NoZSBOb3JtYWx6ZWl0IHNjaHJpZWIgUnVzc2VsbCBLaW5nIChPcmFjbGUpOgo+
-IE9uIFdlZCwgRmViIDA0LCAyMDI2IGF0IDExOjAzOjUxUE0gKzAxMDAsIEhlaWtvIFN0w7xibmVy
-IHdyb3RlOgo+ID4gQW0gTWl0dHdvY2gsIDQuIEZlYnJ1YXIgMjAyNiwgMTA6MTQ6MzggTWl0dGVs
-ZXVyb3DDpGlzY2hlIE5vcm1hbHplaXQgc2NocmllYiBSdXNzZWxsIEtpbmcgKE9yYWNsZSk6Cj4g
-PiA+IFVzZSBya19lbmNvZGVfd20xNigpIGZvciBSTUlJIGNsb2NrIGdhdGluZyBjb250cm9sLCBh
-bmQgYWxzbyBmb3IgdGhlCj4gPiA+IGlvX2Nsa3NlbCBiaXQgdXNlZCB0byBzZWxlY3QgdGhlIHRy
-YW5zbWl0IGNsb2NrIGJldHdlZW4gQ1JVLWRlcml2ZWQKPiA+ID4gYW5kIElPLWRlcml2ZWQgY2xv
-Y2sgc291cmNlcy4KPiA+ID4gCj4gPiA+IEJvdGggb2YgdGhlc2Ugd2VyZSBjb25maWd1cmVkIHZp
-YSB0aGUgInNldF9jbG9ja19zZWxlY3Rpb24iIG1ldGhvZCBpbgo+ID4gPiB0aGUgU29DIHNwZWNp
-ZmljIG9wZXJhdGlvbnMsIGJ1dCB0aGVyZSBpcyBubyByZXF1aXJlbWVudCB0byBjaGFuZ2UgdGhl
-Cj4gPiA+IGlvX2Nsa3NlbCBleGNlcHQgd2hlbiBlbmFibGluZyBjbG9ja3MuCj4gPiA+IAo+ID4g
-PiBJdCBpcyBhbHNvIHBvc3NpYmxlIHRoYXQgd2UgZG9uJ3QgbmVlZCB0byB1bmdhdGUgdGhlIFJN
-SUkgY2xvY2sgaWYgd2UKPiA+ID4gYXJlIG9wZXJhdGluZyBpbiBSR01JSSBtb2RlLCBidXQgdGhp
-cyBjb21taXQgbWFrZXMgbm8gY2hhbmdlIHRoZXJlLgo+ID4gPiAKPiA+ID4gU3BsaXQgdXAgdGhl
-IGNvbmZpZ3VyYXRpb24gb2YgdGhlc2UgYXMgc2VwYXJhdGUgZnVuY3Rpb25zLCBhbmQgcmVtb3Zl
-Cj4gPiA+IHRoZSBzZXRfY2xvY2tfc2VsZWN0aW9uKCkgbWV0aG9kLiBTaW5jZSB0aGVzZSBjbG9j
-a2luZyBiaXRzIGFyZSBpbiB0aGUKPiA+ID4gc2FtZSByZWdpc3RlciB0aGF0IHdlIGNhbGwgdGhl
-ICJzcGVlZCIgcmVnaXN0ZXIsIG1vdmUgdGhlIGxvZ2ljIGZvcgo+ID4gPiB3cml0aW5nIHRoYXQg
-cmVnaXN0ZXIgaW50byBya193cml0ZV9zcGVlZF9ncmZfcmVnKCkuCj4gPiA+IAo+ID4gPiBTaWdu
-ZWQtb2ZmLWJ5OiBSdXNzZWxsIEtpbmcgKE9yYWNsZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3Jn
-LnVrPgo+ID4gPiAtLS0KPiA+ID4gIC4uLi9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdt
-YWMtcmsuYyAgICB8IDE3NCArKysrKysrKy0tLS0tLS0tLS0KPiA+ID4gIDEgZmlsZSBjaGFuZ2Vk
-LCA3NSBpbnNlcnRpb25zKCspLCA5OSBkZWxldGlvbnMoLSkKPiA+ID4gCj4gPiA+IGRpZmYgLS1n
-aXQgYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jIGIvZHJp
-dmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYwo+ID4gPiBpbmRleCA0
-MDk5Y2JjNWQwZGUuLmVkOWFkYWM3MGYwYSAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVycy9uZXQv
-ZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYwo+ID4gPiArKysgYi9kcml2ZXJzL25l
-dC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jCj4gPiA+IEBAIC0yNyw4ICsyNywx
-NyBAQAo+ID4gPiAgc3RydWN0IHJrX3ByaXZfZGF0YTsKPiA+ID4gIAo+ID4gPiAgc3RydWN0IHJr
-X2Nsb2NrX2ZpZWxkcyB7Cj4gPiA+ICsJLyogaW9fY2xrc2VsX2NydV9tYXNrIC0gaW9fY2xrc2Vs
-IGJpdCBpbiBjbG9jayBHUkYgcmVnaXN0ZXIgd2hpY2gsCj4gPiA+ICsJICogd2hlbiBzZXQsIHNl
-bGVjdHMgdGhlIHR4IGNsb2NrIGZyb20gQ1JVLgo+ID4gPiArCSAqLwo+ID4gPiArCXUxNiBpb19j
-bGtzZWxfY3J1X21hc2s7Cj4gPiA+ICsJLyogaW9fY2xrc2VsX2lvX21hc2sgLSBpb19jbGtzZWwg
-Yml0IGluIGNsb2NrIEdSRiByZWdpc3RlciB3aGljaCwKPiA+ID4gKwkgKiB3aGVuIHNldCwgc2Vs
-ZWN0cyB0aGUgdHggY2xvY2sgZnJvbSBJTy4KPiA+ID4gKwkgKi8KPiA+IAo+ID4gbml0OiBjb21t
-ZW50IHN0aWxlIGRvZXMgbm90IHNlZW0gdG8gZm9sbG93IHRoZSBrZXJuZWwgY29kaW5nIHN0eWxl
-Cj4gPiBodHRwczovL2dpdC5rZXJuZWwub3JnL3B1Yi9zY20vbGludXgva2VybmVsL2dpdC90b3J2
-YWxkcy9saW51eC5naXQvdHJlZS9Eb2N1bWVudGF0aW9uL3Byb2Nlc3MvY29kaW5nLXN0eWxlLnJz
-dCNuNjIyCj4gCj4gbmV0ZGV2IGhhcyBoaXN0b3JpY2FsbHkgaGFkIHRoaXMgc3R5bGUgd2hpY2gg
-aXMgc2VwYXJhdGUgZnJvbSB0aGUgcmVzdAo+IG9mIHRoZSBrZXJuZWwuIFRoZSBmaWxlIGFscmVh
-ZHkgdXNlcyB0aGlzIGNvbW1lbnQgc3R5bGUsIHNvIGl0IGlzCj4gZW50aXJlbHkgY29ycmVjdCB0
-byBrZWVwIHRvIHRoZSBzdHlsZSB3aGljaCBhbHJlYWR5IGV4aXN0cyBpbiB0aGlzCj4gZmlsZSwg
-cmF0aGVyIHRoYW4gbWl4aW5nIHN0eWxlcyBhbmQgdHVybmluZyBpdCBpbnRvIGEgbWVzcy4KCnRo
-YW5rcyBmb3IgdGhlIGNsYXJpZmljYXRpb24uIFRoZW4gdGhlIGNvbW1lbnQgc3R5bGUgaXMgb2J2
-aW91c2x5IGZpbmUuCgpSZWdhcmRzCkhlaWtvCgoKPiA+IFJldmlld2VkLWJ5OiBIZWlrbyBTdHVl
-Ym5lciA8aGVpa29Ac250ZWNoLmRlPgo+ID4gVGVzdGVkLWJ5OiBIZWlrbyBTdHVlYm5lciA8aGVp
-a29Ac250ZWNoLmRlPiAjcHgzMCxyazMzMjgscmszNTY4LHJrMzU4OAo+IAo+IAoKCgoKX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFp
-bGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6
-Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3Rt
-MzIK
+Hi,
+
+On Thu, Feb 05, 2026 at 09:40:05AM +0800, Joey Lu wrote:
+> +
+> +struct nvt_priv_data {
+> +	struct platform_device *pdev;
+
+This looks to me like it's write-only, does it serve a useful purpose?
+
+> +	struct regmap *regmap;
+
+This doesn't seem to be used outside of nvt_gmac_setup().
+
+> +};
+
+Given the above two comments, do you actually need struct nvt_priv_data ?
+
+> +
+> +static struct nvt_priv_data *
+> +nvt_gmac_setup(struct platform_device *pdev, struct plat_stmmacenet_data *plat)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct nvt_priv_data *bsp_priv;
+> +	phy_interface_t phy_mode;
+> +	u32 macid, arg, reg;
+> +	u32 tx_delay_step;
+> +	u32 rx_delay_step;
+> +	u32 miscr;
+> +
+> +	bsp_priv = devm_kzalloc(dev, sizeof(*bsp_priv), GFP_KERNEL);
+> +	if (!bsp_priv)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	bsp_priv->regmap =
+> +		syscon_regmap_lookup_by_phandle_args(dev->of_node, "nuvoton,sys", 1, &macid);
+> +	if (IS_ERR(bsp_priv->regmap))
+> +		return ERR_PTR(dev_err_probe(dev, PTR_ERR(bsp_priv->regmap),
+> +				     "Failed to get sys register\n"));
+> +	if (macid > 1) {
+> +		dev_err(dev, "Invalid sys arguments\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	if (of_property_read_u32(dev->of_node, "tx-internal-delay-ps", &arg)) {
+> +		tx_delay_step = 0;
+> +	} else {
+> +		if (arg <= 2000) {
+> +			tx_delay_step = (arg == 2000) ? 0xf : (arg / NVT_PATH_DELAY_STEP);
+> +			dev_dbg(dev, "Set Tx path delay to 0x%x\n", tx_delay_step);
+> +		} else {
+> +			dev_err(dev, "Invalid Tx path delay argument.\n");
+> +			return ERR_PTR(-EINVAL);
+> +		}
+> +	}
+> +	if (of_property_read_u32(dev->of_node, "rx-internal-delay-ps", &arg)) {
+> +		rx_delay_step = 0;
+> +	} else {
+> +		if (arg <= 2000) {
+> +			rx_delay_step = (arg == 2000) ? 0xf : (arg / NVT_PATH_DELAY_STEP);
+> +			dev_dbg(dev, "Set Rx path delay to 0x%x\n", rx_delay_step);
+> +		} else {
+> +			dev_err(dev, "Invalid Rx path delay argument.\n");
+> +			return ERR_PTR(-EINVAL);
+> +		}
+> +	}
+
+Each of these could be moved into a separate function:
+
+static int nvt_gmac_get_delay(struct device *dev, const char *property)
+{
+	u32 arg;
+
+	if (of_property_read_u32(dev->of_node, property, &arg))
+		return 0;
+
+	if (arg > 2000) {
+		dev_err(dev, "Invalid %s argument.\n", property);
+		return -EINVAL;
+	}
+
+	if (arg == 2000)
+		return 15;
+
+	return arg / NVT_PATH_DELAY_STEP;
+}
+
+then:
+	int ret;
+
+	ret = nvt_gmac_get_delay(dev, "tx-internal-delay-ps");
+	if (ret < 0)
+		return ERR_PTR(ret);
+
+	tx_delay = ret;
+
+	ret = nvt_gmac_get_delay(dev, "rx-internal-delay-ps");
+	if (ret < 0)
+		return ERR_PTR(ret);
+
+	rx_delay = ret;
+
+> +
+> +	miscr = (macid == 0) ? NVT_REG_SYS_GMAC0MISCR : NVT_REG_SYS_GMAC1MISCR;
+> +	regmap_read(bsp_priv->regmap, miscr, &reg);
+> +	reg &= ~(NVT_TX_DELAY_MASK | NVT_RX_DELAY_MASK);
+> +
+> +	if (of_get_phy_mode(pdev->dev.of_node, &phy_mode)) {
+> +		dev_err(dev, "missing phy mode property\n");
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	switch (phy_mode) {
+> +	case PHY_INTERFACE_MODE_RGMII:
+> +	case PHY_INTERFACE_MODE_RGMII_ID:
+> +	case PHY_INTERFACE_MODE_RGMII_RXID:
+> +	case PHY_INTERFACE_MODE_RGMII_TXID:
+> +		reg &= ~NVT_MISCR_RMII;
+> +		break;
+> +	case PHY_INTERFACE_MODE_RMII:
+> +		reg |= NVT_MISCR_RMII;
+> +		break;
+> +	default:
+> +		dev_err(dev, "Unsupported phy-mode (%d)\n", phy_mode);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	if (!(reg & NVT_MISCR_RMII)) {
+> +		reg |= FIELD_PREP(NVT_TX_DELAY_MASK, tx_delay_step);
+> +		reg |= FIELD_PREP(NVT_RX_DELAY_MASK, rx_delay_step);
+
+You can move this inside the switch above under the RGMII case. Theses
+delays are, after all, only for RGMII.
+
+> +	}
+> +
+> +	regmap_write(bsp_priv->regmap, miscr, reg);
+
+Consider:
+
+	regmap_update_bits(bsp_priv->regmap, miscr,
+			   NVT_TX_DELAY_MASK | NVT_RX_DELAY_MASK |
+			   NVT_MISCR_RMII, reg);
+
+> +	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+> +	if (IS_ERR(plat_dat))
+> +		return PTR_ERR(plat_dat);
+> +
+> +	/* Nuvoton DWMAC configs */
+> +	plat_dat->core_type = DWMAC_CORE_GMAC;
+
+Is the hardware not compatible with any of the compatible types that
+devm_stmmac_probe_config_dt() will automatically set this for you?
+Which version of the core do you have?
+
+> +	plat_dat->tx_fifo_size = 2048;
+> +	plat_dat->rx_fifo_size = 4096;
+
+There are tx-fifo-depth / rx-fifo-depth properties that can be used to
+describe these in DT.
+
+> +	plat_dat->multicast_filter_bins = 0;
+> +	plat_dat->unicast_filter_entries = 8;
+
+If this core is v3.50, v3.70 or v3.72, then there are
+snps,multicast-filter-bins and snps,perfect-filter-entries which
+can be used to describe both of these.
+
+Thanks.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
