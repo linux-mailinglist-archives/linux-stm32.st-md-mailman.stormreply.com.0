@@ -2,53 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0M9HO6vThGmf5gMAu9opvQ
+	id cMxyIwPWhGlo5gMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 18:30:19 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 18:40:19 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 86E4AF5F59
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 18:30:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AEDDF60CE
+	for <lists+linux-stm32@lfdr.de>; Thu, 05 Feb 2026 18:40:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2DAF8C87ED4;
-	Thu,  5 Feb 2026 17:30:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8F20C87ED4;
+	Thu,  5 Feb 2026 17:40:18 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3E022C87ECD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E581C87ECD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Feb 2026 17:30:18 +0000 (UTC)
+ Thu,  5 Feb 2026 17:40:17 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id B56A14448A;
- Thu,  5 Feb 2026 17:30:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 946A2C2BC87;
- Thu,  5 Feb 2026 17:30:16 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AA4BF4406A;
+ Thu,  5 Feb 2026 17:40:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D56C116D0;
+ Thu,  5 Feb 2026 17:40:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770312616;
- bh=nmhl7oJPwOQKGhvS5Y0LaKirKo62bY/yf4EL+9kA0OA=;
+ s=k20201202; t=1770313216;
+ bh=PlcHdDqlGOyoVV/PwNUW7cRCJ2IJFzAj92C8MJ6HqrA=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=F/StjmdvehKAzGGyVRuefB9Wz8w4AvzGJhIV2ZSFJQgxLah7OT3B2RVmRNjpfXNEM
- 91aaioJzFFMtuYgrQP+Yiy428mYEoz0jqtTmtpXWSrP6FtS0EDDKKWo0O6OPR+agZF
- PQsGxIlsMk0K4omsx2ch1cJEiOBc0TsAiBNFutCVn4AxMXvKD9Jf3PYItHezUrH4Dk
- VOSiYNAdBTmNzJjHcQ2kznnntFWjwpg3qbU9b/a//4GekZak5knSCATNl3m6VQzTn+
- KpymdsP2FvnP2lnGrZeDISkhfhjxLkraW6ZPMq1e+GtO1sE10Pa8l+qiKxczb2LUs8
- upXQlFpC7haaw==
+ b=NhIK2MM/FKJsRSf1wVPRCASRwziq9qpHvgaRa7SmsXH9VjtuwPwt5gUlV5TUXm+Xz
+ XkslV/OC7bOdgcdu5XnNDhLnN1zusH261fVj9jivft7BFPwHw6GAvRmxnBvZiCMWoS
+ +/r90Q6CoUCXAHM5APn68uTzZC+BlE5J4QEbtmpGPfmMrK6S6wAisEY7FvbwIV+KBa
+ 8CHtvOKErI+swfHIpywk0Bvau1Y+/T8PZDUIHwJ/yMGWd9iJL8ngU/hWcuerhaMG1y
+ IhjbkBAqVmxF5rw/5ZgB8J6SzFNguadKPF/9EnsBxOldLurmdbxMCAQ8Ip9SCFb4lq
+ Oi5ocOrUzolNw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 8534B3808200; Thu,  5 Feb 2026 17:30:15 +0000 (UTC)
+ 8524B3808200; Thu,  5 Feb 2026 17:40:15 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177031261432.500992.15994609944563824228.git-patchwork-notify@kernel.org>
-Date: Thu, 05 Feb 2026 17:30:14 +0000
-References: <aYMN2gZMfLPKuukG@shell.armlinux.org.uk>
-In-Reply-To: <aYMN2gZMfLPKuukG@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, heiko@sntech.de, linux-rockchip@lists.infradead.org,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/6] net: stmmac: rk: final
-	cleanups part
+Message-Id: <177031321407.505259.5073683709420571661.git-patchwork-notify@kernel.org>
+Date: Thu, 05 Feb 2026 17:40:14 +0000
+References: <E1vnaGl-00000007i9f-0ZMw@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vnaGl-00000007i9f-0ZMw@rmk-PC.armlinux.org.uk>
+To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: andrew@lunn.ch, imx@lists.linux.dev, netdev@vger.kernel.org,
+ s.hauer@pengutronix.de, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, kernel@pengutronix.de,
+ kuba@kernel.org, pabeni@redhat.com, shawnguo@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: imx: fix iMX93
+	register definitions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,8 +81,8 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:heiko@sntech.de,m:linux-rockchip@lists.infradead.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kernel@pengutronix.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:shawnguo@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -95,41 +96,33 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	TO_DN_SOME(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	FROM_NO_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 86E4AF5F59
+X-Rspamd-Queue-Id: 2AEDDF60CE
 X-Rspamd-Action: no action
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 4 Feb 2026 09:14:02 +0000 you wrote:
-> Hi,
+On Wed, 04 Feb 2026 10:37:59 +0000 you wrote:
+> When looking at the iMX93 documentation, the definitions in the driver
+> do not correspond with the documentation, which makes the driver
+> confusing.
 > 
-> This is the last part of my current dwmac-rk cleanups.
+> The driver, for example, re-uses a definition for bit 0 for two
+> different registers, where this bit have completely different purposes.
 > 
->  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 361 ++++++++++---------------
->  1 file changed, 150 insertions(+), 211 deletions(-)
+> [...]
 
 Here is the summary with links:
-  - [net-next,1/6] net: stmmac: rk: introduce flags indicating support for RGMII/RMII
-    https://git.kernel.org/netdev/net-next/c/d323769d64f2
-  - [net-next,2/6] net: stmmac: rk: replace empty set_to_rmii() with supports_rmii
-    https://git.kernel.org/netdev/net-next/c/a9d4aff670ed
-  - [net-next,3/6] net: stmmac: rk: rk3328: gmac2phy only supports RMII
-    https://git.kernel.org/netdev/net-next/c/f365541bf7b6
-  - [net-next,4/6] net: stmmac: rk: rk3528: gmac0 only supports RMII
-    https://git.kernel.org/netdev/net-next/c/d7d92037cbd8
-  - [net-next,5/6] net: stmmac: rk: use rk_encode_wm16() for clock selection
-    https://git.kernel.org/netdev/net-next/c/5c1fc7cb81df
-  - [net-next,6/6] net: stmmac: rk: rk3506, rk3528 and rk3588 have rmii_mode in clock register
-    https://git.kernel.org/netdev/net-next/c/b10d56b0db3a
+  - [net-next] net: stmmac: imx: fix iMX93 register definitions
+    https://git.kernel.org/netdev/net-next/c/7e7fcfb0798a
 
 You are awesome, thank you!
 -- 
