@@ -2,58 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cNsTKKkihmklKAQAu9opvQ
+	id mFGpOqtAhmmFLQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 18:19:37 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 20:27:39 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2571E100E07
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 18:19:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 699CC102BA3
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 20:27:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC5E8C87EDD;
-	Fri,  6 Feb 2026 17:19:36 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CCAFC87EDD;
+	Fri,  6 Feb 2026 19:27:39 +0000 (UTC)
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 270F6C58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DC70C58D7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Feb 2026 17:19:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=hBz1B1ch3uij2mP5ItPRrEZrt2hOKNjok2/Z3SVVwAE=; b=cGN2Nra3VKLwUUCu1C3ru68F7Q
- 430jBi13WUXglaqY7kKbPJYZW98oMB4ViXQ5DgjUo/P7nmDlc998GGuGK1J1DqCM5bAZUt49dq6AL
- dpQ0rhg8Ja4WRD+0ArK/I1JbIugABP2uLpWzbder7O1IyIJ8SlTAB38hyofgs877cXt0gUPxhGOV0
- VugmV3sWVWRk7iWzUcRJfFV5hh4ghVGUJXUyCxdaMLAxIgAsapt4X4xATqC7WRld0UUcbU0yWOH7Z
- /mRNSV50+Ku0SB4w7klqAuhoots6cSVBn4YBUwMJwbyvmIEHnE9V+lSAm3RYWySwAOlFwcYoTgi1S
- sCHa0wFA==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54818 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1voPUI-000000008Hl-1fh0;
- Fri, 06 Feb 2026 17:19:22 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1voPUH-000000083ji-25FH; Fri, 06 Feb 2026 17:19:21 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1voPUH-000000083ji-25FH@rmk-PC.armlinux.org.uk>
-Date: Fri, 06 Feb 2026 17:19:21 +0000
-Cc: Sneh Shah <quic_snehshah@quicinc.com>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ Fri,  6 Feb 2026 19:27:37 +0000 (UTC)
+Received: (wp-smtpd smtp.wp.pl 44129 invoked from network);
+ 6 Feb 2026 20:27:35 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
+ t=1770406056; bh=6gftHVR+vy3nM7U0t2O69oN1ej/ezopf8Hrbjo9I60w=;
+ h=From:To:Cc:Subject;
+ b=dpUiM22RLFPBbQAugmoBY09/ozjCxd36za8mP3jSPbA8DUE/5negt7hmbZvi5I3bK
+ b75NKhr/uAsH7gei7BEsEf3MnKvLOAjjw9uODhnspzRomJ6wyQ0+3aAJVugAcHVVp4
+ 1+YyLcnL3s9VpzN2EqdCY2YDBDmjkqFBWLl223Syrgo91anxfMz8Vm8D/BZu2dAqgD
+ 3xvuu2TFrHJPHFDdNQK02dZ+p3rlroLV9KtNwS76XR+na0s9hpz9HLrzKhWoH/a1Hu
+ QFEQgBXCPqEzW3ferqao6k+40MwE7iQLYOmxgsZL6uFXmtE1P1ootpgn7owbt0LCIj
+ 6Sf1yj2nDg2QQ==
+Received: from 83.5.238.100.ipv4.supernova.orange.pl (HELO laptop-olek.lan)
+ (olek2@wp.pl@[83.5.238.100]) (envelope-sender <olek2@wp.pl>)
+ by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+ for <herbert@gondor.apana.org.au>; 6 Feb 2026 20:27:35 +0100
+From: Aleksander Jan Bajkowski <olek2@wp.pl>
+To: herbert@gondor.apana.org.au, davem@davemloft.net,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: fix
- qcom_ethqos_serdes_powerup()
+Date: Fri,  6 Feb 2026 20:26:59 +0100
+Message-ID: <20260206192732.478178-1-olek2@wp.pl>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <linux-kernel@vger.kernel.org>
+References: <linux-kernel@vger.kernel.org>
+MIME-Version: 1.0
+X-WP-DKIM-Status: good (id: wp.pl) 
+X-WP-MailID: 51800c7626cbd9910c5677c24232fcb4
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000009 [MEMU]                               
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Subject: [Linux-stm32] [PATCH] crypto: tesmgr - allow
+	authenc(hmac(sha224/sha384), cbc(aes)) in fips mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,78 +67,73 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[wp.pl:s=20241105];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[wp.pl : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:quic_snehshah@quicinc.com,m:mohd.anwar@oss.qualcomm.com,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-crypto@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:olek2@wp.pl,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_HAS_DN(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_FROM(0.00)[wp.pl];
+	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[wp.pl];
+	DKIM_TRACE(0.00)[wp.pl:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.862];
+	NEURAL_HAM(-0.00)[-0.985];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 2571E100E07
+	DBL_BLOCKED_OPENRESOLVER(0.00)[wp.pl:mid,wp.pl:email]
+X-Rspamd-Queue-Id: 699CC102BA3
 X-Rspamd-Action: no action
 
-Add cleanup for failure paths in qcom_ethqos_serdes_powerup(). This
-was missing calling phy_exit() and phy_power_off() at appropriate
-failure points.
+The remaining combinations of AES-CBC and SHA* have already been marked
+as allowed. This commit does the same for SHA224 and SHA384.
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c  | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+ crypto/testmgr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 869f924f3cde..af8204c0e188 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -659,10 +659,18 @@ static int qcom_ethqos_serdes_powerup(struct net_device *ndev, void *priv)
- 		return ret;
- 
- 	ret = phy_power_on(ethqos->serdes_phy);
--	if (ret)
-+	if (ret) {
-+		phy_exit(ethqos->serdes_phy);
- 		return ret;
-+	}
- 
--	return phy_set_speed(ethqos->serdes_phy, ethqos->serdes_speed);
-+	ret = phy_set_speed(ethqos->serdes_phy, ethqos->serdes_speed);
-+	if (ret) {
-+		phy_power_off(ethqos->serdes_phy);
-+		phy_exit(ethqos->serdes_phy);
-+	}
-+
-+	return ret;
- }
- 
- static void qcom_ethqos_serdes_powerdown(struct net_device *ndev, void *priv)
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index bf286a4f5351..b230d651f9f9 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -4134,6 +4134,7 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.alg = "authenc(hmac(sha224),cbc(aes))",
+ 		.generic_driver = "authenc(hmac-sha224-lib,cbc(aes-generic))",
+ 		.test = alg_test_aead,
++		.fips_allowed = 1,
+ 		.suite = {
+ 			.aead = __VECS(hmac_sha224_aes_cbc_tv_temp)
+ 		}
+@@ -4196,6 +4197,7 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.alg = "authenc(hmac(sha384),cbc(aes))",
+ 		.generic_driver = "authenc(hmac-sha384-lib,cbc(aes-generic))",
+ 		.test = alg_test_aead,
++		.fips_allowed = 1,
+ 		.suite = {
+ 			.aead = __VECS(hmac_sha384_aes_cbc_tv_temp)
+ 		}
 -- 
 2.47.3
 
