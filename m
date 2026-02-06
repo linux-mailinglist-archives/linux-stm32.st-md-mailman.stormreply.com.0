@@ -2,89 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eNI3KIhHhmkhLgQAu9opvQ
+	id CHp0MWxPhmlpLwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 20:56:56 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 21:30:36 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E79C102ED6
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 20:56:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FD1D1031F2
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 21:30:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD4F4C87EDD;
-	Fri,  6 Feb 2026 19:56:55 +0000 (UTC)
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E60C1C87EDD;
+	Fri,  6 Feb 2026 20:30:35 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26DD3C290A0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 82329C58D7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Feb 2026 19:56:55 +0000 (UTC)
-Received: by mail-qv1-f47.google.com with SMTP id
- 6a1803df08f44-894674a4c4aso17798036d6.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 06 Feb 2026 11:56:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770407814; x=1771012614;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=B6IArvx0vdf7oFz1KRMa/JnNwWUDCFupKTsMgFUEvU4=;
- b=kgeRoe97hgCcJqmGKPdlIGbMkD+lnTZG5FZd9hoK8krGfy1L+K60cF4ULSABsgyvbC
- TGbSq6N6k4OdQFfSBmrijI972aDqJvUCoaSQL2+Mol/2aonpObuZ+CC8pKEIMldW0gyH
- ti/oDX+kb43H0p8ojGZJlZtSR++5hZGfthnv/U5BPv74K2AmOjmUpGHhYNxTiWLrG8+6
- qhE/k8/c6U95+/CecFtO8Rfiqtspq47FzdzyF1JHi0UoLbFtS2PbppA6fRHnuXOQLv/L
- 15qcRJcWYHmhEYZCJRazmbiTkn4gRARPrVKKrwTYHK2pcqozN0gu7VlEEPBfKDfQ6isl
- K+BA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770407814; x=1771012614;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=B6IArvx0vdf7oFz1KRMa/JnNwWUDCFupKTsMgFUEvU4=;
- b=N62paLsnnaA1HQv+/MOmJOTZz+U00gJCbDlmjhzR7PQIYkBYtt3URmDxfUdcCpImEx
- ZIonPQSJmWL8Lf+FTnSDZ2nYSH5I5dlqfdnOuWe4/rbcz+t+YNedGFFN1P9fyNqLGzd0
- NxuqKUyM7JDjTF2+pjwpgMRgmLte8UlxOE0LZtKwMIt5JJ+0c9+MCPKH0X1XxGBiZf38
- TUoNnUZXSDeGcpu7OEIZ47TglHtMqtGIykCvxRYn2WQbZgeu/cMq5Vw4ea8U6KtlaLul
- +Z//Sz4B1vtM/2lHULcgSZWwerIP8AJV1U9Sbgg9q9w19VCTVflvVvqzVLFHuvpO1ssq
- etGQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVUS2Wb/nowkySi7bChunFwEvjWEePngAhIn2FMQdOAwmqMTRiMYHteWhYTVaoZM6QPNyYxzMpmOTP3xg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy5R3Rnc+zvV4VYROda4QUjqtdBQjNREofDZQi/jqtCnut/3hux
- m1sl5B0GtGbwYT9s+R8HyD2Ncx5c+0RhyybgyeYtPhIFyAjHRAmH/ACl
-X-Gm-Gg: AZuq6aKwPGKW3wtgjv8hVfk0hmS1qBWbLpiViNYs4RbFONVHsaU4mUN8IAVABA1ier5
- nZW0JnxHVKwbTj1Sc58ot+Yf/Cd2FgzT/RtMXjQdF0GEXVyf+DKKkuY+nAIIysj6YwgnUySw50H
- ZmcbqtPBy6ZMXpyoS8p1Fh/34zH6RgiL+h3OFvxnRdoOc+3VwjgLx0tqzrJBuGQxphXcHjFh9c2
- p7DoIUk8ERnK/0oUf9YVLSCeFV3OcfWGwg3Fufpe7Cs+1uyr/+5QOiHe5xvsGFvuzS20xKh1GOx
- GDL8jliYKq4XfkVGmMwYOUzOeYbuiFF1SrCCh23sHTitnBBdypYEaCDX/gPKdB1JLqBVdno/kf1
- yK43QkweHSHdzjNbVEuE6mDhrYvH+gfX4iqcyPPPiKRi8BqDTailu5nC6apLg6fto07gE8d6Ue2
- 0tzRSXMgXKOZRjmkj/vJ6pTlRWH8ynJUyxruIxNSJqqJ6JUDMRw8tfNY7cAEXlVywsTsiAGjuTl
- Bo=
-X-Received: by 2002:a05:6214:e6c:b0:894:68fa:37e6 with SMTP id
- 6a1803df08f44-8953cd9897cmr55323726d6.58.1770407813759; 
- Fri, 06 Feb 2026 11:56:53 -0800 (PST)
-Received: from localhost.localdomain
- (h69-131-24-92.cntcnh.broadband.dynamic.tds.net. [69.131.24.92])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50638c37b75sm23139701cf.0.2026.02.06.11.56.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 06 Feb 2026 11:56:53 -0800 (PST)
-From: Jie Zhang <jzhang918@gmail.com>
-X-Google-Original-From: Jie Zhang <jie.zhang@analog.com>
-To: netdev@vger.kernel.org
-Date: Fri,  6 Feb 2026 14:56:38 -0500
-Message-ID: <20260206195643.11333-1-jie.zhang@analog.com>
-X-Mailer: git-send-email 2.47.3
+ Fri,  6 Feb 2026 20:30:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=4YHH0YAMAHnJ5UGh8pphcs9yAuxrmD7yQeFh/XrEM1k=; b=cUM2ujHWceUzMbW20cIxqA4llS
+ NkE8BDAwqzDmYlfweI9LHAUpWYlxzdrvLA5m1wdr0Z8+TZA5w10hCD+WxkQyEgPtUUEnq6GnJiU4O
+ wvjdWjQJfmNXBJtzVpEL8q07G8B+obm9lIEThmhNkdCtmQZUAGs0j8PRgQtQcGwV6VHukgdN4P25b
+ euMdVvZOmk2Z3Ol28RZgeWSFM2HOIFBjngDcaebtXbfDdzeloV790c2+Bj9G7f+PMqOWXBQQtPlVu
+ z9kyVPyVhCuw6ZoRtG+Uj33nOwDBjz95xY11XTce8Ny/irboMl+80x5OPmDmfd34eHK2NLxH/3c40
+ Rz9IKV0w==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:42876)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1voST3-000000008Oi-39Cq;
+ Fri, 06 Feb 2026 20:30:17 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1voSSy-000000007cx-01gv; Fri, 06 Feb 2026 20:30:12 +0000
+Date: Fri, 6 Feb 2026 20:30:11 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jie Zhang <jzhang918@gmail.com>
+Message-ID: <aYZPUx2WrIkPmvIU@shell.armlinux.org.uk>
+References: <20260206195643.11333-1-jie.zhang@analog.com>
 MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20260206195643.11333-1-jie.zhang@analog.com>
 Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, jie.zhang@analog.com, horms@kernel.org,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, jzhang918@gmail.com, jie.zhang@analog.com,
- horms@kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v2] net: stmmac: fix oops when split
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: fix oops when split
 	header is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -104,114 +75,110 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[jzhang918@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:edumazet@google.com,m:andrew+netdev@lunn.ch,m:jzhang918@gmail.com,m:jie.zhang@analog.com,m:horms@kernel.org,m:jacob.e.keller@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	FORGED_RECIPIENTS(0.00)[m:jzhang918@gmail.com,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:jie.zhang@analog.com,m:horms@kernel.org,m:vladimir.oltean@nxp.com,m:jacob.e.keller@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[jzhang918@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,gmail.com,nxp.com,st-md-mailman.stormreply.com,google.com,lunn.ch,analog.com,kernel.org,intel.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
-	NEURAL_HAM(-0.00)[-0.991];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lunn.ch,google.com,analog.com,kernel.org,nxp.com,intel.com,redhat.com,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.965];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,analog.com:mid,analog.com:email]
-X-Rspamd-Queue-Id: 3E79C102ED6
+	DBL_BLOCKED_OPENRESOLVER(0.00)[analog.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,intel.com:email]
+X-Rspamd-Queue-Id: 5FD1D1031F2
 X-Rspamd-Action: no action
 
-For GMAC4, when split header is enabled, in some rare cases, the
-hardware does not fill buf2 of the first descriptor with payload.
-Thus we cannot assume buf2 is always fully filled if it is not
-the last descriptor. Otherwise, the length of buf2 of the second
-descriptor will be calculated wrong and cause an oops:
+On Fri, Feb 06, 2026 at 02:56:38PM -0500, Jie Zhang wrote:
+> For GMAC4, when split header is enabled, in some rare cases, the
+> hardware does not fill buf2 of the first descriptor with payload.
+> Thus we cannot assume buf2 is always fully filled if it is not
+> the last descriptor. Otherwise, the length of buf2 of the second
+> descriptor will be calculated wrong and cause an oops:
+> 
+> Unable to handle kernel paging request at virtual address ffff00019246bfc0
+> ...
+> x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
+> Call trace:
+>  dcache_inval_poc+0x28/0x58 (P)
+>  dma_direct_sync_single_for_cpu+0x38/0x6c
+>  __dma_sync_single_for_cpu+0x34/0x6c
+>  stmmac_napi_poll_rx+0x8f0/0xb60
+>  __napi_poll.constprop.0+0x30/0x144
+>  net_rx_action+0x160/0x274
+>  handle_softirqs+0x1b8/0x1fc
+> ...
+> 
+> To fix this, the PL bit-field in RDES3 register is used for all
+> descriptors, whether it is the last descriptor or not.
+> 
+> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+> Signed-off-by: Jie Zhang <jie.zhang@analog.com>
+> ---
+> v2:
+> 1. Update for the latest net HEAD
+> 2. Reduce crash dump message in commit message
+> 3. Add Fixes tag
+> v1 link: https://lore.kernel.org/all/20251202025421.4560-1-jie.zhang@analog.com/
 
-Unable to handle kernel paging request at virtual address ffff00019246bfc0
+I was trying to work out whether this was a re-post of a patch that had
+already been merged and it was the result of someone inappropriately
+re-posting old patches, or whether it was something to take seriously.
+
+That is because of this in the patch:
+
+> +	/* Not GMAC4 and not last descriptor */
+> +	if (!priv->plat->has_gmac4 && (status & rx_not_ls))
+
+Commit 26ab9830beab ("net: stmmac: replace has_xxxx with core_type"):
+
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 99022620457a..151c81c560c8 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
 ...
-x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
-Call trace:
- dcache_inval_poc+0x28/0x58 (P)
- dma_direct_sync_single_for_cpu+0x38/0x6c
- __dma_sync_single_for_cpu+0x34/0x6c
- stmmac_napi_poll_rx+0x8f0/0xb60
- __napi_poll.constprop.0+0x30/0x144
- net_rx_action+0x160/0x274
- handle_softirqs+0x1b8/0x1fc
++       enum dwmac_core_type core_type;
 ...
+-       int has_gmac4;
 
-To fix this, the PL bit-field in RDES3 register is used for all
-descriptors, whether it is the last descriptor or not.
+So, has_gmac4 no longer exists, and hasn't done since October last
+year.
 
-Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Signed-off-by: Jie Zhang <jie.zhang@analog.com>
----
-v2:
-1. Update for the latest net HEAD
-2. Reduce crash dump message in commit message
-3. Add Fixes tag
-v1 link: https://lore.kernel.org/all/20251202025421.4560-1-jie.zhang@analog.com/
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+Thus, it seems your patch has been generated against an old kernel.
+As you are submitting for netdev, it is a good idea to ensure that
+patches apply to the net-next tree and/or net tree depending on
+which one you are targetting, and have been tested against that
+tree.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a379221b96a3..8adc02003517 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5023,13 +5023,27 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
- 	if (!priv->sph_active)
- 		return 0;
- 
--	/* Not last descriptor */
--	if (status & rx_not_ls)
-+	/* For GMAC4, when split header is enabled, in some rare cases, the
-+	 * hardware does not fill buf2 of the first descriptor with payload.
-+	 * Thus we cannot assume buf2 is always fully filled if it is not
-+	 * the last descriptor. Otherwise, the length of buf2 of the second
-+	 * descriptor will be calculated wrong and cause an oops.
-+	 *
-+	 * If this is the last descriptor, 'plen' is the length of the
-+	 * received packet that was transferred to system memory.
-+	 * Otherwise, it is the accumulated number of bytes that have been
-+	 * transferred for the current packet.
-+	 *
-+	 * Thus 'plen - len' always gives the correct length of buf2.
-+	 */
-+
-+	/* Not GMAC4 and not last descriptor */
-+	if (!priv->plat->has_gmac4 && (status & rx_not_ls))
- 		return priv->dma_conf.dma_buf_sz;
- 
-+	/* GMAC4 or last descriptor */
- 	plen = stmmac_get_rx_frame_len(priv, p, coe);
- 
--	/* Last descriptor */
- 	return plen - len;
- }
- 
+Thanks.
+
 -- 
-2.47.3
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
