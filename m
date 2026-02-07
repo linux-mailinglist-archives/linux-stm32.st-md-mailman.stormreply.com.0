@@ -2,56 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CGEEM45PhmlpLwQAu9opvQ
+	id M276MnKShmm6OwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 21:31:10 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 07 Feb 2026 02:16:34 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E495103208
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Feb 2026 21:31:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D6651046D6
+	for <lists+linux-stm32@lfdr.de>; Sat, 07 Feb 2026 02:16:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 280D5C87EDD;
-	Fri,  6 Feb 2026 20:31:10 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BAA5CC87EDD;
+	Sat,  7 Feb 2026 01:16:33 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFF44C58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC0D2C58D7A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Feb 2026 20:31:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=dWmLCHSX/zl5TXT9/CAx8lBKbFhSqb8YTbzRq8kmEq0=; b=ueVs8yE3A44c9vupcFdGhLYxOh
- ROPCEf6Z4FYw076aNt16760QLDmoc/fa/pSwLM8l7pOXvQfsNMX4DiVon41rGE4ZHpLGt31e7fwNm
- v3uqcrTSEJm9ycSNe5rrecAB3jO4/xgnVgT0QFQ9MQ+KFL6GsDhzY0NF36mAyEMpBRb98eRBLgAdh
- Tpz0pD7lzWi6bUEg3RBPbSZT7DVUtj/TATmLvfOG3N7tW1ecFuSkDHUOaJsNJ5LBbFgMUmDHWyVEs
- NMhX/3fwnQr+ZUAYLbrAVmtGOdHnF1vWGmuyP0L+QBrjqfnFDeuGlNi4B6Zotw0b6pv6rmWSYA8Ov
- 1CQdvJrA==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44050 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1voSTm-000000008P8-3Fkf;
- Fri, 06 Feb 2026 20:31:03 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1voSTm-000000087qO-04ua; Fri, 06 Feb 2026 20:31:02 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
+ Sat,  7 Feb 2026 01:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1770426993; x=1801962993;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=hh7SpEz8MKjpCWA1yMRyH7FgdwVcmZWj/58wW3MHj2w=;
+ b=DRCn9HoDIb2iLz32r61xKaUXFBMrWWOHM8GRMOvMD+lgm78luOnmSsZY
+ VITAeL9/hTe0XDvIep+yzG6StJZURoO8rWVbg6kW8VW7ec2flbkJyX55u
+ SIRsPCt+XoayMVSUK+X0k35gRFpRIoSoWLnlc2quZB1o/o+k59TOnO43S
+ tqTfmvGY9EVkcC9FCBhlErluqAhrS9o7p/iRAa19QWod4Poo9JyzdhTSv
+ 4zrDDyV3JauFCUF7ajKe0BnbSrCU3pB3zhahoCDwpSGIL35R3jdGJE8QZ
+ pUgVsNwm9ysLoI2GQBX0dB6Yvd3oEBOVKa7kQVPLHA78NETXNzBv4J9df g==;
+X-CSE-ConnectionGUID: yWhJtuYlQZyofwvDJ/4zzg==
+X-CSE-MsgGUID: 6wjIT8SiT9yGDeqX7Z1Kxg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11693"; a="83081179"
+X-IronPort-AV: E=Sophos;i="6.21,277,1763452800"; d="scan'208";a="83081179"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Feb 2026 17:16:30 -0800
+X-CSE-ConnectionGUID: XjJi+sJWSxeHoT3mP8rEqw==
+X-CSE-MsgGUID: iuJ4Za1KR4mB7oed6O6Y5w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,277,1763452800"; d="scan'208";a="248643780"
+Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
+ by orviesa001.jf.intel.com with ESMTP; 06 Feb 2026 17:16:25 -0800
+Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1voWvu-00000000lJG-21FH;
+ Sat, 07 Feb 2026 01:16:22 +0000
+Date: Sat, 7 Feb 2026 09:15:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jie Zhang <jzhang918@gmail.com>, netdev@vger.kernel.org
+Message-ID: <202602070917.7RxMgQNe-lkp@intel.com>
+References: <20260206195643.11333-1-jie.zhang@analog.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1voSTm-000000087qO-04ua@rmk-PC.armlinux.org.uk>
-Date: Fri, 06 Feb 2026 20:31:02 +0000
-Cc: Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next] net: stmmac: qcom-ethqos:
- convert register field updates
+In-Reply-To: <20260206195643.11333-1-jie.zhang@analog.com>
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, jzhang918@gmail.com, jie.zhang@analog.com,
+ horms@kernel.org, oe-kbuild-all@lists.linux.dev,
+ Jacob Keller <jacob.e.keller@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: fix oops when split
+	header is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,140 +81,114 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jzhang918@gmail.com,m:netdev@vger.kernel.org,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:vladimir.oltean@nxp.com,m:edumazet@google.com,m:andrew+netdev@lunn.ch,m:jie.zhang@analog.com,m:horms@kernel.org,m:oe-kbuild-all@lists.linux.dev,m:jacob.e.keller@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	FREEMAIL_TO(0.00)[gmail.com,vger.kernel.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.852];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,gmail.com,nxp.com,google.com,lunn.ch,analog.com,kernel.org,lists.linux.dev,intel.com,redhat.com,armlinux.org.uk,st-md-mailman.stormreply.com,lists.infradead.org];
+	NEURAL_HAM(-0.00)[-0.911];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 7E495103208
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,01.org:url]
+X-Rspamd-Queue-Id: 3D6651046D6
 X-Rspamd-Action: no action
 
-Convert the register field update values to something more recognisable
-to a human.
+Hi Jie,
 
-For example, using (BIT(29) | BIT(27)) to update a register field that
-consists of bits 29:27 is just a way of obfuscating the constant so
-the bare constant doesn't attract review comments.
+kernel test robot noticed the following build errors:
 
-Worse still is BIT(12) | GENMASK(9, 8), which is used to hide the
-decimal value 19 for the bitfield 16:8.
+[auto build test ERROR on net/main]
 
-Fix these, and a few others by using FIELD_PREP(). Yes, it means we
-have bare numeric constants, but that's way more preferable than
-having them obfuscated away.
+url:    https://github.com/intel-lab-lkp/linux/commits/Jie-Zhang/net-stmmac-fix-oops-when-split-header-is-enabled/20260207-035916
+base:   net/main
+patch link:    https://lore.kernel.org/r/20260206195643.11333-1-jie.zhang%40analog.com
+patch subject: [PATCH net v2] net: stmmac: fix oops when split header is enabled
+config: arc-hsdk_defconfig (https://download.01.org/0day-ci/archive/20260207/202602070917.7RxMgQNe-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260207/202602070917.7RxMgQNe-lkp@intel.com/reproduce)
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 23 ++++++++++++-------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202602070917.7RxMgQNe-lkp@intel.com/
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index af8204c0e188..5ee2a6ee5840 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -361,10 +361,12 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
- 			      SDCC_HC_REG_DLL_CONFIG2);
- 
- 		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_MCLK_FREQ_CALC,
--			      0x1A << 10, SDCC_HC_REG_DLL_CONFIG2);
-+			      FIELD_PREP(SDCC_DLL_CONFIG2_MCLK_FREQ_CALC, 26),
-+			      SDCC_HC_REG_DLL_CONFIG2);
- 
- 		rgmii_updatel(ethqos, SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SEL,
--			      BIT(2), SDCC_HC_REG_DLL_CONFIG2);
-+			      FIELD_PREP(SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SEL,
-+					 1), SDCC_HC_REG_DLL_CONFIG2);
- 
- 		rgmii_setmask(ethqos, SDCC_DLL_CONFIG2_DDR_TRAFFIC_INIT_SW,
- 			      SDCC_HC_REG_DLL_CONFIG2);
-@@ -425,11 +427,13 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 		if (ethqos->has_emac_ge_3) {
- 			/* 0.9 ns */
- 			rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
--				      115, SDCC_HC_REG_DDR_CONFIG);
-+				      FIELD_PREP(SDCC_DDR_CONFIG_PRG_RCLK_DLY,
-+						 115), SDCC_HC_REG_DDR_CONFIG);
- 		} else {
- 			/* 1.8 ns */
- 			rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
--				      57, SDCC_HC_REG_DDR_CONFIG);
-+				      FIELD_PREP(SDCC_DDR_CONFIG_PRG_RCLK_DLY,
-+						 57), SDCC_HC_REG_DDR_CONFIG);
- 		}
- 		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_PRG_DLY_EN,
- 			      SDCC_HC_REG_DDR_CONFIG);
-@@ -451,7 +455,8 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 		rgmii_updatel(ethqos, RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN,
- 			      phase_shift, RGMII_IO_MACRO_CONFIG2);
- 		rgmii_updatel(ethqos, RGMII_CONFIG_MAX_SPD_PRG_2,
--			      BIT(6), RGMII_IO_MACRO_CONFIG);
-+			      FIELD_PREP(RGMII_CONFIG_MAX_SPD_PRG_2, 1),
-+			      RGMII_IO_MACRO_CONFIG);
- 		rgmii_clrmask(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
- 			      RGMII_IO_MACRO_CONFIG2);
- 
-@@ -464,7 +469,8 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 
- 		/* Write 0x5 to PRG_RCLK_DLY_CODE */
- 		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE,
--			      (BIT(29) | BIT(27)), SDCC_HC_REG_DDR_CONFIG);
-+			      FIELD_PREP(SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE,
-+					 5), SDCC_HC_REG_DDR_CONFIG);
- 		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY,
- 			      SDCC_HC_REG_DDR_CONFIG);
- 		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN,
-@@ -487,7 +493,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 		rgmii_updatel(ethqos, RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN,
- 			      phase_shift, RGMII_IO_MACRO_CONFIG2);
- 		rgmii_updatel(ethqos, RGMII_CONFIG_MAX_SPD_PRG_9,
--			      BIT(12) | GENMASK(9, 8),
-+			      FIELD_PREP(RGMII_CONFIG_MAX_SPD_PRG_9, 19),
- 			      RGMII_IO_MACRO_CONFIG);
- 		rgmii_clrmask(ethqos, RGMII_CONFIG2_RSVD_CONFIG15,
- 			      RGMII_IO_MACRO_CONFIG2);
-@@ -499,7 +505,8 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 				      RGMII_IO_MACRO_CONFIG2);
- 		/* Write 0x5 to PRG_RCLK_DLY_CODE */
- 		rgmii_updatel(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE,
--			      (BIT(29) | BIT(27)), SDCC_HC_REG_DDR_CONFIG);
-+			      FIELD_PREP(SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE,
-+					 5), SDCC_HC_REG_DDR_CONFIG);
- 		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY,
- 			      SDCC_HC_REG_DDR_CONFIG);
- 		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN,
+All errors (new ones prefixed by >>):
+
+   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c: In function 'stmmac_rx_buf2_len':
+>> drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:5041:24: error: 'struct plat_stmmacenet_data' has no member named 'has_gmac4'
+    5041 |         if (!priv->plat->has_gmac4 && (status & rx_not_ls))
+         |                        ^~
+
+
+vim +5041 drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+
+  5014	
+  5015	static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
+  5016					       struct dma_desc *p,
+  5017					       int status, unsigned int len)
+  5018	{
+  5019		int coe = priv->hw->rx_csum;
+  5020		unsigned int plen = 0;
+  5021	
+  5022		/* Not split header, buffer is not available */
+  5023		if (!priv->sph_active)
+  5024			return 0;
+  5025	
+  5026		/* For GMAC4, when split header is enabled, in some rare cases, the
+  5027		 * hardware does not fill buf2 of the first descriptor with payload.
+  5028		 * Thus we cannot assume buf2 is always fully filled if it is not
+  5029		 * the last descriptor. Otherwise, the length of buf2 of the second
+  5030		 * descriptor will be calculated wrong and cause an oops.
+  5031		 *
+  5032		 * If this is the last descriptor, 'plen' is the length of the
+  5033		 * received packet that was transferred to system memory.
+  5034		 * Otherwise, it is the accumulated number of bytes that have been
+  5035		 * transferred for the current packet.
+  5036		 *
+  5037		 * Thus 'plen - len' always gives the correct length of buf2.
+  5038		 */
+  5039	
+  5040		/* Not GMAC4 and not last descriptor */
+> 5041		if (!priv->plat->has_gmac4 && (status & rx_not_ls))
+  5042			return priv->dma_conf.dma_buf_sz;
+  5043	
+  5044		/* GMAC4 or last descriptor */
+  5045		plen = stmmac_get_rx_frame_len(priv, p, coe);
+  5046	
+  5047		return plen - len;
+  5048	}
+  5049	
+
 -- 
-2.47.3
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
