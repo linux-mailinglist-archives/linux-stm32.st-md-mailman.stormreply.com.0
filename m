@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qMD4Fm7fiWnGCwAAu9opvQ
+	id WJ8fDHPiiWnGCwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 14:21:50 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 14:34:43 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6C2B10F975
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 14:21:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A70B410FC37
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 14:34:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62256C36B3E;
-	Mon,  9 Feb 2026 13:21:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 484C9C36B3E;
+	Mon,  9 Feb 2026 13:34:42 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB636C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B5AEC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Feb 2026 13:21:47 +0000 (UTC)
+ Mon,  9 Feb 2026 13:34:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=7c5Iz36nXiOUw2znVHTn8jamtOl0QUFsP43IKfvjzog=; b=xFmpSaJetZJzlzNkKcOMeOkfXO
- eXy91aPdFUZaE5lcIgjeONKcpRewpATzW8QU4rzHOiAiN75s+BepQBxInCSLBT2onPedGfcJOBrhG
- NpaSBIM86Jo5MED9Up9RbTEdf+aRkG1atB+NX7RvPMSS5maYvrTa0+n+B3bopD9nkzfM=;
+ bh=Sh23NSounPEoAE2h79+DwlVVBDgNeh1OQatWs/Guhyc=; b=Xa+QQuRAVaTq3QfgkF6otHND6P
+ 1tX50Y+PCdAxCTR75mp2UWO7wGqTlAXch2y+oT1au3UH+6n6Tn5vc22nPjgJIgScn+dfxz2scnG/R
+ v8cJOik1at9Yt/X7jKqKC0AUini3O6AC+8xAQprfzp1oq6WKGdBEohe/mJ5XhJpe9BR4=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1vpRCn-006iwq-BF; Mon, 09 Feb 2026 14:21:33 +0100
-Date: Mon, 9 Feb 2026 14:21:33 +0100
+ id 1vpRPL-006j5z-20; Mon, 09 Feb 2026 14:34:31 +0100
+Date: Mon, 9 Feb 2026 14:34:31 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: lizhi2@eswincomputing.com
-Message-ID: <7e593ede-59eb-4316-ab72-949a51c008c6@lunn.ch>
+Message-ID: <1392e400-9901-4f65-b44b-d257d8196abf@lunn.ch>
 References: <20260209094628.886-1-lizhi2@eswincomputing.com>
- <20260209094801.909-1-lizhi2@eswincomputing.com>
+ <20260209094832.932-1-lizhi2@eswincomputing.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260209094801.909-1-lizhi2@eswincomputing.com>
+In-Reply-To: <20260209094832.932-1-lizhi2@eswincomputing.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
  linmin@eswincomputing.com, devicetree@vger.kernel.org,
  ningyu@eswincomputing.com, netdev@vger.kernel.org,
@@ -46,8 +46,8 @@ Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org,
  kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com,
  rmk+kernel@armlinux.org.uk, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] dt-bindings: ethernet: eswin: add
- clock sampling control
+Subject: Re: [Linux-stm32] [PATCH v2 2/2] net: stmmac: eic7700: enable
+ clocks before syscon access and correct RX sampling timing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,40 +96,128 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid]
-X-Rspamd-Queue-Id: C6C2B10F975
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: A70B410FC37
 X-Rspamd-Action: no action
 
-> The rx-internal-delay-ps and tx-internal-delay-ps properties now use
-> minimum and maximum constraints to reflect the actual hardware delay
-> range (0-2400 ps) applied in 20 ps steps.
+>  static int eic7700_dwmac_init(struct device *dev, void *priv)
+>  {
+>  	struct eic7700_qos_priv *dwc = priv;
+> +	u32 eth_phy_ctrl_regset;
+> +	int ret = 0;
+> +
+> +	ret = eic7700_clks_config(dwc, true);
+
+No point initialising ret if the first thing you do is assign to it.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	regmap_read(dwc->eic7700_hsp_regmap, dwc->eth_phy_ctrl_offset,
+> +		    &eth_phy_ctrl_regset);
+> +	eth_phy_ctrl_regset |=
+> +		(EIC7700_ETH_TX_CLK_SEL | EIC7700_ETH_PHY_INTF_SELI);
+> +	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_phy_ctrl_offset,
+> +		     eth_phy_ctrl_regset);
+
+regmap_set_bits(dwc->eic7700_hsp_regmap, dwc->eth_phy_ctrl_offset,
+		EIC7700_ETH_TX_CLK_SEL | EIC7700_ETH_PHY_INTF_SELI);
+
+> +	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_axi_lp_ctrl_offset,
+> +		     EIC7700_ETH_CSYSREQ_VAL);
+> +
+> +	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_txd_offset, 0);
+> +	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_rxd_offset, 0);
+>  
+> -	return eic7700_clks_config(dwc, true);
+> +	return ret;
+
+returning ret here seems pointless. You already know it is 0.
 
 
->    rx-internal-delay-ps:
-> -    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-> +    minimum: 0
-> +    maximum: 2400
+>  }
+>  
+>  static void eic7700_dwmac_exit(struct device *dev, void *priv)
+> @@ -88,17 +124,33 @@ static int eic7700_dwmac_resume(struct device *dev, void *priv)
+>  	return ret;
+>  }
+>  
+> +static void eic7700_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+> +{
+> +	struct eic7700_qos_priv *dwc = (struct eic7700_qos_priv *)priv;
+> +	u32 dly_param = dwc->eth_clk_dly_param;
+> +
+> +	switch (speed) {
+> +	case SPEED_1000:
+> +		if (dwc->eth_rx_clk_inv)
+> +			dly_param |= EIC7700_ETH_RX_INV_DELAY;
+> +		break;
+> +	case SPEED_100:
+> +	case SPEED_10:
+> +		break;
+> +	default:
+> +		dev_err(dwc->dev, "invalid speed %u\n", speed);
+> +		break;
+> +	}
+> +
+> +	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_clk_offset, dly_param);
+> +}
+> +
+>  static int eic7700_dwmac_probe(struct platform_device *pdev)
+>  {
+> +	const struct eic7700_dwmac_data *data;
+>  	struct plat_stmmacenet_data *plat_dat;
+>  	struct stmmac_resources stmmac_res;
+>  	struct eic7700_qos_priv *dwc_priv;
+> -	struct regmap *eic7700_hsp_regmap;
+> -	u32 eth_axi_lp_ctrl_offset;
+> -	u32 eth_phy_ctrl_offset;
+> -	u32 eth_phy_ctrl_regset;
+> -	u32 eth_rxd_dly_offset;
+> -	u32 eth_dly_param = 0;
+>  	u32 delay_ps;
+>  	int i, ret;
+>  
+> @@ -116,13 +168,23 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
+>  	if (!dwc_priv)
+>  		return -ENOMEM;
+>  
+> +	dwc_priv->dev = &pdev->dev;
+> +
+> +	data = device_get_match_data(&pdev->dev);
+> +	if (!data)
+> +		return dev_err_probe(&pdev->dev,
+> +				     -EINVAL, "no match data found\n");
+> +
+> +	dwc_priv->eth_rx_clk_inv = data->rgmii_rx_clk_invert;
+> +
+>  	/* Read rx-internal-delay-ps and update rx_clk delay */
+>  	if (!of_property_read_u32(pdev->dev.of_node,
+>  				  "rx-internal-delay-ps", &delay_ps)) {
+> -		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
+> +		u32 val = min(delay_ps / 20, EIC7700_MAX_DELAY_STEPS);
 
-       multipleOf: 20
+If the value it too big, please return -EINVAL. You have listed in the
+DT binding what the valid range is, not that you clamp to the maximum
+value.
 
-Also, 2400 / 20 = 120. Is the real maximum 127 * 20 = 2540?
+>  
+> -		eth_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
+> -		eth_dly_param |= FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
+> +		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
+> +		dwc_priv->eth_clk_dly_param |=
+> +				 FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
+>  	} else {
+>  		return dev_err_probe(&pdev->dev, -EINVAL,
+>  			"missing required property rx-internal-delay-ps\n");
 
-> @@ -111,17 +129,44 @@ examples:
->          interrupts = <61>;
->          interrupt-names = "macirq";
->          phy-mode = "rgmii-id";
-> -        phy-handle = <&phy0>;
-> +        phy-handle = <&gmac0_phy0>;
->          resets = <&reset 95>;
->          reset-names = "stmmaceth";
-> +        rx-internal-delay-ps = <20>;
-> +        tx-internal-delay-ps = <100>;
+RX and TX internal delays are generally optional, because most boards
+don't require them. Default to 0 if not supplied.
 
-I would not include them in the example. You are going to get
-developers blindly copying this into real DT. A well designed board
-should not need delays.
+    Andrew
 
-	Andrew
+---
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
