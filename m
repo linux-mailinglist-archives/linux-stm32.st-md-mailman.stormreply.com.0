@@ -2,74 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yDRMFrtTimkVJgAAu9opvQ
+	id UOwpOuBkimmiJwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 22:38:03 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 23:51:12 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9105114D8E
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 22:38:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 71001115421
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 23:51:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 898D2C36B3E;
-	Mon,  9 Feb 2026 21:38:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0471EC36B3E;
+	Mon,  9 Feb 2026 22:51:12 +0000 (UTC)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A456DC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADB1CC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Feb 2026 21:38:01 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6E4636013F;
- Mon,  9 Feb 2026 21:38:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A991C116C6;
- Mon,  9 Feb 2026 21:37:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770673080;
- bh=V5k7yronzuPg2/sQDnDLiZPJmoREh3DS6In0CZNegm4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=R2/CxZyE7D7NuC7727GzKNmG8L0gFdn827lwUEFhrk1GcDYwfKzMWilh9KCwLySN2
- tDMTyIgjKpNBsz+CrnFUB8QrkqCqmuexDnRgYALsArlPL7MYxDDAkqQGMRry/iQQEz
- tXkZ9aLz2eqJBLP0lhFLwX/6MjqEStYuaBxUaPzS36VebR2KunZkZR9O1OXhOtXp8N
- y7WKLM3eEtcCOQ9wRj+umXbC0jg6B9FNMdR1WBBVMG3pafl6iUuxvb1YkCeBuik/q3
- twvcXwcELPoyngclQnEGLBF2iDgahBFNYk+KVc3S2d7b59tHFINf47IiCuGxldwxT1
- EqvORhp9jn0CQ==
-Date: Mon, 9 Feb 2026 15:37:54 -0600
-From: Bjorn Andersson <andersson@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Message-ID: <epechyewxhlkp2dgw7yxmz5duak3illbmjpeux5jgt2ewskc3j@cre3vpa5wnhy>
-References: <20260125184654.17843-6-wsa+renesas@sang-engineering.com>
- <aXc7DxsqiCGdfzxi@smile.fi.intel.com> <aXc-Zxw05XQLb1Dy@ninjato>
- <aXdAB2bLTy6u8G8c@smile.fi.intel.com> <aXdCBu6kzdw1NWay@ninjato>
- <aXikZ5wc6bvgRqF6@ninjato> <aYnBrN0JRCf9-UjB@ninjato>
- <yl4bbbev7lgrmnqys2izkolo5egzg24faukvqar5eh26q5ra7p@42rcegfpqqt6>
- <aYo60vooftdem4Lt@ninjato>
+ Mon,  9 Feb 2026 22:51:10 +0000 (UTC)
+Received: by mail-qt1-f181.google.com with SMTP id
+ d75a77b69052e-50146483bf9so53904241cf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 09 Feb 2026 14:51:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1770677469; x=1771282269;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=g+TvrkNSZE9ym2PFZpW4r5uQoR0rtxBqbUzuUkdsCDo=;
+ b=k31Z5nHzZANsGbbZ6SXg3dRcV2d/WssEEABLv/f/XjwvEiqzAjEQKwSitkfjM+1mAN
+ Jtxsfr4ljx+7HmkNh7s6jgXKH0gd5rU/PQncLyUudjPg3CymRERKxB3KRqq6VoxLbJou
+ Ntu9j9lHNqH7otpppKcmjVCMTkoNsOGxW1EbVRXyT2jCN7sdV06bjWnYvT/bIs+Izibh
+ qiEfBthKtJ5j/TOlcse7fbjNRgOdVzwyYay57u+s6ARLDKbukP+JGTFC/SDwyeESrrTf
+ 8f4TCGsltdB5B6xLzjq7WoqubVP7YTEYTcnBlHA2/wwy6XfVErjKLhT54nW8EoDtwSnw
+ 6zKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1770677469; x=1771282269;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=g+TvrkNSZE9ym2PFZpW4r5uQoR0rtxBqbUzuUkdsCDo=;
+ b=jHq0Cw+y92WeCSdzi3xFAIlSRSZoRbFXQFl/qk0Twxwuee/AlTOvqquy7chqJmUhRi
+ cY/vtMCOwayjzM8UWeUChWVQmvjH1+Wn+/HbYtc+XP5MPecu4uwncR39T/MoZDwviaRY
+ ArozOljc/OuYtryDoJRADeYpSWrEZkJzL1Qg/cPaYrHc8j4ryChT7GcGIFNp1shI7BE9
+ BYJkoZhWPCMEZubxjWrYvd3c7sKzxiH+PQotjBGMov8/qvDjBc05giMT3HKjFEstXmPM
+ d4aZE91tTu7pv08o1opDlLEqGpARVQSbYBouN5k4fKA0yy2o6UlEDOXMDDvf7f3HzUYN
+ sUug==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXs16vd3i0biW+yv6NkhnQ9W1gAZ9/fpp4fxy37SDMOBGR/zvASElW/YjyHB8LxsHvRIa5QRt1mwZYLYA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyDM2m0BvHkq8SRJZdpJxDS5xFbROL1O1iX5yk2AVtW2/6F3Ek+
+ qGUqnKLvs5iPXFXohrZreQ0Nl9UERJtLNIwB3ce/CSeeoMniBK2Ji5RF
+X-Gm-Gg: AZuq6aL3GkFxENVhVXZkJjfZPU8az90sIxH33dU/meDu0RTj8GkXJJn85BK+i3owMOb
+ WXqU/ZE8XvxEIPq3g6Da5OiAkA85hOOMD9AJ63StpT2B3oMD1otOa0XUp2KoFV6oNgBzxbLnGLY
+ 5JvdtXWGCM4ad4UD5DNDHqe8oUL6eG/eH7sH3CEgV0GbS8bnHoSmOqRfBF5FrxzLKQ4vg736wbY
+ +UXc+XSn5iiYp/If7YZK4QOtKXH0ZD7Az0vAUPhqfPAJk2mYA2oahAww6WW2st5Ih6Mb6+oAOvu
+ tRIJFK9zu9A269bN8afv7FTt/LyWnRMgk11vvBQqfysuuXysVkJarGcjygRbf3HCzq3RrOWuc9w
+ Jx6KxdxuIa/yZP2YQI/P8bxjnoBBNjdQ0xLEs+soO+FWQTFld6lE03KxtHvOzDZO1DkugZLug8A
+ MrYuPHvuv7k29AnETf5Qj2TtKPFvyAXbqhkz4NT+hv5ZcKDNxzSIFQZ865xy7iXdyo8MmrI7Z0t
+ bA=
+X-Received: by 2002:a05:622a:314:b0:4ee:4a8b:d9f6 with SMTP id
+ d75a77b69052e-50639999b38mr165019831cf.59.1770677469375; 
+ Mon, 09 Feb 2026 14:51:09 -0800 (PST)
+Received: from localhost.localdomain
+ (h69-131-24-92.cntcnh.broadband.dynamic.tds.net. [69.131.24.92])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-50640c60b3csm87021861cf.8.2026.02.09.14.51.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 09 Feb 2026 14:51:08 -0800 (PST)
+From: Jie Zhang <jzhang918@gmail.com>
+X-Google-Original-From: Jie Zhang <jie.zhang@analog.com>
+To: netdev@vger.kernel.org
+Date: Mon,  9 Feb 2026 17:50:32 -0500
+Message-ID: <20260209225037.589130-1-jie.zhang@analog.com>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aYo60vooftdem4Lt@ninjato>
-Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-remoteproc@vger.kernel.org, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>,
- Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- linux-omap@vger.kernel.org, Andy Shevchenko <andriy.shevchenko@intel.com>,
- Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Lee Jones <lee@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
- Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org, Boqun Feng <boqun.feng@gmail.com>,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
- Wilken Gottwalt <wilken.gottwalt@posteo.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linus Walleij <linusw@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [RFC PATCH 0/4] hwspinlock: refactor headers into
- public provider/consumer pair
+Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, jzhang918@gmail.com, jie.zhang@analog.com,
+ horms@kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v3] net: stmmac: fix oops when split
+	header is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,83 +102,117 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[andersson@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[42];
-	FORGED_RECIPIENTS(0.00)[m:wsa+renesas@sang-engineering.com,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:andriy.shevchenko@intel.com,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:wilken.gottwalt@posteo.net,m:gregkh@linuxfoundation.org,m:linusw@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m
- :tglx@kernel.org,m:mcoquelin.stm32@gmail.com,m:rafael@kernel.org,m:jic23@kernel.org,m:wsa@sang-engineering.com,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:edumazet@google.com,m:andrew+netdev@lunn.ch,m:jzhang918@gmail.com,m:jie.zhang@analog.com,m:horms@kernel.org,m:jacob.e.keller@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jzhang918@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[andersson@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[jzhang918@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,intel.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,posteo.net,sholland.org];
+	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,gmail.com,nxp.com,st-md-mailman.stormreply.com,google.com,lunn.ch,analog.com,kernel.org,intel.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: E9105114D8E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,analog.com:mid,analog.com:email]
+X-Rspamd-Queue-Id: 71001115421
 X-Rspamd-Action: no action
 
-On Mon, Feb 09, 2026 at 08:51:46PM +0100, Wolfram Sang wrote:
-> Hi Bjorn,
-> 
-> thanks for the reply!
-> 
-> > > Moving maintainers from CC to To ;) Do you, in general, approve this
-> > > change to the headers?
-> > 
-> > Certainly, I don't think we should force unnatural slicing of drivers
-> > across the source tree.
-> 
-> Cool, glad you like it.
-> 
-> > I've always found the current model unergonomic, resolving this part
-> > might very well have the side effect that Andy is looking for (and I'd
-> > welcome that).
-> 
-> Yeah probably, but frankly the task of redesigning hwlock-allocation is
-> a bit exceeding my bandwidth for this project. Can we make this a second
-> step on top of this series?
+For GMAC4, when split header is enabled, in some rare cases, the
+hardware does not fill buf2 of the first descriptor with payload.
+Thus we cannot assume buf2 is always fully filled if it is not
+the last descriptor. Otherwise, the length of buf2 of the second
+descriptor will be calculated wrong and cause an oops:
 
-I'm okay with that. It's winter and the yak might need its fur.
+Unable to handle kernel paging request at virtual address ffff00019246bfc0
+...
+x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
+Call trace:
+ dcache_inval_poc+0x28/0x58 (P)
+ dma_direct_sync_single_for_cpu+0x38/0x6c
+ __dma_sync_single_for_cpu+0x34/0x6c
+ stmmac_napi_poll_rx+0x8f0/0xb60
+ __napi_poll.constprop.0+0x30/0x144
+ net_rx_action+0x160/0x274
+ handle_softirqs+0x1b8/0x1fc
+...
 
-> And if so, would be this series acceptable
-> as-is then (modulo the better include-sorting mentioned by Andy)?
-> 
+To fix this, the PL bit-field in RDES3 register is used for all
+descriptors, whether it is the last descriptor or not.
 
-Sounds good, I'll pick up your v2 once we get out of the merge window
-and share a immutable branch for the other subsystems.
+Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+Signed-off-by: Jie Zhang <jie.zhang@analog.com>
+---
+v3:
+1. Fix build error
+v2:
+1. Update for the latest net HEAD
+2. Reduce crash dump message in commit message
+3. Add Fixes tag
+v1 link: https://lore.kernel.org/all/20251202025421.4560-1-jie.zhang@analog.com/
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-> Hope you are well,
-> 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index a379221b96a3..f98fd254315f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5023,13 +5023,27 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
+ 	if (!priv->sph_active)
+ 		return 0;
+ 
+-	/* Not last descriptor */
+-	if (status & rx_not_ls)
++	/* For GMAC4, when split header is enabled, in some rare cases, the
++	 * hardware does not fill buf2 of the first descriptor with payload.
++	 * Thus we cannot assume buf2 is always fully filled if it is not
++	 * the last descriptor. Otherwise, the length of buf2 of the second
++	 * descriptor will be calculated wrong and cause an oops.
++	 *
++	 * If this is the last descriptor, 'plen' is the length of the
++	 * received packet that was transferred to system memory.
++	 * Otherwise, it is the accumulated number of bytes that have been
++	 * transferred for the current packet.
++	 *
++	 * Thus 'plen - len' always gives the correct length of buf2.
++	 */
++
++	/* Not GMAC4 and not last descriptor */
++	if (priv->plat->core_type != DWMAC_CORE_GMAC4 && (status & rx_not_ls))
+ 		return priv->dma_conf.dma_buf_sz;
+ 
++	/* GMAC4 or last descriptor */
+ 	plen = stmmac_get_rx_frame_len(priv, p, coe);
+ 
+-	/* Last descriptor */
+ 	return plen - len;
+ }
+ 
+-- 
+2.47.3
 
-Likewise,
-Bjorn
-
->    Wolfram
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
