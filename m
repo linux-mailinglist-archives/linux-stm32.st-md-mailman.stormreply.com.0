@@ -2,56 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IDaGFKhci2mYUAAAu9opvQ
+	id +BDNJABni2kMUQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 17:28:24 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 18:12:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8337211D288
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 17:28:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32A2D11DADC
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 18:12:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04EA9C87EC4;
-	Tue, 10 Feb 2026 16:28:23 +0000 (UTC)
-Received: from mta-64-226.siemens.flowmailer.net
- (mta-64-226.siemens.flowmailer.net [185.136.64.226])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB36FC87EC0;
+	Tue, 10 Feb 2026 17:12:31 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3940BC87EC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96E95C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Feb 2026 16:28:21 +0000 (UTC)
-Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id
- 202602101628208f417afbfb0002074e
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Feb 2026 17:28:20 +0100
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm2;
- d=siemens.com; i=florian.bezdeka@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
- bh=2RZd2m1rYBzhb6+CUkIcXbLtyHMbbg4kS3QJRa4t3tA=;
- b=iMabUuweSHnhFWaYI+3wNaaJ+BRwEI/KPAbztyzS8JD3v4ZYDbtjHJb/7NlKj3SleKSbmm
- Y1O23MoVjO5K4hU1Z8vfYIB3RMGHDf5bZfRw3hU6um2BPgwzTJAnBBAuLyx2vHy/bwIXXB90
- qEtq4I6mHYhiDlrPOtMMxhpRNsRSXW01A+pI7dvHtsQJH0gjGRZp3b/Bz1ItDd+MU5OL0BX3
- v11jJpgJXquLKC/JCLqvF6DMik9kIL126+fTQrtOzUHe0qO0mTpyVjomldQQPGbgGQP93jf2
- 3AlMJ08R1RDQJGTuNWSQAohxPS6rFZ0dGyGyPB1yMC6dbUUywXlzLQfQ==;
-From: Florian Bezdeka <florian.bezdeka@siemens.com>
-Date: Tue, 10 Feb 2026 17:28:15 +0100
-MIME-Version: 1.0
-Message-Id: <20260210-flo-net-stmmac-default-affinity-core-v1-2-4e76612444e1@siemens.com>
+ Tue, 10 Feb 2026 17:12:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=mzYF97sVWz63m1CUxZf+jl+Hhjnz8guVOlV5+MbrsME=; b=eR2SFbnI4lfCWYT1cmVHQL6SgG
+ rkwXF+klYabsm6Z8drPNbxY5lCHy5UDtoDUyIbk8k4bkjUYCPQd6mhuVxaXlvC2WB454hmU/RXBnE
+ paJhrdsndFkbykNv8/uEnSfLJnpMBDfDwP4/kfpQoVxwaPrnJj2qGDKQUgeXleafN9uRJ6KB1izT6
+ B9Fyw7AL9cgLv/2DzrsdO5ebbUbRC+1m6eRDWKFX4IFp7saMMQijwOi8QniOzBpVTezDN8kP/gYIX
+ nt7vaZMESAfi7iEyd7/yO16UiTBbbDZrCpBegIn53yo5+TBUJrhsPGPWdDJa/7ThDQfBPfrisXpqp
+ uhM/QYaQ==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57276)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vprHc-000000002nw-193h;
+ Tue, 10 Feb 2026 17:12:16 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vprHW-000000002wr-3vpe; Tue, 10 Feb 2026 17:12:11 +0000
+Date: Tue, 10 Feb 2026 17:12:10 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Florian Bezdeka <florian.bezdeka@siemens.com>
+Message-ID: <aYtm6pCnw0hdWdNx@shell.armlinux.org.uk>
 References: <20260210-flo-net-stmmac-default-affinity-core-v1-0-4e76612444e1@siemens.com>
-In-Reply-To: <20260210-flo-net-stmmac-default-affinity-core-v1-0-4e76612444e1@siemens.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Ong Boon Leong <boon.leong.ong@intel.com>, 
- Voon Weifeng <weifeng.voon@intel.com>
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-68982:519-21489:flowmailer
-Cc: netdev@vger.kernel.org, Florian Bezdeka <florian.bezdeka@siemens.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: Use
- cpumask_local_spread() for IRQ spreading
+ <20260210-flo-net-stmmac-default-affinity-core-v1-1-4e76612444e1@siemens.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20260210-flo-net-stmmac-default-affinity-core-v1-1-4e76612444e1@siemens.com>
+Cc: linux-kernel@vger.kernel.org, Voon Weifeng <weifeng.voon@intel.com>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: intel: Fix IRQ
+	vector leak
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,170 +73,87 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[siemens.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[siemens.com:s=fm2];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:boon.leong.ong@intel.com,m:weifeng.voon@intel.com,m:netdev@vger.kernel.org,m:florian.bezdeka@siemens.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,intel.com];
-	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[florian.bezdeka@siemens.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[siemens.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[florian.bezdeka@siemens.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS(0.00)[m:florian.bezdeka@siemens.com,m:linux-kernel@vger.kernel.org,m:weifeng.voon@intel.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:boon.leong.ong@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,intel.com,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,siemens.com:mid,siemens.com:email]
-X-Rspamd-Queue-Id: 8337211D288
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,armlinux.org.uk:url]
+X-Rspamd-Queue-Id: 32A2D11DADC
 X-Rspamd-Action: no action
 
-The stmmac driver was previously implementing a self-made IRQ
-spreading mechanism based on num_online_cpus(). By migrating to
-cpumask_local_spread() the spreading gets NUMA aware.
+Note that net-next is currently closed. Patches for net-next should
+be sent RFC. Please see the netdev *whatever it is* documentation (I
+can never remember the name of the renamed document nor it's URL).
+It's somewhere on docs.kernel.org and is in Documentation/ somewhere.
+I'm getting tired of having to do a google search every single time
+I respond to someone about this.
 
-In addition, most drivers seem to use cpumask_local_spread(),
-aligning / harmonizing a bit more.
+On Tue, Feb 10, 2026 at 05:28:14PM +0100, Florian Bezdeka wrote:
+> The IRQ vectors allocated in stmmac_config_multi_msi() or
+> stmmac_config_single_msi() where never cleaned up.
 
-Signed-off-by: Florian Bezdeka <florian.bezdeka@siemens.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      |  2 ++
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 41 +++++++++++++++++++----
- 2 files changed, 37 insertions(+), 6 deletions(-)
+Please refer to:
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 012b0a477255df73b2e145b62e09eeb2133e827a..52b75df2b71239aab5b1d5138b78d6c5310b9c5b 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -329,6 +329,8 @@ struct stmmac_priv {
- 	int sfty_ue_irq;
- 	int rx_irq[MTL_MAX_RX_QUEUES];
- 	int tx_irq[MTL_MAX_TX_QUEUES];
-+	cpumask_var_t rx_affinity[MTL_MAX_RX_QUEUES];
-+	cpumask_var_t tx_affinity[MTL_MAX_TX_QUEUES];
- 	/*irq name */
- 	char int_name_mac[IFNAMSIZ + 9];
- 	char int_name_wol[IFNAMSIZ + 9];
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a379221b96a348e20f2afb0f44540cfba2f2477a..ddbfc0774143d0353c83988b2dfffa75132bd0ee 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3739,6 +3739,8 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	enum request_irq_err irq_err;
- 	int irq_idx = 0;
- 	char *int_name;
-+	int numa_node;
-+	int cpu;
- 	int ret;
- 	int i;
- 
-@@ -3845,6 +3847,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	}
- 
- 	/* Request Rx MSI irq */
-+	numa_node = dev_to_node(&priv->dev->dev);
- 	for (i = 0; i < priv->plat->rx_queues_to_use; i++) {
- 		if (i >= MTL_MAX_RX_QUEUES)
- 			break;
-@@ -3864,8 +3867,10 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 			irq_idx = i;
- 			goto irq_error;
- 		}
--		irq_set_affinity_hint(priv->rx_irq[i],
--				      cpumask_of(i % num_online_cpus()));
-+
-+		cpu = cpumask_local_spread(i, numa_node);
-+		cpumask_set_cpu(cpu, priv->rx_affinity[i]);
-+		irq_set_affinity_hint(priv->rx_irq[i], priv->rx_affinity[i]);
- 	}
- 
- 	/* Request Tx MSI irq */
-@@ -3888,8 +3893,10 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 			irq_idx = i;
- 			goto irq_error;
- 		}
--		irq_set_affinity_hint(priv->tx_irq[i],
--				      cpumask_of(i % num_online_cpus()));
-+
-+		cpu = cpumask_local_spread(i, numa_node);
-+		cpumask_set_cpu(cpu, priv->tx_affinity[i]);
-+		irq_set_affinity_hint(priv->tx_irq[i], priv->tx_affinity[i]);
- 	}
- 
- 	return 0;
-@@ -7653,6 +7660,14 @@ struct plat_stmmacenet_data *stmmac_plat_dat_alloc(struct device *dev)
- }
- EXPORT_SYMBOL_GPL(stmmac_plat_dat_alloc);
- 
-+static void stmmac_free_affinity(cpumask_var_t *m, unsigned int n)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < n; i++)
-+		free_cpumask_var(m[i]);
-+}
-+
- static int __stmmac_dvr_probe(struct device *device,
- 			      struct plat_stmmacenet_data *plat_dat,
- 			      struct stmmac_resources *res)
-@@ -7699,10 +7714,21 @@ static int __stmmac_dvr_probe(struct device *device,
- 	priv->sfty_irq = res->sfty_irq;
- 	priv->sfty_ce_irq = res->sfty_ce_irq;
- 	priv->sfty_ue_irq = res->sfty_ue_irq;
--	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
- 		priv->rx_irq[i] = res->rx_irq[i];
--	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-+		if (!zalloc_cpumask_var(&priv->rx_affinity[i], GFP_KERNEL)) {
-+			stmmac_free_affinity(priv->rx_affinity, i);
-+			return -ENOMEM;
-+		}
-+	}
-+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
- 		priv->tx_irq[i] = res->tx_irq[i];
-+		if (!zalloc_cpumask_var(&priv->tx_affinity[i], GFP_KERNEL)) {
-+			stmmac_free_affinity(priv->rx_affinity, MTL_MAX_RX_QUEUES);
-+			stmmac_free_affinity(priv->tx_affinity, i);
-+			return -ENOMEM;
-+		}
-+	}
- 
- 	if (!is_zero_ether_addr(res->mac))
- 		eth_hw_addr_set(priv->dev, res->mac);
-@@ -8023,6 +8049,9 @@ void stmmac_dvr_remove(struct device *dev)
- 	pm_runtime_disable(dev);
- 	pm_runtime_put_noidle(dev);
- 
-+	stmmac_free_affinity(priv->rx_affinity, MTL_MAX_RX_QUEUES);
-+	stmmac_free_affinity(priv->tx_affinity, MTL_MAX_TX_QUEUES);
-+
- 	if (priv->plat->exit)
- 		priv->plat->exit(dev, priv->plat->bsp_priv);
- }
+https://lore.kernel.org/netdev/27fec7d0ed633218a7787be3edce63c3038c63e2.camel@mailbox.org/
+https://lore.kernel.org/netdev/7e024db2557a4d5822a0dd409ae678d10d815d9c.camel@mailbox.org/
+
+and the associated discussion in that thread.
+
+PCI is weird. If pcim_enable_device() is used, it switches all sorts of
+other functions to managed mode. The missing cleanup here isn't
+actually missing, it's buried in the depths of PCI code. So, this is
+not a bug, and thus:
+
+> 
+> Fixes: b42446b9b37b ("stmmac: intel: add support for multi-vector msi and msi-x")
+
+this is not a fix.
+
+However, if you look at Philipp's replies, there is a desire to get
+rid of this PCI behaviour, so your patch is useful - it just needs not
+to be dressed up as a fix.
+
+I am keen that we cut down on the duplication between drivers. Having
+_four_ stmmac PCI drivers all using MSI but no sharing any code is
+silly.
+
+Please consider what you can do to improve the current situation with
+these stmmac PCI drivers.
+
+Thanks.
 
 -- 
-2.53.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
