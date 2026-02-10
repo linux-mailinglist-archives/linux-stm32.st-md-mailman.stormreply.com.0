@@ -2,54 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eDo0ChI0i2mhRgAAu9opvQ
+	id wIXzB01Li2mWTwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 14:35:14 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 16:14:21 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A1711B3F4
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 14:35:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AAB4C11C5A3
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 16:14:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 182F7C87EC0;
-	Tue, 10 Feb 2026 13:35:13 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41AE8C87EBF;
+	Tue, 10 Feb 2026 15:14:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85232C87EBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADDD3C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Feb 2026 13:35:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 6EF8660097;
- Tue, 10 Feb 2026 13:35:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA280C116C6;
- Tue, 10 Feb 2026 13:35:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770730510;
- bh=pOU4O74VvKCHJ34mMFpIVQ+S/He2Ol8rafSLir616W4=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=DPO2T1h+M+Nha4vZaFiTCBZ/lAH+hR/wqUxZb5qfbGyg77+pHgj4+LRd9CqCinMKQ
- 8FF+Gs/Gkna9qwtaxuho8WLcoTbQ7XDzPChAGmfCsXtc5pAYFbLQfzUjfZR83+ikVB
- VR16qpeIRW9bhXA4H6RnEBvcCKdz1R0X5vb96GaH33oMebEmFGeI5gIL6N0sMIh62n
- k2efThEbB47mBL6mCkXbc8S5xfeRnl9/Bbu29gv/PcHvO4FbLf2z+Uj9xmwnQP6lV9
- uCzp6sItHaozwRAD7tfSNtldQacJg1MmTVgq5gOY9yF/oYxlD02SHMi/UN88WtzwuD
- 03Yien9BUoOJg==
-Date: Tue, 10 Feb 2026 07:35:09 -0600
+ Tue, 10 Feb 2026 15:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1770736459; x=1802272459;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=5XHstcK3GNmPCCnMCyYj61+dg73mEfAPf1RQMlNT978=;
+ b=DJymZ+f4tSMMAkAFNeTAgQ3L3ztDE4Fra7uq/5rlRCOjagxCqZov9ErZ
+ 6wI0OQ3+69/Nv30Vu0Cp/rgyhpqlG9JMNxl6R3lqohYTi5cCg3nSuVWFj
+ 4bWr1wEsY0KekpDaeHzYFV3B9BXjOV5Dy/C8qYHj3eRMxVXKDuJvMBmdq
+ axt6YRobPT1dT5bvk+fUZ0qutXFJ8ZBj8AbwZKNmFRAURsQbXZ0oFSuj0
+ gAoPJ8B6uvkLZYIoC0ep+AqIs6Pc0zHDemzUez6zHo+M+OpO3HwhsbyqT
+ MjRHStGdhutGf5SEs83tD09FAGOi7Nn49/BmhKwVjwjl0y9Ns4ParfBOa g==;
+X-CSE-ConnectionGUID: fzB6QwKWTNGc2XlCsloy5A==
+X-CSE-MsgGUID: GKG0fPZIRAqRvT4RHFBwuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11697"; a="82505030"
+X-IronPort-AV: E=Sophos;i="6.21,283,1763452800"; d="scan'208";a="82505030"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2026 07:14:16 -0800
+X-CSE-ConnectionGUID: PLTW0sgvRr+sZIyjb4ObHQ==
+X-CSE-MsgGUID: 0j9FHxy/Qi2fCSVgALjwlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,283,1763452800"; d="scan'208";a="211778201"
+Received: from dalessan-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.244.131])
+ by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Feb 2026 07:14:08 -0800
+Date: Tue, 10 Feb 2026 17:14:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Message-ID: <aYtLPHmZTg8oFxfL@smile.fi.intel.com>
+References: <aXc7DxsqiCGdfzxi@smile.fi.intel.com> <aXc-Zxw05XQLb1Dy@ninjato>
+ <aXdAB2bLTy6u8G8c@smile.fi.intel.com> <aXdCBu6kzdw1NWay@ninjato>
+ <aXikZ5wc6bvgRqF6@ninjato> <aYnBrN0JRCf9-UjB@ninjato>
+ <yl4bbbev7lgrmnqys2izkolo5egzg24faukvqar5eh26q5ra7p@42rcegfpqqt6>
+ <aYo60vooftdem4Lt@ninjato> <aYrcVE9HsDNAwqIB@smile.fi.intel.com>
+ <aYsMCVf1qpLSCXTs@shikoro>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Joey Lu <a0987203069@gmail.com>
-In-Reply-To: <20260210052226.3005666-2-a0987203069@gmail.com>
-References: <20260210052226.3005666-1-a0987203069@gmail.com>
- <20260210052226.3005666-2-a0987203069@gmail.com>
-Message-Id: <177073050804.2585725.9186824856266132663.robh@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, peppe.cavallaro@st.com,
- davem@davemloft.net, openbmc@lists.ozlabs.org, netdev@vger.kernel.org,
- richardcochran@gmail.com, ychuang3@nuvoton.com, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, edumazet@google.com, joabreu@synopsys.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, schung@nuvoton.com,
- krzk+dt@kernel.org, yclu4@nuvoton.com, pabeni@redhat.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v12 1/3] dt-bindings: net:
- nuvoton: Add schema for Nuvoton MA35 family GMAC
+Content-Disposition: inline
+In-Reply-To: <aYsMCVf1qpLSCXTs@shikoro>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-remoteproc@vger.kernel.org,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-omap@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
+ Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-arm-msm@vger.kernel.org, Boqun Feng <boqun.feng@gmail.com>,
+ linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
+ Wilken Gottwalt <wilken.gottwalt@posteo.net>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ linux-spi@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [RFC PATCH 0/4] hwspinlock: refactor headers into
+ public provider/consumer pair
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,123 +102,69 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.79 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:a0987203069@gmail.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:peppe.cavallaro@st.com,m:davem@davemloft.net,m:openbmc@lists.ozlabs.org,m:netdev@vger.kernel.org,m:richardcochran@gmail.com,m:ychuang3@nuvoton.com,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:joabreu@synopsys.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:schung@nuvoton.com,m:krzk+dt@kernel.org,m:yclu4@nuvoton.com,m:pabeni@redhat.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[21];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:wsa+renesas@sang-engineering.com,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:boqun.feng@gmail.com,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:wilken.gottwalt@posteo.net,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:tglx@kernel.org,m:mcoqueli
+ n.stm32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:wsa@sang-engineering.com,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:boqunfeng@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[42];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
+	HAS_ORG_HEADER(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,lwn.net,gmail.com,infradead.org,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,posteo.net,sholland.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DBL_PROHIBIT(0.00)[0.62.26.112:email];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,st.com,davemloft.net,lists.ozlabs.org,gmail.com,nuvoton.com,lunn.ch,google.com,synopsys.com,redhat.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[e7070000:email,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 97A1711B3F4
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[smile.fi.intel.com:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: AAB4C11C5A3
 X-Rspamd-Action: no action
 
+On Tue, Feb 10, 2026 at 11:44:25AM +0100, Wolfram Sang wrote:
 
-On Tue, 10 Feb 2026 13:22:24 +0800, Joey Lu wrote:
-> Create initial schema for Nuvoton MA35 family Gigabit MAC.
+> > > And if so, would be this series acceptable
+> > > as-is then (modulo the better include-sorting mentioned by Andy)?
+> > 
+> > *From my experience it's not the Q "will they or not?", the Q is "when?"
+> >  they start abusing it. I really prefer to hide as much as possible from
 > 
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->  .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 133 ++++++++++++++++++
->  .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
->  2 files changed, 134 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+> I totally agree with you on that.
 > 
+> >  day 1. Maybe the structure can be split to two? Currently IIO has a
+> 
+> I also thought that keeping some internal header might provide that
+> safety. When looking into it, I didn't see an obvious and somewhat
+> elegant way. Even more, I got a better picture of why Bjorn named the
+> current approach "unergonomic". I got some ideas which look doable in my
+> time frame. I will try going the full route, after all.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Thanks!
+Looking forward for the rest, the cleanup is quite good, no added lines.
 
-yamllint warnings/errors:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): clock-names: ['stmmaceth'] is too short
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): clocks: [[4294967295]] is too short
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): compatible:0: 'altr,socfpga-stmmac' is not one of ['nuvoton,ma35d1-dwmac']
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): compatible: ['altr,socfpga-stmmac', 'snps,dwmac-3.70a', 'snps,dwmac'] is too long
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): phy-mode:0: 'sgmii' is not one of ['rmii', 'rgmii', 'rgmii-id', 'rgmii-txid', 'rgmii-rxid']
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): 'nuvoton,sys' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): 'resets' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): 'reset-names' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/altr,socfpga-stmmac.example.dtb: ethernet@ff700000 (altr,socfpga-stmmac): Unevaluated properties are not allowed ('altr,sysmgr-syscon' was unexpected)
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/sophgo,cv1800b-dwmac.example.dtb: ethernet@4070000 (sophgo,cv1800b-dwmac): compatible:0: 'sophgo,cv1800b-dwmac' is not one of ['nuvoton,ma35d1-dwmac']
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/sophgo,cv1800b-dwmac.example.dtb: ethernet@4070000 (sophgo,cv1800b-dwmac): phy-mode:0: 'internal' is not one of ['rmii', 'rgmii', 'rgmii-id', 'rgmii-txid', 'rgmii-rxid']
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/sophgo,cv1800b-dwmac.example.dtb: ethernet@4070000 (sophgo,cv1800b-dwmac): 'nuvoton,sys' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): clock-names:1: 'ptp_ref' was expected
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): clock-names: ['stmmaceth', 'pclk', 'apb'] is too long
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): clocks: [[4294967295, 1], [4294967295, 2], [4294967295, 3]] is too long
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): compatible:0: 'thead,th1520-gmac' is not one of ['nuvoton,ma35d1-dwmac']
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): reg: [[3875995648, 8192], [3959435264, 4096]] is too long
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): 'nuvoton,sys' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): 'resets' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): 'reset-names' is a required property
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/thead,th1520-gmac.example.dtb: ethernet@e7070000 (thead,th1520-gmac): Unevaluated properties are not allowed ('reg-names' was unexpected)
-	from schema $id: http://devicetree.org/schemas/net/nuvoton,ma35d1-dwmac.yaml
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260210052226.3005666-2-a0987203069@gmail.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
 
 _______________________________________________
 Linux-stm32 mailing list
