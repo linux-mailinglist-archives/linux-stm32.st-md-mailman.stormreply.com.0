@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +BDNJABni2kMUQAAu9opvQ
+	id QHxvH/Nqi2lKUQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 18:12:32 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 18:29:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32A2D11DADC
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 18:12:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EB3511DEF8
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 18:29:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB36FC87EC0;
-	Tue, 10 Feb 2026 17:12:31 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0B1EC87EC0;
+	Tue, 10 Feb 2026 17:29:22 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96E95C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A8D8C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Feb 2026 17:12:30 +0000 (UTC)
+ Tue, 10 Feb 2026 17:29:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mzYF97sVWz63m1CUxZf+jl+Hhjnz8guVOlV5+MbrsME=; b=eR2SFbnI4lfCWYT1cmVHQL6SgG
- rkwXF+klYabsm6Z8drPNbxY5lCHy5UDtoDUyIbk8k4bkjUYCPQd6mhuVxaXlvC2WB454hmU/RXBnE
- paJhrdsndFkbykNv8/uEnSfLJnpMBDfDwP4/kfpQoVxwaPrnJj2qGDKQUgeXleafN9uRJ6KB1izT6
- B9Fyw7AL9cgLv/2DzrsdO5ebbUbRC+1m6eRDWKFX4IFp7saMMQijwOi8QniOzBpVTezDN8kP/gYIX
- nt7vaZMESAfi7iEyd7/yO16UiTBbbDZrCpBegIn53yo5+TBUJrhsPGPWdDJa/7ThDQfBPfrisXpqp
- uhM/QYaQ==;
+ bh=DAcKfWlVvFpjnpX3kQn9TetvuG3kY2q/0ckoODgRSz8=; b=lS8ZExtN/PJ9GM/RXNnUoJG8xu
+ 6BflzLkWMBbQhdzgpK+AV0vqxRBebBiUyfiu1SKrZKq0gxMvq/yfGWHJ58V4fIHc8e/uD0A/7Jq5f
+ 4lfO1aLUAJMDynrbTDZX7UShpk1ocV/xlbxN5Ncp4XBC8Ixw04ZXkOj7HJEVUbR80+dOjZne1sTKJ
+ pDbP72WGuFcqTmncwm9RI8+6OtP9ZKl85doJvfuVOi+Jwqs/F1BskWyp0AGt5dVBnfDAK+NvN5MBC
+ /SDZwjKf53yuDARAK6J/+9RKq2q3auogNniNAidjRbxw1a+ACOIscIzERYhkwtxE+t6NkAZLV4CaC
+ 8zegnKLg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:57276)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49462)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vprHc-000000002nw-193h;
- Tue, 10 Feb 2026 17:12:16 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1vprXy-000000002oy-37Of;
+ Tue, 10 Feb 2026 17:29:10 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vprHW-000000002wr-3vpe; Tue, 10 Feb 2026 17:12:11 +0000
-Date: Tue, 10 Feb 2026 17:12:10 +0000
+ id 1vprXv-000000002xA-2Lqw; Tue, 10 Feb 2026 17:29:07 +0000
+Date: Tue, 10 Feb 2026 17:29:07 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Florian Bezdeka <florian.bezdeka@siemens.com>
-Message-ID: <aYtm6pCnw0hdWdNx@shell.armlinux.org.uk>
+Message-ID: <aYtq4ypxXTvn_Is6@shell.armlinux.org.uk>
 References: <20260210-flo-net-stmmac-default-affinity-core-v1-0-4e76612444e1@siemens.com>
- <20260210-flo-net-stmmac-default-affinity-core-v1-1-4e76612444e1@siemens.com>
+ <20260210-flo-net-stmmac-default-affinity-core-v1-2-4e76612444e1@siemens.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260210-flo-net-stmmac-default-affinity-core-v1-1-4e76612444e1@siemens.com>
+In-Reply-To: <20260210-flo-net-stmmac-default-affinity-core-v1-2-4e76612444e1@siemens.com>
 Cc: linux-kernel@vger.kernel.org, Voon Weifeng <weifeng.voon@intel.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
@@ -55,8 +55,8 @@ Cc: linux-kernel@vger.kernel.org, Voon Weifeng <weifeng.voon@intel.com>,
  Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: intel: Fix IRQ
-	vector leak
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: Use
+ cpumask_local_spread() for IRQ spreading
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,50 +106,54 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,armlinux.org.uk:url]
-X-Rspamd-Queue-Id: 32A2D11DADC
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 1EB3511DEF8
 X-Rspamd-Action: no action
 
-Note that net-next is currently closed. Patches for net-next should
-be sent RFC. Please see the netdev *whatever it is* documentation (I
-can never remember the name of the renamed document nor it's URL).
-It's somewhere on docs.kernel.org and is in Documentation/ somewhere.
-I'm getting tired of having to do a google search every single time
-I respond to someone about this.
-
-On Tue, Feb 10, 2026 at 05:28:14PM +0100, Florian Bezdeka wrote:
-> The IRQ vectors allocated in stmmac_config_multi_msi() or
-> stmmac_config_single_msi() where never cleaned up.
-
-Please refer to:
-
-https://lore.kernel.org/netdev/27fec7d0ed633218a7787be3edce63c3038c63e2.camel@mailbox.org/
-https://lore.kernel.org/netdev/7e024db2557a4d5822a0dd409ae678d10d815d9c.camel@mailbox.org/
-
-and the associated discussion in that thread.
-
-PCI is weird. If pcim_enable_device() is used, it switches all sorts of
-other functions to managed mode. The missing cleanup here isn't
-actually missing, it's buried in the depths of PCI code. So, this is
-not a bug, and thus:
-
+On Tue, Feb 10, 2026 at 05:28:15PM +0100, Florian Bezdeka wrote:
+> The stmmac driver was previously implementing a self-made IRQ
+> spreading mechanism based on num_online_cpus(). By migrating to
+> cpumask_local_spread() the spreading gets NUMA aware.
 > 
-> Fixes: b42446b9b37b ("stmmac: intel: add support for multi-vector msi and msi-x")
+> In addition, most drivers seem to use cpumask_local_spread(),
+> aligning / harmonizing a bit more.
 
-this is not a fix.
+Oh great... sizeof(struct stmmac_priv) is already large at 880 bytes,
+and adding 16 pointers or CPU mask arrays for PCI MSI adds another
+128 bytes on top, whether _this_ stmmac device is PCI or not.
 
-However, if you look at Philipp's replies, there is a desire to get
-rid of this PCI behaviour, so your patch is useful - it just needs not
-to be dressed up as a fix.
+A better solution needs to be found. Please consider what can be done
+to make MSI (a) generic to stmmac so it can live in stmmac_libpci.c,
+and (b) avoid adding overhead to platforms that don't use MSI.
 
-I am keen that we cut down on the duplication between drivers. Having
-_four_ stmmac PCI drivers all using MSI but no sharing any code is
-silly.
+As an example of an improvement, the int_name_*[] strings are only
+used for MSI interrupts, and each one uses over 16 bytes. I calculate
+the entire usage to be 665 bytes just for these strings which are
+only ever used for MSI.
 
-Please consider what you can do to improve the current situation with
-these stmmac PCI drivers.
+With the addition of the cpumasks, we're looking at getting on for
+800 bytes of this structure which are only used for MSI.
 
-Thanks.
+We can surely do better than this.
+
+
+So, how about moving the int_name_* to its own separate struct::
+
+struct stmmac_msi {
+	/*irq_name */
+	char int_name_mac[IFNAMSIZ + 9];
+	... other int_name_* ...
+	cpumask_var_t rx_affinity[MTL_MAX_RX_QUEUES];
+	cpumask_var_t tx_affinity[MTL_MAX_TX_QUEUES];
+};
+
+and replace the existing with int_name* with a simple:
+
+	struct stmmac_msi *msi;
+
+This struct would only be allocated when we need it for
+stmmac_request_irq_multi_msi(), and can be requested using devm in
+stmmac_dvr_probe() only when required.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
