@@ -2,90 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UOwpOuBkimmiJwAAu9opvQ
+	id gJA9OaLAimkeNgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 23:51:12 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 06:22:42 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71001115421
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Feb 2026 23:51:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 845131170DC
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 06:22:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0471EC36B3E;
-	Mon,  9 Feb 2026 22:51:12 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2ABB0C36B3E;
+	Tue, 10 Feb 2026 05:22:42 +0000 (UTC)
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
+ [209.85.214.181])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADB1CC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7814C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Feb 2026 22:51:10 +0000 (UTC)
-Received: by mail-qt1-f181.google.com with SMTP id
- d75a77b69052e-50146483bf9so53904241cf.3
+ Tue, 10 Feb 2026 05:22:39 +0000 (UTC)
+Received: by mail-pl1-f181.google.com with SMTP id
+ d9443c01a7336-2a79ded11a2so2714625ad.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 09 Feb 2026 14:51:10 -0800 (PST)
+ Mon, 09 Feb 2026 21:22:39 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1770677469; x=1771282269;
+ d=gmail.com; s=20230601; t=1770700958; x=1771305758;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=g+TvrkNSZE9ym2PFZpW4r5uQoR0rtxBqbUzuUkdsCDo=;
- b=k31Z5nHzZANsGbbZ6SXg3dRcV2d/WssEEABLv/f/XjwvEiqzAjEQKwSitkfjM+1mAN
- Jtxsfr4ljx+7HmkNh7s6jgXKH0gd5rU/PQncLyUudjPg3CymRERKxB3KRqq6VoxLbJou
- Ntu9j9lHNqH7otpppKcmjVCMTkoNsOGxW1EbVRXyT2jCN7sdV06bjWnYvT/bIs+Izibh
- qiEfBthKtJ5j/TOlcse7fbjNRgOdVzwyYay57u+s6ARLDKbukP+JGTFC/SDwyeESrrTf
- 8f4TCGsltdB5B6xLzjq7WoqubVP7YTEYTcnBlHA2/wwy6XfVErjKLhT54nW8EoDtwSnw
- 6zKQ==
+ bh=slGvVNRI6DMwxYRFHCioIZD1AV/VPFPU5qKmLSzslyY=;
+ b=OAz1qMjUkQy+0fISKEO7MY0n7Ekdw5SFkeALA8hjTPh/gkO7boActripNF8+xrLpgo
+ Uw8HkqkWk3o/aXLdkTteDl0mkP3PAwYXMSCjw1aXCZ5r7faHuhRyn/qmxzeYbY7pZ2KD
+ 8w68+fiVARyQBf3xxsvaAiOHoN2ZsAOCkKdtKEpttGbUlmw4gLakXKFm6HJnur65imoE
+ gOYelNOtsZ2udJscaNU5JK/r5PC/n7G+NxMEvvN1wP6yT8ckUS+iK2iQUeThrTXem/rV
+ CAHuzF7Dry9prguTWIf+Rlujgip86PcZri1MTQ5nSo5HDEa7qVBQcDnZ/wtdydeyx8V2
+ r3Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1770677469; x=1771282269;
+ d=1e100.net; s=20230601; t=1770700958; x=1771305758;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=g+TvrkNSZE9ym2PFZpW4r5uQoR0rtxBqbUzuUkdsCDo=;
- b=jHq0Cw+y92WeCSdzi3xFAIlSRSZoRbFXQFl/qk0Twxwuee/AlTOvqquy7chqJmUhRi
- cY/vtMCOwayjzM8UWeUChWVQmvjH1+Wn+/HbYtc+XP5MPecu4uwncR39T/MoZDwviaRY
- ArozOljc/OuYtryDoJRADeYpSWrEZkJzL1Qg/cPaYrHc8j4ryChT7GcGIFNp1shI7BE9
- BYJkoZhWPCMEZubxjWrYvd3c7sKzxiH+PQotjBGMov8/qvDjBc05giMT3HKjFEstXmPM
- d4aZE91tTu7pv08o1opDlLEqGpARVQSbYBouN5k4fKA0yy2o6UlEDOXMDDvf7f3HzUYN
- sUug==
+ bh=slGvVNRI6DMwxYRFHCioIZD1AV/VPFPU5qKmLSzslyY=;
+ b=N922zfNo8HNXC/D4WSdF1KgsjpY4EKmX7Px1KRkNZRjDvTleN+11FLuaC0Qz0unhvy
+ c32sfAmF5nObatMhSlrPtqw1Z6uaDtHRgOhYMGM7llmkauBJLeaFk6LgvSWv/dZ5SdZf
+ c58wLJvV6EFGlEceFONFChte0GssQDFUf7H3O4hFTWhU9VJoS+As0JYgE7foXZdVbcph
+ NLhcOVq+zsE6qWJuaM+4hjkYaYjwEsqdD/zJ8B7LEz7dC90CBUg7Wj/6ifn/anox9t5A
+ W4tuxw55oWcfq1isz/XwYYvJ0+U+5F4b087LG7xT3ohJvjvOmFFpjXSJUe10FrRAnP8w
+ utLQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXs16vd3i0biW+yv6NkhnQ9W1gAZ9/fpp4fxy37SDMOBGR/zvASElW/YjyHB8LxsHvRIa5QRt1mwZYLYA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyDM2m0BvHkq8SRJZdpJxDS5xFbROL1O1iX5yk2AVtW2/6F3Ek+
- qGUqnKLvs5iPXFXohrZreQ0Nl9UERJtLNIwB3ce/CSeeoMniBK2Ji5RF
-X-Gm-Gg: AZuq6aL3GkFxENVhVXZkJjfZPU8az90sIxH33dU/meDu0RTj8GkXJJn85BK+i3owMOb
- WXqU/ZE8XvxEIPq3g6Da5OiAkA85hOOMD9AJ63StpT2B3oMD1otOa0XUp2KoFV6oNgBzxbLnGLY
- 5JvdtXWGCM4ad4UD5DNDHqe8oUL6eG/eH7sH3CEgV0GbS8bnHoSmOqRfBF5FrxzLKQ4vg736wbY
- +UXc+XSn5iiYp/If7YZK4QOtKXH0ZD7Az0vAUPhqfPAJk2mYA2oahAww6WW2st5Ih6Mb6+oAOvu
- tRIJFK9zu9A269bN8afv7FTt/LyWnRMgk11vvBQqfysuuXysVkJarGcjygRbf3HCzq3RrOWuc9w
- Jx6KxdxuIa/yZP2YQI/P8bxjnoBBNjdQ0xLEs+soO+FWQTFld6lE03KxtHvOzDZO1DkugZLug8A
- MrYuPHvuv7k29AnETf5Qj2TtKPFvyAXbqhkz4NT+hv5ZcKDNxzSIFQZ865xy7iXdyo8MmrI7Z0t
- bA=
-X-Received: by 2002:a05:622a:314:b0:4ee:4a8b:d9f6 with SMTP id
- d75a77b69052e-50639999b38mr165019831cf.59.1770677469375; 
- Mon, 09 Feb 2026 14:51:09 -0800 (PST)
-Received: from localhost.localdomain
- (h69-131-24-92.cntcnh.broadband.dynamic.tds.net. [69.131.24.92])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50640c60b3csm87021861cf.8.2026.02.09.14.51.07
+ AJvYcCVfjzHtXkoJYPrxFpuoauPYm2W+rNvIsaoZUlhUutvsmWKctf1tm+DvTJPJJpZa2Z/fewsKtuIGpIQdlA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyKdgxoGraxu2dwggthSFitJ0SpsdtHYfkFx39VuQvQXiDT0eBO
+ JdoWqavG5QhS0E9U02DRHkdyt4ja9tIaVsUGetleBdP9A6ktn9fmn2LM
+X-Gm-Gg: AZuq6aK4aMvqQHEik5JsRpqxaQIjVIE8NNas2Vr6N0VajUUPgYVHXBXHOA4plGb87kV
+ ZthVTaSNXIZRoVLvv6OY7ayk3wfxF/TV9CcazYkIh5HMQBHTzobQ2QNHec2mUKPDBDarDnZlSCS
+ uJCuM5ezA0nEUrpcATdMp4Rwq8u/xJ5fS1dYxZPxK3BfqNTiZEsNu8Dg9JU2NHXDv7jhSyuHtIv
+ TtPw8fmpRb6gsmn1reazF7iC0fI44Hmzvskr6JzEA8uE6+Zsdh/wIsWharazlo+S8mSgMqroTXw
+ yM6i7eiPMNsSqOraEr5/Ad7uAIfxFhpGObuQpeL95yq8chIto1R3ydxFmHxJsXGvkO/SJQfGpSC
+ Xy+arLeoxm9ppmXAAa6MDbPPoaOtjOh5xdUtCoxhZcITvmVgFstusyOJxPurmy8a4Ppg2JAACft
+ c9BlOKq8y3e5NMCcDwDPCNgZudIWlD7IynwZZ5+Vamk7qDgMYwjVXLmm5Ol9GSPNzRJCxxwMd1e
+ 7dpfSYZRkyZ
+X-Received: by 2002:a17:903:1a0e:b0:2a9:4450:abb7 with SMTP id
+ d9443c01a7336-2a9516fcf6amr158575295ad.39.1770700958109; 
+ Mon, 09 Feb 2026 21:22:38 -0800 (PST)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2a951ca59f4sm122114275ad.43.2026.02.09.21.22.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Feb 2026 14:51:08 -0800 (PST)
-From: Jie Zhang <jzhang918@gmail.com>
-X-Google-Original-From: Jie Zhang <jie.zhang@analog.com>
-To: netdev@vger.kernel.org
-Date: Mon,  9 Feb 2026 17:50:32 -0500
-Message-ID: <20260209225037.589130-1-jie.zhang@analog.com>
-X-Mailer: git-send-email 2.47.3
+ Mon, 09 Feb 2026 21:22:37 -0800 (PST)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+Date: Tue, 10 Feb 2026 13:22:23 +0800
+Message-ID: <20260210052226.3005666-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com, Eric Dumazet <edumazet@google.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, jzhang918@gmail.com, jie.zhang@analog.com,
- horms@kernel.org, Jacob Keller <jacob.e.keller@intel.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v3] net: stmmac: fix oops when split
-	header is enabled
+Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
+ Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v12 0/3] Add support for Nuvoton
+	MA35D1 GMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,9 +98,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_CONTAINS_FROM(1.00)[];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
@@ -112,106 +109,153 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:edumazet@google.com,m:andrew+netdev@lunn.ch,m:jzhang918@gmail.com,m:jie.zhang@analog.com,m:horms@kernel.org,m:jacob.e.keller@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jzhang918@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
+	RCPT_COUNT_TWELVE(0.00)[22];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:richardcochran@gmail.com,m:devicetree@vger.kernel.org,m:ychuang3@nuvoton.com,m:a0987203069@gmail.com,m:netdev@vger.kernel.org,m:openbmc@lists.ozlabs.org,m:linux-kernel@vger.kernel.org,m:joabreu@synopsys.com,m:schung@nuvoton.com,m:peppe.cavallaro@st.com,m:yclu4@nuvoton.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,nuvoton.com,gmail.com,lists.ozlabs.org,synopsys.com,st.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com];
+	FORGED_SENDER(0.00)[a0987203069@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[jzhang918@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[a0987203069@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,gmail.com,nxp.com,st-md-mailman.stormreply.com,google.com,lunn.ch,analog.com,kernel.org,intel.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,analog.com:mid,analog.com:email]
-X-Rspamd-Queue-Id: 71001115421
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: 845131170DC
 X-Rspamd-Action: no action
 
-For GMAC4, when split header is enabled, in some rare cases, the
-hardware does not fill buf2 of the first descriptor with payload.
-Thus we cannot assume buf2 is always fully filled if it is not
-the last descriptor. Otherwise, the length of buf2 of the second
-descriptor will be calculated wrong and cause an oops:
+This patch series is submitted to add GMAC support for Nuvoton MA35D1
+SoC platform. This work involves implementing a GMAC driver glue layer
+based on Synopsys DWMAC driver framework to leverage MA35D1's dual GMAC
+interface capabilities.
 
-Unable to handle kernel paging request at virtual address ffff00019246bfc0
-...
-x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
-Call trace:
- dcache_inval_poc+0x28/0x58 (P)
- dma_direct_sync_single_for_cpu+0x38/0x6c
- __dma_sync_single_for_cpu+0x34/0x6c
- stmmac_napi_poll_rx+0x8f0/0xb60
- __napi_poll.constprop.0+0x30/0x144
- net_rx_action+0x160/0x274
- handle_softirqs+0x1b8/0x1fc
-...
+Overview:
+  1. Added a GMAC driver glue layer for MA35D1 SoC, providing support for
+  the platform's two GMAC interfaces.
+  2. Added device tree settings, with specific configurations for our
+  development boards:
+    a. SOM board: Configured for two RGMII interfaces.
+    b. IoT board: Configured with one RGMII and one RMII interface.
+  3. Added dt-bindings for the GMAC interfaces.
 
-To fix this, the PL bit-field in RDES3 register is used for all
-descriptors, whether it is the last descriptor or not.
+v12:
+  - Drop private structure nvt_priv_data
+  - Fix error propagation to preserve probe deferral
+  - Refactor internal delay handling into a dedicated helper
+  - Move FIFO and filter configuration from driver to Device Tree
+  - Update DT binding to include "snps,dwmac-3.70a" compatible
 
-Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
-Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
-Signed-off-by: Jie Zhang <jie.zhang@analog.com>
----
+v11:
+  - Propagate syscon lookup errors to allow proper probe deferral.
+
+v10:
+  - Update DTS/DTSI files to follow proper hierarchy and port modeling
+
+v9:
+  - Fixed file permissions. (YAML, driver, DTS)
+  - Moved phy-handle and PHY-related properties from SoC dtsi to board dts.
+
+v8:
+  Changes since v7:
+  - Rebased onto the latest net-next.
+  - Removed unused symbol.
+  - stmmac parent driver now reads hardware features directly to support
+    Wake-on-LAN via magic packet, so PMT-related overrides in this driver
+    have been removed.
+  - Update dwmac-nuvoton driver:
+      - Update the license to GPL.
+      - Improve the description in Kconfig.
+
+v7:
+  - Update dwmac-nuvoton driver
+    - Update probe function to use stmmac_pltfr_probe instead.
+
+v6:
+  - Update dwmac-nuvoton driver
+    - Use NVT as the previx for all functions, structs, and defines.
+    - Remove unnecessary comments.
+
+v5:
+  - Update yaml
+    - Remove the properties already defined in snps dwmac.
+  - Update dwmac-nuvoton driver
+    - Add a comment to explain the override of PMT flag.
+
+v4:
+  - Update yaml
+    - Remove unnecessary property 'select'.
+    - Remove unnecessary compatible entries and fix items.
+    - Specify number of entries for 'reg'.
+    - Remove already defined property 'phy-handle'.
+    - Update example.
+    - Modify the property internal path delay to match the driver.
+  - Update dtsi
+    - Move 'status' to be the last property.
+  - Update dwmac-nuvoton driver
+    - Use remove instead of remove_new.
+    - Use dev_err_probe instead.
+
 v3:
-1. Fix build error
-v2:
-1. Update for the latest net HEAD
-2. Reduce crash dump message in commit message
-3. Add Fixes tag
-v1 link: https://lore.kernel.org/all/20251202025421.4560-1-jie.zhang@analog.com/
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
+  - Update yaml
+    - Fix for dt_binding_check warnings & errors.
+    - Add compatible in snps dwmac.
+  - Update dtsi
+    - Update dtsi to follow examples in yaml.
+  - Update dwmac-nuvoton driver
+    - Fix for auto build test warnings.
+    - Invalid path delay arguments will be returned.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index a379221b96a3..f98fd254315f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5023,13 +5023,27 @@ static unsigned int stmmac_rx_buf2_len(struct stmmac_priv *priv,
- 	if (!priv->sph_active)
- 		return 0;
- 
--	/* Not last descriptor */
--	if (status & rx_not_ls)
-+	/* For GMAC4, when split header is enabled, in some rare cases, the
-+	 * hardware does not fill buf2 of the first descriptor with payload.
-+	 * Thus we cannot assume buf2 is always fully filled if it is not
-+	 * the last descriptor. Otherwise, the length of buf2 of the second
-+	 * descriptor will be calculated wrong and cause an oops.
-+	 *
-+	 * If this is the last descriptor, 'plen' is the length of the
-+	 * received packet that was transferred to system memory.
-+	 * Otherwise, it is the accumulated number of bytes that have been
-+	 * transferred for the current packet.
-+	 *
-+	 * Thus 'plen - len' always gives the correct length of buf2.
-+	 */
-+
-+	/* Not GMAC4 and not last descriptor */
-+	if (priv->plat->core_type != DWMAC_CORE_GMAC4 && (status & rx_not_ls))
- 		return priv->dma_conf.dma_buf_sz;
- 
-+	/* GMAC4 or last descriptor */
- 	plen = stmmac_get_rx_frame_len(priv, p, coe);
- 
--	/* Last descriptor */
- 	return plen - len;
- }
- 
+v2:
+  - Update yaml
+    - Rename file to align with the compatible property.
+    - Add an argument to syscon to replace mac-id,
+      with corresponding descriptions.
+    - Use tx-internal-delay-ps and rx-internal-delay-ps properties for
+      configurable path delay with corresponding descriptions,
+      allowing selection between GMAC internal and PHY.
+    - Add all supported phy-mode options.
+    - Remove unused properties.
+  - Update dtsi
+    - Modify syscon configuration to include an argument for
+      GMAC interface selection.
+  - Update dwmac-nuvoton driver
+    - Remove redundant device information print statements.
+    - Remove non-global parameters.
+    - Retrieve GMAC interface selection from the syscon argument.
+    - Parse Tx and Rx path delays by correct properties.
+    - Update configurations to support Wake-on-LAN.
+
+Joey Lu (3):
+  dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
+  arm64: dts: nuvoton: Add Ethernet nodes
+  net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+
+ .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 133 +++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      |  25 ++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  24 +++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  52 +++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 139 ++++++++++++++++++
+ 8 files changed, 387 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+
 -- 
-2.47.3
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
