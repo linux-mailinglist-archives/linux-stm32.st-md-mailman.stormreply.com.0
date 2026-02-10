@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IACOKXjjimmjOgAAu9opvQ
+	id SFFeDfDkimndOgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 08:51:20 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 08:57:36 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4DEB91180B4
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 08:51:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3547118131
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Feb 2026 08:57:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED107C3F944;
-	Tue, 10 Feb 2026 07:51:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69C85C3F944;
+	Tue, 10 Feb 2026 07:57:35 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35CDCC36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CD41C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Feb 2026 07:51:19 +0000 (UTC)
+ Tue, 10 Feb 2026 07:57:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E76EC40AF5;
- Tue, 10 Feb 2026 07:51:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 968F5C116C6;
- Tue, 10 Feb 2026 07:51:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B9C2140360;
+ Tue, 10 Feb 2026 07:57:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C26AC116C6;
+ Tue, 10 Feb 2026 07:57:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1770709877;
- bh=t/yxJur0l1ckNB4xh959uBHpohLupWtJRLc6AJ49G34=;
+ s=k20201202; t=1770710252;
+ bh=3xPmINn1ZMlfn3sOVXZASDkUg8ApCtliQ4NNcv91JbA=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=uEeDWG4/oTrutltqpZWXebUjgibLZ4do9nKiRhiS7ylbshyegaEvRHIoChfQ/w8fW
- 12uRVenflZGD8MaxwOsWMnlAld6FRtYkQB8FWulIkrlaIzIwmpkOkLUwdPKkGcNj7M
- B8dv4LZ5IWz3/u+Qg9rmHBobN2XtEWKNho+/bVzxqT2S53yFPl/Nz9LQoUnbeENIsL
- 1wZLSePADdExvX8tE+4UFJdNNDSh3tibeLRSIj3XxWTAbr4uMu8imvXoG5sWBQguGu
- bbgsw8cJRL5hHBOnUsF24Q4KMxnwvsldRzBHVA4IdNiQ+nZXTtSCdPMcAdyBolfm5L
- 5Qq2GsgMy+ZTg==
-Message-ID: <c4212679-9e39-47d0-8a53-62427e2ef7aa@kernel.org>
-Date: Tue, 10 Feb 2026 08:51:13 +0100
+ b=QCr4TlC9PPXrSd6FascMSq5PAq4+X0Mq/cnRMN54vszBHmhZllTd66sIR6XX0fAOB
+ VIBFa5+yl5xqHESujHLOQi5M1CeRSjQnI1U0wCvpg12nwgiQhvb0SWLkSdtPXFp7Lh
+ NwRLnXBwCiH7k1BB9A5mFWtPoIKLdbRZdZYvZYKOG+LhE4IlFXVsiXZHOhLTAWK2AF
+ CIVi6RWe0bfPjrooWf19/pqmOzyIlil+ihK4hbwobhk7W4EwROsW7DHbV13/u7PB6m
+ 1WvtJf0z45lZRQXQkjU7ED31FTRB2T/3MEXCW6MzAwiE+78B1lgiRQut6jrBdlFf6d
+ B1LrWC8j2sVCw==
+Message-ID: <ee9759a6-1779-4891-8716-24c36134198a@kernel.org>
+Date: Tue, 10 Feb 2026 08:57:28 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
@@ -43,7 +43,7 @@ To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20260209-stm32_risab-v1-0-ef0b2b6a7e0a@foss.st.com>
- <20260209-stm32_risab-v1-3-ef0b2b6a7e0a@foss.st.com>
+ <20260209-stm32_risab-v1-1-ef0b2b6a7e0a@foss.st.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,11 +89,11 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260209-stm32_risab-v1-3-ef0b2b6a7e0a@foss.st.com>
+In-Reply-To: <20260209-stm32_risab-v1-1-ef0b2b6a7e0a@foss.st.com>
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 3/7] arm64: dts: st: add RISAB1/2/3/4/5/6
- nodes to stm32mp251.dtsi
+Subject: Re: [Linux-stm32] [PATCH 1/7] dt-bindings: soc: st: document the
+ RISAB firewall peripheral
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,18 +117,18 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -143,34 +143,137 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,0.0.0.0:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,420f0000:email]
-X-Rspamd-Queue-Id: 4DEB91180B4
+	DBL_BLOCKED_OPENRESOLVER(0.00)[420f0000:email,devicetree.org:url]
+X-Rspamd-Queue-Id: C3547118131
 X-Rspamd-Action: no action
 
 On 09/02/2026 15:59, Gatien Chevallier wrote:
-> Add RISAB1/2/3/4/5/6 nodes to the stm32mp251.dtsi device tree SoC
-> file.
+> Add documentation on the RISAB peripheral that is a memory firewall on
 
-And what is RISAB?
+What is RISAB? It's in capitals, so some sort of acronym?
 
+> the stm32mp2x platforms.
 > 
 > Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
 > ---
->  arch/arm64/boot/dts/st/stm32mp251.dtsi | 48 ++++++++++++++++++++++++++++++++++
->  1 file changed, 48 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> index a8e6e0f77b83..e9d8338b2017 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-> @@ -1733,6 +1733,54 @@ pcie@0,0 {
->  			};
->  		};
->  
-> +		risab1: risab@420f0000 {
+>  .../bindings/soc/st/st,stm32mp25-risab.yaml        | 74 ++++++++++++++++++++++
 
-It appears here as node name as well, so it must be a generic name, but
-I do not recall it in DT spec or my knowledge.
+soc is not a dumping ground. Find suitable subsystem for it.
+
+
+>  MAINTAINERS                                        |  5 ++
+>  2 files changed, 79 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/st/st,stm32mp25-risab.yaml b/Documentation/devicetree/bindings/soc/st/st,stm32mp25-risab.yaml
+> new file mode 100644
+> index 000000000000..d05a683c594d
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/soc/st/st,stm32mp25-risab.yaml
+> @@ -0,0 +1,74 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/soc/st/st,stm32mp25-risab.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STM32 Resource isolation peripheral unit for address space protection
+> +       (block-based)
+
+So maybe here would be RISAB explanation... Use proper capital lettes in
+the title (e.g. AP or Chicago style, I don't think we do any preference
+or consistency, especially that most of us including myself don't even
+know the difference).
+
+> +
+> +maintainers:
+> +  - Gatien Chevallier <gatien.chevallier@foss.st.com>
+> +
+> +description:
+> +  The RIF (resource isolation framework) is a comprehensive set of hardware
+> +  blocks designed to enforce and manage isolation of STM32 hardware resources,
+> +  like memory and peripherals. The RISAB peripheral is part of the RIF and is
+> +  used to protect internal RAMs by applying access rights per RISAB fixed-size
+> +  page. Through RISAB registers, a trusted domain, or the domain to whom the
+> +  page configuration has been delegated, assigns memory pages to one or more
+> +  security domains (secure, privilege, compartment).
+> +
+> +properties:
+> +  compatible:
+> +    const: st,stm32mp25-risab
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: RISAB bus clock
+> +
+> +  memory-region:
+> +    minItems: 1
+> +    maxItems: 32
+> +    description:
+> +      Phandle to nodes describing memory regions to be configured in the RISAB
+> +      by the trusted domain of at least a RISAB page size.
+> +      These regions cannot overlap. A zone must be within st,mem-map range and
+> +      can be represented by one or more pages.
+> +
+> +  st,mem-map:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    description: Memory address range covered by the RISAB.
+> +    items:
+> +      - description: Memory range base address
+> +      - description: Memory range size
+
+Why do you need this property if you have memory-region already? This
+also should be part of <reg>, although this mixing with memory-region is
+anyway confusing.
+
+> +
+> +  st,srwiad:
+> +    description:
+> +      When set, the trusted domain configures the RISAB to allow secure
+> +      read/write data accesses to non-secure blocks and pages. Secure execute
+> +      remains illegal.
+> +    type: boolean
+
+Shouldn't this be a property of given block from memory-regions, not
+entire RISAB?
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - st,mem-map
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/st,stm32mp25-rcc.h>
+> +
+> +    risab1: risab@420f0000 {
+
+Drop unused label.
+
+> +        compatible = "st,stm32mp25-risab";
+> +        reg = <0x420f0000 0x1000>;
+> +        clocks = <&rcc CK_ICN_LS_MCU>;
+> +        st,mem-map = <0xa000000 0x20000>;
+> +        st,srwiad;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index e08767323763..b9a1276e94a9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25092,6 +25092,11 @@ F:	Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
+>  F:	Documentation/devicetree/bindings/dma/stm32/
+>  F:	drivers/dma/stm32/
+>  
+> +STM32 SoC FIREWALL DRIVERS
+
+s/SoC/SOC/
+
 
 Best regards,
 Krzysztof
