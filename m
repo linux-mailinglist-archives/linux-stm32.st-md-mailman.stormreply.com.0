@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GIhxDLp7jGkcpgAAu9opvQ
+	id B5ArFmOBjGkYqAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Feb 2026 13:53:14 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Feb 2026 14:17:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 91FAF1248E7
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Feb 2026 13:53:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76335124AFA
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Feb 2026 14:17:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27303C87EC9;
-	Wed, 11 Feb 2026 12:53:13 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011068.outbound.protection.outlook.com [52.101.70.68])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EE59C87ECC;
+	Wed, 11 Feb 2026 13:17:22 +0000 (UTC)
+Received: from DUZPR83CU001.outbound.protection.outlook.com
+ (mail-northeuropeazon11012037.outbound.protection.outlook.com [52.101.66.37])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51D11C87EC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7CE7DC87EC9
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Feb 2026 12:53:11 +0000 (UTC)
+ Wed, 11 Feb 2026 13:17:20 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YwpOHOS3nBHB/NvtzdihqetroapzywIFgRwzjBRq2Uv77JmQ1W2AGSbEhOI350mhGpHKN7OsHUhCIvxtFhK14qtdqJJW49mjSo6b8as/lsNE2Ojbca0lFzfmWFPY739V/iuBfhUW6++Nr+ZPqnaLhvg95gWfTiW+2cORIc8sXGxyeRzpe+UlG/pCSxGxgo6oDvNMcF5MBbr0mfyuYt0yTr8XA5Vg4fpYx8D8/YhuGhueCdifVyNavA3AMVFRKAaV8gtarDIvjjR+yzRpJx9gf/rvKaBooNSNEaJ8RNbzsKBEzIw1z36wF2fzMuwVksv25ZqnEe82RQJuh0oE3OCl6g==
+ b=RxdywMpoaLy/9RuPeY+FMnQbNK1gmiNsRiGoQNg6iOs9cNr8s6MFYOgwBHuola4hMlWNFfzXWeqwQ4x9C5WnHJaITFMQNeXnWLwPlnQ89n9EYhX0eOk3oZgMgO/h8DeDS9sppGKDL5lSqb++Z2puLFx/cFd5ULDagAD5m4KLK5RM1VOU3XmOhPUVNDhqf/aW58+Sl/psAt1TRQw8gMUao+8M6x8ra28hvVzi8CXT1yjg2yfdzKuPwQyw9oPEyRQtzBHpDnXEsqJBmtSv+B0gDHZ/cXKPRgJTLNUEgNMDm9pw6pC0cq+CDA0/V+VWdLpsjHRvlBARi7xIoOU8FaL2xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=etuGccjzH+hwyEqNcgVvbfOLyck872kv1fXHhpjtqbg=;
- b=GGpVBavYiDoUZWrRCfsfbSM6T9JLdmG/sqtGbNLCBImM3332KCBYzReBY5JAWEQsxgp2Dd0GZrqAc9OZEWb54Hz/3201OTrd7B++/y4Q7ntoPjZA3eqirajyBpc70nsbhYrIFILaMA6YMRR1DhCOyJz41pVGtWqcYpOU47STDyNoXi93aQvg9rV0n8wljH8wAgIaiX6mgSvrFcweL9txf15u9jm0KjMga0hedieojARXPy5dCjmCVWWZUL6tQDK9lVGw37sYT/WG4eCflUhU8kkygV3tQ34NhJSIqlqqZk8ZsE0fWB+GxGiiN4cDouapEWfkMAQyCTu4demJvwrUdQ==
+ bh=E5v4h71xc4M5gl6tLEXGb0An5ZFryfzBXhiGvugsqvs=;
+ b=ADg3HwqLqb72T8TB9YA7jetFGnJFZZKIa8JVjiIRW73T6ZlzBtNhW9LQ85HPN44I9Qbd/6zPQB/wty0EzDHH5BHkRl15gt9JAVkmW+ZRLVKtYiDAEsM/tV4uxbQE5hyCKLDR2nuXZXouAt4L6S4i8V0etIIWmScHIAFw1s0sz4tpcP3l4zaR2mPI0h0SQfBmtsN/pUMCUplgLRaJvR4bTM7iKwmScjF24BgzmTIUKDsxLnCmH/TCRHSsTJMzzZuUFG40k+DVrjKsgqEVpW46Pz+qMeywBWG0LTbrU2JRGgD6GqkLrFfR2rJmXlR96rSMP7BT7PM105rk6gC7RfcRtg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=lists.infradead.org
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+ 164.130.1.60) smtp.rcpttodomain=linaro.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=etuGccjzH+hwyEqNcgVvbfOLyck872kv1fXHhpjtqbg=;
- b=KpJDXgljAS/dJOik799v6G6xLs68t+V1A1LsNSiv1Gr4jnRFWvcucxLKl5rIUTmYVn6rSr5QnY9jrySP1nd4JCsi+6c2BzGCQ2o9BgVtOeBd0oW54WWuW1ydzA0eYSFp2oIXgxW6DsuNSuDIqPXNQqyMNiYBlj/p5qBZWXilihnJInxfVkHNcVF8GtpyFS1SFOSAfSIqckSOgJvgC221xk71FIJzbdGq+r2DJGhBb53Gj7rQrDbxmDn5XG7ozedhbV49LSEaF9tdfJTVcUtzvqrkCEumGL7iyYSp/EjzyYRaE522z1S4JWf4wmc70Wex6b2yCU/XcjGB1NvRsVf1cQ==
-Received: from AS4PR09CA0028.eurprd09.prod.outlook.com (2603:10a6:20b:5d4::16)
- by PRAPR10MB5180.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:278::7)
+ bh=E5v4h71xc4M5gl6tLEXGb0An5ZFryfzBXhiGvugsqvs=;
+ b=QJGrTXyNPcKuOCmoPIQM7fq97wmd8M6/4FgSZ6v1xmjAUUibckZ/dzNLvoO5jhsSIvUc5eUXPKRDc0Lp8JJm5n50NnvjrrGUynnNjz71oZe7+Yq9OM+7GTFuOXwJfzA3ye2c3IwS4gblLPJpgT1vk+hOeTfiKrk0lqZL9HrqhxBukzbSEp/4Ro60LJ+33xPhZQckiknQfJJny+QMrYeLknLdudQGPizDxU+2mDSXv6oF8bjOOTPJyB7A0pYv02iYg+9sn/B0T8I5ze0QTqoYvHWSOGZWHZTNgF25Pa0PFFlUHRvPFn5wNu9rGlUM5pPAOv6WAq3cwWLVa6c+extaFw==
+Received: from AM0PR02CA0160.eurprd02.prod.outlook.com (2603:10a6:20b:28d::27)
+ by DU4PR10MB8484.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:568::13)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.18; Wed, 11 Feb
- 2026 12:53:08 +0000
-Received: from AM1PEPF000252DC.eurprd07.prod.outlook.com
- (2603:10a6:20b:5d4:cafe::b7) by AS4PR09CA0028.outlook.office365.com
- (2603:10a6:20b:5d4::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.10 via Frontend Transport; Wed,
- 11 Feb 2026 12:53:07 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9587.19; Wed, 11 Feb
+ 2026 13:17:15 +0000
+Received: from AMS1EPF00000091.eurprd05.prod.outlook.com
+ (2603:10a6:20b:28d:cafe::af) by AM0PR02CA0160.outlook.office365.com
+ (2603:10a6:20b:28d::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9611.8 via Frontend Transport; Wed,
+ 11 Feb 2026 13:17:13 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -52,99 +52,101 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
  designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
  client-ip=164.130.1.60; helo=smtpO365.st.com;
 Received: from smtpO365.st.com (164.130.1.60) by
- AM1PEPF000252DC.mail.protection.outlook.com (10.167.16.54) with Microsoft
+ AMS1EPF00000091.mail.protection.outlook.com (10.167.242.88) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9611.8 via Frontend Transport; Wed, 11 Feb 2026 12:53:07 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ 15.20.9611.8 via Frontend Transport; Wed, 11 Feb 2026 13:17:15 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
  (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 11 Feb
- 2026 13:54:49 +0100
-Received: from localhost (10.252.21.36) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
+ 2026 14:18:57 +0100
+Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 11 Feb
- 2026 13:53:07 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Wed, 11 Feb 2026 13:52:30 +0100
+ 2026 14:17:13 +0100
+Message-ID: <81065373-6e58-4b4e-8304-40d15d1d9b43@foss.st.com>
+Date: Wed, 11 Feb 2026 14:17:14 +0100
 MIME-Version: 1.0
-Message-ID: <20260211-stm32-csi-pad-retrieval-fix-v1-1-0db0f08baad1@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAI17jGkC/x2MSQqAMAwAvyI5G2gqWPQr4qHUqAE3GhFB/LvB4
- wzMPKCchRXa4oHMl6jsmwGVBaQ5bhOjDMbgna+dJ0I918pjUsEjDpj5tPyKC45yYxXJOa4DjU0
- AOxyZTf/3rn/fD0k5CQhtAAAA
-X-Change-ID: 20260211-stm32-csi-pad-retrieval-fix-3a100e671f97
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Hans Verkuil <hverkuil@kernel.org>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.252.21.36]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
+User-Agent: Mozilla Thunderbird
+To: Antonio Borneo <antonio.borneo@foss.st.com>, Linus Walleij
+ <linus.walleij@linaro.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, <linux-gpio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+References: <20251118161936.1085477-1-antonio.borneo@foss.st.com>
+ <20251118161936.1085477-14-antonio.borneo@foss.st.com>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20251118161936.1085477-14-antonio.borneo@foss.st.com>
+X-Originating-IP: [10.48.87.93]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM1PEPF000252DC:EE_|PRAPR10MB5180:EE_
-X-MS-Office365-Filtering-Correlation-Id: c56f6251-7023-4016-6513-08de696c8137
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000091:EE_|DU4PR10MB8484:EE_
+X-MS-Office365-Filtering-Correlation-Id: 85f1d529-ec4b-4f06-417f-08de696fdff8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|82310400026|36860700013|1800799024; 
-X-Microsoft-Antispam-Message-Info: =?utf-8?B?Vko5RnN6OER5dzBkV0EwTUhQV3g2UURSL2E3UnhjeHoyNDJ5SUpZZjQweHIy?=
- =?utf-8?B?dkN6Sks0MHZ1WmFqdzNFQ1lidFZyeVE2cUgxUTdzWTE5a29IUFA0RHZRT1p3?=
- =?utf-8?B?Wms4ZUVTZVpqSWZJejdTaGxDdEVFNVBNZVBpekhGS3IzTEJsOENDczcxcnBz?=
- =?utf-8?B?ajJSQTYyY2dncFl1cWQ3SHJnS1RVVXNhN1l3emhEZGxPTVFmOU9hWXNBYmVJ?=
- =?utf-8?B?ZHJYa1FuTkdzQW95Mm5XNkxHZ1Y1anM1Ykx0OC9PM2RSQUxYc2tlNG1VREg4?=
- =?utf-8?B?bFdKMUlzWFFHYkx4Kzc0dlZRRjR4TExUM1F1T1NRYXBVUm1lWC9VbitxUmJ5?=
- =?utf-8?B?RTltc3ZkOElNRmtBVVRseGlsbjF5ODR6OGc4b2F0ZTdLWC9GTnl0Syt1VHV1?=
- =?utf-8?B?N1phL3k3MG5sQ2RIdm0vVVdpV2UxZlZMdnJWMkxxZjJ0cTQ5RE1kT3hqV1Fr?=
- =?utf-8?B?QnJ6MXI4Q09PTmJ2NlJubUlHS3p4ZWoyb3VuSkRLS1Nrc1JwQmJ3Z25EVGhG?=
- =?utf-8?B?TzQ4WkZMZWR0dzRLT1dpL29VUzBOTVRHUSttMGpHSUgzbHducTdsbi93clI3?=
- =?utf-8?B?YjQyTG9PWCthSmJNd0NLWU9YL0N1UE1mWXkrbm1CVnZLWEEraTRVV24zT0ha?=
- =?utf-8?B?SlVnSVFYdlMzdmZWQS9DR0hXVjhtUmtUR3pxRUR4Rm5vWFNPVHNRSUZXSFdR?=
- =?utf-8?B?Y2JDMGFUTitUdkR4VG1TVjRGcFJDVVFiSU81TVV3Y251Z2xOZDl6R05lQ0FY?=
- =?utf-8?B?VExuMkhPa2tGbXpKdzF5QjFIYy8vUG5aNVFnYnZZSWpFblM0OTFRc1FQS052?=
- =?utf-8?B?SmlubW9WSk5xKzVIeVR1VDZDUTlvT1BiWGswZ2NhMHl0RVVUMVFzWlRHMFRo?=
- =?utf-8?B?K014N1h6NlExQ0lEWEgvdTg5ZWNkYm1IaVpDR0M4WWJSRlg3VDJJNVMvWWFi?=
- =?utf-8?B?Vk12bU1nVmJjMG5QTU0xQ3lacXJjYmpoUGowMGs5SWxPdHhlMHk1RTlGbzJj?=
- =?utf-8?B?UGxINzFVdmNCaVQ3SG5ER2RIMENEVmhvc01ncFhKT2JCYmhDTWtDTklXZzRM?=
- =?utf-8?B?UE1wbzZobEN3N0IzTlE2VmZoVWNTNUdBR1JwdVpHTHQ1M2Nzb241aXdBb3FI?=
- =?utf-8?B?aGZRanU0b0tGRFovbnduQmxvRi83VDU0TDRiK3Q1Z1VYWkJOSTZ2ejZPTWlL?=
- =?utf-8?B?Tk1ncGMrRDdqQUkyeXNHZHFXZjNzZ01XcVFhSWJOQzJqNkg5M2ZMQWxDa1hY?=
- =?utf-8?B?bG1OZ1FXMjZtTXkra2VzYUtoUXlkQk5rdXI0elpURDJMOUdGeklUVzhVcEQ4?=
- =?utf-8?B?VEltTVV6eW84RldCM3Y3b09qR3ZjVkVaN1lSV2p4dmhQVkFCS3M5bGUraXJT?=
- =?utf-8?B?dlNqc0hQVTFHZ3lIWGRQTFpvdnhtcE9mQjljaWQ4MDVHUTV2NjNncWlOTmtS?=
- =?utf-8?B?YTFkR1htREpkanBGYXVFT0hzVnNkYVNOZW1zV0ZKN3J5eUFFR0p2L09tTlk4?=
- =?utf-8?B?UEx1T2loU0x2ZWVkUVFnZmcvQkgrbEpLek84YWVsdC9JQXl5emcvUUxGVExB?=
- =?utf-8?B?YUVKalludEd1TWxXdXo5QkQxN1pPVW5rcGNOa0dvcERuVU5JYmRRQWExNjA5?=
- =?utf-8?B?NUhvek5QWDBLSHVHL05rdloyc3A4c2VReHQ0KzA3ZmUyUVlQRytZTFV2NFll?=
- =?utf-8?B?ZXJrQWpvNTMzenhlTks1emdnTWdDb0ZxRmFrSUkxU2o2WXBURlJRdzV0aHlZ?=
- =?utf-8?B?dzJ6NE01eDZKSmhUU0VYNUpWMjMvazFkTDM1aFFkRU04RVFTMWVoWXJoSkVS?=
- =?utf-8?B?MDhpQnhQeUQzM0V6UmZLU2pZSGFxYkFha29FV1pyNWdrZXh4REUrR2JpUWNF?=
- =?utf-8?B?cWpTcTczZEFXd3FtOS8xWlhMY24rYTZEWkNHTm5tSmxHMVVIeEZNdlNDa0tk?=
- =?utf-8?B?OXZ0QlE0RWY0dFdNUHFidXlzaytTLzJqUlR4Y2I0Mkd5VjZETGh1K1pMYmF4?=
- =?utf-8?B?b2F6NDBxU0xHZXlSbGlpcitBSTVpV0lMTVhXZFgvL3ROZldHeUJ4eE9oc1lh?=
- =?utf-8?B?OUZaaml1QklueXEvSERtSEZuNllCV05YU2xvQXRrTXIyOXNtUmhhQzBjcTZM?=
- =?utf-8?B?TGZXbWM1L3AyaGxydVBnNytvVkJxRG1jR2JoSWdPLzJQTFRHZXg4U3k5Rytv?=
- =?utf-8?B?Z0Z5MnpPaXhxTkJWNlpLSTViRGNZZFNzYThudGlYNDNVeFVISFU5WENIcW5O?=
- =?utf-8?B?OWlFcCt2aVBWQ2Zrc1hlaTFtb1dBPT0=?=
+ ARA:13230040|36860700013|1800799024|82310400026|376014|7416014|921020; 
+X-Microsoft-Antispam-Message-Info: =?utf-8?B?MUNUYmh2MFhOV0gvMlFLMFpxSzZzeVA2SkswZU1RMzVEUTZoRlQ2OWpvNUpY?=
+ =?utf-8?B?RTJFUjZud3QvQ2pMUVMrUW9UUjJCWmp3NjVyd29WbzJkeC93Z3F6RCt5bWp1?=
+ =?utf-8?B?MFllMkpVZHZRRjBpeTJvTjJ5cWRzU1VTcGoyT0JBSXpwNFdCNTNDQW42RHNw?=
+ =?utf-8?B?N1p6d3JTSmlCTHJoaU90b1lyaVJxRG8xeWVqb3JKMlZQMk5wQStxYnZ5RWlR?=
+ =?utf-8?B?RDMzWEl6azRYZW4zRjI1OEFQSnQ0czlDdFFaeWN5WkdWbS9DdkJORERlS0p2?=
+ =?utf-8?B?dzVtYXJhU3NYT3hzcDRSUEkwbGhIR0VLUGJTckNWWHFTS3BiOTBOM0M0MXQy?=
+ =?utf-8?B?UmtuV3RNd3RIam02eTFMMmZPQ2Noc0UwczZBaUJyOFZZUkpQVzkvKzZVZzZN?=
+ =?utf-8?B?T0p0OGNwWHpZN1d3WmlTU3JjRHZnaGIzK3ZPVkVWeTZob1ZBcmN2MzNnZVhM?=
+ =?utf-8?B?ZFhOSUpDV2o0UW9VVkpHaUdjWVVDc2FsYTIzbzZrdW1xOC90WDM4V2ZyYlh3?=
+ =?utf-8?B?bzdEWDRMVEx0Z0pVVlljejdmNHFXdm1vN2dEQmhORllueUdwSjBVblEyTTBM?=
+ =?utf-8?B?ZFFiUDVVZkRLSnRJSDNlV21ENnA4Wm96a1phbXBkb3A3c0pLYzYyOHR4UmJ6?=
+ =?utf-8?B?dE5OYkIyTjFQbkpPV2dIYVpubFhpVlhkanc2cWU2MlIxMGFKODB2MmVzaEtu?=
+ =?utf-8?B?d3RIOWlQT2p3bTkrZUk4bkR3Zm1tYjZGWVYvSjFuK2pOQTJNa1B1eVRFNkE1?=
+ =?utf-8?B?bTRsN0F5WXBHWWVHTHc1QjE5Z3g3Zk1ldEhxS0NDNjl3eUFjS3RUMi9ONHFo?=
+ =?utf-8?B?MUlRdytsTXZvMUpkUEQ4NkdORmhXMkdSMmZZZTNia0duQ083UDZVS1cxcm1M?=
+ =?utf-8?B?WmJkOHQ1Skc5eW51bC9IMnIwSFRWVU5ROXFoaGtSbGh0RTlYS29QdkF6Ymhu?=
+ =?utf-8?B?TkoxS25wNVp3Yy9RTE9QUlFhb1JlbkZJSWREWEtWaGtqREROMW1WMFdqVEpM?=
+ =?utf-8?B?N1FNblRjanE3cStVRmE3TWRmNUtQeWpldWZiNnE0djVsdml2L0gzcWE0NFMz?=
+ =?utf-8?B?MU1NOUtBaGtjV2FNcGlFRkE2KzlQVjlNOUFjSnFEWkRobFhzOGlGdWxWTkhY?=
+ =?utf-8?B?RE5iQ21rbFFFd050M2Nka2ZDYXFscGF4bkVQdmQ1QkNTZkxyOW14L28xenFr?=
+ =?utf-8?B?ODdvdEd1UGdvRFFvS2RhLzI1TjlaaDBxRVlkT3BFVGpFVG5DRktDME8xV3dV?=
+ =?utf-8?B?SlRvaGRpRmV1bkRsZndkVlRWQldHc0RuWVk5MmRHakxIMGlhRXVTZ1RYNFZX?=
+ =?utf-8?B?VXhvQWFsZTZmZ1RPdjF3L0w5YjZFaGlacnNIbllaYWd2dE5LcWFUMkNLNnZD?=
+ =?utf-8?B?cERoS2JOR0FyMnl6d05mQ1VBRGJrSjQ4aFdEdTBQMDBqN0pxVFZTN2liT2Fk?=
+ =?utf-8?B?a3ViTmRTVDR6ZUVVVllBNzByTVVXdDdDMVJpS2syOFg3Y1BWVXJBemtCRWZM?=
+ =?utf-8?B?T2xnMlRacnAvY0hISFZLNGREbExQWmRWRHZRN1hsa2hocVNWNFVoM3M3VWNW?=
+ =?utf-8?B?WkM2UWlKNGRYRStkdm9FUHhqcWZ6TytvcjhidWpuemdQWk5nWUdyQlRaR0Nt?=
+ =?utf-8?B?dzJtbEpjbDZVYVF0SmZtUm53MzRXUDdFZktXdnJUTUZuWWt2Ni95amtBN2VX?=
+ =?utf-8?B?WjBUaktTVWFHUFN4VGJNcm9KMEkxbDl6Y0gxUlFGT0tKeURCMW9zTjRQTnM3?=
+ =?utf-8?B?RXJNNHFhUU56dk9OSnNEcm5vSTh4N2Q3a0ZCQm9sRk1oMkZZcVdQdmRPd0Y0?=
+ =?utf-8?B?cnF1UjlVcDA2bkJ5YWtiaWh5OTFRQjMwNDN0UDlRVklNMTRzdUFNd1JZZ2FG?=
+ =?utf-8?B?Wk1aWkVrREs4R2psYy9CUk9JQkJJaTFMQUJoN0dGeXhlRkU3amFIcHlOM2Rq?=
+ =?utf-8?B?T2JFdDdhaUd3Kyt5RGd4ZWVyRGpDYkcvZDIvMVBxS05Nc2FpLzhaR3B5SjF3?=
+ =?utf-8?B?Qit5RTQ5OHdHWlF1dXd2MHpTSmt4Y2VTR2xoTXZUMEgvNDQwaHlQRVRFd2lP?=
+ =?utf-8?B?WWV3eHVpZEgvMWd3WUZGZDNnRjRid0kxVmpuMkhkRG5YdVpkYTVtYzZXWGxm?=
+ =?utf-8?B?bDR5UmhqeDNaV0V4VU1EdDE4TUN5clhrYWlRVUdZdFAxdGxOR2pXSW81Ulg4?=
+ =?utf-8?Q?WfaiEQRiOvk3JqGwgQigKggQGxbjaAKgvPB5ZCP29UB9?=
 X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(82310400026)(36860700013)(1800799024); DIR:OUT;
- SFP:1101; 
+ SFS:(13230040)(36860700013)(1800799024)(82310400026)(376014)(7416014)(921020);
+ DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: kI9qaMb/mzVGJdWStHh1/1iwVta2wfGzppF1U82M5xIAHgiz2la17ND9qnmGR9IKizPKiQ0y0347ZwbgGv+vgPcnMA7p/IfJ8LZHyU7h8ey/UEG6163boaOuq7f5aZZEAm0gB3Q/UzJtGewaXwuBwD/lUf8hANS9L4QOyqvRofIaH/qJzrMfIPaPSjkVdgtJl3WfG+U7s5KMEk39lincUybr1fuyubH1M3FATn57qRipkXH5jwyjFXpsLdFiMm8Rkf3exmYgIyrcvD3qxlwsw3he6OrByIS5hKR36X1y/+moUIC7R4r14svPffSmYVYwYSaDKudXmGwHixl7DZyv5YGPizaG3G7Q1SWsIO9YwHxtokTgmjNYeD1ulHstRf+RQ4a36bGV34xtOkAc7uYuS1aIP6cbaEJhvGs+csehM1dauAD6M+nwO27D/hhfDzUQ
+X-MS-Exchange-AntiSpam-MessageData-0: JYW4cUSWgXk1fnh4d1k6UPyZcDELrdNvX2b4IpeBoEJq4CrEQqYVzBEiQsjtNP8AAc78HJAQcAnFb+Wr8QoWLLqsopHI+hE+1SnajEW2RXMB7R5RXhKrv3PMV24mW1VwK0/wdqxdWRfkqy7jTsxtRp0gzHv5Nsmiw8tZYsW5dV97IghOQk5C7lqCdsLjT7GT26VpM6qXr8okEn0V9ng3GXwTanVIDgeZTstmSK0R8/C4BUh4VnIXzS68wk8TRIfqVZ1qUZIFg4L+5gIYvqgXoSScM7RAuCohH7KLF3FDqNhg5vuJua2AUWQnBrR8sgFGR457yzNVy0wQZZyW2Ws3p/fjSP4r+Dt5DivUs8rL9XTCj9WbeRUyC3giVHAcpbwWID95H9Ge7LLnwZXc68PecFaytGERrXRJbHjrNg1EtuIX1ww29UM8BRnFxSvupB4P
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2026 12:53:07.7513 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c56f6251-7023-4016-6513-08de696c8137
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2026 13:17:15.2147 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 85f1d529-ec4b-4f06-417f-08de696fdff8
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DC.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000091.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5180
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- stable@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] media: stm32: csi: correct remote pad
-	retrieval
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8484
+Cc: Pascal Paillet <p.paillet@foss.st.com>,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 13/15] arm64: dts: st: add pinctrl
+ nodes on stm32mp21
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -163,78 +165,228 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:antonio.borneo@foss.st.com,m:linus.walleij@linaro.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-gpio@vger.kernel.org,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:p.paillet@foss.st.com,m:legoffic.clement@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:legofficclement@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:hverkuil@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:stable@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-media@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
+	FREEMAIL_TO(0.00)[foss.st.com,linaro.org,kernel.org,gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	GREYLIST(0.00)[pass,meta];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st.com:email,foss.st.com:mid];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[foss.st.com,gmail.com];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	HAS_XOIP(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 91FAF1248E7
+X-Rspamd-Queue-Id: 76335124AFA
 X-Rspamd-Action: no action
 
-The function media_entity_get_fwnode_pad is called in order to
-retrieve the remote pad, which is the source of the CSI.
-However this function is expecting the sensor endpoint fwnode
-and not sensor device fwnode as it is currently given.
-Correct this by properly relying on the notified matched fwnode
-data instead of the subdev entity fwnode.
 
-Cc: stable@kernel.org
-Fixes: dcb0f4c16be5 ("media: stm32: csi: addition of the STM32 CSI driver")
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- drivers/media/platform/st/stm32/stm32-csi.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
-index fd2b6dfbd44c..ecd0ed8e76b5 100644
---- a/drivers/media/platform/st/stm32/stm32-csi.c
-+++ b/drivers/media/platform/st/stm32/stm32-csi.c
-@@ -825,7 +825,7 @@ static int stm32_csi_async_bound(struct v4l2_async_notifier *notifier,
- 	int remote_pad;
- 
- 	remote_pad = media_entity_get_fwnode_pad(&s_subdev->entity,
--						 s_subdev->fwnode,
-+						 asd->match.fwnode,
- 						 MEDIA_PAD_FL_SOURCE);
- 	if (remote_pad < 0) {
- 		dev_err(csidev->dev, "Couldn't find output pad for subdev %s\n",
+On 11/18/25 17:19, Antonio Borneo wrote:
+> Update the device-tree stm32mp211.dtsi to add the nodes for pinctrl.
+> 
+> Signed-off-by: Antonio Borneo <antonio.borneo@foss.st.com>
+> ---
+>  arch/arm64/boot/dts/st/stm32mp211.dtsi | 142 +++++++++++++++++++++++++
+>  1 file changed, 142 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp211.dtsi b/arch/arm64/boot/dts/st/stm32mp211.dtsi
+> index 4bdf4b3a39829..fd561a85027c3 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp211.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp211.dtsi
+> @@ -3,6 +3,7 @@
+>   * Copyright (C) STMicroelectronics 2025 - All Rights Reserved
+>   * Author: Alexandre Torgue <alexandre.torgue@foss.st.com> for STMicroelectronics.
+>   */
+> +#include <dt-bindings/clock/st,stm32mp21-rcc.h>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>  
+>  / {
+> @@ -205,6 +206,124 @@ syscfg: syscon@44230000 {
+>  			reg = <0x44230000 0x0 0x10000>;
+>  		};
+>  
+> +		pinctrl: pinctrl@44240000 {
+> +			bootph-all;
 
----
-base-commit: c824345288d11e269ce41b36c105715bc2286050
-change-id: 20260211-stm32-csi-pad-retrieval-fix-3a100e671f97
+After a discussion with Alex, it's preferable to add bootph-* properties in board file instead of SoC files.
+as done in this series :
+https://lore.kernel.org/linux-arm-kernel/20260203-upstream_uboot_properties-v6-0-0a2280e84d31@foss.st.com/
 
-Best regards,
--- 
-Alain Volmat <alain.volmat@foss.st.com>
+Thanks
+Patrice
+
+
+> +			compatible = "st,stm32mp215-pinctrl";
+> +			ranges = <0 0x44240000 0x80400>;
+> +			interrupt-parent = <&exti1>;
+> +			st,syscfg = <&exti1 0x60 0xff>;
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +
+> +			gpioa: gpio@44240000 {
+> +				bootph-all;
+> +				reg = <0x0 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOA>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOA";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpiob: gpio@44250000 {
+> +				bootph-all;
+> +				reg = <0x10000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOB>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOB";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpioc: gpio@44260000 {
+> +				bootph-all;
+> +				reg = <0x20000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOC>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOC";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpiod: gpio@44270000 {
+> +				bootph-all;
+> +				reg = <0x30000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOD>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOD";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpioe: gpio@44280000 {
+> +				bootph-all;
+> +				reg = <0x40000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOE>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOE";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpiof: gpio@44290000 {
+> +				bootph-all;
+> +				reg = <0x50000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOF>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOF";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpiog: gpio@442a0000 {
+> +				bootph-all;
+> +				reg = <0x60000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOG>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOG";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpioh: gpio@442b0000 {
+> +				bootph-all;
+> +				reg = <0x70000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOH>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOH";
+> +				status = "disabled";
+> +			};
+> +
+> +			gpioi: gpio@442c0000 {
+> +				bootph-all;
+> +				reg = <0x80000 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOI>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOI";
+> +				status = "disabled";
+> +			};
+> +		};
+> +
+>  		exti2: interrupt-controller@442d0000 {
+>  			compatible = "st,stm32mp1-exti", "syscon";
+>  			reg = <0x442d0000 0x0 0x400>;
+> @@ -267,6 +386,29 @@ exti2: interrupt-controller@442d0000 {
+>  				<&intc GIC_SPI 204 IRQ_TYPE_LEVEL_HIGH>;
+>  		};
+>  
+> +		pinctrl_z: pinctrl@46200000 {
+> +			bootph-all;
+> +			compatible = "st,stm32mp215-z-pinctrl";
+> +			ranges = <0 0x46200000 0x400>;
+> +			interrupt-parent = <&exti1>;
+> +			st,syscfg = <&exti1 0x60 0xff>;
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +
+> +			gpioz: gpio@46200000 {
+> +				bootph-all;
+> +				reg = <0 0x400>;
+> +				clocks = <&scmi_clk CK_SCMI_GPIOZ>;
+> +				gpio-controller;
+> +				#gpio-cells = <2>;
+> +				interrupt-controller;
+> +				#interrupt-cells = <2>;
+> +				st,bank-name = "GPIOZ";
+> +				st,bank-ioport = <11>;
+> +				status = "disabled";
+> +			};
+> +		};
+> +
+>  		intc: interrupt-controller@4ac10000 {
+>  			compatible = "arm,gic-400";
+>  			reg = <0x4ac10000 0x0 0x1000>,
 
 _______________________________________________
 Linux-stm32 mailing list
