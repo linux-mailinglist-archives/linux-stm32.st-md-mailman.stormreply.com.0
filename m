@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SC3JEUgcjWnjzAAAu9opvQ
+	id aHA+JVQcjWnjzAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Feb 2026 01:18:16 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Feb 2026 01:18:28 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 26685128975
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Feb 2026 01:18:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D575128999
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Feb 2026 01:18:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2F25C5A4C5;
-	Thu, 12 Feb 2026 00:18:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F3A63C5A4C5;
+	Thu, 12 Feb 2026 00:18:27 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0B4FFC555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32271C555BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Feb 2026 00:18:15 +0000 (UTC)
+ Thu, 12 Feb 2026 00:18:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=b4+wi1Keu3e9oZccLPlt1NgUt68FItsUTzsLxnrDVJg=; b=aN11oyG/dAlbSw2zndj+D8oeb1
- fAPhz5nKArnTijO6aYRsHzy1fNOsDN6W2sKuG9cxN+KDf5t3Qq9RrySsTvJm8zXUFrBdLc8T30bcU
- Vexox/C19EeLItVvzx5B99XYjXpOvOe+OSprx8zVLDYvcjtz2ftsdXd2H0aiMxt/HZr2qKfEHnu1p
- 0QK5EPb4PwRoSEnFfdoPXgUfcn4m4R5OlW2yomfUHhJll9Hhatnp8oAXRoV3ehScYu0F9O1XRUW6Y
- Ck/8jWdIsYHNgC+rjcqNPABsOqJDni66sibb6/2ytJSVZS9EGxuJiT4Q8O5TGAxE0EljfZJwo6ivi
- s8R60/tw==;
+ bh=JwWbitH+GuPwOyvwgJ9+eScrVUE1z9CKi71LbQpX4Fg=; b=Axjaxrp6i2/OcAON1LZ4WLe03g
+ 6PWUfBYUg6MdDT81/o08qikMmNVNuZDk9aLVx1L4ste7hO4HaQ8b8NF5JONmmUGsLSooNlRKGfxLq
+ m+gnnUGk4tuJPpJvpNynkmoyf8X7RhMJZ/qciHx2iq7FD4JijQ4ygC8jAB1xZRsEeVZ4FyM/IKM2v
+ WRIdypSOse5DR/tH/emjx9RTWDyjo3zv5U6H3wNv2u0AuzQ8gvOLDiWB5eM+IM5FZEB8oDEfxiJLv
+ wIoCGGm+I4J7sN0PmCpAiDu1AYQa3hSyucxWYtcFO2U1FdQ/KsqcAs4VJPf1EEV0wWXTFmQnejQYo
+ rM3KPa4w==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48776 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48778 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vqKPD-000000003pH-0VLu;
- Thu, 12 Feb 2026 00:18:03 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vqKPJ-000000003pa-1L1B;
+ Thu, 12 Feb 2026 00:18:09 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vqKPB-000000093mT-1lwv; Thu, 12 Feb 2026 00:18:01 +0000
+ id 1vqKPG-000000093mZ-2CL3; Thu, 12 Feb 2026 00:18:06 +0000
 In-Reply-To: <aY0aJppQWUC52OUq@shell.armlinux.org.uk>
 References: <aY0aJppQWUC52OUq@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vqKPB-000000093mT-1lwv@rmk-PC.armlinux.org.uk>
-Date: Thu, 12 Feb 2026 00:18:01 +0000
+Message-Id: <E1vqKPG-000000093mZ-2CL3@rmk-PC.armlinux.org.uk>
+Date: Thu, 12 Feb 2026 00:18:06 +0000
 Cc: imx@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
  Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
@@ -55,8 +55,8 @@ Cc: imx@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next 4/9] net: stmmac: qcom-ethqos:
- move qcom_ethqos_set_sgmii_loopback() up
+Subject: [Linux-stm32] [PATCH RFC net-next 5/9] net: stmmac: qcom-ethqos:
+ move loopback disable to .mac_finish()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,60 +107,65 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 26685128975
+X-Rspamd-Queue-Id: 3D575128999
 X-Rspamd-Action: no action
 
-ethqos_set_func_clk_en() configures both SGMII loopback and the RGMII
-functional clock setting. qcom_ethqos_set_sgmii_loopback() is only
-called from within ethqos_set_func_clk_en(), and checks for
-PHY_INTERFACE_MODE_2500BASEX.
+Loopback is enabled to allow the dwmac soft reset to succeed. This
+is enabled when clocks are enabled in ethqos_clks_config(), which
+happens at driver probe and runtime PM resume - e.g. when the
+network device is administratively brought up.
 
-Move qcom_ethqos_set_sgmii_loopback() to the callers of
-ethqos_set_func_clk_en() except for ethqos_configure_rgmii() where we
-know that ethqos->phy_mode will not be PHY_INTERFACE_MODE_2500BASEX.
+Currently, the loopback is disabled when the link comes up (via
+.mac_link_up() calling this driver's .fix_mac_speed().)
+
+Move the qcom_ethqos_set_sgmii_loopback() call which disables
+loopback from ethqos_fix_mac_speed() into ethqos' SerDes specific
+.mac_finish() method so that loopback is disabled a little earlier
+after reset has completed, and dwmac setup has completed.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 168f0fed68c0..964eca46a653 100644
+index 964eca46a653..bd5d3bf90400 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -204,7 +204,6 @@ qcom_ethqos_set_sgmii_loopback(struct qcom_ethqos *ethqos, bool enable)
- 
- static void ethqos_set_func_clk_en(struct qcom_ethqos *ethqos)
+@@ -647,7 +647,6 @@ static void ethqos_fix_mac_speed(void *priv, int speed, unsigned int mode)
  {
--	qcom_ethqos_set_sgmii_loopback(ethqos, true);
- 	rgmii_setmask(ethqos, RGMII_CONFIG_FUNC_CLK_EN, RGMII_IO_MACRO_CONFIG);
+ 	struct qcom_ethqos *ethqos = priv;
+ 
+-	qcom_ethqos_set_sgmii_loopback(ethqos, false);
+ 	ethqos_update_link_clk(ethqos, speed);
+ 	ethqos_configure(ethqos, speed);
+ }
+@@ -684,6 +683,17 @@ static void qcom_ethqos_serdes_powerdown(struct net_device *ndev, void *priv)
+ 	phy_exit(ethqos->serdes_phy);
  }
  
-@@ -532,6 +531,7 @@ static void ethqos_configure_rgmii(struct qcom_ethqos *ethqos, int speed)
- 	for (i = 0; i < ethqos->num_rgmii_por; i++)
- 		rgmii_writel(ethqos, ethqos->rgmii_por[i].value,
- 			     ethqos->rgmii_por[i].offset);
++static int ethqos_mac_finish_serdes(struct net_device *ndev, void *priv,
++				    unsigned int mode,
++				    phy_interface_t interface)
++{
++	struct qcom_ethqos *ethqos = priv;
 +
- 	ethqos_set_func_clk_en(ethqos);
- 
- 	/* Initialize the DLL first */
-@@ -701,6 +701,7 @@ static int ethqos_clks_config(void *priv, bool enabled)
- 		 * cycled. The actual configuration will be adjusted once
- 		 * ethqos_fix_mac_speed() is invoked.
- 		 */
-+		qcom_ethqos_set_sgmii_loopback(ethqos, true);
- 		ethqos_set_func_clk_en(ethqos);
- 	} else {
- 		clk_disable_unprepare(ethqos->link_clk);
-@@ -809,6 +810,8 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 
- 	ethqos->serdes_speed = SPEED_1000;
- 	ethqos_update_link_clk(ethqos, SPEED_1000);
++	qcom_ethqos_set_sgmii_loopback(ethqos, false);
 +
-+	qcom_ethqos_set_sgmii_loopback(ethqos, true);
- 	ethqos_set_func_clk_en(ethqos);
- 
- 	plat_dat->bsp_priv = ethqos;
++	return 0;
++}
++
+ static int ethqos_clks_config(void *priv, bool enabled)
+ {
+ 	struct qcom_ethqos *ethqos = priv;
+@@ -770,6 +780,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	case PHY_INTERFACE_MODE_2500BASEX:
+ 	case PHY_INTERFACE_MODE_SGMII:
+ 		ethqos->configure_func = ethqos_configure_sgmii;
++		plat_dat->mac_finish = ethqos_mac_finish_serdes;
+ 		break;
+ 	default:
+ 		dev_err(dev, "Unsupported phy mode %s\n",
 -- 
 2.47.3
 
