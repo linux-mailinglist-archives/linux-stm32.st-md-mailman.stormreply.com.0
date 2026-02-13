@@ -2,70 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eELvNyUOjmmS+wAAu9opvQ
+	id Fj6KBcGTjmmVDAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Feb 2026 18:30:13 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Feb 2026 04:00:17 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DEB712FED1
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Feb 2026 18:30:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 99FF5132816
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Feb 2026 04:00:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD0DDC87ED3;
-	Thu, 12 Feb 2026 17:30:12 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39D2BC87EDC;
+	Fri, 13 Feb 2026 03:00:16 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1EB85C87ED2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D48EC87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Feb 2026 17:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1770917411; x=1802453411;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=XBOcgJBc1RSlYmqobhoDkxo7B2GCI8X28c2EJGVXf2M=;
- b=HFZ0UwO2s3DufT3dmoaH8c5MdCTK+TLfVObL5IkjioQ25CtO2Lpd0vh9
- U0BeJmNrbLMbxkPDlc8hP2eGIUXe9Gi7HZic4sAhZS6ed2VkZgsd9GCJS
- ckN66rCqwpsCp0HOuSu3zXbIcZxP5gfNUn11AYW9Hgc/YS8igwe8uRQe1
- u8IApne72ONQMGZRCvbBmLVSxuHnt56L1W999hneSoQIezXcJMFWuVvI+
- Oi/HrFTANep8BowGDBb7PE/BoJ2WxGADpAfCfqDZXJxxRX2PVPhlYheLI
- QljO+4s/mO8XS3gA6aUiKQwYAnpUKYwAKDUqUYH6Y8iNcivSPQpu6IWLh w==;
-X-CSE-ConnectionGUID: eV6BANQlT26KikD3ifYYRg==
-X-CSE-MsgGUID: 4+ZLn9zrQ/6AUGWz11ci1w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11699"; a="71124773"
-X-IronPort-AV: E=Sophos;i="6.21,287,1763452800"; d="scan'208";a="71124773"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 12 Feb 2026 09:30:09 -0800
-X-CSE-ConnectionGUID: vokpPQzjS12/nvQhQb0tIA==
-X-CSE-MsgGUID: xGkuYLYkQLemyQ69LEKpyg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,287,1763452800"; d="scan'208";a="243258862"
-Received: from lkp-server01.sh.intel.com (HELO 765f4a05e27f) ([10.239.97.150])
- by orviesa002.jf.intel.com with ESMTP; 12 Feb 2026 09:30:06 -0800
-Received: from kbuild by 765f4a05e27f with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vqaVv-00000000rwq-1LsJ;
- Thu, 12 Feb 2026 17:30:03 +0000
-Date: Fri, 13 Feb 2026 01:29:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>
-Message-ID: <202602130151.3v3igg2M-lkp@intel.com>
-References: <20260212-stm32_risab-v2-3-02ef2859b596@foss.st.com>
+ Fri, 13 Feb 2026 03:00:14 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4FB086091C;
+ Fri, 13 Feb 2026 03:00:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BEDC4CEF7;
+ Fri, 13 Feb 2026 03:00:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1770951612;
+ bh=5ZSl2pzWhiB6N4VZMYvSeGipvdIFBBlDtOiOeOJ5RDU=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=konDU/TfJYyklZA52QAaVg05izA4Q2bja597l5d9mwicKHUkYOt0hdXOIF9QFcvXO
+ D8QnOQOMuIVDU46HCCq4Ovtp8rxQVbC5BQxRnFLyFt8UwvnmWhn4cWZCTRwEiCx4Dl
+ HSg2KnOISqjDEIN3liZ65jPTQlmtfZ6bBdUMh8Ts2rY0Gl2BoekoyaYmPZn025upzL
+ ENNC0FnN7fT9YtwXy+h7APYiIYtstdAE89HP6GAtei2XmpkMeG6vgvQzYEyrOAqm7N
+ QnCif+Bgni7lXIn6LbziaCol5BCCelN4u+q23zujlv0eJ3xGu1qhJiHrUduRStu8SR
+ rC5uJbjvpq3wQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 483323931095; Fri, 13 Feb 2026 03:00:07 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260212-stm32_risab-v2-3-02ef2859b596@foss.st.com>
-Cc: devicetree@vger.kernel.org, llvm@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
- oe-kbuild-all@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <177095160583.1822665.14143768748258402663.git-patchwork-notify@kernel.org>
+Date: Fri, 13 Feb 2026 03:00:05 +0000
+References: <20260209225037.589130-1-jie.zhang@analog.com>
+In-Reply-To: <20260209225037.589130-1-jie.zhang@analog.com>
+To: Jie Zhang <jzhang918@gmail.com>
+Cc: Jose.Abreu@synopsys.com, linux-kernel@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, jie.zhang@analog.com, horms@kernel.org,
+ vladimir.oltean@nxp.com, jacob.e.keller@intel.com, kuba@kernel.org,
+ pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 3/9] bus: rifsc: use new
- CONFIG_STM32_FIREWALL_DEBUG switch
+Subject: Re: [Linux-stm32] [PATCH net v3] net: stmmac: fix oops when split
+	header is enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,98 +68,83 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:robh@kernel.org,m:krzk@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:devicetree@vger.kernel.org,m:llvm@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-clk@vger.kernel.org,m:oe-kbuild-all@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:jzhang918@gmail.com,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:jie.zhang@analog.com,m:horms@kernel.org,m:vladimir.oltean@nxp.com,m:jacob.e.keller@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[netdevbpf];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com,baylibre.com];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lunn.ch,google.com,analog.com,kernel.org,nxp.com,intel.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[01.org:url,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 7DEB712FED1
+	FROM_NO_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 99FF5132816
 X-Rspamd-Action: no action
 
-Hi Gatien,
+Hello:
 
-kernel test robot noticed the following build warnings:
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-[auto build test WARNING on 05f7e89ab9731565d8a62e3b5d1ec206485eeb0b]
+On Mon,  9 Feb 2026 17:50:32 -0500 you wrote:
+> For GMAC4, when split header is enabled, in some rare cases, the
+> hardware does not fill buf2 of the first descriptor with payload.
+> Thus we cannot assume buf2 is always fully filled if it is not
+> the last descriptor. Otherwise, the length of buf2 of the second
+> descriptor will be calculated wrong and cause an oops:
+> 
+> Unable to handle kernel paging request at virtual address ffff00019246bfc0
+> ...
+> x2 : 0000000000000040 x1 : ffff00019246bfc0 x0 : ffff00009246c000
+> Call trace:
+>  dcache_inval_poc+0x28/0x58 (P)
+>  dma_direct_sync_single_for_cpu+0x38/0x6c
+>  __dma_sync_single_for_cpu+0x34/0x6c
+>  stmmac_napi_poll_rx+0x8f0/0xb60
+>  __napi_poll.constprop.0+0x30/0x144
+>  net_rx_action+0x160/0x274
+>  handle_softirqs+0x1b8/0x1fc
+> ...
+> 
+> [...]
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Gatien-Chevallier/dt-bindings-bus-document-the-RISAB-firewall-peripheral/20260212-182006
-base:   05f7e89ab9731565d8a62e3b5d1ec206485eeb0b
-patch link:    https://lore.kernel.org/r/20260212-stm32_risab-v2-3-02ef2859b596%40foss.st.com
-patch subject: [PATCH v2 3/9] bus: rifsc: use new CONFIG_STM32_FIREWALL_DEBUG switch
-config: loongarch-randconfig-002-20260212 (https://download.01.org/0day-ci/archive/20260213/202602130151.3v3igg2M-lkp@intel.com/config)
-compiler: clang version 22.0.0git (https://github.com/llvm/llvm-project 9b8addffa70cee5b2acc5454712d9cf78ce45710)
-rustc: rustc 1.88.0 (6b00bc388 2025-06-23)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260213/202602130151.3v3igg2M-lkp@intel.com/reproduce)
+Here is the summary with links:
+  - [net,v3] net: stmmac: fix oops when split header is enabled
+    https://git.kernel.org/netdev/net/c/babab1b42ed6
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202602130151.3v3igg2M-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/bus/stm32_rifsc.c:436:21: warning: attribute declaration must precede definition [-Wignored-attributes]
-     436 | static const struct __maybe_unused stm32_rifsc_resources_names rifsc_mp21_res_names = {
-         |                     ^
-   include/linux/compiler_attributes.h:343:56: note: expanded from macro '__maybe_unused'
-     343 | #define __maybe_unused                  __attribute__((__unused__))
-         |                                                        ^
-   drivers/bus/stm32_rifsc.c:424:8: note: previous definition is here
-     424 | struct stm32_rifsc_resources_names {
-         |        ^
-   drivers/bus/stm32_rifsc.c:441:21: warning: attribute declaration must precede definition [-Wignored-attributes]
-     441 | static const struct __maybe_unused stm32_rifsc_resources_names rifsc_mp25_res_names = {
-         |                     ^
-   include/linux/compiler_attributes.h:343:56: note: expanded from macro '__maybe_unused'
-     343 | #define __maybe_unused                  __attribute__((__unused__))
-         |                                                        ^
-   drivers/bus/stm32_rifsc.c:424:8: note: previous definition is here
-     424 | struct stm32_rifsc_resources_names {
-         |        ^
-   2 warnings generated.
-
-
-vim +436 drivers/bus/stm32_rifsc.c
-
-   435	
- > 436	static const struct __maybe_unused stm32_rifsc_resources_names rifsc_mp21_res_names = {
-   437		.device_names = stm32mp21_rifsc_risup_names,
-   438		.initiator_names = stm32mp21_rifsc_rimu_names,
-   439	};
-   440	
-
+You are awesome, thank you!
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
