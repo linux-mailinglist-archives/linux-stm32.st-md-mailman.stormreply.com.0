@@ -2,64 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ONupBhigj2kuSAEAu9opvQ
+	id qOpWG/DJj2ndTgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Feb 2026 23:05:12 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Feb 2026 02:03:44 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6098139B59
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Feb 2026 23:05:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A70513A4A7
+	for <lists+linux-stm32@lfdr.de>; Sat, 14 Feb 2026 02:03:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3C059C1A97C;
-	Fri, 13 Feb 2026 22:05:11 +0000 (UTC)
-Received: from metis.whiteo.stw.pengutronix.de
- (metis.whiteo.stw.pengutronix.de [185.203.201.7])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AA91EC87EDC;
+	Sat, 14 Feb 2026 01:03:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8A47C01FBF
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B2EAC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Feb 2026 22:05:10 +0000 (UTC)
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
- by metis.whiteo.stw.pengutronix.de with esmtps
- (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
- (envelope-from <mfe@pengutronix.de>)
- id 1vr1HO-0005gD-9k; Fri, 13 Feb 2026 23:04:50 +0100
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
- by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <mfe@pengutronix.de>) id 1vr1HL-000e8h-0S;
- Fri, 13 Feb 2026 23:04:48 +0100
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
- (envelope-from <mfe@pengutronix.de>) id 1vr1HM-000000008cL-1XIN;
- Fri, 13 Feb 2026 23:04:48 +0100
-Date: Fri, 13 Feb 2026 23:04:48 +0100
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Sumit Garg <sumit.garg@kernel.org>
-Message-ID: <252s4lfnujhrl3bkqm3xwatdkcdd3tfge3e6fla6f2llq4szjm@xltjvpqjgffn>
-References: <20250325200740.3645331-1-m.felsch@pengutronix.de>
- <Z-Pc6C1YUqLyej3Z@casper.infradead.org>
- <20250326110718.qzbwpmaf6xlcb4xf@pengutronix.de>
- <CAHUa44FUK_73oKSaqGdiPqB3geZbTNDFsC1Mh=KN3YPWr9=7gQ@mail.gmail.com>
- <Z-TXMIXzaro0w60M@sumit-X1>
- <CAHUa44HEsMkzQHZZufdwutQyZRtig6e0qWomhwgDZAhy2qDyhg@mail.gmail.com>
- <20260212125830.jfwos3flga2l5uwk@pengutronix.de>
- <aY8N90jMp25bBZhi@sumit-xelite>
+ Sat, 14 Feb 2026 01:03:42 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3690760140;
+ Sat, 14 Feb 2026 01:03:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFA34C116C6;
+ Sat, 14 Feb 2026 01:03:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1771031020;
+ bh=7oaLobErMN+TqGfRqdKOgM0ev89zKKixrOyBKVO11YY=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=jGJbC/McbabnXVMb/Zb7aN5nhUu7eH98WB/EZ9OdLsMZDIFM6wCmxkPWWSZM+CW3F
+ NHySveadHLrGcTf4JzxG4B2F0FX87xLhnQJasMEFKyyh+XULLwASQ3qIQH/jXfsDme
+ 5H9sK2/DcPwlTZq0mGpg55HdJn2TRZ4Oe3oDZ8oKSTK/8bcmB1ur8xuB/coQfXypa4
+ SSs73x4CPktLV+gDJhDzfS5e1OtzBuPDx61exnNtN4ArUgazCtFRdho6bLKnIq7lRI
+ 5swWxVkmLAShzIxBXy+2ggbSaUEYy/on7GajOzlys77ysn7vMFXeKV1uXFth+ZqKx7
+ h9MRbg63UpAgA==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Date: Fri, 13 Feb 2026 19:58:26 -0500
+Message-ID: <20260214010245.3671907-26-sashal@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260214010245.3671907-1-sashal@kernel.org>
+References: <20260214010245.3671907-1-sashal@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aY8N90jMp25bBZhi@sumit-xelite>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de);
- SAEximRunCond expanded to false
-X-PTX-Original-Recipient: linux-stm32@st-md-mailman.stormreply.com
-Cc: spu@pengutronix.de, linux-efi@vger.kernel.org, mcoquelin.stm32@gmail.com,
- jan.kiszka@siemens.com, ilias.apalodimas@linaro.org,
- linux-kernel@vger.kernel.org, Matthew Wilcox <willy@infradead.org>,
- linux-stm32@st-md-mailman.stormreply.com, op-tee@lists.trustedfirmware.org,
- linux-arm-kernel@lists.infradead.org, kernel@pengutronix.de,
- masahisa.kojima@linaro.org, akpm@linux-foundation.org,
- Jens Wiklander <jens.wiklander@linaro.org>, vbabka@suse.cz
-Subject: Re: [Linux-stm32] [PATCH v2] tee: shm: fix slab page refcounting
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.19
+Cc: Sasha Levin <sashal@kernel.org>, Deepak Kumar <deepak.kumar01@st.com>,
+ linux-spi@vger.kernel.org, Mark Brown <broonie@kernel.org>,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.19-5.15] spi: stm32: fix Overrun
+	issue at < 8bpw
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,111 +62,190 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.79 / 15.00];
+X-Spamd-Result: default: False [5.89 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[m.felsch@pengutronix.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:sumit.garg@kernel.org,m:spu@pengutronix.de,m:linux-efi@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:jan.kiszka@siemens.com,m:ilias.apalodimas@linaro.org,m:linux-kernel@vger.kernel.org,m:willy@infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:op-tee@lists.trustedfirmware.org,m:linux-arm-kernel@lists.infradead.org,m:kernel@pengutronix.de,m:masahisa.kojima@linaro.org,m:akpm@linux-foundation.org,m:jens.wiklander@linaro.org,m:vbabka@suse.cz,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	DMARC_NA(0.00)[pengutronix.de];
-	ARC_NA(0.00)[];
-	FREEMAIL_CC(0.00)[pengutronix.de,vger.kernel.org,gmail.com,siemens.com,linaro.org,infradead.org,st-md-mailman.stormreply.com,lists.trustedfirmware.org,lists.infradead.org,linux-foundation.org,suse.cz];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[m.felsch@pengutronix.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:patches@lists.linux.dev,m:stable@vger.kernel.org,m:sashal@kernel.org,m:deepak.kumar01@st.com,m:linux-spi@vger.kernel.org,m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,st.com,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[sashal@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sashal@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: A6098139B59
+	RCPT_COUNT_SEVEN(0.00)[9];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 0A70513A4A7
 X-Rspamd-Action: no action
 
-Hi Sumit,
-
-On 26-02-13, Sumit Garg wrote:
-> Hi Marco,
-> 
-> On Thu, Feb 12, 2026 at 01:58:30PM +0100, Marco Felsch wrote:
-> > Hi Sumit,
-> > 
-> > TBH: I was hoping that you will take care of this since you're marked as
-> > maintainer for the tee-trusted-key and we noticed the warning with 6.14
-> > and still no fix available :/
-> 
-> Mathew did suggested a fix long back on which everybody agreed but
-
-You agreed. I said that the current TEE API also allows non-slabed based
-backed memory and therefore I don't wanted to send this patch approach
-and instead asked you to do so since you're the maintainer and fine with
-the change.
-
-> didn't got enough attention from you to test and report if that fixed
-
-Why should it get attention from us? Maybe we do have different views of
-being a maintainer.
-
-> your issue. Since you insisted further, I have created a formal fix
-
-Why is it our issue? It's everyones issue which uses the tee trusted-key
-driver.
-
-> patch based on that here [1]. Care to test that?
-
-A colleague of mine is going to test it and will reply on the patch.
-
-> [1] https://lore.kernel.org/all/20260213113317.1728769-1-sumit.garg@kernel.org/
-
-...
-
-> > I checked the code once again and figured that we could drop/replace
-> > tee_shm_register_kernel_buf() with tee_shm_alloc_kernel_buf(). I don't
-> > see why a kernel driver needs to tee_shm_register_kernel_buf() in the
-> > first place, maybe this is legacy. The only users of
-> > tee_shm_register_kernel_buf() are trusted_tee.c and tee_stmm_efi.c.
-> 
-> No it's not legacy but allows for efficient memory reuse within the
-> kernel as to not create bounce buffers to share data with TEE.
-
-To be hones, there are only two driver using the API. The tee_stmm_efi
-driver can do the alloc during the probe(). The trusted_tee has to use a
-bounce buffer, yes but how often do you assume that (un)sealing and rng
-ops have to be done during runtime? This shouldn't be a overhead at all.
-
-Therefore my suggestion would be still to drop the internal kernel API
-and only use it for userspace pages, where it could really matter.
-
-Regards,
-  Marco
--- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogRGVlcGFrIEt1bWFyIDxkZWVwYWsua3VtYXIwMUBzdC5jb20+CgpbIFVwc3RyZWFtIGNv
+bW1pdCAxYWMzYmUyMTdjMDFkNWRmNTVlYzUwNTJmODFlNGYxNzA4ZjQ2NTUyIF0KCldoZW4gU1BJ
+IGNvbW11bmljYXRpb24gaXMgc3VzcGVuZGVkIGJ5IGhhcmR3YXJlIGF1dG9tYXRpY2FsbHksIGl0
+IGNvdWxkCmhhcHBlbiB0aGF0IGZldyBiaXRzIG9mIG5leHQgZnJhbWUgYXJlIGFscmVhZHkgY2xv
+Y2tlZCBvdXQgZHVlIHRvCmludGVybmFsIHN5bmNocm9uaXphdGlvbiBkZWxheS4KClRvIGFjaGll
+dmUgYSBzYWZlIHN1c3BlbnNpb24sIHdlIG5lZWQgdG8gZW5zdXJlIHRoYXQgZWFjaCB3b3JkIG11
+c3QgYmUKYXQgbGVhc3QgOCBTUEkgY2xvY2sgY3ljbGVzIGxvbmcuIFRoYXQncyB3aHksIGlmIGJw
+dyBpcyBsZXNzIHRoYW4gOApiaXRzLCB3ZSBuZWVkIHRvIHVzZSBtaWRpIHRvIHJlYWNoIDggU1BJ
+IGNsb2NrIGN5Y2xlcyBhdCBsZWFzdC4KClRoaXMgd2lsbCBlbnN1cmUgdGhhdCBlYWNoIHdvcmQg
+YWNoaWV2ZSBzYWZlIHN1c3BlbnNpb24gYW5kIHByZXZlbnQKb3ZlcnJ1biBjb25kaXRpb24uCgpT
+aWduZWQtb2ZmLWJ5OiBEZWVwYWsgS3VtYXIgPGRlZXBhay5rdW1hcjAxQHN0LmNvbT4KU2lnbmVk
+LW9mZi1ieTogQWxhaW4gVm9sbWF0IDxhbGFpbi52b2xtYXRAZm9zcy5zdC5jb20+Ckxpbms6IGh0
+dHBzOi8vcGF0Y2gubXNnaWQubGluay8yMDI1MTIxOC1zdG0zMi1zcGktZW5oYW5jZW1lbnRzLXYy
+LTItM2I2OTkwMWNhOWZlQGZvc3Muc3QuY29tClNpZ25lZC1vZmYtYnk6IE1hcmsgQnJvd24gPGJy
+b29uaWVAa2VybmVsLm9yZz4KU2lnbmVkLW9mZi1ieTogU2FzaGEgTGV2aW4gPHNhc2hhbEBrZXJu
+ZWwub3JnPgotLS0KCkxMTSBHZW5lcmF0ZWQgZXhwbGFuYXRpb25zLCBtYXkgYmUgY29tcGxldGVs
+eSBib2d1czoKCk5vdyBJIGhhdmUgYWxsIHRoZSBpbmZvcm1hdGlvbiBuZWVkZWQgZm9yIGEgY29t
+cHJlaGVuc2l2ZSBhbmFseXNpcy4KCiMjIENvbXByZWhlbnNpdmUgQW5hbHlzaXMKCiMjIyAxLiBD
+T01NSVQgTUVTU0FHRSBBTkFMWVNJUwoKVGhlIHN1YmplY3QgbGluZSBpcyAqKiJzcGk6IHN0bTMy
+OiBmaXggT3ZlcnJ1biBpc3N1ZSBhdCA8IDhicHciKiogLS0gYQpjbGVhciBidWcgZml4LiBUaGUg
+Ym9keSBleHBsYWlucyBhIGhhcmR3YXJlLWxldmVsIHByb2JsZW0gb24gdGhlIFNUTTMySDcKU1BJ
+IGNvbnRyb2xsZXI6IHdoZW4gU1BJIGNvbW11bmljYXRpb24gaXMgc3VzcGVuZGVkIGJ5IHRoZSBo
+YXJkd2FyZQphdXRvbWF0aWNhbGx5LCBhIGZldyBiaXRzIG9mIHRoZSBuZXh0IGZyYW1lIGNhbiBh
+bHJlYWR5IGJlIGNsb2NrZWQgb3V0CmR1ZSB0byBpbnRlcm5hbCBzeW5jaHJvbml6YXRpb24gZGVs
+YXkuIFRvIGFjaGlldmUgc2FmZSBzdXNwZW5zaW9uLCBlYWNoCndvcmQgbXVzdCBiZSBhdCBsZWFz
+dCA4IFNQSSBjbG9jayBjeWNsZXMgbG9uZy4gV2hlbiBgYml0c19wZXJfd29yZGAKKGJwdykgaXMg
+bGVzcyB0aGFuIDgsIHRoZSBNSURJIChNaW5pbXVtIEludGVyLURhdGEgSWRsZW5lc3MpIGRlbGF5
+IG11c3QKYmUgaW5jcmVhc2VkIHRvIHBhZCB0aGUgdG90YWwgd29yZCB0aW1lIHRvIGF0IGxlYXN0
+IDggU1BJIGNsb2NrIGN5Y2xlcy4KClRoZSBjb21taXQgaXMgYXV0aG9yZWQgYnkgYW4gU1QgTWlj
+cm9lbGVjdHJvbmljcyBlbmdpbmVlciAoRGVlcGFrIEt1bWFyCmF0IGBzdC5jb21gKSwgY28tYXV0
+aG9yZWQvc2lnbmVkIGJ5IEFsYWluIFZvbG1hdCAoU1RNMzIgU1BJIG1haW50YWluZXIKYXQgYGZv
+c3Muc3QuY29tYCksIGFuZCBtZXJnZWQgYnkgTWFyayBCcm93biAoU1BJIHN1YnN5c3RlbSBtYWlu
+dGFpbmVyKS4KVGhpcyBsZW5kcyBoaWdoIGNyZWRpYmlsaXR5LgoKIyMjIDIuIENPREUgQ0hBTkdF
+IEFOQUxZU0lTCgpUaGUgZGlmZiBtb2RpZmllcyBgc3RtMzJoN19zcGlfZGF0YV9pZGxlbmVzcygp
+YCBpbiBgZHJpdmVycy9zcGkvc3BpLQpzdG0zMi5jYDoKCioqT2xkIGNvZGUgKGxpbmVzIDE5MDkt
+MTkxMik6KioKYGBgYwp1MzIgbWlkaSA9IG1pbl90KHUzMiwKICAgICAgICAgICAgICAgICBESVZf
+Uk9VTkRfVVAoc3BpLT5jdXJfbWlkaSwgc2NrX3BlcmlvZF9ucyksCiAgICAgICAgICAgICAgICAg
+RklFTERfR0VUKFNUTTMySDdfU1BJX0NGRzJfTUlESSwKICAgICAgICAgICAgICAgICBTVE0zMkg3
+X1NQSV9DRkcyX01JREkpKTsKYGBgCgoqKk5ldyBjb2RlOioqCmBgYGMKdTMyIG1pZGkgPSBESVZf
+Uk9VTkRfVVAoc3BpLT5jdXJfbWlkaSwgc2NrX3BlcmlvZF9ucyk7CgppZiAoKHNwaS0+Y3VyX2Jw
+dyArIG1pZGkpIDwgOCkKICAgIG1pZGkgPSA4IC0gc3BpLT5jdXJfYnB3OwoKbWlkaSA9IG1pbl90
+KHUzMiwgbWlkaSwgRklFTERfTUFYKFNUTTMySDdfU1BJX0NGRzJfTUlESSkpOwpgYGAKClRoZSBj
+aGFuZ2VzIGFyZToKMS4gKipDb3JlIGZpeCAoMyBsaW5lcyk6KiogQWZ0ZXIgY29tcHV0aW5nIHRo
+ZSBpbml0aWFsIG1pZGkgdmFsdWUsIGNoZWNrCiAgIGlmIGBicHcgKyBtaWRpIDwgOGAuIElmIHNv
+LCBpbmNyZWFzZSBtaWRpIHRvIGA4IC0gYnB3YCwgZW5zdXJpbmcgYQogICBtaW5pbXVtIHRvdGFs
+IG9mIDggU1BJIGNsb2NrIGN5Y2xlcyBwZXIgd29yZC4gVGhpcyBwcmV2ZW50cyB0aGUKICAgb3Zl
+cnJ1biBjb25kaXRpb24uCjIuICoqU3R5bGUgY2xlYW51cDoqKiBSZXBsYWNlIGBGSUVMRF9HRVQo
+U1RNMzJIN19TUElfQ0ZHMl9NSURJLAogICBTVE0zMkg3X1NQSV9DRkcyX01JREkpYCB3aXRoIGBG
+SUVMRF9NQVgoU1RNMzJIN19TUElfQ0ZHMl9NSURJKWAuIEJvdGgKICAgZXZhbHVhdGUgdG8gMTUg
+KHRoZSBmaWVsZCBpcyBHRU5NQVNLKDcsNCksIGEgNC1iaXQgZmllbGQpLCBidXQKICAgYEZJRUxE
+X01BWGAgaXMgdGhlIHNlbWFudGljYWxseSBjb3JyZWN0IG1hY3JvIGZvciBnZXR0aW5nIHRoZSBt
+YXhpbXVtCiAgIGZpZWxkIHZhbHVlLgozLiAqKlJlb3JkZXI6KiogVGhlIGNsYW1waW5nIHRvIG1h
+eGltdW0gaXMgbm93IGRvbmUgQUZURVIgdGhlIG92ZXJydW4KICAgYWRqdXN0bWVudCwgZW5zdXJp
+bmcgdGhlIGFkanVzdG1lbnQgaXNuJ3QgY2xhbXBlZCBhd2F5IHByZW1hdHVyZWx5LgoKKipFeGFt
+cGxlIHNjZW5hcmlvOioqIFdpdGggYnB3PTQgYW5kIG1pZGk9MSAoZnJvbSBhIDEwMG5zIGRlbGF5
+IGF0IDEwTUh6CmNsb2NrKToKLSAqKk9sZDoqKiBUb3RhbCA9IDQrMSA9IDUgY3ljbGVzL3dvcmQu
+IEhhcmR3YXJlIHN1c3BlbnNpb24gY2FuIGNvcnJ1cHQKICBuZXh0IGZyYW1lLiDihpIgT3ZlcnJ1
+bgotICoqTmV3OioqIFNpbmNlIDQrMSA8IDgsIG1pZGkgaXMgc2V0IHRvIDQuIFRvdGFsID0gNCs0
+ID0gOCBjeWNsZXMvd29yZC4KICDihpIgU2FmZSBzdXNwZW5zaW9uCgojIyMgMy4gVEhFIEJVRyBB
+TkQgSVRTIElNUEFDVAoKV2hlbiB0aGUgU1RNMzJINyBTUEkgY29udHJvbGxlcidzIG92ZXJydW4g
+Y29uZGl0aW9uIGZpcmVzCihgU1RNMzJIN19TUElfU1JfT1ZSYCksIHRoZSBpbnRlcnJ1cHQgaGFu
+ZGxlciBhdCBsaW5lIDExMTEtMTExMyBsb2dzCmAiT3ZlcnJ1bjogUlggZGF0YSBsb3N0ImAgYW5k
+IHNldHMgYGVuZCA9IHRydWVgLCB3aGljaCB0ZXJtaW5hdGVzIHRoZQp0cmFuc2Zlci4gVGhpcyBt
+ZWFuczoKLSAqKkRhdGEgbG9zcyoqIC0gcmVjZWl2ZWQgU1BJIGRhdGEgaXMgZGlzY2FyZGVkCi0g
+KipUcmFuc2ZlciBmYWlsdXJlKiogLSB0aGUgU1BJIGNvbW11bmljYXRpb24gaXMgYWJvcnRlZAot
+IEFueSBkZXZpY2UgdXNpbmcgYnB3IDwgOCB3aXRoIE1JREkgY29uZmlndXJlZCBleHBlcmllbmNl
+cwogIGNvcnJ1cHRlZC9mYWlsZWQgU1BJIHRyYW5zZmVycwoKVGhpcyBpcyBhIHJlYWwgaGFyZHdh
+cmUgYnVnIGFmZmVjdGluZyByZWFsIFNUTTMySDcvU1RNMzJNUDI1IHVzZXJzIHdpdGgKU1BJIGRl
+dmljZXMgdGhhdCB1c2UgZmV3ZXIgdGhhbiA4IGJpdHMgcGVyIHdvcmQuCgojIyMgNC4gU0NPUEUg
+QU5EIFJJU0sgQVNTRVNTTUVOVAoKLSAqKkxpbmVzIGNoYW5nZWQ6KiogTmV0ICszIGxpbmVzIG9m
+IGxvZ2ljLiBWZXJ5IHNtYWxsLgotICoqRmlsZXMgdG91Y2hlZDoqKiAxIGZpbGUgKGBkcml2ZXJz
+L3NwaS9zcGktc3RtMzIuY2ApLgotICoqUmlzazoqKiBWZXJ5IGxvdy4gVGhlIG5ldyBsb2dpYyBv
+bmx5IGFjdGl2YXRlcyB3aGVuIGBzcGktPmN1cl9icHcgPAogIDhgIEFORCBgY3VyX21pZGkgPiAw
+YC4gRm9yIGFsbCB0cmFuc2ZlcnMgd2l0aCBicHcgPj0gOCAodGhlIHZhc3QKICBtYWpvcml0eSks
+IGJlaGF2aW9yIGlzIGNvbXBsZXRlbHkgdW5jaGFuZ2VkLiBFdmVuIGZvciBicHcgPCA4IGNhc2Vz
+LAogIHRoZSBmaXgganVzdCBpbmNyZWFzZXMgdGhlIGludGVyLWRhdGEgZGVsYXkgc2xpZ2h0bHks
+IHdoaWNoIGlzIGNvcnJlY3QKICBwZXIgdGhlIGhhcmR3YXJlIHNwZWMuCi0gKipTaWRlIGVmZmVj
+dHM6KiogU2xpZ2h0bHkgbG9uZ2VyIHdvcmQgdGltaW5nIGZvciBicHcgPCA4LiBUaGlzIGlzIHRo
+ZQogIGRlc2lyZWQgYmVoYXZpb3IgdG8gcHJldmVudCBvdmVycnVuLgoKIyMjIDUuIERFUEVOREVO
+Q1kgQU5BTFlTSVMKClRoaXMgaXMgdGhlIG1vc3Qgc2lnbmlmaWNhbnQgY29uY2Vybi4gVGhlIGZ1
+bmN0aW9uCmBzdG0zMmg3X3NwaV9kYXRhX2lkbGVuZXNzKClgIHdhcyBzaWduaWZpY2FudGx5IG1v
+ZGlmaWVkIGJ5OgotICoqYDQ5NTZiZjQ0NTI0MzlgKiogKCJzcGk6IHN0bTMyOiBkZXByZWNhdGUg
+YHN0LHNwaS1taWRpLW5zYAogIHByb3BlcnR5IiwgSnVuZSAyMDI1LCB2Ni4xNy1yYzEpOiBDaGFu
+Z2VkIHRoZSBmdW5jdGlvbiBzaWduYXR1cmUgZnJvbQogIGAoc3RydWN0IHN0bTMyX3NwaSAqc3Bp
+LCB1MzIgbGVuKWAgdG8gYChzdHJ1Y3Qgc3RtMzJfc3BpICpzcGksIHN0cnVjdAogIHNwaV90cmFu
+c2ZlciAqeGZlcilgIGFuZCBhZGRlZCB0aGUgYHNwaV9kZWxheV9uc2Agd29yZF9kZWxheSBsb2dp
+Yy4KLSAqKmAyNDRiYzE4ZTVmMTg3YCoqICgic3BpOiBzdG0zMjogZGVsZXRlIHN0cmF5IHRhYnMi
+LCBKdW5lIDIwMjUsCiAgdjYuMTctcmMxKyk6IEZpeGVkIGluZGVudGF0aW9uLgoKQm90aCBvZiB0
+aGVzZSBhcmUgcG9zdC02LjE2LiBTdGFibGUgdHJlZXMgKDYuMTIueSwgNi42LnksIDYuMS55LCA1
+LjE1LnkpCmhhdmUgdGhlICoqb2xkKiogdmVyc2lvbiBvZiB0aGlzIGZ1bmN0aW9uIHdpdGggdGhl
+IHNpbXBsZXIgYChzcGksIGxlbilgCnNpZ25hdHVyZS4gSG93ZXZlciwgdGhlIGNyaXRpY2FsIE1J
+REkgY2FsY3VsYXRpb24gYmxvY2sgZXhpc3RzIGluIEFMTAp2ZXJzaW9ucyBzaW5jZSB0aGUgZHJp
+dmVyJ3MgaW5jZXB0aW9uOgoKYGBgYwppZiAoKGxlbiA+IDEpICYmIChzcGktPmN1cl9taWRpID4g
+MCkpIHsKICAgIHUzMiBzY2tfcGVyaW9kX25zID0gRElWX1JPVU5EX1VQKE5TRUNfUEVSX1NFQywg
+c3BpLT5jdXJfc3BlZWQpOwogICAgdTMyIG1pZGkgPSBtaW5fdCh1MzIsCiAgICAgICAgICAgICAg
+ICAgICAgIERJVl9ST1VORF9VUChzcGktPmN1cl9taWRpLCBzY2tfcGVyaW9kX25zKSwKICAgICAg
+ICAgICAgICAgICAgICAgRklFTERfR0VUKFNUTTMySDdfU1BJX0NGRzJfTUlESSwKU1RNMzJIN19T
+UElfQ0ZHMl9NSURJKSk7CmBgYAoKVGhlIGNvcmUgMy1saW5lIG92ZXJydW4gZml4IGNhbiBiZSBh
+cHBsaWVkIHRvIHRoZSBvbGQgZnVuY3Rpb24gd2l0aAp0cml2aWFsIGNvbnRleHQgYWRqdXN0bWVu
+dC4gVGhlIGZpeCBkb2VzIG5vdCBkZXBlbmQgb24gdGhlIG5ldyBmdW5jdGlvbgpzaWduYXR1cmUg
+LS0gaXQgb25seSB1c2VzIGBzcGktPmN1cl9icHdgIHdoaWNoIGhhcyBleGlzdGVkIHNpbmNlIHRo
+ZQpkcml2ZXIgd2FzIGFkZGVkLgoKIyMjIDYuIENMQVNTSUZJQ0FUSU9OCgpUaGlzIGlzIGEgKipo
+YXJkd2FyZSBidWcgd29ya2Fyb3VuZCAvIGRyaXZlciBidWcgZml4KiouIEl0J3MgYW5hbG9nb3Vz
+CnRvIGEgaGFyZHdhcmUgcXVpcmsgLS0gdGhlIFNUTTMySDcgU1BJIGhhcmR3YXJlIHJlcXVpcmVz
+IGF0IGxlYXN0IDgKY2xvY2sgY3ljbGVzIHBlciB3b3JkIGZvciBzYWZlIHN1c3BlbnNpb24sIGFu
+ZCB0aGUgZHJpdmVyIHdhcyBub3QKZW5mb3JjaW5nIHRoaXMuIFRoZSBmaXggYWRkcyB0aGUgZW5m
+b3JjZW1lbnQuCgojIyMgNy4gVkVSRElDVAoKKipQb3NpdGl2ZSBmYWN0b3JzOioqCi0gRml4ZXMg
+YSByZWFsLCBkb2N1bWVudGVkIGhhcmR3YXJlIGlzc3VlIChvdmVycnVuID0gZGF0YSBsb3NzICsK
+ICB0cmFuc2ZlciBmYWlsdXJlKQotIEV4dHJlbWVseSBzbWFsbCBhbmQgc3VyZ2ljYWwgKDMgbGlu
+ZXMgb2YgbG9naWMpCi0gVmVyeSBsb3cgcmVncmVzc2lvbiByaXNrIChvbmx5IGFmZmVjdHMgYnB3
+IDwgOCB3aXRoIG1pZGkgY29uZmlndXJlZCkKLSBBdXRob3JlZCBieSB0aGUgaGFyZHdhcmUgdmVu
+ZG9yIChTVCBNaWNyb2VsZWN0cm9uaWNzKSB3aG8gdW5kZXJzdGFuZHMKICB0aGUgaGFyZHdhcmUK
+LSBSZXZpZXdlZCBhbmQgbWVyZ2VkIGJ5IHRoZSBTUEkgc3Vic3lzdGVtIG1haW50YWluZXIKLSBU
+aGUgYWZmZWN0ZWQgY29kZSBleGlzdHMgaW4gYWxsIHN0YWJsZSB0cmVlcyBzaW5jZSB0aGUgZHJp
+dmVyIHdhcwogIGFkZGVkICgyMDE3KQoKKipDb25jZXJuczoqKgotIFRoZSBwYXRjaCBhcy1pcyB3
+b24ndCBhcHBseSBjbGVhbmx5IHRvIHN0YWJsZSB0cmVlcyBkdWUgdG8gdGhlCiAgZnVuY3Rpb24g
+c2lnbmF0dXJlIGNoYW5nZSBmcm9tIGA0OTU2YmY0NDUyNDM5YCwgYnV0IHRoZSBmaXggbG9naWMg
+aXMKICBzZWxmLWNvbnRhaW5lZCBhbmQgY2FuIGJlIHRyaXZpYWxseSBhZGFwdGVkCi0gVGhlIGZp
+eCBvbmx5IGFwcGxpZXMgd2hlbiBgY3VyX21pZGkgPiAwYCAoc29tZSBpbnRlci1kYXRhIGRlbGF5
+IGlzCiAgY29uZmlndXJlZCksIHNvIG92ZXJydW4gd2l0aCB6ZXJvIG1pZGkgaXMgbm90IGFkZHJl
+c3NlZCAoYnV0IHRoaXMKICBhcHBlYXJzIGludGVudGlvbmFsKQoKVGhlIGZpeCBpcyBzbWFsbCwg
+c3VyZ2ljYWwsIGFuZCBtZWV0cyBhbGwgc3RhYmxlIGtlcm5lbCBjcml0ZXJpYS4gSXQKZml4ZXMg
+YSByZWFsIGhhcmR3YXJlIGJ1ZyBjYXVzaW5nIGRhdGEgbG9zcyBmb3IgU1RNMzJINyBTUEkgdXNl
+cnMgdXNpbmcKYnB3IDwgOC4KCioqWUVTKioKCiBkcml2ZXJzL3NwaS9zcGktc3RtMzIuYyB8IDkg
+KysrKystLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygt
+KQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvc3BpL3NwaS1zdG0zMi5jIGIvZHJpdmVycy9zcGkvc3Bp
+LXN0bTMyLmMKaW5kZXggMmM4MDRjMWFlZjk4OS4uODA5ODZiZDI1MWQyOSAxMDA2NDQKLS0tIGEv
+ZHJpdmVycy9zcGkvc3BpLXN0bTMyLmMKKysrIGIvZHJpdmVycy9zcGkvc3BpLXN0bTMyLmMKQEAg
+LTE5MDYsMTEgKzE5MDYsMTIgQEAgc3RhdGljIHZvaWQgc3RtMzJoN19zcGlfZGF0YV9pZGxlbmVz
+cyhzdHJ1Y3Qgc3RtMzJfc3BpICpzcGksIHN0cnVjdCBzcGlfdHJhbnNmZXIKIAljZmcyX2NscmIg
+fD0gU1RNMzJIN19TUElfQ0ZHMl9NSURJOwogCWlmICgobGVuID4gMSkgJiYgKHNwaS0+Y3VyX21p
+ZGkgPiAwKSkgewogCQl1MzIgc2NrX3BlcmlvZF9ucyA9IERJVl9ST1VORF9VUChOU0VDX1BFUl9T
+RUMsIHNwaS0+Y3VyX3NwZWVkKTsKLQkJdTMyIG1pZGkgPSBtaW5fdCh1MzIsCi0JCQkJIERJVl9S
+T1VORF9VUChzcGktPmN1cl9taWRpLCBzY2tfcGVyaW9kX25zKSwKLQkJCQkgRklFTERfR0VUKFNU
+TTMySDdfU1BJX0NGRzJfTUlESSwKLQkJCQkgU1RNMzJIN19TUElfQ0ZHMl9NSURJKSk7CisJCXUz
+MiBtaWRpID0gRElWX1JPVU5EX1VQKHNwaS0+Y3VyX21pZGksIHNja19wZXJpb2RfbnMpOwogCisJ
+CWlmICgoc3BpLT5jdXJfYnB3ICsgbWlkaSkgPCA4KQorCQkJbWlkaSA9IDggLSBzcGktPmN1cl9i
+cHc7CisKKwkJbWlkaSA9IG1pbl90KHUzMiwgbWlkaSwgRklFTERfTUFYKFNUTTMySDdfU1BJX0NG
+RzJfTUlESSkpOwogCiAJCWRldl9kYmcoc3BpLT5kZXYsICJwZXJpb2Q9JWRucywgbWlkaT0lZCg9
+JWRucylcbiIsCiAJCQlzY2tfcGVyaW9kX25zLCBtaWRpLCBtaWRpICogc2NrX3BlcmlvZF9ucyk7
+Ci0tIAoyLjUxLjAKCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFu
+L2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
