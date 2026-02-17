@@ -2,124 +2,124 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2FN3Ft61lGlMHQIAu9opvQ
+	id oHVrFRi2lGlbGgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:39:26 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:40:24 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE59614F408
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:39:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB1FB14F429
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:40:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AC5EC5A4C5;
-	Tue, 17 Feb 2026 18:39:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9C4FC055F4;
+	Tue, 17 Feb 2026 18:40:23 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70C0EC055F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23001C5A4C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Feb 2026 18:39:24 +0000 (UTC)
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+ Tue, 17 Feb 2026 18:40:23 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61HG8DH0288000
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 17 Feb 2026 18:39:23 GMT
+ 61HC7wLu1973499
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 17 Feb 2026 18:40:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=HrP1EV3T54x1E7EsuxwJ7YEZ
- jkA7SuQSx7N9/VtPaic=; b=XnMxNOFA2nL3bBPtO0tGC9aKa0ddr3/TFFj3lql+
- OLwEaR61vOGo5OobG5tWWGPMXlHRCQ6VbxpjC7juDNVFex8dYWJr9h8fSJMzAqsk
- QfF9nWGB0+y1rq+o6ZpZAt2bHwH6LN5Ne7ZJvwkFIokvr5gpaMUwYI7vWaaMMTzu
- T0PNooiyLyxniBkd5QqjnoTglaHnsauLxybFqkADjbDK9euSUDGfrF8Wqxu7bD1X
- cKdC2BId1DTqMnOP8uFI/RplCaAy4SAbut8RVuXx6Eve3V0WKQ+Ks/EyX6q4NCqS
- sc9nxdPXDaKfhzHSt7IdyaCDsi8cGcOuzA6M4m2PdgGlsw==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cc6nrug2j-1
+ :references:subject:to; s=qcppdkim1; bh=4eqYZw+qW466/zd9o0hZO+Wr
+ bSIyZjH1x8DDDr0yC84=; b=JOqpjRYupn9Fjgx6aUFYuSq+vqZrEJFB2W4Spezz
+ aaDKrAUMKpj14T1ZnKXaGfIOTd50gSSYLFNaayjCIu8h+Io4msOmYBioT6cth/PS
+ +IA8j2gt+eG1CVUxqloETCK6/njQZ6CEraP4BXqF+vjbp2kCm5thAOSuOTz68j5R
+ ZFgTam9zOQR6DhCgOp/GruFXMeVTGG7NzsA+XtMmrfvM+/Qnwlv572y2zyEhNZst
+ H8B8N9SGwgLLH14/wzcjVK4g52PIEc7SZWX1l8m7NrfqSN6VKftAGXkP23pmqy1e
+ 4e9vR0BdxdkhL5ZB12damwFeE4YLYzUePkKd13oH2Cn7MQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cc662ukbe-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Feb 2026 18:39:23 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-824af3c6c0cso2267452b3a.3
+ Tue, 17 Feb 2026 18:40:21 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2a946c0e441so45545145ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Feb 2026 10:39:22 -0800 (PST)
+ Tue, 17 Feb 2026 10:40:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1771353562; x=1771958362;
+ d=oss.qualcomm.com; s=google; t=1771353621; x=1771958421;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=HrP1EV3T54x1E7EsuxwJ7YEZjkA7SuQSx7N9/VtPaic=;
- b=RStgfsqfT1azhPOCy2MaX2DBWhhgJDw4QZt/G7jgxgI/pWg1KmsgKNz5iH65o6IjZW
- 2ZxpGqZNFzicyR0s5SaZjmQOVnHSUFcbOEAqsle63js83ZJnG94Q7mrJBqM58+YqKxGi
- BrtofhnTFwGi5uEZ/fchgvwquMTk/LYK/58jK95Avo/2vq2aKtpOrFzxkp+q2IAKKG8f
- 6BD/RBQQJtuoKugVBH7RZuZFXSIPV869ENy+gtqzNf77+JP6XqAERonTBb9rX0RmljY1
- q+evL01dvHjRXMOpsROS7pHe927iLWDJecP3AJK1JUsER1ECzCxQXs37fuECncGTmTAD
- d5eg==
+ bh=4eqYZw+qW466/zd9o0hZO+WrbSIyZjH1x8DDDr0yC84=;
+ b=QPZIvCo/IlhY+TfwP0m8mrUTnLtUeF8WtroRpKsivTAeupWXfym50IATlFLrJjbPJE
+ nDQLTMz7KqbpQwUHAnU77O5gwJNXpRkJSwPAYRjsI7fetIQgjU2aWJHtuNOmRUTm0zS6
+ x7SQAzkS3wCw3EFgKzW8nkKOhjL+17V9wGCfc10MMNry1h4nDPZcdUzPexeZxkaJZjFA
+ wwSBj2X/rC50T3F51ZBswlqeZ9WTKQ/+96MS8kiBiwuruRMgTShvue3f7vT/uSbvI9hQ
+ r1JafzSUelamzRyKEMNtFaAjQWHgwkHE5yBOmx7L6CCqtVRB9ka8BdlbtL7BYc+ZHmmT
+ EsbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771353562; x=1771958362;
+ d=1e100.net; s=20230601; t=1771353621; x=1771958421;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=HrP1EV3T54x1E7EsuxwJ7YEZjkA7SuQSx7N9/VtPaic=;
- b=bXL+A+V5T8Qh6SV2dhB9d3LOsgrL1UCpZNnXlbz0GOn0wt2u8nYBQ//SabhiQs9dMR
- sAteuVgj9EDEXwAl2IrOafb/oq/EOaIwudPngk51x8Nmktdt/CcY50bTw9KDQeBUnasc
- +rZSzKgMb/t/veHW0yWxk1NSxhpNrxzKp6is1o+6mLfe8JtmbeWZsZBaJY9yf2y9XhbE
- QsXxIGLctTJr0j0l8q1ZSwzh/+RaaL0lPN5icP1QIBI6Q2P1KAEi/iuYb4AJtryUvm03
- 4G//S6el3+qwzNqwqGGg0MKmyRqecMrOXlziUzDaNa5gkZDfloHwMfg81nPEC5Ic6sZL
- HyAQ==
+ bh=4eqYZw+qW466/zd9o0hZO+WrbSIyZjH1x8DDDr0yC84=;
+ b=LI7WWfbrIjlXj3NrLxZ0ryUOglpeYgPKeyj8QUZHee5LUV+ON/Q9vmlBK9gANsrdpu
+ 0ep5d6pUEWTpEs8sqwd7O/DtmOBRDjb2msMTZfco5QaOwrwE7YnMstFLbuzSzVuPlSFp
+ tmSlfU3cALKNhcW1aSwmIdnxEs8Al2qkxTHv08fUK3d91zyemeGBF12suZZcWznYsCNr
+ G84JVgZHZ+3nKaqkEKpgFG/jBMKivlpyOH8kfrlEgoRf+A4K2/FAXzdWvwyHIN7LWq1L
+ pGHIhNzwodsJBKWixSAKRJHuAMhDRsjGgDjgdAMwWNtvHfa4kNjamr321B+iFSkVydKP
+ k/zA==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWluwufactiIuSP4uv0GCtU4SguWWg+yOAKw/ocJj+mp6TisDXE/0efpOTPkem/CHYil8ZEhb3LUbnUTw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzi+bmm2aDs/pu1Md3SBPOqrKj2Y/5UP3YtmLgcBRa5cgOCkeRZ
- 6QZqIRk7dx3VMpCNHqoYK6K2kVoilx2bFAxr/6M6pbqtvm7ZyE1QvKnze4QjWwZzd5jQZXon+aE
- l012ssGEI1omraHOG6NkQpjgW3WXyRPCoGs52Kz51c9BcWeKlsX5rkWaBluUCKDcUzQY2oDp63s
- By21LispM=
-X-Gm-Gg: AZuq6aJb0NRssfI17vEHxWX8A6xjawdbXZkrgsOj1w2vR/MyQTM9AS9o495Qw3/sYp7
- l7F6rXAvsSm6nGkkewUqJ1aY/SY7Aiw+UqTjA1Ep++8sXWFDK4tH3Oqc3068Nl8NLeeFo7/HKNV
- JE5wo6m7skoyYcB7nTcbIEktiEClUnh2NsYMJ/rt6UxYAaMKYu/kq6yIFSfZo6Bpv0k5KDK6UR8
- n20CVq7oL6JqFbaiNsozjxWdy5kJAbHgTofxrib1Uzs4A3tBUVGlcBm1Iu6331NsXvyDeKV8iNV
- zQEG0vHMA/tFgzCEa41DfTltXtkW08xN2s/9GSAdYdN/y8KwVLlEURAA5TlqSBm4PDrUznx0tFr
- 3FVsjzsGJuN8YhhpxF9uf/xZLT5NufVOJSag=
-X-Received: by 2002:a05:6a00:600a:b0:824:a0b5:730 with SMTP id
- d2e1a72fcca58-824c94ed641mr13781186b3a.13.1771353561875; 
- Tue, 17 Feb 2026 10:39:21 -0800 (PST)
-X-Received: by 2002:a05:6a00:600a:b0:824:a0b5:730 with SMTP id
- d2e1a72fcca58-824c94ed641mr13781157b3a.13.1771353561363; 
- Tue, 17 Feb 2026 10:39:21 -0800 (PST)
+ AJvYcCUvc+/tKgidGZzCzCjdBnrvaPGwEv7WxHGvXDmDz4pm5R8v4oItyEStbfwmQMRBwewDxta8LaXMRo7HPg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxJQPQ+hNdXMJqTN2v+rFgOktet5U4G2SFuaUHJPdIeJeuLgl/h
+ iqBc9eHngdAt9RKzJVAa83wxkMteZFmAlCkFhWyCvoY1wvMEwD2h5/Dt+HRbZB6yNQ7SNsS1LgM
+ LvFVgmeKbE6mlNFWrrUobUmAMnh21YyOypqJXg3tRLHx3EzJLN8p5S53d5KkohUg6ZHE+hfFAKU
+ h7GbWBKj4=
+X-Gm-Gg: AZuq6aIbFwUJITAg/AeBHmQfuUliVozLw5acJlHfdhc2TKaztiD8USur3fpF3U0VLFG
+ /HJEqM1yJCCSvXNHfEE4yeifEKMf8beFEe/jPLojscWsjv8nVSYnzIyVQB0RE7lXZDnDXxgcleU
+ ywY28iTLdYhQ6FlB0mCSG3kZvFwuoGL8g913nJ+1GjiUjK4W9mXlznOSgwErYKDP5mEozsw7EIk
+ Z5Ct9SwYNndLxprFyNO3hRxNfV+zzYzZEEklwUV/qBwHGTauloA42VprugiuRTGI8WlYOWmGXwq
+ zazI1NWu1jJ9ET5iiacL78PXTbu/FdbzFf7tBUb7gx10MGjiSNmeSU7EKja5H3ezebGPTZgfUNK
+ 4u4G9sjCyxSNFAyQEJYH6DvSNJmYcBnmnZYg=
+X-Received: by 2002:a17:902:c947:b0:29e:bf76:2d91 with SMTP id
+ d9443c01a7336-2ab505a365cmr131982475ad.42.1771353620410; 
+ Tue, 17 Feb 2026 10:40:20 -0800 (PST)
+X-Received: by 2002:a17:902:c947:b0:29e:bf76:2d91 with SMTP id
+ d9443c01a7336-2ab505a365cmr131982185ad.42.1771353619915; 
+ Tue, 17 Feb 2026 10:40:19 -0800 (PST)
 Received: from oss.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-824c6bba008sm13377726b3a.64.2026.02.17.10.39.16
+ d9443c01a7336-2ad416ee045sm30863535ad.90.2026.02.17.10.40.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Feb 2026 10:39:21 -0800 (PST)
-Date: Wed, 18 Feb 2026 00:09:14 +0530
+ Tue, 17 Feb 2026 10:40:19 -0800 (PST)
+Date: Wed, 18 Feb 2026 00:10:12 +0530
 From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <aZS10liDHG0r6UJt@oss.qualcomm.com>
+Message-ID: <aZS2DAd9KQYHML+U@oss.qualcomm.com>
 References: <aY0aJppQWUC52OUq@shell.armlinux.org.uk>
- <E1vqKPQ-000000093ml-3FLd@rmk-PC.armlinux.org.uk>
+ <E1vqKPV-000000093mr-3iT0@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vqKPQ-000000093ml-3FLd@rmk-PC.armlinux.org.uk>
-X-Authority-Analysis: v=2.4 cv=XKo9iAhE c=1 sm=1 tr=0 ts=6994b5db cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+In-Reply-To: <E1vqKPV-000000093mr-3iT0@rmk-PC.armlinux.org.uk>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE3MDE1MiBTYWx0ZWRfX3qeZECndARPj
+ WbfBp9SoKpEQ9hyDfH5yfE+wkG8KeSD5S1SyIGeP9qx/eTPnC8dCinji48mrKUZ9Ph8zTJrYISq
+ WIk/9Qsi4H2ffMFxL+KOjMFwU3J+5CWmCVtsBAduWjydnaLW39av0e1+A5zN7UOFK/XGftYVQdP
+ LcWUr4/tXaNY9q5MhqOOrqo8wkqpOnBUtrIy1tPys5IAEFjNMdUwe1jnA0TAX1ViDDM6KTWggyW
+ TFpN3oib3PM9xqDHS2v2XtYcMs/Lu4cUjdWgu7OPlSl1HHb9qkT5DLx7KrG59CvoW6eol3rkzZf
+ wxd2XeLSh1GXzAaFZIhhUS9C6Kf7Na1t9+JuAw77jIzWhWr4icb7nXf6Euq/83mCtw7sZJHaYFE
+ 5arqkUaJqTxz/vSlX/2mk64Eqqx+xz19hiM55+YREUGkRCaQupdIuzcFtxKYYWnkafxQMt+5Huf
+ +0aHLbnSMv7QYZs48dA==
+X-Authority-Analysis: v=2.4 cv=Y6b1cxeN c=1 sm=1 tr=0 ts=6994b615 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=kj9zAlcOel0A:10 a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22
- a=PHq6YzTAAAAA:8 a=EUspDBNiAAAA:8 a=VKYGXzwvPY_sFHXjFqMA:9 a=CjuIK1q_8ugA:10
- a=OpyuDcXvxspvyRM73sMx:22 a=ZKzU8r6zoKMcqsNulkmm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE3MDE1MiBTYWx0ZWRfX3p98/HWp+NxE
- ZRsxjDypPafQhuYW7ck1K2WllWe4x39gSZ31Ojk0PIOgiSj0iIT/ImbhAFP9Nl9oonYnh+SmHcf
- lQScEJwhAigpC3o5cfqbf4o/DUHbpu24ZARiAX06iZDamFCM2jfFXfnom6f6nisZSX2NSnsmvns
- xIfKGaMb6164hJVDOW7fTA7kmUpmfalVFAqC4h7P9fTh59SDRjcLTzZwxeullSSgKXnAz1QDqUj
- osrURph1r+qxycEeNjssYQnWHZOxUKwmzqiiJLZ37dG5xRQTl85cumwvgCQlfiH3MqBgq3FrDoa
- jPtFMag7HiTooTaq/GIaSltNhwjQHKDIx+XA7Sx5mXGGyP9/dnbPkyBlyzfMfLRgG0yPysJtEa5
- /62gKaH/jpW+FpAZXFbb6nYGpwE3dJ2yegk4M82NbKZ18AcA5ZsQ0+UHQIfL4rlQiQ4ATAFcwTQ
- i+uAahUvbS5imdOtXEA==
-X-Proofpoint-ORIG-GUID: c0lsMm4WOxSBXsYrlzy_m_pSp8q8Jm8H
-X-Proofpoint-GUID: c0lsMm4WOxSBXsYrlzy_m_pSp8q8Jm8H
+ a=PHq6YzTAAAAA:8 a=EUspDBNiAAAA:8 a=z4Hhns87Kg07ZqANAhsA:9 a=CjuIK1q_8ugA:10
+ a=324X-CrmTo6CU4MGRt3R:22 a=ZKzU8r6zoKMcqsNulkmm:22
+X-Proofpoint-GUID: BQ8Y5c6Bds2YvXMemZY3QtJDmdvpSQVW
+X-Proofpoint-ORIG-GUID: BQ8Y5c6Bds2YvXMemZY3QtJDmdvpSQVW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-02-17_03,2026-02-16_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
- clxscore=1015 adultscore=0 lowpriorityscore=0 malwarescore=0 impostorscore=0
+ clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602170152
 Cc: imx@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
@@ -130,8 +130,8 @@ Cc: imx@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 7/9] net: stmmac:
- qcom-ethqos: pass phy interface mode to configs
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 8/9] net: stmmac:
+ qcom-ethqos: use phy interface mode for inband
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -182,12 +182,16 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,qualcomm.com:email,stormreply.com:url,stormreply.com:email,oss.qualcomm.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: EE59614F408
+X-Rspamd-Queue-Id: EB1FB14F429
 X-Rspamd-Action: no action
 
-On Thu, Feb 12, 2026 at 12:18:16AM +0000, Russell King (Oracle) wrote:
-> Pass the current phylink phy interface mode to the RGMII and "SGMII"
-> configuration functions.
+On Thu, Feb 12, 2026 at 12:18:21AM +0000, Russell King (Oracle) wrote:
+> qcom-ethqos currently forces inband to be enabled for the Cisco SGMII
+> speeds (1G, 100M and 10M) but not for 2500BASE-X (2.5G).
+> 
+> Rather than using the speed to determine the forced inband state, use
+> phylink's PHY interface mode which will switch between SGMII for the
+> 10M, 100M and 1G speeds, and 2500BASE-X for 2.5G.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
