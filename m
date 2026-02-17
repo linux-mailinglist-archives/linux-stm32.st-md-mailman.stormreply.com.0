@@ -2,127 +2,126 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EPi0M+C0lGlbGgIAu9opvQ
+	id yE7zMRi1lGlbGgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:35:12 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:36:08 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 669E014F313
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:35:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6991814F348
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Feb 2026 19:36:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F34D9C055F4;
-	Tue, 17 Feb 2026 18:35:11 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DD27C5A4C5;
+	Tue, 17 Feb 2026 18:36:08 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21DB3C5A4C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08E0AC055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Feb 2026 18:35:10 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ Tue, 17 Feb 2026 18:36:05 +0000 (UTC)
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 61HFUA4I2319792
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 17 Feb 2026 18:35:09 GMT
+ 61HH6ZxC985361
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 17 Feb 2026 18:36:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=whCFM/BSXgDYxgAJq7FXzzvO
- BcHA3JZlYE1RiqYzwa0=; b=RDgF3v2wzcsLhhMnH8jJtVlwHjzy/EmJS8YH71Tp
- knkpCG1Zd1yevXd10FcYSMEOEq2LtaMVSWqlWjGFlsZDZePz7mYyemc9eXkRQPAn
- OrRoeWRnSadtiHSvmEVEZAzhVmhC8bCQfZiGu3CIKGaKUG4lqLu1ZED0R4XpqubW
- 035XsnUYSPWYNpS4mGmrj4KLyepupzJ6tBOuh7T+z0sPIXhr20EwdflWj/sdY2I2
- t+TeyoPQzbqkJRbueblz5w+iaXG9OawdWvbVW/Nqwh58LaPZ+vcWJDJqVT03J07D
- TL/knQp3vOUmSTureJz+tpOZLkSCpScafXm9cI9QUq4b/A==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ccu1erm8f-1
+ :references:subject:to; s=qcppdkim1; bh=uMrQyicAZEEqH/BJVyGmHveM
+ n6L1dPKlkyYCF6REmA4=; b=PJoYPYWQuUsB5FEZvA830Cal0DSGAMo+QGMVb6W5
+ +dkW/CDoED86KiVFlyG//hqnjoEscrW4RLYHTuM9ACB5yFBkz1qYTYyJrbsef951
+ j1iRi75pMnls7+m0t660Cuu1/7TRi6O1B9IgeLY2ZpQijJ+IfsFmsr8AsFdoCsu8
+ GnvCWUwr0VmtccVe2H/8bIP+CnqKzc20mjEFOJWZBeAgDweS2CeGT2SoULFxFlbJ
+ VXC6CkXFWByQXTsusr7jbwnJXgTIZaa/gjd6wba+gTqepAPx2QNIzf7W9gqMc680
+ 7UUdi6G34Dgvr7IYZu7HWjYs714WfEzqQrEJWJtrKmoP3Q==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cc7ap3da9-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Feb 2026 18:35:08 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2aad5fec176so52420285ad.2
+ Tue, 17 Feb 2026 18:36:04 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-824b461dc9dso10356882b3a.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Feb 2026 10:35:08 -0800 (PST)
+ Tue, 17 Feb 2026 10:36:04 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1771353308; x=1771958108;
+ d=oss.qualcomm.com; s=google; t=1771353362; x=1771958162;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=whCFM/BSXgDYxgAJq7FXzzvOBcHA3JZlYE1RiqYzwa0=;
- b=fHcHtGo4PQiMIkz/R4Rn23XUblzvJVUSIPdPBDhiw1LJjMqEG3uMPmXeWH1zPAGLTB
- Nokj36qS/l4EY8e8YDpVk63ucQrRg//xc9hKGQzwNQLy9nCqkyabjRq+lDrRq6Yhdz5h
- d8MTEZIlFjbSQFZYbfdwB7h0gIJU0aO6xzhf7A88lGytCRtfWIcyQNwRkt0zzgR4cEZm
- yp4YVBC1lqWatVgSM38ILrlajZtTQG9jqAryDJGatozIiULN2YAyJleV8O3B+7r0XyS+
- 0c3z3kNRoKnTpkL3hiNvvfu2MgdzNDqwjtLBhyFpxqmf7f4T6riVYQK0+3j3+vXhbSUN
- KGbw==
+ bh=uMrQyicAZEEqH/BJVyGmHveMn6L1dPKlkyYCF6REmA4=;
+ b=YEgXilT4WSBU7NyEVyJnR3y+WAbWW4ZSxF7p9bS6Rqljb1PTHjfAujxy2c1PcFKTKg
+ JrfpMMjJZ5UOlGJN5r/pDRP6JysfrYQhwJYYExtKoPBYLKZduLnw4LVNd9k3TG0mP6nW
+ VPUW3M7nLmkFsyIExHw8I71DCHD8p4rb3CGOGU+ik4B8S78DCUJp4F6CyeOmN2xbDsSp
+ y9LpokzaYkEvZQvi4QS8t9BEx9/3norhVv2xHCazKXGQj9g13sUfZjpmHzV1F9Mvv7bo
+ rWrfHqKfUeaxLam1iB2eYa8Q1XEhX09VLOGw7RfwYzq7jbV/1ljg8Aola0oTEHP1/0sC
+ zT1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1771353308; x=1771958108;
+ d=1e100.net; s=20230601; t=1771353362; x=1771958162;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=whCFM/BSXgDYxgAJq7FXzzvOBcHA3JZlYE1RiqYzwa0=;
- b=R+JZZSUlk4nPo7XuIwc8YP2XjVMXD7P2nu7r1xLymjacRze4wJ9Od35X1H9ILVhQVu
- MLwi11TjQCxq1HCatsLTWnpaWQ+hyXahgT0J8vlVQ4ptV5hBELvZA4lvipZUrIlwiDGY
- mtjtTNoAyiquTh5Gw0/C5AfTbU+8AleyPFOw5/es6BJJWP7WY0OYdeYMQN4UkwIsr1ZB
- FgXBS2I7IlVyx3Amfz8J1zNRNQ0zCZKL04vU/xc8iU3AgYBK2aj5ORXZcTz2sUKLeE9V
- FrQY4ih34en3gr8MN3CzlGf55uoIt4yiKi7/4OWyty/cW7Fz0N9Kexa0sXHX8sqeJuEE
- A30w==
+ bh=uMrQyicAZEEqH/BJVyGmHveMn6L1dPKlkyYCF6REmA4=;
+ b=YI3Mf93j8UlL2pChfw3HpE2JJNlkm38S2mMm9mZkFESao6jzKwOPIg94Mv8LI3TKFL
+ 3DypAzpbXMJ1DFywfO3nW8s3IgQk3WrOt2Nj5GCoUgnLrlVeoy90WOh/JlW29LQjX6Fz
+ +hzuaG6V8sI+fMzwsl5adMwIOEfKTPJCYh77caypFvPdyCOTVrXypsM5AWynU0FSDTN9
+ QgqfmAsvaASht5lkQYZsCu4/ggahFvdPEKS5aKK+6vGMsMDIpsXqk7r3H+0K6hUOt4JF
+ 2wnFhOjY7OjDKGEZOf8qPDBbx47rL2JP2/fbmbYAl3AY2gB/EaSZErUcEg4BlggPGNEx
+ dSsg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVAOA3O0GzT7hg7IQ3e4mSdDPczh2lQp66p+fn1QVhgLoYHajbQDhvFmq4yKn1q7JvOR2WdG63zajd4cg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzOD7fS/iQdljxkB6g/NdCJdQbHjsOcG2JlE4mARgUlZ2Tm+DuS
- iBUAdoUSml60Kyh52d8Ld3r2sm+G7gBxwzvvuGXLNZe4t/zArl1Rt/e2CUyqooiG7nN59bO3yqW
- bEXXqgtrDI4dXv9OKZZlRWXaTWzz2KnDTTLSa9LWZ1VAErwprLOwEMPTt/Y9LGcj2ksqXplL9MX
- NQaQejW+I=
-X-Gm-Gg: AZuq6aKXajgbUy1R1AhpZqQS0owwE0NNIboxkBwM+nZQ6bOh+asOIXDroqsYdmdRxLX
- dMo6N5muR+MRmsNQqqopxYfCaF377tNdSdhpNoup9hNObe04oDFXWbYppacBAckjxPSFjNHywy8
- wk48Cd16r4mlybi4sNrLzzIiOkqXAygSEF7Y7CWGMNMmmqSdpP35PtQcBBCzk7oMn4qswmFAP6l
- +lCf07eBt0LilHlgtigTknFiba/jylepXIWllwHTbue7NAQbwob/Wjz5+0EOQ4JI7WbuwEBIoD9
- kRt+FXaayuztLAIKmzbNQbsHbRM6BOde+H4PlSHXoqAcoQdZkRlfvx7ZcokcWGkFcJLUzYq2ZuV
- YsYyElhfiBfigvQkOCYkalyc438nbmGYoqpA=
-X-Received: by 2002:a17:903:1a44:b0:2a9:62f1:3fbb with SMTP id
- d9443c01a7336-2ab505b61bbmr154642405ad.37.1771353307773; 
- Tue, 17 Feb 2026 10:35:07 -0800 (PST)
-X-Received: by 2002:a17:903:1a44:b0:2a9:62f1:3fbb with SMTP id
- d9443c01a7336-2ab505b61bbmr154642075ad.37.1771353307166; 
- Tue, 17 Feb 2026 10:35:07 -0800 (PST)
+ AJvYcCWT4mIY4N+fR8XYWzEhE1m+vM5M78dqKzHQO5d6EzOCJ1S8M6uCublIv1EbZytbppp7rkQVdxbS0PrgXw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzoUv/Jfb2MwObBZPljL5AqclzwjR6XiTnz3oMju9XBlMuyTnK8
+ W4Wv1fK+4CIdB8gA//pvjQte23GeJ8TO7qzsJhcamVOSWPKt8C30W3slALUZpbYXOSdqfL/IBCx
+ uzGD90ibJMWDrkX33+t1kQByp47EsFPRTgV0ovKZLjpME35A5dEemc2hg/EcM+Phsb4VTXNdc3E
+ iJrgKbwbw=
+X-Gm-Gg: AZuq6aIj4NNJwz7Nj2bwE9cPrbBtuSVbunC4hhPG5cHbK6pUarhqizxxqWjPFFG/gDP
+ aiVqcOovjP52xWB7lpg/izmNmE9VcMJ9MPztvNGvqr9LHhOZnIaXNvpdcLOFK/CcxzEB4dl51Yf
+ rZrl1hPx7wpXaf101Am9rkTV4/jungSg5mPkDkZ7RS/78G2ieoUGDX2SJTEMJcAM6vp6EdnMA1D
+ nuz8jDe6h2xNeesSPrUEvPYDqzwBCoYp/C0RUcekNTNKP83HglfiUTp3h/A+Q/22gonp5Z1zopM
+ J/wdNY1gBCpbCjC2YiTUfaQcpWyLuOxfKaMe/kOoxvowFr4JwH9eHOitFrqZl6/Z9tpMePao8ep
+ 9pKQf+QqFJXsH80WE/UBcQ95gmN/01eTR1iY=
+X-Received: by 2002:a05:6a00:808e:b0:81f:5037:a317 with SMTP id
+ d2e1a72fcca58-824c5ea230bmr15684884b3a.11.1771353362503; 
+ Tue, 17 Feb 2026 10:36:02 -0800 (PST)
+X-Received: by 2002:a05:6a00:808e:b0:81f:5037:a317 with SMTP id
+ d2e1a72fcca58-824c5ea230bmr15684842b3a.11.1771353361950; 
+ Tue, 17 Feb 2026 10:36:01 -0800 (PST)
 Received: from oss.qualcomm.com ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ad1a713d5dsm180261815ad.29.2026.02.17.10.35.02
+ d2e1a72fcca58-824c6b69b13sm13401027b3a.30.2026.02.17.10.35.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Feb 2026 10:35:06 -0800 (PST)
-Date: Wed, 18 Feb 2026 00:05:00 +0530
+ Tue, 17 Feb 2026 10:36:01 -0800 (PST)
+Date: Wed, 18 Feb 2026 00:05:54 +0530
 From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <aZS01CotaSazpWvD@oss.qualcomm.com>
+Message-ID: <aZS1CigRWTH12scL@oss.qualcomm.com>
 References: <aY0aJppQWUC52OUq@shell.armlinux.org.uk>
- <E1vqKP1-000000093mH-0Sqo@rmk-PC.armlinux.org.uk>
+ <E1vqKP6-000000093mN-1IDF@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vqKP1-000000093mH-0Sqo@rmk-PC.armlinux.org.uk>
-X-Authority-Analysis: v=2.4 cv=LfsxKzfi c=1 sm=1 tr=0 ts=6994b4dc cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+In-Reply-To: <E1vqKP6-000000093mN-1IDF@rmk-PC.armlinux.org.uk>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE3MDE1MiBTYWx0ZWRfX0fIkuabDPUxg
+ qPbE2OVDMZUyDcRexQB9AiAxsYn8RDi0COxnFcPwjfVmJnUmgrJAGJ6tvOXFyRPiXOXpbKIKcpH
+ eetjr/UxULzyWcg9hcTu67gJv8S3t9by+dUhhFyoMpFXXikk3V7mtPDyVvI1PXgMOsNq605ykOT
+ 5z1I9Icavd5KhJOBZJK/Rk4dyiC50ffAWz2MGEmm2GEru/n9kt2o2PRBw5OHZra3xxjif6Y+ty4
+ rWC8ZYZnKJmTTRtzv/faOBcJF8A4N76/84MR3ZDNwgZCtUQ8NJayhNL7jb7iY4sUCK9Jsav3l2V
+ RwlM55FmJ+/wLKjt93ZA6tsd9eP29Jg2ECpbgvCTv2dI3KKl00WWKXz1KUsjtGyScGaWWTEDz0l
+ A5Wv4gaVfrJSZb4v6lHKcC8ydu7OclVAQiM4H0e9Ex+RfWThInvWDMbXFDYJkUBjO1Lc48/uLHL
+ wbd9O5rsbfPCLBQYgCg==
+X-Proofpoint-ORIG-GUID: HybbSMBHvX9JV6FMrvv6laVq9jNz8opE
+X-Proofpoint-GUID: HybbSMBHvX9JV6FMrvv6laVq9jNz8opE
+X-Authority-Analysis: v=2.4 cv=Rfydyltv c=1 sm=1 tr=0 ts=6994b514 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=kj9zAlcOel0A:10 a=HzLeVaNsDn8A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=Mpw57Om8IfrbqaoTuvik:22 a=GgsMoib0sEa3-_RKJdDe:22
- a=PHq6YzTAAAAA:8 a=EUspDBNiAAAA:8 a=eMU2cjtvKFU-KvXMnqsA:9 a=CjuIK1q_8ugA:10
- a=uG9DUKGECoFWVXl0Dc02:22 a=ZKzU8r6zoKMcqsNulkmm:22
-X-Proofpoint-GUID: K6h-YqyMNriKFi-espRHHOJYOKyGBEO2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMjE3MDE1MSBTYWx0ZWRfX8PFtNY18Gz61
- CLcFfsFkCMB3y778wDhmKzrGDTEE4TbutV4pwMzHTSsLHR27gB5sdANafHJIcNZHarNXwZ4h79M
- UN5SODNlrcFPlcjUvPLtNo43kMmCEwP2IC4Ngb4jETfIl+QFrHN5qx2oEB1GF753awK7O5Al6BD
- 4SwJh3QjzXmj1DCs5JgQBZIDp7z/KvRskeAN9MqgJ4CSgS8frx42wX2ZhvmNXIZE6NksjyOj5Et
- mJg4Lga72fcjEckblnlWB0lCMwcsb+ae/I9DT0QSJ/fh43jLDaWWG5lXxW1blIuywAMlVCm7sUH
- JAkS/LFitW9AOmh1RIpMMiy3wQ6BdZXWQUq7yJVmiY9zZus/ub0/lK7ochIqn/q88EUQUvZUNDI
- S6ZRGbTe7upXvmFK5YoHQcjSugzv1ozwtDANQJxwKP7DU5pFoaea9SCuBIBPbrmsUXfLyhPB+To
- twiTtLwDoytYj3qB6dg==
-X-Proofpoint-ORIG-GUID: K6h-YqyMNriKFi-espRHHOJYOKyGBEO2
+ a=PHq6YzTAAAAA:8 a=EUspDBNiAAAA:8 a=OS3fFONSsTUfBaauNq0A:9 a=CjuIK1q_8ugA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22 a=ZKzU8r6zoKMcqsNulkmm:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-02-17_03,2026-02-16_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 clxscore=1015 spamscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 phishscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2601150000
- definitions=main-2602170151
+ malwarescore=0 spamscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ clxscore=1015 phishscore=0 priorityscore=1501 adultscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2601150000 definitions=main-2602170152
 Cc: imx@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
  Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
@@ -131,8 +130,8 @@ Cc: imx@lists.linux.dev, Paolo Abeni <pabeni@redhat.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next 2/9] net: stmmac:
- qcom-ethqos: remove register field value obfuscations
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 3/9] net: stmmac:
+ qcom-ethqos: change ethqos_configure*() to return void
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -156,7 +155,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
@@ -182,23 +181,13 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,qualcomm.com:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 669E014F313
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,qualcomm.com:email,oss.qualcomm.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 6991814F348
 X-Rspamd-Action: no action
 
-On Thu, Feb 12, 2026 at 12:17:51AM +0000, Russell King (Oracle) wrote:
-> Convert the register field values to something more human readable.
-> 
-> For example, using (BIT(29) | BIT(27)) to update a register field that
-> consists of bits 29:27 is an obfuscated way of writing decimal 5 for
-> this field. The comment above needs to explain that this value is 5.
-> 
-> Worse still is BIT(12) | GENMASK(9, 8), which is used to hide the
-> decimal value 19 for the bitfield 16:8.
-> 
-> Fix these, and a few others by using FIELD_PREP(). While it means we
-> have bare numeric constants, this is more preferable than having the
-> obfuscation.
+On Thu, Feb 12, 2026 at 12:17:56AM +0000, Russell King (Oracle) wrote:
+> The ethqos_configure*() family of functions always return zero, and the
+> return value is never checked. Change the int return type to void.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
