@@ -2,104 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CYDxCP4almntaAIAu9opvQ
+	id 6EhgN9hvlmlqfQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Feb 2026 21:03:10 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Feb 2026 03:05:12 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A8681594CB
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Feb 2026 21:03:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 743BF15B76B
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Feb 2026 03:05:12 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB0B9C87EC6;
-	Wed, 18 Feb 2026 20:03:08 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC322C8F275;
+	Thu, 19 Feb 2026 02:05:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1A9CC555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A3ABC8F274
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Feb 2026 20:03:07 +0000 (UTC)
+ Thu, 19 Feb 2026 02:05:10 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 985EB61857;
- Wed, 18 Feb 2026 20:03:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 106CDC116D0;
- Wed, 18 Feb 2026 20:03:03 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 078C844164;
+ Thu, 19 Feb 2026 02:05:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2E80C19425;
+ Thu, 19 Feb 2026 02:05:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771444986;
- bh=x74pCM8g+AY+IDvVyRtaHl/FTxvqT89D/tM1i9imlbg=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=AOfw8yPkYUVfE0XzMMnTFWb8x0XKa2txAwWs2tZFiN24w2OoQevCM7rmbFLGAw8bu
- 6rqHJ1sxhHf16gOspxOAWXfVj+Oz+SVlfifIm2NpWmixM1abunvsdBkKm9TGSMrUMx
- /ZDder/ip+O5T8lBZuG1ui29GSyEoYJSRd+6/ifO5FIpfMBcbT+8uQQ2zPHIKm67fM
- BQRPHOTT5pJxfk+MvYlomFLd/CYl8FWAj2eC7dcHCv42FDXwyv3QTkn9WyMsEBEyIy
- druZOh8uev8KLqSO71szxxaPrVqpcwvesoNu4v9/29M6T+/Mom9euEbm/r9VZcQufH
- B2/OlQJNysewQ==
-Message-ID: <c588720a-6a7d-4179-afb5-bb7e89e0e7e1@kernel.org>
-Date: Wed, 18 Feb 2026 21:03:02 +0100
+ s=k20201202; t=1771466708;
+ bh=frX33pev+XR4l6oz6+xiDXC5X50uJZtofsvGkHEY7RA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=Wil0D8ZPPDa/S/GwFA0Vt8A7F+18QXRUJX7g1qSxJ8KtCPtQnuacBrPrFwKlrGyHu
+ JgVpr2O1y77ZO47EzS29aj4W38oN2jH+LqivTGB+V1QW6LnJbMcg4cpYPpCLK8b0Qe
+ QUuGrLtVyW8ddNVjP4YWaCEz4jI+6kdKiDb6q6oHqWbEMSQywfwantQ4JP0fVJWEZH
+ +tAlhiet9F/1S5iA0V5yO3wyQFOz3PutsJ8hoBLcNF0s0pM32Juu7vBJYZzh4tx1Ni
+ x+JXQeLhdbCbdjVheDdGiYc87WyL20aa84aIxKCDefJhnpS2Cp58vQRTHIjbTg3Pgl
+ sxH+9dvSEM9hw==
+From: Sasha Levin <sashal@kernel.org>
+To: patches@lists.linux.dev,
+	stable@vger.kernel.org
+Date: Wed, 18 Feb 2026 21:04:11 -0500
+Message-ID: <20260219020422.1539798-35-sashal@kernel.org>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260219020422.1539798-1-sashal@kernel.org>
+References: <20260219020422.1539798-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20260209-stm32_risab-v1-0-ef0b2b6a7e0a@foss.st.com>
- <20260209-stm32_risab-v1-1-ef0b2b6a7e0a@foss.st.com>
- <ee9759a6-1779-4891-8716-24c36134198a@kernel.org>
- <516036b6-b825-4a29-a48a-5d3af3234968@foss.st.com>
- <ac793499-bebb-477b-b27e-089529f3ee4b@kernel.org>
- <66ecf6a5-cc1f-4872-971d-6bc32894dbac@foss.st.com>
- <fd73947a-289a-43f9-9506-573fee935d12@kernel.org>
- <ed0ab69f-7aff-423f-8b93-980e79705b6d@foss.st.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ed0ab69f-7aff-423f-8b93-980e79705b6d@foss.st.com>
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/7] dt-bindings: soc: st: document the
- RISAB firewall peripheral
+X-stable: review
+X-Patchwork-Hint: Ignore
+X-stable-base: Linux 6.19.2
+Cc: Sasha Levin <sashal@kernel.org>, linux-kernel@vger.kernel.org,
+ Vinod Koul <vkoul@kernel.org>, Eugen Hristev <eugen.hristev@linaro.org>,
+ mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH AUTOSEL 6.19-6.12] dmaengine: stm32-dma3: use
+	module_platform_driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -111,217 +62,144 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [5.89 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,linaro.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:patches@lists.linux.dev,m:stable@vger.kernel.org,m:sashal@kernel.org,m:linux-kernel@vger.kernel.org,m:vkoul@kernel.org,m:eugen.hristev@linaro.org,m:mcoquelin.stm32@gmail.com,m:dmaengine@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[sashal@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	GREYLIST(0.00)[pass,meta];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.898];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.897];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[sashal@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 5A8681594CB
+	DBL_BLOCKED_OPENRESOLVER(0.00)[msgid.link:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 743BF15B76B
 X-Rspamd-Action: no action
 
-On 18/02/2026 11:38, Gatien CHEVALLIER wrote:
-> 
-> 
-> On 2/17/26 21:06, Krzysztof Kozlowski wrote:
->> On 17/02/2026 14:12, Gatien CHEVALLIER wrote:
->>>
->>>
->>> On 2/13/26 16:06, Krzysztof Kozlowski wrote:
->>>> On 10/02/2026 10:55, Gatien CHEVALLIER wrote:
->>>>>>> +  memory-region:
->>>>>>> +    minItems: 1
->>>>>>> +    maxItems: 32
->>>>>>> +    description:
->>>>>>> +      Phandle to nodes describing memory regions to be configured in the RISAB
->>>>>>> +      by the trusted domain of at least a RISAB page size.
->>>>>>> +      These regions cannot overlap. A zone must be within st,mem-map range and
->>>>>>> +      can be represented by one or more pages.
->>>>>>> +
->>>>>>> +  st,mem-map:
->>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>>>>>> +    description: Memory address range covered by the RISAB.
->>>>>>> +    items:
->>>>>>> +      - description: Memory range base address
->>>>>>> +      - description: Memory range size
->>>>>>
->>>>>> Why do you need this property if you have memory-region already? This
->>>>>> also should be part of <reg>, although this mixing with memory-region is
->>>>>> anyway confusing.
->>>>>>
->>>>>
->>>>> The RISAB is a memory firewall peripheral covering internal RAMs. It is
->>>>> possible to configure multiple memory regions within these RAMs (done by
->>>>> the Trusted Domain) with security, privilege and compartment isolation.
->>>>> This peripheral allow 4kBytes page granularity. Each page can hold
->>>>> different access rights, with 32 pages at most (hence the maxItems: 32).
->>>>> That is some information that can be added to the documentation.
->>>>>
->>>>> Moreover, when a region is delegated to a non-secure privileged
->>>>> component, this component can configure the privilege level necessary to
->>>>> access the region.
->>>>>
->>>>> This property gives me the opportunity to get the memory range covered
->>>>> by the RISAB. "reg" here is used to access the actual RISAB registers
->>>>> holding the configuration.
->>>>
->>>> Looks awfully like memory regions still :/
->>>>
->>>
->>> IIUC the memory-region property references memory regions within
->>> a reserved memory. Which is not really what I want to describe
->>> here as I want to get the boundaries of the whole range. The
->>> memory-region property would be used by the Trusted Domain / kernel
->>> to get each regions (or only one that represents the whole range) of the
->>> internal RAM to apply desired access rights to them / use them.
->>>
->>> Describing the memory range using a reserved memory would make the
->>> kernel exclude this memory range from the normal usage, no?
->>
->> In general yes, but also depends on the use case/drivers/purpose. I do
->> not understand why would you mark some memory for generic use by kernel
->> (so not reserved for specific purpose) and still configure it somehow
->> for trusted firmware to allow secure read/write access.
->>
->> If you mark some part of memory as a meaning for TF for secure access,
->> you already claim it is not a generic memory. Otherwise TF just writes
->> all over malloced() pages?
->>
-> 
-> While the Trusted Domain applies the configuration, it is entirely
-> possible for the Trusted domain to give himself access to, let's say,
-> the first RISAB page to store whatever data, and give the rest to the
-> kernel. Actually, this is what we do to store OTP data mirrors
-
-And what happens with the rest of that memory? Why the first page cannot
-be the reserved region?
-
-> or DDR context and give the rest to the kernel or the co-processor.
-> 
-> Now, using internal RAM for generic use by the kernel is unlikely but
-> I have in mind the last firewall controller of the stm32mp2x platforms,
-> which is the RISAF. It has the same purpose as the RISAB but for
-> external memories. One protects the DDR so I do want DDR regions as
-> accessible for general use (memory node).
-> 
-> This property allows me to describe the boundaries of what is protected
-> without having to imply anything from frameworks about the regions as I
-> have no way of knowing what is accessible and what is not.
-
-Frameworks do not matter here - we don't even talk about them yet.
-
-You want to describe boundaries of some dedicated memory region and you
-should not have a custom property for that.
-
-> 
->>>
->>> I think declaring a "boundaries" memory region with no usage for the
->>> kernel wouldn't make sense. The kernel may not be able to access the
->>> whole memory range.
->>
->> I don't understand that. reserved-memory is for cases with "no usage for
->> the kernel", so it would perfectly make sense.
-> 
->>
->> Look what your description said:
->>
->> "used to protect internal RAMs by applying access"
-> 
-> Yes, access rights are applied by the Trusted Domain. These firewalls
-> are very flexible because access rights on secure and privilege levels
-> along with Compartment ID (SoC is divided into multiple compartments
-> holding a compartment ID) can be configured. Some bits of the
-> firewall configuration can also be delegated. e.g: When a memory
-> region is configured for privileged, non-secure access for the
-> cortex running Linux; then the kernel could reconfigure the
-> privilege level (unlikely but feasible).
-> 
-> It would be quite complex to explain the whole mechanism without
-> pointing to some documentation [1].
-> 
-> Anyway, access rights are applied, but access may very well be given to
-> the privileged non-secure compartment running the kernel. Meaning that
-> only the kernel can access such memory. Not the Trusted Domain, not the
-> user-space, not the co-processor.
-
-This implies that if you do not reserve such memory that way, then
-Trusted Domain or user-space could just poke and use it...
-
-If kernel explicitly has to tell TD to do something with specific region
-of memory, this is somehow a reserved memory. It is distinctive,
-special, selected, chosen.
-> 
-> So you could give some bits of internal RAM to the kernel for whatever
-> purpose you'd like (Storing particular data you want to keep in some
-> low-power mode, etc...).
-
-All RAM is for that purpose...
-
-> 
-> 
-> [1]: https://wiki.st.com/stm32mpu/wiki/Resource_Isolation_Framework_overview
-> 
->>
->> and
->>
->> " a trusted domain, or the domain to whom the page configuration has
->> been delegated,"
->>
->> so how it is not a dedicated, special memory delegated to specific
->> devices and/or TF?
->>
-> 
-> The memory is delegated to some contexts. These can be the processor
-> running Linux, a co-processor, some initiator ports of peripherals
-> having DMAs, etc...
-> 
-
-So pretty close to what the purpose of reserved-memory is...
-
-Well, we keep discussing and I am really not convinced. You can try to
-catch @Rob tomorrow on IRC and maybe get his approval, but for me this
-is clearly some sort of reserved memory thus you cannot go with own
-bindings. Another way would be to prove me wrong by using the reserved
-memory binding and showing how it could not possible work, ever (such
-counter examples sometimes help to look at the problem from a new angle).
-
-Best regards,
-Krzysztof
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogQW1lbGllIERlbGF1bmF5IDxhbWVsaWUuZGVsYXVuYXlAZm9zcy5zdC5jb20+CgpbIFVw
+c3RyZWFtIGNvbW1pdCAwZDQxZWQ0ZWE0OTZmYWJiYjRkYzIxMTcxZTMyZDlhOTI0YzJhNjYxIF0K
+CldpdGhvdXQgbW9kdWxlX3BsYXRmb3JtX2RyaXZlcigpLCBzdG0zMi1kbWEzIGRvZXNuJ3QgaGF2
+ZSBhCm1vZHVsZV9leGl0IHByb2NlZHVyZS4gT25jZSBzdG0zMi1kbWEzIG1vZHVsZSBpcyBpbnNl
+cnRlZCwgaXQKY2FuJ3QgYmUgcmVtb3ZlZCwgbWFya2VkIGJ1c3kuClVzZSBtb2R1bGVfcGxhdGZv
+cm1fZHJpdmVyKCkgaW5zdGVhZCBvZiBzdWJzeXNfaW5pdGNhbGwoKSB0byByZWdpc3RlcgooaW5z
+bW9kKSBhbmQgdW5yZWdpc3RlciAocm1tb2QpIHN0bTMyLWRtYTMgZHJpdmVyLgoKUmV2aWV3ZWQt
+Ynk6IEV1Z2VuIEhyaXN0ZXYgPGV1Z2VuLmhyaXN0ZXZAbGluYXJvLm9yZz4KU2lnbmVkLW9mZi1i
+eTogQW1lbGllIERlbGF1bmF5IDxhbWVsaWUuZGVsYXVuYXlAZm9zcy5zdC5jb20+Ckxpbms6IGh0
+dHBzOi8vcGF0Y2gubXNnaWQubGluay8yMDI1MTEyMS1kbWEzX2ltcHJvdi12Mi0xLTc2YTIwN2Ix
+M2VhNkBmb3NzLnN0LmNvbQpTaWduZWQtb2ZmLWJ5OiBWaW5vZCBLb3VsIDx2a291bEBrZXJuZWwu
+b3JnPgpTaWduZWQtb2ZmLWJ5OiBTYXNoYSBMZXZpbiA8c2FzaGFsQGtlcm5lbC5vcmc+Ci0tLQoK
+TExNIEdlbmVyYXRlZCBleHBsYW5hdGlvbnMsIG1heSBiZSBjb21wbGV0ZWx5IGJvZ3VzOgoKSW50
+ZXJlc3RpbmcgLSBhbGwgdGhyZWUgU1RNMzIgRE1BIGRyaXZlcnMgdXNlIGBzdWJzeXNfaW5pdGNh
+bGwoKWAuIFRoZQpvdGhlciB0d28gKHN0bTMyLWRtYSBhbmQgc3RtMzItbWRtYSkgYWxzbyBsYWNr
+IG1vZHVsZV9leGl0LiBUaGlzIGNvbW1pdApvbmx5IGNoYW5nZXMgc3RtMzItZG1hMy4KCiMjIEFu
+YWx5c2lzIFN1bW1hcnkKCiMjIyBXaGF0IHRoZSBjb21taXQgZml4ZXMKVGhlIHN0bTMyLWRtYTMg
+ZHJpdmVyIHJlZ2lzdGVycyB1c2luZyBgc3Vic3lzX2luaXRjYWxsKClgIGJ1dCBoYXMgbm8KYG1v
+ZHVsZV9leGl0KClgIGZ1bmN0aW9uLiBUaGlzIG1lYW5zIHRoZSBtb2R1bGUgY2FuIGJlIGxvYWRl
+ZCAoYGluc21vZGApCmJ1dCBuZXZlciB1bmxvYWRlZCAoYHJtbW9kYCksIGFzIHRoZSBrZXJuZWwg
+bWFya3MgaXQgYXMgYnVzeSBkdWUgdG8KaGF2aW5nIG5vIGV4aXQvY2xlYW51cCBwYXRoLgoKIyMj
+IENoYW5nZSBpbXBsaWNhdGlvbnMKVGhlIGZpeCByZXBsYWNlcyBgc3Vic3lzX2luaXRjYWxsKClg
+IChwcmlvcml0eSBsZXZlbCA0KSB3aXRoCmBtb2R1bGVfcGxhdGZvcm1fZHJpdmVyKClgIHdoaWNo
+IHVzZXMgYG1vZHVsZV9pbml0KClgIC8KYGRldmljZV9pbml0Y2FsbCgpYCAocHJpb3JpdHkgbGV2
+ZWwgNikuIFRoaXMgaXMgYSAqKmJlaGF2aW9yYWwgY2hhbmdlKioKLSB0aGUgZHJpdmVyIHdpbGwg
+bm93OgoxLiBJbml0aWFsaXplIGxhdGVyIGluIHRoZSBib290IHNlcXVlbmNlIChkZXZpY2VfaW5p
+dGNhbGwgaW5zdGVhZCBvZgogICBzdWJzeXNfaW5pdGNhbGwpCjIuIEJlIHVubG9hZGFibGUgdmlh
+IHJtbW9kCgojIyMgUmlzayBBc3Nlc3NtZW50Ci0gKipQb3NpdGl2ZSoqOiBGaXhlcyBpbmFiaWxp
+dHkgdG8gdW5sb2FkIHRoZSBtb2R1bGUgLSB0aGlzIGlzIGEgZ2VudWluZQogIGJ1ZyBmaXgKLSAq
+KlJpc2sqKjogVGhlIGluaXQgbGV2ZWwgY2hhbmdlIGZyb20gYHN1YnN5c19pbml0Y2FsbGAgKGxl
+dmVsIDQpIHRvCiAgYGRldmljZV9pbml0Y2FsbGAgKGxldmVsIDYpIGNvdWxkIGNhdXNlIHByb2Jl
+IG9yZGVyaW5nIGlzc3Vlcy4gRE1BCiAgY29udHJvbGxlcnMgYXJlIG9mdGVuIG5lZWRlZCBlYXJs
+eSBieSBvdGhlciBzdWJzeXN0ZW1zLiBIb3dldmVyLCB3aXRoCiAgZGV2aWNlIHRyZWUgYW5kIGRl
+ZmVycmVkIHByb2JpbmcgaW4gbW9kZXJuIGtlcm5lbHMsIHRoaXMgc2hvdWxkIGJlCiAgaGFuZGxl
+ZC4gVGhlIGZhY3QgdGhhdCA1NCBvdGhlciBETUEgZHJpdmVycyB1c2UKICBgbW9kdWxlX3BsYXRm
+b3JtX2RyaXZlcigpYCBzdWNjZXNzZnVsbHkgc3VwcG9ydHMgdGhpcy4KLSAqKlNjb3BlKio6IFZl
+cnkgc21hbGwgY2hhbmdlIC0gcmVtb3ZlcyA2IGxpbmVzLCBhZGRzIDEgbGluZS4gU2luZ2xlCiAg
+ZmlsZSwgc2luZ2xlIGRyaXZlci4KLSAqKkFmZmVjdGVkIHN0YWJsZSB0cmVlcyoqOiBPbmx5IDYu
+MTErIChkcml2ZXIgaW50cm9kdWNlZCBpbgogIHY2LjExLXJjMSksIHNvIHRoaXMgd291bGQgYXBw
+bHkgdG8gdjYuMTIueSBhbmQgdjYuMTMueSBzdGFibGUgdHJlZXMuCgojIyMgU3RhYmxlIGNyaXRl
+cmlhIGFzc2Vzc21lbnQKLSAqKkZpeGVzIGEgcmVhbCBidWcqKjogWWVzIC0gbW9kdWxlIGNhbm5v
+dCBiZSB1bmxvYWRlZAotICoqT2J2aW91c2x5IGNvcnJlY3QqKjogTW9zdGx5LiBUaGUgYG1vZHVs
+ZV9wbGF0Zm9ybV9kcml2ZXIoKWAgbWFjcm8gaXMKICB0aGUgc3RhbmRhcmQgcGF0dGVybiB1c2Vk
+IGJ5IHRoZSBtYWpvcml0eSBvZiBETUEgZHJpdmVycy4gSG93ZXZlciwgdGhlCiAgaW5pdCBsZXZl
+bCBjaGFuZ2UgYWRkcyBhIHNtYWxsIHJpc2suCi0gKipTbWFsbCBhbmQgY29udGFpbmVkKio6IFll
+cyAtIDcgbGluZXMgY2hhbmdlZCBpbiBvbmUgZmlsZQotICoqTm8gbmV3IGZlYXR1cmVzKio6IFRo
+ZSBhYmlsaXR5IHRvIHVubG9hZCBhIG1vZHVsZSBpcyByZXN0b3JpbmcKICBleHBlY3RlZCBiZWhh
+dmlvciwgbm90IGEgbmV3IGZlYXR1cmUKLSAqKlRlc3RlZCoqOiBIYXMgYSBSZXZpZXdlZC1ieSB0
+YWcgZnJvbSBFdWdlbiBIcmlzdGV2CgojIyMgQ29uY2VybnMKMS4gVGhlIGluaXRpYWxpemF0aW9u
+IG9yZGVyIGNoYW5nZSAoYHN1YnN5c19pbml0Y2FsbGAg4oaSCiAgIGBkZXZpY2VfaW5pdGNhbGxg
+KSBpcyB0aGUgbWFpbiBjb25jZXJuLiBETUEgZW5naW5lcyBhcmUKICAgaW5mcmFzdHJ1Y3R1cmUg
+dGhhdCBvdGhlciBkcml2ZXJzIGRlcGVuZCBvbi4gSWYgYW55dGhpbmcgcHJvYmVzCiAgIGJlZm9y
+ZSB0aGUgRE1BIGNvbnRyb2xsZXIgaXMgcmVhZHkgYW5kIGRvZXNuJ3QgaGFuZGxlIGRlZmVycmVk
+CiAgIHByb2JpbmcgY29ycmVjdGx5LCB0aGlzIGNvdWxkIGNhdXNlIHJlZ3Jlc3Npb25zLgoyLiBI
+b3dldmVyLCB0aGlzIGlzIG1pdGlnYXRlZCBieSB0aGUgZmFjdCB0aGF0IG1vZGVybiBkZXZpY2Ug
+dHJlZQogICBwbGF0Zm9ybXMgYW5kIHByb2JlIGRlZmVycmFsIHNob3VsZCBoYW5kbGUgdGhpcyBn
+cmFjZWZ1bGx5LgozLiBUaGUgYnVnIChpbmFiaWxpdHkgdG8gcm1tb2QpIHByaW1hcmlseSBhZmZl
+Y3RzIGRldmVsb3BtZW50L2RlYnVnZ2luZwogICB3b3JrZmxvd3MgYW5kIG1vZHVsYXIga2VybmVs
+IGNvbmZpZ3VyYXRpb25zLCBub3QgcHJvZHVjdGlvbiBlbWJlZGRlZAogICBzeXN0ZW1zIHRoYXQg
+dHlwaWNhbGx5IGJ1aWxkIERNQSBkcml2ZXJzIGluLgoKIyMgVmVyaWZpY2F0aW9uCgotICoqZ2l0
+IGxvZyoqIGNvbmZpcm1lZCBzdG0zMi1kbWEzLmMgd2FzIGludHJvZHVjZWQgYnkgY29tbWl0CiAg
+ZjU2MWVjOGIyYjMzZCwgd2hpY2ggaXMgaW4gdjYuMTEtcmMxCi0gKipSZWFkIG9mIGN1cnJlbnQg
+c291cmNlKiogKGxpbmUgMTkxNy0xOTIyKSBjb25maXJtZWQgdGhlCiAgYHN1YnN5c19pbml0Y2Fs
+bGAgd2l0aG91dCBgbW9kdWxlX2V4aXRgIHBhdHRlcm4gbWF0Y2hlcyB0aGUgcHJlLXBhdGNoCiAg
+c3RhdGUKLSAqKkdyZXAgb2YgZHJpdmVycy9kbWEvc3RtMzIvKiogY29uZmlybWVkIGFsbCB0aHJl
+ZSBTVE0zMiBETUEgZHJpdmVycwogIHVzZSBzdWJzeXNfaW5pdGNhbGwgLSB0aGlzIGNvbW1pdCBv
+bmx5IGNoYW5nZXMgc3RtMzItZG1hMwotICoqR3JlcCBvZiBkcml2ZXJzL2RtYS8qKiBmb3VuZCAy
+MSBETUEgZHJpdmVycyB1c2luZyBzdWJzeXNfaW5pdGNhbGwKICBhbmQgNTQgdXNpbmcgbW9kdWxl
+X3BsYXRmb3JtX2RyaXZlciwgY29uZmlybWluZyBtb2R1bGVfcGxhdGZvcm1fZHJpdmVyCiAgaXMg
+dGhlIGRvbWluYW50IHBhdHRlcm4KLSAqKmdpdCB0YWcqKiBjb25maXJtZWQgdGhlIGRyaXZlciBl
+eGlzdHMgb25seSBpbiA2LjExKyBzdGFibGUgdHJlZXMKLSBUaGUgYC5yZW1vdmVgIGNhbGxiYWNr
+IChgc3RtMzJfZG1hM19yZW1vdmVgKSBpcyBhbHJlYWR5IGRlZmluZWQgaW4gdGhlCiAgcGxhdGZv
+cm1fZHJpdmVyIHN0cnVjdCAobGluZSAxOTA5KSwgY29uZmlybWluZyB0aGUgcmVtb3ZhbCBwYXRo
+IHdhcwogIGludGVuZGVkIHRvIHdvcmsKCiMjIENvbmNsdXNpb24KClRoaXMgZml4ZXMgYSByZWFs
+IGJ1ZyAobW9kdWxlIGNhbm5vdCBiZSB1bmxvYWRlZCkgd2l0aCBhIG1pbmltYWwsIHdlbGwtCnVu
+ZGVyc3Rvb2QgY2hhbmdlIHVzaW5nIGEgc3RhbmRhcmQga2VybmVsIG1hY3JvLiBUaGUgcmlzayBp
+cyB0aGUgaW5pdApsZXZlbCBjaGFuZ2UsIGJ1dCB0aGlzIGZvbGxvd3MgdGhlIHBhdHRlcm4gb2Yg
+dGhlIG1ham9yaXR5IG9mIERNQQpkcml2ZXJzLiBUaGUgZml4IGlzIHNtYWxsLCByZXZpZXdlZCwg
+YW5kIGFwcHJvcHJpYXRlIGZvciBzdGFibGUuIFRoZQpkcml2ZXIgb25seSBleGlzdHMgaW4gNi4x
+MSssIGxpbWl0aW5nIHRoZSBzY29wZSBvZiBiYWNrcG9ydC4gRm9yCmVtYmVkZGVkL1NUTTMyIGRl
+dmVsb3BlcnMgd2hvIGxvYWQgdGhlIERNQTMgZHJpdmVyIGFzIGEgbW9kdWxlLCB0aGlzIGlzCmEg
+bWVhbmluZ2Z1bCBmaXguCgoqKllFUyoqCgogZHJpdmVycy9kbWEvc3RtMzIvc3RtMzItZG1hMy5j
+IHwgNyArLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDYgZGVsZXRpb25z
+KC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9kbWEvc3RtMzIvc3RtMzItZG1hMy5jIGIvZHJpdmVy
+cy9kbWEvc3RtMzIvc3RtMzItZG1hMy5jCmluZGV4IDUwZTcxMDZjNWNiNzMuLjk1MDAxNjRjOGY2
+ODggMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvZG1hL3N0bTMyL3N0bTMyLWRtYTMuYworKysgYi9kcml2
+ZXJzL2RtYS9zdG0zMi9zdG0zMi1kbWEzLmMKQEAgLTE5MTQsMTIgKzE5MTQsNyBAQCBzdGF0aWMg
+c3RydWN0IHBsYXRmb3JtX2RyaXZlciBzdG0zMl9kbWEzX2RyaXZlciA9IHsKIAl9LAogfTsKIAot
+c3RhdGljIGludCBfX2luaXQgc3RtMzJfZG1hM19pbml0KHZvaWQpCi17Ci0JcmV0dXJuIHBsYXRm
+b3JtX2RyaXZlcl9yZWdpc3Rlcigmc3RtMzJfZG1hM19kcml2ZXIpOwotfQotCi1zdWJzeXNfaW5p
+dGNhbGwoc3RtMzJfZG1hM19pbml0KTsKK21vZHVsZV9wbGF0Zm9ybV9kcml2ZXIoc3RtMzJfZG1h
+M19kcml2ZXIpOwogCiBNT0RVTEVfREVTQ1JJUFRJT04oIlNUTTMyIERNQTMgY29udHJvbGxlciBk
+cml2ZXIiKTsKIE1PRFVMRV9BVVRIT1IoIkFtZWxpZSBEZWxhdW5heSA8YW1lbGllLmRlbGF1bmF5
+QGZvc3Muc3QuY29tPiIpOwotLSAKMi41MS4wCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
