@@ -2,61 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4HM9KGpanGmzEgQAu9opvQ
+	id SFEoFv5cnGmkEwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 14:47:22 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 14:58:22 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BDCD17739A
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 14:47:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F9F31778B9
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 14:58:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E572CC36B3E;
-	Mon, 23 Feb 2026 13:47:21 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7584C3F945;
+	Mon, 23 Feb 2026 13:58:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ECFEC36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1D0DCC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Feb 2026 13:47:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=tGF/G9VZgwv5uDw1cDEKac6MbcUJTCMmbChRNc3rhyU=; b=YKXr/1uLiFlLjtTWx/94BTDEY4
- PWsXqFPZ7hzVbsvDV7OwZxL5gRAoeagWEG42AaxNXU+5yidUIQn9+u+/bgcF6yQq1kYNDR/Cx7Ak5
- HYmm2mo41VFEAdLt4bROjOQiy5gBryfzrOjk4Zl37LTPBCIc1QdUq3GF5fdFCbFVFL49d/vDJ2D/4
- Tfh+JXbDsNAEstdP2O1B1W6Q1Zxz8Mrevd3ESMmND+XeZbUD0ktAOSdGYpvZXiij7w+UzmxmtxlTS
- Buk39hdi/nTKDPZiRXqlj279EVslGoFr2NqsJdatWYOe1FtjvB0Hl+FfT+uiRyYaDbML6lisqL/TR
- vAvBIC4g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:50878)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vuWH2-0000000049Y-3Ilb;
- Mon, 23 Feb 2026 13:46:56 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vuWGw-000000007QI-0wgd; Mon, 23 Feb 2026 13:46:50 +0000
-Date: Mon, 23 Feb 2026 13:46:50 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Message-ID: <aZxaSq1mrfInWClI@shell.armlinux.org.uk>
-References: <20260223124102.120432-1-ovidiu.panait.rb@renesas.com>
+ Mon, 23 Feb 2026 13:58:16 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id CDE6142DC3;
+ Mon, 23 Feb 2026 13:58:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A3C61C116C6;
+ Mon, 23 Feb 2026 13:58:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1771855094;
+ bh=NWu25ePSA9QcgdrFAqYIS8vaWQtv0PHPjTD9T4fKIpQ=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=oIuPjcJ/2aujwT0Bsu10Kn6pU8scyDZ8KkT0BpcoNTR6tDY9TAjVWviG5KbV7MQ+J
+ 9Dr94BbS2/UzAfztB+vIEYXN1kXYPDwkSDv8IOO85xKfsNmjAHdF8Vz8UQZo7EFo6M
+ RTiNF3yk5NpPHZGgC/4oG8aGbRZyGH0LU+NUKn0/fzRW84XrJbInXa/T9tieYVF79Q
+ CKO98OvcIQvVIGmHbUADoMvwVoFixqf5TNBtHCKsl5/njAq5SUsUsHm207xgHMKxJu
+ KtlDBeG+xHEPRnQyQzd++iLcaUUJZxI50vxqFfMHI3ERiNVeqMVfhpsZfKBdTlmhRx
+ UAA1LoyaaJ1GA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 9062EEA4FA7;
+ Mon, 23 Feb 2026 13:58:14 +0000 (UTC)
+From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
+Date: Mon, 23 Feb 2026 14:58:03 +0100
+Message-Id: <20260223-dwmac_multi_irq-v5-0-8fc699a5fac4@oss.nxp.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260223124102.120432-1-ovidiu.panait.rb@renesas.com>
-Cc: linux-kernel@vger.kernel.org, kim.tatt.chuah@intel.com,
- hayashi.kunihiko@socionext.com, vee.khee.wong@intel.com,
- vladimir.oltean@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
- rohan.g.thomas@altera.com, andrew+netdev@lunn.ch, edumazet@google.com,
- boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
- boon.leong.ong@intel.com, kuba@kernel.org, pabeni@redhat.com,
- matthew.gerlach@altera.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/4] net: stmmac: Fix VLAN
- handling when interface is down
+X-B4-Tracking: v=1; b=H4sIAOtcnGkC/23N3wrCIBTH8VcZXmfo0Zl21XtEjM1pE9qfdK0i9
+ u65KCjs8vuD8zkPFIx3JqBt9kDeTC64vouRrzKkm7I7Guzq2AgI5BSIwvW1LXXRXk6jK5w/Y1V
+ LKwgXoDVF8WrwxrrbS9wfYjcujL2/vx5MdFnfFuWJNVFMMBO5gLIiRtnNrg9h3d2Gte5btGgTf
+ ARBIpEKsAiVBAWM1GRDU4F9CywVWBS0zpmFykgl/gj8W5CpwKMgwZaMW23Bwq8wz/MTxOL+GXY
+ BAAA=
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
+ NXP S32 Linux Team <s32@nxp.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1771855093; l=3163;
+ i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
+ bh=NWu25ePSA9QcgdrFAqYIS8vaWQtv0PHPjTD9T4fKIpQ=;
+ b=ggA/D4uhdh2cz3CK46Wsz6e4BGn7m9ixXSJy22LIR6S0OgBpSSlBw/JpcdMu1EjiTHSdIxcr+
+ PwyGrS8RSrPD/AUuZmkQQEQoXHECYjFSWEcDaZICM7TopiRac1bYQCs
+X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
+ pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
+X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
+ auth_id=217
+X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v5 0/4] Support multi-channel IRQs in stmmac
+ platform drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,128 +86,133 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: jan.petrous@oss.nxp.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:ovidiu.panait.rb@renesas.com,m:linux-kernel@vger.kernel.org,m:kim.tatt.chuah@intel.com,m:hayashi.kunihiko@socionext.com,m:vee.khee.wong@intel.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:rohan.g.thomas@altera.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:boon.leong.ong@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:matthew.gerlach@altera.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FREEMAIL_CC(0.00)[vger.kernel.org,intel.com,socionext.com,nxp.com,st-md-mailman.stormreply.com,altera.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
+	TAGGED_FROM(0.00)[jan.petrous.oss.nxp.com];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:chester62515@gmail.com,m:mbrugger@suse.com,m:ghennadi.procopciuc@oss.nxp.com,m:s32@nxp.com,m:shawnguo@kernel.org,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:Frank.Li@nxp.com,m:devicetree@vger.kernel.org,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:jan.petrous@oss.nxp.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,suse.com,oss.nxp.com,nxp.com,pengutronix.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.978];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.898];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	HAS_REPLYTO(0.00)[jan.petrous@oss.nxp.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 3BDCD17739A
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.nxp.com:mid,oss.nxp.com:replyto,st-md-mailman.stormreply.com:rdns,nxp.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 2F9F31778B9
 X-Rspamd-Action: no action
 
-On Mon, Feb 23, 2026 at 12:40:58PM +0000, Ovidiu Panait wrote:
-> VLAN register accesses on the MAC side require the PHY RX clock to be
-> active. When the network interface is down, the PHY is suspended and
-> the RX clock is unavailable, causing VLAN operations to fail with
-> timeouts.
-> 
-> The VLAN core automatically removes VID 0 after the interface goes down
-> and re-adds it when it comes back up, so these timeouts happen during
-> normal interface down/up:
-> 
->     # ip link set end1 down
->     renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
->     renesas-gbeth 15c40000.ethernet end1: failed to kill vid 0081/0
-> 
-> Adding VLANs while the interface is down also fails:
-> 
->     # ip link add link end1 name end1.10 type vlan id 10
->     renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
->     RTNETLINK answers: Device or resource busy
-> 
-> Patches 3-4 address this by deferring hardware writes when the
-> interface is down and reconfiguring the VLAN state on interface up.
-> 
-> Patches 1-2 fix some issues in the existing VLAN implementation.
+The stmmac core supports two interrupt modes, controlled by the
+flag STMMAC_FLAG_MULTI_MSI_EN:
 
-First point to make is that when the netdev supports
-NETIF_F_VLAN_FEATURES, receive clock stop is disabled. In stmmac:
+- When the flag is set, the driver uses multi-channel IRQ mode (Multi-IRQ).
+- Otherwise, a single IRQ line is requested (aka MAC-IRQ):
 
-        /* Disable EEE RX clock stop to ensure VLAN register access works
-         * correctly.
-         */
-        if (!(priv->plat->flags & STMMAC_FLAG_RX_CLK_RUNS_IN_LPI) &&
-            !(priv->dev->features & NETIF_F_VLAN_FEATURES))
-                config->eee_rx_clk_stop_enable = true;
+static int stmmac_request_irq(struct net_device *dev)
+{
+        /* Request the IRQ lines */
+        if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN)
+                ret = stmmac_request_irq_multi_msi(dev);
+        else
+                ret = stmmac_request_irq_single(dev);
+}
 
-in phylink:
+At present, only PCI drivers (Intel and Loongson) make use of the Multi-IRQ
+mode. This concept can be extended to DT-based embedded glue drivers
+(dwmac-xxx.c).
 
-        if (pl->mac_supports_eee_ops) {
-                /* Explicitly configure whether the PHY is allowed to stop it's
-                 * receive clock.
-                 */
-                ret = phy_eee_rx_clock_stop(phy,
-                                            pl->config->eee_rx_clk_stop_enable);
+This series adds support for reading per-channel IRQs from the DT node and
+reuses the existing STMMAC_FLAG_MULTI_MSI_EN flag to enable multi-IRQ
+operation in platform drivers.
 
-and also in phylink's phylink_rx_clk_stop_block():
+The final decision if Multi-IRQ gets enabled remains on glue driver
+to allow implementing any reguirements/limitions the focused platform
+needs.
 
-        /* Disable PHY receive clock stop if this is the first time this
-         * function has been called and clock-stop was previously enabled.
-         */
-        if (pl->mac_rx_clk_stop_blocked++ == 0 &&
-            pl->mac_supports_eee_ops && pl->phydev &&
-            pl->config->eee_rx_clk_stop_enable)
-                phy_eee_rx_clock_stop(pl->phydev, false);
+NXP S32G2/S32G3/S32R SoCs integrate the DWMAC IP with multi-channel
+interrupt support. The dwmac-s32.c driver change is provided as an example of
+enabling multi-IRQ mode for non-PCI drivers.
 
-So, given that when stmmac supports VLAN, eee_rx_clk_stop_enable will be
-false, so phylink_rx_clk_stop_block() does nothing useful and receive
-clock stop at the PHY will be disabled.
+Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+---
+Changes in v5:
+- fixed typo in "symetrical"
+- cleaned negative return value on platform_get_irq_byname_optional()
+  in stmmac_get_platform_resources()
+- rebased on v7.0-rc1
+- Link to v4: https://lore.kernel.org/r/20260128-dwmac_multi_irq-v4-0-82fa34fcf2f2@oss.nxp.com
 
+Changes in v4:
+- Fixed IRQ reading check
+- Made cleaner the IRQ validity (to get AI reviewer happy)
+- Fixed minItems of interrupts property in yaml
+- Link to v3: https://lore.kernel.org/r/20260123-dwmac_multi_irq-v3-0-cc53f2be8961@oss.nxp.com
 
-So a few questions:
+Changes in v3:
+- removed RFC prefix
+- rebased on v6.19-rc6
+- fixed forgotten extra line setting to Multi-IRQ unconditionally
+- fixed yaml
+- Link to v2: https://lore.kernel.org/r/20260121-dwmac_multi_irq-v2-0-3b829230d071@oss.nxp.com
 
-1) when the network interface is opened or resumed, a DMA reset is
-performed which resets all hardware state, including VLAN state. On
-resume, we call stmmac_restore_hw_vlan_rx_fltr(), but to me it looks
-like that is incomplete, and bits of the VLAN configuration don't get
-restored on resume. Please can you look at this and confirm whether
-this is indeed the problem.
+Changes in v2:
+- Fixed incorrect buffer len for 'rx-queue-%d' property check
+- Added backward compatibility to not break old settings
+- Fixed DT example in yaml
+- Link to v1: https://lore.kernel.org/r/20251214-dwmac_multi_irq-v1-0-36562ab0e9f7@oss.nxp.com
 
-2) If we can fully restore the VLAN configuration on resume, I suspect
-the driver will be doing the same work at resume as at open time, so
-this code should be shared.
+---
+Jan Petrous (OSS) (4):
+      net: stmmac: platform: read channels irq
+      dt-bindings: net: nxp,s32-dwmac: Declare per-queue interrupts
+      arm64: dts: s32: set Ethernet channel irqs
+      stmmac: s32: enable support for Multi-IRQ mode
 
-Please can you look at both of these points.
+ .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 44 +++++++++++++++++++---
+ arch/arm64/boot/dts/freescale/s32g2.dtsi           | 26 +++++++++++--
+ arch/arm64/boot/dts/freescale/s32g3.dtsi           | 26 +++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c    | 12 +++++-
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 40 +++++++++++++++++++-
+ 5 files changed, 135 insertions(+), 13 deletions(-)
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20251209-dwmac_multi_irq-9d8f60462cc1
 
-Thanks.
-
+Best regards,
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
