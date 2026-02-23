@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sNkvBVYfnGmT/wMAu9opvQ
+	id cCgjElkfnGmT/wMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 10:35:18 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 10:35:21 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA7B9173FB0
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 10:35:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EB842173FBE
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 10:35:20 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF12C36B3E;
-	Mon, 23 Feb 2026 09:35:17 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC5F4C36B3E;
+	Mon, 23 Feb 2026 09:35:20 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BC38BC36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39DC6C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Feb 2026 09:35:15 +0000 (UTC)
+ Mon, 23 Feb 2026 09:35:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=D+r2O9TDkv2B1RgekoZmNt5y+3kSqTj3CgLoC/xyn3w=; b=GmK/P9nWAgETRakxO3QLOlTlN9
- ToZjx8U99dsXy8udQ1iegHVS4GHiSp2BadkexENr2dgevK8AtjChhyyf1aEBrEt9FXyvlnZuQ6qXD
- HbxGTcaobV6qQnWCIOTsu181mpj2cgUbho3gy/yMMTtmvo+f99uekZcA2XnusuTdmLyOGJpN5vemf
- EOogg9DNYg+jZi2esfleNeiCFSdR1Ti4GaFvlJ/nZqqx81g6pRNrakhhgQQtG+E9pEJQyGUH/CYsz
- 06vdBxZp/xccCCJC6abR2g6W5O8o0TOas7NdfufjVsm8loucT16uMb4da2/xTuvq+5HrfXV+7S/SQ
- OHrMoxMg==;
+ bh=Do17YiNZlO1FGZYCmIGfMRB4ftX2C7NWXrIlFxQE5s8=; b=QVSPFkTiCI2m+8WibS0TgADta0
+ i2Bhf6uFaJn/aTr/c15U1LUqg/9F4qBcXyjWoGepyzvAoW/0QwPIbG09JczkqvbjMYc0WnGjrH5bN
+ j+uQtqqTzdgcJrzU8DwoZu2QHFyYZZ/Gcg7QF6Ltpx8r1NmMejZ6Hcvg/qq1p1wpWRwsNAYK2TFlj
+ JYAkgEtOjIX+sSG2b0CxDLFijmfwCLZ46Mt4P9HfsF3hnyX3gB8bbOKJ/SwXUssvHOGpCjgPxCAnF
+ A3yIgjxMA3GRAsmy+XN5dC620I8csyc6+nbuybood48Zo8EzuzolW333qWzAinU5Xkb64KLgFvfpR
+ qhYLpFJw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59756 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48924 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vuSL5-000000003nm-00Np;
- Mon, 23 Feb 2026 09:34:51 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vuSLB-000000003o3-40kW;
+ Mon, 23 Feb 2026 09:34:58 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vuSL0-0000000AScM-2TN0; Mon, 23 Feb 2026 09:34:46 +0000
+ id 1vuSL5-0000000AScX-2wuM; Mon, 23 Feb 2026 09:34:51 +0000
 In-Reply-To: <aZwfAFJQcp9f0niI@shell.armlinux.org.uk>
 References: <aZwfAFJQcp9f0niI@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vuSL0-0000000AScM-2TN0@rmk-PC.armlinux.org.uk>
-Date: Mon, 23 Feb 2026 09:34:46 +0000
+Message-Id: <E1vuSL5-0000000AScX-2wuM@rmk-PC.armlinux.org.uk>
+Date: Mon, 23 Feb 2026 09:34:51 +0000
 Cc: imx@lists.linux.dev, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  Vinod Koul <vkoul@kernel.org>, linux-arm-msm@vger.kernel.org,
  Sascha Hauer <s.hauer@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
@@ -55,8 +55,8 @@ Cc: imx@lists.linux.dev, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  Pengutronix Kernel Team <kernel@pengutronix.de>, netdev@vger.kernel.org,
  Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 07/10] net: stmmac: qcom-ethqos: pass
- phy interface mode to configs
+Subject: [Linux-stm32] [PATCH net-next 08/10] net: stmmac: qcom-ethqos: use
+ phy interface mode for inband
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,7 +96,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.942];
+	NEURAL_HAM(-0.00)[-0.948];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -107,76 +107,66 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,qualcomm.com:email,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: DA7B9173FB0
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,qualcomm.com:email]
+X-Rspamd-Queue-Id: EB842173FBE
 X-Rspamd-Action: no action
 
-Pass the current phylink phy interface mode to the RGMII and "SGMII"
-configuration functions.
+qcom-ethqos currently forces inband to be enabled for the Cisco SGMII
+speeds (1G, 100M and 10M) but not for 2500BASE-X (2.5G).
+
+Rather than using the speed to determine the forced inband state, use
+phylink's PHY interface mode which will switch between SGMII for the
+10M, 100M and 1G speeds, and 2500BASE-X for 2.5G.
 
 Reviewed-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c  | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ .../stmicro/stmmac/dwmac-qcom-ethqos.c         | 18 +++++++-----------
+ 1 file changed, 7 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 9b29516a5a7c..e2dd334ffd31 100644
+index e2dd334ffd31..cd6d1660bdb2 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -100,7 +100,8 @@ struct ethqos_emac_driver_data {
- struct qcom_ethqos {
- 	struct platform_device *pdev;
- 	void __iomem *rgmii_base;
--	void (*configure_func)(struct qcom_ethqos *ethqos, int speed);
-+	void (*configure_func)(struct qcom_ethqos *ethqos,
-+			       phy_interface_t interface, int speed);
+@@ -615,30 +615,26 @@ static void ethqos_configure_sgmii(struct qcom_ethqos *ethqos,
  
- 	unsigned int link_clk_rate;
- 	struct clk *link_clk;
-@@ -521,7 +522,8 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 	return 0;
- }
- 
--static void ethqos_configure_rgmii(struct qcom_ethqos *ethqos, int speed)
-+static void ethqos_configure_rgmii(struct qcom_ethqos *ethqos,
-+				   phy_interface_t interface, int speed)
- {
- 	struct device *dev = &ethqos->pdev->dev;
- 	unsigned int i;
-@@ -605,7 +607,8 @@ static void ethqos_pcs_set_inband(struct stmmac_priv *priv, bool enable)
- /* On interface toggle MAC registers gets reset.
-  * Configure MAC block for SGMII on ethernet phy link up
-  */
--static void ethqos_configure_sgmii(struct qcom_ethqos *ethqos, int speed)
-+static void ethqos_configure_sgmii(struct qcom_ethqos *ethqos,
-+				   phy_interface_t interface, int speed)
- {
- 	struct net_device *dev = platform_get_drvdata(ethqos->pdev);
- 	struct stmmac_priv *priv = netdev_priv(dev);
-@@ -638,9 +641,10 @@ static void ethqos_configure_sgmii(struct qcom_ethqos *ethqos, int speed)
+ 	switch (speed) {
+ 	case SPEED_2500:
+-		rgmii_setmask(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+-			      RGMII_IO_MACRO_CONFIG2);
+-		ethqos_set_serdes_speed(ethqos, SPEED_2500);
+-		ethqos_pcs_set_inband(priv, false);
+-		break;
+ 	case SPEED_1000:
+ 		rgmii_setmask(ethqos, RGMII_CONFIG2_RGMII_CLK_SEL_CFG,
+ 			      RGMII_IO_MACRO_CONFIG2);
+-		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+-		ethqos_pcs_set_inband(priv, true);
+ 		break;
+ 	case SPEED_100:
+-		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+-		ethqos_pcs_set_inband(priv, true);
+ 		break;
+ 	case SPEED_10:
+ 		rgmii_updatel(ethqos, RGMII_CONFIG_SGMII_CLK_DVDR,
+ 			      FIELD_PREP(RGMII_CONFIG_SGMII_CLK_DVDR,
+ 					 SGMII_10M_RX_CLK_DVDR),
+ 			      RGMII_IO_MACRO_CONFIG);
+-		ethqos_set_serdes_speed(ethqos, SPEED_1000);
+-		ethqos_pcs_set_inband(priv, true);
+ 		break;
  	}
++
++	if (interface == PHY_INTERFACE_MODE_SGMII)
++		ethqos_set_serdes_speed(ethqos, SPEED_1000);
++	else
++		ethqos_set_serdes_speed(ethqos, SPEED_2500);
++
++	ethqos_pcs_set_inband(priv, interface == PHY_INTERFACE_MODE_SGMII);
  }
  
--static void ethqos_configure(struct qcom_ethqos *ethqos, int speed)
-+static void ethqos_configure(struct qcom_ethqos *ethqos,
-+			     phy_interface_t interface, int speed)
- {
--	return ethqos->configure_func(ethqos, speed);
-+	return ethqos->configure_func(ethqos, interface, speed);
- }
- 
- static void ethqos_fix_mac_speed(void *priv, phy_interface_t interface,
-@@ -649,7 +653,7 @@ static void ethqos_fix_mac_speed(void *priv, phy_interface_t interface,
- 	struct qcom_ethqos *ethqos = priv;
- 
- 	ethqos_update_link_clk(ethqos, speed);
--	ethqos_configure(ethqos, speed);
-+	ethqos_configure(ethqos, interface, speed);
- }
- 
- static int qcom_ethqos_serdes_powerup(struct net_device *ndev, void *priv)
+ static void ethqos_configure(struct qcom_ethqos *ethqos,
 -- 
 2.47.3
 
