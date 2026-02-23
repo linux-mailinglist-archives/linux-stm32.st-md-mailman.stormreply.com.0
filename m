@@ -2,55 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SOAIBvU8nGkkCAQAu9opvQ
+	id eLDkGkWlnWmZQwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 12:41:41 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 14:19:01 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB5151759FF
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 12:41:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D572618782E
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 14:19:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5102BC36B3E;
-	Mon, 23 Feb 2026 11:41:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F9D7C8F286;
+	Tue, 24 Feb 2026 13:19:00 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61025C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3F15EC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Feb 2026 11:41:39 +0000 (UTC)
+ Mon, 23 Feb 2026 11:41:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
- Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
- Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
- Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=yVvxS2osg3afF5QxBmdLydqPQProiRbBV5PcFjFO3rw=; b=iDELU8NHAmM6JhFcM9spRAW3nh
- MhRfYpQt65BSWM3wU/oUk6yTzlvCcLa3rpVBUcbV9KG6nZNcMuq5JlYKVBZ7M8uWwig9BTNaF3OYz
- XVLy7xgQ8v+s4FSQEyaC5XBxXNFylV8UCsbCRdb1RTM9/hUkSmBXuKwIczv3XltY34oBttO5vAe80
- ip03Q6NNCCap1+Fxx1EgC+KE/n2Uisgo0uHARbWoAOTGJyo5lFHh9PL4mGwRVvJQlUyx7POUhbjV/
- JgwdWGtNY681CcsZFJU8uIqpCauHgsEnCXANGDBDhocJ8H472QQHODWEAlGqj642ttfWpF4420Tmt
- vTasf/cQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:47186)
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=OlklGKVHlcFAB5uyH7kRISqliehgzMx2P/pq4LHZAzw=; b=huenofak8dpnTr8zEus6V63xJQ
+ 3Njsd1gEi6OWqrqWW4/bNhpDjkJXSkQxmriaQybxhpMLeHSKDTw6g9L4W3Y8I30D60i+rcVLJfGUK
+ 7ZolMBRv80IW2k8W3lPg2eC3TsDuumu5WdaT2QUVSZpjpEXkxNHQYAeQaZPAOk2QSMsR8PWzKvsfr
+ YRNKji9QFlmyn3faAW6QMdgDkGnGbIhZwva4FNnas/KA7bRn8iqDnyy0NgMaSE/fPqu2QABXMYJm5
+ Ur1FsItAt67MBk5norP7SjJu/naWB2lclnnyhlEl7jjSKyZBhyUUJY0S0DusPVnCqlVz/QrYU7qQ6
+ Ivuhb6Cg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51426 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vuUJi-000000003zE-1EVx;
- Mon, 23 Feb 2026 11:41:34 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vuUJe-000000007L7-1JHc; Mon, 23 Feb 2026 11:41:30 +0000
-Date: Mon, 23 Feb 2026 11:41:30 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+ (envelope-from <rmk@armlinux.org.uk>) id 1vuUJv-000000003zS-1iAA;
+ Mon, 23 Feb 2026 11:41:47 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1vuUJu-0000000AfEO-2kPP; Mon, 23 Feb 2026 11:41:46 +0000
+In-Reply-To: <aZw86hpjQ-3w3xqJ@shell.armlinux.org.uk>
+References: <aZw86hpjQ-3w3xqJ@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <aZw86hpjQ-3w3xqJ@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
+Message-Id: <E1vuUJu-0000000AfEO-2kPP@rmk-PC.armlinux.org.uk>
+Date: Mon, 23 Feb 2026 11:41:46 +0000
+X-Mailman-Approved-At: Tue, 24 Feb 2026 13:18:59 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: fix interrupt
-	coalescing
+Subject: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: use circ_buf
+ helpers for descriptors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,67 +70,140 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	DATE_IN_PAST(1.00)[25];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
+	TAGGED_FROM(0.00)[kernel];
 	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.940];
+	NEURAL_HAM(-0.00)[-0.856];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	RCPT_COUNT_SEVEN(0.00)[9];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: AB5151759FF
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,stlinux.com:url,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: D572618782E
 X-Rspamd-Action: no action
 
-Hi,
+The stmmac descriptor queues are circular buffers, operated as far as
+the hardware is concerned as either a ring, or a chain that loops back
+on itself. From the software perspective, it forms a circular buffer.
 
-While cleaning up the descriptor handling, I noticed that the accounting
-of transmit "packets" for interrupt coalescing was buggy in that it
-takes the difference of the two indexes into the circular list of
-transmit discriptors and merely subtracts one from the other without
-regard for the indexes wrapping.
+We have a few places which calculate the number of in-use and free
+entries in these circular buffers, for which we have macros for.
+Use CIRC_CNT() and CIRC_SPACE() as appropriate to calculate these
+values.
 
-This can result in a negative number or very large positive number
-which would have the effect of either reducing tx_q->tx_count_frames
-or making that very large.
+Validating, for stmmac_tx_avail(), which uses CIRC_SPACE():
 
-Either way, the result is numerically incorrect, and could trigger
-interrupts or not trigger interrupts when required.
+  dirty_tx = 1, cur_tx = 0 -> 0
+  dirty_tx = 0, cur_tx = 0 -> dma_tx_size - 1
+  dirty_tx = 0, cur_tx = 1 -> dma_tx_size - 2
 
-This series converts stmmac to use the circ_buf helpers, and then fixes
-this problem.
+dirty_tx passed as end, reduced by one. cur_tx passed as start.
+Output on sane computers is identical.
 
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 28 ++++++++---------------
- 1 file changed, 10 insertions(+), 18 deletions(-)
+For stmmac_rx_dirty(), which uses CIRC_CNT():
 
+  dirty_rx = 1, cur_rx = 0 -> dma_rx_size - 1
+  dirty_rx = 0, cur_rx = 0 -> 0
+  dirty_rx = 0, cur_rx = 1 -> 1
+
+dirty_rx passed as start, cur_rx passed as end. Output is identical.
+
+Same validation performed on the is_last_segment calculation, which
+also gets converted to CIRC_CNT().
+
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 23 ++++++-------------
+ 1 file changed, 7 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index a2a0985e8c37..3277aecc5454 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -14,6 +14,7 @@
+ 	https://bugzilla.stlinux.com/
+ *******************************************************************************/
+ 
++#include <linux/circ_buf.h>
+ #include <linux/clk.h>
+ #include <linux/kernel.h>
+ #include <linux/interrupt.h>
+@@ -355,14 +356,9 @@ static void print_pkt(unsigned char *buf, int len)
+ static inline u32 stmmac_tx_avail(struct stmmac_priv *priv, u32 queue)
+ {
+ 	struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[queue];
+-	u32 avail;
+ 
+-	if (tx_q->dirty_tx > tx_q->cur_tx)
+-		avail = tx_q->dirty_tx - tx_q->cur_tx - 1;
+-	else
+-		avail = priv->dma_conf.dma_tx_size - tx_q->cur_tx + tx_q->dirty_tx - 1;
+-
+-	return avail;
++	return CIRC_SPACE(tx_q->cur_tx, tx_q->dirty_tx,
++			  priv->dma_conf.dma_tx_size);
+ }
+ 
+ /**
+@@ -373,14 +369,9 @@ static inline u32 stmmac_tx_avail(struct stmmac_priv *priv, u32 queue)
+ static inline u32 stmmac_rx_dirty(struct stmmac_priv *priv, u32 queue)
+ {
+ 	struct stmmac_rx_queue *rx_q = &priv->dma_conf.rx_queue[queue];
+-	u32 dirty;
+-
+-	if (rx_q->dirty_rx <= rx_q->cur_rx)
+-		dirty = rx_q->cur_rx - rx_q->dirty_rx;
+-	else
+-		dirty = priv->dma_conf.dma_rx_size - rx_q->dirty_rx + rx_q->cur_rx;
+ 
+-	return dirty;
++	return CIRC_CNT(rx_q->cur_rx, rx_q->dirty_rx,
++			priv->dma_conf.dma_rx_size);
+ }
+ 
+ static bool stmmac_eee_tx_busy(struct stmmac_priv *priv)
+@@ -4571,8 +4562,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	/* If we only have one entry used, then the first entry is the last
+ 	 * segment.
+ 	 */
+-	is_last_segment = ((tx_q->cur_tx - first_entry) &
+-			   (priv->dma_conf.dma_tx_size - 1)) == 1;
++	is_last_segment = CIRC_CNT(tx_q->cur_tx, first_entry,,
++				   priv->dma_conf.dma_tx_size) == 1;
+ 
+ 	/* Complete the first descriptor before granting the DMA */
+ 	stmmac_prepare_tso_tx_desc(priv, first, 1, proto_hdr_len, 0, 1,
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+2.47.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
