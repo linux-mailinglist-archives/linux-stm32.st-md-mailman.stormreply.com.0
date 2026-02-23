@@ -2,47 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0JE7HAhLnGmODAQAu9opvQ
+	id UHxOMAJXnGkAEQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 13:41:44 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 14:32:50 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DB02176480
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 13:41:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 57D42176F85
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 14:32:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EADE4C36B3E;
-	Mon, 23 Feb 2026 12:41:43 +0000 (UTC)
-Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
- [210.160.252.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1186C36B3C
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC7C7C36B3E;
+	Mon, 23 Feb 2026 13:32:49 +0000 (UTC)
+Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 530F2C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Feb 2026 12:41:41 +0000 (UTC)
-X-CSE-ConnectionGUID: RATekyJ1R5yKNNf7lStgUQ==
-X-CSE-MsgGUID: y0YMchb9Q8eDUObnCEjfig==
-Received: from unknown (HELO relmlir6.idc.renesas.com) ([10.200.68.152])
- by relmlie6.idc.renesas.com with ESMTP; 23 Feb 2026 21:41:40 +0900
-Received: from vm01.adwin.renesas.com (unknown [10.226.92.12])
- by relmlir6.idc.renesas.com (Postfix) with ESMTP id DEB7641AB637;
- Mon, 23 Feb 2026 21:41:33 +0900 (JST)
-From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
- alexandre.torgue@foss.st.com, linux@armlinux.org.uk,
- rmk+kernel@armlinux.org.uk, maxime.chevallier@bootlin.com,
- boon.khai.ng@altera.com, rohan.g.thomas@altera.com,
- vladimir.oltean@nxp.com, hayashi.kunihiko@socionext.com,
- matthew.gerlach@altera.com, vee.khee.wong@intel.com,
- boon.leong.ong@intel.com, kim.tatt.chuah@intel.com
-Date: Mon, 23 Feb 2026 12:41:02 +0000
-Message-ID: <20260223124102.120432-5-ovidiu.panait.rb@renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260223124102.120432-1-ovidiu.panait.rb@renesas.com>
-References: <20260223124102.120432-1-ovidiu.panait.rb@renesas.com>
+ Mon, 23 Feb 2026 13:32:48 +0000 (UTC)
+Received: from inva021.nxp.com (localhost [127.0.0.1])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id C9EDD2015FB;
+ Mon, 23 Feb 2026 14:32:47 +0100 (CET)
+Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
+ [134.27.226.22])
+ by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id AF756201FB9;
+ Mon, 23 Feb 2026 14:32:47 +0100 (CET)
+Received: from lsv051416.swis.nl-cdc01.nxp.com
+ (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
+ by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 0B4F7202AE;
+ Mon, 23 Feb 2026 14:32:47 +0100 (CET)
+Date: Mon, 23 Feb 2026 14:32:47 +0100
+From: Jan Petrous <jan.petrous@oss.nxp.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <aZxW/5dBz3XPTxhB@lsv051416.swis.nl-cdc01.nxp.com>
+References: <20260128-dwmac_multi_irq-v4-1-82fa34fcf2f2@oss.nxp.com>
+ <20260129050959.375635-1-kuba@kernel.org>
 MIME-Version: 1.0
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net-next 4/4] net: stmmac: Defer VLAN HW
-	configuration when interface is down
+Content-Disposition: inline
+In-Reply-To: <20260129050959.375635-1-kuba@kernel.org>
+X-Virus-Scanned: ClamAV using ClamSMTP
+Cc: imx@lists.linux.dev, s32@nxp.com, edumazet@google.com,
+ ghennadi.procopciuc@oss.nxp.com, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, kernel@pengutronix.de,
+ s.hauer@pengutronix.de, linux-arm-kernel@lists.infradead.org,
+ chester62515@gmail.com, mbrugger@suse.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, shawnguo@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [v4, 1/4] net: stmmac: platform: read channels irq
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,207 +64,112 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [2.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[nxp.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[renesas.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,altera.com,nxp.com,socionext.com,intel.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:boon.khai.ng@altera.com,m:rohan.g.thomas@altera.com,m:vladimir.oltean@nxp.com,m:hayashi.kunihiko@socionext.com,m:matthew.gerlach@altera.com,m:vee.khee.wong@intel.com,m:boon.leong.ong@intel.com,m:kim.tatt.chuah@intel.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[ovidiu.panait.rb@renesas.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:imx@lists.linux.dev,m:s32@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jan.petrous@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_NONE(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ovidiu.panait.rb@renesas.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[jan.petrous@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.696];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[renesas.com:mid,renesas.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 2DB02176480
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	NEURAL_HAM(-0.00)[-0.939];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:url,stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: 57D42176F85
 X-Rspamd-Action: no action
 
-VLAN register accesses on the MAC side require the PHY RX clock to be
-active. When the network interface is down, the PHY is suspended and
-the RX clock is unavailable, causing VLAN operations to fail with
-timeouts.
+On Wed, Jan 28, 2026 at 09:09:59PM -0800, Jakub Kicinski wrote:
+> This is an AI-generated review of your patch. The human sending this
+> email has considered the AI review valid, or at least plausible.
+> 
+> For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
+> ---
+> net: stmmac: platform: read channels irq
+> 
+> This patch reads IRQ resources for all rx/tx channels to allow Multi-IRQ
+> mode for platform glue drivers.
+> 
+> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > index 8979a50b5507..94854bfb6e0d 100644
+> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> 
+> [ ... ]
+> 
+> > +	/* RX channels irq */
+> > +	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
+> > +		scnprintf(name, sizeof(name), "rx-queue-%d", i);
+> > +		stmmac_res->rx_irq[i] = platform_get_irq_byname_optional(pdev,
+> > +									 name);
+> > +		if (stmmac_res->rx_irq[i] <= 0) {
+> > +			if (stmmac_res->rx_irq[i] == -EPROBE_DEFER)
+> > +				return -EPROBE_DEFER;
+> > +			dev_dbg(&pdev->dev, "IRQ rx-queue-%d not found\n", i);
+> > +
+> > +			/* Stop on first unset rx-queue-%i property member */
+> > +			break;
+> > +		}
+> > +	}
+> 
+> When platform_get_irq_byname_optional() returns a negative error like
+> -ENXIO, that value is stored in stmmac_res->rx_irq[i] before the break.
+> 
+> In stmmac_request_irq_multi_msi(), the check is:
+> 
+>     if (priv->rx_irq[i] == 0)
+>         continue;
+>     ret = request_irq(priv->rx_irq[i], ...);
+> 
+> Should the negative value be cleared before the break? Otherwise if
+> rx_queues_to_use exceeds the number of defined IRQs, the negative error
+> code could be passed to request_irq().
+> 
+> > +
+> > +	/* TX channels irq */
+> > +	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
+> > +		scnprintf(name, sizeof(name), "tx-queue-%d", i);
+> > +		stmmac_res->tx_irq[i] = platform_get_irq_byname_optional(pdev,
+> > +									 name);
+> > +		if (stmmac_res->tx_irq[i] <= 0) {
+> > +			if (stmmac_res->tx_irq[i] == -EPROBE_DEFER)
+> > +				return -EPROBE_DEFER;
+> > +			dev_dbg(&pdev->dev, "IRQ tx-queue-%d not found\n", i);
+> > +
+> > +			/* Stop on first unset tx-queue-%i property member */
+> > +			break;
+> > +		}
+> > +	}
+> 
+> Same question here for tx_irq[i].
+> -- 
+> pw-bot: cr
 
-The VLAN core automatically removes VID 0 after the interface goes down
-and re-adds it when it comes back up, so these timeouts happen during
-normal interface down/up:
+Bot is right. I will address it in v5.
 
-    # ip link set end1 down
-    renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
-    renesas-gbeth 15c40000.ethernet end1: failed to kill vid 0081/0
-
-Adding VLANs while the interface is down also fails:
-
-    # ip link add link end1 name end1.10 type vlan id 10
-    renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
-    RTNETLINK answers: Device or resource busy
-
-Use the write_hw parameter introduced in the previous commit to skip
-hardware register writes when the interface is down. The software state
-is always kept up to date regardless of interface state.
-
-When the interface is brought up, stmmac_vlan_configure() is called
-to write the VLAN state to hardware.
-
-Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 33 +++++++++++++++----
- .../net/ethernet/stmicro/stmmac/stmmac_vlan.c |  9 ++---
- 2 files changed, 29 insertions(+), 13 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 536668a0d6dd..d0aede23ae0d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -156,6 +156,7 @@ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue);
- static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int queue);
- static void stmmac_set_dma_operation_mode(struct stmmac_priv *priv, u32 txmode,
- 					  u32 rxmode, u32 chan);
-+static int stmmac_vlan_configure(struct stmmac_priv *priv);
- 
- #ifdef CONFIG_DEBUG_FS
- static const struct net_device_ops stmmac_netdev_ops;
-@@ -4111,6 +4112,14 @@ static int __stmmac_open(struct net_device *dev,
- 
- 	phylink_start(priv->phylink);
- 
-+	if (dev->features & NETIF_F_VLAN_FEATURES) {
-+		phylink_rx_clk_stop_block(priv->phylink);
-+		ret = stmmac_vlan_configure(priv);
-+		phylink_rx_clk_stop_unblock(priv->phylink);
-+		if (ret)
-+			netdev_err(dev, "Failed to configure VLANs\n");
-+	}
-+
- 	ret = stmmac_request_irq(dev);
- 	if (ret)
- 		goto irq_error;
-@@ -6784,6 +6793,7 @@ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double,
- static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid)
- {
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-+	bool write_hw = netif_running(ndev);
- 	unsigned int num_double_vlans;
- 	bool is_double = false;
- 	int ret;
-@@ -6797,7 +6807,7 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- 
- 	set_bit(vid, priv->active_vlans);
- 	num_double_vlans = priv->num_double_vlans + is_double;
--	ret = stmmac_vlan_update(priv, num_double_vlans, true);
-+	ret = stmmac_vlan_update(priv, num_double_vlans, write_hw);
- 	if (ret) {
- 		clear_bit(vid, priv->active_vlans);
- 		goto err_pm_put;
-@@ -6805,10 +6815,11 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- 
- 	if (priv->hw->num_vlan) {
- 		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto,
--						 vid, true);
-+						 vid, write_hw);
- 		if (ret) {
- 			clear_bit(vid, priv->active_vlans);
--			stmmac_vlan_update(priv, priv->num_double_vlans, true);
-+			stmmac_vlan_update(priv, priv->num_double_vlans,
-+					   write_hw);
- 			goto err_pm_put;
- 		}
- 	}
-@@ -6827,6 +6838,7 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
- static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
- {
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-+	bool write_hw = netif_running(ndev);
- 	unsigned int num_double_vlans;
- 	bool is_double = false;
- 	int ret;
-@@ -6840,7 +6852,7 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
- 
- 	clear_bit(vid, priv->active_vlans);
- 	num_double_vlans = priv->num_double_vlans - is_double;
--	ret = stmmac_vlan_update(priv, num_double_vlans, true);
-+	ret = stmmac_vlan_update(priv, num_double_vlans, write_hw);
- 	if (ret) {
- 		set_bit(vid, priv->active_vlans);
- 		goto del_vlan_error;
-@@ -6848,10 +6860,11 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
- 
- 	if (priv->hw->num_vlan) {
- 		ret = stmmac_del_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto,
--						 vid, true);
-+						 vid, write_hw);
- 		if (ret) {
- 			set_bit(vid, priv->active_vlans);
--			stmmac_vlan_update(priv, priv->num_double_vlans, true);
-+			stmmac_vlan_update(priv, priv->num_double_vlans,
-+					   write_hw);
- 			goto del_vlan_error;
- 		}
- 	}
-@@ -6864,6 +6877,14 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
- 	return ret;
- }
- 
-+static int stmmac_vlan_configure(struct stmmac_priv *priv)
-+{
-+	if (priv->hw->num_vlan)
-+		stmmac_restore_hw_vlan_rx_fltr(priv, priv->dev, priv->hw);
-+
-+	return stmmac_vlan_update(priv, priv->num_double_vlans, true);
-+}
-+
- static int stmmac_bpf(struct net_device *dev, struct netdev_bpf *bpf)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-index b74c173da1b5..070c11870c02 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-@@ -150,7 +150,6 @@ static void vlan_restore_hw_rx_fltr(struct net_device *dev,
- 	void __iomem *ioaddr = hw->pcsr;
- 	u32 value;
- 	u32 hash;
--	u32 val;
- 	int i;
- 
- 	/* Single Rx VLAN Filter */
-@@ -160,12 +159,8 @@ static void vlan_restore_hw_rx_fltr(struct net_device *dev,
- 	}
- 
- 	/* Extended Rx VLAN Filter Enable */
--	for (i = 0; i < hw->num_vlan; i++) {
--		if (hw->vlan_filter[i] & VLAN_TAG_DATA_VEN) {
--			val = hw->vlan_filter[i];
--			vlan_write_filter(dev, hw, i, val);
--		}
--	}
-+	for (i = 0; i < hw->num_vlan; i++)
-+		vlan_write_filter(dev, hw, i, hw->vlan_filter[i]);
- 
- 	hash = readl(ioaddr + VLAN_HASH_TABLE);
- 	if (hash & VLAN_VLHT) {
--- 
-2.34.1
-
+Thanks.
+/Jan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
