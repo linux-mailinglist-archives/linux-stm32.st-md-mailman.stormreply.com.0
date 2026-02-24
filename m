@@ -2,46 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MII8B7vCnGnJKAQAu9opvQ
+	id CKrpMepNnWkBOgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 22:12:27 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 08:06:18 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A137417D65D
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Feb 2026 22:12:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69213182BA9
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 08:06:18 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 473F5C36B3E;
-	Mon, 23 Feb 2026 21:12:26 +0000 (UTC)
-Received: from out-177.mta1.migadu.com (out-177.mta1.migadu.com
- [95.215.58.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB3E0C8F285;
+	Tue, 24 Feb 2026 07:06:17 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5E39C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A21F3C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Feb 2026 21:12:24 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1771881144;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=XRjfZu1Hr90ss3ioz6xOX+blIxYMM+Mlko4KD2NgAUw=;
- b=Ou0+Rmnr3JxP5kw4e40+7uW1Z3hOgVc6DgGXnJkusn+qXZby88wnxi/c7qOpMKBRU5FgE+
- WheUDgCgFgsJaTbiECpnz5qr/9/GgIUDSZbnE8ZTW2xG7wprzA+HUV21b/Pw+OGashToaN
- KVAIMBtnSlCLaX/tHFd+/BV/5KW9jbU=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon, 23 Feb 2026 22:12:11 +0100
-Message-ID: <20260223211212.344855-1-thorsten.blum@linux.dev>
+ Tue, 24 Feb 2026 07:06:15 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 370DD40053;
+ Tue, 24 Feb 2026 07:06:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84AF6C116D0;
+ Tue, 24 Feb 2026 07:06:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1771916774;
+ bh=+7HAa46+csyyfFenGu741DgQ0m/L/d1UUx6mgp8nvUI=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=d31fTtcpY8I9cJoKWJ3UEniHz7RsfiFq9uU5sAhsntQBf5du4P+x3xpG//OsG3lmN
+ 7OgqoFGzx6hpHFeqMfTKq/hTpv7Ik1HZSU6oSfDEY96qV/mhnMagxUv7yEbOVGuKKd
+ atR3yi19ndUjIVhw+uV9flLAAzqxcRtvYBZL3YQObRLuamy5AaxwVCBMd+OchiNYzK
+ BNupMV1fEQXiLypin5s5DLXhZTZCWdpXiJBDgTUCyRou90d4EiJD5K/Ajz6lt+G8pv
+ Y8B3ZQZDEte86QBesK3IwEbZQ4XaW9BhehybzEkMXn8mSPSm5cIciYoM7VVTaHrar4
+ 9SL7I9nZejwRg==
+Date: Tue, 24 Feb 2026 08:06:11 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Message-ID: <20260224-diligent-bloodhound-of-hail-3fe982@quoll>
+References: <20260223-dwmac_multi_irq-v5-0-8fc699a5fac4@oss.nxp.com>
+ <20260223-dwmac_multi_irq-v5-2-8fc699a5fac4@oss.nxp.com>
 MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@linux.dev>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH] bus: rifsc: Replace snprintf("%s") with
-	strscpy
+Content-Disposition: inline
+In-Reply-To: <20260223-dwmac_multi_irq-v5-2-8fc699a5fac4@oss.nxp.com>
+Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
+ Frank Li <Frank.Li@nxp.com>, Eric Dumazet <edumazet@google.com>,
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH v5 2/4] dt-bindings: net: nxp,
+ s32-dwmac: Declare per-queue interrupts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -58,86 +75,156 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
-	MID_CONTAINS_FROM(1.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:thorsten.blum@linux.dev,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[foss.st.com,gmail.com];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	FORGED_RECIPIENTS(0.00)[m:jan.petrous@oss.nxp.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[linux.dev:-];
-	NEURAL_HAM(-0.00)[-0.868];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.987];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:mid,linux.dev:email,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: A137417D65D
+	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:email,devicetree.org:url,suse.com:email,bootlin.com:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 69213182BA9
 X-Rspamd-Action: no action
 
-Replace snprintf("%s", ...) with the faster and more direct strscpy().
+On Mon, Feb 23, 2026 at 02:58:05PM +0100, Jan Petrous (OSS) wrote:
+> The DWMAC IP on NXP S32G/R SoCs has connected queue-based IRQ lines,
+> set them to allow using Multi-IRQ mode.
+> 
+> Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+> ---
+>  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 44 +++++++++++++++++++---
+>  1 file changed, 39 insertions(+), 5 deletions(-)
+> 
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/bus/stm32_rifsc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+<form letter>
+This is a friendly reminder during the review process.
 
-diff --git a/drivers/bus/stm32_rifsc.c b/drivers/bus/stm32_rifsc.c
-index debeaf8ea1bd..ba65ad21434b 100644
---- a/drivers/bus/stm32_rifsc.c
-+++ b/drivers/bus/stm32_rifsc.c
-@@ -15,6 +15,7 @@
- #include <linux/of.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/string.h>
- #include <linux/types.h>
- 
- #include "stm32_firewall.h"
-@@ -450,7 +451,7 @@ static void stm32_rifsc_fill_rimu_dbg_entry(struct rifsc_dbg_private *rifsc,
- 	const struct stm32_rifsc_resources_names *dbg_names = rifsc->res_names;
- 	u32 rimc_attr = readl_relaxed(rifsc->mmio + RIFSC_RIMC_ATTR0 + 0x4 * i);
- 
--	snprintf(dbg_entry->m_name, sizeof(dbg_entry->m_name), "%s", dbg_names->initiator_names[i]);
-+	strscpy(dbg_entry->m_name, dbg_names->initiator_names[i]);
- 	dbg_entry->m_cid = FIELD_GET(RIFSC_RIMC_MCID_MASK, rimc_attr);
- 	dbg_entry->cidsel = rimc_attr & RIFSC_RIMC_CIDSEL;
- 	dbg_entry->m_sec = rimc_attr & RIFSC_RIMC_MSEC;
-@@ -469,8 +470,7 @@ static void stm32_rifsc_fill_dev_dbg_entry(struct rifsc_dbg_private *rifsc,
- 	sec_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_SECCFGR0 + 0x4 * reg_id);
- 	priv_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_PRIVCFGR0 + 0x4 * reg_id);
- 
--	snprintf(dbg_entry->dev_name, sizeof(dbg_entry->dev_name), "%s",
--		 dbg_names->device_names[i]);
-+	strscpy(dbg_entry->dev_name, dbg_names->device_names[i]);
- 	dbg_entry->dev_id = i;
- 	dbg_entry->dev_cid_filt_en = cid_cfgr & CIDCFGR_CFEN;
- 	dbg_entry->dev_sem_en = cid_cfgr & CIDCFGR_SEMEN;
--- 
-Thorsten Blum <thorsten.blum@linux.dev>
-GPG: 1D60 735E 8AEF 3BE4 73B6  9D84 7336 78FD 8DFE EAD4
+It looks like you received a tag and forgot to add it.
 
+If you do not know the process, here is a short explanation:
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state why and what changed.
+</form letter>
+
+> diff --git a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
+> index 1b2934f3c87c..3a0e41b63c3d 100644
+> --- a/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/nxp,s32-dwmac.yaml
+> @@ -1,5 +1,5 @@
+>  # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> -# Copyright 2021-2024 NXP
+> +# Copyright 2021-2026 NXP
+>  %YAML 1.2
+>  ---
+>  $id: http://devicetree.org/schemas/net/nxp,s32-dwmac.yaml#
+> @@ -16,6 +16,8 @@ description:
+>    the SoC S32R45 has two instances. The devices can use RGMII/RMII/MII
+>    interface over Pinctrl device or the output can be routed
+>    to the embedded SerDes for SGMII connectivity.
+> +  The DWMAC instances have connected all RX/TX queues interrupts,
+> +  enabling load balancing of data traffic across all CPU cores.
+>  
+>  properties:
+>    compatible:
+> @@ -45,10 +47,22 @@ properties:
+>        FlexTimer Modules connect to GMAC_0.
+>  
+>    interrupts:
+> -    maxItems: 1
+> +    minItems: 11
+> +    maxItems: 11
+>  
+>    interrupt-names:
+> -    const: macirq
+> +    items:
+> +      - const: macirq
+> +      - const: tx-queue-0
+> +      - const: rx-queue-0
+> +      - const: tx-queue-1
+> +      - const: rx-queue-1
+> +      - const: tx-queue-2
+> +      - const: rx-queue-2
+> +      - const: tx-queue-3
+> +      - const: rx-queue-3
+> +      - const: tx-queue-4
+> +      - const: rx-queue-4
+>  
+>    clocks:
+>      items:
+> @@ -88,8 +102,28 @@ examples:
+>                <0x0 0x4007c004 0x0 0x4>;    /* GMAC_0_CTRL_STS */
+>          nxp,phy-sel = <&gpr 0x4>;
+>          interrupt-parent = <&gic>;
+> -        interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
+> -        interrupt-names = "macirq";
+> +        interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
+> +                     /* CHN 0: tx, rx */
+> +                     <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
+> +                     /* CHN 1: tx, rx */
+> +                     <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>,
+> +                     /* CHN 2: tx, rx */
+> +                     <GIC_SPI 62 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>,
+> +                     /* CHN 3: tx, rx */
+> +                     <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>,
+> +                     /* CHN 4: tx, rx */
+> +                     <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>,
+> +                     <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
+> +        interrupt-names = "macirq",
+> +                          "tx-queue-0", "rx-queue-0",
+> +                          "tx-queue-1", "rx-queue-1",
+> +                          "tx-queue-2", "rx-queue-2",
+> +                          "tx-queue-3", "rx-queue-3",
+> +                          "tx-queue-4", "rx-queue-4";
+>          snps,mtl-rx-config = <&mtl_rx_setup>;
+>          snps,mtl-tx-config = <&mtl_tx_setup>;
+>          clocks = <&clks 24>, <&clks 17>, <&clks 16>, <&clks 15>;
+> 
+> -- 
+> 2.47.0
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
