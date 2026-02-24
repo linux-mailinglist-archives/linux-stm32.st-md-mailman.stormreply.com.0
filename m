@@ -2,51 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eKYyMc1unWk9QAQAu9opvQ
+	id GGN4OStvnWk9QAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 10:26:37 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 10:28:11 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E7A11848DD
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 10:26:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A48B6184936
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Feb 2026 10:28:10 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 186F4C8F285;
-	Tue, 24 Feb 2026 09:26:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ABFBC8F285;
+	Tue, 24 Feb 2026 09:28:10 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D208EC08D19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53572C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Feb 2026 09:26:35 +0000 (UTC)
+ Tue, 24 Feb 2026 09:28:08 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 90B5C409F5;
- Tue, 24 Feb 2026 09:26:34 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17A62C116D0;
- Tue, 24 Feb 2026 09:26:31 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4C0D86091C;
+ Tue, 24 Feb 2026 09:28:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFDE2C116D0;
+ Tue, 24 Feb 2026 09:28:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1771925194;
- bh=gW2ll+nM74bEEmCgEWg3HfAkPc+LIWHPoFwS1UekeLw=;
+ s=k20201202; t=1771925287;
+ bh=UjV+lVT62XoKCNm3uXANF9IwXBOBlVqxQ2pDtUbIBXc=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=V3VM8b648NiVpQDtl9iPxAXS0gQlH5thDEvogxog0EJOhz+ITQDgwa9p0gao+iKDo
- al1jP6hrqySPLW/wyuN1yT9ItX+41Z326O5Iq9n0MY9fvZ4ZA956D4M1WvTmzx0XOz
- ZEr6Z+uKu0h8yOsKpAf+o5DDDUSRZFh3z1HL6aC32bfaMYlc2oNlPUDirxUUmvoll/
- 7B9cYh6gPrHjI0q1mTQ/MxE+PhgNHq5WGMHsn1NEJD0RwY/XFIxXB7fUmsHW2WTFQz
- cVs95gf/TAbBQzFcW/Y2yTdOae7YG6qEAGvufiafJzjr2iOFCnIH2SJdKpxJOwQahh
- 3ubd300ARbsjA==
-Date: Tue, 24 Feb 2026 09:26:29 +0000
+ b=OUZpqHl9KOq3NztIgVFQnBX5c8PRe87hioP2HSuqHpab1UHLsBZ1svI4vteAQLBs7
+ OLLP0B1MFP/TXSaItgMk2liCMMbrwVVrCe+rnHoxFAEUmwjVdmFQDavW+rwWOqJ6wT
+ 7pDiHJ5lAQmlfqabozb2hCqOok6MNK0d4i2zEO/Bu11+ZHQITQfh5m1iXI/D5QprT8
+ /NIQxW8w1xhBkngwn/+JQoxH43uRqFerkMTn1IqsD6LCH32ro2/JEbLk2R+8O+K3Lw
+ ENg9Hux853QsTM7B6D/Kuz1Ct7LNCm+u4eznPQk+7+1lWUHYhmYn8qwwgBlHh3MKGp
+ NbzsPIp6HJN3Q==
+Date: Tue, 24 Feb 2026 09:28:02 +0000
 From: Simon Horman <horms@kernel.org>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <aZ1uxX_fddwO7UYD@horms.kernel.org>
-References: <E1vuUvf-0000000AfhS-0lJR@rmk-PC.armlinux.org.uk>
+Message-ID: <aZ1vImgrq1yxBIyy@horms.kernel.org>
+References: <E1vuUu4-0000000Afea-0j9B@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vuUvf-0000000AfhS-0lJR@rmk-PC.armlinux.org.uk>
-Cc: Jose Abreu <Jose.Abreu@synopsys.com>, Andrew Lunn <andrew@lunn.ch>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: ptp: limit n_per_out
+In-Reply-To: <E1vuUu4-0000000Afea-0j9B@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix timestamping
+ configuration after suspend/resume
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,78 +70,64 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:Jose.Abreu@synopsys.com,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.946];
+	NEURAL_HAM(-0.00)[-0.945];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,horms.kernel.org:mid,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 6E7A11848DD
+	DBL_BLOCKED_OPENRESOLVER(0.00)[horms.kernel.org:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: A48B6184936
 X-Rspamd-Action: no action
 
-On Mon, Feb 23, 2026 at 12:20:47PM +0000, Russell King (Oracle) wrote:
-> ptp_clock_ops.n_per_out sets the number of PPS outputs, which the PTP
-> subsystem uses to validate userspace input, such as the index number
-> used in a PTP_CLK_REQ_PEROUT request.
+On Mon, Feb 23, 2026 at 12:19:08PM +0000, Russell King (Oracle) wrote:
+> When stmmac_init_timestamping() is called, it clears the receive and
+> transmit path booleans that allow timestamps to be read. These are
+> never re-initialised until after userspace requests timestamping
+> features to be enabled.
 > 
-> stmmac_enable() uses this to index the priv->pps array, which is an
-> array of size STMMAC_PPS_MAX. ptp_clock_ops.n_per_out is initialised
-> using priv->dma_cap.pps_out_num, which is a three bit field read from
-> hardware.
-> 
-> Documentation that I've checked suggests that values >= 5 are reserved,
-> but that doesn't mean such values won't appear, and if they do, we
-> can overrun the priv->pps array in stmmac_enable().
-> 
-> stmmac_ptp_register() has protection against this in its loop, but it
-> doesn't act to limit ptp_clock_ops.n_per_out.
-> 
-> Fix this by introducing a local variable, pps_out_num which is limited
-> to STMMAC_PPS_MAX, and use that when initialising the array and setting
-> priv->ptp_clock_ops.n_per_out.
+> However, our copy of the timestamp configuration is not cleared, which
+> means we return the old configuration to userspace when requested.
+> This is inconsistent. Fix this by clearing the timestamp configuration.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
 > 
-> This could be a user exploitable bug (although one has to be root
-> so the gun is already pointing at one's foot.) This is the commit
-> which introduced the problem:
-
-Hi Russell,
-
-From the description I assumed that for this problem to manifest
-out-of-range values would need to be turned by hardware.
-But maybe I misunderstand things.
-
-Could you elaborate on the vector you have in mind?
-
+> I'm in two minds whether this should go via net or net-next - no one
+> has noticed that getting the timestamp configuration after resume
+> doesn't reflect the hardware state. Here's the commit that introduced
+> the problem:
 > 
-> Fixes: 9a8a02c9d46d ("net: stmmac: Add Flexible PPS support")
+> Fixes: d6228b7cdd6e ("net: stmmac: implement the SIOCGHWTSTAMP ioctl")
 
-...
+My feeling is that the bar is not if someone noticed or not.
+So I would lean towards a fix for net in this case.
+
+Regardless, feel free to include:
+
+Reviewed-by: Simon Horman <horms@kernel.org>
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
