@@ -2,60 +2,120 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OL2bHhMHn2neYgQAu9opvQ
+	id iEQ1HOsgn2lcZAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 15:28:35 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 17:18:51 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BB15198BCC
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 15:28:35 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0763219A6C8
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 17:18:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE202C87EC2;
-	Wed, 25 Feb 2026 14:28:34 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78765C87EC3;
+	Wed, 25 Feb 2026 16:18:50 +0000 (UTC)
+Received: from PA4PR04CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11013022.outbound.protection.outlook.com
+ [40.107.162.22])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F202C87EC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 648C8C87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Feb 2026 14:28:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=u9sTS/COQK0TNP+zdsgEfylJgdDenBDQ3tXHsCk89OQ=; b=ZCPN7cmsYrI8trnhdkfyXbxopZ
- +aHMkjP6AfRWOQe2Xw3sbdtGMlMbYuJ8CldyvWgPlcif9xqKBPVPUgsywG98M+j7zR8Z682RpGRCM
- XzKxi4+eAuJDIc3ZulZQQE2vO+2QkETkhT/iYknkjoEmB2dMvhuAU7wk6MV63PPbBEpcCXrHwST+p
- 65N/CKRLXwuuDVoKt4slKQmxziIpxker+IYtMiJK2nUYMmuYxPxmbGzKVbPfEnZyTHdoT1MxFcHBw
- PdaKcSRIYFX87btRV53rBk+Z68jm+4tBwRmQa7zZQGcDsl3nghFUuGFgrj3ay7TmwVB2WQTTA5Ump
- 5edXpufQ==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59420)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vvFsI-000000006nJ-3keZ;
- Wed, 25 Feb 2026 14:28:27 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vvFsF-00000000116-3bDX; Wed, 25 Feb 2026 14:28:23 +0000
-Date: Wed, 25 Feb 2026 14:28:23 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <aZ8HB-xu9KzYPHdc@shell.armlinux.org.uk>
-References: <E1vuU3X-0000000Ae9G-1Er8@rmk-PC.armlinux.org.uk>
- <20260224173037.7871e5ac@kernel.org>
- <aZ6xqig4zh_Un8R7@shell.armlinux.org.uk>
- <af465a47-264f-4029-943a-fd4222092f9d@lunn.ch>
+ Wed, 25 Feb 2026 16:18:49 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L1IrCsanflsLmN+bc6OWcOCFw5HIpeq/6UaTUCDadMRmCO718bUN4k6a61BT/ym7mTT/BfcmKHkjh4CFy98cfvn7ZwoyoUzZPbYQ5GvOmWC+IvbchiLYIi2uEymfH5zBLaqN1VvNtid/fEcghIaD/pZy7ZjYe5xxMZSV4cknarW6kpoB2VGEjtk7UpceZ6UG36ZX/TA6MoafvPeNIVRbSJJvO9fhCYuNIczJ8ofBvrO5kK/AJBMbNOJVFobRrlTJPeV03Fg/UhHX7AjBcv5ZHiajAgL64qM+Q0XmPFhxtSbFlB78+rhPzK3hpcZVYDlu/hewgATSnEMiYQIADn6nxA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eAL0hKF9DqG13t2DzY1X0cFefzLdzBXHOetxmyXbePo=;
+ b=tCEb2ZJMrW1gejrORcQCzindkFhxgX1B1SGnOPmQh3dGRL/2iE3i1RsGWdrstuJN+VvD8khHX5REUf5gCsYlPzBb0mHlUjD/7IpTy4VVXvDxNJ7++D1eebqoFcn7sZ9HVhPesWyqRVehtOLnHNmzoVnPeCI17RVpYVbbk3tBq5rS1AjvCJkY/5gkYssMyi6HssaPoTdlWB21ytcEQULqZc98EIddJx8aist83BYxFdKxOt8a7ZKWk6yRK3qJodM/yapHFL/ahNQAuCV9+axddRTu5hjGUIehyJikh5qsTLSfYNfdq/mWmSYhOXptGCELvsbfc/TZBHcXzBffTD4s6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=arm.com smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eAL0hKF9DqG13t2DzY1X0cFefzLdzBXHOetxmyXbePo=;
+ b=EbwvjhAhG1tfT4LWcUs4RInRv7qOYqYgcgYMo/egsrfBMsPtbmE4/oi5bipgH58vVOzIjRLrpuEt4UGCaVdbuoxbtIq5mR0+TAdiprFXVWJBcXBdBNNBJzNm7o/u/2gQ84N5DadxaoMV9H8sz/qtA2uxFve/DzAkbQzqkO8mOkI2B8uBxUqEV0AkLpr/E9BVtqmlouYF6i8kBE73RiwSz6g8WdrvSa91yMHVwm3cofx8YVEqw+BKdnWJ1sca9cziNKSvmDk/NDIJLpxFVYneBQAMpVslQjTLTEtEkrBvSQtUggy6o6DWctApPb4W8yFwKih5aI6/hpt9SuezZfrL4g==
+Received: from DUZPR01CA0013.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:3c3::6) by AS8PR10MB7474.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5ad::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9632.23; Wed, 25 Feb
+ 2026 16:18:43 +0000
+Received: from DU2PEPF00028D12.eurprd03.prod.outlook.com
+ (2603:10a6:10:3c3:cafe::e4) by DUZPR01CA0013.outlook.office365.com
+ (2603:10a6:10:3c3::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.22 via Frontend Transport; Wed,
+ 25 Feb 2026 16:18:41 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU2PEPF00028D12.mail.protection.outlook.com (10.167.242.26) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9611.8 via Frontend Transport; Wed, 25 Feb 2026 16:18:42 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Feb
+ 2026 17:20:59 +0100
+Received: from [10.48.86.212] (10.48.86.212) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Feb
+ 2026 17:18:41 +0100
+Message-ID: <5e638755-a356-4fe6-af66-f9530d2a5d96@foss.st.com>
+Date: Wed, 25 Feb 2026 17:18:29 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <af465a47-264f-4029-943a-fd4222092f9d@lunn.ch>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix
-	.ndo_fix_features()
+User-Agent: Mozilla Thunderbird
+From: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>
+To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach
+ <mike.leach@linaro.org>, James Clark <james.clark@linaro.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, Leo Yan
+ <leo.yan@linux.dev>, =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?=
+ <legoffic.clement@gmail.com>, Linus Walleij <linusw@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, <jens.wiklander@linaro.org>, Etienne Carriere
+ <etienne.carriere@foss.st.com>, Cristian Marussi <cristian.marussi@arm.com>,
+ Sudeep Holla <sudeep.holla@arm.com>
+References: <20260123-debug_bus-v5-0-90b670844241@foss.st.com>
+ <20260123-debug_bus-v5-6-90b670844241@foss.st.com>
+Content-Language: en-US
+In-Reply-To: <20260123-debug_bus-v5-6-90b670844241@foss.st.com>
+X-Originating-IP: [10.48.86.212]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D12:EE_|AS8PR10MB7474:EE_
+X-MS-Office365-Filtering-Correlation-Id: 560c2460-17ba-4902-8838-08de74898b5d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700013|376014|7416014|1800799024|82310400026|921020; 
+X-Microsoft-Antispam-Message-Info: u8kl7YX41tIc6x9XMOaplTircTz/+nvrj1YWtYawl8bo2GXVBD1EqOyM2/gc/3zlRKMWFXWKgLB9sB5zgzF08+oozaQQ04mkvpsC+Wv4fJ1HRNMMUPY70BGfbZ/1QegvnR6hDLLVXkPCtthZWbNjOFqqWz+y0Wbtx2mpMLHT1X3b4yy2I5F2HUVwGzGjXqe3/AAC1pnq2oALaPIIvqQqABzEBifwhgC1/iL8viNDQ3+2+6cfNho3OWAu5onVc5gjeHIPLHLynUS1Z2YE46enLuUvi27x4+kbwlbReLAg60TcrMSVvA56QHCireRANzYeTjPfqNeGnj66sLzZ6vwPaMAC66mocaZBEbWhJthDpyp6PUO7wnmm4jIeaJ6+wp4yDprvxKQ2/geCF3xRe0pMf3Szix/vkLp59Ke9KDb7cCpjEJbcDNDevWSwfJPpTuWr80N1GoD94Dwun5Fi2qGHDmnI8+/LYspPrNMJHFj/cvjmNGc2mn5Onm3sIMl5k3leuj8kV7WuWnKD1LG5MV+HHTjP8+mm9rOxZQuww8uR10MT6qZeM7ntjqgUnSTcov0YX9ZzjDfVaragdcecFyFbOay4cwXScvtFcmA831/rTGPDhn++/pwfgqOqLwmTCflZ/e0C2PLLlUOCZvanHKf2xe/qQAQ9IoAUUori6dB0/PjYdXt7aFYoz/ezvGt6JNhPSzP8AKJc9X45qSUIrrxE7slopGvbXaM4gPlnCnTffL7b+FYzhnpqWv9m18QnL0jTFkbtH7ir/51YEyJy+v6P145VrRHMdLt8uJEVmM1HESquiinJVV9SaWqXHqBU0xvhAbQBVZTE3Hwcbl2vUyv7fUF/N5Niqi9d5yDJ2iVj8Rk=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700013)(376014)(7416014)(1800799024)(82310400026)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: vxW7MRlGxORvm7wieO/BzQJ3vzwIluMw0CVivEdesq/qZlqnKdcRS7FTcKPzWsCKDJB70UhSM9rk/knecQhaz2vjUcBhJbOjBV+RTd+JfZop4PMKptz7qd/2cr2M8TCK07mPuM7Ot7B4v69AftHVQtKmjpb/BpdG6eAEVrEcucxP/POsemjsvg4leq+Cs8f4XNesXydfDCb8OGkc2oPVI5zrDERO0p6XWx/bItCWIGBPIwhpoWOgglHAj+VcdNw+T+7jSbUZNEs4u4uhvV9/0GpBZkU8LJmcKvDj73PVnyn+Ln4XVRnFtC5MfjtBW3gVJyBxdB/5n/+xjKwxho3ZLcamZXshpYCYx0z/KhkZcRZj9uMld1BdYKpfOauxur0TfKEmJdGJ/exJ+vZsx/0bzwmuH3b02ZjYf/cp9cISqqaDHz6n5KSYZf+srcLPcGbA
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2026 16:18:42.9551 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 560c2460-17ba-4902-8838-08de74898b5d
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D12.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB7474
+Cc: devicetree@vger.kernel.org, coresight@lists.linaro.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 06/12] drivers: bus: add the stm32
+	debug bus driver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,204 +127,392 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:suzuki.poulose@arm.com,m:mike.leach@linaro.org,m:james.clark@linaro.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:leo.yan@linux.dev,m:legoffic.clement@gmail.com,m:linusw@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:jens.wiklander@linaro.org,m:etienne.carriere@foss.st.com,m:cristian.marussi@arm.com,m:sudeep.holla@arm.com,m:devicetree@vger.kernel.org,m:coresight@lists.linaro.org,m:linux-kernel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:legofficclement@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FREEMAIL_TO(0.00)[arm.com,linaro.org,kernel.org,linux.dev,gmail.com,foss.st.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.813];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo];
+	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[gatien.chevallier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:url]
-X-Rspamd-Queue-Id: 1BB15198BCC
+	NEURAL_HAM(-0.00)[-0.453];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 0763219A6C8
 X-Rspamd-Action: no action
 
-On Wed, Feb 25, 2026 at 02:26:42PM +0100, Andrew Lunn wrote:
-> > Then, looking at the "Enable TSO" block of code in stmmac_hw_setup(),
-> > it looks to me like we can end up with some queues that have TSO
-> > enabled, and others which don't (because TBS has been enabled on the
-> > queue.) As far as I'm aware, the network layer doesn't support
-> > per-queue TSO.
+
+
+On 1/23/26 11:39, Gatien Chevallier wrote:
+> Add the stm32 debug bus driver that is responsible of checking the
+> debug subsystem accessibility before probing the related peripheral
+> drivers.
 > 
-> There is a software implementation of TSO. See for example:
+> This driver is OP-TEE dependent and relies on the STM32 debug access
+> PTA.
 > 
-> commit 3ae8f4e0b98b640aadf410c21185ccb6b5b02351
-> Author: Ezequiel Garcia <ezequiel.garcia@free-electrons.com>
-> Date:   Mon May 19 14:00:00 2014 -0300
+> Signed-off-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
+> ---
+>   MAINTAINERS                 |   1 +
+>   drivers/bus/Kconfig         |  10 ++
+>   drivers/bus/Makefile        |   1 +
+>   drivers/bus/stm32_dbg_bus.c | 236 ++++++++++++++++++++++++++++++++++++++++++++
+>   4 files changed, 248 insertions(+)
 > 
->     net: mv643xx_eth: Implement software TSO
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 5b11839cba9d..fd8390e02070 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -24698,6 +24698,7 @@ F:	drivers/power/supply/stc3117_fuel_gauge.c
+>   ST STM32 FIREWALL
+>   M:	Gatien Chevallier <gatien.chevallier@foss.st.com>
+>   S:	Maintained
+> +F:	drivers/bus/stm32_dbg_bus.c
+>   F:	drivers/bus/stm32_etzpc.c
+>   F:	drivers/bus/stm32_firewall.c
+>   F:	drivers/bus/stm32_rifsc.c
+> diff --git a/drivers/bus/Kconfig b/drivers/bus/Kconfig
+> index fe7600283e70..c9be21d5dfda 100644
+> --- a/drivers/bus/Kconfig
+> +++ b/drivers/bus/Kconfig
+> @@ -169,6 +169,16 @@ config QCOM_SSC_BLOCK_BUS
+>   	  i2c/spi/uart controllers, a hexagon core, and a clock controller
+>   	  which provides clocks for the above.
+>   
+> +config STM32_DBG_BUS
+> +	tristate "OP-TEE based debug access bus"
+> +	depends on OPTEE && STM32_FIREWALL
+> +	depends on ARCH_STM32 || COMPILE_TEST
+> +	help
+> +	  Select this to get the support for the OP-TEE based STM32 debug bus
+> +	  driver that is used to handle debug-related peripherals on STM32
+> +	  platforms when the debug configuration is not accessible by the
+> +	  normal world.
+> +
+>   config STM32_FIREWALL
+>   	bool "STM32 Firewall framework"
+>   	depends on (ARCH_STM32 || COMPILE_TEST) && OF
+> diff --git a/drivers/bus/Makefile b/drivers/bus/Makefile
+> index 8e693fe8a03a..799724cfc2df 100644
+> --- a/drivers/bus/Makefile
+> +++ b/drivers/bus/Makefile
+> @@ -27,6 +27,7 @@ obj-$(CONFIG_OMAP_INTERCONNECT)	+= omap_l3_smx.o omap_l3_noc.o
+>   obj-$(CONFIG_OMAP_OCP2SCP)	+= omap-ocp2scp.o
+>   obj-$(CONFIG_QCOM_EBI2)		+= qcom-ebi2.o
+>   obj-$(CONFIG_QCOM_SSC_BLOCK_BUS)	+= qcom-ssc-block-bus.o
+> +obj-$(CONFIG_STM32_DBG_BUS)	+= stm32_dbg_bus.o
+>   obj-$(CONFIG_STM32_FIREWALL)	+= stm32_firewall.o stm32_rifsc.o stm32_etzpc.o
+>   obj-$(CONFIG_SUN50I_DE2_BUS)	+= sun50i-de2.o
+>   obj-$(CONFIG_SUNXI_RSB)		+= sunxi-rsb.o
+> diff --git a/drivers/bus/stm32_dbg_bus.c b/drivers/bus/stm32_dbg_bus.c
+> new file mode 100644
+> index 000000000000..9427d4da0da7
+> --- /dev/null
+> +++ b/drivers/bus/stm32_dbg_bus.c
+> @@ -0,0 +1,236 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2026, STMicroelectronics - All Rights Reserved
+> + */
+> +
+> +#include <linux/bus/stm32_firewall_device.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/kernel.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_platform.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/tee_drv.h>
+> +#include <linux/types.h>
+> +
+> +#include "stm32_firewall.h"
+> +
+> +enum stm32_dbg_profile {
+> +	PERIPHERAL_DBG_PROFILE	= 0,
+> +	HDP_DBG_PROFILE		= 1,
+> +};
+> +
+> +enum stm32_dbg_pta_command {
+> +	/*
+> +	 * PTA_CMD_GRANT_DBG_ACCESS - Verify the debug configuration against the given debug profile
+> +	 * and grant access or not
+> +	 *
+> +	 * [in]     value[0].a  Debug profile to grant access to.
+> +	 */
+> +	PTA_CMD_GRANT_DBG_ACCESS,
+> +};
+> +
+> +/**
+> + * struct stm32_dbg_bus - OP-TEE based STM32 debug bus private data
+> + * @dev: STM32 debug bus device.
+> + * @ctx: OP-TEE context handler.
+> + */
+> +struct stm32_dbg_bus {
+> +	struct device *dev;
+> +	struct tee_context *ctx;
+> +};
+> +
+> +/* Expect at most 1 instance of this driver */
+> +static struct stm32_dbg_bus *stm32_dbg_bus_priv;
+> +
+> +static int stm32_dbg_pta_open_session(u32 *id)
+> +{
+> +	struct tee_client_device *dbg_bus_dev = to_tee_client_device(stm32_dbg_bus_priv->dev);
+> +	struct tee_ioctl_open_session_arg sess_arg;
+> +	int ret;
+> +
+> +	memset(&sess_arg, 0, sizeof(sess_arg));
+> +	export_uuid(sess_arg.uuid, &dbg_bus_dev->id.uuid);
+> +	sess_arg.clnt_login = TEE_IOCTL_LOGIN_REE_KERNEL;
+> +
+> +	ret = tee_client_open_session(stm32_dbg_bus_priv->ctx, &sess_arg, NULL);
+> +	if (ret < 0 || sess_arg.ret) {
+> +		dev_err(stm32_dbg_bus_priv->dev, "Failed opening tee session, err: %#x\n",
+> +			sess_arg.ret);
+> +		return -EOPNOTSUPP;
+> +	}
+> +
+> +	*id = sess_arg.session;
+> +
+> +	return 0;
+> +}
+> +
+> +static void stm32_dbg_pta_close_session(u32 id)
+> +{
+> +	tee_client_close_session(stm32_dbg_bus_priv->ctx, id);
+> +}
+> +
+> +static int stm32_dbg_bus_grant_access(struct stm32_firewall_controller *ctrl, u32 dbg_profile)
+> +{
+> +	struct tee_ioctl_invoke_arg inv_arg = {0};
+> +	struct tee_param param[1] = {0};
+> +	u32 session_id;
+> +	int ret;
+> +
+> +	if (dbg_profile != PERIPHERAL_DBG_PROFILE && dbg_profile != HDP_DBG_PROFILE)
+> +		return -EOPNOTSUPP;
+> +
+> +	ret = stm32_dbg_pta_open_session(&session_id);
+> +	if (ret)
+> +		return ret;
+> +
+> +	inv_arg.func = PTA_CMD_GRANT_DBG_ACCESS;
+> +	inv_arg.session = session_id;
+> +	inv_arg.num_params = 1;
+> +	param[0].attr = TEE_IOCTL_PARAM_ATTR_TYPE_VALUE_INPUT;
+> +	param[0].u.value.a = dbg_profile;
+> +
+> +	ret = tee_client_invoke_func(stm32_dbg_bus_priv->ctx, &inv_arg, param);
+> +	if (ret < 0 || inv_arg.ret != 0) {
+> +		dev_dbg(stm32_dbg_bus_priv->dev,
+> +			"When invoking function, err %x, TEE returns: %x\n", ret, inv_arg.ret);
+> +		if (!ret)
+> +			ret = -EACCES;
+> +	}
+> +
+> +	stm32_dbg_pta_close_session(session_id);
+> +
+> +	return ret;
+> +}
+> +
+> +/* Implement mandatory release_access ops even if it does nothing*/
+> +static void stm32_dbg_bus_release_access(struct stm32_firewall_controller *ctrl, u32 dbg_profile)
+> +{
+> +}
+> +
+> +static int stm32_dbg_bus_plat_probe(struct platform_device *pdev)
+> +{
+> +	struct stm32_firewall_controller *dbg_controller;
+> +	int ret;
+> +
+> +	if (!stm32_dbg_bus_priv)
+> +		return dev_err_probe(&pdev->dev, -EPROBE_DEFER,
+> +				     "OP-TEE debug services not yet available\n");
+> +
+> +	dbg_controller = devm_kzalloc(&pdev->dev, sizeof(*dbg_controller), GFP_KERNEL);
+> +	if (!dbg_controller)
+> +		return dev_err_probe(&pdev->dev, -ENOMEM, "Couldn't allocate debug controller\n");
+> +
+> +	dbg_controller->dev = &pdev->dev;
+> +	dbg_controller->mmio = NULL;
+> +	dbg_controller->name = dev_driver_string(dbg_controller->dev);
+> +	dbg_controller->type = STM32_PERIPHERAL_FIREWALL;
+> +	dbg_controller->grant_access = stm32_dbg_bus_grant_access;
+> +	dbg_controller->release_access = stm32_dbg_bus_release_access;
+> +
+> +	ret = stm32_firewall_controller_register(dbg_controller);
+> +	if (ret) {
+> +		dev_err(dbg_controller->dev, "Couldn't register as a firewall controller: %d", ret);
+> +		return ret;
+> +	}
+> +
+> +	ret = stm32_firewall_populate_bus(dbg_controller);
+> +	if (ret) {
+> +		dev_err(dbg_controller->dev, "Couldn't populate debug bus: %d", ret);
+> +		stm32_firewall_controller_unregister(dbg_controller);
+> +		return ret;
+> +	}
+> +
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	ret = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
+> +	if (ret) {
+> +		dev_err(dbg_controller->dev, "Couldn't populate the node: %d", ret);
+> +		stm32_firewall_controller_unregister(dbg_controller);
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct of_device_id stm32_dbg_bus_of_match[] = {
+> +	{ .compatible = "st,stm32mp131-dbg-bus", },
+> +	{ .compatible = "st,stm32mp151-dbg-bus", },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, stm32_dbg_bus_of_match);
+> +
+> +static struct platform_driver stm32_dbg_bus_driver = {
+> +	.probe = stm32_dbg_bus_plat_probe,
+> +	.driver = {
+> +		.name = "stm32-dbg-bus",
+> +		.of_match_table = stm32_dbg_bus_of_match,
+> +	},
+> +};
+> +
+> +static int optee_ctx_match(struct tee_ioctl_version_data *ver, const void *data)
+> +{
+> +	return (ver->impl_id == TEE_IMPL_ID_OPTEE);
+> +}
+> +
+> +static void stm32_dbg_bus_remove(struct tee_client_device *tee_dev)
+> +{
+> +	tee_client_close_context(stm32_dbg_bus_priv->ctx);
+> +	stm32_dbg_bus_priv = NULL;
+> +
+> +	of_platform_depopulate(&tee_dev->dev);
+> +}
+> +
+> +static int stm32_dbg_bus_probe(struct tee_client_device *tee_dev)
+> +{
+> +	struct device *dev = &tee_dev->dev;
+> +	struct stm32_dbg_bus *priv;
+> +	int ret = 0;
+> +
+> +	if (stm32_dbg_bus_priv)
+> +		return dev_err_probe(dev, -EBUSY,
+> +				     "A STM32 debug bus device is already initialized\n");
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	/* Open context with TEE driver */
+> +	priv->ctx = tee_client_open_context(NULL, optee_ctx_match, NULL, NULL);
+> +	if (IS_ERR_OR_NULL(priv->ctx))
+> +		return dev_err_probe(dev, PTR_ERR_OR_ZERO(priv->ctx), "Cannot open TEE context\n");
+> +
+> +	stm32_dbg_bus_priv = priv;
+> +	stm32_dbg_bus_priv->dev = dev;
+> +
+> +	ret = platform_driver_register(&stm32_dbg_bus_driver);
+
+Hello,
+
+Adding Etienne, Cristian and Sudeep.
+
+Since [1], it is impossible to call platform_driver_register()
+in a probe() sequence because of the rework of the lock mechanism.
+Similar situation can be found for other drivers in this thread.
+
+Here, we want to ensure the OP-TEE debug access service is embedded
+and available before probing the platform device part. Therefore, I
+cannot simply implement a regular module driver that would have all the
+chances to be probed before OP-TEE driver.
+
+This is what motivated this driver architecture. And also
+drivers/firmware/arm_scmi/transports/optee.c that is now broken
+and make all our platforms fail to boot (reproducible on latest
+kernel tag)...
+
+For this driver, I guess I can keep a simple tee bus driver,
+completely removing the useless platform device part. But
+for the OP-TEE SCMI transport driver, it is more complex.
+Previous to the use of platform_driver_register(), a
+device link was used. Maybe for the transport, a response on
+[1] mail thread would be appropriate.
+
+For this patchset, I will rebase and take care fixing that.
+
+[1]: 
+https://lore.kernel.org/all/20260113162843.12712-1-hanguidong02@gmail.com/
+
+Best regards,
+Gatien
+
+
+> +	if (ret) {
+> +		stm32_dbg_bus_remove(tee_dev);
+> +		return ret;
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static const struct tee_client_device_id optee_dbg_bus_id_table[] = {
+> +	{UUID_INIT(0xdd05bc8b, 0x9f3b, 0x49f0,
+> +		   0xb6, 0x49, 0x01, 0xaa, 0x10, 0xc1, 0xc2, 0x10)},
+> +	{}
+> +};
+> +
+> +static struct tee_client_driver stm32_optee_dbg_bus_driver = {
+> +	.id_table = optee_dbg_bus_id_table,
+> +	.probe = stm32_dbg_bus_probe,
+> +	.remove = stm32_dbg_bus_remove,
+> +	.driver = {
+> +		.name = "optee_dbg_bus",
+> +	},
+> +};
+> +
+> +module_tee_client_driver(stm32_optee_dbg_bus_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_AUTHOR("Gatien Chevallier <gatien.chevallier@foss.st.com>");
+> +MODULE_DESCRIPTION("OP-TEE based STM32 debug access bus driver");
 > 
-> You might be able to use this to fill in the gaps.
 
-That'll likely need some major rework to the descriptor handling, which
-is also buggy, certainly in the non-TSO path.
-
-stmmac_xmit() does this:
-
-        if (unlikely(stmmac_tx_avail(priv, queue) < nfrags + 1)) {
-                if (!netif_tx_queue_stopped(netdev_get_tx_queue(dev, queue))) {
-                        netif_tx_stop_queue(netdev_get_tx_queue(priv->dev,
-                                                                queue));
-                        /* This is a hard error, log it. */
-                        netdev_err(priv->dev,
-                                   "%s: Tx Ring full when queue awake\n",
-                                   __func__);
-                }
-                return NETDEV_TX_BUSY;
-        }
-
-Then it sets the descriptors, which are consumed as per:
-
-- 1 descriptor if priv->dma_cap.vlins && skb has a vlan
-- for non-jumbo:
-  - 1 descriptor for skb head (with sarc & tbs)
-- for jumbo:
-  - if headlen > 8KiB:
-    - 1 descriptor for first bmax (2 or 8 KiB) of skb head
-        (sets buffer2 of descriptor to data + 4KiB)
-    - 1 descriptor for remainder of skb head
-        (sets buffer2 of descriptor to data + 4KiB)
-  - otherwise:
-    - 1 descriptor for skb head
-        (sets buffer2 of descriptor to data + 4KiB)
-- 1 descriptor per skb fragment
-
-So, the number of descriptors used is 1 + nfrags + overhead, where
-overhead is:
-
-overhead += 1 if jumbo > 8KiB is supported
-overhead += 1 if priv->dma_cap.vlins
-
-To put it another way:
-- if we have a non-jumbo non-vlan skb, then 1 + nfrags descriptors will
-  be used.
-- if we have a jumbo vlan skb, then 3 + nfrags descriptors will be
-  used.
-
-However, the decision to stop the queue is:
-
-        if (unlikely(stmmac_tx_avail(priv, queue) <= (MAX_SKB_FRAGS + 1))) {
-                netif_dbg(priv, hw, priv->dev, "%s: stop transmitted packets\n",
-                          __func__);
-                netif_tx_stop_queue(netdev_get_tx_queue(priv->dev, queue));
-        }
-
-So it doesn't account for the extra descriptor for vlan insertion, nor
-does it account for the extra descriptor for a jumbo frame.
-
-In the existing TSO path, the same problem exists - its the same check
-for the last test, although the first test is different:
-
-        /* Desc availability based on threshold should be enough safe */
-        if (unlikely(stmmac_tx_avail(priv, queue) <
-                (((skb->len - proto_hdr_len) / TSO_MAX_BUFF_SIZE + 1)))) {
-
-This doesn't deal with vlan insertion by the hardware, nor I think
-jumbo frames (I may be wrong on that) but it does use an extra
-descriptor each time the MSS (as the driver calls it, actually
-skb_shinfo(skb)->gso_size) changes on this specific queue. So, it
-can be one extra descriptor on top of that +1 above.
-
-The implications of this is that if the descriptors are almost full,
-there is the possibility to overwrite the tail descriptor (that the
-hardware has yet to process) as, when setting up the descriptors,
-the insertion index is merely incremented, and not individually
-checked to see whether it's caught up with the tail.
-
-I think the only thing which saves the driver from this is that the
-transmit descriptor ring is large (512 entries by default) and
-probably never fills up in a way that we hit the boundary condition
-that allows descriptor overwrite to occur. However, there is this
-comment:
-
-/* TX and RX Descriptor Length, these need to be power of two.
- * TX descriptor length less than 64 may cause transmit queue timed out error.
- * RX descriptor length less than 64 may cause inconsistent Rx chain error.
- */
-in drivers/net/ethernet/stmicro/stmmac/common.h, which hints at the
-problem here: if we do overflow the tail, the hardware may have already
-processed that descriptor, but we haven't yet reaped it. The driver
-will be expecting to write to the following descriptor. However, when
-we real the tail, the driver will clear it. This results in following
-packets being added after a descriptor with the hardware OWN bit clear,
-so transmission will stop when the hardware gets to that descriptor,
-eventually causing a transmit timeout.
-
-With this driver, it's really a case of "which of its many problems
-do we address first" because the more I look at it, the more problems
-I'm finding.
-
-The next problem which can be seen in my analysis of the descriptor
-usage is - take a close look at the jumbo processing. In some
-configurations, the length fields are 11 bits. The jumbo code seems
-to know this because it calculates bmax accordingly. However, the
-rest of the code just assumes that - even though we can only describe
-up to 2KiB (actually 4KiB-1) bytes in the length field and it limits
-the length of the first descriptor to that, it then promptly maps the
-bytes from 4KiB to the total length to the second buffer in the
-descriptor. What happens to the 2KiB..4KiB part of the data in this
-case?!?!
-
-I have a huge pile of cleanups to this driver that have helped to
-uncover these problems by making the code more readable than it
-currently is - and one of the problems is, I'm generating cleanups
-and finding problems faster than I can get the changes merged.
-
-During the last cycle, I tried to avoid adding to my set of patches
-for this driver during the -rc phase. That hasn't helped. It also
-meant that I didn't get any chance to post much else, such as the
-Marvell PTP changes.
-
-I was thinking that, when I get stmmac's phylink mess sorted out,
-(essentially a few more patches beyond the part 3 RFC I posted today)
-I'll stop hacking on stmmac, but stmmac just seems to be far too
-broken. It needs someone to be a proper maintainer, someone who is
-prepared to say "no" to patches that increase the messy complexity in
-the driver that I think has led to a lot of these problems... to say
-no to patches that introduce e.g. TBS without first thinking about
-its interaction with TSO and whether the upper networking layers can
-cope with some but not all queues being TSO capable... etc.
-
-I do feel that, having got involved with stmmac to try and sort out
-its bloody abuse of phylink, it's now become a huge mill stone, and
-I don't have time to look at phylink / sfp related stuff (which is
-why I've hardly been able to look at Maxime's patches.)
-
-Can't we just delete stmmac to put it out of its misery? :D
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
