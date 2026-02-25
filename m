@@ -2,142 +2,148 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EIdsFVJbn2lRagQAu9opvQ
+	id EMLEHSxpn2lRagQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 21:28:02 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 22:27:08 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEE7719D338
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 21:28:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1386519DD11
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 22:27:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3EFE3C87EC4;
-	Wed, 25 Feb 2026 20:28:01 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A5CE2C87EC4;
+	Wed, 25 Feb 2026 21:27:07 +0000 (UTC)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E35DC87EC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 74CF2C87EC2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Feb 2026 20:28:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z24G9kGwawNQCIwsSVAlfgybb/9ahyhvwL09Jd8Rk5kacjp3Vfju+j26tkounZFw+YsAs8fleFX0vjMpKhyyaiF0Lw6xzRoPxAQfCeZThm4W8Q6CEzGL/bmy19h7ASB5deKmDBrm8LsYdcNAhMOETeFveP/ahD/M7hz8F8iOgZEwQYaKZus6fZy7RPCmPHVcDZJMfDzexkXxteKPtXtcdCjrV/WUDLegUYf7ejofRl6JRo7Y2HFfoLYXZTK6+lygsa4dworRa2Sv8D3DW6bzvL7iiwyiyTDkwhEV792hBASxDKiCPUqoS2vweq6oBfzDpL2gjIrJNfCSP+kj0kfWjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=F83qY5mizs2GrmsmNbSCJntICQQNrwFUxwBYmpReT1k=;
- b=rkb8WFTg34nyOl9VdiUW+zPeJ9vIvuMSeh418yrIbgeA/TUxzNcbllwbqGM63J59beii+EovF1cyQFfpnZRWzd8rdPDmmzC0uPwrocgi4OQ653+i52NUpFnFUakKe773H2DexhDtscU/ZqKRHlzZcltF9eoFKGtsmqWcxiLnLCcvdu/44i2EJvXn6JwLFTIpCT0mqU1R1E2MVY18e//U4qTdOFHdpev93udH7I4orEOfHsJVGS5+t8n8QlYvpQSMFNSl1dqg0mH+3e9tC5XidU9aIavoUNzi0A54YK6fk8Rbrbw4C3Lj+q1g81I93Nll2T3SHfAzEDaZn6ITuQnyGQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=F83qY5mizs2GrmsmNbSCJntICQQNrwFUxwBYmpReT1k=;
- b=I3bbEXPjUCMd2YSEEkS4cGOX+plMTPTY82r5cKDmGKd2xJRFFlF/M/Rdl/K9E7vxKRetr38McBzbjejfe7zHhcGtzwh0Oy3IsEkC37sjOSLTa5wdXk/BiowN2NIEG3irT3o/5wmAlzP0hFL63U0vR3M2bMFCmHLom113eUZK5vi9GC8zUZpK+YPQjywpmBNtgyDuS0vvMQAuuwunN6FCUHBtmUsFLRGb82u+lfYoAVrWSZWWYSdCFs8dG+1w+4HG4287KD9vEAai2Jtp6+tebbZpmlrE0d2WXMS327eJKP8C1nYkFUO+TEfSJg04ml0oH4UHkRA0VEg46cjMyVYDoA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by AM0PR04MB7172.eurprd04.prod.outlook.com (2603:10a6:208:192::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.13; Wed, 25 Feb
- 2026 20:27:57 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%6]) with mapi id 15.20.9632.017; Wed, 25 Feb 2026
- 20:27:57 +0000
-Date: Wed, 25 Feb 2026 15:27:46 -0500
-From: Frank Li <Frank.li@nxp.com>
-To: Niklas Cassel <cassel@kernel.org>
-Message-ID: <aZ9bQozWjS_ZcxK1@lizhi-Precision-Tower-5810>
-References: <20260225170324.4033466-11-cassel@kernel.org>
- <20260225170324.4033466-17-cassel@kernel.org>
-Content-Disposition: inline
-In-Reply-To: <20260225170324.4033466-17-cassel@kernel.org>
-X-ClientProxiedBy: SA0PR11CA0018.namprd11.prod.outlook.com
- (2603:10b6:806:d3::23) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+ Wed, 25 Feb 2026 21:27:06 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-7d4ba9abbecso60146a34.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 25 Feb 2026 13:27:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre-com.20230601.gappssmtp.com; s=20230601; t=1772054825; x=1772659625;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=6qd3od5gT9Y56WsM6DlqnASWYdZTTGBmXPSgA7J3iS4=;
+ b=aP4zlLfsxSTUTUsUgOaQ6iVX8QQO3MJho5GroLHCadsWEmCGMQOkRW0OPKtumfVjIC
+ 1lflqT0/MolWd2OHWEAkjNl/CMe8miDcA5+Snq/KPfWwF38VkpVJ8IU3TAZ3kZIav4kI
+ bAQvbX9bemnBcmdRLSLlWHT6VdcH/Z5+hNJ4dvTwWvFIhEzQ/FISCR8FIaztZXj3eJ7N
+ gChVGZtL7e06wF3KEIVPejosZ+c5qpRzD7ZhZC6CJqG/hSVhgBl9xlfWQ5tMJcwu0uOP
+ M5miV+VHC2CVhqAnYknOu8JrRB/D6m+873olXpQldwoLipuooCUVqV4WWMMh7BSgJ37p
+ hKkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772054825; x=1772659625;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6qd3od5gT9Y56WsM6DlqnASWYdZTTGBmXPSgA7J3iS4=;
+ b=b2e0BQSU+eBK3fbaaebqUdtQNZpjnHsMFR/nYvajphoiMnBU6NB1RNDvFXeCyL98Qq
+ KChEmQ/z5/MbNvEMrmSQZf+4Nsh7f/5KIr6vxJjn94JcrcV/KR8ujxhasKZmazz8b/IZ
+ 8bSHY8WnTAyLy03P7tlNbx+Xx+85wetYpS/QcbncOxRcPgjJjEMOiD24kNw8SEb7R0Hz
+ EmEBWMOtILZgAXhUlF5lkUHDYcPf55L1d8nDhdjUXctARJPFDebMvLialKyIjGtYGTG/
+ RJ3Lml0v9nu2Gin3Y4xL88Fd5LOLrn9OfJPeX835LxIpVbHYLqt+tJo7drNiMKCVHOZ0
+ sh6A==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCV/Iim5R8c7fwmuvZ5RWLY891klyREmgQZ9BkaUSFyWIGRh0E1L+/I3jSopWcj7u8JEPax6lQjG3prVDA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzCp8cPJVGu1AVVWcZh7U5usdvxYTZpycAIWcYfdAEd2/8iD+FR
+ romjhGXEZEPmmUrdXqPitely/eaoPEMlMV3pPStPDgEhptbXa8Gbt37frIv+R+OFdqE=
+X-Gm-Gg: ATEYQzywzexcfKRURDLd3ZpjcRyzs7JAiKponifzIwjJVPNSb0IRMPlXmNk7z/NLf3I
+ 2CK3N07N/h9BU9klo7wq1llAXDpYJk40fdPHGnmsnZS6WXHvk+pxhZN4QrOmEtP49V4zDez/3CP
+ zKwdPBd35k8xpJRoYAKF6dTMTUB+DJFF8s0Wwnf9dYCkYumf2sMHuLJhrpm2C4Cne/gh37aDqPD
+ jZcSBn4Z9zUwadnC+EzWTk397Q+mtTLFKxs5lw9d/ct2YeGZDAsJVQdN6/7+Hd1BmEc+Vl0KV6K
+ ZnKBW61srQzNGspkuucNLCfj5GCVSXA66kvYam0VE3YGqgAQA+55p/leC0aXjEfeONnK7Xs3uTm
+ wSqDJEUGz+bCJHH2TuhXLz9yaKRJAizpZgvYNqJPkQVsLltdeQ0mDECY/uI+jPB0ZQXYY48qwzc
+ Cv4cjLAqJcPn/T0T73bEZ9G5Oa1x46LpkXDpiYYbZcr3fXA3MjqXSRHgR+ckkQ0uQrEA3q3HU=
+X-Received: by 2002:a05:6870:2188:b0:3e8:8e56:671a with SMTP id
+ 586e51a60fabf-4157b210230mr8655778fac.54.1772054824819; 
+ Wed, 25 Feb 2026 13:27:04 -0800 (PST)
+Received: from ?IPV6:2600:8803:e7e4:500:146:def2:caeb:cb1f?
+ ([2600:8803:e7e4:500:146:def2:caeb:cb1f])
+ by smtp.gmail.com with ESMTPSA id
+ 586e51a60fabf-4160cf2572bsm64198fac.2.2026.02.25.13.27.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 25 Feb 2026 13:27:04 -0800 (PST)
+Message-ID: <120c7f33-4ca1-4d35-ac1b-b65362f1adfc@baylibre.com>
+Date: Wed, 25 Feb 2026 15:27:01 -0600
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|AM0PR04MB7172:EE_
-X-MS-Office365-Filtering-Correlation-Id: 44a1b415-f625-4f2e-5329-08de74ac5cc0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|19092799006|52116014|7416014|376014|38350700014|7053199007;
-X-Microsoft-Antispam-Message-Info: J+Kw6gcV8eo+GX7fK4DrMq0n9BGcj4fBuRjsy6y/qxXtxbbApLv4gB7uiUdG0qDUpCPPlDaWay2VULfs7KDxukL4gFCMxA5J4c9HmhSth9svUlG45K0EiAtDtByE4IKRZSkv8k52ClUBVEHumfDmYfOvFJb5YHDGp8mGcVJAd40AV8k75KJU8ZlvVgfTGghbVC+BJ449nQPqCMGimMxtYztOz3RlAzXhGsQKlcXyE0tkTKBEjbGErsd6CEBp1tnLrmhYaUIzmQM6L9R2LTh73FJSd2xkqKvn/4vToncV/6i58POsNREh+tqlmjrQfNtwgsjxfdZS2h78PBxCNxywBhmKngT5uYSzOiQkzCA7YMvO8BMpWll+cA6pWK63OImSbP7HiLBKT0P7QpM5HJMFO5r1qqqCcu2+Vmvw0TDRghwlv3bNBdKN/f7o7yddrckd03WZCitQ/UcgcZmKIivsROTHPOv3H3C31PYb/C4GGWfNkC08h0x5KUSDyJEzhcpnTz8yU2Fjk8q0O+n4FRi53kdz8UMoLmTtRQI1ZaVKXeiKeOKMziEkUNViYVgbyvGy2XGe9cOp/bBkFl5cAIYual+UjlSVvSLXusgeL2y0znKp0PwS0N26/bvjuH+AajHBv0KQN6qIU8TMb8OzdSVObSBD0r9LwiYPcdhP1eoYB7di8E2FZERDCfQo3jzNSn3uVpGF9EWplerdsCxnNDcMK4oKdNlJ87wdlIl7ASUTbYih5dMbjK4AESk6y2ZqwYQU5i59cZAuXhCaZ/pmksOda9+XSrKSy44nyeguw0phGs8=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PA4PR04MB9366.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(19092799006)(52116014)(7416014)(376014)(38350700014)(7053199007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?4FnlcFzmSyuhBt7xWMLmrtw8ooq54DmXxnHbGvUbbCrv7I1C5oqSzwyPeqJO?=
- =?us-ascii?Q?ITWEDsZpMUiwZMs1nWtp3X9xH/3wE9LzRf4IR9LX8ih9dRCmh/896647K6hx?=
- =?us-ascii?Q?1subRPxi4M89M5zW0+V5KBO2uEnZ1roKSufZkQ7HbtiYSTPOm0AMHUMtlk6M?=
- =?us-ascii?Q?ipPnUe5YaZelXuB/5qmncuyZ0ityz/WuHTJsxiXyCLFC1tUyz0g/p0tj9y+6?=
- =?us-ascii?Q?k5d14rZ4RaHgtvWLrLzk0v1VD0giyxORM7vou4shFX9LVmD92fx0YMn0Ja5U?=
- =?us-ascii?Q?vwIZe2IVcAcuaTVPU4n6I7D3YdLk0vHePox7m20TdUOi/bKlnxDxLhlufdEA?=
- =?us-ascii?Q?FKihUpv6wpYu24btc/pKdoBqLLnPOWy0Vs8jpVjo6f6VrsC4hdB7JRCm5l8N?=
- =?us-ascii?Q?KfKjbrnBZBP/C/YPIQlmzhpidAvhuCC2c3CVCShKS7+nd6Yx9MUsDYYV0Sho?=
- =?us-ascii?Q?eloNV0GMFDXavEDRMkR7pIxtUYeyq4fjFElbKhOBsQSQDsYLCaDH/BMlEAah?=
- =?us-ascii?Q?EIoNpxdmfauJBoJ7O9PFMxzbbepxGvongQzdM92CX2TXTA+5Fb1JM5qij/08?=
- =?us-ascii?Q?//yRhEMXyRvM3/xlwlbGPoEw4HagGPMgK8BJDHnAIYzPxMFF/5CDxVEgsX7E?=
- =?us-ascii?Q?MJDKtflvkC24OKcumqpTFwgfmgvZ5I4qd71pBeWHK6wlkeMz9vgzttSePk+k?=
- =?us-ascii?Q?BnIuTmt6AETFF1b1bo/fimCBlTWkrEu1S3XiETZeFuLaQh2NDLi1hy8ldJU0?=
- =?us-ascii?Q?8aUIqDM8ynNFwuWuMHYg2mjzOc2E7xh6yhOR6iqpXTR83Ih+V7X4PgpPgFzv?=
- =?us-ascii?Q?RAHvUg94FThMhVDo/Y0T3EGcrOb+rWJyVtQNOolV75bDUvXPDVlGUXVGuKie?=
- =?us-ascii?Q?wlD7+uYi7PdbsYgZ1ycRQ/soh2ulzoDNgd0URgUGYt8OM1TH9cqfTNMYKKDq?=
- =?us-ascii?Q?ine76L4mc/dV4z1dk4Yh0r5LqHrs90aV2YCYRq5RFAlIk+7rZpdufZoRX9gS?=
- =?us-ascii?Q?btGi+FpFOYkhlU8D+nW/GQIAOu6phsPIxRFMw/wbT2UnM+41LlUu46W+qIVa?=
- =?us-ascii?Q?9kd008WXjdvGQgOVjShsPD67/sZu7O/b6JgEQWtEaf7H8+NC2mvndfPbNuiz?=
- =?us-ascii?Q?diFi/O3OGEOVWA4u3tz+2YHRMj14xoZionATSQ4Jr1HVhhDYCEmOSVJ6Unmo?=
- =?us-ascii?Q?4/Qb5JfZFDPcuZKuxM0HamrhDyzHaKxyvKclo/iZK4wE9WztUqAXCLF3nFz3?=
- =?us-ascii?Q?LMI0Pqb31ec+/W4a7a0ODKjEhbBORVw5X8XLiqwZHsFS27S7+z/Lc0zuSbXp?=
- =?us-ascii?Q?jujJUbZEmmPwtCPTG+MWWNen3lAVW7vxb02C8X2Lu3J0XOXMnqiFClXzGZz2?=
- =?us-ascii?Q?sk1bpFuTOd0t/vmSBo+O6FacMoPWVpz5fxaGCpHgPzpIwfQL4P8ByZ00JLoP?=
- =?us-ascii?Q?oOZqIOfFxkVko1q9Vj5DSBlekUDA80gWv5NRpaQ8oH4jPnDKQTbq3GuNAx5G?=
- =?us-ascii?Q?8y5PiGrs3sRYQ0osS7wPc0KgeeLa7KMzkwMgcpXbmmAKI7nW2pYL/M7+9oot?=
- =?us-ascii?Q?0uL1OL1tE5D5FkKjZaKGOU/3AYKwYQQGL5vojWVFyzDGy0oOCihAPuXFzP/A?=
- =?us-ascii?Q?OpmL7VUuf416ydpl5sx9fWdIiK6/GtwEIqaOrm8YgpQyuA0XirsZ4SJx3yKh?=
- =?us-ascii?Q?MMZcwtsYtJPmwvBrOzvuoOfT64we8EnEqHm/1cQsRzUtuHAdhtuDtdrybTwA?=
- =?us-ascii?Q?gfkuVnBCAA=3D=3D?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 44a1b415-f625-4f2e-5329-08de74ac5cc0
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Feb 2026 20:27:57.4033 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CG68UbHBy1QcL1vhcBwDlkq04Ksb2cAn0NQ2WybozgKHskcVGvFNr9qrkurtvWG76LqJV/rnJZGbQe7LN4hY0g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB7172
-Cc: imx@lists.linux.dev, Vignesh Raghavendra <vigneshr@ti.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, linux-pci@vger.kernel.org,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Minghuan Lian <minghuan.Lian@nxp.com>,
- Thierry Reding <thierry.reding@gmail.com>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Vasut <marek.vasut+renesas@gmail.com>, Rob Herring <robh@kernel.org>,
- Jesper Nilsson <jesper.nilsson@axis.com>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Magnus Damm <magnus.damm@gmail.com>, linux-arm-kernel@axis.com,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, Siddharth Vadapalli <s-vadapalli@ti.com>,
- Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Richard Zhu <hongxing.zhu@nxp.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Manikanta Maddireddy <mmaddireddy@nvidia.com>,
- Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, Damien Le Moal <dlemoal@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, linux-omap@vger.kernel.org,
- Mingkai Hu <mingkai.hu@nxp.com>, Roy Zang <roy.zang@nxp.com>,
- linux-tegra@vger.kernel.org, Christian Bruel <christian.bruel@foss.st.com>,
- Jingoo Han <jingoohan1@gmail.com>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Heiko Stuebner <heiko@sntech.de>, linux-renesas-soc@vger.kernel.org,
- Koichiro Den <den@valinux.co.jp>, Masami Hiramatsu <mhiramat@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, linuxppc-dev@lists.ozlabs.org,
- Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH v2 6/9] PCI: dwc: Disable BARs in common
- code instead of in each glue driver
+User-Agent: Mozilla Thunderbird
+To: Francesco Lavra <flavra@baylibre.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ Lucas Stankus <lucas.p.stankus@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Puranjay Mohan <puranjay@kernel.org>,
+ Cosmin Tanislav <cosmin.tanislav@analog.com>,
+ Ramona Gradinariu <ramona.gradinariu@analog.com>,
+ Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Petre Rodan <petre.rodan@subdimension.ro>,
+ Dan Robertson <dan@dlrobertson.com>, Benson Leung <bleung@chromium.org>,
+ Guenter Roeck <groeck@chromium.org>, Jiri Kosina <jikos@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Matti Vaittinen <mazziesaccount@gmail.com>,
+ Marcelo Schmitt <marcelo.schmitt@analog.com>,
+ Esteban Blanc <eblanc@baylibre.com>, Jorge Marques
+ <jorge.marques@analog.com>, Sergiu Cuciurean <sergiu.cuciurean@analog.com>,
+ Dragos Bogdan <dragos.bogdan@analog.com>,
+ Alisa-Dariana Roman <alisa.roman@analog.com>,
+ Trevor Gamblin <tgamblin@baylibre.com>, Renato Lui Geh
+ <renatogeh@gmail.com>, Eugen Hristev <eugen.hristev@linaro.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andreas Klinger
+ <ak@it-klinger.de>, Paul Cercueil <paul@crapouillou.net>,
+ Ramona Bolboaca <ramona.bolboaca@analog.com>,
+ Marcus Folkesson <marcus.folkesson@gmail.com>,
+ Kent Gustavsson <kent@minoris.se>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Matteo Martelli <matteomartelli3@gmail.com>,
+ Marius Cristea <marius.cristea@microchip.com>,
+ Heiko Stuebner <heiko@sntech.de>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Kurt Borja <kuurtb@gmail.com>,
+ Francesco Dolcini <francesco@dolcini.it>,
+ =?UTF-8?Q?Jo=C3=A3o_Paulo_Gon=C3=A7alves?=
+ <jpaulo.silvagoncalves@gmail.com>, =?UTF-8?Q?Leonard_G=C3=B6hrs?=
+ <l.goehrs@pengutronix.de>, Oleksij Rempel <o.rempel@pengutronix.de>,
+ Haibo Chen <haibo.chen@nxp.com>, Salih Erim <salih.erim@amd.com>,
+ Conall O'Griofa <conall.ogriofa@amd.com>, Michal Simek
+ <michal.simek@amd.com>, Gustavo Silva <gustavograzs@gmail.com>,
+ Tomasz Duszynski <tduszyns@gmail.com>, Roan van Dijk <roan@protonic.nl>,
+ Jyoti Bhayana <jbhayana@google.com>, Mariel Tinaco
+ <Mariel.Tinaco@analog.com>, Nishant Malpani <nish.malpani25@gmail.com>,
+ Rui Miguel Silva <rmfrfs@gmail.com>, Linus Walleij <linusw@kernel.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Alex Lanzano
+ <lanzano.alex@gmail.com>, Jagath Jog J <jagathjog1996@gmail.com>,
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
+ Remi Buisson <remi.buisson@tdk.com>, Christian Eggers <ceggers@arri.de>,
+ Mudit Sharma <muditsharma.info@gmail.com>,
+ Javier Carrasco <javier.carrasco.cruz@gmail.com>, =?UTF-8?Q?Ond=C5=99ej_Jir?=
+ =?UTF-8?Q?man?= <megi@xff.cz>, Song Qiang <songqiang1304521@gmail.com>,
+ Dixit Parmar <dixitparmar19@gmail.com>,
+ Gerald Loacker <gerald.loacker@wolfvision.net>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ chrome-platform@lists.linux.dev, linux-input@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-mediatek@lists.infradead.org, imx@lists.linux.dev,
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20260225100421.2366864-1-flavra@baylibre.com>
+ <20260225101735.2368252-1-flavra@baylibre.com>
+Content-Language: en-US
+From: David Lechner <dlechner@baylibre.com>
+In-Reply-To: <20260225101735.2368252-1-flavra@baylibre.com>
+Subject: Re: [Linux-stm32] [PATCH v6 4/7] iio: Rename 'sign' field to
+ `format` in struct iio_scan_type
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -154,399 +160,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.89 / 15.00];
+X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[nxp.com:s=selector1];
+	R_DKIM_REJECT(1.00)[baylibre-com.20230601.gappssmtp.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[nxp.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DMARC_NA(0.00)[baylibre.com];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[Frank.li@nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[baylibre.com,lwn.net,linuxfoundation.org,metafoo.de,analog.com,gmail.com,kernel.org,subdimension.ro,dlrobertson.com,chromium.org,linux.intel.com,linaro.org,microchip.com,bootlin.com,tuxon.dev,it-klinger.de,crapouillou.net,minoris.se,collabora.com,nxp.com,pengutronix.de,sntech.de,foss.st.com,dolcini.it,amd.com,protonic.nl,google.com,tdk.com,arri.de,xff.cz,wolfvision.net,vger.kernel.org,lists.linux.dev,lists.infradead.org,st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[dlechner@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:flavra@baylibre.com,m:corbet@lwn.net,m:skhan@linuxfoundation.org,m:lars@metafoo.de,m:Michael.Hennerich@analog.com,m:lucas.p.stankus@gmail.com,m:jic23@kernel.org,m:nuno.sa@analog.com,m:andy@kernel.org,m:puranjay@kernel.org,m:cosmin.tanislav@analog.com,m:ramona.gradinariu@analog.com,m:antoniu.miclaus@analog.com,m:petre.rodan@subdimension.ro,m:dan@dlrobertson.com,m:bleung@chromium.org,m:groeck@chromium.org,m:jikos@kernel.org,m:srinivas.pandruvada@linux.intel.com,m:mazziesaccount@gmail.com,m:marcelo.schmitt@analog.com,m:eblanc@baylibre.com,m:jorge.marques@analog.com,m:sergiu.cuciurean@analog.com,m:dragos.bogdan@analog.com,m:alisa.roman@analog.com,m:tgamblin@baylibre.com,m:renatogeh@gmail.com,m:eugen.hristev@linaro.org,m:nicolas.ferre@microchip.com,m:alexandre.belloni@bootlin.com,m:claudiu.beznea@tuxon.dev,m:ak@it-klinger.de,m:paul@crapouillou.net,m:ramona.bolboaca@analog.com,m:marcus.folkesson@gmail.com,m:kent@minoris.se,m:matthias.bgg@gmail.com,m:angelogioacch
+ ino.delregno@collabora.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:matteomartelli3@gmail.com,m:marius.cristea@microchip.com,m:heiko@sntech.de,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:kuurtb@gmail.com,m:francesco@dolcini.it,m:jpaulo.silvagoncalves@gmail.com,m:l.goehrs@pengutronix.de,m:o.rempel@pengutronix.de,m:haibo.chen@nxp.com,m:salih.erim@amd.com,m:conall.ogriofa@amd.com,m:michal.simek@amd.com,m:gustavograzs@gmail.com,m:tduszyns@gmail.com,m:roan@protonic.nl,m:jbhayana@google.com,m:Mariel.Tinaco@analog.com,m:nish.malpani25@gmail.com,m:rmfrfs@gmail.com,m:linusw@kernel.org,m:lorenzo@kernel.org,m:lanzano.alex@gmail.com,m:jagathjog1996@gmail.com,m:jean-baptiste.maneyrol@tdk.com,m:remi.buisson@tdk.com,m:ceggers@arri.de,m:muditsharma.info@gmail.com,m:javier.carrasco.cruz@gmail.com,m:megi@xff.cz,m:songqiang1304521@gmail.com,m:dixitparmar19@gmail.com,m:gerald.loacker@wolfvision.net,m:linux-doc@vger.kernel.org,m:linux-ke
+ rnel@vger.kernel.org,m:linux-iio@vger.kernel.org,m:chrome-platform@lists.linux.dev,m:linux-input@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-mips@vger.kernel.org,m:linux-mediatek@lists.infradead.org,m:imx@lists.linux.dev,m:linux-rockchip@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:lucaspstankus@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:cassel@kernel.org,m:imx@lists.linux.dev,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:linux-pci@vger.kernel.org,m:lpieralisi@kernel.org,m:minghuan.Lian@nxp.com,m:thierry.reding@gmail.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:marek.vasut+renesas@gmail.com,m:robh@kernel.org,m:jesper.nilsson@axis.com,m:hayashi.kunihiko@socionext.com,m:magnus.damm@gmail.com,m:linux-arm-kernel@axis.com,m:jonathanh@nvidia.com,m:linux-rockchip@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:s-vadapalli@ti.com,m:kwilczynski@kernel.org,m:hongxing.zhu@nxp.com,m:mcoquelin.stm32@gmail.com,m:mmaddireddy@nvidia.com,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:dlemoal@kernel.org,m:bhelgaas@google.com,m:linux-omap@vger.kernel.org,m:mingkai.hu@nxp.com,m:roy.zang@nxp.com,m:linux-tegra@vger.kernel.org,m:christian.bruel@foss.st.com,m:jingoohan1@gmail.com,m:yoshihiro.shimoda.uh@renesas.com,m:heiko@sntech.de,m:linux-renesas
- -soc@vger.kernel.org,m:den@valinux.co.jp,m:mhiramat@kernel.org,m:kernel@pengutronix.de,m:linuxppc-dev@lists.ozlabs.org,m:l.stach@pengutronix.de,m:geert@glider.be,m:thierryreding@gmail.com,m:marekvasut@gmail.com,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[baylibre-com.20230601.gappssmtp.com:-];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,ti.com,glider.be,vger.kernel.org,kernel.org,nxp.com,gmail.com,st-md-mailman.stormreply.com,axis.com,socionext.com,nvidia.com,lists.infradead.org,pengutronix.de,google.com,foss.st.com,renesas.com,sntech.de,valinux.co.jp,lists.ozlabs.org];
-	DKIM_TRACE(0.00)[nxp.com:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.256];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[Frank.li@nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[88];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dlechner@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.888];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nvidia.com:email,nxp.com:email]
-X-Rspamd-Queue-Id: CEE7719D338
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_SENDER_MAILLIST(0.00)[]
+X-Rspamd-Queue-Id: 1386519DD11
 X-Rspamd-Action: no action
 
-On Wed, Feb 25, 2026 at 06:03:29PM +0100, Niklas Cassel wrote:
-> The current EPC core design relies on an EPC driver disabling all BARs by
-> default. An EPF driver will then enable the BARs that it wants to enabled.
->
-> This design is there because there is no epc->ops->disable_bar().
-> (There is a epc->ops->clear_bar(), but that is only to disable a BAR that
-> has been enabled using epc->ops->set_bar() first.)
->
-> By default, an EPF driver will not be able to get/enable BARs that are
-> marked as BAR_RESERVED or BAR_DISABLED (see pci_epc_get_next_free_bar()).
->
-> Since the current EPC code design requires an EPC driver to disable all
-> BARs by default, let's move this to DWC common code from each glue driver.
->
-> BAR_RESERVED BARs are not disabled by default because these BARs are
-> hardware backed, and should only be disabled explicitly by an EPF driver
-> if absolutely necessary for the EPF driver to function correctly.
-> (This is similar to how e.g. NVMe may have vendor specific BARs outside of
-> the mandatory BAR0 which contains the NVMe registers.)
->
-> Note that there is currently no EPC operation to disable a BAR that has not
-> first been programmed using pci_epc_set_bar(). If an EPF driver ever wants
-> to disable a BAR marked as BAR_RESERVED, a disable_bar() operation would
-> have to be added first.
->
-> No functional changes intended.
->
-> Tested-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> Reviewed-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> Signed-off-by: Niklas Cassel <cassel@kernel.org>
-> ---
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
->  drivers/pci/controller/dwc/pci-dra7xx.c       |  4 ----
->  drivers/pci/controller/dwc/pci-imx6.c         | 10 --------
->  .../pci/controller/dwc/pci-layerscape-ep.c    |  4 ----
->  drivers/pci/controller/dwc/pcie-artpec6.c     |  4 ----
->  .../pci/controller/dwc/pcie-designware-ep.c   | 24 +++++++++++++++++++
->  .../pci/controller/dwc/pcie-designware-plat.c | 10 --------
->  drivers/pci/controller/dwc/pcie-dw-rockchip.c |  4 ----
->  drivers/pci/controller/dwc/pcie-qcom-ep.c     | 10 --------
->  drivers/pci/controller/dwc/pcie-rcar-gen4.c   | 10 --------
->  drivers/pci/controller/dwc/pcie-stm32-ep.c    | 10 --------
->  drivers/pci/controller/dwc/pcie-tegra194.c    | 10 --------
->  drivers/pci/controller/dwc/pcie-uniphier-ep.c | 10 --------
->  12 files changed, 24 insertions(+), 86 deletions(-)
->
-> diff --git a/drivers/pci/controller/dwc/pci-dra7xx.c b/drivers/pci/controller/dwc/pci-dra7xx.c
-> index d5d26229063f..cd904659c321 100644
-> --- a/drivers/pci/controller/dwc/pci-dra7xx.c
-> +++ b/drivers/pci/controller/dwc/pci-dra7xx.c
-> @@ -378,10 +378,6 @@ static void dra7xx_pcie_ep_init(struct dw_pcie_ep *ep)
->  {
->  	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
->  	struct dra7xx_pcie *dra7xx = to_dra7xx_pcie(pci);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
->
->  	dra7xx_pcie_enable_wrapper_interrupts(dra7xx);
->  }
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
-> index ec1e3557ca53..f5fe5cfc46c7 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-> @@ -1401,15 +1401,6 @@ static const struct dw_pcie_ops dw_pcie_ops = {
->  	.stop_link = imx_pcie_stop_link,
->  };
->
-> -static void imx_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	enum pci_barno bar;
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -
-> -	for (bar = BAR_0; bar <= BAR_5; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -}
-> -
->  static int imx_pcie_ep_raise_irq(struct dw_pcie_ep *ep, u8 func_no,
->  				  unsigned int type, u16 interrupt_num)
->  {
-> @@ -1478,7 +1469,6 @@ imx_pcie_ep_get_features(struct dw_pcie_ep *ep)
->  }
->
->  static const struct dw_pcie_ep_ops pcie_ep_ops = {
-> -	.init = imx_pcie_ep_init,
->  	.raise_irq = imx_pcie_ep_raise_irq,
->  	.get_features = imx_pcie_ep_get_features,
->  };
-> diff --git a/drivers/pci/controller/dwc/pci-layerscape-ep.c b/drivers/pci/controller/dwc/pci-layerscape-ep.c
-> index 5a03a8f895f9..1f5fccdb4ff4 100644
-> --- a/drivers/pci/controller/dwc/pci-layerscape-ep.c
-> +++ b/drivers/pci/controller/dwc/pci-layerscape-ep.c
-> @@ -152,15 +152,11 @@ static void ls_pcie_ep_init(struct dw_pcie_ep *ep)
->  	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
->  	struct ls_pcie_ep *pcie = to_ls_pcie_ep(pci);
->  	struct dw_pcie_ep_func *ep_func;
-> -	enum pci_barno bar;
->
->  	ep_func = dw_pcie_ep_get_func_from_ep(ep, 0);
->  	if (!ep_func)
->  		return;
->
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -
->  	pcie->ls_epc->msi_capable = ep_func->msi_cap ? true : false;
->  	pcie->ls_epc->msix_capable = ep_func->msix_cap ? true : false;
->  }
-> diff --git a/drivers/pci/controller/dwc/pcie-artpec6.c b/drivers/pci/controller/dwc/pcie-artpec6.c
-> index e994b75986c3..55cb957ae1f3 100644
-> --- a/drivers/pci/controller/dwc/pcie-artpec6.c
-> +++ b/drivers/pci/controller/dwc/pcie-artpec6.c
-> @@ -340,15 +340,11 @@ static void artpec6_pcie_ep_init(struct dw_pcie_ep *ep)
->  {
->  	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
->  	struct artpec6_pcie *artpec6_pcie = to_artpec6_pcie(pci);
-> -	enum pci_barno bar;
->
->  	artpec6_pcie_assert_core_reset(artpec6_pcie);
->  	artpec6_pcie_init_phy(artpec6_pcie);
->  	artpec6_pcie_deassert_core_reset(artpec6_pcie);
->  	artpec6_pcie_wait_for_phy(artpec6_pcie);
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
->  }
->
->  static int artpec6_pcie_raise_irq(struct dw_pcie_ep *ep, u8 func_no,
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
-> index 295076cf70de..386bfb7b2bf6 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-ep.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
-> @@ -1114,6 +1114,28 @@ static void dw_pcie_ep_init_non_sticky_registers(struct dw_pcie *pci)
->  	dw_pcie_dbi_ro_wr_dis(pci);
->  }
->
-> +static void dw_pcie_ep_disable_bars(struct dw_pcie_ep *ep)
-> +{
-> +	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> +	enum pci_epc_bar_type bar_type;
-> +	enum pci_barno bar;
-> +
-> +	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++) {
-> +		bar_type = dw_pcie_ep_get_bar_type(ep, bar);
-> +
-> +		/*
-> +		 * Reserved BARs should not get disabled by default. All other
-> +		 * BAR types are disabled by default.
-> +		 *
-> +		 * This is in line with the current EPC core design, where all
-> +		 * BARs are disabled by default, and then the EPF driver enables
-> +		 * the BARs it wishes to use.
-> +		 */
-> +		if (bar_type != BAR_RESERVED)
-> +			dw_pcie_ep_reset_bar(pci, bar);
-> +	}
-> +}
-> +
->  /**
->   * dw_pcie_ep_init_registers - Initialize DWC EP specific registers
->   * @ep: DWC EP device
-> @@ -1196,6 +1218,8 @@ int dw_pcie_ep_init_registers(struct dw_pcie_ep *ep)
->  	if (ep->ops->init)
->  		ep->ops->init(ep);
->
-> +	dw_pcie_ep_disable_bars(ep);
-> +
->  	/*
->  	 * PCIe r6.0, section 7.9.15 states that for endpoints that support
->  	 * PTM, this capability structure is required in exactly one
-> diff --git a/drivers/pci/controller/dwc/pcie-designware-plat.c b/drivers/pci/controller/dwc/pcie-designware-plat.c
-> index 8530746ec5cb..d103ab759c4e 100644
-> --- a/drivers/pci/controller/dwc/pcie-designware-plat.c
-> +++ b/drivers/pci/controller/dwc/pcie-designware-plat.c
-> @@ -32,15 +32,6 @@ struct dw_plat_pcie_of_data {
->  static const struct dw_pcie_host_ops dw_plat_pcie_host_ops = {
->  };
->
-> -static void dw_plat_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -}
-> -
->  static int dw_plat_pcie_ep_raise_irq(struct dw_pcie_ep *ep, u8 func_no,
->  				     unsigned int type, u16 interrupt_num)
->  {
-> @@ -73,7 +64,6 @@ dw_plat_pcie_get_features(struct dw_pcie_ep *ep)
->  }
->
->  static const struct dw_pcie_ep_ops pcie_ep_ops = {
-> -	.init = dw_plat_pcie_ep_init,
->  	.raise_irq = dw_plat_pcie_ep_raise_irq,
->  	.get_features = dw_plat_pcie_get_features,
->  };
-> diff --git a/drivers/pci/controller/dwc/pcie-dw-rockchip.c b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> index ecc28093c589..4e9b813c3afb 100644
-> --- a/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> +++ b/drivers/pci/controller/dwc/pcie-dw-rockchip.c
-> @@ -361,13 +361,9 @@ static void rockchip_pcie_ep_hide_broken_ats_cap_rk3588(struct dw_pcie_ep *ep)
->  static void rockchip_pcie_ep_init(struct dw_pcie_ep *ep)
->  {
->  	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
->
->  	rockchip_pcie_enable_l0s(pci);
->  	rockchip_pcie_ep_hide_broken_ats_cap_rk3588(ep);
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
->  };
->
->  static int rockchip_pcie_raise_irq(struct dw_pcie_ep *ep, u8 func_no,
-> diff --git a/drivers/pci/controller/dwc/pcie-qcom-ep.c b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-> index e55675b3840a..e8c8ba1659fd 100644
-> --- a/drivers/pci/controller/dwc/pcie-qcom-ep.c
-> +++ b/drivers/pci/controller/dwc/pcie-qcom-ep.c
-> @@ -861,17 +861,7 @@ qcom_pcie_epc_get_features(struct dw_pcie_ep *pci_ep)
->  	return &qcom_pcie_epc_features;
->  }
->
-> -static void qcom_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = BAR_0; bar <= BAR_5; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -}
-> -
->  static const struct dw_pcie_ep_ops pci_ep_ops = {
-> -	.init = qcom_pcie_ep_init,
->  	.raise_irq = qcom_pcie_ep_raise_irq,
->  	.get_features = qcom_pcie_epc_get_features,
->  };
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> index 9dd05bac22b9..1198ddc1752c 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -386,15 +386,6 @@ static void rcar_gen4_pcie_ep_pre_init(struct dw_pcie_ep *ep)
->  	writel(PCIEDMAINTSTSEN_INIT, rcar->base + PCIEDMAINTSTSEN);
->  }
->
-> -static void rcar_gen4_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -}
-> -
->  static void rcar_gen4_pcie_ep_deinit(struct rcar_gen4_pcie *rcar)
->  {
->  	writel(0, rcar->base + PCIEDMAINTSTSEN);
-> @@ -449,7 +440,6 @@ static unsigned int rcar_gen4_pcie_ep_get_dbi2_offset(struct dw_pcie_ep *ep,
->
->  static const struct dw_pcie_ep_ops pcie_ep_ops = {
->  	.pre_init = rcar_gen4_pcie_ep_pre_init,
-> -	.init = rcar_gen4_pcie_ep_init,
->  	.raise_irq = rcar_gen4_pcie_ep_raise_irq,
->  	.get_features = rcar_gen4_pcie_ep_get_features,
->  	.get_dbi_offset = rcar_gen4_pcie_ep_get_dbi_offset,
-> diff --git a/drivers/pci/controller/dwc/pcie-stm32-ep.c b/drivers/pci/controller/dwc/pcie-stm32-ep.c
-> index c1944b40ce02..a7988dff1045 100644
-> --- a/drivers/pci/controller/dwc/pcie-stm32-ep.c
-> +++ b/drivers/pci/controller/dwc/pcie-stm32-ep.c
-> @@ -28,15 +28,6 @@ struct stm32_pcie {
->  	unsigned int perst_irq;
->  };
->
-> -static void stm32_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -}
-> -
->  static int stm32_pcie_start_link(struct dw_pcie *pci)
->  {
->  	struct stm32_pcie *stm32_pcie = to_stm32_pcie(pci);
-> @@ -82,7 +73,6 @@ stm32_pcie_get_features(struct dw_pcie_ep *ep)
->  }
->
->  static const struct dw_pcie_ep_ops stm32_pcie_ep_ops = {
-> -	.init = stm32_pcie_ep_init,
->  	.raise_irq = stm32_pcie_raise_irq,
->  	.get_features = stm32_pcie_get_features,
->  };
-> diff --git a/drivers/pci/controller/dwc/pcie-tegra194.c b/drivers/pci/controller/dwc/pcie-tegra194.c
-> index 9f9453e8cd23..3a6bffaff9ea 100644
-> --- a/drivers/pci/controller/dwc/pcie-tegra194.c
-> +++ b/drivers/pci/controller/dwc/pcie-tegra194.c
-> @@ -1923,15 +1923,6 @@ static irqreturn_t tegra_pcie_ep_pex_rst_irq(int irq, void *arg)
->  	return IRQ_HANDLED;
->  }
->
-> -static void tegra_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = 0; bar < PCI_STD_NUM_BARS; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -};
-> -
->  static int tegra_pcie_ep_raise_intx_irq(struct tegra_pcie_dw *pcie, u16 irq)
->  {
->  	/* Tegra194 supports only INTA */
-> @@ -2008,7 +1999,6 @@ tegra_pcie_ep_get_features(struct dw_pcie_ep *ep)
->  }
->
->  static const struct dw_pcie_ep_ops pcie_ep_ops = {
-> -	.init = tegra_pcie_ep_init,
->  	.raise_irq = tegra_pcie_ep_raise_irq,
->  	.get_features = tegra_pcie_ep_get_features,
->  };
-> diff --git a/drivers/pci/controller/dwc/pcie-uniphier-ep.c b/drivers/pci/controller/dwc/pcie-uniphier-ep.c
-> index 5bde3ee682b5..494376d1812d 100644
-> --- a/drivers/pci/controller/dwc/pcie-uniphier-ep.c
-> +++ b/drivers/pci/controller/dwc/pcie-uniphier-ep.c
-> @@ -203,15 +203,6 @@ static void uniphier_pcie_stop_link(struct dw_pcie *pci)
->  	uniphier_pcie_ltssm_enable(priv, false);
->  }
->
-> -static void uniphier_pcie_ep_init(struct dw_pcie_ep *ep)
-> -{
-> -	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> -	enum pci_barno bar;
-> -
-> -	for (bar = BAR_0; bar <= BAR_5; bar++)
-> -		dw_pcie_ep_reset_bar(pci, bar);
-> -}
-> -
->  static int uniphier_pcie_ep_raise_intx_irq(struct dw_pcie_ep *ep)
->  {
->  	struct dw_pcie *pci = to_dw_pcie_from_ep(ep);
-> @@ -283,7 +274,6 @@ uniphier_pcie_get_features(struct dw_pcie_ep *ep)
->  }
->
->  static const struct dw_pcie_ep_ops uniphier_pcie_ep_ops = {
-> -	.init = uniphier_pcie_ep_init,
->  	.raise_irq = uniphier_pcie_ep_raise_irq,
->  	.get_features = uniphier_pcie_get_features,
->  };
-> --
-> 2.53.0
->
+On 2/25/26 4:17 AM, Francesco Lavra wrote:
+> This field is used to differentiate between signed and unsigned integers.
+> A following commit will extend its use to in order to add support for non-
+> integer scan elements; therefore, change its name from 'sign' to a more
+> generic 'format'.
+> 
+
+Maybe Jonathan is OK with doing this all at once, but another alternative
+could be to introduce a union to allow both names at the same time, then
+we could make the change more gradually.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
