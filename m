@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qARwJPy/nmnsXAQAu9opvQ
+	id sIC2LAXAnmnsXAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 10:25:16 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 10:25:25 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B151194E8C
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 10:25:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C5E1194EA4
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 10:25:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E035EC8F284;
-	Wed, 25 Feb 2026 09:25:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFE0BC8F284;
+	Wed, 25 Feb 2026 09:25:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44557C8F281
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B51EEC8F281
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Feb 2026 09:25:14 +0000 (UTC)
+ Wed, 25 Feb 2026 09:25:23 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 15D2F40E0B;
- Wed, 25 Feb 2026 09:25:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2C5DC19422;
- Wed, 25 Feb 2026 09:25:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AF36F40840;
+ Wed, 25 Feb 2026 09:25:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98EE0C2BC86;
+ Wed, 25 Feb 2026 09:25:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772011512;
- bh=NVl0XIW72KAhGvaPeyo/7NTd/1b/tlHpMZEcCiTlegM=;
+ s=k20201202; t=1772011522;
+ bh=3F7Z5Pfj8Pt/optjPDV9G8Xvyryo9NuHarxp+2EdQZw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=MlFU4BBWC1HPasx276GWqfaq/QOBboToGp0pvjjvuj1GJAEAIP1IVxHdQ229N1nJ1
- cH5zb92QVL+SPBmBIzFGM17hk4NsxeQg+eQvsCCb01wQ7FZ0mNNmZu9pT5aRUWaJqT
- 7beomQPmrFZFEHjyuOGfgbeKw2a9KjIorAW2fSboKnnUwoWy1c7JacDG4JYhV80+1w
- U07ANgmSqXtfa0TkFaPk3mq4GYWLh4DeBO18ffsWZsqR4xlFTV47rAtd/1kxZIQQGT
- hMfuqOW4kbN1o4c/c5499KlPCxm//TtzFnfmgIZdm/1TvJBxwgG9hsb/hpQJyMe45g
- shnTEi0SQ4oTQ==
+ b=uJXxxlHBV0DRrSf9EXAEusXlJPeHnoT0EXFvLsrldQu/5D1nC+cn49GEzCZn5mSbM
+ A/xtGjS6xvWhP74lBLA/DVb/a4R6aeCiawcKj3TaGKNHT/TXw8XSi16nLSzWcQlnis
+ v0m+TCnAHsyPXyt2AknbqUGNEyD6LZYPnXc76KzrSaqQiZhlkwECxt+w/6vM3LLfHp
+ khpI2max/MI8mlIiNJLbDhcnYr2sSLHsuQBluXaRBJHXwNwXKsHHqzTo30n1Yu2Ss+
+ qSurO9g1H5v2Zq3H06S6xZDG61BdabR3sXwIssrYT/w6bZq7HIzDkIaA3SmP20SxVt
+ Lug+csEN4rnXw==
 From: Simon Horman <horms@kernel.org>
 To: jan.petrous@oss.nxp.com
-Date: Wed, 25 Feb 2026 09:24:56 +0000
-Message-ID: <20260225092456.174241-1-horms@kernel.org>
+Date: Wed, 25 Feb 2026 09:25:13 +0000
+Message-ID: <20260225092513.174261-1-horms@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260223-dwmac_multi_irq-v5-1-8fc699a5fac4@oss.nxp.com>
-References: <20260223-dwmac_multi_irq-v5-1-8fc699a5fac4@oss.nxp.com>
+In-Reply-To: <20260223-dwmac_multi_irq-v5-4-8fc699a5fac4@oss.nxp.com>
+References: <20260223-dwmac_multi_irq-v5-4-8fc699a5fac4@oss.nxp.com>
 MIME-Version: 1.0
 Cc: imx@lists.linux.dev, s32@nxp.com, Frank.Li@nxp.com, edumazet@google.com,
  ghennadi.procopciuc@oss.nxp.com, festevam@gmail.com,
@@ -51,7 +51,8 @@ Cc: imx@lists.linux.dev, s32@nxp.com, Frank.Li@nxp.com, edumazet@google.com,
  linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
  Simon Horman <horms@kernel.org>, krzk+dt@kernel.org, shawnguo@kernel.org,
  davem@davemloft.net
-Subject: Re: [Linux-stm32] [v5, 1/4] net: stmmac: platform: read channels irq
+Subject: Re: [Linux-stm32] [v5,
+	4/4] stmmac: s32: enable support for Multi-IRQ mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,13 +98,13 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_HAM(-0.00)[-0.279];
+	NEURAL_HAM(-0.00)[-0.299];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 3B151194E8C
+X-Rspamd-Queue-Id: 5C5E1194EA4
 X-Rspamd-Action: no action
 
 This is an AI-generated review of your patch. The human sending this
@@ -111,81 +112,63 @@ email has considered the AI review valid, or at least plausible.
 
 For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
 ---
-net: stmmac: platform: read channels irq
+stmmac: s32: enable support for Multi-IRQ mode
 
-This commit adds support for reading IRQ resources for all rx/tx channels
-in the stmmac platform driver to enable Multi-IRQ mode for platform glue
-drivers.
+This commit enables Multi-IRQ mode for the S32 DWMAC driver, allowing
+per-queue IRQs for improved performance. The driver checks for multiple
+queues and per-queue IRQs, enabling multi-IRQ mode when both are present.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 5c9fd91a1db9..6166a9b0c0bb 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -700,6 +700,9 @@ EXPORT_SYMBOL_GPL(stmmac_pltfr_find_clk);
->  int stmmac_get_platform_resources(struct platform_device *pdev,
->  				  struct stmmac_resources *stmmac_res)
->  {
-> +	char name[16];
-> +	int i;
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> index af594a096676..4aad7077c9d6 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c
+
+[ ... ]
+
+> @@ -165,6 +165,16 @@ static int s32_dwmac_probe(struct platform_device *pdev)
+>  	plat->core_type = DWMAC_CORE_GMAC4;
+>  	plat->pmt = 1;
+>  	plat->flags |= STMMAC_FLAG_SPH_DISABLE;
 > +
->  	memset(stmmac_res, 0, sizeof(*stmmac_res));
->
->  	/* Get IRQ information early to have an ability to ask for deferred
-> @@ -735,7 +738,42 @@ int stmmac_get_platform_resources(struct platform_device *pdev,
->
->  	stmmac_res->addr = devm_platform_ioremap_resource(pdev, 0);
->
-> -	return PTR_ERR_OR_ZERO(stmmac_res->addr);
-> +	if (IS_ERR(stmmac_res->addr))
-> +		return PTR_ERR(stmmac_res->addr);
-> +
-> +	/* RX channels irq */
-> +	for (i = 0; i < MTL_MAX_RX_QUEUES; i++) {
-> +		scnprintf(name, sizeof(name), "rx-queue-%d", i);
-> +		stmmac_res->rx_irq[i] = platform_get_irq_byname_optional(pdev,
-> +									 name);
-> +		if (stmmac_res->rx_irq[i] <= 0) {
-> +			if (stmmac_res->rx_irq[i] == -EPROBE_DEFER)
-> +				return -EPROBE_DEFER;
-> +			dev_dbg(&pdev->dev, "IRQ rx-queue-%d not found\n", i);
-> +
-> +			/* Stop on first unset rx-queue-%i property member */
-> +			stmmac_res->rx_irq[i] = 0;
-> +			break;
-> +		}
-> +	}
-> +
-> +	/* TX channels irq */
-> +	for (i = 0; i < MTL_MAX_TX_QUEUES; i++) {
-> +		scnprintf(name, sizeof(name), "tx-queue-%d", i);
-> +		stmmac_res->tx_irq[i] = platform_get_irq_byname_optional(pdev,
-> +									 name);
-> +		if (stmmac_res->tx_irq[i] <= 0) {
-> +			if (stmmac_res->tx_irq[i] == -EPROBE_DEFER)
-> +				return -EPROBE_DEFER;
-> +			dev_dbg(&pdev->dev, "IRQ tx-queue-%d not found\n", i);
-> +
-> +			/* Stop on first unset tx-queue-%i property member */
-> +			stmmac_res->tx_irq[i] = 0;
-> +			break;
-> +		}
+> +	/* Check for multi-IRQ config. Assumption: symmetrical rx/tx queues */
+> +	if (plat->rx_queues_to_use > 1 &&
+> +	    (res.rx_irq[0] > 0 && res.tx_irq[0] > 0)) {
+> +		plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
+> +		dev_info(dev, "Multi-IRQ mode (per queue IRQs) selected\n");
+> +	} else {
+> +		dev_info(dev, "MAC IRQ mode selected\n");
 > +	}
 
-This isn't a bug, but the RX and TX channel IRQ handling blocks follow an
-identical 14-line pattern that differs only in the queue name format string
-and target array. Both blocks format the IRQ name with scnprintf(), call
-platform_get_irq_byname_optional(), check for -EPROBE_DEFER, log a debug
-message on error, and break on the first missing IRQ.
+Does this validation check all queues have IRQs? The condition verifies
+only res.rx_irq[0] and res.tx_irq[0] but doesn't confirm that higher
+queues have IRQs when rx_queues_to_use > 1.
 
-Could this duplication be reduced with a helper function? Note that the
-existing code in this function already contains similar non-factored
-patterns for wol_irq and sfty_irq handling, so this level of duplication
-may be acceptable in this file's style.
+If a device tree specifies multiple queues but only provides IRQs for
+queue 0:
+
+    snps,rx-queues-to-use = <2>;
+    interrupt-names = "macirq", "rx-queue-0", "tx-queue-0";
+                      /* queue 1 IRQs missing */
+
+The driver would enable STMMAC_FLAG_MULTI_MSI_EN, but later in
+stmmac_request_irq_multi_msi() (drivers/net/ethernet/stmicro/stmmac/
+stmmac_main.c), queues with rx_irq[i] == 0 are silently skipped:
+
+    for (i = 0; i < priv->plat->rx_queues_to_use; i++) {
+        if (priv->rx_irq[i] <= 0)
+            continue;  /* queue 1+ skipped, no handler registered */
+        ...
+    }
+
+This would leave higher-numbered queues with no interrupt handler,
+causing packet loss when traffic arrives on those queues.
+
+Would it be safer to validate all queue IRQs before enabling multi-IRQ
+mode, or fall back to MAC IRQ mode if any queue IRQ is missing?
 
 > +
-> +	return 0;
->  }
->  EXPORT_SYMBOL_GPL(stmmac_get_platform_resources);
+>  	plat->rx_fifo_size = 20480;
+>  	plat->tx_fifo_size = 20480;
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
