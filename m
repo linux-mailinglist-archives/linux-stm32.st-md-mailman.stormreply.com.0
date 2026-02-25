@@ -2,61 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uOCMAt3QnmnwXQQAu9opvQ
+	id SLU6LBHWnmkTXgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 11:37:17 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 11:59:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48CC195D98
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 11:37:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A469196221
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 11:59:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53FE6C8F284;
-	Wed, 25 Feb 2026 10:37:16 +0000 (UTC)
-Received: from inva021.nxp.com (inva021.nxp.com [92.121.34.21])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CACE6C8F284;
+	Wed, 25 Feb 2026 10:59:28 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47BF1C8F281
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B5BC8F281
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Feb 2026 10:37:15 +0000 (UTC)
-Received: from inva021.nxp.com (localhost [127.0.0.1])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id C1BAC20125B;
- Wed, 25 Feb 2026 11:37:14 +0100 (CET)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com
- [134.27.226.22])
- by inva021.eu-rdc02.nxp.com (Postfix) with ESMTP id A9551200D18;
- Wed, 25 Feb 2026 11:37:14 +0100 (CET)
-Received: from lsv051416.swis.nl-cdc01.nxp.com
- (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
- by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 6CCF5203C7;
- Wed, 25 Feb 2026 11:37:14 +0100 (CET)
-Date: Wed, 25 Feb 2026 11:37:14 +0100
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <aZ7Q2saxrPzNXL+x@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260225-dwmac_multi_irq-v6-0-245bf1d7110c@oss.nxp.com>
- <20260225-dwmac_multi_irq-v6-3-245bf1d7110c@oss.nxp.com>
- <aZ7ACLx1yUMWPAsZ@shell.armlinux.org.uk>
+ Wed, 25 Feb 2026 10:59:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
+ Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
+ In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+ List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ga10eSgFE90ZtSvOsQUcopfNpkOfowVKw1XZ4wXDdCM=; b=bZQfow/vi7pdFWOl/ITz9NlKxT
+ aPIQ4Nc+zafMdUFWqbqwe7vzDE/yfiDweu0EQjca7ABawF104R0HybfM2KBqI05evdZYCRb98uDJm
+ UEk+d33k3k2znQRRIOpgyXXUWEVgbacqv4YBeJb4/kzo5TUdimo0TeIWXu3ikIQyBDg21zQ64Iiiz
+ K8ymEyol/Th1oW1AIpDgAaG89RKOeEXGtngt1pl4BLRbvZaaXmQELfq4we3jY8VaUWoVcUAur+S1N
+ Rok8C9bRzDmA92JbnokqNDD4BX85Ywfnp5dY39JFJdv7S7p2dQsIySYk+4mkaHp5B/NMN7HczYjpm
+ ElOUlZEg==;
+Received: from e0022681537dd.dyn.armlinux.org.uk
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44156 helo=rmk-PC.armlinux.org.uk)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <rmk@armlinux.org.uk>) id 1vvCbu-000000006Uw-39e5;
+ Wed, 25 Feb 2026 10:59:18 +0000
+Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
+ id 1vvCbt-0000000ArKy-3Wog; Wed, 25 Feb 2026 10:59:17 +0000
+In-Reply-To: <aZ66OT9scKipRRu2@shell.armlinux.org.uk>
+References: <aZ66OT9scKipRRu2@shell.armlinux.org.uk>
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aZ7ACLx1yUMWPAsZ@shell.armlinux.org.uk>
-X-Virus-Scanned: ClamAV using ClamSMTP
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- Frank Li <Frank.Li@nxp.com>, Eric Dumazet <edumazet@google.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH v6 3/5] dt-bindings: net: nxp,
- s32-dwmac: Declare per-queue interrupts
+Message-Id: <E1vvCbt-0000000ArKy-3Wog@rmk-PC.armlinux.org.uk>
+Date: Wed, 25 Feb 2026 10:59:17 +0000
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, linux-phy@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 2/8] phy: qcom-sgmii-eth: add
+ .set_mode() and .validate() methods
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,90 +72,143 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[nxp.com : SPF not aligned (relaxed), No valid DKIM,none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[25];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,davemloft.net];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:imx@lists.linux.dev,m:s32@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jan.petrous@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:neil.armstrong@linaro.org,m:mohd.anwar@oss.qualcomm.com,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[jan.petrous@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.920];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	NEURAL_HAM(-0.00)[-0.804];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,lsv051416.swis.nl-cdc01.nxp.com:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,nxp.com:email]
-X-Rspamd-Queue-Id: A48CC195D98
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,nxp.com:email]
+X-Rspamd-Queue-Id: 4A469196221
 X-Rspamd-Action: no action
 
-On Wed, Feb 25, 2026 at 09:25:28AM +0000, Russell King (Oracle) wrote:
-> On Wed, Feb 25, 2026 at 10:20:35AM +0100, Jan Petrous via B4 Relay wrote:
-> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> > 
-> > The DWMAC IP on NXP S32G/R SoCs has connected queue-based IRQ lines,
-> > set them to allow using Multi-IRQ mode.
-> > 
-> > Reviewed-by: Matthias Brugger <mbrugger@suse.com>
-> > Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > ---
-> >  .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 44 +++++++++++++++++++---
-> 
-> As you have added support for these IRQs into the generic code,
-> shouldn't the generic dwmac binding doc reflect that this is now
-> supported?
-> 
+qcom-sgmii-eth is an Ethernet SerDes supporting only Ethernet mode
+using SGMII, 1000BASE-X and 2500BASE-X.
 
-Hi Russell,
+Add an implementation of the .set_mode() method, which can be used
+instead of or as well as the .set_speed() method. The Ethernet
+interface modes mentioned above all have a fixed data rate, so
+setting the mode is sufficient to fully specify the operating
+parameters.
 
-the generic yaml has such interrupt names already declared:
-https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/net/snps%2Cdwmac.yaml#L142
+Add an implementation of the .validate() method, which will be
+necessary to allow discovery of the SerDes capabilities for platform
+independent SerDes support in the stmmac network driver.
 
-Here is the current interrupt snippet:
+Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Acked-by: Vinod Koul <vkoul@kernel.org>
+Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+---
 
-  interrupt-names:
-    minItems: 1
-    maxItems: 19
-    items:
-      oneOf:
-        - description: Combined signal for various interrupt events
-          const: macirq
-        - description: The interrupt to manage the remote wake-up packet detection
-          const: eth_wake_irq
-        - description: The interrupt that occurs when Rx exits the LPI state
-          const: eth_lpi
-        - description: The interrupt that occurs when HW safety error triggered
-          const: sfty
-        - description: Per channel receive completion interrupt
-          pattern: '^rx-queue-[0-7]$'
-        - description: Per channel transmit completion interrupt
-          pattern: '^tx-queue-[0-7]$'
-        - description: PPS interrupt
-          pattern: '^ptp-pps-[0-3]$'
+Resending as netdev (and others) were missing.
 
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c | 43 +++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-BR.
-/Jan
+diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
+index 5b1c82459c12..4ea3dce7719f 100644
+--- a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
++++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
+@@ -7,6 +7,7 @@
+ #include <linux/ethtool.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/phy.h>
+ #include <linux/phy/phy.h>
+ #include <linux/platform_device.h>
+ #include <linux/regmap.h>
+@@ -286,6 +287,37 @@ static int qcom_dwmac_sgmii_phy_power_off(struct phy *phy)
+ 	return 0;
+ }
+ 
++static int qcom_dwmac_sgmii_phy_speed(enum phy_mode mode, int submode)
++{
++	if (mode != PHY_MODE_ETHERNET)
++		return -EINVAL;
++
++	if (submode == PHY_INTERFACE_MODE_SGMII ||
++	    submode == PHY_INTERFACE_MODE_1000BASEX)
++		return SPEED_1000;
++
++	if (submode == PHY_INTERFACE_MODE_2500BASEX)
++		return SPEED_2500;
++
++	return -EINVAL;
++}
++
++static int qcom_dwmac_sgmii_phy_set_mode(struct phy *phy, enum phy_mode mode,
++					 int submode)
++{
++	struct qcom_dwmac_sgmii_phy_data *data = phy_get_drvdata(phy);
++	int speed;
++
++	speed = qcom_dwmac_sgmii_phy_speed(mode, submode);
++	if (speed < 0)
++		return speed;
++
++	if (speed != data->speed)
++		data->speed = speed;
++
++	return qcom_dwmac_sgmii_phy_calibrate(phy);
++}
++
+ static int qcom_dwmac_sgmii_phy_set_speed(struct phy *phy, int speed)
+ {
+ 	struct qcom_dwmac_sgmii_phy_data *data = phy_get_drvdata(phy);
+@@ -296,10 +328,21 @@ static int qcom_dwmac_sgmii_phy_set_speed(struct phy *phy, int speed)
+ 	return qcom_dwmac_sgmii_phy_calibrate(phy);
+ }
+ 
++static int qcom_dwmac_sgmii_phy_validate(struct phy *phy, enum phy_mode mode,
++					 int submode,
++					 union phy_configure_opts *opts)
++{
++	int ret = qcom_dwmac_sgmii_phy_speed(mode, submode);
++
++	return ret < 0 ? ret : 0;
++}
++
+ static const struct phy_ops qcom_dwmac_sgmii_phy_ops = {
+ 	.power_on	= qcom_dwmac_sgmii_phy_power_on,
+ 	.power_off	= qcom_dwmac_sgmii_phy_power_off,
++	.set_mode	= qcom_dwmac_sgmii_phy_set_mode,
+ 	.set_speed	= qcom_dwmac_sgmii_phy_set_speed,
++	.validate	= qcom_dwmac_sgmii_phy_validate,
+ 	.calibrate	= qcom_dwmac_sgmii_phy_calibrate,
+ 	.owner		= THIS_MODULE,
+ };
+-- 
+2.47.3
 
 _______________________________________________
 Linux-stm32 mailing list
