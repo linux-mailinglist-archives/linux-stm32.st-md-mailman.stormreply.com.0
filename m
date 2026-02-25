@@ -2,49 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OGdXCZ/4nmm+YAQAu9opvQ
+	id EFu1ERsGn2mZYgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 14:26:55 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 15:24:27 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3CDC198089
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 14:26:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FD9A198A8F
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Feb 2026 15:24:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 604F6C87EC2;
-	Wed, 25 Feb 2026 13:26:54 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 834DACFAC40
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B1D1C87EC2;
+	Wed, 25 Feb 2026 14:24:26 +0000 (UTC)
+Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
+ [210.160.252.171])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 24194C87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Feb 2026 13:26:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=tH1txli5ZbjJyuBn6TTwaByCQYmvFas0S+xVPZo4XkU=; b=cAp580mKnk5S4g5wzcKCqiiMz3
- /s/rRMPjpt0tf1CQP7k/mON5eUC2AHBHAifFo+EoGjEZtNnOaz0BSo+eYyhrzNWQ9ej+33z4zv7Kp
- aoyt2SA7oU7NHNFkxMxTaXuZzuvsC2J4KLZUml9OBEvkJTK08/6yYPSOWHamHIUUnzmw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1vvEuY-008kQQ-UM; Wed, 25 Feb 2026 14:26:42 +0100
-Date: Wed, 25 Feb 2026 14:26:42 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <af465a47-264f-4029-943a-fd4222092f9d@lunn.ch>
-References: <E1vuU3X-0000000Ae9G-1Er8@rmk-PC.armlinux.org.uk>
- <20260224173037.7871e5ac@kernel.org>
- <aZ6xqig4zh_Un8R7@shell.armlinux.org.uk>
+ Wed, 25 Feb 2026 14:24:23 +0000 (UTC)
+X-CSE-ConnectionGUID: +8TAYdAwTPaelwMGJZmlZg==
+X-CSE-MsgGUID: KjOJs05XQfSIFJwTP+XVRQ==
+Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
+ by relmlie5.idc.renesas.com with ESMTP; 25 Feb 2026 23:24:21 +0900
+Received: from vm01.adwin.renesas.com (unknown [10.226.92.192])
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 9D30F4017D8D;
+ Wed, 25 Feb 2026 23:24:15 +0900 (JST)
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, linux@armlinux.org.uk,
+ rmk+kernel@armlinux.org.uk, maxime.chevallier@bootlin.com,
+ boon.khai.ng@altera.com, rohan.g.thomas@altera.com,
+ vladimir.oltean@nxp.com, hayashi.kunihiko@socionext.com,
+ boon.leong.ong@intel.com, kim.tatt.chuah@intel.com
+Date: Wed, 25 Feb 2026 14:24:09 +0000
+Message-ID: <20260225142414.130144-1-ovidiu.panait.rb@renesas.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aZ6xqig4zh_Un8R7@shell.armlinux.org.uk>
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: fix
-	.ndo_fix_features()
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/5] net: stmmac: Fix VLAN
+	handling when interface is down
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,57 +58,85 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[renesas.com : SPF not aligned (relaxed), No valid DKIM,none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,altera.com,nxp.com,socionext.com,intel.com];
+	FORGED_SENDER(0.00)[ovidiu.panait.rb@renesas.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:boon.khai.ng@altera.com,m:rohan.g.thomas@altera.com,m:vladimir.oltean@nxp.com,m:hayashi.kunihiko@socionext.com,m:boon.leong.ong@intel.com,m:kim.tatt.chuah@intel.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[lunn.ch:-];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_NONE(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ovidiu.panait.rb@renesas.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.778];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	R_DKIM_NA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.972];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: B3CDC198089
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 6FD9A198A8F
 X-Rspamd-Action: no action
 
-> Then, looking at the "Enable TSO" block of code in stmmac_hw_setup(),
-> it looks to me like we can end up with some queues that have TSO
-> enabled, and others which don't (because TBS has been enabled on the
-> queue.) As far as I'm aware, the network layer doesn't support
-> per-queue TSO.
+VLAN register accesses on the MAC side require the PHY RX clock to be
+active. When the network interface is down, the PHY is suspended and
+the RX clock is unavailable, causing VLAN operations to fail with
+timeouts.
 
-There is a software implementation of TSO. See for example:
+The VLAN core automatically removes VID 0 after the interface goes down
+and re-adds it when it comes back up, so these timeouts happen during
+normal interface down/up:
 
-commit 3ae8f4e0b98b640aadf410c21185ccb6b5b02351
-Author: Ezequiel Garcia <ezequiel.garcia@free-electrons.com>
-Date:   Mon May 19 14:00:00 2014 -0300
+    # ip link set end1 down
+    renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
+    renesas-gbeth 15c40000.ethernet end1: failed to kill vid 0081/0
 
-    net: mv643xx_eth: Implement software TSO
+Adding VLANs while the interface is down also fails:
 
-You might be able to use this to fill in the gaps.
+    # ip link add link end1 name end1.10 type vlan id 10
+    renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
+    RTNETLINK answers: Device or resource busy
 
-    Andrew
+Patches 4-5 address this by deferring hardware writes when the
+interface is down and reconfiguring the VLAN state on interface up.
+
+Patches 1-3 fix some issues in the existing VLAN implementation.
+
+v2 changes:
+- Added a new commit that fixes VLAN restore on the resume and open paths.
+
+v1: https://lore.kernel.org/all/20260223124102.120432-1-ovidiu.panait.rb@renesas.com/
+
+
+Ovidiu Panait (5):
+  net: stmmac: Fix error handling in VLAN add and delete paths
+  net: stmmac: Improve double VLAN handling
+  net: stmmac: Fix VLAN HW state restore
+  net: stmmac: Add write_hw parameter to VLAN filter operations
+  net: stmmac: Defer VLAN HW configuration when interface is down
+
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  6 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 69 ++++++++++++++++---
+ .../net/ethernet/stmicro/stmmac/stmmac_vlan.c | 61 ++++++++--------
+ 4 files changed, 95 insertions(+), 42 deletions(-)
+
+-- 
+2.51.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
