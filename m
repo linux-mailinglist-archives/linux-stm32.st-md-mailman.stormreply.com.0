@@ -2,110 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YDCPFwB5oGmMkAQAu9opvQ
+	id kETSEkeNoGkokwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Feb 2026 17:46:56 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Feb 2026 19:13:27 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1411F1AB03F
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Feb 2026 17:46:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D9481AD62B
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Feb 2026 19:13:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4E9FC87EC5;
-	Thu, 26 Feb 2026 16:46:53 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013061.outbound.protection.outlook.com [40.107.159.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2912AC87EC5;
+	Thu, 26 Feb 2026 18:13:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3FFFC87EBE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6E8FFC030CD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Feb 2026 16:46:51 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MJ2Ki30V0warTyPW49wi2ku4eiHqHPtx+mXNvgaLM+Hy2llTv4DsnWuUhayO/Ile4jwbbSpQLJMrEvDmNixdN6anPwEO6/u8FGLWjMk07mIzwGDeAQh+QrXyIrbLle1NJMHmpXVy7O5a7OKth4dT4Xotqv/xmXEcZAVLqyLoy4d72qynSLx7PH+N9yNqKwZ27ZNkImvxh140seYSDLHja4E48DCgXKMeVK/B+Ot84cr0fO11ESonb8m4XgFStEl04yAOqadjNi1CrqmEdW561t4yvDOLQDkTKrfgKXjFd6yhnCkg4RnqQZvFobswFXTq4MpiHOhFw4KrJBpbymGFtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fk8NLlHkhD53dIXYV85RoJYZP852rCqMTPf3HuiPxuc=;
- b=Pa+oy7cqHkJt6bAGzqvuj99lYZSzViX3m4nUltpdaPZdvqVooSNeedH6kR8na3nu62D5uRM+C1i8yk1dkReJRSHC/HCsvyuHs6d/mgQN/XzmojECFT8BETCAmPsxgg0n0UihKv6WacLJEmIn9k3gaqVJLd8RaOdadBUTSwuNxZDcya1yKyVnROrJuMmXRsPkdhjBuBF7ejAL66xA5UFxghbBbq9ek8nzxia4p8dc8SjNbMC//PVX2eIZtZ8gmn4JZztGzDZP2lyOhwGVSDGf1c8cDBOW/fvS/ozWm1Jl+vVHDfVXT45MkEpwOB4r4aX/b1l+/EKgCHrjwJZ4tsqo4g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=mandelbit.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fk8NLlHkhD53dIXYV85RoJYZP852rCqMTPf3HuiPxuc=;
- b=JQ0hWynNvQ9OsW6Zvgfa0JkPB1jV8Gs7krx8e+4TEgxL6QlXIpWGUP2J0FCoGsLD0WHv7hco0sb0o5XhFWGZPmN7rDlVyRRFCfxJE2R6OGoQISD1/VJmz7RJMU98f3xGuF7cJfSGPdG8BJs9t5du7/zelp96fO8XyZPHFx+KdXHrK9RKhlcLcM3TAzddU/4fGx8uj8vD+Nq8lOdmw43gsngreM6/+YPkTf/VFvBvwpEVd1ydv5PMn/k6QQvxBPgjIBO1ip1vjPgXYI5El7DFBccp1k0x1VPc1mw+ZoHhBrpT1QbsFtht/qiy9af93N8S/EUl9aLFrIjIQ0YOs3gNgw==
-Received: from DB3PR08CA0011.eurprd08.prod.outlook.com (2603:10a6:8::24) by
- PR3PR10MB4046.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:a3::19) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9654.13; Thu, 26 Feb 2026 16:46:49 +0000
-Received: from DU2PEPF00028D0E.eurprd03.prod.outlook.com
- (2603:10a6:8:0:cafe::83) by DB3PR08CA0011.outlook.office365.com
- (2603:10a6:8::24) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9632.24 via Frontend Transport; Thu,
- 26 Feb 2026 16:46:51 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D0E.mail.protection.outlook.com (10.167.242.22) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9611.8 via Frontend Transport; Thu, 26 Feb 2026 16:46:48 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 26 Feb
- 2026 17:48:55 +0100
-Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 26 Feb
- 2026 17:46:47 +0100
-Date: Thu, 26 Feb 2026 17:46:41 +0100
-From: Alain Volmat <alain.volmat@foss.st.com>
-To: Antonio Quartulli <antonio@mandelbit.com>
-Message-ID: <aaB4z_A4aTqirDGb@gnbcxd0016.gnb.st.com>
-References: <20260224-spi-stm32-chaining-fix-v1-1-5da7a4851b66@foss.st.com>
- <d14f3943-b97a-4940-95dd-39c6fc240130@mandelbit.com>
+ Thu, 26 Feb 2026 18:13:24 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 648BF6013A;
+ Thu, 26 Feb 2026 18:13:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8B62C116C6;
+ Thu, 26 Feb 2026 18:13:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772129603;
+ bh=z7QUpP5BoSrkNlPXr+OPzldtcWq+DmCCG0w7S6dfZyE=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=FyIUZ6OkCp9e8qstFoPNzCzaYhptRwB07NsYZ6KjWuCXwZkPGqpY+2mDcqxd9CAg9
+ YN0DiJ1c4hJPpy1hU2a/YWSynvF79SfcKWaTTcCpWGyl6YZZAH+zZS5FLYwvInQQ1O
+ aqFLYUf6O1iopuxxz1Ob+IvpnX2kL23I9H/GyZa5T/YKvVZyPULgpLk+8FPy47EpUx
+ as2n/B8AZ2QHrHtW40CuqryB4b/i0C1xJSQecxmRTv40gPYP14tIpK7Hd3y+P71XtW
+ 6cFNn1znK73lc/6klr67LAf8EIkWQnEv7KZMuLDg/wcVgRRDi9XBMiB3kcQckt+/Kn
+ 09gLJpctjvhJQ==
+Message-ID: <ae9962a4-b611-46e0-b124-5910e8708a20@kernel.org>
+Date: Thu, 26 Feb 2026 19:13:19 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <d14f3943-b97a-4940-95dd-39c6fc240130@mandelbit.com>
-X-Disclaimer: ce message est personnel / this message is private
-X-Originating-IP: [10.130.77.119]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D0E:EE_|PR3PR10MB4046:EE_
-X-MS-Office365-Filtering-Correlation-Id: 910a6b22-b5ff-42e9-f7ce-08de7556a2a1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700013|82310400026|376014|1800799024; 
-X-Microsoft-Antispam-Message-Info: CYXCXb2Mm6NysiS8vrtpDAY1pgSFUvcmwMeKYPepIDybfxQlUW7+2mYu4ivmAGxStztPPT4Ci/NDTJyDpGydbITopBX58RoCemJ5ASeYtBAcfAeBYcyrUOZrhbgnPMndB1xPl5Jfj1Nw15aeA9TujzijODzYhOHy3k99UTkli1+D942cjD4HRtDdppJi+kofw0Bl7tZOTt6gAQlKwepxR65Zb/BMFoD1r2SKMMSTfsNfaCr9SDQw7rn1FdagZ9YwUyPPc2tgqNpVoOzy3xfotrqOZ6gvUGyPEeiWlrmuNQfNguOql7ZGtBhhyxbHDiTvpP1SEcXM2LiDzvpKnHINlIFChIg6kXBkK/wx/gOgkm7jG/onrMe5BWYY8nCYEjH99MrQJ3iADXK4qz5mm1vqh9wIQfKn8apRpSXLLrBunkljr9TNWLWj16Z8gNiG8ujZNMl00+ZbJONtShKLYCfRy0E3WcFNrZYg5BWY+VcaVCUoOTSrk5uQEIDOX9hIBzuDKU08tLBEQOB9xuzxSWfu+oJgjePB+Z8Jbxl2bb3Z0lSn+E4agnbO27FIxpVjeS5FIqMDlsQzwaDXnr29u6QqJasUW5PFC8csJA9PefAggfV9PEdF+MzOfHSESkP3nwGzLwy2baW774fby042jbNva/RJdhWpNC7Sgk+icKCU98IXPJyoiPDQjapf8kEXx2hXggj3fCVtcut2ZVjTY6L0PcjTv9lJeW7yiQ+mEpwKhpRpa5+dq2YTHnuDC2a6W0Ekvk8CLSFyHLu4R/ZnJNCqLd1flZmHpZhybVALxsCq973B7b8R1hTYnb3TxAI6osC4otFrYTplYYNysrhEdu5tqQ==
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700013)(82310400026)(376014)(1800799024); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: VXTXnRzEh5YfonnSP3HePI9YrWco8hiFotl9GUuUHPnl718nqhWq4ujjyHaX+foXO4ElTymdn4uvwDMg7OwSURK6pix0kl0G1xfn0ZmEmnjvJSnzmEKmQ5ym2Zu/Jw9hgap7kO+DGX6MxJFd9OWdONID8fEjRXJsQRZCiSIRZmoQPdV7jg14UTMjgFjBMu73lVGAwCJZU1L6+04HB6IzpmOirGqrEdzxBcmBlHsCvWoeewqt4RZX4l+g+f89UdjMv1KPhZENFSydlOd+jz4CNLdpt36ayyQw+AqU1cLyjys86Ph3nh5nZ4c8xj1PlBtHglskIgtQIygUJQkdYitVG0st8sM5bWW+5RsyBMp+qD7OmpmJ/diA4eW9o7OHS3oZjgYQGtar5KP747H5WLA8wQnYFi4T4EYL7EQXlqqEJkjSsQqKPracKBWCJdcjMJ3/
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2026 16:46:48.8251 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 910a6b22-b5ff-42e9-f7ce-08de7556a2a1
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D0E.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB4046
-Cc: Clement LE GOFFIC <clement.legoffic@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32: fix missing pointer
- assignment in case of dma chaining
+User-Agent: Mozilla Thunderbird
+To: Gatien CHEVALLIER <gatien.chevallier@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20260209-stm32_risab-v1-0-ef0b2b6a7e0a@foss.st.com>
+ <20260209-stm32_risab-v1-1-ef0b2b6a7e0a@foss.st.com>
+ <ee9759a6-1779-4891-8716-24c36134198a@kernel.org>
+ <516036b6-b825-4a29-a48a-5d3af3234968@foss.st.com>
+ <ac793499-bebb-477b-b27e-089529f3ee4b@kernel.org>
+ <66ecf6a5-cc1f-4872-971d-6bc32894dbac@foss.st.com>
+ <fd73947a-289a-43f9-9506-573fee935d12@kernel.org>
+ <ed0ab69f-7aff-423f-8b93-980e79705b6d@foss.st.com>
+ <c588720a-6a7d-4179-afb5-bb7e89e0e7e1@kernel.org>
+ <b535dfd6-e4a6-4831-a868-c152574144c8@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <b535dfd6-e4a6-4831-a868-c152574144c8@foss.st.com>
+Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 1/7] dt-bindings: soc: st: document the
+ RISAB firewall peripheral
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -122,95 +118,99 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,stormreply.com:url,stormreply.com:email];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:antonio@mandelbit.com,m:clement.legoffic@foss.st.com,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_CC(0.00)[foss.st.com,vger.kernel.org,kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	NEURAL_SPAM(0.00)[0.596];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MISSING_XM_UA(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_PROHIBIT(0.00)[4.196.180.0:email];
+	NEURAL_HAM(-0.00)[-0.863];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 1411F1AB03F
+	RCPT_COUNT_SEVEN(0.00)[10];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 8D9481AD62B
 X-Rspamd-Action: no action
 
-Hi,
+On 19/02/2026 15:02, Gatien CHEVALLIER wrote:
+> Just a small reintroduction of the issue:
+> We need to provide three sets of information to the drivers of RISAx:
+> - The registers of the RISAx device, handled through property "reg"
+> - The global range of memory addresses protected by the RISAx devices
+> (currently through the custom property "st,mem-map")
+> - Each individual memory range protected, handled through property
+> "memory-region" that points to children of "/reserved-memory". Memory
+> regions may not cover the whole range covered by the RISAx.
+> 
+> To replace the custom property, I have explored a few ways:
+> 
+> 1) Describe the memory range covered by the memory firewall as a
+> reserved memory: Cannot be done because, for the memory firewall
+> covering the DDR, the reserved memory would overlap with the memory
+> node used to describe the memory available for regular kernel use.
+> The memory node represents part of the DDR in that case.
 
-On Tue, Feb 24, 2026 at 04:25:14PM +0100, Antonio Quartulli wrote:
-> Hi,
-> 
-> On 24/02/2026 16:09, Alain Volmat wrote:
-> > Commit c4f2c05ab029 ("spi: stm32: fix pointer-to-pointer variables usage")
-> > introduced a regression since dma descriptors generated as part of the
-> > stm32_spi_prepare_rx_dma_mdma_chaining function are not well propagated
-> > to the caller function, leading to mdma-dma chaining being no more
-> > functional.
-> > 
-> > Fixes: c4f2c05ab029 ("spi: stm32: fix pointer-to-pointer variables usage")
-> > Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
-> > ---
-> >   drivers/spi/spi-stm32.c | 3 +++
-> >   1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/spi/spi-stm32.c b/drivers/spi/spi-stm32.c
-> > index b99de8c4cc99..33f211e159ef 100644
-> > --- a/drivers/spi/spi-stm32.c
-> > +++ b/drivers/spi/spi-stm32.c
-> > @@ -1625,6 +1625,9 @@ static int stm32_spi_prepare_rx_dma_mdma_chaining(struct stm32_spi *spi,
-> >   		return -EINVAL;
-> >   	}
-> > +	*rx_mdma_desc = _mdma_desc;
-> > +	*rx_dma_desc = _dma_desc;
-> > +
-> 
-> Thanks for catching this!
-> 
-> Indeed my fix lost the pointer-to-pointer logic, which was needed to pass
-> back the computed values.
-> 
-> This patch looks good, but at this point I think you can also remove the
-> lines:
-> 
-> 	_dma_desc = NULL;
-> 
-> in the error paths above? Setting them to NULL makes no sense as they are
-> not going anywhere.
+But isn't this the entire point of RISAB on main system memory? You want
+to mark part of system memory one way or another. And now you say that
+overlapping would be a problem.
 
-I agree that those lines can be removed. However my feeling is that this
-is not part of this fix since this is more about removing useless lines.
-If this is ok for you I will propose another patch on top of the current
-one for that purpose and without the Fixes on it.
+You do understand you do not have to reserve the memory, right? You are
+doing only your specific mapping for that region.
 
-Regards,
-Alain
+> 
+> 	memory@80000000 {
+> 		device_type = "memory";
+> 		reg = <0x0 0x80000000 0x1 0x0>;
+> 	};
+> 
+> 	reserved-memory {
+> 		#address-cells = <2>;
+> 		#size-cells = <2>;
+> 		ranges;
+> 
+> 		risaf_range: risaf-range@80000000 {
+
+There is no compatible here...
+
+> 			reg = <0x0 0x80000000 0x0 0x80000000>;
+> 			no-map;
+
+And why no-mapping? Isn't the point of the block is to have it as main
+system memory?
+
+> 		};
+> 	}
+> 
+
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
