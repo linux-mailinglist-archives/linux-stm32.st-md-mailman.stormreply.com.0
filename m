@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mKsrDshpoWkOswQAu9opvQ
+	id 2NLKFstpoWkOswQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:54:16 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:54:19 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 092BD1B59CA
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:54:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14D1D1B59D1
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:54:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C47F0C87ECC;
-	Fri, 27 Feb 2026 09:54:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D097DC87EC9;
+	Fri, 27 Feb 2026 09:54:18 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6AD9C87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4B47C87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Feb 2026 09:54:14 +0000 (UTC)
+ Fri, 27 Feb 2026 09:54:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=pWZWO/rxH1P6hhg+wVH0jYDJcmR/UO7DcxyCSpqX5So=; b=hVOjTk6BjaM4jqQUbeenetVYKU
- LEsxYqYfRXWVHF/x1j2kqdgtcDDLP98CW233+B3XnOfnoqbEi5M2tz5AzwV08a0b2Ur5jp07rfyRs
- 5XtpPdHTY0Hd8WiqoZI7a4p7x9014OjE7+G4EYqbB8FdJ457T4uOnJH097JY9oTFsnJoxfL0M1Su6
- I/wvly72sg15CU+vsdOrVvSqg5IhjYLvjAYRDfJmtwFo/hLpsTNEAc/YtcTVH0LH8RD8+gu4Iqokb
- DPzvaQbKtBWkObHs1KHKxsjoZE3NzjYNR+27tdmtQKlx8Miq1gmyZ3WF2U4BFLf7wuvwq039BiuZS
- Ftqwyg2A==;
+ bh=RpIRyZ7QzC/EBC6A85M42Ue5KN0IkzW1S7uTrte3DSM=; b=KV+0ks30s5w+XkvAjqLK9c8aLw
+ Y+SPF51vKXHle27aiO2GeXb8eWHxqyQgempeY71m/oBoNovR+bNTCWZUkSWygrNWMcYn14YjSTdwH
+ k4bvkmphbhrsfc44wKkboAFLYr+sZEvB3VY8RuMyfZJpSfdUyiUvMD4DzkY9+gNES3lm4s/g92Ar2
+ TAOi4xoRiwRqDeB3hku79SkzAlayajKUo2w4Ni1MnMcMFG+ASFSAtdFf7m9zbZxxUkSF0mcLrefPM
+ rAZRAgl69NVyvbIzZqUw9mkp/oKbp/ARZ8Rvx2hwPVFqF8FWqN0Mf1FC7vALHfaX7lIEL0NbA6ifn
+ iPxuJd9A==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:39334 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51748 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vvuXn-000000000eO-17Rf;
- Fri, 27 Feb 2026 09:53:59 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vvuXu-000000000ec-3V5u;
+ Fri, 27 Feb 2026 09:54:07 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vvuXi-0000000AvnR-3btC; Fri, 27 Feb 2026 09:53:54 +0000
+ id 1vvuXn-0000000AvnX-4A1u; Fri, 27 Feb 2026 09:54:00 +0000
 In-Reply-To: <aaFpZvuIzOLaNM0m@shell.armlinux.org.uk>
 References: <aaFpZvuIzOLaNM0m@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vvuXi-0000000AvnR-3btC@rmk-PC.armlinux.org.uk>
-Date: Fri, 27 Feb 2026 09:53:54 +0000
+Message-Id: <E1vvuXn-0000000AvnX-4A1u@rmk-PC.armlinux.org.uk>
+Date: Fri, 27 Feb 2026 09:53:59 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 10/14] net: stmmac: make chain_mode a
-	boolean
+Subject: [Linux-stm32] [PATCH net-next 11/14] net: stmmac: make dma_cfg
+ mixed/fixed burst boolean
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,17 +81,17 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.803];
+	NEURAL_HAM(-0.00)[-0.793];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -104,46 +104,61 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 092BD1B59CA
+X-Rspamd-Queue-Id: 14D1D1B59D1
 X-Rspamd-Action: no action
 
-priv->chain_mode is only tested for non-zero, so it can be a boolean.
-Change its type to boolean, and add a comment describing this member.
+struct stmmac_dma_cfg mixed_burst/fixed_burst members are both boolean
+in nature - of_property_read_bool() are used to read these from DT, and
+they are only tested for non-zero values. Use bool to avoid unnecessary
+padding in this structure.
+
+Update dwmac-intel to initialise these using true rather than '1', and
+remove the '0' initialisers as the struct is already zero initialised
+on allocation.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 3 ++-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
- 2 files changed, 3 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c | 4 +---
+ include/linux/stmmac.h                            | 4 ++--
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 57ded8e5177f..e98cb9f3a44c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -307,8 +307,9 @@ struct stmmac_priv {
- 	 *  when set, struct dma_extended_desc
- 	 */
- 	bool extend_desc;
-+	/* chain_mode: requested descriptor mode */
-+	bool chain_mode;
- 	unsigned int mode;
--	unsigned int chain_mode;
- 	struct kernel_hwtstamp_config tstamp_config;
- 	struct ptp_clock *ptp_clock;
- 	struct ptp_clock_info ptp_clock_ops;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3f74766f6e21..be144b946fd5 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -7344,7 +7344,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 	/* dwmac-sun8i only work in chain mode */
- 	if (priv->plat->flags & STMMAC_FLAG_HAS_SUN8I)
- 		chain_mode = 1;
--	priv->chain_mode = chain_mode;
-+	priv->chain_mode = !!chain_mode;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 92d77b0c2f54..ece2a0c38562 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -636,8 +636,6 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
  
- 	/* Initialize HW Interface */
- 	ret = stmmac_hwif_init(priv);
+ 	plat->dma_cfg->pbl = 32;
+ 	plat->dma_cfg->pblx8 = true;
+-	plat->dma_cfg->fixed_burst = 0;
+-	plat->dma_cfg->mixed_burst = 0;
+ 	plat->dma_cfg->aal = 0;
+ 	plat->dma_cfg->dche = true;
+ 
+@@ -1106,7 +1104,7 @@ static int quark_default_data(struct pci_dev *pdev,
+ 
+ 	plat->dma_cfg->pbl = 16;
+ 	plat->dma_cfg->pblx8 = true;
+-	plat->dma_cfg->fixed_burst = 1;
++	plat->dma_cfg->fixed_burst = true;
+ 	/* AXI (TODO) */
+ 
+ 	return 0;
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index cc6c89769d82..84dea8c4fa65 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -97,8 +97,8 @@ struct stmmac_dma_cfg {
+ 	int txpbl;
+ 	int rxpbl;
+ 	bool pblx8;
+-	int fixed_burst;
+-	int mixed_burst;
++	bool fixed_burst;
++	bool mixed_burst;
+ 	bool aal;
+ 	bool eame;
+ 	bool multi_msi_en;
 -- 
 2.47.3
 
