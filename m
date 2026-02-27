@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sAwSE/+foWl8ugQAu9opvQ
+	id CFWuFxOgoWl8ugQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:45:35 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:45:55 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7EFF1B7D49
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0B2F51B7D68
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:45:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABA51C87EC9;
-	Fri, 27 Feb 2026 13:45:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC726C87EC9;
+	Fri, 27 Feb 2026 13:45:54 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34869C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9C6AC1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Feb 2026 13:45:34 +0000 (UTC)
+ Fri, 27 Feb 2026 13:45:53 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 117FF417C2;
- Fri, 27 Feb 2026 13:45:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCC6C19423;
- Fri, 27 Feb 2026 13:45:32 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id D47CD40183;
+ Fri, 27 Feb 2026 13:45:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02162C116C6;
+ Fri, 27 Feb 2026 13:45:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772199932;
- bh=SKsV8ym5l/huOSjTYD/pCQkRyet275DwzWDj6sr4VYo=;
+ s=k20201202; t=1772199952;
+ bh=b242g2qNf10eAecZBeoervTpA+wsH+kaSLHINlPH/aU=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Fjt4tYvDR3Yx46omuqjFG/bP3S/ZkDcwA2EJwv61oGtfT0Bfc7PBUxj8yF++zs6aw
- GiCbJvrwSh4SEWXhkxmJenmX0SkCBEjBznUN/4+Rq/Yu7NhDPM9kjNbwldG5P4dvNO
- WP3mzZ58bIN5Qjq9cV69tV7BvWokRIMD9p0QAKdqpidIjPyt+KsE+lFTYsTgxZDAoK
- WkXOidUZrr6/uaaSU201eEUspAtbGCcT27rlVfOcK7vNSjMJrOOFK4xd8gyeLLCP3B
- M0/g9WSR6Wf03IKI9ohI0JZc0W26dFpA5qtldoljrQZVH2cJI5xKLaHFEWFsMTQQtb
- 4viCazY7YBPnQ==
-Date: Fri, 27 Feb 2026 19:15:29 +0530
+ b=NxnQmO6FxSK9R8f9ct2N8OQyn1ufXUd6i18deXkxbsu0sXgYwCE5rarxBeew/HF2f
+ UUt420Jcfpt4ij4pGxa91h7L7C4HBJXjfcsMzbXStKwi6GDoLdovUmw0xlpoEGhCz4
+ UvdnnGUTzUhgCDs6y38V0FQnaV61NVcL2tHlcSBlCasBjCqfmWJbvCw+wBtMcvLn+D
+ Ubtb4tLUVTA0oItWJrqTynbPtdSFuCA+7YTajUxfbIxz5OJ/DTUTw4OOCW8W/lgKrf
+ 769x3gGF2uw+uMN26XoR+DeGGiBa8oE3aDw5u5uyrAePiT8EVxegJPPFh2xMQUK2RB
+ 6Exubf6OBYUqA==
+Date: Fri, 27 Feb 2026 19:15:49 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <aaGf-RN9Hho8qEdx@vaman>
+Message-ID: <aaGgDfaOBHNY6xL2@vaman>
 References: <aZ66OT9scKipRRu2@shell.armlinux.org.uk>
- <E1vvCc9-0000000ArLG-0if1@rmk-PC.armlinux.org.uk>
+ <E1vvCcE-0000000ArLT-1COQ@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vvCc9-0000000ArLG-0if1@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vvCcE-0000000ArLT-1COQ@rmk-PC.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>,
  Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
@@ -50,8 +50,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  linux-phy@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 6/8] phy: qcom-sgmii-eth: remove
- qcom_dwmac_sgmii_phy_interface()
+Subject: Re: [Linux-stm32] [PATCH net-next 7/8] phy: qcom-sgmii-eth: relax
+ order of .power_on() vs .set_mode*()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.909];
+	NEURAL_HAM(-0.00)[-0.877];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[vkoul@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -103,14 +103,14 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,qualcomm.com:email,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: E7EFF1B7D49
+X-Rspamd-Queue-Id: 0B2F51B7D68
 X-Rspamd-Action: no action
 
 On 25-02-26, 10:59, Russell King (Oracle) wrote:
-> Now that qcom_dwmac_sgmii_phy_interface() only serves to validate the
-> passed interface mode, combine it with qcom_dwmac_sgmii_phy_validate(),
-> and use qcom_dwmac_sgmii_phy_validate() to validate the mode in
-> qcom_dwmac_sgmii_phy_set_mode().
+> Allow any order of the .power_on() and .set_mode*() methods as per the
+> recent discussion. This means phy_power_on() with this SerDes will now
+> restore the previous setup without requiring a subsequent
+> phy_set_mode*() call.
 > 
 > Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
