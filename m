@@ -2,79 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OINcOMi4oWkYwAQAu9opvQ
+	id ALjgG0q6oWlhwAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 16:31:20 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 16:37:46 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9630E1B9D06
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 16:31:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12F751B9F07
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 16:37:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 500F7C87EC5;
-	Fri, 27 Feb 2026 15:31:20 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8EF4C87EC5;
+	Fri, 27 Feb 2026 15:37:45 +0000 (UTC)
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com
+ [209.85.128.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B009C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 522A7C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Feb 2026 15:31:19 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-4399567ea8cso141334f8f.3
+ Fri, 27 Feb 2026 15:37:45 +0000 (UTC)
+Received: by mail-wm1-f48.google.com with SMTP id
+ 5b1f17b1804b1-4806b88d8c9so3066545e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Feb 2026 07:31:19 -0800 (PST)
+ Fri, 27 Feb 2026 07:37:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772206279; x=1772811079;
+ d=gmail.com; s=20230601; t=1772206665; x=1772811465;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=P2kGl/nxca3gMElmPgWClDsdWOdb0++gHklmfXh1TOU=;
- b=Xy+w4XkSdgx/QUVb/l5g5KiFs/W0c6MVEuWFQkripAofWEt3DoWSkiOauonydJsBzi
- PWf5+cNRjIq6iYnagwCBBxrncbPCAwqNLIM0nLY8yI7xHMjwXajwHfPP5tZedwM4Ush9
- Fpvs7YjWnJy7S2QMMXr6jdS2KGCA1mry/iNXGPOQ8ceQYY/s/NBG7gT2yQ8qXQr4i3Iz
- SuYsLwAUMP2PjydYXMDPqXp6Q+u2rFIW2eunalTDt05S7XiHmzC/XovODEeofTGYR+TV
- rCButQwKKTS3cI9DWhC+UZhxHWYv1A/KFClQKy1dGW3BfUwKwWd6xvO1Jrxe44Fz05Gb
- ZcVg==
+ bh=PmXbxBtIqJncar8DB1sW/Qw37OMyoAkSD4eIty5kISQ=;
+ b=EaEmIZNDWvDPs2VdXQut3jEYgpXY2LwGq9KupYuNJD0YmBe58w4bgPB+tXbwtUrE4a
+ zHDHJg6LqOvpJ9fOVuVzrqAXq3rr+hApbx/o9cEMKOkJqdgv2ZXmoar5hsjcxQHZs5Sd
+ TruO5PucWZnuextJHDk0RBTm5HIFn2/19VVT6XbOKFJ0k8GGbXmfZcLM/Ecs13vGN2M9
+ goEKs9Oh4+WmQv+3FTUCDTkrs9rdC2am9D5s5deo9m7CAHoDAmE0+2qeypVsK+/vOwXP
+ 0GKBSJQ+NMypIDEZuELLXaU/Ec72B6bLsNCMfdln1vk005jX9sXflmGjCqTqVMogg+dp
+ bo1Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772206279; x=1772811079;
+ d=1e100.net; s=20230601; t=1772206665; x=1772811465;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=P2kGl/nxca3gMElmPgWClDsdWOdb0++gHklmfXh1TOU=;
- b=L7rkNdi5LZKxDkKw+/Duq7guR3J0YQcoDgsoMee4D1uGja1TxeGz6C97vDjyev7z8p
- rJiDPjNjsN4d6ZVDumA0OSgSFw6G7o0TpK00185YnP7iSx0cfevTjcJRClqy1qMC0oYW
- RqVRoAVPM4htH8XtscSl4mROYQiCJt+Bgp6lnNnJ9WKeHvl45D2lJ+H7FfU8R+cA7bRd
- Ek9Qc200Bad1z+1M+61zn2ZSgvNHEUxnKMkb9WHR3kHkJdfmAXi7+UfIvuq2jmy2UJAM
- 6aQWpYKS+CRCvNt1DoGRsMXzSDVnNnKV9uyJYNZtDqPl10fYfpJiF+mmndWXKM6oZ/Xk
- cPLw==
+ bh=PmXbxBtIqJncar8DB1sW/Qw37OMyoAkSD4eIty5kISQ=;
+ b=ANNJJuk7I661+RvNZST81nstAZq1PcmDukRzKiJoNmrJKHWfzFHJjbKdJ4fjFf8qym
+ j0eMJqEB8PbwhprOWnZnNp7EnSlNyZaJ+OKhDXrN8VpZ1ojy6fM1bBnDbOnaKSsmslKY
+ m//3I5mzVANy+WeQ5XdxBkI8sMfKo44SNQLJ6oZC9V8j0tB5/cgbWUPNd1tOUW36L6wx
+ 88Q6YJlQz4S9NCmhhoeTps9EnxSStHsVttRgnhNUOb/xwPoZL3dsTliP0e1NvA/nVJJ0
+ sofAkJHE0bUhepgseriZpZ7V9KCeeTA+53Gih210nWztTDYWTZNxiyMU5BPeKIpEnjgO
+ k2yQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCXhJx5JE5p5UiojDYezQYL5lTyqspf73Wr/T1Lv1D5azZdVWk+5AzBpJjWQ2iuInrYP/pjGbBK2axod1Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YydtdT1xkbFKDbxqukULEywEFEHglRhGw7XoxbMS7eCs9bpM9Yg
- M4fd8s1Uqx7Gq/Pe6ovDWKBkQcwBUYh3QInfLRtJ2oG87Qy11yK/rAJ1
-X-Gm-Gg: ATEYQzyptzk0STSWSHxkOi/91o463bkyH774C8s/Q1J8oryTXOiteAvkrhoR3hmYV6k
- N2/HXoK52TXix1MNunC5GsbmxPW4GN73pn8y9xvE3UfCNhNLpOXELbDClrn8+JUUzxLkdmDC/o/
- E7f4rU3m0Bd1KmVQnsLX323nOQhjye3UTSt2702LVMFmBsLJoAilyPJli5oMPZQFSau7aXo2CzE
- 6RAW/Hf26Tn3fM06fsOegVopGzJTz3wgWEGyzuswBCqxRvzrASHgaE5kWMhxE7KHf47w+2qyXP8
- 7nc38Rm8ad7yDo477WxkgwHZPuGwOSKp/bWTtaxb5FXc21WU/lNug8Ypbh5eiSnmqAFIaKHHV70
- fGWQyUNLHuGH9lGxBjPxSF9izfSR0/BYbmNbzKvHsW6pUscjrpueo4lWep9Gbg5uo8YAQuaOLb8
- 83QowKTia9x2L3LA==
-X-Received: by 2002:a05:600c:5249:b0:477:a478:3f94 with SMTP id
- 5b1f17b1804b1-483c9c29b66mr31520385e9.5.1772206278424; 
- Fri, 27 Feb 2026 07:31:18 -0800 (PST)
+ AJvYcCWbUWBSDoMnaqcdAmK3W/p5Z/8nLDSdfuvB/r1qOHeujlt4HKhABOGEN7JZ3OrpgEeeV/LU8ZyffF5hyQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwLiOLzCnoUIb4d3OXV6wDAR40PTwzG02OrG85II1nGF92eTmKc
+ gmCm8LsB03tkvAPdpDQBOOPUYkUbBgXMsKE1f76B1ZnOD3ynnS7EHyvf
+X-Gm-Gg: ATEYQzyJ1USEclMwupvwXxXuTpKr7yEsz6ckmulVMhmmakgwOpDCYSkshcESuszG478
+ XvDOatpdDyborpb4EcU9Spvhcnp//Im5JiaIDemr4sqmdn5vnnFGOegP0JecaRlUvplwaRcVqDk
+ s5QGgjZZPT07bki1CTE1cxKgFyR7NuBNZjgo1bsmx8wnLK7QAgIiIzCmIpUxNLSVEJX9gkyanen
+ sZPmdIl+NjK+RJDn6NJDsjIYfGpcEn/dRzS209150tJH+GxbzKyxSlX/1dNvNIaI70Dr8DRhRo8
+ WsNBZoB62288MLH+2WI2AYTB8R0DucfATSXksFh1jvcfcBYgnAhqXQkvGQ8hBCppR9C+4GHzDjZ
+ cz2GUEWnOdjh/9q2j82XqJ3hzfvRJM6wvWnuTpEK0OuFwo+lJRZmf4cIvUcqX+gZySlmdmdLNg2
+ gsbnHyDhQpySc/bg==
+X-Received: by 2002:a05:600c:444f:b0:477:a6f1:499d with SMTP id
+ 5b1f17b1804b1-483c9c1bbdcmr28085255e9.3.1772206664464; 
+ Fri, 27 Feb 2026 07:37:44 -0800 (PST)
 Received: from skbuf ([2a02:2f04:d608:3a00:ac95:d4c:390e:fb0a])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bd70e692sm230573145e9.7.2026.02.27.07.31.16
+ 5b1f17b1804b1-483bfb776a3sm84332245e9.7.2026.02.27.07.37.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Feb 2026 07:31:17 -0800 (PST)
-Date: Fri, 27 Feb 2026 17:31:15 +0200
+ Fri, 27 Feb 2026 07:37:43 -0800 (PST)
+Date: Fri, 27 Feb 2026 17:37:41 +0200
 From: Vladimir Oltean <olteanv@gmail.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <20260227153115.rk7ntq2p4fbjcqdv@skbuf>
+Message-ID: <20260227153741.e462gzmv7t62r5uo@skbuf>
 References: <aaDSJAc-x2-klvHJ@shell.armlinux.org.uk>
- <E1vvkUX-0000000AuPo-3mEw@rmk-PC.armlinux.org.uk>
+ <E1vvkUS-0000000AuPh-3Il7@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vvkUX-0000000AuPo-3mEw@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vvkUS-0000000AuPh-3Il7@rmk-PC.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>,
  Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
@@ -83,8 +83,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  netdev@vger.kernel.org, linux-phy@lists.infradead.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RESEND2 net-next 8/8] net: stmmac:
- qcom-ethqos: remove phy_set_mode_ext() after phy_power_on()
+Subject: Re: [Linux-stm32] [PATCH RESEND2 net-next 7/8] phy: qcom-sgmii-eth:
+ relax order of .power_on() vs .set_mode*()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,13 +107,13 @@ X-Spamd-Result: default: False [3.89 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER(0.00)[olteanv@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
@@ -129,32 +129,22 @@ X-Spamd-Result: default: False [3.89 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[olteanv@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	NEURAL_HAM(-0.00)[-0.987];
+	NEURAL_HAM(-0.00)[-0.991];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,nxp.com:email]
-X-Rspamd-Queue-Id: 9630E1B9D06
+X-Rspamd-Queue-Id: 12F751B9F07
 X-Rspamd-Action: no action
 
-On Thu, Feb 26, 2026 at 11:09:57PM +0000, Russell King (Oracle) wrote:
-> The call to phy_set_mode_ext() after phy_power_on() was a work-around
-> for the qcom-sgmii-eth SerDes driver that only re-enabled its clocks on
-> phy_power_on() but did not configure the PHY. Now that the SerDes driver
-> fully configures the SerDes at phy_power_on(), there is no need to call
-> phy_set_mode_ext() immediately afterwards.
+On Thu, Feb 26, 2026 at 11:09:52PM +0000, Russell King (Oracle) wrote:
+> Allow any order of the .power_on() and .set_mode*() methods as per the
+> recent discussion. This means phy_power_on() with this SerDes will now
+> restore the previous setup without requiring a subsequent
+> phy_set_mode*() call.
 > 
-> This also means we no longer need to record the previous operating mode
-> of the driver - this is up to the SerDes driver. In any case, the only
-> thing that we care about is the SerDes provides the necessary clocks to
-> the stmmac core to allow it to reset at this point. The actual mode is
-> irrelevant at this point as the correct mode will be configured in
-> ethqos_mac_finish_serdes() just before the network device is brought
-> online.
-> 
-> Reviewed-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 > Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 > ---
