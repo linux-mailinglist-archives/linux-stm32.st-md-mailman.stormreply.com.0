@@ -2,57 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gPdDCLBpoWkUsgQAu9opvQ
+	id j9N2Hr9poWkOswQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:53:52 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:54:07 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C18501B598E
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:53:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 083861B59B4
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 10:54:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87D63C87EC5;
-	Fri, 27 Feb 2026 09:53:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97B6FC87EC5;
+	Fri, 27 Feb 2026 09:54:06 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A690C87EC9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9DE25C1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Feb 2026 09:53:50 +0000 (UTC)
+ Fri, 27 Feb 2026 09:54:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Bf1QswQcmBvRnk87FFzbebb6xULLTXkeOFLe8YFoLoI=; b=XqXR5twb4rZe3u9oLt6RA55jd9
- jXevEjJ0eoiN9U4uU1Y3YEP4k7rMz11sWq/UU3JIOUWaMl0uNHu2LUsv2otP8HbZsoCqF5YrzrKDh
- HVlfh+005MnqpRN2buhaq9DYbwBStJ2Qyw4G77cO3ecI7syU9nJBoBeDxNQJ2hQHq6UVbn7Pr0zHI
- QS12+yT2gU+2rj+FbnxvEfUkANxx9s95Uwn8FfqUT881JQVqrQz6LNIY3vc2GH/QBZaZKNjfMA7Pl
- ii7pFzOEqxJZ6u95pTSNlDyzS8L/ExLOzhdNCr1tFOOBshdevl51XSC21ENj8OCpLwCK7+tFO1dQO
- KH46cFKw==;
+ bh=eS9rupgpIxcOxJ6kq6XUeoOt3FlGtJ7fyDMVdsz4J5Y=; b=KE8f+Eon/Ske70O71uDarOGWSQ
+ ss6RTWJ/Y/i2my+egHuGkpv+eJ33D7WWphnwN1qfUVGqZJzGGdtofXP4lT2aG763Iq5XyMlwkc9AY
+ Ru2I1B6s2E99xQoAbY7pBRtZT+PdA3u9KOQbAd7DS01gLFwHgmLnRKNyg4iyJi2ol1eB0XKyVvBBu
+ ow8iCs78bb3pQQRsuUjO3FgGqMlRt83Nhyc08+cCKI2/ixsDQnNM6j9N3Fbzfe59l/pPXPMtgBu4g
+ fVdKibFAWnVBlLGYbTFRIAEbm6wRUjz7mvJWq7FiDy0InHicaBdgqiYaa9OftFzZ0uBL35EDBraDO
+ VEfeJQ6A==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42698 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:42706 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vvuXV-000000000dR-1zvu;
- Fri, 27 Feb 2026 09:53:41 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vvuXc-000000000dk-24Am;
+ Fri, 27 Feb 2026 09:53:48 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vvuXT-0000000Avn9-29US; Fri, 27 Feb 2026 09:53:39 +0000
+ id 1vvuXY-0000000AvnF-2ccv; Fri, 27 Feb 2026 09:53:44 +0000
 In-Reply-To: <aaFpZvuIzOLaNM0m@shell.armlinux.org.uk>
 References: <aaFpZvuIzOLaNM0m@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vvuXT-0000000Avn9-29US@rmk-PC.armlinux.org.uk>
-Date: Fri, 27 Feb 2026 09:53:39 +0000
+Message-Id: <E1vvuXY-0000000AvnF-2ccv@rmk-PC.armlinux.org.uk>
+Date: Fri, 27 Feb 2026 09:53:44 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 07/14] net: stmmac: remove
- dwmac410_(enable|disable)_dma_irq
+Subject: [Linux-stm32] [PATCH net-next 08/14] net: stmmac: remove mac->xlgmac
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,17 +80,17 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.817];
+	NEURAL_HAM(-0.00)[-0.808];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -103,104 +102,56 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: C18501B598E
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 083861B59B4
 X-Rspamd-Action: no action
 
-As a result of the previous cleanup, it is now obvious that there are
-no differences between the dwmac4 and dwmac410 versions of the DMA
-interrupt enable/disable functions.
-
-Moreover, dwmac410_disable_dma_irq() is completely unused; instead,
-dwmac4_disable_dma_irq() is used to disable the interrupts for v4.10a
-cores while dwmac410_enable_dma_irq() was being used to enable these
-same same interrupts.
-
-Remove the unnecessary v4.10a functions.
+mac->xlgmac is only ever written to by the dwxlgmac2_quirk() function.
+Remove mac->xlgmac, and the quirk function that then becomes redundant.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.c  |  2 +-
- .../net/ethernet/stmicro/stmmac/dwmac4_dma.h  |  4 ---
- .../net/ethernet/stmicro/stmmac/dwmac4_lib.c  | 28 -------------------
- 3 files changed, 1 insertion(+), 33 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/common.h | 1 -
+ drivers/net/ethernet/stmicro/stmmac/hwif.c   | 7 -------
+ 2 files changed, 8 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-index 60b880cdd9da..28728271fbc9 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c
-@@ -582,7 +582,7 @@ const struct stmmac_dma_ops dwmac410_dma_ops = {
- 	.dump_regs = dwmac4_dump_dma_regs,
- 	.dma_rx_mode = dwmac4_dma_rx_chan_op_mode,
- 	.dma_tx_mode = dwmac4_dma_tx_chan_op_mode,
--	.enable_dma_irq = dwmac410_enable_dma_irq,
-+	.enable_dma_irq = dwmac4_enable_dma_irq,
- 	.disable_dma_irq = dwmac4_disable_dma_irq,
- 	.start_tx = dwmac4_dma_start_tx,
- 	.stop_tx = dwmac4_dma_stop_tx,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-index 7fbd02a8119f..af6580332d49 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.h
-@@ -170,12 +170,8 @@ static inline u32 dma_chanx_base_addr(const struct dwmac4_addrs *addrs,
- int dwmac4_dma_reset(void __iomem *ioaddr);
- void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			   u32 chan, bool rx, bool tx);
--void dwmac410_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
--			     u32 chan, bool rx, bool tx);
- void dwmac4_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			    u32 chan, bool rx, bool tx);
--void dwmac410_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
--			      u32 chan, bool rx, bool tx);
- void dwmac4_dma_start_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			 u32 chan);
- void dwmac4_dma_stop_tx(struct stmmac_priv *priv, void __iomem *ioaddr,
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-index 9217308bfd38..8c87a20880c4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_lib.c
-@@ -123,20 +123,6 @@ void dwmac4_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 	writel(value, ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index d26e8a063022..42a48f655849 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -635,7 +635,6 @@ struct mac_device_info {
+ 	unsigned int mcast_bits_log2;
+ 	unsigned int rx_csum;
+ 	unsigned int pcs;
+-	unsigned int xlgmac;
+ 	unsigned int num_vlan;
+ 	u32 vlan_filter[32];
+ 	bool vlan_fail_q_en;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+index 7e69ff4b9a98..1fcc91be7589 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+@@ -97,12 +97,6 @@ static int stmmac_dwmac4_quirks(struct stmmac_priv *priv)
+ 	return 0;
  }
  
--void dwmac410_enable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
--			     u32 chan, bool rx, bool tx)
+-static int stmmac_dwxlgmac_quirks(struct stmmac_priv *priv)
 -{
--	const struct dwmac4_addrs *dwmac4_addrs = priv->plat->dwmac4_addrs;
--	u32 value = readl(ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
--
--	if (rx)
--		value |= DMA_CHAN_INTR_ENA_RIE;
--	if (tx)
--		value |= DMA_CHAN_INTR_ENA_TIE;
--
--	writel(value, ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
+-	priv->hw->xlgmac = true;
+-	return 0;
 -}
 -
- void dwmac4_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			    u32 chan, bool rx, bool tx)
+ int stmmac_reset(struct stmmac_priv *priv)
  {
-@@ -151,20 +137,6 @@ void dwmac4_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
- 	writel(value, ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
- }
+ 	struct plat_stmmacenet_data *plat = priv->plat;
+@@ -293,7 +287,6 @@ static const struct stmmac_hwif_entry {
+ 		.mmc = &dwxgmac_mmc_ops,
+ 		.est = &dwmac510_est_ops,
+ 		.setup = dwxlgmac2_setup,
+-		.quirks = stmmac_dwxlgmac_quirks,
+ 	},
+ };
  
--void dwmac410_disable_dma_irq(struct stmmac_priv *priv, void __iomem *ioaddr,
--			      u32 chan, bool rx, bool tx)
--{
--	const struct dwmac4_addrs *dwmac4_addrs = priv->plat->dwmac4_addrs;
--	u32 value = readl(ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
--
--	if (rx)
--		value &= ~DMA_CHAN_INTR_ENA_RIE;
--	if (tx)
--		value &= ~DMA_CHAN_INTR_ENA_TIE;
--
--	writel(value, ioaddr + DMA_CHAN_INTR_ENA(dwmac4_addrs, chan));
--}
--
- int dwmac4_dma_interrupt(struct stmmac_priv *priv, void __iomem *ioaddr,
- 			 struct stmmac_extra_stats *x, u32 chan, u32 dir)
- {
 -- 
 2.47.3
 
