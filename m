@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qKE8EGmfoWl8ugQAu9opvQ
+	id ODp/DpufoWl8ugQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:43:05 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:43:55 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CBC791B7CF6
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:43:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C6C0F1B7D0F
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Feb 2026 14:43:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 75D64C87EC9;
-	Fri, 27 Feb 2026 13:43:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BBFEC87EC9;
+	Fri, 27 Feb 2026 13:43:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 22419C1A97F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1438BC1A97F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Feb 2026 13:43:03 +0000 (UTC)
+ Fri, 27 Feb 2026 13:43:54 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BA5A742B8B;
- Fri, 27 Feb 2026 13:43:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D95B7C19423;
- Fri, 27 Feb 2026 13:43:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4488E60008;
+ Fri, 27 Feb 2026 13:43:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74884C116C6;
+ Fri, 27 Feb 2026 13:43:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772199781;
- bh=Vsxx0tf/aez0eT/Zy9uhaG0dHCfN3A4iBIahMreaC/c=;
+ s=k20201202; t=1772199833;
+ bh=w8CiRJDdjaW9aDKfP3+nyfiRb9ToVwtTsc4kKJoE85c=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ZRWRg1pU523wK9B4qH/oqfxalX1dWT1tRMgvmqEhkAiQCC6+aZk47rC2NcYr6UhO7
- GSaSHNrYzBOKKhEh7mMElKMbIDwYIVryRv2a2FKCzh/P1lwmx+3yg7CYFUgUSSH3nm
- CS9LpGw+mDUvIYt+G4TAFRUiF8RMm6xHL2yo1kipylcbA2Y1kDSNeJetaEvXB8TCct
- q//5qO9lU20DNXf1PWD6Wus6q11rsXwDCKxYDHhlxzJD5gag8NF1z+LfJQ4HBDiIYD
- kXX/RBc8sB2pEWWe6mDQ76zpgQoYJL1j4f+8GDWw60K/7018hfFa9IdueKYAESm5AS
- 554gGzUr67QjA==
-Date: Fri, 27 Feb 2026 19:12:57 +0530
+ b=VsOPvrK0YjRdtxU/ZGev/S4fmMq05NZwIwdOFeFe+B0qw25c2AMMOyobge3/TZLnQ
+ rlPgcDFNFHZfSIYsblbHYqYRDUHRnxjV0UmHuepU2mev5kcSgCdSHIXbwAqcoOZeVc
+ jH2jHKeC25WdjAwXHgbMCnDYSLF+klqLCF/gzf63jlN9v8g3UvqFahuuOrkTUK4EuO
+ Ylm5PRd2LZgBOS+I/FZWPxTp1FBDbWvR6PbjLDGmsoGrhw5ISy98PMb8gyPPkSIuTv
+ /XdT0lH0C9wPEuz5QADkForJx9rHpxqOyaOFr0AHEtM8AWD+lSADVuNbn17y2zfKR9
+ 3GxNIYISdhziA==
+Date: Fri, 27 Feb 2026 19:13:49 +0530
 From: Vinod Koul <vkoul@kernel.org>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <aaGfYSTaBEQpLG54@vaman>
+Message-ID: <aaGfldzQq2nL0rx6@vaman>
 References: <aZ66OT9scKipRRu2@shell.armlinux.org.uk>
- <E1vvCby-0000000ArL4-3x4U@rmk-PC.armlinux.org.uk>
+ <E1vvCc4-0000000ArLA-0Eix@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <E1vvCby-0000000ArL4-3x4U@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vvCc4-0000000ArLA-0Eix@rmk-PC.armlinux.org.uk>
 Cc: Andrew Lunn <andrew@lunn.ch>,
  Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
@@ -50,8 +50,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>,
  linux-phy@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 4/8] phy: qcom-sgmii-eth: remove
- .set_speed() implementation
+Subject: Re: [Linux-stm32] [PATCH net-next 5/8] phy: qcom-sgmii-eth: use PHY
+ interface mode for SerDes settings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,22 +76,22 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	RCPT_COUNT_TWELVE(0.00)[14];
 	FORGED_SENDER(0.00)[vkoul@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.839];
+	NEURAL_HAM(-0.00)[-0.882];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[vkoul@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -102,25 +102,20 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: CBC791B7CF6
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: C6C0F1B7D0F
 X-Rspamd-Action: no action
 
 On 25-02-26, 10:59, Russell King (Oracle) wrote:
-> Now that the qcom-ethqos driver has migrated to use phy_set_mode_ext()
-> rather than phy_set_speed() to configure the SerDes, the support for
-> phy_set_speed() is now obsolete. Remove support for this method.
+> As established in the previous commit, using SPEED_1000 and SPEED_2500
+> does not make sense for a SerDes due to the PCS encoding that is used
+> over the SerDes link, which inflates the data rate at the SerDes. Thus,
+> the use of these constants in a SerDes driver is incorrect.
 > 
-> Using the MAC speed for the SerDes is never correct due to the PCS
-> encoding. For SGMII and 2500BASE-X, the PCS uses 8B10B encoding, and
-> so:
-> 
->   MAC rate * PCS output bits / PCS input bits = SerDes rate
->    1000M   *       10        /       8        = 1250M
->    2500M   *       10        /       8        = 3125M
-> 
-> Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> Since qcom-sgmii-eth no longer implements phy_set_speed(), but instead
+> uses the PHY interface mode passed via the .set_mode() method, convert
+> the driver to use the PHY interface mode internally to decide whether
+> to configure the SerDes for 1.25Gbps or 3.125Gbps mode.
 
 Acked-by: Vinod Koul <vkoul@kernel.org>
 
