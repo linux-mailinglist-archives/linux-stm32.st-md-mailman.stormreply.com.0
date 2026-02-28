@@ -2,54 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wKATNiw8o2nO+gQAu9opvQ
+	id IGYkI+RNo2nW/AQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 20:04:12 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 21:19:48 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 718AB1C68F8
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 20:04:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7291C838A
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 21:19:48 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A11CC030CD;
-	Sat, 28 Feb 2026 19:04:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7047C030D6;
+	Sat, 28 Feb 2026 20:19:47 +0000 (UTC)
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21466C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CBDDC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Feb 2026 19:04:11 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 38530600AD;
- Sat, 28 Feb 2026 19:04:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C86EC116D0;
- Sat, 28 Feb 2026 19:04:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772305449;
- bh=zDXo0tm/VXl4ZESFurteuRBanIADwE9LLD324tu0poo=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=QIlPZS2fZrYutqz2v8HmVp4lM1V49xxMFqLSeyiZJ+6lS/r44DXU89p/gTisqL7GI
- ePvEPNAyVoGMdl3+/HFpO49Q6QT3HAaxK9EaUP3xOr8VW5OLXTsn1+Gb+Zi8DLA+QA
- yoMEyyD/tYvXTCkZDoEtfY+Yr7lO8+0CfomJWEFZa5uOlFHrWZFGBltQcTo52fwGdP
- 25dQma90g2q296jWpA3ALn0pQMNX5FzNmUxoWHcF6eBDnp9+vM5Noufl6v1XCPELlL
- NJ+Zc4tSHp08Yd0appIYwZSG0bMs6OF+xZ7225kekwjVVWvB3YSvdWXgyhXS+Zr92y
- 7/Vsm/rnHadzQ==
-Date: Sat, 28 Feb 2026 11:04:08 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Message-ID: <20260228110408.384420e1@kernel.org>
-In-Reply-To: <20260225142414.130144-5-ovidiu.panait.rb@renesas.com>
-References: <20260225142414.130144-1-ovidiu.panait.rb@renesas.com>
- <20260225142414.130144-5-ovidiu.panait.rb@renesas.com>
+ Sat, 28 Feb 2026 20:19:45 +0000 (UTC)
+Received: (wp-smtpd smtp.wp.pl 26720 invoked from network);
+ 28 Feb 2026 21:19:44 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
+ t=1772309984; bh=Ux/w4OGxXUzkkaMa4A2Nkt8M1PomaG4erghSigxEn9c=;
+ h=From:To:Cc:Subject;
+ b=qEczXMmldO0GFCD7vI24X8TxV9NRX4uPQoiwbnRfzVCGHBLfvyp74v4XqqKiOjxjM
+ 0Adnjk6Sws+ulpZezgYoKQXqQ1pmP45HZdbXFUWqPfZ+7TVYYeloVI77wKyOxz3Ptm
+ oDD5AOHd2YwnvhkPz+svFzrnOFd9LuGeIr9/Q9YQhUg4mdhWmme50G6OHNGzJhPiC2
+ /D14GtriGBkyWbKOyFkVpbO+w5+a7mwy+k4RifQeC1qq+ze08SgBZqgQoNe3NlITqR
+ sTGRBTHh0SLP7p2VQ+DmuaNtH18zc9orh2Ibpl/Nop3ZOuqT4/pR1SdMDY2Asa9gRe
+ yJb12ijjihbLA==
+Received: from 83.24.116.171.ipv4.supernova.orange.pl (HELO laptop-olek.lan)
+ (olek2@wp.pl@[83.24.116.171]) (envelope-sender <olek2@wp.pl>)
+ by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+ for <herbert@gondor.apana.org.au>; 28 Feb 2026 21:19:44 +0100
+From: Aleksander Jan Bajkowski <olek2@wp.pl>
+To: herbert@gondor.apana.org.au, davem@davemloft.net,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 28 Feb 2026 21:17:21 +0100
+Message-ID: <20260228201942.2827643-1-olek2@wp.pl>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-Cc: linux-kernel@vger.kernel.org, kim.tatt.chuah@intel.com,
- hayashi.kunihiko@socionext.com, vladimir.oltean@nxp.com,
- linux-stm32@st-md-mailman.stormreply.com, rohan.g.thomas@altera.com,
- linux@armlinux.org.uk, andrew+netdev@lunn.ch, edumazet@google.com,
- boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
- boon.leong.ong@intel.com, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 4/5] net: stmmac: Add write_hw
- parameter to VLAN filter operations
+X-WP-DKIM-Status: good (id: wp.pl) 
+X-WP-MailID: abce59b58bcfec0f9c3fb2b7911ddaab
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000009 [8APh]                               
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Subject: [Linux-stm32] [PATCH v3] crypto: testmgr - Add test vectors for
+	authenc(hmac(md5), cbc(aes))
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,65 +65,348 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	R_DKIM_REJECT(1.00)[wp.pl:s=20241105];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[wp.pl : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_CC(0.00)[vger.kernel.org,intel.com,socionext.com,nxp.com,st-md-mailman.stormreply.com,altera.com,armlinux.org.uk,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net,lists.infradead.org];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FORGED_RECIPIENTS(0.00)[m:ovidiu.panait.rb@renesas.com,m:linux-kernel@vger.kernel.org,m:kim.tatt.chuah@intel.com,m:hayashi.kunihiko@socionext.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:rohan.g.thomas@altera.com,m:linux@armlinux.org.uk,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:boon.leong.ong@intel.com,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.989];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-crypto@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:olek2@wp.pl,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	MISSING_XM_UA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_FROM(0.00)[wp.pl];
+	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[wp.pl];
+	DKIM_TRACE(0.00)[wp.pl:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 718AB1C68F8
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 1D7291C838A
 X-Rspamd-Action: no action
 
-On Wed, 25 Feb 2026 14:24:13 +0000 Ovidiu Panait wrote:
-> Add a write_hw parameter to the VLAN add/delete HW filter functions and
-> to stmmac_vlan_update(). This flag controls whether the actual hardware
-> register accesses are performed. When set to false, only the software
-> state is updated.
-> 
-> The next commit will use this to defer hardware writes when the
-> interface is down.
+Test vectors were generated starting from existing CBC(AES) test vectors
+(RFC3602, NIST SP800-38A) and adding HMAC(MD5) computed with Python
+script. Then, the results were double-checked on Mediatek MT7981 (safexcel)
+and NXP P2020 (talitos). Both platforms pass self-tests.
 
-I wonder if instead of passing attributes like this around the driver
-shouldn't simply maintain a flag (or have other way to test) whether
-the clock to block X is currently enabled? It feels more like a global
-state / property than trickiness directly related to VLAN config.
+Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+---
+v3:
+- correct sha384 -> md5 in description
+v2:
+- rebase and resolve conflicts
+---
+ crypto/testmgr.c |   7 ++
+ crypto/testmgr.h | 255 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 262 insertions(+)
 
-Also any strong reason to post this for net-next? We take fixes via 
-the net tree, so when you repost please use "PATCH net". And an
-appropriate Fixes tag on the last patch would be great to have
-(presumably just ed64639bc1e0 again?)
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index 8e92971b13ec..7bd647425e3a 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -4079,6 +4079,13 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.suite = {
+ 			.aead = __VECS(aegis128_tv_template)
+ 		}
++	}, {
++		.alg = "authenc(hmac(md5),cbc(aes))",
++		.generic_driver = "authenc(hmac-md5-lib,cbc(aes-generic))",
++		.test = alg_test_aead,
++		.suite = {
++			.aead = __VECS(hmac_md5_aes_cbc_tv_temp)
++		}
+ 	}, {
+ 		.alg = "authenc(hmac(md5),cbc(des))",
+ 		.generic_driver = "authenc(hmac-md5-lib,cbc(des-generic))",
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index 94727397988a..c0d614c89531 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -14562,6 +14562,261 @@ static const struct cipher_testvec aes_cbc_tv_template[] = {
+ 	},
+ };
+ 
++static const struct aead_testvec hmac_md5_aes_cbc_tv_temp[] = {
++	{ /* RFC 3602 Case 1 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x06\xa9\x21\x40\x36\xb8\xa1\x5b"
++			  "\x51\x2e\x03\xd5\x34\x12\x00\x06",
++		.klen   = 8 + 16 + 16,
++		.iv     = "\x3d\xaf\xba\x42\x9d\x9e\xb4\x30"
++			  "\xb4\x22\xda\x80\x2c\x9f\xac\x41",
++		.assoc	= "\x3d\xaf\xba\x42\x9d\x9e\xb4\x30"
++			  "\xb4\x22\xda\x80\x2c\x9f\xac\x41",
++		.alen	= 16,
++		.ptext	= "Single block msg",
++		.plen	= 16,
++		.ctext	= "\xe3\x53\x77\x9c\x10\x79\xae\xb8"
++			  "\x27\x08\x94\x2d\xbe\x77\x18\x1a"
++			  "\x22\x10\xf2\x25\x7f\xe9\x0d\x92"
++			  "\xfc\x00\x55\xb1\xd0\xb5\x3a\x74",
++		.clen	= 16 + 16,
++	}, { /* RFC 3602 Case 2 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\xc2\x86\x69\x6d\x88\x7c\x9a\xa0"
++			  "\x61\x1b\xbb\x3e\x20\x25\xa4\x5a",
++		.klen   = 8 + 16 + 16,
++		.iv     = "\x56\x2e\x17\x99\x6d\x09\x3d\x28"
++			  "\xdd\xb3\xba\x69\x5a\x2e\x6f\x58",
++		.assoc	= "\x56\x2e\x17\x99\x6d\x09\x3d\x28"
++			  "\xdd\xb3\xba\x69\x5a\x2e\x6f\x58",
++		.alen	= 16,
++		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
++		.plen	= 32,
++		.ctext	= "\xd2\x96\xcd\x94\xc2\xcc\xcf\x8a"
++			  "\x3a\x86\x30\x28\xb5\xe1\xdc\x0a"
++			  "\x75\x86\x60\x2d\x25\x3c\xff\xf9"
++			  "\x1b\x82\x66\xbe\xa6\xd6\x1a\xb1"
++			  "\x31\xef\xd1\x5e\x2d\x83\xde\x59"
++			  "\x5c\x63\x6c\xd6\x6e\x96\x8c\x5b",
++		.clen	= 32 + 16,
++	}, { /* RFC 3602 Case 3 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"            /* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x6c\x3e\xa0\x47\x76\x30\xce\x21"
++			  "\xa2\xce\x33\x4a\xa7\x46\xc2\xcd",
++		.klen   = 8 + 16 + 16,
++		.iv     = "\xc7\x82\xdc\x4c\x09\x8c\x66\xcb"
++			  "\xd9\xcd\x27\xd8\x25\x68\x2c\x81",
++		.assoc	= "\xc7\x82\xdc\x4c\x09\x8c\x66\xcb"
++			  "\xd9\xcd\x27\xd8\x25\x68\x2c\x81",
++		.alen	= 16,
++		.ptext	= "This is a 48-byte message (exactly 3 AES blocks)",
++		.plen	= 48,
++		.ctext	= "\xd0\xa0\x2b\x38\x36\x45\x17\x53"
++			  "\xd4\x93\x66\x5d\x33\xf0\xe8\x86"
++			  "\x2d\xea\x54\xcd\xb2\x93\xab\xc7"
++			  "\x50\x69\x39\x27\x67\x72\xf8\xd5"
++			  "\x02\x1c\x19\x21\x6b\xad\x52\x5c"
++			  "\x85\x79\x69\x5d\x83\xba\x26\x84"
++			  "\xa1\x9e\xc5\x65\x43\xc5\x51\x70"
++			  "\xb5\xc8\x38\xce\xbb\x3b\xc6\x0f",
++		.clen	= 48 + 16,
++	}, { /* RFC 3602 Case 4 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x56\xe4\x7a\x38\xc5\x59\x89\x74"
++			  "\xbc\x46\x90\x3d\xba\x29\x03\x49",
++		.klen   = 8 + 16 + 16,
++		.iv     = "\x8c\xe8\x2e\xef\xbe\xa0\xda\x3c"
++			  "\x44\x69\x9e\xd7\xdb\x51\xb7\xd9",
++		.assoc	= "\x8c\xe8\x2e\xef\xbe\xa0\xda\x3c"
++			  "\x44\x69\x9e\xd7\xdb\x51\xb7\xd9",
++		.alen	= 16,
++		.ptext	= "\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7"
++			  "\xa8\xa9\xaa\xab\xac\xad\xae\xaf"
++			  "\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7"
++			  "\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf"
++			  "\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7"
++			  "\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf"
++			  "\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7"
++			  "\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf",
++		.plen	= 64,
++		.ctext	= "\xc3\x0e\x32\xff\xed\xc0\x77\x4e"
++			  "\x6a\xff\x6a\xf0\x86\x9f\x71\xaa"
++			  "\x0f\x3a\xf0\x7a\x9a\x31\xa9\xc6"
++			  "\x84\xdb\x20\x7e\xb0\xef\x8e\x4e"
++			  "\x35\x90\x7a\xa6\x32\xc3\xff\xdf"
++			  "\x86\x8b\xb7\xb2\x9d\x3d\x46\xad"
++			  "\x83\xce\x9f\x9a\x10\x2e\xe9\x9d"
++			  "\x49\xa5\x3e\x87\xf4\xc3\xda\x55"
++			  "\x19\x90\xcc\x2c\x6d\x76\x0f\xd6"
++			  "\x6c\x54\x09\xb1\x3e\x98\x0c\x11",
++		.clen	= 64 + 16,
++	}, { /* RFC 3602 Case 5 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"            /* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x10"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x90\xd3\x82\xb4\x10\xee\xba\x7a"
++			  "\xd9\x38\xc4\x6c\xec\x1a\x82\xbf",
++		.klen   = 8 + 16 + 16,
++		.iv     = "\xe9\x6e\x8c\x08\xab\x46\x57\x63"
++			  "\xfd\x09\x8d\x45\xdd\x3f\xf8\x93",
++		.assoc  = "\x00\x00\x43\x21\x00\x00\x00\x01"
++			  "\xe9\x6e\x8c\x08\xab\x46\x57\x63"
++			  "\xfd\x09\x8d\x45\xdd\x3f\xf8\x93",
++		.alen   = 24,
++		.ptext	= "\x08\x00\x0e\xbd\xa7\x0a\x00\x00"
++			  "\x8e\x9c\x08\x3d\xb9\x5b\x07\x00"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\x30\x31\x32\x33\x34\x35\x36\x37"
++			  "\x01\x02\x03\x04\x05\x06\x07\x08"
++			  "\x09\x0a\x0b\x0c\x0d\x0e\x0e\x01",
++		.plen	= 80,
++		.ctext	= "\xf6\x63\xc2\x5d\x32\x5c\x18\xc6"
++			  "\xa9\x45\x3e\x19\x4e\x12\x08\x49"
++			  "\xa4\x87\x0b\x66\xcc\x6b\x99\x65"
++			  "\x33\x00\x13\xb4\x89\x8d\xc8\x56"
++			  "\xa4\x69\x9e\x52\x3a\x55\xdb\x08"
++			  "\x0b\x59\xec\x3a\x8e\x4b\x7e\x52"
++			  "\x77\x5b\x07\xd1\xdb\x34\xed\x9c"
++			  "\x53\x8a\xb5\x0c\x55\x1b\x87\x4a"
++			  "\xa2\x69\xad\xd0\x47\xad\x2d\x59"
++			  "\x13\xac\x19\xb7\xcf\xba\xd4\xa6"
++			  "\x9f\x6f\xa4\x85\x28\xf1\xc9\xea"
++			  "\xe1\xd0\x7d\x30\x4a\xd0\x81\x12",
++		.clen	= 80 + 16,
++	}, { /* NIST SP800-38A F.2.3 CBC-AES192.Encrypt */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"            /* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x18"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x8e\x73\xb0\xf7\xda\x0e\x64\x52"
++			  "\xc8\x10\xf3\x2b\x80\x90\x79\xe5"
++			  "\x62\xf8\xea\xd2\x52\x2c\x6b\x7b",
++		.klen   = 8 + 16 + 24,
++		.iv     = "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.assoc	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.alen	= 16,
++		.ptext	= "\x6b\xc1\xbe\xe2\x2e\x40\x9f\x96"
++			  "\xe9\x3d\x7e\x11\x73\x93\x17\x2a"
++			  "\xae\x2d\x8a\x57\x1e\x03\xac\x9c"
++			  "\x9e\xb7\x6f\xac\x45\xaf\x8e\x51"
++			  "\x30\xc8\x1c\x46\xa3\x5c\xe4\x11"
++			  "\xe5\xfb\xc1\x19\x1a\x0a\x52\xef"
++			  "\xf6\x9f\x24\x45\xdf\x4f\x9b\x17"
++			  "\xad\x2b\x41\x7b\xe6\x6c\x37\x10",
++		.plen	= 64,
++		.ctext	= "\x4f\x02\x1d\xb2\x43\xbc\x63\x3d"
++			  "\x71\x78\x18\x3a\x9f\xa0\x71\xe8"
++			  "\xb4\xd9\xad\xa9\xad\x7d\xed\xf4"
++			  "\xe5\xe7\x38\x76\x3f\x69\x14\x5a"
++			  "\x57\x1b\x24\x20\x12\xfb\x7a\xe0"
++			  "\x7f\xa9\xba\xac\x3d\xf1\x02\xe0"
++			  "\x08\xb0\xe2\x79\x88\x59\x88\x81"
++			  "\xd9\x20\xa9\xe6\x4f\x56\x15\xcd"
++			  "\xc3\x46\xe5\x2c\x07\x27\x50\xca"
++			  "\x50\x4a\x83\x5f\x72\xd9\x76\x8d",
++		.clen	= 64 + 16,
++	}, { /* NIST SP800-38A F.2.5 CBC-AES256.Encrypt */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"            /* rta type */
++#endif
++			  "\x00\x00\x00\x20"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x60\x3d\xeb\x10\x15\xca\x71\xbe"
++			  "\x2b\x73\xae\xf0\x85\x7d\x77\x81"
++			  "\x1f\x35\x2c\x07\x3b\x61\x08\xd7"
++			  "\x2d\x98\x10\xa3\x09\x14\xdf\xf4",
++		.klen   = 8 + 16 + 32,
++		.iv     = "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.assoc	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f",
++		.alen	= 16,
++		.ptext	= "\x6b\xc1\xbe\xe2\x2e\x40\x9f\x96"
++			  "\xe9\x3d\x7e\x11\x73\x93\x17\x2a"
++			  "\xae\x2d\x8a\x57\x1e\x03\xac\x9c"
++			  "\x9e\xb7\x6f\xac\x45\xaf\x8e\x51"
++			  "\x30\xc8\x1c\x46\xa3\x5c\xe4\x11"
++			  "\xe5\xfb\xc1\x19\x1a\x0a\x52\xef"
++			  "\xf6\x9f\x24\x45\xdf\x4f\x9b\x17"
++			  "\xad\x2b\x41\x7b\xe6\x6c\x37\x10",
++		.plen	= 64,
++		.ctext	= "\xf5\x8c\x4c\x04\xd6\xe5\xf1\xba"
++			  "\x77\x9e\xab\xfb\x5f\x7b\xfb\xd6"
++			  "\x9c\xfc\x4e\x96\x7e\xdb\x80\x8d"
++			  "\x67\x9f\x77\x7b\xc6\x70\x2c\x7d"
++			  "\x39\xf2\x33\x69\xa9\xd9\xba\xcf"
++			  "\xa5\x30\xe2\x63\x04\x23\x14\x61"
++			  "\xb2\xeb\x05\xe2\xc3\x9b\xe9\xfc"
++			  "\xda\x6c\x19\x07\x8c\x6a\x9d\x1b"
++			  "\x59\x62\x06\x71\x57\xdf\x18\x15"
++			  "\x32\x02\xfa\xce\x2c\xd2\x1a\x8d",
++		.clen	= 64 + 16,
++	},
++};
++
+ static const struct aead_testvec hmac_md5_ecb_cipher_null_tv_template[] = {
+ 	{ /* Input data from RFC 2410 Case 1 */
+ #ifdef __LITTLE_ENDIAN
 -- 
-pw-bot: cr
+2.47.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
