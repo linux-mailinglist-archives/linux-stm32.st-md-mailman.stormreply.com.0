@@ -2,55 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id INsIGiE9ommq1AQAu9opvQ
+	id 0Ng9Mkeqomk/4wQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 01:56:01 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 09:41:43 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 00B231BF8B5
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 01:56:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 348171C1751
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Feb 2026 09:41:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A39D0C35E3C;
-	Sat, 28 Feb 2026 00:56:00 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FF37C36B3D;
+	Sat, 28 Feb 2026 08:41:42 +0000 (UTC)
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DCB5EC36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1806AC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Feb 2026 00:55:59 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id CCA1B6057A;
- Sat, 28 Feb 2026 00:55:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE281C116C6;
- Sat, 28 Feb 2026 00:55:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772240158;
- bh=vrU43BCMFUhI571ZBbWK67TPeRBthBSfjXT1gOjxGvQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=dRJG/cV8UO4EPLOKG0SME4XWTL4z5+/lxOI0LO0x5zNDpR+qZweaw3EUQYWAzB9FT
- 37zQcfCwjx1gG5dRwZp20pzpF4TNkFE5UcmOT4hRk05N1ImyGFMBPXQIcdcuZCcmas
- dC8O3aVwWe/GhZIG0cUq8VJgxRXIniKxAfZXa7g/2NO9Y4BXlWSg86KbHD5w2PZtr7
- EE7dPsHb0FyJSR/rEvqBiohBTTyWqg4hJikV+Rnp9QyjIAr1g6GZLFvHHnwuDB8ewn
- C4Yr7XlOLRxL1OmTNEj/wkzNlWm+/HxDV2UK/fMes811tdjUuzNMlvHLbDjQUiy6ze
- k367Oe98bd7sg==
-Date: Fri, 27 Feb 2026 16:55:56 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20260227165556.5cf9e844@kernel.org>
-In-Reply-To: <aaIysVxy-WxbiJz9@shell.armlinux.org.uk>
-References: <aaDSJAc-x2-klvHJ@shell.armlinux.org.uk>
- <aaIysVxy-WxbiJz9@shell.armlinux.org.uk>
+ Sat, 28 Feb 2026 08:41:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+ from:content-type:reply-to; bh=lkYifvfXKRVdgYb8NPXREQxR5YK/1Q9ocsKi9yC5ZeM=; 
+ b=SI9pmrmuPEpwloTMotyH/k4bW5MNBmgMvSB0j8UCfo170e8E0qCyZ3R3glt64+1HBj5QSjZM8Zu
+ KIPEOzh0DAUnOarhTMXjI7+Oum0PfRxQhxWrXG4ruKIA8ulaTxoH9QnAkg8ClvzdnsLHDBpvfX2ob
+ F7fMuV5o72jdkuFzLxpmX/MTZ+ftVCKiWM28lTx+bHQqwrzsBnqXPTZzX0g/0SORJKDvh7EWML/+O
+ J1iudjWs+0YzBMvSZ16MTv/2SOBwxR8hhi2HrHkB7faBuB4MZO4PZszMHmCJ2l5Y5qodBP/XmjUwM
+ N1IPzM42fjq/3bS3ohktBqssWEgaIPjavakA==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
+ id 1vwFt0-00ADl9-1y; Sat, 28 Feb 2026 16:41:19 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Sat, 28 Feb 2026 17:41:18 +0900
+Date: Sat, 28 Feb 2026 17:41:18 +0900
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Aleksander Jan Bajkowski <olek2@wp.pl>
+Message-ID: <aaKqLk9U1wcqxbea@gondor.apana.org.au>
+References: <linux-kernel@vger.kernel.org>
+ <20260206192732.478178-1-olek2@wp.pl>
 MIME-Version: 1.0
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
- netdev@vger.kernel.org, linux-phy@lists.infradead.org,
- Paolo Abeni <pabeni@redhat.com>, "David
- S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RESEND2 net-next 0/8] net: stmmac:
- qcom-ethqos: further serdes reorganisation
+Content-Disposition: inline
+In-Reply-To: <20260206192732.478178-1-olek2@wp.pl>
+Cc: davem@davemloft.net, linux-crypto@vger.kernel.org,
+ mcoquelin.stm32@gmail.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] crypto: tesmgr - allow
+ authenc(hmac(sha224/sha384), cbc(aes)) in fips mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,70 +64,57 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	DMARC_POLICY_QUARANTINE(1.50)[apana.org.au : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[gondor.apana.org.au:s=h01];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:olek2@wp.pl,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[wp.pl];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	NEURAL_HAM(-0.00)[-0.808];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
+	RCPT_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.988];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[davemloft.net,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 00B231BF8B5
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[gondor.apana.org.au:mid,wp.pl:email,stormreply.com:url,stormreply.com:email,apana.org.au:url,apana.org.au:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 348171C1751
 X-Rspamd-Action: no action
 
-On Sat, 28 Feb 2026 00:11:29 +0000 Russell King (Oracle) wrote:
-> The AI review for patch 7 says:
+On Fri, Feb 06, 2026 at 08:26:59PM +0100, Aleksander Jan Bajkowski wrote:
+> The remaining combinations of AES-CBC and SHA* have already been marked
+> as allowed. This commit does the same for SHA224 and SHA384.
 > 
->   This commit fixes a bug but lacks a Fixes: tag. The commit modifies
->   behavior introduced in 360000820ae2 ("phy: qcom-sgmii-eth: add
->   .set_mode() and .validate() methods") by making phy_power_on() call
->   qcom_dwmac_sgmii_phy_calibrate() to restore the previous setup, and by
->   making qcom_dwmac_sgmii_phy_set_mode() check if the PHY is powered on
->   before attempting calibration.
-> 
->   Should this commit include:
-> 
->   Fixes: 360000820ae2 ("phy: qcom-sgmii-eth: add .set_mode() and .validate() methods")
-> 
-> which is _wrong_, this isn't a bug fix.
+> Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+> ---
+>  crypto/testmgr.c | 2 ++
+>  1 file changed, 2 insertions(+)
 
-Yes, that's what I thought but then I saw the other thread..
-
-> So, in light of AI review being incorrect, my comment about re-sending
-> due to the AI review is no longer relevant, and no changes are required.
-
-Okay.
-
-pw-bot: new
-
-> The only thing that's necessary is to have Vinod's ack added to patches
-> 4, 5, 6 and 7, as he gave them against the very first posting of these
-> on Wednesday. This is despite waiting the required 24h before sending
-> the first resend.
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
