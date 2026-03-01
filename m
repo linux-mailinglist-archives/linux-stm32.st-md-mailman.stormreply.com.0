@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CMFUI5t8pGl4iQUAu9opvQ
+	id dXjDHZt8pGl4iQUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 18:51:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EC4F1D0E33
+	by mail.lfdr.de (Postfix) with ESMTPS id 18BDB1D0E30
 	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 18:51:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59243C8F26D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 71D61C8F273;
 	Sun,  1 Mar 2026 17:51:22 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CF50EC030D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9167C8F269
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Sun,  1 Mar 2026 17:51:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A8DFF60103;
+ by sea.source.kernel.org (Postfix) with ESMTP id 8FAE544546;
  Sun,  1 Mar 2026 17:51:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 48F55C2BCB0;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5B6F9C2BC87;
  Sun,  1 Mar 2026 17:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1772387479;
- bh=mc55QfSw9Ry9mLwkhN9n5gi0ZpQTsuXJJMLqwg3DcLs=;
+ bh=n23ZcFkmyPNEvO2IkqQ957PDqVWeO4dI1IFebDR/vt0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=TDu5s9GZfGaxhyNdejKKZx0l8mZ3i4RtQHx5CokNdgUPMpX1KxZoFKkL0J4mtHxrY
- fwcxE3kXhRCbvb/8xbSfrSjr/Mfy1OocEHfGmN2jJja3EcrKHDAUxk811ndsuFhFwa
- bafrvUL+6w4yKnAZKwMIwEPgucPfgY0n+PS75KychtScKm9jUzuEIJ2fiZ9mefZROM
- 0YvSNzLfftxdAdgBDlWDiXUh6KJkKxpzO8rFXkcixc0WT1J2ZPG25gtw2g7+sAA/6O
- As5LQeUAsbcQrBSqNeGX6qv909WdggPvedK4vYpYURxrU1MMTlsR11y5kAlw4pufmi
- r472tId6NSchg==
+ b=sp4MjfggG+nw8htHlPxq+Xi5qN3fZ+0/9AGUstqO/BykF9za20Ok3VwQU+80HvGyr
+ tn+HJQ02bAuQrO3m1A8B9n8MC4WvQUdf/LuWuj765/Vwwf63q5hmXii6hnSP/Lb1TB
+ xmqQOGpj2lKXLPrzysiPpidJN26qP46I7KNuLzpOZN+gLDZ/3s6Cu+qyq4ngMlEmGT
+ vsNUYKaoptZWZ/V6v6QmazpXf/32okUsDnLd6jWAbKNRJ+uvRh42fMDKPvB1L6NVlo
+ 5G9F1GvXnpeYjBFKXe0VXuLOru6ZmCVG2yX9CNX3GcoEcjC8Ow+T3eQDB73da7pgeJ
+ aDatin4/FK4MA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 3EDCAFD006E;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 516DEFD0071;
  Sun,  1 Mar 2026 17:51:19 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 01 Mar 2026 18:51:15 +0100
+Date: Sun, 01 Mar 2026 18:51:16 +0100
 MIME-Version: 1.0
-Message-Id: <20260301-stmfts5-v1-1-22c458b9ac68@ixit.cz>
+Message-Id: <20260301-stmfts5-v1-2-22c458b9ac68@ixit.cz>
 References: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
 In-Reply-To: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -51,21 +51,21 @@ To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3250; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2336; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=rLvXwYr8pRgjc4tXLmz60BmHo2WrnBAMJ136Em/i4E4=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBppHyUJhChuWhA7f0ZMnBICB62mYuFxWMpN6WEt
- yQcwnmupwyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaaR8lAAKCRBgAj/E00kg
- cr38D/4sZ8a33ur+ea+HzTQrrZBNLoWzQNadsTB8b7dDzsr33qGisK7QYEM4SfIZYqd7iuwilzp
- qF1wQvaaHDUkO8m/JRIVMc65fNXg0RYYpdM1m8F1o2wsswVmIfVn9nuq3aTf/M3y4RfxeuZTil1
- UjXMrmeN47VLuL+S9vEh9dxi7dPfBWRFu9XM7lrYLPphnrcQzegHiYhMfZia+WaQbXz3xU5Z1vr
- Of07bWLTYnj8paN8Ol4aIXQ1I/Kj4GT+XLbV3JZr+TMYzVgZwrDTCyfI/AMVsgnojmHG8GZkaUl
- jDLdieILWVF+fDuWuolw6umCQRwKIT93gzPgIuCSwsxdoTo2Rcz7/8L8DAzKv6TvSl/zqz6DeXQ
- gFLgJiMBpaQKd0dm4gXRyw/0LGsD7NCm67yld0Gx+4IQJ9c+0xAEzLTQLkw/stZq+zekQ8SfrdJ
- Z69ICjrtDGUdUUMvrCNhgz9qEmtaHlqL24B/72+JCJOKWLEisoxT7uFZNhIZLylSE8Vo9Xh/8gn
- 7n6Y6Whfvx5HT9O75TDOjMgqMxxfsqWuTMXkpLdZBEoCV5Ao9lH3q9EY46oOP2BviS+YORXrKih
- o29qKxxckWBgcRmGr/ESt2mLG3dNIcF121uLCCqRg6MtDCWQw5koZkWt4KM9baVobsjEtZ7bRRX
- ibvsWlvPnmTqRdA==
+ bh=gp0Adpeb0dgRnIzbTX0yz5VA3gvM4FK6mupYKoiFMj0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBppHyURAP+6GmRBdj1YMjGOxEXecCpiSaiwdK38
+ nv4OmVUw1SJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaaR8lAAKCRBgAj/E00kg
+ cuMlD/96F1ggG3DCx9p28DKIQjERz38LjXqEcedMM/S+1ZJUHTM4uyM9XUaHyO6V9e1/UUxuD1A
+ YeTodQ7ny4ouLM14vM3Vo24MD6EaOJxpVWPLm4IxLESagvS4gNalrkbrf/Y4v14mXDw1kXWpQmw
+ M08g7WifVWBuHyOLnZ5EHQ4ueDqhDnGzoXvR1AxUCxZoUa7dZ8Pr49Uy6M7ZQKPY1SHVspziZ0p
+ A01pQkrJoCZbXvvOY6oDBV99mnx94lydjM3NBbyQAi0fzooZEbUtvjYEEgRtdNlqZIMqhO6QnlH
+ oEciiUverffQU3Nfx09m4BuyZNjFpkWFunIGuj7C4Q2bJufTQTtYv72FkIIGzvLju8yodpEqpBG
+ GRkkLCRg9NQh1uRL3DxNkIrFFfqohEgb+BGzaR6OwXYeRhu8+AN8uiPoVevSlW+rvz6XRUBFlWV
+ fGbsCL4Q0YpRe9BcnRw++lj5nB3Y0+Kdp3pNlh0VRYCFWexu9P8CtrQ1u1QHNPdLbULVDqANTaC
+ M6yxpV0co47vYcmJroF9Pe5A9H49Ybv5B3Ne1zIGtyNGYc9d8yFX97MlY1y2x7SVaW4y3Ceu/Iz
+ YMENmGjWFOVfy6PHDlXcknxLtc3HYQOqt4TiDXL3dSPdqM+faTPtxiJbGye7WEmtgSxz+zEFVi0
+ xga+b9htJMYCDaw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -75,7 +75,8 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Petr Hodina <petr.hodina@protonmail.com>, David Heidelberg <david@ixit.cz>,
  linux-input@vger.kernel.org, phone-devel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 01/10] Input: stmfts - Use dev struct directly
+Subject: [Linux-stm32] [PATCH 02/10] Input: stmfts - Switch to
+ devm_regulator_bulk_get_const
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -108,15 +109,15 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	TAGGED_FROM(0.00)[david.ixit.cz];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[19];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com,foss.st.com,kernel.org,bitmath.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	HAS_REPLYTO(0.00)[david@ixit.cz];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -126,110 +127,88 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
 	NEURAL_HAM(-0.00)[-0.988];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 5EC4F1D0E33
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 18BDB1D0E30
 X-Rspamd-Action: no action
 
 From: David Heidelberg <david@ixit.cz>
 
-Makes the code better readable and noticably shorter.
+Switch to devm_regulator_bulk_get_const() to stop setting the supplies
+list in probe(), and move the regulator_bulk_data struct in static const.
 
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/input/touchscreen/stmfts.c | 21 +++++++++++----------
- 1 file changed, 11 insertions(+), 10 deletions(-)
+ drivers/input/touchscreen/stmfts.c | 25 ++++++++++++-------------
+ 1 file changed, 12 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index 4b166b0a9a5a6..27adb139fa0ce 100644
+index 27adb139fa0ce..7c0f94ba49464 100644
 --- a/drivers/input/touchscreen/stmfts.c
 +++ b/drivers/input/touchscreen/stmfts.c
-@@ -620,6 +620,7 @@ static int stmfts_enable_led(struct stmfts_data *sdata)
+@@ -69,9 +69,9 @@
+ #define STMFTS_MAX_FINGERS	10
+ #define STMFTS_DEV_NAME		"stmfts"
  
- static int stmfts_probe(struct i2c_client *client)
- {
-+	struct device *dev = &client->dev;
+-enum stmfts_regulators {
+-	STMFTS_REGULATOR_VDD,
+-	STMFTS_REGULATOR_AVDD,
++static const struct regulator_bulk_data stmfts_supplies[] = {
++	{ .supply = "vdd" },
++	{ .supply = "avdd" },
+ };
+ 
+ struct stmfts_data {
+@@ -82,7 +82,7 @@ struct stmfts_data {
+ 
+ 	struct touchscreen_properties prop;
+ 
+-	struct regulator_bulk_data regulators[2];
++	struct regulator_bulk_data *supplies;
+ 
+ 	/*
+ 	 * Presence of ledvdd will be used also to check
+@@ -524,8 +524,8 @@ static int stmfts_power_on(struct stmfts_data *sdata)
  	int err;
- 	struct stmfts_data *sdata;
+ 	u8 reg[8];
  
-@@ -628,7 +629,7 @@ static int stmfts_probe(struct i2c_client *client)
- 						I2C_FUNC_SMBUS_I2C_BLOCK))
- 		return -ENODEV;
- 
--	sdata = devm_kzalloc(&client->dev, sizeof(*sdata), GFP_KERNEL);
-+	sdata = devm_kzalloc(dev, sizeof(*sdata), GFP_KERNEL);
- 	if (!sdata)
- 		return -ENOMEM;
- 
-@@ -640,13 +641,13 @@ static int stmfts_probe(struct i2c_client *client)
- 
- 	sdata->regulators[STMFTS_REGULATOR_VDD].supply = "vdd";
- 	sdata->regulators[STMFTS_REGULATOR_AVDD].supply = "avdd";
--	err = devm_regulator_bulk_get(&client->dev,
-+	err = devm_regulator_bulk_get(dev,
- 				      ARRAY_SIZE(sdata->regulators),
- 				      sdata->regulators);
+-	err = regulator_bulk_enable(ARRAY_SIZE(sdata->regulators),
+-				    sdata->regulators);
++	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
++				    sdata->supplies);
  	if (err)
  		return err;
  
--	sdata->input = devm_input_allocate_device(&client->dev);
-+	sdata->input = devm_input_allocate_device(dev);
- 	if (!sdata->input)
- 		return -ENOMEM;
+@@ -590,8 +590,8 @@ static void stmfts_power_off(void *data)
+ 	struct stmfts_data *sdata = data;
  
-@@ -665,7 +666,7 @@ static int stmfts_probe(struct i2c_client *client)
- 	input_set_abs_params(sdata->input, ABS_MT_PRESSURE, 0, 255, 0, 0);
- 	input_set_abs_params(sdata->input, ABS_DISTANCE, 0, 255, 0, 0);
- 
--	sdata->use_key = device_property_read_bool(&client->dev,
-+	sdata->use_key = device_property_read_bool(dev,
- 						   "touch-key-connected");
- 	if (sdata->use_key) {
- 		input_set_capability(sdata->input, EV_KEY, KEY_MENU);
-@@ -686,20 +687,20 @@ static int stmfts_probe(struct i2c_client *client)
- 	 * interrupts. To be on the safe side it's better to not enable
- 	 * the interrupts during their request.
- 	 */
--	err = devm_request_threaded_irq(&client->dev, client->irq,
-+	err = devm_request_threaded_irq(dev, client->irq,
- 					NULL, stmfts_irq_handler,
- 					IRQF_ONESHOT | IRQF_NO_AUTOEN,
- 					"stmfts_irq", sdata);
- 	if (err)
- 		return err;
- 
--	dev_dbg(&client->dev, "initializing ST-Microelectronics FTS...\n");
-+	dev_dbg(dev, "initializing ST-Microelectronics FTS...\n");
- 
- 	err = stmfts_power_on(sdata);
- 	if (err)
- 		return err;
- 
--	err = devm_add_action_or_reset(&client->dev, stmfts_power_off, sdata);
-+	err = devm_add_action_or_reset(dev, stmfts_power_off, sdata);
- 	if (err)
- 		return err;
- 
-@@ -716,13 +717,13 @@ static int stmfts_probe(struct i2c_client *client)
- 			 * without LEDs. The ledvdd regulator pointer will be
- 			 * used as a flag.
- 			 */
--			dev_warn(&client->dev, "unable to use touchkey leds\n");
-+			dev_warn(dev, "unable to use touchkey leds\n");
- 			sdata->ledvdd = NULL;
- 		}
- 	}
- 
--	pm_runtime_enable(&client->dev);
--	device_enable_async_suspend(&client->dev);
-+	pm_runtime_enable(dev);
-+	device_enable_async_suspend(dev);
- 
- 	return 0;
+ 	disable_irq(sdata->client->irq);
+-	regulator_bulk_disable(ARRAY_SIZE(sdata->regulators),
+-						sdata->regulators);
++	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
++			       sdata->supplies);
  }
+ 
+ static int stmfts_enable_led(struct stmfts_data *sdata)
+@@ -639,11 +639,10 @@ static int stmfts_probe(struct i2c_client *client)
+ 	mutex_init(&sdata->mutex);
+ 	init_completion(&sdata->cmd_done);
+ 
+-	sdata->regulators[STMFTS_REGULATOR_VDD].supply = "vdd";
+-	sdata->regulators[STMFTS_REGULATOR_AVDD].supply = "avdd";
+-	err = devm_regulator_bulk_get(dev,
+-				      ARRAY_SIZE(sdata->regulators),
+-				      sdata->regulators);
++	err = devm_regulator_bulk_get_const(dev,
++					    ARRAY_SIZE(stmfts_supplies),
++					    stmfts_supplies,
++					    &sdata->supplies);
+ 	if (err)
+ 		return err;
+ 
 
 -- 
 2.51.0
