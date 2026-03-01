@@ -2,184 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oN44JWxJpGmMcgUAu9opvQ
+	id sC0oBLlApWm36gUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 15:13:00 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 02 Mar 2026 08:48:09 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4162B1D025C
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 15:13:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D42A1D4207
+	for <lists+linux-stm32@lfdr.de>; Mon, 02 Mar 2026 08:48:08 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAA3AC8F269;
-	Sun,  1 Mar 2026 14:12:59 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ED68CC35E2B;
+	Mon,  2 Mar 2026 07:48:07 +0000 (UTC)
+Received: from smtpo67.poczta.onet.pl (smtpo67.poczta.onet.pl [141.105.16.17])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EECDAC030D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2827FC2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Mar 2026 14:12:57 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6215uS1V1623667
- for <linux-stm32@st-md-mailman.stormreply.com>; Sun, 1 Mar 2026 14:12:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 8UcRkJBE0jtBQFdXiHKQOxpQDNuNb8Xo48NuOCyPK4M=; b=gzhR1CEsiPToMS+t
- ALjjry+gPfH0t08cE7CUFbacxuSiL8FKdtA8sApdCKEGAhGmnGGC7dfx7IWnDXT0
- 77BiLxg8g4CIx2EwHSoCENgozLzcq6jp/FZ6b6jlHRpeDBQ5wtjbubdWNzcSZJqj
- 3BP4434qzk69CU3NoKPA0d9B8s1FbYlQLEFpx8X9zbs+pZWCOGiKcapjCvs/albq
- j/zQ5vyU8gEAnm6IARyFMhxOsEgBoYF4FJ31hz+UTI7OiD/IsKizSRMNUpSQCN07
- OpLkoNc6hgI3SSYq5F1pV64NQZqLS/WUizbnl9VIHJCgeIW4hZ0vkOdp5ou6nzja
- 3pCsJg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cksfytqp8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 01 Mar 2026 14:12:56 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-8cb4817f3c8so2761384685a.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 01 Mar 2026 06:12:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1772374376; x=1772979176;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to;
- bh=8UcRkJBE0jtBQFdXiHKQOxpQDNuNb8Xo48NuOCyPK4M=;
- b=epJSu1OB2DaH91Bd94n3HFwAZmaFvBSzeDYkxDry6tfSZLhs8KUuQx/MAtQTVD4ErR
- X3665N8BW4YfofwMuMIZeTWgj/VaoKJzKYklMIaLtHX8cdHGJpqYJoa8PsXwigZH1Tn3
- B9a0AhO0Vewusgpb7qg/9MQIy+qnMGJQf5BGa87vD3SdufGIyBCrS4mbNEm4PRkPHHkf
- 1pTxI7G3TV3R+3es4mQzfQ0sE60oWey+oIIXTNJM92DlgA4xyrtkMDTyNtlwsOLmFPRr
- +BAfr/br+Nf8R8/ZjyQJT/MuWJvf/sxrDmDdKCRlLRiILRN+Pc3SRjUuadiVN+/pfeiI
- c+lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772374376; x=1772979176;
- h=content-transfer-encoding:in-reply-to:autocrypt:content-language
- :from:references:cc:to:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=8UcRkJBE0jtBQFdXiHKQOxpQDNuNb8Xo48NuOCyPK4M=;
- b=OF9liDfycfOvyHOdH3hoGVd7Ffl4NV6cMXZy+1ZSBPpPHhQeWSXwH/h2j47DCDA6qu
- LqU1hrrbstY2XVN06HZRZMWR/U4DoU7Nv6oi5pZqdsD6SLBrppG5xrn7huxML0sTppnD
- uylUFqYw6f11GohXVUMJ9mn7KB66lXDWNuXNs231HlQcB3r86l9eoTGK69kUWiBVxOsc
- Eihjq6ncgtopwcOUlkTeiOjiVqWnsUWxPaYpXsJcaKBds4sTRwj8nVeiNAN09qUa9jiQ
- YQr6HGC8dexC2iYJS+apMTFUvipgLV5Y1Z4uZA6dHfM6x8by02fDZfBxldGGhpK/BIAk
- uFOQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUlfYdnCiBtNXTep7duQAaUTIXC5TTAU74kUWiYHPU5xvzcAFQy4F30LXcKH8Ktwi85R5JNweKoNAkquQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx+c8YQTN8qrjLl27sNZEkgrV7dz0maOsr8GsTyrG1tq7xL9n4L
- qL1nzeQyCgSlXCNTp30A+KmppIt3eg5gpcBj/eS/J6idT29ViQHaMprge69iQXt0MZhJkiOrkP7
- i2DvQny/IB58pR+0j0fmOLaM2He+S+T1Glep1WP2KW5ptvuiJfeX+86rBgB+vMDmYa8SChyymfK
- qXYwA/vQk=
-X-Gm-Gg: ATEYQzxm8QJHwrWgbE8lNBXkUfAppI0CKCa3X2+O0TkhaN8NP/gjr628TT1/ZV38Hhs
- MknOQosDNRd4W/z7pNMRz+T8tRKVhi4UU8S23NUgUdNcxG8lkPdCsqGcadKezHR7C39MysyOku8
- ILq48E2XxuY1z282xUqOEQlXIyHkCz7fwPWq3j4bYdm3IozHmyL6g7X7gwQoc7TN5b9+/JbrRxO
- ZhLaWcjbjkhjdWDkwX91yuXLpoBBxMKrHlkXwptwgToZ8BcWTAFzRpE7/1xD/SkHBULmQbYTjGI
- nLTYcyFDwKAvCfvXGgF5LJGoPXU2IVUS9u5A+I7IFCDjST56a2nnbSJvWkmwjqQIPjSeGyB6Beq
- 5oX8W3JXAMdg1kcgS4s8uime8FADBB+IDegoPQIPkvwBTVtRW
-X-Received: by 2002:a05:620a:f14:b0:8cb:5477:5278 with SMTP id
- af79cd13be357-8cbc8d70ed3mr1178938385a.7.1772374375852; 
- Sun, 01 Mar 2026 06:12:55 -0800 (PST)
-X-Received: by 2002:a05:620a:f14:b0:8cb:5477:5278 with SMTP id
- af79cd13be357-8cbc8d70ed3mr1178933885a.7.1772374375359; 
- Sun, 01 Mar 2026 06:12:55 -0800 (PST)
-Received: from [192.168.1.29] ([178.197.219.94])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-439b55df68dsm2509164f8f.26.2026.03.01.06.12.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 01 Mar 2026 06:12:53 -0800 (PST)
-Message-ID: <767cafff-1ce1-4291-bcda-7a9027efc32b@oss.qualcomm.com>
-Date: Sun, 1 Mar 2026 15:12:52 +0100
+ Sun,  1 Mar 2026 15:54:08 +0000 (UTC)
+Received: from laptop-olek.lan (83.24.116.171.ipv4.supernova.orange.pl
+ [83.24.116.171])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+ (No client certificate requested)
+ (Authenticated sender: aleksaander@onet.pl)
+ by smtp.poczta.onet.pl (Onet) with ESMTPSA id 4fP67657lSz1y1Q;
+ Sun,  1 Mar 2026 16:53:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onet.pl; s=2011;
+ t=1772380441; bh=JNic++b0CHLHkvSoxiBl7njduC/qk14bmoBYjaOnaC0=;
+ h=From:To:Cc:Subject:Date:From;
+ b=ounlYqP0niPtBMNhulCozlKpdBuSHNKnJH41/hTvvSGtmb1ABT2InkIZzFMLiGPpx
+ 87FPYhDMiDgcaYwqvwxtOFPTYDF5RV/GY7QKjUQvaolHppf1YV/kz3hJnOmyvJNiAX
+ X3P5cSBZQrCo+acYu6LPHbbir4pTh3jVlSuWJz+w=
+From: Aleksander Jan Bajkowski <aleksaander@onet.pl>
+To: herbert@gondor.apana.org.au, davem@davemloft.net,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sun,  1 Mar 2026 16:53:38 +0100
+Message-ID: <20260301155351.5840-1-aleksaander@onet.pl>
+X-Mailer: git-send-email 2.47.3
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260105143657.383621-4-krzysztof.kozlowski@oss.qualcomm.com>
- <20260105143657.383621-6-krzysztof.kozlowski@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
- 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
- cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
-In-Reply-To: <20260105143657.383621-6-krzysztof.kozlowski@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAxMDEyOSBTYWx0ZWRfXyUJLZWFWTX67
- GnBYNDNV7Zwg1bgooJucFa9RIZlwvFfiN3tfUJc0JNM1DfnU3pLd/fOMeehcLj39/fMdEOPhr0A
- f5BWsDgkjLmm0LShTwRY63GQ8eCqoCCresXtDGHOYpL1GWyFB9U8YxzEsNfqrfKQX8lz4WaDWg+
- HY68HDbMiyzt7cNnetZmdpI8xWjX5Ctax8roMpBHOU/ofqXn3I5s2Z+g5fv6dzxCj7YTV2aFLX0
- QVTyqgUu7dmjJW0QUyqCVQ2SHCQ46fBCkjnCOKgm9wJp6h3nvg5hyqsjoZBGQ7bgLBijTbuWkZc
- SZe3yEnmKn8jXstQ2KlW6cpeSHjLPIPizEtADqMr3I/HTQnKFFvUACbwlWcHokCB1jCbw5mWBXq
- QswZkYflrDdh8QNUOd8/CLoh3lzbiVoVAvsN5UZojg1FWrQ3XLrWXuDMqQnwONeZ65hgsB0fAeR
- QzU3D9dtlIhvcokreYQ==
-X-Authority-Analysis: v=2.4 cv=avS/yCZV c=1 sm=1 tr=0 ts=69a44968 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=i0EeH86SAAAA:8 a=EUspDBNiAAAA:8 a=55d_-0XgqAmJSplXZjMA:9 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: pSOEHRP2dY3orNCtAbzLwWiilBJ1jdpB
-X-Proofpoint-ORIG-GUID: pSOEHRP2dY3orNCtAbzLwWiilBJ1jdpB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-01_02,2026-02-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 impostorscore=0 clxscore=1015 suspectscore=0
- phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603010129
-Cc: Jonathan Cameron <jonathan.cameron@huawei.com>
-Subject: Re: [Linux-stm32] [PATCH v2 3/3] bus: stm32_firewall: Use scoped
- allocation to simplify cleanup
+X-Mailman-Approved-At: Mon, 02 Mar 2026 07:48:07 +0000
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Subject: [Linux-stm32] [PATCH 1/5] crypto: testmgr - Add test vectors for
+	authenc(hmac(sha1), rfc3686(ctr(aes)))
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -196,63 +60,312 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [5.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[onet.pl : SPF not aligned (relaxed),quarantine];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[onet.pl:s=2011];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:konradybcio@kernel.org,m:gatien.chevallier@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:jonathan.cameron@huawei.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-crypto@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:olek2@wp.pl,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[aleksaander@onet.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,foss.st.com,gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	FREEMAIL_FROM(0.00)[onet.pl];
+	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.808];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	DKIM_TRACE(0.00)[onet.pl:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.948];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[aleksaander@onet.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[wp.pl];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,huawei.com:email,oss.qualcomm.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 4162B1D025C
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[onet.pl:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,wp.pl:email]
+X-Rspamd-Queue-Id: 9D42A1D4207
 X-Rspamd-Action: no action
 
-On 05/01/2026 15:37, Krzysztof Kozlowski wrote:
-> Allocate the memory with scoped/cleanup.h to reduce error handling and
-> make the code a bit simpler.
-> 
-> Suggested-by: Jonathan Cameron <jonathan.cameron@huawei.com>
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Changes in v2:
-> 1. New patch
-> ---
->  drivers/bus/stm32_firewall.c | 10 +++-------
->  1 file changed, 3 insertions(+), 7 deletions(-)
+From: Aleksander Jan Bajkowski <olek2@wp.pl>
 
-Is anyone picking up patches for stm32?
+Test vectors were generated starting from existing RFC3686(CTR(AES)) test
+vectors and adding HMAC(SHA1) computed with software implementation.
+Then, the results were double-checked on Mediatek MT7986 (safexcel).
+Platform pass self-tests.
 
-Best regards,
-Krzysztof
+Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+---
+ crypto/testmgr.c |   6 +-
+ crypto/testmgr.h | 221 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 226 insertions(+), 1 deletion(-)
+
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index c4770b87551d..91831b548062 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -4136,8 +4136,12 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		}
+ 	}, {
+ 		.alg = "authenc(hmac(sha1),rfc3686(ctr(aes)))",
+-		.test = alg_test_null,
++		.generic_driver = "authenc(hmac-sha1-lib,rfc3686(ctr(aes-generic)))",
++		.test = alg_test_aead,
+ 		.fips_allowed = 1,
++		.suite = {
++			.aead = __VECS(hmac_sha1_aes_ctr_rfc3686_tv_temp)
++		}
+ 	}, {
+ 		.alg = "authenc(hmac(sha224),cbc(aes))",
+ 		.generic_driver = "authenc(hmac-sha224-lib,cbc(aes-generic))",
+diff --git a/crypto/testmgr.h b/crypto/testmgr.h
+index 8ee15a3e0ed1..d232417c20a1 100644
+--- a/crypto/testmgr.h
++++ b/crypto/testmgr.h
+@@ -14873,6 +14873,227 @@ static const struct aead_testvec hmac_sha1_aes_cbc_tv_temp[] = {
+ 	},
+ };
+ 
++static const struct aead_testvec hmac_sha1_aes_ctr_rfc3686_tv_temp[] = {
++	{ /* RFC 3686 Case 1 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x14"	/* enc key length */
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00"
++			  "\xae\x68\x52\xf8\x12\x10\x67\xcc"
++			  "\x4b\xf7\xa5\x76\x55\x77\xf3\x9e"
++			  "\x00\x00\x00\x30",
++		.klen	= 8 + 20 + 20,
++		.iv	= "\x00\x00\x00\x00\x00\x00\x00\x00",
++		.assoc	= "\x00\x00\x00\x00\x00\x00\x00\x00",
++		.alen	= 8,
++		.ptext	= "Single block msg",
++		.plen	= 16,
++		.ctext	= "\xe4\x09\x5d\x4f\xb7\xa7\xb3\x79"
++			  "\x2d\x61\x75\xa3\x26\x13\x11\xb8"
++			  "\x70\xdc\x6b\x62\x43\xa1\x2f\x08"
++			  "\xf1\xec\x93\x7d\x69\xb2\x8e\x1f"
++			  "\x0a\x97\x39\x86",
++		.clen	= 16 + 20,
++	}, { /* RFC 3686 Case 2 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x14"	/* enc key length */
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\x30\x31\x32\x33"
++			  "\x7e\x24\x06\x78\x17\xfa\xe0\xd7"
++			  "\x43\xd6\xce\x1f\x32\x53\x91\x63"
++			  "\x00\x6c\xb6\xdb",
++		.klen	= 8 + 20 + 20,
++		.iv	= "\xc0\x54\x3b\x59\xda\x48\xd9\x0b",
++		.assoc	= "\xc0\x54\x3b\x59\xda\x48\xd9\x0b",
++		.alen	= 8,
++		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
++		.plen	= 32,
++		.ctext	= "\x51\x04\xa1\x06\x16\x8a\x72\xd9"
++			  "\x79\x0d\x41\xee\x8e\xda\xd3\x88"
++			  "\xeb\x2e\x1e\xfc\x46\xda\x57\xc8"
++			  "\xfc\xe6\x30\xdf\x91\x41\xbe\x28"
++			  "\x6b\x7b\x4d\x39\x36\x1c\x12\x5f"
++			  "\x72\xd2\x88\xb2\x26\xa6\xa6\xb5"
++			  "\x1d\x3a\x49\xa6",
++		.clen	= 32 + 20,
++	}, { /* RFC 3686 Case 3 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x14"	/* enc key length */
++			  "\x11\x22\x33\x44\x55\x66\x77\x88"
++			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
++			  "\x22\x33\x44\x55"
++			  "\x76\x91\xbe\x03\x5e\x50\x20\xa8"
++			  "\xac\x6e\x61\x85\x29\xf9\xa0\xdc"
++			  "\x00\xe0\x01\x7b",
++		.klen	= 8 + 20 + 20,
++		.iv	= "\x27\x77\x7f\x3f\x4a\x17\x86\xf0",
++		.assoc	= "\x27\x77\x7f\x3f\x4a\x17\x86\xf0",
++		.alen	= 8,
++		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
++			  "\x20\x21\x22\x23",
++		.plen	= 36,
++		.ctext	= "\xc1\xcf\x48\xa8\x9f\x2f\xfd\xd9"
++			  "\xcf\x46\x52\xe9\xef\xdb\x72\xd7"
++			  "\x45\x40\xa4\x2b\xde\x6d\x78\x36"
++			  "\xd5\x9a\x5c\xea\xae\xf3\x10\x53"
++			  "\x25\xb2\x07\x2f"
++			  "\x2c\x86\xa0\x90\x8e\xc1\x02\x1d"
++			  "\x51\xdc\xd6\x21\xc7\x30\xcc\x32"
++			  "\x38\x55\x47\x64",
++		.clen	= 36 + 20,
++	}, { /* RFC 3686 Case 4 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x1c"	/* enc key length */
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00"
++			  "\x16\xaf\x5b\x14\x5f\xc9\xf5\x79"
++			  "\xc1\x75\xf9\x3e\x3b\xfb\x0e\xed"
++			  "\x86\x3d\x06\xcc\xfd\xb7\x85\x15"
++			  "\x00\x00\x00\x48",
++		.klen	= 8 + 20 + 28,
++		.iv	= "\x36\x73\x3c\x14\x7d\x6d\x93\xcb",
++		.assoc	= "\x36\x73\x3c\x14\x7d\x6d\x93\xcb",
++		.alen	= 8,
++		.ptext	= "Single block msg",
++		.plen	= 16,
++		.ctext	= "\x4b\x55\x38\x4f\xe2\x59\xc9\xc8"
++			  "\x4e\x79\x35\xa0\x03\xcb\xe9\x28"
++			  "\xe9\x4e\x49\xf0\x6b\x8d\x58\x2b"
++			  "\x26\x7f\xf3\xab\xeb\x2f\x74\x2f"
++			  "\x45\x43\x64\xc1",
++		.clen	= 16 + 20,
++	}, { /* RFC 3686 Case 5 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x1c"	/* enc key length */
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\x30\x31\x32\x33"
++			  "\x7c\x5c\xb2\x40\x1b\x3d\xc3\x3c"
++			  "\x19\xe7\x34\x08\x19\xe0\xf6\x9c"
++			  "\x67\x8c\x3d\xb8\xe6\xf6\xa9\x1a"
++			  "\x00\x96\xb0\x3b",
++		.klen	= 8 + 20 + 28,
++		.iv	= "\x02\x0c\x6e\xad\xc2\xcb\x50\x0d",
++		.assoc	= "\x02\x0c\x6e\xad\xc2\xcb\x50\x0d",
++		.alen	= 8,
++		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
++		.plen	= 32,
++		.ctext	= "\x45\x32\x43\xfc\x60\x9b\x23\x32"
++			  "\x7e\xdf\xaa\xfa\x71\x31\xcd\x9f"
++			  "\x84\x90\x70\x1c\x5a\xd4\xa7\x9c"
++			  "\xfc\x1f\xe0\xff\x42\xf4\xfb\x00"
++			  "\xab\xc4\xfa\x6d\x20\xe1\xce\x72"
++			  "\x0e\x92\x4e\x97\xaa\x4d\x30\x84"
++			  "\xb6\xd8\x4d\x3b",
++		.clen	= 32 + 20,
++	}, { /* RFC 3686 Case 7 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x24"	/* enc key length */
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00\x00\x00\x00\x00"
++			  "\x00\x00\x00\x00"
++			  "\x77\x6b\xef\xf2\x85\x1d\xb0\x6f"
++			  "\x4c\x8a\x05\x42\xc8\x69\x6f\x6c"
++			  "\x6a\x81\xaf\x1e\xec\x96\xb4\xd3"
++			  "\x7f\xc1\xd6\x89\xe6\xc1\xc1\x04"
++			  "\x00\x00\x00\x60",
++		.klen	= 8 + 20 + 36,
++		.iv	= "\xdb\x56\x72\xc9\x7a\xa8\xf0\xb2",
++		.assoc	= "\xdb\x56\x72\xc9\x7a\xa8\xf0\xb2",
++		.alen	= 8,
++		.ptext	= "Single block msg",
++		.plen	= 16,
++		.ctext	= "\x14\x5a\xd0\x1d\xbf\x82\x4e\xc7"
++			  "\x56\x08\x63\xdc\x71\xe3\xe0\xc0"
++			  "\x3d\x6c\x23\x27\xda\x0e\x7f\x29"
++			  "\xfd\x8d\x3c\x1b\xf7\x7a\x63\xd9"
++			  "\x7e\x0f\xe9\xf6",
++		.clen	= 16 + 20,
++	}, { /* RFC 3686 Case 8 */
++#ifdef __LITTLE_ENDIAN
++		.key    = "\x08\x00"		/* rta length */
++			  "\x01\x00"		/* rta type */
++#else
++		.key    = "\x00\x08"		/* rta length */
++			  "\x00\x01"		/* rta type */
++#endif
++			  "\x00\x00\x00\x24"	/* enc key length */
++			  "\x20\x21\x22\x23\x24\x25\x26\x27"
++			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
++			  "\x30\x31\x32\x33"
++			  "\xf6\xd6\x6d\x6b\xd5\x2d\x59\xbb"
++			  "\x07\x96\x36\x58\x79\xef\xf8\x86"
++			  "\xc6\x6d\xd5\x1a\x5b\x6a\x99\x74"
++			  "\x4b\x50\x59\x0c\x87\xa2\x38\x84"
++			  "\x00\xfa\xac\x24",
++		.klen	= 8 + 20 + 36,
++		.iv	= "\xc1\x58\x5e\xf1\x5a\x43\xd8\x75",
++		.assoc	= "\xc1\x58\x5e\xf1\x5a\x43\xd8\x75",
++		.alen	= 8,
++		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
++			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
++			  "\x10\x11\x12\x13\x14\x15\x16\x17"
++			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
++		.plen	= 32,
++		.ctext	= "\xf0\x5e\x23\x1b\x38\x94\x61\x2c"
++			  "\x49\xee\x00\x0b\x80\x4e\xb2\xa9"
++			  "\xb8\x30\x6b\x50\x8f\x83\x9d\x6a"
++			  "\x55\x30\x83\x1d\x93\x44\xaf\x1c"
++			  "\xe7\xee\x22\xa4\xdd\xbf\x5d\x44"
++			  "\x3b\x43\x1c\x69\x55\x11\xd5\xad"
++			  "\x14\x5f\x44\xa6",
++		.clen	= 32 + 20,
++	},
++};
++
+ static const struct aead_testvec hmac_sha1_ecb_cipher_null_tv_temp[] = {
+ 	{ /* Input data from RFC 2410 Case 1 */
+ #ifdef __LITTLE_ENDIAN
+-- 
+2.47.3
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
