@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gMiyHZt8pGkkiQUAu9opvQ
+	id 9WG+M5t8pGl+iQUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 18:51:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44F511D0E32
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 18:51:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B26FD1D0E56
+	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 18:51:23 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C3B0C8F281;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CD6FFC8F289;
 	Sun,  1 Mar 2026 17:51:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F2EACC8F26B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 458C4C2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Mar 2026 17:51:20 +0000 (UTC)
+ Sun,  1 Mar 2026 17:51:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A3DC844564;
+ by tor.source.kernel.org (Postfix) with ESMTP id E901960133;
  Sun,  1 Mar 2026 17:51:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6EB7DC2BCB5;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 83773C2BCB7;
  Sun,  1 Mar 2026 17:51:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1772387479;
- bh=nhmogOI+WjaFzj49pGOROXn2gYZ4HvN2zLn5fUjRH3g=;
+ bh=2RcZ1YrtLk3LFD+fkggSEgyijYJUi2tSNAB95o1MrT4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=p3v8e5qIM3sUce+oVO4KGoQXtVISLeKXjoFqFA6Y9jGq4C6c3VmB2OW5JWf/i0hAM
- bGu0fUSzHB6+kjkul0CbTuf7XQjW3ASdEfG5uwutbFAChCH1aR1KLaA06jvZpzRV+3
- mdxUBA1e7bYyV+O5krX5P7/TuIxBnb1mpKb+VGm+mKehxKWmIt73loHZ0gLziTfliJ
- IRWmsvhyJWkI9JIyt5O6nvsI1q/A/Cb5K+FLONjsZc6BKNixlBjE23607WMAB+8Hff
- /aPkiDh2mOYYP3/IR2uUAHSNqU8eEAIwOwUFdynxN5q6IYu+FiNXOUVxakeFFhsulO
- UtkyvFlacZI/Q==
+ b=IBja9dwv8Wb9Q+0XLAl4w+PrfuisazmmSVNGe02N03sUrDTzJAU8QYBneofUbNj+c
+ NZN+cTeJAnfzAGDxf1SafBOtW9Gco0IBHNb5EAXsKtBQ2r0L4ZmoIjZAHKltRYyUkM
+ d0cCnLjAh8I00rlfUiZTxnvoj9o7z8T4PBxukjvLj6Kb//jpGRR/8MW5+w0d/+ODjI
+ Mkh9Jy0LYxXVO82EQWQYzxlVQqnQUbsgzkodHZdCeEaISJts5cqNgG6EKkHpLqIqXF
+ UtyvIF4lnKgJ4pnVbWAtwGEx5uefshJxTX8b6rNuTISbRi+DkpiVc0cpfi3Bl/r49a
+ oodUgrHjme58A==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 649BEFD0073;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 77F27FD0074;
  Sun,  1 Mar 2026 17:51:19 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 01 Mar 2026 18:51:17 +0100
+Date: Sun, 01 Mar 2026 18:51:18 +0100
 MIME-Version: 1.0
-Message-Id: <20260301-stmfts5-v1-3-22c458b9ac68@ixit.cz>
+Message-Id: <20260301-stmfts5-v1-4-22c458b9ac68@ixit.cz>
 References: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
 In-Reply-To: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -51,21 +51,21 @@ To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1770; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1598; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=LcR268CsLFX9IfFbR3m8SNFdiJ3g92w+33Vjc2KTWvw=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBppHyUWy/xfoO2DMWkvnS8Fo3kqaxb091fLqkJs
- yr4BN24YZ+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaaR8lAAKCRBgAj/E00kg
- cg5jD/0b2uRo3rzxQmo5CcalkkF0xubiFdZrbRZAflq92qK4+zrRzzXq42iZ5nMk/BYbtzm100G
- WpYXVpvzJXkhvbkF+fm4L+ZhYeAQ7Lp/FSrDrY0kcwlCDSMMsu5ptrIUTIjE1sL/Jp6oV571J6U
- +Nxio3frQuqOy1QTnq0Cb56/pC8eLFw/kkfxxoCYJ7w5iXU3Azp42xT9FeryOBosVKSUuCzYFZ5
- Y0r+x5SWY5t5UHPnni8piwCaJUqGZNh2kdOrhzC+7UTVp2yCuRWu1LFpr3y6n1kn/wIbnfn66d6
- Fglo+sr6ah9ROWcp1taGKX6OJIyQXOfUU5+do75qwLBlVwsaCRuxwX6f3UEjSo0MhqPhL9NbrHr
- igvOnKr8yBkIbKIXLmJn9nlC/AVE52hWUT3OVEi4tXAOoh08vMgRQWJDTusd/rboo6xv9PmJat5
- zwhTo5GTVGsANu33wnJKGIrw88FDW+/UMtvCRSA2VTbN8RWVpPECA8WkCdAmIWjGfWaf8lhB3fp
- rD9nKKpNJCzSbM6knCg69dXSXwVy8Am/+wNeioc3SJ9+0ZZ3I6De4GceMNKCwdqTxlurcd9DH8q
- enUW0gmPcWmuksR181zBO0HsFFG4vT6l5bE/U9SKeRE7QjEcyNPNRduVz6wk9OO7MIUzQtePR9b
- oWPsh/uRQCEpo7A==
+ bh=Z29IokqtA9ULVf4cQSlm3q9NJhfdPu/mSq+nU9M0a4M=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBppHyU9u/DZ1GreqI2xQDH8VFabq8lVGipnGV6u
+ YblMQC0S3WJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaaR8lAAKCRBgAj/E00kg
+ cuLzD/45dchsfZkaDN8R4+2qYOi2IqahkhRBhZymvtMYZ+qXaWMz652M3IZpAy59eOOwkGO5B6j
+ qfvIu57Qipc1I+UeTxkmepghYsA+E46SSYff8toz8tUAsOJBEY01FgLX4VSKV4hXPGR438LipBg
+ 2TjRUk5+jlm9sHdaOYdBQuGqejUnD/oL14qi4yYtOoGqLbqWs8wzDXFRTMS6YvT2GjnFOlDRqcB
+ 5DC+Idb7rWxyNtJdbOdH/ht3R5CCrpsq6YhK4KVub9rrCuRKAT/qQYMeXiSQVBr0eu4elXnm2Cy
+ qZV/1QwsbgVwL5IiysQdp8T5Wu1ESmCMKB59jeR2QAmflZ0R3AkEsI69TK9akDlFEzsfFUm7mrz
+ om83TzDnVnLrOZPYYMOzWNVLEPjSgpYWsBYK7U674/cEfRDFOkqdew6tw70v2GJm3Oio5VEzGVL
+ O1SuQ+WaaVzCxEy9aqtNNxpy/FTnSsgcLc2xfFY4zgsS/Uxvgm83J7unPbfnaKxxizEy5w3NJ+A
+ nHsF5XzVxS3APrLPRfLwnO5G4g4UVLw2lcJvsTp45CHzjthuOZiqZxvd177P52lkivJE//X4bnK
+ 02GDVbH9OLze8pxZBwDyrQLrbleT1JV1CuEywAlZwe9uk6weDvJTYTiPatc0US27Zw5CMDd9/tc
+ 9S68x3aBfA3/spQ==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -75,8 +75,8 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Petr Hodina <petr.hodina@protonmail.com>, David Heidelberg <david@ixit.cz>,
  linux-input@vger.kernel.org, phone-devel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 03/10] Input: stmfts - abstract reading
- information from the firmware
+Subject: [Linux-stm32] [PATCH 04/10] Input: stmfts - disable regulators when
+ power on fails
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,15 +109,15 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	TAGGED_FROM(0.00)[david.ixit.cz];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[19];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_TO(0.00)[gmail.com,foss.st.com,kernel.org,bitmath.org];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
 	HAS_REPLYTO(0.00)[david@ixit.cz];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -125,82 +125,73 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.990];
+	NEURAL_HAM(-0.00)[-0.989];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 44F511D0E32
+X-Rspamd-Queue-Id: B26FD1D0E56
 X-Rspamd-Action: no action
 
 From: David Heidelberg <david@ixit.cz>
 
-Improves readability and makes splitting power on function in following
-commit easier.
+We must power off regulators after failing at power on phase.
+
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/input/touchscreen/stmfts.c | 36 ++++++++++++++++++++++++------------
- 1 file changed, 24 insertions(+), 12 deletions(-)
+ drivers/input/touchscreen/stmfts.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
-index 7c0f94ba49464..db2dd0bb59fcc 100644
+index db2dd0bb59fcc..f4e5f1b3ce796 100644
 --- a/drivers/input/touchscreen/stmfts.c
 +++ b/drivers/input/touchscreen/stmfts.c
-@@ -519,22 +519,11 @@ static struct attribute *stmfts_sysfs_attrs[] = {
- };
- ATTRIBUTE_GROUPS(stmfts_sysfs);
+@@ -558,7 +558,7 @@ static int stmfts_power_on(struct stmfts_data *sdata)
  
--static int stmfts_power_on(struct stmfts_data *sdata)
-+static int stmfts_read_system_info(struct stmfts_data *sdata)
- {
- 	int err;
- 	u8 reg[8];
- 
--	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
--				    sdata->supplies);
--	if (err)
+ 	err = stmfts_read_system_info(sdata);
+ 	if (err)
 -		return err;
--
--	/*
--	 * The datasheet does not specify the power on time, but considering
--	 * that the reset time is < 10ms, I sleep 20ms to be sure
--	 */
--	msleep(20);
--
- 	err = i2c_smbus_read_i2c_block_data(sdata->client, STMFTS_READ_INFO,
- 					    sizeof(reg), reg);
- 	if (err < 0)
-@@ -548,6 +537,29 @@ static int stmfts_power_on(struct stmfts_data *sdata)
- 	sdata->config_id = reg[4];
- 	sdata->config_ver = reg[5];
++		goto power_off;
  
-+	return 0;
-+}
-+
-+static int stmfts_power_on(struct stmfts_data *sdata)
-+{
-+	int err;
-+
-+	err = regulator_bulk_enable(ARRAY_SIZE(stmfts_supplies),
-+				    sdata->supplies);
-+	if (err)
-+		return err;
-+
-+	/*
-+	 * The datasheet does not specify the power on time, but considering
-+	 * that the reset time is < 10ms, I sleep 20ms to be sure
-+	 */
-+	msleep(20);
-+
-+
-+	err = stmfts_read_system_info(sdata);
-+	if (err)
-+		return err;
-+
  	enable_irq(sdata->client->irq);
  
- 	msleep(50);
+@@ -566,11 +566,11 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 
+ 	err = stmfts_command(sdata, STMFTS_SYSTEM_RESET);
+ 	if (err)
+-		return err;
++		goto power_off;
+ 
+ 	err = stmfts_command(sdata, STMFTS_SLEEP_OUT);
+ 	if (err)
+-		return err;
++		goto power_off;
+ 
+ 	/* optional tuning */
+ 	err = stmfts_command(sdata, STMFTS_MS_CX_TUNING);
+@@ -586,7 +586,7 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 
+ 	err = stmfts_command(sdata, STMFTS_FULL_FORCE_CALIBRATION);
+ 	if (err)
+-		return err;
++		goto power_off;
+ 
+ 	/*
+ 	 * At this point no one is using the touchscreen
+@@ -595,6 +595,11 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 	(void) i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
+ 
+ 	return 0;
++
++power_off:
++	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
++			       sdata->supplies);
++	return err;
+ }
+ 
+ static void stmfts_power_off(void *data)
 
 -- 
 2.51.0
