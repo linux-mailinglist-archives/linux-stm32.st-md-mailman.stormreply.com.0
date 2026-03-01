@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QF4ULz6ao2kwIAUAu9opvQ
+	id 8IFLFTGco2k3IQUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 02:45:34 +0100
+	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 02:53:53 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F3701CB95F
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 02:45:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id EE9841CC2BD
+	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 02:53:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A1CDC030D6;
-	Sun,  1 Mar 2026 01:45:34 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95315C030D6;
+	Sun,  1 Mar 2026 01:53:52 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71BDFC36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7EE18C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Mar 2026 01:45:32 +0000 (UTC)
+ Sun,  1 Mar 2026 01:53:51 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 873626013C;
- Sun,  1 Mar 2026 01:45:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65CE7C19421;
- Sun,  1 Mar 2026 01:45:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 784406012A;
+ Sun,  1 Mar 2026 01:53:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5075AC19421;
+ Sun,  1 Mar 2026 01:53:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772329531;
- bh=Pc5vhfN54WSwHYV2oCkYMI+X5MUGXMab0QMlE50DqZ4=;
+ s=k20201202; t=1772330030;
+ bh=tU83mg14wxZWjnXUfKEv83yCfZxM4LKLY9c1OLpO47s=;
  h=From:To:Cc:Subject:Date:From;
- b=f1j16JssnsGe4AaifCxn4vi47qnRruxscyRKJrQCiTXn3CNZNg/3iIjb6fWZPu/gc
- S/d4stYux/ooF/BDCgGMUYCsgYm1kx7zIvemwFBtJaBvQRL82ad6MQx0ltZYpfBLZG
- 2OSWmR8LD1ceCTxbXfHsFnucClaxhyIlKpBiJZfk3NSv3Y2KeZaWuaFOGfWKaZPtcF
- 9jHTciMuwbML2+ys6s2QR+I85iyoN+/BbdFIfzTj0OkyWc1P8nbBY5VkH2iPNFNOJr
- 137z2E/I966YxS7YTDsRaCMtal4L7mtV7cx9d0zK2JH5Laq5XL7vcr06BaF97jRqah
- W2idGnqih52oA==
+ b=AuZHyJ/O0ZH83wVGBBRSQC/rcyKAOvUJ6aTj/uS2UUiUA1zuB+ZwE+d+EfNNMuOtb
+ 1/meZ14tea/eUGpS/il8UTrDSrmLt56MXZ4nmfamksX3Kflo18vIN7+bl5R+PG7gB0
+ I3uj5IKsVHNjbTrrzZxcTaTQIbGFwPsOPvwTpdUd7V/TFFJjxVo3UP7zURvwZZpcO7
+ ZDHDxN/g2eleDcJMv2Q9VerPPh88ulfcgnx8t0kYFnTjYQukCS5mnBnRL4j3OLZNPs
+ WhPS/3CPsa5kv2+9bLhyfM6NTe/q72rWKP4C0sdWlPN7IBhvSRLulaz6dcocIRxuUo
+ eAqIL4j3ItS4Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
 	chenhuacai@kernel.org
-Date: Sat, 28 Feb 2026 20:45:29 -0500
-Message-ID: <20260301014529.1708098-1-sashal@kernel.org>
+Date: Sat, 28 Feb 2026 20:53:47 -0500
+Message-ID: <20260301015348.1720657-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
@@ -47,7 +47,7 @@ Cc: netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Huacai Chen <chenhuacai@loongson.cn>
 Subject: [Linux-stm32] FAILED: Patch "net: stmmac: dwmac-loongson: Set
-	clk_csr_i to 100-150MHz" failed to apply to 6.1-stable tree
+	clk_csr_i to 100-150MHz" failed to apply to 5.15-stable tree
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,11 +96,11 @@ X-Spamd-Result: default: False [4.29 / 15.00];
 	RCPT_COUNT_SEVEN(0.00)[8];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[loongson.cn:email,msgid.link:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 5F3701CB95F
+	DBL_BLOCKED_OPENRESOLVER(0.00)[loongson.cn:email,msgid.link:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: EE9841CC2BD
 X-Rspamd-Action: no action
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
