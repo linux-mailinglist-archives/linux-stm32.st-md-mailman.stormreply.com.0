@@ -2,93 +2,184 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id DQXPKeZIpGmMcgUAu9opvQ
+	id oN44JWxJpGmMcgUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 15:10:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 15:13:00 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 337731D023C
-	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 15:10:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4162B1D025C
+	for <lists+linux-stm32@lfdr.de>; Sun, 01 Mar 2026 15:13:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8A103C8F269;
-	Sun,  1 Mar 2026 14:10:45 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EAA3AC8F269;
+	Sun,  1 Mar 2026 14:12:59 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2DB2DC030D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EECDAC030D6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  1 Mar 2026 14:10:44 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-48378e60742so4448555e9.1
+ Sun,  1 Mar 2026 14:12:57 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6215uS1V1623667
+ for <linux-stm32@st-md-mailman.stormreply.com>; Sun, 1 Mar 2026 14:12:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 8UcRkJBE0jtBQFdXiHKQOxpQDNuNb8Xo48NuOCyPK4M=; b=gzhR1CEsiPToMS+t
+ ALjjry+gPfH0t08cE7CUFbacxuSiL8FKdtA8sApdCKEGAhGmnGGC7dfx7IWnDXT0
+ 77BiLxg8g4CIx2EwHSoCENgozLzcq6jp/FZ6b6jlHRpeDBQ5wtjbubdWNzcSZJqj
+ 3BP4434qzk69CU3NoKPA0d9B8s1FbYlQLEFpx8X9zbs+pZWCOGiKcapjCvs/albq
+ j/zQ5vyU8gEAnm6IARyFMhxOsEgBoYF4FJ31hz+UTI7OiD/IsKizSRMNUpSQCN07
+ OpLkoNc6hgI3SSYq5F1pV64NQZqLS/WUizbnl9VIHJCgeIW4hZ0vkOdp5ou6nzja
+ 3pCsJg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cksfytqp8-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 01 Mar 2026 06:10:44 -0800 (PST)
+ Sun, 01 Mar 2026 14:12:56 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id
+ af79cd13be357-8cb4817f3c8so2761384685a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 01 Mar 2026 06:12:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772374243; x=1772979043;
+ d=oss.qualcomm.com; s=google; t=1772374376; x=1772979176;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=TVGLTQN8MHuJLb/cmqvoQTI+Y7O1OTfTNxTJJccPmrI=;
- b=TUCpn9ULaT1cG1ZYRHKJjKdwOH7KdQR2MGzUPZ0iRO5ehGBuDbJhjXnmUFF/uf/zIW
- Z0833Hrrv6mvoqUU1WTs+xTRf2Rh5JYZEgcVYfR6Nb7nXUoS4xrwhgjagI9F7Li6HeM0
- O9rm9Ur3U6wZwnzio4LYKZlK8OGWZhS6hjalwUC8CEwI9fF6sByy+E8pR0Pgb1pdjb7t
- 625ro5x5xTVJewe1pcMppYA8gCc12PSg49+ofLpcCEE7LreAAdOi0APUDmZvBAXziHZG
- PM+5hWdTv1SRZzaFSldADwShgmmmcX5DnlCF57ZakOxoBgIxoexcomd8zXhpv28TiBQ5
- /Ulw==
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:from:to:cc:subject:date:message-id:reply-to;
+ bh=8UcRkJBE0jtBQFdXiHKQOxpQDNuNb8Xo48NuOCyPK4M=;
+ b=epJSu1OB2DaH91Bd94n3HFwAZmaFvBSzeDYkxDry6tfSZLhs8KUuQx/MAtQTVD4ErR
+ X3665N8BW4YfofwMuMIZeTWgj/VaoKJzKYklMIaLtHX8cdHGJpqYJoa8PsXwigZH1Tn3
+ B9a0AhO0Vewusgpb7qg/9MQIy+qnMGJQf5BGa87vD3SdufGIyBCrS4mbNEm4PRkPHHkf
+ 1pTxI7G3TV3R+3es4mQzfQ0sE60oWey+oIIXTNJM92DlgA4xyrtkMDTyNtlwsOLmFPRr
+ +BAfr/br+Nf8R8/ZjyQJT/MuWJvf/sxrDmDdKCRlLRiILRN+Pc3SRjUuadiVN+/pfeiI
+ c+lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772374243; x=1772979043;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=TVGLTQN8MHuJLb/cmqvoQTI+Y7O1OTfTNxTJJccPmrI=;
- b=XdB38rm22LyNG6WPZxcpjpkk1D+3Ps9JvqZbJSCOXA0VJyzb0wwGh3qaSm1C1PYTer
- IoWxpQc5lc7pLBoS0jM8zA0sKwFUJ8aS/FcNFieci3toqh1xLKK/GuZGAjf5K56IoITu
- zkgUjJwYuUf5Pvy5L4y/OkJKOzxros8nGsKRvBE3T/ehuMYdmr+Pifv8yP4xHWh3pA6z
- WJpS+owUp5mFwwHnEo6G0Y9fAHjS4vyS0hyFZCLwJUSnpusmXvWDOtDAZqSB9Btx81ur
- Isr6Xh4yczauYIwKH0LgdyyktY8/lD/8nytghXbxjq3H57puN/jqTHIIEtj8tz64icjG
- ym/w==
+ d=1e100.net; s=20230601; t=1772374376; x=1772979176;
+ h=content-transfer-encoding:in-reply-to:autocrypt:content-language
+ :from:references:cc:to:subject:user-agent:mime-version:date
+ :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=8UcRkJBE0jtBQFdXiHKQOxpQDNuNb8Xo48NuOCyPK4M=;
+ b=OF9liDfycfOvyHOdH3hoGVd7Ffl4NV6cMXZy+1ZSBPpPHhQeWSXwH/h2j47DCDA6qu
+ LqU1hrrbstY2XVN06HZRZMWR/U4DoU7Nv6oi5pZqdsD6SLBrppG5xrn7huxML0sTppnD
+ uylUFqYw6f11GohXVUMJ9mn7KB66lXDWNuXNs231HlQcB3r86l9eoTGK69kUWiBVxOsc
+ Eihjq6ncgtopwcOUlkTeiOjiVqWnsUWxPaYpXsJcaKBds4sTRwj8nVeiNAN09qUa9jiQ
+ YQr6HGC8dexC2iYJS+apMTFUvipgLV5Y1Z4uZA6dHfM6x8by02fDZfBxldGGhpK/BIAk
+ uFOQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCW1aPDBB5k696AAzXZbxVXBzBKe7OWGNqPQ7dUwYLtg+CveU/pknC3rV3QuVZION5Oc2ZdXtxYVTevZIw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzNuu/lp/MWiHsRf7swtY2O7KdLxNKH8XLBOtuk0sKb3sX4qUFD
- /CfYuZpbzATV1aXu9WzAhYOvwrGDE8wtIB1aV0zyHl25Adz45ko2rvzL
-X-Gm-Gg: ATEYQzyHhmHyMORSQ0kQe47jW4qXdmDiNd27/PwYTctHPy35r275uNZ+hurbIXdskkB
- pql70fWf4x1l9+Yfx4r2+s4C2k/uc26otBmYJc+5DuB6e49ihtZDgrflfiB/FQyzVHrLTZ54REL
- A5hm8ylYxe114qOUyfkM+TlAEc3Z7YK1VdyjGGvKB7xtym5+rKLlGbp/LbGA/1K4Ij3Mke9fFFf
- ueT/62P6C4j8zPnsu8vlKcWq5IWnrLTcNGWvfCD/0reJKiK96uU6TakMN0cAyGXYXQ0QHoJjTDy
- q7RO70HrVb+pmkVgQBU9SggR6zCGvV3pzRU/yRWDVE3SdT7XUMBC4HN0p8upN0bQjWykDZdVn8Q
- gHqfGsEj3MFZvoueXy26+tyHpPtgl+28NwbFYoFyx6oB8F1smOVjvZ+ci+Ple9XPzE7QOCk0l0Y
- J/tWifZ4p4jMBy1JDdp1g=
-X-Received: by 2002:a05:600c:4e8a:b0:483:887:6e32 with SMTP id
- 5b1f17b1804b1-483c9bd9eaemr93243805e9.8.1772374243073; 
- Sun, 01 Mar 2026 06:10:43 -0800 (PST)
-Received: from skbuf ([2a02:2f04:d608:3a00:8f4c:42a4:aebb:ef65])
+ AJvYcCUlfYdnCiBtNXTep7duQAaUTIXC5TTAU74kUWiYHPU5xvzcAFQy4F30LXcKH8Ktwi85R5JNweKoNAkquQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx+c8YQTN8qrjLl27sNZEkgrV7dz0maOsr8GsTyrG1tq7xL9n4L
+ qL1nzeQyCgSlXCNTp30A+KmppIt3eg5gpcBj/eS/J6idT29ViQHaMprge69iQXt0MZhJkiOrkP7
+ i2DvQny/IB58pR+0j0fmOLaM2He+S+T1Glep1WP2KW5ptvuiJfeX+86rBgB+vMDmYa8SChyymfK
+ qXYwA/vQk=
+X-Gm-Gg: ATEYQzxm8QJHwrWgbE8lNBXkUfAppI0CKCa3X2+O0TkhaN8NP/gjr628TT1/ZV38Hhs
+ MknOQosDNRd4W/z7pNMRz+T8tRKVhi4UU8S23NUgUdNcxG8lkPdCsqGcadKezHR7C39MysyOku8
+ ILq48E2XxuY1z282xUqOEQlXIyHkCz7fwPWq3j4bYdm3IozHmyL6g7X7gwQoc7TN5b9+/JbrRxO
+ ZhLaWcjbjkhjdWDkwX91yuXLpoBBxMKrHlkXwptwgToZ8BcWTAFzRpE7/1xD/SkHBULmQbYTjGI
+ nLTYcyFDwKAvCfvXGgF5LJGoPXU2IVUS9u5A+I7IFCDjST56a2nnbSJvWkmwjqQIPjSeGyB6Beq
+ 5oX8W3JXAMdg1kcgS4s8uime8FADBB+IDegoPQIPkvwBTVtRW
+X-Received: by 2002:a05:620a:f14:b0:8cb:5477:5278 with SMTP id
+ af79cd13be357-8cbc8d70ed3mr1178938385a.7.1772374375852; 
+ Sun, 01 Mar 2026 06:12:55 -0800 (PST)
+X-Received: by 2002:a05:620a:f14:b0:8cb:5477:5278 with SMTP id
+ af79cd13be357-8cbc8d70ed3mr1178933885a.7.1772374375359; 
+ Sun, 01 Mar 2026 06:12:55 -0800 (PST)
+Received: from [192.168.1.29] ([178.197.219.94])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-483bfb77abdsm107413555e9.2.2026.03.01.06.10.40
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 01 Mar 2026 06:10:42 -0800 (PST)
-Date: Sun, 1 Mar 2026 16:10:39 +0200
-From: Vladimir Oltean <olteanv@gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20260301141039.muzcrt6cynilvpei@skbuf>
-References: <aaDSJAc-x2-klvHJ@shell.armlinux.org.uk>
- <aaIysVxy-WxbiJz9@shell.armlinux.org.uk>
- <20260227165556.5cf9e844@kernel.org>
- <20260228083111.5df8550c@kernel.org>
- <20260301001453.lpd2rawy7bqxyivp@skbuf>
- <aaRCN7zbX6FjUtQ_@shell.armlinux.org.uk>
+ ffacd0b85a97d-439b55df68dsm2509164f8f.26.2026.03.01.06.12.53
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Sun, 01 Mar 2026 06:12:53 -0800 (PST)
+Message-ID: <767cafff-1ce1-4291-bcda-7a9027efc32b@oss.qualcomm.com>
+Date: Sun, 1 Mar 2026 15:12:52 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aaRCN7zbX6FjUtQ_@shell.armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Vinod Koul <vkoul@kernel.org>,
- netdev@vger.kernel.org, linux-phy@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RESEND2 net-next 0/8] net: stmmac:
- qcom-ethqos: further serdes reorganisation
+User-Agent: Mozilla Thunderbird
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Gatien Chevallier <gatien.chevallier@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260105143657.383621-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260105143657.383621-6-krzysztof.kozlowski@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+Autocrypt: addr=krzysztof.kozlowski@oss.qualcomm.com; keydata=
+ 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
+ cwzYbmi/Et7T2+47PN9NZAOyb771QoVr8A==
+In-Reply-To: <20260105143657.383621-6-krzysztof.kozlowski@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzAxMDEyOSBTYWx0ZWRfXyUJLZWFWTX67
+ GnBYNDNV7Zwg1bgooJucFa9RIZlwvFfiN3tfUJc0JNM1DfnU3pLd/fOMeehcLj39/fMdEOPhr0A
+ f5BWsDgkjLmm0LShTwRY63GQ8eCqoCCresXtDGHOYpL1GWyFB9U8YxzEsNfqrfKQX8lz4WaDWg+
+ HY68HDbMiyzt7cNnetZmdpI8xWjX5Ctax8roMpBHOU/ofqXn3I5s2Z+g5fv6dzxCj7YTV2aFLX0
+ QVTyqgUu7dmjJW0QUyqCVQ2SHCQ46fBCkjnCOKgm9wJp6h3nvg5hyqsjoZBGQ7bgLBijTbuWkZc
+ SZe3yEnmKn8jXstQ2KlW6cpeSHjLPIPizEtADqMr3I/HTQnKFFvUACbwlWcHokCB1jCbw5mWBXq
+ QswZkYflrDdh8QNUOd8/CLoh3lzbiVoVAvsN5UZojg1FWrQ3XLrWXuDMqQnwONeZ65hgsB0fAeR
+ QzU3D9dtlIhvcokreYQ==
+X-Authority-Analysis: v=2.4 cv=avS/yCZV c=1 sm=1 tr=0 ts=69a44968 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=i0EeH86SAAAA:8 a=EUspDBNiAAAA:8 a=55d_-0XgqAmJSplXZjMA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: pSOEHRP2dY3orNCtAbzLwWiilBJ1jdpB
+X-Proofpoint-ORIG-GUID: pSOEHRP2dY3orNCtAbzLwWiilBJ1jdpB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1121,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-01_02,2026-02-27_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 impostorscore=0 clxscore=1015 suspectscore=0
+ phishscore=0 malwarescore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2602130000 definitions=main-2603010129
+Cc: Jonathan Cameron <jonathan.cameron@huawei.com>
+Subject: Re: [Linux-stm32] [PATCH v2 3/3] bus: stm32_firewall: Use scoped
+ allocation to simplify cleanup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,104 +196,63 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.89 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[olteanv@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:konradybcio@kernel.org,m:gatien.chevallier@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:jonathan.cameron@huawei.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[kernel.org,foss.st.com,gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[olteanv@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	NEURAL_HAM(-0.00)[-0.986];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.808];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 337731D023C
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,huawei.com:email,oss.qualcomm.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 4162B1D025C
 X-Rspamd-Action: no action
 
-On Sun, Mar 01, 2026 at 01:42:15PM +0000, Russell King (Oracle) wrote:
-> On Sun, Mar 01, 2026 at 02:14:53AM +0200, Vladimir Oltean wrote:
-> > On Sat, Feb 28, 2026 at 08:31:11AM -0800, Jakub Kicinski wrote:
-> > > On Fri, 27 Feb 2026 16:55:56 -0800 Jakub Kicinski wrote:
-> > > > On Sat, 28 Feb 2026 00:11:29 +0000 Russell King (Oracle) wrote:
-> > > > > The AI review for patch 7 says:
-> > > > > 
-> > > > >   This commit fixes a bug but lacks a Fixes: tag. The commit modifies
-> > > > >   behavior introduced in 360000820ae2 ("phy: qcom-sgmii-eth: add
-> > > > >   .set_mode() and .validate() methods") by making phy_power_on() call
-> > > > >   qcom_dwmac_sgmii_phy_calibrate() to restore the previous setup, and by
-> > > > >   making qcom_dwmac_sgmii_phy_set_mode() check if the PHY is powered on
-> > > > >   before attempting calibration.
-> > > > > 
-> > > > >   Should this commit include:
-> > > > > 
-> > > > >   Fixes: 360000820ae2 ("phy: qcom-sgmii-eth: add .set_mode() and .validate() methods")
-> > > > > 
-> > > > > which is _wrong_, this isn't a bug fix.  
-> > > > 
-> > > > Yes, that's what I thought but then I saw the other thread..
-> > > 
-> > > Trying to apply this now but stmmac parts don't apply on Linus's tree,
-> > > and Vinod wants a tag :( What do we do? 
-> > > 
-> > > Could you, perhaps, send us a PR with this on top of Linus's tree 
-> > > (a resolution of the inevitable conflict with net-next would be helpful
-> > > too).
-> > > 
-> > > Or do we give up on the tag?
-> > 
-> > Actually, I think it's mainly me who wants a stable tag. I'm working on
-> > a series for phy-next which will conflict with this hunk from Russell's
-> > patch 1:
+On 05/01/2026 15:37, Krzysztof Kozlowski wrote:
+> Allocate the memory with scoped/cleanup.h to reduce error handling and
+> make the code a bit simpler.
 > 
-> Is this because of the issues I raised with the quality of generic PHY
-> API implementation by drivers?
+> Suggested-by: Jonathan Cameron <jonathan.cameron@huawei.com>
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> 
+> ---
+> 
+> Changes in v2:
+> 1. New patch
+> ---
+>  drivers/bus/stm32_firewall.c | 10 +++-------
+>  1 file changed, 3 insertions(+), 7 deletions(-)
 
-I don't think the issue you are referring to is so much a "quality" one
-as it is a "lack of requirements" one, but to answer - not necessarily.
-Eventually I'll get to Ethernet Generic PHY interop too, but I saw as
-first actionable step to clearly delineate what is PHY provider API from
-what is PHY consumer API, in an attempt to stop PHY consumers from
-poking inside struct phy.
+Is anyone picking up patches for stm32?
 
-To improve the interop situation, apart from patching drivers, I plan to
-introduce a new CONFIG_GENERIC_PHY_EXPERIMENTAL (meaning: enable for
-development, don't enable for production, but drivers required to work
-with EXPERIMENTAL turned on) which would make a few changes:
-- make the .validate() function pointer be a required dependency for
-  .set_mode().
-- call .validate() before calling .set_mode(), and reject the call if
-  the mode and submode don't pass validation
-- swap the power state before calling .set_mode(), and restore it
-  afterwards
-
-Some of these changes do need that consumer/provider API separation I
-was talking about. For example, consumers should not look at the power
-count of the PHY (some of them currently do; not to mention they do this
-without proper locking). They should only concern themselves with
-whether *they* powered the PHY up themselves.
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
