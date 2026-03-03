@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2Da1CRYEp2k7bgAAu9opvQ
+	id eCtbOBwEp2k7bgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:53:58 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:54:04 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFE341F300D
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:53:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C25781F301B
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:54:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FAEFC87ECC;
-	Tue,  3 Mar 2026 15:53:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4D3A5C87ECC;
+	Tue,  3 Mar 2026 15:54:04 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7770EC35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF76CC35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Mar 2026 15:53:56 +0000 (UTC)
+ Tue,  3 Mar 2026 15:54:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=OJh8hAy/mOvGQt4zsW9QO+uqjQ+XaYHVoY+73LaiOTU=; b=MWvqjiRrXx6SfgL2FhFZrsu7X9
- IB990L/AgZvQ2k2dZrgqv3vows+tSxPJxaNa0W5/66jENuC63LZad/LhP2qUdp5Jk/6d7xM/0TItt
- Y/nFMNzLktdxbgCRoI1+l2H4topRllFPCVRPDrOrnjRLp2rimqkQWFTg5KIGN4+pvoJ8HtJnRarR1
- HsPH+FczGuml7pXmC2odAejFq5ovsAvp/IePxPyVGPsXDGwrK81tcWckmOPA/mQea+ins8z0Eioyj
- m7UnTuGQmCDGqoEuAfb4XvdL3+OdRRkmZrESJpx2yhKJypSF5PdpI7mJZaNaEbT3A/6TRSK9dgbyX
- azZGdYpw==;
+ bh=vGxH1zTylZxEWYPMbnGu/eQ+Bo/XEkoQUV+6DeqrVCA=; b=xVW8LgC1eBuulvVBqY/TlKqYDH
+ DZk/UoB920/UpPeojI+tmYkbt3fMdZvCIxTvfvOwojSl0oiuCk0e4TI+rp0FFlc6tnA7YvXUXoqeK
+ 8xftsVqOIz7BAkXYvWH8id3UI7QJ+jVDMVtB1PQuDuDNX+mL8xyghrhhUgKs0wRxSMX9jLS8t+rRt
+ N0mTMFwoKZSZAqCwfaf3foTgdgbPHZKWc79nsv8v6QZQlzPuhox4DtzucYgh53fPHEAaGdWYy21MS
+ 3oR2ObgjKvYPdz/v4AX8eiG1nvHOd5QV9v7v1YZNNI+PwG/wVhBXDgMFR7W0SO7FvZZIbkct2s0U6
+ DSq3MzCQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48804 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51998 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vxS4B-000000005K6-0Ohn;
- Tue, 03 Mar 2026 15:53:47 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vxS4H-000000005KR-2XPN;
+ Tue, 03 Mar 2026 15:53:53 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vxS49-0000000BQXa-3Zcg; Tue, 03 Mar 2026 15:53:45 +0000
+ id 1vxS4E-0000000BQXg-46dJ; Tue, 03 Mar 2026 15:53:51 +0000
 In-Reply-To: <aacD3osfaZkLsGxm@shell.armlinux.org.uk>
 References: <aacD3osfaZkLsGxm@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vxS49-0000000BQXa-3Zcg@rmk-PC.armlinux.org.uk>
-Date: Tue, 03 Mar 2026 15:53:45 +0000
+Message-Id: <E1vxS4E-0000000BQXg-46dJ@rmk-PC.armlinux.org.uk>
+Date: Tue, 03 Mar 2026 15:53:50 +0000
 Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -54,8 +54,8 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  netdev@vger.kernel.org, linux-phy@lists.infradead.org,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 3/7] phy: qcom-sgmii-eth: remove
- .set_speed() implementation
+Subject: [Linux-stm32] [PATCH net-next v2 4/7] phy: qcom-sgmii-eth: use PHY
+ interface mode for SerDes settings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,7 +71,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: BFE341F300D
+X-Rspamd-Queue-Id: C25781F301B
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -96,7 +96,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.633];
+	NEURAL_HAM(-0.00)[-0.650];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -107,58 +107,125 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,nxp.com:email,rmk-PC.armlinux.org.uk:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,stormreply.com:url,stormreply.com:email,nxp.com:email,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email]
 X-Rspamd-Action: no action
 
-Now that the qcom-ethqos driver has migrated to use phy_set_mode_ext()
-rather than phy_set_speed() to configure the SerDes, the support for
-phy_set_speed() is now obsolete. Remove support for this method.
+As established in the previous commit, using SPEED_1000 and SPEED_2500
+does not make sense for a SerDes due to the PCS encoding that is used
+over the SerDes link, which inflates the data rate at the SerDes. Thus,
+the use of these constants in a SerDes driver is incorrect.
 
-Using the MAC speed for the SerDes is never correct due to the PCS
-encoding. For SGMII and 2500BASE-X, the PCS uses 8B10B encoding, and
-so:
-
-  MAC rate * PCS output bits / PCS input bits = SerDes rate
-   1000M   *       10        /       8        = 1250M
-   2500M   *       10        /       8        = 3125M
+Since qcom-sgmii-eth no longer implements phy_set_speed(), but instead
+uses the PHY interface mode passed via the .set_mode() method, convert
+the driver to use the PHY interface mode internally to decide whether
+to configure the SerDes for 1.25Gbps or 3.125Gbps mode.
 
 Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 Acked-by: Vinod Koul <vkoul@kernel.org>
 Reviewed-by: Vladimir Oltean <vladimir.oltean@nxp.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/phy/qualcomm/phy-qcom-sgmii-eth.c | 11 -----------
- 1 file changed, 11 deletions(-)
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c | 41 ++++++++++++-----------
+ 1 file changed, 21 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-index 4ea3dce7719f..dcfdb7d0e8ea 100644
+index dcfdb7d0e8ea..58ff15601206 100644
 --- a/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
 +++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth.c
-@@ -318,16 +318,6 @@ static int qcom_dwmac_sgmii_phy_set_mode(struct phy *phy, enum phy_mode mode,
- 	return qcom_dwmac_sgmii_phy_calibrate(phy);
+@@ -29,7 +29,7 @@
+ struct qcom_dwmac_sgmii_phy_data {
+ 	struct regmap *regmap;
+ 	struct clk *refclk;
+-	int speed;
++	phy_interface_t interface;
+ };
+ 
+ static void qcom_dwmac_sgmii_phy_init_1g(struct regmap *regmap)
+@@ -223,15 +223,18 @@ static int qcom_dwmac_sgmii_phy_calibrate(struct phy *phy)
+ 	struct qcom_dwmac_sgmii_phy_data *data = phy_get_drvdata(phy);
+ 	struct device *dev = phy->dev.parent;
+ 
+-	switch (data->speed) {
+-	case SPEED_10:
+-	case SPEED_100:
+-	case SPEED_1000:
++	switch (data->interface) {
++	case PHY_INTERFACE_MODE_SGMII:
++	case PHY_INTERFACE_MODE_1000BASEX:
++		/* 1.25Gbps mode */
+ 		qcom_dwmac_sgmii_phy_init_1g(data->regmap);
+ 		break;
+-	case SPEED_2500:
++	case PHY_INTERFACE_MODE_2500BASEX:
++		/* 3.125Gbps mode */
+ 		qcom_dwmac_sgmii_phy_init_2p5g(data->regmap);
+ 		break;
++	default:
++		return -EINVAL;
+ 	}
+ 
+ 	if (qcom_dwmac_sgmii_phy_poll_status(data->regmap,
+@@ -287,17 +290,15 @@ static int qcom_dwmac_sgmii_phy_power_off(struct phy *phy)
+ 	return 0;
  }
  
--static int qcom_dwmac_sgmii_phy_set_speed(struct phy *phy, int speed)
--{
--	struct qcom_dwmac_sgmii_phy_data *data = phy_get_drvdata(phy);
+-static int qcom_dwmac_sgmii_phy_speed(enum phy_mode mode, int submode)
++static int qcom_dwmac_sgmii_phy_interface(enum phy_mode mode, int submode)
+ {
+ 	if (mode != PHY_MODE_ETHERNET)
+ 		return -EINVAL;
+ 
+ 	if (submode == PHY_INTERFACE_MODE_SGMII ||
+-	    submode == PHY_INTERFACE_MODE_1000BASEX)
+-		return SPEED_1000;
 -
+-	if (submode == PHY_INTERFACE_MODE_2500BASEX)
+-		return SPEED_2500;
++	    submode == PHY_INTERFACE_MODE_1000BASEX ||
++	    submode == PHY_INTERFACE_MODE_2500BASEX)
++		return submode;
+ 
+ 	return -EINVAL;
+ }
+@@ -306,14 +307,14 @@ static int qcom_dwmac_sgmii_phy_set_mode(struct phy *phy, enum phy_mode mode,
+ 					 int submode)
+ {
+ 	struct qcom_dwmac_sgmii_phy_data *data = phy_get_drvdata(phy);
+-	int speed;
++	int interface;
+ 
+-	speed = qcom_dwmac_sgmii_phy_speed(mode, submode);
+-	if (speed < 0)
+-		return speed;
++	interface = qcom_dwmac_sgmii_phy_interface(mode, submode);
++	if (interface < 0)
++		return interface;
+ 
 -	if (speed != data->speed)
 -		data->speed = speed;
--
--	return qcom_dwmac_sgmii_phy_calibrate(phy);
--}
--
- static int qcom_dwmac_sgmii_phy_validate(struct phy *phy, enum phy_mode mode,
++	if (interface != data->interface)
++		data->interface = interface;
+ 
+ 	return qcom_dwmac_sgmii_phy_calibrate(phy);
+ }
+@@ -322,7 +323,7 @@ static int qcom_dwmac_sgmii_phy_validate(struct phy *phy, enum phy_mode mode,
  					 int submode,
  					 union phy_configure_opts *opts)
-@@ -341,7 +331,6 @@ static const struct phy_ops qcom_dwmac_sgmii_phy_ops = {
- 	.power_on	= qcom_dwmac_sgmii_phy_power_on,
- 	.power_off	= qcom_dwmac_sgmii_phy_power_off,
- 	.set_mode	= qcom_dwmac_sgmii_phy_set_mode,
--	.set_speed	= qcom_dwmac_sgmii_phy_set_speed,
- 	.validate	= qcom_dwmac_sgmii_phy_validate,
- 	.calibrate	= qcom_dwmac_sgmii_phy_calibrate,
- 	.owner		= THIS_MODULE,
+ {
+-	int ret = qcom_dwmac_sgmii_phy_speed(mode, submode);
++	int ret = qcom_dwmac_sgmii_phy_interface(mode, submode);
+ 
+ 	return ret < 0 ? ret : 0;
+ }
+@@ -356,7 +357,7 @@ static int qcom_dwmac_sgmii_phy_probe(struct platform_device *pdev)
+ 	if (!data)
+ 		return -ENOMEM;
+ 
+-	data->speed = SPEED_10;
++	data->interface = PHY_INTERFACE_MODE_SGMII;
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
 -- 
 2.47.3
 
