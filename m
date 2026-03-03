@@ -2,28 +2,28 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OHFaJDP3pmmgawAAu9opvQ
+	id YDxLIjr3pmmgawAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:58:59 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:59:06 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F4591F1E82
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:58:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4BC681F1E89
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:59:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 036D1C87ECC;
-	Tue,  3 Mar 2026 14:58:59 +0000 (UTC)
-Received: from relmlie5.idc.renesas.com (relmlor1.renesas.com
- [210.160.252.171])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55D65C87EC3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10D67C87ECC;
+	Tue,  3 Mar 2026 14:59:06 +0000 (UTC)
+Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
+ [210.160.252.172])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A91DC87EC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Mar 2026 14:58:57 +0000 (UTC)
-X-CSE-ConnectionGUID: KDc5Hfc0Sse6lgeiaEJN8w==
-X-CSE-MsgGUID: XJTvLmIRTNek0bFMqTUZOQ==
+ Tue,  3 Mar 2026 14:59:03 +0000 (UTC)
+X-CSE-ConnectionGUID: u7EqF9WKTXKRYtkXA6aSNg==
+X-CSE-MsgGUID: PBIVzJ5sQzuJRrMv6FCszg==
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie5.idc.renesas.com with ESMTP; 03 Mar 2026 23:58:56 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 03 Mar 2026 23:59:02 +0900
 Received: from vm01.adwin.renesas.com (unknown [10.226.92.15])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id 00848400D0EA;
- Tue,  3 Mar 2026 23:58:49 +0900 (JST)
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id ABA92401006A;
+ Tue,  3 Mar 2026 23:58:56 +0900 (JST)
 From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
@@ -32,16 +32,16 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  boon.khai.ng@altera.com, rohan.g.thomas@altera.com,
  vladimir.oltean@nxp.com, hayashi.kunihiko@socionext.com,
  boon.leong.ong@intel.com, kim.tatt.chuah@intel.com
-Date: Tue,  3 Mar 2026 14:58:27 +0000
-Message-ID: <20260303145828.7845-4-ovidiu.panait.rb@renesas.com>
+Date: Tue,  3 Mar 2026 14:58:28 +0000
+Message-ID: <20260303145828.7845-5-ovidiu.panait.rb@renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260303145828.7845-1-ovidiu.panait.rb@renesas.com>
 References: <20260303145828.7845-1-ovidiu.panait.rb@renesas.com>
 MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net v3 3/4] net: stmmac: Fix VLAN HW state
-	restore
+Subject: [Linux-stm32] [PATCH net v3 4/4] net: stmmac: Defer VLAN HW
+	configuration when interface is down
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,7 +57,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 3F4591F1E82
+X-Rspamd-Queue-Id: 4BC681F1E89
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -87,125 +87,156 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.849];
+	NEURAL_HAM(-0.00)[-0.843];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,renesas.com:mid,renesas.com:email,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,renesas.com:mid,renesas.com:email,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Action: no action
 
-When the network interface is opened or resumed, a DMA reset is performed,
-which resets all hardware state, including VLAN state. Currently, only
-the resume path is restoring the VLAN state via
-stmmac_restore_hw_vlan_rx_fltr(), but that is incomplete: the VLAN hash
-table and the VLAN_TAG control bits are not restored.
+VLAN register accesses on the MAC side require the PHY RX clock to be
+active. When the network interface is down, the PHY is suspended and
+the RX clock is unavailable, causing VLAN operations to fail with
+timeouts.
 
-Therefore, add stmmac_vlan_restore(), which restores the full VLAN
-state by updating both the HW filter entries and the hash table, and
-call it from both the open and resume paths.
+The VLAN core automatically removes VID 0 after the interface goes down
+and re-adds it when it comes back up, so these timeouts happen during
+normal interface down/up:
 
-The VLAN restore is moved outside of phylink_rx_clk_stop_block/unblock
-in the resume path because receive clock stop is already disabled when
-stmmac supports VLAN.
+    # ip link set end1 down
+    renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
+    renesas-gbeth 15c40000.ethernet end1: failed to kill vid 0081/0
 
-Also, remove the hash readback code in vlan_restore_hw_rx_fltr() that
-attempts to restore VTHM by reading VLAN_HASH_TABLE, as it always reads
-zero after DMA reset, making it dead code.
+Adding VLANs while the interface is down also fails:
 
-Fixes: 3cd1cfcba26e ("net: stmmac: Implement VLAN Hash Filtering in XGMAC")
+    # ip link add link end1 name end1.10 type vlan id 10
+    renesas-gbeth 15c40000.ethernet end1: Timeout accessing MAC_VLAN_Tag_Filter
+    RTNETLINK answers: Device or resource busy
+
+To fix this, check if the interface is up before accessing VLAN registers.
+The software state is always kept up to date regardless of interface state.
+
+When the interface is brought up, stmmac_vlan_restore() is called
+to write the VLAN state to hardware.
+
 Fixes: ed64639bc1e0 ("net: stmmac: Add support for VLAN Rx filtering")
 Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 ---
-v3 changes: none.
+v3 changes:
+- Dropped the 'write_hw' approach to avoid passing attributes around.
+  Instead, netif_running() checks were added directly on the VLAN paths.
 
-v2 changes: new patch.
+v2 changes:
+- Split this commit - added a new commit (3/5) which fixes VLAN
+  restore on resume and open paths.
+- Dropped phylink_rx_clk_stop_block()/unblock() calls around VLAN restore.
 
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 24 +++++++++++++++++--
- .../net/ethernet/stmicro/stmmac/stmmac_vlan.c | 10 --------
- 2 files changed, 22 insertions(+), 12 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  3 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_vlan.c | 42 ++++++++++---------
+ 2 files changed, 26 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 2365b12fbe05..a8fb091d7b5d 100644
+index a8fb091d7b5d..536d513bdad5 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -157,6 +157,7 @@ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue);
- static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int queue);
- static void stmmac_set_dma_operation_mode(struct stmmac_priv *priv, u32 txmode,
- 					  u32 rxmode, u32 chan);
-+static int stmmac_vlan_restore(struct stmmac_priv *priv);
+@@ -6774,6 +6774,9 @@ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+ 		hash = 0;
+ 	}
  
- #ifdef CONFIG_DEBUG_FS
- static const struct net_device_ops stmmac_netdev_ops;
-@@ -4111,6 +4112,8 @@ static int __stmmac_open(struct net_device *dev,
- 
- 	phylink_start(priv->phylink);
- 
-+	stmmac_vlan_restore(priv);
-+
- 	ret = stmmac_request_irq(dev);
- 	if (ret)
- 		goto irq_error;
-@@ -6858,6 +6861,23 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
- 	return ret;
- }
- 
-+static int stmmac_vlan_restore(struct stmmac_priv *priv)
-+{
-+	int ret;
-+
-+	if (!(priv->dev->features & NETIF_F_VLAN_FEATURES))
++	if (!netif_running(priv->dev))
 +		return 0;
 +
-+	if (priv->hw->num_vlan)
-+		stmmac_restore_hw_vlan_rx_fltr(priv, priv->dev, priv->hw);
-+
-+	ret = stmmac_vlan_update(priv, priv->num_double_vlans);
-+	if (ret)
-+		netdev_err(priv->dev, "Failed to restore VLANs\n");
-+
-+	return ret;
-+}
-+
- static int stmmac_bpf(struct net_device *dev, struct netdev_bpf *bpf)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-@@ -8282,10 +8302,10 @@ int stmmac_resume(struct device *dev)
- 	stmmac_init_coalesce(priv);
- 	phylink_rx_clk_stop_block(priv->phylink);
- 	stmmac_set_rx_mode(ndev);
--
--	stmmac_restore_hw_vlan_rx_fltr(priv, ndev, priv->hw);
- 	phylink_rx_clk_stop_unblock(priv->phylink);
- 
-+	stmmac_vlan_restore(priv);
-+
- 	stmmac_enable_all_queues(priv);
- 	stmmac_enable_all_dma_irq(priv);
+ 	return stmmac_update_vlan_hash(priv, priv->hw, hash, pmatch, is_double);
+ }
  
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-index de1a70e1c86e..fcc34867405e 100644
+index fcc34867405e..e24efe3bfedb 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
-@@ -139,9 +139,6 @@ static int vlan_del_hw_rx_fltr(struct net_device *dev,
+@@ -76,7 +76,9 @@ static int vlan_add_hw_rx_fltr(struct net_device *dev,
+ 		}
+ 
+ 		hw->vlan_filter[0] = vid;
+-		vlan_write_single(dev, vid);
++
++		if (netif_running(dev))
++			vlan_write_single(dev, vid);
+ 
+ 		return 0;
+ 	}
+@@ -97,12 +99,15 @@ static int vlan_add_hw_rx_fltr(struct net_device *dev,
+ 		return -EPERM;
+ 	}
+ 
+-	ret = vlan_write_filter(dev, hw, index, val);
++	if (netif_running(dev)) {
++		ret = vlan_write_filter(dev, hw, index, val);
++		if (ret)
++			return ret;
++	}
+ 
+-	if (!ret)
+-		hw->vlan_filter[index] = val;
++	hw->vlan_filter[index] = val;
+ 
+-	return ret;
++	return 0;
+ }
+ 
+ static int vlan_del_hw_rx_fltr(struct net_device *dev,
+@@ -115,7 +120,9 @@ static int vlan_del_hw_rx_fltr(struct net_device *dev,
+ 	if (hw->num_vlan == 1) {
+ 		if ((hw->vlan_filter[0] & VLAN_TAG_VID) == vid) {
+ 			hw->vlan_filter[0] = 0;
+-			vlan_write_single(dev, 0);
++
++			if (netif_running(dev))
++				vlan_write_single(dev, 0);
+ 		}
+ 		return 0;
+ 	}
+@@ -124,22 +131,23 @@ static int vlan_del_hw_rx_fltr(struct net_device *dev,
+ 	for (i = 0; i < hw->num_vlan; i++) {
+ 		if ((hw->vlan_filter[i] & VLAN_TAG_DATA_VEN) &&
+ 		    ((hw->vlan_filter[i] & VLAN_TAG_DATA_VID) == vid)) {
+-			ret = vlan_write_filter(dev, hw, i, 0);
+ 
+-			if (!ret)
+-				hw->vlan_filter[i] = 0;
+-			else
+-				return ret;
++			if (netif_running(dev)) {
++				ret = vlan_write_filter(dev, hw, i, 0);
++				if (ret)
++					return ret;
++			}
++
++			hw->vlan_filter[i] = 0;
+ 		}
+ 	}
+ 
+-	return ret;
++	return 0;
+ }
+ 
  static void vlan_restore_hw_rx_fltr(struct net_device *dev,
  				    struct mac_device_info *hw)
  {
--	void __iomem *ioaddr = hw->pcsr;
--	u32 value;
--	u32 hash;
- 	u32 val;
+-	u32 val;
  	int i;
  
-@@ -158,13 +155,6 @@ static void vlan_restore_hw_rx_fltr(struct net_device *dev,
- 			vlan_write_filter(dev, hw, i, val);
- 		}
+ 	/* Single Rx VLAN Filter */
+@@ -149,12 +157,8 @@ static void vlan_restore_hw_rx_fltr(struct net_device *dev,
  	}
--
--	hash = readl(ioaddr + VLAN_HASH_TABLE);
--	if (hash & VLAN_VLHT) {
--		value = readl(ioaddr + VLAN_TAG);
--		value |= VLAN_VTHM;
--		writel(value, ioaddr + VLAN_TAG);
+ 
+ 	/* Extended Rx VLAN Filter Enable */
+-	for (i = 0; i < hw->num_vlan; i++) {
+-		if (hw->vlan_filter[i] & VLAN_TAG_DATA_VEN) {
+-			val = hw->vlan_filter[i];
+-			vlan_write_filter(dev, hw, i, val);
+-		}
 -	}
++	for (i = 0; i < hw->num_vlan; i++)
++		vlan_write_filter(dev, hw, i, hw->vlan_filter[i]);
  }
  
  static void vlan_update_hash(struct mac_device_info *hw, u32 hash,
