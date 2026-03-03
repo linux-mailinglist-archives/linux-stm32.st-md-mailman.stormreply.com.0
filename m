@@ -2,28 +2,28 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QH2KFyb3pmmgawAAu9opvQ
+	id cI8gISv3pmmgawAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:58:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:58:51 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D0561F1E73
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:58:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30AAA1F1E7A
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 15:58:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DB679C87ECC;
-	Tue,  3 Mar 2026 14:58:45 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E96BCC87ECC;
+	Tue,  3 Mar 2026 14:58:50 +0000 (UTC)
 Received: from relmlie6.idc.renesas.com (relmlor2.renesas.com
  [210.160.252.172])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1BA7C87EC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC173C87EC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Mar 2026 14:58:44 +0000 (UTC)
-X-CSE-ConnectionGUID: xtyau20DRIG2bqUR8fVI7w==
-X-CSE-MsgGUID: gLHH6HTlSNiuLaCyurF4XA==
+ Tue,  3 Mar 2026 14:58:49 +0000 (UTC)
+X-CSE-ConnectionGUID: FKUiEAa7QWySMLK+hu3+Ag==
+X-CSE-MsgGUID: 4ltcrwNwQbiL1ECACIVy2w==
 Received: from unknown (HELO relmlir5.idc.renesas.com) ([10.200.68.151])
- by relmlie6.idc.renesas.com with ESMTP; 03 Mar 2026 23:58:42 +0900
+ by relmlie6.idc.renesas.com with ESMTP; 03 Mar 2026 23:58:49 +0900
 Received: from vm01.adwin.renesas.com (unknown [10.226.92.15])
- by relmlir5.idc.renesas.com (Postfix) with ESMTP id A6298400D0EA;
- Tue,  3 Mar 2026 23:58:36 +0900 (JST)
+ by relmlir5.idc.renesas.com (Postfix) with ESMTP id 52014400D0EA;
+ Tue,  3 Mar 2026 23:58:43 +0900 (JST)
 From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
@@ -32,16 +32,16 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  boon.khai.ng@altera.com, rohan.g.thomas@altera.com,
  vladimir.oltean@nxp.com, hayashi.kunihiko@socionext.com,
  boon.leong.ong@intel.com, kim.tatt.chuah@intel.com
-Date: Tue,  3 Mar 2026 14:58:25 +0000
-Message-ID: <20260303145828.7845-2-ovidiu.panait.rb@renesas.com>
+Date: Tue,  3 Mar 2026 14:58:26 +0000
+Message-ID: <20260303145828.7845-3-ovidiu.panait.rb@renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260303145828.7845-1-ovidiu.panait.rb@renesas.com>
 References: <20260303145828.7845-1-ovidiu.panait.rb@renesas.com>
 MIME-Version: 1.0
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH net v3 1/4] net: stmmac: Fix error handling in
-	VLAN add and delete paths
+Subject: [Linux-stm32] [PATCH net v3 2/4] net: stmmac: Improve double VLAN
+	handling
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,7 +57,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 2D0561F1E73
+X-Rspamd-Queue-Id: 30AAA1F1E7A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -87,79 +87,154 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	R_DKIM_NA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.851];
+	NEURAL_HAM(-0.00)[-0.865];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Action: no action
 
-stmmac_vlan_rx_add_vid() updates active_vlans and the VLAN hash
-register before writing the HW filter entry. If the filter write
-fails, it leaves a stale VID in active_vlans and the hash register.
+The double VLAN bits (EDVLP, ESVL, DOVLTC) are handled inconsistently
+between the two vlan_update_hash() implementations:
 
-stmmac_vlan_rx_kill_vid() has the reverse problem: it clears
-active_vlans before removing the HW filter. On failure, the VID is
-gone from active_vlans but still present in the HW filter table.
+- dwxgmac2_update_vlan_hash() explicitly clears the double VLAN bits when
+is_double is false, meaning that adding a 802.1Q VLAN will disable
+double VLAN mode:
 
-To fix this, reorder the operations to update the hash table first,
-then attempt the HW filter operation. If the HW filter fails, roll
-back both the active_vlans bitmap and the hash table by calling
-stmmac_vlan_update() again.
+  $ ip link add link eth0 name eth0.200 type vlan id 200 protocol 802.1ad
+  $ ip link add link eth0 name eth0.100 type vlan id 100
+  # Double VLAN bits no longer set
 
-Fixes: ed64639bc1e0 ("net: stmmac: Add support for VLAN Rx filtering")
+- vlan_update_hash() sets these bits and only clears them when the last
+VLAN has been removed, so double VLAN mode remains enabled even after all
+802.1AD VLANs are removed.
+
+Address both issues by tracking the number of active 802.1AD VLANs in
+priv->num_double_vlans. Pass this count to stmmac_vlan_update() so both
+implementations correctly set the double VLAN bits when any 802.1AD
+VLAN is active, and clear them only when none remain.
+
+Also update vlan_update_hash() to explicitly clear the double VLAN bits
+when is_double is false, matching the dwxgmac2 behavior.
+
 Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
 ---
 v3 changes: none.
 
 v2 changes: none.
 
- .../net/ethernet/stmicro/stmmac/stmmac_main.c  | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h     |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c    | 16 ++++++++++++----
+ .../net/ethernet/stmicro/stmmac/stmmac_vlan.c    |  8 ++++++++
+ 3 files changed, 21 insertions(+), 4 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 51c96a738151..33667a26708c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -323,6 +323,7 @@ struct stmmac_priv {
+ 	void __iomem *ptpaddr;
+ 	void __iomem *estaddr;
+ 	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
++	unsigned int num_double_vlans;
+ 	int sfty_irq;
+ 	int sfty_ce_irq;
+ 	int sfty_ue_irq;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 8772d735c577..d979a3ebd28e 100644
+index d979a3ebd28e..2365b12fbe05 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6799,9 +6799,13 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+@@ -6780,6 +6780,7 @@ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
++	unsigned int num_double_vlans;
+ 	bool is_double = false;
+ 	int ret;
  
- 	if (priv->hw->num_vlan) {
+@@ -6791,7 +6792,8 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ 		is_double = true;
+ 
+ 	set_bit(vid, priv->active_vlans);
+-	ret = stmmac_vlan_update(priv, is_double);
++	num_double_vlans = priv->num_double_vlans + is_double;
++	ret = stmmac_vlan_update(priv, num_double_vlans);
+ 	if (ret) {
+ 		clear_bit(vid, priv->active_vlans);
+ 		goto err_pm_put;
+@@ -6801,11 +6803,13 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
  		ret = stmmac_add_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
--		if (ret)
-+		if (ret) {
-+			clear_bit(vid, priv->active_vlans);
-+			stmmac_vlan_update(priv, is_double);
+ 		if (ret) {
+ 			clear_bit(vid, priv->active_vlans);
+-			stmmac_vlan_update(priv, is_double);
++			stmmac_vlan_update(priv, priv->num_double_vlans);
  			goto err_pm_put;
-+		}
+ 		}
  	}
+ 
++	priv->num_double_vlans = num_double_vlans;
 +
  err_pm_put:
  	pm_runtime_put(priv->device);
  
-@@ -6825,15 +6829,21 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
+@@ -6818,6 +6822,7 @@ static int stmmac_vlan_rx_add_vid(struct net_device *ndev, __be16 proto, u16 vid
+ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vid)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
++	unsigned int num_double_vlans;
+ 	bool is_double = false;
+ 	int ret;
+ 
+@@ -6829,7 +6834,8 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
  		is_double = true;
  
  	clear_bit(vid, priv->active_vlans);
-+	ret = stmmac_vlan_update(priv, is_double);
-+	if (ret) {
-+		set_bit(vid, priv->active_vlans);
-+		goto del_vlan_error;
-+	}
- 
- 	if (priv->hw->num_vlan) {
+-	ret = stmmac_vlan_update(priv, is_double);
++	num_double_vlans = priv->num_double_vlans - is_double;
++	ret = stmmac_vlan_update(priv, num_double_vlans);
+ 	if (ret) {
+ 		set_bit(vid, priv->active_vlans);
+ 		goto del_vlan_error;
+@@ -6839,11 +6845,13 @@ static int stmmac_vlan_rx_kill_vid(struct net_device *ndev, __be16 proto, u16 vi
  		ret = stmmac_del_hw_vlan_rx_fltr(priv, ndev, priv->hw, proto, vid);
--		if (ret)
-+		if (ret) {
-+			set_bit(vid, priv->active_vlans);
-+			stmmac_vlan_update(priv, is_double);
+ 		if (ret) {
+ 			set_bit(vid, priv->active_vlans);
+-			stmmac_vlan_update(priv, is_double);
++			stmmac_vlan_update(priv, priv->num_double_vlans);
  			goto del_vlan_error;
-+		}
+ 		}
  	}
  
--	ret = stmmac_vlan_update(priv, is_double);
--
++	priv->num_double_vlans = num_double_vlans;
++
  del_vlan_error:
  	pm_runtime_put(priv->device);
  
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
+index b18404dd5a8b..de1a70e1c86e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
+@@ -183,6 +183,10 @@ static void vlan_update_hash(struct mac_device_info *hw, u32 hash,
+ 			value |= VLAN_EDVLP;
+ 			value |= VLAN_ESVL;
+ 			value |= VLAN_DOVLTC;
++		} else {
++			value &= ~VLAN_EDVLP;
++			value &= ~VLAN_ESVL;
++			value &= ~VLAN_DOVLTC;
+ 		}
+ 
+ 		writel(value, ioaddr + VLAN_TAG);
+@@ -193,6 +197,10 @@ static void vlan_update_hash(struct mac_device_info *hw, u32 hash,
+ 			value |= VLAN_EDVLP;
+ 			value |= VLAN_ESVL;
+ 			value |= VLAN_DOVLTC;
++		} else {
++			value &= ~VLAN_EDVLP;
++			value &= ~VLAN_ESVL;
++			value &= ~VLAN_DOVLTC;
+ 		}
+ 
+ 		writel(value | perfect_match, ioaddr + VLAN_TAG);
 -- 
 2.51.0
 
