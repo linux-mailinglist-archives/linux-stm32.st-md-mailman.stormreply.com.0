@@ -2,52 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oKsmH635pmk7bgAAu9opvQ
+	id EGd+Be0Dp2k7bgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:09:33 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:53:17 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17A931F2153
-	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:09:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A00801F2FD1
+	for <lists+linux-stm32@lfdr.de>; Tue, 03 Mar 2026 16:53:16 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4A06C87ECC;
-	Tue,  3 Mar 2026 15:09:32 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BBD6C87ECC;
+	Tue,  3 Mar 2026 15:53:16 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52108C87EC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 759FFC35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  3 Mar 2026 15:09:31 +0000 (UTC)
+ Tue,  3 Mar 2026 15:53:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
- :References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description;
- bh=sLOteAlb1KnKUFn91vnOM93Z12m5uOFjMDhUK2pQp74=; b=ec9wJZPOETfaffdcB7XpMYnyGK
- hlm6bcbwHN7kWP8pl3Nvd7urjmB3xujb+NzbMIt2LL48LIsAR6l+Pmugw/+uTG7XeWv+A/kk8QXf7
- 6MpItIm8xbESf6pExqvZu3+msETgeeOWNXV/kdsip36+4t6BkA20g6BKIk2kupwRuQqsZ4S3aASMK
- YArckOaNq1UrtqCl5wxWVWZIn4q8T2ndxWVrMWSiELlueUrO85eWDISVvwRYo37tT51fWQL8dMz1a
- 8LaL/hEN5WG7eWCDIMcBuzcVD8tQ35A8fyNTS5spcj0TwY7Ql+TjGYnpA0MFChDMHVOkSENjVZlZo
- 515Q01xg==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.98.2 #2 (Red
- Hat Linux)) id 1vxRNG-0000000FO6L-3qh5;
- Tue, 03 Mar 2026 15:09:26 +0000
-Date: Tue, 3 Mar 2026 07:09:26 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Joachim Vandersmissen <git@jvdsn.com>
-Message-ID: <aab5ptuamQ7d_tTi@infradead.org>
-References: <20260303060509.246038-1-git@jvdsn.com>
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=m7ytA09r9MSTJPCkDhQCSLuflvhto0YiYFFHJD9HlzE=; b=bUR1CERmx8ojd37QL+5QoXEcmP
+ +YJf6jtXgh/Su3FEbG0rUTDrNGFZ49y4o5nbiEVdteFKfYTbZsfE5jm9gxYoNwiXgl82S974v5nHz
+ F/JqEJY9Iqs65RIaKUMUTXs1T4gT1Wrks66SKEPNOwmY3N6n32WMLS7d+tLhR+xmJjJkWxv6glNLZ
+ TzEGE94sufcM6MnyGi5P5CMU6pqxofJxJ0/mOhTKgJ4umkHiZ815PY9RWFFvz6cm+2TEH3Rg6WjXi
+ 14Kbyw5k8Bh+AQU6nrWcsZ4avY2oiAVp0B7lcqMjb0DX/nMo7Za1U/Pm4uBQoN24c8vCliBqS9Spn
+ 29ty9Y0Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48450)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1vxS3W-000000005JB-1QEp;
+ Tue, 03 Mar 2026 15:53:06 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1vxS3S-0000000073S-31Ko; Tue, 03 Mar 2026 15:53:02 +0000
+Date: Tue, 3 Mar 2026 15:53:02 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <aacD3osfaZkLsGxm@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260303060509.246038-1-git@jvdsn.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] crypto: testmgr - block Crypto API
-	xxhash64 in FIPS mode
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, linux-phy@lists.infradead.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 0/7] net: stmmac: qcom-ethqos:
+ further serdes reorganisation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,62 +69,74 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 17A931F2153
+X-Rspamd-Queue-Id: A00801F2FD1
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[infradead.org:s=bombadil.20210309];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[infradead.org : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:git@jvdsn.com,m:herbert@gondor.apana.org.au,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[hch@infradead.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:neil.armstrong@linaro.org,m:mohd.anwar@oss.qualcomm.com,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[gondor.apana.org.au,vger.kernel.org,davemloft.net,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.508];
+	NEURAL_HAM(-0.00)[-0.630];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[hch@infradead.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[infradead.org:-];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[infradead.org:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
-On Tue, Mar 03, 2026 at 12:05:09AM -0600, Joachim Vandersmissen wrote:
-> xxhash64 is not a cryptographic hash algorithm, but is offered in the
-> same API (shash) as actual cryptographic hash algorithms such as
-> SHA-256. The Cryptographic Module Validation Program (CMVP), managing
-> FIPS certification, believes that this could cause confusion. xxhash64
-> must therefore be blocked in FIPS mode.
-> 
-> The only usage of xxhash64 in the kernel is btrfs. Commit fe11ac191ce0
-> ("btrfs: switch to library APIs for checksums") recently modified the
-> btrfs code to use the lib/crypto API, avoiding the Kernel Cryptographic
-> API. Consequently, the removal of xxhash64 from the Crypto API in FIPS
-> mode should now have no impact on btrfs usage.
+This is part 2 of the qcom-ethqos series, part 1 and patch 2 of part 2
+has now been merged.
 
-It sounds like xxhash should be removed the crypto API entirely.
-There's no user of it, it's not crypto, and doing xxhash through
-the userspace crypto API socket is so stupid that I doubt anyone
-attempted it.
+This part of the series focuses on the generic PHY driver, but these
+changes have dependencies on the ethernet driver, hence why
+it will need to go via net-next. Furthermore, subsequent changes
+depend on these patches.
 
+The underlying ideas here are:
+
+- get rid of the driver using phy_set_speed() with SPEED_1000 and
+  SPEED_2500 which makes no sense for an ethernet SerDes due to the
+  PCS 8B10B data encoding, which inflates the data rate at the SerDes
+  compared to the MAC. This is replaced with phy_set_mode_ext().
+- allow phy_power_on() / phy_set_mode*() to be called in any order.
+
+Mohd has tested this series, although not in the resulting merge order.
+
+Changes since resend2:
+- Drop patch 2 as that is now applied
+- Add Vinod's Acks, which were eventually sent in response to the first
+  posting of this series.
+
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 31 +++------
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth.c          | 73 ++++++++++------------
+ 2 files changed, 41 insertions(+), 63 deletions(-)
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
