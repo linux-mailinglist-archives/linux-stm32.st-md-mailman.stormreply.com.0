@@ -2,57 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WLBfLi9/p2kyiAAAu9opvQ
+	id CBTTJCyBp2liiAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 01:39:11 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 01:47:40 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 751DF1F8F3F
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 01:39:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 23DB21F8FE6
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 01:47:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FDC5C5A4C5;
-	Wed,  4 Mar 2026 00:39:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC21BC5A4C5;
+	Wed,  4 Mar 2026 00:47:39 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15E1DC055F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D5B5C055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 00:39:10 +0000 (UTC)
+ Wed,  4 Mar 2026 00:47:38 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0171243AA8;
- Wed,  4 Mar 2026 00:39:09 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46106C2BC9E;
- Wed,  4 Mar 2026 00:39:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5A3CE6057A;
+ Wed,  4 Mar 2026 00:47:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5DFC116C6;
+ Wed,  4 Mar 2026 00:47:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772584748;
- bh=XfEFP0ePAMl9RzwdsncvUUKsnGIj/z2blRaooWlL5Bw=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=eiNKQDh0fZuPPjKMDEPIuS+QqGtWQgilLKQuAg75AM6L5IAQdrKv+e1v5OSDMiS4V
- NjFXdg18P/JfxObT4XLpKOC+eq9uXsLq+X00iASe0P9aXIRKGY5wQ9cHFXAKSyhn9J
- q4LU5cBLdUrCEsfPD7VOUKlVDz7qTX4vpDZuJI0bxvIwc3rJFsN7KgEx1GA8RjNTcU
- MICIu13V5phbG0+fx/tDxJNXIIa1AKchlj8SKp5GZgY07BfNCLA3B7BCtKmpCLSy/p
- Q7sM5stjqY41kVanYgSyZQnNiX6Scq4tGR4NTv+fdcInFHFVvpcgOLlqtpJw9zxzph
- bekkRLrZY7Xgg==
-Date: Tue, 3 Mar 2026 16:39:06 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: lizhi2@eswincomputing.com
-Message-ID: <20260303163906.187d57a4@kernel.org>
-In-Reply-To: <20260303061711.895-1-lizhi2@eswincomputing.com>
+ s=k20201202; t=1772585257;
+ bh=VEGMSRMtXAwgbfeBbhQcBofXpQkKRT5Z8WZUKMAOX38=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=QZaJQBWf7I8pmM/6ZJ4zsjSzJtGhNzRQE6CD4S1mVPptzvU/6lH5lK8jz1yZcE6aK
+ 8jUhYVTgqb11gUtPxlHSWCwda8ZbzIiwrTf/c53SMBUVMOHQanGyjhk19++FuPBuJs
+ fa1mxb80xnM3SlGfrqHNVe9jsJvcDgBPlX58Kzxf9bqQX4tXXEXVzFdJwgyNf+UXIF
+ u/xPYkslfzvWDmu7HVBpCgGeQAHf6yc4fXQYuBNNjFDtxE/7mR5ihpWfSK/OsEd1l3
+ rYRnIwMbo5TDY5eYzknl5po8kxlFYRVVAY5icWA35cWhpmZxc+XJltgxnLgmby7Ds/
+ iDBIVJkaQy47g==
+Date: Wed, 4 Mar 2026 00:47:29 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20260304-regulate-verdict-c3a361d2dc83@spud>
 References: <20260303061525.846-1-lizhi2@eswincomputing.com>
- <20260303061711.895-1-lizhi2@eswincomputing.com>
+ <20260303061637.872-1-lizhi2@eswincomputing.com>
+ <20260303163846.156d18f7@kernel.org>
 MIME-Version: 1.0
-Cc: edumazet@google.com, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- weishangjuan@eswincomputing.com, alex@ghiti.fr, ningyu@eswincomputing.com,
- pritesh.patel@einfochips.com, pabeni@redhat.com, devicetree@vger.kernel.org,
- conor+dt@kernel.org, aou@eecs.berkeley.edu, rmk+kernel@armlinux.org.uk,
- wens@kernel.org, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- pinkesh.vaghela@einfochips.com, linmin@eswincomputing.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- palmer@dabbelt.com, mcoquelin.stm32@gmail.com, pjw@kernel.org,
- davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] net: stmmac: eic7700:
- enable clocks before syscon access and correct RX sampling timing
+In-Reply-To: <20260303163846.156d18f7@kernel.org>
+Cc: edumazet@google.com, lizhi2@eswincomputing.com,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ robh@kernel.org, weishangjuan@eswincomputing.com, alex@ghiti.fr,
+ ningyu@eswincomputing.com, pritesh.patel@einfochips.com, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
+ rmk+kernel@armlinux.org.uk, wens@kernel.org, krzk+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
+ linmin@eswincomputing.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, palmer@dabbelt.com,
+ mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: ethernet:
+ eswin: add clock sampling control
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,66 +65,112 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============0266831176874869363=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 751DF1F8F3F
+X-Rspamd-Queue-Id: 23DB21F8FE6
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.89 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [3.19 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[conor@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[27];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	FORGED_RECIPIENTS(0.00)[m:lizhi2@eswincomputing.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,einfochips.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[google.com,eswincomputing.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,ghiti.fr,einfochips.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.913];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.819];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[conor@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[eswincomputing.com:email,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,eswincomputing.com:email,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-T24gVHVlLCAgMyBNYXIgMjAyNiAxNDoxNzowOCArMDgwMCBsaXpoaTJAZXN3aW5jb21wdXRpbmcu
-Y29tIHdyb3RlOgo+ICAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5j
-ICAgfCAxODAgKysrKysrKysrKysrKy0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAxMzcgaW5zZXJ0
-aW9ucygrKSwgNDMgZGVsZXRpb25zKC0pCgouLi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
-L3N0bW1hYy9kd21hYy1laWM3NzAwLmM6MjkwOjMzOiBlcnJvcjogYXNzaWdubWVudCB0byDigJh2
-b2lkICgqKSh2b2lkICosIHBoeV9pbnRlcmZhY2VfdCwgIGludCwgIHVuc2lnbmVkIGludCnigJkg
-ZnJvbSBpbmNvbXBhdGlibGUgcG9pbnRlciB0eXBlIOKAmHZvaWQgKCopKHZvaWQgKiwgaW50LCAg
-dW5zaWduZWQgaW50KeKAmSBbLVdpbmNvbXBhdGlibGUtcG9pbnRlci10eXBlc10KICAyOTAgfCAg
-ICAgICAgIHBsYXRfZGF0LT5maXhfbWFjX3NwZWVkID0gZWljNzcwMF9kd21hY19maXhfc3BlZWQ7
-CiAgICAgIHwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBeCi4uL2RyaXZlcnMvbmV0
-L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYzoxMjk6MTM6IG5vdGU6IOKA
-mGVpYzc3MDBfZHdtYWNfZml4X3NwZWVk4oCZIGRlY2xhcmVkIGhlcmUKICAxMjkgfCBzdGF0aWMg
-dm9pZCBlaWM3NzAwX2R3bWFjX2ZpeF9zcGVlZCh2b2lkICpwcml2LCBpbnQgc3BlZWQsIHVuc2ln
-bmVkIGludCBtb2RlKQogICAgICB8ICAgICAgICAgICAgIF5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+
-Ci0tIApwdy1ib3Q6IGNyCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
-LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
-bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============0266831176874869363==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/4ukRtYrJaxUNGkn"
+Content-Disposition: inline
+
+
+--/4ukRtYrJaxUNGkn
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Tue, Mar 03, 2026 at 04:38:46PM -0800, Jakub Kicinski wrote:
+> On Tue,  3 Mar 2026 14:16:37 +0800 lizhi2@eswincomputing.com wrote:
+> > There are currently no in-tree users of the EIC7700 Ethernet driver, so
+> > these changes are safe.
+>=20
+> What do you mean by this sentence? The commit under Fixes was part of
+> Linux v6.19 already.
+
+The "funny" thing is that caring about users doesn't even really matter
+on the devicetree patch, except for this hunk:
+|@@ -81,7 +99,9 @@ properties:
+|                          or external clock selection
+|           - description: Offset of AXI clock controller Low-Power request
+|                          register
+|+          - description: Offset of register controlling TXD delay
+|           - description: Offset of register controlling TX/RX clock delay
+|+          - description: Offset of register controlling RXD delay
+|=20
+| required:
+|   - compatible
+And it only matters here because an item is injected mid-list. If this
+was moved to the end with the RXD delay, the **dt-binding** changes
+don't have issues with safety. I've not looked at whether there are
+knock-on concerns about users in the driver or whatever yet, but from a
+binding POV only that hunk can break something that currently works.
+
+> > Fixes: 888bd0eca93c ("dt-bindings: ethernet: eswin: Document for EIC770=
+0 SoC")
+
+--/4ukRtYrJaxUNGkn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaaeBIQAKCRB4tDGHoIJi
+0s/JAP9KQAUavWCtxHELp6gO3nomV9WLzwNt5Y73djyNLOwyAgEA/SUoSqFcn6jk
+jbiDfJ6siMbhpiAGPUA8gLzHNWUGhQI=
+=2KxI
+-----END PGP SIGNATURE-----
+
+--/4ukRtYrJaxUNGkn--
+
+--===============0266831176874869363==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============0266831176874869363==--
