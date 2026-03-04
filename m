@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gHEiLRUIqGnSnQAAu9opvQ
+	id SGALEJgIqGnSnQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:23:17 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:25:28 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A39141FE45C
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:23:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3C5A1FE4E2
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:25:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68C1EC8F26C;
-	Wed,  4 Mar 2026 10:23:17 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 942E6C8F265;
+	Wed,  4 Mar 2026 10:25:27 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96D7AC8F265
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B990C8F264
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 10:23:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=qWkkwAQhRSg7J4BYF0vIgQD9gaPtRxcuEN+JTsY4Ylw=; b=cSoHbMFcIvk4CgvcGuphPu/riy
- CE2/BzPlCWK1mL7SdseOzs2go/e4JNP1iQZNN7QDUqqz1stS5KmaWNLch50qNB8dyV97gpKy/fbtS
- mxzqEL3JLAnCwnPk794lcEskYE0Ok0JKUJ4DUlyxQNPk4WCDIBVPXgPGxVWyA4F9DdldUWeINnPoF
- gBV89L+sW0Wb0yRIcxkj2Pf+yg7kOOeSJUbnnLLIrkyi0Bj9KSqmB4f2OKluF146BjaMa3o8kZnhX
- LA44ZumsSA1v3TA7yialAGACFoyjXJGCUiG321xQty5OjPhrypywYYPlIH8P6BLzi4s5dvsaC/zK+
- MxqaYjJA==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:60844 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vxjNl-000000006N7-1Rzg;
- Wed, 04 Mar 2026 10:23:09 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vxjNj-0000000Br1c-2Fg7; Wed, 04 Mar 2026 10:23:07 +0000
-In-Reply-To: <aagH023pvswd0tlT@shell.armlinux.org.uk>
-References: <aagH023pvswd0tlT@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
+ Wed,  4 Mar 2026 10:25:26 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id B146FC40FBD;
+ Wed,  4 Mar 2026 10:25:43 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 9F8045FF5C;
+ Wed,  4 Mar 2026 10:25:25 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 336931036843C; Wed,  4 Mar 2026 11:25:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1772619924; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=4bM3W6A9RFTPFmoR9cUfC7hMGa2UFu2pNm437NiJy6M=;
+ b=vB2/vDCiSRj8JWbId/CCxgWJqL4FgXZZXbARpNmRxbkWqrMVrEjxUT741hc7yyqrMZKtSj
+ Y7gXwBh1+0O0En7Qpah8iBJ8UzD/RhYIh36kJVa9+H2bYBrSWyDyh3oKSwcTf5EYTUDvyO
+ sPspt/HQRldLdUYz4NuHdi7VUu2sAAR1L0EfcjjIbOsWkvpDfj4FyErvGTmuR5+ecmv9qV
+ bMAc2rFuWB91dqlFNCm0KA1j7/w+G7ckQZnMVz+QitoqkGGb5x6HiZ+Sf1tU1dpJgjv98I
+ ASmxXy4ZgCOIR3HWV+j4sV6DHSiej4UcvsGXcYIoquliQ8HK+nqQlUC264bmfA==
+Message-ID: <5053a8db-79f6-48ff-8116-c65710ba24de@bootlin.com>
+Date: Wed, 4 Mar 2026 11:25:20 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1vxjNj-0000000Br1c-2Fg7@rmk-PC.armlinux.org.uk>
-Date: Wed, 04 Mar 2026 10:23:07 +0000
-Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>
+References: <aafxqCvJ_XY4YbWw@shell.armlinux.org.uk>
+ <E1vxhud-0000000BqGK-3U3P@rmk-PC.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <E1vxhud-0000000BqGK-3U3P@rmk-PC.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: make pcs_mask and
-	phy_mask u32
+Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 1/7] net: stmmac: add
+ BASE-X support to integrated PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,103 +70,247 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: A39141FE45C
+X-Rspamd-Queue-Id: D3C5A1FE4E2
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:pabeni@redhat.com,m:samuel@sholland.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:wens@kernel.org,m:linux-sunxi@lists.linux.dev,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[bootlin.com:-];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.649];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.995];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,bootlin.com:mid,bootlin.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Action: no action
 
-The PCS and PHY masks are passed to the mdio bus layer as phy_mask
-to prevent bus addresses between 0 and 31 inclusive being scanned,
-and this is declared as u32. Also declare these as u32 in stmmac
-for type consistency.
+Hello Russell,
 
-Since this is a u32, use BIT_U32() rather than BIT() to generate
-values for these fields.
+On 04/03/2026 09:48, Russell King (Oracle) wrote:
+> The integrated PCS supports 802.3z (BASE-X) modes when the Synopsys
+> IP is coupled with an appropriate SerDes to provide the electrical
+> interface. The PCS presents a TBI interface to the SerDes for this.
+> Thus, the BASE-X related registers are only present when TBI mode is
+> supported.
+> 
+> dwmac-qcom-ethqos added support for using 2.5G with the integrated PCS
+> by calling dwmac_ctrl_ane() directly.
+> 
+> Add support for the following to the integrated PCS:
+> - 1000BASE-X protocol unconditionally.
+> - 2500BASE-X if the coupled SerDes supports 2.5G speed.
+> - The above without autonegotiation.
+> - If the PCS supports TBI, then optional BASE-X autonegotiation for each
+>   of the above.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c    | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 2 +-
- include/linux/stmmac.h                               | 4 ++--
- 3 files changed, 4 insertions(+), 4 deletions(-)
+Haven't tested ofc, but this patch looks good to me (well, my knowledge
+about 1000BaseX vs SGMII w.r.t aneg mostly comes from you in the first
+place).
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-index ece2a0c38562..fc13bfb47783 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-@@ -699,7 +699,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
- 	/* Intel mgbe SGMII interface uses pcs-xcps */
- 	if (plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
- 	    plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) {
--		plat->mdio_bus_data->pcs_mask = BIT(INTEL_MGBE_XPCS_ADDR);
-+		plat->mdio_bus_data->pcs_mask = BIT_U32(INTEL_MGBE_XPCS_ADDR);
- 		plat->mdio_bus_data->default_an_inband = true;
- 		plat->select_pcs = intel_mgbe_select_pcs;
- 	}
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-index b913fe5af488..bfe22da14102 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
-@@ -168,7 +168,7 @@ static int loongson_gnet_data(struct pci_dev *pdev,
- 	loongson_default_data(pdev, plat);
- 
- 	plat->phy_interface = PHY_INTERFACE_MODE_GMII;
--	plat->mdio_bus_data->phy_mask = ~(u32)BIT(2);
-+	plat->mdio_bus_data->phy_mask = ~BIT_u32(2);
- 	plat->fix_mac_speed = loongson_gnet_fix_speed;
- 
- 	return 0;
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 678d03d6d3bd..965ada809fdf 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -84,8 +84,8 @@ struct stmmac_priv;
- /* Platfrom data for platform device structure's platform_data field */
- 
- struct stmmac_mdio_bus_data {
--	unsigned int phy_mask;
--	unsigned int pcs_mask;
-+	u32 phy_mask;
-+	u32 pcs_mask;
- 	int *irqs;
- 	int probed_phy_irq;
- 	bool needs_reset;
--- 
-2.47.3
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+
+Maxime
+> ---
+>  .../net/ethernet/stmicro/stmmac/stmmac_pcs.c  | 96 ++++++++++++++++++-
+>  .../net/ethernet/stmicro/stmmac/stmmac_pcs.h  |  1 +
+>  include/linux/stmmac.h                        |  1 +
+>  3 files changed, 95 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> index 88fa359ea716..e606dfb85f94 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+> @@ -16,6 +16,27 @@
+>  #define GMAC_ANE_LPA	0x0c	/* ANE link partener ability */
+>  #define GMAC_TBI	0x14	/* TBI extend status */
+>  
+> +static unsigned int dwmac_integrated_pcs_inband_caps(struct phylink_pcs *pcs,
+> +						     phy_interface_t interface)
+> +{
+> +	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
+> +	unsigned int ib_caps;
+> +
+> +	if (phy_interface_mode_is_8023z(interface)) {
+> +		ib_caps = LINK_INBAND_DISABLE;
+> +
+> +		/* If the PCS supports TBI/RTBI, then BASE-X negotiation is
+> +		 * supported.
+> +		 */
+> +		if (spcs->support_tbi_rtbi)
+> +			ib_caps |= LINK_INBAND_ENABLE;
+> +
+> +		return ib_caps;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  static int dwmac_integrated_pcs_enable(struct phylink_pcs *pcs)
+>  {
+>  	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
+> @@ -36,7 +57,39 @@ static void dwmac_integrated_pcs_get_state(struct phylink_pcs *pcs,
+>  					   unsigned int neg_mode,
+>  					   struct phylink_link_state *state)
+>  {
+> -	state->link = false;
+> +	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
+> +	u32 status, lpa;
+> +
+> +	status = readl(spcs->base + GMAC_AN_STATUS);
+> +
+> +	if (phy_interface_mode_is_8023z(state->interface)) {
+> +		/* For BASE-X modes, the PCS block supports the advertisement
+> +		 * and link partner advertisement registers using standard
+> +		 * 802.3 format. The status register also has the link status
+> +		 * and AN complete bits in the same bit location. This will
+> +		 * only be used when AN is enabled.
+> +		 */
+> +		lpa = readl(spcs->base + GMAC_ANE_LPA);
+> +
+> +		phylink_mii_c22_pcs_decode_state(state, neg_mode, status, lpa);
+> +	} else {
+> +		state->link = false;
+> +	}
+> +}
+> +
+> +static int dwmac_integrated_pcs_config_aneg(struct stmmac_pcs *spcs,
+> +					    phy_interface_t interface,
+> +					    const unsigned long *advertising)
+> +{
+> +	bool changed = false;
+> +	u32 adv;
+> +
+> +	adv = phylink_mii_c22_pcs_encode_advertisement(interface, advertising);
+> +	if (readl(spcs->base + GMAC_ANE_ADV) != adv)
+> +		changed = true;
+> +	writel(adv, spcs->base + GMAC_ANE_ADV);
+> +
+> +	return changed;
+>  }
+>  
+>  static int dwmac_integrated_pcs_config(struct phylink_pcs *pcs,
+> @@ -46,13 +99,28 @@ static int dwmac_integrated_pcs_config(struct phylink_pcs *pcs,
+>  				       bool permit_pause_to_mac)
+>  {
+>  	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
+> +	bool changed = false, ane = true;
+> +
+> +	/* Only configure the advertisement and allow AN in BASE-X mode if
+> +	 * the core supports TBI/RTBI. AN will be filtered out by via phylink
+> +	 * and the .pcs_inband_caps() method above.
+> +	 */
+> +	if (phy_interface_mode_is_8023z(interface) &&
+> +	    spcs->support_tbi_rtbi) {
+> +		ane = neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED;
+> +
+> +		changed = dwmac_integrated_pcs_config_aneg(spcs, interface,
+> +							   advertising);
+> +	}
+>  
+> -	dwmac_ctrl_ane(spcs->base, 0, 1, spcs->priv->hw->reverse_sgmii_enable);
+> +	dwmac_ctrl_ane(spcs->base, 0, ane,
+> +		       spcs->priv->hw->reverse_sgmii_enable);
+>  
+> -	return 0;
+> +	return changed;
+>  }
+>  
+>  static const struct phylink_pcs_ops dwmac_integrated_pcs_ops = {
+> +	.pcs_inband_caps = dwmac_integrated_pcs_inband_caps,
+>  	.pcs_enable = dwmac_integrated_pcs_enable,
+>  	.pcs_disable = dwmac_integrated_pcs_disable,
+>  	.pcs_get_state = dwmac_integrated_pcs_get_state,
+> @@ -84,9 +152,18 @@ void stmmac_integrated_pcs_irq(struct stmmac_priv *priv, u32 status,
+>  int stmmac_integrated_pcs_get_phy_intf_sel(struct phylink_pcs *pcs,
+>  					   phy_interface_t interface)
+>  {
+> +	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
+> +
+>  	if (interface == PHY_INTERFACE_MODE_SGMII)
+>  		return PHY_INTF_SEL_SGMII;
+>  
+> +	if (phy_interface_mode_is_8023z(interface)) {
+> +		if (spcs->support_tbi_rtbi)
+> +			return PHY_INTF_SEL_TBI;
+> +		else
+> +			return PHY_INTF_SEL_SGMII;
+> +	}
+> +
+>  	return -EINVAL;
+>  }
+>  
+> @@ -104,7 +181,20 @@ int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
+>  	spcs->int_mask = int_mask;
+>  	spcs->pcs.ops = &dwmac_integrated_pcs_ops;
+>  
+> +	/* If the PCS supports extended status, then it supports BASE-X AN
+> +	 * with a TBI interface to the SerDes. Otherwise, we can support
+> +	 * BASE-X without AN using SGMII, which is required for qcom-ethqos.
+> +	 */
+> +	if (readl(spcs->base + GMAC_AN_STATUS) & BMSR_ESTATEN)
+> +		spcs->support_tbi_rtbi = true;
+> +
+>  	__set_bit(PHY_INTERFACE_MODE_SGMII, spcs->pcs.supported_interfaces);
+> +	__set_bit(PHY_INTERFACE_MODE_1000BASEX, spcs->pcs.supported_interfaces);
+> +
+> +	/* Only allow 2500BASE-X if the SerDes has support. */
+> +	if (priv->plat->flags & STMMAC_FLAG_SERDES_SUPPORTS_2500M)
+> +		__set_bit(PHY_INTERFACE_MODE_2500BASEX,
+> +			  spcs->pcs.supported_interfaces);
+>  
+>  	priv->integrated_pcs = spcs;
+>  
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> index 23bbd4f10bf8..12ea87792fcb 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+> @@ -32,6 +32,7 @@ struct stmmac_pcs {
+>  	void __iomem *base;
+>  	u32 int_mask;
+>  	struct phylink_pcs pcs;
+> +	bool support_tbi_rtbi;
+>  };
+>  
+>  static inline struct stmmac_pcs *
+> diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+> index 2fc169c7117e..3a99c4ef420c 100644
+> --- a/include/linux/stmmac.h
+> +++ b/include/linux/stmmac.h
+> @@ -192,6 +192,7 @@ enum dwmac_core_type {
+>  #define STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP	BIT(12)
+>  #define STMMAC_FLAG_HWTSTAMP_CORRECT_LATENCY	BIT(13)
+>  #define STMMAC_FLAG_KEEP_PREAMBLE_BEFORE_SFD	BIT(14)
+> +#define STMMAC_FLAG_SERDES_SUPPORTS_2500M	BIT(15)
+>  
+>  struct mac_device_info;
+>  
 
 _______________________________________________
 Linux-stm32 mailing list
