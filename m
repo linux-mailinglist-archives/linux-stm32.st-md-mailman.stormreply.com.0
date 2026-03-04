@@ -2,61 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CKaQOSyHqGn2vQAAu9opvQ
+	id SHZ/A9mTqGkLvwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 20:25:32 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 21:19:37 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82CB72070CF
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 20:25:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C7D72078AD
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 21:19:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1513EC87ED1;
-	Wed,  4 Mar 2026 19:25:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DAAAC87ED3;
+	Wed,  4 Mar 2026 20:19:36 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39F47C87ED0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B8E0C87ED1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 19:25:29 +0000 (UTC)
+ Wed,  4 Mar 2026 20:19:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1772652330; x=1804188330;
+ t=1772655574; x=1804191574;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=93zi98/SCHi0Xdt2/6okf2xCqWA0WfMJZVk3NLVoY/Y=;
- b=hg29ljLCenEOO3XIUC+duk6lhRw+dqknogSwxMXn+edZ30mUG3g9vmtJ
- 7Ts9RbKkI9bUo0LV/RTQxMVI8qG7rJfwZTap0UnkBrZsiUr7ps+YFF8Yl
- I27JQbkQQf+f6glIPXMAB8yb3YAklaSiqlD+LpJIWsm2kvA03AKZppggU
- uCAumcCVbebWAS/ShHAm8uEETG+pWqrhaJ8CnKcpXoUiiTS79dnafxSiq
- iL1TX8pl3FtSFr7Gjia+g6S6uIm1cJQqzY7ZbiAwkGVLo0+RakVFUzYTj
- f/GXQ52Vht3teI1eUF2i5zyjNvUQzOFwNnz3lhBdQ71Xj1QbJntxXDRoL w==;
-X-CSE-ConnectionGUID: MEZ7KzcdRiqV88wMnpkMeQ==
-X-CSE-MsgGUID: AITs+5vLQQCZPki0Ycw1UQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="72753235"
-X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="72753235"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 04 Mar 2026 11:25:28 -0800
-X-CSE-ConnectionGUID: dct93SjiSJaEO42FIENObw==
-X-CSE-MsgGUID: ajr2Y/TORySK9X58Glk5LQ==
+ bh=iikIQE7d5BrMbz5QoKczt9e+EFI540Qu1haop92OMoM=;
+ b=SOj/+DoFr64zqtUpqPiXGhgW1jlW9PnHbh8DCGH3s1Xg21Wp+e4KYR1R
+ vVZNv9PQ1bxeHcMRVZGGqTYH+wdWa00UVAQWyW5Zqn7e4v3XdGbjTzFeh
+ rqaNE8tscsI3M/6sHzGDNVnaxOPjsp/JYGZYMBNulCZZ3SBUysWdVK4qI
+ fVUm778sGgHEt7DPXgb8qMIa8efrs7M++lqd5m6rUp2g6L+K/hWV962kF
+ KZrk5O0gL10PW/lzQQBuqs3VjUMbEIEosiKec+RtWDokiz/Vx3IUC9EX2
+ Ao/xjsEjA5bYlSJjXFHWJ2L8UrnO7Fh6B6OqHXSLDI66u3U+2KvO14z9a A==;
+X-CSE-ConnectionGUID: Im/f9bxBRCmt+WHyMJZG7Q==
+X-CSE-MsgGUID: Vuu7+lxZTHi/PpwIOOXsxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="84815869"
+X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="84815869"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 12:19:32 -0800
+X-CSE-ConnectionGUID: Ya7/Uf4pRGabToPTi0eQCw==
+X-CSE-MsgGUID: 8GePQ8mUR2+NTCVoDJpoKA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="218378608"
+X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="256331372"
 Received: from lkp-server01.sh.intel.com (HELO f27a57aa7a36) ([10.239.97.150])
- by orviesa009.jf.intel.com with ESMTP; 04 Mar 2026 11:25:26 -0800
+ by orviesa001.jf.intel.com with ESMTP; 04 Mar 2026 12:19:29 -0800
 Received: from kbuild by f27a57aa7a36 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1vxrqU-000000004O5-0gkS;
- Wed, 04 Mar 2026 19:25:22 +0000
-Date: Thu, 5 Mar 2026 03:25:13 +0800
+ (envelope-from <lkp@intel.com>) id 1vxsgn-000000004S5-2C0D;
+ Wed, 04 Mar 2026 20:19:25 +0000
+Date: Thu, 5 Mar 2026 04:18:57 +0800
 From: kernel test robot <lkp@intel.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>
-Message-ID: <202603050340.7qkvXUGq-lkp@intel.com>
+Message-ID: <202603050424.TDlVj9FT-lkp@intel.com>
 References: <E1vxjNj-0000000Br1c-2Fg7@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
 In-Reply-To: <E1vxjNj-0000000Br1c-2Fg7@rmk-PC.armlinux.org.uk>
 Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
- netdev@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ netdev@vger.kernel.org, llvm@lists.linux.dev, linux-sunxi@lists.linux.dev,
  Eric Dumazet <edumazet@google.com>, oe-kbuild-all@lists.linux.dev,
  Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
@@ -77,7 +77,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 82CB72070CF
+X-Rspamd-Queue-Id: 9C7D72078AD
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -93,8 +93,8 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:pabeni@redhat.com,m:samuel@sholland.org,m:netdev@vger.kernel.org,m:linux-sunxi@lists.linux.dev,m:edumazet@google.com,m:oe-kbuild-all@lists.linux.dev,m:kuba@kernel.org,m:wens@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:pabeni@redhat.com,m:samuel@sholland.org,m:netdev@vger.kernel.org,m:llvm@lists.linux.dev,m:linux-sunxi@lists.linux.dev,m:edumazet@google.com,m:oe-kbuild-all@lists.linux.dev,m:kuba@kernel.org,m:wens@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -109,10 +109,10 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.507];
+	NEURAL_HAM(-0.00)[-0.537];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:mid,intel.com:email,01.org:url,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:mid,intel.com:email,01.org:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
 Hi Russell,
@@ -125,25 +125,24 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-s
 base:   net-next/main
 patch link:    https://lore.kernel.org/r/E1vxjNj-0000000Br1c-2Fg7%40rmk-PC.armlinux.org.uk
 patch subject: [PATCH net-next 8/8] net: stmmac: make pcs_mask and phy_mask u32
-config: openrisc-allmodconfig (https://download.01.org/0day-ci/archive/20260305/202603050340.7qkvXUGq-lkp@intel.com/config)
-compiler: or1k-linux-gcc (GCC) 15.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260305/202603050340.7qkvXUGq-lkp@intel.com/reproduce)
+config: sparc64-allmodconfig (https://download.01.org/0day-ci/archive/20260305/202603050424.TDlVj9FT-lkp@intel.com/config)
+compiler: clang version 23.0.0git (https://github.com/llvm/llvm-project 9a109fbb6e184ec9bcce10615949f598f4c974a9)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260305/202603050424.TDlVj9FT-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603050340.7qkvXUGq-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603050424.TDlVj9FT-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c: In function 'loongson_gnet_data':
->> drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c:171:42: error: implicit declaration of function 'BIT_u32'; did you mean 'BIT_U32'? [-Wimplicit-function-declaration]
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c:171:35: error: call to undeclared function 'BIT_u32'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
      171 |         plat->mdio_bus_data->phy_mask = ~BIT_u32(2);
-         |                                          ^~~~~~~
-         |                                          BIT_U32
+         |                                          ^
+   1 error generated.
 
 
-vim +171 drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+vim +/BIT_u32 +171 drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
 
    164	
    165	static int loongson_gnet_data(struct pci_dev *pdev,
