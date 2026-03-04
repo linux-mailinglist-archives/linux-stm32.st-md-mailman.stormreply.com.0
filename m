@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EGT3JRHyp2mGmgAAu9opvQ
+	id WM3hGxryp2mGmgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:49:21 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:49:30 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43D3C1FCE23
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:49:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 509F71FCE45
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:49:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04E42C87EDF;
-	Wed,  4 Mar 2026 08:49:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11D30C8F264;
+	Wed,  4 Mar 2026 08:49:30 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AF3C5C030D6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B2E8C030D6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 08:49:18 +0000 (UTC)
+ Wed,  4 Mar 2026 08:49:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=mPNv9hhcPGysoUKhGKWvi6/JR95HuApgj93NiwVLo30=; b=QaFVmwJ0rLKZWeJISBupUy+xzq
- NqV45JCahkOeY0O8iRBuqVXKMBSCmSuz4Z0RCVPy+Mx9ZC/2KCy6MVlPjnUbs246m11qhCUR3jQro
- ELifSD9WB5IciVSxBDhLtCCsrmH7xwZySL4NXa035TyJjl8k8filS5dIX/ZerjvMfPpT1+nXoW8cH
- 7peD/9ANzDqiF8NhvFwVN0RxVk8RNaO7ZBkZL3J2FiO7cyq3V7w71k+yc9YyzmqpJfkuTiPq1lBuV
- GkV22q7Px0imB3GFm5257RqU8ZQOjhklKjXKJ8yYe+e7ryGUc2ZB0kASK/3INo4rsW+G1luonIzFC
- hbwiZ9ig==;
+ bh=MtyItftqheZyJr9R3wUpvn9mGQIFWLFIwnIWg5pAtEk=; b=Jk9T+JzepncKRLy5oS27CaBpBm
+ FLsy1d9a+e0N9EHWlPuzj9qYZohiRuviPKf164Q6vDettgXETX3+7uqAHsgsWVaVvFVRLxuGttYQz
+ jnoqzIEE4Xjdi39+q8BDYlLQsImP2uvh2M/iSAsDaLrS9NETk1UKbJ/3+4yOe5ATyGQLTc+E0CMHm
+ 6yiHYvn+oVKO/KtLq4gyETxn1NE2oVnCg6TElpaepViGttLsYhXgwqxOCkfcplFNbmNvfy4s6+let
+ iyOKm+hKq526DWlkhq9KSQtOi1FAqqvGVP32UW2rO/xLFJVHc2A8/DGcrMYBDt2Xi+NJgUNNhIfjS
+ nq8sWxTA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:41158 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:41170 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vxhuo-0000000069S-3qNv;
- Wed, 04 Mar 2026 08:49:10 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vxhuu-0000000069o-3eA5;
+ Wed, 04 Mar 2026 08:49:16 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vxhuo-0000000BqGW-0YDF; Wed, 04 Mar 2026 08:49:10 +0000
+ id 1vxhut-0000000BqGc-138V; Wed, 04 Mar 2026 08:49:15 +0000
 In-Reply-To: <aafxqCvJ_XY4YbWw@shell.armlinux.org.uk>
 References: <aafxqCvJ_XY4YbWw@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vxhuo-0000000BqGW-0YDF@rmk-PC.armlinux.org.uk>
-Date: Wed, 04 Mar 2026 08:49:10 +0000
+Message-Id: <E1vxhut-0000000BqGc-138V@rmk-PC.armlinux.org.uk>
+Date: Wed, 04 Mar 2026 08:49:15 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next v2 3/7] net: stmmac: use
- integrated PCS for BASE-X modes
+Subject: [Linux-stm32] [PATCH RFC net-next v2 4/7] net: stmmac: add struct
+	stmmac_pcs_info
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 43D3C1FCE23
+X-Rspamd-Queue-Id: 509F71FCE45
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -94,7 +94,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.629];
+	NEURAL_HAM(-0.00)[-0.607];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -106,73 +106,123 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
-dwmac-qcom-ethqos supports SGMII and 2500BASE-X using the integrated
-PCS, so we need to expand the PCS support to include support for
-BASE-X modes.
-
-Add support to the prereset configuration to detect 2500BASE-X, and
-arrange for stmmac_mac_select_pcs() to return the integrated PCS if
-its supported_interfaces bitmap reports support for the interface mode.
-
-This results in priv->hw->pcs now being write-only, so remove it.
+We need to describe one more register (offset and field bitmask) to
+the PCS code. Move the existing PCS offset and interrupt enable bits
+to a new struct and pass that in to stmmac_integrated_pcs_init().
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/common.h      | 4 ----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++------
- 2 files changed, 2 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 9 ++++++---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c    | 8 ++++++--
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c     | 8 ++++----
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h     | 9 +++++++--
+ 4 files changed, 23 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 42a48f655849..91116acf3273 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -277,9 +277,6 @@ struct stmmac_safety_stats {
- #define FLOW_TX		2
- #define FLOW_AUTO	(FLOW_TX | FLOW_RX)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+index af566636fad9..a3ef237de1b8 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+@@ -22,14 +22,17 @@
+ #include "stmmac_ptp.h"
+ #include "dwmac1000.h"
  
--/* PCS defines */
--#define STMMAC_PCS_SGMII	(1 << 1)
--
- #define SF_DMA_MODE 1		/* DMA STORE-AND-FORWARD Operation Mode */
++static const struct stmmac_pcs_info dwmac1000_pcs_info = {
++	.pcs_offset = GMAC_PCS_BASE,
++	.int_mask = GMAC_INT_DISABLE_PCSLINK | GMAC_INT_DISABLE_PCSAN,
++};
++
+ static int dwmac1000_pcs_init(struct stmmac_priv *priv)
+ {
+ 	if (!priv->dma_cap.pcs)
+ 		return 0;
  
- /* DMA HW feature register fields */
-@@ -634,7 +631,6 @@ struct mac_device_info {
- 	unsigned int unicast_filter_entries;
- 	unsigned int mcast_bits_log2;
- 	unsigned int rx_csum;
--	unsigned int pcs;
- 	unsigned int num_vlan;
- 	u32 vlan_filter[32];
- 	bool vlan_fail_q_en;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 029e9b518160..2e7edc3e82f2 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -945,11 +945,8 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
- 			return pcs;
- 	}
+-	return stmmac_integrated_pcs_init(priv, GMAC_PCS_BASE,
+-					  GMAC_INT_DISABLE_PCSLINK |
+-					  GMAC_INT_DISABLE_PCSAN);
++	return stmmac_integrated_pcs_init(priv, &dwmac1000_pcs_info);
+ }
  
--	/* The PCS control register is only relevant for SGMII, TBI and RTBI
--	 * modes. We no longer support TBI or RTBI, so only configure this
--	 * register when operating in SGMII mode with the integrated PCS.
--	 */
--	if (priv->hw->pcs & STMMAC_PCS_SGMII && priv->integrated_pcs)
-+	if (priv->integrated_pcs &&
-+	    test_bit(interface, priv->integrated_pcs->pcs.supported_interfaces))
- 		return &priv->integrated_pcs->pcs;
+ static void dwmac1000_core_init(struct mac_device_info *hw,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index 623868afe93d..7f4949229288 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -22,13 +22,17 @@
+ #include "dwmac4.h"
+ #include "dwmac5.h"
  
- 	return NULL;
-@@ -1208,7 +1205,6 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
++static const struct stmmac_pcs_info dwmac4_pcs_info = {
++	.pcs_offset = GMAC_PCS_BASE,
++	.int_mask = GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE,
++};
++
+ static int dwmac4_pcs_init(struct stmmac_priv *priv)
+ {
+ 	if (!priv->dma_cap.pcs)
+ 		return 0;
  
- 	if (priv->dma_cap.pcs && interface == PHY_INTERFACE_MODE_SGMII) {
- 		netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
--		priv->hw->pcs = STMMAC_PCS_SGMII;
+-	return stmmac_integrated_pcs_init(priv, GMAC_PCS_BASE,
+-					  GMAC_INT_PCS_LINK | GMAC_INT_PCS_ANE);
++	return stmmac_integrated_pcs_init(priv, &dwmac4_pcs_info);
+ }
  
- 		switch (speed) {
- 		case SPEED_10:
+ static void dwmac4_core_init(struct mac_device_info *hw,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+index e606dfb85f94..77a83e415597 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
+@@ -167,8 +167,8 @@ int stmmac_integrated_pcs_get_phy_intf_sel(struct phylink_pcs *pcs,
+ 	return -EINVAL;
+ }
+ 
+-int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
+-			       u32 int_mask)
++int stmmac_integrated_pcs_init(struct stmmac_priv *priv,
++			       const struct stmmac_pcs_info *pcs_info)
+ {
+ 	struct stmmac_pcs *spcs;
+ 
+@@ -177,8 +177,8 @@ int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
+ 		return -ENOMEM;
+ 
+ 	spcs->priv = priv;
+-	spcs->base = priv->ioaddr + offset;
+-	spcs->int_mask = int_mask;
++	spcs->base = priv->ioaddr + pcs_info->pcs_offset;
++	spcs->int_mask = pcs_info->int_mask;
+ 	spcs->pcs.ops = &dwmac_integrated_pcs_ops;
+ 
+ 	/* If the PCS supports extended status, then it supports BASE-X AN
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+index 12ea87792fcb..f3dada71e381 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+@@ -27,6 +27,11 @@
+ 
+ struct stmmac_priv;
+ 
++struct stmmac_pcs_info {
++	unsigned int pcs_offset;
++	u32 int_mask;
++};
++
+ struct stmmac_pcs {
+ 	struct stmmac_priv *priv;
+ 	void __iomem *base;
+@@ -45,8 +50,8 @@ void stmmac_integrated_pcs_irq(struct stmmac_priv *priv, u32 status,
+ 			       struct stmmac_extra_stats *x);
+ int stmmac_integrated_pcs_get_phy_intf_sel(struct phylink_pcs *pcs,
+ 					   phy_interface_t interface);
+-int stmmac_integrated_pcs_init(struct stmmac_priv *priv, unsigned int offset,
+-			       u32 int_mask);
++int stmmac_integrated_pcs_init(struct stmmac_priv *priv,
++			       const struct stmmac_pcs_info *pcs_info);
+ 
+ /**
+  * dwmac_ctrl_ane - To program the AN Control Register.
 -- 
 2.47.3
 
