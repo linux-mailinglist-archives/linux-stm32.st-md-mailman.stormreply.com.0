@@ -2,110 +2,104 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GPjPFTvop2m4lgAAu9opvQ
+	id WGNvKlzop2mDlgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:07:23 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:07:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 230171FC2F6
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:07:23 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F6631FC31E
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 09:07:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE314C8F264;
-	Wed,  4 Mar 2026 08:07:22 +0000 (UTC)
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013065.outbound.protection.outlook.com
- [52.101.83.65])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A05AC87ED1;
+	Wed,  4 Mar 2026 08:07:56 +0000 (UTC)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BD2FC87ED3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9F55C87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 08:07:22 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oLDyehJa8HgXThlgc8q+Wi0+b1spu1P9Ad/RsZ45h37dXR4D1oAYK2antKp1HzqLnwEOpNAPErR2xicyei8VHeylGHkllJQ+S1sNZfPbGeLlJMmFeO2t43fNUwHcm9FNH5xP83sv2GxRBYgVppE7NI1OHFT9y75rrg79eYWB7WVbmQ6bFn1Wc+RbOidqnzXgHvTlhF0kZj0dBQiOjf1Wwfa9pYPgwlK/rtMIWSnhE4uBFdlhpZOFoLy+ADEtxyvqfmZH1l6bBlp1baAE8cpB1NrJ8VqlrjKL2eKDsDIFJwXPWMw4jjBSNfepfBQFwu+cyUFjfl6fhFPB/gxDVvhetg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gXXgPqKoUTHLaL9O7rOASzD4TDgFfQNB4LqgvRKw+u8=;
- b=S74MO1CbAuD9qEtW0Dn6ak0wVOsW/yl9Gaq8lCpivJrzdswYdkSctDM/dhgjQSEI/F5YTkD87FRpdgyqkRsdU6b/Q07d+66oe+uq10mtAQXZWzKLgpH+fCJGrtPY49IAoyZ1AqF3wYXK1QWdSEeWmDkZN5s9UsVo5++bLPzslkypTBTFuK+7mRQ5rDDIZCLaAN32eaGIATbd+sgXwko+1G7ZUYP8nF3kYdxi4ilNgytWQ88oIdnY4rMru8NdElGFAAp0pOSQXpLI9KKuSfbbArTdA7v5BU/vqtfUDD9VcVMMRtrB6j1wvFOwWrmhjOKrMT712/5ZY4NFk8hXS3xmUQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=lists.infradead.org
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gXXgPqKoUTHLaL9O7rOASzD4TDgFfQNB4LqgvRKw+u8=;
- b=NmhjB3G1J1VHMVoey8L1dQiylGNNdt9L3PaaeDUZonDDjJsxZw8F48eqHjvggP33hSyOyk4JuTcGev4yCqUGUemUjhnlMfGFr9o/09WNYOQf3odHrYmaQwW2yjyIoMyqLSoxLU5nzac78FdD4nW2Ew+bkuv9GZhvYll0Ec2W72pID+28vFsXPKt3cfh+8Wrup2X33o61ywviNVuCIVGpjupj1NGr24k9p1QoVrPK+FLafsu+6NEzjXWyDlGUmD2mR42QcPM8WoE1ucEXsnP75Qu3ieKfFyeI/Ek6yTO3wrxSUbM4iXAW7wOQtQmOwfLCKA+EggBNiJhg2D9p5TwY9w==
-Received: from DU2PR04CA0261.eurprd04.prod.outlook.com (2603:10a6:10:28e::26)
- by AMBPR10MB9882.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:762::9)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9654.22; Wed, 4 Mar
- 2026 08:07:19 +0000
-Received: from DU2PEPF00028D07.eurprd03.prod.outlook.com
- (2603:10a6:10:28e:cafe::3c) by DU2PR04CA0261.outlook.office365.com
- (2603:10a6:10:28e::26) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9654.22 via Frontend Transport; Wed,
- 4 Mar 2026 08:07:19 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF00028D07.mail.protection.outlook.com (10.167.242.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9654.16 via Frontend Transport; Wed, 4 Mar 2026 08:07:19 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 4 Mar
- 2026 09:09:29 +0100
-Received: from localhost (10.252.5.222) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 4 Mar
- 2026 09:07:18 +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Wed, 4 Mar 2026 09:07:00 +0100
+ Wed,  4 Mar 2026 08:07:54 +0000 (UTC)
+Received: by mail-pg1-f171.google.com with SMTP id
+ 41be03b00d2f7-c6e3e4e7388so2612366a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 04 Mar 2026 00:07:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1772611673; x=1773216473;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=umiDmXimKnwg21TsfCEQ72OkpzfSgk0ygJP0kl6mnKQ=;
+ b=IF8ZbtMhBlV8AaUoRas81NiFUgaMFRD+KBAnCQ8npqpztHmGmITD5sbKiSfme5NVSz
+ 6G5SbdtLlzSijSzpFkU9jjWAi7DByX6JB72DSEVQwtu2FQEVVWLIcuuz+APXBJ4xKgyM
+ fVUlxzEef8TppMA3RWdUd5jpVrMFrWHKzRtZX1b06QIJY9Hp3upjUvAwo19uAdRT/Y8W
+ FiQH7cPRF6swYNl5ZUTbXe8/BGto9jQqASTo4siolK/s5w/nK5gI04W8veo8H5u/SI58
+ zOtFi0alb9XWidBsN6+RH3jWK94LWydCJTeuCzgN4SvPxtPn1qa/dmH4SpgaYUXybpYu
+ B80w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1772611673; x=1773216473;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=umiDmXimKnwg21TsfCEQ72OkpzfSgk0ygJP0kl6mnKQ=;
+ b=Gt+T413PJ0FaJEaMSzX6zOLykjhcOZAza10sixYggvxqOpIZQ8WTPETvtdT3asAI+b
+ ZnPNxPEXhnYfI/idFwxayJtIjuuhKivZctTlJIDAAHukYBPEpyMwgFNYgbWo0apN31ND
+ ncMBBKUUzrCmEYZdFCek/X3VO+IXB1I9cMIFJFgpvKTTZJY/bw7QIqUtnj7MHzRnrZQO
+ VK1Jtz+vW6ueUBGDWJ16aJm3DaCLgAnvn6lvsq0hiHz7HWSnS4zW0K0lFLyR+okgHeuF
+ 0z9YcH5o7SVyBzaOeK/0Dnqxj7JPCFhVLD811GpvKXMf1ERtvJCoYXRO6wdiApkdi1h6
+ Rdyg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUvtKyb0RpiNPcYccPEB5CRNKfl2tZoUEUsiOVhJVyk7DzQiDpnREJdhekXZlhfiXCRlKRvzX8+0KP+jA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzDmSU5TLeIB6HpZmJVEMsOaXi5SgUwzEwsZAQRVAF+PTtOZ2Se
+ rly1B0pJk6gA7B+fOdld/LGboMi5/RLdj/Wxb3LMINWgzWSKaU2yjiCP
+X-Gm-Gg: ATEYQzwHotYg5rVTGNPcAD4jlahSFlLUG8LaA74i0+58Zs7JtBazxuAtk4nBr8NOKD6
+ oVqtMKH+eQ59VKjQOjTls045/XVZrDOHZbwE7rkiUubgW7kKwg+hg+iYTatqe7P0C1Kd+ppIp19
+ HNlUghWhdWOLdoXKhvY0Kj4JFJf8PDNhOMG56PK7r/CXG1ixpWO4dqyjjqqryVMVrB0AkduivVM
+ 2vgdFuum4XdNWTp7dOsCV+vWOrUhgzrSA5kuHqc4Qyan5uCvGtisEpRAlX9fkujumVHtZ6R5ASQ
+ MnTAPATEeMnmeohgEzJ71L9BVTNPvwkQKOgt282nX3DMmboXv1Rlq3s3Qq0o+j65uEVtNL4PmJr
+ cW9Ciq78kLb13MGLTEwviIba1cQT9rsEZAEcW6MFyKdT70a1LRAHnnf/HT1BIHC0LogULCk0Ui7
+ /dOHR9iVNvztHbqoviijKvwGlHD2sSTKdC2A==
+X-Received: by 2002:a17:902:cecf:b0:2ae:665c:8b16 with SMTP id
+ d9443c01a7336-2ae6ab5ac69mr13854625ad.53.1772611673352; 
+ Wed, 04 Mar 2026 00:07:53 -0800 (PST)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2ae489c3626sm94364275ad.8.2026.03.04.00.07.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 04 Mar 2026 00:07:52 -0800 (PST)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Richard Cochran <richardcochran@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Yao Zi <me@ziyao.cc>,
+ Yanteng Si <siyanteng@cqsoftware.com.cn>,
+ Inochi Amaoto <inochiama@gmail.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>, Chen-Yu Tsai <wens@kernel.org>,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>,
+ Boon Khai Ng <boon.khai.ng@altera.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Quentin Schulz <quentin.schulz@cherry.de>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>
+Date: Wed,  4 Mar 2026 16:07:17 +0800
+Message-ID: <20260304080721.1658224-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Message-ID: <20260304-mp1x_alignment_issues-v1-2-19a8013782a5@foss.st.com>
-References: <20260304-mp1x_alignment_issues-v1-0-19a8013782a5@foss.st.com>
-In-Reply-To: <20260304-mp1x_alignment_issues-v1-0-19a8013782a5@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.252.5.222]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D07:EE_|AMBPR10MB9882:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7c31b7b9-5e03-48c7-4681-08de79c50ea9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|82310400026|1800799024|376014; 
-X-Microsoft-Antispam-Message-Info: zbs22PtAn90i8fIBDFDMpYGHTW8FSoAs7+LoQI+6NodeGN3FbnYieomLzNa3hkIp6rO7iUTc+2ZjALuEsITJtd+mINKzt0ZDpsl+RyFxIwcOntOajxw3xqxnCXoc1IbsKrwkdnQ/0ngujG5VqcmZtJ3MFcN8SxwNUSd5GEXUxLems2AzYQyE+WpLWfr/x9kTzCKkInTxx3ff+bAoOyqsX3v018suEgMzgtS8sNllqg4Vr3eJ59vMi1WycRMabsb0KUwmwxQtXaZfW4xKo9fV/f9BltVpjuRJ5X1a4/QcKIk/Ts5PWmi/zOtRotugJ2N0KomsBACdC9LHsIGtfcHLuSRM6UnDkNXZ8km6b86TqxSIuh2c8WwS4G5Ul4RLPvQnF6m0sSf7rtPtykQp+oDrJsU878faDJXDKNF7aX+T3yfDqiN1y0f++18LrEVZheBlzC7U456xJ+X3SJh4okf1bqdWCoz1JSDUn2gzCVeFQuZfstdru5Z/Jl/eMnO96/GNL+3OcTpynGjgNwyni1mRsg91DuaPIQZ14VdV0MYt3K3bx1KMllvqT0Qc1sTDXHit/HcUamC+x2TTrArMVpKFbNG5wAc475iLhpE3ORR78OG1YTzJRV9BfjzdMFzLaQSpERjFh095FMkaoIhEyK+9lfCphv3cw82NBoPX/nU1chqORJhpr1KY14lZB8snEWfyRIQiXIA1v/xBm4jwmTrh8IEN2lBBkW1vG8IKDzVNW3n0FyRRUM2vXxYrOUAuvcnV0LInyHrKUCs/JWRozv6KIQ==
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014); DIR:OUT;
- SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: w3lrigXLRjAEG1KSzHCW1qcuSWweWBI5tPL+2EyB+JO1dBqU01WyEMV6Po1weXHj9Wt66CPd+HOzGhxk1usz+Lgm92vqAGBSIxqx7FTfWi4j34ZFsEK2O+x7sszeTTLAxP7N6SVThzE35Fjf/abZ6/rrXv1Jn/wPhiv3ZpFfMNVAoGt47TtoKxIrB8OKPmmzwleWus7ybTACoQCJ/J7aVxI93wZumS6nuxrA3I06fj+IztsAOmsJoO6CzdqES5phy31zR9po9U14+GuOqHnnsuS4qBNBjnJb3kC1+a2Sdo+nhUyx3+smnS2knCZpPsMJSiaSMB90brxxWmu8pNUZCISSwoSM06Z4yxyuWLbt7yk5rH6bq0Gf3eOLLyUuUwgZ6QENjTIRmTybrcrVXlhW/RftNUXQEusPbwuNUaXAgxExm/2lxxVxnxSdaLpGBOzU
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Mar 2026 08:07:19.3555 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7c31b7b9-5e03-48c7-4681-08de79c50ea9
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D07.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9882
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] ARM: dts: stm32: fix misalignments in
- nodes of stm32mp131
+Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Longbin Li <looong.bin@gmail.com>, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v7 0/3] riscv: spacemit: Add ethernet
+	support for K3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,111 +115,121 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 230171FC2F6
+X-Rspamd-Queue-Id: 4F6631FC31E
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:dlan@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:richardcochran@gmail.com,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:rmk+kernel@armlinux.org.uk,m:me@ziyao.cc,m:siyanteng@cqsoftware.com.cn,m:inochiama@gmail.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:vladimir.oltean@nxp.com,m:wens@kernel.org,m:weishangjuan@eswincomputing.com,m:boon.khai.ng@altera.com,m:maxime.chevallier@bootlin.com,m:quentin.schulz@cherry.de,m:peppe.cavallaro@st.com,m:joabreu@synopsys.com,m:devicetree@vger.kernel.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:looong.bin@gmail.com,m:linux-riscv@lists.infradead.org,m:spacemit@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andre
+ w@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,m:looongbin@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,dabbelt.com,eecs.berkeley.edu,ghiti.fr,armlinux.org.uk,ziyao.cc,cqsoftware.com.cn,bp.renesas.com,nxp.com,eswincomputing.com,altera.com,bootlin.com,cherry.de,st.com,synopsys.com];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[38];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gentoo.org,gmail.com,lists.infradead.org,lists.linux.dev,st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,4c00a000:email,4c00b000:email];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
+	NEURAL_HAM(-0.00)[-0.784];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	NEURAL_HAM(-0.00)[-0.527];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-Since the ETZPC system bus was introduced, misalignments have appeared
-in some nodes moved under the etzpc parent node.
+Add initial support for ethernet controller of the Spacemit K3 SoC.
+This ethernet controller is almost a standard Synopsys DesignWare
+MAC (version 5.40a). This controller require a syscon device to
+configure some basic features, like interface type and internal delay.
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp131.dtsi | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+Change from v6:
+- https://lore.kernel.org/netdev/20260303010630.567674-1-inochiama@gmail.com
+patch 1:
+1. Drop the extra blank line at the last
 
-diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
-index b9657ff91c23..93d52fbd0de2 100644
---- a/arch/arm/boot/dts/st/stm32mp131.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
-@@ -1129,7 +1129,7 @@ usart1: serial@4c000000 {
- 				resets = <&rcc USART1_R>;
- 				wakeup-source;
- 				dmas = <&dmamux1 41 0x400 0x5>,
--				<&dmamux1 42 0x400 0x1>;
-+				       <&dmamux1 42 0x400 0x1>;
- 				dma-names = "rx", "tx";
- 				access-controllers = <&etzpc 16>;
- 				status = "disabled";
-@@ -1143,7 +1143,7 @@ usart2: serial@4c001000 {
- 				resets = <&rcc USART2_R>;
- 				wakeup-source;
- 				dmas = <&dmamux1 43 0x400 0x5>,
--				<&dmamux1 44 0x400 0x1>;
-+				       <&dmamux1 44 0x400 0x1>;
- 				dma-names = "rx", "tx";
- 				access-controllers = <&etzpc 17>;
- 				status = "disabled";
-@@ -1155,7 +1155,7 @@ i2s4: audio-controller@4c002000 {
- 				#sound-dai-cells = <0>;
- 				interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
- 				dmas = <&dmamux1 83 0x400 0x01>,
--				<&dmamux1 84 0x400 0x01>;
-+				       <&dmamux1 84 0x400 0x01>;
- 				dma-names = "rx", "tx";
- 				access-controllers = <&etzpc 13>;
- 				status = "disabled";
-@@ -1348,9 +1348,9 @@ timers15: timer@4c00a000 {
- 				clocks = <&rcc TIM15_K>;
- 				clock-names = "int";
- 				dmas = <&dmamux1 105 0x400 0x1>,
--				<&dmamux1 106 0x400 0x1>,
--				<&dmamux1 107 0x400 0x1>,
--				<&dmamux1 108 0x400 0x1>;
-+				       <&dmamux1 106 0x400 0x1>,
-+				       <&dmamux1 107 0x400 0x1>,
-+				       <&dmamux1 108 0x400 0x1>;
- 				dma-names = "ch1", "up", "trig", "com";
- 				access-controllers = <&etzpc 26>;
- 				status = "disabled";
-@@ -1383,7 +1383,7 @@ timers16: timer@4c00b000 {
- 				clocks = <&rcc TIM16_K>;
- 				clock-names = "int";
- 				dmas = <&dmamux1 109 0x400 0x1>,
--				<&dmamux1 110 0x400 0x1>;
-+				       <&dmamux1 110 0x400 0x1>;
- 				dma-names = "ch1", "up";
- 				access-controllers = <&etzpc 27>;
- 				status = "disabled";
+Change from v5:
+- https://lore.kernel.org/netdev/20260227075718.2243818-1-inochiama@gmail.com
+patch 3:
+1. fix error from checkpatch
 
--- 
-2.43.0
+Change from v4:
+- https://lore.kernel.org/netdev/20260130022705.1059214-1-inochiama@gmail.com
+patch 1:
+1 Apply Rob's tag.
+2 Adjust clock description according to Russell's suggestion.
+patch 3:
+1. Add set_phy_intf_sel() and get_interfaces() hook, suggested by Russell.
+
+Change from v3:
+- https://lore.kernel.org/netdev/20260128072931.875041-1-inochiama@gmail.com
+patch 1:
+1. fix the uncorrect compatible string postion
+patch 3:
+1. add "CTRL_" prefix to all ctrl register definition
+2. only use delay config 0 to calculate delay code.
+3. fix typo in the comment
+
+Change from v2:
+- https://lore.kernel.org/netdev/20260121071315.940130-1-inochiama@gmail.com
+patch 1:
+1. remove not needed compatible for select
+2. drop empty line in "spacemit,apmu" properties
+3. add spacemit,apmu properties to required.
+patch 3:
+1. remove misused phy_fix_phy_mode_for_mac_delays.
+2. use local tx clock instead of the clk_tx_i in the dwmac.
+
+Change from v1:
+- https://lore.kernel.org/netdev/20260120043609.910302-1-inochiama@gmail.com
+patch 1:
+1. remove phy clock
+patch 3:
+1. improve comment and include something special about Spacmit K3 dwmac
+2. reorder the included file
+3. fix wrong delay macro used in spacemit_dwmac_set_delay.
+4. add check for maximum supported delay.
+5. use DIV_ROUND_CLOSEST to calculate best delay configuration.
+6. use assign for the ctrl register initial value.
+7. fix input when calling of_property_read_u32().
+
+Inochi Amaoto (3):
+  dt-bindings: net: Add support for Spacemit K3 dwmac
+  net: stmmac: platform: Add snps,dwmac-5.40a IP compatible string
+  net: stmmac: Add glue layer for Spacemit K3 SoC
+
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   2 +
+ .../bindings/net/spacemit,k3-dwmac.yaml       | 102 ++++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-spacemit.c  | 228 ++++++++++++++++++
+ .../ethernet/stmicro/stmmac/stmmac_platform.c |   1 +
+ 6 files changed, 346 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/spacemit,k3-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+
+--
+2.53.0
 
 _______________________________________________
 Linux-stm32 mailing list
