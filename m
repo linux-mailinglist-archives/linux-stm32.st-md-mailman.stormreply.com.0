@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MICaKPoHqGnSnQAAu9opvQ
+	id oHBtOwEIqGnSnQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:22:50 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:22:57 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50C031FE41F
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:22:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 993711FE42F
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 11:22:57 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19D64C87EDF;
-	Wed,  4 Mar 2026 10:22:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2655AC87ED1;
+	Wed,  4 Mar 2026 10:22:57 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 520A1C87ED0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A31C5C87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 10:22:49 +0000 (UTC)
+ Wed,  4 Mar 2026 10:22:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=52X/BulkGNjlU03mY+rQgB6PxxV/PyTPUJEYegWdRoA=; b=pvhRUhSCwKSrU0FHSuokqIX3uG
- ZkPYB7XI7k1n+B8DKM2hah20K5GSGmCZ1q2kagLVVQitT8WHkUE+nzoaR+Np5z9ugFqAgE9FM8g3L
- Q9QuFKRnAFk+r2cYz9r9YiLSCjm9YlldKFeOxYdT2T7Sn8SGWN4uYICNsK+/0m0/TaQiuJ2Lx0sPe
- Lq9tscgSqhtUZXKt6Cf+LtjUU/553bZzsjDFZanAMoA4xdEbDmJJLyiUZXRk/Qc4YOnP3RHKNgO6z
- OEGlxa0kkHZrc2VP7UBlunfF8q3XFbxIwiAVJQqN8lK4GwGdde4YYcKYNhxcc6mdVd0I1ukb5mA7V
- kOWC0WRQ==;
+ bh=MbrjhiJsBekVFh5rx/Fv5I9GW5ZEH91lq8243S/Fsag=; b=akh1oFo3NRV/3C7Ei8PToMyo/O
+ DpF2zdFVAMcA6DPHPKXfE1RfLmXazw3IaEiWoh8tXcBd/8Sm7IxSpHbOH2BRXy9z+K3qKT/HITEnL
+ +QZof6+WgPYOd8yL0BN69wKmmzKJ86sKB0AMr9App5WmY3/q9GQh2wXBhXEHV+BhFyUz/SXgCrj3k
+ EelOkruiZ3eAOVdCzhp+HaPE3XizDjyy6+VeABUzHH1fhyGGHzGUqxT2FFy7PawKOgvhTihFReW/p
+ vkXdQ/Y2rDzY8Ty4QnzcnYe3owN/sHzq6R/U+fsJ5eLPrGo/Y57hQdD9zrXWF7Dx8KNcA4VvM69mA
+ 66I2qwnw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:43038 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:43046 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vxjNK-000000006LP-3kJM;
- Wed, 04 Mar 2026 10:22:42 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vxjNQ-000000006Li-1XRB;
+ Wed, 04 Mar 2026 10:22:48 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vxjNJ-0000000Br18-3sVv; Wed, 04 Mar 2026 10:22:41 +0000
+ id 1vxjNP-0000000Br1E-0AhS; Wed, 04 Mar 2026 10:22:47 +0000
 In-Reply-To: <aagH023pvswd0tlT@shell.armlinux.org.uk>
 References: <aagH023pvswd0tlT@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vxjNJ-0000000Br18-3sVv@rmk-PC.armlinux.org.uk>
-Date: Wed, 04 Mar 2026 10:22:41 +0000
+Message-Id: <E1vxjNP-0000000Br1E-0AhS@rmk-PC.armlinux.org.uk>
+Date: Wed, 04 Mar 2026 10:22:47 +0000
 Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
  linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 3/8] net: stmmac: mdio: simplify MDC
- clock divisor lookup
+Subject: [Linux-stm32] [PATCH net-next 4/8] net: stmmac: mdio: convert field
+ prep to use field_prep()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 50C031FE41F
+X-Rspamd-Queue-Id: 993711FE42F
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -95,7 +95,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.648];
+	NEURAL_HAM(-0.00)[-0.679];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -106,65 +106,174 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-As each lookup now iterates over each table in the same way, simplfy
-the code to select the table, and then walk that table.
+Convert the MDIO field preparation to use field_prep(), which removes
+the need to store separate mask and shifts. Also convert the clk_csr
+value using __ffs() to do the shift as we need to detect overflows
+for this.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 27 +++++++------------
- 1 file changed, 10 insertions(+), 17 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/common.h         | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c    | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c  | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c    | 3 ---
+ drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c  | 6 ------
+ drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c    | 6 +++---
+ 8 files changed, 3 insertions(+), 27 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
+index e4ce1167ebab..978f90065681 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/common.h
++++ b/drivers/net/ethernet/stmicro/stmmac/common.h
+@@ -608,11 +608,8 @@ struct mac_link {
+ struct mii_regs {
+ 	unsigned int addr;	/* MII Address */
+ 	unsigned int data;	/* MII Data */
+-	unsigned int addr_shift;	/* MII address shift */
+-	unsigned int reg_shift;		/* MII reg shift */
+ 	unsigned int addr_mask;		/* MII address mask */
+ 	unsigned int reg_mask;		/* MII reg mask */
+-	unsigned int clk_csr_shift;
+ 	unsigned int clk_csr_mask;
+ };
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+index 9c51c96223ad..6dfccc969d0e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+@@ -367,11 +367,8 @@ static int loongson_dwmac_setup(void *apriv, struct mac_device_info *mac)
+ 	mac->link.speed_mask = GMAC_CONTROL_PS | GMAC_CONTROL_FES;
+ 	mac->mii.addr = GMAC_MII_ADDR;
+ 	mac->mii.data = GMAC_MII_DATA;
+-	mac->mii.addr_shift = 11;
+ 	mac->mii.addr_mask = 0x0000F800;
+-	mac->mii.reg_shift = 6;
+ 	mac->mii.reg_mask = 0x000007C0;
+-	mac->mii.clk_csr_shift = 2;
+ 	mac->mii.clk_csr_mask = GENMASK(5, 2);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+index c01b86fd64da..6b18072112db 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun8i.c
+@@ -1063,11 +1063,8 @@ static int sun8i_dwmac_setup(void *ppriv, struct mac_device_info *mac)
+ 	mac->link.duplex = EMAC_DUPLEX_FULL;
+ 	mac->mii.addr = EMAC_MDIO_CMD;
+ 	mac->mii.data = EMAC_MDIO_DATA;
+-	mac->mii.reg_shift = 4;
+ 	mac->mii.reg_mask = GENMASK(8, 4);
+-	mac->mii.addr_shift = 12;
+ 	mac->mii.addr_mask = GENMASK(16, 12);
+-	mac->mii.clk_csr_shift = 20;
+ 	mac->mii.clk_csr_mask = GENMASK(22, 20);
+ 	mac->unicast_filter_entries = 8;
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+index af566636fad9..10acca806f4f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac1000_core.c
+@@ -496,11 +496,8 @@ int dwmac1000_setup(struct stmmac_priv *priv)
+ 	mac->link.speed_mask = GMAC_CONTROL_PS | GMAC_CONTROL_FES;
+ 	mac->mii.addr = GMAC_MII_ADDR;
+ 	mac->mii.data = GMAC_MII_DATA;
+-	mac->mii.addr_shift = 11;
+ 	mac->mii.addr_mask = 0x0000F800;
+-	mac->mii.reg_shift = 6;
+ 	mac->mii.reg_mask = 0x000007C0;
+-	mac->mii.clk_csr_shift = 2;
+ 	mac->mii.clk_csr_mask = GENMASK(5, 2);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
+index db4fbe64a38a..911753b9889e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac100_core.c
+@@ -184,11 +184,8 @@ int dwmac100_setup(struct stmmac_priv *priv)
+ 	mac->link.speed_mask = MAC_CONTROL_PS;
+ 	mac->mii.addr = MAC_MII_ADDR;
+ 	mac->mii.data = MAC_MII_DATA;
+-	mac->mii.addr_shift = 11;
+ 	mac->mii.addr_mask = 0x0000F800;
+-	mac->mii.reg_shift = 6;
+ 	mac->mii.reg_mask = 0x000007C0;
+-	mac->mii.clk_csr_shift = 2;
+ 	mac->mii.clk_csr_mask = GENMASK(5, 2);
+ 
+ 	return 0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+index 623868afe93d..0e87590c806b 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
+@@ -1030,11 +1030,8 @@ int dwmac4_setup(struct stmmac_priv *priv)
+ 	mac->link.speed_mask = GMAC_CONFIG_FES | GMAC_CONFIG_PS;
+ 	mac->mii.addr = GMAC_MDIO_ADDR;
+ 	mac->mii.data = GMAC_MDIO_DATA;
+-	mac->mii.addr_shift = 21;
+ 	mac->mii.addr_mask = GENMASK(25, 21);
+-	mac->mii.reg_shift = 16;
+ 	mac->mii.reg_mask = GENMASK(20, 16);
+-	mac->mii.clk_csr_shift = 8;
+ 	mac->mii.clk_csr_mask = GENMASK(11, 8);
+ 	mac->num_vlan = stmmac_get_num_vlan(priv->ioaddr);
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+index 49893b9fb88c..ba98e22f1c12 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+@@ -1551,11 +1551,8 @@ int dwxgmac2_setup(struct stmmac_priv *priv)
+ 
+ 	mac->mii.addr = XGMAC_MDIO_ADDR;
+ 	mac->mii.data = XGMAC_MDIO_DATA;
+-	mac->mii.addr_shift = 16;
+ 	mac->mii.addr_mask = GENMASK(20, 16);
+-	mac->mii.reg_shift = 0;
+ 	mac->mii.reg_mask = GENMASK(15, 0);
+-	mac->mii.clk_csr_shift = 19;
+ 	mac->mii.clk_csr_mask = GENMASK(21, 19);
+ 	mac->num_vlan = stmmac_get_num_vlan(priv->ioaddr);
+ 
+@@ -1594,11 +1591,8 @@ int dwxlgmac2_setup(struct stmmac_priv *priv)
+ 
+ 	mac->mii.addr = XGMAC_MDIO_ADDR;
+ 	mac->mii.data = XGMAC_MDIO_DATA;
+-	mac->mii.addr_shift = 16;
+ 	mac->mii.addr_mask = GENMASK(20, 16);
+-	mac->mii.reg_shift = 0;
+ 	mac->mii.reg_mask = GENMASK(15, 0);
+-	mac->mii.clk_csr_shift = 19;
+ 	mac->mii.clk_csr_mask = GENMASK(21, 19);
+ 
+ 	return 0;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index 6292911fb54b..55dd3e07223d 100644
+index 55dd3e07223d..efe2446b2099 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -535,6 +535,7 @@ static const struct stmmac_clk_rate stmmac_xgmac_csr_to_mdc[] = {
-  */
- static u32 stmmac_clk_csr_set(struct stmmac_priv *priv)
+@@ -234,8 +234,8 @@ static u32 stmmac_mdio_format_addr(struct stmmac_priv *priv,
  {
-+	const struct stmmac_clk_rate *rates;
- 	unsigned long clk_rate;
- 	u32 value = ~0;
- 	int i;
-@@ -548,26 +549,18 @@ static u32 stmmac_clk_csr_set(struct stmmac_priv *priv)
- 	 * the frequency of clk_csr_i. So we do not change the default
- 	 * divider.
- 	 */
--	for (i = 0; stmmac_std_csr_to_mdc[i].rate; i++)
--		if (clk_rate > stmmac_std_csr_to_mdc[i].rate)
-+	rates = stmmac_std_csr_to_mdc;
-+	if (priv->plat->flags & STMMAC_FLAG_HAS_SUN8I)
-+		rates = stmmac_sun8i_csr_to_mdc;
-+	if (priv->plat->core_type == DWMAC_CORE_XGMAC)
-+		rates = stmmac_xgmac_csr_to_mdc;
-+
-+	for (i = 0; rates[i].rate; i++)
-+		if (clk_rate > rates[i].rate)
- 			break;
--	if (stmmac_std_csr_to_mdc[i].cr != (u8)~0)
-+	if (rates[i].cr != (u8)~0)
- 		value = stmmac_std_csr_to_mdc[i].cr;
+ 	const struct mii_regs *mii_regs = &priv->hw->mii;
  
--	if (priv->plat->flags & STMMAC_FLAG_HAS_SUN8I) {
--		for (i = 0; stmmac_sun8i_csr_to_mdc[i].rate; i++)
--			if (clk_rate > stmmac_sun8i_csr_to_mdc[i].rate)
--				break;
--		value = stmmac_sun8i_csr_to_mdc[i].cr;
--	}
--
--	if (priv->plat->core_type == DWMAC_CORE_XGMAC) {
--		for (i = 0; stmmac_xgmac_csr_to_mdc[i].rate; i++)
--			if (clk_rate > stmmac_xgmac_csr_to_mdc[i].rate)
--				break;
--		value = stmmac_xgmac_csr_to_mdc[i].cr;
--	}
--
- 	return value;
+-	return ((pa << mii_regs->addr_shift) & mii_regs->addr_mask) |
+-	       ((gr << mii_regs->reg_shift) & mii_regs->reg_mask) |
++	return field_prep(mii_regs->addr_mask, pa) |
++	       field_prep(mii_regs->reg_mask, gr) |
+ 	       priv->gmii_address_bus_config |
+ 	       MII_ADDR_GBUSY;
  }
+@@ -577,7 +577,7 @@ static void stmmac_mdio_bus_config(struct stmmac_priv *priv)
+ 	else
+ 		value = stmmac_clk_csr_set(priv);
  
+-	value <<= priv->hw->mii.clk_csr_shift;
++	value <<= __ffs(priv->hw->mii.clk_csr_mask);
+ 
+ 	if (value & ~priv->hw->mii.clk_csr_mask)
+ 		dev_warn(priv->device,
 -- 
 2.47.3
 
