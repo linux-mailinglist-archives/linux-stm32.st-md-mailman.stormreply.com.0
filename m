@@ -2,96 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eNqPJ5mIp2nliAAAu9opvQ
+	id 2CC4Fyu8p2nfjQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 02:19:21 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 05:59:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D9531F92C6
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 02:19:21 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E35071FACDD
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 05:59:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C975BC5A4C5;
-	Wed,  4 Mar 2026 01:19:20 +0000 (UTC)
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com
- [74.125.82.169])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50311C5A4C5;
+	Wed,  4 Mar 2026 04:59:22 +0000 (UTC)
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com
+ [74.125.82.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38D8AC055F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA4DBC055F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 01:19:19 +0000 (UTC)
-Received: by mail-dy1-f169.google.com with SMTP id
- 5a478bee46e88-2be0711f493so1093633eec.0
+ Wed,  4 Mar 2026 04:59:20 +0000 (UTC)
+Received: by mail-dy1-f173.google.com with SMTP id
+ 5a478bee46e88-2be1ab1fa7dso3135896eec.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 03 Mar 2026 17:19:19 -0800 (PST)
+ Tue, 03 Mar 2026 20:59:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1772587157; x=1773191957;
+ d=gmail.com; s=20230601; t=1772600359; x=1773205159;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=gvvy8mrMhzjULjG/waJaGKSbWOymXRI0aiNwOWuVKAk=;
- b=YeInlIt85OIGYfxUOp7jWuNX78scEqXT2aN9ZqoKH6U1nvGRP3nUimihuh0O7jMbPU
- BhzA8g49SgtoYVLYWr+UMXO7R6Ud6XstEinKzCXGGbprZ7nt7ZF2dnesEaSCenC8S7ua
- +x0Cx+o4JPbJvz2poJWgApvXBL075mFmYoXruciS2ThcwEThXkTFiJHgG77Mif4bcnQO
- NXPWQmGJ9GGh43fS+a6dsZhEd+Sdtix+qcDe1vwPT/p077M73nki3pb6/mXoLeac5Frm
- Pqp2/cZn3X8R9WSQnIkNiMyiLUOMEFmcDfxeRNYfWPIFRVkeeWCiaUdrSY1feaoukzwK
- SNIw==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=EDBrUhFaFc7wQVcSeZc1Bi9PtbigcT50WYnul0mkrvw=;
+ b=DicyBrE1iLBPNTDu5hmAeoh6d5AGHLcEgDLbj7Q5KnSHtVlTn3E36E3pWRV3mZ3TIF
+ DFlrxHkyQLy7IEkatI9nwafGmmpRklce8DXeLycp01gT3rh5eNKrV1r6VO/LmiCYZ08q
+ +VSz06hp+8Gz84h0pUkNmhlMAk2UtmA1xrZwLAYqJFncYk7zN8gwgWrXj6DXR0k53Cao
+ QeU04PMlHNSayMylcFoid916RP0OxIEhyIVtQqxeBiZ372YD/T6Km6G87QJ2gXK8iRNW
+ vHmRXl5nDHYJTKuv+JHP8QTDvSf7ZGoEMk8yKE9eGUbxCO15fVIYx3fsyOd6nVCMDkss
+ owkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1772587157; x=1773191957;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=gvvy8mrMhzjULjG/waJaGKSbWOymXRI0aiNwOWuVKAk=;
- b=F/3X/dvtzCCFQa7X4RcLW9CtnF5FJKgwBOjChGlmy335wlIAifxGZgHuHRjDEj/5/5
- DgCAuaOzDjIQdFGRG63zZ9k0Xib0oc+IFBf9ICwtSgsYinw4xze77lf33HynzHIQ2oeb
- vWC+MYznfCNRNWUGZUtqsAd6CPVqJ4ypCQIHcAf9Ls1GWag4yO2/IXExVEv2pkkVTsuv
- 3jqJT/gMw2h5iUPTCXyBZ5rqOdELklniyAdRyaWU34/JC9ftmkaNekepz7W/zW74TFLy
- M0eUyQ7asbZBWbDhaIuqzOVfRqLnvV0P7Tm2Uvxvn4NlX6m63i3C2l5Tdh0mx9xFDNtt
- 30XA==
+ d=1e100.net; s=20230601; t=1772600359; x=1773205159;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=EDBrUhFaFc7wQVcSeZc1Bi9PtbigcT50WYnul0mkrvw=;
+ b=ok++kaRAR59FhOv84kPPybVl0lHvFeEe8oLZhqdZeEGbDqKpgyAvRusCJelzJPyQdm
+ OFMgTv+zUYxapc1QyiKIvM3tCUoWeOy7SRAq0hGeJyyrUqF2PSy3Az6S51OWRA6zf5V9
+ PxUCQg7Du2beOp8rmGzNgrqsNE11KbZDuoKUDR4tZ1pYEdiFfDx1gftLDT6DvcakPd6n
+ +0M6OXHNcihoyMegO6LcbSoPhVcdoTzkhfz1lQvYZvPtqVUqFQ5zXlTVqyN9WPXXRImC
+ wiVZlrL6XqSTk43oHK3TZdGET6QhrN9xR3/QvvYS3w8nuQmD8AhWlwmxBfWcJmqyBX+A
+ 62+w==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVvXyimuoRGaosD6UNvUDHlZw7D+++u0Pt6hyt0SAwo8OZD7cUQ5QyS0xZqJjvG9xgqQFIDxpldUB7ezQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxuwIPmBVeBpkVva9nOQE7u4XFz8PoGqulINa+DBt+ftMeOsWNw
- NCyBMfDc5FXTv87WCc5lRxbV5YVCoBJco4etXDWnOrlyntPpwT3EItCu
-X-Gm-Gg: ATEYQzyIGVLONwJVegAWBj+e7FxFNun8rCVSL2Ue49X/TfWmk8WYaA0FKhU8aLRAd2t
- +eANHsFQ6YukHZF5lsHCl/Ms4CUoSBB5Rh2ZEW3EP6Vdr6BQCqvBayqXUdM6MqXBkN/95JCLOTj
- qeKpCGudbVQH1TZvC4GrSU/BbGXtOnWm0nxTeU8bqxBKpiaO/XtvOMkrEvnODpj73QWgTjTdqc3
- NnFtbmQRtLQOA+DvPa0mRAAbgYCH3Tx6mVAhTF0+l3c+mirxcABEOIpLaWpuUFkY8XMaWtC+VvE
- dvgPqoyJih3Tf7i56EI0ypV5d+AYHuB+pp6jvSMWekcv93NWwHyvDmIeDcFl1FSpEdeCAM8sss5
- Wk0yiSIjCorqlJjolOvxK1qWEGrjl5nVyXVPuq6u3XAhb/IV2silcQF+4LHMWD5hzvpag8pIZRE
- VX7m+jspZvUl6Kn/55G4zXY/n/ZbP6rWRzX5NYYT5NUXkGfNc=
-X-Received: by 2002:a05:7300:ac81:b0:2be:969:75f6 with SMTP id
- 5a478bee46e88-2be2344da48mr1494176eec.9.1772587157326; 
- Tue, 03 Mar 2026 17:19:17 -0800 (PST)
-Received: from [172.16.0.242] ([192.19.161.250])
+ AJvYcCU0c2h3oyfoZVE8FJvego0qC4/IJBNDKwv2M53si2ROhaS00Ll3UMNOWvx7fkQz0FnhRWSvO38bi8Wd4Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw2upkgdQ96tG93xzqI6laVzWJbo9J1ya+8ZKDEGbf1w7VKuszU
+ Wd1Ixs8TeFD+RzJwjrsL8GuXH1h0YJfamQA+8atgxedS0XgyWiQlZB0R
+X-Gm-Gg: ATEYQzyFwLpzAI81uzR2SBt0nIM735oaKFeMi0/4rUkx84t0OI5DhH1t0KQ0NSWZk0d
+ 7hLsZjnRt7CKBU1Yfz6TkFBcYdhdjqfNH8T/66Z5GrYkqNHh59oOYaPNvpa244VWKMgs0TZ8d6a
+ 0yB6NFuvhw3cVOtvifQTvB8yQW6UmbA1vZT+g1rEaPWkbgGO5UZ7hSaKf2JY3vA6L0uwPUqDett
+ bObrr8RQlaU+fpIEyI2A5A6l9ugapharjFtCsaYXVCOGhTi0mKx1BD80eA2AHzkyU2MhO3HzReX
+ eof+jEEVr/Ad/Snfmt0d7CouiolgS2MTvmhaX3D6x38Sd8pt/RCb34QddbmjRHImVYEasEHSRy6
+ 9RKG7CRAsFzA2cpZr3c5SDPNhyfO0ji3pmza1erOf4SX2WX9h4GG0DYEhuFwumMIsoLx3mNAujf
+ 68N3hi+Fhzwyyv3FUjjnV4RoaFsMXakCveOecTgtq21CcJFU6wgvcaQiGoGrgc3mtH
+X-Received: by 2002:a05:7300:a887:b0:2bd:b961:7e8b with SMTP id
+ 5a478bee46e88-2be310975famr422928eec.24.1772600358821; 
+ Tue, 03 Mar 2026 20:59:18 -0800 (PST)
+Received: from google.com ([2a00:79e0:2ebe:8:a048:d9ec:d217:7d59])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-2be0d7e0d40sm6999679eec.12.2026.03.03.17.19.14
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 Mar 2026 17:19:16 -0800 (PST)
-Message-ID: <05a15890-392c-41c3-9566-8eb506ddfe5f@gmail.com>
-Date: Tue, 3 Mar 2026 17:23:18 -0800
+ 5a478bee46e88-2be1ce921dasm3981312eec.10.2026.03.03.20.59.17
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 03 Mar 2026 20:59:18 -0800 (PST)
+Date: Tue, 3 Mar 2026 20:59:15 -0800
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: david@ixit.cz
+Message-ID: <aae7zuSkAgNaciUK@google.com>
+References: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
+ <20260301-stmfts5-v1-3-22c458b9ac68@ixit.cz>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Conor Dooley <conor@kernel.org>, Jakub Kicinski <kuba@kernel.org>
-References: <20260303061525.846-1-lizhi2@eswincomputing.com>
- <20260303061637.872-1-lizhi2@eswincomputing.com>
- <20260303163846.156d18f7@kernel.org>
- <20260304-regulate-verdict-c3a361d2dc83@spud>
-Content-Language: en-US
-From: Bo Gan <ganboing@gmail.com>
-In-Reply-To: <20260304-regulate-verdict-c3a361d2dc83@spud>
-Cc: edumazet@google.com, lizhi2@eswincomputing.com,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, weishangjuan@eswincomputing.com, alex@ghiti.fr,
- ningyu@eswincomputing.com, pritesh.patel@einfochips.com, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
- rmk+kernel@armlinux.org.uk, wens@kernel.org, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, palmer@dabbelt.com,
- mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v3 1/3] dt-bindings: ethernet:
- eswin: add clock sampling control
+Content-Disposition: inline
+In-Reply-To: <20260301-stmfts5-v1-3-22c458b9ac68@ixit.cz>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-kernel@vger.kernel.org,
+ Petr Hodina <petr.hodina@protonmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, phone-devel@vger.kernel.org,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 03/10] Input: stmfts - abstract reading
+ information from the firmware
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,11 +97,11 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 3D9531F92C6
+X-Rspamd-Queue-Id: E35071FACDD
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -119,72 +113,47 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:conor@kernel.org,m:kuba@kernel.org,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[ganboing@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[28];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
+	TAGGED_FROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[dmitrytorokhov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[google.com,eswincomputing.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,ghiti.fr,einfochips.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[ganboing@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:david@ixit.cz,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:andersson@kernel.org,m:rydberg@bitmath.org,m:krzk@kernel.org,m:linux-kernel@vger.kernel.org,m:petr.hodina@protonmail.com,m:mcoquelin.stm32@gmail.com,m:linux-input@vger.kernel.org,m:krzk+dt@kernel.org,m:phone-devel@vger.kernel.org,m:konradybcio@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	NEURAL_HAM(-0.00)[-0.896];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.644];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[dmitrytorokhov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,bitmath.org,protonmail.com,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	TO_DN_SOME(0.00)[]
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-Hi All,
-
-On 3/3/26 16:47, Conor Dooley wrote:
-> On Tue, Mar 03, 2026 at 04:38:46PM -0800, Jakub Kicinski wrote:
->> On Tue,  3 Mar 2026 14:16:37 +0800 lizhi2@eswincomputing.com wrote:
->>> There are currently no in-tree users of the EIC7700 Ethernet driver, so
->>> these changes are safe.
->>
->> What do you mean by this sentence? The commit under Fixes was part of
->> Linux v6.19 already.
+On Sun, Mar 01, 2026 at 06:51:17PM +0100, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> The "funny" thing is that caring about users doesn't even really matter
-> on the devicetree patch, except for this hunk:
-> |@@ -81,7 +99,9 @@ properties:
-> |                          or external clock selection
-> |           - description: Offset of AXI clock controller Low-Power request
-> |                          register
-> |+          - description: Offset of register controlling TXD delay
-> |           - description: Offset of register controlling TX/RX clock delay
-> |+          - description: Offset of register controlling RXD delay
-> |
-> | required:
-> |   - compatible
-> And it only matters here because an item is injected mid-list. If this
-> was moved to the end with the RXD delay, the **dt-binding** changes
-> don't have issues with safety. I've not looked at whether there are
-> knock-on concerns about users in the driver or whatever yet, but from a
-> binding POV only that hunk can break something that currently works.
+> Improves readability and makes splitting power on function in following
+> commit easier.
+> ---
 
-This was already discussed here in v1:
-https://lore.kernel.org/lkml/e7183ae1-8b8b-4e77-9f4e-3bc1b4b63556@lunn.ch/
+Missing signed-off-by...
 
-The device-tree is not checked in yet by ESWIN folks, so there's currently
-no user of the dt-binding. No need to worry about backward compat.
+Thanks.
 
-> 
->>> Fixes: 888bd0eca93c ("dt-bindings: ethernet: eswin: Document for EIC7700 SoC")
-
-Bo
-
+-- 
+Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
