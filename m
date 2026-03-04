@@ -2,59 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uLQyLo9cqGmZtgAAu9opvQ
+	id CKaQOSyHqGn2vQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 17:23:43 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 20:25:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 449D1204279
-	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 17:23:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82CB72070CF
+	for <lists+linux-stm32@lfdr.de>; Wed, 04 Mar 2026 20:25:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95984C87ED3;
-	Wed,  4 Mar 2026 16:23:41 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1513EC87ED1;
+	Wed,  4 Mar 2026 19:25:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F167DC87ED0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 39F47C87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  4 Mar 2026 16:23:39 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 9CC28C16573;
- Wed,  4 Mar 2026 16:23:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6EF075FF5C;
- Wed,  4 Mar 2026 16:23:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 283D410369745; Wed,  4 Mar 2026 17:23:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1772641418; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=xYK5YnD6PK/wRtLBidA/fCTqYSAI3vOMVTapurd9A8Y=;
- b=yGk6nEO0rstImCcR4sXznwq84+ePnnVkTr6gEwdBElr3pI/cDPbrjQaxQP0UfyIHkCs774
- Z2adwc+dB4YfTmgMM9/qs2jAj8vXpsc5osuo5k2ZUqSwpx1Co9+Mf7G2mQOILt0QcBP8Rh
- U5IV7CVWBOEwI6ST4iQxnaWK8fDguHvQ/henEU0zb5D9wBEV0CyNYfRtbsiyi7G1AT2gTQ
- LSkDw29j+3ZS8vNFagkVhAsjvpQ0afMCcnoaeeq6m1Hi2lKH3JyPrgWsztIzsGDPYxdZKE
- EdDztObWY5q1egJhJcLS1hkbRnCn/2UDLFwdIeHiMX4gO4gKVaDfPWP7p5qvtQ==
-Message-ID: <2069cdfb-7c67-4047-a35f-f1e976a03122@bootlin.com>
-Date: Wed, 4 Mar 2026 17:23:33 +0100
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
+ Wed,  4 Mar 2026 19:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772652330; x=1804188330;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=93zi98/SCHi0Xdt2/6okf2xCqWA0WfMJZVk3NLVoY/Y=;
+ b=hg29ljLCenEOO3XIUC+duk6lhRw+dqknogSwxMXn+edZ30mUG3g9vmtJ
+ 7Ts9RbKkI9bUo0LV/RTQxMVI8qG7rJfwZTap0UnkBrZsiUr7ps+YFF8Yl
+ I27JQbkQQf+f6glIPXMAB8yb3YAklaSiqlD+LpJIWsm2kvA03AKZppggU
+ uCAumcCVbebWAS/ShHAm8uEETG+pWqrhaJ8CnKcpXoUiiTS79dnafxSiq
+ iL1TX8pl3FtSFr7Gjia+g6S6uIm1cJQqzY7ZbiAwkGVLo0+RakVFUzYTj
+ f/GXQ52Vht3teI1eUF2i5zyjNvUQzOFwNnz3lhBdQ71Xj1QbJntxXDRoL w==;
+X-CSE-ConnectionGUID: MEZ7KzcdRiqV88wMnpkMeQ==
+X-CSE-MsgGUID: AITs+5vLQQCZPki0Ycw1UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="72753235"
+X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="72753235"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 11:25:28 -0800
+X-CSE-ConnectionGUID: dct93SjiSJaEO42FIENObw==
+X-CSE-MsgGUID: ajr2Y/TORySK9X58Glk5LQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.21,324,1763452800"; d="scan'208";a="218378608"
+Received: from lkp-server01.sh.intel.com (HELO f27a57aa7a36) ([10.239.97.150])
+ by orviesa009.jf.intel.com with ESMTP; 04 Mar 2026 11:25:26 -0800
+Received: from kbuild by f27a57aa7a36 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vxrqU-000000004O5-0gkS;
+ Wed, 04 Mar 2026 19:25:22 +0000
+Date: Thu, 5 Mar 2026 03:25:13 +0800
+From: kernel test robot <lkp@intel.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>
-References: <aafxqCvJ_XY4YbWw@shell.armlinux.org.uk>
- <E1vxhuo-0000000BqGW-0YDF@rmk-PC.armlinux.org.uk>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <E1vxhuo-0000000BqGW-0YDF@rmk-PC.armlinux.org.uk>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 3/7] net: stmmac: use
- integrated PCS for BASE-X modes
+Message-ID: <202603050340.7qkvXUGq-lkp@intel.com>
+References: <E1vxjNj-0000000Br1c-2Fg7@rmk-PC.armlinux.org.uk>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <E1vxjNj-0000000Br1c-2Fg7@rmk-PC.armlinux.org.uk>
+Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
+ netdev@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ Eric Dumazet <edumazet@google.com>, oe-kbuild-all@lists.linux.dev,
+ Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: make pcs_mask
+	and phy_mask u32
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,118 +77,91 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 449D1204279
+X-Rspamd-Queue-Id: 82CB72070CF
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:pabeni@redhat.com,m:samuel@sholland.org,m:netdev@vger.kernel.org,m:linux-sunxi@lists.linux.dev,m:edumazet@google.com,m:oe-kbuild-all@lists.linux.dev,m:kuba@kernel.org,m:wens@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[bootlin.com:-];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.995];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,bootlin.com:email,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns]
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.507];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:mid,intel.com:email,01.org:url,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
 Hi Russell,
 
-On 04/03/2026 09:49, Russell King (Oracle) wrote:
-> dwmac-qcom-ethqos supports SGMII and 2500BASE-X using the integrated
-> PCS, so we need to expand the PCS support to include support for
-> BASE-X modes.
-> 
-> Add support to the prereset configuration to detect 2500BASE-X, and
-> arrange for stmmac_mac_select_pcs() to return the integrated PCS if
-> its supported_interfaces bitmap reports support for the interface mode.
-> 
-> This results in priv->hw->pcs now being write-only, so remove it.
-> 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+kernel test robot noticed the following build errors:
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+[auto build test ERROR on net-next/main]
 
-Maxime
+url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-mdio-use-same-test-for-MDC-clock-divisor-lookups/20260304-183416
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/E1vxjNj-0000000Br1c-2Fg7%40rmk-PC.armlinux.org.uk
+patch subject: [PATCH net-next 8/8] net: stmmac: make pcs_mask and phy_mask u32
+config: openrisc-allmodconfig (https://download.01.org/0day-ci/archive/20260305/202603050340.7qkvXUGq-lkp@intel.com/config)
+compiler: or1k-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260305/202603050340.7qkvXUGq-lkp@intel.com/reproduce)
 
-> ---
->  drivers/net/ethernet/stmicro/stmmac/common.h      | 4 ----
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++------
->  2 files changed, 2 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-> index 42a48f655849..91116acf3273 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/common.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-> @@ -277,9 +277,6 @@ struct stmmac_safety_stats {
->  #define FLOW_TX		2
->  #define FLOW_AUTO	(FLOW_TX | FLOW_RX)
->  
-> -/* PCS defines */
-> -#define STMMAC_PCS_SGMII	(1 << 1)
-> -
->  #define SF_DMA_MODE 1		/* DMA STORE-AND-FORWARD Operation Mode */
->  
->  /* DMA HW feature register fields */
-> @@ -634,7 +631,6 @@ struct mac_device_info {
->  	unsigned int unicast_filter_entries;
->  	unsigned int mcast_bits_log2;
->  	unsigned int rx_csum;
-> -	unsigned int pcs;
->  	unsigned int num_vlan;
->  	u32 vlan_filter[32];
->  	bool vlan_fail_q_en;
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 029e9b518160..2e7edc3e82f2 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -945,11 +945,8 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
->  			return pcs;
->  	}
->  
-> -	/* The PCS control register is only relevant for SGMII, TBI and RTBI
-> -	 * modes. We no longer support TBI or RTBI, so only configure this
-> -	 * register when operating in SGMII mode with the integrated PCS.
-> -	 */
-> -	if (priv->hw->pcs & STMMAC_PCS_SGMII && priv->integrated_pcs)
-> +	if (priv->integrated_pcs &&
-> +	    test_bit(interface, priv->integrated_pcs->pcs.supported_interfaces))
->  		return &priv->integrated_pcs->pcs;
->  
->  	return NULL;
-> @@ -1208,7 +1205,6 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
->  
->  	if (priv->dma_cap.pcs && interface == PHY_INTERFACE_MODE_SGMII) {
->  		netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
-> -		priv->hw->pcs = STMMAC_PCS_SGMII;
->  
->  		switch (speed) {
->  		case SPEED_10:
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603050340.7qkvXUGq-lkp@intel.com/
 
+All errors (new ones prefixed by >>):
+
+   drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c: In function 'loongson_gnet_data':
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c:171:42: error: implicit declaration of function 'BIT_u32'; did you mean 'BIT_U32'? [-Wimplicit-function-declaration]
+     171 |         plat->mdio_bus_data->phy_mask = ~BIT_u32(2);
+         |                                          ^~~~~~~
+         |                                          BIT_U32
+
+
+vim +171 drivers/net/ethernet/stmicro/stmmac/dwmac-loongson.c
+
+   164	
+   165	static int loongson_gnet_data(struct pci_dev *pdev,
+   166				      struct plat_stmmacenet_data *plat)
+   167	{
+   168		loongson_default_data(pdev, plat);
+   169	
+   170		plat->phy_interface = PHY_INTERFACE_MODE_GMII;
+ > 171		plat->mdio_bus_data->phy_mask = ~BIT_u32(2);
+   172		plat->fix_mac_speed = loongson_gnet_fix_speed;
+   173	
+   174		return 0;
+   175	}
+   176	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
