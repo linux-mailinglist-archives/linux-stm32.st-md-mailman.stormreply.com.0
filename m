@@ -2,57 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aaZCLr/xqGnFzQAAu9opvQ
+	id 4C8kNdMsqWlN2wAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Mar 2026 04:00:15 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 05 Mar 2026 08:12:19 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422B820A60A
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Mar 2026 04:00:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BE2B20C3EB
+	for <lists+linux-stm32@lfdr.de>; Thu, 05 Mar 2026 08:12:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5285C8F26B;
-	Thu,  5 Mar 2026 03:00:14 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19BD5C8F26B;
+	Thu,  5 Mar 2026 07:12:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E5BDC87EBD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 508F3C87EBD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Mar 2026 03:00:13 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 9C16E404DA;
- Thu,  5 Mar 2026 03:00:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 70ABCC4CEF7;
- Thu,  5 Mar 2026 03:00:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1772679611;
- bh=bi1pYv3Bgq+ShmDzGX+GwIzVgs550SZNCxuwrCsn5Zw=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=XKQSdhPxdqmBP2Ac+rDlVNGMBaCuZAwx7jzg/ZotPWi2eFf9gQYQCBKOmRJNUmWXq
- g2U3tIzsNRK/2t8mrOCj9AMSueyYC+TWq28yY6D5DRjm6G8g8wvVbEVwDNnh/eYdko
- l6o1U8khaB+tVZFlxUUjbn7R6VmKaS+2kPuRlLB1XbhXJXPYGGo8xSb1tXkSuYE5E6
- Gth30+xotWb1C0xZB033o2BMfBcPRaQqCXYvsXgQxl7RnMzyIN8jnK1weviP5OKWC+
- TR7MoX4WFI0qQPC8ecCF5x5mzjTJ837zeu4wONFRbHyUYqkyZ/TF531sf1BSAkAqoW
- m/e+V7xwe49xg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 02D543808200; Thu,  5 Mar 2026 03:00:13 +0000 (UTC)
+ Thu,  5 Mar 2026 07:12:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1772694738; x=1804230738;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=ckd6RCQ6IONLsgaMWgrBIGYHcBsTJjJ9DdtVhSQ9KCA=;
+ b=P+3sgfda6jBUXbbvRJ1PAXNKc8HWOkmUuW7KsTd/4lNHDgXVJnGv06iz
+ tNK801Fe21Ec9Lla34t/sBeHatD2ZLo5vB/f2XoU0f09+QqReb0yosn9t
+ Kk3Xp2Y4fKOu6aPCzUyQ10XaaZar/+xPT2eohUfQAkGSeX6EkSJL1M0Vn
+ AeDqikK9WvrhX5HrnlO9LkZ0kcfEewLqvCNn8IYRx9kuNDa6NjPXzIEgH
+ zso8mVlq/Y0KaHCTL6RvT221GXdfLfnOgRa47v+p2eybyAVM6UUoWFkxD
+ b1naLxjE/HZZ7DyxBXh7PveSfY8DLp/sgSoJNpNE7UASoTqNO7F8C346r w==;
+X-CSE-ConnectionGUID: nb4B9GGqRiaZtzwFitGoOQ==
+X-CSE-MsgGUID: VNbXGG8HSKaBDn85L+ZJFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11719"; a="73472866"
+X-IronPort-AV: E=Sophos;i="6.21,325,1763452800"; d="scan'208";a="73472866"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Mar 2026 23:12:15 -0800
+X-CSE-ConnectionGUID: 20c1cHnATj2V3cSCBoXeAg==
+X-CSE-MsgGUID: TSBDjWCGSiSURjZallYWzg==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO cadc4577a874) ([10.239.97.150])
+ by fmviesa003.fm.intel.com with ESMTP; 04 Mar 2026 23:12:08 -0800
+Received: from kbuild by cadc4577a874 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1vy2sP-0000000007i-0QK2;
+ Thu, 05 Mar 2026 07:12:05 +0000
+Date: Thu, 5 Mar 2026 15:11:13 +0800
+From: kernel test robot <lkp@intel.com>
+To: lizhi2@eswincomputing.com, devicetree@vger.kernel.org,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ rmk+kernel@armlinux.org.uk, wens@kernel.org, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Message-ID: <202603051555.5m64TOiy-lkp@intel.com>
+References: <20260303061711.895-1-lizhi2@eswincomputing.com>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177267961155.2494418.12039829007710678123.git-patchwork-notify@kernel.org>
-Date: Thu, 05 Mar 2026 03:00:11 +0000
-References: <20260303145828.7845-1-ovidiu.panait.rb@renesas.com>
-In-Reply-To: <20260303145828.7845-1-ovidiu.panait.rb@renesas.com>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: linux-kernel@vger.kernel.org, kim.tatt.chuah@intel.com,
- hayashi.kunihiko@socionext.com, vladimir.oltean@nxp.com,
- linux-stm32@st-md-mailman.stormreply.com, rohan.g.thomas@altera.com,
- linux@armlinux.org.uk, andrew+netdev@lunn.ch, edumazet@google.com,
- boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, netdev@vger.kernel.org,
- boon.leong.ong@intel.com, kuba@kernel.org, pabeni@redhat.com,
- rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v3 0/4] net: stmmac: Fix VLAN handling
- when interface is down
+Content-Disposition: inline
+In-Reply-To: <20260303061711.895-1-lizhi2@eswincomputing.com>
+Cc: pinkesh.vaghela@einfochips.com, weishangjuan@eswincomputing.com,
+ linmin@eswincomputing.com, ningyu@eswincomputing.com,
+ pritesh.patel@einfochips.com, Zhi Li <lizhi2@eswincomputing.com>,
+ oe-kbuild-all@lists.linux.dev
+Subject: Re: [Linux-stm32] [PATCH net-next v3 2/3] net: stmmac: eic7700:
+ enable clocks before syscon access and correct RX sampling timing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,80 +82,227 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 422B820A60A
+X-Rspamd-Queue-Id: 6BE2B20C3EB
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,intel.com,socionext.com,nxp.com,st-md-mailman.stormreply.com,altera.com,armlinux.org.uk,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
-	TAGGED_FROM(0.00)[netdevbpf];
+	FORGED_RECIPIENTS(0.00)[m:lizhi2@eswincomputing.com,m:devicetree@vger.kernel.org,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:oe-kbuild-all@lists.linux.dev,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FORGED_RECIPIENTS(0.00)[m:ovidiu.panait.rb@renesas.com,m:linux-kernel@vger.kernel.org,m:kim.tatt.chuah@intel.com,m:hayashi.kunihiko@socionext.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:rohan.g.thomas@altera.com,m:linux@armlinux.org.uk,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:boon.leong.ong@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[30];
+	FREEMAIL_TO(0.00)[eswincomputing.com,vger.kernel.org,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,dabbelt.com,eecs.berkeley.edu,ghiti.fr,lists.infradead.org,st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.814];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	NEURAL_SPAM(0.00)[0.760];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NO_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:mid,intel.com:email,01.org:url,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
-Hello:
+Hi,
 
-This series was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+kernel test robot noticed the following build errors:
 
-On Tue,  3 Mar 2026 14:58:24 +0000 you wrote:
-> VLAN register accesses on the MAC side require the PHY RX clock to be
-> active. When the network interface is down, the PHY is suspended and
-> the RX clock is unavailable, causing VLAN operations to fail with
-> timeouts.
-> 
-> The VLAN core automatically removes VID 0 after the interface goes down
-> and re-adds it when it comes back up, so these timeouts happen during
-> normal interface down/up:
-> 
-> [...]
+[auto build test ERROR on net-next/main]
 
-Here is the summary with links:
-  - [net,v3,1/4] net: stmmac: Fix error handling in VLAN add and delete paths
-    https://git.kernel.org/netdev/net/c/35dfedce442c
-  - [net,v3,2/4] net: stmmac: Improve double VLAN handling
-    https://git.kernel.org/netdev/net/c/e38200e361cb
-  - [net,v3,3/4] net: stmmac: Fix VLAN HW state restore
-    https://git.kernel.org/netdev/net/c/bd7ad51253a7
-  - [net,v3,4/4] net: stmmac: Defer VLAN HW configuration when interface is down
-    https://git.kernel.org/netdev/net/c/2cd70e3968f5
+url:    https://github.com/intel-lab-lkp/linux/commits/lizhi2-eswincomputing-com/dt-bindings-ethernet-eswin-add-clock-sampling-control/20260303-142311
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/20260303061711.895-1-lizhi2%40eswincomputing.com
+patch subject: [PATCH net-next v3 2/3] net: stmmac: eic7700: enable clocks before syscon access and correct RX sampling timing
+config: m68k-allmodconfig (https://download.01.org/0day-ci/archive/20260305/202603051555.5m64TOiy-lkp@intel.com/config)
+compiler: m68k-linux-gcc (GCC) 15.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260305/202603051555.5m64TOiy-lkp@intel.com/reproduce)
 
-You are awesome, thank you!
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603051555.5m64TOiy-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c: In function 'eic7700_dwmac_probe':
+>> drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c:290:33: error: assignment to 'void (*)(void *, phy_interface_t,  int,  unsigned int)' from incompatible pointer type 'void (*)(void *, int,  unsigned int)' [-Wincompatible-pointer-types]
+     290 |         plat_dat->fix_mac_speed = eic7700_dwmac_fix_speed;
+         |                                 ^
+   drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c:129:13: note: 'eic7700_dwmac_fix_speed' declared here
+     129 | static void eic7700_dwmac_fix_speed(void *priv, int speed, unsigned int mode)
+         |             ^~~~~~~~~~~~~~~~~~~~~~~
+
+
+vim +290 drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+
+   149	
+   150	static int eic7700_dwmac_probe(struct platform_device *pdev)
+   151	{
+   152		const struct eic7700_dwmac_data *data;
+   153		struct plat_stmmacenet_data *plat_dat;
+   154		struct stmmac_resources stmmac_res;
+   155		struct eic7700_qos_priv *dwc_priv;
+   156		u32 delay_ps, val;
+   157		int i, ret;
+   158	
+   159		ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+   160		if (ret)
+   161			return dev_err_probe(&pdev->dev, ret,
+   162					"failed to get resources\n");
+   163	
+   164		plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+   165		if (IS_ERR(plat_dat))
+   166			return dev_err_probe(&pdev->dev, PTR_ERR(plat_dat),
+   167					"dt configuration failed\n");
+   168	
+   169		dwc_priv = devm_kzalloc(&pdev->dev, sizeof(*dwc_priv), GFP_KERNEL);
+   170		if (!dwc_priv)
+   171			return -ENOMEM;
+   172	
+   173		dwc_priv->dev = &pdev->dev;
+   174	
+   175		data = device_get_match_data(&pdev->dev);
+   176		if (!data)
+   177			return dev_err_probe(&pdev->dev,
+   178					     -EINVAL, "no match data found\n");
+   179	
+   180		dwc_priv->eth_rx_clk_inv = data->rgmii_rx_clk_invert;
+   181	
+   182		/* Read rx-internal-delay-ps and update rx_clk delay */
+   183		if (!of_property_read_u32(pdev->dev.of_node,
+   184					  "rx-internal-delay-ps", &delay_ps)) {
+   185			if (delay_ps % EIC7700_DELAY_STEP_PS)
+   186				return dev_err_probe(&pdev->dev, -EINVAL,
+   187					"rx delay must be multiple of %dps\n",
+   188					EIC7700_DELAY_STEP_PS);
+   189	
+   190			if (delay_ps > EIC7700_MAX_DELAY_PS)
+   191				return dev_err_probe(&pdev->dev, -EINVAL,
+   192					"rx delay out of range\n");
+   193	
+   194			val = delay_ps / EIC7700_DELAY_STEP_PS;
+   195	
+   196			dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
+   197			dwc_priv->eth_clk_dly_param |=
+   198					 FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
+   199		}
+   200	
+   201		/* Read tx-internal-delay-ps and update tx_clk delay */
+   202		if (!of_property_read_u32(pdev->dev.of_node,
+   203					  "tx-internal-delay-ps", &delay_ps)) {
+   204			if (delay_ps % EIC7700_DELAY_STEP_PS)
+   205				return dev_err_probe(&pdev->dev, -EINVAL,
+   206					"tx delay must be multiple of %dps\n",
+   207					EIC7700_DELAY_STEP_PS);
+   208	
+   209			if (delay_ps > EIC7700_MAX_DELAY_PS)
+   210				return dev_err_probe(&pdev->dev, -EINVAL,
+   211					"tx delay out of range\n");
+   212	
+   213			val = delay_ps / EIC7700_DELAY_STEP_PS;
+   214	
+   215			dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
+   216			dwc_priv->eth_clk_dly_param |=
+   217					 FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
+   218		}
+   219	
+   220		dwc_priv->eic7700_hsp_regmap =
+   221				syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
+   222								"eswin,hsp-sp-csr");
+   223		if (IS_ERR(dwc_priv->eic7700_hsp_regmap))
+   224			return dev_err_probe(&pdev->dev,
+   225					PTR_ERR(dwc_priv->eic7700_hsp_regmap),
+   226					"Failed to get hsp-sp-csr regmap\n");
+   227	
+   228		ret = of_property_read_u32_index(pdev->dev.of_node,
+   229						 "eswin,hsp-sp-csr",
+   230						 1, &dwc_priv->eth_phy_ctrl_offset);
+   231		if (ret)
+   232			return dev_err_probe(&pdev->dev, ret,
+   233					     "can't get eth_phy_ctrl_offset\n");
+   234	
+   235		ret = of_property_read_u32_index(pdev->dev.of_node,
+   236						 "eswin,hsp-sp-csr",
+   237						 2, &dwc_priv->eth_axi_lp_ctrl_offset);
+   238		if (ret)
+   239			return dev_err_probe(&pdev->dev, ret,
+   240					     "can't get eth_axi_lp_ctrl_offset\n");
+   241	
+   242		ret = of_property_read_u32_index(pdev->dev.of_node,
+   243						 "eswin,hsp-sp-csr",
+   244						 3, &dwc_priv->eth_txd_offset);
+   245		if (ret)
+   246			return dev_err_probe(&pdev->dev, ret,
+   247					     "can't get eth_txd_offset\n");
+   248	
+   249		ret = of_property_read_u32_index(pdev->dev.of_node,
+   250						 "eswin,hsp-sp-csr",
+   251						 4, &dwc_priv->eth_clk_offset);
+   252		if (ret)
+   253			return dev_err_probe(&pdev->dev, ret,
+   254					     "can't get eth_clk_offset\n");
+   255	
+   256		ret = of_property_read_u32_index(pdev->dev.of_node,
+   257						 "eswin,hsp-sp-csr",
+   258						 5, &dwc_priv->eth_rxd_offset);
+   259		if (ret)
+   260			return dev_err_probe(&pdev->dev, ret,
+   261					     "can't get eth_rxd_offset\n");
+   262	
+   263		plat_dat->num_clks = ARRAY_SIZE(eic7700_clk_names);
+   264		plat_dat->clks = devm_kcalloc(&pdev->dev,
+   265					      plat_dat->num_clks,
+   266					      sizeof(*plat_dat->clks),
+   267					      GFP_KERNEL);
+   268		if (!plat_dat->clks)
+   269			return -ENOMEM;
+   270	
+   271		for (i = 0; i < ARRAY_SIZE(eic7700_clk_names); i++)
+   272			plat_dat->clks[i].id = eic7700_clk_names[i];
+   273	
+   274		ret = devm_clk_bulk_get_optional(&pdev->dev,
+   275						 plat_dat->num_clks,
+   276						 plat_dat->clks);
+   277		if (ret)
+   278			return dev_err_probe(&pdev->dev, ret,
+   279					     "Failed to get clocks\n");
+   280	
+   281		plat_dat->clk_tx_i = stmmac_pltfr_find_clk(plat_dat, "tx");
+   282		plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
+   283		plat_dat->clks_config = eic7700_clks_config;
+   284		plat_dat->bsp_priv = dwc_priv;
+   285		dwc_priv->plat_dat = plat_dat;
+   286		plat_dat->init = eic7700_dwmac_init;
+   287		plat_dat->exit = eic7700_dwmac_exit;
+   288		plat_dat->suspend = eic7700_dwmac_suspend;
+   289		plat_dat->resume = eic7700_dwmac_resume;
+ > 290		plat_dat->fix_mac_speed = eic7700_dwmac_fix_speed;
+   291	
+   292		return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
+   293	}
+   294	
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
