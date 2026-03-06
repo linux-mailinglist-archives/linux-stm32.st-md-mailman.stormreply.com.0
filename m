@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EKAKNhTXqmnfXgEAu9opvQ
+	id kIokNDHXqmnmXgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Mar 2026 14:31:00 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Mar 2026 14:31:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7F110221A7C
-	for <lists+linux-stm32@lfdr.de>; Fri, 06 Mar 2026 14:31:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89A17221AC0
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Mar 2026 14:31:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E55EFC8F272;
-	Fri,  6 Mar 2026 13:30:59 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04E2CC8F272;
+	Fri,  6 Mar 2026 13:31:29 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90E64C8F26F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 243D1C8F26F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  6 Mar 2026 13:30:58 +0000 (UTC)
+ Fri,  6 Mar 2026 13:31:28 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id E71AC1A2D44;
- Fri,  6 Mar 2026 13:30:57 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id A987E4E42597;
+ Fri,  6 Mar 2026 13:31:27 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id BDAD55FF92;
- Fri,  6 Mar 2026 13:30:57 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 7F07D5FF92;
+ Fri,  6 Mar 2026 13:31:27 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 02D161036994E; Fri,  6 Mar 2026 14:30:54 +0100 (CET)
+ with ESMTPSA id 6BA61103699F4; Fri,  6 Mar 2026 14:31:24 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1772803857; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1772803886; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=nxd5+HhPr1aXq8AG7jS9dl3xaEa1KYdFdeENyM5pOHQ=;
- b=S9QYFZ+bN8spKnDrozVteeI8ay2jV8Tu0iKqrFGRt1aftAs06DzF7J2XvLihvAtNee8mJI
- RQ4xIKsmzy+mvGvD1WXSgrVofGUZBVR1/1uTrn/rB+GpRBQ4z4sY8bnMMCM8ON+xvodnDu
- +k3z/H5xntZh7wxTG5ZMYb4HpR9NBrfNM5MLou+Xw2TKFIlg4iGEE+LbWt3YuEim1wedPn
- XT4lIVp2BdehjfieXtLp0ZRoINtrvzU+HgIjM9aUvDLtl9S34CyQJA9BmCdZOgzUag4Tnb
- phfAnu1BNPeR8EBqGhYCtvdcDjx4pTsEqXiTgCZ/4zcdiR9OyVdal36QCmwW3w==
-Message-ID: <a91ba34f-cf47-4983-9864-9da6ac23e078@bootlin.com>
-Date: Fri, 6 Mar 2026 14:30:54 +0100
+ bh=5qjLEAIOM/x5LTkseOtlz5V4adYllqJnixHsyNEVKMk=;
+ b=dSp9M74cgTh3Myvz930z+Pkb8FeyXYlq/Xbl8c9f07aZ4QW4SevEdAzFaAMH0nhC9N7PwR
+ /Grp2B+bQXDwC4xqRIFmrJBeDK0YDV2TCsmPesgfAzOTXPQQg6iwoCtcJ/LguHRXl4SXlJ
+ ky5CVrr7zFu6ydudEUBsM4Y+D+J219l3yNE8GJqMyMMVNuAT53GO6NSX3V0EORX4QyK+n+
+ aQJvzszeUnoBmiXC1udTHzI4SnjhlTGMqkLnPDbnT8luMdezeKY69ONQvyLNKyoeRkGgvB
+ 4+4Tft/fcFOWW7BhMqUwS/pVH//zfnermFLGlObfDxKkeZJoANyzJxQwUZErug==
+Message-ID: <310c465e-0956-48ca-9887-cdd1ad0db58d@bootlin.com>
+Date: Fri, 6 Mar 2026 14:31:24 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>
 References: <aald--qJquWGIvmO@shell.armlinux.org.uk>
- <E1vy6AO-0000000Btx7-2NDV@rmk-PC.armlinux.org.uk>
+ <E1vy6AT-0000000BtxD-2qm7@rmk-PC.armlinux.org.uk>
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <E1vy6AO-0000000Btx7-2NDV@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1vy6AT-0000000BtxD-2qm7@rmk-PC.armlinux.org.uk>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -53,8 +53,8 @@ Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
  linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 6/8] net: stmmac: use
- GENMASK_U32() for mdio bitfields
+Subject: Re: [Linux-stm32] [PATCH net-next v2 7/8] net: stmmac:
+ mdio_bus_data->default_an_inband is boolean
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 7F110221A7C
+X-Rspamd-Queue-Id: 89A17221AC0
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
 	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
@@ -100,7 +100,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.998];
+	NEURAL_HAM(-0.00)[-0.997];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -112,7 +112,9 @@ X-Rspamd-Action: no action
 Hi,
 
 On 05/03/2026 11:42, Russell King (Oracle) wrote:
-> Rather than using hex numbers, use GENMASK() for mdio bitfields.
+> default_an_inband is declared as an unsigned int, but is set to true/
+> false and is assigned to phylink_config's member of the same name
+> which is a bool. Declare this also as a bool for consistency.
 > 
 > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
