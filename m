@@ -2,55 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GKb7CU7jqWl1HAEAu9opvQ
+	id ME34OXtBqmlQOAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Mar 2026 21:10:54 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Mar 2026 03:52:43 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FE3218043
-	for <lists+linux-stm32@lfdr.de>; Thu, 05 Mar 2026 21:10:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7FE0421AC47
+	for <lists+linux-stm32@lfdr.de>; Fri, 06 Mar 2026 03:52:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B37DBC8F271;
-	Thu,  5 Mar 2026 20:10:53 +0000 (UTC)
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.9])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06990C8F270;
+	Fri,  6 Mar 2026 02:52:43 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A0FDC8F26D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1D29C8F26E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  5 Mar 2026 20:10:52 +0000 (UTC)
-Received: (wp-smtpd smtp.wp.pl 9878 invoked from network);
- 5 Mar 2026 21:10:51 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
- t=1772741451; bh=qYUWFldmTns86xLo8ByG89oOU0GT5V5Em0fSa3QlG2Y=;
- h=From:To:Cc:Subject;
- b=PGPTe2zujLrYTUN8DfHEl5m/cg4nqO1mLqVYsYkuPorxiWkcadmS8XlKSlDWa3LfH
- ld/l4DFTLswHwBx/UucOxWvZqE1jN8kT+vdzobHWZIkxeoyGmM//psmIeAVyjRecVP
- Cd9qQJjGCEdm32rfkZn4fQ9G4epoLjXuz8VjY5Cbio7HYTZx/Sa9h5t6uRcq9Oq2Tp
- CuXuJkcapBZizdS4j/8OJ6TuD00qj5U3Hmz54akD/qNEtQOaudNvtA+V+n8l4NGPGT
- 9EbTiMS7HFuHWw+7LzWzYhMocIj6PyrclakTJB2s++1134EMlnKGbZ5CW3bF6m69n1
- nbNxhAaQLx3+g==
-Received: from 83.24.116.171.ipv4.supernova.orange.pl (HELO laptop-olek.lan)
- (olek2@wp.pl@[83.24.116.171]) (envelope-sender <olek2@wp.pl>)
- by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
- for <herbert@gondor.apana.org.au>; 5 Mar 2026 21:10:51 +0100
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: herbert@gondor.apana.org.au, davem@davemloft.net,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu,  5 Mar 2026 21:08:24 +0100
-Message-ID: <20260305201036.63280-5-olek2@wp.pl>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260305201036.63280-1-olek2@wp.pl>
-References: <20260305201036.63280-1-olek2@wp.pl>
+ Fri,  6 Mar 2026 02:52:41 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 7A6F3600B0;
+ Fri,  6 Mar 2026 02:52:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99677C116C6;
+ Fri,  6 Mar 2026 02:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1772765560;
+ bh=59Brc3xI7MFaiXfr+R/dXuomEGyJC2J+vM/pJ/BSte8=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=RJUaAkiLxDd++c9sKrZnqEjNkKjdzz59SAy9wTUS1ke/qS9IR+iEnm9Z/8NB6RYYS
+ G4cBNUSwM/FjCfDVijoXBZeTdM6XI5OEt/qpfFy85VNsIy9YabGSW8YMCuVvrmQBvP
+ vh50wIestjE8G3UWXVt3B13MTpR5ZR+lk8NDl6u/HeetyPp1HbmueZyG101OrPjk6x
+ riwbXU+4Q+LcUWQq9YgabkBvYTwNF3AiDSPS6qR1+Nuclfz1G7gGt1TlnUNeEi4bWf
+ COpVWmyM6Wa0LRo2zZbmdhFIWpw7mUNtvPmGI+oGg83DDdnQ/O+37pYUXtM2RpFyqG
+ lf7jy2ZxDTxEQ==
+From: Jakub Kicinski <kuba@kernel.org>
+To: inochiama@gmail.com
+Date: Thu,  5 Mar 2026 18:52:37 -0800
+Message-ID: <20260306025237.580075-1-kuba@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260304080721.1658224-4-inochiama@gmail.com>
+References: <20260304080721.1658224-4-inochiama@gmail.com>
 MIME-Version: 1.0
-X-WP-DKIM-Status: good (id: wp.pl) 
-X-WP-MailID: d42209b5766de24675409d4dc85b4a99
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000009 [IEPU]                               
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: [Linux-stm32] [PATCH v2 5/5] crypto: testmgr - Add test vectors for
-	authenc(hmac(sha512), rfc3686(ctr(aes)))
+Cc: me@ziyao.cc, looong.bin@gmail.com, edumazet@google.com,
+ linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ robh@kernel.org, weishangjuan@eswincomputing.com, alex@ghiti.fr,
+ siyanteng@cqsoftware.com.cn, joabreu@synopsys.com, quentin.schulz@cherry.de,
+ Jakub Kicinski <kuba@kernel.org>, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
+ richardcochran@gmail.com, dlan@kernel.org,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, rmk+kernel@armlinux.org.uk,
+ peppe.cavallaro@st.com, wens@kernel.org, spacemit@lists.linux.dev,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, dlan@gentoo.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, vladimir.oltean@nxp.com,
+ andrew+netdev@lunn.ch, palmer@dabbelt.com, boon.khai.ng@altera.com,
+ mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [net-next, v7,
+	3/3] net: stmmac: Add glue layer for Spacemit K3 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,382 +71,128 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: E8FE3218043
+X-Rspamd-Queue-Id: 7FE0421AC47
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[wp.pl:s=20241105];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[wp.pl : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-crypto@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:olek2@wp.pl,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[wp.pl];
-	ARC_NA(0.00)[];
-	GREYLIST(0.00)[pass,meta];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[wp.pl:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_FROM(0.00)[wp.pl];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS(0.00)[m:inochiama@gmail.com,m:me@ziyao.cc,m:looong.bin@gmail.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:quentin.schulz@cherry.de,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:richardcochran@gmail.com,m:dlan@kernel.org,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:rmk+kernel@armlinux.org.uk,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@
+ kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[ziyao.cc,gmail.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,cherry.de,redhat.com,vger.kernel.org,eecs.berkeley.edu,bp.renesas.com,armlinux.org.uk,st.com,lists.linux.dev,gentoo.org,nxp.com,lunn.ch,dabbelt.com,altera.com,davemloft.net];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[36];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.181];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.255];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-Test vectors were generated starting from existing RFC3686(CTR(AES)) test
-vectors and adding HMAC(SHA512) computed with software implementation.
-Then, the results were double-checked on Mediatek MT7986 (safexcel).
-Platform pass self-tests.
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
 
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+For local reproduction steps see https://netdev-ai.bots.linux.dev/ai-local.html
 ---
-v2:
-- rename aes-generic -> aes-lib
----
- crypto/testmgr.c |   6 +-
- crypto/testmgr.h | 291 +++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 296 insertions(+), 1 deletion(-)
+net: stmmac: Add glue layer for Spacemit K3 SoC
 
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index 04be77aa15f1..8c34d6f8f139 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -4272,8 +4272,12 @@ static const struct alg_test_desc alg_test_descs[] = {
- 		.fips_allowed = 1,
- 	}, {
- 		.alg = "authenc(hmac(sha512),rfc3686(ctr(aes)))",
--		.test = alg_test_null,
-+		.generic_driver = "authenc(hmac-sha512-lib,rfc3686(ctr(aes-lib)))",
-+		.test = alg_test_aead,
- 		.fips_allowed = 1,
-+		.suite = {
-+			.aead = __VECS(hmac_sha512_aes_ctr_rfc3686_tv_temp)
-+		}
- 	}, {
- 		.alg = "blake2b-160",
- 		.generic_driver = "blake2b-160-lib",
-diff --git a/crypto/testmgr.h b/crypto/testmgr.h
-index 6c5f47886d87..68e6be44c6e6 100644
---- a/crypto/testmgr.h
-+++ b/crypto/testmgr.h
-@@ -17091,6 +17091,297 @@ static const struct aead_testvec hmac_sha512_aes_cbc_tv_temp[] = {
- 	},
- };
- 
-+static const struct aead_testvec hmac_sha512_aes_ctr_rfc3686_tv_temp[] = {
-+	{ /* RFC 3686 Case 1 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x14"	/* enc key length */
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\xae\x68\x52\xf8\x12\x10\x67\xcc"
-+			  "\x4b\xf7\xa5\x76\x55\x77\xf3\x9e"
-+			  "\x00\x00\x00\x30",
-+		.klen	= 8 + 64 + 20,
-+		.iv	= "\x00\x00\x00\x00\x00\x00\x00\x00",
-+		.assoc	= "\x00\x00\x00\x00\x00\x00\x00\x00",
-+		.alen	= 8,
-+		.ptext	= "Single block msg",
-+		.plen	= 16,
-+		.ctext	= "\xe4\x09\x5d\x4f\xb7\xa7\xb3\x79"
-+			  "\x2d\x61\x75\xa3\x26\x13\x11\xb8"
-+			  "\xa4\x45\x3a\x44\x9c\xe5\x1c\xd9"
-+			  "\x10\x43\x51\x2e\x76\x5e\xf8\x9d"
-+			  "\x03\x12\x1a\x31\x00\x33\x10\xb4"
-+			  "\x94\x4b\x70\x84\x6c\xda\xb1\x46"
-+			  "\x24\xb6\x3b\x2a\xec\xd5\x67\xb8"
-+			  "\x65\xa2\xbd\xac\x18\xe2\xf8\x55"
-+			  "\xc6\x91\xb0\x92\x84\x2d\x74\x44"
-+			  "\xa7\xee\xc3\x44\xa0\x07\x0e\x62",
-+		.clen	= 16 + 64,
-+	}, { /* RFC 3686 Case 2 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x14"	/* enc key length */
-+			  "\x20\x21\x22\x23\x24\x25\x26\x27"
-+			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
-+			  "\x30\x31\x32\x33\x34\x35\x36\x37"
-+			  "\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f"
-+			  "\x40\x41\x42\x43\x44\x45\x46\x47"
-+			  "\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f"
-+			  "\x50\x51\x52\x53\x54\x55\x56\x57"
-+			  "\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f"
-+			  "\x7e\x24\x06\x78\x17\xfa\xe0\xd7"
-+			  "\x43\xd6\xce\x1f\x32\x53\x91\x63"
-+			  "\x00\x6c\xb6\xdb",
-+		.klen	= 8 + 64 + 20,
-+		.iv	= "\xc0\x54\x3b\x59\xda\x48\xd9\x0b",
-+		.assoc	= "\xc0\x54\x3b\x59\xda\x48\xd9\x0b",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
-+		.plen	= 32,
-+		.ctext	= "\x51\x04\xa1\x06\x16\x8a\x72\xd9"
-+			  "\x79\x0d\x41\xee\x8e\xda\xd3\x88"
-+			  "\xeb\x2e\x1e\xfc\x46\xda\x57\xc8"
-+			  "\xfc\xe6\x30\xdf\x91\x41\xbe\x28"
-+			  "\xec\x67\x0d\xb3\xbd\x98\x13\x01"
-+			  "\x2b\x04\x9b\xe6\x06\x67\x3c\x76"
-+			  "\xcd\x41\xb7\xcc\x70\x6c\x7f\xc8"
-+			  "\x67\xbd\x22\x39\xb2\xaa\xe8\x88"
-+			  "\xe0\x4f\x81\x52\xdf\xc9\xc3\xd6"
-+			  "\x44\xf4\x66\x33\x87\x64\x61\x02"
-+			  "\x02\xa2\x64\x15\x2b\xe9\x0b\x3d"
-+			  "\x4c\xea\xa1\xa5\xa7\xc9\xd3\x1b",
-+		.clen	= 32 + 64,
-+	}, { /* RFC 3686 Case 3 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x14"	/* enc key length */
-+			  "\x11\x22\x33\x44\x55\x66\x77\x88"
-+			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
-+			  "\x22\x33\x44\x55\x66\x77\x88\x99"
-+			  "\xaa\xbb\xcc\xdd\xee\xff\x11\x22"
-+			  "\x33\x44\x55\x66\x77\x88\x99\xaa"
-+			  "\xbb\xcc\xdd\xee\xff\x11\x22\x33"
-+			  "\x44\x55\x66\x77\x88\x99\xaa\xbb"
-+			  "\xcc\xdd\xee\xff\x11\x22\x33\x44"
-+			  "\x76\x91\xbe\x03\x5e\x50\x20\xa8"
-+			  "\xac\x6e\x61\x85\x29\xf9\xa0\xdc"
-+			  "\x00\xe0\x01\x7b",
-+		.klen	= 8 + 64 + 20,
-+		.iv	= "\x27\x77\x7f\x3f\x4a\x17\x86\xf0",
-+		.assoc	= "\x27\x77\x7f\x3f\x4a\x17\x86\xf0",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
-+			  "\x20\x21\x22\x23",
-+		.plen	= 36,
-+		.ctext	= "\xc1\xcf\x48\xa8\x9f\x2f\xfd\xd9"
-+			  "\xcf\x46\x52\xe9\xef\xdb\x72\xd7"
-+			  "\x45\x40\xa4\x2b\xde\x6d\x78\x36"
-+			  "\xd5\x9a\x5c\xea\xae\xf3\x10\x53"
-+			  "\x25\xb2\x07\x2f"
-+			  "\x6f\x90\xb6\xa3\x35\x43\x59\xff"
-+			  "\x1e\x32\xd6\xfe\xfa\x33\xf9\xf0"
-+			  "\x31\x2f\x03\x2d\x88\x1d\xab\xbf"
-+			  "\x0e\x19\x16\xd9\xf3\x98\x3e\xdd"
-+			  "\x0c\xec\xfe\xe8\x89\x13\x91\x15"
-+			  "\xf6\x61\x65\x5c\x1b\x7d\xde\xc0"
-+			  "\xe4\xba\x6d\x27\xe2\x89\x23\x24"
-+			  "\x15\x82\x37\x3d\x48\xd3\xc9\x32",
-+		.clen	= 36 + 64,
-+	}, { /* RFC 3686 Case 4 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x1c"	/* enc key length */
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x16\xaf\x5b\x14\x5f\xc9\xf5\x79"
-+			  "\xc1\x75\xf9\x3e\x3b\xfb\x0e\xed"
-+			  "\x86\x3d\x06\xcc\xfd\xb7\x85\x15"
-+			  "\x00\x00\x00\x48",
-+		.klen	= 8 + 64 + 28,
-+		.iv	= "\x36\x73\x3c\x14\x7d\x6d\x93\xcb",
-+		.assoc	= "\x36\x73\x3c\x14\x7d\x6d\x93\xcb",
-+		.alen	= 8,
-+		.ptext	= "Single block msg",
-+		.plen	= 16,
-+		.ctext	= "\x4b\x55\x38\x4f\xe2\x59\xc9\xc8"
-+			  "\x4e\x79\x35\xa0\x03\xcb\xe9\x28"
-+			  "\x25\xea\xdc\xad\x52\xb8\x0f\x70"
-+			  "\xe7\x39\x83\x80\x10\x3f\x18\xc4"
-+			  "\xf8\x59\x14\x25\x5f\xba\x20\x87"
-+			  "\x0b\x04\x5e\xf7\xde\x41\x39\xff"
-+			  "\xa2\xee\x84\x3f\x9d\x38\xfd\x17"
-+			  "\xc0\x66\x5e\x74\x39\xe3\xd3\xd7"
-+			  "\x3d\xbc\xe3\x99\x2f\xe7\xef\x37"
-+			  "\x61\x03\xf3\x9e\x01\xaf\xba\x9d",
-+		.clen	= 16 + 64,
-+	}, { /* RFC 3686 Case 5 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x1c"	/* enc key length */
-+			  "\x20\x21\x22\x23\x24\x25\x26\x27"
-+			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
-+			  "\x30\x31\x32\x33\x34\x35\x36\x37"
-+			  "\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f"
-+			  "\x40\x41\x42\x43\x44\x45\x46\x47"
-+			  "\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f"
-+			  "\x50\x51\x52\x53\x54\x55\x56\x57"
-+			  "\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f"
-+			  "\x7c\x5c\xb2\x40\x1b\x3d\xc3\x3c"
-+			  "\x19\xe7\x34\x08\x19\xe0\xf6\x9c"
-+			  "\x67\x8c\x3d\xb8\xe6\xf6\xa9\x1a"
-+			  "\x00\x96\xb0\x3b",
-+		.klen	= 8 + 64 + 28,
-+		.iv	= "\x02\x0c\x6e\xad\xc2\xcb\x50\x0d",
-+		.assoc	= "\x02\x0c\x6e\xad\xc2\xcb\x50\x0d",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
-+		.plen	= 32,
-+		.ctext	= "\x45\x32\x43\xfc\x60\x9b\x23\x32"
-+			  "\x7e\xdf\xaa\xfa\x71\x31\xcd\x9f"
-+			  "\x84\x90\x70\x1c\x5a\xd4\xa7\x9c"
-+			  "\xfc\x1f\xe0\xff\x42\xf4\xfb\x00"
-+			  "\x51\xa3\xe6\x1d\x23\x7d\xd1\x18"
-+			  "\x55\x9c\x1c\x92\x2b\xc2\xcd\xfe"
-+			  "\x8a\xa8\xa5\x96\x65\x2e\x9d\xdb"
-+			  "\x06\xd2\x1c\x57\x2b\x76\xb5\x9c"
-+			  "\xd4\x3e\x8b\x61\x54\x2d\x08\xe5"
-+			  "\xb2\xf8\x88\x20\x0c\xad\xe8\x85"
-+			  "\x61\x8e\x5c\xa4\x96\x2c\xe2\x7d"
-+			  "\x4f\xb6\x1d\xb2\x8c\xd7\xe3\x38",
-+		.clen	= 32 + 64,
-+	}, { /* RFC 3686 Case 7 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x24"	/* enc key length */
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x77\x6b\xef\xf2\x85\x1d\xb0\x6f"
-+			  "\x4c\x8a\x05\x42\xc8\x69\x6f\x6c"
-+			  "\x6a\x81\xaf\x1e\xec\x96\xb4\xd3"
-+			  "\x7f\xc1\xd6\x89\xe6\xc1\xc1\x04"
-+			  "\x00\x00\x00\x60",
-+		.klen	= 8 + 64 + 36,
-+		.iv	= "\xdb\x56\x72\xc9\x7a\xa8\xf0\xb2",
-+		.assoc	= "\xdb\x56\x72\xc9\x7a\xa8\xf0\xb2",
-+		.alen	= 8,
-+		.ptext	= "Single block msg",
-+		.plen	= 16,
-+		.ctext	= "\x14\x5a\xd0\x1d\xbf\x82\x4e\xc7"
-+			  "\x56\x08\x63\xdc\x71\xe3\xe0\xc0"
-+			  "\x6b\x68\x0b\x99\x9a\x4d\xc8\xb9"
-+			  "\x35\xea\xcd\x56\x3f\x40\xa2\xb6"
-+			  "\x68\xda\x59\xd8\xa0\x89\xcd\x52"
-+			  "\xb1\x6e\xed\xc1\x42\x10\xa5\x0f"
-+			  "\x88\x0b\x80\xce\xc4\x67\xf0\x45"
-+			  "\x5d\xb2\x9e\xde\x1c\x79\x52\x0d"
-+			  "\xff\x75\x36\xd5\x0f\x52\x8e\xe5"
-+			  "\x31\x85\xcf\x1d\x31\xf8\x62\x67",
-+		.clen	= 16 + 64,
-+	}, { /* RFC 3686 Case 8 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x24"	/* enc key length */
-+			  "\x20\x21\x22\x23\x24\x25\x26\x27"
-+			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
-+			  "\x30\x31\x32\x33\x34\x35\x36\x37"
-+			  "\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f"
-+			  "\x40\x41\x42\x43\x44\x45\x46\x47"
-+			  "\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f"
-+			  "\x50\x51\x52\x53\x54\x55\x56\x57"
-+			  "\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f"
-+			  "\xf6\xd6\x6d\x6b\xd5\x2d\x59\xbb"
-+			  "\x07\x96\x36\x58\x79\xef\xf8\x86"
-+			  "\xc6\x6d\xd5\x1a\x5b\x6a\x99\x74"
-+			  "\x4b\x50\x59\x0c\x87\xa2\x38\x84"
-+			  "\x00\xfa\xac\x24",
-+		.klen	= 8 + 64 + 36,
-+		.iv	= "\xc1\x58\x5e\xf1\x5a\x43\xd8\x75",
-+		.assoc	= "\xc1\x58\x5e\xf1\x5a\x43\xd8\x75",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
-+		.plen	= 32,
-+		.ctext	= "\xf0\x5e\x23\x1b\x38\x94\x61\x2c"
-+			  "\x49\xee\x00\x0b\x80\x4e\xb2\xa9"
-+			  "\xb8\x30\x6b\x50\x8f\x83\x9d\x6a"
-+			  "\x55\x30\x83\x1d\x93\x44\xaf\x1c"
-+			  "\x9a\xac\x38\xbd\xf3\xcf\xd5\xd0"
-+			  "\x09\x07\xa6\xe1\x7f\xd6\x79\x98"
-+			  "\x4e\x90\x0e\xc0\x3d\xa0\xf2\x12"
-+			  "\x52\x79\x9c\x17\xff\xb9\xb8\xe3"
-+			  "\x2f\x31\xcb\xbd\x63\x70\x72\x7b"
-+			  "\x4e\x1e\xd1\xde\xb5\x6b\x7d\x54"
-+			  "\x68\x56\xdd\xe5\x53\xee\x29\xd2"
-+			  "\x85\xa1\x73\x61\x00\xa9\x26\x8f",
-+		.clen	= 32 + 64,
-+	},
-+};
-+
- static const struct aead_testvec hmac_sha1_des_cbc_tv_temp[] = {
- 	{ /*Generated with cryptopp*/
- #ifdef __LITTLE_ENDIAN
--- 
-2.47.3
+The ethernet controller on Spacemit K3 SoC is Synopsys DesignWare
+MAC (version 5.40a), with the following special points:
+1. The rate of the tx clock line is auto changed when the mac speed
+   rate is changed, and no need for changing the input tx clock.
+2. This controller require a extra syscon device to configure the
+   interface type, enable wake up interrupt and delay configuration
+   if needed.
 
+Add Spacemit dwmac driver support on the Spacemit K3 SoC.
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+> new file mode 100644
+> index 000000000000..22aa25a7417b
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+> @@ -0,0 +1,228 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * Spacemit DWMAC platform driver
+> + *
+> + * Copyright (C) 2026 Inochi Amaoto <inochiama@gmail.com>
+> + */
+> +
+> +#include <linux/clk.h>
+> +#include <linux/math.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/mfd/syscon.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +
+> +#include "stmmac_platform.h"
+
+[ ... ]
+
+> +struct spacmit_dwmac {
+> +	struct regmap *apmu;
+> +	unsigned int ctrl_offset;
+> +	unsigned int dline_offset;
+> +};
+
+This isn't a bug, but the struct name is 'spacmit_dwmac' (missing 'e'),
+while the driver filename is 'dwmac-spacemit.c' and all function names use
+'spacemit_*' (e.g., spacemit_dwmac_probe, spacemit_dwmac_set_delay). Should
+the struct be named 'spacemit_dwmac' for consistency?
+
+[ ... ]
+
+> +static int spacemit_dwmac_fix_delay(struct spacmit_dwmac *dwmac,
+> +				    struct plat_stmmacenet_data *plat_dat,
+> +				    unsigned int tx_delay,
+> +				    unsigned int rx_delay)
+> +{
+> +	int rx_code;
+> +	int tx_code;
+> +
+> +	rx_code = spacemit_dwmac_detected_delay_value(rx_delay);
+> +	if (rx_code < 0)
+> +		return rx_code;
+> +
+> +	tx_code = spacemit_dwmac_detected_delay_value(tx_delay);
+> +	if (tx_code < 0)
+> +		return tx_code;
+> +
+> +	return spacemit_dwmac_set_delay(dwmac, tx_code, rx_code);
+> +}
+
+The 'plat_dat' parameter appears to be unused in spacemit_dwmac_fix_delay().
+The function only uses 'dwmac', 'tx_delay', and 'rx_delay'. Is this
+parameter needed?
+
+[ ... ]
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
