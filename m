@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6EcWMgsGrGl0jAEAu9opvQ
+	id MMeZABEGrGl0jAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 07 Mar 2026 12:03:39 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 07 Mar 2026 12:03:45 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7410522B4DB
-	for <lists+linux-stm32@lfdr.de>; Sat, 07 Mar 2026 12:03:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC69B22B4EF
+	for <lists+linux-stm32@lfdr.de>; Sat, 07 Mar 2026 12:03:44 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 387FEC8F292;
-	Sat,  7 Mar 2026 11:03:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73FAFC8F291;
+	Sat,  7 Mar 2026 11:03:44 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56920C8F290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A9A0CC36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  7 Mar 2026 11:03:37 +0000 (UTC)
+ Sat,  7 Mar 2026 11:03:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=zyItZuZ4+Hst+XLGZf5NqjqPTntMZ8Z+OnnAGXqJkFo=; b=BYx63X43R4LLoKfUQVqcc83Swo
- cGcsR57YhjAAJpHRfwIjkeTQ3I4WCG+IiH0FtbLMmDyJ7QSKHEP9FyotKv5WbmaGwP5qdWPU0wek1
- EBtGs5xaAn9lClCuj5DjwkAiIZYIVjGBJLEqwJ3VKBRxclaCIkD53DlfY03G0XCA6JSX+ZggGj/n0
- vTQeAh06k07PTgBR+mFUbrK2H/TAFU0wgmITOV1QIBkIuEBb9Ukg6n19zXm9sVcZpwZfkgc1AnvID
- 5VpcNJaetXacqdcV6FySLj88X/TsV3fxybua23hq4Ix+AmrjKmhBrLnmlxzLLb7Po2oWlF46ZUx5B
- mYWiPkgA==;
+ bh=gKq7Ur0o7o0fnfG6VoXbzm/WfSG13rcROPhghnkiHuY=; b=KfYWPFr2YVcrUXRrfluFTGbIdz
+ zfP6GrfPdxzliFEeNl0EUGmWfcyryLQacMv+YTvtqKM+3Q+OmiV3uNxunJFspWh1m+t5LJSKdtHKa
+ 5SSGGFOgivZjhIs8Oz7PdmUD+OHCk7OBIipXu1cJyvlr0wg/KdAKgl0GOyE+LTB/RTYdRVSQWbnRa
+ kKbyPGq4M4yQAfjH19uHnoof+jyOD6Ac6/x7xUeO3omUaSgO3oLcQKAkPv82lpBdTfHGM091t6YwL
+ ajg8IJI6neZctZHkKSkCWx5qLsSNAfLWjb8Cw+Bv7tP4Wr+qBbecwLWjZey17tioABP4T/hLw+f9L
+ iR9IRxfg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48788 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59388 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vypR6-0000000028v-3IER;
- Sat, 07 Mar 2026 11:03:09 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vypRE-00000000298-28R9;
+ Sat, 07 Mar 2026 11:03:18 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vypR3-0000000CSwU-2m0B; Sat, 07 Mar 2026 11:03:05 +0000
+ id 1vypR8-0000000CSwb-3P3f; Sat, 07 Mar 2026 11:03:10 +0000
 In-Reply-To: <aawFuXTVAgVOrw4k@shell.armlinux.org.uk>
 References: <aawFuXTVAgVOrw4k@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vypR3-0000000CSwU-2m0B@rmk-PC.armlinux.org.uk>
-Date: Sat, 07 Mar 2026 11:03:05 +0000
+Message-Id: <E1vypR8-0000000CSwb-3P3f@rmk-PC.armlinux.org.uk>
+Date: Sat, 07 Mar 2026 11:03:10 +0000
 Cc: imx@lists.linux.dev, s32@nxp.com, Yao Zi <me@ziyao.cc>,
  Frank Li <Frank.Li@nxp.com>, Eric Dumazet <edumazet@google.com>,
  Jonathan Hunter <jonathanh@nvidia.com>,
@@ -62,8 +62,8 @@ Cc: imx@lists.linux.dev, s32@nxp.com, Yao Zi <me@ziyao.cc>,
  netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next 6/7] net: stmmac: add documentation
- for stmmac_dma_cfg members
+Subject: [Linux-stm32] [PATCH net-next 7/7] net: stmmac: add documentation
+	for clocks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +79,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 7410522B4DB
+X-Rspamd-Queue-Id: AC69B22B4EF
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -94,17 +94,17 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	TAGGED_FROM(0.00)[kernel];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:imx@lists.linux.dev,m:s32@nxp.com,m:me@ziyao.cc,m:Frank.Li@nxp.com,m:edumazet@google.com,m:jonathanh@nvidia.com,m:linux-stm32@st-md-mailman.stormreply.com,m:mohd.anwar@oss.qualcomm.com,m:samuel@sholland.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:linux-sunxi@lists.linux.dev,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:jan.petrous@oss.nxp.com,m:linux-mediatek@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:netdev@vger.kernel.org,m:andrew+netdev@lunn.ch,m:kernel@pengutronix.de,m:davem@davemloft.net,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[25];
 	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.499];
+	NEURAL_HAM(-0.00)[-0.518];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -118,57 +118,67 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-Add documentation of each of the struct stmmac_dma_cfg members. dche
-remains undocumented as I don't have documentation that covers this.
+Add documentation covering stmmac_clk, pclk, clk_ptp_ref and clk_tx_i
+in the hope that this will help understand what each of these clocks
+are for.
+
+There is confusion around stmmac_clk and pclk which can't be easily
+resolved today as the Imagination Technologies Pistachio board that
+pclk was introduced for has no public documentation and is likely now
+obsolete. So the origins of pclk are lost to the winds of time.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- include/linux/stmmac.h | 23 ++++++++++++++++++++++-
- 1 file changed, 22 insertions(+), 1 deletion(-)
+ include/linux/stmmac.h | 33 ++++++++++++++++++++++++++++++++-
+ 1 file changed, 32 insertions(+), 1 deletion(-)
 
 diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 11886189bf51..3521b88aa345 100644
+index 3521b88aa345..a9c0cb61dd50 100644
 --- a/include/linux/stmmac.h
 +++ b/include/linux/stmmac.h
-@@ -93,16 +93,37 @@ struct stmmac_mdio_bus_data {
- };
- 
- struct stmmac_dma_cfg {
-+	/* pbl: programmable burst limit
-+	 * txpbl: transmit programmable burst limit
-+	 * rxpbl: receive programmable burst limit
-+	 * If txpbl or rxpbl are zero, the value of pbl will be subsituted.
-+	 * Range 0 - 63.
+@@ -300,10 +300,41 @@ struct plat_stmmacenet_data {
+ 	struct phylink_pcs *(*select_pcs)(struct stmmac_priv *priv,
+ 					  phy_interface_t interface);
+ 	void *bsp_priv;
++
++	/* stmmac clocks:
++	 *  stmmac_clk: CSR clock (which can be hclk_i, clk_csr_i, aclk_i,
++	 *    or clk_app_i depending on GMAC configuration). This clock
++	 *    generates the MDC clock.
++	 *
++	 *  pclk: introduced for Imagination Technologies Pistachio board -
++	 *    see 5f9755d26fbf ("stmmac: Add an optional register interface
++	 *    clock"). This is probably used for cases where separate clocks
++	 *    are provided for the host interface and register interface. In
++	 *    this case, as the MDC clock is derived from stmmac_clk, pclk
++	 *    can only really be the "application clock" for the "host
++	 *    interface" and not the "register interface" aka CSR clock as
++	 *    it is never used when determining the divider for the MDC
++	 *    clock.
++	 *
++	 *  clk_ptp_ref: optional PTP reference clock (clk_ptp_ref_i). When
++	 *    present, this clock increments the timestamp value. Otherwise,
++	 *    the rate of stmmac_clk will be used.
++	 *
++	 *  clk_tx_i: MAC transmit clock, which will be 2.5MHz for 10M,
++	 *    25MHz for 100M, or 125MHz for 1G irrespective of the interface
++	 *    mode. For the DWMAC PHY interface modes:
++	 *
++	 *    GMII/MII	PHY's transmit clock for 10M (2.5MHz) or 100M (25MHz),
++	 *		or 125MHz local clock for 1G mode
++	 *    RMII	50MHz RMII clock divided by 2 or 20.
++	 *    RGMII	125MHz local clock divided by 1, 5, or 50.
++	 *    SGMII	125MHz SerDes clock divided by 1, 5, or 50.
++	 *    TBI/RTBI	125MHz SerDes clock
 +	 */
- 	int pbl;
- 	int txpbl;
- 	int rxpbl;
-+	/* pblx8: multiplies pbl, txpbl, rxpbl by a factor of 8 for dwmac >=
-+	 * 3.50a, or a factor of 4 for previous versions.
-+	 */
- 	bool pblx8;
-+	/* fixed_burst:
-+	 *  when set, AXI bursts defined by axi_blen_regval are permitted.
-+	 *   AHB uses SINGLE, INCR4, INCR8 or INCR16 during burst transfers.
-+	 *  when clear, AXI and AHB use SINGLE or INCR bursts.
-+	 */
- 	bool fixed_burst;
-+	/* mixed_burst:
-+	 *  when set and fixed_burst is clear, AHB uses INCR for bursts > 16
-+	 *  and SINGLE or INCRx for bursts <= 16.
-+	 */
- 	bool mixed_burst;
-+	/* aal: address aligned bursts for AHB and AXI master interface */
- 	bool aal;
-+	bool dche;
- 	bool eame;
-+	/* multi_msi_en: stmmac core internal */
- 	bool multi_msi_en;
--	bool dche;
-+	/* atds: stmmac core internal */
- 	bool atds;
- };
- 
+ 	struct clk *stmmac_clk;
+ 	struct clk *pclk;
+ 	struct clk *clk_ptp_ref;
+-	struct clk *clk_tx_i;		/* clk_tx_i to MAC core */
++	struct clk *clk_tx_i;
+ 	unsigned long clk_ptp_rate;
+ 	unsigned long clk_ref_rate;
+ 	struct clk_bulk_data *clks;
 -- 
 2.47.3
 
