@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AOE2EISVrmnRGQIAu9opvQ
+	id KE5HLoqVrmnqGQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 10:40:20 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 10:40:26 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17AD9236533
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 10:40:20 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72D9F23654A
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 10:40:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CAE36C8F280;
-	Mon,  9 Mar 2026 09:40:19 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD6FCC8F280;
+	Mon,  9 Mar 2026 09:40:25 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94516C8F27F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBD5CC8F27F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Mar 2026 09:40:17 +0000 (UTC)
+ Mon,  9 Mar 2026 09:40:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=Rb/EL+ezeQrS78OpMW6WHBRGNWy12ObztGzPIs+46Uo=; b=v4G7RkRmx4Jjw+TF283B4kYROV
- hIbQR9+SisWfrlA7U5oO3011nFVHQmYi9Qox+/onh8rQ67gf1eU1CDcfLX6G2Mang24ALU8lW4jtv
- J6BSMmDU814yRA8uUHJ0E6a3jde1pFqVlRbLgS0G5K05/lIQ53fCURSU+8JgJ5rrgaz1oxD7PdU5G
- iDORomrBL9g9PrJCVH2aeacu3bqTOtZL/tKYDOrm0ly0Pk9vVdFulhy6Bx/lC36+/5RxHQFr+J7tF
- CkNx6aBHgoC5FTp8RhoC2OdFU6fQykPxx5hGFdVxOryuoAfG+zT8G/xugHxkNIW5z8rjr33WKTEyr
- iq20IHqA==;
+ bh=+H0FEWCF1UemM/WizaowF59Zs24Cxl63eiclBzeUMEo=; b=A0iR6F56E1sUXW79EfEFSfC8bY
+ XXBYA2FwF6k95++IWIG05RYbVgVIE5zoQ8tKUGsW+Df16Cqj3Ycz6sThucEt30Xp2SqWlN3n7wPz7
+ Oi32fM1a6EyGU1bv+wVKd+tIuhHlDi/6deo6DLLKi3JeJ/o9Ao4vMszxnxsC4VjBeblGB0bm3f30K
+ kQ2QQisvOEZkxxClpBbCWMA+B+Zn5a5wTzP4hCHyUGWp2HXLT72+uiJGGJEIgPh3O9al1oYEHyiYG
+ tAd8WZO9GDri0QDGr1lXwIH9gVN8fsh1b6QK5ELnmJmkaLINP5sRavgk5cchOjr1xNyr5VlsQzf2n
+ LmfYovlA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:60972 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:60976 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vzX5S-000000003Uy-1YJn;
- Mon, 09 Mar 2026 09:39:42 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vzX5Y-000000003VK-0PPK;
+ Mon, 09 Mar 2026 09:39:48 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vzX5P-0000000CVsK-0iwX; Mon, 09 Mar 2026 09:39:39 +0000
+ id 1vzX5U-0000000CVsQ-162V; Mon, 09 Mar 2026 09:39:44 +0000
 In-Reply-To: <aa6VEsmBK-S9eNYU@shell.armlinux.org.uk>
 References: <aa6VEsmBK-S9eNYU@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vzX5P-0000000CVsK-0iwX@rmk-PC.armlinux.org.uk>
-Date: Mon, 09 Mar 2026 09:39:39 +0000
+Message-Id: <E1vzX5U-0000000CVsQ-162V@rmk-PC.armlinux.org.uk>
+Date: Mon, 09 Mar 2026 09:39:44 +0000
 Cc: imx@lists.linux.dev, s32@nxp.com, Yao Zi <me@ziyao.cc>,
  Frank Li <Frank.Li@nxp.com>, Eric Dumazet <edumazet@google.com>,
  Jonathan Hunter <jonathanh@nvidia.com>,
@@ -62,8 +62,8 @@ Cc: imx@lists.linux.dev, s32@nxp.com, Yao Zi <me@ziyao.cc>,
  netdev@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH net-next v2 5/7] net: stmmac: use u8 for
- host_dma_width and similar struct members
+Subject: [Linux-stm32] [PATCH net-next v2 6/7] net: stmmac: add
+ documentation for stmmac_dma_cfg members
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,7 +79,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 17AD9236533
+X-Rspamd-Queue-Id: 72D9F23654A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -104,7 +104,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.432];
+	NEURAL_HAM(-0.00)[-0.498];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -118,96 +118,57 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email]
 X-Rspamd-Action: no action
 
-We aren't going to see >= 256-bit address busses soon, so reduce
-host_dma_width and associated other struct members that initialise
-this from u32 to u8.
+Add documentation of each of the struct stmmac_dma_cfg members. dche
+remains undocumented as I don't have documentation that covers this.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c         | 2 +-
- drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c    | 6 +++---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 2 +-
- include/linux/stmmac.h                                  | 2 +-
- 4 files changed, 6 insertions(+), 6 deletions(-)
+ include/linux/stmmac.h | 23 ++++++++++++++++++++++-
+ 1 file changed, 22 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-index 9f5a15b81f8a..9d1bd72ffb73 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-imx.c
-@@ -42,8 +42,8 @@
- struct imx_priv_data;
- 
- struct imx_dwmac_ops {
--	u32 addr_width;
- 	u32 flags;
-+	u8 addr_width;
- 	bool mac_rgmii_txclk_auto_adj;
- 
- 	int (*fix_soc_reset)(struct stmmac_priv *priv);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-index a139db6a8cbb..30ae0dba7fff 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-@@ -93,9 +93,9 @@ struct mediatek_dwmac_variant {
- 	const char * const *clk_list;
- 	int num_clks;
- 
--	u32 dma_bit_mask;
- 	u32 rx_delay_max;
- 	u32 tx_delay_max;
-+	u8 dma_bit_mask;
- };
- 
- /* list of clocks required for mac */
-@@ -268,9 +268,9 @@ static const struct mediatek_dwmac_variant mt2712_gmac_variant = {
- 		.dwmac_set_delay = mt2712_set_delay,
- 		.clk_list = mt2712_dwmac_clk_l,
- 		.num_clks = ARRAY_SIZE(mt2712_dwmac_clk_l),
--		.dma_bit_mask = 33,
- 		.rx_delay_max = 17600,
- 		.tx_delay_max = 17600,
-+		.dma_bit_mask = 33,
- };
- 
- static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
-@@ -418,9 +418,9 @@ static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
- 	.dwmac_set_delay = mt8195_set_delay,
- 	.clk_list = mt8195_dwmac_clk_l,
- 	.num_clks = ARRAY_SIZE(mt8195_dwmac_clk_l),
--	.dma_bit_mask = 35,
- 	.rx_delay_max = 9280,
- 	.tx_delay_max = 9280,
-+	.dma_bit_mask = 35,
- };
- 
- static int mediatek_dwmac_config_dt(struct mediatek_dwmac_plat_data *plat)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 388e9fdeb86c..3ccf20fdf52a 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -91,8 +91,8 @@ struct ethqos_emac_driver_data {
- 	unsigned int num_rgmii_por;
- 	bool rgmii_config_loopback_en;
- 	bool has_emac_ge_3;
-+	u8 dma_addr_width;
- 	const char *link_clk_name;
--	u32 dma_addr_width;
- 	struct dwmac4_addrs dwmac4_addrs;
- 	bool needs_sgmii_loopback;
- };
 diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 03fd85060a73..11886189bf51 100644
+index 11886189bf51..1af3a5e197c9 100644
 --- a/include/linux/stmmac.h
 +++ b/include/linux/stmmac.h
-@@ -243,7 +243,7 @@ struct plat_stmmacenet_data {
- 	int unicast_filter_entries;
- 	int tx_fifo_size;
- 	int rx_fifo_size;
--	u32 host_dma_width;
-+	u8 host_dma_width;
- 	u8 rx_queues_to_use;
- 	u8 tx_queues_to_use;
- 	u8 rx_sched_algorithm;
+@@ -93,16 +93,37 @@ struct stmmac_mdio_bus_data {
+ };
+ 
+ struct stmmac_dma_cfg {
++	/* pbl: programmable burst limit
++	 * txpbl: transmit programmable burst limit
++	 * rxpbl: receive programmable burst limit
++	 * If txpbl or rxpbl are zero, the value of pbl will be substituted.
++	 * Range 0 - 63.
++	 */
+ 	int pbl;
+ 	int txpbl;
+ 	int rxpbl;
++	/* pblx8: multiplies pbl, txpbl, rxpbl by a factor of 8 for dwmac >=
++	 * 3.50a, or a factor of 4 for previous versions.
++	 */
+ 	bool pblx8;
++	/* fixed_burst:
++	 *  when set, AXI bursts defined by axi_blen_regval are permitted.
++	 *   AHB uses SINGLE, INCR4, INCR8 or INCR16 during burst transfers.
++	 *  when clear, AXI and AHB use SINGLE or INCR bursts.
++	 */
+ 	bool fixed_burst;
++	/* mixed_burst:
++	 *  when set and fixed_burst is clear, AHB uses INCR for bursts > 16
++	 *  and SINGLE or INCRx for bursts <= 16.
++	 */
+ 	bool mixed_burst;
++	/* aal: address aligned bursts for AHB and AXI master interface */
+ 	bool aal;
++	bool dche;
+ 	bool eame;
++	/* multi_msi_en: stmmac core internal */
+ 	bool multi_msi_en;
+-	bool dche;
++	/* atds: stmmac core internal */
+ 	bool atds;
+ };
+ 
 -- 
 2.47.3
 
