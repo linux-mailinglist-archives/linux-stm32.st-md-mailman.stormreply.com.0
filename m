@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6L0WDBWtrmntHQIAu9opvQ
+	id 4H7BKhutrmntHQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 12:20:53 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 12:20:59 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C61F237CF2
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 12:20:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CDA3237D00
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 12:20:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9AA8C8F280;
-	Mon,  9 Mar 2026 11:20:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7D4EC8F280;
+	Mon,  9 Mar 2026 11:20:58 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8A5EFC8F27F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3EE22C8F27F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Mar 2026 11:20:51 +0000 (UTC)
+ Mon,  9 Mar 2026 11:20:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=QLrzcOgBdh9SWNZ88PcuD4QPZfRZTAt20JyH8b5V4Nc=; b=l9n+GHY+g6PM9wzSPFpkGNC46h
- L75CfzioCHzoRlRtagPzTB6Eqo3mJGynIwLIcWtEkI65hCgEsKXAbwqBGA960x4TkRoZWfgm2IX7/
- RJ0lTjmpuKKJFss+Xb0g1DQ/pYJP11fNbw4Mv/7015WISUYm+QwPw+GxYUhxNhcKMxsFAYwe50BkM
- SOYxThs+Px3ecZHeHdBOH7I/nrCx36LzFQWUaD6WCZ+KsuMndYv3Hq/OG2YnmtBPALpfdSUCqeOQC
- ZVJ4MUoqMJL2WNnmhNtt8OLba5qOR8Oq8oO58+dFyUi2YOHQMJpbXc2hJOobWKsRDlPn+32lEmkTG
- EizCm07Q==;
+ bh=bDZWyRUOmwSxEJ8NSDbK8w5frKrjb03mKJAu6i0DDIo=; b=mWMHAMT0ILBrbK43jA10uck3iG
+ A8WfXml9b6JjDH7Iy59XHi00iWDwp25ysY5XbzXuq442DH1Ftq7w5RSlkOmCsVtKukGxpf72VTmoc
+ AjQ88SjtGcW6QZUiXJHPVDETe8vVc1KfbYLtmiDVhqhWaitCn6iYfyy1zS1SgoD8xqSX3cjfV1dAE
+ mqv1yV4yKgzs+T+zTs+cwK3Dn0ZczzAFKf8yV7ROW0TyuIfJK3+BRAWzE5zlMeVQgL3niitkR844H
+ NVilXj/lu2GBgyeMaCd9jjTqk1uroF32fwSZywT7vTvpjUeb2XAsFAa1Ols72xPHMBEVTB0H9gATG
+ BKLh04fQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:49944 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:49960 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1vzYfD-000000003gQ-2pji;
- Mon, 09 Mar 2026 11:20:43 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1vzYfJ-000000003gi-08au;
+ Mon, 09 Mar 2026 11:20:49 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1vzYfC-0000000CZyn-2DDs; Mon, 09 Mar 2026 11:20:42 +0000
+ id 1vzYfH-0000000CZyt-2mMs; Mon, 09 Mar 2026 11:20:47 +0000
 In-Reply-To: <aa6sofjFxyi2nkpr@shell.armlinux.org.uk>
 References: <aa6sofjFxyi2nkpr@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1vzYfC-0000000CZyn-2DDs@rmk-PC.armlinux.org.uk>
-Date: Mon, 09 Mar 2026 11:20:42 +0000
+Message-Id: <E1vzYfH-0000000CZyt-2mMs@rmk-PC.armlinux.org.uk>
+Date: Mon, 09 Mar 2026 11:20:47 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next v3 4/8] net: stmmac: use
- integrated PCS for BASE-X modes
+Subject: [Linux-stm32] [PATCH RFC net-next v3 5/8] net: stmmac: qcom-ethqos:
+ enable 2500BASE-X
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 0C61F237CF2
+X-Rspamd-Queue-Id: 6CDA3237D00
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -94,7 +94,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.501];
+	NEURAL_HAM(-0.00)[-0.454];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -106,74 +106,29 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid]
 X-Rspamd-Action: no action
 
-dwmac-qcom-ethqos supports SGMII and 2500BASE-X using the integrated
-PCS, so we need to expand the PCS support to include support for
-BASE-X modes.
+Enable 2500BASE-X support in qcom-ethqos to support the 2.5G speed with
+the integrated PCS.
 
-Add support to the prereset configuration to detect 2500BASE-X, and
-arrange for stmmac_mac_select_pcs() to return the integrated PCS if
-its supported_interfaces bitmap reports support for the interface mode.
-
-This results in priv->hw->pcs now being write-only, so remove it.
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/common.h      | 4 ----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++------
- 2 files changed, 2 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/common.h b/drivers/net/ethernet/stmicro/stmmac/common.h
-index 46454e2886ce..b7d29a621db1 100644
---- a/drivers/net/ethernet/stmicro/stmmac/common.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/common.h
-@@ -278,9 +278,6 @@ struct stmmac_safety_stats {
- #define FLOW_TX		2
- #define FLOW_AUTO	(FLOW_TX | FLOW_RX)
- 
--/* PCS defines */
--#define STMMAC_PCS_SGMII	(1 << 1)
--
- #define SF_DMA_MODE 1		/* DMA STORE-AND-FORWARD Operation Mode */
- 
- /* DMA HW feature register fields */
-@@ -632,7 +629,6 @@ struct mac_device_info {
- 	unsigned int unicast_filter_entries;
- 	unsigned int mcast_bits_log2;
- 	unsigned int rx_csum;
--	unsigned int pcs;
- 	unsigned int num_vlan;
- 	u32 vlan_filter[32];
- 	bool vlan_fail_q_en;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index f0160ff54a59..7b5ba672cc0e 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -946,11 +946,8 @@ static struct phylink_pcs *stmmac_mac_select_pcs(struct phylink_config *config,
- 			return pcs;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+index cb1c074c2053..f4b63544895e 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+@@ -828,6 +828,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	if (ethqos->serdes_phy) {
+ 		plat_dat->serdes_powerup = qcom_ethqos_serdes_powerup;
+ 		plat_dat->serdes_powerdown  = qcom_ethqos_serdes_powerdown;
++		plat_dat->flags |= STMMAC_FLAG_SERDES_SUPPORTS_2500M;
  	}
  
--	/* The PCS control register is only relevant for SGMII, TBI and RTBI
--	 * modes. We no longer support TBI or RTBI, so only configure this
--	 * register when operating in SGMII mode with the integrated PCS.
--	 */
--	if (priv->hw->pcs & STMMAC_PCS_SGMII && priv->integrated_pcs)
-+	if (priv->integrated_pcs &&
-+	    test_bit(interface, priv->integrated_pcs->pcs.supported_interfaces))
- 		return &priv->integrated_pcs->pcs;
- 
- 	return NULL;
-@@ -1209,7 +1206,6 @@ static void stmmac_check_pcs_mode(struct stmmac_priv *priv)
- 
- 	if (priv->dma_cap.pcs && interface == PHY_INTERFACE_MODE_SGMII) {
- 		netdev_dbg(priv->dev, "PCS SGMII support enabled\n");
--		priv->hw->pcs = STMMAC_PCS_SGMII;
- 
- 		switch (speed) {
- 		case SPEED_10:
+ 	/* Enable TSO on queue0 and enable TBS on rest of the queues */
 -- 
 2.47.3
 
