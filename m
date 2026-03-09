@@ -2,54 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AGwnNU1Mr2noTgIAu9opvQ
+	id COYQFQZdr2lKWAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 23:40:13 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 00:51:34 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EDDB242469
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 23:40:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D269D242BFC
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 00:51:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16864C8F280;
-	Mon,  9 Mar 2026 22:40:13 +0000 (UTC)
-Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com
- [95.215.58.187])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FAF2C8F290;
+	Mon,  9 Mar 2026 23:51:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6C80C8F26B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD40DC0693F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Mar 2026 22:40:11 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1773096010;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=6sEa2EbLg9kRxYDC+wk5lG4h9pBDhKw3v7ZVTXod9Z0=;
- b=JQTSDRRm9vnyqZZGdY6s0b4nQjjICVmFVwlyzrX9I47jfrkZlWYh612iJzxz9pqqqbbDh+
- /dGUzYblpitIxHSgGJfs5T3y6gJR/gCTn2GEUtMKgotOlFCluc0Kt+0+EdO0kXIpH64XrD
- FU8SjSXFEpE2xajsE08pncz0qmeL92w=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Gatien Chevallier <gatien.chevallier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Mon,  9 Mar 2026 23:39:24 +0100
-Message-ID: <20260309223923.84283-3-thorsten.blum@linux.dev>
+ Mon,  9 Mar 2026 23:51:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 98DE460054;
+ Mon,  9 Mar 2026 23:51:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A15ACC4CEF7;
+ Mon,  9 Mar 2026 23:51:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773100291;
+ bh=AnnEM0AEOjnmbxyb5EEXI/jarl/KqCoDW6tKbthKBzI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=OWqoBoPbJ/5DcO1AV6iEqZmg6nt85hulv2RU0E+PcvElbhF323SzKwlItX3PiQ4LL
+ vPGKR1akbwYB+pqE3Hz9f8cnHLGNkIGwbsMEN5KtbhdxEnOl+SWtMm23ab6Bn4om2J
+ m2/8afU5ehT8Um47o0q6lzRZw1ypUPWpRXjHuFb9TnZm4VaZwwF0jyLAFud+E5TkeQ
+ 9zxDTRlRIyIDR8Bjdh9RfvqQd5KlmYOvlKmwmgGPVmUraqDf/gELZyZaZUTVrQefre
+ jlV0++9qBD9A/NM6O44+SCIE9cIiYsPewUW01e3jb6m+VfDLAg2TyWFeMn19b4GSU/
+ TXwHFj/PFrlKw==
+Date: Mon, 9 Mar 2026 16:51:29 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Vladimir Oltean <olteanv@gmail.com>
+Message-ID: <20260309165129.78d656c1@kernel.org>
+In-Reply-To: <20260309154432.b3dbantow3e3tkry@skbuf>
+References: <aaDSJAc-x2-klvHJ@shell.armlinux.org.uk>
+ <aaIysVxy-WxbiJz9@shell.armlinux.org.uk>
+ <20260227165556.5cf9e844@kernel.org>
+ <20260228083111.5df8550c@kernel.org>
+ <aaRBjWhP4-7Kru9D@shell.armlinux.org.uk>
+ <20260302155736.1fd2980e@kernel.org>
+ <20260309154432.b3dbantow3e3tkry@skbuf>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1803; i=thorsten.blum@linux.dev;
- h=from:subject; bh=se/9XM5LaxmsF9U1ffuqXFfNsRE3YhF8LwOaSh6U6vU=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDJnrfaQjwjxfVGnc8cvbt2GajMLbm9sWSR74Ic2yY8EmR
- pZG5dUzOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAiqjcY/kpufPbTqbvnTaR4
- 2jpts8u3d1psD5r0aU7L4uTsF6+Ntk5h+MPFqfihuCxoCbt5e7nBnSvCVmVXtP2FIj2E7xzjuWq
- 1jQMA
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@linux.dev>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH RESEND] bus: rifsc: Replace snprintf("%s")
-	with strscpy
+Cc: Andrew Lunn <andrew@lunn.ch>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ "Russell King \(Oracle\)" <linux@armlinux.org.uk>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Vinod Koul <vkoul@kernel.org>, netdev@vger.kernel.org,
+ linux-phy@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RESEND2 net-next 0/8] net: stmmac:
+ qcom-ethqos: further serdes reorganisation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,84 +72,77 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 6EDDB242469
+X-Rspamd-Queue-Id: D269D242BFC
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:thorsten.blum@linux.dev,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:olteanv@gmail.com,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:neil.armstrong@linaro.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:vkoul@kernel.org,m:netdev@vger.kernel.org,m:linux-phy@lists.infradead.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[foss.st.com,gmail.com];
+	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[linux.dev:-];
-	NEURAL_HAM(-0.00)[-0.988];
-	RCPT_COUNT_SEVEN(0.00)[7];
+	NEURAL_HAM(-0.00)[-0.981];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,linux.dev:mid,linux.dev:email,st.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
-Replace snprintf("%s", ...) with the faster and more direct strscpy().
+On Mon, 9 Mar 2026 17:44:32 +0200 Vladimir Oltean wrote:
+> On Mon, Mar 02, 2026 at 03:57:36PM -0800, Jakub Kicinski wrote:
+> > Alright, I think the best we can do here is to merge patch 2 
+> > in a "stable tag" way. The rest will have to go via net-next.
+> > 
+> > I applied patch 2, Russell please rebase the rest on net-next 
+> > and repost. Patch 2 should disappear. I don't want to merge it
+> > now as is without an explicit nod from Vinod. He did ask for 
+> > a tag and we won't provide one.
+> > 
+> > Vinod / Vladimir, to merge the "stable tag" of patch 2:
+> > 
+> > tag_name=phy-qcom-sgmii-eth-add-set_mode-and-validate-methods
+> > git fetch https://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next.git
+> > git tag $tag_name 0e8147f4da00
+> > git merge $tag_name
+> > git tag -d $tag_name
+> > 
+> > I think this should work.  
+> 
+> Thanks for the anonymous tag. I think you mean sha1sum
+> 4ff5801f45b494ad8251a16ec06c9f303ed3b9a0, not 0e8147f4da00.
 
-Acked-by: Gatien Chevallier <gatien.chevallier@foss.st.com>
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/bus/stm32_rifsc.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Ah, I guess I misunderstood what Linus once told me.
+I thought the signed tag remain in the history once
+merged even if no longer named.
 
-diff --git a/drivers/bus/stm32_rifsc.c b/drivers/bus/stm32_rifsc.c
-index debeaf8ea1bd..ba65ad21434b 100644
---- a/drivers/bus/stm32_rifsc.c
-+++ b/drivers/bus/stm32_rifsc.c
-@@ -15,6 +15,7 @@
- #include <linux/of.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
-+#include <linux/string.h>
- #include <linux/types.h>
- 
- #include "stm32_firewall.h"
-@@ -450,7 +451,7 @@ static void stm32_rifsc_fill_rimu_dbg_entry(struct rifsc_dbg_private *rifsc,
- 	const struct stm32_rifsc_resources_names *dbg_names = rifsc->res_names;
- 	u32 rimc_attr = readl_relaxed(rifsc->mmio + RIFSC_RIMC_ATTR0 + 0x4 * i);
- 
--	snprintf(dbg_entry->m_name, sizeof(dbg_entry->m_name), "%s", dbg_names->initiator_names[i]);
-+	strscpy(dbg_entry->m_name, dbg_names->initiator_names[i]);
- 	dbg_entry->m_cid = FIELD_GET(RIFSC_RIMC_MCID_MASK, rimc_attr);
- 	dbg_entry->cidsel = rimc_attr & RIFSC_RIMC_CIDSEL;
- 	dbg_entry->m_sec = rimc_attr & RIFSC_RIMC_MSEC;
-@@ -469,8 +470,7 @@ static void stm32_rifsc_fill_dev_dbg_entry(struct rifsc_dbg_private *rifsc,
- 	sec_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_SECCFGR0 + 0x4 * reg_id);
- 	priv_cfgr = readl_relaxed(rifsc->mmio + RIFSC_RISC_PRIVCFGR0 + 0x4 * reg_id);
- 
--	snprintf(dbg_entry->dev_name, sizeof(dbg_entry->dev_name), "%s",
--		 dbg_names->device_names[i]);
-+	strscpy(dbg_entry->dev_name, dbg_names->device_names[i]);
- 	dbg_entry->dev_id = i;
- 	dbg_entry->dev_cid_filt_en = cid_cfgr & CIDCFGR_CFEN;
- 	dbg_entry->dev_sem_en = cid_cfgr & CIDCFGR_SEMEN;
+Anyway, I pushed the tag to kuba/linux.git
+phy-qcom-sgmii-eth-add-set_mode-and-validate-methods
+if you prefer the real / signed thing. I don't like
+having these random tags in netdev trees.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
