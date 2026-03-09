@@ -2,58 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UN08GISdrmk7GwIAu9opvQ
+	id QHpFLdmormkFHQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 11:14:28 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 12:02:49 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE090236D9B
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 11:14:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5070723782D
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 12:02:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31A1AC8F27F;
-	Mon,  9 Mar 2026 10:14:27 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E67E1C8F27F;
+	Mon,  9 Mar 2026 11:02:48 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FD22C0693F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE2CDC01FB5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Mar 2026 10:14:26 +0000 (UTC)
+ Mon,  9 Mar 2026 11:02:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JQCAnUp7//V84f3pl77t9PEUZW5Z6f4XI9axZUwQSpE=; b=gjO6nNGZJMw2ib+A7rYOZ/Lfp6
- EvWePfBeLy40Gmt3Be9/E1FiJhzGv1F0eJ0HgYLYDU5S+nIkqAZb2kQZ3LBJqIW/58OkWuMIFzgAa
- EOi31iaGawCON0kunT882/6dSCR63dxCIpyoyaMJ3txpgEJEkBht/dcUgg2ZO9hMfXK9/2d9XYg5D
- +DvPE2jSb/LwDpcpab5u9Udece83MQMxKqeme+EQPy6VDfB7KeYNGhN8R2U+BAVE16glZ94qFkhBP
- JxFd4Mke/czOAluzjcBTREAhI1F6gJxMvtpV5KO69y4NGpDjPMR8q+LirGuwA9hXiNw7r2VD4Bv0b
- iR1POeXw==;
+ bh=sAkRjP9jYISvdMSyBJJw0ajApQvAkfVgmNZbtMfYkuE=; b=kQnBDvz0laLdm0pWRVN8e4/E3s
+ IgESKlZ6AMDuT1IePF3BZzZWkfTma4/fS3zWrngtkKycV66UO8DR32Z8ppv8fNyqJB2NcNvhn0/oA
+ b37FxopH4vF7Q8NVEulkxinLjgcyzw6sEVaMb1BnM3FvouqcBdLAoibT5BK39sQNi8URpXjSpHNmJ
+ PFh5V5zYBHZKMSKE2tfdnaiq4OQw1KvkuoQNg+Scb/k1AF//X2KqmHkEDJeNaz1l4fBH1e/fAV9Qs
+ hER0s+tKnKBpcebWKfkEibAqcTdfrKVvcFI0lO1YB1A22xf72DsEBrDHexqtpnCLr5Oj9q66wM82z
+ XPom7/Xg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54824)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46846)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1vzXcw-000000003aa-0iHa;
- Mon, 09 Mar 2026 10:14:18 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1vzYNj-000000003dG-0zT3;
+ Mon, 09 Mar 2026 11:02:39 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1vzXct-000000004EK-2MNk; Mon, 09 Mar 2026 10:14:15 +0000
-Date: Mon, 9 Mar 2026 10:14:15 +0000
+ id 1vzYNg-000000004FS-1Hwk; Mon, 09 Mar 2026 11:02:36 +0000
+Date: Mon, 9 Mar 2026 11:02:36 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Message-ID: <aa6dd6vQWex9Kinv@shell.armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <aa6ozPBP_OlayFs9@shell.armlinux.org.uk>
 References: <aafxqCvJ_XY4YbWw@shell.armlinux.org.uk>
- <aandp3FYSJbwoZxo@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <aandp3FYSJbwoZxo@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
+In-Reply-To: <aafxqCvJ_XY4YbWw@shell.armlinux.org.uk>
+Cc: Vinod Koul <vkoul@kernel.org>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH RFC net-next v2 0/7] net: stmmac: improve
 	PCS support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -71,7 +70,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: EE090236D9B
+X-Rspamd-Queue-Id: 5070723782D
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -88,7 +87,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS(0.00)[m:mohd.anwar@oss.qualcomm.com,m:andrew@lunn.ch,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:vkoul@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
@@ -106,20 +105,48 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-On Fri, Mar 06, 2026 at 01:16:47AM +0530, Mohd Ayaan Anwar wrote:
->   - Link up at 2.5G, 1G, and 100M is fine (phylink logs below). The PCS
->     link takes a moment to stabilize, but after that it's stable.
->   - The warning ("PCS configuration changed from phylink by glue;
->     ANE 0 -> 1") is observed when the link comes up at 1G/100M.
+On Wed, Mar 04, 2026 at 08:47:36AM +0000, Russell King (Oracle) wrote:
+> Resending this as the original RFC now conflicts with net-next.
+> 
+> This series is the next of the three part series sorting out the PCS
+> support in stmmac, building on part 2, which was posted yesterday:
+> 
+> 	net: stmmac: qcom-ethqos: further serdes reorganisation
+> 
+> Similar patches have been posted previously. This series does away with
+> the common SerDes PHY support, instead using a flag to indicate whether
+> 2500Mbps mode is supported (STMMAC_FLAG_SERDES_SUPPORTS_2500M.) At this
+> time, I have no plans to resurect the common SerDes PHY support - the
+> generic PHY layer implementations are just too random to consider that,
+> and I certainly do not want the extra work of fixing that.
 
-Something else to try...
+I'm intending to tweak this patch series slightly. First, reordering
+the patches, moving patches 4 and 5 to the beginning of the series,
+followed by patch 1, 3 and 2.
 
-It may avoid some PCS link state bouncing if the writel() came before
-the printing of the changes in dwmac_ctrl_ane(), as printing those
-changes will be relatively slow.
+The first two add support for reading the SGMII status from hardware
+which we don't currently use, then we add support for BASE-X and
+start using it for 2500BASE-X for qcom-ethqos. This should result in
+no change at this point.
+
+Next, I'm intending to add a new patch which sets
+plat_dat->mdio_bus_data->default_an_inband = true; which will enable
+in-band mode, and thus start using the SGMII link state. This will
+be used where the inband caps indicates both the PHY and PCS suport
+inband. For 2500BASE-X, because the PCS reports a value of 0x01,
+that will switch phylink automatically out of inband mode.
+
+This should mean that phylink will switch to inband mode for SGMII,
+and outband for 2500BASE-X, which will eliminate the PCS configuration
+change done by qcom-ethqos.
+
+I've also changed the "report PCS configuration changes" as I
+suggested, although this should no longer trigger.
+
+I'll post this shortly.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
