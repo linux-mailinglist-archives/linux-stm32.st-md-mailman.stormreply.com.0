@@ -2,107 +2,111 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gxkvBkgZrmk3/gEAu9opvQ
+	id gF9mN0CHrmnKFgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 01:50:16 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 09:39:28 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9CF1A232F21
-	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 01:50:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 36F56235909
+	for <lists+linux-stm32@lfdr.de>; Mon, 09 Mar 2026 09:39:27 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B8EFDC8F278;
-	Mon,  9 Mar 2026 00:43:51 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 766BCC8F27F;
+	Mon,  9 Mar 2026 08:39:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B8047C58D7C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 971F4C01FB5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  9 Mar 2026 00:43:50 +0000 (UTC)
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-2ad9f316d68so48089125ad.2
+ Mon,  9 Mar 2026 08:39:26 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 31A1C44585
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 08 Mar 2026 17:43:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773017029; x=1773621829;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ixbx+gDUYeAq/vVDXktJDZ6vOxwnCAtm0z9wr9CgNqc=;
- b=LteNBsVZRhn0OpmhGmN9L8M03jTQ5pS1/wg3x0NPQnehpnvNc/0Wa9iEsgkEcJ4Tyr
- VmFgLGUhByGNT/GygFMngNmPOiY0RnXyxUfL2/XAenH4TzLOaObQ2FsSXgMZO5on3sd9
- BRBXND/7ri2WNAZYh+e/3SYGbcm9nRVAmA/lAWSjWiQ0/Tzt9lTMFJJvn9inCtWzh7h+
- JO2hx0dnUP91EzZ8mCyPwATRHp41T0smWIRNCbDcbPBlk8hbGTngkIQ66poPpL72YYwR
- zVR4Hq+E/hiVsHkCOhZC+15NeknNs8/wBPxYy0FqhmgptI/skKIM7JpUtEaANS+qN+7u
- 2CDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773017029; x=1773621829;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=ixbx+gDUYeAq/vVDXktJDZ6vOxwnCAtm0z9wr9CgNqc=;
- b=KjRc3RkvHqKD85uasiyGHPs6nnLHyKGLTHAR5sQMUaQhcYxDzJF2tCCedLdDgeN/du
- XgExAR2c6OWsWjCCAoAmJdWXHAHgMjVnoe4bRR0ug0gTch6qoW4RTUVNtvWO7JP58HDl
- h3hpp4IJX32E78macqi2wKMDkNEniPBnbuINMtrluBVucYjxyABgTqfLBadUBKS87byp
- QQxFBNGHnCDVz1qwwqdkelLxyUoN1xNdChWe7WfWGIPTYOAQ6wJVWcOEJfazlhkeGVAh
- I3sLMSaVM0wQ22snz1Ctgsk2NudM8tNk6aYVWnimJNA0utm7boAKxIQv2BuE1Wvr+wyp
- +Z2Q==
+ Mon,  9 Mar 2026 08:39:25 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F40C2BCB4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon,  9 Mar 2026 08:39:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773045565;
+ bh=lmhRRii9BO7pCks+UXBWncpJDHHvOFHDr/1FU5tS2Dc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=WdSRqv1l9cnLKSFLHhILKBputV3GcYJKALfpBY1JSeYsV8M2DTVAhXvGnFdMIUBoZ
+ u1TTqUSFnSchtsJAGRsbe75vRgVGaAhmdhg9HvU74esJIPW2495NanSULupwyeW7PT
+ YaCc04FUEFJ+TnyCI7vwqSgqNgUE6uYG7kXhpWsNzBlH62LL0sdi5KV24INW7HWTMS
+ DaLkZNI+2flGr4fHuiuuvSJz9dW2rJ7bAYkCMV+MUG0PEE3Cta9uzSWVAyA4AxTN5y
+ +F2ndD2lKnvgeVQlJCtt8r0Do8bYMPx5sz1Wz+M9150u6O8SAJpB7oeuzYGd3EgwS/
+ 7SEvsU49k0Ckw==
+Received: by mail-lj1-f170.google.com with SMTP id
+ 38308e7fff4ca-38a4118c4f7so32324111fa.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 09 Mar 2026 01:39:24 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUg+EV2gdN/hRf8AWsMxe7ArRTK7g3nlZvSLCyehgZB2q29NwdRsgTPe+GYH+YB2w8E+QKv3AJ3jm156g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz6B4reUfhHnhrjGA9ZT8TegMJ+co6l851swhhD7i/3BgM7bfX+
- oDdgEu9A1ibcPD/4CtXHI3T4SeBOa2+Ao1oR7Vx0+zVfoG/5ojtBLu+W
-X-Gm-Gg: ATEYQzxd5OImRKOHT+RS+4L+D4kK2tzyDZ/dmpTtqChXlKMFReVg+U7x+FlRe59yLa6
- pHkkGUJdcu7LScj/Pz2TeSWwlNLdmwcgDju5mtDo4zCnUUuJ6vv9dgohc3IId/FdzF92LZeFsl/
- nXRSzqlmnA7MzRX792zii7Xn9MYmMPDaXQ8eFwIs9qQYkoBi7xmvWmi5SO7aJHz45PXZ0WWsT+g
- eZlTW7Kr1aGoNi6PVdL/2r7b9SZZ3HUi2Pc5R1V0Diex9LvIcM1JwnIPmg6dkvl7lU2nEfqqgSp
- hwEXoJ6VZJQU35menEkp70MxJ19o0CGPeHJUVH7qZQCOcwvTH8odr/1EtJugncMQqABADU6EG2Q
- S/xCA9s4zKbTc9eXTTte/QhxCQpL1mc5gO7+///uXQtqfa9YlWejJIQJGoRbNwWJVrQ27YAVP0P
- jPBucInKqCxNoIUD7NquIDTLWj/KGItfmvlw==
-X-Received: by 2002:a17:903:b4e:b0:2a9:62ce:1c15 with SMTP id
- d9443c01a7336-2ae82269e63mr93309645ad.0.1773017029142; 
- Sun, 08 Mar 2026 17:43:49 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ae83e57740sm88653645ad.15.2026.03.08.17.43.48
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 08 Mar 2026 17:43:48 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Yao Zi <me@ziyao.cc>,
- Yanteng Si <siyanteng@cqsoftware.com.cn>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Shangjuan Wei <weishangjuan@eswincomputing.com>,
- Inochi Amaoto <inochiama@gmail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Chen-Yu Tsai <wens@kernel.org>, Boon Khai Ng <boon.khai.ng@altera.com>,
- Quentin Schulz <quentin.schulz@cherry.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Date: Mon,  9 Mar 2026 08:42:44 +0800
-Message-ID: <20260309004305.315018-4-inochiama@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260309004305.315018-1-inochiama@gmail.com>
-References: <20260309004305.315018-1-inochiama@gmail.com>
+ AJvYcCXcAqA1Tn/f5Q/PHPI3SYn+K1pF/Cmpk3G7NchzviwJb2p2H5Go6pc0tf1G/KItW3mTLgXbeWY7eqxZBQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwnaxN9KgWoXFTDh+epDw7zbBJE+8GF1H+SCWWMW/bjNo5H6OhW
+ O+m47T3Z4Uvv2/p9YuLTzxmKrZ2NGFNfE2aVqeLY7JrbbRrJmKGjSoW/Wp4Ax5OnTAxZa5z0PwT
+ qMs07SyiQH0yIUiQD6Argw/dEAbVMz8BeCSKIzX/+Yg==
+X-Received: by 2002:a05:651c:892:b0:38a:b18:f41e with SMTP id
+ 38308e7fff4ca-38a40b4bca5mr35053151fa.6.1773045562416; Mon, 09 Mar 2026
+ 01:39:22 -0700 (PDT)
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Longbin Li <looong.bin@gmail.com>, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v8 3/3] net: stmmac: Add glue layer
-	for Spacemit K3 SoC
+References: <20260306-qcom-sa8255p-emac-v7-0-d6a3013094b7@oss.qualcomm.com>
+ <20260306-qcom-sa8255p-emac-v7-1-d6a3013094b7@oss.qualcomm.com>
+ <20260307-boisterous-tuscan-rat-1eb9bb@quoll>
+In-Reply-To: <20260307-boisterous-tuscan-rat-1eb9bb@quoll>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Mon, 9 Mar 2026 09:39:10 +0100
+X-Gmail-Original-Message-ID: <CAMRc=MeeHP_ZjhOHu5NNLCU6Cg59EAWQAS0JngEHDQkmcDH3HQ@mail.gmail.com>
+X-Gm-Features: AaiRm50wcU1Efh35HOluVCqu3-5afwUUXiIKPiOPr6mPL4PpMSQ1J-X9POGllS8
+Message-ID: <CAMRc=MeeHP_ZjhOHu5NNLCU6Cg59EAWQAS0JngEHDQkmcDH3HQ@mail.gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Drew Fustini <fustini@kernel.org>, s32@nxp.com,
+ Heiko Stuebner <heiko@sntech.de>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ imx@lists.linux.dev, Frank Li <Frank.Li@nxp.com>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ Swathi K S <swathi.ks@samsung.com>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Guo Ren <guoren@kernel.org>,
+ Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>,
+ linux-amlogic@lists.infradead.org, Shawn Guo <shawnguo@kernel.org>,
+ linux-riscv@lists.infradead.org, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Jerome Brunet <jbrunet@baylibre.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Rob Herring <robh@kernel.org>, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Shuang Liang <liangshuang@eswincomputing.com>,
+ Samuel Holland <samuel@sholland.org>, sophgo@lists.linux.dev,
+ Kevin Hilman <khilman@baylibre.com>, Chen Wang <unicorn_wang@outlook.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-rockchip@lists.infradead.org, Jose Abreu <joabreu@synopsys.com>,
+ Clark Wang <xiaoning.wang@nxp.com>, Linux Team <linux-imx@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Emil Renner Berthing <kernel@esmil.dk>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Samin Guo <samin.guo@starfivetech.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Richard Cochran <richardcochran@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Maxime Ripard <mripard@kernel.org>, Minda Chen <minda.chen@starfivetech.com>,
+ Drew Fustini <dfustini@tenstorrent.com>,
+ "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Neil Armstrong <neil.armstrong@linaro.org>, linux-sunxi@lists.linux.dev,
+ linux-mips@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Keguang Zhang <keguang.zhang@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Zhi Li <lizhi2@eswincomputing.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Inochi Amaoto <inochiama@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Matthew Gerlach <matthew.gerlach@altera.com>,
+ "David S. Miller" <davem@davemloft.net>, Fu Wei <wefu@redhat.com>
+Subject: Re: [Linux-stm32] [PATCH net-next v7 1/7] dt-bindings: net: qcom:
+ document the ethqos device for SCMI-based systems
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,343 +118,80 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 9CF1A232F21
+X-Rspamd-Queue-Id: 36F56235909
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.89 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:dlan@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:richardcochran@gmail.com,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:rmk+kernel@armlinux.org.uk,m:me@ziyao.cc,m:siyanteng@cqsoftware.com.cn,m:vladimir.oltean@nxp.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:weishangjuan@eswincomputing.com,m:inochiama@gmail.com,m:maxime.chevallier@bootlin.com,m:wens@kernel.org,m:boon.khai.ng@altera.com,m:quentin.schulz@cherry.de,m:peppe.cavallaro@st.com,m:joabreu@synopsys.com,m:devicetree@vger.kernel.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:looong.bin@gmail.com,m:linux-riscv@lists.infradead.org,m:spacemit@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andre
- w@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,m:looongbin@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,dabbelt.com,eecs.berkeley.edu,ghiti.fr,armlinux.org.uk,ziyao.cc,cqsoftware.com.cn,nxp.com,bp.renesas.com,eswincomputing.com,bootlin.com,altera.com,cherry.de,st.com,synopsys.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:krzk@kernel.org,m:fustini@kernel.org,m:s32@nxp.com,m:heiko@sntech.de,m:geert+renesas@glider.be,m:imx@lists.linux.dev,m:Frank.Li@nxp.com,m:christophe.roullier@foss.st.com,m:swathi.ks@samsung.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:guoren@kernel.org,m:nobuhiro.iwamatsu.x90@mail.toshiba,m:linux-amlogic@lists.infradead.org,m:shawnguo@kernel.org,m:linux-riscv@lists.infradead.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jbrunet@baylibre.com,m:bartosz.golaszewski@linaro.org,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:liangshuang@eswincomputing.com,m:samuel@sholland.org,m:sophgo@lists.linux.dev,m:khilman@baylibre.com,m:unicorn_wang@outlook.com,m:bartosz.golaszewski@oss.qualcomm.com,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:linux-rockchip@lists.infradead.org,m:joabreu@synopsys.com,m:xiaoning.wang@nxp.com,m:linux-imx@nxp.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:s.hauer@pengutronix.de,m
+ :devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:kernel@esmil.dk,m:kernel@pengutronix.de,m:samin.guo@starfivetech.com,m:martin.blumenstingl@googlemail.com,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:david.wu@rock-chips.com,m:jan.petrous@oss.nxp.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:mripard@kernel.org,m:minda.chen@starfivetech.com,m:dfustini@tenstorrent.com,m:vineetha.g.jaya.kumaran@intel.com,m:weishangjuan@eswincomputing.com,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:linux-sunxi@lists.linux.dev,m:linux-mips@vger.kernel.org,m:krzysztof.kozlowski@oss.qualcomm.com,m:keguang.zhang@gmail.com,m:andersson@kernel.org,m:romain.gantois@bootlin.com,m:lizhi2@eswincomputing.com,m:linux-kernel@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:andrew+netdev@lunn.ch,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:matthew.gerlach@altera.com,m:davem@daveml
+ oft.net,m:wefu@redhat.com,m:geert@glider.be,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gentoo.org,gmail.com,lists.infradead.org,lists.linux.dev,st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[brgl@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,nxp.com,sntech.de,glider.be,lists.linux.dev,foss.st.com,samsung.com,google.com,vger.kernel.org,mail.toshiba,lists.infradead.org,gmail.com,st-md-mailman.stormreply.com,baylibre.com,linaro.org,oss.qualcomm.com,eswincomputing.com,sholland.org,outlook.com,synopsys.com,redhat.com,pengutronix.de,esmil.dk,starfivetech.com,googlemail.com,rock-chips.com,oss.nxp.com,bp.renesas.com,tenstorrent.com,intel.com,st.com,bootlin.com,lunn.ch,altera.com,davemloft.net];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.908];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[75];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[brgl@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.995];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas,dt,netdev];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,linaro.org:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-The ethernet controller on Spacemit K3 SoC is Synopsys DesignWare
-MAC (version 5.40a), with the following special points:
-1. The rate of the tx clock line is auto changed when the mac speed
-   rate is changed, and no need for changing the input tx clock.
-2. This controller require a extra syscon device to configure the
-   interface type, enable wake up interrupt and delay configuration
-   if needed.
-
-Add Spacemit dwmac driver support on the Spacemit K3 SoC.
-
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 +
- drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
- .../ethernet/stmicro/stmmac/dwmac-spacemit.c  | 227 ++++++++++++++++++
- 3 files changed, 240 insertions(+)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index 07088d03dbab..d3a6ab7383fc 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -216,6 +216,18 @@ config DWMAC_SOPHGO
- 	  for the stmmac device driver. This driver is used for the
- 	  ethernet controllers on various Sophgo SoCs.
- 
-+config DWMAC_SPACEMIT
-+	tristate "Spacemit dwmac support"
-+	depends on OF && (ARCH_SPACEMIT || COMPILE_TEST)
-+	select MFD_SYSCON
-+	default m if ARCH_SPACEMIT
-+	help
-+	  Support for ethernet controllers on Spacemit RISC-V SoCs
-+
-+	  This selects the Spacemit platform specific glue layer support
-+	  for the stmmac device driver. This driver is used for the
-+	  Spacemit K3 ethernet controllers.
-+
- config DWMAC_STARFIVE
- 	tristate "StarFive dwmac support"
- 	depends on OF && (ARCH_STARFIVE || COMPILE_TEST)
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index c9263987ef8d..945c5354eced 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -27,6 +27,7 @@ obj-$(CONFIG_DWMAC_RZN1)	+= dwmac-rzn1.o
- obj-$(CONFIG_DWMAC_S32)		+= dwmac-s32.o
- obj-$(CONFIG_DWMAC_SOCFPGA)	+= dwmac-altr-socfpga.o
- obj-$(CONFIG_DWMAC_SOPHGO)	+= dwmac-sophgo.o
-+obj-$(CONFIG_DWMAC_SPACEMIT)	+= dwmac-spacemit.o
- obj-$(CONFIG_DWMAC_STARFIVE)	+= dwmac-starfive.o
- obj-$(CONFIG_DWMAC_STI)		+= dwmac-sti.o
- obj-$(CONFIG_DWMAC_STM32)	+= dwmac-stm32.o
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-new file mode 100644
-index 000000000000..f6379ae6e858
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-@@ -0,0 +1,227 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Spacemit DWMAC platform driver
-+ *
-+ * Copyright (C) 2026 Inochi Amaoto <inochiama@gmail.com>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/math.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/of.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+#include "stmmac_platform.h"
-+
-+/* ctrl register bits */
-+#define CTRL_PHY_INTF_RGMII		BIT(3)
-+#define CTRL_PHY_INTF_MII		BIT(4)
-+#define CTRL_WAKE_IRQ_EN		BIT(9)
-+#define CTRL_PHY_IRQ_EN			BIT(12)
-+
-+/* dline register bits */
-+#define RGMII_RX_DLINE_EN		BIT(0)
-+#define RGMII_RX_DLINE_STEP		GENMASK(5, 4)
-+#define RGMII_RX_DLINE_CODE		GENMASK(15, 8)
-+#define RGMII_TX_DLINE_EN		BIT(16)
-+#define RGMII_TX_DLINE_STEP		GENMASK(21, 20)
-+#define RGMII_TX_DLINE_CODE		GENMASK(31, 24)
-+
-+#define MAX_DLINE_DELAY_CODE		0xff
-+#define MAX_WORKED_DELAY		2800
-+/* Note: the delay step value is at 0.1ps */
-+#define K3_DELAY_STEP			367
-+
-+struct spacmit_dwmac {
-+	struct regmap *apmu;
-+	unsigned int ctrl_offset;
-+	unsigned int dline_offset;
-+};
-+
-+static int spacemit_dwmac_set_delay(struct spacmit_dwmac *dwmac,
-+				    unsigned int tx_code, unsigned int rx_code)
-+{
-+	unsigned int mask, val;
-+
-+	mask = RGMII_TX_DLINE_STEP | RGMII_TX_DLINE_CODE | RGMII_TX_DLINE_EN |
-+	       RGMII_RX_DLINE_STEP | RGMII_RX_DLINE_CODE | RGMII_RX_DLINE_EN;
-+
-+	/*
-+	 * Since the delay step provided by config 0 is small enough, and
-+	 * it can cover the range of the valid delay, so there is no needed
-+	 * to use other step config.
-+	 */
-+	val = FIELD_PREP(RGMII_TX_DLINE_STEP, 0) |
-+	      FIELD_PREP(RGMII_TX_DLINE_CODE, tx_code) | RGMII_TX_DLINE_EN |
-+	      FIELD_PREP(RGMII_RX_DLINE_STEP, 0) |
-+	      FIELD_PREP(RGMII_RX_DLINE_CODE, rx_code) | RGMII_RX_DLINE_EN;
-+
-+	return regmap_update_bits(dwmac->apmu, dwmac->dline_offset,
-+				  mask, val);
-+}
-+
-+static int spacemit_dwmac_detected_delay_value(unsigned int delay)
-+{
-+	if (delay == 0)
-+		return 0;
-+
-+	if (delay > MAX_WORKED_DELAY)
-+		return -EINVAL;
-+
-+	/*
-+	 * Note K3 require a specific factor for calculate
-+	 * the delay, in this scenario it is 0.9. So the
-+	 * formula is code * step / 10 * 0.9
-+	 */
-+	return DIV_ROUND_CLOSEST(delay * 10 * 10, K3_DELAY_STEP * 9);
-+}
-+
-+static int spacemit_dwmac_fix_delay(struct spacmit_dwmac *dwmac,
-+				    unsigned int tx_delay,
-+				    unsigned int rx_delay)
-+{
-+	int rx_code;
-+	int tx_code;
-+
-+	rx_code = spacemit_dwmac_detected_delay_value(rx_delay);
-+	if (rx_code < 0)
-+		return rx_code;
-+
-+	tx_code = spacemit_dwmac_detected_delay_value(tx_delay);
-+	if (tx_code < 0)
-+		return tx_code;
-+
-+	return spacemit_dwmac_set_delay(dwmac, tx_code, rx_code);
-+}
-+
-+static int spacemit_dwmac_update_irq_config(struct spacmit_dwmac *dwmac,
-+					    struct stmmac_resources *stmmac_res)
-+{
-+	unsigned int mask = CTRL_WAKE_IRQ_EN;
-+	unsigned int val = stmmac_res->wol_irq >= 0 ? CTRL_WAKE_IRQ_EN : 0;
-+
-+	return regmap_update_bits(dwmac->apmu, dwmac->ctrl_offset,
-+				  mask, val);
-+}
-+
-+static void spacemit_get_interfaces(struct stmmac_priv *priv, void *bsp_priv,
-+				    unsigned long *interfaces)
-+{
-+	__set_bit(PHY_INTERFACE_MODE_MII, interfaces);
-+	__set_bit(PHY_INTERFACE_MODE_RMII, interfaces);
-+	phy_interface_set_rgmii(interfaces);
-+}
-+
-+static int spacemit_set_phy_intf_sel(void *bsp_priv, u8 phy_intf_sel)
-+{
-+	struct spacmit_dwmac *dwmac = bsp_priv;
-+	unsigned int mask = CTRL_PHY_INTF_MII | CTRL_PHY_INTF_RGMII;
-+	unsigned int val = 0;
-+
-+	switch (phy_intf_sel) {
-+	case PHY_INTF_SEL_GMII_MII:
-+		val = CTRL_PHY_INTF_MII;
-+		break;
-+
-+	case PHY_INTF_SEL_RMII:
-+		break;
-+
-+	case PHY_INTF_SEL_RGMII:
-+		val = CTRL_PHY_INTF_RGMII;
-+		break;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return regmap_update_bits(dwmac->apmu, dwmac->ctrl_offset,
-+				  mask, val);
-+}
-+
-+static int spacemit_dwmac_probe(struct platform_device *pdev)
-+{
-+	struct plat_stmmacenet_data *plat_dat;
-+	struct stmmac_resources stmmac_res;
-+	struct device *dev = &pdev->dev;
-+	struct spacmit_dwmac *dwmac;
-+	unsigned int offset[2];
-+	struct regmap *apmu;
-+	struct clk *clk_tx;
-+	u32 rx_delay = 0;
-+	u32 tx_delay = 0;
-+	int ret;
-+
-+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to get platform resources\n");
-+
-+	dwmac = devm_kzalloc(&pdev->dev, sizeof(*dwmac), GFP_KERNEL);
-+	if (!dwmac)
-+		return -ENOMEM;
-+
-+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-+	if (IS_ERR(plat_dat))
-+		return dev_err_probe(dev, PTR_ERR(plat_dat),
-+				     "failed to parse DT parameters\n");
-+
-+	clk_tx = devm_clk_get_enabled(&pdev->dev, "tx");
-+	if (IS_ERR(clk_tx))
-+		return dev_err_probe(&pdev->dev, PTR_ERR(clk_tx),
-+				     "failed to get tx clock\n");
-+
-+	apmu = syscon_regmap_lookup_by_phandle_args(pdev->dev.of_node,
-+						    "spacemit,apmu", 2,
-+						    offset);
-+	if (IS_ERR(apmu))
-+		return dev_err_probe(dev, PTR_ERR(apmu),
-+				"Failed to get apmu regmap\n");
-+
-+	dwmac->apmu = apmu;
-+	dwmac->ctrl_offset = offset[0];
-+	dwmac->dline_offset = offset[1];
-+
-+	ret = spacemit_dwmac_update_irq_config(dwmac, &stmmac_res);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to configure irq config\n");
-+
-+	of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps",
-+			     &tx_delay);
-+	of_property_read_u32(pdev->dev.of_node, "rx-internal-delay-ps",
-+			     &rx_delay);
-+
-+	plat_dat->get_interfaces = spacemit_get_interfaces;
-+	plat_dat->set_phy_intf_sel = spacemit_set_phy_intf_sel;
-+	plat_dat->bsp_priv = dwmac;
-+
-+	ret = spacemit_dwmac_fix_delay(dwmac, tx_delay, rx_delay);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to configure delay\n");
-+
-+	return stmmac_dvr_probe(dev, plat_dat, &stmmac_res);
-+}
-+
-+static const struct of_device_id spacemit_dwmac_match[] = {
-+	{ .compatible = "spacemit,k3-dwmac" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, spacemit_dwmac_match);
-+
-+static struct platform_driver spacemit_dwmac_driver = {
-+	.probe  = spacemit_dwmac_probe,
-+	.remove = stmmac_pltfr_remove,
-+	.driver = {
-+		.name = "spacemit-dwmac",
-+		.pm = &stmmac_pltfr_pm_ops,
-+		.of_match_table = spacemit_dwmac_match,
-+	},
-+};
-+module_platform_driver(spacemit_dwmac_driver);
-+
-+MODULE_AUTHOR("Inochi Amaoto <inochiama@gmail.com>");
-+MODULE_DESCRIPTION("Spacemit DWMAC platform driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU2F0LCBNYXIgNywgMjAyNiBhdCAxMToyNeKAr0FNIEtyenlzenRvZiBLb3psb3dza2kgPGty
+emtAa2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBPbiBGcmksIE1hciAwNiwgMjAyNiBhdCAwNDo0Njoz
+OVBNICswMTAwLCBCYXJ0b3N6IEdvbGFzemV3c2tpIHdyb3RlOgo+ID4gRnJvbTogQmFydG9zeiBH
+b2xhc3pld3NraSA8YmFydG9zei5nb2xhc3pld3NraUBsaW5hcm8ub3JnPgo+ID4KPiA+IERlc2Ny
+aWJlIHRoZSBmaXJtd2FyZS1tYW5hZ2VkIHZhcmlhbnQgb2YgdGhlIFFDb20gRGVzaWduV2FyZSBN
+QUMuIEFzIHRoZQo+ID4gcHJvcGVydGllcyBoZXJlIGRpZmZlciBhIGxvdCBmcm9tIHRoZSBITE9T
+LW1hbmFnZWQgdmFyaWFudCwgbGV0cyBwdXQgaXQKPiA+IGluIGEgc2VwYXJhdGUgZmlsZS4gU2lu
+Y2Ugd2UgbmVlZCB0byB1cGRhdGUgdGhlIG1heGltdW0gbnVtYmVyIG9mIHBvd2VyCj4gPiBkb21h
+aW5zLCBsZXQncyB1cGRhdGUgZXhpc3RpbmcgYmluZGluZ3MgcmVmZXJlbmNpbmcgdGhlIHRvcC1s
+ZXZlbAo+ID4gc25wcyxkd21hYy55YW1sIGFuZCBsaW1pdCB0aGVpciBtYXhJdGVtcyBmb3IgcG93
+ZXItZG9tYWlucyB0byAxLgo+ID4KPiA+IFNpZ25lZC1vZmYtYnk6IEJhcnRvc3ogR29sYXN6ZXdz
+a2kgPGJhcnRvc3ouZ29sYXN6ZXdza2lAbGluYXJvLm9yZz4KPiA+IFJldmlld2VkLWJ5OiBSb21h
+aW4gR2FudG9pcyA8cm9tYWluLmdhbnRvaXNAYm9vdGxpbi5jb20+ICMgRm9yIFJaL04xCj4KPiBD
+YW4gd2UgZHJvcCBoYWxmLWJha2VkIHJldmlld3M/IFJldmlld2luZyBvbmx5IHRoYXQgcGllY2Ug
+aXMgbm90IGV2ZW4KPiBwb3NzaWJsZSwgYmVjYXVzZSBpdCBtYWtlcyBubyBzZW5zZSBvdXRzaWRl
+IG9mIG1haW4gY2hhbmdlIGNvbnRleHQuIElPVywKPiBpdCdzIHBvaW50bGVzcyByZXZpZXcgb2Yg
+bm90aGluZywgaWYgeW91IGRvIG5vdCBhY3R1YWxseSByZXZpZXcgdGhlIG1haW4KPiBjaGFuZ2Ug
+aW1wYWN0aW5nIFJaL04xLgo+CgpUaGlzIGlzIHRoZSBmaXJzdCB0aW1lIEknbSBoZWFyaW5nIHdl
+IGNhbid0IHJldmlldyBpbmRpdmlkdWFsIHBhcnRzIG9mCmNoYW5nZXNldHM/IEkgc2VlIHlvdXIg
+cG9pbnQgYWJvdXQgdGhpcyBwYXJ0aWN1bGFyIHBhdGNoIGFuZCB0aGUgZmFjdAppdCBvbmx5IG1h
+a2VzIHNlbnNlIGFzIGEgd2hvbGUgYnV0IGlzIHRoaXMgdGhlIG9mZmljaWFsIHBvbGljeSBmb3IK
+cGFydHMgb2YgbGFyZ2VyIERUUyBwYXRjaGVzPwoKQmFydAoKPiBBbHNvIHN1Ym1pdHRpbmcgcGF0
+Y2hlcyBkbyBub3QgcmVhbGx5IGFsbG93IHRvIGFwcGx5IHJldmlld2VyJ3MKPiBzdGF0ZW1lbnQg
+b2Ygb3ZlcnNpZ2h0IHRvIGlubHkgcGFydCBvZiB0aGUgcGF0Y2guCj4KPiBJdCdzIGNhbGxlZCBB
+Y2sgdGhlbi4gVXNlIHByb3BlciB0YWdzIGlmIG9uZSBkb2VzIG5vdCBhY3R1YWxseSByZXZpZXcK
+PiB0aGUgcGF0Y2guCj4KCkkgbmVlZCB0byByZXNlbmQgYW55d2F5IHNvIEknbGwgZHJvcCBpdC4g
+SSBtYXkgYWxzbyBkcm9wIHRoZSB0d28KaHVuZHJlZCBhZGRyZXNzZXMgZnJvbSBDYyBiNCBhZGRl
+ZC4gOikKCkJhcnQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4v
+bGlzdGluZm8vbGludXgtc3RtMzIK
