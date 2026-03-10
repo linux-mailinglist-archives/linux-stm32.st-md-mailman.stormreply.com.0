@@ -2,40 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ULEaEXIZsWleqwIAu9opvQ
+	id 4A7/B2EZsWllqwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3DDB25DDE8
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0742925DD30
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7B0CC90094;
-	Wed, 11 Mar 2026 07:27:45 +0000 (UTC)
-Received: from mail.avm.de (mail.avm.de [212.42.244.120])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFD9CC900AB;
+	Wed, 11 Mar 2026 07:27:28 +0000 (UTC)
+Received: from mail.avm.de (mail.avm.de [212.42.244.119])
  (using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BA287C8F291
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F0188C8F269
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Mar 2026 11:55:30 +0000 (UTC)
+ Tue, 10 Mar 2026 11:55:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=avm.de; s=mail;
- t=1773143726; bh=K9CWTyYKGB0w6Tk2xrcCabYj/9tltesZ0HvDiXE6CGA=;
+ t=1773143725; bh=uPgyjK+s+NGMdE+cG5MPshRhc7ZZgUWwr7PoRjCZSpk=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=ITpeZZvCuurO6PtLvdRtRS5nd/bZCx1ndt94VbmepmWY6QteCwWswdiO1VbAljY8r
- fKxVkij1nMq0v9Gab/FV6dxJIQZxwXhWwA5TgvQnG1MilGO8jeOzxFRlzhEz0vggaA
- hWfQSJYU7rq79j74Br0/ZAepDgNZ+brN6WE4sbn0=
+ b=EmfqFdXEdiCWqgoXgX8BLevw6sTpNgfg8llLMS9eEaTKVg51Kp8K29SjBZVEdIV/s
+ M7bvI3BPyHpPb6vMRi2BheqpUIfCWQ/6jm+gYuX79PpwCNDjLncHrcFsaokOkzLrgm
+ dBKJjX9bdtP/6DkQEVr2DPx5QPmWYl9+WXcAxUUE=
 Received: from [2001:bf0:244:244::71] (helo=mail.avm.de)
  by mail.avm.de with ESMTP (eXpurgate 4.55.2)
  (envelope-from <phahn-oss@avm.de>)
- id 69b006ac-b734-7f0000032729-7f000001c05e-1
- for <multiple-recipients>; Tue, 10 Mar 2026 12:55:24 +0100
+ id 69b006ad-2367-7f0000032729-7f0000019d9a-1
+ for <multiple-recipients>; Tue, 10 Mar 2026 12:55:25 +0100
 Received: from mail-auth.avm.de (dovecot-mx-01.avm.de
  [IPv6:2001:bf0:244:244::71]) by mail.avm.de (Postfix) with ESMTPS;
- Tue, 10 Mar 2026 12:55:24 +0100 (CET)
+ Tue, 10 Mar 2026 12:55:25 +0100 (CET)
 From: Philipp Hahn <phahn-oss@avm.de>
-Date: Tue, 10 Mar 2026 12:48:54 +0100
+Date: Tue, 10 Mar 2026 12:48:55 +0100
 MIME-Version: 1.0
-Message-Id: <20260310-b4-is_err_or_null-v1-28-bd63b656022d@avm.de>
+Message-Id: <20260310-b4-is_err_or_null-v1-29-bd63b656022d@avm.de>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com, 
@@ -65,30 +65,30 @@ To: amd-gfx@lists.freedesktop.org, apparmor@lists.ubuntu.com,
  sched-ext@lists.linux.dev, target-devel@vger.kernel.org, 
  tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev, 
  Philipp Hahn <phahn-oss@avm.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1649; i=phahn-oss@avm.de;
- h=from:subject:message-id; bh=K9CWTyYKGB0w6Tk2xrcCabYj/9tltesZ0HvDiXE6CGA=;
- b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAY0Ab3VO2a9CLyi58wXwo/lqSwdB2G61GV4k
- bTbJSvyEGOJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGNAAKCRA0LQZT0ays
- 24mRB/9btDfW+RDwuaye8LPDtf1ZUJwDncM7Zgyp6SHFDbDBBUCY5jMLThJncFGvw3pVn6MHlrR
- e+vSLwaJsDAVLn6K23Z4PPrutM/glgm9IAew2t89ZwRwFxQzfV+39rXZfBmOC/J16tW6tO1iy8k
- 2C61WhK0hJtogp/FtZ3yHRbCwt8dKoLmF2qlw1QSQLKl8LOMWf3xw4Hzsu7PORnm8NiE+tP0SiT
- 14xuZtoKpdLMjWGJyLVgKFIFQUVZBRep4Y+ogBPonV7uWFQl+T8Y21kTTXl++qp7tP7BH5AxDRw
- qjRRlFGTUp8rPbK2m+WUcf3WaJPpbUCWbYm05Bbm4z30Dms3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1169; i=phahn-oss@avm.de;
+ h=from:subject:message-id; bh=uPgyjK+s+NGMdE+cG5MPshRhc7ZZgUWwr7PoRjCZSpk=;
+ b=owEBbQGS/pANAwAKATQtBlPRrKzbAcsmYgBpsAY4baP8me9X19X7pKru5bhCt+OcLVsbTz9gw
+ 3EXL2x+9HiJATMEAAEKAB0WIQQ5bPBtrWDUcDQCppg0LQZT0ays2wUCabAGOAAKCRA0LQZT0ays
+ 20eCB/9R10a8QtWnOE8FDIK68et8w+x4vBIl7DAH3ljWsVvEsJtllIM7WoriXoMKcy69weBfdTt
+ udsIaDDf3FpSbi6d23LNVWvY7/j8StHi4Mb7YRTkDtjVuH7qFkxhMIEkO0P72RZbdjNmUsWZOT+
+ 4yfdZZ4sqiFeE73LKQ05t8sm9/1XHgZKcnk5I6ebEYNeQeVfoiugFSvaTmWSBPUItBis/2y3N1h
+ 19AfztgUerK/fadW7Y/vZ3pDRpIi5ZAslPLWaCgGa6B5OoDoVAvOz5XPc/Ut45LGyZkJYA2qiTr
+ TmaKunQohnKINyK0THlxz9DBNJM47y+p9em5r+zCNMTJFQSn
 X-Developer-Key: i=phahn-oss@avm.de; a=openpgp;
  fpr=58AF7C2E007CDBE62C59E078F50EFDCF8AD04B1A
-X-purgate-ID: 149429::1773143724-025C1A3D-E80041E6/0/0
+X-purgate-ID: 149429::1773143725-73CEFE1F-39E0F1CD/0/0
 X-purgate-type: clean
-X-purgate-size: 1651
+X-purgate-size: 1171
 X-purgate-Ad: Categorized by eleven eXpurgate (R) https://www.eleven.de
 X-purgate: This mail is considered clean (visit https://www.eleven.de for
  further information)
 X-purgate: clean
 X-Mailman-Approved-At: Wed, 11 Mar 2026 07:27:23 +0000
-Cc: Jiri Pirko <jiri@resnulli.us>, Jamal Hadi Salim <jhs@mojatatu.com>,
- Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>
-Subject: [Linux-stm32] [PATCH 28/61] net/sched: Prefer IS_ERR_OR_NULL over
+Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Xin Long <lucien.xin@gmail.com>, Eric Dumazet <edumazet@google.com>,
+ Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>
+Subject: [Linux-stm32] [PATCH 29/61] net/sctp: Prefer IS_ERR_OR_NULL over
  manual NULL check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -105,7 +105,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: E3DDB25DDE8
+X-Rspamd-Queue-Id: 0742925DD30
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.79 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[avm.de : SPF not aligned (relaxed),quarantine];
@@ -123,25 +123,26 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kernel.org,m:linux-phy@l
- ists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:phahn-oss@avm.de,m:jiri@resnulli.us,m:jhs@mojatatu.com,m:edumazet@google.com,m:horms@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,s:lists@lfdr.de];
+ ists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:phahn-oss@avm.de,m:marcelo.leitner@gmail.com,m:lucien.xin@gmail.com,m:edumazet@google.com,m:horms@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[phahn-oss@avm.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[avm.de:-];
+	FREEMAIL_CC(0.00)[gmail.com,google.com,kernel.org,redhat.com,davemloft.net];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_GT_50(0.00)[61];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[phahn-oss@avm.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.980];
+	RCPT_COUNT_GT_50(0.00)[61];
+	NEURAL_HAM(-0.00)[-0.920];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[phahn-oss@avm.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[avm.de:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[avm.de:mid,avm.de:email,davemloft.net:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,mojatatu.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[avm.de:mid,avm.de:email,davemloft.net:email]
 X-Rspamd-Action: no action
 
 Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
@@ -149,51 +150,34 @@ check.
 
 Change generated with coccinelle.
 
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-To: Jiri Pirko <jiri@resnulli.us>
+To: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>
+To: Xin Long <lucien.xin@gmail.com>
 To: "David S. Miller" <davem@davemloft.net>
 To: Eric Dumazet <edumazet@google.com>
 To: Jakub Kicinski <kuba@kernel.org>
 To: Paolo Abeni <pabeni@redhat.com>
 To: Simon Horman <horms@kernel.org>
+Cc: linux-sctp@vger.kernel.org
 Cc: netdev@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
 ---
- net/sched/cls_api.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/sctp/socket.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/sched/cls_api.c b/net/sched/cls_api.c
-index 4829c27446e3369ad2ae9b3fcb285eca47d59933..4208225e7a4acaf0c331096ebf941f68cc2ed992 100644
---- a/net/sched/cls_api.c
-+++ b/net/sched/cls_api.c
-@@ -2444,7 +2444,7 @@ static int tc_new_tfilter(struct sk_buff *skb, struct nlmsghdr *n,
- 		tcf_chain_tp_delete_empty(chain, tp, rtnl_held, NULL);
- errout_tp:
- 	if (chain) {
--		if (tp && !IS_ERR(tp))
-+		if (!IS_ERR_OR_NULL(tp))
- 			tcf_proto_put(tp, rtnl_held, NULL);
- 		if (!tp_created)
- 			tcf_chain_put(chain);
-@@ -2612,7 +2612,7 @@ static int tc_del_tfilter(struct sk_buff *skb, struct nlmsghdr *n,
+diff --git a/net/sctp/socket.c b/net/sctp/socket.c
+index 05fb00c9c33576d1e18ee31c34974d8b76efa768..a0596c94be4ad6afae6be13adb3bce17140264e9 100644
+--- a/net/sctp/socket.c
++++ b/net/sctp/socket.c
+@@ -5349,7 +5349,7 @@ struct sctp_transport *sctp_transport_get_idx(struct net *net,
+ 	if (!pos)
+ 		return SEQ_START_TOKEN;
  
- errout:
- 	if (chain) {
--		if (tp && !IS_ERR(tp))
-+		if (!IS_ERR_OR_NULL(tp))
- 			tcf_proto_put(tp, rtnl_held, NULL);
- 		tcf_chain_put(chain);
- 	}
-@@ -2741,7 +2741,7 @@ static int tc_get_tfilter(struct sk_buff *skb, struct nlmsghdr *n,
- 	tfilter_put(tp, fh);
- errout:
- 	if (chain) {
--		if (tp && !IS_ERR(tp))
-+		if (!IS_ERR_OR_NULL(tp))
- 			tcf_proto_put(tp, rtnl_held, NULL);
- 		tcf_chain_put(chain);
- 	}
+-	while ((t = sctp_transport_get_next(net, iter)) && !IS_ERR(t)) {
++	while (!IS_ERR_OR_NULL((t = sctp_transport_get_next(net, iter)))) {
+ 		if (!--pos)
+ 			break;
+ 		sctp_transport_put(t);
 
 -- 
 2.43.0
