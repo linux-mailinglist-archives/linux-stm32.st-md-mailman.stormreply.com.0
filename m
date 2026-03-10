@@ -2,117 +2,216 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MNcTCAIbsGlAfwIAu9opvQ
+	id OMsoFXgZsWleqwIAu9opvQ:T2
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 14:22:10 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:53 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACE95250053
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 14:22:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E95025DE6B
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3940DC8F299;
-	Tue, 10 Mar 2026 13:22:09 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A7FB2C32EB0
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BF9F4C9009F;
+	Wed, 11 Mar 2026 07:27:52 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+ [205.220.165.32])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95B33C32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Mar 2026 13:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1773148926;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=5/adDEbR57gUpYJcJq84OoDVxrrM3xMPFmZCRo0jKXM=;
- b=ADQQpd+bpcMvyiI6BuK6I/AtlFPVjRaT1jbvm8x0bcg2sn4Mv+l/q+wGsOaa7zGZavpvJL
- HOw6n0NTrJxN8BVrJlzy+3Oyq/AicE10gafpjzfnHFVMImjvlOy3qRSEO7jpexZVWETsUQ
- RoRPrXnJkd5ZbUZ0X+x9wM3CIJYSD9c=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-659-GRoig94CNku92UfRWxMMuw-1; Tue, 10 Mar 2026 09:22:05 -0400
-X-MC-Unique: GRoig94CNku92UfRWxMMuw-1
-X-Mimecast-MFC-AGG-ID: GRoig94CNku92UfRWxMMuw_1773148925
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-8cd773dd39bso2180666785a.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Mar 2026 06:22:05 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773148925; x=1773753725;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=5/adDEbR57gUpYJcJq84OoDVxrrM3xMPFmZCRo0jKXM=;
- b=DqYl3UzKAAs3atXKWH+xYtBygq1+DuprVxx9sBZGw5waHiRuLxmk6zRg0N1qvktPWr
- /ZO2zVliHwkDFQuB1TNJSHXWW61DeN9+aFVk4ETzs7U00SsH6g3yoFtcUCbpQ8sj5tug
- 80UrMy5MXxgcJnyu6lunmAdC/Z/U0OdBs9haAkLQDt6M+AKogePxoZJDynMtOwNu1ahI
- MVOR88Dc4/OuidFP0G5BmEOs5EtHT7n7y4eoa4HLeIE8sWApRuD45lCyT1K0GYNTkPl8
- QFIsq2qUlLF3IiIsnxRmWPta1D/Vwaxi0jj/sDklx1vg+jXstI9xRlltAQV1Rbopy+NT
- tw9A==
-X-Forwarded-Encrypted: i=1;
- AJvYcCVEyzpLCtBcCCWn5mlC0QEQB6wY5k1EYQ5tgrD+cO5l880KA8i46rWD/FFKGu91e2dSGEyKeuB+jhKZ7g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyY4e+EV0ik8JvJgfhUR7wH0BeG400SNuWfJ56wB5GJsFF5wBAo
- iavGJSxZ6Aqo0KaytJufYiSv/2O9T2bj4hoVjzCckXPxf5pVpq5DpAOq25yNUyZA8GdIxkk3B5H
- NRY+d4DJmm1iQ9UbQWkqmoNj6OeTQL531ZIGlMaR7UTPJgfYIhR6ciRfD1rGSHROpcJdXsUup6X
- sXhmMHJg==
-X-Gm-Gg: ATEYQzzNOBDRTpRUghlOW3eO0989aLdBBl+BpkAtzDyIL5w5GclEF78AV7xFbF8VgW7
- ssosX2PBjKuUzprf+9JLRWhHhP0qZ5wVLW1PeDyjUwGYKTU56mB44bySsRwMcP0ut61e8rbQKsB
- ELI+AJ/8kdc69/QKPgd6aucrcFzstRlGu/mwXDRsRYKRwZQFore/lHl0JdGLO290S09FiUL5hlL
- Y9g0poV7LEWvStkEmc5TT7GrdsqKqFqQLkb669g2CXupw0w5cZDBHS9ZRIW/gkEDMrD13lgtv5p
- 5byH5dHqLJGdoHDP8GqeXuYL3RtZ3g00EqkcDrUE2FvjIOGj0TmAGfcdxNJyRXlGvf2Xch0OBVD
- Fiale7D53rs96pEA3qrb3tESXnwQ76Bohwe6ymuAnKkpBjhliqgUi4hBV
-X-Received: by 2002:a05:620a:3713:b0:8ca:1240:4991 with SMTP id
- af79cd13be357-8cd6d4f9469mr1830787185a.45.1773148924723; 
- Tue, 10 Mar 2026 06:22:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:3713:b0:8ca:1240:4991 with SMTP id
- af79cd13be357-8cd6d4f9469mr1830766185a.45.1773148922638; 
- Tue, 10 Mar 2026 06:22:02 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net.
- [73.183.52.120]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8cd8576db0esm474754485a.47.2026.03.10.06.21.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 06:22:01 -0700 (PDT)
-Date: Tue, 10 Mar 2026 09:21:58 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Philipp Hahn <phahn-oss@avm.de>
-Message-ID: <abAa9vQg4BSxl1BJ@redhat.com>
+ Tue, 10 Mar 2026 13:24:31 +0000 (UTC)
+Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62A9uX0Q1628282; Tue, 10 Mar 2026 13:23:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ corp-2025-04-25; bh=0wHimKomilJLoyXBh4UYx8NImrmifztyqfE3GbkvMk0=; b=
+ G8xh4Unbg93cYXPa7AmEzXB4RJd+Y6vG1iJ6esD7sCipAliEuIGd/jTjCSmi22nY
+ eNGCWgU1wS3Ab4rdH0fyJuFIQEGoW8xlCWUFAzfFgptUtcP8YuVu83nPP9+P55xM
+ EnxUe/BCKcMy54wrGOkWfMZRApyApGArK9axGxFu+HtyM6791n/gXrAbVPuWm7sm
+ E7PaX00K7njWa4VRsA1XUhJcCbKh2hEP4+35hgzTP5Y8ABXYreGeFwt4NJddL+jF
+ NHhbjiARnb8CLAvAx6e25dOaonbjrdpoL67S/vXjVkCOdW+j6R919dDxEIuB6EFy
+ Yn9Z2ZqVZoha3XikDesY/A==
+Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
+ (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4csmps2t4b-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 10 Mar 2026 13:23:56 +0000 (GMT)
+Received: from pps.filterd
+ (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.2/8.18.1.2)
+ with ESMTP id 62ABsDoD040456; Tue, 10 Mar 2026 13:23:55 GMT
+Received: from dm5pr21cu001.outbound.protection.outlook.com
+ (mail-centralusazon11011012.outbound.protection.outlook.com [52.101.62.12])
+ by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
+ 4crafa4v28-2
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Tue, 10 Mar 2026 13:23:55 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Wk6KL+hC1gRypI01qHiG1iXN0tsNLXeu1d3hCVSJOcrw+EoW6ay1oVKMsI962qXqjPT7C4g0XQYtioMVVHCTGgr+TBI7r5ukesDszE5OhLB/kVmIMeJPLXhk2Vw6kpqPC+GyKNUgwMcwD95CJ0d6uvcCvFFQvAl2h3z6k546KT9ku5qfOitxsrq39dzHxoAUk3NhEw03dayGL+bjHrSJLhN048DN1pXFQXA3d95Xv3QiO5PNXy3wT78JwzCTwdfl94UdIiaS9nHOlcSvHQ80l2UiErbAtE+3nkgkMtoGUoiv6BbbcsD0LepLc096VIU3xfDA229HFWla0xXnfUBt4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0wHimKomilJLoyXBh4UYx8NImrmifztyqfE3GbkvMk0=;
+ b=Ay0RaAgDqWK4MZTSeRiWTkw91LPj9NH+3Yrh/iW8c7Cnw/oRHuDS84M0I9NL2eoF6xJaeoLnMjIhhBvD6JeVplASFlPU/5nkjvdvvwPWx0iLj3c2GO+SvRXVXSN+qCIa8B6a1sBj7Oj3V/w1YiP82GPBv8Qnb24WD8i+OZRlBZmgjvSDKd2TwQxERxr5sEnRJBz6M9LdOFHDl4SxCsRXH/Pi/7ZoXIY1pUH+4SbPTFpX3fu18ISEd145br7wZ1o4Uolzf6BtFNshc3HgajLGwOhYN9hJS3lG4tzsrlB0Uu8Wf495KeME9PBKdxQ/j8iQtC3mIlJt4qeSPABst7dwIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=0wHimKomilJLoyXBh4UYx8NImrmifztyqfE3GbkvMk0=;
+ b=kD+yibV+JHISSuKwaUiVu+wkM4vbZLQsTrxDO5u1F8OqfqNpGdyB8Ai+rssjQGi6j2clSfLc2IHLIV0MBMhTzV2RnMxtHRb5u3SSG9ranMdCwH4Xuzargep88cJhk4HdT8bDeOr7Cojy8HqWW7/uewIBQivVHSQWpfq7yUdIr6s=
+Received: from BN0PR10MB5128.namprd10.prod.outlook.com (2603:10b6:408:117::24)
+ by IA1PR10MB6688.namprd10.prod.outlook.com (2603:10b6:208:418::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9678.24; Tue, 10 Mar
+ 2026 13:23:47 +0000
+Received: from BN0PR10MB5128.namprd10.prod.outlook.com
+ ([fe80::4083:91ab:47a4:f244]) by BN0PR10MB5128.namprd10.prod.outlook.com
+ ([fe80::4083:91ab:47a4:f244%4]) with mapi id 15.20.9700.010; Tue, 10 Mar 2026
+ 13:23:47 +0000
+Message-ID: <d807a2d5-75f2-4d67-b2d1-dfb6b9c6dbcc@oracle.com>
+Date: Tue, 10 Mar 2026 09:23:42 -0400
+User-Agent: Mozilla Thunderbird
+To: Philipp Hahn <phahn-oss@avm.de>, amd-gfx@lists.freedesktop.org,
+ apparmor@lists.ubuntu.com, bpf@vger.kernel.org,
+ ceph-devel@vger.kernel.org, cocci@inria.fr, dm-devel@lists.linux.dev,
+ dri-devel@lists.freedesktop.org, gfs2@lists.linux.dev,
+ intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
+ iommu@lists.linux.dev, kvm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-block@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-erofs@lists.ozlabs.org, linux-ext4@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-hyperv@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-mips@vger.kernel.org,
+ linux-mm@kvack.org, linux-modules@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-nfs@vger.kernel.org,
+ linux-omap@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-pm@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ linux-sctp@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-sh@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-trace-kernel@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, netdev@vger.kernel.org,
+ ntfs3@lists.linux.dev, samba-technical@lists.samba.org,
+ sched-ext@lists.linux.dev, target-devel@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, v9fs@lists.linux.dev
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-56-bd63b656022d@avm.de>
+ <20260310-b4-is_err_or_null-v1-30-bd63b656022d@avm.de>
+From: Chuck Lever <chuck.lever@oracle.com>
+Content-Language: en-US
+In-Reply-To: <20260310-b4-is_err_or_null-v1-30-bd63b656022d@avm.de>
+X-ClientProxiedBy: CH2PR19CA0016.namprd19.prod.outlook.com
+ (2603:10b6:610:4d::26) To BN0PR10MB5128.namprd10.prod.outlook.com
+ (2603:10b6:408:117::24)
 MIME-Version: 1.0
-In-Reply-To: <20260310-b4-is_err_or_null-v1-56-bd63b656022d@avm.de>
-User-Agent: Mutt/2.2.14 (2025-02-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: rufIR_wMVmSycgGc7VopzGTpzcMRX8pSveRsNgH1Gy8_1773148925
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, linux-sh@vger.kernel.org,
- samba-technical@lists.samba.org, Michael Turquette <mturquette@baylibre.com>,
- dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- gfs2@lists.linux.dev, linux-mm@kvack.org, linux-sctp@vger.kernel.org,
- target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
- linux-phy@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-cifs@vger.kernel.org,
- linux-scsi@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
- iommu@lists.linux.dev, intel-wired-lan@lists.osuosl.org,
- linux-arm-kernel@lists.infradead.org, linux-input@vger.kernel.org,
- linux-ext4@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
- linux-media@vger.kernel.org, dm-devel@lists.linux.dev,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, linux-sound@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- Daniel Lezcano <daniel.lezcano@kernel.org>, ceph-devel@vger.kernel.org,
- linux-omap@vger.kernel.org, sched-ext@lists.linux.dev, cocci@inria.fr,
- linux-nfs@vger.kernel.org, ntfs3@lists.linux.dev,
- Stephen Boyd <sboyd@kernel.org>, linux-s390@vger.kernel.org,
- v9fs@lists.linux.dev, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-security-module@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-modules@vger.kernel.org,
- netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 56/61] clk: Prefer IS_ERR_OR_NULL over
-	manual NULL check
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN0PR10MB5128:EE_|IA1PR10MB6688:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd21a29a-1151-4daa-d79b-08de7ea842e6
+X-LD-Processed: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|921020|22082099002|7053199007; 
+X-Microsoft-Antispam-Message-Info: c5p0iL+8MlDzs+ZovlT5nmOTEU9H91XUrfEXWFRBohtH2yIpTc9x1mr45OcD2q+aW4pxUtQ2Lzev1w44JgzGsTULVnKbjkpQ66Nw3dsuRrflFq5eyUxrciecC0qDbGvUXj4wPESnIGXNyT8RAPnMhwHAfbfqfeoqo7L12QtjK0gyXeJpSk6Wxz8UxthlnVvM6l8TwCDti1zn9h2JtWrZZaNmbtNw/R7Ou9fz9mcbSio92X+KdHpKbExkZmbfLlf9ZLHmjnzHiBdmPZlBXsozBgJypouHCAopP46rOy9ckxyJe1a1vuE4GQVpVoyHtal6YhpW3XtYV8uQykUVBmTCRBO1greHlJia2aiUcdrxyYhqAzszvuxrsnkZ6eIaZJZaMp0YBCtrFPSVbKj7sg/+peK7I1RAQRtxScZkd7/h+wAGKARMNEpTWwh8F74h5XPaRDtv8rK/aH+c8LuVoOKOF2rAJ3f478Vcbcsjq46mAKAZt+CLVpdyCUHXJJa9tsWv3Kr6wajO6bAvwi6lPINPoAtcV46xpUFighDAsjNTD840e0PrvhWcLuhCZ2JXj/rEnCFLoULTpIl99TDUCnEXpM9SUcYwp2vlkYwe7e/q6vaeDupw0vkZdiNU3DtJAfB1Qwvrqjjt+n/PWxO/oknZk7JN1h/FgHGqDbKcjfTmpUz7Zjn899NgZ5d/TTU+5ps0MThXa53xitH6uQ7x/mv3iVCSvYlqRMlasnuq5N+V+9HcMBIubAbTIPaA3ffaL5uE1HfLE6dDAIH9caTr8YP4LA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BN0PR10MB5128.namprd10.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(921020)(22082099002)(7053199007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aUkvb3BmQXlycFFyYms3cFIxK1BscVVNVk42MW9DeGI2SURjdmIyMkw1eWtm?=
+ =?utf-8?B?WGVva08rQkgzVGVERjhaUHRRSXpUSFBOTW5UVGdGbXhUMGF1WEpvSkk4QXFw?=
+ =?utf-8?B?clVZOTZnWWduTmFkazE0dDE1clQ4aUlwcTRWaEU3QVdNUEhIRW43SXdOWVZ5?=
+ =?utf-8?B?NmpNMVN4NFpQYU9lY1owUnNuYVdEYUhNbm9jTGpoOGZYWGlVVVlUVXNBLzNu?=
+ =?utf-8?B?aWl6N1BkNzB1YzhnM2d2akJObVg2N0V6dDRISnVmS1R6Ykx5RitOc1h1QTFE?=
+ =?utf-8?B?Yk0wckVrejQxSzcxdGJhdXhKWURERXRkeVNxMFZqakY0NjZ3VHlJVDFXTUFM?=
+ =?utf-8?B?aVFITnlyT2JxOTZ5RUV5RFVUQmcyNkR3bFV4VEkvdmRyc3NPZHdvVlhaU3JE?=
+ =?utf-8?B?TnVwNzNzdEQ0cG5iMG1TMmxRMnJ2dUN1bVFxd05NQnZ3ZkZDcytFazVsY2Jh?=
+ =?utf-8?B?R2lFUEZZTEh3ZTlFcFVvdmpwc2pBN04zVlpJZ0NtVUZXWmVVbWRpOUx1Ym9y?=
+ =?utf-8?B?bm93bjg1VG5ma25Iak5UbG1mOFhLVHVmRHpRd2Q3Q05vOWhTbkpCR015L1dZ?=
+ =?utf-8?B?QWxUS0Q1azlueTRIeVBGR2UzQXJ1OU8yV25NdjQ1eSsxdUhSVWc2dEExU241?=
+ =?utf-8?B?NGc4VW4zaUdJT083RWlydjJyME9TTXcwQkEwVjNXQTFRdjNGc3o5VFhHTkJZ?=
+ =?utf-8?B?VWs5Mzc1SE1xejFOdlhTNHhIOUNRbForaFhHTjQ0UU5YOS9FekYzSWkrUnd4?=
+ =?utf-8?B?ZnNhTnZkdG9iOGtJUXdhRER4UzBKVzVsVHZqdS9EN2dmR0FZOXBlNkd3R3pz?=
+ =?utf-8?B?b2tVbEQ5cE5mZ3dQOGZlUldxdUozTDRQejFlNWM1UFBpRmpHWDQ2UEs1YkNr?=
+ =?utf-8?B?QTlDNWtBdkc3amF1Z1pJU1hobHNRV0VXRWZhVlliUDYwbmpFK2RJR0J0Y0k1?=
+ =?utf-8?B?bnFjbU5BTm51SCszZFdTRnVtcC9jMU02Tm83VWdUTDIxcFhwYXl0eDMvN05r?=
+ =?utf-8?B?bXByUk81YUZRL3RMQUptdGwvZms5QncvZGdacGtqeFJGYzNQUnRZTWVUb2Rs?=
+ =?utf-8?B?YjFhakVubmFoK3NNM2VLR2F1NDF6K0RMcC85TkZ5TE5SdEFyZ04rQXNKUGMv?=
+ =?utf-8?B?OWN2bW9yVzFVK2phekZBNFJhcVZKZUd0YStSSlRXMCt2WkNsQUdUUGNycWhT?=
+ =?utf-8?B?UXhyM1RxTEQ0dVFXb0tlL3U0WVBWOXAyZjlyU1ZOYUJ2ZFRVUDRqQldhUmRR?=
+ =?utf-8?B?cUg5c3NFSXhocmRlVFlEb1pxRjFSbkZza2JIS2ZvRmxGdmJpRjkzWlFqQ0Rj?=
+ =?utf-8?B?QkZEa01sdFhVRUZrZmZpa0p2YkNOMk16UUZhaEIrbUViREVjZVhwd2RBQ0Vo?=
+ =?utf-8?B?d1o1UlR4MFQ0MzRpa1kxYVI2OTI4bklldCtZaE00TjRGbkVJKzczYXI4RVhI?=
+ =?utf-8?B?bCthWXVERlJKUGlrZXQ3YmUvT3djZDN2bVZRRlRGSjhHNzBJY0todVBEeWI4?=
+ =?utf-8?B?TS9nQmRsRXpLdHdnU2R4Q2laQ0FZUTRsNXNMdWpvSVdIU0RuVytWQVlZcHZR?=
+ =?utf-8?B?aStIUjEwTW1Mb3dDdGJvblVBRjUrSEJwN2xLYmxYM0I5T2ZVZUNSRlU0NlBY?=
+ =?utf-8?B?MHM5eE96QjVJSEY1NVM4MUF5SFYvck5qeGNJbVZVN05ZVHlsaGxoUTFiRlNp?=
+ =?utf-8?B?SzgzNUllVkJLUFdnWTNDWFE3SjY1cU1YeElCQTh2V0wvSktDUVQ3OFRrMW9V?=
+ =?utf-8?B?Nml0dE12ZlF1TkR6M2R2anB3cWJld1QzT2ttZTBJZDlNVUpwN1pTbjBLUVNE?=
+ =?utf-8?B?d2Z3QXdURkNEcGpkK2QzbzAvd0xaS01FM0hGZUMvL29uenJ0Ylp6TzJjYnBS?=
+ =?utf-8?B?QmVKRFZ2MlhQaEhkMjQwOWpMeDVNL0JYS1RtbzlUSldEZHFxM2FGVCtNYWlv?=
+ =?utf-8?B?MjVMR2htYk1kUkRlMGtOem0vZSs0aFBsaUk0RVdaZ2VsbitmQ2psQ3c3bk1x?=
+ =?utf-8?B?QU1Qa2VNQ1EzNStZemdaTWRPcGoxcGNHOFZGVkdkVEpxWGZJVTYzQUQ5czJs?=
+ =?utf-8?B?L3J0MEV4N3Ewa05wZ1dsTnpZaWhPenhFUHZzdWFUUCsra3ZNVDRZNC9PdHp1?=
+ =?utf-8?B?VHh4emdlZmo1SnBCc2R2bGlpWDJobmI1S0NtZlZiTmJFaVdhRlU1VWlEYlFS?=
+ =?utf-8?B?NW85WktJTWdZUU1DR2M5bnJoZGs2cEdrNzllb2psTklYTCtMTTFDOS8yeUpl?=
+ =?utf-8?B?dnZvZWRHckhMQUcreFhQdjNjdU1nbkwzbElYc05oVGFNYlFIeGxGdG14eWFp?=
+ =?utf-8?B?STFwd0Z5NTVwT0NwaDNvaEJWSnlYbTc5QVlZeWEwTjNXaWczUG1HZz09?=
+X-Exchange-RoutingPolicyChecked: czu9TR8cCjos8TNlV//uV5R5UyW+YnY6mPT6ik164ohnQ64LjUt0KI3sioks1wiudyeKOK0T8jnT17p+I84uLJ9gicu25do+PN3lmzMrRHvzBNDUNLJdfsISpAYheKGPrbzNm68DRTb89Mtim9feKdXVfUC9hCiFUYcikosxcsuxjz3o2OOOMqnDp2wG3e2WVMZ3R9WrUZGKodbV9jlwXJosdQWOTdx7YfTP3EW2WDNwGFVIQOsdXNiwAZ6vXdaTlQiZLIFLbC9FkdX/mXOdO4gym7Ebk7nN5VHisY3B/+aAoKLjyglTUB0MgA/TcbZawRngvdaEgYufRs43pvHWIg==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: FYJTUfdyiGADLR8GtYrzgw2uJf8HiMCbfqlP9llNLeCVn/3CjRBL66dz18nFaWRhYz3ZBxgEo8mLK4jKzZjA5TZe/82YMAGF+1K6Wqax+vvPlkm3GWij/HZx3FeDeaFYYONbbqVV8owCBAFE56sNXIzaxZiUa3LkSmvEUP5EqJT7yxCp1rjc/qm4m/9TvcZFZb1DA/dIaEm2szKtc6hth65MLLztbdJlOYldGyUL9cfxBjASksnQIENGyaahc993RzHV8L6EpDmQAPnwQnYVt8VbBOCalZNhvSPhivEbuIqvmMNGM/xlew/ev/oxZ5vkxy7MokbWNZKjmrSE3+pBWZsZj2He5AK2U0FX0fhiMrQeMVjWvbZNxXHnvHHxmH/ZPbns0HVu/YWii7x3WNXlrq60GMCjWyQeKjSQWtU5WPDLom8iuxuTzRAprL9WjAjFCQ+ZZcuaczDy4ZGikvjpNxwzjOa+kqyYngC/CUMSKk0oSa7O8PD8mjFvQpUidmlZmHcREkfVp8AAAbQst5ma2PJOAm5rUG0BEnXnqI5Y6b8H3tPiw+nwt+krmF8X93AGY1XjNsK7IdW7c1pze55NN5f9xrA2bIInPVLlp84nXzU=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd21a29a-1151-4daa-d79b-08de7ea842e6
+X-MS-Exchange-CrossTenant-AuthSource: BN0PR10MB5128.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Mar 2026 13:23:47.7645 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f7Gfp+Vyo1cEa8SDflP/dFNKhZZU3QS9Fa3d0ys560KjPROZeMkKBZtPdBCPFI140+zhSh6CX+OsbyH6C6s+LA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB6688
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-10_02,2026-03-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
+ mlxscore=0 mlxlogscore=999
+ adultscore=0 malwarescore=0 spamscore=0 suspectscore=0 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2602130000
+ definitions=main-2603100117
+X-Authority-Analysis: v=2.4 cv=IJQPywvG c=1 sm=1 tr=0 ts=69b01b6c cx=c_pps
+ a=OOZaFjgC48PWsiFpTAqLcw==:117 a=OOZaFjgC48PWsiFpTAqLcw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Yq5XynenixoA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=7Gl3-_t3PgB9XO-mQDs3:22 a=VwQbUJbxAAAA:8
+ a=yPCof4ZbAAAA:8 a=20KFwNOVAAAA:8 a=SEc3moZ4AAAA:8 a=J1Y8HTJGAAAA:8
+ a=1XWaLZrsAAAA:8 a=WYXT4c1WSOa8yzFlF54A:9 a=QEXdDO2ut3YA:10
+ a=5oRCH6oROnRZc2VpWJZ3:22 a=y1Q9-5lHfBjTkpIzbSAN:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzEwMDExNiBTYWx0ZWRfX5kW/ZEh0g+Mr
+ zuHaAr04pNn8pa6GbkRj7lsRFaXSweNq5wOsBbUghEl/5IGOhZLI1sKiTA5sEhY01+ctxumrV0T
+ aoHf9ECZH7CCxsh84M3bcQF+HkKoJWaymeL9KqEVy+krzFc+9PQXSHrQoZZTFQlz0DlviAzcium
+ 3RUksKkEK8L/6sQB/lU70w3asKfLkgJGpdEzaWUtnA34BXsf0jQ6g7RZGEbyezJgvF2ULFxzNwv
+ 7uDZLGdMC8b8v0kJQOqt06/DDVNnWseR1JVSNGcIW/nA0zlfZzJeKylJ3gLQT4w8rc46VUPuoay
+ 50kl/8ZtoVmX/JV+Gc/zCtsB5IiKoElpL0OLDyNIn6fV99/Gxea9fca5Y1xmv3OSQAH3VdTZ32R
+ zN6hHU0FwYgGcnxQTbfvj606mKB0akYR4bwul4XhguXoy6EcxjT7I5ux2bet2JupQqpAJr2MZSL
+ sLFLOph9nLMt5Be1qWw==
+X-Proofpoint-GUID: YdKhX_TEJkvQ0hIir4tA4pR62ilMwcrS
+X-Proofpoint-ORIG-GUID: YdKhX_TEJkvQ0hIir4tA4pR62ilMwcrS
+X-Mailman-Approved-At: Wed, 11 Mar 2026 07:27:23 +0000
+Cc: Olga Kornievskaia <okorniev@redhat.com>, Simon Horman <horms@kernel.org>,
+ Jeff Layton <jlayton@kernel.org>, Dai Ngo <Dai.Ngo@oracle.com>,
+ Tom Talpey <tom@talpey.com>, Eric Dumazet <edumazet@google.com>,
+ Anna Schumaker <anna@kernel.org>, NeilBrown <neil@brown.name>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, Trond Myklebust <trondmy@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 30/61] net/sunrpc: Prefer IS_ERR_OR_NULL
+ over manual NULL check
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,70 +227,122 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: ACE95250053
+X-Rspamd-Queue-Id: 0E95025DE6B
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[redhat.com : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [6.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[oracle.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[oracle.com:s=corp-2025-04-25,oracle.onmicrosoft.com:s=selector2-oracle-onmicrosoft-com];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[redhat.com:-];
 	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[bmasney@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:linux-hyperv@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-sh@vger.kernel.org,m:samba-technical@lists.samba.org,m:mturquette@baylibre.com,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:gfs2@lists.linux.dev,m:linux-mm@kvack.org,m:linux-sctp@vger.kernel.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-phy@lists.infradead.org,m:linux-clk@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:amd-gfx@lists.freedesktop.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rockchip@lists.infradead.org,m:iommu@lists.linux.dev,m:intel-wired-lan@lists.osuosl.org,m:linux-arm-kernel@lists.infradead.org,m:linux-input@vger.kernel.org,m:linux-ext4@vger.kernel.org,m:tglx@kernel.org,m:linux-media@vger.kernel.org,m:dm-devel@lists.linux.dev,m:linux-pm@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:linux-sound@vger.kernel.org,m:lin
- ux-block@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:daniel.lezcano@kernel.org,m:ceph-devel@vger.kernel.org,m:linux-omap@vger.kernel.org,m:sched-ext@lists.linux.dev,m:cocci@inria.fr,m:linux-nfs@vger.kernel.org,m:ntfs3@lists.linux.dev,m:sboyd@kernel.org,m:linux-s390@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:linux-modules@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:bpf@vger.kernel.org,m:linux-trace-kernel@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-btrfs@vger.kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:amd-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:bpf@vger.kernel.org,m:ceph-devel@vger.kernel.org,m:cocci@inria.fr,m:dm-devel@lists.linux.dev,m:dri-devel@lists.freedesktop.org,m:gfs2@lists.linux.dev,m:intel-gfx@lists.freedesktop.org,m:intel-wired-lan@lists.osuosl.org,m:iommu@lists.linux.dev,m:kvm@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-block@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-btrfs@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-ext4@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:linux-hyperv@vger.kernel.org,m:linux-input@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-media@vger.kernel.org,m:linux-mips@vger.kernel.org,m:linux-mm@kvack.org,m:linux-modules@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:linux-omap@vger.kerne
+ l.org,m:linux-phy@lists.infradead.org,m:linux-pm@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-s390@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:linux-sh@vger.kernel.org,m:linux-sound@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-trace-kernel@vger.kernel.org,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:netdev@vger.kernel.org,m:ntfs3@lists.linux.dev,m:samba-technical@lists.samba.org,m:sched-ext@lists.linux.dev,m:target-devel@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:v9fs@lists.linux.dev,m:okorniev@redhat.com,m:horms@kernel.org,m:jlayton@kernel.org,m:Dai.Ngo@oracle.com,m:tom@talpey.com,m:edumazet@google.com,m:anna@kernel.org,m:neil@brown.name,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:trondmy@kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[bmasney@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[chuck.lever@oracle.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[58];
+	DKIM_TRACE(0.00)[oracle.com:-,oracle.onmicrosoft.com:-];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[chuck.lever@oracle.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[66];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_HAM(-0.00)[-0.907];
+	NEURAL_HAM(-0.00)[-0.899];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[avm.de:email,baylibre.com:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Action: no action
+	RCVD_COUNT_SEVEN(0.00)[8]
+X-Rspamd-Action: add header
+X-Spam: Yes
 
-On Tue, Mar 10, 2026 at 12:49:22PM +0100, Philipp Hahn wrote:
+On 3/10/26 7:48 AM, Philipp Hahn wrote:
 > Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
 > check.
 > 
-> Semantich change: Previously the code only printed the warning on error,
-
-Semantic ...
-
-> but not when the pointer was NULL. Now the warning is printed in both
-> cases!
+> Change generated with coccinelle.
 > 
-> Change found with coccinelle.
-> 
-> To: Michael Turquette <mturquette@baylibre.com>
-> To: Stephen Boyd <sboyd@kernel.org>
-> To: Daniel Lezcano <daniel.lezcano@kernel.org>
-> To: Thomas Gleixner <tglx@kernel.org>
-> Cc: linux-clk@vger.kernel.org
+> To: Trond Myklebust <trondmy@kernel.org>
+> To: Anna Schumaker <anna@kernel.org>
+> To: Chuck Lever <chuck.lever@oracle.com>
+> To: Jeff Layton <jlayton@kernel.org>
+> To: NeilBrown <neil@brown.name>
+> To: Olga Kornievskaia <okorniev@redhat.com>
+> To: Dai Ngo <Dai.Ngo@oracle.com>
+> To: Tom Talpey <tom@talpey.com>
+> To: "David S. Miller" <davem@davemloft.net>
+> To: Eric Dumazet <edumazet@google.com>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Paolo Abeni <pabeni@redhat.com>
+> To: Simon Horman <horms@kernel.org>
+> Cc: linux-nfs@vger.kernel.org
+> Cc: netdev@vger.kernel.org
 > Cc: linux-kernel@vger.kernel.org
 > Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+> ---
+>  net/sunrpc/xprtrdma/svc_rdma_transport.c | 12 ++++++------
+>  1 file changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+> index 9b623849723ed0eb74b827881c6f32d3434c891b..b4d03e59a8202f20360cff1e2e79b1e325396517 100644
+> --- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
+> +++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+> @@ -578,7 +578,7 @@ static struct svc_xprt *svc_rdma_accept(struct svc_xprt *xprt)
+>   errout:
+>  	/* Take a reference in case the DTO handler runs */
+>  	svc_xprt_get(&newxprt->sc_xprt);
+> -	if (newxprt->sc_qp && !IS_ERR(newxprt->sc_qp))
+> +	if (!IS_ERR_OR_NULL(newxprt->sc_qp))
+>  		ib_destroy_qp(newxprt->sc_qp);
+>  	rdma_destroy_id(newxprt->sc_cm_id);
+>  	rpcrdma_rn_unregister(dev, &newxprt->sc_rn);
+> @@ -608,7 +608,7 @@ static void svc_rdma_free(struct svc_xprt *xprt)
+>  	might_sleep();
+>  
+>  	/* This blocks until the Completion Queues are empty */
+> -	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
+> +	if (!IS_ERR_OR_NULL(rdma->sc_qp))
+>  		ib_drain_qp(rdma->sc_qp);
+>  	flush_workqueue(svcrdma_wq);
+>  
+> @@ -619,16 +619,16 @@ static void svc_rdma_free(struct svc_xprt *xprt)
+>  	svc_rdma_recv_ctxts_destroy(rdma);
+>  
+>  	/* Destroy the QP if present (not a listener) */
+> -	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
+> +	if (!IS_ERR_OR_NULL(rdma->sc_qp))
+>  		ib_destroy_qp(rdma->sc_qp);
+>  
+> -	if (rdma->sc_sq_cq && !IS_ERR(rdma->sc_sq_cq))
+> +	if (!IS_ERR_OR_NULL(rdma->sc_sq_cq))
+>  		ib_free_cq(rdma->sc_sq_cq);
+>  
+> -	if (rdma->sc_rq_cq && !IS_ERR(rdma->sc_rq_cq))
+> +	if (!IS_ERR_OR_NULL(rdma->sc_rq_cq))
+>  		ib_free_cq(rdma->sc_rq_cq);
+>  
+> -	if (rdma->sc_pd && !IS_ERR(rdma->sc_pd))
+> +	if (!IS_ERR_OR_NULL(rdma->sc_pd))
+>  		ib_dealloc_pd(rdma->sc_pd);
+>  
+>  	/* Destroy the CM ID */
+> 
 
-With the minor typo addressed:
+Reviewed-by: Chuck Lever <chuck.lever@oracle.com>
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
 
+-- 
+Chuck Lever
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
