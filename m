@@ -2,43 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6Os+C9UnsGnYgQIAu9opvQ
+	id 0I6ZAnoZsWn6qgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 15:16:53 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:54 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C218D251A34
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 15:16:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8089925DE8C
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:27:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 591BDC8F29B;
-	Tue, 10 Mar 2026 14:16:52 +0000 (UTC)
-Received: from relay.hostedemail.com (smtprelay0012.hostedemail.com
- [216.40.44.12])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39258C90088;
+	Wed, 11 Mar 2026 07:27:53 +0000 (UTC)
+Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35A1AC8F299
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 249F1C8F299
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Mar 2026 14:16:50 +0000 (UTC)
-Received: from omf16.hostedemail.com (a10.router.float.18 [10.200.18.1])
- by unirelay08.hostedemail.com (Postfix) with ESMTP id C106A1401C9;
- Tue, 10 Mar 2026 14:16:43 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
- omf16.hostedemail.com (Postfix) with ESMTPA id D3F9D2000E; 
- Tue, 10 Mar 2026 14:14:32 +0000 (UTC)
-Date: Tue, 10 Mar 2026 10:14:42 -0400
-From: Steven Rostedt <rostedt@goodmis.org>
+ Tue, 10 Mar 2026 14:27:35 +0000 (UTC)
+Received: from macsyma.thunk.org (pool-173-48-117-133.bstnma.fios.verizon.net
+ [173.48.117.133]) (authenticated bits=0)
+ (User authenticated as tytso@ATHENA.MIT.EDU)
+ by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 62AENmq6023242
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Tue, 10 Mar 2026 10:23:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
+ t=1773152641; bh=4/p8AtxdJ3b4aYgpRIBgOOPVM9R5HZLzlaxPPsEZ2Q4=;
+ h=Date:From:Subject:Message-ID:MIME-Version:Content-Type;
+ b=hiTGUpPYFw4iveFcnThssEtGqck5bTlcAtCwAzdpVmGbR5WmFpAN2HyWID/ccA+sq
+ 2OK/AXhkKUQYPFyNgldUw+w61jicqaxoKykv03Hk3VtZ73QUkQv/ShdMM7pO1Vbh1a
+ Xk4tT0COuhfaHYWaZKCWsHuD29zxMuRmR5Ykqk3er9zqUvUMdMKew+GQv1LtOTBxlB
+ 9SKJM2ZPrQXCGLMPErKwsY9qom7+Zh2xZP5ck6TXuRn2uQTZsbDvUobUvHn1AWEf75
+ 4PfPTaD9e2RUncsHaE7PIu6HoXSVAksOxzBRc+Tva5rnUy07kKpb09wYJf74ZjBbdj
+ lcU2CraxZ3IiQ==
+Received: by macsyma.thunk.org (Postfix, from userid 15806)
+ id 96A8A5C4FCED; Tue, 10 Mar 2026 10:23:48 -0400 (EDT)
+Date: Tue, 10 Mar 2026 10:23:48 -0400
+From: "Theodore Tso" <tytso@mit.edu>
 To: Philipp Hahn <phahn-oss@avm.de>
-Message-ID: <20260310101220.24a5c5e9@gandalf.local.home>
-In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+Message-ID: <20260310142348.GA41218@macsyma-wired.lan>
 References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Stat-Signature: t3hdewhrhasw7f3gorx5jroa8bfttu61
-X-Spam-Status: No, score=1.40
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/9Mzn/qfZFEp1e7RgFq11s4n8TXcGF42g=
-X-HE-Tag: 1773152072-399195
-X-HE-Meta: U2FsdGVkX1/sr455L+OeqDWIUsSflk6pOnirfnKU4P+1ptXPBptvvQtdgLpKUro5xpE5mwL9OSxc8De42fWUKW3UA0xDjLt8deOx7Rt+YD2zdLsgLNPt+GtW9t0OIk6HGza/DLYz3Vzwa6W2j9RFRkt0u8kU/4nSdzQFXg0XUCPq0O7Zih2HPR5kbJC2dqX8fgpgG6kXbyGWAJWC5H8NEAgNiaeFS1ibRza8HlDqKtmihYdG70k1ID4dNk90G/xB/tCbIhXs0SuHsvdkjj/J9rzzD7qFP/bRWTfcgm+WhH9Nv5Rz067I1rPqmO4dO7ez
+Content-Disposition: inline
+In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+X-Mailman-Approved-At: Wed, 11 Mar 2026 07:27:23 +0000
 Cc: Latchesar Ionkov <lucho@ionkov.net>, Juri Lelli <juri.lelli@redhat.com>,
  Justin Sanders <justin@coraid.com>, Paulo Alcantara <pc@manguebit.org>,
  Igor Russkikh <irusskikh@marvell.com>, linux-sh@vger.kernel.org,
@@ -50,7 +55,7 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Juri Lelli <juri.lelli@redhat.com>,
  David Vernet <void@manifault.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
  Alexander Gordeev <agordeev@linux.ibm.com>,
  "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
- Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
  Anna Schumaker <anna@kernel.org>, Wei Liu <wei.liu@kernel.org>,
  linux-omap@vger.kernel.org, Vincent Guittot <vincent.guittot@linaro.org>,
  Long Li <longli@microsoft.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
@@ -99,15 +104,15 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Juri Lelli <juri.lelli@redhat.com>,
  Michael Chan <mchan@broadcom.com>, Xin Long <lucien.xin@gmail.com>,
  bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  Tom Talpey <tom@talpey.com>, Tony Luck <tony.luck@intel.com>,
- Theodore Ts'o <tytso@mit.edu>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
- Dave Penkler <dpenkler@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+ Zhenyu Wang <zhenyuw.linux@gmail.com>, Dave Penkler <dpenkler@gmail.com>,
+ Sandy Huang <hjc@rock-chips.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
  Jon Maloy <jmaloy@redhat.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
  Keyur Chudgar <keyur@os.amperecomputing.com>,
  Hongbo Li <lihongbo22@huawei.com>, Simon Horman <horms@kernel.org>,
  Pavan Chebbi <pavan.chebbi@broadcom.com>, Andy Yan <andy.yan@rock-chips.com>,
  Benjamin Marzinski <bmarzins@redhat.com>,
- Pali =?UTF-8?B?Um9ow6Fy?= <pali@kernel.org>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
  Heiner Kallweit <hkallweit1@gmail.com>,
  Taras Chornyi <taras.chornyi@plvision.eu>,
  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
@@ -133,20 +138,21 @@ Cc: Latchesar Ionkov <lucho@ionkov.net>, Juri Lelli <juri.lelli@redhat.com>,
  Mel Gorman <mgorman@suse.de>, Philipp Zabel <p.zabel@pengutronix.de>,
  Petr Pavlu <petr.pavlu@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>,
  intel-gfx@lists.freedesktop.org, Jamal Hadi Salim <jhs@mojatatu.com>,
- Robert Foss <rfoss@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Steven Rostedt <rostedt@goodmis.org>, Robert Foss <rfoss@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  John Crispin <john@phrozen.org>, ceph-devel@vger.kernel.org,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Gao Xiang <xiang@kernel.org>,
  cocci@inria.fr, gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
- Paolo Abeni <pabeni@redhat.com>, "Martin
- K. Petersen" <martin.petersen@oracle.com>, Linus Walleij <linusw@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, samba-technical@lists.samba.org,
- Liam Girdwood <lgirdwood@gmail.com>, Steve French <sfrench@samba.org>,
- Julia Lawall <Julia.Lawall@inria.fr>, Aaron Tomlin <atomlin@atomlin.com>,
- Changwoo Min <changwoo@igalia.com>, Keerthy <j-keerthy@ti.com>,
- Tejun Heo <tj@kernel.org>, sched-ext@lists.linux.dev, ntfs3@lists.linux.dev,
- linux-erofs@lists.ozlabs.org, "David S.
- Miller" <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Linus Walleij <linusw@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ samba-technical@lists.samba.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Steve French <sfrench@samba.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Aaron Tomlin <atomlin@atomlin.com>, Changwoo Min <changwoo@igalia.com>,
+ Keerthy <j-keerthy@ti.com>, Tejun Heo <tj@kernel.org>,
+ sched-ext@lists.linux.dev, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
  Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
  kvm@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
  Dominique Martinet <asmadeus@codewreck.org>,
@@ -198,48 +204,47 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: C218D251A34
+X-Rspamd-Queue-Id: 8089925DE8C
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[mit.edu:s=outgoing];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[goodmis.org : SPF not aligned (relaxed), No valid DKIM,none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[mit.edu : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[rostedt@goodmis.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[tytso@mit.edu,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:lucho@ionkov.net,m:juri.lelli@redhat.com,m:justin@coraid.com,m:pc@manguebit.org,m:irusskikh@marvell.com,m:linux-sh@vger.kernel.org,m:catalin.marinas@arm.com,m:rodrigo.vivi@intel.com,m:ulf.hansson@linaro.org,m:dri-devel@lists.freedesktop.org,m:perex@perex.cz,m:bsegall@google.com,m:linux-sctp@vger.kernel.org,m:iyappan@os.amperecomputing.com,m:void@manifault.com,m:miquel.raynal@bootlin.com,m:agordeev@linux.ibm.com,m:kys@microsoft.com,m:linux-clk@vger.kernel.org,m:heiko@sntech.de,m:anna@kernel.org,m:wei.liu@kernel.org,m:linux-omap@vger.kernel.org,m:vincent.guittot@linaro.org,m:longli@microsoft.com,m:rafael@kernel.org,m:jmorris@namei.org,m:tursulin@ursulin.net,m:arighi@nvidia.com,m:borntraeger@linux.ibm.com,m:dm-devel@lists.linux.dev,m:sprasad@microsoft.com,m:daniel.lezcano@kernel.org,m:jiri@resnulli.us,m:hawk@kernel.org,m:linux-pm@vger.kernel.org,m:bharat@chelsio.com,m:linux-sound@vger.kernel.org,m:tsbogend@alpha.franken.de,m:viro@zeniv.linux
  .org.uk,m:ronniesahlberg@gmail.com,m:glaubitz@physik.fu-berlin.de,m:ericvh@kernel.org,m:dietmar.eggemann@arm.com,m:serge@hallyn.com,m:brauner@kernel.org,m:clm@fb.com,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dsahern@kernel.org,m:mcgrof@kernel.org,m:chuck.lever@oracle.com,m:mhiramat@kernel.org,m:lukasz.luba@arm.com,m:jack@suse.com,m:linux-fsdevel@vger.kernel.org,m:djakov@kernel.org,m:akpm@linux-foundation.org,m:linux-trace-kernel@vger.kernel.org,m:trondmy@kernel.org,m:quan@os.amperecomputing.com,m:linux-hyperv@vger.kernel.org,m:s.nawrocki@samsung.com,m:dhavale@google.com,m:jlayton@kernel.org,m:dave.hansen@linux.intel.com,m:jcmvbkbc@gmail.com,m:edumazet@google.com,m:target-devel@vger.kernel.org,m:anthony.l.nguyen@intel.com,m:sebastian.hesselbarth@gmail.com,m:alexander.deucher@amd.com,m:agk@redhat.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:vschneid@redhat.com,m:hpa@zytor.com,m:paul@paul-moore.com,m:ysato@users.sourceforge.jp
  ,m:andrew+netdev@lunn.ch,m:mgreer@animalcreek.com,m:gregory.clement@bootlin.com,m:lee@kernel.org,m:john.fastabend@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rockchip@lists.infradead.org,m:iommu@lists.linux.dev,m:linux-media@vger.kernel.org,m:okorniev@redhat.com,m:gor@linux.ibm.com,m:pavel@kernel.org,m:apparmor@lists.ubuntu.com,m:snitzer@kernel.org,m:mripard@kernel.org,m:linux-gpio@vger.kernel.org,m:jani.nikula@linux.intel.com,m:mchan@broadcom.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ionkov.net,redhat.com,coraid.com,manguebit.org,marvell.com,vger.kernel.org,arm.com,intel.com,linaro.org,lists.freedesktop.org,perex.cz,google.com,os.amperecomputing.com,manifault.com,bootlin.com,linux.ibm.com,microsoft.com,sntech.de,kernel.org,namei.org,ursulin.net,nvidia.com,lists.linux.dev,resnulli.us,chelsio.com,alpha.franken.de,zeniv.linux.org.uk,gmail.com,physik.fu-berlin.de,hallyn.com,fb.com,oracle.com,suse.com,linux-foundation.org,samsung.com,linux.intel.com,amd.com,ffwll.ch,zytor.com,paul-moore.com,users.sourceforge.jp,lunn.ch,animalcreek.com,st-md-mailman.stormreply.com,lists.infradead.org,lists.ubuntu.com,broadcom.com,talpey.com,mit.edu,rock-chips.com,igalia.com,huawei.com,plvision.eu,baylibre.com,ideasonboard.com,vivo.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,suse.de,pengutronix.de,mojatatu.com,efficios.com,phrozen.org,inria.fr,lists.samba.org,samba.org,atomlin.com,ti.com,lists.ozlabs.org,davemloft.net,libc.org,suse.cz,infradead.org
- ,codewreck.org,crudebyte.com,paragon-software.com,kvack.org,shazbot.org,dilger.ca,alien8.de,armlinux.org.uk,8bytes.org,kwiboo.se,lists.osuosl.org,holtmann.org,linuxfoundation.org,imag.fr,linux.alibaba.com,kernel.dk,canonical.com,lists.sourceforge.net,nod.at,squashfs.org.uk,sipsolutions.net];
-	NEURAL_SPAM(0.00)[0.008];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[mit.edu:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCPT_COUNT_GT_50(0.00)[246];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rostedt@goodmis.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	R_DKIM_NA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tytso@mit.edu,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[ionkov.net,redhat.com,coraid.com,manguebit.org,marvell.com,vger.kernel.org,arm.com,intel.com,linaro.org,lists.freedesktop.org,perex.cz,google.com,os.amperecomputing.com,manifault.com,bootlin.com,linux.ibm.com,microsoft.com,sntech.de,kernel.org,namei.org,ursulin.net,nvidia.com,lists.linux.dev,resnulli.us,chelsio.com,alpha.franken.de,zeniv.linux.org.uk,gmail.com,physik.fu-berlin.de,hallyn.com,fb.com,oracle.com,suse.com,linux-foundation.org,samsung.com,linux.intel.com,amd.com,ffwll.ch,zytor.com,paul-moore.com,users.sourceforge.jp,lunn.ch,animalcreek.com,st-md-mailman.stormreply.com,lists.infradead.org,lists.ubuntu.com,broadcom.com,talpey.com,rock-chips.com,igalia.com,huawei.com,plvision.eu,baylibre.com,ideasonboard.com,vivo.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,suse.de,pengutronix.de,mojatatu.com,goodmis.org,efficios.com,phrozen.org,inria.fr,lists.samba.org,samba.org,atomlin.com,ti.com,lists.ozlabs.org,davemloft.net,libc.org,suse.cz,infradead
+ .org,codewreck.org,crudebyte.com,paragon-software.com,kvack.org,shazbot.org,dilger.ca,alien8.de,armlinux.org.uk,8bytes.org,kwiboo.se,lists.osuosl.org,holtmann.org,linuxfoundation.org,imag.fr,linux.alibaba.com,kernel.dk,canonical.com,lists.sourceforge.net,nod.at,squashfs.org.uk,sipsolutions.net];
+	NEURAL_HAM(-0.00)[-0.926];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,avm.de:email,stm-ict-prod-mailman-01.stormreply.prv:helo,gandalf.local.home:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Action: no action
 
-On Tue, 10 Mar 2026 12:48:26 +0100
-Philipp Hahn <phahn-oss@avm.de> wrote:
-
+On Tue, Mar 10, 2026 at 12:48:26PM +0100, Philipp Hahn wrote:
 > While doing some static code analysis I stumbled over a common pattern,
 > where IS_ERR() is combined with a NULL check. For that there is
 > IS_ERR_OR_NULL().
@@ -247,14 +252,21 @@ Philipp Hahn <phahn-oss@avm.de> wrote:
 > I've written a Coccinelle patch to find and patch those instances.
 > The patches follow grouped by subsystem.
 
+I'm going to gently suggest that you *not* try to do this as a
+tree-wide change, since we don't need to change some interface
+requiring a global, flag day change.  This is instead a cleanup, which
+maybe makes the code slightly better, but which also has a the
+downside of breaking lots of inflight development patches by
+potentially causing merge or patch conflicts.
 
-Honestly, the IS_ERR_OR_NULL() looks worse in a lot of the locations you
-updated. Just because we have IS_ERR_OR_NULL() doesn't mean we need to go
-and replace every location that can use it.
+So why don't you send it to each subsystem as a separate patch or
+small patch series, instead of spamming a dozen-plus mailing lists,
+are probably hundreds of developers, most of whom aren't going to
+care about changs in some far flung part of the kernel?
 
-NAK for any code this touches that I'm responsible for.
+Regards,
 
--- Steve
+						- Ted
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
