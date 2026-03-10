@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WCt+MFSJr2lvaAIAu9opvQ
+	id gId+JFiJr2lvaAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 04:00:36 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 04:00:40 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 544092448A8
-	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 04:00:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A5942448B0
+	for <lists+linux-stm32@lfdr.de>; Tue, 10 Mar 2026 04:00:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 062D8C8F291;
-	Tue, 10 Mar 2026 03:00:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E507C8F291;
+	Tue, 10 Mar 2026 03:00:40 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E356AC8F290
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44B52C8F290
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Mar 2026 03:00:34 +0000 (UTC)
+ Tue, 10 Mar 2026 03:00:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id EF02460097;
- Tue, 10 Mar 2026 03:00:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E8ACC4CEF7;
- Tue, 10 Mar 2026 03:00:33 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 75D426011F;
+ Tue, 10 Mar 2026 03:00:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD9EC19423;
+ Tue, 10 Mar 2026 03:00:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773111633;
- bh=VSUwhH1hBaKFIVPCypOuL5S0XwPeD6ulUIg5BptrmTY=;
+ s=k20201202; t=1773111638;
+ bh=0Cds6kc09BVIRVjCoSPKhdBQsuXH0Iml0FDgoBrHwWw=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=o77oV0ymMg+21gSWAkR87WeRBhwiJ/7/X8c2th1iD+dFlZDLIxO/IdXrkH6lq9Hjd
- iHpB5SbgYakQamGuuniPiWR/3JZlics7y5aSu0t1t1e7lKbRjQXWR6eZI4bPy04KbW
- IMErCtQ5vFWEzPHQDIocgV4DuUD19dOyTEQWGopoMWeW3uSUqKcNP2j0J2IIl8n6OD
- +0a9Fd9s9XuSKeggxClMesNq0YCaa40BhvtLBBsv3Av3WVDVudomod8PcOgvm5tB/A
- CN9zRxf1aBTHmhcuTRs8ImerDRakiOJJlbHALTT2ZssXpc8xVwDpv7sBkb7Sx5T9gU
- QeRe2eXIuXFlQ==
+ b=n3yv+jr5PBzgHxFh9U6Z63J3WEC7wrixS11Co244TfLFocCf8sEUkmggqFyrqfJRX
+ VsBFMEhcx6eENrMKibiJvD0WRBFqfmwEjqWxCzLmFr3QOAzQ0Mj/AeU+vDtyrIY16U
+ t57l01dwH7nE+gDijjkg9s+unb+f3/rx6h06n3g4PWhyhkJ3x2xvFKzDyg5PvSjmQt
+ 7G4+BqeFJ6FeULNDTFr8tD5ZOfTTLGh6mR9gLujLk8y/ULYPMT+KAlIgu+JM+LsuME
+ E+8sT21I6ynzFJYdkeMWo2EIBq5QHZOjVsGldaJ+5SGaa8rDCkhqQ3bp08dh7UwjIc
+ 68XAcBzf+7tOA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 02D8E3808200; Tue, 10 Mar 2026 03:00:32 +0000 (UTC)
+ 7CEDD3808200; Tue, 10 Mar 2026 03:00:36 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177311163054.2039470.4262235716273124396.git-patchwork-notify@kernel.org>
-Date: Tue, 10 Mar 2026 03:00:30 +0000
-References: <E1vypJM-0000000CSiJ-48yO@rmk-PC.armlinux.org.uk>
-In-Reply-To: <E1vypJM-0000000CSiJ-48yO@rmk-PC.armlinux.org.uk>
-To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Message-Id: <177311163503.2039470.12160246560923313829.git-patchwork-notify@kernel.org>
+Date: Tue, 10 Mar 2026 03:00:35 +0000
+References: <aawDiK7DjcSXSs1X@shell.armlinux.org.uk>
+In-Reply-To: <aawDiK7DjcSXSs1X@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
 Cc: andrew@lunn.ch, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
  edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: remove
-	stmmac_dwmac4_get_mac_addr()
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: further ptp
+	cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,15 +64,15 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 544092448A8
+X-Rspamd-Queue-Id: 5A5942448B0
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.79 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -80,48 +80,51 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	DKIM_TRACE(0.00)[kernel.org:-];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.968];
+	NEURAL_HAM(-0.00)[-0.967];
 	MID_RHS_MATCH_FROM(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FROM_NO_DN(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Action: no action
 
 Hello:
 
-This patch was applied to netdev/net-next.git (main)
+This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sat, 07 Mar 2026 10:55:08 +0000 you wrote:
-> stmmac_dwmac4_get_mac_addr() is identical to stmmac_get_mac_addr().
-> Remove stmmac_dwmac4_get_mac_addr() to avoid this code duplication.
+On Sat, 7 Mar 2026 10:52:56 +0000 you wrote:
+> Hi,
 > 
-> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac4_core.c  |  4 ++--
->  .../net/ethernet/stmicro/stmmac/dwmac4_lib.c   | 18 ------------------
->  2 files changed, 2 insertions(+), 20 deletions(-)
+> A couple of extra PTP cleanup patches.
+> 
+> The first uses a local variable when setting n_ext_ts which is a minor
+> simplification of the code. The second removes the now unnecessary
+> "available" flag for the PPS outputs.
+> 
+> [...]
 
 Here is the summary with links:
-  - [net-next] net: stmmac: remove stmmac_dwmac4_get_mac_addr()
-    https://git.kernel.org/netdev/net-next/c/c127d4087930
+  - [net-next,1/2] net: stmmac: ptp: rearrange n_ext_ts initialisation
+    https://git.kernel.org/netdev/net-next/c/b560d4434f98
+  - [net-next,2/2] net: stmmac: ptp: remove redundant priv->pps[].available
+    https://git.kernel.org/netdev/net-next/c/687e7863f027
 
 You are awesome, thank you!
 -- 
