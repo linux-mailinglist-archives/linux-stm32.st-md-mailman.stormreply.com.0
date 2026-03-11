@@ -2,85 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ePQUH/s0sWm0rwIAu9opvQ
+	id eAV/Ouk1sWm0rwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 10:25:15 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 10:29:13 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2099E2605A8
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 10:25:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F10D2607B1
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 10:29:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE353C8F288;
-	Wed, 11 Mar 2026 09:25:14 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4EF2FC8F288;
+	Wed, 11 Mar 2026 09:29:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BB69DC8F26C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8EC60C8F26C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2026 09:25:13 +0000 (UTC)
+ Wed, 11 Mar 2026 09:29:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id ED0C861119
+ by sea.source.kernel.org (Postfix) with ESMTP id 61DCD443DD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2026 09:25:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6F5C2BCC9
+ Wed, 11 Mar 2026 09:29:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 408B0C2BCB4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2026 09:25:12 +0000 (UTC)
+ Wed, 11 Mar 2026 09:29:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773221112;
- bh=01GKf65j/jScrwoKQ+C2Gxr6oYYNcBqF+y3kaUEjbLo=;
+ s=k20201202; t=1773221351;
+ bh=ZLpTE+Y/R0Tdv9vswPnMcKu+W093lttl1jCB5Rb2dPo=;
  h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
- b=MF3vSz279c7gxTZF7NgmWXEwUO6gRL13DHvShsuI2CRziUEddwspHwDaaJCHkRV8i
- 1e8zOtRrOs0iqe9JzaJ68RtW/nQ1cvGHa1wiWmmW48FlI7kwj/kEddAkxcXjR1yDzp
- SJIQlrnxZuj6GGfdBmJRR8x1vTwehdyhvu4FbSRfBaZTFT8aPShUh3ZNLiLOPgRB95
- yQdLMmafhM6TBUlKOPZylVs34PzLhbNs5nvhVRvc3stp3hfCZaU9UkVuxIOh1zjH1Z
- +6oVrXcP7tP8GQ//avpnN2ZW+fNxiu/UD5Y1l3+K74rROfInQkbqpAvv3i0u6ejBkK
- xqNFoTovsi7HQ==
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-79800183233so11822497b3.1
+ b=F0UoSS6HeTeib+b99NgLUia+OyIhq3d974Aaz/MUtDwtuUEhhCks7o29mfOMjAVKX
+ g4uzGajiuIujzHTAQG2mA2a756hkcje6PBx9L7ejmnbdBtG24PCHfWqqllyFhml1ef
+ r7UmSxCrN/ZzCnAyj7mOocSqVm4PRXRyR9zHiUaHi1iTuO2rD3QxaNEs6dH5wMcLSx
+ j5fJu2sglWpDCXdVDVnd/6YktG/5jvPa4Iu+duoFPHRIcI9VQ18cdOSO/fFER+sa11
+ awiguuyqGhaomMJgXyyy/vixRpx+Z9ONK1cEEOXXE5oNJKJ/3T9+FwBV/RmSJjo2Jg
+ ex8YQGMIDgbgQ==
+Received: by mail-yx1-f46.google.com with SMTP id
+ 956f58d0204a3-64ca4dfdd88so13620983d50.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2026 02:25:12 -0700 (PDT)
+ Wed, 11 Mar 2026 02:29:11 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCUupBnYktAYbRW6aqRKZOUytpgrOIiC8k1Nx+3z9/fWmszxyCpU0KdR91HlENfZ7UkkwxKsqQ5+BZoCUw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyzr4wq9t78EGrCOskVC31txxJecoTR8abrdXeGp2hKIwAhAJjU
- qnH+4rVNBMTwbQ1nmunDZtnDAbDfg/ra/p7k/D18SV2vfsRhSV2vCOqWnYuYGOjWMbHXsYLmAL4
- YWIxgtlslmfu6y87vteyxBLf8Tgf5gaM=
-X-Received: by 2002:a05:690c:6d84:b0:794:f400:2bfb with SMTP id
- 00721157ae682-79917f593b5mr14822137b3.26.1773221111798; Wed, 11 Mar 2026
- 02:25:11 -0700 (PDT)
+ AJvYcCUmB8XR1751q4CE/LlVVbhACWhvKaqYvBdh7Q9biCgL2tfGOzc8UY/hmLVbrmUEW7LQVnE2dcs2SHkQ5A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyuAJWASyx7CmD6KJK5bP3xSXaWXmFVQ75tHkBw3dEOqStq5w32
+ vFJTjwHa9hR3nMszL8Cgjp+iHwl2e9U+AN1DnjDesUqng9GwAqTlBGqmnoHgjqnyudnxCO69weU
+ 2PnXxIpTVRBi2FZYegqzOC/Mn07b8JPM=
+X-Received: by 2002:a53:c751:0:b0:64a:d479:bfbd with SMTP id
+ 956f58d0204a3-64d6568df17mr1064855d50.7.1773221350597; Wed, 11 Mar 2026
+ 02:29:10 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260310075539.11701-1-wsa+renesas@sang-engineering.com>
- <20260310075539.11701-16-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260310075539.11701-16-wsa+renesas@sang-engineering.com>
+References: <20260226-debug_bus-v6-0-5d794697798d@foss.st.com>
+ <ed019efc-d1e0-4e77-bf9c-79da40f0c707@foss.st.com>
+In-Reply-To: <ed019efc-d1e0-4e77-bf9c-79da40f0c707@foss.st.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 11 Mar 2026 10:24:59 +0100
-X-Gmail-Original-Message-ID: <CAD++jLkoWCcBvB4G-2EDYU4kezPhVF6943TY6PmK5ooGwruLzA@mail.gmail.com>
-X-Gm-Features: AaiRm52-5ccgCpLSKuxxaehFi73jWhXjY0Lv_AX860GJVRZU0Kw14nXERH-rf2Y
-Message-ID: <CAD++jLkoWCcBvB4G-2EDYU4kezPhVF6943TY6PmK5ooGwruLzA@mail.gmail.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-remoteproc@vger.kernel.org,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
- Waiman Long <longman@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- driver-core@lists.linux.dev, Jonathan Corbet <corbet@lwn.net>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Lee Jones <lee@kernel.org>,
- linux-iio@vger.kernel.org, Ingo Molnar <mingo@redhat.com>,
- Orson Zhai <orsonzhai@gmail.com>, David Lechner <dlechner@baylibre.com>,
- Konrad Dybcio <konradybcio@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v4 15/15] hwspinlock/treewide: refactor
- consumer.h from public header
+Date: Wed, 11 Mar 2026 10:28:59 +0100
+X-Gmail-Original-Message-ID: <CAD++jLkkVcRrT=NRyFD6s9=MYaOQSWun0v4z3z01BZoQ2tTvDA@mail.gmail.com>
+X-Gm-Features: AaiRm52uciv83L8ui1qjVsq1iiproIcpV5iHuMJHrm82sToGHhfR4T4DzXQs8RY
+Message-ID: <CAD++jLkkVcRrT=NRyFD6s9=MYaOQSWun0v4z3z01BZoQ2tTvDA@mail.gmail.com>
+To: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+Cc: linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ cristian.marussi@arm.com, coresight@lists.linaro.org,
+ Mike Leach <mike.leach@linaro.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ James Clark <james.clark@linaro.org>, Sudeep Holla <sudeep.holla@kernel.org>,
+ linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, linux-kernel@vger.kernel.org,
+ Leo Yan <leo.yan@linux.dev>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, jens.wiklander@linaro.org
+Subject: Re: [Linux-stm32] [PATCH v6 00/12] bus: add stm32 debug bus and
+ coresight support for stm32mp1x platforms
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,11 +85,11 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 2099E2605A8
+X-Rspamd-Queue-Id: 8F10D2607B1
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.89 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
@@ -110,12 +99,11 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:wsa+renesas@sang-engineering.com,m:rafael@kernel.org,m:peterz@infradead.org,m:boqun@kernel.org,m:skhan@linuxfoundation.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:driver-core@lists.linux.dev,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:linux-iio@vger.kernel.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:jonathan.cameron@huawei.com,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:tglx@kernel.org,m:mcoquelin.stm32@gmail.com,m:jic23@kernel.org,m:wsa@sang-
- engineering.com,m:zhanglyra@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:alexandre.torgue@foss.st.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:cristian.marussi@arm.com,m:coresight@lists.linaro.org,m:mike.leach@linaro.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:suzuki.poulose@arm.com,m:james.clark@linaro.org,m:sudeep.holla@kernel.org,m:linux-gpio@vger.kernel.org,m:legoffic.clement@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:mathieu.poirier@linaro.org,m:linux-kernel@vger.kernel.org,m:leo.yan@linux.dev,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:jens.wiklander@linaro.org,m:conor@kernel.org,m:legofficclement@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,linuxfoundation.org,vger.kernel.org,analog.com,redhat.com,st-md-mailman.stormreply.com,lists.linux.dev,lwn.net,gmail.com,baylibre.com,arndb.de,linux.alibaba.com,huawei.com,lists.infradead.org];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	FREEMAIL_CC(0.00)[st-md-mailman.stormreply.com,kernel.org,arm.com,lists.linaro.org,linaro.org,vger.kernel.org,gmail.com,lists.infradead.org,linux.dev];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -129,26 +117,21 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	NEURAL_HAM(-0.00)[-0.988];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,huawei.com:email,mail.gmail.com:mid,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,mail.gmail.com:mid,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-T24gVHVlLCBNYXIgMTAsIDIwMjYgYXQgODo1NuKAr0FNIFdvbGZyYW0gU2FuZwo8d3NhK3JlbmVz
-YXNAc2FuZy1lbmdpbmVlcmluZy5jb20+IHdyb3RlOgoKPiBGYWN0b3Igb3V0IHRoZSBlbnRyaWVz
-IG9ubHkgbmVlZGVkIGZvciBjb25zdW1lcnMgZnJvbSB0aGUgZ2VuZXJpYyBwdWJsaWMKPiBoZWFk
-ZXIuIFRoaXMgYWxsb3dzIGZvciBhIGNsZWFuIHNlcGFyYXRpb24gYmV0d2VlbiBwcm92aWRlcnMg
-YW5kCj4gY29uc3VtZXJzLiBBbHNvIHJlbW92ZSBjb250YWN0IGZpZWxkIGluIGZhdm9yIG9mIE1B
-SU5UQUlORVJTIGVudHJpZXMuCj4gRml4IHRoZSB1c2VycywgdG9vLgo+Cj4gU2lnbmVkLW9mZi1i
-eTogV29sZnJhbSBTYW5nIDx3c2ErcmVuZXNhc0BzYW5nLWVuZ2luZWVyaW5nLmNvbT4KPiBBY2tl
-ZC1ieTogTWFyayBCcm93biA8YnJvb25pZUBrZXJuZWwub3JnPgo+IEFja2VkLWJ5OiBKb25hdGhh
-biBDYW1lcm9uIDxqb25hdGhhbi5jYW1lcm9uQGh1YXdlaS5jb20+ICMgZm9yIElJTwo+IEFja2Vk
-LWJ5OiBMZWUgSm9uZXMgPGxlZUBrZXJuZWwub3JnPiAjIGZvciBNRkQKCkFja2VkLWJ5OiBMaW51
-cyBXYWxsZWlqIDxsaW51c3dAa2VybmVsLm9yZz4KCllvdXJzLApMaW51cyBXYWxsZWlqCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+T24gVHVlLCBNYXIgMTAsIDIwMjYgYXQgMTA6MDfigK9BTSBBbGV4YW5kcmUgVE9SR1VFCjxhbGV4
+YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tPiB3cm90ZToKCj4gUGF0Y2ggMSB0byAxMSBhcHBsaWVk
+IG9uIHN0bTMyLW5leHQuIExpbnVzLCBsZXQgbWUga25vdyBpZiBJIHRha2UgdGhlCj4gcGluY3Ry
+bCBvbmUgb3IgeW91IHByZWZlciB0byB0YWtlIGl0LgoKQUZBSVUgeW91ICpoYXZlKiB0byB0YWtl
+IGl0IGJlY2F1c2UgdGhlcmUgYXJlIGNvbXBpbGUtdGltZSBkZXBlbmRlbmNpZXM/CgpJIHByb3Zp
+ZGVkIG15IFJldmlld2VkLWJ5IHNvIGdvIGFoZWFkIGFuZCBhcHBseSBpdCEKCllvdXJzLApMaW51
+cyBXYWxsZWlqCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
+cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
+c3RpbmZvL2xpbnV4LXN0bTMyCg==
