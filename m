@@ -2,82 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wPOwHW0AsWn1pgIAu9opvQ
+	id 4NruGZ0fsWmOqwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 06:41:01 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:54:05 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DC1C25C805
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 06:41:01 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEB4A25E3DF
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 08:54:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2926C8F280;
-	Wed, 11 Mar 2026 05:41:00 +0000 (UTC)
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FA76C8F280;
+	Wed, 11 Mar 2026 07:54:04 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A2C4C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84F6CC8F280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2026 05:40:59 +0000 (UTC)
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-829b2018c94so2574131b3a.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 10 Mar 2026 22:40:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773207658; x=1773812458;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Bi+cpYb6Vg0VXFOuregCJb6MTqBCf/daXiAT548yjY0=;
- b=N44IuT32UjVWq2ySisppRQyINbyFu+VKPOSdrS5gtg4ku8vGTrtoqIEDmJArrqab2O
- bTLgvW0ArqL+nkOKp5vnOrVJX+2TDm5MacKRzg4sPAfb6Y0pfRc9zDxMm390h/a1xDTt
- LysOg4jNEsxd7JBmsSgeeHPJUVdLbaM0LhEbOOMup7ubqe28b/lSiTjq1ej7myXRSbFe
- rn3kUPrcHZTZ904hf52MaxvYeymFEKbc4loLi91F5YrPf72lPppWHpGHLbYk/1EbEMVu
- s3IsGVPV0erLl22UBHMZxBCvli/USgBQrCXSgF2HS7GcacpY7J2NaIt6CMzYxdYRoG7A
- mPRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1773207658; x=1773812458;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Bi+cpYb6Vg0VXFOuregCJb6MTqBCf/daXiAT548yjY0=;
- b=fKKeR2Osmq3j3dBAQatkjILiXC0ndUU1p5yHtlwegmBqWZU6LSQWeDii4HeTOzvaWu
- cYUMxUwv/rNLAF44GM9DNloZ0zYQW9qXO1OKnP3ORcBb0OWatpI6sgaLXt6x6fdhUuWc
- j6hZecwZtt9xTBzgIeduENXAbeIt+m0IAPP9FRnJ+rBD/TnvKQJ8YAGaa/NwoRm/F2kX
- qzRcVEgcXHgDt/Xz1l9LcXuMZwQJJ5cORUhwo8HTzi80D7zi6sZn3+4yU/2OIAqiTnxe
- nYGqxuZN5lc5P7rG96/EGClWAOom0GV6dE82zX9cjDcyImbRmpZyZ4t/zN4zuoZhtJCc
- V9Cw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUjJnMuR4WIz0s3aUnK3z5tnsYOPGPuYT8K+uUVbh4D3FMTnNCehhPGXWDGj/bvjt17LNDrrt5sqE+YZg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz6ZrxMWQDAAHV2MLoSb48Y5m8DDboNvm8hj5BpmXeXqlGoc0Cn
- PsN619nixDWePz60zIosNsFEwpaGiW/oaVEpZJKzNiyYXPaP6wJfzO45
-X-Gm-Gg: ATEYQzzKnKoUpAt5vj7uRUwFZ8V5PmClwvD+g0b3QrcCMtkv6x9dJCklnIi4SVf6QK3
- 2oVepdteGcB3PXLoX2N/J1lgGCtJwiMrzqrwBT55Xk6vZ2UzIcyFdO7w8kV/Qxf4Ihgq5ojr+zD
- n+lJnLgyXhN5pPD+zuUu8P75MyNCXhu0Z9SdCGfdevkhKdST7+ggB38e2Xu1xCD3Kndnv1K7jsH
- 9BWgJFZeaME5Bv4oLi+gnnCDmUmGqxDUYUlXT5A+z6SuYmufBT5h51WOGCTNc+6BPnuwt20V2+b
- Xxw3PsqXMXMj8kB9wJfds/KaRPXm+sx6KuGZmLdOaVIHky5QK3NkoUOzwEu2h5cSW5VjV276SYd
- /TAXefZVIIvw7F8AdHJan3/1LJ61CgGe7CZhRWFzWjGQ/aznP/7G7UfTvLsv6T6QsV8z29dMZsC
- AQaGEVEcA1up1ko+CZqU8fuu4Y9H/GI0HNCHTkyQ9rWngpUd0lwoIEyA==
-X-Received: by 2002:aa7:88d3:0:b0:828:d9a1:c604 with SMTP id
- d2e1a72fcca58-829f6e71531mr1386417b3a.12.1773207657593; 
- Tue, 10 Mar 2026 22:40:57 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:56f5::8bd])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-829f6eebff0sm1058168b3a.32.2026.03.10.22.40.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 10 Mar 2026 22:40:57 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-kernel@vger.kernel.org
-Date: Tue, 10 Mar 2026 22:40:38 -0700
-Message-ID: <20260311054038.166293-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Wed, 11 Mar 2026 07:54:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 5E6CD600B0;
+ Wed, 11 Mar 2026 07:54:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E9BD9C4CEF7;
+ Wed, 11 Mar 2026 07:54:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773215642;
+ bh=5BH0XLykQgNrQNKOTXesrRDorvTmEgpTDI3sJGb8+u8=;
+ h=From:Subject:Date:To:Cc:Reply-To:From;
+ b=ofuhcTQoPjfXY+ytNgQgZ06azHReATTnhP/kIlPqAwIDeGcTL0bmxLEMR5AQ/2FY8
+ WtUKYZnuMmhws31G3QyP5yguVktnMZJohg9qFBPfYxgCLmDPWJhge/co0cvP1bIwTL
+ 3is+lNciVoro/NibfUjenMf7vaXMv0O1r1fXsLuIoI3XaWhQF4BGGOvixSYYNOZKZl
+ uOd+YUzkr5Dhs0Uc3+4rWVXbrTW6Cz5b5STIUNOaxfxkNxhdohxeQd3sf6fWZOdBbJ
+ s868bpHfqG/NbpV3nE31F1WTJ/zv/YqoxHoeLobSaH7s3T6DjRhiyPeswerO6C/9lx
+ miMTPasYJU31Q==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id D242BFD0649;
+ Wed, 11 Mar 2026 07:54:01 +0000 (UTC)
+From: Jan Petrous via B4 Relay <devnull+jan.petrous.oss.nxp.com@kernel.org>
+Date: Wed, 11 Mar 2026 08:53:55 +0100
+Message-Id: <20260311-dwmac_multi_irq-v9-0-f0c03ef8d01f@oss.nxp.com>
 MIME-Version: 1.0
-Cc: "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>, Thomas Gleixner <tglx@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: [Linux-stm32] [PATCH] irqchip: stm32-exti: use kzalloc_flex
+X-B4-Tracking: v=1; b=H4sIAJMfsWkC/23S22rDMAwG4Fcpvl6KLR9i92rvMUaxFWs1LEmXd
+ FlHybvPKRsNcy5/gT4LyTc2xiHFkR12NzbEKY2p73JwTzuGJ9+9xSo1OTPgoAVwVzVfrcdj+/l
+ +Scc0fFSusWS4MoAoWO46D5HS9S6+vOZ8SuOlH77vD0xiqf5aQhXWJCpeSaMN+MCjo/q5H8d9d
+ z3vsW/Zok3wJxieiVKARQgWHEje8FqUglwLshRkFhC1JAjROrMhqLVgS0FlwQJ5qQgJCEpBPwT
+ YmkEvAqFxzmvyqErBrAVdCiYLoHQg0dRCcCyFei2YUqizQJaiDC47YWMG+xDkxs+Y7CLwvMuAV
+ gj/75rzPP8A12QUZ34CAAA=
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
+ NXP S32 Linux Team <s32@nxp.com>, Shawn Guo <shawnguo@kernel.org>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773215640; l=4657;
+ i=jan.petrous@oss.nxp.com; s=20240922; h=from:subject:message-id;
+ bh=5BH0XLykQgNrQNKOTXesrRDorvTmEgpTDI3sJGb8+u8=;
+ b=O6ILZtXXVL4OJaO8m37PvONztWwM2ZzLUzFvenQDmqBrZWN48/OBmVObsizApJWse2xwGE0wA
+ ejqrlcHhchvC7tgNrrMWGbSUWqYdyT3E2inNQ38LeX9K/r2nTWH+Kl0
+X-Developer-Key: i=jan.petrous@oss.nxp.com; a=ed25519;
+ pk=Ke3wwK7rb2Me9UQRf6vR8AsfJZfhTyoDaxkUCqmSWYY=
+X-Endpoint-Received: by B4 Relay for jan.petrous@oss.nxp.com/20240922 with
+ auth_id=217
+X-Original-From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, netdev@vger.kernel.org,
+ "Jan Petrous \(OSS\)" <jan.petrous@oss.nxp.com>, linux-kernel@vger.kernel.org,
+ rmk+kernel@armlinux.org.uk, boon.khai.ng@altera.com, vladimir.oltean@nxp.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v9 0/5] Support multi-channel IRQs in stmmac
+ platform drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,111 +88,162 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: jan.petrous@oss.nxp.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 0DC1C25C805
+X-Rspamd-Queue-Id: AEB4A25E3DF
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:tglx@kernel.org,m:mcoquelin.stm32@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,gmail.com];
-	FORGED_SENDER(0.00)[rosenp@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.475];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rosenp@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
+	TAGGED_FROM(0.00)[jan.petrous.oss.nxp.com];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:chester62515@gmail.com,m:mbrugger@suse.com,m:ghennadi.procopciuc@oss.nxp.com,m:s32@nxp.com,m:shawnguo@kernel.org,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:Frank.Li@nxp.com,m:devicetree@vger.kernel.org,m:imx@lists.linux.dev,m:netdev@vger.kernel.org,m:jan.petrous@oss.nxp.com,m:linux-kernel@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:boon.khai.ng@altera.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[29];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,suse.com,oss.nxp.com,nxp.com,pengutronix.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	NEURAL_HAM(-0.00)[-0.899];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	HAS_REPLYTO(0.00)[jan.petrous@oss.nxp.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:email,stormreply.com:url,stormreply.com:email,oss.nxp.com:replyto,oss.nxp.com:mid]
 X-Rspamd-Action: no action
 
-Simplifies allocations by using a flexible array member in these structs.
-No need for a second kfree.
+The stmmac core supports two interrupt modes, controlled by the
+flag STMMAC_FLAG_MULTI_MSI_EN:
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+- When the flag is set, the driver uses multi-channel IRQ mode (Multi-IRQ).
+- Otherwise, a single IRQ line is requested (aka MAC-IRQ):
+
+static int stmmac_request_irq(struct net_device *dev)
+{
+        /* Request the IRQ lines */
+        if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN)
+                ret = stmmac_request_irq_multi_msi(dev);
+        else
+                ret = stmmac_request_irq_single(dev);
+}
+
+At present, only PCI drivers (Intel and Loongson) make use of the Multi-IRQ
+mode. This concept can be extended to DT-based embedded glue drivers
+(dwmac-xxx.c).
+
+This series adds support for reading per-channel IRQs from the DT node and
+reuses the existing STMMAC_FLAG_MULTI_MSI_EN flag to enable multi-IRQ
+operation in platform drivers.
+
+The final decision if Multi-IRQ gets enabled remains on glue driver
+to allow implementing any reguirements/limitions the focused platform
+needs.
+
+NXP S32G2/S32G3/S32R SoCs integrate the DWMAC IP with multi-channel
+interrupt support. The dwmac-s32.c driver change is provided as an example of
+enabling multi-IRQ mode for non-PCI drivers.
+
+Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
 ---
- drivers/irqchip/irq-stm32-exti.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+Changes in v9:
+- Changed interrupt minItems from 11 to 1 to support backward compatibility
+  and removed the 'Reviewed-by' accordingly for patch 4
+- Link to v8: https://lore.kernel.org/r/20260309-dwmac_multi_irq-v8-0-f0cc5bc811a7@oss.nxp.com
 
-diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index 5fdf335acb46..144120cadfa0 100644
---- a/drivers/irqchip/irq-stm32-exti.c
-+++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -45,8 +45,8 @@ struct stm32_exti_chip_data {
- struct stm32_exti_host_data {
- 	void __iomem *base;
- 	struct device *dev;
--	struct stm32_exti_chip_data *chips_data;
- 	const struct stm32_exti_drv_data *drv_data;
-+	struct stm32_exti_chip_data chips_data[];
- };
- 
- static const struct stm32_exti_bank stm32f4xx_exti_b1 = {
-@@ -269,26 +269,20 @@ stm32_exti_host_data *stm32_exti_host_init(const struct stm32_exti_drv_data *dd,
- {
- 	struct stm32_exti_host_data *host_data;
- 
--	host_data = kzalloc_obj(*host_data);
-+	host_data = kzalloc_flex(*host_data, chips_data, dd->bank_nr);
- 	if (!host_data)
- 		return NULL;
- 
- 	host_data->drv_data = dd;
--	host_data->chips_data = kzalloc_objs(struct stm32_exti_chip_data,
--					     dd->bank_nr);
--	if (!host_data->chips_data)
--		goto free_host_data;
- 
- 	host_data->base = of_iomap(node, 0);
- 	if (!host_data->base) {
- 		pr_err("%pOF: Unable to map registers\n", node);
--		goto free_chips_data;
-+		goto free_host_data;
- 	}
- 
- 	return host_data;
- 
--free_chips_data:
--	kfree(host_data->chips_data);
- free_host_data:
- 	kfree(host_data);
- 
-@@ -389,7 +383,6 @@ static int __init stm32_exti_init(const struct stm32_exti_drv_data *drv_data,
- 	irq_domain_remove(domain);
- out_unmap:
- 	iounmap(host_data->base);
--	kfree(host_data->chips_data);
- 	kfree(host_data);
- 	return ret;
- }
+Changes in v8:
+- Rewritten queue irq getter, based on Russell's (ready-to-use) hint
+- Renamed s32_gmac_validate_multi_irq() to s32_gmac_setup_multi_irq() to
+  better describe the functionality
+- Fixed typo in commit message for patch 5
+- Renamed label in patch 5 to make it more descriptive
+- Link to v7: https://lore.kernel.org/r/20260226-dwmac_multi_irq-v7-0-f8fe3b945bb4@oss.nxp.com
+
+Changes in v7:
+- Optimized 2 similar loops on queue rx/tx irq reading
+- Swap the yaml and dts patches with hope it fix dt_binding_check failing
+- Link to v6: https://lore.kernel.org/r/20260225-dwmac_multi_irq-v6-0-245bf1d7110c@oss.nxp.com
+
+Changes in v6:
+- Added 2 mintainers which were not covered by 'b4 prep --auto-to-cc'
+  but complained on patchwork check
+- Added helper macro for loop over queue-based arrays (inspired by AI
+  review)
+- Added full validation on all channel IRQs
+- Link to v5: https://lore.kernel.org/r/20260223-dwmac_multi_irq-v5-0-8fc699a5fac4@oss.nxp.com
+
+Changes in v5:
+- fixed typo in "symetrical"
+- cleaned negative return value on platform_get_irq_byname_optional()
+  in stmmac_get_platform_resources()
+- rebased on v7.0-rc1
+- Link to v4: https://lore.kernel.org/r/20260128-dwmac_multi_irq-v4-0-82fa34fcf2f2@oss.nxp.com
+
+Changes in v4:
+- Fixed IRQ reading check
+- Made cleaner the IRQ validity (to get AI reviewer happy)
+- Fixed minItems of interrupts property in yaml
+- Link to v3: https://lore.kernel.org/r/20260123-dwmac_multi_irq-v3-0-cc53f2be8961@oss.nxp.com
+
+Changes in v3:
+- removed RFC prefix
+- rebased on v6.19-rc6
+- fixed forgotten extra line setting to Multi-IRQ unconditionally
+- fixed yaml
+- Link to v2: https://lore.kernel.org/r/20260121-dwmac_multi_irq-v2-0-3b829230d071@oss.nxp.com
+
+Changes in v2:
+- Fixed incorrect buffer len for 'rx-queue-%d' property check
+- Added backward compatibility to not break old settings
+- Fixed DT example in yaml
+- Link to v1: https://lore.kernel.org/r/20251214-dwmac_multi_irq-v1-0-36562ab0e9f7@oss.nxp.com
+
+---
+Jan Petrous (OSS) (5):
+      net: stmmac: Use helper macro for loop over queue-based arrays
+      net: stmmac: platform: read channels irq
+      arm64: dts: s32: set Ethernet channel irqs
+      dt-bindings: net: nxp,s32-dwmac: Declare per-queue interrupts
+      stmmac: s32: enable support for Multi-IRQ mode
+
+ .../devicetree/bindings/net/nxp,s32-dwmac.yaml     | 47 ++++++++++++++++--
+ arch/arm64/boot/dts/freescale/s32g2.dtsi           | 26 ++++++++--
+ arch/arm64/boot/dts/freescale/s32g3.dtsi           | 26 ++++++++--
+ drivers/net/ethernet/stmicro/stmmac/dwmac-s32.c    | 36 +++++++++++++-
+ .../net/ethernet/stmicro/stmmac/dwxgmac2_core.c    |  2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |  3 ++
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 16 +++---
+ .../net/ethernet/stmicro/stmmac/stmmac_platform.c  | 57 +++++++++++++++++++++-
+ 8 files changed, 191 insertions(+), 22 deletions(-)
+---
+base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+change-id: 20251209-dwmac_multi_irq-9d8f60462cc1
+
+Best regards,
 -- 
-2.53.0
+Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
+
 
 _______________________________________________
 Linux-stm32 mailing list
