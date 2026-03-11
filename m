@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MNh0HqA7sWkLswIAu9opvQ
+	id T6drBNVBsWlCtAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 10:53:36 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 11:20:05 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21DF2261586
-	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 10:53:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A49FF261FC0
+	for <lists+linux-stm32@lfdr.de>; Wed, 11 Mar 2026 11:20:04 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D8DA5C90088;
-	Wed, 11 Mar 2026 09:53:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BDC9C90088;
+	Wed, 11 Mar 2026 10:20:04 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D070C90089
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1CCCAC90087
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 11 Mar 2026 09:53:35 +0000 (UTC)
+ Wed, 11 Mar 2026 10:20:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=7M4qvN4KUZhWeHz0+r2If9XfOaCaAnmKNLe00xCAwms=; b=vw80s27OGrWSBdMS28kVJqhLXm
- 8+nQEnaK/rCF2wiVCRhlquXaD7PX04vMo4XnQZOCgyMjZFVnz97rd41Dq4CVhhWAknumt2/GXaN52
- zoboaY7LPOgF0USIvhgL3bM0/38MwI98akbGnXroHK8daDyOCMmGs2z1ru7CvOQ/WEQ40FTJ3ptQj
- XRm0zi/oNHFeXaQl/VxpeDnbOduOZMSYq1iv91ViB2MIHNk9Cd5mIdwBb5G4uWeg8hzIk921lUe8Q
- /pZ4fIq3Ye59DeoNaQcV+RExH8R8wqqajTR29O7hyaJ5SBBkz1w3rVs5GbOFukctO338Bvgut8WqF
- GUCudibg==;
+ bh=jy7ZZYhO/l6AOCV4Dt/j5MRaTr5NmlKcOirpso5gcsI=; b=wMo/5xuCM6GHbf1VABNSVs8FvT
+ J73OKmQkiNMTevw2lC5BF7diZINev13LOSSGOH7DX9JAgM52l7SAtQt88Kc898211sHTdwQiDo5Ls
+ V7u+IrRHQIbwyUzgzkMNvYhk0qiJ2OzvKRBeSRHKMHTM4FGyo9VGo/T7tbS/POr6Z4gJ+Go51Qvlg
+ 9VXIG7PS/NxWbJ+7X55bQcbLxgSdsDAyELN5uq54LGPz0IOHh8OozOdyb6u/w2d6HmeyXtl+ww/nl
+ d5n8RycOmq/0HD5UtTr1yLdqbjGFl9JYQe6DdyAMWiWzuRCGipWHVMZkyTPmp9PO1tlgvLPwH/XVu
+ ELJITC+g==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:37994 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:48598 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w0GFj-000000006Ap-0alh;
- Wed, 11 Mar 2026 09:53:19 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w0GFp-000000006BF-0GVv;
+ Wed, 11 Mar 2026 09:53:25 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w0GFf-0000000CiTt-3qMB; Wed, 11 Mar 2026 09:53:15 +0000
+ id 1w0GFl-0000000CiU0-03iN; Wed, 11 Mar 2026 09:53:21 +0000
 In-Reply-To: <abE7LWj04-JNxgS2@shell.armlinux.org.uk>
 References: <abE7LWj04-JNxgS2@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w0GFf-0000000CiTt-3qMB@rmk-PC.armlinux.org.uk>
-Date: Wed, 11 Mar 2026 09:53:15 +0000
+Message-Id: <E1w0GFl-0000000CiU0-03iN@rmk-PC.armlinux.org.uk>
+Date: Wed, 11 Mar 2026 09:53:21 +0000
 Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Alexei Starovoitov <ast@kernel.org>,
@@ -54,8 +54,8 @@ Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
  Stanislav Fomichev <sdf@fomichev.me>, Jakub Kicinski <kuba@kernel.org>,
  bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 14/15] net: stmmac: remove
-	tx_tail_addr
+Subject: [Linux-stm32] [PATCH net-next 15/15] net: stmmac: use queue rather
+ than ->queue_index
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,7 +71,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 21DF2261586
+X-Rspamd-Queue-Id: A49FF261FC0
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -96,7 +96,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.980];
+	NEURAL_HAM(-0.00)[-0.982];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -107,62 +107,105 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,armlinux.org.uk:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid]
 X-Rspamd-Action: no action
 
-There is only one place where tx_q->tx_tail_addr is used - the new
-stmmac_set_queue_tx_tail_ptr(). Make this a local variable and remove
-it from struct stmmac_tx_queue.
+We use a lot of ->queue_index where we already have the queue / channel
+index (which are actually the same index), which has been used to get
+the queue struct. Since queue and queue_index are identical in
+priv->(tx|rx)_queue[queue]->queue_index there is no point using the
+queue_index where we already have queue.
 
-This commit does not change the semantics - the hardware relies upon
-the descriptor ring not crossing a 4GiB boundary as the high address
-bits are programmed into a separate register via stmmac_init_tx_chan().
-Hence, truncating the DMA address to 32-bit is fine as the register it
-will be programmed into is 32-bit, and the high bits are handled
-elsewhere.
-
-Also change the type of desc_size to size_t, as this variable is
-initialised from sizeof().
+Use queue rather than queue_index.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h      | 1 -
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 ++++---
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++-----------
+ 1 file changed, 11 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index d1f8383d1c04..7cc5967aecd7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -79,7 +79,6 @@ struct stmmac_tx_queue {
- 	unsigned int cur_tx;
- 	unsigned int dirty_tx;
- 	dma_addr_t dma_tx_phy;
--	dma_addr_t tx_tail_addr;
- 	u32 mss;
- };
- 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4521469c5e1d..55b79e9e637f 100644
+index 55b79e9e637f..8393cbd0875e 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -389,12 +389,13 @@ static void stmmac_set_queue_tx_tail_ptr(struct stmmac_priv *priv,
- 					 struct stmmac_tx_queue *tx_q,
- 					 unsigned int chan, unsigned int index)
- {
--	int desc_size;
-+	size_t desc_size;
-+	u32 tx_tail_addr;
+@@ -440,7 +440,7 @@ static void stmmac_set_queue_rx_buf_size(struct stmmac_priv *priv,
+ 	else
+ 		buf_size = priv->dma_conf.dma_buf_sz;
  
- 	desc_size = stmmac_get_tx_desc_size(priv, tx_q);
- 
--	tx_q->tx_tail_addr = tx_q->dma_tx_phy + index * desc_size;
--	stmmac_set_tx_tail_ptr(priv, priv->ioaddr, tx_q->tx_tail_addr, chan);
-+	tx_tail_addr = tx_q->dma_tx_phy + index * desc_size;
-+	stmmac_set_tx_tail_ptr(priv, priv->ioaddr, tx_tail_addr, chan);
+-	stmmac_set_dma_bfsize(priv, priv->ioaddr, buf_size, rx_q->queue_index);
++	stmmac_set_dma_bfsize(priv, priv->ioaddr, buf_size, chan);
  }
  
- static size_t stmmac_get_rx_desc_size(struct stmmac_priv *priv)
+ /**
+@@ -1902,7 +1902,7 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv,
+ 						   NULL));
+ 		netdev_info(priv->dev,
+ 			    "Register MEM_TYPE_XSK_BUFF_POOL RxQ-%d\n",
+-			    rx_q->queue_index);
++			    queue);
+ 		xsk_pool_set_rxq_info(rx_q->xsk_pool, &rx_q->xdp_rxq);
+ 	} else {
+ 		WARN_ON(xdp_rxq_info_reg_mem_model(&rx_q->xdp_rxq,
+@@ -1910,7 +1910,7 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv,
+ 						   rx_q->page_pool));
+ 		netdev_info(priv->dev,
+ 			    "Register MEM_TYPE_PAGE_POOL RxQ-%d\n",
+-			    rx_q->queue_index);
++			    queue);
+ 	}
+ 
+ 	if (rx_q->xsk_pool) {
+@@ -2310,9 +2310,7 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	else
+ 		napi_id = ch->rx_napi.napi_id;
+ 
+-	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev,
+-			       rx_q->queue_index,
+-			       napi_id);
++	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
+ 	if (ret) {
+ 		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
+ 		return -EINVAL;
+@@ -3340,7 +3338,7 @@ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue)
+ 	if (!tx_coal_timer)
+ 		return;
+ 
+-	ch = &priv->channel[tx_q->queue_index];
++	ch = &priv->channel[queue];
+ 	napi = tx_q->xsk_pool ? &ch->rxtx_napi : &ch->tx_napi;
+ 
+ 	/* Arm timer only if napi is not already scheduled.
+@@ -6918,12 +6916,11 @@ void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue)
+ 	stmmac_clear_rx_descriptors(priv, &priv->dma_conf, queue);
+ 
+ 	stmmac_init_rx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
+-			    rx_q->dma_rx_phy, rx_q->queue_index);
++			    rx_q->dma_rx_phy, queue);
+ 
+-	stmmac_set_queue_rx_tail_ptr(priv, rx_q, rx_q->queue_index,
+-				     rx_q->buf_alloc_num);
++	stmmac_set_queue_rx_tail_ptr(priv, rx_q, queue, rx_q->buf_alloc_num);
+ 
+-	stmmac_set_queue_rx_buf_size(priv, rx_q, rx_q->queue_index);
++	stmmac_set_queue_rx_buf_size(priv, rx_q, queue);
+ 
+ 	stmmac_start_rx_dma(priv, queue);
+ 
+@@ -6969,12 +6966,12 @@ void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue)
+ 	stmmac_clear_tx_descriptors(priv, &priv->dma_conf, queue);
+ 
+ 	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
+-			    tx_q->dma_tx_phy, tx_q->queue_index);
++			    tx_q->dma_tx_phy, queue);
+ 
+ 	if (tx_q->tbs & STMMAC_TBS_AVAIL)
+-		stmmac_enable_tbs(priv, priv->ioaddr, 1, tx_q->queue_index);
++		stmmac_enable_tbs(priv, priv->ioaddr, 1, queue);
+ 
+-	stmmac_set_queue_tx_tail_ptr(priv, tx_q, tx_q->queue_index, 0);
++	stmmac_set_queue_tx_tail_ptr(priv, tx_q, queue, 0);
+ 
+ 	stmmac_start_tx_dma(priv, queue);
+ 
 -- 
 2.47.3
 
