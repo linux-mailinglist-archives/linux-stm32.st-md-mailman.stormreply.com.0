@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id Cf1GIOiLsmkWNgAAu9opvQ
+	id 0GUeKeiLsmkKNgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:24 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4645C26FD42
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F69F26FD54
 	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B1C0C900AD;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 46439C900B3;
 	Thu, 12 Mar 2026 09:48:24 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F7DEC8F28E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D20B5C8F28F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 09:29:25 +0000 (UTC)
-X-UUID: f31692f81df511f1a21c59e7364eecb8-20260312
+ Thu, 12 Mar 2026 09:29:30 +0000 (UTC)
+X-UUID: f3e56b281df511f1a21c59e7364eecb8-20260312
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:5c7d72ec-6917-4184-a30d-799bb4b7a730, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:30aaff68-b3a0-4a6c-b7ec-9b19efc51e2d, IP:0,
  U
- RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:8f1d373fe3b520d8e6249f0ae27cb419,
+ RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:20
+X-CID-META: VersionHash:89c9d04, CLOUDID:3e4443aa1e61333fe56bff94d6c99248,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
  ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
@@ -33,27 +33,27 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f31692f81df511f1a21c59e7364eecb8-20260312
+X-UUID: f3e56b281df511f1a21c59e7364eecb8-20260312
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 502394402; Thu, 12 Mar 2026 17:29:20 +0800
+ with ESMTP id 649171632; Thu, 12 Mar 2026 17:29:22 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
  openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, broonie@kernel.org
-Date: Thu, 12 Mar 2026 17:28:55 +0800
-Message-Id: <6e9e73c6001daf6641f1a3424c8e14633511d77f.1773306858.git.xiaopei01@kylinos.cn>
+Date: Thu, 12 Mar 2026 17:28:56 +0800
+Message-Id: <6891014954a8c121347dbd517b585d5a903e8da4.1773306858.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773306858.git.xiaopei01@kylinos.cn>
 References: <cover.1773306858.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 12 Mar 2026 09:48:20 +0000
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH 03/17] spi: bcmbca-hsspi: Use helper function
+Subject: [Linux-stm32] [PATCH 04/17] spi: img-spfi: Use helper function
 	devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -90,7 +90,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.990];
+	NEURAL_HAM(-0.00)[-0.991];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -100,7 +100,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,kylinos.cn:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 4645C26FD42
+X-Rspamd-Queue-Id: 8F69F26FD54
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -111,98 +111,49 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-bcmbca-hsspi.c | 47 ++++++++++++----------------------
- 1 file changed, 16 insertions(+), 31 deletions(-)
+ drivers/spi/spi-img-spfi.c | 14 ++------------
+ 1 file changed, 2 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/spi/spi-bcmbca-hsspi.c b/drivers/spi/spi-bcmbca-hsspi.c
-index ece22260f570..08d12606e91d 100644
---- a/drivers/spi/spi-bcmbca-hsspi.c
-+++ b/drivers/spi/spi-bcmbca-hsspi.c
-@@ -452,39 +452,30 @@ static int bcmbca_hsspi_probe(struct platform_device *pdev)
- 	if (IS_ERR(spim_ctrl))
- 		return PTR_ERR(spim_ctrl);
- 
--	clk = devm_clk_get(dev, "hsspi");
-+	clk = devm_clk_get_enabled(dev, "hsspi");
- 	if (IS_ERR(clk))
--		return PTR_ERR(clk);
--
--	ret = clk_prepare_enable(clk);
--	if (ret)
--		return ret;
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "Failed to get hsspi clock\n");
- 
- 	rate = clk_get_rate(clk);
- 	if (!rate) {
--		pll_clk = devm_clk_get(dev, "pll");
-+		pll_clk = devm_clk_get_enabled(dev, "pll");
- 
- 		if (IS_ERR(pll_clk)) {
--			ret = PTR_ERR(pll_clk);
--			goto out_disable_clk;
-+			return dev_err_probe(dev, PTR_ERR(pll_clk),
-+					     "Failed to get pll clock\n");
- 		}
- 
--		ret = clk_prepare_enable(pll_clk);
--		if (ret)
--			goto out_disable_clk;
--
- 		rate = clk_get_rate(pll_clk);
--		if (!rate) {
--			ret = -EINVAL;
--			goto out_disable_pll_clk;
--		}
-+		if (!rate)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Failed to get pll clock rate\n");
- 	}
- 
- 	host = devm_spi_alloc_host(&pdev->dev, sizeof(*bs));
--	if (!host) {
--		ret = -ENOMEM;
--		goto out_disable_pll_clk;
--	}
-+	if (!host)
-+		return dev_err_probe(dev, -ENOMEM,
-+				     "Failed alloc spi host\n");
- 
- 	bs = spi_controller_get_devdata(host);
- 	bs->pdev = pdev;
-@@ -535,18 +526,16 @@ static int bcmbca_hsspi_probe(struct platform_device *pdev)
- 		ret = devm_request_irq(dev, irq, bcmbca_hsspi_interrupt, IRQF_SHARED,
- 			       pdev->name, bs);
- 		if (ret)
--			goto out_disable_pll_clk;
-+			return dev_err_probe(dev, ret, "Failed request irq\n");
- 	}
- 
- 	ret = devm_pm_runtime_enable(&pdev->dev);
+diff --git a/drivers/spi/spi-img-spfi.c b/drivers/spi/spi-img-spfi.c
+index 902fb64815c9..a227cff5da70 100644
+--- a/drivers/spi/spi-img-spfi.c
++++ b/drivers/spi/spi-img-spfi.c
+@@ -557,24 +557,17 @@ static int img_spfi_probe(struct platform_device *pdev)
  	if (ret)
--		goto out_disable_pll_clk;
-+		return dev_err_probe(dev, ret, "Failed pm runtime enable\n");
+ 		goto put_spi;
  
- 	ret = sysfs_create_group(&pdev->dev.kobj, &bcmbca_hsspi_group);
--	if (ret) {
--		dev_err(&pdev->dev, "couldn't register sysfs group\n");
--		goto out_disable_pll_clk;
--	}
-+	if (ret)
-+		return dev_err_probe(dev, ret, "couldn't register sysfs group\n");
+-	spfi->sys_clk = devm_clk_get(spfi->dev, "sys");
++	spfi->sys_clk = devm_clk_get_enabled(spfi->dev, "sys");
+ 	if (IS_ERR(spfi->sys_clk)) {
+ 		ret = PTR_ERR(spfi->sys_clk);
+ 		goto put_spi;
+ 	}
+-	spfi->spfi_clk = devm_clk_get(spfi->dev, "spfi");
++	spfi->spfi_clk = devm_clk_get_enabled(spfi->dev, "spfi");
+ 	if (IS_ERR(spfi->spfi_clk)) {
+ 		ret = PTR_ERR(spfi->spfi_clk);
+ 		goto put_spi;
+ 	}
  
- 	/* register and we are done */
- 	ret = devm_spi_register_controller(dev, host);
-@@ -559,10 +548,6 @@ static int bcmbca_hsspi_probe(struct platform_device *pdev)
- 
- out_sysgroup_disable:
- 	sysfs_remove_group(&pdev->dev.kobj, &bcmbca_hsspi_group);
--out_disable_pll_clk:
--	clk_disable_unprepare(pll_clk);
--out_disable_clk:
--	clk_disable_unprepare(clk);
- 	return ret;
- }
+-	ret = clk_prepare_enable(spfi->sys_clk);
+-	if (ret)
+-		goto put_spi;
+-	ret = clk_prepare_enable(spfi->spfi_clk);
+-	if (ret)
+-		goto disable_pclk;
+-
+ 	spfi_reset(spfi);
+ 	/*
+ 	 * Only enable the error (IACCESS) interrupt.  In PIO mode we'll
+@@ -655,9 +648,6 @@ static int img_spfi_probe(struct platform_device *pdev)
+ 		dma_release_channel(spfi->rx_ch);
+ 	if (spfi->tx_ch)
+ 		dma_release_channel(spfi->tx_ch);
+-	clk_disable_unprepare(spfi->spfi_clk);
+-disable_pclk:
+-	clk_disable_unprepare(spfi->sys_clk);
+ put_spi:
+ 	spi_controller_put(host);
  
 -- 
 2.25.1
