@@ -2,57 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8OMvEOiLsmkKNgAAu9opvQ
+	id SDGwHOiLsmkQNgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:24 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1500426FD3B
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FD6926FD40
 	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B570DC900A7;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9293C900A9;
 	Thu, 12 Mar 2026 09:48:23 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D0CFC8F28C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8DD53C8F28C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 09:29:21 +0000 (UTC)
-X-UUID: ee98c7281df511f1a21c59e7364eecb8-20260312
+ Thu, 12 Mar 2026 09:29:22 +0000 (UTC)
+X-UUID: f0f875861df511f1a21c59e7364eecb8-20260312
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:364da13e-4297-4e51-b36c-abb76dbed6cc, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:df6e7d37-4ee7-47ae-838e-26216254e6fd, IP:0,
  U
- RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
- N:release,TS:20
-X-CID-META: VersionHash:89c9d04, CLOUDID:3fe1568a4ae880f33e74b65e970bdd58,
+ RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
+ ON:release,TS:0
+X-CID-META: VersionHash:89c9d04, CLOUDID:06b8017193470c8601b0da3b70b68dc2,
  BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:102|850|898,TC:nil,Content:0|15|50,EDM:5
- ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
- :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+ D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
+ ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
+ A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: ee98c7281df511f1a21c59e7364eecb8-20260312
+X-UUID: f0f875861df511f1a21c59e7364eecb8-20260312
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 885957485; Thu, 12 Mar 2026 17:29:13 +0800
+ with ESMTP id 1054376438; Thu, 12 Mar 2026 17:29:17 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
  openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, broonie@kernel.org
-Date: Thu, 12 Mar 2026 17:28:52 +0800
-Message-Id: <cover.1773306858.git.xiaopei01@kylinos.cn>
+Date: Thu, 12 Mar 2026 17:28:53 +0800
+Message-Id: <d78ba5faa6ed3f5e009b41fc1ee1c2bcdaff882b.1773306858.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
+In-Reply-To: <cover.1773306858.git.xiaopei01@kylinos.cn>
+References: <cover.1773306858.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 12 Mar 2026 09:48:20 +0000
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH 00/17] cleanup in spi by use
-	devm_clk_get_enabled
+Subject: [Linux-stm32] [PATCH 01/17] spi: axiado: Use helper function
+	devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +90,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.992];
+	NEURAL_HAM(-0.00)[-0.990];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -97,54 +99,72 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	RCPT_COUNT_SEVEN(0.00)[11];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 1500426FD3B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,kylinos.cn:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 1FD6926FD40
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-I know that many old SPI drivers should not be modified for hardware
-stability and to reduce maintenance effort. But I can't help cleaning them
-up. To minimize the introduction of issues, I tried not to modify the
-timing of those hardware clock enables.
+devm_clk_get() and clk_prepare_enable() can now be replaced by
+devm_clk_get_enabled() when driver enables the clocks. Moreover, it is no
+longer necessary to unprepare and disable the clocks explicitly.
+Simplify code.
 
-Pei Xiao (17):
-  spi: axiado: Use helper function devm_clk_get_enabled()
-  spi: bcm63xx-hsspi: Use helper function devm_clk_get_enabled()
-  spi: bcmbca-hsspi: Use helper function devm_clk_get_enabled()
-  spi: img-spfi: Use helper function devm_clk_get_enabled()
-  spi: imx: Use helper function devm_clk_get_enabled()
-  spi: npcm-pspi: Use helper function devm_clk_get_enabled()
-  spi: orion: Use helper function devm_clk_get_enabled()
-  spi: rockchip-sfc: Use helper function devm_clk_get_enabled()
-  spi: sifive: Use helper function devm_clk_get_enabled()
-  spi: slave-mt27xx: Use helper function devm_clk_get_enabled()
-  spi: st: Use helper function devm_clk_get_enabled()
-  spi: stm32-qspi: Use helper function devm_clk_get_enabled()
-  spi: stm32: Use helper function devm_clk_get_enabled()
-  spi: sunplus-sp7021: Use helper function devm_clk_get_enabled()
-  spi: uniphier: Use helper function devm_clk_get_enabled()
-  spi: zynq-qspi: Use helper function devm_clk_get_enabled()
-  spi: zynqmp-gqspi: Use helper function devm_clk_get_enabled()
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+---
+ drivers/spi/spi-axiado.c | 23 ++++-------------------
+ 1 file changed, 4 insertions(+), 19 deletions(-)
 
- drivers/spi/spi-axiado.c         | 23 +++----------
- drivers/spi/spi-bcm63xx-hsspi.c  | 44 +++++++-----------------
- drivers/spi/spi-bcmbca-hsspi.c   | 47 +++++++++----------------
- drivers/spi/spi-img-spfi.c       | 14 ++------
- drivers/spi/spi-imx.c            | 15 ++------
- drivers/spi/spi-npcm-pspi.c      | 19 ++++------
- drivers/spi/spi-orion.c          | 10 ++----
- drivers/spi/spi-rockchip-sfc.c   | 20 ++---------
- drivers/spi/spi-sifive.c         | 20 ++++-------
- drivers/spi/spi-slave-mt27xx.c   |  8 +----
- drivers/spi/spi-st-ssc4.c        | 14 +++-----
- drivers/spi/spi-stm32-qspi.c     | 17 +++------
- drivers/spi/spi-stm32.c          | 59 ++++++++++----------------------
- drivers/spi/spi-sunplus-sp7021.c | 15 +-------
- drivers/spi/spi-uniphier.c       | 15 +++-----
- drivers/spi/spi-zynq-qspi.c      | 28 ++++-----------
- drivers/spi/spi-zynqmp-gqspi.c   | 17 ++-------
- 17 files changed, 95 insertions(+), 290 deletions(-)
-
+diff --git a/drivers/spi/spi-axiado.c b/drivers/spi/spi-axiado.c
+index 8cea81432c5b..4ba8f0e6909f 100644
+--- a/drivers/spi/spi-axiado.c
++++ b/drivers/spi/spi-axiado.c
+@@ -770,32 +770,20 @@ static int ax_spi_probe(struct platform_device *pdev)
+ 		goto remove_ctlr;
+ 	}
+ 
+-	xspi->pclk = devm_clk_get(&pdev->dev, "pclk");
++	xspi->pclk = devm_clk_get_enabled(&pdev->dev, "pclk");
+ 	if (IS_ERR(xspi->pclk)) {
+-		dev_err(&pdev->dev, "pclk clock not found.\n");
++		dev_err(&pdev->dev, "Unable to enable APB clock.\n");
+ 		ret = PTR_ERR(xspi->pclk);
+ 		goto remove_ctlr;
+ 	}
+ 
+-	xspi->ref_clk = devm_clk_get(&pdev->dev, "ref");
++	xspi->ref_clk = devm_clk_get_enabled(&pdev->dev, "ref");
+ 	if (IS_ERR(xspi->ref_clk)) {
+-		dev_err(&pdev->dev, "ref clock not found.\n");
++		dev_err(&pdev->dev, "Unable to enable device clock.\n");
+ 		ret = PTR_ERR(xspi->ref_clk);
+ 		goto remove_ctlr;
+ 	}
+ 
+-	ret = clk_prepare_enable(xspi->pclk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to enable APB clock.\n");
+-		goto remove_ctlr;
+-	}
+-
+-	ret = clk_prepare_enable(xspi->ref_clk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to enable device clock.\n");
+-		goto clk_dis_apb;
+-	}
+-
+ 	pm_runtime_use_autosuspend(&pdev->dev);
+ 	pm_runtime_set_autosuspend_delay(&pdev->dev, SPI_AUTOSUSPEND_TIMEOUT);
+ 	pm_runtime_get_noresume(&pdev->dev);
+@@ -866,9 +854,6 @@ static int ax_spi_probe(struct platform_device *pdev)
+ clk_dis_all:
+ 	pm_runtime_set_suspended(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+-	clk_disable_unprepare(xspi->ref_clk);
+-clk_dis_apb:
+-	clk_disable_unprepare(xspi->pclk);
+ remove_ctlr:
+ 	spi_controller_put(ctlr);
+ 	return ret;
 -- 
 2.25.1
 
