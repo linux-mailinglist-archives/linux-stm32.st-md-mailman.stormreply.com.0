@@ -2,30 +2,30 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mA5gDaexsmmYOwAAu9opvQ
+	id 0F9EDjuysmmYOwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:29:27 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:31:55 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF5DF271C3E
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:29:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D74C7271CE9
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:31:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72A7DC8F28F;
-	Thu, 12 Mar 2026 12:29:26 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013018.outbound.protection.outlook.com [40.107.159.18])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F8DCC8F28F;
+	Thu, 12 Mar 2026 12:31:54 +0000 (UTC)
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010035.outbound.protection.outlook.com [52.101.84.35])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1CCFC8F28E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47BEEC8F28C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 12:29:25 +0000 (UTC)
+ Thu, 12 Mar 2026 12:31:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FQuT7Vds34GmDBWWKebJHMbfT190ByWmCV3jiWb5k91BMblhtUAp/n7RkWI8yCBhmnHHgwkS2bICvAj53a34b9Az9WK4Enio8t/NRDu1DKIyQvJ9GW+ICFE1eDGWZFpoasLrBxkqA51imXYkUHadKdYad+5KWK/F0MYlNSEncR9eJQeTNMeiPynHSW3I4v/X9akUu0aRUi2GkUPUVYjXiHM9xqVo5LAo56uvd6EZtUNrzDx7r29hR+m7XmL8y8w/u/+ZaG5ijXnXm8iY0U6/avJZtiKG0krQnhBih/9W9fxRw05MImuTH+swRU88W8LEKl/OYkHUqcB+B3t7kh5DHQ==
+ b=f7i2O6dnODKDiea2GC/WLvF4gyFRvEud4zivkH4gZu3G1DAhCV5QIlPc1T9X+VKGvlslLTpsFjJjuKiHmf2Kca4fAsXY4Q+WSQleAP5yV08L+xQDtfAoob70dFgo39UPtGI0V4HvGbzrMn2yQLqDOPZc1rZnrlfUcJU/HhsVlqwjJGpD3SlDqUdloUiW40ru6EE6WvvBEDeAHdgospIER3BTrqROTmNgas1Nyoqw2BsTL74VAhiG81LEdlysJphqFtBaDbvFRSUxJMPkIp4O1C3GO9xELl2+CUvet9JoPN+6OttG3Dr3ZR8+cKBIfZMWQvwereda+6B+QcJUk7hUpQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QxGYC5mRfJl3mAwui4FDoKmn6y8ODP6aaHPdAGtnxfk=;
- b=ee/WQpN1sE5XV/UJ9elao/h87x3PZl21bii7fQK4X5DBb62yJL8IvK7DpV5ihiNdNmnTYTlY6NWPS2tgdPY9WEHPIYbZWk4M/ctn5g9dhu+0G1H7M7OAShZbebIzawR23tLKEjYB2SsyZiReoqksr1T8jC6c+MIDE6zdC5OseMjkYiR7txmpCc5klJ+danK4OtIfMzOcbL6GuT0b8lAuQRveU6hQlDswcnMzqBOcCC+qiDT1F9I6pSuD54dekj1p2TaBTIZqEq8uhzSoC+pBWKwPqXaXQwXYG+ofatoPu4vqA41oNktclULnDgyaybxj/y/LAw0v0/7j4o/SqSfO2A==
+ bh=Ch+LX2tUTknZdFrPmisSIN0NXzjm8rAPfdOeyI/RheY=;
+ b=LgQ4Ep9D1ThZ02CJw5GAd1G5VVJW4JcccVu//AF+hfiBwMsoue4vD4gNBCcevDPewKOK+AC82RVfbk+AXoQ8Uxz1LctD/CX4cOyZ2daIYQMsVP/xfGG+rOXIVrrjHBw3iheqlFvtG+UBwCoXaKTomq6ofMtHavG7R+Djw+JwRKBLpWxxCBKJegLAhaM/ujyqN8wJZg4VpponBnPi5Yh4QIQYpkTVpq0J3Rj7wJp8FFv6a+o6vhT00oiHOaE2yxR2/RnKJ1y95Of7mW29F3U3+FcEZeaek13VwuyrxbouxQ+DzfE3QCIXnnZl+u4yIfkZc70wlG1rLtfWfBjmnVmNHA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
@@ -33,18 +33,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QxGYC5mRfJl3mAwui4FDoKmn6y8ODP6aaHPdAGtnxfk=;
- b=l+ZpVJ57LcBhw6I4AqN+GPD01s5LCesc68STFwA7M+1tCjwV8qmrJydDCZ7fs0NY6o3teRcHyQUypEie6B46nc/fBx+S0p2k/efVnWm4/wk5rOLy4r0EQUXLqBY0g0E3JRc1nV9WB9zFWz3ARHl6RTAc+APh3hN/QwpZijBmGEGu6XXGDKp55sdjtJJ72Vgd25TKPejC8nnsrNUR4iqaGq2oZlwGL7uFcJ7xJVzenP9NzF52LfUgKc3Rk3pKcgc6y+4mhZA2fDxjxN2HBq2OzAjm+r/Ap8XcbOaGNXgsqSkBU1GR8AHyyGesFT2LB58Phl8sD89oWc/6K6BUOcdAHg==
-Received: from DUZPR01CA0289.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:4b7::20) by GVXPR10MB8314.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:150:1df::8) with Microsoft SMTP Server (version=TLS1_2,
+ bh=Ch+LX2tUTknZdFrPmisSIN0NXzjm8rAPfdOeyI/RheY=;
+ b=fH7ReqYvaTiC1Ay3vo2eDE4meaW2jgRIzvlV8FFPszYozcSeX1IvFSy5WjDsPsaPiVGhVFNaSkspF6jxjcZVcj/uof2EEf3VGbRUk8di0RlrYU+67UEeYZsI8ChONgvDuuZlkW+DzVHjjbdtnFctdtf/Dl/CmrJ2crZ0CqK6oGsjmkNB80H4x3cDrTT5IagLgwSrKxbLiE1jNTKlOWtzIP9CwEkFkOz67H6j3fiaiWhKGuw8K35gR/A1FYqEBkkp1Th4u1MWR5rRHOCxFWQZw2U6f+rr4fx3VVEC/bJEZ7oQPi6sOwoh4WFftgijvmxjwFd+SQFFQY/Qtf0NefsAqw==
+Received: from DUZPR01CA0283.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b7::17) by PAVPR10MB7466.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:2f5::6) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.12; Thu, 12 Mar
- 2026 12:29:21 +0000
+ 2026 12:31:51 +0000
 Received: from DB1PEPF000509FA.eurprd03.prod.outlook.com
- (2603:10a6:10:4b7:cafe::8b) by DUZPR01CA0289.outlook.office365.com
- (2603:10a6:10:4b7::20) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:10:4b7:cafe::53) by DUZPR01CA0283.outlook.office365.com
+ (2603:10a6:10:4b7::17) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.27 via Frontend Transport; Thu,
- 12 Mar 2026 12:29:24 +0000
+ 12 Mar 2026 12:31:52 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -54,58 +54,58 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
 Received: from smtpO365.st.com (164.130.1.59) by
  DB1PEPF000509FA.mail.protection.outlook.com (10.167.242.36) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9654.16 via Frontend Transport; Thu, 12 Mar 2026 12:29:21 +0000
+ 15.20.9654.16 via Frontend Transport; Thu, 12 Mar 2026 12:31:50 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 12 Mar
- 2026 13:31:50 +0100
+ 2026 13:34:19 +0100
 Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 12 Mar
- 2026 13:29:19 +0100
-Message-ID: <24a1be11-8c4b-43eb-9223-919eb87efb17@foss.st.com>
-Date: Thu, 12 Mar 2026 13:29:19 +0100
+ 2026 13:31:48 +0100
+Message-ID: <6259ef49-4f16-4e0e-8559-58dc9b156bce@foss.st.com>
+Date: Thu, 12 Mar 2026 13:31:48 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Alain Volmat <alain.volmat@foss.st.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>
-References: <20260224-stm32-i2c-dt-updates-v1-0-347cf6fca7d1@foss.st.com>
+To: Amelie Delaunay <amelie.delaunay@foss.st.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
+References: <20260304-mp1x_alignment_issues-v1-0-19a8013782a5@foss.st.com>
 Content-Language: en-US
 From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260224-stm32-i2c-dt-updates-v1-0-347cf6fca7d1@foss.st.com>
+In-Reply-To: <20260304-mp1x_alignment_issues-v1-0-19a8013782a5@foss.st.com>
 X-Originating-IP: [10.48.86.79]
 X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509FA:EE_|GVXPR10MB8314:EE_
-X-MS-Office365-Filtering-Correlation-Id: e8fbbea0-f422-40d1-94b5-08de8032fcd8
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509FA:EE_|PAVPR10MB7466:EE_
+X-MS-Office365-Filtering-Correlation-Id: 73e952bc-899d-44ff-6654-08de80335605
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|82310400026|36860700016|18002099003|22082099003|56012099003;
-X-Microsoft-Antispam-Message-Info: 4ATxXA0HZSrmv94Gx79UOx/kDZfZ4ONjOU31jDz2iPt+WCPLjF9eIL8ey2+FPNBMQABfFlpXl/vjTnq7I0eWfGTmwMn0o+l/gXy0zGTcjWz+XlJkyO5dofmZS59NktJbVNLd70eIzYz0pd/Jp6f9mfRSDwFWyh+MWdCVNhqOjOTclBFl8swiMEkwGi/bmy8G51T/yOXJepFQo1LwFFPQK0gH4HWgLYlgzdXOcbYwy+xgeIBW4H2A5+K5R6hW8rUsfHsAEsR0ZkRAgksc8c8FsLLK6QJbrZEszUjjKHbN6vei7qB6pjVHaXLdd6oE+PgNWvxI2+j9jzTMJ1ZozYzYz+u4x4GwjeXl4OiXnGkBNSYuNzVTJzsvXgWJvs3u1/QCAE7eyitxNBKK/H5dNTak1kWcpNFiMboCi3D6sXgGUhe4+oNG/uLRNHNPgI7FW7Lv/kDPkwp7PNkn5rUUrXRqHu1Yu6VaU3bL94zYJLvncRw0YKRPGhM3SB2XDyRmrWiUNUarqRCRTQnqTSAht1xgMJMGlMYOW80MprVGBgHVQRY49SENic90NUGQ41zBZzLdCfMx+k3x1dCEEq/sfMnMBsjAamfegfs7SIAQbJXSchHv6Tj2zZDxh8Ody/3lrIGuJTojXW9bE9vl5Zjj9YIW9gM3786NahDT/GTnzDEbflQD9uo2mWru6zN/rRqJmo3mS3cRY8Xt1QMUA2hpNJ+rvp6d4FY0RjkPT2D0U1A7jUBaosbQOUaep4x2c7CZ1iK5sGmxoAKtYfsQZ+TOlmjDiQ==
+ ARA:13230040|82310400026|376014|36860700016|1800799024|56012099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: xQeCGx20opln65vj7nVvZ4XP6e5HZ/a0Fu9MKI/GIXrCRtuy1qcDAFEwDp51qsEQaE4Kj0kutmyP7I9vCIEA2LChBEY7pvjtoK4XA/yyyG9UXfqeG9pVqU9S5Yi9485Ew6hqCo09KUAwb+6UdrP+0rvxof6Z6Ypel+6nZqWYQ2U7Ultorj9VfoFIAy28CVrjzMia8rql2UpSNdosVLfXnn7f/IM5GeImH/MpqNV1MAYfPXyKsbrT+kS0EsrXroHGp77OB6RUkh+vcR6BGBM27Oet84GHov7CVxvu2BqoqK5YGOTyXHjcVXGRUhWyayEGC49rkAE83IwB4DwgXZ3ZDzJCKATwHjZrLvcZ2iPKSbh0CuLtgd2lBIKFoGt5JagdIQUyBBPNPBwkV7f4c72Xv4QBxDJnitm7L4fu0fxpdh4gQg2Vqk/BEGHayfnWG62vasA+c05IiT8W2HDwP3wWZDSoGvoeHf5ybPLrDxmzVC7W42JEcjzE9ChsvgAcPAoV0rA7i3EX/dE9NvWFtsj57SgH0BPdS7pfdSwndKKCIGxuCKhExFxZCdpCs5NuMY8bMyCXFrbZywhthJXG7X6YU/+mOlQ0UvzowE8mLlSDO5rF+YTN+8TBsZbDyO2t/5AtWu5Ihi5HIW898S9yK0vKjmhSnuDvCJzQjpJewJD/azN4Qa1iohT30S8xHiU5gXQFdlzFHEJe52NiIfOYbsl//mWa/MDRhu96eodc/9maNBz0iKyAs7rhqsMaBUIaT8Ox8hUcud3Q7QTXvvH26ma5Vw==
 X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(56012099003);
+ SFS:(13230040)(82310400026)(376014)(36860700016)(1800799024)(56012099003)(22082099003)(18002099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TAPZPWHrMpG5FAnuVpw9Y95fu3naq6WO6FO7QuxohpgkcNIRQkc/Ic2LmJxTmwNLpErEq6FSY2PYQ0PxRbcr0srX4njY6QLIZpz5wtAjpHqPaUAPuXGxrmS4FifVViB2Y0kXYpxi/FwxSrm08QN/QHWVwHh0BGEsOaO0IFe1K5sk19HHeSPkPguV4i4GtQgfdR+D9hUb2rwW0AiqnR21a5fihOO5muq26OVk3MHJkt0p8yATINSrRXqtFhTHWL/rZ6vJlrGVYOLK3glsAbGGHIXfE9O7P8IE2xiu25ZpzEV7vk7GgPT2kdxIwAzkWfuCkgNXK357yra2f6qTOtYUvPpU5fz0QfOadFqqKpkp8N2Xi8PcaNWfVqPdCJgjDLv7MYTAyQ2+S5fm0bi0nTBXGNg72yqZJ/S/zMUGQW7hegpvwTbz4xXSHRwu1eOd4cCl
+X-MS-Exchange-AntiSpam-MessageData-0: FxdAjMQdr9zPf7nOpIvQAQDAWQKozubDRn8HzWFaUhbHUOq0wO2Uk4xLvFud73pjpRjzGt4IV5YSue3yaxNUbTXKx6aVGJxfpVbKGSZ6xTVjFM34PYO5iIoBd4OReRRnwipbFw73f9i7W/j3n3mM2IPlpvZXP5F0NnXt2o6LXLl6afJ/f3cRsFM+1nUmwgMLEzUXd4cutPvC39ANLxNyaaySdS6aA/aCQ5jxc5DBVDZD3b/dmtMTaCGqdJLwVx8+n3HpK+E+IW1mxJQzz6EU2xOQjEmrs31SXel+1dFQSGO5NqExhkSy+b568MUT1xZ4PweLM1RdNN8RbwnqvH+Oec1PVBiI5XpdHzWaQlDpTfPm844bTsL1wRhu9KmKVlXZFloAJuNWW76nGmmlwcDj+2ZVw9W4ht46KmKEvNijeQ2Bc7kXpHsqNP/kR48ZepDU
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 12:29:21.0864 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e8fbbea0-f422-40d1-94b5-08de8032fcd8
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Mar 2026 12:31:50.6909 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 73e952bc-899d-44ff-6654-08de80335605
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
  Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509FA.eurprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR10MB8314
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR10MB7466
 Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 0/9] dts: st: various additions / fixes in
-	STM32 i2c nodes
+Subject: Re: [Linux-stm32] [PATCH 0/2] ARM: dts: stm32: fix misalignments in
+ nodes of STM32MP1x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -128,12 +128,12 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alain.volmat@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:amelie.delaunay@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
@@ -141,7 +141,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,foss.st.com:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,foss.st.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st.com:email];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -150,61 +150,42 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[foss.st.com:-];
-	NEURAL_HAM(-0.00)[-0.975];
+	NEURAL_HAM(-0.00)[-0.973];
 	RCPT_COUNT_SEVEN(0.00)[9];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: CF5DF271C3E
+X-Rspamd-Queue-Id: D74C7271CE9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Salut Alain
+Hi
 
-On 2/24/26 16:48, Alain Volmat wrote:
-> This series perform various improvements in STM32MP1x and
-> STM32MP2x i2c nodes, including:
->    - usage of exti interrupt controller in order to allow
->      wakeup-source
->    - enabling of dma mode
->    - addition of boards i2c node
+On 3/4/26 09:06, Amelie Delaunay wrote:
+> Since the ETZPC system bus was introduced on STM32MP13 and STM32MP15,
+> misalignments have appeared in some nodes moved under the etzpc
+> parent node in stm32mp151.dtsi and stm32mp131.dtsi.
 > 
-> Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
+> Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
 > ---
-> Alain Volmat (8):
->        ARM: dts: stm32: update i2c nodes interrupt/dma in stm32mp151
->        ARM: dts: stm32: update i2c nodes interrupt/wakeup-source in stm32mp131
->        arm64: dts: st: update i2c nodes interrupt/wakeup-source in stm32mp251
->        arm64: dts: st: update i2c nodes interrupt/wakeup-source in stm32mp231
->        arm64: dts: st: add i2c2 pinmux nodes in stm32mp25-pinctrl.dtsi
->        arm64: dts: st: disable DMA usage for i2c on stm32mp257f-ev1
->        arm64: dts: st: describe i2c2 / i2c8 on stm32mp257f-dk
->        arm64: dts: st: describe i2c2 / i2c8 on stm32mp235f-dk
+> Amelie Delaunay (2):
+>        ARM: dts: stm32: fix misalignments in nodes of stm32mp151
+>        ARM: dts: stm32: fix misalignments in nodes of stm32mp131
 > 
-> Olivier Moysan (1):
->        ARM: dts: stm32: remove i2c dma properties in stm32mp157c-ev1
-> 
->   arch/arm/boot/dts/st/stm32mp131.dtsi          | 25 +++++++++-------
->   arch/arm/boot/dts/st/stm32mp151.dtsi          | 42 +++++++++++++++++++--------
->   arch/arm/boot/dts/st/stm32mp157c-ev1.dts      |  4 +++
->   arch/arm64/boot/dts/st/stm32mp231.dtsi        | 12 +++++---
->   arch/arm64/boot/dts/st/stm32mp235f-dk.dts     | 26 +++++++++++++++++
->   arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 17 +++++++++++
->   arch/arm64/boot/dts/st/stm32mp251.dtsi        | 24 ++++++++++-----
->   arch/arm64/boot/dts/st/stm32mp257f-dk.dts     | 26 +++++++++++++++++
->   arch/arm64/boot/dts/st/stm32mp257f-ev1.dts    |  6 ++++
->   9 files changed, 148 insertions(+), 34 deletions(-)
+>   arch/arm/boot/dts/st/stm32mp131.dtsi | 14 +++++++-------
+>   arch/arm/boot/dts/st/stm32mp151.dtsi | 14 +++++++-------
+>   2 files changed, 14 insertions(+), 14 deletions(-)
 > ---
 > base-commit: 291f393298f72091490dfa70ab4a0ebdbb4c7d7e
-> change-id: 20260224-stm32-i2c-dt-updates-418a40f03734
+> change-id: 20260303-mp1x_alignment_issues-62a3fdc37d03
 > 
 > Best regards,
 
-Series applied on stm32-next.
+Applied on stm32-next
 
-Cheers
+Regards
 Alex
 _______________________________________________
 Linux-stm32 mailing list
