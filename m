@@ -2,41 +2,40 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KFXMKbgss2ksSwAAu9opvQ
+	id EDQeDMsus2nYSwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 22:14:32 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 22:23:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44700279D2A
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 22:14:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CC6C2279F67
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 22:23:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD653C8F28F;
-	Thu, 12 Mar 2026 21:14:31 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79AD3C8F28F;
+	Thu, 12 Mar 2026 21:23:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8F40AC8F28C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD26BC8F28C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 21:14:30 +0000 (UTC)
+ Thu, 12 Mar 2026 21:23:20 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 03C6B44398;
- Thu, 12 Mar 2026 21:14:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3794C4CEF7;
- Thu, 12 Mar 2026 21:14:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C3CDB60053;
+ Thu, 12 Mar 2026 21:23:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740EDC4CEF7;
+ Thu, 12 Mar 2026 21:23:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=linux-foundation.org;
- s=korg; t=1773350068;
- bh=BHIeqMCeZ08yvAl5YqqjtddRClVSOvGwSHug5GXzEz8=;
+ s=korg; t=1773350599;
+ bh=HZSrZjttw5gIUDbdiKoMciwBk/FMfdKMYI3liALwtx4=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=Duh+dhDjn9i3oyIucNjLcpV7CKSwWMDBwP1nrAeCAWcyGXtDakHpRp+pm3kMEvL8y
- SEaAaWk5jP3gQGaz8kV5kaoD1HdJgTdnHuWBZE8KvOuDSG+7q7krHiTC3YYNdfGDfn
- Xpz6tLlo5tMrkq0Sz1LyxlbqOsozNn9yfZFUkN8M=
-Date: Thu, 12 Mar 2026 14:14:25 -0700
+ b=EYhKsPwqoBLREVvoZGgMgVZ6fu+bk+U2fKxToofPR2Up6V9uTgSYZfuyjhIb7C3ZE
+ 7oPxkujHeeUdd441hNsgqAm8c7M0uwByLtnOWXAMkXuUFJ05Rb/GBA1Y8B9jmAfc8h
+ IikXAtFu3AD5I04crV7xx4fJQZ2Bm8TZEbEULr8U=
+Date: Thu, 12 Mar 2026 14:23:14 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
 To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-Message-Id: <20260312141425.1837736829210f2d0b00cac6@linux-foundation.org>
-In-Reply-To: <56372fe273f775b26675a04652c1229e14680741.1773346620.git.ljs@kernel.org>
+Message-Id: <20260312142314.0f7fc516c0ebaffa6ec9fa7c@linux-foundation.org>
+In-Reply-To: <cover.1773346620.git.ljs@kernel.org>
 References: <cover.1773346620.git.ljs@kernel.org>
- <56372fe273f775b26675a04652c1229e14680741.1773346620.git.ljs@kernel.org>
 X-Mailer: Sylpheed 3.7.0 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Mime-Version: 1.0
 Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
@@ -64,8 +63,8 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 01/15] mm: various small mmap_prepare
-	cleanups
+Subject: Re: [Linux-stm32] [PATCH 00/15] mm: expand mmap_prepare
+	functionality and usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,56 +111,21 @@ X-Spamd-Result: default: False [3.79 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.996];
+	NEURAL_HAM(-0.00)[-0.997];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 44700279D2A
+X-Rspamd-Queue-Id: CC6C2279F67
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, 12 Mar 2026 20:27:16 +0000 "Lorenzo Stoakes (Oracle)" <ljs@kernel.org> wrote:
+On Thu, 12 Mar 2026 20:27:15 +0000 "Lorenzo Stoakes (Oracle)" <ljs@kernel.org> wrote:
 
-> +int mmap_action_prepare(struct vm_area_desc *desc,
-> +			struct mmap_action *action)
-> +
->  {
->  	switch (action->type) {
->  	case MMAP_NOTHING:
-> -		break;
-> +		return 0;
->  	case MMAP_REMAP_PFN:
-> -		remap_pfn_range_prepare(desc, action->remap.start_pfn);
-> -		break;
-> +		return remap_pfn_range_prepare(desc, action);
->  	case MMAP_IO_REMAP_PFN:
-> -		io_remap_pfn_range_prepare(desc, action->remap.start_pfn,
-> -					   action->remap.size);
-> -		break;
-> +		return io_remap_pfn_range_prepare(desc, action);
->  	}
->  }
->  EXPORT_SYMBOL(mmap_action_prepare);
+> This series expands the mmap_prepare functionality, which is intended to
+> replace the deprecated f_op->mmap hook which has been the source of bugs
+> and security issues for some time.
 
-hm, was this the correct version?
-
-mm/util.c: In function 'mmap_action_prepare':
-mm/util.c:1451:1: error: control reaches end of non-void function [-Werror=return-type]
- 1451 | }
-
---- a/mm/util.c~mm-various-small-mmap_prepare-cleanups-fix
-+++ a/mm/util.c
-@@ -1356,6 +1356,8 @@ int mmap_action_prepare(struct vm_area_d
- 		return remap_pfn_range_prepare(desc, action);
- 	case MMAP_IO_REMAP_PFN:
- 		return io_remap_pfn_range_prepare(desc, action);
-+	default:
-+		BUG();
- 	}
- }
- EXPORT_SYMBOL(mmap_action_prepare);
-_
-
+Thanks, I've added this to mm.git's mm-new branch.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
