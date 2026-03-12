@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aGOoLOmLsmkKNgAAu9opvQ
+	id kDHkE+mLsmkXNgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:25 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9507E26FDA0
+	by mail.lfdr.de (Postfix) with ESMTPS id 3AB9426FD7F
 	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 483DFC9AE27;
-	Thu, 12 Mar 2026 09:48:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E232CC900BC;
+	Thu, 12 Mar 2026 09:48:24 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 92EA0C9008E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4073C9008A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 09:29:33 +0000 (UTC)
-X-UUID: f646be621df511f1a21c59e7364eecb8-20260312
+ Thu, 12 Mar 2026 09:29:32 +0000 (UTC)
+X-UUID: f6834a3a1df511f1a21c59e7364eecb8-20260312
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:f4d7e341-bd61-4127-ba7c-e946e958d0c3, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:9e6c9770-690b-446c-bc5f-3be11f0c2ec7, IP:0,
  U
  RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:171f10e37180db0ce32dd69488f4bca1,
+X-CID-META: VersionHash:89c9d04, CLOUDID:0d303ad647b7ddb9282e207fe3025991,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
  ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
@@ -33,28 +33,28 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f646be621df511f1a21c59e7364eecb8-20260312
+X-UUID: f6834a3a1df511f1a21c59e7364eecb8-20260312
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 480705546; Thu, 12 Mar 2026 17:29:26 +0800
+ with ESMTP id 955784157; Thu, 12 Mar 2026 17:29:26 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
  openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, broonie@kernel.org
-Date: Thu, 12 Mar 2026 17:29:06 +0800
-Message-Id: <27c512cbd32d6a9ee083e36bbcd971dd242144a3.1773306858.git.xiaopei01@kylinos.cn>
+Date: Thu, 12 Mar 2026 17:29:07 +0800
+Message-Id: <2546a537f213fedc7be14707ed6ca77fc1bbb1b8.1773306858.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773306858.git.xiaopei01@kylinos.cn>
 References: <cover.1773306858.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Thu, 12 Mar 2026 09:48:20 +0000
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH 14/17] spi: sunplus-sp7021: Use helper
-	function devm_clk_get_enabled()
+Subject: [Linux-stm32] [PATCH 15/17] spi: uniphier: Use helper function
+	devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +90,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.992];
+	NEURAL_HAM(-0.00)[-0.991];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -100,7 +100,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,kylinos.cn:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 9507E26FDA0
+X-Rspamd-Queue-Id: 3AB9426FD7F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -111,49 +111,64 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-sunplus-sp7021.c | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
+ drivers/spi/spi-uniphier.c | 15 ++++-----------
+ 1 file changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
-index 789b092fe8c0..35601212fb78 100644
---- a/drivers/spi/spi-sunplus-sp7021.c
-+++ b/drivers/spi/spi-sunplus-sp7021.c
-@@ -389,11 +389,6 @@ static int sp7021_spi_target_transfer_one(struct spi_controller *ctlr, struct sp
+diff --git a/drivers/spi/spi-uniphier.c b/drivers/spi/spi-uniphier.c
+index 9e1d364a6198..f6fe5ab9f893 100644
+--- a/drivers/spi/spi-uniphier.c
++++ b/drivers/spi/spi-uniphier.c
+@@ -666,28 +666,24 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 	}
+ 	priv->base_dma_addr = res->start;
+ 
+-	priv->clk = devm_clk_get(&pdev->dev, NULL);
++	priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(priv->clk)) {
+ 		dev_err(&pdev->dev, "failed to get clock\n");
+ 		ret = PTR_ERR(priv->clk);
+ 		goto out_host_put;
+ 	}
+ 
+-	ret = clk_prepare_enable(priv->clk);
+-	if (ret)
+-		goto out_host_put;
+-
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0) {
+ 		ret = irq;
+-		goto out_disable_clk;
++		goto out_host_put;
+ 	}
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, uniphier_spi_handler,
+ 			       0, "uniphier-spi", priv);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to request IRQ\n");
+-		goto out_disable_clk;
++		goto out_host_put;
+ 	}
+ 
+ 	init_completion(&priv->xfer_done);
+@@ -716,7 +712,7 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 	if (IS_ERR_OR_NULL(host->dma_tx)) {
+ 		if (PTR_ERR(host->dma_tx) == -EPROBE_DEFER) {
+ 			ret = -EPROBE_DEFER;
+-			goto out_disable_clk;
++			goto out_host_put;
+ 		}
+ 		host->dma_tx = NULL;
+ 		dma_tx_burst = INT_MAX;
+@@ -766,9 +762,6 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 		host->dma_tx = NULL;
+ 	}
+ 
+-out_disable_clk:
+-	clk_disable_unprepare(priv->clk);
+-
+ out_host_put:
+ 	spi_controller_put(host);
  	return ret;
- }
- 
--static void sp7021_spi_disable_unprepare(void *data)
--{
--	clk_disable_unprepare(data);
--}
--
- static void sp7021_spi_reset_control_assert(void *data)
- {
- 	reset_control_assert(data);
-@@ -460,7 +455,7 @@ static int sp7021_spi_controller_probe(struct platform_device *pdev)
- 	if (pspim->s_irq < 0)
- 		return pspim->s_irq;
- 
--	pspim->spi_clk = devm_clk_get(dev, NULL);
-+	pspim->spi_clk = devm_clk_get_enabled(dev, NULL);
- 	if (IS_ERR(pspim->spi_clk))
- 		return dev_err_probe(dev, PTR_ERR(pspim->spi_clk), "clk get fail\n");
- 
-@@ -468,14 +463,6 @@ static int sp7021_spi_controller_probe(struct platform_device *pdev)
- 	if (IS_ERR(pspim->rstc))
- 		return dev_err_probe(dev, PTR_ERR(pspim->rstc), "rst get fail\n");
- 
--	ret = clk_prepare_enable(pspim->spi_clk);
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to enable clk\n");
--
--	ret = devm_add_action_or_reset(dev, sp7021_spi_disable_unprepare, pspim->spi_clk);
--	if (ret)
--		return ret;
--
- 	ret = reset_control_deassert(pspim->rstc);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to deassert reset\n");
 -- 
 2.25.1
 
