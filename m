@@ -2,59 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CGWTIumLsmkXNgAAu9opvQ
+	id OBl8BWyQsmmMNgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:25 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 11:07:40 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 783BE26FD98
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 10:48:25 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 989B72700D0
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 11:07:39 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FEBBC9AE23;
-	Thu, 12 Mar 2026 09:48:25 +0000 (UTC)
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F3E7C8F28E;
+	Thu, 12 Mar 2026 10:07:39 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2D07BC90088
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BE62C8F26C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 09:29:33 +0000 (UTC)
-X-UUID: f6fd25581df511f1a21c59e7364eecb8-20260312
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:9c0fef49-add6-4c75-9ae7-2a9d04d96b5b, IP:0,
- U
- RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
- ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:5ee666ed7089e2336e82d381e74c08d2,
- BulkI
- D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
- ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
- A:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f6fd25581df511f1a21c59e7364eecb8-20260312
-X-User: xiaopei01@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
- (envelope-from <xiaopei01@kylinos.cn>)
- (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 260563749; Thu, 12 Mar 2026 17:29:27 +0800
-From: Pei Xiao <xiaopei01@kylinos.cn>
-To: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
- openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, broonie@kernel.org
-Date: Thu, 12 Mar 2026 17:29:09 +0800
-Message-Id: <00142ccb5415bab9b13cba74138d579e72d3313d.1773306858.git.xiaopei01@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <cover.1773306858.git.xiaopei01@kylinos.cn>
-References: <cover.1773306858.git.xiaopei01@kylinos.cn>
+ Thu, 12 Mar 2026 10:07:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=QGGXMDXa0VPsXy4Ds73Aq8P4YCy5IKmGXAyyVhbf4x0=; b=ptLEAFDJGp4fx9qSpKHj2Itgo5
+ JQnod4Rmm5wsc3b3L4lAlnnZATG8w5IDZfyLNeYRxCjW8+pAOxmwTdTmCJJxfKyEuoT2xwSxTtb6I
+ JpIhJHyGOPiVl7EbQbq0Vpkm/G3gr62Vbl5kYzQNEiKN6fWcQTcKVcK38pIrOBzu+5cHEckGPbD3S
+ o8l9TsotNVOzFkfaWOjP8a5IIVdj1zLqpupR41SQ/qnkJ6YcSFdy7IOcafcob53gzSMjo/IvmyXt3
+ r4vcXj9UTMqKNAnXmY0WGY+631TV9iXY6kEG2cRRvYLgNJR2seZ6kHoEjvvdRCYw3gb6kEtHdhA9a
+ ofDHPgwA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39742)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w0cwv-000000007Wn-3sLz;
+ Thu, 12 Mar 2026 10:07:25 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w0cwt-0000000078T-0Z4n; Thu, 12 Mar 2026 10:07:23 +0000
+Date: Thu, 12 Mar 2026 10:07:22 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <abKQWloxp9_4OuJh@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 12 Mar 2026 09:48:20 +0000
-Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH 17/17] spi: zynqmp-gqspi: Use helper function
-	devm_clk_get_enabled()
+Content-Disposition: inline
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Alexei Starovoitov <ast@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v2 00/15] net: stmmac: clean up
+ descriptor handling part 1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,96 +69,59 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [1.79 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[kylinos.cn];
-	RCVD_COUNT_THREE(0.00)[3];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux-spi@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:openbmc@lists.ozlabs.org,m:linux-rockchip@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:linux-mediatek@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:broonie@kernel.org,m:xiaopei01@kylinos.cn,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:ast@kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:sdf@fomichev.me,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.991];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	R_DKIM_NA(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,kylinos.cn:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 783BE26FD98
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 989B72700D0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-devm_clk_get() and clk_prepare_enable() can now be replaced by
-devm_clk_get_enabled() when driver enables the clocks. Moreover, it is no
-longer necessary to unprepare and disable the clocks explicitly.
-Simplify code.
+Hi,
 
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
----
- drivers/spi/spi-zynqmp-gqspi.c | 17 ++---------------
- 1 file changed, 2 insertions(+), 15 deletions(-)
+Part 1 of cleaning up the stmmac descriptor handling. Rearrange the
+struct stmmac_tx_info to pack better, and introduce helpers for
+duplicated code handing the transmit and receive descriptors. Remove
+unnecessary struct members that are only transitorily used.
 
-diff --git a/drivers/spi/spi-zynqmp-gqspi.c b/drivers/spi/spi-zynqmp-gqspi.c
-index 502fd5eccc83..a88b07956c33 100644
---- a/drivers/spi/spi-zynqmp-gqspi.c
-+++ b/drivers/spi/spi-zynqmp-gqspi.c
-@@ -1244,26 +1244,16 @@ static int zynqmp_qspi_probe(struct platform_device *pdev)
- 	if (IS_ERR(xqspi->regs))
- 		return PTR_ERR(xqspi->regs);
- 
--	xqspi->pclk = devm_clk_get(&pdev->dev, "pclk");
-+	xqspi->pclk = devm_clk_get_enabled(&pdev->dev, "pclk");
- 	if (IS_ERR(xqspi->pclk))
- 		return dev_err_probe(dev, PTR_ERR(xqspi->pclk),
- 				     "pclk clock not found.\n");
- 
--	xqspi->refclk = devm_clk_get(&pdev->dev, "ref_clk");
-+	xqspi->refclk = devm_clk_get_enabled(&pdev->dev, "ref_clk");
- 	if (IS_ERR(xqspi->refclk))
- 		return dev_err_probe(dev, PTR_ERR(xqspi->refclk),
- 				     "ref_clk clock not found.\n");
- 
--	ret = clk_prepare_enable(xqspi->pclk);
--	if (ret)
--		return dev_err_probe(dev, ret, "Unable to enable APB clock.\n");
--
--	ret = clk_prepare_enable(xqspi->refclk);
--	if (ret) {
--		dev_err(dev, "Unable to enable device clock.\n");
--		goto clk_dis_pclk;
--	}
--
- 	init_completion(&xqspi->data_completion);
- 
- 	mutex_init(&xqspi->op_lock);
-@@ -1339,9 +1329,6 @@ static int zynqmp_qspi_probe(struct platform_device *pdev)
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_put_noidle(&pdev->dev);
- 	pm_runtime_set_suspended(&pdev->dev);
--	clk_disable_unprepare(xqspi->refclk);
--clk_dis_pclk:
--	clk_disable_unprepare(xqspi->pclk);
- 
- 	return ret;
- }
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   8 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 458 +++++++++------------
+ 3 files changed, 195 insertions(+), 273 deletions(-)
+
 -- 
-2.25.1
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
