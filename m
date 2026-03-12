@@ -2,55 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SNfDMAOusmlGOwAAu9opvQ
+	id QDBMIAausmlGOwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:13:55 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:13:58 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 682FC271834
-	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:13:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C5F627183B
+	for <lists+linux-stm32@lfdr.de>; Thu, 12 Mar 2026 13:13:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27EC0C8F28F;
-	Thu, 12 Mar 2026 12:13:55 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3638CC8F28F;
+	Thu, 12 Mar 2026 12:13:58 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DC24C8F28E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 94B86C8F28E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 12 Mar 2026 12:13:53 +0000 (UTC)
+ Thu, 12 Mar 2026 12:13:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
  :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
  Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=SYWWUk4BBvBY6VQqVJkj/PHm6JhaxEdPVfMW+oe4q9s=; b=V/JCFYaAW0U4P25UP56+tfkptv
- yFEqa91T4fMh7Ff/s4OeTmiH2mNoejFjGpPWmSJSX9b42YI84PDYtjU1kTPWFW0NLAsrHG4QgROFI
- EkdOd45/fcj7OjJvrtGkE8JATwhOOSvoCMOiY+fAjZ+viMkJpOYArbCS4JQmg8tsUmzX9mi6sURPU
- IBsR4EE5+g1vCnh9sMNgJPqSk4jLkuaeEmeG6YngHfRsKy6IOaFceEagrFWmVi0PDz2Eijc507DEq
- HyDKz9oGNFG1l4cAFZ89g1dAll0PGEATyirf8gJWNAGYSWcR4NSBBtUG25BbtyKDUZ0xnTCYZ4gnz
- LSgcDwhA==;
+ bh=1je3WPymH0THXPKtudz8hsGg9eMg3RuF4V2JvpxjpKU=; b=fD00DkIsZRZnMotPVW6c92fsr8
+ qYlqS2A4/6uEUr9kh2vU2a0OzRx6R7jgxPO9aZkhswtaTlpQ1Zndn0QkyOoPjjhPWdop70aQnKyac
+ ubClQMMut0InmZP6QVpzhrU0W1d433gI+O2ofGGh4LuVum7W4CBCD8bhgpMhSIrHfk1Rtd5hRbZA4
+ 8tKakuzAva+ngMLHTHMJ16s5o53Ecvb4CWn0idCnIs2kQNksCraTv5jBDYAnCQdAEQUBmB/iWhu+H
+ dif3SQvc27decXL224n42EupBc9dHJv31yY9YL6/Dr4b9wquiJOBNoR1qxzOanlpOx4FrWDGEBKS1
+ zw9Wnbpw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51232 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53376 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w0evD-000000007ka-469T;
- Thu, 12 Mar 2026 12:13:48 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w0evJ-000000007kl-0l9a;
+ Thu, 12 Mar 2026 12:13:53 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w0evD-0000000CzY1-19rN; Thu, 12 Mar 2026 12:13:47 +0000
+ id 1w0evI-0000000CzY7-1fyo; Thu, 12 Mar 2026 12:13:52 +0000
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w0evD-0000000CzY1-19rN@rmk-PC.armlinux.org.uk>
-Date: Thu, 12 Mar 2026 12:13:47 +0000
+Message-Id: <E1w0evI-0000000CzY7-1fyo@rmk-PC.armlinux.org.uk>
+Date: Thu, 12 Mar 2026 12:13:52 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next] net: stmmac: move MSI data out of
-	struct stmmac_priv
+Subject: [Linux-stm32] [PATCH net-next] net: stmmac: avoid passing pci_dev
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,7 +87,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
+	NEURAL_HAM(-0.00)[-0.997];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -100,305 +99,70 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 682FC271834
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: 6C5F627183B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Only three platforms supprt MSIs, which means having all the strings
-and interrupt arrays always allocated wastes space. None of this data
-is performance critical - this data is only used when requesting and
-releasing the MSI interrupts.
+The pci_dev is only used to provide the ethtool bus_info using
+pci_name(priv->plat->pdev). This is the same as dev_name(priv->device).
+Thus, rather than passing the pci_dev, make use of what we already
+have.
 
-Move the MSI data out of struct stmmac_priv into its own separately
-allocated structure, and move its initialisation to a separate
-function.
+To avoid unexpectedly exposing the device name through ethtool where
+it wasn't provided before, add a flag priv->plat->provide_bus_info
+to enable this, which only dwmac-intel needs to set.
 
-This removes 768 bytes from struct stmmac_priv.
-
-Link: https://lore.kernel.org/r/aYtq4ypxXTvn_Is6@shell.armlinux.org.uk
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  | 31 +++---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 96 ++++++++++++-------
- 2 files changed, 77 insertions(+), 50 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c    | 2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c | 5 ++---
+ include/linux/stmmac.h                               | 2 +-
+ 3 files changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index bba9bb9c95bf..7a66edba8f66 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -243,6 +243,23 @@ struct stmmac_est {
- 	u32 max_sdu[MTL_MAX_TX_QUEUES];
- };
- 
-+struct stmmac_msi {
-+	int sfty_ce_irq;
-+	int sfty_ue_irq;
-+	int rx_irq[MTL_MAX_RX_QUEUES];
-+	int tx_irq[MTL_MAX_TX_QUEUES];
-+
-+	/*irq name */
-+	char int_name_mac[IFNAMSIZ + 9];
-+	char int_name_wol[IFNAMSIZ + 9];
-+	char int_name_lpi[IFNAMSIZ + 9];
-+	char int_name_sfty[IFNAMSIZ + 10];
-+	char int_name_sfty_ce[IFNAMSIZ + 10];
-+	char int_name_sfty_ue[IFNAMSIZ + 10];
-+	char int_name_rx_irq[MTL_MAX_RX_QUEUES][IFNAMSIZ + 14];
-+	char int_name_tx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 18];
-+};
-+
- struct stmmac_priv {
- 	/* Frequently used values are kept adjacent for cache effect */
- 	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
-@@ -329,19 +346,7 @@ struct stmmac_priv {
- 	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
- 	unsigned int num_double_vlans;
- 	int sfty_irq;
--	int sfty_ce_irq;
--	int sfty_ue_irq;
--	int rx_irq[MTL_MAX_RX_QUEUES];
--	int tx_irq[MTL_MAX_TX_QUEUES];
--	/*irq name */
--	char int_name_mac[IFNAMSIZ + 9];
--	char int_name_wol[IFNAMSIZ + 9];
--	char int_name_lpi[IFNAMSIZ + 9];
--	char int_name_sfty[IFNAMSIZ + 10];
--	char int_name_sfty_ce[IFNAMSIZ + 10];
--	char int_name_sfty_ue[IFNAMSIZ + 10];
--	char int_name_rx_irq[MTL_MAX_RX_QUEUES][IFNAMSIZ + 14];
--	char int_name_tx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 18];
-+	struct stmmac_msi *msi;
- 
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *dbgfs_dir;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 11150bddd872..24de4033c886 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3725,6 +3725,7 @@ static void stmmac_free_irq(struct net_device *dev,
- 			    enum request_irq_err irq_err, int irq_idx)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-+	struct stmmac_msi *msi = priv->msi;
- 	int j;
- 
- 	switch (irq_err) {
-@@ -3733,27 +3734,27 @@ static void stmmac_free_irq(struct net_device *dev,
- 		fallthrough;
- 	case REQ_IRQ_ERR_TX:
- 		for (j = irq_idx - 1; j >= 0; j--) {
--			if (priv->tx_irq[j] > 0) {
--				irq_set_affinity_hint(priv->tx_irq[j], NULL);
--				free_irq(priv->tx_irq[j], &priv->dma_conf.tx_queue[j]);
-+			if (msi->tx_irq[j] > 0) {
-+				irq_set_affinity_hint(msi->tx_irq[j], NULL);
-+				free_irq(msi->tx_irq[j], &priv->dma_conf.tx_queue[j]);
- 			}
- 		}
- 		irq_idx = priv->plat->rx_queues_to_use;
- 		fallthrough;
- 	case REQ_IRQ_ERR_RX:
- 		for (j = irq_idx - 1; j >= 0; j--) {
--			if (priv->rx_irq[j] > 0) {
--				irq_set_affinity_hint(priv->rx_irq[j], NULL);
--				free_irq(priv->rx_irq[j], &priv->dma_conf.rx_queue[j]);
-+			if (msi->rx_irq[j] > 0) {
-+				irq_set_affinity_hint(msi->rx_irq[j], NULL);
-+				free_irq(msi->rx_irq[j], &priv->dma_conf.rx_queue[j]);
- 			}
- 		}
- 
--		if (priv->sfty_ue_irq > 0 && priv->sfty_ue_irq != dev->irq)
--			free_irq(priv->sfty_ue_irq, dev);
-+		if (msi->sfty_ue_irq > 0 && msi->sfty_ue_irq != dev->irq)
-+			free_irq(msi->sfty_ue_irq, dev);
- 		fallthrough;
- 	case REQ_IRQ_ERR_SFTY_UE:
--		if (priv->sfty_ce_irq > 0 && priv->sfty_ce_irq != dev->irq)
--			free_irq(priv->sfty_ce_irq, dev);
-+		if (msi->sfty_ce_irq > 0 && msi->sfty_ce_irq != dev->irq)
-+			free_irq(msi->sfty_ce_irq, dev);
- 		fallthrough;
- 	case REQ_IRQ_ERR_SFTY_CE:
- 		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
-@@ -3773,9 +3774,30 @@ static void stmmac_free_irq(struct net_device *dev,
- 	}
- }
- 
-+static int stmmac_msi_init(struct stmmac_priv *priv,
-+			   struct stmmac_resources *res)
-+{
-+	int i;
-+
-+	priv->msi = devm_kmalloc(priv->device, sizeof(*priv->msi), GFP_KERNEL);
-+	if (!priv->msi)
-+		return -ENOMEM;
-+
-+	priv->msi->sfty_ce_irq = res->sfty_ce_irq;
-+	priv->msi->sfty_ue_irq = res->sfty_ue_irq;
-+
-+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-+		priv->msi->rx_irq[i] = res->rx_irq[i];
-+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-+		priv->msi->tx_irq[i] = res->tx_irq[i];
-+
-+	return 0;
-+}
-+
- static int stmmac_request_irq_multi_msi(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-+	struct stmmac_msi *msi = priv->msi;
- 	enum request_irq_err irq_err;
- 	int irq_idx = 0;
- 	char *int_name;
-@@ -3783,7 +3805,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+index 421c6c81ca5e..f621077c30a4 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+@@ -589,7 +589,7 @@ static int intel_mgbe_common_data(struct pci_dev *pdev,
+ 	int ret;
  	int i;
  
- 	/* For common interrupt */
--	int_name = priv->int_name_mac;
-+	int_name = msi->int_name_mac;
- 	sprintf(int_name, "%s:%s", dev->name, "mac");
- 	ret = request_irq(dev->irq, stmmac_mac_interrupt,
- 			  0, int_name, dev);
-@@ -3799,7 +3821,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	 * is used for WoL
- 	 */
- 	if (priv->wol_irq > 0 && priv->wol_irq != dev->irq) {
--		int_name = priv->int_name_wol;
-+		int_name = msi->int_name_wol;
- 		sprintf(int_name, "%s:%s", dev->name, "wol");
- 		ret = request_irq(priv->wol_irq,
- 				  stmmac_mac_interrupt,
-@@ -3817,7 +3839,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	 * Error line in case of another line is used
- 	 */
- 	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
--		int_name = priv->int_name_sfty;
-+		int_name = msi->int_name_sfty;
- 		sprintf(int_name, "%s:%s", dev->name, "safety");
- 		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
- 				  0, int_name, dev);
-@@ -3833,16 +3855,16 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	/* Request the Safety Feature Correctible Error line in
- 	 * case of another line is used
- 	 */
--	if (priv->sfty_ce_irq > 0 && priv->sfty_ce_irq != dev->irq) {
--		int_name = priv->int_name_sfty_ce;
-+	if (msi->sfty_ce_irq > 0 && msi->sfty_ce_irq != dev->irq) {
-+		int_name = msi->int_name_sfty_ce;
- 		sprintf(int_name, "%s:%s", dev->name, "safety-ce");
--		ret = request_irq(priv->sfty_ce_irq,
-+		ret = request_irq(msi->sfty_ce_irq,
- 				  stmmac_safety_interrupt,
- 				  0, int_name, dev);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc sfty ce MSI %d (error: %d)\n",
--				   __func__, priv->sfty_ce_irq, ret);
-+				   __func__, msi->sfty_ce_irq, ret);
- 			irq_err = REQ_IRQ_ERR_SFTY_CE;
- 			goto irq_error;
- 		}
-@@ -3851,16 +3873,16 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	/* Request the Safety Feature Uncorrectible Error line in
- 	 * case of another line is used
- 	 */
--	if (priv->sfty_ue_irq > 0 && priv->sfty_ue_irq != dev->irq) {
--		int_name = priv->int_name_sfty_ue;
-+	if (msi->sfty_ue_irq > 0 && msi->sfty_ue_irq != dev->irq) {
-+		int_name = msi->int_name_sfty_ue;
- 		sprintf(int_name, "%s:%s", dev->name, "safety-ue");
--		ret = request_irq(priv->sfty_ue_irq,
-+		ret = request_irq(msi->sfty_ue_irq,
- 				  stmmac_safety_interrupt,
- 				  0, int_name, dev);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc sfty ue MSI %d (error: %d)\n",
--				   __func__, priv->sfty_ue_irq, ret);
-+				   __func__, msi->sfty_ue_irq, ret);
- 			irq_err = REQ_IRQ_ERR_SFTY_UE;
- 			goto irq_error;
- 		}
-@@ -3870,23 +3892,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	for (i = 0; i < priv->plat->rx_queues_to_use; i++) {
- 		if (i >= MTL_MAX_RX_QUEUES)
- 			break;
--		if (priv->rx_irq[i] == 0)
-+		if (msi->rx_irq[i] == 0)
- 			continue;
+-	plat->pdev = pdev;
++	plat->provide_bus_info = true;
+ 	plat->phy_addr = -1;
+ 	plat->clk_csr = STMMAC_CSR_250_300M;
+ 	plat->core_type = DWMAC_CORE_GMAC4;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index c1e26965d9b5..92585d27ab88 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -312,10 +312,9 @@ static void stmmac_ethtool_getdrvinfo(struct net_device *dev,
+ 		strscpy(info->driver, MAC100_ETHTOOL_NAME,
+ 			sizeof(info->driver));
  
--		int_name = priv->int_name_rx_irq[i];
-+		int_name = msi->int_name_rx_irq[i];
- 		sprintf(int_name, "%s:%s-%d", dev->name, "rx", i);
--		ret = request_irq(priv->rx_irq[i],
-+		ret = request_irq(msi->rx_irq[i],
- 				  stmmac_msi_intr_rx,
- 				  0, int_name, &priv->dma_conf.rx_queue[i]);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc rx-%d  MSI %d (error: %d)\n",
--				   __func__, i, priv->rx_irq[i], ret);
-+				   __func__, i, msi->rx_irq[i], ret);
- 			irq_err = REQ_IRQ_ERR_RX;
- 			irq_idx = i;
- 			goto irq_error;
- 		}
--		irq_set_affinity_hint(priv->rx_irq[i],
-+		irq_set_affinity_hint(msi->rx_irq[i],
- 				      cpumask_of(i % num_online_cpus()));
- 	}
+-	if (priv->plat->pdev) {
+-		strscpy(info->bus_info, pci_name(priv->plat->pdev),
++	if (priv->plat->provide_bus_info)
++		strscpy(info->bus_info, dev_name(priv->device),
+ 			sizeof(info->bus_info));
+-	}
+ }
  
-@@ -3894,23 +3916,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
- 		if (i >= MTL_MAX_TX_QUEUES)
- 			break;
--		if (priv->tx_irq[i] == 0)
-+		if (msi->tx_irq[i] == 0)
- 			continue;
- 
--		int_name = priv->int_name_tx_irq[i];
-+		int_name = msi->int_name_tx_irq[i];
- 		sprintf(int_name, "%s:%s-%d", dev->name, "tx", i);
--		ret = request_irq(priv->tx_irq[i],
-+		ret = request_irq(msi->tx_irq[i],
- 				  stmmac_msi_intr_tx,
- 				  0, int_name, &priv->dma_conf.tx_queue[i]);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc tx-%d  MSI %d (error: %d)\n",
--				   __func__, i, priv->tx_irq[i], ret);
-+				   __func__, i, msi->tx_irq[i], ret);
- 			irq_err = REQ_IRQ_ERR_TX;
- 			irq_idx = i;
- 			goto irq_error;
- 		}
--		irq_set_affinity_hint(priv->tx_irq[i],
-+		irq_set_affinity_hint(msi->tx_irq[i],
- 				      cpumask_of(i % num_online_cpus()));
- 	}
- 
-@@ -7806,12 +7828,12 @@ static int __stmmac_dvr_probe(struct device *device,
- 	priv->dev->irq = res->irq;
- 	priv->wol_irq = res->wol_irq;
- 	priv->sfty_irq = res->sfty_irq;
--	priv->sfty_ce_irq = res->sfty_ce_irq;
--	priv->sfty_ue_irq = res->sfty_ue_irq;
--	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
--		priv->rx_irq[i] = res->rx_irq[i];
--	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
--		priv->tx_irq[i] = res->tx_irq[i];
-+
-+	if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN) {
-+		ret = stmmac_msi_init(priv, res);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	if (!is_zero_ether_addr(res->mac))
- 		eth_hw_addr_set(priv->dev, res->mac);
+ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 937985276e6b..72febd246bdb 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -348,7 +348,7 @@ struct plat_stmmacenet_data {
+ 	int rss_en;
+ 	int mac_port_sel_speed;
+ 	u8 vlan_fail_q;
+-	struct pci_dev *pdev;
++	bool provide_bus_info;
+ 	int int_snapshot_num;
+ 	int msi_mac_vec;
+ 	int msi_wol_vec;
 -- 
 2.47.3
 
