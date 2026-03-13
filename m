@@ -2,129 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QGH/J200tGn4igAAu9opvQ
+	id eJRIGTk7tGk4jQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 16:59:41 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 17:28:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3856B286814
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 16:59:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E46C728702A
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 17:28:40 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C297AC8F29D;
-	Fri, 13 Mar 2026 15:59:40 +0000 (UTC)
-Received: from AM0PR02CU008.outbound.protection.outlook.com
- (mail-westeuropeazon11013057.outbound.protection.outlook.com [52.101.72.57])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 952C7C8F29D;
+	Fri, 13 Mar 2026 16:28:40 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1FC0C87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 11AD0C87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 15:59:39 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Kb2x55vBrTYcc2Z8cQkLBP2JBxckso1Vd/XKmsxuEs9jS60Pwz+HUIyrioi9EiozhaToGXZPSFA3/LexDzG2FTKZ4rSj24unlNpb9ChtpXz7GrCBagBTQpnOSSKWJEml/VIRPZScPr8qkghc+K6GoUd3qwYGvc0hyqXZ9yPKk3SbMnuj0DccHkrrHgqC35z2EuGU0uibNJXpIJivS7XVHVA9NsKLXj+ivglYoMxF9QzAqOGeC7cBHcIHXDDtVpIDD5u3qXWEgLE4iN29Oh6elDQS8xnENRhkemxVvlR8ztk9RyccAGI7lsm7nX8ZEzZdanm5HFLBBdEv5kdabb3g/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fR2dh5GSPHSR2HP3TQPobfR4vXyawiK37BD3N2AYz60=;
- b=Rb/qXHaRRy6G3izSZRn9qcIZj4KnSpVJDsvdmlA5oH5MllcISK9IMxBsek6LUGF8HcL1gSFHaxO9THhp3xJAzJDf1LKdTzpit+Yz3odec5XmqOoZP+2eGqThz+9hm1Fn3Vut+FEO30r8TwO6SvE5J81QSC96tSSBDe/CUFsBRriB0oYcosDgLXGhtvM0kQvUZ8zED6yyPfbLyEad4zE/elFTH9SL3Es5NWER8NjZ41IVh3vixAi/oPkHuEFRtG+LDy8jpfW3hXu39YPIn27a8o9JoEJOdnyAET7dXVMBho9J+2mYdHzyAPxhrE0smMLq2+yNog+t3uuv6+dC9JyOdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=valinux.co.jp smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fR2dh5GSPHSR2HP3TQPobfR4vXyawiK37BD3N2AYz60=;
- b=gpKJdbeRfkT4L2/Wj8/QU3w6hl73nu1DQsr30U+niIAI+lWJzghnjO9wRZfm0QHyk8xqLnYA5w73dVx3ub3bGbTGvf8iJrLT2tc5Pd5NN54bm9cmwErIrHgdxt1yvfcMhaMC5ax8gOMcgo3OojElHxj0/YAUro83gSZSqVcxXg22dZohLVWLbf07EMOQURQcyXewaUKm9mDS2H2pRXrV+N4nmN0kxT+ualyFWldTyv/Rt6if2nfbDmYGxyswbHja0jI/UNAD4nD8AD+RBFwQoTGNbrfoW4UgNmpoIbCjAkYveGi2eyNg5wJMRNNdqcwQYS6E6DEhUbXtSS0ckMnoRg==
-Received: from DU2PR04CA0283.eurprd04.prod.outlook.com (2603:10a6:10:28c::18)
- by AS1PR10MB5529.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:474::19)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.16; Fri, 13 Mar
- 2026 15:59:35 +0000
-Received: from DB1PEPF000509E9.eurprd03.prod.outlook.com
- (2603:10a6:10:28c:cafe::89) by DU2PR04CA0283.outlook.office365.com
- (2603:10a6:10:28c::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.26 via Frontend Transport; Fri,
- 13 Mar 2026 15:59:35 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509E9.mail.protection.outlook.com (10.167.242.59) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 13 Mar 2026 15:59:34 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 13 Mar
- 2026 17:02:05 +0100
-Received: from [10.130.77.120] (10.130.77.120) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 13 Mar
- 2026 16:59:32 +0100
-Message-ID: <b2b03ebe-9482-4a13-b22f-7b44da096eed@foss.st.com>
-Date: Fri, 13 Mar 2026 16:59:26 +0100
+ Fri, 13 Mar 2026 16:28:38 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id B4B7B42A1D;
+ Fri, 13 Mar 2026 16:28:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69D9FC19421;
+ Fri, 13 Mar 2026 16:28:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773419317;
+ bh=jKX0pj1jKoF+guypTdltnGFFHDEUGXo71s4o3l+W9ic=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=mwDjLg6jIO0j0FTjXyAfgw0KCGHJdLhSMgy1pL3MJmbzy6Srl/odcTsWnVe7U+cp0
+ IacU1BcRWTNaqqoDFj5o9pnRSPa0T5KDbFPlD0VWqkRgl4LfanuNCQR6+tniPU56LI
+ 3QMIg7nSn98UedFpmrli2/EmaRSvbPJ0RLuQoB2aOeVbUfIF01VRb1w6/pgxl73AYA
+ 01eeI7zdaDI/kGZWvQpVCC/LrT9YgRq1JeOJgupkW4K/39nHdBQD6Rf2CNOp14WqO2
+ l0vlaNEyb8SHVX5gKSvVNnvZ9U68d24u0ZsJqn/daxnFvnSlIYhbh2iNOpHT8YzO6I
+ SgvafFB7qbLtQ==
+Date: Fri, 13 Mar 2026 16:28:32 +0000
+From: Simon Horman <horms@kernel.org>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Message-ID: <20260313162832.GA1363644@kernel.org>
+References: <E1w0evI-0000000CzY7-1fyo@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Koichiro Den <den@valinux.co.jp>, <jingoohan1@gmail.com>,
- <mani@kernel.org>, <lpieralisi@kernel.org>, <kwilczynski@kernel.org>,
- <robh@kernel.org>, <bhelgaas@google.com>, <cassel@kernel.org>,
- <Frank.Li@nxp.com>
-References: <20260124145012.2794108-1-den@valinux.co.jp>
- <20260124145012.2794108-4-den@valinux.co.jp>
-Content-Language: en-US
-From: Christian Bruel <christian.bruel@foss.st.com>
-In-Reply-To: <20260124145012.2794108-4-den@valinux.co.jp>
-X-Originating-IP: [10.130.77.120]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509E9:EE_|AS1PR10MB5529:EE_
-X-MS-Office365-Filtering-Correlation-Id: c8426537-1976-4da1-02e9-08de811985b6
-X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|7416014|376014|1800799024|82310400026|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: fw2s3TSC4OSqWB3QSZGwaozOdRgLbvywUwgpMs4/8C8noz+YqHSBbIk0xvKn7FDYLV+/7rDpQPaRj9mzp/+5nJ0M9+irRlN9HlqIru0wjxOnhfi6/ng0fcD8MvhuxAZZfmxZzFpSFBeD6l5Rx1BZkcI8OH9IdD9oDZhMMMvdH4qkEcGONUeos7qhxS3Pm7kwMFRQdKMRcM28FG2Z3/VsESf0e0S09FAC5R38EEulZdO1A61DWBIUVj8Cj04xOUt70Ef2QqO/Qn3oSFbE33Fsbnt4WTQ5LkFUXXgt1XsfmLvRlkJ4d2BJIi8m5+DGPIHXOLoreyYVBonUVAJZrCV0c8Mimg+DEcf+9MbjF+kYSDl+jJHk89xcmRqCIeNrWIL7rLa0D/ZSEg8XkYuVKb6HILjktp9tlmiSbmB7P1cM9xfKT17m1ic37wqI2Eli4+D1DP8L2kzev01LbIYZtQEjjrMTBQ3X2f4QI21IbuPJHqlNQG0XL8Kv5l7iBhnRTr4onyJGIHwywo7Ts/Jmol+61A27irVIgQh17r+VqUUm+m0SRPuJWebSl+M7zIJe7D3+scKVXZfwRFnnjqqKE7Yw+plGOSSmrJ7SAQ1W9gTt3PDuG9evFIHKoKdBw59C1RlTchruEKoycqPPHOzxs1eBFwySto1fw2QUtDwa1y+bb/NRjGA7SoVs4ShNzCXr7sCT4fk6W3zE1aqGvA9gYhp25kINGwoBqrZ/T9MJmEloAtYKAZ7XbE3bGsveIqZ9Aa4HmBTUMNKPW3UE3YuAv4Sr+Q==
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(7416014)(376014)(1800799024)(82310400026)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: TCChnitx4bv7GwJxbg2co3WJ1o0/vLzxAZ+5RWjFIj9Fi+VADGhjsGJ8wL+BXhF1Zrkfc0QVyUOEBn8OA5F4CCvXUHAKGFytDzYgfkRNaN7iU3nri9WaRnkWiYG4TZkJBSvx6t7jztw1cf+6kRsBEzZpkyYJRIPemkL7AlQB7JAYkE4vHJrh2bEdLblFDJH3kSxG+1ZdZi58LWTr/dTK8/itfj80yDV1a2wC0A1cwrcJDEzA8d3VAEe34YJC72HjHXmR8HJxwSIzQH6B/wDLVd3aR4ysgjJhz2IYU3+hNZnPzulF70Pg16pKF24YPXqVKQjBsW1PVDVHMAo566SBkUq0TdloOvBfCohZEC+nNo9T078fY3EinexDbWyG8KB4AdAxERHYJnRYYL6UIhCOwolidheRqRKmVrImhRtFNz7BNGkiMTAbob3djDiIXc53
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 15:59:34.9843 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c8426537-1976-4da1-02e9-08de811985b6
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509E9.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR10MB5529
-Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
- linux-pci@vger.kernel.org, shawn.lin@rock-chips.com, minghuan.Lian@nxp.com,
- thierry.reding@gmail.com, linux-kselftest@vger.kernel.org, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de, kishon@kernel.org,
- srikanth.thokala@intel.com, jesper.nilsson@axis.com,
- hayashi.kunihiko@socionext.com, jirislaby@kernel.org, magnus.damm@gmail.com,
- linux-arm-kernel@axis.com, jonathanh@nvidia.com,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- 18255117159@163.com, s-vadapalli@ti.com, marek.vasut+renesas@gmail.com,
- shuah@kernel.org, hongxing.zhu@nxp.com, kernel@pengutronix.de,
- linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
- linux-tegra@vger.kernel.org, linux-omap@vger.kernel.org, rongqianfeng@vivo.com,
- mingkai.hu@nxp.com, roy.zang@nxp.com, linux.amoon@gmail.com,
- linuxppc-dev@lists.ozlabs.org, yoshihiro.shimoda.uh@renesas.com,
- linux-kernel@vger.kernel.org, vidyas@nvidia.com,
- linux-renesas-soc@vger.kernel.org, mhiramat@kernel.org,
- mcoquelin.stm32@gmail.com, shawnguo@kernel.org,
- nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
-Subject: Re: [Linux-stm32] [PATCH v10 3/8] PCI: dwc: Advertise dynamic
- inbound mapping support
+Content-Disposition: inline
+In-Reply-To: <E1w0evI-0000000CzY7-1fyo@rmk-PC.armlinux.org.uk>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: avoid passing
+	pci_dev
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -136,93 +59,63 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	GREYLIST(0.00)[pass,meta];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:den@valinux.co.jp,m:jingoohan1@gmail.com,m:mani@kernel.org,m:lpieralisi@kernel.org,m:kwilczynski@kernel.org,m:robh@kernel.org,m:bhelgaas@google.com,m:cassel@kernel.org,m:Frank.Li@nxp.com,m:imx@lists.linux.dev,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:linux-pci@vger.kernel.org,m:shawn.lin@rock-chips.com,m:minghuan.Lian@nxp.com,m:thierry.reding@gmail.com,m:linux-kselftest@vger.kernel.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:heiko@sntech.de,m:kishon@kernel.org,m:srikanth.thokala@intel.com,m:jesper.nilsson@axis.com,m:hayashi.kunihiko@socionext.com,m:jirislaby@kernel.org,m:magnus.damm@gmail.com,m:linux-arm-kernel@axis.com,m:jonathanh@nvidia.com,m:linux-rockchip@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:18255117159@163.com,m:s-vadapalli@ti.com,m:marek.vasut+renesas@gmail.com,m:shuah@kernel.org,m:hongxing.zhu@nxp.com,m:kernel@pengutronix.de,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-tegra@vg
- er.kernel.org,m:linux-omap@vger.kernel.org,m:rongqianfeng@vivo.com,m:mingkai.hu@nxp.com,m:roy.zang@nxp.com,m:linux.amoon@gmail.com,m:linuxppc-dev@lists.ozlabs.org,m:yoshihiro.shimoda.uh@renesas.com,m:linux-kernel@vger.kernel.org,m:vidyas@nvidia.com,m:linux-renesas-soc@vger.kernel.org,m:mhiramat@kernel.org,m:mcoquelin.stm32@gmail.com,m:shawnguo@kernel.org,m:nicolas.frattaroli@collabora.com,m:l.stach@pengutronix.de,m:geert@glider.be,m:thierryreding@gmail.com,m:magnusdamm@gmail.com,m:marekvasut@gmail.com,m:linuxamoon@gmail.com,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[christian.bruel@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_TO(0.00)[valinux.co.jp,gmail.com,kernel.org,google.com,nxp.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_GT_50(0.00)[54];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[christian.bruel@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[lists.linux.dev,ti.com,glider.be,vger.kernel.org,rock-chips.com,nxp.com,gmail.com,st-md-mailman.stormreply.com,sntech.de,kernel.org,intel.com,axis.com,socionext.com,nvidia.com,lists.infradead.org,163.com,pengutronix.de,vivo.com,lists.ozlabs.org,renesas.com,collabora.com];
-	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.984];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.998];
+	MID_RHS_MATCH_FROM(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[horms@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 3856B286814
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: E46C728702A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hello,
+On Thu, Mar 12, 2026 at 12:13:52PM +0000, Russell King (Oracle) wrote:
+> The pci_dev is only used to provide the ethtool bus_info using
+> pci_name(priv->plat->pdev). This is the same as dev_name(priv->device).
+> Thus, rather than passing the pci_dev, make use of what we already
+> have.
+> 
+> To avoid unexpectedly exposing the device name through ethtool where
+> it wasn't provided before, add a flag priv->plat->provide_bus_info
+> to enable this, which only dwmac-intel needs to set.
+> 
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-While testing after this series, I encountered regressions on the 
-STM32MP2, which I am unsure how to fix. The failures depend on the order 
-in which the tests are run.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-The STM32 ATU has 4 inbound entries. After enumeration, the first 4 ATU 
-entries are allocated within ib_window_map.
-
-On the first run of ./pci_endpoint_test -v BAR3(for example), 
-SUBRRANGE_SETUP calls dw_pcie_ep_ib_atu_addr(), which frees only one ATU 
-entry (BAR3), because we were in the bar_to_atu case, for the first 
-submap but fails to allocate the second submap. So the test FAILs.
-
-On the second run with a different BAR, SUBRRANGE_SETUP test calls 
-dw_pcie_ep_ib_atu_addr() again, freeing the required ATU entry (BAR1) 
-and successfully using the second ATU entry (3), which was left 
-unallocated by the first test. then now the test PASSes
-
-Therefore, the first invocation of ./pci_endpoint_test on any BAR always 
-fails. Other invocations are fine because the first one has left the 
-missing necessary ATU entry free. Whatever initial BAR number is used
-
-I am unsure how to fix this. Always freeing all BARs before calling 
-set_bar() in the epf-test seems overkill, but safe.
-I am also considering modifying dw_pcie_ep_clear_ib_maps() to clear N 
-num_submap entries even if ib_atu_indexes was not used yet, since only 
-the full BAR is used during the first invocation from bar_to_atu. But 
-the question is which ATU entry to select ? BAR+1 ?. This seems empirical.
-
-I am not bothered by test failures due to an insufficient number of BARs 
-(this is already the case for BAR5,6), but the fact that the failures 
-depend on the test order is frustrating and show a regression.
-
-But I'm not satisfied with either of the 2 possible fixes mentioned above.
-
-Do you have any other thought ?
-
-thank you
-
-Christian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
