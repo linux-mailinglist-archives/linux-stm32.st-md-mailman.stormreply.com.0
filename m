@@ -2,57 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iPfIAvpLtGk4kAAAu9opvQ
+	id YGqEMxdVtGk4kAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 18:40:10 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 19:19:03 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A1B92288373
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 18:40:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4A66A288A38
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 19:19:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4BB2AC8F29D;
-	Fri, 13 Mar 2026 17:40:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8BFBC8F29D;
+	Fri, 13 Mar 2026 18:19:02 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7DB9CC87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4CD5DC87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 17:40:07 +0000 (UTC)
+ Fri, 13 Mar 2026 18:19:01 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3628943F15;
- Fri, 13 Mar 2026 17:40:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7FEC19421;
- Fri, 13 Mar 2026 17:40:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id CA7F46012B;
+ Fri, 13 Mar 2026 18:18:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49944C19421;
+ Fri, 13 Mar 2026 18:18:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773423606;
- bh=PDjv6lj0xs4XAnUT9GLFnTkZ2gh6Ra2uKalbK9P5GpA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=Z7jDdA5hNBdPqR6CluugKTJvOAnuiKRttDzV9aIbeiuNP5DlzDXBzKdsTdJi+0UOJ
- +YSaSYoQudfpgl87Hl6hzQGq+hUuzqE82xnmxpGi6/YF3zd0Ft8RQePkPSOWweGjb/
- vYKmi1DRJ6IutTjJYn/8Cy8OpE/GA4Ye/H9t6xbBzAycQgr+4HWS/6asI5GPBmgoy0
- j3OQIJ1MLXpDrNkyVq6GAJIp1aJ0ax4IqRZTI6N+XaikwIW4jfiWAGTKlgTqUPgzJY
- pzyOlmuEm6Fw6jsnKv6PcNRAaMTNsLBj9t+dnoztdJV/tQHWBoqCrYndLxySPrvYkO
- AdwLJTL5rNcRg==
-Date: Fri, 13 Mar 2026 17:39:58 +0000
-From: Conor Dooley <conor@kernel.org>
-To: lizhi2@eswincomputing.com
-Message-ID: <20260313-stiffness-item-c451eaef970d@spud>
-References: <20260313075234.1567-1-lizhi2@eswincomputing.com>
- <20260313075351.1584-1-lizhi2@eswincomputing.com>
+ s=k20201202; t=1773425939;
+ bh=2NXO+yF+55T7F+hpfAb0nuG4E5nybIth2x/Lfeit0v0=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:From;
+ b=WkuBmUY5zECY4w8HigOp4c5Dc0Y7y2nfHD6yuEYwFaBxRHSoHOnEVTjF7hkT0eQkA
+ AFvQ0/U9ShmNbMyzF+0wQhrhDsQwyNxKjC32q2tl+0EsRInNZqjgNxUjA0SajeBrn6
+ kHFj31oHvk4O5GY8i8NmF5RD6dgQrjiCuW1ZNS0TlFAoxlpUagAwvkYpFuqyVtZphY
+ QVlHtHnRkgjRr9/4FntuZCDQbU9JYgsYDVeDARhaRlMuvQRsZqk8X1fkK1i1jrac4k
+ 8sYPWv4uyylodoV2LcLxP/nDTVvuq2bcgK0cxCWY0hcOSstFpl3VMDzH3SGAkgADCP
+ f+nDIUI0cgl7Q==
+Date: Fri, 13 Mar 2026 13:18:58 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Christian Bruel <christian.bruel@foss.st.com>
+Message-ID: <20260313181858.GA1427542@bhelgaas>
 MIME-Version: 1.0
-In-Reply-To: <20260313075351.1584-1-lizhi2@eswincomputing.com>
-Cc: edumazet@google.com, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- weishangjuan@eswincomputing.com, alex@ghiti.fr, ningyu@eswincomputing.com,
- pritesh.patel@einfochips.com, kuba@kernel.org, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
- rmk+kernel@armlinux.org.uk, wens@kernel.org, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, palmer@dabbelt.com,
- mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v4 1/3] dt-bindings: ethernet:
- eswin: add clock sampling control
+Content-Disposition: inline
+In-Reply-To: <b2b03ebe-9482-4a13-b22f-7b44da096eed@foss.st.com>
+Cc: imx@lists.linux.dev, vigneshr@ti.com, geert+renesas@glider.be,
+ linux-pci@vger.kernel.org, lpieralisi@kernel.org, Frank.Li@nxp.com,
+ minghuan.Lian@nxp.com, Koichiro Den <den@valinux.co.jp>,
+ linux-kselftest@vger.kernel.org, festevam@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, heiko@sntech.de, kishon@kernel.org,
+ robh@kernel.org, jesper.nilsson@axis.com, hayashi.kunihiko@socionext.com,
+ jirislaby@kernel.org, magnus.damm@gmail.com, linux-arm-kernel@axis.com,
+ jonathanh@nvidia.com, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, 18255117159@163.com,
+ marek.vasut+renesas@gmail.com, s-vadapalli@ti.com, kwilczynski@kernel.org,
+ shawn.lin@rock-chips.com, srikanth.thokala@intel.com, shuah@kernel.org,
+ hongxing.zhu@nxp.com, mcoquelin.stm32@gmail.com, mani@kernel.org,
+ linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
+ linuxppc-dev@lists.ozlabs.org, bhelgaas@google.com, linux-omap@vger.kernel.org,
+ rongqianfeng@vivo.com, mingkai.hu@nxp.com, roy.zang@nxp.com,
+ linux-tegra@vger.kernel.org, cassel@kernel.org, linux.amoon@gmail.com,
+ jingoohan1@gmail.com, yoshihiro.shimoda.uh@renesas.com,
+ linux-kernel@vger.kernel.org, vidyas@nvidia.com,
+ linux-renesas-soc@vger.kernel.org, thierry.reding@gmail.com,
+ mhiramat@kernel.org, kernel@pengutronix.de, shawnguo@kernel.org,
+ nicolas.frattaroli@collabora.com, l.stach@pengutronix.de
+Subject: Re: [Linux-stm32] [PATCH v10 3/8] PCI: dwc: Advertise dynamic
+ inbound mapping support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,149 +74,98 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============3881820476368454321=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.19 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [5.29 / 15.00];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[conor@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:lizhi2@eswincomputing.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RCPT_COUNT_TWELVE(0.00)[27];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	RCVD_TLS_LAST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[helgaas@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:christian.bruel@foss.st.com,m:imx@lists.linux.dev,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:linux-pci@vger.kernel.org,m:lpieralisi@kernel.org,m:Frank.Li@nxp.com,m:minghuan.Lian@nxp.com,m:den@valinux.co.jp,m:linux-kselftest@vger.kernel.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:heiko@sntech.de,m:kishon@kernel.org,m:robh@kernel.org,m:jesper.nilsson@axis.com,m:hayashi.kunihiko@socionext.com,m:jirislaby@kernel.org,m:magnus.damm@gmail.com,m:linux-arm-kernel@axis.com,m:jonathanh@nvidia.com,m:linux-rockchip@lists.infradead.org,m:linux-arm-kernel@lists.infradead.org,m:18255117159@163.com,m:marek.vasut+renesas@gmail.com,m:s-vadapalli@ti.com,m:kwilczynski@kernel.org,m:shawn.lin@rock-chips.com,m:srikanth.thokala@intel.com,m:shuah@kernel.org,m:hongxing.zhu@nxp.com,m:mcoquelin.stm32@gmail.com,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:linuxppc-dev@lists.ozlabs.org,m:bhelgaas@google.com,m:linux-omap@vger.ke
+ rnel.org,m:rongqianfeng@vivo.com,m:mingkai.hu@nxp.com,m:roy.zang@nxp.com,m:linux-tegra@vger.kernel.org,m:cassel@kernel.org,m:linux.amoon@gmail.com,m:jingoohan1@gmail.com,m:yoshihiro.shimoda.uh@renesas.com,m:linux-kernel@vger.kernel.org,m:vidyas@nvidia.com,m:linux-renesas-soc@vger.kernel.org,m:thierry.reding@gmail.com,m:mhiramat@kernel.org,m:kernel@pengutronix.de,m:shawnguo@kernel.org,m:nicolas.frattaroli@collabora.com,m:l.stach@pengutronix.de,m:geert@glider.be,m:magnusdamm@gmail.com,m:marekvasut@gmail.com,m:mcoquelinstm32@gmail.com,m:linuxamoon@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,einfochips.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-1.000];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[conor@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
+	RCPT_COUNT_GT_50(0.00)[55];
+	NEURAL_HAM(-0.00)[-0.999];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[helgaas@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linux.dev,ti.com,glider.be,vger.kernel.org,kernel.org,nxp.com,valinux.co.jp,gmail.com,st-md-mailman.stormreply.com,sntech.de,axis.com,socionext.com,nvidia.com,lists.infradead.org,163.com,rock-chips.com,intel.com,pengutronix.de,lists.ozlabs.org,google.com,vivo.com,renesas.com,collabora.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[microchip.com:email,nxp.com:url,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: A1B92288373
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 4A66A288A38
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+On Fri, Mar 13, 2026 at 04:59:26PM +0100, Christian Bruel wrote:
+> Hello,
+> 
+> While testing after this series, I encountered regressions on the STM32MP2,
+> which I am unsure how to fix. The failures depend on the order in which the
+> tests are run.
 
---===============3881820476368454321==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7F9kwIhbyHy1RjqW"
-Content-Disposition: inline
+c0f1506f6354 ("PCI: dwc: Advertise dynamic inbound mapping support")
+appeared in v7.0-rc1, so apparently we added a regression in v7.0?  Do
+we need to revert this?
 
-
---7F9kwIhbyHy1RjqW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Fri, Mar 13, 2026 at 03:53:51PM +0800, lizhi2@eswincomputing.com wrote:
-> From: Zhi Li <lizhi2@eswincomputing.com>
->=20
-> Due to chip backend reasons, there is already an approximately 4-5 ns
-> skew between the RX clock and data of the eth1 MAC controller inside
-> the silicon.
->=20
-> For 1000M, the RX clock must be inverted since it is not possible to
-> meet the RGMII timing requirements using only rx-internal-delay-ps on
-> the MAC together with the standard 2 ns delay on the PHY. Therefore,
-> even on a properly designed board, eth1 still requires RX clock
-> inversion.
->=20
-> This behaviour effectively breaks the RGMII timing assumptions at the
-> SoC level.
->=20
-> For the TX path of eth1, there is also a skew between the TX clock
-> and data on the MAC controller inside the silicon. This skew happens
-> to be approximately 2 ns. Therefore, it can be considered that the
-> 2 ns delay of TX is provided by the MAC, so the TX is compliant with
-> the RGMII standard.
->=20
-> For 10/100 operation, the approximately 4-5 ns skew in the chip does
-> not break the standard. The RGMII timing table (Section 3.3) specifies
-> that for 10/100 operation the maximum value is unspecified:
-> https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/imx-processor=
-s/20655/1/RGMIIv2_0_final_hp.pdf
->=20
-> Due to the eth1 silicon behavior described above, a new compatible
-> string "eswin,eic7700-qos-eth-clk-inversion" is added to the device
-> tree. This allows the driver to handle the differences between eth1
-> and eth0 through dedicated logic.
->=20
-> The rx-internal-delay-ps and tx-internal-delay-ps properties now use
-> minimum and maximum constraints to reflect the actual hardware delay
-> range (0-2540 ps) applied in 20 ps steps. This relaxes the binding
-> validation compared to the previous enum-based definition and avoids
-> regressions for existing DTBs while keeping the same hardware limits.
->=20
-> Treat the RX/TX internal delay properties as optional, board-specific
-> tuning knobs and remove them from the example to avoid encouraging
-> their use.
->=20
-> In addition, the binding now includes additional background information
-> about the HSP CSR registers accessed by the MAC. The TXD and RXD delay
-> control registers are included so the driver can explicitly clear any
-> residual configuration left by the bootloader.
->=20
-> Background reference for the High-Speed Subsystem and HSP CSR block is
-> available in Chapter 10 ("High-Speed Interface") of the EIC7700X SoC
-> Technical Reference Manual, Part 4
-> (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf):
-> https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual=
-/releases
->=20
-> There are currently no in-tree users of the EIC7700 Ethernet driver, so
-> these changes are safe.
->=20
-> Fixes: 888bd0eca93c ("dt-bindings: ethernet: eswin: Document for EIC7700 =
-SoC")
-> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-
-Krzysztof might not yet be happy with the compatible naming, but from my
-pov:
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-
---7F9kwIhbyHy1RjqW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCabRL7gAKCRB4tDGHoIJi
-0qJLAP0c1yh00ld+1PBzXG2QWRzTWLz4Bu2S3D1IL4VcXwRdmAD8D13YNNMzL8Jb
-WJXhFrH1ZO+pCsRM64k+gar0NbK4lwc=
-=pXlI
------END PGP SIGNATURE-----
-
---7F9kwIhbyHy1RjqW--
-
---===============3881820476368454321==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+> The STM32 ATU has 4 inbound entries. After enumeration, the first 4 ATU
+> entries are allocated within ib_window_map.
+> 
+> On the first run of ./pci_endpoint_test -v BAR3(for example),
+> SUBRRANGE_SETUP calls dw_pcie_ep_ib_atu_addr(), which frees only one ATU
+> entry (BAR3), because we were in the bar_to_atu case, for the first submap
+> but fails to allocate the second submap. So the test FAILs.
+> 
+> On the second run with a different BAR, SUBRRANGE_SETUP test calls
+> dw_pcie_ep_ib_atu_addr() again, freeing the required ATU entry (BAR1) and
+> successfully using the second ATU entry (3), which was left unallocated by
+> the first test. then now the test PASSes
+> 
+> Therefore, the first invocation of ./pci_endpoint_test on any BAR always
+> fails. Other invocations are fine because the first one has left the missing
+> necessary ATU entry free. Whatever initial BAR number is used
+> 
+> I am unsure how to fix this. Always freeing all BARs before calling
+> set_bar() in the epf-test seems overkill, but safe.
+> I am also considering modifying dw_pcie_ep_clear_ib_maps() to clear N
+> num_submap entries even if ib_atu_indexes was not used yet, since only the
+> full BAR is used during the first invocation from bar_to_atu. But the
+> question is which ATU entry to select ? BAR+1 ?. This seems empirical.
+> 
+> I am not bothered by test failures due to an insufficient number of BARs
+> (this is already the case for BAR5,6), but the fact that the failures depend
+> on the test order is frustrating and show a regression.
+> 
+> But I'm not satisfied with either of the 2 possible fixes mentioned above.
+> 
+> Do you have any other thought ?
+> 
+> thank you
+> 
+> Christian
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3881820476368454321==--
