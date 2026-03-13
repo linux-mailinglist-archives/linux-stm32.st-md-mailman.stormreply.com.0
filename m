@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GMbMCXrFs2kqawAAu9opvQ
+	id aJ8dA3rFs2mEagAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:06:18 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 129B227F46F
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:06:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E618C27F467
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:06:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C067FC90097;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3979C90093;
 	Fri, 13 Mar 2026 08:06:17 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85325C90082
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98226C90083
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Fri, 13 Mar 2026 06:09:10 +0000 (UTC)
-X-UUID: 232b65a61ea311f1a21c59e7364eecb8-20260313
+X-UUID: 236816c21ea311f1a21c59e7364eecb8-20260313
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:c8a9d279-432f-492d-9f48-25c0337194fd, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:774ba76c-ff1f-4aa0-9545-ff8c73c52fd4, IP:0,
  U
  RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:f1052d52361289b7187d9926712f3283,
+X-CID-META: VersionHash:89c9d04, CLOUDID:a252da3c25ab9bafebde4d8575e874d7,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
  ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
@@ -33,12 +33,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 232b65a61ea311f1a21c59e7364eecb8-20260313
+X-UUID: 236816c21ea311f1a21c59e7364eecb8-20260313
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 149379704; Fri, 13 Mar 2026 14:09:04 +0800
+ with ESMTP id 68105137; Fri, 13 Mar 2026 14:09:04 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: broonie@kernel.org, linux-spi@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
@@ -46,15 +46,15 @@ To: broonie@kernel.org, linux-spi@vger.kernel.org,
  linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
  linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Fri, 13 Mar 2026 14:08:31 +0800
-Message-Id: <4ac33e258a01b52641e9a40577614d5f71cec985.1773381582.git.xiaopei01@kylinos.cn>
+Date: Fri, 13 Mar 2026 14:08:32 +0800
+Message-Id: <69a54f7c4d839c9033b1bd088eecf505ef810493.1773381582.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773381582.git.xiaopei01@kylinos.cn>
 References: <cover.1773381582.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Fri, 13 Mar 2026 08:05:57 +0000
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH v2 15/17] spi: uniphier: Use helper function
+Subject: [Linux-stm32] [PATCH v2 16/17] spi: zynq-qspi: Use helper function
 	devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -101,7 +101,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,kylinos.cn:email,kylinos.cn:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 129B227F46F
+X-Rspamd-Queue-Id: E618C27F467
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -112,64 +112,88 @@ Simplify code.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-uniphier.c | 15 ++++-----------
- 1 file changed, 4 insertions(+), 11 deletions(-)
+ drivers/spi/spi-zynq-qspi.c | 28 ++++++----------------------
+ 1 file changed, 6 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/spi/spi-uniphier.c b/drivers/spi/spi-uniphier.c
-index 9e1d364a6198..f6fe5ab9f893 100644
---- a/drivers/spi/spi-uniphier.c
-+++ b/drivers/spi/spi-uniphier.c
-@@ -666,28 +666,24 @@ static int uniphier_spi_probe(struct platform_device *pdev)
- 	}
- 	priv->base_dma_addr = res->start;
- 
--	priv->clk = devm_clk_get(&pdev->dev, NULL);
-+	priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(priv->clk)) {
- 		dev_err(&pdev->dev, "failed to get clock\n");
- 		ret = PTR_ERR(priv->clk);
- 		goto out_host_put;
+diff --git a/drivers/spi/spi-zynq-qspi.c b/drivers/spi/spi-zynq-qspi.c
+index 5232483c4a3a..f887c55337ae 100644
+--- a/drivers/spi/spi-zynq-qspi.c
++++ b/drivers/spi/spi-zynq-qspi.c
+@@ -661,7 +661,7 @@ static int zynq_qspi_probe(struct platform_device *pdev)
+ 		goto remove_ctlr;
  	}
  
--	ret = clk_prepare_enable(priv->clk);
--	if (ret)
--		goto out_host_put;
+-	xqspi->pclk = devm_clk_get(&pdev->dev, "pclk");
++	xqspi->pclk = devm_clk_get_enabled(&pdev->dev, "pclk");
+ 	if (IS_ERR(xqspi->pclk)) {
+ 		dev_err(&pdev->dev, "pclk clock not found.\n");
+ 		ret = PTR_ERR(xqspi->pclk);
+@@ -670,36 +670,24 @@ static int zynq_qspi_probe(struct platform_device *pdev)
+ 
+ 	init_completion(&xqspi->data_completion);
+ 
+-	xqspi->refclk = devm_clk_get(&pdev->dev, "ref_clk");
++	xqspi->refclk = devm_clk_get_enabled(&pdev->dev, "ref_clk");
+ 	if (IS_ERR(xqspi->refclk)) {
+ 		dev_err(&pdev->dev, "ref_clk clock not found.\n");
+ 		ret = PTR_ERR(xqspi->refclk);
+ 		goto remove_ctlr;
+ 	}
+ 
+-	ret = clk_prepare_enable(xqspi->pclk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to enable APB clock.\n");
+-		goto remove_ctlr;
+-	}
 -
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0) {
- 		ret = irq;
--		goto out_disable_clk;
-+		goto out_host_put;
+-	ret = clk_prepare_enable(xqspi->refclk);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Unable to enable device clock.\n");
+-		goto clk_dis_pclk;
+-	}
+-
+ 	xqspi->irq = platform_get_irq(pdev, 0);
+ 	if (xqspi->irq < 0) {
+ 		ret = xqspi->irq;
+-		goto clk_dis_all;
++		goto remove_ctlr;
+ 	}
+ 	ret = devm_request_irq(&pdev->dev, xqspi->irq, zynq_qspi_irq,
+ 			       0, pdev->name, xqspi);
+ 	if (ret != 0) {
+ 		ret = -ENXIO;
+ 		dev_err(&pdev->dev, "request_irq failed\n");
+-		goto clk_dis_all;
++		goto remove_ctlr;
  	}
  
- 	ret = devm_request_irq(&pdev->dev, irq, uniphier_spi_handler,
- 			       0, "uniphier-spi", priv);
+ 	ret = of_property_read_u32(np, "num-cs",
+@@ -709,7 +697,7 @@ static int zynq_qspi_probe(struct platform_device *pdev)
+ 	} else if (num_cs > ZYNQ_QSPI_MAX_NUM_CS) {
+ 		ret = -EINVAL;
+ 		dev_err(&pdev->dev, "only 2 chip selects are available\n");
+-		goto clk_dis_all;
++		goto remove_ctlr;
+ 	} else {
+ 		ctlr->num_chipselect = num_cs;
+ 	}
+@@ -728,15 +716,11 @@ static int zynq_qspi_probe(struct platform_device *pdev)
+ 	ret = devm_spi_register_controller(&pdev->dev, ctlr);
  	if (ret) {
- 		dev_err(&pdev->dev, "failed to request IRQ\n");
--		goto out_disable_clk;
-+		goto out_host_put;
+ 		dev_err(&pdev->dev, "devm_spi_register_controller failed\n");
+-		goto clk_dis_all;
++		goto remove_ctlr;
  	}
  
- 	init_completion(&priv->xfer_done);
-@@ -716,7 +712,7 @@ static int uniphier_spi_probe(struct platform_device *pdev)
- 	if (IS_ERR_OR_NULL(host->dma_tx)) {
- 		if (PTR_ERR(host->dma_tx) == -EPROBE_DEFER) {
- 			ret = -EPROBE_DEFER;
--			goto out_disable_clk;
-+			goto out_host_put;
- 		}
- 		host->dma_tx = NULL;
- 		dma_tx_burst = INT_MAX;
-@@ -766,9 +762,6 @@ static int uniphier_spi_probe(struct platform_device *pdev)
- 		host->dma_tx = NULL;
- 	}
- 
--out_disable_clk:
--	clk_disable_unprepare(priv->clk);
--
- out_host_put:
- 	spi_controller_put(host);
  	return ret;
+ 
+-clk_dis_all:
+-	clk_disable_unprepare(xqspi->refclk);
+-clk_dis_pclk:
+-	clk_disable_unprepare(xqspi->pclk);
+ remove_ctlr:
+ 	spi_controller_put(ctlr);
+ 
 -- 
 2.25.1
 
