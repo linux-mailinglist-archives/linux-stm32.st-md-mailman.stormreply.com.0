@@ -2,57 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0KgWJSDZs2mzbgAAu9opvQ
+	id aNxPNJvZs2mzbgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:30:08 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:32:11 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F8D280804
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:30:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1C728089B
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:32:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D648CC8F299;
-	Fri, 13 Mar 2026 09:30:07 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26DF8C8F299;
+	Fri, 13 Mar 2026 09:32:11 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1E50C87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 62D7FC87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 09:30:06 +0000 (UTC)
+ Fri, 13 Mar 2026 09:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773394207; x=1804930207;
+ t=1773394330; x=1804930330;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=ClY2wRaESVURRmRqKK2FcwN9QyfCcetyXgPPPCHz0Rw=;
- b=EcYsXCBhDMuC8RaBGWqPN8T2erGuI/VvBk1qNkq4x1TojBxYdTtagPRT
- neYojLBkH/YM7q2bP1jd2xTWiiTj5Vo27IqDjEX+fbQV82v3+wWPrXLzn
- VvFgTICujuV/NN6+B9yOKGBJVvXl0pnFFRiLsbIdohKu9E0Kq0qd8SEl9
- 3bMVvfxfmKspnJPMQHcgXhWBq5TM0ps7kSaxyM+1O5gFhdh3wKq9iihuV
- AsGET7Xe8oJ6FrAR9g9uZvMeepzJyluO1TngVFiGF/Tp5FqO/UXrd706P
- /eVj2reDGwHwSW9kqo2SIHKwrn+n9xtA/M7dpbv9IzLtg+0qXu4pmXtY9 A==;
-X-CSE-ConnectionGUID: 8FdOXYi0TOiSOukRDPn+EA==
-X-CSE-MsgGUID: ZofF1uusQV6PMhzz5wfvDg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74380762"
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74380762"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
- by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 02:30:05 -0700
-X-CSE-ConnectionGUID: YbLZYZgbS5qp7ng0VxytMA==
-X-CSE-MsgGUID: 2Z5y++EfR/aJlHbErsrYhQ==
+ bh=nppF1ad9T9XazH1yCnKiKJ8QR0oAlqI2g7/jhh/8t+U=;
+ b=Dwp85++zNQ+dZZDgsuaGyExccdG/tadOu+Am3bwGSXmdKXixRb88f6jD
+ wfWbx3Xm9iVOq461D3qXRbzuzXWmqdcKrYtPtB+TSRh15LLh3my+25Sp6
+ n5POO8hG4wOx6sLeKxM+hJONT23eC74E0uA5gkJKbSk45ZRUKvpR2yS1H
+ 4kcEAd8/RGnS/eb8FexSCeE5MtBf1Ugaf2bOgQc+dEOb6iDWscLRhotaz
+ Z34wBV8YB4C2Z4jGbCofARhQMbGOQUtG07rhfgilHK2tcO9nzXDOQsihB
+ xrjKSIVzJzrWbS2nr3IidTgVnvUr+bLjsUnJQxOTaDvQeLv8mrFMNFEQN Q==;
+X-CSE-ConnectionGUID: Jwhn2Tm1QQa3gmpZZoGXIQ==
+X-CSE-MsgGUID: uciEhNOeRWO2+WRESSNNSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11727"; a="74394799"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74394799"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+ by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2026 02:32:08 -0700
+X-CSE-ConnectionGUID: NP6vg9yORXaGSdK0VshM0w==
+X-CSE-MsgGUID: gAA72zLVTO2mDXcG1uOzlg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="226068259"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="217135271"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
  ([10.245.245.246])
- by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 02:29:53 -0700
-Date: Fri, 13 Mar 2026 11:29:51 +0200
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2026 02:31:58 -0700
+Date: Fri, 13 Mar 2026 11:31:56 +0200
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Tomas Borquez <tomasborquez13@gmail.com>
-Message-ID: <abPZD-fLDYzE2WRc@ashevche-desk.local>
+Message-ID: <abPZjEE82AIxSgB6@ashevche-desk.local>
 References: <20260313013435.25731-1-tomasborquez13@gmail.com>
+ <20260313071014.2102-1-tomasborquez13@gmail.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260313013435.25731-1-tomasborquez13@gmail.com>
+In-Reply-To: <20260313071014.2102-1-tomasborquez13@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 Cc: linux-iio@vger.kernel.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
@@ -81,7 +82,8 @@ Cc: linux-iio@vger.kernel.org, Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
  Jonathan Cameron <jic23@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Peter Rosin <peda@axentia.se>,
  Kim Seer Paller <kimseer.paller@analog.com>
-Subject: Re: [Linux-stm32] [PATCH] cleanup: uintptr_t to unsigned long
+Subject: Re: [Linux-stm32] [PATCH v2] iio: cleanup: uintptr_t to unsigned
+	long
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,48 +104,44 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[39];
 	FORGED_RECIPIENTS(0.00)[m:tomasborquez13@gmail.com,m:linux-iio@vger.kernel.org,m:nuno.sa@analog.com,m:antoniu.miclaus@analog.com,m:giorgitchankvetadze1997@gmail.com,m:ariana.lazar@microchip.com,m:groeck@chromium.org,m:linux-stm32@st-md-mailman.stormreply.com,m:alisa.roman@analog.com,m:chrome-platform@lists.linux.dev,m:lars@metafoo.de,m:xerikasxx@gmail.com,m:dixitparmar19@gmail.com,m:kuurtb@gmail.com,m:dlechner@baylibre.com,m:waqar.hameed@axis.com,m:Mariel.Tinaco@analog.com,m:jacopo@jmondi.org,m:sakari.ailus@linux.intel.com,m:Michael.Hennerich@analog.com,m:mazziesaccount@gmail.com,m:marten.lindahl@axis.com,m:i.shihao.999@gmail.com,m:chuguangqing@inspur.com,m:tzungbi@kernel.org,m:gwendal@chromium.org,m:bleung@chromium.org,m:matteomartelli3@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:jbhayana@google.com,m:gustavoars@kernel.org,m:linux-kernel@vger.kernel.org,m:janani.sunil@analog.com,m:marius.cristea@microchip.com,m:jic23@kernel.org,m:mcoquelin.stm32@gmail.com,m
  :peda@axentia.se,m:kimseer.paller@analog.com,m:ishihao999@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	HAS_ORG_HEADER(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[39];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[intel.com:-];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
 	FREEMAIL_CC(0.00)[vger.kernel.org,analog.com,gmail.com,microchip.com,chromium.org,st-md-mailman.stormreply.com,lists.linux.dev,metafoo.de,baylibre.com,axis.com,jmondi.org,linux.intel.com,inspur.com,kernel.org,lists.infradead.org,google.com,axentia.se];
 	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,ashevche-desk.local:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 39F8D280804
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,ashevche-desk.local:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 6C1C728089B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Mar 12, 2026 at 10:34:35PM -0300, Tomas Borquez wrote:
+On Fri, Mar 13, 2026 at 04:10:14AM -0300, Tomas Borquez wrote:
 > Linus has been explicit that uintptr_t should not be used in the kernel.
-
-And it's all usually about new code. The shuffling _existing_ code is a churn.
-This churn has to be agreed upfront. (That's what Jonathan's mail is, so
-you need to have two links and proper message.)
-
+> 
 > The iio_chan_spec_ext_info struct uses uintptr_t for the private field
 > and in its read/write function pointer signatures. Jonathan Cameron noted
 > this should be cleaned up in one go across all users [1].
@@ -152,33 +150,18 @@ you need to have two links and proper message.)
 > drivers implementing or using iio_chan_spec_ext_info callbacks.
 > 
 > No functional change intended.
-
+> 
 > [1] https://lore.kernel.org/linux-iio/20260111122034.174c754c@jic23-huawei/
 > 
-
-This should be Link tag. And to the original email.
-
 > Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Signed-off-by: Tomas Borquez <tomasborquez13@gmail.com>
 
-We don't accept wrongly prepared patches.
-NAK.
+Please, really, take your time and study process documentation!
+No new version, especially that SPAMS so many people, in less
+than 24h. You must give a chance other people to review.
 
-...
-
->  drivers/iio/adc/stm32-dfsdm-adc.c             |  4 ++--
->  drivers/iio/afe/iio-rescale.c                 |  4 ++--
->  drivers/iio/amplifiers/hmc425a.c              |  4 ++--
->  drivers/iio/chemical/sunrise_co2.c            |  8 ++++----
->  .../cros_ec_sensors/cros_ec_sensors_core.c    |  4 ++--
->  drivers/iio/common/scmi_sensors/scmi_iio.c    |  2 +-
->  drivers/iio/dac/ad3530r.c                     |  4 ++--
-
-Besides that, it's much better to group them one per subfolder: adc, dac,
-et cetera. Currently this even spams tons of people who do not want to
-be spammed.
-
-Take your time and become familiar with the process before sending a proper
-version of this.
+This version effectively ignores all my comments I just gave against v1.
+So big NAK again!
 
 -- 
 With Best Regards,
