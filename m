@@ -2,114 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qP27G6rts2m4dQAAu9opvQ
+	id uPCHM4QuuGmzaAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 11:57:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EBAB8281D14
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 11:57:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5E1229D47B
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9E13BC8F29E;
-	Fri, 13 Mar 2026 10:57:45 +0000 (UTC)
-Received: from MRWPR03CU001.outbound.protection.outlook.com
- (mail-francesouthazon11011000.outbound.protection.outlook.com [40.107.130.0])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 578DDC8F283;
+	Mon, 16 Mar 2026 16:23:32 +0000 (UTC)
+Received: from out-173.mta0.migadu.com (out-173.mta0.migadu.com
+ [91.218.175.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9A15C8F29B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E720BC8F29B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 10:57:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hIMz1jh16vM4tXZpwbO7EC/XAKsnO5fzoVhAHo88+5tHVDoMLLRfcjYcyjHooVjSLGV/DNILmrfUAaXR3+i4W+yVsuyRZ0BDLGkhc6NU08Jd0z7i2jIkHgzArcgTtDE7aHBHY3pGvED9s+xA+OQ3G++SqeNKGsAUbx4na1YLezV15EVFbiRzfnAiqf/O0ImR7k2IfXZW42SdQyW6VCTd2hve5I8TKzIbiW3+Py4yEyC4PM/mylK9+cToGDHbSi3TbC3U9ew8N1qkYf2uASzmASQeWE4MIaBphGaiNp9PEVmOcskhhTs5MTAF0KE9FUr+bK2MPPmABtqRSxGQUBgPMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SYtLkffXcghrqEz9c92EUpXP0OAIWFAcQwu5IlJoR3k=;
- b=i7jcUoqCyXyvW136EHz6YpCU2uMwqYsGqVHS+vo5WaInbRKFtJWBaWgS+6Sst2lCFVoYCDnRtVuCUPri3svOc02kHuuC77Az3OgUYL11BQikLvmjAMMM2F4Av0NTWA9GE3M8vMOLhUEy/mstdibqLwrRcop5DOJSacYofRJ8KV5HUHLq6ejzBEwKEMuNjVLjRQY4vRMeqzSxIZobVJ3VFkUntUlCpJdqm9r5q+tKCZ6jXXaYn1kFG8qUSrOdT2XFizTfuSjaqn9GaC7KkFMwMcCy6K7gqS0MWFfx/uDzDvtAGym999Qd7KQghjf31XrVqpJ2Ibltm22mafRgMl7Npw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=lunn.ch smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SYtLkffXcghrqEz9c92EUpXP0OAIWFAcQwu5IlJoR3k=;
- b=k2/DjPeGhiqcBpOWezHfXwV5tJRLrNDNkS/dHPF28bREv4sXz3e5GJgsrsn5+gCbkCwx9u9YmsqIf4zlE5wXFyBdaTwYk97C15zkTh0dhSFQjN4mA6BjPsrpIrKAC3d11wcrHT0FKxLX3Qmmr6+lhXAvRuxoendxmqLHqeOrK1snf3uZFcU0OGabITTIUT2TndIL0rVM1FZhfcPUX3dKS1V32+Hg6tYcsLt3eyxy9YsDdXDO+HvrDVp6y6MFIMZWshLYUgGYK6OmAIcDtvmDzOJq0eMsrQZDlu7k/OeAKE7Ojiyaeike486NwVU5lJYGMMtl9kws7WmA5vZm/Cv0nw==
-Received: from DB8P191CA0009.EURP191.PROD.OUTLOOK.COM (2603:10a6:10:130::19)
- by DB8PR10MB3781.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:167::24) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.15; Fri, 13 Mar
- 2026 10:57:41 +0000
-Received: from DB1PEPF000509EE.eurprd03.prod.outlook.com
- (2603:10a6:10:130:cafe::ed) by DB8P191CA0009.outlook.office365.com
- (2603:10a6:10:130::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9678.27 via Frontend Transport; Fri,
- 13 Mar 2026 10:57:39 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB1PEPF000509EE.mail.protection.outlook.com (10.167.242.72) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9678.18 via Frontend Transport; Fri, 13 Mar 2026 10:57:40 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 13 Mar
- 2026 11:59:55 +0100
-Received: from localhost (10.48.87.194) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Fri, 13 Mar
- 2026 11:57:39 +0100
-From: Christophe Roullier <christophe.roullier@foss.st.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Russell King <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
- <antonio.borneo@foss.st.com>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, Vladimir Oltean <vladimir.oltean@nxp.com>,
- Christophe Roullier <christophe.roullier@foss.st.com>
-Date: Fri, 13 Mar 2026 11:57:17 +0100
-Message-ID: <20260313105718.359614-3-christophe.roullier@foss.st.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260313105718.359614-1-christophe.roullier@foss.st.com>
-References: <20260313105718.359614-1-christophe.roullier@foss.st.com>
+ Fri, 13 Mar 2026 11:02:57 +0000 (UTC)
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1773399773;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=IqRtcJxjKQgiUaf8LSYkMLJMugMrtuxqPLNYXRGERHw=;
+ b=urQq923KHBHdwshIEZiNpBGL+fusqxcgB5tcnfvNs9bqBJb/zv6LNXs4V1CG0oqdqmB5wz
+ bLRobXRrag8TxicembS/OWE1c9e8Qg1CkOSKBFl6lyEBmzdnwZR1Ryu1BkfwExiXg+ZduZ
+ DoudW/P91jt7ccFNuhObyoc7ta8EdCA=
+From: Usama Arif <usama.arif@linux.dev>
+To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+Date: Fri, 13 Mar 2026 04:02:36 -0700
+Message-ID: <20260313110238.2500603-1-usama.arif@linux.dev>
+In-Reply-To: <0e0fe47852e6009f662b1fa42f836447b8d1283a.1773346620.git.ljs@kernel.org>
+References: 
 MIME-Version: 1.0
-X-Originating-IP: [10.48.87.194]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509EE:EE_|DB8PR10MB3781:EE_
-X-MS-Office365-Filtering-Correlation-Id: 31b64024-d894-4241-12de-08de80ef5889
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|7416014|36860700016|376014|82310400026|921020|22082099003|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: TvyonEfMHvLD6QHaZdcJDbEoIXj25TbuHmyOkMP4yc8PKg1aBRIVT6/PaygbMTLnrFF0z3ZlaQgJdb4eSZ1UYlxWyUwD3qdeoTTVUYTxzx07fDwgR1003xQS4gTN0qVBUM3vD0lxXjf5ySo2Qwo+1rtag62ZmQyj/aTjJnwKVSQAHfb/Ly93qv/H3H/qbM9qV6T7V3zpuTayHKXiymqKNsPJAaNo1EG1RqOE/EVkA31asChRgHzHHi4froC/2iklP5EOjAVbGShwMMinDqWcCCbhh6JV1ubmm0IdKrkXyhnU90rUU3WjDBMPKjNqEGJvXoxgjbi/V8BIezRML0gEU0ITz1/0uuhOqWBKo62h4fhagYhAmIFdEdZeOrgr//NZBoD5ecEqnUzx9X82fRUEowMSzXcLHa75kRIwTMwjsy24XG9Kg8eZKGInkiuHiixmKR6p4SMjqg0VKC9MLi0KraNCHKYe0ztqaZAItOzm8XI74e+FX96befGEumC1CDd49nG3UtW/VS95tqZBJ0RtVKMo0b5zTkfI27St+Iu/RxGLnnwOHpQpp00cfhw8+SL1145puezQZWxz3BwpkY7l71llgltbsvZres+rxYzFNtI7d3uXORvOWcx7tKhepLinwhU2Vb1XT4vVubb4aojTjnnvWIm3+TBHmz4hKcspG7B7nH9uP6TzKphdsKvsYPDJsI/l9bnvO4MtEzesLqZrS0F3vc2P6dacTFVn52v0130mlld9HzcngDxQazqI3LvnBJ87zEHtpIC0phRpQU7q8OeoNxNRETcUPEAKvk1J4OlrsSgTWjS31wk3onH+EhxT
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(7416014)(36860700016)(376014)(82310400026)(921020)(22082099003)(18002099003)(56012099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ywi9gMnoGpzeyJ6dXTwf0oUMkK3KuuVPToynuZExYGJ5DHFR/MlWjuRRGLZNxGUhby6r3Es+7QDUcJda28GVwra2arXBNquQ4dxuz73yVn9fxIzfbB/JfZb9CMtjg1GU4igUljyi+jDhCm57/ld1ec8yQY23rbXdyUTad5p3cvTQkVzIfqzeH8eoQtIPNV5zcl8LllAdX5sI6LKJIQ0aQsMqhMK1HcT51+LK4+qT0KkrQZ1XxWKP/tFNZQ8RJwvGnQocABnqEUkXFCgWkadZt5PO1IADax76GqGwoZutNaCy2t0/w/Uk7HcD8+R2gY4PqA+mTrEKlNxDztEPA9d6eT5+i9H0D4+fS+fIthqbDxouoq5nwUgBuZwNEQ9zgrcyXHZLO6uGuSrZGJGSnVWTCl4Q6OBrrFOS6lpYdY8UTfiuOU1Mho36oGIVaZTY1Sms
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Mar 2026 10:57:40.3029 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 31b64024-d894-4241-12de-08de80ef5889
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509EE.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3781
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 2/2] net: stmmac: manage error case during
-	stmmac_dvr_probe
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Mon, 16 Mar 2026 16:23:30 +0000
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-doc@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
+ Arnd Bergmann <arnd@arndb.de>, linux-scsi@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, Long Li <longli@microsoft.com>,
+ linux-staging@lists.linux.dev, Dexuan Cui <decui@microsoft.com>,
+ linux-afs@lists.infradead.org, Pedro Falcato <pfalcato@suse.de>,
+ Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>,
+ Jann Horn <jannh@google.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-arm-kernel@lists.infradead.org,
+ Vlastimil Babka <vbabka@kernel.org>, Christian Brauner <brauner@kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 04/15] mm: add vm_ops->mapped hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,70 +83,452 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [5.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	MID_CONTAINS_FROM(1.00)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	DATE_IN_PAST(1.00)[77];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:linusw@kernel.org,m:antonio.borneo@foss.st.com,m:maxime.chevallier@bootlin.com,m:vladimir.oltean@nxp.com,m:christophe.roullier@foss.st.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,nxp.com];
-	FORGED_SENDER(0.00)[christophe.roullier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:arnd@arndb.de,m:linux-scsi@vger.kernel.org,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:usama.arif@linux.dev,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:vbabka@kernel.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:m
+ coquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,arndb.de,nod.at,lists.linux.dev,suse.de,arm.com,linux.dev,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com,linux-foundation.org];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[44];
 	GREYLIST(0.00)[pass,meta];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st.com:email,st-md-mailman.stormreply.com:rdns,foss.st.com:mid];
-	DKIM_TRACE(0.00)[foss.st.com:-];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[usama.arif@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[linux.dev:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[christophe.roullier@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[usama.arif@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	NEURAL_SPAM(0.00)[0.234];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.935];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: EBAB8281D14
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: B5E1229D47B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-In case of error during stmmac_mdio_register, pm_runtime is not
-cleaning before exit probe.
+On Thu, 12 Mar 2026 20:27:19 +0000 "Lorenzo Stoakes (Oracle)" <ljs@kernel.org> wrote:
 
-Signed-off-by: Christophe Roullier <christophe.roullier@foss.st.com>
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+> Previously, when a driver needed to do something like establish a reference
+> count, it could do so in the mmap hook in the knowledge that the mapping
+> would succeed.
+> 
+> With the introduction of f_op->mmap_prepare this is no longer the case, as
+> it is invoked prior to actually establishing the mapping.
+> 
+> To take this into account, introduce a new vm_ops->mapped callback which is
+> invoked when the VMA is first mapped (though notably - not when it is
+> merged - which is correct and mirrors existing mmap/open/close behaviour).
+> 
+> We do better that vm_ops->open() here, as this callback can return an
+> error, at which point the VMA will be unmapped.
+> 
+> Note that vm_ops->mapped() is invoked after any mmap action is
+> complete (such as I/O remapping).
+> 
+> We intentionally do not expose the VMA at this point, exposing only the
+> fields that could be used, and an output parameter in case the operation
+> needs to update the vma->vm_private_data field.
+> 
+> In order to deal with stacked filesystems which invoke inner filesystem's
+> mmap() invocations, add __compat_vma_mapped() and invoke it on
+> vfs_mmap() (via compat_vma_mmap()) to ensure that the mapped callback is
+> handled when an mmap() caller invokes a nested filesystem's mmap_prepare()
+> callback.
+> 
+> We can now also remove call_action_complete() and invoke
+> mmap_action_complete() directly, as we separate out the rmap lock logic to
+> be called in __mmap_region() instead via maybe_drop_file_rmap_lock().
+> 
+> We also abstract unmapping of a VMA on mmap action completion into its own
+> helper function, unmap_vma_locked().
+> 
+> Additionally, update VMA userland test headers to reflect the change.
+> 
+> Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+> ---
+>  include/linux/fs.h              |  9 +++-
+>  include/linux/mm.h              | 17 +++++++
+>  mm/internal.h                   | 10 ++++
+>  mm/util.c                       | 86 ++++++++++++++++++++++++---------
+>  mm/vma.c                        | 41 +++++++++++-----
+>  tools/testing/vma/include/dup.h | 34 ++++++++++++-
+>  6 files changed, 158 insertions(+), 39 deletions(-)
+> 
+> diff --git a/include/linux/fs.h b/include/linux/fs.h
+> index a2628a12bd2b..c390f5c667e3 100644
+> --- a/include/linux/fs.h
+> +++ b/include/linux/fs.h
+> @@ -2059,13 +2059,20 @@ static inline bool can_mmap_file(struct file *file)
+>  }
+>  
+>  int compat_vma_mmap(struct file *file, struct vm_area_struct *vma);
+> +int __vma_check_mmap_hook(struct vm_area_struct *vma);
+>  
+>  static inline int vfs_mmap(struct file *file, struct vm_area_struct *vma)
+>  {
+> +	int err;
+> +
+>  	if (file->f_op->mmap_prepare)
+>  		return compat_vma_mmap(file, vma);
+>  
+> -	return file->f_op->mmap(file, vma);
+> +	err = file->f_op->mmap(file, vma);
+> +	if (err)
+> +		return err;
+> +
+> +	return __vma_check_mmap_hook(vma);
+>  }
+>  
+>  static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
+> diff --git a/include/linux/mm.h b/include/linux/mm.h
+> index 12a0b4c63736..7333d5db1221 100644
+> --- a/include/linux/mm.h
+> +++ b/include/linux/mm.h
+> @@ -759,6 +759,23 @@ struct vm_operations_struct {
+>  	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+>  	 */
+>  	void (*close)(struct vm_area_struct *vma);
+> +	/**
+> +	 * @mapped: Called when the VMA is first mapped in the MM. Not called if
+> +	 * the new VMA is merged with an adjacent VMA.
+> +	 *
+> +	 * The @vm_private_data field is an output field allowing the user to
+> +	 * modify vma->vm_private_data as necessary.
+> +	 *
+> +	 * ONLY valid if set from f_op->mmap_prepare. Will result in an error if
+> +	 * set from f_op->mmap.
+> +	 *
+> +	 * Returns %0 on success, or an error otherwise. On error, the VMA will
+> +	 * be unmapped.
+> +	 *
+> +	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> +	 */
+> +	int (*mapped)(unsigned long start, unsigned long end, pgoff_t pgoff,
+> +		      const struct file *file, void **vm_private_data);
+>  	/* Called any time before splitting to check if it's allowed */
+>  	int (*may_split)(struct vm_area_struct *vma, unsigned long addr);
+>  	int (*mremap)(struct vm_area_struct *vma);
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 7bfa85b5e78b..f0f2cf1caa36 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -158,6 +158,8 @@ static inline void *folio_raw_mapping(const struct folio *folio)
+>   * mmap hook and safely handle error conditions. On error, VMA hooks will be
+>   * mutated.
+>   *
+> + * IMPORTANT: f_op->mmap() is deprecated, prefer f_op->mmap_prepare().
+> + *
+>   * @file: File which backs the mapping.
+>   * @vma:  VMA which we are mapping.
+>   *
+> @@ -201,6 +203,14 @@ static inline void vma_close(struct vm_area_struct *vma)
+>  /* unmap_vmas is in mm/memory.c */
+>  void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap);
+>  
+> +static inline void unmap_vma_locked(struct vm_area_struct *vma)
+> +{
+> +	const size_t len = vma_pages(vma) << PAGE_SHIFT;
+> +
+> +	mmap_assert_locked(vma->vm_mm);
+> +	do_munmap(vma->vm_mm, vma->vm_start, len, NULL);
+> +}
+> +
+>  #ifdef CONFIG_MMU
+>  
+>  static inline void get_anon_vma(struct anon_vma *anon_vma)
+> diff --git a/mm/util.c b/mm/util.c
+> index dba1191725b6..2b0ed54008d6 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1163,6 +1163,55 @@ void flush_dcache_folio(struct folio *folio)
+>  EXPORT_SYMBOL(flush_dcache_folio);
+>  #endif
+>  
+> +static int __compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
+> +{
+> +	struct vm_area_desc desc = {
+> +		.mm = vma->vm_mm,
+> +		.file = file,
+> +		.start = vma->vm_start,
+> +		.end = vma->vm_end,
+> +
+> +		.pgoff = vma->vm_pgoff,
+> +		.vm_file = vma->vm_file,
+> +		.vma_flags = vma->flags,
+> +		.page_prot = vma->vm_page_prot,
+> +
+> +		.action.type = MMAP_NOTHING, /* Default */
+> +	};
+> +	int err;
+> +
+> +	err = vfs_mmap_prepare(file, &desc);
+> +	if (err)
+> +		return err;
+> +
+> +	err = mmap_action_prepare(&desc, &desc.action);
+> +	if (err)
+> +		return err;
+> +
+> +	set_vma_from_desc(vma, &desc);
+> +	return mmap_action_complete(vma, &desc.action);
+> +}
+> +
+> +static int __compat_vma_mapped(struct file *file, struct vm_area_struct *vma)
+> +{
+> +	const struct vm_operations_struct *vm_ops = vma->vm_ops;
+> +	void *vm_private_data = vma->vm_private_data;
+> +	int err;
+> +
+> +	if (!vm_ops->mapped)
+> +		return 0;
+> +
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 26ac1cdc561c2..c3eaeffcb6aee 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -8057,6 +8057,8 @@ static int __stmmac_dvr_probe(struct device *device,
- error_pcs_setup:
- 	stmmac_mdio_unregister(ndev);
- error_mdio_register:
-+	pm_runtime_put_sync(device);
-+	pm_runtime_disable(device);
- 	stmmac_napi_del(ndev);
- error_hw_init:
- 	destroy_workqueue(priv->wq);
--- 
-2.43.0
+Hello!
 
+Can vm_ops be NULL here?  __compat_vma_mapped() is called from
+compat_vma_mmap(), which is reached when a filesystem provides
+mmap_prepare.  If the mmap_prepare hook does not set desc->vm_ops,
+vma->vm_ops will be NULL and this dereferences a NULL pointer.
+
+For e.g. drivers/char/mem.c, mmap_zero_prepare() would trigger
+a NULL pointer dereference here.
+
+Would need to do
+	if (!vm_ops || !vm_ops->mapped)
+		return 0;
+
+here
+
+
+> +	err = vm_ops->mapped(vma->vm_start, vma->vm_end, vma->vm_pgoff, file,
+> +			     &vm_private_data);
+> +	if (err)
+> +		unmap_vma_locked(vma);
+
+when mapped() returns an error, unmap_vma_locked(vma) is called
+but execution continues into the vm_private_data update below.  After
+unmap_vma_locked() the VMA may be freed (do_munmap can remove the VMA
+entirely), so accessing vma->vm_private_data after that is a
+use-after-free.
+
+Probably need to do:
+	if (err) {
+		unmap_vma_locked(vma);
+		return err;
+	}
+
+> +	/* Update private data if changed. */
+> +	if (vm_private_data != vma->vm_private_data)
+> +		vma->vm_private_data = vm_private_data;
+> +
+> +	return err;
+> +}
+> +
+>  /**
+>   * compat_vma_mmap() - Apply the file's .mmap_prepare() hook to an
+>   * existing VMA and execute any requested actions.
+> @@ -1191,34 +1240,26 @@ EXPORT_SYMBOL(flush_dcache_folio);
+>   */
+>  int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
+>  {
+> -	struct vm_area_desc desc = {
+> -		.mm = vma->vm_mm,
+> -		.file = file,
+> -		.start = vma->vm_start,
+> -		.end = vma->vm_end,
+> -
+> -		.pgoff = vma->vm_pgoff,
+> -		.vm_file = vma->vm_file,
+> -		.vma_flags = vma->flags,
+> -		.page_prot = vma->vm_page_prot,
+> -
+> -		.action.type = MMAP_NOTHING, /* Default */
+> -	};
+>  	int err;
+>  
+> -	err = vfs_mmap_prepare(file, &desc);
+> -	if (err)
+> -		return err;
+> -
+> -	err = mmap_action_prepare(&desc, &desc.action);
+> +	err = __compat_vma_mmap(file, vma);
+>  	if (err)
+>  		return err;
+>  
+> -	set_vma_from_desc(vma, &desc);
+> -	return mmap_action_complete(vma, &desc.action);
+> +	return __compat_vma_mapped(file, vma);
+>  }
+>  EXPORT_SYMBOL(compat_vma_mmap);
+>  
+> +int __vma_check_mmap_hook(struct vm_area_struct *vma)
+> +{
+> +	/* vm_ops->mapped is not valid if mmap() is specified. */
+> +	if (WARN_ON_ONCE(vma->vm_ops->mapped))
+> +		return -EINVAL;
+
+I think vma->vm_ops can be NULL here. Should be:
+
+	if (vma->vm_ops && WARN_ON_ONCE(vma->vm_ops->mapped))
+		return -EINVAL;
+
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL(__vma_check_mmap_hook);
+> +
+>  static void set_ps_flags(struct page_snapshot *ps, const struct folio *folio,
+>  			 const struct page *page)
+>  {
+> @@ -1316,10 +1357,7 @@ static int mmap_action_finish(struct vm_area_struct *vma,
+>  	 * invoked if we do NOT merge, so we only clean up the VMA we created.
+>  	 */
+>  	if (err) {
+> -		const size_t len = vma_pages(vma) << PAGE_SHIFT;
+> -
+> -		do_munmap(current->mm, vma->vm_start, len, NULL);
+> -
+> +		unmap_vma_locked(vma);
+>  		if (action->error_hook) {
+>  			/* We may want to filter the error. */
+>  			err = action->error_hook(err);
+> diff --git a/mm/vma.c b/mm/vma.c
+> index 054cf1d262fb..ef9f5a5365d1 100644
+> --- a/mm/vma.c
+> +++ b/mm/vma.c
+> @@ -2705,21 +2705,35 @@ static bool can_set_ksm_flags_early(struct mmap_state *map)
+>  	return false;
+>  }
+>  
+> -static int call_action_complete(struct mmap_state *map,
+> -				struct mmap_action *action,
+> -				struct vm_area_struct *vma)
+> +static int call_mapped_hook(struct vm_area_struct *vma)
+>  {
+> -	int ret;
+> +	const struct vm_operations_struct *vm_ops = vma->vm_ops;
+> +	void *vm_private_data = vma->vm_private_data;
+> +	int err;
+>  
+> -	ret = mmap_action_complete(vma, action);
+> +	if (!vm_ops || !vm_ops->mapped)
+> +		return 0;
+> +	err = vm_ops->mapped(vma->vm_start, vma->vm_end, vma->vm_pgoff,
+> +			     vma->vm_file, &vm_private_data);
+> +	if (err) {
+> +		unmap_vma_locked(vma);
+> +		return err;
+> +	}
+> +	/* Update private data if changed. */
+> +	if (vm_private_data != vma->vm_private_data)
+> +		vma->vm_private_data = vm_private_data;
+> +	return 0;
+> +}
+>  
+> -	/* If we held the file rmap we need to release it. */
+> -	if (map->hold_file_rmap_lock) {
+> -		struct file *file = vma->vm_file;
+> +static void maybe_drop_file_rmap_lock(struct mmap_state *map,
+> +				      struct vm_area_struct *vma)
+> +{
+> +	struct file *file;
+>  
+> -		i_mmap_unlock_write(file->f_mapping);
+> -	}
+> -	return ret;
+> +	if (!map->hold_file_rmap_lock)
+> +		return;
+> +	file = vma->vm_file;
+> +	i_mmap_unlock_write(file->f_mapping);
+>  }
+>  
+>  static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> @@ -2773,8 +2787,11 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+>  	__mmap_complete(&map, vma);
+>  
+>  	if (have_mmap_prepare && allocated_new) {
+> -		error = call_action_complete(&map, &desc.action, vma);
+> +		error = mmap_action_complete(vma, &desc.action);
+> +		if (!error)
+> +			error = call_mapped_hook(vma);
+>  
+> +		maybe_drop_file_rmap_lock(&map, vma);
+>  		if (error)
+>  			return error;
+>  	}
+> diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> index 908beb263307..47d8db809f31 100644
+> --- a/tools/testing/vma/include/dup.h
+> +++ b/tools/testing/vma/include/dup.h
+> @@ -606,12 +606,34 @@ struct vm_area_struct {
+>  } __randomize_layout;
+>  
+>  struct vm_operations_struct {
+> -	void (*open)(struct vm_area_struct * area);
+> +	/**
+> +	 * @open: Called when a VMA is remapped or split. Not called upon first
+> +	 * mapping a VMA.
+> +	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> +	 */
+> +	void (*open)(struct vm_area_struct *vma);
+>  	/**
+>  	 * @close: Called when the VMA is being removed from the MM.
+>  	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+>  	 */
+> -	void (*close)(struct vm_area_struct * area);
+> +	void (*close)(struct vm_area_struct *vma);
+> +	/**
+> +	 * @mapped: Called when the VMA is first mapped in the MM. Not called if
+> +	 * the new VMA is merged with an adjacent VMA.
+> +	 *
+> +	 * The @vm_private_data field is an output field allowing the user to
+> +	 * modify vma->vm_private_data as necessary.
+> +	 *
+> +	 * ONLY valid if set from f_op->mmap_prepare. Will result in an error if
+> +	 * set from f_op->mmap.
+> +	 *
+> +	 * Returns %0 on success, or an error otherwise. On error, the VMA will
+> +	 * be unmapped.
+> +	 *
+> +	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> +	 */
+> +	int (*mapped)(unsigned long start, unsigned long end, pgoff_t pgoff,
+> +		      const struct file *file, void **vm_private_data);
+>  	/* Called any time before splitting to check if it's allowed */
+>  	int (*may_split)(struct vm_area_struct *area, unsigned long addr);
+>  	int (*mremap)(struct vm_area_struct *area);
+> @@ -1345,3 +1367,11 @@ static inline void vma_set_file(struct vm_area_struct *vma, struct file *file)
+>  	swap(vma->vm_file, file);
+>  	fput(file);
+>  }
+> +
+> +static inline void unmap_vma_locked(struct vm_area_struct *vma)
+> +{
+> +	const size_t len = vma_pages(vma) << PAGE_SHIFT;
+> +
+> +	mmap_assert_locked(vma->vm_mm);
+> +	do_munmap(vma->vm_mm, vma->vm_start, len, NULL);
+> +}
+> -- 
+> 2.53.0
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
