@@ -2,55 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8PEJD2b6s2nWeQAAu9opvQ
+	id gIzrKvv7s2nWeQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 12:52:06 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 12:58:51 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C22A72827D5
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 12:52:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7FE282904
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 12:58:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5E732C8F29C;
-	Fri, 13 Mar 2026 11:52:05 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7BD5C8F29C;
+	Fri, 13 Mar 2026 11:58:50 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3ADDFC87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C36BAC87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 11:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:Reply-To:Content-ID
- :Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:
- Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=pjvmOUdFPEzL0W797PPwOdGoxTvJI66nOK1+4vE46v4=; b=JrW+dX61X5zpzTRcfWVGANZhVw
- akbCHK4En9AlQSYOFQZlAsDlOT3mthJ0KX6b91qJfQXoSvPK9oQ2w+Vm0cxkFSBuAgcencFUnzvt4
- Zxkgyej65rrMzz/WhV9I96XnyBF8SQ589jArWrIQIAyR4hmkKxnEKFtWZZ/BgC9I9qC7Zg9Bjdj1q
- ztTxldxKrizJgiLFG2qE0INDVQswoIuEZvYbDoKy82APv52xpkYB8mgwKvPSQOewEWN/Dl17is2gg
- CJszDMO3hWfPbeCZ3K6akCFEnEKRozGpaVYx1qo094TydePWFHsJDIVuWvHW1u5HzNVVAzMVW3kU4
- BaNPqclg==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:41352 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w113f-000000000sI-25Ix;
- Fri, 13 Mar 2026 11:51:59 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w113e-0000000DDwc-2oRv; Fri, 13 Mar 2026 11:51:58 +0000
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
+ Fri, 13 Mar 2026 11:58:49 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 598406012B;
+ Fri, 13 Mar 2026 11:58:48 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4395C19421;
+ Fri, 13 Mar 2026 11:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773403128;
+ bh=tJ78C2ydWglS/s0futzZmXxSLW3lVjkdvHe7e96jLE0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=YH9fi2HVtrdakURceyoTnR9imhhUqeHiuq7JHN+6HvuFrlUSJsiuF29UcGpLCKg3o
+ yR+UyV1f1BFpqY+IWXugGiLi9NVJZrpDyh/aROXOje2VjRHWkUFB0oujSJlQlpAdQo
+ u5lUPCjabMabw5dVPXLEIbrudAxf4v8i3DazYXIs6lho6UiGsyEDdl7A1lHoyDebMe
+ e+Emrt9EFSCc8cYmkL35NpZo/jInX4DicI/FKQ9McovSfhd9+0QvLF/owOnrwsnPBW
+ AaZB7F9noxWYSNs2Bod/B5FC9NnzCvnUnqzQPLstIM2ufZOs1XOXeNpfH7g8JYzT3u
+ K5SwuaZiCuw+w==
+Date: Fri, 13 Mar 2026 11:58:36 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Message-ID: <24cbbaf6-19f2-4403-8cb7-415007597345@lucifer.local>
+References: <0e0fe47852e6009f662b1fa42f836447b8d1283a.1773346620.git.ljs@kernel.org>
+ <20260313110238.2500603-1-usama.arif@linux.dev>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w113e-0000000DDwc-2oRv@rmk-PC.armlinux.org.uk>
-Date: Fri, 13 Mar 2026 11:51:58 +0000
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2] net: stmmac: move MSI data out of
- struct stmmac_priv
+In-Reply-To: <20260313110238.2500603-1-usama.arif@linux.dev>
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-doc@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-scsi@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, Long Li <longli@microsoft.com>,
+ linux-staging@lists.linux.dev, Dexuan Cui <decui@microsoft.com>,
+ linux-afs@lists.infradead.org, Pedro Falcato <pfalcato@suse.de>,
+ Ryan Roberts <ryan.roberts@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Jann Horn <jannh@google.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-arm-kernel@lists.infradead.org,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 04/15] mm: add vm_ops->mapped hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,351 +83,483 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[43];
+	FORGED_RECIPIENTS(0.00)[m:usama.arif@linux.dev,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gm
+ ail.com,m:linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com,linux-foundation.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.999];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[siemens.com:email,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: C22A72827D5
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,lucifer.local:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 4F7FE282904
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Only three platforms supprt MSIs, which means having all the strings
-and interrupt arrays always allocated wastes space. None of this data
-is performance critical - this data is only used when requesting and
-releasing the MSI interrupts.
+On Fri, Mar 13, 2026 at 04:02:36AM -0700, Usama Arif wrote:
+> On Thu, 12 Mar 2026 20:27:19 +0000 "Lorenzo Stoakes (Oracle)" <ljs@kernel.org> wrote:
+>
+> > Previously, when a driver needed to do something like establish a reference
+> > count, it could do so in the mmap hook in the knowledge that the mapping
+> > would succeed.
+> >
+> > With the introduction of f_op->mmap_prepare this is no longer the case, as
+> > it is invoked prior to actually establishing the mapping.
+> >
+> > To take this into account, introduce a new vm_ops->mapped callback which is
+> > invoked when the VMA is first mapped (though notably - not when it is
+> > merged - which is correct and mirrors existing mmap/open/close behaviour).
+> >
+> > We do better that vm_ops->open() here, as this callback can return an
+> > error, at which point the VMA will be unmapped.
+> >
+> > Note that vm_ops->mapped() is invoked after any mmap action is
+> > complete (such as I/O remapping).
+> >
+> > We intentionally do not expose the VMA at this point, exposing only the
+> > fields that could be used, and an output parameter in case the operation
+> > needs to update the vma->vm_private_data field.
+> >
+> > In order to deal with stacked filesystems which invoke inner filesystem's
+> > mmap() invocations, add __compat_vma_mapped() and invoke it on
+> > vfs_mmap() (via compat_vma_mmap()) to ensure that the mapped callback is
+> > handled when an mmap() caller invokes a nested filesystem's mmap_prepare()
+> > callback.
+> >
+> > We can now also remove call_action_complete() and invoke
+> > mmap_action_complete() directly, as we separate out the rmap lock logic to
+> > be called in __mmap_region() instead via maybe_drop_file_rmap_lock().
+> >
+> > We also abstract unmapping of a VMA on mmap action completion into its own
+> > helper function, unmap_vma_locked().
+> >
+> > Additionally, update VMA userland test headers to reflect the change.
+> >
+> > Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+> > ---
+> >  include/linux/fs.h              |  9 +++-
+> >  include/linux/mm.h              | 17 +++++++
+> >  mm/internal.h                   | 10 ++++
+> >  mm/util.c                       | 86 ++++++++++++++++++++++++---------
+> >  mm/vma.c                        | 41 +++++++++++-----
+> >  tools/testing/vma/include/dup.h | 34 ++++++++++++-
+> >  6 files changed, 158 insertions(+), 39 deletions(-)
+> >
+> > diff --git a/include/linux/fs.h b/include/linux/fs.h
+> > index a2628a12bd2b..c390f5c667e3 100644
+> > --- a/include/linux/fs.h
+> > +++ b/include/linux/fs.h
+> > @@ -2059,13 +2059,20 @@ static inline bool can_mmap_file(struct file *file)
+> >  }
+> >
+> >  int compat_vma_mmap(struct file *file, struct vm_area_struct *vma);
+> > +int __vma_check_mmap_hook(struct vm_area_struct *vma);
+> >
+> >  static inline int vfs_mmap(struct file *file, struct vm_area_struct *vma)
+> >  {
+> > +	int err;
+> > +
+> >  	if (file->f_op->mmap_prepare)
+> >  		return compat_vma_mmap(file, vma);
+> >
+> > -	return file->f_op->mmap(file, vma);
+> > +	err = file->f_op->mmap(file, vma);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	return __vma_check_mmap_hook(vma);
+> >  }
+> >
+> >  static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
+> > diff --git a/include/linux/mm.h b/include/linux/mm.h
+> > index 12a0b4c63736..7333d5db1221 100644
+> > --- a/include/linux/mm.h
+> > +++ b/include/linux/mm.h
+> > @@ -759,6 +759,23 @@ struct vm_operations_struct {
+> >  	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> >  	 */
+> >  	void (*close)(struct vm_area_struct *vma);
+> > +	/**
+> > +	 * @mapped: Called when the VMA is first mapped in the MM. Not called if
+> > +	 * the new VMA is merged with an adjacent VMA.
+> > +	 *
+> > +	 * The @vm_private_data field is an output field allowing the user to
+> > +	 * modify vma->vm_private_data as necessary.
+> > +	 *
+> > +	 * ONLY valid if set from f_op->mmap_prepare. Will result in an error if
+> > +	 * set from f_op->mmap.
+> > +	 *
+> > +	 * Returns %0 on success, or an error otherwise. On error, the VMA will
+> > +	 * be unmapped.
+> > +	 *
+> > +	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> > +	 */
+> > +	int (*mapped)(unsigned long start, unsigned long end, pgoff_t pgoff,
+> > +		      const struct file *file, void **vm_private_data);
+> >  	/* Called any time before splitting to check if it's allowed */
+> >  	int (*may_split)(struct vm_area_struct *vma, unsigned long addr);
+> >  	int (*mremap)(struct vm_area_struct *vma);
+> > diff --git a/mm/internal.h b/mm/internal.h
+> > index 7bfa85b5e78b..f0f2cf1caa36 100644
+> > --- a/mm/internal.h
+> > +++ b/mm/internal.h
+> > @@ -158,6 +158,8 @@ static inline void *folio_raw_mapping(const struct folio *folio)
+> >   * mmap hook and safely handle error conditions. On error, VMA hooks will be
+> >   * mutated.
+> >   *
+> > + * IMPORTANT: f_op->mmap() is deprecated, prefer f_op->mmap_prepare().
+> > + *
+> >   * @file: File which backs the mapping.
+> >   * @vma:  VMA which we are mapping.
+> >   *
+> > @@ -201,6 +203,14 @@ static inline void vma_close(struct vm_area_struct *vma)
+> >  /* unmap_vmas is in mm/memory.c */
+> >  void unmap_vmas(struct mmu_gather *tlb, struct unmap_desc *unmap);
+> >
+> > +static inline void unmap_vma_locked(struct vm_area_struct *vma)
+> > +{
+> > +	const size_t len = vma_pages(vma) << PAGE_SHIFT;
+> > +
+> > +	mmap_assert_locked(vma->vm_mm);
+> > +	do_munmap(vma->vm_mm, vma->vm_start, len, NULL);
+> > +}
+> > +
+> >  #ifdef CONFIG_MMU
+> >
+> >  static inline void get_anon_vma(struct anon_vma *anon_vma)
+> > diff --git a/mm/util.c b/mm/util.c
+> > index dba1191725b6..2b0ed54008d6 100644
+> > --- a/mm/util.c
+> > +++ b/mm/util.c
+> > @@ -1163,6 +1163,55 @@ void flush_dcache_folio(struct folio *folio)
+> >  EXPORT_SYMBOL(flush_dcache_folio);
+> >  #endif
+> >
+> > +static int __compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
+> > +{
+> > +	struct vm_area_desc desc = {
+> > +		.mm = vma->vm_mm,
+> > +		.file = file,
+> > +		.start = vma->vm_start,
+> > +		.end = vma->vm_end,
+> > +
+> > +		.pgoff = vma->vm_pgoff,
+> > +		.vm_file = vma->vm_file,
+> > +		.vma_flags = vma->flags,
+> > +		.page_prot = vma->vm_page_prot,
+> > +
+> > +		.action.type = MMAP_NOTHING, /* Default */
+> > +	};
+> > +	int err;
+> > +
+> > +	err = vfs_mmap_prepare(file, &desc);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	err = mmap_action_prepare(&desc, &desc.action);
+> > +	if (err)
+> > +		return err;
+> > +
+> > +	set_vma_from_desc(vma, &desc);
+> > +	return mmap_action_complete(vma, &desc.action);
+> > +}
+> > +
+> > +static int __compat_vma_mapped(struct file *file, struct vm_area_struct *vma)
+> > +{
+> > +	const struct vm_operations_struct *vm_ops = vma->vm_ops;
+> > +	void *vm_private_data = vma->vm_private_data;
+> > +	int err;
+> > +
+> > +	if (!vm_ops->mapped)
+> > +		return 0;
+> > +
+>
+> Hello!
+>
+> Can vm_ops be NULL here?  __compat_vma_mapped() is called from
+> compat_vma_mmap(), which is reached when a filesystem provides
+> mmap_prepare.  If the mmap_prepare hook does not set desc->vm_ops,
+> vma->vm_ops will be NULL and this dereferences a NULL pointer.
 
-Move the MSI data out of struct stmmac_priv into its own separately
-allocated structure, and move its initialisation to a separate
-function.
+I _think_ for this to ever be invoked, you would need to be dealing with a
+file-backed VMA so vm_ops->fault would HAVE to be defined.
 
-This removes 768 bytes from struct stmmac_priv.
+But you're right anyway as a matter of principle we should check it! Will fix.
 
-Link: https://lore.kernel.org/r/aYtq4ypxXTvn_Is6@shell.armlinux.org.uk
-Reviewed-by: Florian Bezdeka <florian.bezdeka@siemens.com>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
----
-v2: fix AI review comments in stmmac_free_irq() and resolve the 80 column
-wrap.
+>
+> For e.g. drivers/char/mem.c, mmap_zero_prepare() would trigger
+> a NULL pointer dereference here.
+>
+> Would need to do
+> 	if (!vm_ops || !vm_ops->mapped)
+> 		return 0;
+>
+> here
 
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  31 +++---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 102 +++++++++++-------
- 2 files changed, 81 insertions(+), 52 deletions(-)
+Yes.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index bba9bb9c95bf..7a66edba8f66 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -243,6 +243,23 @@ struct stmmac_est {
- 	u32 max_sdu[MTL_MAX_TX_QUEUES];
- };
- 
-+struct stmmac_msi {
-+	int sfty_ce_irq;
-+	int sfty_ue_irq;
-+	int rx_irq[MTL_MAX_RX_QUEUES];
-+	int tx_irq[MTL_MAX_TX_QUEUES];
-+
-+	/*irq name */
-+	char int_name_mac[IFNAMSIZ + 9];
-+	char int_name_wol[IFNAMSIZ + 9];
-+	char int_name_lpi[IFNAMSIZ + 9];
-+	char int_name_sfty[IFNAMSIZ + 10];
-+	char int_name_sfty_ce[IFNAMSIZ + 10];
-+	char int_name_sfty_ue[IFNAMSIZ + 10];
-+	char int_name_rx_irq[MTL_MAX_RX_QUEUES][IFNAMSIZ + 14];
-+	char int_name_tx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 18];
-+};
-+
- struct stmmac_priv {
- 	/* Frequently used values are kept adjacent for cache effect */
- 	u32 tx_coal_frames[MTL_MAX_TX_QUEUES];
-@@ -329,19 +346,7 @@ struct stmmac_priv {
- 	unsigned long active_vlans[BITS_TO_LONGS(VLAN_N_VID)];
- 	unsigned int num_double_vlans;
- 	int sfty_irq;
--	int sfty_ce_irq;
--	int sfty_ue_irq;
--	int rx_irq[MTL_MAX_RX_QUEUES];
--	int tx_irq[MTL_MAX_TX_QUEUES];
--	/*irq name */
--	char int_name_mac[IFNAMSIZ + 9];
--	char int_name_wol[IFNAMSIZ + 9];
--	char int_name_lpi[IFNAMSIZ + 9];
--	char int_name_sfty[IFNAMSIZ + 10];
--	char int_name_sfty_ce[IFNAMSIZ + 10];
--	char int_name_sfty_ue[IFNAMSIZ + 10];
--	char int_name_rx_irq[MTL_MAX_RX_QUEUES][IFNAMSIZ + 14];
--	char int_name_tx_irq[MTL_MAX_TX_QUEUES][IFNAMSIZ + 18];
-+	struct stmmac_msi *msi;
- 
- #ifdef CONFIG_DEBUG_FS
- 	struct dentry *dbgfs_dir;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 11150bddd872..124d7a00f9f0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3725,6 +3725,7 @@ static void stmmac_free_irq(struct net_device *dev,
- 			    enum request_irq_err irq_err, int irq_idx)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-+	struct stmmac_msi *msi = priv->msi;
- 	int j;
- 
- 	switch (irq_err) {
-@@ -3732,28 +3733,30 @@ static void stmmac_free_irq(struct net_device *dev,
- 		irq_idx = priv->plat->tx_queues_to_use;
- 		fallthrough;
- 	case REQ_IRQ_ERR_TX:
--		for (j = irq_idx - 1; j >= 0; j--) {
--			if (priv->tx_irq[j] > 0) {
--				irq_set_affinity_hint(priv->tx_irq[j], NULL);
--				free_irq(priv->tx_irq[j], &priv->dma_conf.tx_queue[j]);
-+		for (j = irq_idx - 1; msi && j >= 0; j--) {
-+			if (msi->tx_irq[j] > 0) {
-+				irq_set_affinity_hint(msi->tx_irq[j], NULL);
-+				free_irq(msi->tx_irq[j],
-+					 &priv->dma_conf.tx_queue[j]);
- 			}
- 		}
- 		irq_idx = priv->plat->rx_queues_to_use;
- 		fallthrough;
- 	case REQ_IRQ_ERR_RX:
--		for (j = irq_idx - 1; j >= 0; j--) {
--			if (priv->rx_irq[j] > 0) {
--				irq_set_affinity_hint(priv->rx_irq[j], NULL);
--				free_irq(priv->rx_irq[j], &priv->dma_conf.rx_queue[j]);
-+		for (j = irq_idx - 1; msi && j >= 0; j--) {
-+			if (msi->rx_irq[j] > 0) {
-+				irq_set_affinity_hint(msi->rx_irq[j], NULL);
-+				free_irq(msi->rx_irq[j],
-+					 &priv->dma_conf.rx_queue[j]);
- 			}
- 		}
- 
--		if (priv->sfty_ue_irq > 0 && priv->sfty_ue_irq != dev->irq)
--			free_irq(priv->sfty_ue_irq, dev);
-+		if (msi && msi->sfty_ue_irq > 0 && msi->sfty_ue_irq != dev->irq)
-+			free_irq(msi->sfty_ue_irq, dev);
- 		fallthrough;
- 	case REQ_IRQ_ERR_SFTY_UE:
--		if (priv->sfty_ce_irq > 0 && priv->sfty_ce_irq != dev->irq)
--			free_irq(priv->sfty_ce_irq, dev);
-+		if (msi && msi->sfty_ce_irq > 0 && msi->sfty_ce_irq != dev->irq)
-+			free_irq(msi->sfty_ce_irq, dev);
- 		fallthrough;
- 	case REQ_IRQ_ERR_SFTY_CE:
- 		if (priv->wol_irq > 0 && priv->wol_irq != dev->irq)
-@@ -3773,9 +3776,30 @@ static void stmmac_free_irq(struct net_device *dev,
- 	}
- }
- 
-+static int stmmac_msi_init(struct stmmac_priv *priv,
-+			   struct stmmac_resources *res)
-+{
-+	int i;
-+
-+	priv->msi = devm_kmalloc(priv->device, sizeof(*priv->msi), GFP_KERNEL);
-+	if (!priv->msi)
-+		return -ENOMEM;
-+
-+	priv->msi->sfty_ce_irq = res->sfty_ce_irq;
-+	priv->msi->sfty_ue_irq = res->sfty_ue_irq;
-+
-+	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
-+		priv->msi->rx_irq[i] = res->rx_irq[i];
-+	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
-+		priv->msi->tx_irq[i] = res->tx_irq[i];
-+
-+	return 0;
-+}
-+
- static int stmmac_request_irq_multi_msi(struct net_device *dev)
- {
- 	struct stmmac_priv *priv = netdev_priv(dev);
-+	struct stmmac_msi *msi = priv->msi;
- 	enum request_irq_err irq_err;
- 	int irq_idx = 0;
- 	char *int_name;
-@@ -3783,7 +3807,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	int i;
- 
- 	/* For common interrupt */
--	int_name = priv->int_name_mac;
-+	int_name = msi->int_name_mac;
- 	sprintf(int_name, "%s:%s", dev->name, "mac");
- 	ret = request_irq(dev->irq, stmmac_mac_interrupt,
- 			  0, int_name, dev);
-@@ -3799,7 +3823,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	 * is used for WoL
- 	 */
- 	if (priv->wol_irq > 0 && priv->wol_irq != dev->irq) {
--		int_name = priv->int_name_wol;
-+		int_name = msi->int_name_wol;
- 		sprintf(int_name, "%s:%s", dev->name, "wol");
- 		ret = request_irq(priv->wol_irq,
- 				  stmmac_mac_interrupt,
-@@ -3817,7 +3841,7 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	 * Error line in case of another line is used
- 	 */
- 	if (priv->sfty_irq > 0 && priv->sfty_irq != dev->irq) {
--		int_name = priv->int_name_sfty;
-+		int_name = msi->int_name_sfty;
- 		sprintf(int_name, "%s:%s", dev->name, "safety");
- 		ret = request_irq(priv->sfty_irq, stmmac_safety_interrupt,
- 				  0, int_name, dev);
-@@ -3833,16 +3857,16 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	/* Request the Safety Feature Correctible Error line in
- 	 * case of another line is used
- 	 */
--	if (priv->sfty_ce_irq > 0 && priv->sfty_ce_irq != dev->irq) {
--		int_name = priv->int_name_sfty_ce;
-+	if (msi->sfty_ce_irq > 0 && msi->sfty_ce_irq != dev->irq) {
-+		int_name = msi->int_name_sfty_ce;
- 		sprintf(int_name, "%s:%s", dev->name, "safety-ce");
--		ret = request_irq(priv->sfty_ce_irq,
-+		ret = request_irq(msi->sfty_ce_irq,
- 				  stmmac_safety_interrupt,
- 				  0, int_name, dev);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc sfty ce MSI %d (error: %d)\n",
--				   __func__, priv->sfty_ce_irq, ret);
-+				   __func__, msi->sfty_ce_irq, ret);
- 			irq_err = REQ_IRQ_ERR_SFTY_CE;
- 			goto irq_error;
- 		}
-@@ -3851,16 +3875,16 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	/* Request the Safety Feature Uncorrectible Error line in
- 	 * case of another line is used
- 	 */
--	if (priv->sfty_ue_irq > 0 && priv->sfty_ue_irq != dev->irq) {
--		int_name = priv->int_name_sfty_ue;
-+	if (msi->sfty_ue_irq > 0 && msi->sfty_ue_irq != dev->irq) {
-+		int_name = msi->int_name_sfty_ue;
- 		sprintf(int_name, "%s:%s", dev->name, "safety-ue");
--		ret = request_irq(priv->sfty_ue_irq,
-+		ret = request_irq(msi->sfty_ue_irq,
- 				  stmmac_safety_interrupt,
- 				  0, int_name, dev);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc sfty ue MSI %d (error: %d)\n",
--				   __func__, priv->sfty_ue_irq, ret);
-+				   __func__, msi->sfty_ue_irq, ret);
- 			irq_err = REQ_IRQ_ERR_SFTY_UE;
- 			goto irq_error;
- 		}
-@@ -3870,23 +3894,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	for (i = 0; i < priv->plat->rx_queues_to_use; i++) {
- 		if (i >= MTL_MAX_RX_QUEUES)
- 			break;
--		if (priv->rx_irq[i] == 0)
-+		if (msi->rx_irq[i] == 0)
- 			continue;
- 
--		int_name = priv->int_name_rx_irq[i];
-+		int_name = msi->int_name_rx_irq[i];
- 		sprintf(int_name, "%s:%s-%d", dev->name, "rx", i);
--		ret = request_irq(priv->rx_irq[i],
-+		ret = request_irq(msi->rx_irq[i],
- 				  stmmac_msi_intr_rx,
- 				  0, int_name, &priv->dma_conf.rx_queue[i]);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc rx-%d  MSI %d (error: %d)\n",
--				   __func__, i, priv->rx_irq[i], ret);
-+				   __func__, i, msi->rx_irq[i], ret);
- 			irq_err = REQ_IRQ_ERR_RX;
- 			irq_idx = i;
- 			goto irq_error;
- 		}
--		irq_set_affinity_hint(priv->rx_irq[i],
-+		irq_set_affinity_hint(msi->rx_irq[i],
- 				      cpumask_of(i % num_online_cpus()));
- 	}
- 
-@@ -3894,23 +3918,23 @@ static int stmmac_request_irq_multi_msi(struct net_device *dev)
- 	for (i = 0; i < priv->plat->tx_queues_to_use; i++) {
- 		if (i >= MTL_MAX_TX_QUEUES)
- 			break;
--		if (priv->tx_irq[i] == 0)
-+		if (msi->tx_irq[i] == 0)
- 			continue;
- 
--		int_name = priv->int_name_tx_irq[i];
-+		int_name = msi->int_name_tx_irq[i];
- 		sprintf(int_name, "%s:%s-%d", dev->name, "tx", i);
--		ret = request_irq(priv->tx_irq[i],
-+		ret = request_irq(msi->tx_irq[i],
- 				  stmmac_msi_intr_tx,
- 				  0, int_name, &priv->dma_conf.tx_queue[i]);
- 		if (unlikely(ret < 0)) {
- 			netdev_err(priv->dev,
- 				   "%s: alloc tx-%d  MSI %d (error: %d)\n",
--				   __func__, i, priv->tx_irq[i], ret);
-+				   __func__, i, msi->tx_irq[i], ret);
- 			irq_err = REQ_IRQ_ERR_TX;
- 			irq_idx = i;
- 			goto irq_error;
- 		}
--		irq_set_affinity_hint(priv->tx_irq[i],
-+		irq_set_affinity_hint(msi->tx_irq[i],
- 				      cpumask_of(i % num_online_cpus()));
- 	}
- 
-@@ -7806,12 +7830,12 @@ static int __stmmac_dvr_probe(struct device *device,
- 	priv->dev->irq = res->irq;
- 	priv->wol_irq = res->wol_irq;
- 	priv->sfty_irq = res->sfty_irq;
--	priv->sfty_ce_irq = res->sfty_ce_irq;
--	priv->sfty_ue_irq = res->sfty_ue_irq;
--	for (i = 0; i < MTL_MAX_RX_QUEUES; i++)
--		priv->rx_irq[i] = res->rx_irq[i];
--	for (i = 0; i < MTL_MAX_TX_QUEUES; i++)
--		priv->tx_irq[i] = res->tx_irq[i];
-+
-+	if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN) {
-+		ret = stmmac_msi_init(priv, res);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	if (!is_zero_ether_addr(res->mac))
- 		eth_hw_addr_set(priv->dev, res->mac);
--- 
-2.47.3
+>
+>
+> > +	err = vm_ops->mapped(vma->vm_start, vma->vm_end, vma->vm_pgoff, file,
+> > +			     &vm_private_data);
+> > +	if (err)
+> > +		unmap_vma_locked(vma);
+>
+> when mapped() returns an error, unmap_vma_locked(vma) is called
+> but execution continues into the vm_private_data update below.  After
+> unmap_vma_locked() the VMA may be freed (do_munmap can remove the VMA
+> entirely), so accessing vma->vm_private_data after that is a
+> use-after-free.
 
+Very good point :) will fix thanks!
+
+Probably:
+
+	if (err)
+		unmap_vma_locked(vma);
+	else if (vm_private_data != vma->vm_private_data)
+		vma->vm_private_data = vm_private_data;
+
+	return err;
+
+Would be fine.
+
+>
+> Probably need to do:
+> 	if (err) {
+> 		unmap_vma_locked(vma);
+> 		return err;
+> 	}
+>
+> > +	/* Update private data if changed. */
+> > +	if (vm_private_data != vma->vm_private_data)
+> > +		vma->vm_private_data = vm_private_data;
+> > +
+> > +	return err;
+> > +}
+> > +
+> >  /**
+> >   * compat_vma_mmap() - Apply the file's .mmap_prepare() hook to an
+> >   * existing VMA and execute any requested actions.
+> > @@ -1191,34 +1240,26 @@ EXPORT_SYMBOL(flush_dcache_folio);
+> >   */
+> >  int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
+> >  {
+> > -	struct vm_area_desc desc = {
+> > -		.mm = vma->vm_mm,
+> > -		.file = file,
+> > -		.start = vma->vm_start,
+> > -		.end = vma->vm_end,
+> > -
+> > -		.pgoff = vma->vm_pgoff,
+> > -		.vm_file = vma->vm_file,
+> > -		.vma_flags = vma->flags,
+> > -		.page_prot = vma->vm_page_prot,
+> > -
+> > -		.action.type = MMAP_NOTHING, /* Default */
+> > -	};
+> >  	int err;
+> >
+> > -	err = vfs_mmap_prepare(file, &desc);
+> > -	if (err)
+> > -		return err;
+> > -
+> > -	err = mmap_action_prepare(&desc, &desc.action);
+> > +	err = __compat_vma_mmap(file, vma);
+> >  	if (err)
+> >  		return err;
+> >
+> > -	set_vma_from_desc(vma, &desc);
+> > -	return mmap_action_complete(vma, &desc.action);
+> > +	return __compat_vma_mapped(file, vma);
+> >  }
+> >  EXPORT_SYMBOL(compat_vma_mmap);
+> >
+> > +int __vma_check_mmap_hook(struct vm_area_struct *vma)
+> > +{
+> > +	/* vm_ops->mapped is not valid if mmap() is specified. */
+> > +	if (WARN_ON_ONCE(vma->vm_ops->mapped))
+> > +		return -EINVAL;
+>
+> I think vma->vm_ops can be NULL here. Should be:
+>
+> 	if (vma->vm_ops && WARN_ON_ONCE(vma->vm_ops->mapped))
+> 		return -EINVAL;
+
+I think again you'd probably only invoke this on file-backed so be ok, but again
+as a matter of principle we should check it so will fix, thanks!
+
+>
+> > +
+> > +	return 0;
+> > +}
+> > +EXPORT_SYMBOL(__vma_check_mmap_hook);
+> > +
+> >  static void set_ps_flags(struct page_snapshot *ps, const struct folio *folio,
+> >  			 const struct page *page)
+> >  {
+> > @@ -1316,10 +1357,7 @@ static int mmap_action_finish(struct vm_area_struct *vma,
+> >  	 * invoked if we do NOT merge, so we only clean up the VMA we created.
+> >  	 */
+> >  	if (err) {
+> > -		const size_t len = vma_pages(vma) << PAGE_SHIFT;
+> > -
+> > -		do_munmap(current->mm, vma->vm_start, len, NULL);
+> > -
+> > +		unmap_vma_locked(vma);
+> >  		if (action->error_hook) {
+> >  			/* We may want to filter the error. */
+> >  			err = action->error_hook(err);
+> > diff --git a/mm/vma.c b/mm/vma.c
+> > index 054cf1d262fb..ef9f5a5365d1 100644
+> > --- a/mm/vma.c
+> > +++ b/mm/vma.c
+> > @@ -2705,21 +2705,35 @@ static bool can_set_ksm_flags_early(struct mmap_state *map)
+> >  	return false;
+> >  }
+> >
+> > -static int call_action_complete(struct mmap_state *map,
+> > -				struct mmap_action *action,
+> > -				struct vm_area_struct *vma)
+> > +static int call_mapped_hook(struct vm_area_struct *vma)
+> >  {
+> > -	int ret;
+> > +	const struct vm_operations_struct *vm_ops = vma->vm_ops;
+> > +	void *vm_private_data = vma->vm_private_data;
+> > +	int err;
+> >
+> > -	ret = mmap_action_complete(vma, action);
+> > +	if (!vm_ops || !vm_ops->mapped)
+> > +		return 0;
+> > +	err = vm_ops->mapped(vma->vm_start, vma->vm_end, vma->vm_pgoff,
+> > +			     vma->vm_file, &vm_private_data);
+> > +	if (err) {
+> > +		unmap_vma_locked(vma);
+> > +		return err;
+> > +	}
+> > +	/* Update private data if changed. */
+> > +	if (vm_private_data != vma->vm_private_data)
+> > +		vma->vm_private_data = vm_private_data;
+> > +	return 0;
+> > +}
+> >
+> > -	/* If we held the file rmap we need to release it. */
+> > -	if (map->hold_file_rmap_lock) {
+> > -		struct file *file = vma->vm_file;
+> > +static void maybe_drop_file_rmap_lock(struct mmap_state *map,
+> > +				      struct vm_area_struct *vma)
+> > +{
+> > +	struct file *file;
+> >
+> > -		i_mmap_unlock_write(file->f_mapping);
+> > -	}
+> > -	return ret;
+> > +	if (!map->hold_file_rmap_lock)
+> > +		return;
+> > +	file = vma->vm_file;
+> > +	i_mmap_unlock_write(file->f_mapping);
+> >  }
+> >
+> >  static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> > @@ -2773,8 +2787,11 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+> >  	__mmap_complete(&map, vma);
+> >
+> >  	if (have_mmap_prepare && allocated_new) {
+> > -		error = call_action_complete(&map, &desc.action, vma);
+> > +		error = mmap_action_complete(vma, &desc.action);
+> > +		if (!error)
+> > +			error = call_mapped_hook(vma);
+> >
+> > +		maybe_drop_file_rmap_lock(&map, vma);
+> >  		if (error)
+> >  			return error;
+> >  	}
+> > diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
+> > index 908beb263307..47d8db809f31 100644
+> > --- a/tools/testing/vma/include/dup.h
+> > +++ b/tools/testing/vma/include/dup.h
+> > @@ -606,12 +606,34 @@ struct vm_area_struct {
+> >  } __randomize_layout;
+> >
+> >  struct vm_operations_struct {
+> > -	void (*open)(struct vm_area_struct * area);
+> > +	/**
+> > +	 * @open: Called when a VMA is remapped or split. Not called upon first
+> > +	 * mapping a VMA.
+> > +	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> > +	 */
+> > +	void (*open)(struct vm_area_struct *vma);
+> >  	/**
+> >  	 * @close: Called when the VMA is being removed from the MM.
+> >  	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> >  	 */
+> > -	void (*close)(struct vm_area_struct * area);
+> > +	void (*close)(struct vm_area_struct *vma);
+> > +	/**
+> > +	 * @mapped: Called when the VMA is first mapped in the MM. Not called if
+> > +	 * the new VMA is merged with an adjacent VMA.
+> > +	 *
+> > +	 * The @vm_private_data field is an output field allowing the user to
+> > +	 * modify vma->vm_private_data as necessary.
+> > +	 *
+> > +	 * ONLY valid if set from f_op->mmap_prepare. Will result in an error if
+> > +	 * set from f_op->mmap.
+> > +	 *
+> > +	 * Returns %0 on success, or an error otherwise. On error, the VMA will
+> > +	 * be unmapped.
+> > +	 *
+> > +	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+> > +	 */
+> > +	int (*mapped)(unsigned long start, unsigned long end, pgoff_t pgoff,
+> > +		      const struct file *file, void **vm_private_data);
+> >  	/* Called any time before splitting to check if it's allowed */
+> >  	int (*may_split)(struct vm_area_struct *area, unsigned long addr);
+> >  	int (*mremap)(struct vm_area_struct *area);
+> > @@ -1345,3 +1367,11 @@ static inline void vma_set_file(struct vm_area_struct *vma, struct file *file)
+> >  	swap(vma->vm_file, file);
+> >  	fput(file);
+> >  }
+> > +
+> > +static inline void unmap_vma_locked(struct vm_area_struct *vma)
+> > +{
+> > +	const size_t len = vma_pages(vma) << PAGE_SHIFT;
+> > +
+> > +	mmap_assert_locked(vma->vm_mm);
+> > +	do_munmap(vma->vm_mm, vma->vm_start, len, NULL);
+> > +}
+> > --
+> > 2.53.0
+> >
+> >
+
+Cheers, Lorenzo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
