@@ -2,56 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +Cs3HYUuuGm1aAEAu9opvQ
+	id 8CBAHYUuuGm3aAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:33 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21A7729D4A2
+	by mail.lfdr.de (Postfix) with ESMTPS id 3CD8D29D4A3
 	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7BCBC8F28E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC17FC8F291;
 	Mon, 16 Mar 2026 16:23:32 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1021C87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3432C87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 19:50:20 +0000 (UTC)
+ Fri, 13 Mar 2026 20:11:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1773431421; x=1804967421;
+ t=1773432688; x=1804968688;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=2yBCYa2goQHEMmE1k4SHkPwXDkUt+BCmZISdg4ehhOU=;
- b=P7PJaub5qnqe2u7f73Y08IurcD0A/4OQVv7wBkEKZB8zkA1ClEe7FIYw
- pQKYbe5GqPdbYM9uu/d/LvW5kJIoOoPCb+6evZHGqpgoQ2xCGEP6zGcWQ
- AUWjAmdFgTxYZtomF0CFcKrzVmeCi0QYzI59NpyCpleRf3serpdmCLM4C
- oVp6xDdM//XkayJA6S6XxPcMY8FsDGbOdNNM1bJ88YuNF9Wme4VvYZ3jF
- b8MU0RA1SXrio9TVazMnWiTbxGJdRrTpC9Ew9aGR7Nwg7o6nCDc6JC5eb
- azlo2jZvFQQS+H0DKi1qFQI/uEkZRiCtssKPUKbHjV8n2GAxiRKN8BD2W w==;
-X-CSE-ConnectionGUID: GnKwEg3HRDKtGVPu4R/Fhw==
-X-CSE-MsgGUID: REu07lByTo+z9fG7dPLVBw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11728"; a="74660085"
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74660085"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 13 Mar 2026 12:50:19 -0700
-X-CSE-ConnectionGUID: TtppXxqqSbe/6BojyOSYlA==
-X-CSE-MsgGUID: kyiZqeEoSI+5J4z8lD5Edg==
+ bh=SMPmzclyOIKQEi+ShtklVqvxCpyJHokDbfVTltDu+3M=;
+ b=PYxHq7f1bmdI2+rcPsNHxSWR6CLPLghRvQnW114/karcbdm0Y5SHCUys
+ dA3LZVeWYr+F89BeDVxR3zdwNTYp8yytACOJs4OSmOvmhbAes1e9YOQsY
+ vJeDtL04Z/A7KGD2ifW55nhspFiM2uZqhe4S70P/TV0ptcHwVr3BYvEG3
+ P3OjD/h8yZhSCdo6Dc3vm183x4gqmIFxkNm0mgvjeJBKtI1wC5U1o9RBB
+ glhaDXJgBGT1gA238TUbQYyLe/tl5uQj5dBoEKpa+sk9fFlQmPqBdIXSy
+ rDEzHzetUUA7KN7C+aD2ztT7F/0b9yiMSjQ0T1odDdA/qEaLJEkzwScCx A==;
+X-CSE-ConnectionGUID: b5b0MxlPSfC+6M7CpEMhSg==
+X-CSE-MsgGUID: SsvKd8f2QXSYHBEpIVxlzA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11728"; a="74517781"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74517781"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+ by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2026 13:11:22 -0700
+X-CSE-ConnectionGUID: 2kUbeFEFSaKhLs70W7WvSQ==
+X-CSE-MsgGUID: ev3j7rCVSJW5exQ6b/MdoA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="251775876"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="246403671"
 Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
  ([10.211.93.152])
- by orviesa002.jf.intel.com with ESMTP; 13 Mar 2026 12:50:15 -0700
+ by fmviesa001.fm.intel.com with ESMTP; 13 Mar 2026 13:11:16 -0700
 Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1w18WT-000000003hV-0A89;
- Fri, 13 Mar 2026 19:50:13 +0000
-Date: Fri, 13 Mar 2026 20:50:05 +0100
+ (envelope-from <lkp@intel.com>) id 1w18qn-000000003hZ-0QxX;
+ Fri, 13 Mar 2026 20:11:13 +0000
+Date: Fri, 13 Mar 2026 21:10:41 +0100
 From: kernel test robot <lkp@intel.com>
 To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
  Andrew Lunn <andrew@lunn.ch>
-Message-ID: <202603132053.N3kL3UZZ-lkp@intel.com>
+Message-ID: <202603132104.OVIsnpBk-lkp@intel.com>
 References: <E1w0czK-0000000CzH7-19Fb@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
@@ -59,11 +59,11 @@ In-Reply-To: <E1w0czK-0000000CzH7-19Fb@rmk-PC.armlinux.org.uk>
 X-Mailman-Approved-At: Mon, 16 Mar 2026 16:23:30 +0000
 Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
  Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- llvm@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
- Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@fomichev.me>,
- oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+ Alexei Starovoitov <ast@kernel.org>, Eric Dumazet <edumazet@google.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, oe-kbuild-all@lists.linux.dev,
+ Jakub Kicinski <kuba@kernel.org>, bpf@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH net-next v2 13/15] net: stmmac: add helper
  to set transmit tail pointer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -96,8 +96,8 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:llvm@lists.linux.dev,m:ast@kernel.org,m:edumazet@google.com,m:sdf@fomichev.me,m:oe-kbuild-all@lists.linux.dev,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:ast@kernel.org,m:edumazet@google.com,m:sdf@fomichev.me,m:oe-kbuild-all@lists.linux.dev,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -112,11 +112,11 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	NEURAL_HAM(-0.00)[-0.427];
+	NEURAL_HAM(-0.00)[-0.396];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,intel.com:email,intel.com:mid,01.org:url]
-X-Rspamd-Queue-Id: 21A7729D4A2
+	DBL_BLOCKED_OPENRESOLVER(0.00)[01.org:url,st-md-mailman.stormreply.com:rdns,intel.com:email,intel.com:mid]
+X-Rspamd-Queue-Id: 3CD8D29D4A3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -130,24 +130,22 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-s
 base:   net-next/main
 patch link:    https://lore.kernel.org/r/E1w0czK-0000000CzH7-19Fb%40rmk-PC.armlinux.org.uk
 patch subject: [PATCH net-next v2 13/15] net: stmmac: add helper to set transmit tail pointer
-config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260313/202603132053.N3kL3UZZ-lkp@intel.com/config)
-compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260313/202603132053.N3kL3UZZ-lkp@intel.com/reproduce)
+config: x86_64-rhel-9.4 (https://download.01.org/0day-ci/archive/20260313/202603132104.OVIsnpBk-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260313/202603132104.OVIsnpBk-lkp@intel.com/reproduce)
 
 If you fix the issue in a separate patch/commit (i.e. not just a new version of
 the same patch/commit), kindly add following tags
 | Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202603132053.N3kL3UZZ-lkp@intel.com/
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603132104.OVIsnpBk-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
->> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:430:26: error: call to undeclared function 'dma_desc_to_edesc'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+   drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c: In function 'dwmac4_display_ring':
+>> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:430:40: error: implicit declaration of function 'dma_desc_to_edesc' [-Wimplicit-function-declaration]
      430 |                 struct dma_edesc *ep = dma_desc_to_edesc(head);
-         |                                        ^
->> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:430:21: error: incompatible integer to pointer conversion initializing 'struct dma_edesc *' with an expression of type 'int' [-Wint-conversion]
-     430 |                 struct dma_edesc *ep = dma_desc_to_edesc(head);
-         |                                   ^    ~~~~~~~~~~~~~~~~~~~~~~~
-   2 errors generated.
+         |                                        ^~~~~~~~~~~~~~~~~
+>> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:430:40: error: initialization of 'struct dma_edesc *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
 
 
 vim +/dma_desc_to_edesc +430 drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
