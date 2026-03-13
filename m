@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IIkbJzUDtGnCfAAAu9opvQ
+	id CNvxFjkDtGnjfQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:41 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:45 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E4B6282F9F
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C957282FB6
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A54E9C8F29D;
-	Fri, 13 Mar 2026 12:29:38 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5B0CC8F29D;
+	Fri, 13 Mar 2026 12:29:44 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1640C8F29C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9FD46C8F29C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 12:29:37 +0000 (UTC)
+ Fri, 13 Mar 2026 12:29:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3109av5iM3O+VA2C/sAJJXqcf6yd9RkTWGdUatYtVu4=; b=Gf7azH5hd0Droabgi2kXF7TyEV
- 3HGjt4X/Qw7GemSAWY520n14ezjNrYNgRb3Hphl9o0zY6w6SVnyG1vZIWlAqoyRHBKDNJfQKtojgy
- pwwZPjSUPWNIlWLPOvJmQOmQeApuTG5seY7zNJkD+p5Q2icM84UDU+7pms1ERdvbKYCkn85wbGMxv
- j/C+HEZZeBsQPpO5jk+nbXyMS71F1iCBuTD6cL+P/Nwfe9tJb3rELPv8nc7qAODuJqGmshHnwzV3C
- xDPsAbtUvvCNkZnftpKT5Eyg5l+5yf0Y/LOCeYRGA0dPa0KRPbOrrM2jsl7eykb5LHGgda17As1MG
- GTcC1xMQ==;
+ bh=4Cgf2gD6rXxXF+px7sqhdXyc7MrIzuGZPZOK4yi5eZA=; b=TvBLw4XE16NQQCDsrBvbY9jpAt
+ e+6WB4aANTbAxFHqN7pkXZ3IPRFZiJb5LY4USRhb/v7Ti+rnhhr/YYrMx3jxjFC1oHQWah4RwFfbL
+ LNMv+RFERh6LXbsYRi9ccx86ZK63yE394LHumeWWoVtItsk3QeygG/aRmq3KoFWsluRw9wnLEmrjZ
+ n1iz56JR+K8oEGqyl6LhHXcx1Ss6rCEZNdeXZOUs+QUdeLGl3YcCSM0t7jcw5UBh4Txx+AVtOnVNY
+ ecw29vc+UahI6pZ/jnOi8U+DvN2Ona+aZUHNWyRhCFAbBVqJObu3eG/YcYvYi/Z7HtnNQA4382jZ2
+ MI+0u9rA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:47658 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:47014 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w11dw-000000000wH-06yO;
- Fri, 13 Mar 2026 12:29:28 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w11e2-000000000we-31cl;
+ Fri, 13 Mar 2026 12:29:34 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w11du-0000000DEiY-39Rc; Fri, 13 Mar 2026 12:29:26 +0000
+ id 1w11dz-0000000DEie-3fyA; Fri, 13 Mar 2026 12:29:31 +0000
 In-Reply-To: <abQC7r38QLhSeadl@shell.armlinux.org.uk>
 References: <abQC7r38QLhSeadl@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w11du-0000000DEiY-39Rc@rmk-PC.armlinux.org.uk>
-Date: Fri, 13 Mar 2026 12:29:26 +0000
+Message-Id: <E1w11dz-0000000DEie-3fyA@rmk-PC.armlinux.org.uk>
+Date: Fri, 13 Mar 2026 12:29:31 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 7/8] net: stmmac: configure SGMII AN
- control according to phylink
+Subject: [Linux-stm32] [PATCH net-next 8/8] net: stmmac: report PCS
+	configuration changes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,73 +104,52 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 4E4B6282F9F
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: 0C957282FB6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Provide phylink with the integrated PCS autonegotiation capabilities,
-and configure the PCS's AN settings according to phylink's requested
-requirements.
-
-This may cause regressions.
+Report if/when qcom-ethqos changes the PCS configuration. With phylink
+now setting the PCS configuration, there should be no need for drivers
+to change this.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_pcs.c  | 24 +++++++++++++------
- 1 file changed, 17 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-index 5dbb8fd41099..c56765b5aea4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.c
-@@ -32,6 +32,9 @@ static unsigned int dwmac_integrated_pcs_inband_caps(struct phylink_pcs *pcs,
- 	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
- 	unsigned int ib_caps;
- 
-+	if (interface == PHY_INTERFACE_MODE_SGMII)
-+		return LINK_INBAND_ENABLE | LINK_INBAND_DISABLE;
-+
- 	if (phy_interface_mode_is_8023z(interface)) {
- 		ib_caps = LINK_INBAND_DISABLE;
- 
-@@ -135,22 +138,29 @@ static int dwmac_integrated_pcs_config(struct phylink_pcs *pcs,
- 				       bool permit_pause_to_mac)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+index b2b12d34b3dd..e1160bc8a63d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_pcs.h
+@@ -71,6 +71,7 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+ 				  bool srgmi_ral)
  {
- 	struct stmmac_pcs *spcs = phylink_pcs_to_stmmac_pcs(pcs);
--	bool changed = false, ane = true;
-+	void __iomem *an_control = spcs->base + GMAC_AN_CTRL(0);
-+	bool ane, changed = false;
-+	u32 ctrl;
+ 	u32 value = readl(ioaddr + GMAC_AN_CTRL(reg));
++	u32 old = value, diff;
+ 
+ 	/* Enable and restart the Auto-Negotiation */
+ 	if (ane)
+@@ -85,5 +86,19 @@ static inline void dwmac_ctrl_ane(void __iomem *ioaddr, u32 reg, bool ane,
+ 		value |= GMAC_AN_CTRL_SGMRAL;
+ 
+ 	writel(value, ioaddr + GMAC_AN_CTRL(reg));
 +
-+	ane = neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED;
- 
- 	/* Only configure the advertisement and allow AN in BASE-X mode if
- 	 * the core supports TBI/RTBI. AN will be filtered out by via phylink
- 	 * and the .pcs_inband_caps() method above.
- 	 */
- 	if (phy_interface_mode_is_8023z(interface) &&
--	    spcs->support_tbi_rtbi) {
--		ane = neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED;
--
-+	    spcs->support_tbi_rtbi)
- 		changed = dwmac_integrated_pcs_config_aneg(spcs, interface,
- 							   advertising);
--	}
- 
--	dwmac_ctrl_ane(spcs->base, 0, ane,
--		       spcs->priv->hw->reverse_sgmii_enable);
-+	ctrl = readl(an_control) & ~(GMAC_AN_CTRL_ANE | GMAC_AN_CTRL_SGMRAL);
-+	if (spcs->priv->hw->reverse_sgmii_enable)
-+		ctrl |= GMAC_AN_CTRL_SGMRAL | GMAC_AN_CTRL_ANE;
-+	else if (ane)
-+		ctrl |= GMAC_AN_CTRL_ANE;
-+	else
-+		ctrl |= GMAC_AN_CTRL_SGMRAL;
-+	writel(ctrl, an_control);
- 
- 	return changed;
++	diff = old ^ value;
++	if (diff & ~GMAC_AN_CTRL_RAN) {
++		pr_warn("dwmac: PCS configuration changed from phylink by glue, please report: 0x%08x -> 0x%08x\n",
++			old & ~GMAC_AN_CTRL_RAN, value & ~GMAC_AN_CTRL_RAN);
++#define REPORT_BIT(x) \
++		if (diff & GMAC_AN_CTRL_##x) \
++			pr_warn("dwmac: %8s %u -> %u\n", #x, \
++				!!(old & GMAC_AN_CTRL_##x), \
++				!!(value & GMAC_AN_CTRL_##x))
++		REPORT_BIT(ANE);
++		REPORT_BIT(SGMRAL);
++#undef REPORT_BIT
++	}
  }
+ #endif /* __STMMAC_PCS_H__ */
 -- 
 2.47.3
 
