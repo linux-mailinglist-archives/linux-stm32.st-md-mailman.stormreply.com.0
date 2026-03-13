@@ -2,95 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MH8yKNjJs2kqawAAu9opvQ
+	id Fg5NM3XKs2n2awAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:24:56 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:27:33 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43A2027F8DE
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:24:56 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC0627FA21
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:27:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2023C8F28F;
-	Fri, 13 Mar 2026 08:24:55 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 10DCCC8F28F;
+	Fri, 13 Mar 2026 08:27:33 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A30BC87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 305A9C87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 08:24:54 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-4852fdb36a8so21319085e9.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 01:24:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773390294; x=1773995094;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=hAFGGUj97wUgKBI4E0D3p+1miO3lf4NeLxQAlqvBWVs=;
- b=i9n4UYE8jlGHAN2XJGmigb/azQl1T0j6Uun80iKNpxlY3X8mJDiyM2SjSOPxOWpAY2
- SLHX6SbcSvzFysRjKl2J7x5bDD8HTTh1NcptPyhb9xuCqgvyerc5GeG5ice1Wc2x5RKH
- ZL+Y7QcU/scRe7b8JWHGuVXU3BuB9aPLdSMkJNuAvO5LKUpodOI2papx+J7GXtWH8F82
- DBQe69Cwl8YZcRw8I24o+WbVo9DZ8C/cxlhcEK/6Kb7Tz7cTKGo6AYjCi1dZkcn5zs6Y
- mv/qHVszJ6zNv2qz8N14+q01Z6ljSQzup/F973ugt8oS+CGUr4xaxI4xQX31U2ifBnkt
- F7vQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773390294; x=1773995094;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=hAFGGUj97wUgKBI4E0D3p+1miO3lf4NeLxQAlqvBWVs=;
- b=fizz6h6Op5UFdtnoxU+2Ro5YhpFuJ13soq48rRzUEmw/36XU7ATPULTXNbKnhTLgC0
- t+i/yVR5pf7IYihqiXrbiEY5nieQhf/z1JtyY0Ijz4btqfwSqlLkYgAifHSTohwblj51
- GQAdLP2B0wP2m3ZunVHhvEApHCKZ0V+uP5y2fFrdvQvGBoghkCGDG957Wfm6ROfjQLBm
- BYn9408+2DDjVqR6oxr2IkhtXV75OFm2TlSEqeRvmE667iVttOqjAo5UTOuJThDxeujf
- ccil1sRQG2tWkcYN++04lFgYUqxm9z5grYT+G+013cw9lE4Clo1dpzwx1pgs7urDcXRL
- 5IMA==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUtrDLV1G0aRid6pV77fsFw+Za/1LHdsCa1zGOEJQNdn7s0Re3Frfj+HFdgWRSjV5EGfVRcv6vUHefzUA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwqU6HjRKfFp06oxuqNhi6t4O38bhvwjpfs/ytTiryk1xL9Wb9m
- krS1bYVCpZIJ0YhznZdHQpSsoF34MkkVNe3jnw5s43pEIhH19gkKf068
-X-Gm-Gg: ATEYQzxEvoEfAwPJRVTy+jKkYRwe7vOHvzPvdCnNMZJnuHPEK/2/rquFKsDFGAuqZa2
- 4JspngSPQw3nY4XctbyRDDxqSb1F34WE9rgBqJzK4sPMIAiNuwak4ZUe5U4f33UDjoeIl5H8636
- mz4eBRKNVQZxhDTFo+YV/DeXJPLGxubb6sDOEsEa1Anqp7/d3XZtVxQwZAoVW/nTXJ0y7xbBIBn
- gPaAkP2Lb4NsfxAUxNLxp2jD/KRuv4gBfBSZdYngzYGK+geE4OlDXT6YzMUj7jjH1kzwiHRoKq7
- bge7g/TIJ5pHUxydwoqfDlSQnpcqLT+UFDDeH2ZKCL8eJYhByt5PPOWmeyEAzJE+0Rn+o22+M3P
- cLuSnH1qHPmXbTycmNX3aZ816eG70NhATb/ePXZqS4dXRHFte4oXwLw7vze/gVr91hXolYwgBgQ
- L8qPWY/20sU1JNt24cWQCz6uLzM+tPBkDsfuoWXTj0IaTJN7WyYe/g7O+GoxRJbL0TTqwVLQZM6
- 2yO6UGiRo6FV/R9naYkiT/y5ZP8tyisSCLhY5FM9HfMtPEQi3LG4EaznF5/u14iwG1wyQ==
-X-Received: by 2002:a05:600c:3492:b0:483:c3f3:1dad with SMTP id
- 5b1f17b1804b1-48556713589mr34343685e9.34.1773390294105; 
- Fri, 13 Mar 2026 01:24:54 -0700 (PDT)
-Received: from ?IPV6:2a01:cb08:91f5:5e00:f7a6:cd23:3f76:a7e?
- (2a01cb0891f55e00f7a6cd233f760a7e.ipv6.abo.wanadoo.fr.
- [2a01:cb08:91f5:5e00:f7a6:cd23:3f76:a7e])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4854b65fd3dsm194645545e9.10.2026.03.13.01.24.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 13 Mar 2026 01:24:53 -0700 (PDT)
-Message-ID: <7d1c36ba-2699-4b33-8343-8e0c74fcfe59@gmail.com>
-Date: Fri, 13 Mar 2026 09:24:51 +0100
+ Fri, 13 Mar 2026 08:27:32 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id B75E660142;
+ Fri, 13 Mar 2026 08:27:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7BEC19421;
+ Fri, 13 Mar 2026 08:27:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773390450;
+ bh=LjjmvM/vmaS4//USd0RW7tvsnLCWGGdQkTrz5/AWVp0=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=DPPni+lYDoaOn1Ag3kuyj0AQj8FTTurKfSI6YHa2F1wcx6tllEIeZERg44A1o40lL
+ NBgrny4mrciTQTm+Braqu4OFRCMM3dcYEl1SHuJn4iDd9eRGqPxvL+UA852MIdW1xF
+ SU4qi3rDQEUScohJtYI4mFVdAlGmyojMScYhw3bsrx29Ctigy+thqVIS/BMMK8vkJE
+ GlSG9027eyW1Z6idxnfM4oYSyygA1YCYXWob/GSoDv3hKVvFXgmqIY+8tO+Vxxefc7
+ nE/NQGUNBnxc/LXfIESoIQGzHbiVGdOD+0wOJNk7YzS0cgMAr083vwFOGNaBac56TH
+ ZjMXgLfJ2F34g==
+Date: Fri, 13 Mar 2026 09:27:27 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <20260313-dexterous-lively-jaguarundi-72bfef@houat>
+References: <20260311-qcom-sa8255p-emac-v8-0-58227bcf1018@oss.qualcomm.com>
+ <20260312181654.2d9ba69c@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-References: <20260210-b4-rcc-upstream-v9-0-17ca1db7613f@gmail.com>
-Content-Language: en-US, fr
-From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>
-In-Reply-To: <20260210-b4-rcc-upstream-v9-0-17ca1db7613f@gmail.com>
-Cc: devicetree@vger.kernel.org,
- =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v9 0/3] Register the STM32MP25 RCC driver
- as an access controller.
+In-Reply-To: <20260312181654.2d9ba69c@kernel.org>
+Cc: imx@lists.linux.dev, s32@nxp.com,
+ Geert Uytterhoeven <geert+renesas@glider.be>, Radu Rendec <rrendec@redhat.com>,
+ linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
+ linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Drew Fustini <dfustini@tenstorrent.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Magnus Damm <magnus.damm@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ linux-rockchip@lists.infradead.org, Paolo Abeni <pabeni@redhat.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
+ devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-arm-msm@vger.kernel.org, Jan Petrous <jan.petrous@oss.nxp.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ linux-mips@vger.kernel.org, sophgo@lists.linux.dev,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ netdev@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
+ Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
+ Christophe Roullier <christophe.roullier@foss.st.com>,
+ linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next v8 0/6] net: stmmac: qcom-ethqos:
+ add support for SCMI power domains
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,89 +85,109 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: multipart/mixed; boundary="===============1880307773502636984=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.49 / 15.00];
+X-Spamd-Result: default: False [3.19 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
-	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[mripard@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:imx@lists.linux.dev,m:s32@nxp.com,m:geert+renesas@glider.be,m:rrendec@redhat.com,m:linux-kernel@vger.kernel.org,m:edumazet@google.com,m:linux-amlogic@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jbrunet@baylibre.com,m:robh@kernel.org,m:dfustini@tenstorrent.com,m:romain.gantois@bootlin.com,m:khilman@baylibre.com,m:bartosz.golaszewski@oss.qualcomm.com,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:linux-rockchip@lists.infradead.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:brgl@kernel.org,m:martin.blumenstingl@googlemail.com,m:linux-arm-msm@vger.kernel.org,m:jan.petrous@oss.nxp.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:linux-mips@vger.kernel.org,m:sophgo@lists.linux.dev,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:konrad.dybcio@oss.q
+ ualcomm.com,m:neil.armstrong@linaro.org,m:krzysztof.kozlowski@oss.qualcomm.com,m:netdev@vger.kernel.org,m:andersson@kernel.org,m:bartosz.golaszewski@linaro.org,m:christophe.roullier@foss.st.com,m:linux-renesas-soc@vger.kernel.org,m:andrew+netdev@lunn.ch,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:geert@glider.be,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,m:conor@kernel.org,m:martinblumenstingl@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[49];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[baylibre.com,kernel.org,gmail.com,foss.st.com];
-	FORGED_SENDER(0.00)[legofficclement@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:mturquette@baylibre.com,m:sboyd@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:gabriel.fernandez@foss.st.com,m:devicetree@vger.kernel.org,m:clement.legoffic@foss.st.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TAGGED_FROM(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,glider.be,redhat.com,vger.kernel.org,google.com,lists.infradead.org,gmail.com,st-md-mailman.stormreply.com,baylibre.com,kernel.org,tenstorrent.com,bootlin.com,oss.qualcomm.com,googlemail.com,oss.nxp.com,bp.renesas.com,st.com,linaro.org,foss.st.com,lunn.ch,davemloft.net];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[legofficclement@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.999];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.845];
+	FROM_NEQ_ENVFROM(0.00)[mripard@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 43A2027F8DE
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas,dt,netdev];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 6BC0627FA21
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-SGVsbG8sCgpPbiAyLzEwLzI2IDg6MzIgUE0sIENsw6ltZW50IExlIEdvZmZpYyB3cm90ZToKPiBU
-aGUgU1RNMzJNUDI1IFJDQyBwZXJpcGhlcmFsIGFzIGFuIGFjY2VzcyBjb250cm9sbGVyIGlzIGFs
-bG93ZWQgdG8ga25vdwo+IHdoZXRoZXIgdGhlIGNsb2NrcyBhcmUgc2VjdXJlZCBvciBub3QuCj4g
-VGhlIFNUTTMyTVAyNSBSQ0MgcGVyaXBoZXJhbCBrbm93cyBhYm91dCB0aGUgY2xvY2sgc2VjdXJl
-IGNvbmZpZ3VyYXRpb24KPiBvZiBhbGwgbm9uIFJJRi1hd2FyZSBwZXJpcGhlcmFsLgo+IEluIHBh
-cmFsbGVsIGFsbCB0aGUgUklGLWF3YXJlIHBlcmlwaGVyYWwgY29uZmlndXJhdGlvbiBpbmZvcm1h
-dGlvbgo+IGFyZSBrbm93biBieSB0aGUgUklGU0MgcGVyaXBoZXJhbCB3aGljaCBpcyBhbHJlYWR5
-IGFuIGFjY2Vzcwo+IGNvbnRyb2xsZXIuCj4gCj4gQ2hhbmdlcyBpbiB2OToKPiAtIFJlYmFzZSBv
-biB2Ni4xOS4wCj4gLSBBZGQgR2FicmllbCBGZXJuYW5kZXoncyBSZXZpZXdlZC1ieQo+IC0gTGlu
-ayB0byB2ODogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI1MDkyNC1iNC1yY2MtdXBzdHJl
-YW0tdjgtMC1iMzJkNDZmNzFhMzhAZ21haWwuY29tCj4gCj4gQ2hhbmdlcyBpbiB2ODoKPiAtIFVz
-ZSB1cHBlcmNhc2UgZm9yIHBlcmlwaGVyYWwgbmFtZSBpbiBjb21taXQgbWVzc2FnZQo+IC0gQWRk
-IHRoZSAnI2FjY2Vzcy1jb250cm9sbGVyLWNlbGxzJyBwcm9wZXJ0eSB0byB0aGUgUkNDIGluCj4g
-ICAgc3RtMzJtcDIzMS5kdHNpCj4gLSBMaW5rIHRvIHY3OiBodHRwczovL2xvcmUua2VybmVsLm9y
-Zy9yLzIwMjUwOTIyLWI0LXJjYy11cHN0cmVhbS12Ny0wLTJkZmM0ZTAxOGY0MEBnbWFpbC5jb20K
-PiAKPiBUaGUgdjcgaXMgYSBzdWJzZXQgb2YgdGhlIHY2IGFuZCBvdGhlciBwcmlvciB2ZXJzaW9u
-cywgc3BsaXQgdG8gc2ltcGxpZnkKPiB0aGUgcmV2aWV3IGFuZCBtZXJnaW5nIHByb2Nlc3MuCj4g
-Cj4gQ2hhbmdlcyBpbiB2NzoKPiAtIE5vbmUKPiAtIExpbmsgdG8gdjY6IGh0dHBzOi8vbG9yZS5r
-ZXJuZWwub3JnL2FsbC8yMDI1MDkwOS1iNC1kZHJwZXJmbS11cHN0cmVhbS12Ni0yLWNlMDgyY2M4
-MDFiNUBnbWFpbC5jb20vCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2zDqW1lbnQgTGUgR29mZmljIDxs
-ZWdvZmZpYy5jbGVtZW50QGdtYWlsLmNvbT4KPiAtLS0KPiBDbMOpbWVudCBMZSBHb2ZmaWMgKDMp
-Ogo+ICAgICAgICBkdC1iaW5kaW5nczogc3RtMzI6IHN0bTMybXAyNTogYWRkIGAjYWNjZXNzLWNv
-bnRyb2xsZXItY2VsbHNgIHByb3BlcnR5Cj4gICAgICAgIGNsazogc3RtMzJtcDI1OiBhZGQgZmly
-ZXdhbGwgZ3JhbnRfYWNjZXNzIG9wcwo+ICAgICAgICBhcm02NDogZHRzOiBzdDogc2V0IFJDQyBh
-cyBhbiBhY2Nlc3MtY29udHJvbGxlcgo+IAo+ICAgLi4uL2JpbmRpbmdzL2Nsb2NrL3N0LHN0bTMy
-bXAyNS1yY2MueWFtbCAgICAgICAgICAgfCAgNyArKysrCj4gICBhcmNoL2FybTY0L2Jvb3QvZHRz
-L3N0L3N0bTMybXAyMzEuZHRzaSAgICAgICAgICAgICB8ICAxICsKPiAgIGFyY2gvYXJtNjQvYm9v
-dC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpICAgICAgICAgICAgIHwgIDEgKwo+ICAgZHJpdmVycy9j
-bGsvc3RtMzIvY2xrLXN0bTMybXAyNS5jICAgICAgICAgICAgICAgICAgfCA0MCArKysrKysrKysr
-KysrKysrKysrKystCj4gICA0IGZpbGVzIGNoYW5nZWQsIDQ4IGluc2VydGlvbnMoKyksIDEgZGVs
-ZXRpb24oLSkKPiAtLS0KPiBiYXNlLWNvbW1pdDogMDVmN2U4OWFiOTczMTU2NWQ4YTYyZTNiNWQx
-ZWMyMDY0ODVlZWIwYgo+IGNoYW5nZS1pZDogMjAyNTA5MTYtYjQtcmNjLXVwc3RyZWFtLThhOGVh
-M2FmNmEwZAo+IHByZXJlcXVpc2l0ZS1jaGFuZ2UtaWQ6IDIwMjUwOTE2LWI0LWZpcmV3YWxsLXVw
-c3RyZWFtLWRmZTg1ODhhMjFmODp2OAo+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogZTRhNzA4ZDlj
-NmRmNTcyNWM5NTk4ZmJkMjE2OTYzNmU0ZTdkYzQ2Ygo+IAo+IEJlc3QgcmVnYXJkcywKPiAtLQo+
-IENsw6ltZW50IExlIEdvZmZpYyA8bGVnb2ZmaWMuY2xlbWVudEBnbWFpbC5jb20+Cj4gCgpFdmVy
-eXRoaW5nIHNlZW1zIGZpbmUgaGVyZSwgZG9lcyBhbnlvbmUgaXMgYWJsZSB0byB0YWtlIGl0ID8K
-CkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+
+--===============1880307773502636984==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="pxy5ukm7k3gyqla3"
+Content-Disposition: inline
+
+
+--pxy5ukm7k3gyqla3
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH net-next v8 0/6] net: stmmac: qcom-ethqos: add support
+ for SCMI power domains
+MIME-Version: 1.0
+
+Hi Jakub,
+
+On Thu, Mar 12, 2026 at 06:16:54PM -0700, Jakub Kicinski wrote:
+> On Wed, 11 Mar 2026 18:03:35 +0100 Bartosz Golaszewski wrote:
+> > Add support for the firmware-managed variant of the DesignWare MAC on
+> > the sa8255p platform. This series contains new DT bindings and driver
+> > changes required to support the MAC in the STMMAC driver.
+> >=20
+> > It also reorganizes the ethqos code quite a bit to make the introduction
+> > of power domains into the driver a bit easier on the eye.
+>=20
+> Not entirely sure what the conclusion was in the sub-thread with Russell
+> but FWIW this doesn't apply to net-next as posted so respin will be
+> needed either way.
+
+We'd really like for this series to go in, so fwiw I'd prefer that we
+don't create a dependency on a series that has never been posted for
+this to be merged.
+
+Maxime
+
+--pxy5ukm7k3gyqla3
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCabPKagAKCRAnX84Zoj2+
+dq/cAX9HbQPDp+u+6RAvVqRXiVlUqq7qrs2GAioBq5qsajRY1mqIABlDjHVyOc8v
+8oDz3SwBfiJTavhwpPgjJQ9YAcH4JcHjnzxAs88eFjbDLDYSe2mAKK7fP8U02MfH
+qIGBmEr8gg==
+=zTCu
+-----END PGP SIGNATURE-----
+
+--pxy5ukm7k3gyqla3--
+
+--===============1880307773502636984==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============1880307773502636984==--
