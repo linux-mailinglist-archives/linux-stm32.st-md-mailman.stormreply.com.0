@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8OsuCSkDtGnCfAAAu9opvQ
+	id 2KccDisDtGnjfQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:29 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:31 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C279B282F85
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:28 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE1E3282F94
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 13:29:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BA76C8F29C;
-	Fri, 13 Mar 2026 12:29:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97DC6C8F29D;
+	Fri, 13 Mar 2026 12:29:30 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E3D2C87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C29BFC8F29D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 12:29:27 +0000 (UTC)
+ Fri, 13 Mar 2026 12:29:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=J5Zoz41AgUppJCM7dJNs79i8XgBzueAV/7XPUocAqnQ=; b=ATv3EgJvfcIk8EFRUMOFlRUbob
- itDse5dUHSK6N35yuV5fNtEaG8fAp4MaQQoVmLc0SWXspIT2ZbXpAg5twqdHYa3S3eECAAEq8zRvw
- Nbfk/N7Ies2kuo9WTOG3iCvdaZldUhOZlCoWGQFvSsGHjxvsHLW0aFHw+aHR+k4T2BbjbCi/25geV
- cA+P1WqWwYe0fbQrfjBI7tF3np1pxfHyoPGhUDji1tPmbLb40Icrb+/fcnGr1zBJIdkhYXuxmJgqP
- CgyJ3pIM4JZPR3OyO5fEDSuC7UHbeEc7pia5xBBq6Ng+6baZ4jrvxf4EzuGXIn9w30dcCvvxj+6Jo
- hgO78+RQ==;
+ bh=vRGaB5Bliy2iHcTFd37O3KH9tuEgTI4zNfd/MVCkts4=; b=Jlzc0EPaTQkfwlAVNO7tQgXXTU
+ UCbM7Ov6AZPC6L6GCTB68qoZ6pNXBJAAxIWNSOvl3za/8DFRo8YIZApTmpCVv4rYb0EHfRfwrK1JN
+ Y1ONHe9PEL5icTP622tkoGDOQVPFyTaGWBl7zxHYr0Lqc7FNoGiD4ifkV00ZqR6g/HfSRP429r70K
+ ILzTO5dZXGSDZ7ASzg7Jho6fv6mnHqq9bnzCX73dfHOISS2O9+yhriPX+o6vlu0i1L+4b80LdXwCQ
+ uxDEgel7DWfYaGuMEIumISbfEEKKbNbkd7blAO8FpE6pIkDNrxMaA3+xkuz3arJE4pDsLr3/1dHMa
+ UysVQT2w==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:55750 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:47646 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w11dl-000000000va-2B9n;
- Fri, 13 Mar 2026 12:29:17 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w11dq-000000000vu-2e04;
+ Fri, 13 Mar 2026 12:29:22 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w11dk-0000000DEiM-2Bad; Fri, 13 Mar 2026 12:29:16 +0000
+ id 1w11dp-0000000DEiS-2epT; Fri, 13 Mar 2026 12:29:21 +0000
 In-Reply-To: <abQC7r38QLhSeadl@shell.armlinux.org.uk>
 References: <abQC7r38QLhSeadl@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w11dk-0000000DEiM-2Bad@rmk-PC.armlinux.org.uk>
-Date: Fri, 13 Mar 2026 12:29:16 +0000
+Message-Id: <E1w11dp-0000000DEiS-2epT@rmk-PC.armlinux.org.uk>
+Date: Fri, 13 Mar 2026 12:29:21 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 5/8] net: stmmac: qcom-ethqos: enable
-	2500BASE-X
+Subject: [Linux-stm32] [PATCH net-next 6/8] net: stmmac: qcom-ethqos: enable
+ inband mode for SGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +92,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.997];
+	NEURAL_HAM(-0.00)[-0.996];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -104,13 +104,16 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: C279B282F85
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: CE1E3282F94
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Enable 2500BASE-X support in qcom-ethqos to support the 2.5G speed with
-the integrated PCS.
+qcom-ethqos is manually enabling the PCS ANE bit for SGMII modes while
+phylink remains in outband mode. With support for SGMII inband mode now
+supported by the stmmac PCS code, switch phylink to use inband mode for
+SGMII. Phylink will switch back to outband mode for 2500BASE-X since the
+PCS code reports no BASE-X AN support.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
@@ -118,17 +121,17 @@ Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 3ccf20fdf52a..f0e7a060ca73 100644
+index f0e7a060ca73..a4571c0ee8b6 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -828,6 +828,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	if (ethqos->serdes_phy) {
- 		plat_dat->serdes_powerup = qcom_ethqos_serdes_powerup;
- 		plat_dat->serdes_powerdown  = qcom_ethqos_serdes_powerdown;
-+		plat_dat->flags |= STMMAC_FLAG_SERDES_SUPPORTS_2500M;
- 	}
- 
- 	/* Enable TSO on queue0 and enable TBS on rest of the queues */
+@@ -765,6 +765,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+ 	case PHY_INTERFACE_MODE_SGMII:
+ 		ethqos->configure_func = ethqos_configure_sgmii;
+ 		plat_dat->mac_finish = ethqos_mac_finish_serdes;
++		plat_dat->mdio_bus_data->default_an_inband = true;
+ 		break;
+ 	default:
+ 		dev_err(dev, "Unsupported phy mode %s\n",
 -- 
 2.47.3
 
