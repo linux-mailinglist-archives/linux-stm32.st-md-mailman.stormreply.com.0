@@ -2,70 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2KwuOLjZs2mzbgAAu9opvQ
+	id oCqTBt7ds2ktcQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:32:40 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:50:22 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 842AC2808B2
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:32:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4768280CC6
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 10:50:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B35AC8F299;
-	Fri, 13 Mar 2026 09:32:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FFE1C8F299;
+	Fri, 13 Mar 2026 09:50:21 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F5C2C87ED6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F788C87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 09:32:38 +0000 (UTC)
+ Fri, 13 Mar 2026 09:50:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=A6oGlsV387MSkeGlfgdCPnuYQ1UUU9UaeP1u0pOYQpk=; b=KXkh2Yw3uuUce4xfJqcyDT6oXr
- NRROy1CK1FouZHjjYNBKR2TFjMoRAZ2pWKnrY+1cq9s/8a+FY9Nft+WGiMUC8FWoaHV/2x5ubEhYH
- XaU/j2ue9XT2gar4kfcuZzK397RG7LTkvzV+2bkjezPlGbaFkd3pRlXRthrAg2M+A6mi7PAlniBiv
- vVVabrRHlZRVtvPeJY5k7iYghXxYTi0jmWjOEGsP0rW3hbOLvqNmcX+0rnaJ8YdjfBcYIIYGKXGVH
- WB3ZOeLd4KmXSxr7a+/NyvLj12mwLVSr+P4XCVeMiTYKvAYg3/+BwoMe2FI3QdJyQGGBmYt/S/b0o
- I2ghAwcg==;
+ bh=i3gBEvfmyQV+9uH5i4FmpSfnmRtgPTkWMoZkpfNCYRg=; b=NGItC00l6+gJk9x21ROBzaYDvn
+ WDz2Ey3tXX4u6ERSR3F0jaS/OCIKaQ2CHlLrcytk5TXO5JigVsKhtCg+9r0NVY7ptbZcsVQCqmbEw
+ G+Vk2iaTBnktzw+qJ/E5TcfiA7wjR0412rqNEDS1munnv1Ctvm364t2zymjEUMHRefPkMZsyLdMcK
+ EDK0SNpvOu8m/7Ej1PBlVVTPN6Al7c0DMHh1Kq+5B/gHUPRRObyGWgDRraaeWBSFxmNX12fbp0aq5
+ JokDO9hJ9wgB4kdeCKtTj94xkinQOD5jBBknMcTgV3gIobOKi9EEqJPewOYzR+fJmlgfxwHZz52NF
+ dAPPtwPA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:54034)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:37432)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w0ysa-000000000Zx-4BKS;
- Fri, 13 Mar 2026 09:32:25 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1w0z9m-000000000bp-3IC3;
+ Fri, 13 Mar 2026 09:50:10 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w0ysY-0000000086W-3QeX; Fri, 13 Mar 2026 09:32:22 +0000
-Date: Fri, 13 Mar 2026 09:32:22 +0000
+ id 1w0z9j-0000000087c-2qla; Fri, 13 Mar 2026 09:50:07 +0000
+Date: Fri, 13 Mar 2026 09:50:07 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: jan.petrous@oss.nxp.com
-Message-ID: <abPZpiCsirNzvqJt@shell.armlinux.org.uk>
-References: <20260313-dwmac_multi_irq-v12-0-b5c9d0aa13d6@oss.nxp.com>
- <20260313-dwmac_multi_irq-v12-4-b5c9d0aa13d6@oss.nxp.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <abPdzyXJHqt5v3bi@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260313-dwmac_multi_irq-v12-4-b5c9d0aa13d6@oss.nxp.com>
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- vladimir.oltean@nxp.com, Frank Li <Frank.Li@nxp.com>,
- Eric Dumazet <edumazet@google.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
- Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, boon.khai.ng@altera.com,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v12 4/4] stmmac: s32: enable
- support for Multi-IRQ mode
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Alexei Starovoitov <ast@kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Stanislav Fomichev <sdf@fomichev.me>, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v3 00/15] net: stmmac: clean up
+ descriptor handling part 1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -87,114 +75,50 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:jan.petrous@oss.nxp.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:vladimir.oltean@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,lists.infradead.org,suse.com,lunn.ch,altera.com,davemloft.net];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:ast@kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:sdf@fomichev.me,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-1.000];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,shell.armlinux.org.uk:mid,armlinux.org.uk:email,armlinux.org.uk:url,nxp.com:email,s32g399aevb3:email,4033c000:email]
-X-Rspamd-Queue-Id: 842AC2808B2
+	DBL_BLOCKED_OPENRESOLVER(0.00)[shell.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,armlinux.org.uk:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: B4768280CC6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, Mar 13, 2026 at 08:13:35AM +0100, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> 
-> Based on previous changes in platform driver, the vendor
-> glue driver can enable Multi-IRQ mode, if needed.
-> 
-> To get enabled Multi-IRQ mode for dwmac-s32, the driver checks:
-> 
->   1) property of 'snps,mtl-xx-config' subnode
->      defines 'snps,xx-queues-to-use' bigger then one, ie:
-> 
->      ethernet@4033c000 {
->          compatible = "nxp,s32g2-dwmac";
->          ...
->          snps,mtl-rx-config = <&mtl_rx_setup>;
->          ...
-> 
->          mtl_rx_setup: rx-queues-config {
->              snps,rx-queues-to-use = <2>;
->          };
-> 
->   2) queue based IRQs are set, ie:
-> 
->      ethernet@4033c000 {
->          compatible = "nxp,s32g2-dwmac";
->          ...
->          interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>,
->                       /* CHN 0: tx, rx */
->                       <GIC_SPI 58 IRQ_TYPE_LEVEL_HIGH>,
->                       <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>,
->                       /* CHN 1: tx, rx */
->                       <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>,
->                       <GIC_SPI 61 IRQ_TYPE_LEVEL_HIGH>;
->          interrupt-names = "macirq",
->                            "tx-queue-0", "rx-queue-0",
->                            "tx-queue-1", "rx-queue-1";
-> 
-> If those prerequisites are met, the driver switches to Multi-IRQ mode,
-> using per-queue IRQs for rx/tx data pathr:
-> 
-> [    1.387045] s32-dwmac 4033c000.ethernet: Multi-IRQ mode (per queue IRQs) selected
-> 
-> Now the driver owns all queues IRQs:
-> 
-> root@s32g399aevb3:~# grep eth /proc/interrupts
->  29:    0    0    0    0    0    0    0    0    GICv3  89 Level   eth0:mac
->  30:    0    0    0    0    0    0    0    0    GICv3  91 Level   eth0:rx-0
->  31:    0    0    0    0    0    0    0    0    GICv3  93 Level   eth0:rx-1
->  32:    0    0    0    0    0    0    0    0    GICv3  95 Level   eth0:rx-2
->  33:    0    0    0    0    0    0    0    0    GICv3  97 Level   eth0:rx-3
->  34:    0    0    0    0    0    0    0    0    GICv3  99 Level   eth0:rx-4
->  35:    0    0    0    0    0    0    0    0    GICv3  90 Level   eth0:tx-0
->  36:    0    0    0    0    0    0    0    0    GICv3  92 Level   eth0:tx-1
->  37:    0    0    0    0    0    0    0    0    GICv3  94 Level   eth0:tx-2
->  38:    0    0    0    0    0    0    0    0    GICv3  96 Level   eth0:tx-3
->  39:    0    0    0    0    0    0    0    0    GICv3  98 Level   eth0:tx-4
-> 
-> Otherwise, if one of the prerequisite don't met, the driver
-> continue with MAC IRQ mode:
-> 
-> [    1.387045] s32-dwmac 4033c000.ethernet: MAC IRQ mode selected
-> 
-> And only MAC IRQ will be attached:
-> 
-> root@s32g399aevb3:~# grep eth /proc/interrupts
->  29:    0    0    0    0    0    0    0    0    GICv3  89 Level   eth0:mac
-> 
-> What represents the original MAC IRQ mode and is fully backward
-> compatible.
-> 
-> Reviewed-by: Matthias Brugger <mbrugger@suse.com>
+Hi,
 
-Reviewed-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Part 1 of cleaning up the stmmac descriptor handling. Rearrange the
+struct stmmac_tx_info to pack better, and introduce helpers for
+duplicated code handing the transmit and receive descriptors. Remove
+unnecessary struct members that are only transitorily used.
 
-Thanks!
+ drivers/net/ethernet/stmicro/stmmac/descs.h        |   2 +
+ drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c |   2 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h       |   8 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c  | 458 +++++++++------------
+ 4 files changed, 197 insertions(+), 273 deletions(-)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
