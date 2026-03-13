@@ -2,113 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wABMKvNjtGngnAAAu9opvQ
+	id +Cs3HYUuuGm1aAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 20:22:27 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:33 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4120128931A
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 20:22:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21A7729D4A2
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7BD2C8F29D;
-	Fri, 13 Mar 2026 19:22:26 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D7BCBC8F28E;
+	Mon, 16 Mar 2026 16:23:32 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1DACC8F29C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D1021C87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 19:22:25 +0000 (UTC)
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id B208C4D943;
- Fri, 13 Mar 2026 19:22:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1773429744;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
- b=cwr9QvSbf3addifFtJFaEE3S5jwqDpZlb749Rs1kTiqHHQe0wIw+TMnTma/8mfA3QiWv+t
- IZuKpLsIb+k3xwyZAXuL8F5GTiyGUJh1olDjZfpDExV1+UvdVwgZIIojOm6APRysjO8/lt
- 9WDXlxlJVmMpUXoO3id4LXjiv7t5UI0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1773429744;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
- b=K+U59XI2u6gqS+yANGWtG/Pii/V0SpIQQ7wMg6BtOp5KKFcWyvgFtoDkwX90d0NOWdybeR
- Ua+tdtixGZm/opAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
- t=1773429744;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
- b=cwr9QvSbf3addifFtJFaEE3S5jwqDpZlb749Rs1kTiqHHQe0wIw+TMnTma/8mfA3QiWv+t
- IZuKpLsIb+k3xwyZAXuL8F5GTiyGUJh1olDjZfpDExV1+UvdVwgZIIojOm6APRysjO8/lt
- 9WDXlxlJVmMpUXoO3id4LXjiv7t5UI0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
- s=susede2_ed25519; t=1773429744;
- h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
- cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=lEZDbFbdaiqtR0DORmYiMySif6us6CTI89GNtF8koIU=;
- b=K+U59XI2u6gqS+yANGWtG/Pii/V0SpIQQ7wMg6BtOp5KKFcWyvgFtoDkwX90d0NOWdybeR
- Ua+tdtixGZm/opAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested)
- by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 6F14A406AC;
- Fri, 13 Mar 2026 19:22:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
- by imap1.dmz-prg2.suse.org with ESMTPSA id 6cTyGvBjtGnfZAAAD6G6ig
- (envelope-from <dsterba@suse.cz>); Fri, 13 Mar 2026 19:22:24 +0000
-Date: Fri, 13 Mar 2026 20:22:15 +0100
-From: David Sterba <dsterba@suse.cz>
-To: Philipp Hahn <phahn-oss@avm.de>
-Message-ID: <20260313192215.GH5735@twin.jikos.cz>
-References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
- <20260310-b4-is_err_or_null-v1-2-bd63b656022d@avm.de>
+ Fri, 13 Mar 2026 19:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1773431421; x=1804967421;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=2yBCYa2goQHEMmE1k4SHkPwXDkUt+BCmZISdg4ehhOU=;
+ b=P7PJaub5qnqe2u7f73Y08IurcD0A/4OQVv7wBkEKZB8zkA1ClEe7FIYw
+ pQKYbe5GqPdbYM9uu/d/LvW5kJIoOoPCb+6evZHGqpgoQ2xCGEP6zGcWQ
+ AUWjAmdFgTxYZtomF0CFcKrzVmeCi0QYzI59NpyCpleRf3serpdmCLM4C
+ oVp6xDdM//XkayJA6S6XxPcMY8FsDGbOdNNM1bJ88YuNF9Wme4VvYZ3jF
+ b8MU0RA1SXrio9TVazMnWiTbxGJdRrTpC9Ew9aGR7Nwg7o6nCDc6JC5eb
+ azlo2jZvFQQS+H0DKi1qFQI/uEkZRiCtssKPUKbHjV8n2GAxiRKN8BD2W w==;
+X-CSE-ConnectionGUID: GnKwEg3HRDKtGVPu4R/Fhw==
+X-CSE-MsgGUID: REu07lByTo+z9fG7dPLVBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11728"; a="74660085"
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="74660085"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Mar 2026 12:50:19 -0700
+X-CSE-ConnectionGUID: TtppXxqqSbe/6BojyOSYlA==
+X-CSE-MsgGUID: kyiZqeEoSI+5J4z8lD5Edg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.23,118,1770624000"; d="scan'208";a="251775876"
+Received: from igk-lkp-server01.igk.intel.com (HELO 9958d990ccf2)
+ ([10.211.93.152])
+ by orviesa002.jf.intel.com with ESMTP; 13 Mar 2026 12:50:15 -0700
+Received: from kbuild by 9958d990ccf2 with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1w18WT-000000003hV-0A89;
+ Fri, 13 Mar 2026 19:50:13 +0000
+Date: Fri, 13 Mar 2026 20:50:05 +0100
+From: kernel test robot <lkp@intel.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Andrew Lunn <andrew@lunn.ch>
+Message-ID: <202603132053.N3kL3UZZ-lkp@intel.com>
+References: <E1w0czK-0000000CzH7-19Fb@rmk-PC.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260310-b4-is_err_or_null-v1-2-bd63b656022d@avm.de>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Spam-Score: -2.50
-X-Spam-Level: 
-X-Spam-Flag: NO
-Cc: linux-hyperv@vger.kernel.org, kvm@vger.kernel.org, linux-sh@vger.kernel.org,
- samba-technical@lists.samba.org, dri-devel@lists.freedesktop.org,
- linux-mips@vger.kernel.org, gfs2@lists.linux.dev, linux-mm@kvack.org,
- linux-sctp@vger.kernel.org, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-phy@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-leds@vger.kernel.org,
- linux-cifs@vger.kernel.org, linux-scsi@vger.kernel.org,
- amd-gfx@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-rockchip@lists.infradead.org, iommu@lists.linux.dev,
- intel-wired-lan@lists.osuosl.org, linux-arm-kernel@lists.infradead.org,
- linux-input@vger.kernel.org, linux-ext4@vger.kernel.org,
- linux-media@vger.kernel.org, dm-devel@lists.linux.dev,
- linux-pm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
- apparmor@lists.ubuntu.com, linux-sound@vger.kernel.org,
- linux-block@vger.kernel.org, linux-gpio@vger.kernel.org,
- David Sterba <dsterba@suse.com>, ceph-devel@vger.kernel.org,
- linux-omap@vger.kernel.org, sched-ext@lists.linux.dev, cocci@inria.fr,
- linux-nfs@vger.kernel.org, ntfs3@lists.linux.dev, Chris Mason <clm@fb.com>,
- linux-s390@vger.kernel.org, v9fs@lists.linux.dev, linux-usb@vger.kernel.org,
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-bluetooth@vger.kernel.org, linux-security-module@vger.kernel.org,
- tipc-discussion@lists.sourceforge.net, linux-modules@vger.kernel.org,
- netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org, bpf@vger.kernel.org,
- linux-trace-kernel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH 02/61] btrfs: Prefer IS_ERR_OR_NULL over
-	manual NULL check
+In-Reply-To: <E1w0czK-0000000CzH7-19Fb@rmk-PC.armlinux.org.uk>
+X-Mailman-Approved-At: Mon, 16 Mar 2026 16:23:30 +0000
+Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
+ llvm@lists.linux.dev, Alexei Starovoitov <ast@kernel.org>,
+ Eric Dumazet <edumazet@google.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ oe-kbuild-all@lists.linux.dev, Jakub Kicinski <kuba@kernel.org>,
+ bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 13/15] net: stmmac: add helper
+ to set transmit tail pointer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,71 +77,136 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: dsterba@suse.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [5.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	MID_CONTAINS_FROM(1.00)[];
+	DATE_IN_PAST(1.00)[68];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:linux-hyperv@vger.kernel.org,m:kvm@vger.kernel.org,m:linux-sh@vger.kernel.org,m:samba-technical@lists.samba.org,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:gfs2@lists.linux.dev,m:linux-mm@kvack.org,m:linux-sctp@vger.kernel.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:linux-phy@lists.infradead.org,m:linux-clk@vger.kernel.org,m:linux-leds@vger.kernel.org,m:linux-cifs@vger.kernel.org,m:linux-scsi@vger.kernel.org,m:amd-gfx@lists.freedesktop.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rockchip@lists.infradead.org,m:iommu@lists.linux.dev,m:intel-wired-lan@lists.osuosl.org,m:linux-arm-kernel@lists.infradead.org,m:linux-input@vger.kernel.org,m:linux-ext4@vger.kernel.org,m:linux-media@vger.kernel.org,m:dm-devel@lists.linux.dev,m:linux-pm@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:apparmor@lists.ubuntu.com,m:linux-sound@vger.kernel.org,m:linux-block@vger.kernel.org,m:linux-gpio@vger.k
- ernel.org,m:dsterba@suse.com,m:ceph-devel@vger.kernel.org,m:linux-omap@vger.kernel.org,m:sched-ext@lists.linux.dev,m:cocci@inria.fr,m:linux-nfs@vger.kernel.org,m:ntfs3@lists.linux.dev,m:clm@fb.com,m:linux-s390@vger.kernel.org,m:v9fs@lists.linux.dev,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-bluetooth@vger.kernel.org,m:linux-security-module@vger.kernel.org,m:tipc-discussion@lists.sourceforge.net,m:linux-modules@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-fsdevel@vger.kernel.org,m:bpf@vger.kernel.org,m:linux-trace-kernel@vger.kernel.org,m:linux-erofs@lists.ozlabs.org,m:linux-btrfs@vger.kernel.org,s:lists@lfdr.de];
-	DMARC_NA(0.00)[suse.cz];
-	FORGED_SENDER(0.00)[dsterba@suse.cz,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[suse.cz:-];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	HAS_REPLYTO(0.00)[dsterba@suse.cz];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dsterba@suse.cz,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:llvm@lists.linux.dev,m:ast@kernel.org,m:edumazet@google.com,m:sdf@fomichev.me,m:oe-kbuild-all@lists.linux.dev,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[56];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[lkp@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.427];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.966];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,fb.com:email,twin.jikos.cz:mid,avm.de:email]
-X-Rspamd-Queue-Id: 4120128931A
+	TAGGED_RCPT(0.00)[linux-stm32,kernel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,intel.com:email,intel.com:mid,01.org:url]
+X-Rspamd-Queue-Id: 21A7729D4A2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, Mar 10, 2026 at 12:48:28PM +0100, Philipp Hahn wrote:
-> Prefer using IS_ERR_OR_NULL() over using IS_ERR() and a manual NULL
-> check.
-> 
-> IS_ERR_OR_NULL() already uses likely(!ptr) internally. checkpatch does
-> not like nesting it:
-> > WARNING: nested (un)?likely() calls, IS_ERR_OR_NULL already uses
-> > unlikely() internally
-> Remove the explicit use of likely().
-> 
-> Change generated with coccinelle.
-> 
-> To: Chris Mason <clm@fb.com>
-> To: David Sterba <dsterba@suse.com>
-> Cc: linux-btrfs@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Signed-off-by: Philipp Hahn <phahn-oss@avm.de>
+Hi Russell,
 
-Added to for-next, we seem to be using IS_ERR_OR_NULL() already in a
-few other places so this is makes sense for consistency. Thanks.
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on net-next/main]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Russell-King-Oracle/net-stmmac-rearrange-stmmac_tx_info-members-to-pack-better/20260313-225823
+base:   net-next/main
+patch link:    https://lore.kernel.org/r/E1w0czK-0000000CzH7-19Fb%40rmk-PC.armlinux.org.uk
+patch subject: [PATCH net-next v2 13/15] net: stmmac: add helper to set transmit tail pointer
+config: x86_64-kexec (https://download.01.org/0day-ci/archive/20260313/202603132053.N3kL3UZZ-lkp@intel.com/config)
+compiler: clang version 20.1.8 (https://github.com/llvm/llvm-project 87f0227cb60147a26a1eeb4fb06e3b505e9c7261)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260313/202603132053.N3kL3UZZ-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202603132053.N3kL3UZZ-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:430:26: error: call to undeclared function 'dma_desc_to_edesc'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     430 |                 struct dma_edesc *ep = dma_desc_to_edesc(head);
+         |                                        ^
+>> drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:430:21: error: incompatible integer to pointer conversion initializing 'struct dma_edesc *' with an expression of type 'int' [-Wint-conversion]
+     430 |                 struct dma_edesc *ep = dma_desc_to_edesc(head);
+         |                                   ^    ~~~~~~~~~~~~~~~~~~~~~~~
+   2 errors generated.
+
+
+vim +/dma_desc_to_edesc +430 drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
+
+   396	
+   397	static void dwmac4_display_ring(void *head, unsigned int size, bool rx,
+   398					dma_addr_t dma_rx_phy, unsigned int desc_size)
+   399	{
+   400		dma_addr_t dma_addr;
+   401		int i;
+   402	
+   403		pr_info("%s descriptor ring:\n", rx ? "RX" : "TX");
+   404	
+   405		if (desc_size == sizeof(struct dma_desc)) {
+   406			struct dma_desc *p = (struct dma_desc *)head;
+   407	
+   408			for (i = 0; i < size; i++) {
+   409				dma_addr = dma_rx_phy + i * sizeof(*p);
+   410				pr_info("%03d [%pad]: 0x%x 0x%x 0x%x 0x%x\n",
+   411					i, &dma_addr,
+   412					le32_to_cpu(p->des0), le32_to_cpu(p->des1),
+   413					le32_to_cpu(p->des2), le32_to_cpu(p->des3));
+   414				p++;
+   415			}
+   416		} else if (desc_size == sizeof(struct dma_extended_desc)) {
+   417			struct dma_extended_desc *extp = (struct dma_extended_desc *)head;
+   418	
+   419			for (i = 0; i < size; i++) {
+   420				dma_addr = dma_rx_phy + i * sizeof(*extp);
+   421				pr_info("%03d [%pad]: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
+   422					i, &dma_addr,
+   423					le32_to_cpu(extp->basic.des0), le32_to_cpu(extp->basic.des1),
+   424					le32_to_cpu(extp->basic.des2), le32_to_cpu(extp->basic.des3),
+   425					le32_to_cpu(extp->des4), le32_to_cpu(extp->des5),
+   426					le32_to_cpu(extp->des6), le32_to_cpu(extp->des7));
+   427				extp++;
+   428			}
+   429		} else if (desc_size == sizeof(struct dma_edesc)) {
+ > 430			struct dma_edesc *ep = dma_desc_to_edesc(head);
+   431	
+   432			for (i = 0; i < size; i++) {
+   433				dma_addr = dma_rx_phy + i * sizeof(*ep);
+   434				pr_info("%03d [%pad]: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
+   435					i, &dma_addr,
+   436					le32_to_cpu(ep->des4), le32_to_cpu(ep->des5),
+   437					le32_to_cpu(ep->des6), le32_to_cpu(ep->des7),
+   438					le32_to_cpu(ep->basic.des0), le32_to_cpu(ep->basic.des1),
+   439					le32_to_cpu(ep->basic.des2), le32_to_cpu(ep->basic.des3));
+   440				ep++;
+   441			}
+   442		} else {
+   443			pr_err("unsupported descriptor!");
+   444		}
+   445	}
+   446	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
