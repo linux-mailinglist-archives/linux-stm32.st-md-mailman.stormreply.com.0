@@ -2,62 +2,95 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UIHHNNLCs2mEagAAu9opvQ
+	id MH8yKNjJs2kqawAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 08:54:58 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:24:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75D5727F0C7
-	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 08:54:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43A2027F8DE
+	for <lists+linux-stm32@lfdr.de>; Fri, 13 Mar 2026 09:24:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E7E5C8F28F;
-	Fri, 13 Mar 2026 07:54:58 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [52.237.72.81])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7E83CC87ED6
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2023C8F28F;
+	Fri, 13 Mar 2026 08:24:55 +0000 (UTC)
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A30BC87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 13 Mar 2026 07:54:56 +0000 (UTC)
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
- by app1 (Coremail) with SMTP id TAJkCgD3jHHBwrNpsxoIAA--.34817S2;
- Fri, 13 Mar 2026 15:54:42 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- rmk+kernel@armlinux.org.uk, wens@kernel.org, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Fri, 13 Mar 2026 15:54:38 +0800
-Message-ID: <20260313075438.1633-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260313075234.1567-1-lizhi2@eswincomputing.com>
-References: <20260313075234.1567-1-lizhi2@eswincomputing.com>
+ Fri, 13 Mar 2026 08:24:54 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4852fdb36a8so21319085e9.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 13 Mar 2026 01:24:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20230601; t=1773390294; x=1773995094;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hAFGGUj97wUgKBI4E0D3p+1miO3lf4NeLxQAlqvBWVs=;
+ b=i9n4UYE8jlGHAN2XJGmigb/azQl1T0j6Uun80iKNpxlY3X8mJDiyM2SjSOPxOWpAY2
+ SLHX6SbcSvzFysRjKl2J7x5bDD8HTTh1NcptPyhb9xuCqgvyerc5GeG5ice1Wc2x5RKH
+ ZL+Y7QcU/scRe7b8JWHGuVXU3BuB9aPLdSMkJNuAvO5LKUpodOI2papx+J7GXtWH8F82
+ DBQe69Cwl8YZcRw8I24o+WbVo9DZ8C/cxlhcEK/6Kb7Tz7cTKGo6AYjCi1dZkcn5zs6Y
+ mv/qHVszJ6zNv2qz8N14+q01Z6ljSQzup/F973ugt8oS+CGUr4xaxI4xQX31U2ifBnkt
+ F7vQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773390294; x=1773995094;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hAFGGUj97wUgKBI4E0D3p+1miO3lf4NeLxQAlqvBWVs=;
+ b=fizz6h6Op5UFdtnoxU+2Ro5YhpFuJ13soq48rRzUEmw/36XU7ATPULTXNbKnhTLgC0
+ t+i/yVR5pf7IYihqiXrbiEY5nieQhf/z1JtyY0Ijz4btqfwSqlLkYgAifHSTohwblj51
+ GQAdLP2B0wP2m3ZunVHhvEApHCKZ0V+uP5y2fFrdvQvGBoghkCGDG957Wfm6ROfjQLBm
+ BYn9408+2DDjVqR6oxr2IkhtXV75OFm2TlSEqeRvmE667iVttOqjAo5UTOuJThDxeujf
+ ccil1sRQG2tWkcYN++04lFgYUqxm9z5grYT+G+013cw9lE4Clo1dpzwx1pgs7urDcXRL
+ 5IMA==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUtrDLV1G0aRid6pV77fsFw+Za/1LHdsCa1zGOEJQNdn7s0Re3Frfj+HFdgWRSjV5EGfVRcv6vUHefzUA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwqU6HjRKfFp06oxuqNhi6t4O38bhvwjpfs/ytTiryk1xL9Wb9m
+ krS1bYVCpZIJ0YhznZdHQpSsoF34MkkVNe3jnw5s43pEIhH19gkKf068
+X-Gm-Gg: ATEYQzxEvoEfAwPJRVTy+jKkYRwe7vOHvzPvdCnNMZJnuHPEK/2/rquFKsDFGAuqZa2
+ 4JspngSPQw3nY4XctbyRDDxqSb1F34WE9rgBqJzK4sPMIAiNuwak4ZUe5U4f33UDjoeIl5H8636
+ mz4eBRKNVQZxhDTFo+YV/DeXJPLGxubb6sDOEsEa1Anqp7/d3XZtVxQwZAoVW/nTXJ0y7xbBIBn
+ gPaAkP2Lb4NsfxAUxNLxp2jD/KRuv4gBfBSZdYngzYGK+geE4OlDXT6YzMUj7jjH1kzwiHRoKq7
+ bge7g/TIJ5pHUxydwoqfDlSQnpcqLT+UFDDeH2ZKCL8eJYhByt5PPOWmeyEAzJE+0Rn+o22+M3P
+ cLuSnH1qHPmXbTycmNX3aZ816eG70NhATb/ePXZqS4dXRHFte4oXwLw7vze/gVr91hXolYwgBgQ
+ L8qPWY/20sU1JNt24cWQCz6uLzM+tPBkDsfuoWXTj0IaTJN7WyYe/g7O+GoxRJbL0TTqwVLQZM6
+ 2yO6UGiRo6FV/R9naYkiT/y5ZP8tyisSCLhY5FM9HfMtPEQi3LG4EaznF5/u14iwG1wyQ==
+X-Received: by 2002:a05:600c:3492:b0:483:c3f3:1dad with SMTP id
+ 5b1f17b1804b1-48556713589mr34343685e9.34.1773390294105; 
+ Fri, 13 Mar 2026 01:24:54 -0700 (PDT)
+Received: from ?IPV6:2a01:cb08:91f5:5e00:f7a6:cd23:3f76:a7e?
+ (2a01cb0891f55e00f7a6cd233f760a7e.ipv6.abo.wanadoo.fr.
+ [2a01:cb08:91f5:5e00:f7a6:cd23:3f76:a7e])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4854b65fd3dsm194645545e9.10.2026.03.13.01.24.52
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 13 Mar 2026 01:24:53 -0700 (PDT)
+Message-ID: <7d1c36ba-2699-4b33-8343-8e0c74fcfe59@gmail.com>
+Date: Fri, 13 Mar 2026 09:24:51 +0100
 MIME-Version: 1.0
-X-CM-TRANSID: TAJkCgD3jHHBwrNpsxoIAA--.34817S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxurWxtw1DWr1xtFy8WFWDCFg_yoWrGw45pF
- 47urZ5XrWrWr1xA34YvFy09FZxJws7GF95Krn7tFyDGF4q9FWYvr4jy3WfJF17ArWUX3y5
- WFs3t34FkF4vy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
- k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
- MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
- 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
- JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
- C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRdWrXUUUUU=
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
-Cc: pinkesh.vaghela@einfochips.com, weishangjuan@eswincomputing.com,
- linmin@eswincomputing.com, ningyu@eswincomputing.com,
- pritesh.patel@einfochips.com, Zhi Li <lizhi2@eswincomputing.com>
-Subject: [Linux-stm32] [PATCH net-next v4 3/3] riscv: dts: eswin:
-	eic7700-hifive-premier-p550: enable Ethernet controller
+User-Agent: Mozilla Thunderbird
+To: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Gabriel Fernandez <gabriel.fernandez@foss.st.com>
+References: <20260210-b4-rcc-upstream-v9-0-17ca1db7613f@gmail.com>
+Content-Language: en-US, fr
+From: =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>
+In-Reply-To: <20260210-b4-rcc-upstream-v9-0-17ca1db7613f@gmail.com>
+Cc: devicetree@vger.kernel.org,
+ =?UTF-8?Q?Cl=C3=A9ment_Le_Goffic?= <clement.legoffic@foss.st.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v9 0/3] Register the STM32MP25 RCC driver
+ as an access controller.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,206 +102,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [3.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[28];
 	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[eswincomputing.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:devicetree@vger.kernel.org,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:lizhi2@eswincomputing.com,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[vger.kernel.org,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,dabbelt.com,eecs.berkeley.edu,ghiti.fr,lists.infradead.org,st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DBL_PROHIBIT(0.00)[3.1.11.0:email];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_TO(0.00)[baylibre.com,kernel.org,gmail.com,foss.st.com];
+	FORGED_SENDER(0.00)[legofficclement@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:mturquette@baylibre.com,m:sboyd@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:gabriel.fernandez@foss.st.com,m:devicetree@vger.kernel.org,m:clement.legoffic@foss.st.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TAGGED_FROM(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.988];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[legofficclement@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.845];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NO_DN(0.00)[];
-	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[3.1.50.16:email,0.0.0.0:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,3.9.72.96:email,3.19.90.128:email]
-X-Rspamd-Queue-Id: 75D5727F0C7
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 43A2027F8DE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Zhi Li <lizhi2@eswincomputing.com>
-
-Enable the on-board Gigabit Ethernet controller on the
-HiFive Premier P550 development board.
-
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- .../dts/eswin/eic7700-hifive-premier-p550.dts | 42 ++++++++++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        | 66 +++++++++++++++++++
- 2 files changed, 108 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-index 131ed1fc6b2e..5a40be1d2a25 100644
---- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-+++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-@@ -13,6 +13,8 @@ / {
- 
- 	aliases {
- 		serial0 = &uart0;
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
- 	};
- 
- 	chosen {
-@@ -20,6 +22,46 @@ chosen {
- 	};
- };
- 
-+&gmac0 {
-+	phy-handle = <&gmac0_phy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gpio106_pins>;
-+	rx-internal-delay-ps = <20>;
-+	tx-internal-delay-ps = <100>;
-+	status = "okay";
-+
-+	mdio {
-+		gmac0_phy0: ethernet-phy@0 {
-+			compatible = "ethernet-phy-id001c.c916";
-+			reg = <0>;
-+			reset-gpios = <&gpioD 10 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <80000>;
-+		};
-+	};
-+};
-+
-+&gmac1 {
-+	phy-handle = <&gmac1_phy0>;
-+	phy-mode = "rgmii-rxid";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gpio111_pins>;
-+	rx-internal-delay-ps = <200>;
-+	tx-internal-delay-ps = <200>;
-+	status = "okay";
-+
-+	mdio {
-+		gmac1_phy0: ethernet-phy@0 {
-+			compatible = "ethernet-phy-id001c.c916";
-+			reg = <0>;
-+			reset-gpios = <&gpioD 15 GPIO_ACTIVE_LOW>;
-+			reset-assert-us = <10000>;
-+			reset-deassert-us = <80000>;
-+		};
-+	};
-+};
-+
- &uart0 {
- 	status = "okay";
- };
-diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-index c3ed93008bca..f1a01d5736a1 100644
---- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-+++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-@@ -5,6 +5,8 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/gpio/gpio.h>
-+
- / {
- 	#address-cells = <2>;
- 	#size-cells = <2>;
-@@ -295,6 +297,70 @@ uart4: serial@50940000 {
- 			status = "disabled";
- 		};
- 
-+		gmac0: ethernet@50400000 {
-+			compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
-+			reg = <0x0 0x50400000 0x0 0x10000>;
-+			interrupts = <61>;
-+			interrupt-names = "macirq";
-+			clocks = <&clk 186>,
-+				 <&clk 171>,
-+				 <&clk 40>,
-+				 <&clk 193>;
-+			clock-names = "axi", "cfg", "stmmaceth", "tx";
-+			resets = <&reset 95>;
-+			reset-names = "stmmaceth";
-+			eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
-+			snps,aal;
-+			snps,fixed-burst;
-+			snps,tso;
-+			snps,axi-config = <&stmmac_axi_setup_gmac0>;
-+			status = "disabled";
-+
-+			stmmac_axi_setup_gmac0: stmmac-axi-config {
-+				snps,blen = <0 0 0 0 16 8 4>;
-+				snps,rd_osr_lmt = <2>;
-+				snps,wr_osr_lmt = <2>;
-+			};
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
-+		gmac1: ethernet@50410000 {
-+			compatible = "eswin,eic7700-qos-eth-clk-inversion", "snps,dwmac-5.20";
-+			reg = <0x0 0x50410000 0x0 0x10000>;
-+			interrupts = <70>;
-+			interrupt-names = "macirq";
-+			clocks = <&clk 186>,
-+				 <&clk 171>,
-+				 <&clk 40>,
-+				 <&clk 194>;
-+			clock-names = "axi", "cfg", "stmmaceth", "tx";
-+			resets = <&reset 94>;
-+			reset-names = "stmmaceth";
-+			eswin,hsp-sp-csr = <&hsp_sp_csr 0x200 0x208 0x218 0x214 0x21c>;
-+			snps,aal;
-+			snps,fixed-burst;
-+			snps,tso;
-+			snps,axi-config = <&stmmac_axi_setup_gmac1>;
-+			status = "disabled";
-+
-+			stmmac_axi_setup_gmac1: stmmac-axi-config {
-+				snps,blen = <0 0 0 0 16 8 4>;
-+				snps,rd_osr_lmt = <2>;
-+				snps,wr_osr_lmt = <2>;
-+			};
-+
-+			mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
- 		gpio@51600000 {
- 			compatible = "snps,dw-apb-gpio";
- 			reg = <0x0 0x51600000 0x0 0x80>;
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGVsbG8sCgpPbiAyLzEwLzI2IDg6MzIgUE0sIENsw6ltZW50IExlIEdvZmZpYyB3cm90ZToKPiBU
+aGUgU1RNMzJNUDI1IFJDQyBwZXJpcGhlcmFsIGFzIGFuIGFjY2VzcyBjb250cm9sbGVyIGlzIGFs
+bG93ZWQgdG8ga25vdwo+IHdoZXRoZXIgdGhlIGNsb2NrcyBhcmUgc2VjdXJlZCBvciBub3QuCj4g
+VGhlIFNUTTMyTVAyNSBSQ0MgcGVyaXBoZXJhbCBrbm93cyBhYm91dCB0aGUgY2xvY2sgc2VjdXJl
+IGNvbmZpZ3VyYXRpb24KPiBvZiBhbGwgbm9uIFJJRi1hd2FyZSBwZXJpcGhlcmFsLgo+IEluIHBh
+cmFsbGVsIGFsbCB0aGUgUklGLWF3YXJlIHBlcmlwaGVyYWwgY29uZmlndXJhdGlvbiBpbmZvcm1h
+dGlvbgo+IGFyZSBrbm93biBieSB0aGUgUklGU0MgcGVyaXBoZXJhbCB3aGljaCBpcyBhbHJlYWR5
+IGFuIGFjY2Vzcwo+IGNvbnRyb2xsZXIuCj4gCj4gQ2hhbmdlcyBpbiB2OToKPiAtIFJlYmFzZSBv
+biB2Ni4xOS4wCj4gLSBBZGQgR2FicmllbCBGZXJuYW5kZXoncyBSZXZpZXdlZC1ieQo+IC0gTGlu
+ayB0byB2ODogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvci8yMDI1MDkyNC1iNC1yY2MtdXBzdHJl
+YW0tdjgtMC1iMzJkNDZmNzFhMzhAZ21haWwuY29tCj4gCj4gQ2hhbmdlcyBpbiB2ODoKPiAtIFVz
+ZSB1cHBlcmNhc2UgZm9yIHBlcmlwaGVyYWwgbmFtZSBpbiBjb21taXQgbWVzc2FnZQo+IC0gQWRk
+IHRoZSAnI2FjY2Vzcy1jb250cm9sbGVyLWNlbGxzJyBwcm9wZXJ0eSB0byB0aGUgUkNDIGluCj4g
+ICAgc3RtMzJtcDIzMS5kdHNpCj4gLSBMaW5rIHRvIHY3OiBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9yLzIwMjUwOTIyLWI0LXJjYy11cHN0cmVhbS12Ny0wLTJkZmM0ZTAxOGY0MEBnbWFpbC5jb20K
+PiAKPiBUaGUgdjcgaXMgYSBzdWJzZXQgb2YgdGhlIHY2IGFuZCBvdGhlciBwcmlvciB2ZXJzaW9u
+cywgc3BsaXQgdG8gc2ltcGxpZnkKPiB0aGUgcmV2aWV3IGFuZCBtZXJnaW5nIHByb2Nlc3MuCj4g
+Cj4gQ2hhbmdlcyBpbiB2NzoKPiAtIE5vbmUKPiAtIExpbmsgdG8gdjY6IGh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL2FsbC8yMDI1MDkwOS1iNC1kZHJwZXJmbS11cHN0cmVhbS12Ni0yLWNlMDgyY2M4
+MDFiNUBnbWFpbC5jb20vCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2zDqW1lbnQgTGUgR29mZmljIDxs
+ZWdvZmZpYy5jbGVtZW50QGdtYWlsLmNvbT4KPiAtLS0KPiBDbMOpbWVudCBMZSBHb2ZmaWMgKDMp
+Ogo+ICAgICAgICBkdC1iaW5kaW5nczogc3RtMzI6IHN0bTMybXAyNTogYWRkIGAjYWNjZXNzLWNv
+bnRyb2xsZXItY2VsbHNgIHByb3BlcnR5Cj4gICAgICAgIGNsazogc3RtMzJtcDI1OiBhZGQgZmly
+ZXdhbGwgZ3JhbnRfYWNjZXNzIG9wcwo+ICAgICAgICBhcm02NDogZHRzOiBzdDogc2V0IFJDQyBh
+cyBhbiBhY2Nlc3MtY29udHJvbGxlcgo+IAo+ICAgLi4uL2JpbmRpbmdzL2Nsb2NrL3N0LHN0bTMy
+bXAyNS1yY2MueWFtbCAgICAgICAgICAgfCAgNyArKysrCj4gICBhcmNoL2FybTY0L2Jvb3QvZHRz
+L3N0L3N0bTMybXAyMzEuZHRzaSAgICAgICAgICAgICB8ICAxICsKPiAgIGFyY2gvYXJtNjQvYm9v
+dC9kdHMvc3Qvc3RtMzJtcDI1MS5kdHNpICAgICAgICAgICAgIHwgIDEgKwo+ICAgZHJpdmVycy9j
+bGsvc3RtMzIvY2xrLXN0bTMybXAyNS5jICAgICAgICAgICAgICAgICAgfCA0MCArKysrKysrKysr
+KysrKysrKysrKystCj4gICA0IGZpbGVzIGNoYW5nZWQsIDQ4IGluc2VydGlvbnMoKyksIDEgZGVs
+ZXRpb24oLSkKPiAtLS0KPiBiYXNlLWNvbW1pdDogMDVmN2U4OWFiOTczMTU2NWQ4YTYyZTNiNWQx
+ZWMyMDY0ODVlZWIwYgo+IGNoYW5nZS1pZDogMjAyNTA5MTYtYjQtcmNjLXVwc3RyZWFtLThhOGVh
+M2FmNmEwZAo+IHByZXJlcXVpc2l0ZS1jaGFuZ2UtaWQ6IDIwMjUwOTE2LWI0LWZpcmV3YWxsLXVw
+c3RyZWFtLWRmZTg1ODhhMjFmODp2OAo+IHByZXJlcXVpc2l0ZS1wYXRjaC1pZDogZTRhNzA4ZDlj
+NmRmNTcyNWM5NTk4ZmJkMjE2OTYzNmU0ZTdkYzQ2Ygo+IAo+IEJlc3QgcmVnYXJkcywKPiAtLQo+
+IENsw6ltZW50IExlIEdvZmZpYyA8bGVnb2ZmaWMuY2xlbWVudEBnbWFpbC5jb20+Cj4gCgpFdmVy
+eXRoaW5nIHNlZW1zIGZpbmUgaGVyZSwgZG9lcyBhbnlvbmUgaXMgYWJsZSB0byB0YWtlIGl0ID8K
+CkJlc3QgcmVnYXJkcywKQ2zDqW1lbnQKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
