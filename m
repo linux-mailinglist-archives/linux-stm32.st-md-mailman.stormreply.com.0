@@ -2,60 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IIuFOC4vtWkXxQAAu9opvQ
+	id aHqcHIYuuGm3aAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Mar 2026 10:49:34 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:34 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8195428C833
-	for <lists+linux-stm32@lfdr.de>; Sat, 14 Mar 2026 10:49:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00BDD29D4DB
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 17:23:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2CFD8C87ED6;
-	Sat, 14 Mar 2026 09:49:34 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B2D65C9008A;
+	Mon, 16 Mar 2026 16:23:33 +0000 (UTC)
+Received: from s106b.cyber-folks.pl (s106b.cyber-folks.pl [195.78.66.88])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 190ECC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4CF7C87ED6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 14 Mar 2026 09:49:33 +0000 (UTC)
+ Sat, 14 Mar 2026 15:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
- Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
- In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=jy7ZZYhO/l6AOCV4Dt/j5MRaTr5NmlKcOirpso5gcsI=; b=lmC06WNieLreXGlEIHWpCaVOUh
- i6MIhwbunHss7ff3R7azS4CcFGl4FeoVTYa1Pm4bSjU6txY7q3MCpt9WnEJeXg0niU2MM6ZyE/j1u
- uOWWWzx1QDzUm1e+HznZcd2kA/p93Rr8QD0BiESBqDQdwIPyKdEQX2TdxevjhOwGRt1+H4Rk91CQy
- HQVw3YScq5pTl5ur2Wf2GhPolkpZytbVlWvqf3FlLqcMQCAyv3+S0XNFcLbm6d3YZk2+Qg+oHewhZ
- 2fEjzb5OHRAx2jn1i8m9i0EcnBt1/L4bK67l1x8Ie8fC6dd8jikYZZI0uX55WbXkPCYA8BUUrjTQe
- ohE5Aqsg==;
-Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:54580 helo=rmk-PC.armlinux.org.uk)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w1LWz-0000000023d-1VDf;
- Sat, 14 Mar 2026 09:43:37 +0000
-Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w1LWy-0000000DGT8-2Hoc; Sat, 14 Mar 2026 09:43:36 +0000
-In-Reply-To: <abUtGH9KB03PH5Ne@shell.armlinux.org.uk>
-References: <abUtGH9KB03PH5Ne@shell.armlinux.org.uk>
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
+ d=mmpsystems.pl; s=x; h=Cc:To:Message-Id:Content-Transfer-Encoding:
+ Content-Type:MIME-Version:Subject:Date:From:Sender:Reply-To:Content-ID:
+ Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+ :Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
+ List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=EgCsQpLfP6jlSC3mUtz80d1LyhN5q7HHT6hn2BMEbcI=; b=ZNPvi+McsNM6sE7cSCcvs2gMnt
+ OsbLb7qY/gGb/PN6F/geAZ+HRQmKgclGugspuJIQa16LMG74KvYVkzb9Ikt1ykW4FsJqUoGHOYffM
+ BmbysA7+7zM9YaHvTMh2B2IfOxjl2Y2oK4wF43p/3+xeChXWl2dpGzU+nZI6ckmYM8BCyTxjoM62H
+ FLFPMVK4/W8RxaLgiHkLeyZ65J7KQKvnG8HEJTv1AwlH8rqqs2lvnLkVCIJnNcXFH29WgItZLjS+W
+ CUP3XtsrKfKEfGPM6W07UVbcn2GwfspKJYjg7AjiRJqn/cEtfQRQhgakkzglQGa49doBw6abKTMXM
+ hXYDmBfg==;
+Received: from user-5-173-16-20.play-internet.pl ([5.173.16.20] helo=localhost)
+ by s106.cyber-folks.pl with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.98.2) (envelope-from <michal.piekos@mmpsystems.pl>)
+ id 1w1Qur-00000006o6Z-2wCk; Sat, 14 Mar 2026 16:28:37 +0100
+From: Michal Piekos <michal.piekos@mmpsystems.pl>
+Date: Sat, 14 Mar 2026 16:27:46 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-Message-Id: <E1w1LWy-0000000DGT8-2Hoc@rmk-PC.armlinux.org.uk>
-Date: Sat, 14 Mar 2026 09:43:36 +0000
-Cc: Jesper Dangaard Brouer <hawk@kernel.org>,
- Daniel Borkmann <daniel@iogearbox.net>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, Alexei Starovoitov <ast@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Stanislav Fomichev <sdf@fomichev.me>, Jakub Kicinski <kuba@kernel.org>,
- bpf@vger.kernel.org, Paolo Abeni <pabeni@redhat.com>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v4 15/15] net: stmmac: use queue
- rather than ->queue_index
+Message-Id: <20260314-vlan-restore-error-v1-1-4fc6c3e2115f@mmpsystems.pl>
+X-B4-Tracking: v=1; b=H4sIAHF+tWkC/x3MTQqAIBBA4avIrBvQ/ukq0cJqrIHQGCOC8O5Jy
+ 2/x3guRhCnCoF4Qujly8BmmULDs1m+EvGZDqctWV6bG+7AeheIVhJBEgqDr58qapXONtpDDU8j
+ x80/HKaUP7JbUyWQAAAA=
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1773502079; l=1719;
+ i=michal.piekos@mmpsystems.pl; s=20260301; h=from:subject:message-id;
+ bh=/vy+c1nLswFOkWzuqJsjFYoXMYDn1ssIa4VCRdJjqZI=;
+ b=Cu15vltkrAWQrlPZvWghHLF0X7ub3MupcOdEB2OM0WisVyNFkoVZePcUctt+43i2PwPh4l1Fk
+ e83DoBoc1+pApN/haQ4gv2Vm+I4+fIuayVxZpr3tYcRVbiPRIH0qIQa
+X-Developer-Key: i=michal.piekos@mmpsystems.pl; a=ed25519;
+ pk=Aixyx03If7ZDamiKKN0lsa+0mtA+WjIuIf2ZQVYNBqg=
+X-Authenticated-Id: michal.piekos@mmpsystems.pl
+X-Mailman-Approved-At: Mon, 16 Mar 2026 16:23:30 +0000
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: skip VLAN restore when VLAN hash
+ ops are missing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,143 +76,87 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	DATE_IN_PAST(1.00)[48];
+	R_DKIM_REJECT(1.00)[mmpsystems.pl:s=x];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[mmpsystems.pl : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[kernel];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:ast@kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:sdf@fomichev.me,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,renesas.com];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:ovidiu.panait.rb@renesas.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FORGED_SENDER(0.00)[michal.piekos@mmpsystems.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.996];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[mmpsystems.pl:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[michal.piekos@mmpsystems.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.812];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 8195428C833
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,mmpsystems.pl:email,mmpsystems.pl:mid]
+X-Rspamd-Queue-Id: 00BDD29D4DB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-We use a lot of ->queue_index where we already have the queue / channel
-index (which are actually the same index), which has been used to get
-the queue struct. Since queue and queue_index are identical in
-priv->(tx|rx)_queue[queue]->queue_index there is no point using the
-queue_index where we already have queue.
+stmmac_vlan_restore() unconditionally calls stmmac_vlan_update() when
+NETIF_F_VLAN_FEATURES is set. On platforms where priv->hw->vlan (or
+->update_vlan_hash) is not provided, stmmac_update_vlan_hash() returns
+-EINVAL via stmmac_do_void_callback(), resulting in a spurious
+"Failed to restore VLANs" error even when no VLAN filtering is in use.
 
-Use queue rather than queue_index.
+Check presence of VLAN hash ops before stmmac_vlan_update().
 
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Fixes: bd7ad51253a7 ("net: stmmac: Fix VLAN HW state restore")
+Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 25 ++++++++-----------
- 1 file changed, 11 insertions(+), 14 deletions(-)
+This patch fixes a noisy "Failed to restore VLANs" message on platforms
+where stmmac VLAN hash ops are not implemented.
+stmmac_vlan_restore() calls stmmac_vlan_update() without checking for
+VLAN hash ops presence which results in -EINVAL. 
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 55b79e9e637f..8393cbd0875e 100644
+index 6827c99bde8c..bc09439ec00b 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -440,7 +440,7 @@ static void stmmac_set_queue_rx_buf_size(struct stmmac_priv *priv,
- 	else
- 		buf_size = priv->dma_conf.dma_buf_sz;
+@@ -6869,6 +6869,9 @@ static int stmmac_vlan_restore(struct stmmac_priv *priv)
+ 	if (priv->hw->num_vlan)
+ 		stmmac_restore_hw_vlan_rx_fltr(priv, priv->dev, priv->hw);
  
--	stmmac_set_dma_bfsize(priv, priv->ioaddr, buf_size, rx_q->queue_index);
-+	stmmac_set_dma_bfsize(priv, priv->ioaddr, buf_size, chan);
- }
- 
- /**
-@@ -1902,7 +1902,7 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv,
- 						   NULL));
- 		netdev_info(priv->dev,
- 			    "Register MEM_TYPE_XSK_BUFF_POOL RxQ-%d\n",
--			    rx_q->queue_index);
-+			    queue);
- 		xsk_pool_set_rxq_info(rx_q->xsk_pool, &rx_q->xdp_rxq);
- 	} else {
- 		WARN_ON(xdp_rxq_info_reg_mem_model(&rx_q->xdp_rxq,
-@@ -1910,7 +1910,7 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv,
- 						   rx_q->page_pool));
- 		netdev_info(priv->dev,
- 			    "Register MEM_TYPE_PAGE_POOL RxQ-%d\n",
--			    rx_q->queue_index);
-+			    queue);
- 	}
- 
- 	if (rx_q->xsk_pool) {
-@@ -2310,9 +2310,7 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
- 	else
- 		napi_id = ch->rx_napi.napi_id;
- 
--	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev,
--			       rx_q->queue_index,
--			       napi_id);
-+	ret = xdp_rxq_info_reg(&rx_q->xdp_rxq, priv->dev, queue, napi_id);
- 	if (ret) {
- 		netdev_err(priv->dev, "Failed to register xdp rxq info\n");
- 		return -EINVAL;
-@@ -3340,7 +3338,7 @@ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue)
- 	if (!tx_coal_timer)
- 		return;
- 
--	ch = &priv->channel[tx_q->queue_index];
-+	ch = &priv->channel[queue];
- 	napi = tx_q->xsk_pool ? &ch->rxtx_napi : &ch->tx_napi;
- 
- 	/* Arm timer only if napi is not already scheduled.
-@@ -6918,12 +6916,11 @@ void stmmac_enable_rx_queue(struct stmmac_priv *priv, u32 queue)
- 	stmmac_clear_rx_descriptors(priv, &priv->dma_conf, queue);
- 
- 	stmmac_init_rx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
--			    rx_q->dma_rx_phy, rx_q->queue_index);
-+			    rx_q->dma_rx_phy, queue);
- 
--	stmmac_set_queue_rx_tail_ptr(priv, rx_q, rx_q->queue_index,
--				     rx_q->buf_alloc_num);
-+	stmmac_set_queue_rx_tail_ptr(priv, rx_q, queue, rx_q->buf_alloc_num);
- 
--	stmmac_set_queue_rx_buf_size(priv, rx_q, rx_q->queue_index);
-+	stmmac_set_queue_rx_buf_size(priv, rx_q, queue);
- 
- 	stmmac_start_rx_dma(priv, queue);
- 
-@@ -6969,12 +6966,12 @@ void stmmac_enable_tx_queue(struct stmmac_priv *priv, u32 queue)
- 	stmmac_clear_tx_descriptors(priv, &priv->dma_conf, queue);
- 
- 	stmmac_init_tx_chan(priv, priv->ioaddr, priv->plat->dma_cfg,
--			    tx_q->dma_tx_phy, tx_q->queue_index);
-+			    tx_q->dma_tx_phy, queue);
- 
- 	if (tx_q->tbs & STMMAC_TBS_AVAIL)
--		stmmac_enable_tbs(priv, priv->ioaddr, 1, tx_q->queue_index);
-+		stmmac_enable_tbs(priv, priv->ioaddr, 1, queue);
- 
--	stmmac_set_queue_tx_tail_ptr(priv, tx_q, tx_q->queue_index, 0);
-+	stmmac_set_queue_tx_tail_ptr(priv, tx_q, queue, 0);
- 
- 	stmmac_start_tx_dma(priv, queue);
- 
++	if (!priv->hw->vlan || !priv->hw->vlan->update_vlan_hash)
++		return 0;
++
+ 	ret = stmmac_vlan_update(priv, priv->num_double_vlans);
+ 	if (ret)
+ 		netdev_err(priv->dev, "Failed to restore VLANs\n");
+
+---
+base-commit: 1c9982b4961334c1edb0745a04cabd34bc2de675
+change-id: 20260314-vlan-restore-error-f8b3a1c7f50a
+
+Best regards,
 -- 
-2.47.3
+Michal Piekos <michal.piekos@mmpsystems.pl>
 
 _______________________________________________
 Linux-stm32 mailing list
