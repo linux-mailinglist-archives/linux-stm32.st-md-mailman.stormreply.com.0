@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id EGPACAkAt2mbLQEAu9opvQ
+	id CIHcHA4At2mKLQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 15 Mar 2026 19:52:57 +0100
+	for <lists+linux-stm32@lfdr.de>; Sun, 15 Mar 2026 19:53:02 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C4312920A4
-	for <lists+linux-stm32@lfdr.de>; Sun, 15 Mar 2026 19:52:57 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 513C72920D7
+	for <lists+linux-stm32@lfdr.de>; Sun, 15 Mar 2026 19:53:02 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7F3BC8F284;
-	Sun, 15 Mar 2026 18:52:56 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0DB05C8F262;
+	Sun, 15 Mar 2026 18:53:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EAE4CC8F263
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 47CDEC01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 15 Mar 2026 18:52:54 +0000 (UTC)
+ Sun, 15 Mar 2026 18:52:55 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 91D5E44561;
+ by sea.source.kernel.org (Postfix) with ESMTP id BCE144443E;
  Sun, 15 Mar 2026 18:52:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 69180C4CEF7;
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7DE74C2BCC7;
  Sun, 15 Mar 2026 18:52:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
  s=k20201202; t=1773600773;
- bh=mWau+z9gzfl+tuHR+lGcgDHqPCc2l27GPvMVfJPudmg=;
+ bh=kD90Pnoe+NlXfnVFBh+ajGZPNGOL6hV6WmqC/acHvQQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=J+C6b14D1Z3IAY/ppctcf+zNpbkuFiZu3u6RdPlJGUHgLLDWIUCHYgI61FhkgxwE8
- y3iuT/mPJ6fHjUwbQh1TgYSJ9eqZaIP7cn5/eUyJk7inRJzODUtVggfWyZghOi6AGr
- SmqL/nEClcnDWnyy8tMRzhyBgy6g1OASGUG0VasUc1QvKiYa8rUEUyY3/KOfExOPgU
- arDVifGSshCXMsID9sfO8EE+8A/sJIePSsjLK5AntOEmxKpX8wg5qssmWQMN5eXyWy
- EiS6roiUxiOrQ7pk0+cwvFNZPmz/o1KS2hlDm9JeLL9k0R3AmT3IImyfKIe9nYf7LO
- S34ObahG3mp8w==
+ b=DIEVAqFz+8Ig+lvH4GhnPSysLvd8fLtPHSf/K0dTOnVTGcMny/vMw5UmySsRElzrD
+ qxFUqSgN7RlO5msu1zM6BQaHhy+Sp8SZk30LB2GR0CxO2jnUMr5+8GcF94EWRcvOhM
+ 5tcYTIY8UU0faC/RzH0f9rai+gRe1finYC0UGa8WO6E3rwdYaxTD0fOGJ/PyDIjs+V
+ irb+iEDgSvsqutIem04ALpq+jShyeME9X2dpWAl2cTp0rqqS0D33A2r/I0neJHnsHb
+ Rp92NNFgs88kB85lQw7GI23FLMBLB8ZQVR9nGbFl2eW5ubeNJbpEGJjJSpl4ISPNUA
+ XtJC3h2d3lNEA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
  (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 5FE9EF3027F;
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 71D86F30280;
  Sun, 15 Mar 2026 18:52:53 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sun, 15 Mar 2026 19:52:43 +0100
+Date: Sun, 15 Mar 2026 19:52:44 +0100
 MIME-Version: 1.0
-Message-Id: <20260315-stmfts5-v2-7-70bc83ee9591@ixit.cz>
+Message-Id: <20260315-stmfts5-v2-8-70bc83ee9591@ixit.cz>
 References: <20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz>
 In-Reply-To: <20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz>
 To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
@@ -51,21 +51,21 @@ To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
  Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=774; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2354; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=B9kCQKy2FHl0reom6sgNtirncPHLOm+2NoyBOxtDRYc=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBptv/5Hr4nIhYBYqKW3kJsb59+rMkofVULsqvjf
- LU/5n/61pOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCabb/+QAKCRBgAj/E00kg
- ckS4EAC+Ji6pS/DWWfmBRQx00NgDnq8aSy4O9EO1aNKr9j6j4LGWZz0EV/y28xtEpYkh+19vigC
- gUa4/Uj8aTUL2sgZkqFdCxIh1Pb7UWz2W8p7Mwth1uya/z4Fv/yXmqYHNSyA9NHatV/+v7g8KdP
- 6Kuftrph9RlYEDvTlzsKFIzWgnC2liyuTfgWXh6tVg3wOdw+XC9HfS3WZGknm3b6BeMd1D1Vee+
- tLToc3RcDqXjtWlEwOOHhy5N77rYg+eKp18TTQY+VqMYcBiIn4rjP3VsZvs+UHZkQ/k6yHKmiP8
- t/DR2EsM63FRh43Di+0d1zbIRt0MlVAp1o2JvaOwz0P7QV7n6zROLNXsHlV9pXUuNvw+1wSgXwG
- AEKYch9OrIUUFENKkugiH2xTcwIZ/ZIQDqrEeUL9MtUylwxHYKspRJUY8v6bfroQaH2SdxziB8n
- RP/Q4UK/EV4QyNZj1txoivWzdOleXtnz8X0TyfI9qZs0io12ske1tpKfbX5sUvpZi/0XX3JKdwr
- WsWn/qg1ksn7VVblBD4Z1uGbGZaHcdSvDhALmX8m/Y1JDtE+6wmki5owqzgzptKAyMFIS3fvVxJ
- Dw0b5X4lPkHJvvqNYXqaZCKUdRGAgv7k7BONEVfdrg7m+B0+k2+M7FFAozQfuxo4Yd9UlzYUI9c
- Ubbo/vB94zUL08A==
+ bh=Em8LYVoDWru3Ze7de0xKRKpEP94aiXt6/9C91H5R1mc=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBptv/6s4qIoNdujZmmRqRVBiJys5HkVglAFzyP+
+ R5WsIFNQ/uJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCabb/+gAKCRBgAj/E00kg
+ cn2qD/9kd9xFzBy/yAD4HTM/loZdNokNzuHgsxlh8FIsTOlDUoXtPe9sndnELN4qHVjtsfNtZ0O
+ 48PfOOvSsGY/rOFqRd/Jxi7OnTtZWDJozTdN55+Mph5DpENKt0s43YiaOkEmryRbDxEh/SM30zO
+ DwrTbLld7eTGL6YohdtKi80fWKl8Mfj90fBbWeokSlDqA7qjxqsOHlNuNAlqTXd/kjU0n2m/O66
+ XW3EEWdDP9Ck2PwuDsLWoxzRoTtU2RrxeDnX5jPDZru76QmAeGp5MlS2pvJ0wfb4BvoDfr9RJIt
+ bDL40MULru+xiomx2EgRtpsnbNc2AV0oqYuJnxDPvkpOCzjnqfiYW6AsSjLtiZrzje5qxMwqZHH
+ 9UySLkVuLojNUyxsf1jRecSBIC2XNepZeiG01FjFHJlc2c+E+R/a817V1A+j14vnb/SwsQm7Y7D
+ 6fPK0981RJylEXuEgYAVqBZk0cfVKxpM+SIKwhZdvpjgIMsKBiBA7cQCbbo8mTB2RxpaygRl9eg
+ OVjneIVOrUaaZ0cm0PgbdKGwizNAhYkiG6BQlq4IEtBHH1ckjbph3TBBKhRy9UTgATpmwExhPqD
+ 35e1LnfvEMwPTfkvBxbfCq9oG1b0fW2a5rMXciwEuy7Gc2uTcZhLiD9QWNzkbeOLLuqvkKzgUyO
+ 1bd2rYkG6kZyqew==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -75,8 +75,8 @@ Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  Petr Hodina <petr.hodina@protonmail.com>, David Heidelberg <david@ixit.cz>,
  linux-input@vger.kernel.org, phone-devel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH WIP v2 07/11] dt-bindings: input: touchscreen:
- st, stmfts: Introduce reset GPIO
+Subject: [Linux-stm32] [PATCH WIP v2 08/11] Input: stmfts - add optional
+ reset GPIO support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,52 +112,103 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	RCPT_COUNT_TWELVE(0.00)[19];
 	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,protonmail.com,ixit.cz,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
 	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	NEURAL_HAM(-0.00)[-0.972];
+	NEURAL_HAM(-0.00)[-0.957];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	HAS_REPLYTO(0.00)[david@ixit.cz]
-X-Rspamd-Queue-Id: 0C4312920A4
+X-Rspamd-Queue-Id: 513C72920D7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: David Heidelberg <david@ixit.cz>
+From: Petr Hodina <petr.hodina@protonmail.com>
 
-FTS has associated reset GPIO, document it.
+Add support for an optional "reset-gpios" property. If present, the
+driver drives the reset line high at probe time and releases it during
+power-on, after the regulators have been enabled.
 
+Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
+Co-developed-by: David Heidelberg <david@ixit.cz>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/input/touchscreen/stmfts.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
-index 12256ae7df90d..64c4f24ea3dd0 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
-@@ -40,6 +40,10 @@ properties:
-   vdd-supply:
-     description: Power supply
+diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscreen/stmfts.c
+index 4dfaf3a6077d9..2c10256e09c5e 100644
+--- a/drivers/input/touchscreen/stmfts.c
++++ b/drivers/input/touchscreen/stmfts.c
+@@ -77,6 +77,7 @@ static const struct regulator_bulk_data stmfts_supplies[] = {
+ struct stmfts_data {
+ 	struct i2c_client *client;
+ 	struct input_dev *input;
++	struct gpio_desc *reset_gpio;
+ 	struct led_classdev led_cdev;
+ 	struct mutex mutex;
  
-+  reset-gpios:
-+    description: Reset GPIO (active-low)
-+    maxItems: 1
+@@ -540,6 +541,15 @@ static int stmfts_read_system_info(struct stmfts_data *sdata)
+ 	return 0;
+ }
+ 
++static void stmfts_reset(struct stmfts_data *sdata)
++{
++	gpiod_set_value_cansleep(sdata->reset_gpio, 1);
++	msleep(20);
 +
- required:
-   - compatible
-   - reg
++	gpiod_set_value_cansleep(sdata->reset_gpio, 0);
++	msleep(50);
++}
++
+ static int stmfts_power_on(struct stmfts_data *sdata)
+ {
+ 	int err;
+@@ -549,6 +559,9 @@ static int stmfts_power_on(struct stmfts_data *sdata)
+ 	if (err)
+ 		return err;
+ 
++	if (sdata->reset_gpio)
++		stmfts_reset(sdata);
++
+ 	/*
+ 	 * The datasheet does not specify the power on time, but considering
+ 	 * that the reset time is < 10ms, I sleep 20ms to be sure
+@@ -607,6 +620,10 @@ static void stmfts_power_off(void *data)
+ 	struct stmfts_data *sdata = data;
+ 
+ 	disable_irq(sdata->client->irq);
++
++	if (sdata->reset_gpio)
++		gpiod_set_value_cansleep(sdata->reset_gpio, 1);
++
+ 	regulator_bulk_disable(ARRAY_SIZE(stmfts_supplies),
+ 			       sdata->supplies);
+ }
+@@ -663,6 +680,12 @@ static int stmfts_probe(struct i2c_client *client)
+ 	if (err)
+ 		return err;
+ 
++	sdata->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						    GPIOD_OUT_HIGH);
++	if (IS_ERR(sdata->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(sdata->reset_gpio),
++				     "Failed to get GPIO 'reset'\n");
++
+ 	sdata->input = devm_input_allocate_device(dev);
+ 	if (!sdata->input)
+ 		return -ENOMEM;
 
 -- 
 2.53.0
