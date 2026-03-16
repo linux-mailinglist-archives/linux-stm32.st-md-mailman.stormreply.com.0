@@ -2,107 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4Fx1B1xWt2lyQAEAu9opvQ
+	id 6AmfD89Yt2nQQAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 02:01:16 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 02:11:43 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC5412932EE
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 02:01:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD0CA2934AD
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 02:11:42 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9240AC87EBD;
-	Mon, 16 Mar 2026 01:01:15 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B83AC87EBD;
+	Mon, 16 Mar 2026 01:11:42 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F248DC87ED2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5474C01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Mar 2026 01:01:13 +0000 (UTC)
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-82987437624so2085589b3a.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 15 Mar 2026 18:01:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773622872; x=1774227672;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=iB9g5jx+x167tNjxcGl7Z3iDMBhQp91ckzQQIEVj78E=;
- b=MI6MP3g64Iym7ihMBRtzNkCSkyAIjAavt6CG0+lc4gIEQlnGVDfOJd/Ky7GVpqJ77N
- 0mhWVoOKV7qYtSMIhVu0/pn7e6u3RxZeybhK+fCeEDRuWj6s2jKMvOf53BC/tB9MNwb3
- y8LYpFgh+5+HzQ+8mZ23RMZ3xlQ+pfA4xA5psJdF7pWTYEvAwBf9d3EE+ZTg+utwVaDo
- T8Oa8fh9HxrH+6JduLuDeUDMSB9J85vFJNrNxcY7i9fgRJC10KzL0OVHumSNfmZXhkz3
- DmS9iMLK6Q7UOfpL0dfOfQGgafBKVzc0+jvHA+qCBomP6ZQIzvQ7B3wZinEDvfUDkFtq
- jDyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773622872; x=1774227672;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=iB9g5jx+x167tNjxcGl7Z3iDMBhQp91ckzQQIEVj78E=;
- b=DOS0x5EgvcZGt3RsUv6WeqXT3L9G4f2KWSsR/ibNOxWRUgGutIV53PsdOsY7sYTatK
- CoK6U2Pz/jJ0ZbB3Y8TFFTP61r9ULhIUvS2IDGItLV5thcmGWuchCIxPWXwOPkwo/74B
- 8BMeTAjM97VlyAtDjLB386YHvfpOQF/NPPFeluxLWMQRgZG+Bs0vDZfr+amnwat2ejNd
- JKO+5BELQiTDamwxyvosOSYgSpv8RuaEUsDz78lIkG5Iha23In1gF0yOwK4zqF/WzUxT
- 59uF1IOByZVp4/d/+QKHtS7QmYiJ8DppMSdtmc0L+2lywrL0NXvwQ5dcy3XAWR6a9Dfq
- g72g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCXqGc50XoNn7vfjExCtp4CFfAocv+XvuTnQOkv6n5PoNMWkGb3mH+gOl/LAogPwXUOOG+FJwyjS5FUrnw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxptUBIviezIsry9w3x443aYeTbrOmFqtELttqSSItLEzP/+uWD
- 2BdVtAZMBv0fAYbU/xnQwPomF1/0eZZXBWLEfldm0sg6K881a5VsHkVx
-X-Gm-Gg: ATEYQzzZnDxzi9rQxvarfU8/QHA83CCzC8r0WVPH1Y6L7w42vTLtYSrbeVbzycralB3
- 4/JGenCcZkE0h6KwpPKksp5JmnN379TEeS9E4D3sc2A7epCl2M5eRxLVLNVaE+8+y21ymVhNF/E
- XonJCYtHdkhitiAr/wzfW3jgDsTJ4IzYX40rLu66N3DU5K6rdBsKZh8JJZ5otDzpVt7kpPyVK3X
- qYxYaBtBjPxpm5/8g2WHgTlyNaGI6/MMMMHNOo5WwUmYTuP4hbHXevPlOCZBY8h6dmqwa0Xyl9p
- +r/UT9jPkPzsC1Jv0nGAHk5R7B245qRZh+F1s0IAWdAwrXjXEEZphfdqCOKrl6bf0TEc0uv6qKN
- Dv1ANMtZp0nkuSrildoF4Ezoecibi0tyqi2lDjsdVqOWJ5e4ZV6ovenK2Hsfm5iWoYU2hXzYHo0
- EmWb6tMPDDQWMKWL1RSTctibaCXm0DDkgkQQ==
-X-Received: by 2002:a05:6a00:929f:b0:81c:ce40:b29b with SMTP id
- d2e1a72fcca58-82a193e89a5mr9456189b3a.15.1773622872449; 
- Sun, 15 Mar 2026 18:01:12 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-82a072419efsm12308166b3a.11.2026.03.15.18.01.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 15 Mar 2026 18:01:12 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Inochi Amaoto <inochiama@gmail.com>,
- Yixun Lan <dlan@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Richard Cochran <richardcochran@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>, Yao Zi <me@ziyao.cc>,
- Yanteng Si <siyanteng@cqsoftware.com.cn>,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Shangjuan Wei <weishangjuan@eswincomputing.com>,
- Chen-Yu Tsai <wens@kernel.org>, Zhi Li <lizhi2@eswincomputing.com>,
- Boon Khai Ng <boon.khai.ng@altera.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Quentin Schulz <quentin.schulz@cherry.de>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>
-Date: Mon, 16 Mar 2026 09:00:40 +0800
-Message-ID: <20260316010041.164360-5-inochiama@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260316010041.164360-1-inochiama@gmail.com>
-References: <20260316010041.164360-1-inochiama@gmail.com>
+ Mon, 16 Mar 2026 01:11:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=HXOdXMtQPkX3JhHjejsDb3lWeyiFtHpKaRrKgt4OkHc=; b=CUhMUAGeYZEJFOoF7gMbHrExvU
+ w+T8qqlDYDUp2Sxo9ZNprsUpT8PRMjHgQrXFSHOYMEADRouvXCsT9ye2bXZmejFsZ2sGxvQLtTddU
+ cmaT5xqO5qMVnKTy37T6NelRwqMp5y134Rr0Epn14n/AqQ+c+uNQv1XEF34wDRVYyp4zGa1r2wnDw
+ jgMGWEEMmRoA1a2PlGki0k847nu75Mt4N5WjOGGguP23ZV9IncgX8lCURAr4wicQ/nAB2hNF5zdok
+ IfkZCnKnDBeGUZ1KOPXuos2VKJnlS+t6ZzWYsWYfuxb7MfKHlv/JMfv38xxmYLi48xoBkY+P8funr
+ M1rYCDNg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56306)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w1wUS-000000003AQ-0pDz;
+ Mon, 16 Mar 2026 01:11:28 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w1wUN-000000004bS-1Asp; Mon, 16 Mar 2026 01:11:23 +0000
+Date: Mon, 16 Mar 2026 01:11:23 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Message-ID: <abdYu864OmNWiWIW@shell.armlinux.org.uk>
+References: <abQC7r38QLhSeadl@shell.armlinux.org.uk>
+ <abdEscs44fU4kRag@oss.qualcomm.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org, Yixun Lan <dlan@gentoo.org>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- Longbin Li <looong.bin@gmail.com>, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+Content-Disposition: inline
+In-Reply-To: <abdEscs44fU4kRag@oss.qualcomm.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v10 4/4] MAINTAINERS: add entry for
-	SpacemiT DWMAC glue layer
+Subject: Re: [Linux-stm32] [PATCH net-next 0/8] net: stmmac: improve PCS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,77 +71,176 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:inochiama@gmail.com,m:dlan@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:richardcochran@gmail.com,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:rmk+kernel@armlinux.org.uk,m:me@ziyao.cc,m:siyanteng@cqsoftware.com.cn,m:vladimir.oltean@nxp.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:weishangjuan@eswincomputing.com,m:wens@kernel.org,m:lizhi2@eswincomputing.com,m:boon.khai.ng@altera.com,m:maxime.chevallier@bootlin.com,m:quentin.schulz@cherry.de,m:peppe.cavallaro@st.com,m:joabreu@synopsys.com,m:devicetree@vger.kernel.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:looong.bin@gmail.com,m:linux-riscv@lists.infradead.org,m:spacemit@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel
- @lists.infradead.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,m:looongbin@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,dabbelt.com,eecs.berkeley.edu,ghiti.fr,armlinux.org.uk,ziyao.cc,cqsoftware.com.cn,nxp.com,bp.renesas.com,eswincomputing.com,altera.com,bootlin.com,cherry.de,st.com,synopsys.com];
-	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[39];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gentoo.org,gmail.com,lists.infradead.org,lists.linux.dev,st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:mohd.anwar@oss.qualcomm.com,m:andrew@lunn.ch,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.837];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,linuxtv.org:url]
-X-Rspamd-Queue-Id: CC5412932EE
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,armlinux.org.uk:url,shell.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: BD0CA2934AD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add a MAINTAINERS entry for the SpacemiT DWMAC glue layer driver and
-its DT binding.
+On Mon, Mar 16, 2026 at 05:15:53AM +0530, Mohd Ayaan Anwar wrote:
+> Hi Russell,
+> 
+> 1. On QCS9100 Ride R3, the mdio subnode is only defined for ethernet0
+>    (see lemans-ride-ethernet-aqr115c.dtsi). ethernet1 uses ethernet0's
+>    MDIO bus, so plat_dat->mdio_bus_data is NULL for ethernet1. Therefore,
+>    we get:
+> 	[    9.205979] Hardware name: Qualcomm Technologies, Inc. Lemans Ride Rev3 (DT)
+> 	[    9.221071] pc : qcom_ethqos_probe+0xc4/0x478 [dwmac_qcom_ethqos]
+> 	[    9.221078] lr : qcom_ethqos_probe+0x7c/0x478 [dwmac_qcom_ethqos]
+> 	[    9.221080] sp : ffff800081aa37f0
+> 	[    9.221081] x29: ffff800081aa3860 x28: ffffcf84de69cfe8 x27: 0000000000000001
+> 	[    9.221084] x26: 0000000000000000 x25: ffff0000b4577c80 x24: ffff0000818fd010
+> 	[    9.221087] x23: ffff000ec7057628 x22: 0000000000000000 x21: ffffcf84ca2ce028
+> 	[    9.221089] x20: ffff0000818fd000
+> 	[    9.236975]  x19: ffff0000b3301740 x18: 00000000ffffffff
+> 	[    9.236977] x17: 0000000000000000 x16: ffffcf84dc4a5448 x15: ffff0000b3301ec5
+> 	[    9.236980] x14: 0000000000000000 x13: 0000000000000030 x12: 0101010101010101
+> 	[    9.236982] x11: 7f7f7f7f7f7f7f7f x10: 00000000001305b0 x9 : 0000000000000000
+> 	[    9.236984] x8 : ffff0000b3301780 x7 : 0000000000000000 x6 : 000000000000003f
+> 	[    9.236986] x5 : 0000000000000040 x4 : 0000000000000000 x3 : ffff0000818fd210
+> 	[    9.236988] x2 : 0000000000000017 x1 : 0000000000000000 x0 : 0000000000000001
+> 	[    9.236991] Call trace:
+> 	[    9.236991]  qcom_ethqos_probe+0xc4/0x478 [dwmac_qcom_ethqos] (P)
+> 	[    9.236994]  platform_probe+0x5c/0xac
+> 				...
+> 	[    9.343300] Code: 910a7000 f9400b21 f9010320 52800020 (39005420)
+> 	[    9.343302] ---[ end trace 0000000000000000 ]---
+> 
+>    I added the following workaround:
+> 	--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> 	+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> 	@@ -765,7 +767,10 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+> 			case PHY_INTERFACE_MODE_SGMII:
+> 					ethqos->configure_func = ethqos_configure_sgmii;
+> 					plat_dat->mac_finish = ethqos_mac_finish_serdes;
+> 	-               plat_dat->mdio_bus_data->default_an_inband = true;
+> 	+               if (plat_dat->mdio_bus_data)
+> 	+                       plat_dat->mdio_bus_data->default_an_inband = true;
+> 	+               else
+> 	+                       dev_err(dev, "plat_dat->mdio_bus_data is NULL");
+> 					break;
+> 			default:
+> 					dev_err(dev, "Unsupported phy mode %s\n",
 
-Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
----
- MAINTAINERS | 6 ++++++
- 1 file changed, 6 insertions(+)
+This means we need to move default_an_inband out of mdio_bus_data.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2265e2c9bfbe..dd72d26ac837 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24834,6 +24834,12 @@ W:	https://linuxtv.org
- Q:	http://patchwork.linuxtv.org/project/linux-media/list/
- F:	drivers/media/dvb-frontends/sp2*
- 
-+SPACEMIT DWMAC GLUE LAYER
-+M:	Inochi Amaoto <inochiama@gmail.com>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/spacemit,k3-dwmac.yaml
-+F:	drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-+
- SPACEMIT K1 I2C DRIVER
- M:	Troy Mitchell <troy.mitchell@linux.spacemit.com>
- S:	Maintained
+> 
+> 2. After working around issue 1, I hit the following:
+> 	[   27.822907] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+> 	[   27.831944] Mem abort info:
+> 	[   27.834832]   ESR = 0x0000000086000006
+> 	[   27.838693]   EC = 0x21: IABT (current EL), IL = 32 bits
+> 	[   27.844163]   SET = 0, FnV = 0
+> 	[   27.847320]   EA = 0, S1PTW = 0
+> 	[   27.850563]   FSC = 0x06: level 2 translation fault
+> 	[   27.855587] user pgtable: 4k pages, 48-bit VAs, pgdp=0000000134b1c000
+> 	[   27.862212] [0000000000000000] pgd=080000010185c403, p4d=080000010185c403, pud=0800000134884403, pmd=0000000000000000
+> 	[   27.873107] Internal error: Oops: 0000000086000006 [#1]  SMP
+> 	[   28.001619] Hardware name: Qualcomm Technologies, Inc. Lemans Ride Rev3 (DT)
+> 	[   28.008853] pstate: 60400005 (nZCv daif +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+> 	[   28.016001] pc : 0x0
+> 	[   28.018259] lr : phylink_pcs_an_restart+0x50/0x5c
+> 	[   28.023092] sp : ffff8000869fb900
+> 				...
+> 	[   28.185967] ---[ end trace 0000000000000000 ]---
+> 
+>    This occurs due to pl->pcs->ops->pcs_an_restart being NULL. I added
+>    the following workaround:
+> 	--- a/drivers/net/phy/phylink.c
+> 	+++ b/drivers/net/phy/phylink.c
+> 	@@ -1026,7 +1026,8 @@ static void phylink_pcs_an_restart(struct phylink *pl)
+> 			if (pl->pcs && linkmode_test_bit(ETHTOOL_LINK_MODE_Autoneg_BIT,
+> 							 pl->link_config.advertising) &&
+> 			    phy_interface_mode_is_8023z(pl->link_config.interface) &&
+> 	-		    phylink_autoneg_inband(pl->act_link_an_mode))
+> 	+		    phylink_autoneg_inband(pl->act_link_an_mode) &&
+> 	+		    pl->pcs->ops->pcs_an_restart)
+> 					pl->pcs->ops->pcs_an_restart(pl->pcs);
+> 	 }
+
+Gah, should've added a pcs_an_restart() implementation.
+
+> 3. With the recent VLAN filter changes in net-next, ndo_open takes a long
+>    time to complete as vlan_restore_hw_rx_fltr() tries to write filters
+>    for all 32 indices. This board previously timed out once, but now
+>    times out for each index. This is a separate issue unrelated to this
+>    series but I added the following workaround to rule out any timing
+>    issues.
+> 	--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
+> 	+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_vlan.c
+> 	@@ -158,7 +158,8 @@ static void vlan_restore_hw_rx_fltr(struct net_device *dev,
+> 
+> 			/* Extended Rx VLAN Filter Enable */
+> 			for (i = 0; i < hw->num_vlan; i++)
+> 	-               vlan_write_filter(dev, hw, i, hw->vlan_filter[i]);
+> 	+               if (hw->vlan_filter[i])
+> 	+                       vlan_write_filter(dev, hw, i, hw->vlan_filter[i]);
+> 	 }
+> 
+> 	 static void vlan_update_hash(struct mac_device_info *hw, u32 hash,
+
+This problem needs solving, and I suspect we need more than the
+loopback here. It needs detailed information about your hardware
+design, and comes down to the missing receive clock. stmmac is
+unusual that missing clocks affect the accessibility of the host.
+
+> With the above workarounds in place, 2.5G works fine, but 1G (and 100M)
+> do not. With the RFC v1 series, only the 2.5G->1G speed change was
+> broken. With this series, the link does not come up at 1G at all.
+
+This will be because we're not attaching any PHYs when phylink is
+being told to operate in 2500BASE-X with inband, since it thinks
+that's the media. That, and, because stmmac has a long history, it
+needed a special phylink_expects_phy() check added in stmmac_init_phy()
+which his what prevents the PHY being attached.
+
+One workaround for this would be to specify SGMII in DT rather than
+2500base-X. However, that's not a solution for mainline.
+
+I'm going to have to have another think about this... stmmac is
+beginning to get too painful to solve this problem. As I've said
+elsewhere, in hind sight, I wish I had blocked dwmac-qcom-ethqos from
+being merged because of it's direct fiddling with the integrated PCS.
+
+I'm beginning to wonder whether stmmac can ever be sorted out, or
+whether the driver has gone too far, and the best thing now is to
+totally decouple it from phylink.
+
 -- 
-2.53.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
