@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aAIED6ByuGn5dgEAu9opvQ
+	id yFPNEaNyuGn5dgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 22:14:08 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 22:14:11 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 233032A099E
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 22:14:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8442A09AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 22:14:11 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D07A9C8F263;
-	Mon, 16 Mar 2026 21:14:07 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1101C8F262;
+	Mon, 16 Mar 2026 21:14:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B9264C8F263
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1835C8F261
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Mar 2026 21:14:06 +0000 (UTC)
+ Mon, 16 Mar 2026 21:14:09 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E950560123;
- Mon, 16 Mar 2026 21:14:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A443C2BCAF;
- Mon, 16 Mar 2026 21:14:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 84F5A4347F;
+ Mon, 16 Mar 2026 21:14:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2E83C19421;
+ Mon, 16 Mar 2026 21:14:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773695645;
- bh=GSvvK91SQuAGo90FmVnYDSWYlOSBV2oGchryB/VUxUY=;
+ s=k20201202; t=1773695648;
+ bh=2FQWrvwYCkzh7VnGyHG3FIB6cuWllzKv+ct94SBACcI=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=sOpvgf+n0IrRUfwxTPsPjWcWeL2agf7X2Q3cZAX3WMAt3lkVZVATJlBeCGrE//uUQ
- VntjBcXYomVj18FLQi1d+mHVPk0SbQT5HE9DnQSnA97Gk6TGuFs4SQBKF95PUjw2/l
- KehKxNDGMLZBV7sE5ZZQ/Fm505cgqDDHgNW2PVMZ+2gDhZSyqaw8l2FWbDMWk0qLMI
- 43UuJnnFI5UbKsvjTmQf/C77Ec7oaNpxQRC082bygg0hBc1z3Jj3/+uBuArC6w3/ry
- 8ybhySHmn2B/Sbgm0DrVSWCB0b2MVrgHjBd1KEfwsWB9MX+Mm40OiGsRNBxZTHDUJt
- yySLVoVqyamXw==
+ b=JF3FLVvyJGVdZkSE+FdP5FcBEUne8jUO4XSz7moQxYmpOmgJMXXVQCFWkd+Zna1NU
+ He3whoJ4Uxp4evCK1SA8pVH4752aAjCgpoAtA70KmB77QDNH5xfxW1OtYDKbuTglWE
+ 8Ixnhn7P96ejRgJB2L+xQMa690n0cpvspUBLjnjy8UD/0DS/IMeuDDPV2CPyPz6d3P
+ setbJNSK027pMm28L7mf39SCjqW8UffXnFvK+CwK7z0QE+3rx/MCvRk+mcjbU2UT8l
+ RijMbEkUU22+Nba7XDA5hJqZZ2h2CQLpLs12DBvGtXoCkx1vlEYA0Y9FjoLlEl3kBs
+ 6F5J6duPdbw8g==
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Mon, 16 Mar 2026 21:12:06 +0000
-Message-ID: <d34056a65bd387286f4e155d52449106ddc99f78.1773695307.git.ljs@kernel.org>
+Date: Mon, 16 Mar 2026 21:12:07 +0000
+Message-ID: <48c6d25e374b57dba6df4fdddd4830d3fc1105be.1773695307.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1773695307.git.ljs@kernel.org>
 References: <cover.1773695307.git.ljs@kernel.org>
@@ -66,8 +66,8 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: [Linux-stm32] [PATCH v2 10/16] stm: replace deprecated mmap hook
-	with mmap_prepare
+Subject: [Linux-stm32] [PATCH v2 11/16] staging: vme_user: replace
+	deprecated mmap hook with mmap_prepare
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,13 +98,13 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[43];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com];
 	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.or
  g,m:mcoquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -116,10 +116,10 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.798];
+	NEURAL_SPAM(0.00)[0.644];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 233032A099E
+X-Rspamd-Queue-Id: 2F8442A09AE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -129,93 +129,192 @@ successor, mmap_prepare.
 The driver previously used vm_iomap_memory(), so this change replaces it
 with its mmap_prepare equivalent, mmap_action_simple_ioremap().
 
-Also, in order to correctly maintain reference counting, add a
-vm_ops->mapped callback to increment the reference count when successfully
-mapped.
+Functions that wrap mmap() are also converted to wrap mmap_prepare()
+instead.
+
+Also update the documentation accordingly.
 
 Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 ---
- drivers/hwtracing/stm/core.c | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+ Documentation/driver-api/vme.rst    |  2 +-
+ drivers/staging/vme_user/vme.c      | 20 +++++------
+ drivers/staging/vme_user/vme.h      |  2 +-
+ drivers/staging/vme_user/vme_user.c | 51 +++++++++++++++++------------
+ 4 files changed, 42 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 37584e786bb5..f48c6a8a0654 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -666,6 +666,16 @@ static ssize_t stm_char_write(struct file *file, const char __user *buf,
- 	return count;
- }
+diff --git a/Documentation/driver-api/vme.rst b/Documentation/driver-api/vme.rst
+index c0b475369de0..7111999abc14 100644
+--- a/Documentation/driver-api/vme.rst
++++ b/Documentation/driver-api/vme.rst
+@@ -107,7 +107,7 @@ The function :c:func:`vme_master_read` can be used to read from and
  
-+static int stm_mmap_mapped(unsigned long start, unsigned long end, pgoff_t pgoff,
-+			   const struct file *file, void **vm_private_data)
-+{
-+	struct stm_file *stmf = file->private_data;
-+	struct stm_device *stm = stmf->stm;
-+
-+	pm_runtime_get_sync(&stm->dev);
-+	return 0;
-+}
-+
- static void stm_mmap_open(struct vm_area_struct *vma)
+ In addition to simple reads and writes, :c:func:`vme_master_rmw` is provided to
+ do a read-modify-write transaction. Parts of a VME window can also be mapped
+-into user space memory using :c:func:`vme_master_mmap`.
++into user space memory using :c:func:`vme_master_mmap_prepare`.
+ 
+ 
+ Slave windows
+diff --git a/drivers/staging/vme_user/vme.c b/drivers/staging/vme_user/vme.c
+index f10a00c05f12..7220aba7b919 100644
+--- a/drivers/staging/vme_user/vme.c
++++ b/drivers/staging/vme_user/vme.c
+@@ -735,9 +735,9 @@ unsigned int vme_master_rmw(struct vme_resource *resource, unsigned int mask,
+ EXPORT_SYMBOL(vme_master_rmw);
+ 
+ /**
+- * vme_master_mmap - Mmap region of VME master window.
++ * vme_master_mmap_prepare - Mmap region of VME master window.
+  * @resource: Pointer to VME master resource.
+- * @vma: Pointer to definition of user mapping.
++ * @desc: Pointer to descriptor of user mapping.
+  *
+  * Memory map a region of the VME master window into user space.
+  *
+@@ -745,12 +745,13 @@ EXPORT_SYMBOL(vme_master_rmw);
+  *         resource or -EFAULT if map exceeds window size. Other generic mmap
+  *         errors may also be returned.
+  */
+-int vme_master_mmap(struct vme_resource *resource, struct vm_area_struct *vma)
++int vme_master_mmap_prepare(struct vme_resource *resource,
++			    struct vm_area_desc *desc)
  {
- 	struct stm_file *stmf = vma->vm_file->private_data;
-@@ -684,12 +694,14 @@ static void stm_mmap_close(struct vm_area_struct *vma)
- }
++	const unsigned long vma_size = vma_desc_size(desc);
+ 	struct vme_bridge *bridge = find_bridge(resource);
+ 	struct vme_master_resource *image;
+ 	phys_addr_t phys_addr;
+-	unsigned long vma_size;
  
- static const struct vm_operations_struct stm_mmap_vmops = {
-+	.mapped = stm_mmap_mapped,
- 	.open	= stm_mmap_open,
- 	.close	= stm_mmap_close,
- };
+ 	if (resource->type != VME_MASTER) {
+ 		dev_err(bridge->parent, "Not a master resource\n");
+@@ -758,19 +759,18 @@ int vme_master_mmap(struct vme_resource *resource, struct vm_area_struct *vma)
+ 	}
  
--static int stm_char_mmap(struct file *file, struct vm_area_struct *vma)
-+static int stm_char_mmap_prepare(struct vm_area_desc *desc)
- {
-+	struct file *file = desc->file;
- 	struct stm_file *stmf = file->private_data;
- 	struct stm_device *stm = stmf->stm;
- 	unsigned long size, phys;
-@@ -697,10 +709,10 @@ static int stm_char_mmap(struct file *file, struct vm_area_struct *vma)
- 	if (!stm->data->mmio_addr)
- 		return -EOPNOTSUPP;
+ 	image = list_entry(resource->entry, struct vme_master_resource, list);
+-	phys_addr = image->bus_resource.start + (vma->vm_pgoff << PAGE_SHIFT);
+-	vma_size = vma->vm_end - vma->vm_start;
++	phys_addr = image->bus_resource.start + (desc->pgoff << PAGE_SHIFT);
  
--	if (vma->vm_pgoff)
-+	if (desc->pgoff)
- 		return -EINVAL;
+ 	if (phys_addr + vma_size > image->bus_resource.end + 1) {
+ 		dev_err(bridge->parent, "Map size cannot exceed the window size\n");
+ 		return -EFAULT;
+ 	}
  
--	size = vma->vm_end - vma->vm_start;
-+	size = vma_desc_size(desc);
- 
- 	if (stmf->output.nr_chans * stm->data->sw_mmiosz != size)
- 		return -EINVAL;
-@@ -712,13 +724,12 @@ static int stm_char_mmap(struct file *file, struct vm_area_struct *vma)
- 	if (!phys)
- 		return -EINVAL;
- 
--	pm_runtime_get_sync(&stm->dev);
--
 -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
--	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
--	vma->vm_ops = &stm_mmap_vmops;
--	vm_iomap_memory(vma, phys, size);
+-
+-	return vm_iomap_memory(vma, phys_addr, vma->vm_end - vma->vm_start);
 +	desc->page_prot = pgprot_noncached(desc->page_prot);
-+	vma_desc_set_flags(desc, VMA_IO_BIT, VMA_DONTEXPAND_BIT,
-+			   VMA_DONTDUMP_BIT);
-+	desc->vm_ops = &stm_mmap_vmops;
++	mmap_action_simple_ioremap(desc, phys_addr, vma_size);
++	return 0;
+ }
+-EXPORT_SYMBOL(vme_master_mmap);
++EXPORT_SYMBOL(vme_master_mmap_prepare);
  
-+	mmap_action_simple_ioremap(desc, phys, size);
+ /**
+  * vme_master_free - Free VME master window
+diff --git a/drivers/staging/vme_user/vme.h b/drivers/staging/vme_user/vme.h
+index 797e9940fdd1..b6413605ea49 100644
+--- a/drivers/staging/vme_user/vme.h
++++ b/drivers/staging/vme_user/vme.h
+@@ -151,7 +151,7 @@ ssize_t vme_master_read(struct vme_resource *resource, void *buf, size_t count,
+ ssize_t vme_master_write(struct vme_resource *resource, void *buf, size_t count, loff_t offset);
+ unsigned int vme_master_rmw(struct vme_resource *resource, unsigned int mask, unsigned int compare,
+ 			    unsigned int swap, loff_t offset);
+-int vme_master_mmap(struct vme_resource *resource, struct vm_area_struct *vma);
++int vme_master_mmap_prepare(struct vme_resource *resource, struct vm_area_desc *desc);
+ void vme_master_free(struct vme_resource *resource);
+ 
+ struct vme_resource *vme_dma_request(struct vme_dev *vdev, u32 route);
+diff --git a/drivers/staging/vme_user/vme_user.c b/drivers/staging/vme_user/vme_user.c
+index d95dd7d9190a..11e25c2f6b0a 100644
+--- a/drivers/staging/vme_user/vme_user.c
++++ b/drivers/staging/vme_user/vme_user.c
+@@ -446,24 +446,14 @@ static void vme_user_vm_close(struct vm_area_struct *vma)
+ 	kfree(vma_priv);
+ }
+ 
+-static const struct vm_operations_struct vme_user_vm_ops = {
+-	.open = vme_user_vm_open,
+-	.close = vme_user_vm_close,
+-};
+-
+-static int vme_user_master_mmap(unsigned int minor, struct vm_area_struct *vma)
++static int vme_user_vm_mapped(unsigned long start, unsigned long end, pgoff_t pgoff,
++			      const struct file *file, void **vm_private_data)
+ {
+-	int err;
++	const unsigned int minor = iminor(file_inode(file));
+ 	struct vme_user_vma_priv *vma_priv;
+ 
+ 	mutex_lock(&image[minor].mutex);
+ 
+-	err = vme_master_mmap(image[minor].resource, vma);
+-	if (err) {
+-		mutex_unlock(&image[minor].mutex);
+-		return err;
+-	}
+-
+ 	vma_priv = kmalloc_obj(*vma_priv);
+ 	if (!vma_priv) {
+ 		mutex_unlock(&image[minor].mutex);
+@@ -472,22 +462,41 @@ static int vme_user_master_mmap(unsigned int minor, struct vm_area_struct *vma)
+ 
+ 	vma_priv->minor = minor;
+ 	refcount_set(&vma_priv->refcnt, 1);
+-	vma->vm_ops = &vme_user_vm_ops;
+-	vma->vm_private_data = vma_priv;
+-
++	*vm_private_data = vma_priv;
+ 	image[minor].mmap_count++;
+ 
+ 	mutex_unlock(&image[minor].mutex);
+-
  	return 0;
  }
  
-@@ -836,7 +847,7 @@ static const struct file_operations stm_fops = {
- 	.open		= stm_char_open,
- 	.release	= stm_char_release,
- 	.write		= stm_char_write,
--	.mmap		= stm_char_mmap,
-+	.mmap_prepare	= stm_char_mmap_prepare,
- 	.unlocked_ioctl	= stm_char_ioctl,
- 	.compat_ioctl	= compat_ptr_ioctl,
+-static int vme_user_mmap(struct file *file, struct vm_area_struct *vma)
++static const struct vm_operations_struct vme_user_vm_ops = {
++	.mapped = vme_user_vm_mapped,
++	.open = vme_user_vm_open,
++	.close = vme_user_vm_close,
++};
++
++static int vme_user_master_mmap_prepare(unsigned int minor,
++					struct vm_area_desc *desc)
++{
++	int err;
++
++	mutex_lock(&image[minor].mutex);
++
++	err = vme_master_mmap_prepare(image[minor].resource, desc);
++	if (!err)
++		desc->vm_ops = &vme_user_vm_ops;
++
++	mutex_unlock(&image[minor].mutex);
++	return err;
++}
++
++static int vme_user_mmap_prepare(struct vm_area_desc *desc)
+ {
+-	unsigned int minor = iminor(file_inode(file));
++	const struct file *file = desc->file;
++	const unsigned int minor = iminor(file_inode(file));
+ 
+ 	if (type[minor] == MASTER_MINOR)
+-		return vme_user_master_mmap(minor, vma);
++		return vme_user_master_mmap_prepare(minor, desc);
+ 
+ 	return -ENODEV;
+ }
+@@ -498,7 +507,7 @@ static const struct file_operations vme_user_fops = {
+ 	.llseek = vme_user_llseek,
+ 	.unlocked_ioctl = vme_user_unlocked_ioctl,
+ 	.compat_ioctl = compat_ptr_ioctl,
+-	.mmap = vme_user_mmap,
++	.mmap_prepare = vme_user_mmap_prepare,
  };
+ 
+ static int vme_user_match(struct vme_dev *vdev)
 -- 
 2.53.0
 
