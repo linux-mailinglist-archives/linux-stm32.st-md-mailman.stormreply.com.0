@@ -2,123 +2,86 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cDHLFeVrt2kYRAEAu9opvQ
+	id fLHPEB+bt2knTgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 03:33:09 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 06:54:39 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE6B12941AC
-	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 03:33:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1711294DF9
+	for <lists+linux-stm32@lfdr.de>; Mon, 16 Mar 2026 06:54:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9F33FC87EBD;
-	Mon, 16 Mar 2026 02:33:08 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5985AC87ED2;
+	Mon, 16 Mar 2026 05:54:38 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D42C1C01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE1BDC87ED1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 16 Mar 2026 02:33:06 +0000 (UTC)
-Received: by mail-qt1-f177.google.com with SMTP id
- d75a77b69052e-509062d829dso709021cf.1
+ Mon, 16 Mar 2026 05:54:36 +0000 (UTC)
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-35b9d29480aso436140a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 15 Mar 2026 19:33:06 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773628385; cv=none;
- d=google.com; s=arc-20240605;
- b=gaSGcD9G71wblivGHp7mGqgDyVUtWLujpqKI4JhnQV8BgEWXYAkuwN1tvFP2bRqi6a
- NOG/1PJHcGGN1GqzOW1zC7/VZc4Ke3mEJ8Vx9j5ke1Q/FUreVCXtfx8bx++T1NYD4vYi
- U1+u+VmgHld/nXTEujmzzaik8PO45pdnRZF+MbboNOI1x3DzMwIoAQoeUklAi6DvSLeI
- rU6PXSD2hjUMPLONrQbKirB/L4C1zTBg3lhTiFwZJjmNQ45gtLruP6bOa5KDvos5cEjz
- berNQ5CEJPQAcd3wGdfPsMvYlHxAQbVobuZn6SYE+uB2NmIJWDwj6VZCBn2ACsLxgYBf
- 8dGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=SOxR7OMcrpIXquZYk6Fw42QRhAnf+JOcixO64waw3M8=;
- fh=Wf4oAQsS+oPzkIjCygP1EZIR3213/xJoo4rvKzLjggM=;
- b=IHrRVTdsR733D6zOCKZyZIxkO33HkY8kt2Jy4nNg2od8K03tjwbdrLdtYDSXOHNgQq
- 8x4zfdkhUvvqNONJylzq2m1Fy6o+/TohiW3ptDVfRpHMIRwFM3L6Ev2sJ13B1R4FBj+U
- EsnD7cplMZoLpowoO/mfyPyFVES2RnuWI6D3gefplw2EbHFypyq6LCAO0E8K3ZszexEk
- YJ/ccjZQaPexn5+OtTQPX49vbE9vEP/XzBrw37w89qtsQiYEhGlkOynpIKoWBB+xyuob
- AQddb6NqBZ4hmVpPTLVzJXjWfadCuLnMj197jpQ7ztwH/8RMxpzpdbSz3oAKIoWOpxx3
- 8JMg==; darn=st-md-mailman.stormreply.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ Sun, 15 Mar 2026 22:54:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20251104; t=1773628385; x=1774233185;
+ d=gmail.com; s=20230601; t=1773640475; x=1774245275;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=SOxR7OMcrpIXquZYk6Fw42QRhAnf+JOcixO64waw3M8=;
- b=j1k03IWaPIYRTezMRlZDWiymRCAMp+dbM+EQbYugtk2B4kkxpIIvVkzO6N5eL/cMwH
- ZzUace8N2M18U0jHM/Rq1xk11ZGberC0WaGm1RBKBMW2XD5zjeVpOF/NvqZwBdOWQHPX
- SV0n2NVw1LIktHbTlErlZJ9+Nygxqa6zGG6Ixo2fZwqLJDFk8l8aFYLXUKA/j77uVjMF
- tnG1dkLuABLdx7dcjaRPabqvFdFVk/FZxz9zLMs1zEfmm8fxHCb8Cw4DT0onLcNqLT+b
- DQtjUMoKbMD2FjvGWl0dt2wjLtavPh5ufQanQJjMMnuuLX6uooX3IgSDHJex86TYAylB
- 8yAQ==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=bdlLnxfYyQ6gERT5vAzpg0NqVjL+fMxqTNrrUUF0iL4=;
+ b=AoAv9ngMry0kHPfiKesy6VRYGi+zyOAfOCtZHhRqPh0Vo24SCEF+jq7rq1HTsEXD4n
+ Ntd9lGjGy6j98pvvIUWBcUZ484jXq09Mlykuktvj02bgEMcmYPy2je/Q94V45v7AQXU1
+ C6dC5h2W6L68lCIaHv4L4svgpqp8q7xXm74CX6/fHmLcbeYkyqzFpzgffJDYxPIiXvN4
+ QbAoKY65BZziNxn+W0m5/86DpabvBzR8kxAoF/nLDV0ywwMj+dIRwNFA5gFHm9FPh+VB
+ 6KlUKdGjzbuy7T/G/5LpO9fQZ4tzRgj6wrnN/7wCAYNXuOEeJNwcVGFpmBDcEh9voOto
+ 54qQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773628385; x=1774233185;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=SOxR7OMcrpIXquZYk6Fw42QRhAnf+JOcixO64waw3M8=;
- b=KRVYG2KDJYuy+FE3pD2hVvJVau60LsBlsEYjq3v9gZVn7w8TZyVX7i3gM1jmjrb5yv
- Ec8hh1kJtL+EG8lGibdj5uV+oeZv1z+OAJnxQqUdmnOJu1KXzEP67WZifAJBBudyOg+d
- gcvKd0tE8w3N+3puTWB6zz3j5h9DYogKubxnGM07q63cgqZRIt7Qh/MLdA8ATJ+IGy9h
- +huGnk7A8A4P37XNkQ38zSjY/V/IyvR3ZfYhAaufAYUw0PPMJgiBUGROCIi0WXZh/p2h
- IxjCXkv9RPXdFt63kRrOuVtOp3ltr40jDIgFb8scm5YMGdLTmETlTK78KAmi2C8Sv+hm
- Ob6w==
+ d=1e100.net; s=20251104; t=1773640475; x=1774245275;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=bdlLnxfYyQ6gERT5vAzpg0NqVjL+fMxqTNrrUUF0iL4=;
+ b=soA6s8ZREHCipE84ihVQyXdUn28lMVlQ5mZBBW1rTivIif5CapcMQZQdAs+VtLWtu8
+ QX4/wH9uBsSQcJHaDaF4Tc5YXAMReUzwWdxlnoQcEis7sceADsby32NQuoxJJAp0w2qY
+ XjZdojLkRn/h9YA8Yrnq4tRq25lFGV597ZStYFEeko+NqIHWgqmNSSeg4mSlr88uv7ip
+ vNocz7K5xXtWVjeuJ03yQSe2W0xEHuVwXNLRvx1XkHN/ODX9yl/L3bkaCDrHST3xbMUU
+ vyCvWz9MwXk6beYdEWgvAzra3l5ZO9k5ols9DM7FnUkjYEOE29jUvsJHJ8W+5sjun0ac
+ B5LQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWqUtE/vIXgEZwsG1CeeCGgCh5Bo9rHcZXYd6kDfSKhSERmRchtRGqX55BiE6+xR05hLqrSvAwikwp8YQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzsKYhGUAm+fZxWEv3WNiKdZvTvyodogC2wGZVaBVUuK+Lif6By
- eHJna2N7c5pMR0ll41oc70HvDV9bajC5qkGHz04lS2oP7+SARJ1OA5wy8SCyuqdLqC+wVmGi5hq
- HEj/ij6KVoRM0uVX8q/EOzuzaiKnZkrRT2y+Ox1GL
-X-Gm-Gg: ATEYQzwrEuyBTkMzNJSmxvXWdGO9NGY9T6m+q1RFNy5JePgEO3anMKAo69VAucgrSAm
- 7EuHY6NrL6SwoYVp1YgRg2ZeHl3uqA4P5HQr/YAT+g167UotNhP26EKYto8X47vP4Yfv2+P4buD
- WoWHM3b6Dx9JTljktjh+TFriKvTNkyHcoJJundyMYJb1XCNVHeCl+J0Sb1h3i+IXqahN2yN31d8
- Blgs1TTkWI25Cf7/RvE5q/unwhmzN6wGSlfWgT8dj4arMVuQNDvFRXB4b7O76NhAlQNECGSvrWG
- R2Et6Q==
-X-Received: by 2002:a05:622a:60c:b0:4fb:e3b0:aae6 with SMTP id
- d75a77b69052e-5096a92ebdbmr823271cf.1.1773628384887; Sun, 15 Mar 2026
- 19:33:04 -0700 (PDT)
+ AJvYcCUCcGkLvmyIKBSSdnnfoCcz/8hWoJHg8NT/NxKWa1ni/yORPmw2cF+Q2GwqiaNpJ+ykSVcLNUlEFkYBOQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzZRSGMX7NlTsEwUOEhwYbMuTCOQoHORqZ+7Sg40rmwJLhfS9vc
+ 13uSMedxHRfu2Y1JMoOeod1kWRr8L2QIQz2c7pJwurrezsuOUnxZCw8/
+X-Gm-Gg: ATEYQzzpLcPT+ctlpuT4nsx2y58vP+PWCi4lcAuhQhm4kw0UnkMwZhBXGhQswF6Q8Xl
+ apSHAHWT2LEjQgj7ny/bWLtJ9VDK3FJzRnKx3ZRN61bMJeY3n0XPUSlG3gEgsolOQZsqsJBQRgF
+ VoJLU/1z5POKI0vTfhRb9OnCyy12J78yCrYsrJ8yW9nLSx6xdpOuFNTW5GyEoAWeGKckWktdCGX
+ 5KFdSRhZwX9ZgGfBTioFdW9NKeMLHqdVKb1aWn7Y0SrFwIDluAFlpism3rUhLdP8tG0qKsEORjO
+ vSg25Yg9sptTFr2P4V25Ry5HyQs1Hg6iGsYXNA5tH/LmyR09r1xEpGXmAM+vpyebuYl31Et9Ywz
+ YkyNPgDNE1Sjf2hbMqGFO8lD86fcLRZTKantrMQa6cs77lxXgl2K4UqLlbaQa8VEo52fLIdAGj0
+ 7gk/1lzQllP25ToMbuTlIUCuCcCT/hpNmg/eqftOg59eztYidaAb6MCjmCAUA4NjnzhmJsAtH82
+ AloHqA5iL0e
+X-Received: by 2002:a17:90a:d88b:b0:359:fd9a:c513 with SMTP id
+ 98e67ed59e1d1-35a220a8903mr10935535a91.24.1773640475194; 
+ Sun, 15 Mar 2026 22:54:35 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net.
+ [60.250.196.139]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-35b9db7dfe6sm2166285a91.8.2026.03.15.22.54.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 15 Mar 2026 22:54:34 -0700 (PDT)
+From: Joey Lu <a0987203069@gmail.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mcoquelin.stm32@gmail.com, richardcochran@gmail.com
+Date: Mon, 16 Mar 2026 13:54:24 +0800
+Message-ID: <20260316055427.1310569-1-a0987203069@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-References: <4a5fa45119220b9d99ed72a36308aed01a30d2c1.1773346620.git.ljs@kernel.org>
- <20260313110745.2573005-1-usama.arif@linux.dev>
- <c62305d7-22c4-4cf7-969b-fbe214c93b64@lucifer.local>
-In-Reply-To: <c62305d7-22c4-4cf7-969b-fbe214c93b64@lucifer.local>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sun, 15 Mar 2026 19:32:54 -0700
-X-Gm-Features: AaiRm52_478_pqzpMaMH6nJQtQvcaF-xKuK5uDWZ-u00xGMYRYKMJPl6M-Q1q5E
-Message-ID: <CAJuCfpFio6n-O-1NkPXrymV0o3UqvHYS8ZOyQtt=JXnZ5dTGhQ@mail.gmail.com>
-To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
- Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-doc@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
- linux-mm@kvack.org, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- Marc Dionne <marc.dionne@auristor.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>, linux-scsi@vger.kernel.org,
- Richard Weinberger <richard@nod.at>, Long Li <longli@microsoft.com>,
- linux-staging@lists.linux.dev, Dexuan Cui <decui@microsoft.com>,
- linux-afs@lists.infradead.org, Pedro Falcato <pfalcato@suse.de>,
- Ryan Roberts <ryan.roberts@arm.com>, Usama Arif <usama.arif@linux.dev>,
- Jann Horn <jannh@google.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Vlastimil Babka <vbabka@kernel.org>,
- Christian Brauner <brauner@kernel.org>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH 05/15] fs: afs: correctly drop reference
-	count on mapping failure
+Cc: devicetree@vger.kernel.org, ychuang3@nuvoton.com,
+ Joey Lu <a0987203069@gmail.com>, netdev@vger.kernel.org,
+ openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org, joabreu@synopsys.com,
+ schung@nuvoton.com, peppe.cavallaro@st.com, yclu4@nuvoton.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next v14 0/3] Add support for Nuvoton
+	MA35D1 GMAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -130,123 +93,182 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [6.39 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[google.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
-	R_DKIM_REJECT(1.00)[google.com:s=20251104];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:arnd@arndb.de,m:linux-scsi@vger.kernel.org,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:usama.arif@linux.dev,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:vbabka@kernel.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail
- .com,m:linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_SENDER(0.00)[surenb@google.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:richardcochran@gmail.com,m:devicetree@vger.kernel.org,m:ychuang3@nuvoton.com,m:a0987203069@gmail.com,m:netdev@vger.kernel.org,m:openbmc@lists.ozlabs.org,m:linux-kernel@vger.kernel.org,m:joabreu@synopsys.com,m:schung@nuvoton.com,m:peppe.cavallaro@st.com,m:yclu4@nuvoton.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com];
 	GREYLIST(0.00)[pass,meta];
-	DKIM_TRACE(0.00)[google.com:-];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[a0987203069@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,nuvoton.com,gmail.com,lists.ozlabs.org,synopsys.com,st.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[surenb@google.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[a0987203069@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,arndb.de,nod.at,lists.linux.dev,suse.de,arm.com,linux.dev,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com,linux-foundation.org];
-	NEURAL_HAM(-0.00)[-0.999];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.685];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,mail.gmail.com:mid,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: EE6B12941AC
-X-Rspamd-Action: add header
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: C1711294DF9
+X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spam: Yes
 
-T24gRnJpLCBNYXIgMTMsIDIwMjYgYXQgNTowMOKAr0FNIExvcmVuem8gU3RvYWtlcyAoT3JhY2xl
-KSA8bGpzQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4gT24gRnJpLCBNYXIgMTMsIDIwMjYgYXQgMDQ6
-MDc6NDNBTSAtMDcwMCwgVXNhbWEgQXJpZiB3cm90ZToKPiA+IE9uIFRodSwgMTIgTWFyIDIwMjYg
-MjA6Mjc6MjAgKzAwMDAgIkxvcmVuem8gU3RvYWtlcyAoT3JhY2xlKSIgPGxqc0BrZXJuZWwub3Jn
-PiB3cm90ZToKPiA+Cj4gPiA+IENvbW1pdCA5ZDU0MDNiMTAzNmMgKCJmczogY29udmVydCBtb3N0
-IG90aGVyIGdlbmVyaWNfZmlsZV8qbW1hcCgpIHVzZXJzIHRvCj4gPiA+IC5tbWFwX3ByZXBhcmUo
-KSIpIHVwZGF0ZWQgQUZTIHRvIHVzZSB0aGUgbW1hcF9wcmVwYXJlIGNhbGxiYWNrIGluIGZhdm91
-ciBvZgo+ID4gPiB0aGUgZGVwcmVjYXRlZCBtbWFwIGNhbGxiYWNrLgo+ID4gPgo+ID4gPiBIb3dl
-dmVyLCBpdCBkaWQgbm90IGFjY291bnQgZm9yIHRoZSBmYWN0IHRoYXQgbW1hcF9wcmVwYXJlIGNh
-biBmYWlsIHRvIG1hcAo+ID4gPiBkdWUgdG8gYW4gb3V0IG9mIG1lbW9yeSBlcnJvciwgYW5kIHRo
-dXMgc2hvdWxkIG5vdCBiZSBpbmNyZW1lbnRpbmcgYQo+ID4gPiByZWZlcmVuY2UgY291bnQgb24g
-bW1hcF9wcmVwYXJlLgoKVGhpcyBpcyBhIGJpdCBjb25mdXNpbmcuIEkgc2VlIHRoZSBjdXJyZW50
-IGltcGxlbWVudGF0aW9uIGRvZXMKYWZzX2FkZF9vcGVuX21tYXAoKSBhbmQgdGhlbiBpZiBnZW5l
-cmljX2ZpbGVfbW1hcF9wcmVwYXJlKCkgZmFpbHMgaXQKZG9lcyBhZnNfZHJvcF9vcGVuX21tYXAo
-KSwgdGhlcmVmb3JlIHJlZmNvdW50aW5nIHNlZW1zIHRvIGJlIGJhbGFuY2VkLgpJcyB0aGVyZSBy
-ZWFsbHkgYSBwcm9ibGVtPwoKPiA+ID4KPiA+ID4gV2l0aCB0aGUgbmV3bHkgYWRkZWQgdm1fb3Bz
-LT5tYXBwZWQgY2FsbGJhY2sgYXZhaWxhYmxlLCB3ZSBjYW4gc2ltcGx5IGRlZmVyCj4gPiA+IHRo
-aXMgb3BlcmF0aW9uIHRvIHRoYXQgY2FsbGJhY2sgd2hpY2ggaXMgb25seSBpbnZva2VkIG9uY2Ug
-dGhlIG1hcHBpbmcgaXMKPiA+ID4gc3VjY2Vzc2Z1bGx5IGluIHBsYWNlIChidXQgbm90IHlldCB2
-aXNpYmxlIHRvIHVzZXJzcGFjZSBhcyB0aGUgbW1hcCBhbmQgVk1BCj4gPiA+IHdyaXRlIGxvY2tz
-IGFyZSBoZWxkKS4KPiA+ID4KPiA+ID4gVGhlcmVmb3JlIGFkZCBhZnNfbWFwcGVkKCkgdG8gaW1w
-bGVtZW50IHRoaXMgY2FsbGJhY2sgZm9yIEFGUy4KPiA+ID4KPiA+ID4gSW4gcHJhY3RpY2UgdGhl
-IG1hcHBpbmcgYWxsb2NhdGlvbnMgYXJlICd0b28gc21hbGwgdG8gZmFpbCcgc28gdGhpcyBpcwo+
-ID4gPiBzb21ldGhpbmcgdGhhdCByZWFsaXN0aWNhbGx5IHNob3VsZCBuZXZlciBoYXBwZW4gaW4g
-cHJhY3RpY2UgKG9yIHdvdWxkIGRvCj4gPiA+IHNvIGluIGEgY2FzZSB3aGVyZSB0aGUgcHJvY2Vz
-cyBpcyBhYm91dCB0byBkaWUgYW55d2F5KSwgYnV0IHdlIHNob3VsZCBzdGlsbAo+ID4gPiBoYW5k
-bGUgdGhpcy4KCm5pdDogSSB3b3VsZCBkcm9wIHRoZSBhYm92ZSBwYXJhZ3JhcGguIElmIGl0J3Mg
-aW1wb3NzaWJsZSB3aHkgYXJlIHlvdQpoYW5kbGluZyBpdD8gSWYgaXQncyB1bmxpa2VseSwgdGhl
-biBoYW5kbGluZyBpdCBpcyBldmVuIG1vcmUKaW1wb3J0YW50LgoKPiA+ID4KPiA+ID4gU2lnbmVk
-LW9mZi1ieTogTG9yZW56byBTdG9ha2VzIChPcmFjbGUpIDxsanNAa2VybmVsLm9yZz4KPiA+ID4g
-LS0tCj4gPiA+ICBmcy9hZnMvZmlsZS5jIHwgMjAgKysrKysrKysrKysrKysrKy0tLS0KPiA+ID4g
-IDEgZmlsZSBjaGFuZ2VkLCAxNiBpbnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQo+ID4gPgo+
-ID4gPiBkaWZmIC0tZ2l0IGEvZnMvYWZzL2ZpbGUuYyBiL2ZzL2Fmcy9maWxlLmMKPiA+ID4gaW5k
-ZXggZjYwOTM2NmZkMmFjLi42OWVmODZmNWUyNzQgMTAwNjQ0Cj4gPiA+IC0tLSBhL2ZzL2Fmcy9m
-aWxlLmMKPiA+ID4gKysrIGIvZnMvYWZzL2ZpbGUuYwo+ID4gPiBAQCAtMjgsNiArMjgsOCBAQCBz
-dGF0aWMgc3NpemVfdCBhZnNfZmlsZV9zcGxpY2VfcmVhZChzdHJ1Y3QgZmlsZSAqaW4sIGxvZmZf
-dCAqcHBvcywKPiA+ID4gIHN0YXRpYyB2b2lkIGFmc192bV9vcGVuKHN0cnVjdCB2bV9hcmVhX3N0
-cnVjdCAqYXJlYSk7Cj4gPiA+ICBzdGF0aWMgdm9pZCBhZnNfdm1fY2xvc2Uoc3RydWN0IHZtX2Fy
-ZWFfc3RydWN0ICphcmVhKTsKPiA+ID4gIHN0YXRpYyB2bV9mYXVsdF90IGFmc192bV9tYXBfcGFn
-ZXMoc3RydWN0IHZtX2ZhdWx0ICp2bWYsIHBnb2ZmX3Qgc3RhcnRfcGdvZmYsIHBnb2ZmX3QgZW5k
-X3Bnb2ZmKTsKPiA+ID4gK3N0YXRpYyBpbnQgYWZzX21hcHBlZCh1bnNpZ25lZCBsb25nIHN0YXJ0
-LCB1bnNpZ25lZCBsb25nIGVuZCwgcGdvZmZfdCBwZ29mZiwKPiA+ID4gKyAgICAgICAgICAgICAg
-ICAgY29uc3Qgc3RydWN0IGZpbGUgKmZpbGUsIHZvaWQgKip2bV9wcml2YXRlX2RhdGEpOwo+ID4g
-Pgo+ID4gPiAgY29uc3Qgc3RydWN0IGZpbGVfb3BlcmF0aW9ucyBhZnNfZmlsZV9vcGVyYXRpb25z
-ID0gewo+ID4gPiAgICAgLm9wZW4gICAgICAgICAgID0gYWZzX29wZW4sCj4gPiA+IEBAIC02MSw2
-ICs2Myw3IEBAIGNvbnN0IHN0cnVjdCBhZGRyZXNzX3NwYWNlX29wZXJhdGlvbnMgYWZzX2ZpbGVf
-YW9wcyA9IHsKPiA+ID4gIH07Cj4gPiA+Cj4gPiA+ICBzdGF0aWMgY29uc3Qgc3RydWN0IHZtX29w
-ZXJhdGlvbnNfc3RydWN0IGFmc192bV9vcHMgPSB7Cj4gPiA+ICsgICAubWFwcGVkICAgICAgICAg
-PSBhZnNfbWFwcGVkLAo+ID4gPiAgICAgLm9wZW4gICAgICAgICAgID0gYWZzX3ZtX29wZW4sCj4g
-PiA+ICAgICAuY2xvc2UgICAgICAgICAgPSBhZnNfdm1fY2xvc2UsCj4gPiA+ICAgICAuZmF1bHQg
-ICAgICAgICAgPSBmaWxlbWFwX2ZhdWx0LAo+ID4gPiBAQCAtNTAwLDEzICs1MDMsMjIgQEAgc3Rh
-dGljIGludCBhZnNfZmlsZV9tbWFwX3ByZXBhcmUoc3RydWN0IHZtX2FyZWFfZGVzYyAqZGVzYykK
-PiA+ID4gICAgIGFmc19hZGRfb3Blbl9tbWFwKHZub2RlKTsKPiA+Cj4gPiBJcyB0aGUgYWJvdmUg
-YWZzX2FkZF9vcGVuX21tYXAgYW4gYWRkaXRpb25hbCBvbmUsIHdoaWNoIGNvdWxkIGNhdXNlIGEg
-cmVmZXJlbmNlCj4gPiBsZWFrPyBEb2VzIHRoZSBhYm92ZSBvbmUgbmVlZCB0byBiZSByZW1vdmVk
-IGFuZCBvbmx5IHRoZSBvbmUgaW4gYWZzX21hcHBlZCgpCj4gPiBuZWVkcyB0byBiZSBrZXB0Pwo+
-Cj4gQWggeWVhaCBnb29kIHNwb3QsIHdpbGwgZml4IHRoYW5rcyEKPgo+ID4KPiA+ID4KPiA+ID4g
-ICAgIHJldCA9IGdlbmVyaWNfZmlsZV9tbWFwX3ByZXBhcmUoZGVzYyk7Cj4gPiA+IC0gICBpZiAo
-cmV0ID09IDApCj4gPiA+IC0gICAgICAgICAgIGRlc2MtPnZtX29wcyA9ICZhZnNfdm1fb3BzOwo+
-ID4gPiAtICAgZWxzZQo+ID4gPiAtICAgICAgICAgICBhZnNfZHJvcF9vcGVuX21tYXAodm5vZGUp
-Owo+ID4gPiArICAgaWYgKHJldCkKPiA+ID4gKyAgICAgICAgICAgcmV0dXJuIHJldDsKPiA+ID4g
-Kwo+ID4gPiArICAgZGVzYy0+dm1fb3BzID0gJmFmc192bV9vcHM7Cj4gPiA+ICAgICByZXR1cm4g
-cmV0Owo+ID4gPiAgfQo+ID4gPgo+ID4gPiArc3RhdGljIGludCBhZnNfbWFwcGVkKHVuc2lnbmVk
-IGxvbmcgc3RhcnQsIHVuc2lnbmVkIGxvbmcgZW5kLCBwZ29mZl90IHBnb2ZmLAo+ID4gPiArICAg
-ICAgICAgICAgICAgICBjb25zdCBzdHJ1Y3QgZmlsZSAqZmlsZSwgdm9pZCAqKnZtX3ByaXZhdGVf
-ZGF0YSkKPiA+ID4gK3sKPiA+ID4gKyAgIHN0cnVjdCBhZnNfdm5vZGUgKnZub2RlID0gQUZTX0ZT
-X0koZmlsZV9pbm9kZShmaWxlKSk7Cj4gPiA+ICsKPiA+ID4gKyAgIGFmc19hZGRfb3Blbl9tbWFw
-KHZub2RlKTsKPiA+ID4gKyAgIHJldHVybiAwOwo+ID4gPiArfQo+ID4gPiArCj4gPiA+ICBzdGF0
-aWMgdm9pZCBhZnNfdm1fb3BlbihzdHJ1Y3Qgdm1fYXJlYV9zdHJ1Y3QgKnZtYSkKPiA+ID4gIHsK
-PiA+ID4gICAgIGFmc19hZGRfb3Blbl9tbWFwKEFGU19GU19JKGZpbGVfaW5vZGUodm1hLT52bV9m
-aWxlKSkpOwo+ID4gPiAtLQo+ID4gPiAyLjUzLjAKPiA+ID4KPiA+ID4KPgo+IENoZWVycywgTG9y
-ZW56bwpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51
-eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5
-LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5m
-by9saW51eC1zdG0zMgo=
+This patch series is submitted to add GMAC support for Nuvoton MA35D1
+SoC platform. This work involves implementing a GMAC driver glue layer
+based on Synopsys DWMAC driver framework to leverage MA35D1's dual GMAC
+interface capabilities.
+
+Overview:
+  1. Added a GMAC driver glue layer for MA35D1 SoC, providing support for
+  the platform's two GMAC interfaces.
+  2. Added device tree settings, with specific configurations for our
+  development boards:
+    a. SOM board: Configured for two RGMII interfaces.
+    b. IoT board: Configured with one RGMII and one RMII interface.
+  3. Added dt-bindings for the GMAC interfaces.
+
+v14:
+  - Fixed dt_binding_check compilation errors in the YAML file.
+
+v13:
+  - Fixed YAML with dt_binding_check
+  - Added callback for plat_dat->phy_interface
+  - Updated PHY-related setting helper function
+  - Renamed registers and values to avoid misleading names
+
+v12:
+  - Drop private structure nvt_priv_data
+  - Fix error propagation to preserve probe deferral
+  - Refactor internal delay handling into a dedicated helper
+  - Move FIFO and filter configuration from driver to Device Tree
+  - Update DT binding to include "snps,dwmac-3.70a" compatible
+
+v11:
+  - Propagate syscon lookup errors to allow proper probe deferral.
+
+v10:
+  - Update DTS/DTSI files to follow proper hierarchy and port modeling
+
+v9:
+  - Fixed file permissions. (YAML, driver, DTS)
+  - Moved phy-handle and PHY-related properties from SoC dtsi to board dts.
+
+v8:
+  Changes since v7:
+  - Rebased onto the latest net-next.
+  - Removed unused symbol.
+  - stmmac parent driver now reads hardware features directly to support
+    Wake-on-LAN via magic packet, so PMT-related overrides in this driver
+    have been removed.
+  - Update dwmac-nuvoton driver:
+      - Update the license to GPL.
+      - Improve the description in Kconfig.
+
+v7:
+  - Update dwmac-nuvoton driver
+    - Update probe function to use stmmac_pltfr_probe instead.
+
+v6:
+  - Update dwmac-nuvoton driver
+    - Use NVT as the previx for all functions, structs, and defines.
+    - Remove unnecessary comments.
+
+v5:
+  - Update yaml
+    - Remove the properties already defined in snps dwmac.
+  - Update dwmac-nuvoton driver
+    - Add a comment to explain the override of PMT flag.
+
+v4:
+  - Update yaml
+    - Remove unnecessary property 'select'.
+    - Remove unnecessary compatible entries and fix items.
+    - Specify number of entries for 'reg'.
+    - Remove already defined property 'phy-handle'.
+    - Update example.
+    - Modify the property internal path delay to match the driver.
+  - Update dtsi
+    - Move 'status' to be the last property.
+  - Update dwmac-nuvoton driver
+    - Use remove instead of remove_new.
+    - Use dev_err_probe instead.
+
+v3:
+  - Update yaml
+    - Fix for dt_binding_check warnings & errors.
+    - Add compatible in snps dwmac.
+  - Update dtsi
+    - Update dtsi to follow examples in yaml.
+  - Update dwmac-nuvoton driver
+    - Fix for auto build test warnings.
+    - Invalid path delay arguments will be returned.
+
+v2:
+  - Update yaml
+    - Rename file to align with the compatible property.
+    - Add an argument to syscon to replace mac-id,
+      with corresponding descriptions.
+    - Use tx-internal-delay-ps and rx-internal-delay-ps properties for
+      configurable path delay with corresponding descriptions,
+      allowing selection between GMAC internal and PHY.
+    - Add all supported phy-mode options.
+    - Remove unused properties.
+  - Update dtsi
+    - Modify syscon configuration to include an argument for
+      GMAC interface selection.
+  - Update dwmac-nuvoton driver
+    - Remove redundant device information print statements.
+    - Remove non-global parameters.
+    - Retrieve GMAC interface selection from the syscon argument.
+    - Parse Tx and Rx path delays by correct properties.
+    - Update configurations to support Wake-on-LAN.
+
+Joey Lu (3):
+  dt-bindings: net: nuvoton: Add schema for Nuvoton MA35 family GMAC
+  arm64: dts: nuvoton: Add Ethernet nodes
+  net: stmmac: dwmac-nuvoton: Add dwmac glue for Nuvoton MA35 family
+
+ .../bindings/net/nuvoton,ma35d1-dwmac.yaml    | 140 ++++++++++++++++++
+ .../devicetree/bindings/net/snps,dwmac.yaml   |   1 +
+ .../boot/dts/nuvoton/ma35d1-iot-512m.dts      |  25 ++++
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      |  24 +++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       |  52 +++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  12 ++
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   1 +
+ .../ethernet/stmicro/stmmac/dwmac-nuvoton.c   | 136 +++++++++++++++++
+ 8 files changed, 391 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/nuvoton,ma35d1-dwmac.yaml
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-nuvoton.c
+
+-- 
+2.43.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
