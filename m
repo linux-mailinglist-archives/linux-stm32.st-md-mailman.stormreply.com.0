@@ -2,112 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YAa+OscnuWkAtAEAu9opvQ
+	id eNABOOdKuWnG/QEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 11:07:03 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 13:36:55 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 854402A7819
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 11:07:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A6FDF2A9FA6
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 13:36:54 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32714C87EDE;
-	Tue, 17 Mar 2026 10:07:03 +0000 (UTC)
-Received: from DUZPR83CU001.outbound.protection.outlook.com
- (mail-northeuropeazon11012003.outbound.protection.outlook.com [52.101.66.3])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 44E26C87ED8;
+	Tue, 17 Mar 2026 12:36:54 +0000 (UTC)
+Received: from OS0P286CU011.outbound.protection.outlook.com
+ (mail-japanwestazon11010071.outbound.protection.outlook.com [52.101.228.71])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F37F8C87ED8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EC4EFC87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Mar 2026 10:07:01 +0000 (UTC)
+ Tue, 17 Mar 2026 12:36:51 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=SQoKe1yza82N0eWKoDBs9FzjXdxFptEApRRFF2z1usCx4UzzjAi80uNDF7ur2Ov6zfG2w/z4gJvE8y/jJR6hXdBvlX/TC2YIAU/HZGkhjIduxeUv7NI/SoH1Z5DnE3TYc7oq8F88fsnj0i46p2b4bh3Ub5CfbY759amXlGLUZouMLn4FYuK7FidZ3I7OTT4ONc8bC27BNSD95FL8/QJFjYYd9ZAt9se1SIBJ3lcUR4WhuKSG7f3NBg17zOKa3dETRFjqotCbzBs3MsvomhLnDIB2UnmtV0TlWvugibj5WjFuLojtlNVQtRTYMt+zTnPtrMK4n9yGqT2jABn0M5I3+g==
+ b=rg2/Q56uTbWQ0xXWdtNWppYbDZ/Pfa/NrbSgrxFh9PZxtUoZFeqUVfD7wyLqBEx73LEug9FJ4YK+KQSt2JKwsFVkpeCo0nUC60a1GdPgQY8YxKSdlX3pI+gix6yxK5+qgiYa46Yb2CZapRXbSCQTQj47MddT1svPTTAQWn4pBl0wAe7aZeu8nF6qcBOuKGN38MN4liYQsgh5aj9SzvaPVndhE/Pj7vYrSxc+XzaaXDcrJp5jZ4DPb7TwO6YKjU8G+XHvpOWdPXE4prcEgfvUrMqxFoq9IZHpt5HaraoubI4jNDFo4ncRL0IClN9fjEumQwi95nfSdf5qEiXlHH0MFQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TQuzm+PPYf2abM/LhGMDylnHAW+6IZOZ+MJBp/JIUQ4=;
- b=RRYizxjJrTUQyYwIAAt/YYdiGM0uQ9Vu0WPtw51s5i73ONsbbJuyghZgPGmrnJ4Jqm9Ij74vKStMr69Jo8mRCEg/IpcKsSBkT4btjAxA2/bOeHyRC4awtYgHyrIMmzNI1kmxuK1x82tTEHtnDgSuveUlidgUj55yRDYC9vcFNuhZhUFhuwpK0MKQkGM1lTvh2Iw3CcrvJ2sw5QBPvC8Anz08QJfsBzlrTimCf+T3ydHs80Md8osg4WSEYN1pnAwilWk8tZB4+1SPr278ffuTFEgqXOzjnPCVcNncOCa3Qv+FfIUNCoDUHlz3wcgwhuJLYCkv4/6p1yUzS677CDa7bQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=OY4TuMMPYsUwlA0Y3IU/0c7OxQbHPqlnN2WQTDn+l0g=;
+ b=VmYlikL6Uy39DFGFZkr+W5mBnCOIz+c/U3Zl3XRxhOmR7fN0VEcF/2scQSsdBssgDJgc7YYtIHAHKiACEWHcnT+Tp+MsHyjBYtUl6N1X2eXpfpKgD2RBJf/NvDGSbeddx092C6qKSw8c9k6qbD+PWO6hbruf74k0nTw6kis5vesGdR/xP4690yCkepMVPEqyu2jKZUlyzMY8b+9VX6OL3RslERdJOwgdxq+nKNMnGqSKvIsPyYom0vIG8BfFbpEj8giLrYwgrcCYcL0xDRLDyW80BgtaV7fSyf/+94jNVFdsmv1ns0HeFK6Rw1Qb4nfP5+UQSIUbUyM5p5xBzFuqtA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TQuzm+PPYf2abM/LhGMDylnHAW+6IZOZ+MJBp/JIUQ4=;
- b=MbXUfb+BJ+ujH/E5MD5DokjqvDst704Z+mnRjLM2S8yN6v5Us2RrPYkr9wHt5k+CrUQgBBx716kYIYmg6YNN8md9z5R/FBNRxREFo5jvltucPV1viS3lTYc9LJpr44nhHRNvL5L6DP2lXlKpd3iEF8ti8F/CI/QcB81zVa6/D0rYhqeNzFLgf4nnlxrnMZNk0NVqih2V0TMfF8C0R20pn+Ovlr9d/sHZMg7Tdpj5NXll16AKbUqKh5SjS1Yr4g6hVC4T2xNQ2SENWVcNm9KaOiAac3/fAENTHsXj+jh/KiAeKabsV3pKZlk664uCr1qSdRtTPUsAs4P23AiKAVFj8g==
-Received: from DU7P189CA0020.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:552::30)
- by AM7PR10MB3509.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:140::18) with
+ bh=OY4TuMMPYsUwlA0Y3IU/0c7OxQbHPqlnN2WQTDn+l0g=;
+ b=KRAjD2hd7zIqFdSL6BWsnpbXSoAkkijpwRoxy3qgQvdHk1ch3SSLCrRnzIaybDeHTF7cLYBBLrEXtQmdeXBCdC+y4ZZhgzKAN+gEQUY16Lxx7Q0wxwMjlE85+VzhUhQqnBAa+9LZm/WzjyL2oZkAKfbREygGMdXtLqqo+qz7/so=
+Received: from TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:38d::6)
+ by TY4P301MB1592.JPNP301.PROD.OUTLOOK.COM (2603:1096:405:2f4::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.15; Tue, 17 Mar
- 2026 10:06:57 +0000
-Received: from DU2PEPF00028D06.eurprd03.prod.outlook.com
- (2603:10a6:10:552:cafe::b) by DU7P189CA0020.outlook.office365.com
- (2603:10a6:10:552::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
- 17 Mar 2026 10:06:54 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU2PEPF00028D06.mail.protection.outlook.com (10.167.242.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 10:06:56 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 17 Mar
- 2026 11:09:30 +0100
-Received: from localhost (10.48.87.205) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 17 Mar
- 2026 11:06:56 +0100
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Tue, 17 Mar 2026 11:06:54 +0100
-MIME-Version: 1.0
-Message-ID: <20260317-pinctrl_stm32_hdp_fix_dep-v1-1-3a6f6f02eb3e@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIAL0nuWkC/x2MWwqAIBAArxL7nZCPnleJkMqtFspEJYLo7kmfw
- zDzQEBPGKDLHvB4UaDTJuB5BvM22hUZmcQgClEVktfMkZ2j33WIhxR6M04vdGuDjrVK8VKq0kz
- YQOqdx6T+dz+87weLwESdawAAAA==
-X-Change-ID: 20260317-pinctrl_stm32_hdp_fix_dep-94415345dbe8
-To: =?utf-8?q?Cl=C3=A9ment_Le_Goffic?= <legoffic.clement@gmail.com>, "Linus
- Walleij" <linusw@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Bartosz Golaszewski
- <brgl@kernel.org>, Antonio Borneo <antonio.borneo@foss.st.com>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.48.87.205]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028D06:EE_|AM7PR10MB3509:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2882e7d5-2255-4252-c604-08de840cec3b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|56012099003;
-X-Microsoft-Antispam-Message-Info: Ow/g/BcdkWV71WY+AORFAjWRQWOFZ9FcKER0f8YQhDfDo9G4JxoWL2EOvU3ewQhQnnV8qTb7w+tjo9lTmk7QXofmdp8Ap+foKQbfA79pPDZyJIChr0qTWkxd2IJ8kWieKP/+pFi1P7m9fFdPa2pPQsbgmehqMHPauyZ3V7nGB9xzzuqbeCB4GfbVKML6ybUG1CUnhlae5CeMm34q3kac8PtdGmsjxUp/DvAJJL+BooCP4mcw1G0NlUmb3AAIgo9t2vfMsdfYULeBb5R8f59TU1JJ2hDrSbmUzF0OnE7Oqxe2UOGP+5xwZmP7/Sj5ckpV0zUgdkPBMMZ/Oubo2TJq6m9uFq9vX+bIqIe3dvVN0NpXKYYrhmll13sU7wtuR75KPull3OvT1vKs0iV7UE3kSfMndEsQGJ+b+8CpQmqIxj6LD8j3U3hjTNY4VORpu1CZMpsvmxW4z8byNLoRM6zGYuewqUA7IP17bdOMMz9vHjka3x7YeOS+t+N9iLSr8iuwPCquoY6USGyX4o9XrgwelXXfUWSq4eT9b61i+l3En+SENApurjusegG9KkIY/twUet8pvG9tVqunG1ST658viaz4RJzs9c4glPe9SJgCYz8bXqa1NVjKrkpO5dPy7VvuqnzHfHsLGwlRhVJSaRDE/StzPO16YATUXcOF6FEWjZAtMorbkVlzGr4XfFwcM/SvQ5RWleVbTFffGp3aMBxNX6+AwB6ro33FKO6WcUPnl17HgCmQ+wA4MdOjO7528ZpfH7xTjdVUuKA5H7OuPslO0Q==
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(56012099003);
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.25; Tue, 17 Mar
+ 2026 12:36:46 +0000
+Received: from TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM
+ ([fe80::5b4b:dd0c:b302:7911]) by TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM
+ ([fe80::5b4b:dd0c:b302:7911%5]) with mapi id 15.20.9700.024; Tue, 17 Mar 2026
+ 12:36:42 +0000
+From: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+To: Michal Piekos <michal.piekos@mmpsystems.pl>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre
+ Torgue <alexandre.torgue@foss.st.com>
+Thread-Topic: [PATCH] net: stmmac: skip VLAN restore when VLAN hash ops are
+ missing
+Thread-Index: AQHcs8dAGKpeXN4mC0mptZ+btcTY7rWyp1dg
+Date: Tue, 17 Mar 2026 12:36:42 +0000
+Message-ID: <TY7P301MB1984C5D71A81DFE5E8EC94D4D341A@TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM>
+References: <20260314-vlan-restore-error-v1-1-4fc6c3e2115f@mmpsystems.pl>
+In-Reply-To: <20260314-vlan-restore-error-v1-1-4fc6c3e2115f@mmpsystems.pl>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY7P301MB1984:EE_|TY4P301MB1592:EE_
+x-ms-office365-filtering-correlation-id: 86f4144d-71fc-4913-af7d-08de8421d827
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|7416014|376014|1800799024|366016|38070700021|22082099003|56012099003|18002099003;
+x-microsoft-antispam-message-info: ulV538HaOwr1Y18/0jiA1SQucuPZSA+v4qHHXR4si4h+vdVeYfShntnrKhzKpoR72S+oeAIZ168aYLfb8voWANrNDFoJ6HK+1sGs51u1SgpFH2Ieo3AWNFbcas1YRVDg2DoqXaxjmjqGb3+OizSDtaGhtMoP/PUyITPPj8I6b8X5nCErOE/iy2L0V8xO1eETVaBll0qfLlYbvXB6oL7E50nxYwcv3851mjaJUCgxEQrdOzVYNGj16EqbM3tzVcRy9tGIqMJORy+s/XN5kwG+Ar1ngUBrVNgw37hk0OvaHZZbbdwdD09VPuktIB7SOlz33y+eGYibkuScl1bM2Ttdl/aTkCzeYZDQ0eG0q7GRtX4moitJ7L1hSetx67DiIC6vW2L0/dETp6la4H1S/bhaV0/jvse540c0ee6YzT8G85xGHpUb5QuqUaVT9S/HBWCidZHSgEgNtFx9xcMb23yu8RFq1u9p4uXMli4GNtksCKdtCLvSPRd4uJ/7/sYwMANZ3lkzz5d5eAEGKnPreKxko2JAiDz1QrL8Z9E/kNckbz2wTihMgDvyMyZLh3HqeYu53UCPKwF9X7+8wxclTKnEZECdM5cddBN5WgZdYBf9z5cgiIVFtaV58QH7y9Pg/dW6Dgel584BdV0wiMbqIh3scKCEcQMulbQTV5gQ2/6aNp4ps/ed7zlTfPr1xV4CV6A3NFyC5eT9JuRlEe2MkxNNVYjFm3AQrxOO7OqFU1C2vUns/3gEbvOZ8vq6lYKazYj5AsbWJ9d5X8bgJn/J3oQDXu95jX/XrBJQyJ6tcu3oQkU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(1800799024)(366016)(38070700021)(22082099003)(56012099003)(18002099003);
  DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 4a30twd+eZ+cr8u6kUUKx/uNCqtlRpmvl6ONuKIRRT+NPYh6hsDMW4nbZa49D32V8BHpE3PeSuWYP0e9z2ydmAFVF3FpFcGYXUS2Vs28tqu1Eg5Ll/brvkh88e2+pCcJXWyJyH/QSRU+rnu2IEKST0NZwW+/dt1A8AGiM2B0/HElvS7GeXAHycL+GlP+rOtiwRE9VVbG8aFQnAF3TmV9oq10+yZ81+ngDwuFw6nuQv36W/njqgnrT2C9rfrhg7hJ8RBxxaGOJEJ5FJPhnit0M8Hf7e1KrkKJQBKCDwR2iTzzRzgApYwFIBCkLyXd6/OWxtuvvWDXGzSR+GoiY936SbCxsbC5uoKQM9SqUl6WZssGDKa8N5JSJlp/Tj9cILg9y1FqYttYbBYZiwruMIZ7UB6n1NQ6D1dDWcEOLDB1KLljOxin6yQDTH4LMXjscKm1
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 10:06:56.9827 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2882e7d5-2255-4252-c604-08de840cec3b
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D06.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3509
-Cc: linux-gpio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] pinctrl: stm32: fix HDP driver dependency on
-	GPIO_GENERIC
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?b1JZbjhvRGk0VlBkVmVXanY5a1dmMkkyMnArdkR6NmlBbnRlWnZjdFlPQzlW?=
+ =?utf-8?B?bkttK1loZDNhcjlKUFRYZHRScXJmdnVweXZvb0szYWkrTlViNUNBOU9lMDZz?=
+ =?utf-8?B?Q1VCa1IvMzd1N1Zieit6Yk1udTFwQWJOeUh6amt5eEpocFluNStvZnVpT2tZ?=
+ =?utf-8?B?N21xSVFLS0tzVUVXL0N1R3JpWmloSUt5c1RqMHMrc2dLeGIxTnZSeS9mOG1O?=
+ =?utf-8?B?SkZ1Rnl1MkdPdDdNWG44QlFsbExHYTdpZVQyWVZSa1ViV2tsNGVoVDJBZG4v?=
+ =?utf-8?B?N3N0QTBjQWFhNGxzUSsycjB6UUFSWWhWcmVTNXNDLzdsdEZGcVU0Z2I3SHZ5?=
+ =?utf-8?B?OUVqTFo5c3oyMzh5YmVFQW1VOXAyR1NFZTBUM3VmcHRYWEhuUVpmQXQvaHBV?=
+ =?utf-8?B?TDQ1RDVtVnZCVDYyZkVoSFBYVmwwSmt6T3RTNFNyOFY3Y0Q4SUxGWThRRDNr?=
+ =?utf-8?B?aXdRa3NTZmVHWmpSYWdVR3ZNNFJBSFFYSzJqa3h5c2gzZEMrTjZxeldBOGpG?=
+ =?utf-8?B?aGpwQ1ExcUJxSUhnR2pWMHlSSWU0ZTl6aWovRGxoVWl4SENsc3dVN1FmbFF6?=
+ =?utf-8?B?U1Bmckc2Zjd0STNaOFhTSEhOMTNnNys4c3dJbXJWY3lFT3I5bGkyM3l6Wk53?=
+ =?utf-8?B?OVlyMDFXY05TUk5rUUJWNXVIaUNibEUvaHI5RWJ2a3J0WnljYTQveEpiMHF4?=
+ =?utf-8?B?aXQ3SmdUc2cxcEtxVEpveUgzSGZHUmg1SkQ5bnlUUTlld1ZTdVhwSk9tcUlU?=
+ =?utf-8?B?TndHU2FIY3IyZTNRMm1vbzlESGFVV1U5UW1zV2ROZmZmZXQybjdFb2pCYks3?=
+ =?utf-8?B?SEFtaDEvYkxtUGFnaENiNWE3dGlXNkpWWkhTaHFacmUxVTJMZ0ZiMm1jczZP?=
+ =?utf-8?B?QllXaWUyUXMwL2lMUzZOSCtEK0w2NUI4L2pYUlloMnRadlpaTmV2Sm5SQWN1?=
+ =?utf-8?B?SStZeEZEdWo2Q1dmTjRLa0Q2OUF1ZWl6VlFhdDlQUS9wdXF0czBmc2ZTZ0F5?=
+ =?utf-8?B?OHF5d3hqTllEdVMxangwbG5US05peUduYzBBYWRBTVB2SWQveFVTSnBGWHFr?=
+ =?utf-8?B?aS9pUFF6NlpxaFZSc0xKVmJTQlJSTEM3MVI3elpLNzY0RkNtdXNVNVhubVNi?=
+ =?utf-8?B?Tm56bjc5QnRsdlRQRHA2bWZGQ3VMQnErYkRZdkVQeWZWRHhNQzNMRm1vQVpM?=
+ =?utf-8?B?MlZUOGpXUExwOUx1d1dXd214UUJ5YUlTZXpxbEtEMnNMcDFHQ2l5UzlkQnAx?=
+ =?utf-8?B?dGhXbHlKTk5CRGhLOEx2R2M2NlZmQ1JhM2JJRVdrOFVFd2hUVXpBOWNUMTk5?=
+ =?utf-8?B?KzBpbUlSSEI5YUNHR1VoaHBwU0ZOUktPblBOSVVya3NOeEUvZVVIa2lBTFJs?=
+ =?utf-8?B?QjhRWTdvT2RKQ2Fqb1kzRUVEaFRjWHhzZzNuZmNQM0VBdXIzZFpuY1JFQzhV?=
+ =?utf-8?B?RW5aUCt2SXUrMWlLeVZxK0o5OE1aT1lQeVQ1d2szaTJmVEs2UFczVVBUVUhG?=
+ =?utf-8?B?ZFc0STdJb0NVOHRHNzNHc3I0b01xYkIvZjkyVkNWREphd3NFb1NxK0dQajJi?=
+ =?utf-8?B?by9VZUlwbnA1Wk9aeHB4eGFzbWJOVUJIRm8yQ1A2WnZudERiNHRCSS92V0Rr?=
+ =?utf-8?B?bU15K3M3ZXhMZnRxSUtBUXpzM2Q1MkhPazN6Rkc3dEkvY0pCeGxkWENQZE5t?=
+ =?utf-8?B?ZTh3eEV6Wmh0ZWh2dDBPTmd3YVY1WjFYRUVoWlUyQXA4aTJZTVExTndzMUJy?=
+ =?utf-8?B?b0lIV3hONXV0ckllRVVMY1lGYlY1ZGNiMnh2WEVQTS9QWUYyVDMzNlMvRVBs?=
+ =?utf-8?B?UVNzc0hTQW1uMUtveFZXdkRoZmlpUnA1MmxidDhwR0ZHZ3cvR3JCZ2lsanZZ?=
+ =?utf-8?B?ckMwTXRsS1drRDNyK01CRWgwbkhTYnNZSkJoSHFMaVBzaERwbVJQOFQxdURQ?=
+ =?utf-8?B?NFp0SEdtaHlJVlVFTTRkdXM0Q3NSVStlNzlRdlVwSk5iWStTQXFqUnN2S2J3?=
+ =?utf-8?B?cWxSZEFIZG5xdWJob0d5V0ZXZFZGOUU3VmNJcjNBLzUvYnVYN29MaVlIN2F2?=
+ =?utf-8?B?dUdua2pGRFZCKzVnZTJrL2hrbTlGbXhqcWF6enUyejJJM3BHbFdVbkVSNTJO?=
+ =?utf-8?B?WEc5LzR0RndUeVlMMmpjSnlxVmh2cGRKWjlSS1lRU2ZnVjhra3pacFd5Z0dT?=
+ =?utf-8?B?bnF5bTZNMjhCN3dmamNQOGxRbmNRNnZiV0IrWjlyZWlHZWJPanFwcFFNMFpN?=
+ =?utf-8?B?ejVrSHBjVGdnWnljMDBuV1hEWVJhWWFKTlZsYTZLYlI1OHhrYlJjVnkvK3lh?=
+ =?utf-8?B?RGRPOHE1ZzlTSzBrd0Q3dFRiSkVtbnJDc1BIUDJVU3h5MTFRZ3NRYjVRUHF1?=
+ =?utf-8?Q?MWrw/YYl6FwRx5oI=3D?=
+MIME-Version: 1.0
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86f4144d-71fc-4913-af7d-08de8421d827
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Mar 2026 12:36:42.8358 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: ETnjXpCh6rFcv6kR9YSQS4Y2T/HFrz+bE+VZPgyp0ZSbJoI0YVvn9Qk5VlKKLgc8tEwwS4ZtgwjoeYBmVHlUxndtjb9C6hFwFI64xs3PbFU=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4P301MB1592
+Cc: "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: skip VLAN restore when VLAN
+ hash ops are missing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -125,75 +150,105 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[renesas.com:s=selector1];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[renesas.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:legoffic.clement@gmail.com,m:linusw@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:brgl@kernel.org,m:antonio.borneo@foss.st.com,m:linux-gpio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:legofficclement@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com,kernel.org,foss.st.com];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:michal.piekos@mmpsystems.pl,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[mmpsystems.pl,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com];
+	FORGED_SENDER(0.00)[ovidiu.panait.rb@renesas.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[foss.st.com:mid,st.com:email];
+	DKIM_TRACE(0.00)[renesas.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[ovidiu.panait.rb@renesas.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	NEURAL_HAM(-0.00)[-0.990];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.672];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 854402A7819
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[TY7P301MB1984.JPNP301.PROD.OUTLOOK.COM:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: A6FDF2A9FA6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The HDP driver uses the generic GPIO chip API, but this configuration
-may not be enabled.
-Ensure it is enabled by selecting the appropriate option.
+Hi Michal,
 
-Fixes: 4bcff9c05b9d ("pinctrl: stm32: use new generic GPIO chip API")
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- drivers/pinctrl/stm32/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+> stmmac_vlan_restore() unconditionally calls stmmac_vlan_update() when
+> NETIF_F_VLAN_FEATURES is set. On platforms where priv->hw->vlan (or
+> ->update_vlan_hash) is not provided, stmmac_update_vlan_hash() returns
+> -EINVAL via stmmac_do_void_callback(), resulting in a spurious
+> "Failed to restore VLANs" error even when no VLAN filtering is in use.
+> 
+> Check presence of VLAN hash ops before stmmac_vlan_update().
+> 
+> Fixes: bd7ad51253a7 ("net: stmmac: Fix VLAN HW state restore")
+> Signed-off-by: Michal Piekos <michal.piekos@mmpsystems.pl>
+> ---
+> This patch fixes a noisy "Failed to restore VLANs" message on platforms
+> where stmmac VLAN hash ops are not implemented.
+> stmmac_vlan_restore() calls stmmac_vlan_update() without checking for
+> VLAN hash ops presence which results in -EINVAL.
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 6827c99bde8c..bc09439ec00b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -6869,6 +6869,9 @@ static int stmmac_vlan_restore(struct stmmac_priv
+> *priv)
+>         if (priv->hw->num_vlan)
+>                 stmmac_restore_hw_vlan_rx_fltr(priv, priv->dev, priv->hw);
+> 
+> +       if (!priv->hw->vlan || !priv->hw->vlan->update_vlan_hash)
+> +               return 0;
+> +
 
-diff --git a/drivers/pinctrl/stm32/Kconfig b/drivers/pinctrl/stm32/Kconfig
-index 5f67e1ee66dd..d6a171523012 100644
---- a/drivers/pinctrl/stm32/Kconfig
-+++ b/drivers/pinctrl/stm32/Kconfig
-@@ -65,6 +65,7 @@ config PINCTRL_STM32_HDP
- 	select PINMUX
- 	select GENERIC_PINCONF
- 	select GPIOLIB
-+	select GPIO_GENERIC
- 	help
- 	  The Hardware Debug Port allows the observation of internal signals.
- 	  It uses configurable multiplexer to route signals in a dedicated observation register.
+The stmmac_restore_hw_vlan_rx_fltr() call above also goes through the
+priv->hw->vlan pointer, so maybe for consistency, the check for empty
+VLAN ops should be made at the top of the function.
 
----
-base-commit: 263447532463cf4444a3595e835b99a4e90952fa
-change-id: 20260317-pinctrl_stm32_hdp_fix_dep-94415345dbe8
+Another alternative would be to replace the NETIF_F_VLAN_FEATURES check
+at the top of stmmac_vlan_update() function to check if VLAN HW filtering
+is supported instead (NETIF_F_HW_VLAN_CTAG_FILTER and
+NETIF_F_HW_VLAN_STAG_FILTER).
 
-Best regards,
--- 
-Amelie Delaunay <amelie.delaunay@foss.st.com>
+The restore only deals with the HW filters anyway and the vlan ops are
+always defined in that case (stmmac_vlan_rx_add_vid() and
+stmmac_vlan_rx_kill_vid() rely on this being true as well, as they also
+call stmmac_vlan_update() unconditionally).
+
+Ovidiu
+
+>         ret = stmmac_vlan_update(priv, priv->num_double_vlans);
+>         if (ret)
+>                 netdev_err(priv->dev, "Failed to restore VLANs\n");
+> 
+> ---
+> base-commit: 1c9982b4961334c1edb0745a04cabd34bc2de675
+> change-id: 20260314-vlan-restore-error-f8b3a1c7f50a
+> 
+> Best regards,
+> --
+> Michal Piekos <michal.piekos@mmpsystems.pl>
 
 _______________________________________________
 Linux-stm32 mailing list
