@@ -2,111 +2,122 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YGf/KZKXuWnWKwIAu9opvQ
+	id MCEIAbq9uWnJMQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 19:04:02 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 21:46:50 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4ABC62B089E
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 19:04:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FB0B2B260E
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 21:46:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E7844C8F262;
-	Tue, 17 Mar 2026 18:04:01 +0000 (UTC)
-Received: from AM0PR83CU005.outbound.protection.outlook.com
- (mail-westeuropeazon11010010.outbound.protection.outlook.com [52.101.69.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F805C8F262;
+	Tue, 17 Mar 2026 20:46:49 +0000 (UTC)
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60B00C8F266
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C320C8F261
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Mar 2026 18:04:00 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Jyl0Z3RfBV6aV7v08oj6ACNkFHLpg6kIs6bwUpTslX2EE86GnEfiXqj7IdwQUPNQ6Xw14mXASQEmn29zvRYaX71F7eCWc/lNPg2ghwcefsLQCGF6E5xYQosXWMc8N3ZceBX7YDDVXhkiRurgCxZPZsiUeecWdPBzrTm6eIjoZtVjfmRIjJZ7GwDJPcMydADMPHcX69pKVSqolE7eRHKjt+7XvTA1EfVG5zLsedwUTO6DHTMHm8obTikeQjZLWH2zGTEW/cPTW/fiJLE5ZxzM1mvJYTGZBnJxrlFHvRouXcamol4yZQYHTW6JiNa3uE7nPvYfdCv4A5s6vu4MLU461Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nYUrr8jz9oVCqWAYFTgKtT8hJYyTAVaoGz6ikhSJ+yE=;
- b=Ue+7l7ipcQ1TVXdEs6l7MAUByee4xtXf5qcBrlTWZFxsTtpDMzMDIxD2xkKtKRZQQ3IHWZ+PElJX2NUQhCUgBaEJKkUiMic0qa1kuA3CdIvi402HVmkmX0IOYx20aMORnL3vIQI284qIJXMeQsE/d/+1JpnReS4rrnWpPSNaq7DwwDTJVE14xv1BljD9GN5eGfI4jtMATkTf4NGbe16jP4i5pII1dgly60hhUPcpA+TO3MUHcvETSNkuKIblfzAktz+RITrWwAjz6MrrJQfYjYg1Qs7vRCTzlOCOQkqA9TNwBbent9yZugpcUAivktszkTxDXLysXcxjEg16YXw+0g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nYUrr8jz9oVCqWAYFTgKtT8hJYyTAVaoGz6ikhSJ+yE=;
- b=LuX2MRDGWOP8h92taDTW82IRR3ly6BPKrINmX6qlTBWIjYKTbmBlO+eK7h9HeHyEpR88CRzdYsiq61n6rn6QarHqIaRM4XLFbi0nEl9cm8FZ4KB7n2JLQbOJ22kr7OhmzLzVG7zblgZiCwdJ0R4FEjTo7DPplz3XYf/rowJfyqZ8eJ7uwZiET76xOaXWquk97J6C7I1Qy3QUscxD9AaA+jwRsJ5Mdj/F84rFEA//TGr9t7vntu7+KCv/j5PF3Lr1FpgD+pvQCrWj7Z08I/mb28d6gloLr7AKMW/F/XolYGy/cegNdES+JDBbqa0ngozkW5l2oYGleJnhMEcm+z6hbw==
-Received: from CWLP265CA0440.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1b7::21)
- by GV1PR10MB9089.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:150:1d3::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9700.27; Tue, 17 Mar
- 2026 18:03:55 +0000
-Received: from AMS0EPF00000198.eurprd05.prod.outlook.com
- (2603:10a6:400:1b7:cafe::20) by CWLP265CA0440.outlook.office365.com
- (2603:10a6:400:1b7::21) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9700.27 via Frontend Transport; Tue,
- 17 Mar 2026 18:03:34 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AMS0EPF00000198.mail.protection.outlook.com (10.167.16.244) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9700.17 via Frontend Transport; Tue, 17 Mar 2026 18:03:54 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 17 Mar
- 2026 19:06:28 +0100
-Received: from localhost (10.252.21.194) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Tue, 17 Mar
- 2026 19:03:53 +0100
-From: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
-To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
- <mathieu.poirier@linaro.org>, Jens Wiklander <jens.wiklander@linaro.org>,
- "Rob Herring" <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- "Conor Dooley" <conor+dt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>
-Date: Tue, 17 Mar 2026 19:03:27 +0100
-Message-ID: <20260317180329.1207625-7-arnaud.pouliquen@foss.st.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260317180329.1207625-1-arnaud.pouliquen@foss.st.com>
-References: <20260317180329.1207625-1-arnaud.pouliquen@foss.st.com>
+ Tue, 17 Mar 2026 20:46:48 +0000 (UTC)
+Received: by mail-qt1-f170.google.com with SMTP id
+ d75a77b69052e-5091ed02c54so60281cf.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 17 Mar 2026 13:46:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1773780407; cv=none;
+ d=google.com; s=arc-20240605;
+ b=U3OpyLDgW08COTwpX2RXIUkg0Lt4j64ECkzmnKisNwpA2B0mVQaKXFESghQ+rq5RCQ
+ yyXjmO2O2fJnpy7ZxbdtEO0gMWPEems3+6KajLN7m2BZoDie+wlhh5SQ9Z6VoSWqUTKZ
+ /7Rjchu+BZNJAp1APiqENToZgaxNRqTg8x6WfhMmcf1/7jaUADdQtm4D1k15HT0KaAQo
+ qeCGutnTIcyRtbyDdgZsy6J1MHdxvBXqhdocMtEWDMfBJvb6hqhCLNiJI5uIUVMRa+lf
+ byeV1m6ZwePeIc2AMNMM3AClXFb8oPD/Ss2svZw6CLl5P7JwU7UtTe9Z6qGdQnTooYE8
+ rftA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=puh87Pmz2QIedt98QmYFqHshzK8OJIco1FTLmkjNO+s=;
+ fh=uJu/FEn2f57fsFoJ6i2zVN90KmpcdR9d0sLDqIRg8J0=;
+ b=RuDDCXOsSQvA9y9mRV9cdMgM24siy0fJ+MtKz3UxQ6m40t7WTSxOkqARubF0soYpLo
+ xHA/fJH+RLZmWfpv5FVDMOreTBNPUh6282rRUmuRcNc1vNkZbmEE692EIaQ3Q76BzxK7
+ b8fZH0a/tnP2AMOXXgDG+iVScM3ABnv1gkGqyOnzkDV8h22RpmconCLk261EMr5V5Cr0
+ vsN7sfHTuA0z6DS8DDumsPOdCb2dCo7dfhEiXwUPi/gMbXAzRYEb7GEUeUpEpxH+7fwr
+ 2TjU07EC6ijKEbVtB/OSO0uv6JBj4gDwSzm6lKuvavgcgscbYA9x4djPetdfQWkhpill
+ 9geg==; darn=st-md-mailman.stormreply.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20251104; t=1773780407; x=1774385207;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=puh87Pmz2QIedt98QmYFqHshzK8OJIco1FTLmkjNO+s=;
+ b=eY5VgTw1/7Tljp7KXLSAAmZlhG4unk2AO3qeSvMVr4gNMR9d3GKXVBuB5rgN3xwItU
+ Ha9jDMMjsMwRbvuF5BcLMuzKKCKwv/tSEd563WHCPbLoXy39aY+40rYraUhcjRoiaLkv
+ z1P0XKY69ksgAlv29yNgzYgV1ktXn0sdek2+rHWvEEkaNo4xZujwLflQ1Xi8xppPOFjr
+ df43rV8REDM4ok9Q8D5aBcUSyLgJDTJBLgxseANm784C32XhkNAXOnME2Jy0aZ4rgOIh
+ uFibHV8Mc4EhLW+6M9P+ttWoC/t4PQGW32GVUHDK7FcjX51kD8kVdYKHfBEjefCi6n9q
+ rHrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1773780407; x=1774385207;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=puh87Pmz2QIedt98QmYFqHshzK8OJIco1FTLmkjNO+s=;
+ b=FzbCZWBP8t9z8T+UANHk3iPSUdznfbJvQXisl6rovS6yResIj1BSYMRYAs3f3OQ2R6
+ I0CPhTs9iLv1QkzE9ZOMR2kTKZPK53B4CWIkg01rJycQTGLySqunPxz7EMNQ5rorCtqE
+ dGCvd5DtWhgkad71Jv7rJfqwD2etUCDlmd/5uAUFFnwyFovpZp6w/5wOtQ0tshcJbmON
+ 3EvV9k624cLDm3QSE4B1Ym6zEBEFnZ2U1cKcVnkIWhV0WoyIY7Rl6UNxkrzCnuVBU6wj
+ yIwNo1PteZmqM7JXUPkNu9zOXcI0jzHvHawQ+9HpvFF1dsBdGnPPSDuMQOGfhqRFG7jZ
+ tKJg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCUufXjoJJHW5HMbW3kZrxvq2kQc0WtxRCNxwKDf70gpASgZiI5mONZhfXu5lGVP1sKB/eAVNSLfmatpFQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw1unDKdRm3rZInOsqZb8S8cgk3xx7Bv1yGipidoAX7fwzlBIA5
+ llFgPmXZ+P4drmui9RwVhYNyG0ILTf0IZZ6IYC/zUhbGRzoB6vQmSVf0X3jrQ0PmxOYLIOTiQwV
+ gdoUL04iMVmCACdAQ7TEOYOwgNcvD+kXFSdQ27zYQ
+X-Gm-Gg: ATEYQzxtFKUKQmd3GfeBlYKvS03HE2kRQpwSF7jo7APslfl1Po4xQAoolMNmGsCJwd5
+ EjT0qPuAn4m5l0EFSTHPtQBpygPf37k5pXKZiFR386YYREmMAZdwNR7OECrrYxzet+Gc45mUbwo
+ tO8DTkHTr9rfhB3Oz7UDbaC4pXpAiSf/VamxBTpK8pphURjqT/7Z/ODwwCidsB6GWRDbnmOewyY
+ hMV2hjkUt0OI0h0RQh6Vk8R30eLLGGoWDmQlPNBIek6XjAgkh505HoPqUg0N/eYLFzRJ4E9uAya
+ k6T9ONYlYlkvAqQHNtRBH+3UhLtVJLdhR+AXLg==
+X-Received: by 2002:a05:622a:130f:b0:509:371:f2ab with SMTP id
+ d75a77b69052e-50b14848d70mr3924821cf.16.1773780406374; Tue, 17 Mar 2026
+ 13:46:46 -0700 (PDT)
 MIME-Version: 1.0
-X-Originating-IP: [10.252.21.194]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000198:EE_|GV1PR10MB9089:EE_
-X-MS-Office365-Filtering-Correlation-Id: e98cc13c-f187-4eb8-4f3c-08de844f8db1
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|376014|7416014|36860700016|82310400026|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: s2y8In+5HyhkAkjy5WlqwdIyb26YTKRQJIOSqZjmEIq/p2F710ztXYs1hpghOGGWtiIsz5Bz/W8qZrlORWY/Zye14DAzPedn30DR58IZ1yQpvOV0rqUAmIEtstISagmf3Oy1wBr8vF9Ymd8vtmUEsyHz6cRBw0/RiQ89rMAp6YUjLBgxEgbTC8wmoSO83aJPtNRBppKl1YDV0cnRLK57b2nbnjZzwROVoEClNxMj3eMAYD+hf/JhWBtgGrI5pgl81FOdz+MOrFWbmKQmYKFV3bCYvU9n7UlFQAp1Hpq1SGEdVtppHerzux3PtnK6tZh2kSvYLweRyUSMJZPooqluVxD354wU/FrtWmcXszPc1FDnptnLR55bgqQXUXAx+//H35rN0GE0qYtedTVKr8iAVLpY/nYKgAh/v/4SSberIUVYeA73EbQ4em3s4NMwpE0W6Z7XnMYeSp9JXt3BcI9aYBn6Z9CEie1ve0QFVKQuVRJEti8kv7RFLbwSqIcgfMtz7O42UnLtz65zbzRd7dE0jGo3ZjPmWsBJz8zONuWPgxy539kbJRd5BVh1Mkr6n5WcE+KXrRF3GKa6CTVcEju7f47EPF3I/ekoFI3+UbCTZcFQ1URLOwBEkkR4STDdjsJIcL3vZrDz6yO6mNksEHCtfraF6U4Oro4fZSeW5B/7D1aIEtqyA/xl2Gb8MnsTDNPPSvBcWjQziOCucUs3EN3yorEMbgkgk1CZfzrhsfsQGnNP6jbAilL6weuDNtJ1xCAPPYynbhuWTUVrn2eXTQTWrw==
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(82310400026)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 7hrDPmPiOlD7TyP7CfhdEvzthK75c+0PS9YB1VQ/bSYxP9R9C7CeQMRBq/9VNYAeQXd9UJo792bbuoJExWEB/ffQkWT/uovlwsDE9aYTcRrcl222DHLaleNbQWaC1b8oi6NOW+VBd01gQYrKw2lgKVELkbaU34LTPHs1bjaImIl+g+xKKUht5iY5smoy8e44x+/2gLCCojS0S1lvUHf6oftXelZefUlYDdSPlvQ1EX8h0mdDtwBJOO19ZqCVn9F513X2yHL2QPiQYC7QbYXMd/bOvbstPx0KxF7BHPXprgsJ8wCPhSfaCzqU93y/W6cFklRxqcutZzH+D9WDDxpuOk6zljin7/B+kC8b0gS4+4hfOCxzlu2RzG4GReXTJmdVyNiqr39y2m+CUhWGOCq2DLTAUgN1pP7zFm6HfMlvPECCuQGrChc5ToR95JxhzJds
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2026 18:03:54.6784 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: e98cc13c-f187-4eb8-4f3c-08de844f8db1
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000198.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR10MB9089
-Cc: devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, op-tee@lists.trustedfirmware.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v21 6/6] remoteproc: stm32: Add TEE-controlled
-	STM32 driver
+References: <cover.1773695307.git.ljs@kernel.org>
+ <d34056a65bd387286f4e155d52449106ddc99f78.1773695307.git.ljs@kernel.org>
+In-Reply-To: <d34056a65bd387286f4e155d52449106ddc99f78.1773695307.git.ljs@kernel.org>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Tue, 17 Mar 2026 13:46:34 -0700
+X-Gm-Features: AaiRm50ZSv0JOBEsyaTpLpUZLAlSOUqng_UaLNmSO0lPuUbLHyEvRlv0uikpAUM
+Message-ID: <CAJuCfpH653zdE=mXArpx8BUszVVC1PoN+rvp+WxdM3aAUbpqRw@mail.gmail.com>
+To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-doc@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-scsi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Richard Weinberger <richard@nod.at>,
+ Long Li <longli@microsoft.com>, linux-staging@lists.linux.dev,
+ Dexuan Cui <decui@microsoft.com>, linux-afs@lists.infradead.org,
+ Pedro Falcato <pfalcato@suse.de>, Ryan Roberts <ryan.roberts@arm.com>,
+ Arnd Bergmann <arnd@arndb.de>, Jann Horn <jannh@google.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, Christian Brauner <brauner@kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 10/16] stm: replace deprecated mmap
+	hook with mmap_prepare
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,640 +129,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.39 / 15.00];
+X-Spamd-Result: default: False [6.39 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[google.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	R_DKIM_REJECT(1.00)[google.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[13];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[43];
+	FORGED_SENDER(0.00)[surenb@google.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:jens.wiklander@linaro.org,m:robh+dt@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:sumit.garg@kernel.org,m:devicetree@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:op-tee@lists.trustedfirmware.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:robh@kernel.org,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m
+ :linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,foss.st.com:mid,args.np:url];
-	DKIM_TRACE(0.00)[foss.st.com:-];
+	DKIM_TRACE(0.00)[google.com:-];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[surenb@google.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com,linux-foundation.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.947];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 4ABC62B089E
-X-Rspamd-Action: no action
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	NEURAL_SPAM(0.00)[0.977];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 8FB0B2B260E
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
+X-Spam: Yes
 
-Add a remoteproc platform driver for the STM32MP15 Cortex-M4 core
-controlled via a TEE Trusted Application.
-
-The driver integrates with the generic TEE remoteproc layer
-(rproc_tee_*) to delegate firmware authentication, loading and
-start/stop operations to the TEE, while handling STM32-specific
-platform resources on the Linux side:
-
-  - Translation between physical and device addresses using
-    SoC-specific DMA ranges.
-  - Registration of reserved-memory carveouts from "memory-region"
-    phandles (including vdev vrings and buffers).
-  - Mailbox-based virtio queue kicks and a shutdown channel using
-    the IPCC mailbox controller.
-  - Optional watchdog interrupt for crash reporting and wakeup.
-
-This enables secure boot and runtime isolation of the M4 firmware
-while still using the standard remoteproc and rpmsg frameworks
-on STM32MP15.
-
-Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
----
-V21 updates:
-- use of the rproc-tee-phandle property
----
- drivers/remoteproc/Makefile          |   2 +-
- drivers/remoteproc/stm32_rproc_tee.c | 537 +++++++++++++++++++++++++++
- 2 files changed, 538 insertions(+), 1 deletion(-)
- create mode 100644 drivers/remoteproc/stm32_rproc_tee.c
-
-diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-index a1a5201982d4..80f0965bac95 100644
---- a/drivers/remoteproc/Makefile
-+++ b/drivers/remoteproc/Makefile
-@@ -36,7 +36,7 @@ qcom_wcnss_pil-y			+= qcom_wcnss_iris.o
- obj-$(CONFIG_RCAR_REMOTEPROC)		+= rcar_rproc.o
- obj-$(CONFIG_ST_REMOTEPROC)		+= st_remoteproc.o
- obj-$(CONFIG_ST_SLIM_REMOTEPROC)	+= st_slim_rproc.o
--obj-$(CONFIG_STM32_RPROC)		+= stm32_rproc.o
-+obj-$(CONFIG_STM32_RPROC)		+= stm32_rproc.o stm32_rproc_tee.o
- obj-$(CONFIG_TI_K3_DSP_REMOTEPROC)	+= ti_k3_dsp_remoteproc.o ti_k3_common.o
- obj-$(CONFIG_TI_K3_M4_REMOTEPROC)	+= ti_k3_m4_remoteproc.o ti_k3_common.o
- obj-$(CONFIG_TI_K3_R5_REMOTEPROC)	+= ti_k3_r5_remoteproc.o ti_k3_common.o
-diff --git a/drivers/remoteproc/stm32_rproc_tee.c b/drivers/remoteproc/stm32_rproc_tee.c
-new file mode 100644
-index 000000000000..7012f0a17a43
---- /dev/null
-+++ b/drivers/remoteproc/stm32_rproc_tee.c
-@@ -0,0 +1,537 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025, STMicroelectronics - All Rights Reserved
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/mailbox_client.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of.h>
-+#include <linux/of_reserved_mem.h>
-+#include <linux/platform_device.h>
-+#include <linux/pm_wakeirq.h>
-+#include <linux/remoteproc.h>
-+#include <linux/remoteproc_tee.h>
-+#include <linux/slab.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
-+
-+#include "remoteproc_internal.h"
-+
-+#define MBOX_NB_VQ		2
-+#define MBOX_NB_MBX		3
-+
-+#define STM32_MBX_VQ0		"vq0"
-+#define STM32_MBX_VQ0_ID	0
-+#define STM32_MBX_VQ1		"vq1"
-+#define STM32_MBX_VQ1_ID	1
-+#define STM32_MBX_SHUTDOWN	"shutdown"
-+
-+struct stm32_rproc_tee_mem {
-+	char name[20];
-+	void __iomem *cpu_addr;
-+	phys_addr_t phy_addr;
-+	u32 dev_addr;
-+	size_t size;
-+};
-+
-+struct stm32_rproc_tee_dma_ranges {
-+	u32 dev_addr;
-+	u32 phy_addr;
-+	u32 size;
-+};
-+
-+struct stm32_mbox {
-+	const unsigned char name[10];
-+	struct mbox_chan *chan;
-+	struct mbox_client client;
-+	struct work_struct vq_work;
-+	int vq_id;
-+};
-+
-+struct stm32_rproc_tee {
-+	int wdg_irq;
-+	const struct stm32_rproc_tee_dma_ranges *ranges;
-+	struct stm32_mbox mb[MBOX_NB_MBX];
-+	struct workqueue_struct *workqueue;
-+	struct of_phandle_args tee_phandle;
-+};
-+
-+static const struct stm32_rproc_tee_dma_ranges stm32mp15_m4_dma_ranges[] = {
-+	/* RETRAM address translation */
-+	{ .dev_addr = 0x0, .phy_addr = 0x38000000, .size = 0x10000 },
-+	{/* sentinel */}
-+};
-+
-+static int stm32_rproc_tee_pa_to_da(struct rproc *rproc, phys_addr_t pa,
-+				    size_t size, u64 *da)
-+{
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	const struct stm32_rproc_tee_dma_ranges *range;
-+	struct device *dev = rproc->dev.parent;
-+
-+	for (range = ddata->ranges; range->phy_addr; range++) {
-+		if (pa < range->phy_addr ||
-+		    pa >= range->phy_addr + range->size)
-+			continue;
-+		if (pa + size > range->phy_addr + range->size) {
-+			dev_err(dev, "range too small for %pa+0x%zx\n", &pa, size);
-+			return -EINVAL;
-+		}
-+		*da = pa - range->phy_addr + range->dev_addr;
-+		dev_dbg(dev, "pa %pa to da %llx\n", &pa, *da);
-+		return 0;
-+	}
-+
-+	*da = pa;
-+
-+	return 0;
-+}
-+
-+static int stm32_rproc_tee_mem_alloc(struct rproc *rproc,
-+				     struct rproc_mem_entry *mem)
-+{
-+	struct device *dev = rproc->dev.parent;
-+	void *va;
-+
-+	dev_dbg(dev, "map memory: %pad+%zx\n", &mem->dma, mem->len);
-+	va = (__force void *)ioremap_wc(mem->dma, mem->len);
-+	if (IS_ERR_OR_NULL(va)) {
-+		dev_err(dev, "Unable to map memory region: %pad+0x%zx\n",
-+			&mem->dma, mem->len);
-+		return -ENOMEM;
-+	}
-+
-+	/* Update memory entry va */
-+	mem->va = va;
-+
-+	return 0;
-+}
-+
-+static int stm32_rproc_tee_mem_release(struct rproc *rproc,
-+				       struct rproc_mem_entry *mem)
-+{
-+	dev_dbg(rproc->dev.parent, "unmap memory: %pa\n", &mem->dma);
-+	iounmap((__force __iomem void *)mem->va);
-+
-+	return 0;
-+}
-+
-+static int stm32_rproc_tee_mbox_idx(struct rproc *rproc, const unsigned char *name)
-+{
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ddata->mb); i++) {
-+		if (!strncmp(ddata->mb[i].name, name, strlen(name)))
-+			return i;
-+	}
-+	dev_err(&rproc->dev, "mailbox %s not found\n", name);
-+
-+	return -EINVAL;
-+}
-+
-+static void stm32_rproc_tee_request_shutdown(struct rproc *rproc)
-+{
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	int err, idx;
-+
-+	/* Request shutdown of the remote processor */
-+	if (rproc->state != RPROC_OFFLINE && rproc->state != RPROC_CRASHED) {
-+		idx = stm32_rproc_tee_mbox_idx(rproc, STM32_MBX_SHUTDOWN);
-+		if (idx >= 0 && ddata->mb[idx].chan) {
-+			err = mbox_send_message(ddata->mb[idx].chan, "detach");
-+			if (err < 0)
-+				dev_warn(&rproc->dev, "warning: remote FW shutdown without ack\n");
-+		}
-+	}
-+}
-+
-+static int stm32_rproc_tee_stop(struct rproc *rproc)
-+{
-+	stm32_rproc_tee_request_shutdown(rproc);
-+
-+	return rproc_tee_stop(rproc);
-+}
-+
-+static int stm32_rproc_tee_prepare(struct rproc *rproc)
-+{
-+	struct device *dev = rproc->dev.parent;
-+	struct device_node *np = dev->of_node;
-+	struct rproc_mem_entry *mem;
-+	int index = 0, mr = 0, nph;
-+	u64 da;
-+
-+	nph = of_reserved_mem_region_count(np);
-+	if (nph <= 0)
-+		return 0;
-+
-+	/* Register associated reserved memory regions */
-+	for (index = 0; index < nph; index++) {
-+		struct resource res;
-+		int ret;
-+
-+		ret = of_reserved_mem_region_to_resource(np, mr++, &res);
-+		if (ret)
-+			return ret;
-+
-+		if (stm32_rproc_tee_pa_to_da(rproc, res.start,
-+					     resource_size(&res), &da) < 0) {
-+			dev_err(dev, "memory region not valid %pR\n", &res);
-+			return -EINVAL;
-+		}
-+
-+		/* No need to map vdev buffer */
-+		if (strstarts(res.name, "vdev0buffer")) {
-+			/* Register reserved memory for vdev buffer alloc */
-+			mem = rproc_of_resm_mem_entry_init(dev, index,
-+							   resource_size(&res),
-+							   res.start,
-+							   "vdev0buffer");
-+		} else {
-+			/* Register memory region */
-+			mem = rproc_mem_entry_init(dev, NULL,
-+						   (dma_addr_t)res.start,
-+						   resource_size(&res), da,
-+						   stm32_rproc_tee_mem_alloc,
-+						   stm32_rproc_tee_mem_release,
-+						   "%.*s",
-+						   (int)(strchrnul(res.name, '@') - res.name),
-+						   res.name);
-+			if (mem)
-+				rproc_coredump_add_segment(rproc, da,
-+							   resource_size(&res));
-+		}
-+
-+		if (!mem)
-+			return -ENOMEM;
-+
-+		rproc_add_carveout(rproc, mem);
-+	}
-+
-+	return 0;
-+}
-+
-+static irqreturn_t stm32_rproc_tee_wdg(int irq, void *data)
-+{
-+	struct platform_device *pdev = data;
-+	struct rproc *rproc = platform_get_drvdata(pdev);
-+
-+	rproc_report_crash(rproc, RPROC_WATCHDOG);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void stm32_rproc_tee_mb_vq_work(struct work_struct *work)
-+{
-+	struct stm32_mbox *mb = container_of(work, struct stm32_mbox, vq_work);
-+	struct rproc *rproc = dev_get_drvdata(mb->client.dev);
-+
-+	mutex_lock(&rproc->lock);
-+
-+	if (rproc->state != RPROC_RUNNING && rproc->state != RPROC_ATTACHED)
-+		goto unlock_mutex;
-+
-+	if (rproc_vq_interrupt(rproc, mb->vq_id) == IRQ_NONE)
-+		dev_dbg(&rproc->dev, "no message found in vq%d\n", mb->vq_id);
-+
-+unlock_mutex:
-+	mutex_unlock(&rproc->lock);
-+}
-+
-+static void stm32_rproc_tee_mb_callback(struct mbox_client *cl, void *data)
-+{
-+	struct rproc *rproc = dev_get_drvdata(cl->dev);
-+	struct stm32_mbox *mb = container_of(cl, struct stm32_mbox, client);
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+
-+	queue_work(ddata->workqueue, &mb->vq_work);
-+}
-+
-+static void stm32_rproc_tee_free_mbox(struct rproc *rproc)
-+{
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ddata->mb); i++) {
-+		if (ddata->mb[i].chan)
-+			mbox_free_channel(ddata->mb[i].chan);
-+		ddata->mb[i].chan = NULL;
-+	}
-+}
-+
-+static const struct stm32_mbox stm32_rproc_tee_mbox[MBOX_NB_MBX] = {
-+	{
-+		.name = STM32_MBX_VQ0,
-+		.vq_id = STM32_MBX_VQ0_ID,
-+		.client = {
-+			.rx_callback = stm32_rproc_tee_mb_callback,
-+			.tx_block = false,
-+		},
-+	},
-+	{
-+		.name = STM32_MBX_VQ1,
-+		.vq_id = STM32_MBX_VQ1_ID,
-+		.client = {
-+			.rx_callback = stm32_rproc_tee_mb_callback,
-+			.tx_block = false,
-+		},
-+	},
-+	{
-+		.name = STM32_MBX_SHUTDOWN,
-+		.vq_id = -1,
-+		.client = {
-+			.tx_block = true,
-+			.tx_done = NULL,
-+			.tx_tout = 500, /* 500 ms time out */
-+		},
-+	},
-+};
-+
-+static int stm32_rproc_tee_request_mbox(struct rproc *rproc)
-+{
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	struct device *dev = &rproc->dev;
-+	unsigned int i;
-+	int j;
-+	const unsigned char *name;
-+	struct mbox_client *cl;
-+
-+	/* Initialise mailbox structure table */
-+	memcpy(ddata->mb, stm32_rproc_tee_mbox, sizeof(stm32_rproc_tee_mbox));
-+
-+	for (i = 0; i < MBOX_NB_MBX; i++) {
-+		name = ddata->mb[i].name;
-+
-+		cl = &ddata->mb[i].client;
-+		cl->dev = dev->parent;
-+
-+		ddata->mb[i].chan = mbox_request_channel_byname(cl, name);
-+		if (IS_ERR(ddata->mb[i].chan)) {
-+			if (PTR_ERR(ddata->mb[i].chan) == -EPROBE_DEFER) {
-+				dev_err_probe(dev->parent,
-+					      PTR_ERR(ddata->mb[i].chan),
-+					      "failed to request mailbox %s\n",
-+					      name);
-+				goto err_probe;
-+			}
-+			dev_info(dev, "mailbox %s mbox not used\n", name);
-+			ddata->mb[i].chan = NULL;
-+		}
-+		if (ddata->mb[i].vq_id >= 0) {
-+			INIT_WORK(&ddata->mb[i].vq_work,
-+				  stm32_rproc_tee_mb_vq_work);
-+		}
-+	}
-+
-+	return 0;
-+
-+err_probe:
-+	for (j = i - 1; j >= 0; j--)
-+		if (ddata->mb[j].chan) {
-+			mbox_free_channel(ddata->mb[j].chan);
-+			ddata->mb[j].chan = NULL;
-+		}
-+	return -EPROBE_DEFER;
-+}
-+
-+static void stm32_rproc_tee_kick(struct rproc *rproc, int vqid)
-+{
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	unsigned int i;
-+	int err;
-+
-+	if (WARN_ON(vqid >= MBOX_NB_VQ))
-+		return;
-+
-+	for (i = 0; i < MBOX_NB_MBX; i++) {
-+		if (vqid != ddata->mb[i].vq_id)
-+			continue;
-+		if (!ddata->mb[i].chan)
-+			return;
-+		err = mbox_send_message(ddata->mb[i].chan, "kick");
-+		if (err < 0)
-+			dev_err(&rproc->dev, "%s: failed (%s, err:%d)\n",
-+				__func__, ddata->mb[i].name, err);
-+		return;
-+	}
-+}
-+
-+static int stm32_rproc_tee_parse_dt(struct platform_device *pdev,
-+				    struct stm32_rproc_tee *ddata,
-+				    bool *auto_boot)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
-+	int err, irq;
-+
-+	/*
-+	 * remoteproc-backend = <&sproc N>;
-+	 *   args.np   : backend node
-+	 *   args.args[0] : remote processor identifier used by TEE
-+	 */
-+	err = of_parse_phandle_with_fixed_args(np, "rproc-tee-phandle",
-+					       1, 0, &ddata->tee_phandle);
-+	if (err) {
-+		dev_err_probe(dev, err,
-+			      "failed to parse remoteproc-backend (%d)\n", err);
-+		return err;
-+	}
-+
-+	of_node_put(ddata->tee_phandle.np);
-+
-+	irq = platform_get_irq_optional(pdev, 0);
-+	if (irq == -EPROBE_DEFER)
-+		return irq;
-+
-+	if (irq > 0) {
-+		err = devm_request_irq(dev, irq, stm32_rproc_tee_wdg, 0,
-+				       dev_name(dev), pdev);
-+		if (err)
-+			return dev_err_probe(dev, err,
-+					     "failed to request wdg irq\n");
-+
-+		ddata->wdg_irq = irq;
-+
-+		if (of_property_read_bool(np, "wakeup-source")) {
-+			device_init_wakeup(dev, true);
-+			dev_pm_set_wake_irq(dev, irq);
-+		}
-+
-+		dev_info(dev, "wdg irq registered\n");
-+	}
-+
-+	*auto_boot = of_property_read_bool(np, "st,auto-boot");
-+
-+	return 0;
-+}
-+
-+static int stm32_rproc_tee_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct stm32_rproc_tee *ddata;
-+	struct rproc *rproc;
-+	bool auto_boot;
-+	int ret;
-+
-+	ret = dma_coerce_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret)
-+		return ret;
-+
-+	ddata = devm_kzalloc(dev, sizeof(*ddata), GFP_KERNEL);
-+	if (!ddata)
-+		return -ENOMEM;
-+
-+	ret = stm32_rproc_tee_parse_dt(pdev, ddata, &auto_boot);
-+	if (ret)
-+		return ret;
-+
-+	ret = rproc_tee_register(dev, &rproc, &ddata->tee_phandle, auto_boot);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "signed firmware not supported by TEE\n");
-+
-+	rproc->ops->prepare = stm32_rproc_tee_prepare;
-+	rproc->ops->stop = stm32_rproc_tee_stop;
-+	rproc->ops->kick = stm32_rproc_tee_kick;
-+
-+	ddata = rproc->priv;
-+
-+	ddata->ranges = device_get_match_data(&pdev->dev);
-+
-+	rproc->has_iommu = false;
-+	ddata->workqueue = create_workqueue(dev_name(dev));
-+	if (!ddata->workqueue) {
-+		dev_err(dev, "cannot create workqueue\n");
-+		ret = -ENOMEM;
-+		goto free_resources;
-+	}
-+
-+	platform_set_drvdata(pdev, rproc);
-+
-+	ret = stm32_rproc_tee_request_mbox(rproc);
-+	if (ret)
-+		goto free_wkq;
-+
-+	return 0;
-+
-+free_wkq:
-+	destroy_workqueue(ddata->workqueue);
-+free_resources:
-+	rproc_resource_cleanup(rproc);
-+	if (device_may_wakeup(dev)) {
-+		dev_pm_clear_wake_irq(dev);
-+		device_init_wakeup(dev, false);
-+	}
-+	rproc_tee_unregister(dev, rproc);
-+
-+	return ret;
-+}
-+
-+static void stm32_rproc_tee_remove(struct platform_device *pdev)
-+{
-+	struct rproc *rproc = platform_get_drvdata(pdev);
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+	struct device *dev = &pdev->dev;
-+
-+	stm32_rproc_tee_free_mbox(rproc);
-+	destroy_workqueue(ddata->workqueue);
-+
-+	if (device_may_wakeup(dev)) {
-+		dev_pm_clear_wake_irq(dev);
-+		device_init_wakeup(dev, false);
-+	}
-+
-+	rproc_tee_unregister(dev, rproc);
-+}
-+
-+static int stm32_rproc_tee_suspend(struct device *dev)
-+{
-+	struct rproc *rproc = dev_get_drvdata(dev);
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+
-+	if (device_may_wakeup(dev))
-+		return enable_irq_wake(ddata->wdg_irq);
-+
-+	return 0;
-+}
-+
-+static int stm32_rproc_tee_resume(struct device *dev)
-+{
-+	struct rproc *rproc = dev_get_drvdata(dev);
-+	struct stm32_rproc_tee *ddata = rproc->priv;
-+
-+	if (device_may_wakeup(dev))
-+		return disable_irq_wake(ddata->wdg_irq);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(stm32_rproc_tee_pm_ops,
-+				stm32_rproc_tee_suspend, stm32_rproc_tee_resume);
-+
-+static const struct of_device_id stm32_rproc_tee_match[] = {
-+	{
-+		.compatible = "st,stm32mp1-m4-tee",
-+		.data = &stm32mp15_m4_dma_ranges,
-+	},
-+	{},
-+};
-+MODULE_DEVICE_TABLE(of, stm32_rproc_tee_match);
-+
-+static struct platform_driver stm32_rproc_tee_driver = {
-+	.probe = stm32_rproc_tee_probe,
-+	.remove = stm32_rproc_tee_remove,
-+	.driver = {
-+		.name = "stm32-rproc-tee",
-+		.pm = pm_ptr(&stm32_rproc_tee_pm_ops),
-+		.of_match_table = stm32_rproc_tee_match,
-+	},
-+};
-+module_platform_driver(stm32_rproc_tee_driver);
-+
-+MODULE_DESCRIPTION("STM32 Remote Processor TEE Control Driver");
-+MODULE_AUTHOR("Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>");
-+MODULE_LICENSE("GPL");
-+
--- 
-2.43.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBNYXIgMTYsIDIwMjYgYXQgMjoxNOKAr1BNIExvcmVuem8gU3RvYWtlcyAoT3JhY2xl
+KSA8bGpzQGtlcm5lbC5vcmc+IHdyb3RlOgo+Cj4gVGhlIGZfb3AtPm1tYXAgaW50ZXJmYWNlIGlz
+IGRlcHJlY2F0ZWQsIHNvIHVwZGF0ZSBkcml2ZXIgdG8gdXNlIGl0cwo+IHN1Y2Nlc3NvciwgbW1h
+cF9wcmVwYXJlLgo+Cj4gVGhlIGRyaXZlciBwcmV2aW91c2x5IHVzZWQgdm1faW9tYXBfbWVtb3J5
+KCksIHNvIHRoaXMgY2hhbmdlIHJlcGxhY2VzIGl0Cj4gd2l0aCBpdHMgbW1hcF9wcmVwYXJlIGVx
+dWl2YWxlbnQsIG1tYXBfYWN0aW9uX3NpbXBsZV9pb3JlbWFwKCkuCj4KPiBBbHNvLCBpbiBvcmRl
+ciB0byBjb3JyZWN0bHkgbWFpbnRhaW4gcmVmZXJlbmNlIGNvdW50aW5nLCBhZGQgYQo+IHZtX29w
+cy0+bWFwcGVkIGNhbGxiYWNrIHRvIGluY3JlbWVudCB0aGUgcmVmZXJlbmNlIGNvdW50IHdoZW4g
+c3VjY2Vzc2Z1bGx5Cj4gbWFwcGVkLgo+Cj4gU2lnbmVkLW9mZi1ieTogTG9yZW56byBTdG9ha2Vz
+IChPcmFjbGUpIDxsanNAa2VybmVsLm9yZz4KClJldmlld2VkLWJ5OiBTdXJlbiBCYWdoZGFzYXJ5
+YW4gPHN1cmVuYkBnb29nbGUuY29tPgoKPiAtLS0KPiAgZHJpdmVycy9od3RyYWNpbmcvc3RtL2Nv
+cmUuYyB8IDMxICsrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0KPiAgMSBmaWxlIGNoYW5n
+ZWQsIDIxIGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+Cj4gZGlmZiAtLWdpdCBhL2Ry
+aXZlcnMvaHd0cmFjaW5nL3N0bS9jb3JlLmMgYi9kcml2ZXJzL2h3dHJhY2luZy9zdG0vY29yZS5j
+Cj4gaW5kZXggMzc1ODRlNzg2YmI1Li5mNDhjNmE4YTA2NTQgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVy
+cy9od3RyYWNpbmcvc3RtL2NvcmUuYwo+ICsrKyBiL2RyaXZlcnMvaHd0cmFjaW5nL3N0bS9jb3Jl
+LmMKPiBAQCAtNjY2LDYgKzY2NiwxNiBAQCBzdGF0aWMgc3NpemVfdCBzdG1fY2hhcl93cml0ZShz
+dHJ1Y3QgZmlsZSAqZmlsZSwgY29uc3QgY2hhciBfX3VzZXIgKmJ1ZiwKPiAgICAgICAgIHJldHVy
+biBjb3VudDsKPiAgfQo+Cj4gK3N0YXRpYyBpbnQgc3RtX21tYXBfbWFwcGVkKHVuc2lnbmVkIGxv
+bmcgc3RhcnQsIHVuc2lnbmVkIGxvbmcgZW5kLCBwZ29mZl90IHBnb2ZmLAo+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgIGNvbnN0IHN0cnVjdCBmaWxlICpmaWxlLCB2b2lkICoqdm1fcHJpdmF0
+ZV9kYXRhKQo+ICt7Cj4gKyAgICAgICBzdHJ1Y3Qgc3RtX2ZpbGUgKnN0bWYgPSBmaWxlLT5wcml2
+YXRlX2RhdGE7Cj4gKyAgICAgICBzdHJ1Y3Qgc3RtX2RldmljZSAqc3RtID0gc3RtZi0+c3RtOwo+
+ICsKPiArICAgICAgIHBtX3J1bnRpbWVfZ2V0X3N5bmMoJnN0bS0+ZGV2KTsKPiArICAgICAgIHJl
+dHVybiAwOwo+ICt9Cj4gKwo+ICBzdGF0aWMgdm9pZCBzdG1fbW1hcF9vcGVuKHN0cnVjdCB2bV9h
+cmVhX3N0cnVjdCAqdm1hKQo+ICB7Cj4gICAgICAgICBzdHJ1Y3Qgc3RtX2ZpbGUgKnN0bWYgPSB2
+bWEtPnZtX2ZpbGUtPnByaXZhdGVfZGF0YTsKPiBAQCAtNjg0LDEyICs2OTQsMTQgQEAgc3RhdGlj
+IHZvaWQgc3RtX21tYXBfY2xvc2Uoc3RydWN0IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gIH0KPgo+
+ICBzdGF0aWMgY29uc3Qgc3RydWN0IHZtX29wZXJhdGlvbnNfc3RydWN0IHN0bV9tbWFwX3Ztb3Bz
+ID0gewo+ICsgICAgICAgLm1hcHBlZCA9IHN0bV9tbWFwX21hcHBlZCwKPiAgICAgICAgIC5vcGVu
+ICAgPSBzdG1fbW1hcF9vcGVuLAo+ICAgICAgICAgLmNsb3NlICA9IHN0bV9tbWFwX2Nsb3NlLAo+
+ICB9Owo+Cj4gLXN0YXRpYyBpbnQgc3RtX2NoYXJfbW1hcChzdHJ1Y3QgZmlsZSAqZmlsZSwgc3Ry
+dWN0IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gK3N0YXRpYyBpbnQgc3RtX2NoYXJfbW1hcF9wcmVw
+YXJlKHN0cnVjdCB2bV9hcmVhX2Rlc2MgKmRlc2MpCj4gIHsKPiArICAgICAgIHN0cnVjdCBmaWxl
+ICpmaWxlID0gZGVzYy0+ZmlsZTsKPiAgICAgICAgIHN0cnVjdCBzdG1fZmlsZSAqc3RtZiA9IGZp
+bGUtPnByaXZhdGVfZGF0YTsKPiAgICAgICAgIHN0cnVjdCBzdG1fZGV2aWNlICpzdG0gPSBzdG1m
+LT5zdG07Cj4gICAgICAgICB1bnNpZ25lZCBsb25nIHNpemUsIHBoeXM7Cj4gQEAgLTY5NywxMCAr
+NzA5LDEwIEBAIHN0YXRpYyBpbnQgc3RtX2NoYXJfbW1hcChzdHJ1Y3QgZmlsZSAqZmlsZSwgc3Ry
+dWN0IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gICAgICAgICBpZiAoIXN0bS0+ZGF0YS0+bW1pb19h
+ZGRyKQo+ICAgICAgICAgICAgICAgICByZXR1cm4gLUVPUE5PVFNVUFA7Cj4KPiAtICAgICAgIGlm
+ICh2bWEtPnZtX3Bnb2ZmKQo+ICsgICAgICAgaWYgKGRlc2MtPnBnb2ZmKQo+ICAgICAgICAgICAg
+ICAgICByZXR1cm4gLUVJTlZBTDsKPgo+IC0gICAgICAgc2l6ZSA9IHZtYS0+dm1fZW5kIC0gdm1h
+LT52bV9zdGFydDsKPiArICAgICAgIHNpemUgPSB2bWFfZGVzY19zaXplKGRlc2MpOwo+Cj4gICAg
+ICAgICBpZiAoc3RtZi0+b3V0cHV0Lm5yX2NoYW5zICogc3RtLT5kYXRhLT5zd19tbWlvc3ogIT0g
+c2l6ZSkKPiAgICAgICAgICAgICAgICAgcmV0dXJuIC1FSU5WQUw7Cj4gQEAgLTcxMiwxMyArNzI0
+LDEyIEBAIHN0YXRpYyBpbnQgc3RtX2NoYXJfbW1hcChzdHJ1Y3QgZmlsZSAqZmlsZSwgc3RydWN0
+IHZtX2FyZWFfc3RydWN0ICp2bWEpCj4gICAgICAgICBpZiAoIXBoeXMpCj4gICAgICAgICAgICAg
+ICAgIHJldHVybiAtRUlOVkFMOwo+Cj4gLSAgICAgICBwbV9ydW50aW1lX2dldF9zeW5jKCZzdG0t
+PmRldik7Cj4gLQo+IC0gICAgICAgdm1hLT52bV9wYWdlX3Byb3QgPSBwZ3Byb3Rfbm9uY2FjaGVk
+KHZtYS0+dm1fcGFnZV9wcm90KTsKPiAtICAgICAgIHZtX2ZsYWdzX3NldCh2bWEsIFZNX0lPIHwg
+Vk1fRE9OVEVYUEFORCB8IFZNX0RPTlREVU1QKTsKPiAtICAgICAgIHZtYS0+dm1fb3BzID0gJnN0
+bV9tbWFwX3Ztb3BzOwo+IC0gICAgICAgdm1faW9tYXBfbWVtb3J5KHZtYSwgcGh5cywgc2l6ZSk7
+Cj4gKyAgICAgICBkZXNjLT5wYWdlX3Byb3QgPSBwZ3Byb3Rfbm9uY2FjaGVkKGRlc2MtPnBhZ2Vf
+cHJvdCk7Cj4gKyAgICAgICB2bWFfZGVzY19zZXRfZmxhZ3MoZGVzYywgVk1BX0lPX0JJVCwgVk1B
+X0RPTlRFWFBBTkRfQklULAo+ICsgICAgICAgICAgICAgICAgICAgICAgICAgIFZNQV9ET05URFVN
+UF9CSVQpOwo+ICsgICAgICAgZGVzYy0+dm1fb3BzID0gJnN0bV9tbWFwX3Ztb3BzOwo+Cj4gKyAg
+ICAgICBtbWFwX2FjdGlvbl9zaW1wbGVfaW9yZW1hcChkZXNjLCBwaHlzLCBzaXplKTsKPiAgICAg
+ICAgIHJldHVybiAwOwo+ICB9Cj4KPiBAQCAtODM2LDcgKzg0Nyw3IEBAIHN0YXRpYyBjb25zdCBz
+dHJ1Y3QgZmlsZV9vcGVyYXRpb25zIHN0bV9mb3BzID0gewo+ICAgICAgICAgLm9wZW4gICAgICAg
+ICAgID0gc3RtX2NoYXJfb3BlbiwKPiAgICAgICAgIC5yZWxlYXNlICAgICAgICA9IHN0bV9jaGFy
+X3JlbGVhc2UsCj4gICAgICAgICAud3JpdGUgICAgICAgICAgPSBzdG1fY2hhcl93cml0ZSwKPiAt
+ICAgICAgIC5tbWFwICAgICAgICAgICA9IHN0bV9jaGFyX21tYXAsCj4gKyAgICAgICAubW1hcF9w
+cmVwYXJlICAgPSBzdG1fY2hhcl9tbWFwX3ByZXBhcmUsCj4gICAgICAgICAudW5sb2NrZWRfaW9j
+dGwgPSBzdG1fY2hhcl9pb2N0bCwKPiAgICAgICAgIC5jb21wYXRfaW9jdGwgICA9IGNvbXBhdF9w
+dHJfaW9jdGwsCj4gIH07Cj4gLS0KPiAyLjUzLjAKPgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
