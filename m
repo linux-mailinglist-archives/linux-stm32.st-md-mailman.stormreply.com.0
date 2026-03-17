@@ -2,65 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wMP6Eg5TuWnYAgIAu9opvQ
+	id WIAVEgCZumnnZQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 14:11:42 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 13:22:24 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD7BD2AA957
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 14:11:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB092BB602
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 13:22:24 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 83FECC87EC5;
-	Tue, 17 Mar 2026 13:11:41 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CFCE4C8F26D;
+	Wed, 18 Mar 2026 12:22:23 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAC0FC7A831
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D346CC7A831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 17 Mar 2026 13:11:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
- Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
- Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=wVX+e0F9KN8dfj/SwmnvICc5jP1yDHnEZ0Sn7ozoJNs=; b=EPue8tD3UjFJLyx+/NIDJIFQFG
- CCdoKdaIuUH7eJ+4tYTn/wTRk4U9UzHLkBcTwnYjtu/CHI3q1EnJ8OewQDOdHV574I/ua1i2KjrRW
- nkCrgvXJhhR+/9zsyJiTVlb6FfW43WjKokDq1KCt8MwUtRl/Xhx5k4HHazKF6A89/7AuzUZm8xC2T
- h9C/Ubvqtb3MjEYh2KUtoCR5RwEzeUDZXmkoBRnbDG+n2B3ALsAKXB2hM/XIu6N40n7ORJVbrI9t3
- 3SASwFucwlFauZh+LFefZI35v/Uq8R7ND0OoYkbdR1cOhEutZM7ZBFcrngrETuzhPl+i1e5P8SoyB
- ajRZrEMw==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:59600)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w2UCl-000000005EG-45Ud;
- Tue, 17 Mar 2026 13:11:28 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w2UCi-00000000649-1jir; Tue, 17 Mar 2026 13:11:24 +0000
-Date: Tue, 17 Mar 2026 13:11:24 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Linus Walleij <linusw@kernel.org>
-Message-ID: <ablS_C8oEQFeSU1Q@shell.armlinux.org.uk>
-References: <20260313105718.359614-1-christophe.roullier@foss.st.com>
- <20260313105718.359614-2-christophe.roullier@foss.st.com>
- <abPwHh12MLwMwOIs@shell.armlinux.org.uk>
- <CAD++jLmBP5Puwf1ZuFOzF6U0XowoF1nfqEL3gwLy-svXsXrbJA@mail.gmail.com>
- <abStv0IPLfkKMD-W@shell.armlinux.org.uk>
- <CAD++jL=Av5K7Ag95LYou4TMKGR59TmtiQpxcnpcj+4tZFtzRug@mail.gmail.com>
+ Tue, 17 Mar 2026 13:19:54 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id E7BE660018;
+ Tue, 17 Mar 2026 13:19:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A61E9C4CEF7;
+ Tue, 17 Mar 2026 13:19:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773753593;
+ bh=17QQxtRUtaf7KEtmNuQbCZyqj8LsLetQhwKYrcsm9Tg=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=ryqgogP1Js25YVHvobHnOKBl5MYdxOSD2aOiI1tf6rJQER5WihsK9Uq3jfo6Qlf2b
+ BtONs2A6D54IA4DNEv1Sy0CY6z9gO4p20SThPPkHcwNdCWn5jr22BFpMDOYrAoLSbq
+ sgZTC8u9xZQu4B/IWVM/GrLwf4dd+exti7RlPqEl4f4czsv51D3od0djhhjvtRmmTC
+ WYdwB8SCN+QNUbefFUPZOXTmnR7msjPL2f9KXr88ikHvO9/N48Zi3PI1IevuuXxGuW
+ Jg7rPyI7R0lNjmB0khjEhzaAAgXytb9Tc7RPeU0j3kdsOWVHghNIyu8gn0Kf3R8YE6
+ 65mGvnUDWFheQ==
+Date: Tue, 17 Mar 2026 13:19:48 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pei Xiao <xiaopei01@kylinos.cn>
+Message-ID: <00540689-fbc5-49cf-b185-5af372f7ef0d@sirena.org.uk>
+References: <cover.1773733017.git.xiaopei01@kylinos.cn>
+ <a78f25f1b15b90121e9723ecb5bd606bbb1868d4.1773733017.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAD++jL=Av5K7Ag95LYou4TMKGR59TmtiQpxcnpcj+4tZFtzRug@mail.gmail.com>
-Cc: linux-kernel@vger.kernel.org, Vladimir Oltean <vladimir.oltean@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 1/2] net: stmmac: fix pinctrl
- management during suspend/resume
+In-Reply-To: <a78f25f1b15b90121e9723ecb5bd606bbb1868d4.1773733017.git.xiaopei01@kylinos.cn>
+X-Cookie: Must be over 18.
+X-Mailman-Approved-At: Wed, 18 Mar 2026 12:22:07 +0000
+Cc: imx@lists.linux.dev, openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 01/17] spi: axiado: Use helper function
+ devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,108 +60,91 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: multipart/mixed; boundary="===============5320842474436502499=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.49 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
+X-Spamd-Result: default: False [1.19 / 15.00];
+	SIGNED_PGP(-2.00)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:linusw@kernel.org,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:christophe.roullier@foss.st.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,nxp.com,st-md-mailman.stormreply.com,foss.st.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.063];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	FORGED_RECIPIENTS(0.00)[m:xiaopei01@kylinos.cn,m:imx@lists.linux.dev,m:openbmc@lists.ozlabs.org,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-mediatek@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.846];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,armlinux.org.uk:url,st-md-mailman.stormreply.com:rdns,shell.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: CD7BD2AA957
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,sirena.org.uk:mid]
+X-Rspamd-Queue-Id: 1DB092BB602
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-T24gVHVlLCBNYXIgMTcsIDIwMjYgYXQgMDE6MTM6MTRBTSArMDEwMCwgTGludXMgV2FsbGVpaiB3
-cm90ZToKPiBPbiBTYXQsIE1hciAxNCwgMjAyNiBhdCAxOjM34oCvQU0gUnVzc2VsbCBLaW5nIChP
-cmFjbGUpCj4gPGxpbnV4QGFybWxpbnV4Lm9yZy51az4gd3JvdGU6Cj4gPiBPbiBTYXQsIE1hciAx
-NCwgMjAyNiBhdCAxMjo0NDo1NkFNICswMTAwLCBMaW51cyBXYWxsZWlqIHdyb3RlOgo+ID4gPiBP
-biBGcmksIE1hciAxMywgMjAyNiBhdCAxMjowOOKAr1BNIFJ1c3NlbGwgS2luZyAoT3JhY2xlKQo+
-ID4gPiA8bGludXhAYXJtbGludXgub3JnLnVrPiB3cm90ZToKPiA+ID4gPiBPbiBGcmksIE1hciAx
-MywgMjAyNiBhdCAxMTo1NzoxNkFNICswMTAwLCBDaHJpc3RvcGhlIFJvdWxsaWVyIHdyb3RlOgo+
-ID4gPiA+ID4gSW4gdGhlIGRlZXBlc3QgbG93LXBvd2VyIG1vZGVzLCB0aGUgcGluY3RybCBjb25m
-aWd1cmF0aW9uIGlzIGxvc3QKPiA+ID4gPiA+IGFuZCBpcyBuZXZlciByZXN0b3JlZCBpZiB0aGUg
-aW50ZXJmYWNlIGlzIGRvd24uCj4gPiA+ID4gPiBUaGlzIGNvbW1pdCBlbnN1cmVzIHRoYXQgdGhl
-IHBpbmN0cmwgc3RhdGUgaXMgc2V0IGluIGFsbCBjYXNlcy4KPiA+ID4gPgo+ID4gPiA+IFNob3Vs
-ZG4ndCB0aGUgcGluIHN0YXRlIGJlIHJlc3RvcmVkIGJ5IHRoZSBwaW5jdHJsIGxheWVyPwo+ID4g
-Pgo+ID4gPiBXaGF0IHdlIGhhdmUgaW4gdGhlIGRldmljZSBjb3JlIG9ubHkgYXBwbGllcyAiaW5p
-dCIgYW5kICJkZWZhdWx0Igo+ID4gPiBzdGF0ZXMsIGFuZCBwcm92aWRlcyB0aGVzZSBoYW5kbGVz
-IGZvciB0cmFuc2l0aW9uaW5nIHRvICJzbGVlcCIKPiA+ID4gYW5kICJkZWZhdWx0IiBhZ2FpbiAo
-bGlrZSBhIHN0YXRlIG1hY2hpbmUpLgo+ID4KPiA+IFdoYXQgSSB3YXMgbWVhbmluZyBpcyB0aGF0
-IC0gZm9yIGEgZHJpdmVyIHVzaW5nIHRoZSAiZGVmYXVsdCIgc3RhdGUsCj4gPiBpZiB0aGUgaGFy
-ZHdhcmUgbG9zZXMgdGhlIHBpbmN0cmwgc3RhdGUgZHVyaW5nIHNsZWVwLCBpc24ndCBpdCB0aGUK
-PiA+IHJlc3BvbnNpYmlsaXR5IG9mIHRoZSBwaW5jdHJsIGRyaXZlciB0byByZXN0b3JlIHRoZSBz
-dGF0ZSByYXRoZXIKPiA+IHRoYW4gbGVhdmluZyBpdCBpbiB3aGF0ZXZlciBzdGF0ZXMgaXQgaGFw
-cGVucyB0byBiZSB3aGVuIHRoZSBTb0MKPiA+IGNvbWVzIGJhY2sgZnJvbSBzdXNwZW5kPwo+IAo+
-IEFoYSBJIHVuZGVyc3RhbmQuCgpJJ20gbm90IHNvIHN1cmUuIE15IHBvaW50IGlzIHRoYXQgaWYg
-YSBkcml2ZXIgYmluZHMsIGFuZCBwaW5jdHJsCmVuZHMgdXAgdXNpbmcgdGhlIGRlZmF1bHQgcGlu
-Y3RybCBzZXR0aW5ncywgdGhlbiBzaG91bGQgaXQgbm90CmJlIHRoZSBjYXNlIHRoYXQgYWZ0ZXIg
-YSBzdXNwZW5kL3Jlc3VtZSBjeWNsZSwgdGhlIHBpbmN0cmwKc2V0dGluZ3MgcmVtYWluIGNvbmZp
-Z3VyZWQgaW4gdGhlIGRlZmF1bHQgc3RhdGUgd2l0aCBubyBkcml2ZXIKaW50ZXJ2ZW50aW9uPwoK
-VGhpcyBpcyBteSBwb2ludCAtIGEgZHJpdmVyIHRoYXQgaXMgdW5hd2FyZSBvZiBwaW5jdHJsIHNo
-b3VsZCBub3QKaGF2ZSB0byBkbyBhbnl0aGluZyBzcGVjaWFsIGluIGl0cyByZXN1bWUgcGF0aCB0
-byBlbnN1cmUgdGhhdCB0aGUKcGluY3RybCBzdGF0ZSB0aGF0IHdhcyBjb25maWd1cmVkIGJ5IGdl
-bmVyaWMgY29kZSBhdCBwcm9iZSB0aW1lCmlzIG1haW50YWluZWQgYWZ0ZXIgYSByZXN1bWUgLSB0
-aGF0IHN0YXRlIHNob3VsZCBub3QgYmUgbG9zdC4KCkknbSB0cnlpbmcgdG8gZ2V0IGFuIGFuc3dl
-ciBvbiB0aGlzLCBiZWNhdXNlIHRoZSBvcmlnaW5hbCBwYXRjaApkZXNjcmlwdGlvbiBoZXJlIHNh
-eXM6Cgp8IEluIHRoZSBkZWVwZXN0IGxvdy1wb3dlciBtb2RlcywgdGhlIHBpbmN0cmwgY29uZmln
-dXJhdGlvbiBpcwp8IGxvc3QgYW5kIGlzIG5ldmVyIHJlc3RvcmVkIGlmIHRoZSBpbnRlcmZhY2Ug
-aXMgZG93bi4KCnN0bW1hYyB1c2VzIHRoZSAiZGVmYXVsdCIgcGluY3RybCBzdGF0ZSBhdCBwcm9i
-ZSB0aW1lLiBUaGlzIGNvbW1pdApzYXlzIHRoYXQgaXMgbG9zdCBvdmVyIHN1c3BlbmQvcmVzdW1l
-IC0gd2hpY2ggdG8gbWUgc291bmRzIGxpa2UKYSBwaW5jdHJsIGRyaXZlciBidWcsIGJlY2F1c2Ug
-b24gcmVzdW1lLCB0aGUgcGluY3RybCBkcml2ZXIgaXMgbm90CmVuc3VyaW5nIHRoYXQgdGhlIHBp
-bmN0cmwgc3RhdGUgaXMgcmVzdG9yZWQgdG8gd2hhdGV2ZXIgaXQgd2FzIHdoZW4KdGhlIHN1c3Bl
-bmQgaGFwcGVuZWQgKHdoZXRoZXIgdGhlIGRyaXZlciBleHBsaWNpdGx5IGNoYW5nZWQgaXQgb3IK
-bm90LikKClRvIHB1dCBpdCBhbm90aGVyIHdheS4uLgoKT24gZW50cnkgdG8gcHJvYmUgZm9yIGEg
-bm9uLXBpbmN0cmwgZHJpdmVyLCBpZiBEVCBkZXNjcmliZXMgYSBkZWZhdWx0CnBpbmN0cmwgc3Rh
-dGUsIHRoYXQgc3RhdGUgd2lsbCBiZSBzZWxlY3RlZCBieSBjb3JlIGNvZGUuCgpPbiBzdXNwZW5k
-LCB0aGUgZHJpdmVyIGlzIGZyZWUgdG8gc2VsZWN0IGFub3RoZXIgc3RhdGUgaWYgaXQgc28gd2lz
-aGVzLApvciBkbyBub3RoaW5nIChlLmcuIGl0J3MgdW5hd2FyZSBvZiBwaW5jdHJsLikKCk9uIHJl
-c3VtZSwgdGhlIHBpbmN0cmwgbGF5ZXIsIHdoYXQgaXMgZXhwZWN0ZWQgdG8gaGFwcGVuLiBTdXJl
-bHksIGl0CmlzIHJlYXNvbmFibGUgZm9yIGEgcGluY3RybCB1bmF3YXJlIGRyaXZlciwgb3IgYXQg
-bGVhc3QgYSBkcml2ZXIgd2hpY2gKaGFzIF9ub3RfIGNoYW5nZWQgdGhlIHBpbmN0cmwgc3RhdGUg
-dG8gZXhwZWN0IHRoYXQgdGhlIGRlZmF1bHQgcGluY3RybApzdGF0ZSBpcyBzdGlsbCBpbiBlZmZl
-Y3Qgd2hlbiBpdHMgcmVzdW1lIGZ1bmN0aW9uIGlzIGNhbGxlZCAtIGFuZCBpZgp0aGF0IGlzIG5v
-dCB0aGUgY2FzZSwgdGhlbiB0aGVyZSdzIGEgYnVnIGhlcmUuCgpBbm90aGVyIHdheSB0byBwdXQg
-aXQuLi4KCldlIHNob3VsZG4ndCBiZSBleHBlY3RpbmcgZGV2aWNlIGRyaXZlcnMgdG8gaGF2ZSB0
-byBtZXNzIHdpdGggcGluY3RybAplLmcuIHN3aXRjaGluZyB0byBhIHNsZWVwIHN0YXRlIGFuZCB0
-aGVuIGJhY2sgdG8gYSBkZWZhdWx0IHN0YXRlIGp1c3QKdG8gaGF2ZSBwaW5jdHJsIHNldHRpbmdz
-IHJlc3RvcmVkIHRvIGEgZnVuY3Rpb25hbCBzdGF0ZSBvbiByZXN1bWUuCgotLSAKUk1LJ3MgUGF0
-Y2ggc3lzdGVtOiBodHRwczovL3d3dy5hcm1saW51eC5vcmcudWsvZGV2ZWxvcGVyL3BhdGNoZXMv
-CkZUVFAgaXMgaGVyZSEgODBNYnBzIGRvd24gMTBNYnBzIHVwLiBEZWNlbnQgY29ubmVjdGl2aXR5
-IGF0IGxhc3QhCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-CkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3Jt
-cmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2xpbnV4LXN0bTMyCg==
+
+--===============5320842474436502499==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="8+YRHFs8YF4SBCDe"
+Content-Disposition: inline
+
+
+--8+YRHFs8YF4SBCDe
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+
+On Tue, Mar 17, 2026 at 03:41:43PM +0800, Pei Xiao wrote:
+> devm_clk_get() and clk_prepare_enable() can now be replaced by
+> devm_clk_get_enabled() when driver enables the clocks. Moreover, it is no
+> longer necessary to unprepare and disable the clocks explicitly.
+> Simplify code.
+
+This doens't apply against current code, please check and resend.
+
+--8+YRHFs8YF4SBCDe
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmm5VPQACgkQJNaLcl1U
+h9BDXgf9F2bMcNxWFiGlImGG2lAZ6+rhIz0gb1xd8L/zXFcj49GbT66gTFF+vs6Z
+nJhYnwuUnf46hnhc583pZ39MeS/psE2kjIaTNiGva4NLDwWkiYkn79oJk9zepDF0
+9HRb3mjyaDDPQtfCgnrkTb2VZObD/41CWBtZ8x5JxjFwHkIG776RlhYJUU2y2myN
+oAvCWPJddLcAOZapamPyu/LZvMwFfhWgP4mAr81G/th9dO45ELAiKqMj33zN4VzV
+yJ4r0AY9ZSXuW+NmdztaukKEKWwKGDeT5I3vRWqSJ2EvkvODgAw209d76768VQ+G
+JJtidlXADpZe7vD4DCReLGZERU0QQw==
+=AabK
+-----END PGP SIGNATURE-----
+
+--8+YRHFs8YF4SBCDe--
+
+--===============5320842474436502499==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============5320842474436502499==--
