@@ -2,59 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2B8fNHrIuGnTjAEAu9opvQ
+	id QCsOJ3zIuGnTjAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 04:20:26 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 04:20:28 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 673442A3204
-	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 04:20:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 661172A320B
+	for <lists+linux-stm32@lfdr.de>; Tue, 17 Mar 2026 04:20:28 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 05A7FC87EDE;
-	Tue, 17 Mar 2026 03:20:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 15C46C87ED8;
+	Tue, 17 Mar 2026 03:20:28 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E671C87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED87EC87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue, 17 Mar 2026 03:20:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A86A643A91;
- Tue, 17 Mar 2026 03:20:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 77AF6C19421;
- Tue, 17 Mar 2026 03:20:23 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BC0D143A94;
+ Tue, 17 Mar 2026 03:20:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB65C19421;
+ Tue, 17 Mar 2026 03:20:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773717623;
- bh=v/7y334kmrpQVe8O+MZvlcwnp+EHDxJCOGIBAHun8wM=;
+ s=k20201202; t=1773717624;
+ bh=HGiLTD0IeBPs0tWAtHglH17Tdic1dLc2oqzeom/AURQ=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=gU842gHh9ysARNVOeDDKttK9Jif2kSzliZHnnbb3LiHCfooVpTerQ0HYlj/YtsJF8
- Ym4cTtqk5aF8JG/keBw4ll6dgK2EbJyr2na2wOpH4gfij4618LseODQ5DO2GH3KnWy
- 7UP4iZQgVu6bolPjYLdfNWejhluWtqTrwTvbRTJGJfrQFsd35I3WqAt4vtv9/lQ7Af
- Rhnz9hPXC+uH9qd1/nHv+rhIcY+WVdSXZNSgSW1MXjuvigwnb9qObX62FTNzSQnd9R
- GEwJs2txup9u3fBVvEB/FYHDSOvsR/KENPjhtlt6MMa4+33Tdu1PmxmygyTuM1wt91
- UTF7MCCI67RCQ==
+ b=SuZv209ZVlDuxDPx7JRpTJQ9Z+mn4yLC6g+8JBLV97Qx0eubrM0mAMdg1/kVlBs0D
+ dHikerAzRJ+wjcb4ySwWqT0clD5M4QDzTr5oHZDe6hnpQFrCgElNVdR7o5QWmdtzlv
+ t4sCkCzyooP5z7dwaZhfuGv9NEil1uUAYtUR8SCBo9SW+e2Z/l2+LoQofgpLc7hqk+
+ Db8KoJG9Lr9ZJBEhHlPiXD8JbtUQGmGUF+DZu0On5gT8QKdMkpZuIaZVIxd3PDi3F2
+ Fk5MTTwp9KkjOekSekBom03/xjb9idNP2JSIWrFrYZFblLAAOQL+2APUHRAAQ1pAWG
+ /bGWCbr1oXl+w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 4012C3808200; Tue, 17 Mar 2026 03:20:17 +0000 (UTC)
+ 7CD7E3808200; Tue, 17 Mar 2026 03:20:18 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177371761578.3410412.12736160514869511469.git-patchwork-notify@kernel.org>
-Date: Tue, 17 Mar 2026 03:20:15 +0000
-References: <20260313-dwmac_multi_irq-v12-0-b5c9d0aa13d6@oss.nxp.com>
-In-Reply-To: <20260313-dwmac_multi_irq-v12-0-b5c9d0aa13d6@oss.nxp.com>
-To: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-Cc: imx@lists.linux.dev, conor.dooley@microchip.com, s32@nxp.com,
- vladimir.oltean@nxp.com, Frank.Li@nxp.com, edumazet@google.com,
- ghennadi.procopciuc@oss.nxp.com, festevam@gmail.com,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- mcoquelin.stm32@gmail.com, s.hauer@pengutronix.de, rmk+kernel@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, chester62515@gmail.com,
- mbrugger@suse.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, kernel@pengutronix.de,
- krzk+dt@kernel.org, shawnguo@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v12 0/4] Support multi-channel
- IRQs in stmmac platform drivers
+Message-Id: <177371761729.3410412.18078716874517842825.git-patchwork-notify@kernel.org>
+Date: Tue, 17 Mar 2026 03:20:17 +0000
+References: <E1w113e-0000000DDwc-2oRv@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1w113e-0000000DDwc-2oRv@rmk-PC.armlinux.org.uk>
+To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: andrew@lunn.ch, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2] net: stmmac: move MSI data
+ out of struct stmmac_priv
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,78 +65,65 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,microchip.com,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,armlinux.org.uk,lists.infradead.org,suse.com,lunn.ch,altera.com,davemloft.net];
 	TAGGED_FROM(0.00)[netdevbpf];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[29];
-	FORGED_RECIPIENTS(0.00)[m:jan.petrous@oss.nxp.com,m:imx@lists.linux.dev,m:conor.dooley@microchip.com,m:s32@nxp.com,m:vladimir.oltean@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:rmk+kernel@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.191];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_HAM(-0.00)[-0.247];
+	MID_RHS_MATCH_FROM(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	FROM_NO_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 673442A3204
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 661172A320B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 Hello:
 
-This series was applied to netdev/net-next.git (main)
+This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Fri, 13 Mar 2026 08:13:31 +0100 you wrote:
-> The stmmac core supports two interrupt modes, controlled by the
-> flag STMMAC_FLAG_MULTI_MSI_EN:
+On Fri, 13 Mar 2026 11:51:58 +0000 you wrote:
+> Only three platforms supprt MSIs, which means having all the strings
+> and interrupt arrays always allocated wastes space. None of this data
+> is performance critical - this data is only used when requesting and
+> releasing the MSI interrupts.
 > 
-> - When the flag is set, the driver uses multi-channel IRQ mode (Multi-IRQ).
-> - Otherwise, a single IRQ line is requested (aka MAC-IRQ):
-> 
-> static int stmmac_request_irq(struct net_device *dev)
-> {
->         /* Request the IRQ lines */
->         if (priv->plat->flags & STMMAC_FLAG_MULTI_MSI_EN)
->                 ret = stmmac_request_irq_multi_msi(dev);
->         else
->                 ret = stmmac_request_irq_single(dev);
-> }
+> Move the MSI data out of struct stmmac_priv into its own separately
+> allocated structure, and move its initialisation to a separate
+> function.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v12,1/4] net: stmmac: platform: read channels irq
-    https://git.kernel.org/netdev/net-next/c/a31bbe5ca2f8
-  - [net-next,v12,2/4] arm64: dts: s32: set Ethernet channel irqs
-    (no matching commit)
-  - [net-next,v12,3/4] dt-bindings: net: nxp,s32-dwmac: Declare per-queue interrupts
-    https://git.kernel.org/netdev/net-next/c/cc7a3435dfad
-  - [net-next,v12,4/4] stmmac: s32: enable support for Multi-IRQ mode
-    https://git.kernel.org/netdev/net-next/c/66ccb4f1d205
+  - [net-next,v2] net: stmmac: move MSI data out of struct stmmac_priv
+    https://git.kernel.org/netdev/net-next/c/dab177cbea34
 
 You are awesome, thank you!
 -- 
