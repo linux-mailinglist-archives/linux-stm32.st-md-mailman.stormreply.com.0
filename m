@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cF/+J5kQumlwRAIAu9opvQ
+	id eBkeGZkQummKRAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:25 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8BB102B5483
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F0B62B5474
 	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FFA2C8F28E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0322DC8F289;
 	Wed, 18 Mar 2026 02:40:25 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58501C8F270
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2177DC87ED8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 02:40:22 +0000 (UTC)
-X-UUID: cb7e1ab8227311f1a21c59e7364eecb8-20260318
+ Wed, 18 Mar 2026 02:40:21 +0000 (UTC)
+X-UUID: cbb7b502227311f1a21c59e7364eecb8-20260318
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:e46d18cf-e8a5-4d59-9e7b-bda6df9eb506, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:978c6859-ceed-4cb1-bc54-43ea149250e1, IP:0,
  U
  RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:e1c521adc400ff51785a2be84135d7dc,
+X-CID-META: VersionHash:89c9d04, CLOUDID:e90d316a69b4551724c48877068f06c1,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
  ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
@@ -33,27 +33,27 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cb7e1ab8227311f1a21c59e7364eecb8-20260318
+X-UUID: cbb7b502227311f1a21c59e7364eecb8-20260318
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1343014953; Wed, 18 Mar 2026 10:40:15 +0800
+ with ESMTP id 90819857; Wed, 18 Mar 2026 10:40:15 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
  openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 18 Mar 2026 10:40:01 +0800
-Message-Id: <d2a55c36daf32e0fc6c3e5d3bbddd8c757c45f17.1773801401.git.xiaopei01@kylinos.cn>
+Date: Wed, 18 Mar 2026 10:40:02 +0800
+Message-Id: <35b4ff674610f77310e84815c15cd59e609c95db.1773801401.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773801401.git.xiaopei01@kylinos.cn>
 References: <cover.1773801401.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH v4 11/17] spi: st: Simplify clock handling
-	with devm_clk_get_enabled()
+Subject: [Linux-stm32] [PATCH v4 12/17] spi: stm32-qspi: Simplify clock
+	handling with devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,7 +89,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.515];
+	NEURAL_HAM(-0.00)[-0.504];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -99,7 +99,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,kylinos.cn:mid,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 8BB102B5483
+X-Rspamd-Queue-Id: 4F0B62B5474
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -113,75 +113,61 @@ error path and the remove callback. Adjust error labels accordingly.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-st-ssc4.c | 16 ++++------------
- 1 file changed, 4 insertions(+), 12 deletions(-)
+ drivers/spi/spi-stm32-qspi.c | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/spi/spi-st-ssc4.c b/drivers/spi/spi-st-ssc4.c
-index b173ef70d77e..0d653986499c 100644
---- a/drivers/spi/spi-st-ssc4.c
-+++ b/drivers/spi/spi-st-ssc4.c
-@@ -293,24 +293,20 @@ static int spi_st_probe(struct platform_device *pdev)
- 	host->use_gpio_descriptors	= true;
- 	spi_st				= spi_controller_get_devdata(host);
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index df1bbacec90a..a8436f70fdfd 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -819,25 +819,19 @@ static int stm32_qspi_probe(struct platform_device *pdev)
  
--	spi_st->clk = devm_clk_get(&pdev->dev, "ssc");
-+	spi_st->clk = devm_clk_get_enabled(&pdev->dev, "ssc");
- 	if (IS_ERR(spi_st->clk)) {
- 		dev_err(&pdev->dev, "Unable to request clock\n");
- 		ret = PTR_ERR(spi_st->clk);
- 		goto put_host;
- 	}
+ 	init_completion(&qspi->match_completion);
  
--	ret = clk_prepare_enable(spi_st->clk);
--	if (ret)
--		goto put_host;
+-	qspi->clk = devm_clk_get(dev, NULL);
++	qspi->clk = devm_clk_get_enabled(dev, NULL);
+ 	if (IS_ERR(qspi->clk))
+-		return PTR_ERR(qspi->clk);
 -
- 	init_completion(&spi_st->done);
++		return dev_err_probe(dev, PTR_ERR(qspi->clk),
++				     "can not enable the clock\n");
+ 	qspi->clk_rate = clk_get_rate(qspi->clk);
+ 	if (!qspi->clk_rate)
+ 		return -EINVAL;
  
- 	/* Get resources */
- 	spi_st->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(spi_st->base)) {
- 		ret = PTR_ERR(spi_st->base);
--		goto clk_disable;
-+		goto put_host;
- 	}
+-	ret = clk_prepare_enable(qspi->clk);
+-	if (ret) {
+-		dev_err(dev, "can not enable the clock\n");
+-		return ret;
+-	}
+-
+ 	rstc = devm_reset_control_get_exclusive(dev, NULL);
+ 	if (IS_ERR(rstc)) {
+ 		ret = PTR_ERR(rstc);
+ 		if (ret == -EPROBE_DEFER)
+-			goto err_clk_disable;
++			goto err_defer;
+ 	} else {
+ 		reset_control_assert(rstc);
+ 		udelay(2);
+@@ -886,8 +880,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
+ 	pm_runtime_dont_use_autosuspend(qspi->dev);
+ err_dma_free:
+ 	stm32_qspi_dma_free(qspi);
+-err_clk_disable:
+-	clk_disable_unprepare(qspi->clk);
++err_defer:
  
- 	/* Disable I2C and Reset SSC */
-@@ -333,14 +329,14 @@ static int spi_st_probe(struct platform_device *pdev)
- 	if (!irq) {
- 		dev_err(&pdev->dev, "IRQ missing or invalid\n");
- 		ret = -EINVAL;
--		goto clk_disable;
-+		goto put_host;
- 	}
- 
- 	ret = devm_request_irq(&pdev->dev, irq, spi_st_irq, 0,
- 			       pdev->name, spi_st);
- 	if (ret) {
- 		dev_err(&pdev->dev, "Failed to request irq %d\n", irq);
--		goto clk_disable;
-+		goto put_host;
- 	}
- 
- 	/* by default the device is on */
-@@ -359,8 +355,6 @@ static int spi_st_probe(struct platform_device *pdev)
- 
- rpm_disable:
- 	pm_runtime_disable(&pdev->dev);
--clk_disable:
--	clk_disable_unprepare(spi_st->clk);
- put_host:
- 	spi_controller_put(host);
  	return ret;
-@@ -373,8 +367,6 @@ static void spi_st_remove(struct platform_device *pdev)
- 
- 	pm_runtime_disable(&pdev->dev);
- 
--	clk_disable_unprepare(spi_st->clk);
--
- 	pinctrl_pm_select_sleep_state(&pdev->dev);
+ }
+@@ -906,7 +899,6 @@ static void stm32_qspi_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(qspi->dev);
+ 	pm_runtime_set_suspended(qspi->dev);
+ 	pm_runtime_dont_use_autosuspend(qspi->dev);
+-	clk_disable_unprepare(qspi->clk);
  }
  
+ static int stm32_qspi_runtime_suspend(struct device *dev)
 -- 
 2.25.1
 
