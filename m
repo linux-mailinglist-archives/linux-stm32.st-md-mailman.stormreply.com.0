@@ -2,54 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OJSsBCjxuWkYPwIAu9opvQ
+	id mHQfFZYQumlwRAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 01:26:16 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:22 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 993F92B4A16
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 01:26:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86AF22B5433
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:21 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30450C8F263;
-	Wed, 18 Mar 2026 00:26:15 +0000 (UTC)
-Received: from out-174.mta1.migadu.com (out-174.mta1.migadu.com
- [95.215.58.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 226DFC8F266;
+	Wed, 18 Mar 2026 02:40:21 +0000 (UTC)
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 011B8C87ED8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53B55C87EBD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 00:26:13 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1773793573;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding;
- bh=LKaGTOrqZcxKvrHo8N4IUQRt0r4j/J4rRNSb5TciUI0=;
- b=V6kUOF9izPgwxqn688/GhS2jWVlpmci1OwHZsQVdm1WMgIUlyJoWAhY5tKS/qcPMxpGlrt
- PrjQMlI+dS2XEIkpcuPWx6pAKPNiZH3/C7dfhjnLYo6aRsaTpuCN3wKt7MSsTiwdrZTWZ+
- MWnGLyv4UxUm+J9tTHRY55OmgspoZTQ=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 18 Mar 2026 01:25:39 +0100
-Message-ID: <20260318002537.3692-3-thorsten.blum@linux.dev>
+ Wed, 18 Mar 2026 02:40:19 +0000 (UTC)
+X-UUID: c9068e8c227311f1a21c59e7364eecb8-20260318
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.11, REQID:9505b584-054f-4534-bd52-2ea0379afc6b, IP:0,
+ U
+ RL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+ N:release,TS:20
+X-CID-META: VersionHash:89c9d04, CLOUDID:1b22b3f1c276df14806c3325f3681ae2,
+ BulkI
+ D:nil,BulkQuantity:0,Recheck:0,SF:102|850|898,TC:nil,Content:0|15|50,EDM:5
+ ,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV
+ :0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: c9068e8c227311f1a21c59e7364eecb8-20260318
+X-User: xiaopei01@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+ (envelope-from <xiaopei01@kylinos.cn>)
+ (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+ with ESMTP id 659452620; Wed, 18 Mar 2026 10:40:11 +0800
+From: Pei Xiao <xiaopei01@kylinos.cn>
+To: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
+ linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Date: Wed, 18 Mar 2026 10:39:50 +0800
+Message-Id: <cover.1773801401.git.xiaopei01@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1036; i=thorsten.blum@linux.dev;
- h=from:subject; bh=1wDZ/HMl0g5Jdcn/1cbS5yrAyqqs/m9L5E9FQkQO0W4=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDJk7PzKt3y20ovH4r9txImzyJ3osDVPCTitNV72yhl+kc
- dffWcWyHaUsDGJcDLJiiiwPZv2Y4VtaU7nJJGInzBxWJpAhDFycAjCRj28ZGc68fpNjUNzYd9lx
- 6irNuuuBsSWf9p6YHePCE9vJ6nF+ewnDfz8Bqy1Pm4u0VDcEiXRvWn3CIdeKQ6vl8Mc8yxo3o79
- RzAA=
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-kernel@vger.kernel.org, Thorsten Blum <thorsten.blum@linux.dev>,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH RESEND] stm class: Remove unnecessary local
-	variable in stm_write
+Cc: Pei Xiao <xiaopei01@kylinos.cn>
+Subject: [Linux-stm32] [PATCH v4 00/17] cleanup in spi by use
+	devm_clk_get_enabled
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,76 +67,95 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
+X-Spamd-Result: default: False [1.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:alexander.shishkin@linux.intel.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:thorsten.blum@linux.dev,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[linux.intel.com,gmail.com,foss.st.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[kylinos.cn];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:linux-spi@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:imx@lists.linux.dev,m:openbmc@lists.ozlabs.org,m:linux-rockchip@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:linux-mediatek@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:xiaopei01@kylinos.cn,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[linux.dev:-];
+	NEURAL_HAM(-0.00)[-0.560];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.116];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,linux.dev:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 993F92B4A16
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:mid,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 86AF22B5433
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The local variable 'err' and the corresponding if check in stm_write()
-are unnecessary. Remove them.
+I know that many old SPI drivers should not be modified for hardware
+stability and to reduce maintenance effort. But I can't help cleaning them
+up. To minimize the introduction of issues, I tried not to modify the
+timing of those hardware clock enables.
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 ---
- drivers/hwtracing/stm/core.c | 8 +-------
- 1 file changed, 1 insertion(+), 7 deletions(-)
+changes in v4: modify all commit info
+changes in v3: remove disable clk in remove function
+changes in v2: fix error message but having a line break
+Missing error code argument to dev_err_probe()
+---
 
-diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 37584e786bb5..4e0ee8e2e2c3 100644
---- a/drivers/hwtracing/stm/core.c
-+++ b/drivers/hwtracing/stm/core.c
-@@ -602,17 +602,11 @@ static ssize_t notrace
- stm_write(struct stm_device *stm, struct stm_output *output,
- 	  unsigned int chan, const char *buf, size_t count, struct stm_source_data *source)
- {
--	int err;
--
- 	/* stm->pdrv is serialized against policy_mutex */
- 	if (!stm->pdrv)
- 		return -ENODEV;
- 
--	err = stm->pdrv->write(stm->data, output, chan, buf, count, source);
--	if (err < 0)
--		return err;
--
--	return err;
-+	return stm->pdrv->write(stm->data, output, chan, buf, count, source);
- }
- 
- static ssize_t stm_char_write(struct file *file, const char __user *buf,
+Pei Xiao (17):
+  spi: axiado: Simplify clock management with devm_clk_get_enabled()
+  spi: bcm63xx-hsspi: Simplify clock handling with
+    devm_clk_get_enabled()
+  spi: bcmbca-hsspi: Simplify clock handling with devm_clk_get_enabled()
+  spi: img-spfi: Simplify clock handling with devm_clk_get_enabled()
+  spi: imx: Simplify clock handling with devm_clk_get_enabled()
+  spi: npcm-pspi: Simplify clock handling with devm_clk_get_enabled()
+  spi: orion: Simplify clock handling with devm_clk_get_enabled()
+  spi: rockchip-sfc: Simplify clock handling with devm_clk_get_enabled()
+  spi: sifive: Simplify clock handling with devm_clk_get_enabled()
+  spi: slave-mt27xx: Simplify clock handling with devm_clk_get_enabled()
+  spi: st: Simplify clock handling with devm_clk_get_enabled()
+  spi: stm32-qspi: Simplify clock handling with devm_clk_get_enabled()
+  spi: stm32: Simplify clock handling with devm_clk_get_enabled()
+  spi: sunplus-sp7021: Simplify clock handling with
+    devm_clk_get_enabled()
+  spi: uniphier: Simplify clock handling with devm_clk_get_enabled()
+  spi: zynq-qspi: Simplify clock handling with devm_clk_get_enabled()
+  spi: zynqmp-gqspi: Simplify clock handling with devm_clk_get_enabled()
+
+ drivers/spi/spi-axiado.c         | 31 +++++-----------
+ drivers/spi/spi-bcm63xx-hsspi.c  | 46 +++++++-----------------
+ drivers/spi/spi-bcmbca-hsspi.c   | 49 +++++++++----------------
+ drivers/spi/spi-img-spfi.c       | 18 ++--------
+ drivers/spi/spi-imx.c            | 15 ++------
+ drivers/spi/spi-npcm-pspi.c      | 20 ++++-------
+ drivers/spi/spi-orion.c          | 11 ++----
+ drivers/spi/spi-rockchip-sfc.c   | 22 ++----------
+ drivers/spi/spi-sifive.c         | 21 ++++-------
+ drivers/spi/spi-slave-mt27xx.c   |  8 +----
+ drivers/spi/spi-st-ssc4.c        | 16 +++------
+ drivers/spi/spi-stm32-qspi.c     | 18 +++-------
+ drivers/spi/spi-stm32.c          | 61 ++++++++++----------------------
+ drivers/spi/spi-sunplus-sp7021.c | 15 +-------
+ drivers/spi/spi-uniphier.c       | 17 +++------
+ drivers/spi/spi-zynq-qspi.c      | 31 ++++------------
+ drivers/spi/spi-zynqmp-gqspi.c   | 19 ++--------
+ 17 files changed, 98 insertions(+), 320 deletions(-)
+
+-- 
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
