@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mB0ZDmXuuml0dAIAu9opvQ
+	id IBgCFmruuml0dAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 19:26:45 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 19:26:50 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20ADD2C13AC
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 19:26:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A88D2C13B4
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 19:26:50 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C67E5C87ED8;
-	Wed, 18 Mar 2026 18:26:44 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D32E0C87ED8;
+	Wed, 18 Mar 2026 18:26:49 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06863C87EC3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C8EAC87EC3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 18:26:44 +0000 (UTC)
+ Wed, 18 Mar 2026 18:26:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=aG0MZ1FrqlLkIWWb0/pP6zOGbt5rJFmJ6VnrEOyxv8M=; b=UXH24HS24wHx9n3ZrU1w+ZQ/tc
- N7DWsOAZ/Lw6v80LZ0VcxyCkN0SKsC/y1rmvib7tkyTxIIWrO4EmMlOY+U37hm1W4qxp0Zgi80Es4
- uivU+57+tSrmiehBOR+NSM82z/+6mmxagZk67p/+T53qdq+XjaBUVqYt66pU6ZaW+ZMVpnocctxqq
- v6L+ODUUQTDMIXLI06oo+4wTalaWh/RUMLJ9/UxvLjarZYSQJZTmI/+F6XQ2blQL8EYWPEsJ/jjit
- aHMhxacfhFhT9wIxFKecdjPvy5ZwFzeOhij09hCz0K/xO2kFJQbW8J+M9CV4HHLWna+Flp7DE+4o/
- xNLmeCNA==;
+ bh=fvhhv7MIWMegmnz4QXxXkxWDldAObm8AahQjpmMTPy8=; b=UFKrgh4/dGkHv3DqRzbF2Q09ao
+ OErSkJwUIa8beFUyVkpbmjC3r+aHHBQKi3fFeAi73kk7BaxRGSH3uhEKIxDbTgVcrLcZshqGS+pi4
+ im5rb99PB4rX6D2P5i9PHQOwDJNs3F85B11k6SKSdY1zCD2LTsjMCIEUOQuGxGKB6oCczGkXI6w4p
+ eNugQtcRNbUFGvr4Rr8czBppP7UH99EC3U/wETPufwtXVPWJu6B3c2VyBsEiyGzTfYtgbsEE/4Z2V
+ 9OlT/8y9EFXe9LJOwcOAgUqgV6aG2SIZ3Y3mgFRwdh2rpTxxmfs+3zw1IWMbp1z1CgTLm9vxB+Ib1
+ xz8zAogQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44958 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:44962 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w2vbL-000000003pF-3WOT;
- Wed, 18 Mar 2026 18:26:39 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w2vbQ-000000003pW-3uXk;
+ Wed, 18 Mar 2026 18:26:44 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w2vbL-0000000DbWW-0PON; Wed, 18 Mar 2026 18:26:39 +0000
+ id 1w2vbQ-0000000DbWc-0ty5; Wed, 18 Mar 2026 18:26:44 +0000
 In-Reply-To: <abruRQpjLyMkoUEP@shell.armlinux.org.uk>
 References: <abruRQpjLyMkoUEP@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w2vbL-0000000DbWW-0PON@rmk-PC.armlinux.org.uk>
-Date: Wed, 18 Mar 2026 18:26:39 +0000
+Message-Id: <E1w2vbQ-0000000DbWc-0ty5@rmk-PC.armlinux.org.uk>
+Date: Wed, 18 Mar 2026 18:26:44 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: more mode ->
- descriptor_mode renames
+Subject: [Linux-stm32] [PATCH net-next 3/5] net: stmmac: simplify DMA
+ descriptor allocation/init/freeing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,7 +90,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.373];
+	NEURAL_HAM(-0.00)[-0.403];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -103,272 +103,133 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 20ADD2C13AC
+X-Rspamd-Queue-Id: 1A88D2C13B4
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Rather than having separate branches to handle the different types of
+descriptors, use the helper functions to calculate the total size of
+the DMA descriptors.
+
+Use this to allocate or free the descriptor array, and use a local
+variable to hold the address of the descriptor array, so we only need
+one dma_alloc_coherent() or dma_free_coherent() call in these paths.
+
+Also do the same for the receive ring initialisation. The transmit
+ring can't be converted as there is a case where stmmac_mode_init()
+is not called.
+
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../ethernet/stmicro/stmmac/dwmac4_descs.c    | 12 ++++++-----
- .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  | 12 ++++++-----
- .../net/ethernet/stmicro/stmmac/enh_desc.c    | 20 ++++++++++--------
- drivers/net/ethernet/stmicro/stmmac/hwif.h    | 12 +++++------
- .../net/ethernet/stmicro/stmmac/norm_desc.c   | 21 ++++++++++---------
- 5 files changed, 42 insertions(+), 35 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 57 +++++++++----------
+ 1 file changed, 27 insertions(+), 30 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-index d5c003f3fbbc..2994df41ec2c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-@@ -289,12 +289,13 @@ static int dwmac4_wrback_get_rx_timestamp_status(void *desc, void *next_desc,
- }
- 
- static void dwmac4_rd_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
--				   int mode, int end, int bfsize)
-+				   u8 descriptor_mode, int end, int bfsize)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 567499e74917..8a84fdd4577d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -1885,6 +1885,7 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv,
+ 				    u32 queue, gfp_t flags)
  {
- 	dwmac4_set_rx_owner(p, disable_rx_ic);
- }
+ 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
++	void *des;
+ 	int ret;
  
--static void dwmac4_rd_init_tx_desc(struct dma_desc *p, int mode, int end)
-+static void dwmac4_rd_init_tx_desc(struct dma_desc *p, u8 descriptor_mode,
-+				   int end)
+ 	netif_dbg(priv, probe, priv->dev,
+@@ -1928,13 +1929,12 @@ static int __init_dma_rx_desc_rings(struct stmmac_priv *priv,
+ 	/* Setup the chained descriptor addresses */
+ 	if (priv->descriptor_mode == STMMAC_CHAIN_MODE) {
+ 		if (priv->extend_desc)
+-			stmmac_mode_init(priv, rx_q->dma_erx,
+-					 rx_q->dma_rx_phy,
+-					 dma_conf->dma_rx_size, 1);
++			des = rx_q->dma_erx;
+ 		else
+-			stmmac_mode_init(priv, rx_q->dma_rx,
+-					 rx_q->dma_rx_phy,
+-					 dma_conf->dma_rx_size, 0);
++			des = rx_q->dma_rx;
++
++		stmmac_mode_init(priv, des, rx_q->dma_rx_phy,
++				 dma_conf->dma_rx_size, priv->extend_desc);
+ 	}
+ 
+ 	return 0;
+@@ -2148,6 +2148,8 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 					 u32 queue)
  {
- 	p->des0 = 0;
- 	p->des1 = 0;
-@@ -303,8 +304,9 @@ static void dwmac4_rd_init_tx_desc(struct dma_desc *p, int mode, int end)
- }
+ 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
++	size_t size;
++	void *addr;
  
- static void dwmac4_rd_prepare_tx_desc(struct dma_desc *p, int is_fs, int len,
--				      bool csum_flag, int mode, bool tx_own,
--				      bool ls, unsigned int tot_pkt_len)
-+				      bool csum_flag, u8 descriptor_mode,
-+				      bool tx_own, bool ls,
-+				      unsigned int tot_pkt_len)
- {
- 	u32 tdes3 = le32_to_cpu(p->des3);
+ 	/* Release the DMA RX socket buffers */
+ 	if (rx_q->xsk_pool)
+@@ -2159,14 +2161,14 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	rx_q->xsk_pool = NULL;
  
-@@ -381,7 +383,7 @@ static void dwmac4_rd_prepare_tso_tx_desc(struct dma_desc *p, int is_fs,
- 	p->des3 = cpu_to_le32(tdes3);
- }
- 
--static void dwmac4_release_tx_desc(struct dma_desc *p, int mode)
-+static void dwmac4_release_tx_desc(struct dma_desc *p, u8 descriptor_mode)
- {
- 	p->des0 = 0;
- 	p->des1 = 0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-index 1009ef436a1e..b5f200a87484 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
-@@ -130,12 +130,13 @@ static int dwxgmac2_get_rx_timestamp_status(void *desc, void *next_desc,
- }
- 
- static void dwxgmac2_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
--				  int mode, int end, int bfsize)
-+				  u8 descriptor_mode, int end, int bfsize)
- {
- 	dwxgmac2_set_rx_owner(p, disable_rx_ic);
- }
- 
--static void dwxgmac2_init_tx_desc(struct dma_desc *p, int mode, int end)
-+static void dwxgmac2_init_tx_desc(struct dma_desc *p, u8 descriptor_mode,
-+				  int end)
- {
- 	p->des0 = 0;
- 	p->des1 = 0;
-@@ -144,8 +145,9 @@ static void dwxgmac2_init_tx_desc(struct dma_desc *p, int mode, int end)
- }
- 
- static void dwxgmac2_prepare_tx_desc(struct dma_desc *p, int is_fs, int len,
--				     bool csum_flag, int mode, bool tx_own,
--				     bool ls, unsigned int tot_pkt_len)
-+				     bool csum_flag, u8 descriptor_mode,
-+				     bool tx_own, bool ls,
-+				     unsigned int tot_pkt_len)
- {
- 	u32 tdes3 = le32_to_cpu(p->des3);
- 
-@@ -219,7 +221,7 @@ static void dwxgmac2_prepare_tso_tx_desc(struct dma_desc *p, int is_fs,
- 	p->des3 = cpu_to_le32(tdes3);
- }
- 
--static void dwxgmac2_release_tx_desc(struct dma_desc *p, int mode)
-+static void dwxgmac2_release_tx_desc(struct dma_desc *p, u8 descriptor_mode)
- {
- 	p->des0 = 0;
- 	p->des1 = 0;
-diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-index ead468f4b645..051253601225 100644
---- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-@@ -245,7 +245,7 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
- }
- 
- static void enh_desc_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
--				  int mode, int end, int bfsize)
-+				  u8 descriptor_mode, int end, int bfsize)
- {
- 	int bfsize1;
- 
-@@ -254,7 +254,7 @@ static void enh_desc_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
- 	bfsize1 = min(bfsize, BUF_SIZE_8KiB);
- 	p->des1 |= cpu_to_le32(bfsize1 & ERDES1_BUFFER1_SIZE_MASK);
- 
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		ehn_desc_rx_set_on_chain(p);
+ 	/* Free DMA regions of consistent memory previously allocated */
+-	if (!priv->extend_desc)
+-		dma_free_coherent(priv->device, dma_conf->dma_rx_size *
+-				  sizeof(struct dma_desc),
+-				  rx_q->dma_rx, rx_q->dma_rx_phy);
++	if (priv->extend_desc)
++		addr = rx_q->dma_erx;
  	else
- 		ehn_desc_rx_set_on_ring(p, end, bfsize);
-@@ -263,10 +263,11 @@ static void enh_desc_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
- 		p->des1 |= cpu_to_le32(ERDES1_DISABLE_IC);
- }
+-		dma_free_coherent(priv->device, dma_conf->dma_rx_size *
+-				  sizeof(struct dma_extended_desc),
+-				  rx_q->dma_erx, rx_q->dma_rx_phy);
++		addr = rx_q->dma_rx;
++
++	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
++
++	dma_free_coherent(priv->device, size, addr, rx_q->dma_rx_phy);
  
--static void enh_desc_init_tx_desc(struct dma_desc *p, int mode, int end)
-+static void enh_desc_init_tx_desc(struct dma_desc *p, u8 descriptor_mode,
-+				  int end)
- {
- 	p->des0 &= cpu_to_le32(~ETDES0_OWN);
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		enh_desc_end_tx_desc_on_chain(p);
- 	else
- 		enh_desc_end_tx_desc_on_ring(p, end);
-@@ -282,24 +283,25 @@ static void enh_desc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
- 	p->des0 |= cpu_to_le32(RDES0_OWN);
- }
+ 	if (xdp_rxq_info_is_reg(&rx_q->xdp_rxq))
+ 		xdp_rxq_info_unreg(&rx_q->xdp_rxq);
+@@ -2251,6 +2253,8 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	struct page_pool_params pp_params = { 0 };
+ 	unsigned int dma_buf_sz_pad, num_pages;
+ 	unsigned int napi_id;
++	size_t size;
++	void *addr;
+ 	int ret;
  
--static void enh_desc_release_tx_desc(struct dma_desc *p, int mode)
-+static void enh_desc_release_tx_desc(struct dma_desc *p, u8 descriptor_mode)
- {
- 	int ter = (le32_to_cpu(p->des0) & ETDES0_END_RING) >> 21;
+ 	dma_buf_sz_pad = stmmac_rx_offset(priv) + dma_conf->dma_buf_sz +
+@@ -2286,24 +2290,17 @@ static int __alloc_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 	if (!rx_q->buf_pool)
+ 		return -ENOMEM;
  
- 	memset(p, 0, offsetof(struct dma_desc, des2));
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		enh_desc_end_tx_desc_on_chain(p);
- 	else
- 		enh_desc_end_tx_desc_on_ring(p, ter);
- }
+-	if (priv->extend_desc) {
+-		rx_q->dma_erx = dma_alloc_coherent(priv->device,
+-						   dma_conf->dma_rx_size *
+-						   sizeof(struct dma_extended_desc),
+-						   &rx_q->dma_rx_phy,
+-						   GFP_KERNEL);
+-		if (!rx_q->dma_erx)
+-			return -ENOMEM;
++	size = stmmac_get_rx_desc_size(priv) * dma_conf->dma_rx_size;
  
- static void enh_desc_prepare_tx_desc(struct dma_desc *p, int is_fs, int len,
--				     bool csum_flag, int mode, bool tx_own,
--				     bool ls, unsigned int tot_pkt_len)
-+				     bool csum_flag, u8 descriptor_mode,
-+				     bool tx_own,  bool ls,
-+				     unsigned int tot_pkt_len)
- {
- 	u32 tdes0 = le32_to_cpu(p->des0);
+-	} else {
+-		rx_q->dma_rx = dma_alloc_coherent(priv->device,
+-						  dma_conf->dma_rx_size *
+-						  sizeof(struct dma_desc),
+-						  &rx_q->dma_rx_phy,
+-						  GFP_KERNEL);
+-		if (!rx_q->dma_rx)
+-			return -ENOMEM;
+-	}
++	addr = dma_alloc_coherent(priv->device, size, &rx_q->dma_rx_phy,
++				  GFP_KERNEL);
++	if (!addr)
++		return -ENOMEM;
++
++	if (priv->extend_desc)
++		rx_q->dma_erx = addr;
++	else
++		rx_q->dma_rx = addr;
  
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		enh_set_tx_desc_len_on_chain(p, len);
- 	else
- 		enh_set_tx_desc_len_on_ring(p, len);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-index 010b4d32484a..e6317b94fff7 100644
---- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
-@@ -38,21 +38,21 @@ struct dma_edesc;
- /* Descriptors helpers */
- struct stmmac_desc_ops {
- 	/* DMA RX descriptor ring initialization */
--	void (*init_rx_desc)(struct dma_desc *p, int disable_rx_ic, int mode,
--			int end, int bfsize);
-+	void (*init_rx_desc)(struct dma_desc *p, int disable_rx_ic,
-+			     u8 descriptor_mode, int end, int bfsize);
- 	/* DMA TX descriptor ring initialization */
--	void (*init_tx_desc)(struct dma_desc *p, int mode, int end);
-+	void (*init_tx_desc)(struct dma_desc *p, u8 descriptor_mode, int end);
- 	/* Invoked by the xmit function to prepare the tx descriptor */
- 	void (*prepare_tx_desc)(struct dma_desc *p, int is_fs, int len,
--			bool csum_flag, int mode, bool tx_own, bool ls,
--			unsigned int tot_pkt_len);
-+			bool csum_flag, u8 descriptor_mode, bool tx_own,
-+			bool ls, unsigned int tot_pkt_len);
- 	void (*prepare_tso_tx_desc)(struct dma_desc *p, int is_fs, int len1,
- 			int len2, bool tx_own, bool ls, unsigned int tcphdrlen,
- 			unsigned int tcppayloadlen);
- 	/* Set/get the owner of the descriptor */
- 	void (*set_tx_owner)(struct dma_desc *p);
- 	/* Clean the tx descriptor as soon as the tx irq is received */
--	void (*release_tx_desc)(struct dma_desc *p, int mode);
-+	void (*release_tx_desc)(struct dma_desc *p, u8 descriptor_mode);
- 	/* Clear interrupt on tx frame completion. When this bit is
- 	 * set an interrupt happens as soon as the frame is transmitted */
- 	void (*set_tx_ic)(struct dma_desc *p);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-index 7c3a818c33c1..c4b613564f87 100644
---- a/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/norm_desc.c
-@@ -108,8 +108,8 @@ static int ndesc_get_rx_status(struct stmmac_extra_stats *x,
- 	return ret;
- }
- 
--static void ndesc_init_rx_desc(struct dma_desc *p, int disable_rx_ic, int mode,
--			       int end, int bfsize)
-+static void ndesc_init_rx_desc(struct dma_desc *p, int disable_rx_ic,
-+			       u8 descriptor_mode, int end, int bfsize)
- {
- 	int bfsize1;
- 
-@@ -118,7 +118,7 @@ static void ndesc_init_rx_desc(struct dma_desc *p, int disable_rx_ic, int mode,
- 	bfsize1 = min(bfsize, BUF_SIZE_2KiB - 1);
- 	p->des1 |= cpu_to_le32(bfsize1 & RDES1_BUFFER1_SIZE_MASK);
- 
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		ndesc_rx_set_on_chain(p, end);
- 	else
- 		ndesc_rx_set_on_ring(p, end, bfsize);
-@@ -127,10 +127,10 @@ static void ndesc_init_rx_desc(struct dma_desc *p, int disable_rx_ic, int mode,
- 		p->des1 |= cpu_to_le32(RDES1_DISABLE_IC);
- }
- 
--static void ndesc_init_tx_desc(struct dma_desc *p, int mode, int end)
-+static void ndesc_init_tx_desc(struct dma_desc *p, u8 descriptor_mode, int end)
- {
- 	p->des0 &= cpu_to_le32(~TDES0_OWN);
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		ndesc_tx_set_on_chain(p);
- 	else
- 		ndesc_end_tx_desc_on_ring(p, end);
-@@ -146,20 +146,21 @@ static void ndesc_set_rx_owner(struct dma_desc *p, int disable_rx_ic)
- 	p->des0 |= cpu_to_le32(RDES0_OWN);
- }
- 
--static void ndesc_release_tx_desc(struct dma_desc *p, int mode)
-+static void ndesc_release_tx_desc(struct dma_desc *p, u8 descriptor_mode)
- {
- 	int ter = (le32_to_cpu(p->des1) & TDES1_END_RING) >> 25;
- 
- 	memset(p, 0, offsetof(struct dma_desc, des2));
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		ndesc_tx_set_on_chain(p);
- 	else
- 		ndesc_end_tx_desc_on_ring(p, ter);
- }
- 
- static void ndesc_prepare_tx_desc(struct dma_desc *p, int is_fs, int len,
--				  bool csum_flag, int mode, bool tx_own,
--				  bool ls, unsigned int tot_pkt_len)
-+				  bool csum_flag, u8 descriptor_mode,
-+				  bool tx_own, bool ls,
-+				  unsigned int tot_pkt_len)
- {
- 	u32 tdes1 = le32_to_cpu(p->des1);
- 
-@@ -176,7 +177,7 @@ static void ndesc_prepare_tx_desc(struct dma_desc *p, int is_fs, int len,
- 
- 	p->des1 = cpu_to_le32(tdes1);
- 
--	if (mode == STMMAC_CHAIN_MODE)
-+	if (descriptor_mode == STMMAC_CHAIN_MODE)
- 		norm_set_tx_desc_len_on_chain(p, len);
- 	else
- 		norm_set_tx_desc_len_on_ring(p, len);
+ 	if (stmmac_xdp_is_enabled(priv) &&
+ 	    test_bit(queue, priv->af_xdp_zc_qps))
 -- 
 2.47.3
 
