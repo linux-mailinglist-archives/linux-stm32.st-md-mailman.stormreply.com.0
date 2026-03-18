@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MDdPOpgQumlwRAIAu9opvQ
+	id AHn+N5kQumk2RAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:24 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:25 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D73642B544C
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCDAB2B5499
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 03:40:25 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BC77C8F271;
-	Wed, 18 Mar 2026 02:40:24 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76F36C8F293;
+	Wed, 18 Mar 2026 02:40:25 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12607C87ED8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3640DC8F267
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 02:40:20 +0000 (UTC)
-X-UUID: cc29659e227311f1a21c59e7364eecb8-20260318
+ Wed, 18 Mar 2026 02:40:23 +0000 (UTC)
+X-UUID: cc6224f6227311f1a21c59e7364eecb8-20260318
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:32a65dcb-5998-4b53-af47-9cc19c559b39, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:3ec8d6e6-c7d0-49e7-b88d-63e630a3fdae, IP:0,
  U
  RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:b5aefb9c04c47315f86eccfdc4796353,
+X-CID-META: VersionHash:89c9d04, CLOUDID:5d918a886474a54546c5fce223f78eb9,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
  ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
@@ -33,26 +33,26 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: cc29659e227311f1a21c59e7364eecb8-20260318
+X-UUID: cc6224f6227311f1a21c59e7364eecb8-20260318
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 1157164899; Wed, 18 Mar 2026 10:40:16 +0800
+ with ESMTP id 1305098658; Wed, 18 Mar 2026 10:40:17 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
  openbmc@lists.ozlabs.org, linux-rockchip@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Date: Wed, 18 Mar 2026 10:40:04 +0800
-Message-Id: <a620e02f00bd69a3273a73ac45f72e1e035b3ef7.1773801401.git.xiaopei01@kylinos.cn>
+Date: Wed, 18 Mar 2026 10:40:05 +0800
+Message-Id: <433199589f2a28038ba1c0ac2483f24b9e1a272e.1773801401.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773801401.git.xiaopei01@kylinos.cn>
 References: <cover.1773801401.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH v4 14/17] spi: sunplus-sp7021: Simplify clock
+Subject: [Linux-stm32] [PATCH v4 15/17] spi: uniphier: Simplify clock
 	handling with devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -89,7 +89,7 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.493];
+	NEURAL_HAM(-0.00)[-0.470];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -99,64 +99,87 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,kylinos.cn:mid,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: D73642B544C
+X-Rspamd-Queue-Id: CCDAB2B5499
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 Replace devm_clk_get() followed by clk_prepare_enable() with
 devm_clk_get_enabled() for the clock. This removes the need for
-explicit clock enable/disable calls and the custom cleanup function,
-as the managed API automatically handles clock disabling on device
-removal or probe failure.
+explicit clock enable and disable calls, as the managed API automatically
+handles clock disabling on device removal or probe failure.
 
-Remove the now-unnecessary sp7021_spi_disable_unprepare() function
-and the devm_add_action_or_reset() call.
+Remove the now-unnecessary clk_disable_unprepare() calls from the probe
+error path and the remove callback. Adjust error labels accordingly.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-sunplus-sp7021.c | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
+ drivers/spi/spi-uniphier.c | 17 ++++-------------
+ 1 file changed, 4 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
-index 789b092fe8c0..35601212fb78 100644
---- a/drivers/spi/spi-sunplus-sp7021.c
-+++ b/drivers/spi/spi-sunplus-sp7021.c
-@@ -389,11 +389,6 @@ static int sp7021_spi_target_transfer_one(struct spi_controller *ctlr, struct sp
+diff --git a/drivers/spi/spi-uniphier.c b/drivers/spi/spi-uniphier.c
+index 9e1d364a6198..f975d0431e6f 100644
+--- a/drivers/spi/spi-uniphier.c
++++ b/drivers/spi/spi-uniphier.c
+@@ -666,28 +666,24 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 	}
+ 	priv->base_dma_addr = res->start;
+ 
+-	priv->clk = devm_clk_get(&pdev->dev, NULL);
++	priv->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(priv->clk)) {
+ 		dev_err(&pdev->dev, "failed to get clock\n");
+ 		ret = PTR_ERR(priv->clk);
+ 		goto out_host_put;
+ 	}
+ 
+-	ret = clk_prepare_enable(priv->clk);
+-	if (ret)
+-		goto out_host_put;
+-
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0) {
+ 		ret = irq;
+-		goto out_disable_clk;
++		goto out_host_put;
+ 	}
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq, uniphier_spi_handler,
+ 			       0, "uniphier-spi", priv);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "failed to request IRQ\n");
+-		goto out_disable_clk;
++		goto out_host_put;
+ 	}
+ 
+ 	init_completion(&priv->xfer_done);
+@@ -716,7 +712,7 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 	if (IS_ERR_OR_NULL(host->dma_tx)) {
+ 		if (PTR_ERR(host->dma_tx) == -EPROBE_DEFER) {
+ 			ret = -EPROBE_DEFER;
+-			goto out_disable_clk;
++			goto out_host_put;
+ 		}
+ 		host->dma_tx = NULL;
+ 		dma_tx_burst = INT_MAX;
+@@ -766,9 +762,6 @@ static int uniphier_spi_probe(struct platform_device *pdev)
+ 		host->dma_tx = NULL;
+ 	}
+ 
+-out_disable_clk:
+-	clk_disable_unprepare(priv->clk);
+-
+ out_host_put:
+ 	spi_controller_put(host);
  	return ret;
+@@ -783,8 +776,6 @@ static void uniphier_spi_remove(struct platform_device *pdev)
+ 		dma_release_channel(host->dma_tx);
+ 	if (host->dma_rx)
+ 		dma_release_channel(host->dma_rx);
+-
+-	clk_disable_unprepare(priv->clk);
  }
  
--static void sp7021_spi_disable_unprepare(void *data)
--{
--	clk_disable_unprepare(data);
--}
--
- static void sp7021_spi_reset_control_assert(void *data)
- {
- 	reset_control_assert(data);
-@@ -460,7 +455,7 @@ static int sp7021_spi_controller_probe(struct platform_device *pdev)
- 	if (pspim->s_irq < 0)
- 		return pspim->s_irq;
- 
--	pspim->spi_clk = devm_clk_get(dev, NULL);
-+	pspim->spi_clk = devm_clk_get_enabled(dev, NULL);
- 	if (IS_ERR(pspim->spi_clk))
- 		return dev_err_probe(dev, PTR_ERR(pspim->spi_clk), "clk get fail\n");
- 
-@@ -468,14 +463,6 @@ static int sp7021_spi_controller_probe(struct platform_device *pdev)
- 	if (IS_ERR(pspim->rstc))
- 		return dev_err_probe(dev, PTR_ERR(pspim->rstc), "rst get fail\n");
- 
--	ret = clk_prepare_enable(pspim->spi_clk);
--	if (ret)
--		return dev_err_probe(dev, ret, "failed to enable clk\n");
--
--	ret = devm_add_action_or_reset(dev, sp7021_spi_disable_unprepare, pspim->spi_clk);
--	if (ret)
--		return ret;
--
- 	ret = reset_control_deassert(pspim->rstc);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to deassert reset\n");
+ static const struct of_device_id uniphier_spi_match[] = {
 -- 
 2.25.1
 
