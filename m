@@ -2,54 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gAoIDr4euml8RwIAu9opvQ
+	id ADeGOL8euml8RwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 04:40:46 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 04:40:47 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C938E2B589E
-	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 04:40:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C23842B58A5
+	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 04:40:47 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74792C87ED8;
-	Wed, 18 Mar 2026 03:40:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85B76C8F262;
+	Wed, 18 Mar 2026 03:40:47 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EDA39C36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C527CC8F262
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 03:40:43 +0000 (UTC)
+ Wed, 18 Mar 2026 03:40:45 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id E611860054;
- Wed, 18 Mar 2026 03:40:42 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B69C19421;
- Wed, 18 Mar 2026 03:40:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3ED74406EF;
+ Wed, 18 Mar 2026 03:40:44 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 170E8C19421;
+ Wed, 18 Mar 2026 03:40:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773805242;
- bh=ci1TLeG+Q5wv5yzhht4iMsaCcAqoSh8bQP++IRr5860=;
+ s=k20201202; t=1773805244;
+ bh=b5OWkuV535Oj1V56MTHDGF5WH37w+G2cepaHZkvA+6A=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=TXIHu+hM0Lmy2qrU8gxrRdmeIqAmHvUXGdeiRO3cplllQ9CCZFrUiSsraDSRzmWkO
- 2AigU3LiEXukj8PNRUAJjufPSJy9GmZ7lslsliwlNPIq0LAM8PW8Et6ziw4+7/cXNd
- TMXnvCAxjYO25M4dmPRelp0MNPNGaTLhYGeyYCcWzXm45TW9AgqXoFyq2k5WJtQuLp
- AsYjPdQNOf3R+penE6+IpDsACWjbETVvLuo2u+1Rw2XYXaCaauZfnMyTbwcgvJrIRg
- D1o3D11tWuX3hEE7DeURO5qlWQlOgVsRmJXCEDu6XB+yUeILlXGsDFoc734jbG5LWn
- usq2LTIj8TbPA==
+ b=OZlImp5de0YUVbmDOxamq0jULzuXJ18Plsj/DYYr1d9yzVnU6jnkLIdgBgapY5l+Z
+ 9z/5aKPq8GfU/o4Ld5wUT8/Ii6U5HAKgU1f410onFyYmJkWpepDrCDRmQMOZD1VY/H
+ 16gKyCAwyP9sjqfzKI/7vuK50XPkT5mJwMRAU+mEVIMka9P3FSPwfFAjz697NEmuX9
+ F0xrbH4WwthbEiRhnluec/iydIpOUqNsL4LAs2ZPidcH1ZSlPAd6Fnc1oICkd/Bpjp
+ ZvzxCB2LilAYUWlnZt82XHcqnEBkQ8JhkTS3CHM+ye6UiSkWyLw4plYFKqJ9ZGURar
+ Km0HUg2O2yMXg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- BA0D13808200; Wed, 18 Mar 2026 03:40:35 +0000 (UTC)
+ 3FFCF3808200; Wed, 18 Mar 2026 03:40:37 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177380523454.113469.14485009686148036566.git-patchwork-notify@kernel.org>
-Date: Wed, 18 Mar 2026 03:40:34 +0000
-References: <abUtGH9KB03PH5Ne@shell.armlinux.org.uk>
-In-Reply-To: <abUtGH9KB03PH5Ne@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, hawk@kernel.org, daniel@iogearbox.net,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- ast@kernel.org, andrew+netdev@lunn.ch, edumazet@google.com, sdf@fomichev.me,
- kuba@kernel.org, bpf@vger.kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v4 00/15] net: stmmac: clean up
- descriptor handling part 1
+Message-Id: <177380523578.113469.12534429691494800323.git-patchwork-notify@kernel.org>
+Date: Wed, 18 Mar 2026 03:40:35 +0000
+References: <20260316010041.164360-1-inochiama@gmail.com>
+In-Reply-To: <20260316010041.164360-1-inochiama@gmail.com>
+To: Inochi Amaoto <inochiama@gmail.com>
+Cc: me@ziyao.cc, looong.bin@gmail.com, linux-kernel@vger.kernel.org,
+ edumazet@google.com, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ weishangjuan@eswincomputing.com, alex@ghiti.fr, siyanteng@cqsoftware.com.cn,
+ joabreu@synopsys.com, vladimir.oltean@nxp.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ aou@eecs.berkeley.edu, richardcochran@gmail.com, dlan@kernel.org,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, rmk+kernel@armlinux.org.uk,
+ peppe.cavallaro@st.com, wens@kernel.org, spacemit@lists.linux.dev,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, dlan@gentoo.org,
+ netdev@vger.kernel.org, quentin.schulz@cherry.de, lizhi2@eswincomputing.com,
+ andrew+netdev@lunn.ch, palmer@dabbelt.com, boon.khai.ng@altera.com,
+ mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v10 0/4] riscv: spacemit: Add
+ ethernet support for K3
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,42 +74,45 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.79 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
 	TAGGED_FROM(0.00)[netdevbpf];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:inochiama@gmail.com,m:me@ziyao.cc,m:looong.bin@gmail.com,m:linux-kernel@vger.kernel.org,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:siyanteng@cqsoftware.com.cn,m:joabreu@synopsys.com,m:vladimir.oltean@nxp.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:richardcochran@gmail.com,m:dlan@kernel.org,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:rmk+kernel@armlinux.org.uk,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:spacemit@lists.linux.dev,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:quentin.schulz@cherry.de,m:lizhi2@eswincomputing.com,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:looongbin@gmail.com,m:conor@kernel.org,m
+ :rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:hawk@kernel.org,m:daniel@iogearbox.net,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:ast@kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:sdf@fomichev.me,m:kuba@kernel.org,m:bpf@vger.kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[37];
+	FREEMAIL_CC(0.00)[ziyao.cc,gmail.com,vger.kernel.org,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,eswincomputing.com,ghiti.fr,cqsoftware.com.cn,synopsys.com,nxp.com,redhat.com,eecs.berkeley.edu,bp.renesas.com,armlinux.org.uk,st.com,lists.linux.dev,gentoo.org,cherry.de,lunn.ch,dabbelt.com,altera.com,davemloft.net];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.416];
+	NEURAL_HAM(-0.00)[-0.843];
 	RCVD_COUNT_FIVE(0.00)[5];
 	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	FROM_NO_DN(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FROM_NO_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: C938E2B589E
+X-Rspamd-Queue-Id: C23842B58A5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -110,47 +121,28 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Sat, 14 Mar 2026 09:40:40 +0000 you wrote:
-> Hi,
+On Mon, 16 Mar 2026 09:00:36 +0800 you wrote:
+> Add initial support for ethernet controller of the Spacemit K3 SoC.
+> This ethernet controller is almost a standard Synopsys DesignWare
+> MAC (version 5.40a). This controller require a syscon device to
+> configure some basic features, like interface type and internal delay.
 > 
-> Part 1 of cleaning up the stmmac descriptor handling. Rearrange the
-> struct stmmac_tx_info to pack better, and introduce helpers for
-> duplicated code handing the transmit and receive descriptors. Remove
-> unnecessary struct members that are only transitorily used.
+> Change from v9:
+> - https://lore.kernel.org/netdev/20260312012232.373713-1-inochiama@gmail.com
+> patch 3:
+> 1. fix misaligned brace.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,v4,01/15] net: stmmac: rearrange stmmac_tx_info members to pack better
-    https://git.kernel.org/netdev/net-next/c/12b4b16c0c7e
-  - [net-next,v4,02/15] net: stmmac: helpers for filling tx_q->tx_skbuff_dma
-    https://git.kernel.org/netdev/net-next/c/a4b1590ee0f0
-  - [net-next,v4,03/15] net: stmmac: clean up stmmac_clear_rx_descriptors()
-    https://git.kernel.org/netdev/net-next/c/ee19df4d3bb7
-  - [net-next,v4,04/15] net: stmmac: add helper to get hardware receive descriptor
-    https://git.kernel.org/netdev/net-next/c/ee1b6a94ba12
-  - [net-next,v4,05/15] net: stmmac: add helper to get size of a receive descriptor
-    https://git.kernel.org/netdev/net-next/c/4f6280c450ba
-  - [net-next,v4,06/15] net: stmmac: add helper to set receive tail pointer
-    https://git.kernel.org/netdev/net-next/c/e9d0cafa9d60
-  - [net-next,v4,07/15] net: stmmac: remove rx_tail_addr
-    https://git.kernel.org/netdev/net-next/c/bea37bda7f75
-  - [net-next,v4,08/15] net: stmmac: use consistent tests for receive buffer size
-    https://git.kernel.org/netdev/net-next/c/0b3d09031437
-  - [net-next,v4,09/15] net: stmmac: add helper to set receive buffer size
-    https://git.kernel.org/netdev/net-next/c/a32734d25d87
-  - [net-next,v4,10/15] net: stmmac: simplify stmmac_set_queue_rx_buf_size()
-    https://git.kernel.org/netdev/net-next/c/337191f37748
-  - [net-next,v4,11/15] net: stmmac: add helper to get hardware transmit descriptor
-    https://git.kernel.org/netdev/net-next/c/c493261de1c4
-  - [net-next,v4,12/15] net: stmmac: add helper to get size of a transmit descriptor
-    https://git.kernel.org/netdev/net-next/c/2c3525ad09e9
-  - [net-next,v4,13/15] net: stmmac: add helper to set transmit tail pointer
-    https://git.kernel.org/netdev/net-next/c/b2fd52d90b8a
-  - [net-next,v4,14/15] net: stmmac: remove tx_tail_addr
-    https://git.kernel.org/netdev/net-next/c/0da7809235d9
-  - [net-next,v4,15/15] net: stmmac: use queue rather than ->queue_index
-    https://git.kernel.org/netdev/net-next/c/8cde3c87039b
+  - [net-next,v10,1/4] dt-bindings: net: Add support for Spacemit K3 dwmac
+    https://git.kernel.org/netdev/net-next/c/bb30400a566c
+  - [net-next,v10,2/4] net: stmmac: platform: Add snps,dwmac-5.40a IP compatible string
+    https://git.kernel.org/netdev/net-next/c/d35aa97ea908
+  - [net-next,v10,3/4] net: stmmac: Add glue layer for Spacemit K3 SoC
+    https://git.kernel.org/netdev/net-next/c/30f0ba420ed3
+  - [net-next,v10,4/4] MAINTAINERS: add entry for SpacemiT DWMAC glue layer
+    https://git.kernel.org/netdev/net-next/c/25e7553a502b
 
 You are awesome, thank you!
 -- 
