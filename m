@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sM9xHb2DumnrXQIAu9opvQ
+	id CNsbEL2DumnrXQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 11:51:41 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53F212BA39D
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B4372BA390
 	for <lists+linux-stm32@lfdr.de>; Wed, 18 Mar 2026 11:51:41 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE482C8F263;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6A87C87ED8;
 	Wed, 18 Mar 2026 10:51:40 +0000 (UTC)
 Received: from metis.whiteo.stw.pengutronix.de
  (metis.whiteo.stw.pengutronix.de [185.203.201.7])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4A72C87ECE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38148C87ECE
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 18 Mar 2026 10:51:39 +0000 (UTC)
 Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
  by metis.whiteo.stw.pengutronix.de with esmtps
  (TLS1.3:ECDHE_RSA_AES_256_GCM_SHA384:256) (Exim 4.92)
  (envelope-from <ore@pengutronix.de>)
- id 1w2oUn-0001WO-F2; Wed, 18 Mar 2026 11:51:25 +0100
+ id 1w2oUn-0001WP-Ey; Wed, 18 Mar 2026 11:51:25 +0100
 Received: from dude04.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::ac]
  helo=dude04)
  by drehscheibe.grey.stw.pengutronix.de with esmtps (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.96)
- (envelope-from <ore@pengutronix.de>) id 1w2oUn-000tSX-0T;
+ (envelope-from <ore@pengutronix.de>) id 1w2oUn-000tSY-0X;
  Wed, 18 Mar 2026 11:51:25 +0100
 Received: from ore by dude04 with local (Exim 4.98.2)
- (envelope-from <ore@pengutronix.de>) id 1w2oUn-00000003RJ7-0D7G;
+ (envelope-from <ore@pengutronix.de>) id 1w2oUn-00000003RJI-0IbV;
  Wed, 18 Mar 2026 11:51:25 +0100
 From: Oleksij Rempel <o.rempel@pengutronix.de>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 18 Mar 2026 11:51:22 +0100
-Message-ID: <20260318105123.819807-7-o.rempel@pengutronix.de>
+Date: Wed, 18 Mar 2026 11:51:23 +0100
+Message-ID: <20260318105123.819807-8-o.rempel@pengutronix.de>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260318105123.819807-1-o.rempel@pengutronix.de>
 References: <20260318105123.819807-1-o.rempel@pengutronix.de>
@@ -53,8 +53,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org,
  Oleksij Rempel <o.rempel@pengutronix.de>, kernel@pengutronix.de,
  David Jander <david@protonic.nl>, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v1 6/7] ARM: dts: stm32: stm32mp15x-mecio1-io:
-	Fix expander gpio line typo
+Subject: [Linux-stm32] [PATCH v1 7/7] ARM: dts: stm32: stm32mp15x-mecio1-io:
+	Move expander gpio-line-names to board files
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,25 +97,29 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.883];
+	NEURAL_HAM(-0.00)[-0.884];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	DBL_PROHIBIT(0.00)[0.0.0.20:email];
+	DBL_PROHIBIT(0.00)[0.0.0.21:email,0.0.0.20:email];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	R_DKIM_NA(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,protonic.nl:email,pengutronix.de:email,pengutronix.de:mid]
-X-Rspamd-Queue-Id: 53F212BA39D
+X-Rspamd-Queue-Id: 2B4372BA390
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: David Jander <david@protonic.nl>
 
-Fix a copy-paste error in the GPIO line names for the TCA6416 expander
-(gpio@20).
+Move the gpio-line-names properties for the I2C GPIO expanders (gpio0
+and gpio1) out of the common mecio1-io.dtsi file and into the specific
+board dts files.
 
-The common mecio1-io include file was originally defined using the
-mecio1r1 (Revision 1) hardware layout, but incorrectly labeled pin 13
-as "HSIN9_BIAS" instead of the actual "HSIN7_BIAS" present in the
-schematics.
+The layout originally defined in the common include file belonged to the
+mecio1r1 (Revision 1) hardware. This layout is moved 1:1 into the
+stm32mp153c-mecio1r1.dts file.
+
+The mecio1r0 (Revision 0) hardware utilizes a completely different
+pinout for these expanders. A new, accurate mapping reflecting the
+Revision 0 schematics is added to stm32mp151c-mecio1r0.dts.
 
 Fixes: 8267753c891c ("ARM: dts: stm32: Add MECIO1 and MECT1S board variants")
 Cc: stable@vger.kernel.org
@@ -123,21 +127,86 @@ Signed-off-by: David Jander <david@protonic.nl>
 Co-developed-by: Oleksij Rempel <o.rempel@pengutronix.de>
 Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
 ---
- arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts  | 14 ++++++++++++++
+ arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts  | 14 ++++++++++++++
+ arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi |  8 --------
+ 3 files changed, 28 insertions(+), 8 deletions(-)
 
+diff --git a/arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts b/arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts
+index 06ab77465816..862782d20d10 100644
+--- a/arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts
++++ b/arch/arm/boot/dts/st/stm32mp151c-mecio1r0.dts
+@@ -97,6 +97,20 @@ &ethernet0 {
+ 	st,eth-clk-sel;
+ };
+ 
++&gpio0 {
++	gpio-line-names = "HSIN0_BIAS", "HSIN1_BIAS", "HSIN2_BIAS", "HSIN3_BIAS",
++			  "HSIN4_BIAS", "", "STP_VREF0_LVL", "HSIN_VREF0_LVL",
++			  "STP0_FB_BIAS", "STP1_FB_BIAS", "STP2_FB_BIAS", "STP3_FB_BIAS",
++			  "", "", "", "";
++};
++
++&gpio1 {
++	gpio-line-names = "HSIN5_BIAS", "HSIN6_BIAS", "HSIN7_BIAS", "HSIN8_BIAS",
++			  "HSIN9_BIAS", "", "STP_VREF1_LVL", "HSIN_VREF1_LVL",
++			  "STP4_FB_BIAS", "STP5_FB_BIAS", "STP6_FB_BIAS", "",
++			  "", "", "LSIN8_BIAS", "LSIN9_BIAS";
++};
++
+ &gpiod {
+ 	gpio-line-names = "", "", "", "",
+ 			  "", "", "", "",
+diff --git a/arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts b/arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts
+index 2b3989303cd1..739cc18c3d3a 100644
+--- a/arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts
++++ b/arch/arm/boot/dts/st/stm32mp153c-mecio1r1.dts
+@@ -90,6 +90,20 @@ &clk_hse {
+ 	clock-frequency = <24000000>;
+ };
+ 
++&gpio0 {
++	gpio-line-names = "HSIN0_BIAS", "HSIN1_BIAS", "HSIN2_BIAS", "HSIN3_BIAS",
++			  "", "", "HSIN_VREF0_LVL", "HSIN_VREF1_LVL",
++			  "HSIN4_BIAS", "HSIN5_BIAS", "HSIN6_BIAS", "HSIN7_BIAS",
++			  "", "", "", "";
++};
++
++&gpio1 {
++	gpio-line-names = "HSIN8_BIAS", "HSIN9_BIAS", "HSIN10_BIAS", "HSIN11_BIAS",
++			  "", "", "HSIN_VREF2_LVL", "HSIN_VREF3_LVL",
++			  "HSIN12_BIAS", "HSIN13_BIAS", "HSIN14_BIAS", "HSIN15_BIAS",
++			  "", "", "LSIN8_BIAS", "LSIN9_BIAS";
++};
++
+ &gpioa {
+ 	gpio-line-names = "", "", "", "",
+ 			  "", "", "", "",
 diff --git a/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi b/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-index 69a502ec36d4..1808289f8193 100644
+index 1808289f8193..1a4f5a523eb3 100644
 --- a/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
 +++ b/arch/arm/boot/dts/st/stm32mp15x-mecio1-io.dtsi
-@@ -186,7 +186,7 @@ gpio0: gpio@20 {
+@@ -184,10 +184,6 @@ gpio0: gpio@20 {
+ 		reg = <0x20>;
+ 		gpio-controller;
  		#gpio-cells = <2>;
- 		gpio-line-names = "HSIN0_BIAS", "HSIN1_BIAS", "HSIN2_BIAS", "HSIN3_BIAS",
- 				  "", "", "HSIN_VREF0_LVL", "HSIN_VREF1_LVL",
--				  "HSIN4_BIAS", "HSIN5_BIAS", "HSIN6_BIAS", "HSIN9_BIAS",
-+				  "HSIN4_BIAS", "HSIN5_BIAS", "HSIN6_BIAS", "HSIN7_BIAS",
- 				  "", "", "", "";
+-		gpio-line-names = "HSIN0_BIAS", "HSIN1_BIAS", "HSIN2_BIAS", "HSIN3_BIAS",
+-				  "", "", "HSIN_VREF0_LVL", "HSIN_VREF1_LVL",
+-				  "HSIN4_BIAS", "HSIN5_BIAS", "HSIN6_BIAS", "HSIN7_BIAS",
+-				  "", "", "", "";
  	};
+ 
+ 	gpio1: gpio@21 {
+@@ -195,10 +191,6 @@ gpio1: gpio@21 {
+ 		reg = <0x21>;
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+-		gpio-line-names = "HSIN8_BIAS", "HSIN9_BIAS", "HSIN10_BIAS", "HSIN11_BIAS",
+-				  "", "", "HSIN_VREF2_LVL", "HSIN_VREF3_LVL",
+-				  "HSIN12_BIAS", "HSIN13_BIAS", "HSIN14_BIAS", "HSIN15_BIAS",
+-				  "", "", "LSIN8_BIAS", "LSIN9_BIAS";
+ 	};
+ };
  
 -- 
 2.47.3
