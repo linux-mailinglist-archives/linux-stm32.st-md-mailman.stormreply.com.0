@@ -2,106 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aBzDJq3Qu2k4owIAu9opvQ
+	id cB4xCf/Su2k4owIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:32:13 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:42:07 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A9BC2C9820
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:32:13 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD8522C9A46
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:42:06 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1BE8C87ED3;
-	Thu, 19 Mar 2026 10:32:12 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011010.outbound.protection.outlook.com [52.101.70.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7701DC87ED3;
+	Thu, 19 Mar 2026 10:42:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4121C08D19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6F642C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 10:32:11 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=C87/IlIQ/FEYUvXgJQBKweZw/0us3aYqyuXSaKVw1HJcEsm4G4TLm9hj+rYIPODcilYQ61EEt8uTfCJp9CTKPZ8I1m03ldWmPXI18DWvcu8osFQ5T8xDEOTAQ1XNuZva26pMbFmOHNzvgEIFyllTxbwRF5Z6+u5PBDK9uVCiXa+4yKJLO49DAQvgQoKZETI2YKLRuRKUsEqiIDX9RZlbC0Ah0HptNF842CttMt/qsGpyf1zejj9SscUT6kopTXjOev7ihREL3ziHtmifc/jvro1UllxC4TMRfamLUjWfEUsab8ebr+x9LvClvSOq+1PhiX+/aIk5eXHXfP609zeYDg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YHOAXXZ/eo+gGOneXEPPxRZItUraHv3c0j7lWTUMNnM=;
- b=ntIlwI9A8xG+Rs9Fh5mSG5NBJVLFwdn7L0Innr3hkS+2ddQinpunFgIwnLRKbH9ZXkjnQbSHSZXblTkl9b7I0rLug4hBCoiVMwLvLLPqrplT5gMlenlog1c8PV6WXPeYv5KMdBLCK7brdJFl6+ZqK6n/JVuYpbAmXees+GlZoKlJb4pjxp7DDMCLzSBiUcdlEfTHlYRJ7qmMmocg+iAwXpIBG9xHOE1bs3AURVyw9ksM208skG7/vsvBv0aj2JiVUjMdIV8zQYBLcQq5a12Ubs/7fahLw26Sf0iZ9ba8zf36CHCXP1ZSyqD7/q5N62bK9NjbUQ6o8vx6BlVyoblL8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=YHOAXXZ/eo+gGOneXEPPxRZItUraHv3c0j7lWTUMNnM=;
- b=axCQwfodDxLORO+5uFLO7+qUEDYS9GsBeN9XbMeqjYty9f7ep3Bea/QfQmJIN6dEzV2U2WOM+AubPUWYl1zKBfWLh7/3UBxYVdz3T9QX2GzfBF21k2ZH1zQndhRtpcQqxewfdALhubKWYaUagCgAjEisoEQW4LETZHEFTVilh6a/c0bTJZaadKivkMgt/iztjO7zn0/0eDWRQ3oSY2PIm3d7UWA4/lBTwhgzBbEL/wUqcO/yHgIYjqHXu5SQGBmgOy02IWQDt4VQZamJzgHRT52kVczyRVEZ15RT7VuXqQizAKXic7Im+Wz+o51lmVlV/9UNFbDW/tYvZpyVKMDWPw==
-Received: from DB9PR05CA0026.eurprd05.prod.outlook.com (2603:10a6:10:1da::31)
- by DB8PR10MB3468.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:13f::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
- 2026 10:32:07 +0000
-Received: from DU2PEPF0001E9C0.eurprd03.prod.outlook.com
- (2603:10a6:10:1da:cafe::52) by DB9PR05CA0026.outlook.office365.com
- (2603:10a6:10:1da::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Thu,
- 19 Mar 2026 10:32:07 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU2PEPF0001E9C0.mail.protection.outlook.com (10.167.8.69) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9723.19 via Frontend Transport; Thu, 19 Mar 2026 10:32:07 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 19 Mar
- 2026 11:34:17 +0100
-Received: from [10.48.87.127] (10.48.87.127) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 19 Mar
- 2026 11:31:57 +0100
-Message-ID: <420953af-6a12-4277-8c31-062db01f78cc@foss.st.com>
-Date: Thu, 19 Mar 2026 11:31:55 +0100
+ Thu, 19 Mar 2026 10:42:05 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 1FE4D4072B;
+ Thu, 19 Mar 2026 10:42:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC83C19424;
+ Thu, 19 Mar 2026 10:42:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773916924;
+ bh=aJWa94CtA9j8mAxqF/xpiC4QvlVH32SKPSkyFhKrjJY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=uel6/ql+pRfFm5jj4EAWzusvayTD9UKGYdJKZpdUNDWTM9gCB65uPPjSXy890p0Zl
+ rlVLyO9LBJ7/0YVY3KV4/YpIL71uXYJsTMXSlKbxPt2rvKrIJXVC2Y4MA8YUca2m7H
+ iwobC4JQIiqy2xL0t0iAlS8fugXg4/VmQVKPWKY92ddK+o1qWf0hpSudCYUs8a3j8U
+ mVi9YDAdVLHw1oHj0H0e6xVri9q6ddRqDbvFnLUCmc1/Q3eaUhZeT2uux0UFoi0THD
+ mGFTqQsqBfDsa34l68AAYFnZO+DrXcxZkeFoBbGnm3Vi4sO9KUJ2qRshdUmOGiky25
+ grOO0Aryv0V7g==
+Message-ID: <0068d43a-e875-4f4e-aff6-3e8330e66c82@kernel.org>
+Date: Thu, 19 Mar 2026 11:41:58 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
 References: <20260317180329.1207625-1-arnaud.pouliquen@foss.st.com>
  <20260317180329.1207625-3-arnaud.pouliquen@foss.st.com>
  <20260319-glistening-ultramarine-ibis-1eb3d6@quoll>
+ <420953af-6a12-4277-8c31-062db01f78cc@foss.st.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
-In-Reply-To: <20260319-glistening-ultramarine-ibis-1eb3d6@quoll>
-X-Originating-IP: [10.48.87.127]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF0001E9C0:EE_|DB8PR10MB3468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1873009d-6059-41e0-1583-08de85a2c532
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|7416014|22082099003|56012099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info: QWve+BY+x6HpGenr6j1IPHEwbGyMsTXUTtmBtypDjBJORcN8rLudvsKqJV4yb9yc5UfyalqfHyMgieaRZjNmEQbbdu27LFv0DxxkYH353WFESUes9/m0apUhHAy8skVCFDHEwNleTENYKQf2S6GxOzm0VTfdRlbi2H7xcQLH+7ZP7OszlsilkhyQbnphhtK+QwIKlA04qql9dLxqqYyzeFPpXisN+OYakpJoaraD/+BIOxKj5VlDnitWWutXTCTcl5j4zk8DIKhjWouSd0wx6lgA/Bsc7XGV2nxUlACZKOGMuxzhw2zEBzhrTU9pGfjr6zsHPPyoiH8p49IBcM/mkUR64k/GVkDX+MwtvGeLaScGAsDttIeKE0T04M7fkpiLnoaBLKVS1yOAKjCk3DjKrMT1mUh7Iil7fSt38eq4CL2KGcnb6dsOV1nM13P28Deg8AQNFPfOdDPhatD3GzKCbYvk4DhiZ7dtrFxEgr9F9DhDKSZSo4EmVN1w4wHCmB56ceUX3dLr0cdtyefVPQU5bXW96NH90SFcVqUv2isa1y9343FYC6XJFa3E2u7ncsXTuviTGiUSbix1hxKhGVEQESeZC6kKQZPWoKSJ2QpiXuPrcchXukMn9wuwEbVPxa6LLJchQscimgFBL7yExkQVXbyAdp0QJGadmWrW/JzH/kfKZVMrxUjV0ri3NEyTqcP2ummuCeNewJStCozjP4CXIXH1IkAmF1a6h6pOMNwyHQg=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(7416014)(22082099003)(56012099003)(18002099003)(13003099007);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 25QiXcyWSsmb06IhMXt9SGF2GQvEYvbJ7X8KPPARfLYoL5bn5rqP4ITp/zfyHYiDK+tPUrxwxLvwc6XKxBvXI9J87TzJ1c5kqmX3cEyH17gHXiA1cW1M7AbvXk1PfhkldYM78W72/MhSt9XjnUq8ZHc2ly7hh4ds0UoaFzy4baA76c8MDK+9Ljr4CpOPrflg7Fe8/C0dFMe8xvGUtI7zAxQqoUvr/O395C7J4q97sKAHaR0cFYt2W1nTuReXYEsjFgSj1RKW1w9BSPvdnjxwdiny/kIsUhPzlqE35IjjmJ96LeeXZyy2/mUIdfmqVP0tV2QLlqyVCM/N0/CS0xDFyyUoBnZjZBPmXU2DfmMhEykN/Ho1nSEULt3+eovX0WzNtbLa6ekCXoYIfM9D5L2xxOa6gpm6WPqy49ixiq3xub69b4fF/Way1X3clFMEYCIQ
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 10:32:07.1602 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1873009d-6059-41e0-1583-08de85a2c532
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF0001E9C0.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3468
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <420953af-6a12-4277-8c31-062db01f78cc@foss.st.com>
 Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
  Mathieu Poirier <mathieu.poirier@linaro.org>, op-tee@lists.trustedfirmware.org,
  Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
@@ -123,264 +109,161 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:krzk@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:op-tee@lists.trustedfirmware.org,m:andersson@kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh+dt@kernel.org,m:sumit.garg@kernel.org,m:krzk+dt@kernel.org,m:jens.wiklander@linaro.org,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:robh@kernel.org,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[14];
+	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:arnaud.pouliquen@foss.st.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:op-tee@lists.trustedfirmware.org,m:andersson@kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh+dt@kernel.org,m:sumit.garg@kernel.org,m:krzk+dt@kernel.org,m:jens.wiklander@linaro.org,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:robh@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[0.0.0.0:email,st.com:email,lkml.org:url,devicetree.org:url,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.979];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.877];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 2A9BC2C9820
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,lkml.org:url,st-md-mailman.stormreply.com:rdns,devicetree.org:url]
+X-Rspamd-Queue-Id: BD8522C9A46
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hello Krzysztof,
-
-
-On 3/19/26 09:06, Krzysztof Kozlowski wrote:
-> On Tue, Mar 17, 2026 at 07:03:23PM +0100, Arnaud Pouliquen wrote:
->> Add a Device Tree binding for the STM32 remote processor controlled
->> via a Trusted Application running in OP-TEE.
->> This binding describes the interface and properties required for STM32MP
->> remoteproc instances managed by the TEE rproc service, including a
->> linkage to the TEE backend through the property "rproc-tee-phandle".
+On 19/03/2026 11:31, Arnaud POULIQUEN wrote:
+> Hello Krzysztof,
+> 
+> 
+> On 3/19/26 09:06, Krzysztof Kozlowski wrote:
+>> On Tue, Mar 17, 2026 at 07:03:23PM +0100, Arnaud Pouliquen wrote:
+>>> Add a Device Tree binding for the STM32 remote processor controlled
+>>> via a Trusted Application running in OP-TEE.
+>>> This binding describes the interface and properties required for STM32MP
+>>> remoteproc instances managed by the TEE rproc service, including a
+>>> linkage to the TEE backend through the property "rproc-tee-phandle".
+>>>
+>>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>>> ---
+>>> V21 updates:
+>>> - the m4 node is no more declared as a child of the optee-rproc node
+>>> - "rproc-tee-phandle" property is introduced to reference the optee-rproc
+>>> ---
+>>>   .../remoteproc/st,stm32-rproc-tee.yaml        | 108 ++++++++++++++++++
+>>>   1 file changed, 108 insertions(+)
+>>>   create mode 100644 Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+>>> new file mode 100644
+>>> index 000000000000..ca4dd1c8e7b0
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+>>> @@ -0,0 +1,108 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/remoteproc/st,stm32-rproc-tee.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: STMicroelectronics STM32 remote processor controlled via TEE
+>>> +
+>>> +maintainers:
+>>> +  - Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>>> +
+>>> +description: |
+>>> +  STM32MP remote processor controlled by a Trusted Application
+>>> +  running in OP-TEE. This node is a child of the TEE remoteproc service
+>>> +  (UUID 80a4c275-0a47-4905-8285-1486a9771a08) and exposes a remoteproc
+>>> +  instance managed by the Linux remoteproc core via the TEE rproc service.
+>>> +
+>>> +  Firmware loading, authentication and remote processor start/stop are managed
+>>> +  by the TEE application. The STM32-specific driver handles platform resources
+>>> +  such as the mailboxes and reserved-memory.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: st,stm32mp1-m4-tee
 >>
->> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> ---
->> V21 updates:
->> - the m4 node is no more declared as a child of the optee-rproc node
->> - "rproc-tee-phandle" property is introduced to reference the optee-rproc
->> ---
->>   .../remoteproc/st,stm32-rproc-tee.yaml        | 108 ++++++++++++++++++
->>   1 file changed, 108 insertions(+)
->>   create mode 100644 Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
->>
->> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
->> new file mode 100644
->> index 000000000000..ca4dd1c8e7b0
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
->> @@ -0,0 +1,108 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/remoteproc/st,stm32-rproc-tee.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: STMicroelectronics STM32 remote processor controlled via TEE
->> +
->> +maintainers:
->> +  - Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
->> +
->> +description: |
->> +  STM32MP remote processor controlled by a Trusted Application
->> +  running in OP-TEE. This node is a child of the TEE remoteproc service
->> +  (UUID 80a4c275-0a47-4905-8285-1486a9771a08) and exposes a remoteproc
->> +  instance managed by the Linux remoteproc core via the TEE rproc service.
->> +
->> +  Firmware loading, authentication and remote processor start/stop are managed
->> +  by the TEE application. The STM32-specific driver handles platform resources
->> +  such as the mailboxes and reserved-memory.
->> +
->> +properties:
->> +  compatible:
->> +    const: st,stm32mp1-m4-tee
+>> Drop "tee", it suggests that compatible is tied to implementation of FW
+>> you put there.
 > 
-> Drop "tee", it suggests that compatible is tied to implementation of FW
-> you put there.
+> The "st,stm32mp1-m4" compatible string already exists in 
 
-The "st,stm32mp1-m4" compatible string already exists in 
-drivers/remoteproc/stm32_rproc.c, and "st,stm32mp1-m4-tee" compatible is 
-upstreamed in OP-TEE.
+Then probably this binding needs changes, because in general you should
+not have two compatibles for the same hardware. Maybe that's special
+case, but then needs explanations in commit msg why is that.
 
-Notice that I have also the stm32mp2 SoC to upstream expecting to have 
-similar compatible:
-- st,stm32mp1-m33
-- st,stm32mp2-m33-tee
+> drivers/remoteproc/stm32_rproc.c, and "st,stm32mp1-m4-tee" compatible is 
+> upstreamed in OP-TEE.
 
-Depending on the compatible string, the hardware behavior changes.
-With the "xxxx-tee" compatible, OP-TEE also manages the isolation of 
-remote processor resources (memory, clock reset, peripherals).
-Without the "xxxx-tee" compatible, OP-TEE have to ensure that the Linux
-has the good access right to manage the remote processor.
+That is not our problem and strong no-go. Other projects are supposed to
+participate in upstream bindings review and take the bindings once they
+are reviewed and accepted here. If they take without review, it's their
+problem.
 
-For instance if st,stm32mp1-m4-tee is set instead of st,stm32mp1-m4, on
-linux side
-- only memory regions used for IPC should be declared
-- memory regions containing the remote firmware must not be declared as 
-not accessible by the Linux ( managed by OP-TEE).
-- resets must not be declared ( managed by OP-TEE)
-
-You probably don't remember, as it was a long time ago, but we already 
-discussed this point with Rob[1].
-[1] https://lkml.org/lkml/2024/1/18/100
-
-Do it still reasonable to you and Rob or should we find an alternative?
+Imagine that: some whatever project takes whatever crap (not saying
+Optee is like that, just imagine for sake of discussion) and then you
+send bindings to upstream and claim "that project took it, so you must
+do as well". Great loophole to squeeze poor stuff to the kernel, so any
+such argument is for me a warning sign.
 
 
-Thanks and Regards,
+> 
+> Notice that I have also the stm32mp2 SoC to upstream expecting to have 
+> similar compatible:
+> - st,stm32mp1-m33
+> - st,stm32mp2-m33-tee
+> 
+> Depending on the compatible string, the hardware behavior changes.
+> With the "xxxx-tee" compatible, OP-TEE also manages the isolation of 
+> remote processor resources (memory, clock reset, peripherals).
+> Without the "xxxx-tee" compatible, OP-TEE have to ensure that the Linux
+> has the good access right to manage the remote processor.
 
-Arnaud
+Still the same device, no?
+
+You can have a property defining how Linux should access such device,
+e.g. because FW does this and that.
 
 > 
->> +
->> +  reg:
->> +    description: |
+> For instance if st,stm32mp1-m4-tee is set instead of st,stm32mp1-m4, on
+> linux side
+> - only memory regions used for IPC should be declared
+> - memory regions containing the remote firmware must not be declared as 
+> not accessible by the Linux ( managed by OP-TEE).
+> - resets must not be declared ( managed by OP-TEE)
 > 
-> Do not need '|' unless you need to preserve formatting.
+> You probably don't remember, as it was a long time ago, but we already 
+> discussed this point with Rob[1].
+> [1] https://lkml.org/lkml/2024/1/18/100
 > 
->> +      Remote processor identifier used by the TEE service. The <0> value
->> +      in the example denotes a single instance with ID 0.
->> +    maxItems: 1
->> +
->> +  mboxes:
->> +    description: |
->> +      Mailbox channels used for rpmsg/virtio functionality and processor
->> +      shutdown.
->> +    maxItems: 3
->> +
->> +  mbox-names:
->> +    items:
->> +      - const: vq0
->> +      - const: vq1
->> +      - const: shutdown
->> +
->> +  memory-region:
->> +    description: |
->> +      List of phandles to reserved-memory nodes describing the memory layout
->> +      for the interprocessors communication.
-> 
-> Drop description. You miss maxItems, though.
-> 
->> +
->> +  interrupts:
->> +    description: |
-> 
-> Same comments...
-> 
->> +      Optional watchdog / status interrupt line used to detect crashes
->> +      and optionally wake up the system.
->> +    maxItems: 1
->> +
->> +  st,auto-boot:
->> +    type: boolean
->> +    description: |
->> +      If present, the remote processor will be automatically started by
->> +      the remoteproc core at boot.
-> 
-> That's policy, not DT property.
-> 
->> +
->> +  wakeup-source:
->> +    type: boolean
->> +    description: |
->> +      Indicates that the watchdog interrupt can be used as a wakeup source.
->> +
->> +  rproc-tee-phandle:
-> 
-> Missing vendor prefix, drop phandle. You do not say that "st,auto-boot"
-> is "st,auto-boot-boolean"
-> 
->> +    description: |
->> +      Phandle to the remote processor backend node and its identifier. This property
->> +      is used to link the TEE remoteproc service to the remote processor instance
->> +      it controls. The value is a phandle reference to the remote processor node,
->> +      followed by a cell specifying the remote processor identifier used by the TEE.
->> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> 
-> Missing constraints.
-> 
-> I also do not understand which bus node this is being child, if not
-> remote proc.
-> 
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - rproc-tee-phandle
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    firmware {
->> +        tee_rproc: optee-rproc {
->> +            compatible = "80a4c275-0a47-4905-8285-1486a9771a08";
->> +        };
->> +    };
-> 
-> Drop
-> 
->> +
->> +    m4: m4@0 {
-> 
-> Drop unused label.
-> 
-> Node names should be generic. See also an explanation and list of
-> examples (not exhaustive) in DT specification:
-> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
-> If you cannot find a name matching your device, please check in kernel
-> sources for similar cases or you can grow the spec (via pull request to
-> DT spec repo).
-> 
-> e.g. mcu, because m4 feels like given model (Cortex M4?).
-> 
->> +      compatible = "st,stm32mp1-m4-tee";
->> +      reg = <0 0>;
->> +
->> +      mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
->> +      mbox-names = "vq0", "vq1", "shutdown";
->> +
->> +      memory-region = <&vdev0vring0>, <&m_ipc_shm>, <&mcuram2>,
->> +                      <&vdev0vring1>, <&vdev0buffer>, <&retram>;
->> +
->> +      interrupt-parent = <&exti>;
->> +      interrupts = <68 1>;
->> +
->> +      rproc-tee-phandle = <&tee_rproc 0>;
->> +      st,auto-boot;
->> +      wakeup-source;
->> +
->> +      status = "okay";
-> 
-> Drop
-> 
-> Best regards,
-> Krzysztof
-> 
+> Do it still reasonable to you and Rob or should we find an alternative?
 
+Get ack from Rob then.
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
