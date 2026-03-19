@@ -2,68 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yKEGMGfXu2k4owIAu9opvQ
+	id +IfnC5fxu2kgqgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 12:00:55 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 13:52:39 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFBE72C9E2F
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 12:00:50 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7C062CB6AD
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 13:52:38 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72199C8F263;
-	Thu, 19 Mar 2026 11:00:50 +0000 (UTC)
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50E6CC87ED3;
+	Thu, 19 Mar 2026 12:52:38 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02FC7C8F262
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0812AC08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 11:00:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=from:to:cc:subject:date:message-id
- :in-reply-to:references:mime-version:content-transfer-encoding;
- s=k1; bh=8P0L9KPwWoEYp1wqQDiVOeC14U3qRws47dAHCjsDfpU=; b=J19rHB
- G516Loa6KC6cjNGGFS6o39M4DvYSmlYx0QBMOCbXALpYnvDPX8PK0Ysde2dY5S/m
- CofMZy0XIPxcM/hMk+EKEbWc1QBaTNmwwQihV+wIdVVVGpQ+5Imfxm6mPl9dgqpU
- KYE604Us3WOi39pIr57P/EwQ43UUFvuSO2+W5Zh8UyOD1Dh3Hvv+QVJKWF6NS/Z6
- kTCH3carn9FCIQJqEVunQCtXr+C5x7E3kfA09zY1FbZDPYDfTJZ7RLyOYoAZ0yJD
- onQsy/5KWEQU8kOpB97D8xHOYeql7xpruf4pyAPjoOul/oKpy0Z6v3NgySB6U4BA
- G7HDzcHC+BiIDsug==
-Received: (qmail 1100090 invoked from network); 19 Mar 2026 12:00:14 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 19 Mar 2026 12:00:14 +0100
-X-UD-Smtp-Session: l3s3148p1@9ooZeV5N5K0gAwDPXzF+ANZpdrMKUeLI
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Date: Thu, 19 Mar 2026 11:59:37 +0100
-Message-ID: <20260319105947.6237-16-wsa+renesas@sang-engineering.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260319105947.6237-1-wsa+renesas@sang-engineering.com>
-References: <20260319105947.6237-1-wsa+renesas@sang-engineering.com>
+ Thu, 19 Mar 2026 12:52:36 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 4926C600C4;
+ Thu, 19 Mar 2026 12:52:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9282C19424;
+ Thu, 19 Mar 2026 12:52:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773924755;
+ bh=jA7diFAaatzjClu0BNNjaXH84miUw/aL+tXzTcfiSyY=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=Udm/5szmcmrn1FQPUv6e/j0SN6gP++q+sDVLk95f5h2PMysLxA/Z+vmQxnocUccUn
+ NuBv89GwjGw+atxJn1J0so9qkU5Fz40p+PTENxR41hcO8d78y7WoL7d68u7RJwiVoU
+ 24b8F9r9Rglgs2jG81B2Ku5fqywDVKhnmPJe34SHQaQbe0jVM5wnV7X8Yl87k20mNN
+ uLVYl3OTVyKbPcX2UWMxSpOwWjfeL17ZUhqEmwTrU9V9I6dAEZqrK0WhNYjr1Zk1rv
+ FL2a3cllmUIkPZSTj7CNTbJNtleLxEuRoC6olnUM1WEiLl3YJslQyYkYq6xD3FW/z0
+ rvKJyE92if+Dg==
+Date: Thu, 19 Mar 2026 12:52:22 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: Joshua Hahn <joshua.hahnjy@gmail.com>
+Message-ID: <caf19e7e-e8dc-4409-8655-f734279b0c45@lucifer.local>
+References: <72750af6906fd96fb6f18e83ac3e694cf357a2c1.1773695307.git.ljs@kernel.org>
+ <20260318210845.2591228-1-joshua.hahnjy@gmail.com>
 MIME-Version: 1.0
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Boqun Feng <boqun@kernel.org>,
- Shuah Khan <skhan@linuxfoundation.org>, linux-remoteproc@vger.kernel.org,
- =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, driver-core@lists.linux.dev,
- Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- Ingo Molnar <mingo@redhat.com>, Waiman Long <longman@redhat.com>,
- David Lechner <dlechner@baylibre.com>, Konrad Dybcio <konradybcio@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Jonathan Cameron <jonathan.cameron@huawei.com>,
- Orson Zhai <orsonzhai@gmail.com>, linux-arm-kernel@lists.infradead.org,
- Andy Shevchenko <andy@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Linus Walleij <linusw@kernel.org>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Jonathan Cameron <jic23@kernel.org>
-Subject: [Linux-stm32] [PATCH v5 15/15] hwspinlock/treewide: refactor
-	consumer.h from public header
+Content-Disposition: inline
+In-Reply-To: <20260318210845.2591228-1-joshua.hahnjy@gmail.com>
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-doc@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-scsi@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, Long Li <longli@microsoft.com>,
+ linux-staging@lists.linux.dev, Dexuan Cui <decui@microsoft.com>,
+ linux-afs@lists.infradead.org, Pedro Falcato <pfalcato@suse.de>,
+ Ryan Roberts <ryan.roberts@arm.com>, Arnd Bergmann <arnd@arndb.de>,
+ Jann Horn <jannh@google.com>, Haiyang Zhang <haiyangz@microsoft.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-arm-kernel@lists.infradead.org,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v2 12/16] mm: allow handling of stacked
+ mmap_prepare hooks in more drivers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,278 +84,180 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_FROM(0.00)[renesas];
+	FORGED_RECIPIENTS(0.00)[m:joshua.hahnjy@gmail.com,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32
+ @gmail.com,m:linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:joshuahahnjy@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[sang-engineering.com];
-	FORGED_RECIPIENTS(0.00)[m:linux-renesas-soc@vger.kernel.org,m:rafael@kernel.org,m:peterz@infradead.org,m:boqun@kernel.org,m:skhan@linuxfoundation.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:wsa+renesas@sang-engineering.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:driver-core@lists.linux.dev,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:linux-iio@vger.kernel.org,m:mingo@redhat.com,m:longman@redhat.com,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:srini@kernel.org,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:jonathan.cameron@huawei.com,m:orsonzhai@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:gregkh@linuxfoundation.org,m:linusw@kernel.org,m:linux-doc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:tglx@kernel.org,m:mcoquelin.stm32@gmail.com,m:andersson@kernel.org,m:jic23@ke
- rnel.org,m:wsa@sang-engineering.com,m:zhanglyra@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[39];
-	RCVD_COUNT_THREE(0.00)[3];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[43];
+	FREEMAIL_TO(0.00)[gmail.com];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,infradead.org,linuxfoundation.org,vger.kernel.org,analog.com,sang-engineering.com,st-md-mailman.stormreply.com,lists.linux.dev,lwn.net,gmail.com,redhat.com,baylibre.com,arndb.de,linux.alibaba.com,huawei.com,lists.infradead.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.854];
+	NEURAL_HAM(-0.00)[-0.145];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[sang-engineering.com:-];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	RSPAMD_EMAILBL_FAIL(0.00)[alexander.shishkin.linux.intel.com:query timed out,lee.kernel.org:query timed out];
+	FROM_NEQ_ENVFROM(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com,linux-foundation.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[huawei.com:email,st-md-mailman.stormreply.com:rdns,ti.com:url,intel.com:email,sang-engineering.com:email,sang-engineering.com:mid,wizery.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: AFBE72C9E2F
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: B7C062CB6AD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Factor out the entries only needed for consumers from the generic public
-header. This allows for a clean separation between providers and
-consumers. Also remove contact field in favor of MAINTAINERS entries.
-Fix the users, too.
+On Wed, Mar 18, 2026 at 02:08:45PM -0700, Joshua Hahn wrote:
+> On Mon, 16 Mar 2026 21:12:08 +0000 "Lorenzo Stoakes (Oracle)" <ljs@kernel.org> wrote:
+>
+> > While the conversion of mmap hooks to mmap_prepare is underway, we wil
+> > encounter situations where mmap hooks need to invoke nested mmap_prepare
+> > hooks.
+> >
+> > The nesting of mmap hooks is termed 'stacking'.  In order to flexibly
+> > facilitate the conversion of custom mmap hooks in drivers which stack, we
+> > must split up the existing compat_vma_mapped() function into two separate
+> > functions:
+> >
+> > * compat_set_desc_from_vma() - This allows the setting of a vm_area_desc
+> >   object's fields to the relevant fields of a VMA.
+>
+> Hello Lorenzo, I hope you are doing well!
+>
+> Thank you for this patch. I was developing on top of mm-new today and had
+> an error that I think was caused by this patch. I want to preface this by
+> saying that I am not at all familiar with this area of the code, so please
+> do forgive me if I've misinterpreted the crash and mistakenly pointed
+> at this commit : -)
+>
+> Here is the crash:
+>
+> [    1.083795] kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+> [    1.083883] BUG: unable to handle page fault for address: ffa00000048efbb8
+> [    1.083957] #PF: supervisor instruction fetch in kernel mode
+> [    1.084030] #PF: error_code(0x0011) - permissions violation
+> [    1.084086] PGD 100000067 P4D 10035f067 PUD 100364067 PMD 441ed9067 PTE 80000004466a3163
+> [    1.084162] Oops: Oops: 0011 [#1] SMP
+> [    1.084218] CPU: 0 UID: 0 PID: 305 Comm: mkdir Tainted: G        W   E       7.0.0-rc4-virtme-00442-ge53de5a0302f-dirty #85 PREEMPTLAZY
+>
+> As you can see, it's on a QEMU instance. I don't think this makes a difference
+> in the crash, though.
+>
+> [    1.084321] Tainted: [W]=WARN, [E]=UNSIGNED_MODULE
+> [    1.084369] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.16.3-5.el9 11/05/2023
+> [    1.084450] RIP: 0010:0xffa00000048efbb8
+> [    1.084489] Code: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 <40> 12 0e 00 01 00 11 ff d0 fa 8e 04 00 00 a0 ff 80 33 51 02 01 00
+> [    1.084642] RSP: 0018:ffa00000048ef998 EFLAGS: 00010286
+> [    1.084692] RAX: ffa00000048efbb8 RBX: ff11000102512cc0 RCX: 000000000000000d
+> [    1.084766] RDX: ffffffffa06247d0 RSI: ffa00000048efa18 RDI: ff11000102512cc0
+> [    1.084826] RBP: ffa00000048ef9c8 R08: 0000000000000000 R09: 0000000000000007
+> [    1.084889] R10: ff110001047d1f08 R11: 00007effdc3d0fff R12: ff110001047d3b00
+> [    1.084954] R13: ff11000446cae600 R14: ff110001024efe00 R15: ff11000102510a80
+> [    1.085021] FS:  0000000000000000(0000) GS:ff110004aae72000(0000) knlGS:0000000000000000
+> [    1.085083] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    1.085136] CR2: ffa00000048efbb8 CR3: 0000000102667001 CR4: 0000000000771ef0
+> [    1.085201] PKRU: 55555554
+> [    1.085228] Call Trace:
+> [    1.085248]  <TASK>
+> [    1.085274]  ? __compat_vma_mmap+0x8e/0x130
+> [    1.085318]  ? compat_vma_mmap+0x76/0x80
+> [    1.085354]  ? mas_alloc_nodes+0xb2/0x110
+> [    1.085390]  ? backing_file_mmap+0xc3/0xf0
+> [    1.085426]  ? ovl_mmap+0x41/0x50
+> [    1.085463]  ? ovl_mmap+0x50/0x50
+> [    1.085499]  ? __mmap_region+0x7e8/0x1100
+> [    1.085539]  ? do_mmap+0x49f/0x5e0
+> [    1.085573]  ? vm_mmap_pgoff+0xef/0x1e0
+> [    1.085609]  ? ksys_mmap_pgoff+0x15c/0x1f0
+> [    1.085647]  ? do_syscall_64+0xab/0x980
+> [    1.085684]  ? entry_SYSCALL_64_after_hwframe+0x4b/0x53
+> [    1.085730]  </TASK>
+> [    1.085770] Modules linked in: virtio_mmio(E) 9pnet_virtio(E) 9p(E) 9pnet(E) netfs(E)
+> [    1.085838] CR2: ffa00000048efbb8
+> [    1.085874] ---[ end trace 0000000000000000 ]---
+> [    1.085875] kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+> [    1.085918] RIP: 0010:0xffa00000048efbb8
+> [    1.085921] Code: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 <40> 12 0e 00 01 00 11 ff d0 fa 8e 04 00 00 a0 ff 80 33 51 02 01 00
+> [    1.085988] BUG: unable to handle page fault for address: ffa00000048f7bb8
+> [    1.086026] RSP: 0018:ffa00000048ef998 EFLAGS: 00010286
+> [    1.086166] #PF: supervisor instruction fetch in kernel mode
+> [    1.086221]
+> [    1.086267] #PF: error_code(0x0011) - permissions violation
+> [    1.086321] RAX: ffa00000048efbb8 RBX: ff11000102512cc0 RCX: 000000000000000d
+> [    1.086348] PGD 100000067
+> [    1.086394] RDX: ffffffffa06247d0 RSI: ffa00000048efa18 RDI: ff11000102512cc0
+> [    1.086459] P4D 10035f067
+> [    1.086486] RBP: ffa00000048ef9c8 R08: 0000000000000000 R09: 0000000000000007
+> [    1.086550] PUD 100364067
+> [    1.086577] R10: ff110001047d1f08 R11: 00007effdc3d0fff R12: ff110001047d3b00
+> [    1.086641] PMD 441ed9067
+> [    1.086668] R13: ff11000446cae600 R14: ff110001024efe00 R15: ff11000102510a80
+> [    1.086731] PTE 80000004433d3163
+> [    1.086764] FS:  0000000000000000(0000) GS:ff110004aae72000(0000) knlGS:0000000000000000
+> [    1.086829]
+> [    1.086868] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    1.086931] Oops: Oops: 0011 [#2] SMP
+> [    1.086958] CR2: ffa00000048efbb8 CR3: 0000000102667001 CR4: 0000000000771ef0
+> [    1.087015] CPU: 29 UID: 0 PID: 306 Comm: mount Tainted: G      D W   E       7.0.0-rc4-virtme-00442-ge53de5a0302f-dirty #85 PREEMPTLAZY
+> [    1.087050] PKRU: 55555554
+> [    1.087115] Tainted: [D]=DIE, [W]=WARN, [E]=UNSIGNED_MODULE
+> [    1.087207] Kernel panic - not syncing: Fatal exception
+> [    2.158392] Shutting down cpus with NMI
+> [    2.158629] Kernel Offset: disabled
+> [    2.158668] ---[ end Kernel panic - not syncing: Fatal exception ]---
+>
+> It crashes at compat_vma_mmap, and here is what I think could be the
+> potential crash path:
+>
+> - compat_vma_mmap() creates struct vm_area_desc desc;
+>   - compat_set_desc_from_vma Doesn't initialize the struct, but instead
+>     modifies independent fields. I think this is where the behavior
+>     diverges, since before we would use the C initializer and uninitialized
 
-Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Acked-by: Mark Brown <broonie@kernel.org>
-Acked-by: Jonathan Cameron <jonathan.cameron@huawei.com> # for IIO
-Acked-by: Lee Jones <lee@kernel.org> # for MFD
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Acked-by: Linus Walleij <linusw@kernel.org>
----
- Documentation/locking/hwspinlock.rst              |  2 +-
- MAINTAINERS                                       |  1 -
- drivers/base/regmap/regmap.c                      |  2 +-
- drivers/hwspinlock/hwspinlock_core.c              |  2 +-
- drivers/iio/adc/sc27xx_adc.c                      |  2 +-
- drivers/irqchip/irq-stm32mp-exti.c                |  2 +-
- drivers/mfd/syscon.c                              |  2 +-
- drivers/nvmem/sc27xx-efuse.c                      |  2 +-
- drivers/nvmem/sprd-efuse.c                        |  2 +-
- drivers/pinctrl/stm32/pinctrl-stm32.c             |  2 +-
- drivers/soc/qcom/smem.c                           |  2 +-
- drivers/spi/spi-sprd-adi.c                        |  2 +-
- .../linux/{hwspinlock.h => hwspinlock/consumer.h} | 15 ++++++---------
- 13 files changed, 17 insertions(+), 21 deletions(-)
- rename include/linux/{hwspinlock.h => hwspinlock/consumer.h} (98%)
+Ah yeah you're right I'll fix that up!
 
-diff --git a/Documentation/locking/hwspinlock.rst b/Documentation/locking/hwspinlock.rst
-index 6cf1975b4291..ae2d2007a442 100644
---- a/Documentation/locking/hwspinlock.rst
-+++ b/Documentation/locking/hwspinlock.rst
-@@ -306,7 +306,7 @@ Typical usage
- 
- ::
- 
--	#include <linux/hwspinlock.h>
-+	#include <linux/hwspinlock/consumer.h>
- 	#include <linux/err.h>
- 
- 	int hwspinlock_example(void)
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 117aa8d118b1..dc14679bcc31 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11212,7 +11212,6 @@ F:	Documentation/devicetree/bindings/hwlock/
- F:	Documentation/locking/hwspinlock.rst
- F:	drivers/hwspinlock/
- F:	include/linux/hwspinlock/
--F:	include/linux/hwspinlock.h
- 
- HARDWARE TRACING FACILITIES
- M:	Alexander Shishkin <alexander.shishkin@linux.intel.com>
-diff --git a/drivers/base/regmap/regmap.c b/drivers/base/regmap/regmap.c
-index 607c1246d994..d25494495469 100644
---- a/drivers/base/regmap/regmap.c
-+++ b/drivers/base/regmap/regmap.c
-@@ -16,7 +16,7 @@
- #include <linux/sched.h>
- #include <linux/delay.h>
- #include <linux/log2.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/unaligned.h>
- 
- #define CREATE_TRACE_POINTS
-diff --git a/drivers/hwspinlock/hwspinlock_core.c b/drivers/hwspinlock/hwspinlock_core.c
-index 6c8a03deb00c..e78ec4b5cfa3 100644
---- a/drivers/hwspinlock/hwspinlock_core.c
-+++ b/drivers/hwspinlock/hwspinlock_core.c
-@@ -12,7 +12,7 @@
- #include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/err.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/hwspinlock/provider.h>
- #include <linux/jiffies.h>
- #include <linux/kernel.h>
-diff --git a/drivers/iio/adc/sc27xx_adc.c b/drivers/iio/adc/sc27xx_adc.c
-index 6209499c5c37..8a881d63b7dd 100644
---- a/drivers/iio/adc/sc27xx_adc.c
-+++ b/drivers/iio/adc/sc27xx_adc.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (C) 2018 Spreadtrum Communications Inc.
- 
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/iio/iio.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-diff --git a/drivers/irqchip/irq-stm32mp-exti.c b/drivers/irqchip/irq-stm32mp-exti.c
-index a24f4f1a4f8f..25d5aa67728a 100644
---- a/drivers/irqchip/irq-stm32mp-exti.c
-+++ b/drivers/irqchip/irq-stm32mp-exti.c
-@@ -6,7 +6,7 @@
-  */
- 
- #include <linux/bitops.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/irq.h>
-diff --git a/drivers/mfd/syscon.c b/drivers/mfd/syscon.c
-index 21a7fcdd2737..8ec74f8513d7 100644
---- a/drivers/mfd/syscon.c
-+++ b/drivers/mfd/syscon.c
-@@ -11,7 +11,7 @@
- #include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/err.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/of.h>
-diff --git a/drivers/nvmem/sc27xx-efuse.c b/drivers/nvmem/sc27xx-efuse.c
-index 4e2ffefac96c..309090cd4ff0 100644
---- a/drivers/nvmem/sc27xx-efuse.c
-+++ b/drivers/nvmem/sc27xx-efuse.c
-@@ -1,7 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0
- // Copyright (C) 2018 Spreadtrum Communications Inc.
- 
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/module.h>
- #include <linux/of.h>
- #include <linux/platform_device.h>
-diff --git a/drivers/nvmem/sprd-efuse.c b/drivers/nvmem/sprd-efuse.c
-index 1a7e4e5d8b86..92e3092719ba 100644
---- a/drivers/nvmem/sprd-efuse.c
-+++ b/drivers/nvmem/sprd-efuse.c
-@@ -3,7 +3,7 @@
- 
- #include <linux/clk.h>
- #include <linux/delay.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/nvmem-provider.h>
-diff --git a/drivers/pinctrl/stm32/pinctrl-stm32.c b/drivers/pinctrl/stm32/pinctrl-stm32.c
-index 6a99708a5a23..17b2072d609e 100644
---- a/drivers/pinctrl/stm32/pinctrl-stm32.c
-+++ b/drivers/pinctrl/stm32/pinctrl-stm32.c
-@@ -10,7 +10,7 @@
- #include <linux/clk.h>
- #include <linux/export.h>
- #include <linux/gpio/driver.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/io.h>
- #include <linux/irq.h>
- #include <linux/mfd/syscon.h>
-diff --git a/drivers/soc/qcom/smem.c b/drivers/soc/qcom/smem.c
-index d5c94b47f431..6d574d65b4a3 100644
---- a/drivers/soc/qcom/smem.c
-+++ b/drivers/soc/qcom/smem.c
-@@ -4,7 +4,7 @@
-  * Copyright (c) 2012-2013, The Linux Foundation. All rights reserved.
-  */
- 
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/io.h>
- #include <linux/module.h>
- #include <linux/of.h>
-diff --git a/drivers/spi/spi-sprd-adi.c b/drivers/spi/spi-sprd-adi.c
-index e7d83c16b46c..04313e4a63dd 100644
---- a/drivers/spi/spi-sprd-adi.c
-+++ b/drivers/spi/spi-sprd-adi.c
-@@ -5,7 +5,7 @@
-  */
- 
- #include <linux/delay.h>
--#include <linux/hwspinlock.h>
-+#include <linux/hwspinlock/consumer.h>
- #include <linux/init.h>
- #include <linux/io.h>
- #include <linux/kernel.h>
-diff --git a/include/linux/hwspinlock.h b/include/linux/hwspinlock/consumer.h
-similarity index 98%
-rename from include/linux/hwspinlock.h
-rename to include/linux/hwspinlock/consumer.h
-index 4fe1c8831cd1..f476222ec924 100644
---- a/include/linux/hwspinlock.h
-+++ b/include/linux/hwspinlock/consumer.h
-@@ -1,17 +1,16 @@
- /* SPDX-License-Identifier: GPL-2.0 */
- /*
-- * Hardware spinlock public header
-+ * Hardware spinlock public header for consumers
-  *
-  * Copyright (C) 2010 Texas Instruments Incorporated - http://www.ti.com
-- *
-- * Contact: Ohad Ben-Cohen <ohad@wizery.com>
-+ * Copyright (C) 2026 Sang Engineering
-+ * Copyright (C) 2026 Renesas Solutions Corp.
-  */
- 
--#ifndef __LINUX_HWSPINLOCK_H
--#define __LINUX_HWSPINLOCK_H
-+#ifndef __LINUX_HWSPINLOCK_CONSUMER_H
-+#define __LINUX_HWSPINLOCK_CONSUMER_H
- 
- #include <linux/err.h>
--#include <linux/sched.h>
- 
- /* hwspinlock mode argument */
- #define HWLOCK_IRQSTATE		0x01 /* Disable interrupts, save state */
-@@ -22,8 +21,6 @@
- struct device;
- struct device_node;
- struct hwspinlock;
--struct hwspinlock_device;
--struct hwspinlock_ops;
- 
- #ifdef CONFIG_HWSPINLOCK
- 
-@@ -403,4 +400,4 @@ static inline void hwspin_unlock(struct hwspinlock *hwlock)
- 	__hwspin_unlock(hwlock, 0, NULL);
- }
- 
--#endif /* __LINUX_HWSPINLOCK_H */
-+#endif /* __LINUX_HWSPINLOCK_CONSUMER_H */
--- 
-2.51.0
+>     variables would be set to 0 (including ommitted ones, like
+>     action.success_hook or action.error_hook). But action.type = MMAP_NOTHING
+>   - desc.action.success_hook remains uninitialized in vfs_mmap_prepare
+>   - mmap_action_complete()
+>     - Here, We've set action.type to be MMAP_NOTHING, so we have err = 0
+>     - mmap_action_finish(action, vma, 0)
+>       - And here, since err == 0, we check action->success_hook (which has
+>         garbage, therefore it's nonzero) and call action->success_hook(vma)
+>
+> And I think action->success_hook(vma) where success_hook is uninitialized
+> stack garbage gets me to where I am.
+>
+> Again, I'm not too familiar with this area of the kernel, this is just
+> based on the quick digging that I did. And aplogies again if I'm missing
+> something ; -) I do think that the uninitialized members could be a problem
+> though.
+>
+> Thank you, I hope you have a great day Lorenzo!
+> Joshua
 
+Thanks for the report and analysis, much appreciated, hope you have a great
+day too :)
+
+Cheers, Lorenzo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
