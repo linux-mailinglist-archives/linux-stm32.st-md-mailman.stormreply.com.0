@@ -2,142 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +LopCmXLu2leoQIAu9opvQ
+	id aBzDJq3Qu2k4owIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:09:41 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:32:13 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B47032C9413
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:09:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A9BC2C9820
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 11:32:13 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53460C87ED3;
-	Thu, 19 Mar 2026 10:09:40 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1BE8C87ED3;
+	Thu, 19 Mar 2026 10:32:12 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011010.outbound.protection.outlook.com [52.101.70.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3D7BC87ED2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4121C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 10:09:38 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 62J742UA2666169
- for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 19 Mar 2026 10:09:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- N8mxSfzXNyJfRBoaEQdvz7W4Ia4Ks0F5EAbj13/rqrk=; b=hcTKvR+0CZSQmyRH
- E5MJdOoMORZkt8RutJZE9N3EduJrPpl9OgX1etw5ZQk/WQijVcRYv5QPM++nNaja
- lGnrh32GYZRFt8Fh5h9T3mZfabO0DB4ahegsnRE9ptkh0nJGOPQRTHDckCU1dBsq
- nwk5RuuErkoixgJ9h/WikNvamxST4pIhZcpRxtNfUyIRcdketVqM2K6e4qAKsr8x
- tnozskWT9bsS8fNuHhppJgo/djWubalN55/voA73pqeehqNqVBHHnhXG1p9qMASl
- 4a9BPmFeZVEd7CW5myQjRmXB1PECK5h7LCPYj2wgj2jDMMGc/2FjzYdX6r0VSpEv
- p8cIUg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4cytj549bk-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 10:09:37 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50947db2e97so6178161cf.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 03:09:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1773914977; x=1774519777;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=N8mxSfzXNyJfRBoaEQdvz7W4Ia4Ks0F5EAbj13/rqrk=;
- b=BGnczkX4HMgmGYdHFGbwcLBGC4wpvI26wFL9sYUXmmfPvwGF/PqcMHHOH9v2H2mtCM
- BRc9ypb+G4n/27U/Vn0zJGVf3YYH2s4BTuA8kkjU0oJF5q+G1eWrt9pa+0GoxSI64K1B
- W3IUX6VMGl38LyfkIInfDGQc6i8v9aTL78+idYj38A2SjCCMYIW0ktGlDl+ylKNFaepc
- +gKy/b9eRwCok04XHGXVjBvlxk1jEx9XGXpglOdbRLn4d7+H3uRUO8Z3FnW1ewqWmruK
- WQa/tFIYT7Rn8j9lBa/A6iJNDlWJYKjI+01HXxVmjFVkOKPMLsBkrueKMqLzlueeNhFT
- q5fA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773914977; x=1774519777;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=N8mxSfzXNyJfRBoaEQdvz7W4Ia4Ks0F5EAbj13/rqrk=;
- b=rY7+WCbrlLCU7buqMpV+Ov7RjYwkq3NhUjLKLf48TXpIu+h//RhYkfp+TKW3HbCyVZ
- kNuy4w2wzlGnrzl1qnqJHFCUMvE0o9KgJM0SbUABIyumGmhcJSa61rES0sY16f5g0qSU
- JItbkFvxYHP/+gYv2B7P9ST82vimCwLERlET7NKqdfN4TAbV9aIWL5MawK58G+NM9fE3
- 32PFRYhFzuIIjELQBwj+2Dot/1kn3Ye8KFgc/IqlbZdgmfn4JvWxM9pv+FoD+BD0YaJ8
- IuK565b9QgaKzmE2aLC6aHrQK7MlxIZqbfn6kjDa1e49hYsjUJBt6nkoVc8Xu7lRpbpZ
- jEsg==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUt1+rDaMpH3NWjs4qpgx4tajB3PqOEeVVkjIAftUo3mzHm0xmjcr28Q6mRvulpUTpWSWTgZBA+qI8vCA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzmujXAY4elBVfUDDMPHW+YdalLs8B5iKBZp2nMl2fKug42ICme
- aeUia6C0VYiV2R+/JfA+Q68SZUAX7cvIYYctR7fFfuCG1Owz5sMuh4hhmL8ODlFbQP/YEXPNxNN
- KvzNO4ORAZDKMq46XwxkCEI7GtjEp9dAa4v92FV6l16IGIWQCWtUkhzh3wfYWr+Ppf2anJOhDaT
- LRt30qaCM=
-X-Gm-Gg: ATEYQzw+xFY+e7u4MUPsP04HBAFkxaIVRvsXj/qgjKb0+NSg0ma7IF5a/B8DLbCNE6m
- ueuTpXl6A7ChbXwKgXYYqp5Az3i85+j2Ybso/uoUr6AcOcBvdMZcUNtLKt98H/VPDE47IJoEIFf
- WRE4AWlhopGLGzT8AKqs4RIo7NKj4b2zdd3TwGgMcbMZj+HwX0jgAZRWJAGMxc89zsC0SM3Jodw
- HNTgDGxxp9fA1cyD/cdrqLBxHClRCbZnqwpvLzICXsaxsHXsP19G9LATDObs9r0QJJcaqebRM6S
- 7DKqCViJrpc+HmHjEzt4EsylEkw1dOoXkajtorhVgUoxHgiEI2s9uQ7+TH1THu7INgVXktoLNnm
- o0QzfT+OQGBxzaOPETvhtGHQTWI0ySmlw2258O36nbSSclh9tmb1daNaBrgBjJAs8LvkHP7PTDf
- b9QcY=
-X-Received: by 2002:ac8:59c1:0:b0:509:38b0:c44b with SMTP id
- d75a77b69052e-50b14866da5mr65080901cf.5.1773914976674; 
- Thu, 19 Mar 2026 03:09:36 -0700 (PDT)
-X-Received: by 2002:ac8:59c1:0:b0:509:38b0:c44b with SMTP id
- d75a77b69052e-50b14866da5mr65080601cf.5.1773914976161; 
- Thu, 19 Mar 2026 03:09:36 -0700 (PDT)
-Received: from [192.168.119.254] (078088045245.garwolin.vectranet.pl.
- [78.88.45.245]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6688b67aacesm190582a12.11.2026.03.19.03.09.33
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 19 Mar 2026 03:09:35 -0700 (PDT)
-Message-ID: <7566c66b-2dda-4b29-b59e-4e4a7e159e21@oss.qualcomm.com>
-Date: Thu, 19 Mar 2026 11:09:33 +0100
+ Thu, 19 Mar 2026 10:32:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=C87/IlIQ/FEYUvXgJQBKweZw/0us3aYqyuXSaKVw1HJcEsm4G4TLm9hj+rYIPODcilYQ61EEt8uTfCJp9CTKPZ8I1m03ldWmPXI18DWvcu8osFQ5T8xDEOTAQ1XNuZva26pMbFmOHNzvgEIFyllTxbwRF5Z6+u5PBDK9uVCiXa+4yKJLO49DAQvgQoKZETI2YKLRuRKUsEqiIDX9RZlbC0Ah0HptNF842CttMt/qsGpyf1zejj9SscUT6kopTXjOev7ihREL3ziHtmifc/jvro1UllxC4TMRfamLUjWfEUsab8ebr+x9LvClvSOq+1PhiX+/aIk5eXHXfP609zeYDg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=YHOAXXZ/eo+gGOneXEPPxRZItUraHv3c0j7lWTUMNnM=;
+ b=ntIlwI9A8xG+Rs9Fh5mSG5NBJVLFwdn7L0Innr3hkS+2ddQinpunFgIwnLRKbH9ZXkjnQbSHSZXblTkl9b7I0rLug4hBCoiVMwLvLLPqrplT5gMlenlog1c8PV6WXPeYv5KMdBLCK7brdJFl6+ZqK6n/JVuYpbAmXees+GlZoKlJb4pjxp7DDMCLzSBiUcdlEfTHlYRJ7qmMmocg+iAwXpIBG9xHOE1bs3AURVyw9ksM208skG7/vsvBv0aj2JiVUjMdIV8zQYBLcQq5a12Ubs/7fahLw26Sf0iZ9ba8zf36CHCXP1ZSyqD7/q5N62bK9NjbUQ6o8vx6BlVyoblL8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=YHOAXXZ/eo+gGOneXEPPxRZItUraHv3c0j7lWTUMNnM=;
+ b=axCQwfodDxLORO+5uFLO7+qUEDYS9GsBeN9XbMeqjYty9f7ep3Bea/QfQmJIN6dEzV2U2WOM+AubPUWYl1zKBfWLh7/3UBxYVdz3T9QX2GzfBF21k2ZH1zQndhRtpcQqxewfdALhubKWYaUagCgAjEisoEQW4LETZHEFTVilh6a/c0bTJZaadKivkMgt/iztjO7zn0/0eDWRQ3oSY2PIm3d7UWA4/lBTwhgzBbEL/wUqcO/yHgIYjqHXu5SQGBmgOy02IWQDt4VQZamJzgHRT52kVczyRVEZ15RT7VuXqQizAKXic7Im+Wz+o51lmVlV/9UNFbDW/tYvZpyVKMDWPw==
+Received: from DB9PR05CA0026.eurprd05.prod.outlook.com (2603:10a6:10:1da::31)
+ by DB8PR10MB3468.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:13f::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.19; Thu, 19 Mar
+ 2026 10:32:07 +0000
+Received: from DU2PEPF0001E9C0.eurprd03.prod.outlook.com
+ (2603:10a6:10:1da:cafe::52) by DB9PR05CA0026.outlook.office365.com
+ (2603:10a6:10:1da::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.19 via Frontend Transport; Thu,
+ 19 Mar 2026 10:32:07 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU2PEPF0001E9C0.mail.protection.outlook.com (10.167.8.69) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Thu, 19 Mar 2026 10:32:07 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 19 Mar
+ 2026 11:34:17 +0100
+Received: from [10.48.87.127] (10.48.87.127) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 19 Mar
+ 2026 11:31:57 +0100
+Message-ID: <420953af-6a12-4277-8c31-062db01f78cc@foss.st.com>
+Date: Thu, 19 Mar 2026 11:31:55 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-References: <abQC7r38QLhSeadl@shell.armlinux.org.uk>
- <abdEscs44fU4kRag@oss.qualcomm.com> <abdYu864OmNWiWIW@shell.armlinux.org.uk>
- <ablpxwGks9m38fhM@shell.armlinux.org.uk> <absjNQ2s3Z5N2Zwo@oss.qualcomm.com>
- <abtE7sDT75I7uPnk@shell.armlinux.org.uk>
- <abvAuHFZzCFobO-V@shell.armlinux.org.uk>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260317180329.1207625-1-arnaud.pouliquen@foss.st.com>
+ <20260317180329.1207625-3-arnaud.pouliquen@foss.st.com>
+ <20260319-glistening-ultramarine-ibis-1eb3d6@quoll>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <abvAuHFZzCFobO-V@shell.armlinux.org.uk>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzE5MDA4MCBTYWx0ZWRfX3oEjs6xkCI3k
- CHTh3gUiQDh/nZnfJkmexD4m07AMZw27gSoxlw7J46NI0h6Z4FQfLvtNfYPLdjbW3kPryk9w+td
- 7lKe2EVY6Bbc+/RdVgY1gBS8098tYXxZPLBA8xcMQ9xfhbfxLfSSXOU1hjVPKx9SC6spsFSKb0y
- kD4WJiN9LcoASlFrLwtkTuyjRKJWMLVLctcffSV4PBe9hFaNnjSdesLmPlHwHiJ3LpaRKpwUOJp
- aV+FzoAh4AifUElvnWm2RoI7kI7g9tUcPGNrQZmNt7XlegH2VUDFnKKBWhPtQgrXtS5KxSVIMCH
- REaKDx8rqa+KzQdU6elkxqglOOY0IWJd6Sez4k/9BfcqKglO13OJLIJNWMjCa/LQ/9bGt711Dq8
- xCzDQOGDcOnIQhoHUeQwVoRagXPY3K9jLHKq4cLQHCsz6OiNV64coVVIc+JboAjZLvQe9r+uX9U
- At0k1WRBgZFMjKwNc7w==
-X-Proofpoint-ORIG-GUID: vcf0i418KVb4qtmGMc_naWaRuDgVF8Eg
-X-Proofpoint-GUID: vcf0i418KVb4qtmGMc_naWaRuDgVF8Eg
-X-Authority-Analysis: v=2.4 cv=dM+rWeZb c=1 sm=1 tr=0 ts=69bbcb61 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=FpWmc02/iXfjRdCD7H54yg==:17
- a=IkcTkHD0fZMA:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=Gtcge7hCmZdjPOC0CCEA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-03-19_01,2026-03-17_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 adultscore=0 clxscore=1015 priorityscore=1501
- phishscore=0 impostorscore=0 bulkscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2603050001 definitions=main-2603190080
-Cc: Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+From: Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>
+In-Reply-To: <20260319-glistening-ultramarine-ibis-1eb3d6@quoll>
+X-Originating-IP: [10.48.87.127]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF0001E9C0:EE_|DB8PR10MB3468:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1873009d-6059-41e0-1583-08de85a2c532
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|376014|1800799024|36860700016|7416014|22082099003|56012099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info: QWve+BY+x6HpGenr6j1IPHEwbGyMsTXUTtmBtypDjBJORcN8rLudvsKqJV4yb9yc5UfyalqfHyMgieaRZjNmEQbbdu27LFv0DxxkYH353WFESUes9/m0apUhHAy8skVCFDHEwNleTENYKQf2S6GxOzm0VTfdRlbi2H7xcQLH+7ZP7OszlsilkhyQbnphhtK+QwIKlA04qql9dLxqqYyzeFPpXisN+OYakpJoaraD/+BIOxKj5VlDnitWWutXTCTcl5j4zk8DIKhjWouSd0wx6lgA/Bsc7XGV2nxUlACZKOGMuxzhw2zEBzhrTU9pGfjr6zsHPPyoiH8p49IBcM/mkUR64k/GVkDX+MwtvGeLaScGAsDttIeKE0T04M7fkpiLnoaBLKVS1yOAKjCk3DjKrMT1mUh7Iil7fSt38eq4CL2KGcnb6dsOV1nM13P28Deg8AQNFPfOdDPhatD3GzKCbYvk4DhiZ7dtrFxEgr9F9DhDKSZSo4EmVN1w4wHCmB56ceUX3dLr0cdtyefVPQU5bXW96NH90SFcVqUv2isa1y9343FYC6XJFa3E2u7ncsXTuviTGiUSbix1hxKhGVEQESeZC6kKQZPWoKSJ2QpiXuPrcchXukMn9wuwEbVPxa6LLJchQscimgFBL7yExkQVXbyAdp0QJGadmWrW/JzH/kfKZVMrxUjV0ri3NEyTqcP2ummuCeNewJStCozjP4CXIXH1IkAmF1a6h6pOMNwyHQg=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(7416014)(22082099003)(56012099003)(18002099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: 25QiXcyWSsmb06IhMXt9SGF2GQvEYvbJ7X8KPPARfLYoL5bn5rqP4ITp/zfyHYiDK+tPUrxwxLvwc6XKxBvXI9J87TzJ1c5kqmX3cEyH17gHXiA1cW1M7AbvXk1PfhkldYM78W72/MhSt9XjnUq8ZHc2ly7hh4ds0UoaFzy4baA76c8MDK+9Ljr4CpOPrflg7Fe8/C0dFMe8xvGUtI7zAxQqoUvr/O395C7J4q97sKAHaR0cFYt2W1nTuReXYEsjFgSj1RKW1w9BSPvdnjxwdiny/kIsUhPzlqE35IjjmJ96LeeXZyy2/mUIdfmqVP0tV2QLlqyVCM/N0/CS0xDFyyUoBnZjZBPmXU2DfmMhEykN/Ho1nSEULt3+eovX0WzNtbLa6ekCXoYIfM9D5L2xxOa6gpm6WPqy49ixiq3xub69b4fF/Way1X3clFMEYCIQ
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Mar 2026 10:32:07.1602 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1873009d-6059-41e0-1583-08de85a2c532
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF0001E9C0.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3468
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, op-tee@lists.trustedfirmware.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/8] net: stmmac: improve PCS
-	support
+Subject: Re: [Linux-stm32] [PATCH v21 2/6] dt-bindings: remoteproc: Add
+ STM32 TEE-controlled rproc binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -149,83 +123,264 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:krzk@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:op-tee@lists.trustedfirmware.org,m:andersson@kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh+dt@kernel.org,m:sumit.garg@kernel.org,m:krzk+dt@kernel.org,m:jens.wiklander@linaro.org,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:robh@kernel.org,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:mohd.anwar@oss.qualcomm.com,m:andrew@lunn.ch,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.822];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[0.0.0.0:email,st.com:email,lkml.org:url,devicetree.org:url,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[arnaud.pouliquen@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	NEURAL_HAM(-0.00)[-0.979];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: B47032C9413
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 2A9BC2C9820
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/19/26 10:24 AM, Russell King (Oracle) wrote:
-> On Thu, Mar 19, 2026 at 12:35:58AM +0000, Russell King (Oracle) wrote:
->> On Thu, Mar 19, 2026 at 03:42:05AM +0530, Mohd Ayaan Anwar wrote:
->>> [    8.650486] qcom-ethqos 23040000.ethernet: clk_csr value out of range (0xffffff00 exceeds mask 0x00000f00), truncating
+Hello Krzysztof,
+
+
+On 3/19/26 09:06, Krzysztof Kozlowski wrote:
+> On Tue, Mar 17, 2026 at 07:03:23PM +0100, Arnaud Pouliquen wrote:
+>> Add a Device Tree binding for the STM32 remote processor controlled
+>> via a Trusted Application running in OP-TEE.
+>> This binding describes the interface and properties required for STM32MP
+>> remoteproc instances managed by the TEE rproc service, including a
+>> linkage to the TEE backend through the property "rproc-tee-phandle".
 >>
->> Please look into this first - with the MDIO bus operating at
->> who-knows-what frequency, this could make reading from the PHY
->> unreliable.
+>> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> ---
+>> V21 updates:
+>> - the m4 node is no more declared as a child of the optee-rproc node
+>> - "rproc-tee-phandle" property is introduced to reference the optee-rproc
+>> ---
+>>   .../remoteproc/st,stm32-rproc-tee.yaml        | 108 ++++++++++++++++++
+>>   1 file changed, 108 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+>> new file mode 100644
+>> index 000000000000..ca4dd1c8e7b0
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+>> @@ -0,0 +1,108 @@
+>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/remoteproc/st,stm32-rproc-tee.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: STMicroelectronics STM32 remote processor controlled via TEE
+>> +
+>> +maintainers:
+>> +  - Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+>> +
+>> +description: |
+>> +  STM32MP remote processor controlled by a Trusted Application
+>> +  running in OP-TEE. This node is a child of the TEE remoteproc service
+>> +  (UUID 80a4c275-0a47-4905-8285-1486a9771a08) and exposes a remoteproc
+>> +  instance managed by the Linux remoteproc core via the TEE rproc service.
+>> +
+>> +  Firmware loading, authentication and remote processor start/stop are managed
+>> +  by the TEE application. The STM32-specific driver handles platform resources
+>> +  such as the mailboxes and reserved-memory.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: st,stm32mp1-m4-tee
 > 
-> My guess is clk_get_rate(priv->plat->stmmac_clk) is returning zero,
-> which means we don't know the rate of the CSR clock.
-> 
-> From what I can see in drivers/clk/qcom/gcc-qcs404.c and
-> drivers/clk/qcom/gcc-sdx55.c, this looks like this case - the
-> struct clk_branch makes no mention of any clock rate, nor does it
-> have any parent. From what I can see, neither of these drivers
-> specify any rates for any of their clocks, which likely means that
-> clk_get_rate() will be zero for all of them.
-> 
-> Sadly, when I designed the clk API, I didn't think that people would
-> be stupid enough not to implement the API properly, more fool me.
-> 
-> Under the old code, we would've used STMMAC_CSR_20_35M, which means
-> we're assuming that the CSR clock is between 20 and 35MHz, even
-> though the value is zero. Is that the case? If it's higher than
-> 35MHz, then you've been operating the MDIO bus out of IEEE 802.3
-> specification, which can make PHY access unrealible.
-> 
-> In any case, please fix your clock drivers.
+> Drop "tee", it suggests that compatible is tied to implementation of FW
+> you put there.
 
-I'm not 100% sure the currently-passed AXI clock is what we want
-there and the docs aren't super helpful.. is there a synopsys-name
-for it? What rates would you expect it to run at?
+The "st,stm32mp1-m4" compatible string already exists in 
+drivers/remoteproc/stm32_rproc.c, and "st,stm32mp1-m4-tee" compatible is 
+upstreamed in OP-TEE.
 
-Konrad
+Notice that I have also the stm32mp2 SoC to upstream expecting to have 
+similar compatible:
+- st,stm32mp1-m33
+- st,stm32mp2-m33-tee
+
+Depending on the compatible string, the hardware behavior changes.
+With the "xxxx-tee" compatible, OP-TEE also manages the isolation of 
+remote processor resources (memory, clock reset, peripherals).
+Without the "xxxx-tee" compatible, OP-TEE have to ensure that the Linux
+has the good access right to manage the remote processor.
+
+For instance if st,stm32mp1-m4-tee is set instead of st,stm32mp1-m4, on
+linux side
+- only memory regions used for IPC should be declared
+- memory regions containing the remote firmware must not be declared as 
+not accessible by the Linux ( managed by OP-TEE).
+- resets must not be declared ( managed by OP-TEE)
+
+You probably don't remember, as it was a long time ago, but we already 
+discussed this point with Rob[1].
+[1] https://lkml.org/lkml/2024/1/18/100
+
+Do it still reasonable to you and Rob or should we find an alternative?
+
+
+Thanks and Regards,
+
+Arnaud
+
+> 
+>> +
+>> +  reg:
+>> +    description: |
+> 
+> Do not need '|' unless you need to preserve formatting.
+> 
+>> +      Remote processor identifier used by the TEE service. The <0> value
+>> +      in the example denotes a single instance with ID 0.
+>> +    maxItems: 1
+>> +
+>> +  mboxes:
+>> +    description: |
+>> +      Mailbox channels used for rpmsg/virtio functionality and processor
+>> +      shutdown.
+>> +    maxItems: 3
+>> +
+>> +  mbox-names:
+>> +    items:
+>> +      - const: vq0
+>> +      - const: vq1
+>> +      - const: shutdown
+>> +
+>> +  memory-region:
+>> +    description: |
+>> +      List of phandles to reserved-memory nodes describing the memory layout
+>> +      for the interprocessors communication.
+> 
+> Drop description. You miss maxItems, though.
+> 
+>> +
+>> +  interrupts:
+>> +    description: |
+> 
+> Same comments...
+> 
+>> +      Optional watchdog / status interrupt line used to detect crashes
+>> +      and optionally wake up the system.
+>> +    maxItems: 1
+>> +
+>> +  st,auto-boot:
+>> +    type: boolean
+>> +    description: |
+>> +      If present, the remote processor will be automatically started by
+>> +      the remoteproc core at boot.
+> 
+> That's policy, not DT property.
+> 
+>> +
+>> +  wakeup-source:
+>> +    type: boolean
+>> +    description: |
+>> +      Indicates that the watchdog interrupt can be used as a wakeup source.
+>> +
+>> +  rproc-tee-phandle:
+> 
+> Missing vendor prefix, drop phandle. You do not say that "st,auto-boot"
+> is "st,auto-boot-boolean"
+> 
+>> +    description: |
+>> +      Phandle to the remote processor backend node and its identifier. This property
+>> +      is used to link the TEE remoteproc service to the remote processor instance
+>> +      it controls. The value is a phandle reference to the remote processor node,
+>> +      followed by a cell specifying the remote processor identifier used by the TEE.
+>> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> 
+> Missing constraints.
+> 
+> I also do not understand which bus node this is being child, if not
+> remote proc.
+> 
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +  - rproc-tee-phandle
+>> +
+>> +additionalProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    firmware {
+>> +        tee_rproc: optee-rproc {
+>> +            compatible = "80a4c275-0a47-4905-8285-1486a9771a08";
+>> +        };
+>> +    };
+> 
+> Drop
+> 
+>> +
+>> +    m4: m4@0 {
+> 
+> Drop unused label.
+> 
+> Node names should be generic. See also an explanation and list of
+> examples (not exhaustive) in DT specification:
+> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+> If you cannot find a name matching your device, please check in kernel
+> sources for similar cases or you can grow the spec (via pull request to
+> DT spec repo).
+> 
+> e.g. mcu, because m4 feels like given model (Cortex M4?).
+> 
+>> +      compatible = "st,stm32mp1-m4-tee";
+>> +      reg = <0 0>;
+>> +
+>> +      mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
+>> +      mbox-names = "vq0", "vq1", "shutdown";
+>> +
+>> +      memory-region = <&vdev0vring0>, <&m_ipc_shm>, <&mcuram2>,
+>> +                      <&vdev0vring1>, <&vdev0buffer>, <&retram>;
+>> +
+>> +      interrupt-parent = <&exti>;
+>> +      interrupts = <68 1>;
+>> +
+>> +      rproc-tee-phandle = <&tee_rproc 0>;
+>> +      st,auto-boot;
+>> +      wakeup-source;
+>> +
+>> +      status = "okay";
+> 
+> Drop
+> 
+> Best regards,
+> Krzysztof
+> 
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
