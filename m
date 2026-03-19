@@ -2,53 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cDm9JUsuvGnquAIAu9opvQ
+	id iJvDNv9BvGlBwAIAu9opvQ:T2
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 18:11:39 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 19:35:44 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 321B12CF983
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 18:11:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 296922D117D
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 19:35:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB52BC87ED5;
-	Thu, 19 Mar 2026 17:11:38 +0000 (UTC)
-Received: from mx3.wp.pl (mx3.wp.pl [212.77.101.10])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9088CC87ED2;
+	Thu, 19 Mar 2026 18:23:49 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A08ABC87ED2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE375C35E2B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 17:11:36 +0000 (UTC)
-Received: (wp-smtpd smtp.wp.pl 19729 invoked from network);
- 19 Mar 2026 18:11:30 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=20241105;
- t=1773940290; bh=0+To5Oldsyjsh6CXaltYAKaEBPHs70iTVl7p7m0e7Ls=;
- h=From:To:Cc:Subject;
- b=nOIDcroTi/IEgix0yJ++Yzxz4ewQrKZXEZMFzxTJLnDWe+cFdsRMHiT3llaej5FNo
- qllg6UGbAY5i1SWfLRqB5OIAZil+CvpkjuNgHhuiwMsBrfNvgCxFlNNy30kj8ah1Db
- rWbH/dBPteN4j7ukk6r5yb2Jlt5jBNVdxL+f6hAQmyUcY3D3/R7WEmnnIyInelrbYC
- q2xUluytOjgS8BbsCy4ESEBKSlQ2v6UjoMqrvUNuYR6KOqKXbOzA2Smp1xiu58Yctx
- ufwmf8P0lkFfdE3CMZxx2nPd9S+sgqxtR8oID0WJY1yq9eSsshnHWCHo3t0Y+wt7IU
- w9ilcNItzwBKw==
-Received: from 83.5.169.164.ipv4.supernova.orange.pl (HELO abajkowski.lan)
- (olek2@wp.pl@[83.5.169.164]) (envelope-sender <olek2@wp.pl>)
- by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
- for <herbert@gondor.apana.org.au>; 19 Mar 2026 18:11:30 +0100
-From: Aleksander Jan Bajkowski <olek2@wp.pl>
-To: herbert@gondor.apana.org.au, davem@davemloft.net,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- linux-crypto@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 19 Mar 2026 18:11:21 +0100
-Message-ID: <20260319171128.10566-1-olek2@wp.pl>
-X-Mailer: git-send-email 2.51.0
+ Thu, 19 Mar 2026 18:23:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 34C76438FA;
+ Thu, 19 Mar 2026 18:23:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AF4EC19424;
+ Thu, 19 Mar 2026 18:23:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773944625;
+ bh=hUq23NX3AUF/Z/nd3f+apZh8oyr5ochA07r37x4M5ug=;
+ h=From:To:Cc:Subject:Date:From;
+ b=k72tqnwuSjAIoaoFYpnmAJc5NqF2RHzpf2m0/2v5FHjqFYrvF9hFpFABSV0ibMtjI
+ v5ABOEragkIvhSQcUDiYsI2HJhw45Kwl3+zk237y/4tjTATs5TdNmP3sOChEeowL0j
+ aF2jYijp2yjfKoeeFK5r4Blr/10cTIPfZxwMhCmDiuBv8H7oliqmyrAE8CKe2gk/Df
+ hif2oRVLCDoEd+7O09ruZk1Sqb3i4NACbtkHiyNTqml2Yjk84myr5XNmRq67QmIQvh
+ 5rosWsQJMLdf0p2r46AtulRsJmHTQ5LCq29emURnbAQO3W3H4Een9shDvkQqdUHUth
+ LEQrKOSjYWzGw==
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Date: Thu, 19 Mar 2026 18:23:24 +0000
+Message-ID: <cover.1773944114.git.ljs@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-X-WP-DKIM-Status: good (id: wp.pl) 
-X-WP-MailID: 8c8e5934cbb3688a84be6a86bd03e4f3
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000009 [INMB]                               
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: [Linux-stm32] [PATCH] crypto: testmgr - Add test vectors for
-	authenc(hmac(md5), rfc3686(ctr(aes)))
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-doc@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-scsi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Richard Weinberger <richard@nod.at>,
+ Long Li <longli@microsoft.com>, linux-staging@lists.linux.dev,
+ Dexuan Cui <decui@microsoft.com>, linux-afs@lists.infradead.org,
+ Pedro Falcato <pfalcato@suse.de>, Ryan Roberts <ryan.roberts@arm.com>,
+ Arnd Bergmann <arnd@arndb.de>, Jann Horn <jannh@google.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-arm-kernel@lists.infradead.org,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
+ Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
+Subject: [Linux-stm32] [PATCH v3 00/16] mm: expand mmap_prepare
+	functionality and usage
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,296 +81,205 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[wp.pl:s=20241105];
 	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[wp.pl : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-crypto@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:olek2@wp.pl,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_FROM(0.00)[wp.pl];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	FREEMAIL_CC(0.00)[wp.pl];
-	MIME_TRACE(0.00)[0:+];
-	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[olek2@wp.pl,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DKIM_TRACE(0.00)[wp.pl:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.or
+ g,m:mcoquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[43];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.127];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 321B12CF983
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	NEURAL_HAM(-0.00)[-0.691];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 296922D117D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Test vectors were generated starting from existing RFC3686(CTR(AES)) test
-vectors and adding HMAC(MD5) computed with software implementation.
-Then, the results were double-checked on Mediatek MT7986 (safexcel).
-Platform pass self-tests.
+This series expands the mmap_prepare functionality, which is intended to
+replace the deprecated f_op->mmap hook which has been the source of bugs
+and security issues for some time.
 
-Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
----
- crypto/testmgr.c |   7 ++
- crypto/testmgr.h | 207 +++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 214 insertions(+)
+This series starts with some cleanup of existing mmap_prepare logic, then
+adds documentation for the mmap_prepare call to make it easier for
+filesystem and driver writers to understand how it works.
 
-diff --git a/crypto/testmgr.c b/crypto/testmgr.c
-index 4985411dedae..bce14894f1a2 100644
---- a/crypto/testmgr.c
-+++ b/crypto/testmgr.c
-@@ -4093,6 +4093,13 @@ static const struct alg_test_desc alg_test_descs[] = {
- 		.suite = {
- 			.aead = __VECS(hmac_md5_ecb_cipher_null_tv_template)
- 		}
-+	}, {
-+		.alg = "authenc(hmac(md5),rfc3686(ctr(aes)))",
-+		.generic_driver = "authenc(hmac-md5-lib,rfc3686(ctr(aes-lib)))",
-+		.test = alg_test_aead,
-+		.suite = {
-+			.aead = __VECS(hmac_md5_aes_ctr_rfc3686_tv_temp)
-+		}
- 	}, {
- 		.alg = "authenc(hmac(sha1),cbc(aes))",
- 		.generic_driver = "authenc(hmac-sha1-lib,cbc(aes-lib))",
-diff --git a/crypto/testmgr.h b/crypto/testmgr.h
-index 1c69c11c0cdb..8ee15a3e0ed1 100644
---- a/crypto/testmgr.h
-+++ b/crypto/testmgr.h
-@@ -16450,6 +16450,213 @@ static const struct aead_testvec hmac_sha512_des_cbc_tv_temp[] = {
- 	},
- };
- 
-+static const struct aead_testvec hmac_md5_aes_ctr_rfc3686_tv_temp[] = {
-+	{ /* RFC 3686 Case 1 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x14"	/* enc key length */
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\xae\x68\x52\xf8\x12\x10\x67\xcc"
-+			  "\x4b\xf7\xa5\x76\x55\x77\xf3\x9e"
-+			  "\x00\x00\x00\x30",
-+		.klen	= 8 + 16 + 20,
-+		.iv	= "\x00\x00\x00\x00\x00\x00\x00\x00",
-+		.assoc	= "\x00\x00\x00\x00\x00\x00\x00\x00",
-+		.alen	= 8,
-+		.ptext	= "Single block msg",
-+		.plen	= 16,
-+		.ctext	= "\xe4\x09\x5d\x4f\xb7\xa7\xb3\x79"
-+			  "\x2d\x61\x75\xa3\x26\x13\x11\xb8"
-+			  "\xdd\x5f\xea\x13\x2a\xf2\xb0\xf1"
-+			  "\x91\x79\x46\x40\x62\x6c\x87\x5b",
-+		.clen	= 16 + 16,
-+	}, { /* RFC 3686 Case 2 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x14"	/* enc key length */
-+			  "\x20\x21\x22\x23\x24\x25\x26\x27"
-+			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
-+			  "\x7e\x24\x06\x78\x17\xfa\xe0\xd7"
-+			  "\x43\xd6\xce\x1f\x32\x53\x91\x63"
-+			  "\x00\x6c\xb6\xdb",
-+		.klen	= 8 + 16 + 20,
-+		.iv	= "\xc0\x54\x3b\x59\xda\x48\xd9\x0b",
-+		.assoc	= "\xc0\x54\x3b\x59\xda\x48\xd9\x0b",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
-+		.plen	= 32,
-+		.ctext	= "\x51\x04\xa1\x06\x16\x8a\x72\xd9"
-+			  "\x79\x0d\x41\xee\x8e\xda\xd3\x88"
-+			  "\xeb\x2e\x1e\xfc\x46\xda\x57\xc8"
-+			  "\xfc\xe6\x30\xdf\x91\x41\xbe\x28"
-+			  "\x03\x39\x23\xcd\x22\x5f\x1b\x8b"
-+			  "\x93\x70\xbc\x45\xf3\xba\xde\x2e",
-+		.clen	= 32 + 16,
-+	}, { /* RFC 3686 Case 3 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x14"	/* enc key length */
-+			  "\x11\x22\x33\x44\x55\x66\x77\x88"
-+			  "\x99\xaa\xbb\xcc\xdd\xee\xff\x11"
-+			  "\x76\x91\xbe\x03\x5e\x50\x20\xa8"
-+			  "\xac\x6e\x61\x85\x29\xf9\xa0\xdc"
-+			  "\x00\xe0\x01\x7b",
-+		.klen	= 8 + 16 + 20,
-+		.iv	= "\x27\x77\x7f\x3f\x4a\x17\x86\xf0",
-+		.assoc	= "\x27\x77\x7f\x3f\x4a\x17\x86\xf0",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
-+			  "\x20\x21\x22\x23",
-+		.plen	= 36,
-+		.ctext	= "\xc1\xcf\x48\xa8\x9f\x2f\xfd\xd9"
-+			  "\xcf\x46\x52\xe9\xef\xdb\x72\xd7"
-+			  "\x45\x40\xa4\x2b\xde\x6d\x78\x36"
-+			  "\xd5\x9a\x5c\xea\xae\xf3\x10\x53"
-+			  "\x25\xb2\x07\x2f"
-+			  "\xb4\x40\x0c\x7b\x4c\x55\x8a\x4b"
-+			  "\x04\xf7\x48\x9e\x0f\x9a\xae\x73",
-+		.clen	= 36 + 16,
-+	}, { /* RFC 3686 Case 4 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x1c"	/* enc key length */
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x16\xaf\x5b\x14\x5f\xc9\xf5\x79"
-+			  "\xc1\x75\xf9\x3e\x3b\xfb\x0e\xed"
-+			  "\x86\x3d\x06\xcc\xfd\xb7\x85\x15"
-+			  "\x00\x00\x00\x48",
-+		.klen	= 8 + 16 + 28,
-+		.iv	= "\x36\x73\x3c\x14\x7d\x6d\x93\xcb",
-+		.assoc	= "\x36\x73\x3c\x14\x7d\x6d\x93\xcb",
-+		.alen	= 8,
-+		.ptext	= "Single block msg",
-+		.plen	= 16,
-+		.ctext	= "\x4b\x55\x38\x4f\xe2\x59\xc9\xc8"
-+			  "\x4e\x79\x35\xa0\x03\xcb\xe9\x28"
-+			  "\xc4\x5d\xa1\x16\x6c\x2d\xa5\x43"
-+			  "\x60\x7b\x58\x98\x11\x9b\x50\x06",
-+		.clen	= 16 + 16,
-+	}, { /* RFC 3686 Case 5 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x1c"	/* enc key length */
-+			  "\x20\x21\x22\x23\x24\x25\x26\x27"
-+			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
-+			  "\x7c\x5c\xb2\x40\x1b\x3d\xc3\x3c"
-+			  "\x19\xe7\x34\x08\x19\xe0\xf6\x9c"
-+			  "\x67\x8c\x3d\xb8\xe6\xf6\xa9\x1a"
-+			  "\x00\x96\xb0\x3b",
-+		.klen	= 8 + 16 + 28,
-+		.iv	= "\x02\x0c\x6e\xad\xc2\xcb\x50\x0d",
-+		.assoc	= "\x02\x0c\x6e\xad\xc2\xcb\x50\x0d",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
-+		.plen	= 32,
-+		.ctext	= "\x45\x32\x43\xfc\x60\x9b\x23\x32"
-+			  "\x7e\xdf\xaa\xfa\x71\x31\xcd\x9f"
-+			  "\x84\x90\x70\x1c\x5a\xd4\xa7\x9c"
-+			  "\xfc\x1f\xe0\xff\x42\xf4\xfb\x00"
-+			  "\xc5\xec\x47\x33\xae\x05\x28\x49"
-+			  "\xd5\x2b\x08\xad\x10\x98\x24\x01",
-+		.clen	= 32 + 16,
-+	}, { /* RFC 3686 Case 7 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x24"	/* enc key length */
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x00\x00\x00\x00\x00\x00\x00\x00"
-+			  "\x77\x6b\xef\xf2\x85\x1d\xb0\x6f"
-+			  "\x4c\x8a\x05\x42\xc8\x69\x6f\x6c"
-+			  "\x6a\x81\xaf\x1e\xec\x96\xb4\xd3"
-+			  "\x7f\xc1\xd6\x89\xe6\xc1\xc1\x04"
-+			  "\x00\x00\x00\x60",
-+		.klen	= 8 + 16 + 36,
-+		.iv	= "\xdb\x56\x72\xc9\x7a\xa8\xf0\xb2",
-+		.assoc	= "\xdb\x56\x72\xc9\x7a\xa8\xf0\xb2",
-+		.alen	= 8,
-+		.ptext	= "Single block msg",
-+		.plen	= 16,
-+		.ctext	= "\x14\x5a\xd0\x1d\xbf\x82\x4e\xc7"
-+			  "\x56\x08\x63\xdc\x71\xe3\xe0\xc0"
-+			  "\xc6\x26\xb2\x27\x0d\x21\xd4\x40"
-+			  "\x6c\x4f\x53\xea\x19\x75\xda\x8e",
-+		.clen	= 16 + 16,
-+	}, { /* RFC 3686 Case 8 */
-+#ifdef __LITTLE_ENDIAN
-+		.key    = "\x08\x00"		/* rta length */
-+			  "\x01\x00"		/* rta type */
-+#else
-+		.key    = "\x00\x08"		/* rta length */
-+			  "\x00\x01"		/* rta type */
-+#endif
-+			  "\x00\x00\x00\x24"	/* enc key length */
-+			  "\x20\x21\x22\x23\x24\x25\x26\x27"
-+			  "\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f"
-+			  "\xf6\xd6\x6d\x6b\xd5\x2d\x59\xbb"
-+			  "\x07\x96\x36\x58\x79\xef\xf8\x86"
-+			  "\xc6\x6d\xd5\x1a\x5b\x6a\x99\x74"
-+			  "\x4b\x50\x59\x0c\x87\xa2\x38\x84"
-+			  "\x00\xfa\xac\x24",
-+		.klen	= 8 + 16 + 36,
-+		.iv	= "\xc1\x58\x5e\xf1\x5a\x43\xd8\x75",
-+		.assoc	= "\xc1\x58\x5e\xf1\x5a\x43\xd8\x75",
-+		.alen	= 8,
-+		.ptext	= "\x00\x01\x02\x03\x04\x05\x06\x07"
-+			  "\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f"
-+			  "\x10\x11\x12\x13\x14\x15\x16\x17"
-+			  "\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f",
-+		.plen	= 32,
-+		.ctext	= "\xf0\x5e\x23\x1b\x38\x94\x61\x2c"
-+			  "\x49\xee\x00\x0b\x80\x4e\xb2\xa9"
-+			  "\xb8\x30\x6b\x50\x8f\x83\x9d\x6a"
-+			  "\x55\x30\x83\x1d\x93\x44\xaf\x1c"
-+			  "\x8c\x4d\x2a\x8d\x23\x47\x59\x6f"
-+			  "\x1e\x74\x62\x39\xed\x14\x50\x6c",
-+		.clen	= 32 + 16,
-+	},
-+};
-+
- static const struct aead_testvec hmac_md5_des3_ede_cbc_tv_temp[] = {
- 	{ /*Generated with cryptopp*/
- #ifdef __LITTLE_ENDIAN
--- 
-2.51.0
+It then importantly adds a vm_ops->mapped hook, a key feature that was
+missing from mmap_prepare previously - this is invoked when a driver which
+specifies mmap_prepare has successfully been mapped but not merged with
+another VMA.
 
+mmap_prepare is invoked prior to a merge being attempted, so you cannot
+manipulate state such as reference counts as if it were a new mapping.
+
+The vm_ops->mapped hook allows a driver to perform tasks required at this
+stage, and provides symmetry against subsequent vm_ops->open,close calls.
+
+The series uses this to correct the afs implementation which wrongly
+manipulated reference count at mmap_prepare time.
+
+It then adds an mmap_prepare equivalent of vm_iomap_memory() -
+mmap_action_simple_ioremap(), then uses this to update a number of drivers.
+
+It then splits out the mmap_prepare compatibility layer (which allows for
+invocation of mmap_prepare hooks in an mmap() hook) in such a way as to
+allow for more incremental implementation of mmap_prepare hooks.
+
+It then uses this to extend mmap_prepare usage in drivers.
+
+Finally it adds an mmap_prepare equivalent of vm_map_pages(), which lays
+the foundation for future work which will extend mmap_prepare to DMA
+coherent mappings.
+
+
+v3:
+* Propagated tags (thanks Suren, Richard!)
+* Updated 12/16 to correctly clear the vm_area_desc data structure in
+  set_desc_from_vma() as per Joshua Hahn (thanks! :)
+* Fixed type in 12/16 as per Suren (cheers!)
+* Fixed up 6/16 to use mmap_action_ioremap_full() in simple_ioremap_prepare() as
+  suggested by Suren.
+* Also fixed up 6/16 to call io_remap_pfn_range_prepare() direct rather than
+  mmap_action_prepare() as per Suren.
+* Also fixed up 6/16 to pass vm_len rather than vm_[start, end] to
+  __simple_ioremap_prep() as per Suren (thanks for all the above! :)
+* Fixed issue in rmap lock being held - we were referencing a vma->vm_file after
+  the VMA was unmapped, so UAF. Avoid that. Also do_munmap() relies on rmap lock
+  NOT being held or may deadlock, so extend functionality to ensure we drop it
+  when it is held on error paths.
+* Updated 'area' -> 'vma' variable in 3/16 in VMA test dup.h.
+* Fixed up reference to __compat_vma_mmap() in 12/16 commit message.
+* Updated 1/16 to no longer duplicatively apply io_remap_pfn_range_pfn().
+* Updated 1/16 to delegate I/O remap complete to remap complete logic.
+* Fixed various typos in 12/16.
+* Fixed stale comment typos in 13/16.
+* Fixed commit msg and comment typos in 14/16.
+* Removed accidental sneak peak to future functionality in 15/16 commit message
+  :).
+* Fixed up field names to be identical in VMA tests + mm_types.h in 6/16,
+  15/16.
+
+v2:
+* Rebased on
+  https://lore.kernel.org/all/cover.1773665966.git.ljs@kernel.org/ to make
+  Andrew's life easier :)
+* Folded all interim fixes into series (thanks Randy for many doc fixes!))
+* As per Suren, removed a comment about allocations too small to fail.
+* As per Randy, fixed up typo in documentation for vm_area_desc.
+* Fixed mmap_action_prepare() not returning if invalid action->type
+  specified, as updated from Andrew's interim fix (thanks!) and also
+  reported by kernel test bot.
+* Updated mmap_action_prepare() and specific prepare functions to only
+  pass vm_area_desc parameter as per Suren.
+* Fixed up whitespace as per Suren.
+* Updated vm_op->open comment in vm_operations_struct to reference forking
+  as per Suren.
+* Added a commit to check that input range is within VMA on remap as per
+  Suren (this also covers I/O remap and all other cases already asserted).
+* Updated AFS to not incorrectly reference count on mmap prepare as per
+  Usama.
+* Also updated various static AFS functions to be consistent with each
+  other.
+* Updated AFS commit message to reflect mmap_prepare being before any VMA
+  merging as per Suren.
+* Updated __compat_vma_mapped() to check for NULL vm_ops as per Usama.
+* Updated __compat_vma_mapped() to not reference an unmapped VMA's fields
+  as per Usama.
+* Updated __vma_check_mmap_hook() to check for NULL vm_ops as per Usama.
+* Dropped comment about preferring mmap_prepare as seems overly confusing,
+  as per Suren.
+* Updated the mmap lock assert in unmap_vma_locked() to a write lock assert
+  as per Suren.
+* Copied vm_ops->open comment over to VMA tests in appropriate patch as per
+  Suren.
+* Updated mmap_prepare documentation to reflect the fact that no resources
+  should be allocated upon mmap_prepare.
+* Updated mmap_prepare documentation to reference the vm_ops->mapped
+  callback.
+* Fixed stray markdown '## How to use' in documentation.
+* Fixed bug reported by kernel test bot re: overlooked
+  vma_desc_test_flags() -> vma_desc_test() in MTD driver for nommu.
+https://lore.kernel.org/linux-mm/cover.1773695307.git.ljs@kernel.org/
+
+v1:
+https://lore.kernel.org/linux-mm/cover.1773346620.git.ljs@kernel.org/
+
+Lorenzo Stoakes (Oracle) (16):
+  mm: various small mmap_prepare cleanups
+  mm: add documentation for the mmap_prepare file operation callback
+  mm: document vm_operations_struct->open the same as close()
+  mm: add vm_ops->mapped hook
+  fs: afs: correctly drop reference count on mapping failure
+  mm: add mmap_action_simple_ioremap()
+  misc: open-dice: replace deprecated mmap hook with mmap_prepare
+  hpet: replace deprecated mmap hook with mmap_prepare
+  mtdchar: replace deprecated mmap hook with mmap_prepare, clean up
+  stm: replace deprecated mmap hook with mmap_prepare
+  staging: vme_user: replace deprecated mmap hook with mmap_prepare
+  mm: allow handling of stacked mmap_prepare hooks in more drivers
+  drivers: hv: vmbus: replace deprecated mmap hook with mmap_prepare
+  uio: replace deprecated mmap hook with mmap_prepare in uio_info
+  mm: add mmap_action_map_kernel_pages[_full]()
+  mm: on remap assert that input range within the proposed VMA
+
+ Documentation/driver-api/vme.rst           |   2 +-
+ Documentation/filesystems/index.rst        |   1 +
+ Documentation/filesystems/mmap_prepare.rst | 168 ++++++++++++++
+ drivers/char/hpet.c                        |  12 +-
+ drivers/hv/hyperv_vmbus.h                  |   4 +-
+ drivers/hv/vmbus_drv.c                     |  31 ++-
+ drivers/hwtracing/stm/core.c               |  31 ++-
+ drivers/misc/open-dice.c                   |  19 +-
+ drivers/mtd/mtdchar.c                      |  21 +-
+ drivers/staging/vme_user/vme.c             |  20 +-
+ drivers/staging/vme_user/vme.h             |   2 +-
+ drivers/staging/vme_user/vme_user.c        |  51 +++--
+ drivers/target/target_core_user.c          |  26 ++-
+ drivers/uio/uio.c                          |  10 +-
+ drivers/uio/uio_hv_generic.c               |  11 +-
+ fs/afs/file.c                              |  36 ++-
+ include/linux/fs.h                         |  14 +-
+ include/linux/hyperv.h                     |   4 +-
+ include/linux/mm.h                         | 159 ++++++++++++-
+ include/linux/mm_types.h                   |  17 +-
+ include/linux/uio_driver.h                 |   4 +-
+ mm/internal.h                              |  41 ++--
+ mm/memory.c                                | 175 ++++++++++----
+ mm/util.c                                  | 251 ++++++++++++++-------
+ mm/vma.c                                   |  53 +++--
+ mm/vma.h                                   |   2 +-
+ tools/testing/vma/include/dup.h            | 152 ++++++++++---
+ tools/testing/vma/include/stubs.h          |   9 +-
+ 28 files changed, 990 insertions(+), 336 deletions(-)
+ create mode 100644 Documentation/filesystems/mmap_prepare.rst
+
+--
+2.53.0
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
