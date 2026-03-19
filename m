@@ -2,134 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yJ25NduTu2m/lgIAu9opvQ
+	id qK/gF3Kuu2k8mgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 07:12:43 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 09:06:10 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C9192C6916
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 07:12:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F0C4F2C7A31
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 09:06:09 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00BD5C87ED3;
-	Thu, 19 Mar 2026 06:12:43 +0000 (UTC)
-Received: from mail-ot1-f98.google.com (mail-ot1-f98.google.com
- [209.85.210.98])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 757CEC87ED3;
+	Thu, 19 Mar 2026 08:06:09 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE99DC87ED2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A1D8DC87ED2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 06:12:41 +0000 (UTC)
-Received: by mail-ot1-f98.google.com with SMTP id
- 46e09a7af769-7d75ed779bfso506291a34.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 23:12:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773900760; x=1774505560;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=LGoY+LRj97pRicO4hKdToFjQ0YxA5Uy36mFjtzhU23Q=;
- b=iW/VNGy2DFtq2sidsHqIneToKc7VP0sqal3hdDSArAIKz3oZDKzFnfQaAWSybrtJqP
- LnsZhYDWNgCe7DwoXY5bXJJ3CGdr5nJkoeIlsKUkMdFEwxK2eaAAyjoSOUKxrLbHXCwY
- vGCIUGxiiZAd7sdp7e8PbEvR57UCtyE0csWP+cBnxN0orFs3sdwCbrBEnjuau6ucxflm
- naLvjqmX4fAD3GVyF8XZhjD1e1p0ktb88uDDdijctoXS7gRSqN1uUGTA9PRXo+35Qcgc
- kp/Ns7XWMbrei1IVB6nsuWYt0SLMtQNruxb3rJdp9ZXgLXszR5wcNZua5O9EyQsnHKHn
- kQ0Q==
-X-Forwarded-Encrypted: i=2;
- AJvYcCWWvmiSCPU2RgpSQgOwOZNv74JgFGDzEi4LdEnnJAc+/pasBQ3TGsvqqUQitB1EQuCjvjZOXiPFzBypOw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwaMnIhMc8keGpjsIMKPCaHWrl1wkZFQLrqh+uGLj/DnBERyiDm
- rTynr6jq4/XyIOMOPojxkiZJdzctb0ycrp9Rlit3y+ce7UkGwpgnb9qn2u4WvNxAGcINNZmPZV1
- TXiZC+EGO6yiEQbm2fIwZNavdDu2u5wgXTjpumwziQc8FiWd2W34z8QPJHdlikcIkiCi+qrqyZc
- kdNV93dA8MVGURf24JRmEzaFWlIJpY5Z8UkN2AcuVBjW03ls3V9d5skAsaqro2dx4uROtT4IRxw
- KE+7rdUMQPH0eInZ2CJrP4OnNBo940N/H0U46t4rQ==
-X-Gm-Gg: ATEYQzz6dMmrbF85z6G7P2Mx8BY4Draxu47bNA7ZXf4kuCbdjOGFBFfl99LSg6VJn88
- KUbHI1kortyOXp7Gqg3s9lPMAd5CMYe7rzvgDM3ZkrSyhq7sl0Y1393kHgsL3GUNQ+0gLfxob2n
- 9t0XrYNHGy8qxVupvkPxIfne5TPxpQkSeedbHwBnfhj8VUO5dH3Cwgq7lU9Qn4+PKnBpQlCpmrQ
- yttbKFTZQOn5LRXZYgJl9dzgxY8c+8rYxZV3sVSW/Ug+hk/vTGEFTM/2NjZBrB9aSdjw+J3n3xn
- 0yyLE26Pqc0k8jjQfwU78cEoFPKscT/gvc4YS2x6uSirx8/t41o3m/pZpox9pEz+Ryc1JQk7OeJ
- D17/GVauBDgTONuIuHsy32qWaG9Q6tHUCr8CvWhvXWgUTyI65TVARjeJwoYYLHAdPtblG9QX4OQ
- tpgPU4a3HJUwGrA7nDbL3yCJgQCi9eUJbrxNQXbE9yphEXxtJWBKutU8cV4fvq3bI=
-X-Received: by 2002:a05:6830:6683:b0:7d7:dcb1:1e6c with SMTP id
- 46e09a7af769-7d7dcb12013mr1140906a34.7.1773900760056; 
- Wed, 18 Mar 2026 23:12:40 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
- by smtp-relay.gmail.com with ESMTPS id
- 46e09a7af769-7d7c97efc92sm659579a34.0.2026.03.18.23.12.38
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Wed, 18 Mar 2026 23:12:40 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-43b42cd4becso291473f8f.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 18 Mar 2026 23:12:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1773900757; cv=none;
- d=google.com; s=arc-20240605;
- b=lnHIXUtBFXgprGfKwyMB50Z6G0xiS5gCagqAFCBMmvZqSzKzC83jPkvPwNYU4aU6Ia
- yGLa6YkuzuakKmSaI4fCxZwa9clJBwucuh6VS83ADgQ8GisRUs8rV2a/NMBaVdlRC0uX
- /cxlzekQ+39DeLTo3neSMcVJjKpQmE3TNxIGO19d9s8xrt23pvs5e5deDe+g/3Pm+fAs
- L//9vnC7q8pv0ivM2EN3m2Q8Yxujniytg9TbcA+SwaRRZS23eZLhLuQE7Dav5HMDQZUO
- CG0LJU38NSdAXhzC/UikrEibmrkS84iY8xsxIyWEglekA8FNYKoHG4lI/vheYZ4dVDVp
- SKDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=LGoY+LRj97pRicO4hKdToFjQ0YxA5Uy36mFjtzhU23Q=;
- fh=dLmlClPTnQwVwHb+o0R/YFAq/LYFcE9U5zTQJxJu8sc=;
- b=Axvs7lx+uHFZSZ9vsj95yONDeAq4qzAeAFiiQbgMHy0Da3C4CGDDJqgO21sBUdps7M
- 4poom4ExWbRcZ4/+0UUQnAMRhqCdG4RxBZ3KTMoy6Fg1tmOl1z9eECrw2de+tVIzMPHD
- 8KyHDJtpEmub7YfSOTbzyhg3Pka8qU2yVZSF14dx2HijKp1kt7FTAFKQBXoaykze7xo9
- uxTfCXlJX90Z5tvG/n+CBwu2w3qnJoVavlL+Mqcc7DY/glu6Xz6+XuEmKh74ISno6xUY
- wdRDMVEad54P8W3R3ZFRSjnfmn5JadEP21HcRiLAWL6LY89pABtR8H7txaU3MmYgBL6u
- 5k+w==; darn=st-md-mailman.stormreply.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1773900757; x=1774505557;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=LGoY+LRj97pRicO4hKdToFjQ0YxA5Uy36mFjtzhU23Q=;
- b=WgVfprCowIElZg5KbWxMf7hZMO/w9Lpo7TwyczogdK2QJCpgabFF4qCQQIqLx9silc
- Bk50ZGbWdCBhKaj22cFsLcGQ9kdBiS0IPwUwO0iYyfM4H7+6y6FeQfuLweJjlE0GlwI5
- 5GEPkC8XHs/XhpqyLJKFyjPEMjF0SU8SP+bbI=
-X-Forwarded-Encrypted: i=1;
- AJvYcCXpqUCWODldLIeHOqYzbSEj1xCYmhJahSwyXkxY1Itle/qwfHrQTMyww1SlVn9IMgQE3ZK3K31Mn6xEHw==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:6000:657:b0:439:cc5e:a6d5 with SMTP id
- ffacd0b85a97d-43b57729818mr3028454f8f.23.1773900757530; 
- Wed, 18 Mar 2026 23:12:37 -0700 (PDT)
-X-Received: by 2002:a05:6000:657:b0:439:cc5e:a6d5 with SMTP id
- ffacd0b85a97d-43b57729818mr3028418f8f.23.1773900756977; Wed, 18 Mar 2026
- 23:12:36 -0700 (PDT)
+ Thu, 19 Mar 2026 08:06:07 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 40C3E41AF0;
+ Thu, 19 Mar 2026 08:06:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD00C19424;
+ Thu, 19 Mar 2026 08:06:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773907566;
+ bh=4JCWNF+D/qWHcNu86lWPqI3P/Ks4jxVkRRfjXis1WB8=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=hPJywGWmfPZKo4esFCd879TXQJvbVAD2piXfU4mtgyq9Zd4VcIigyHRLZaniM+AT1
+ DDSGrTb18/IGjBT2vl9PL7tjXDWVt8mZB/W/zHqEveP77YHO3N+8XLAZili5hOhvRD
+ 3Ep0CcTceZNeof0PKKDgqBl8VnpubVB3H3OCk9U7yI0OGVEMkv9tv6vTqeoYfyPHsX
+ awSjW9RNWaf9p2Cpza8WkNWThQu7XNSh3q6d4yYYICM869q/XOTWD9c9JrKurNK98k
+ VtILAttqv7Ww0SGR27d1IAjLYU41dnH6K9J+dNZ2joj2RY/dPzSvL1jePwpNgCbpnc
+ ijcCCxdNNy1EQ==
+Date: Thu, 19 Mar 2026 09:06:03 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+Message-ID: <20260319-glistening-ultramarine-ibis-1eb3d6@quoll>
+References: <20260317180329.1207625-1-arnaud.pouliquen@foss.st.com>
+ <20260317180329.1207625-3-arnaud.pouliquen@foss.st.com>
 MIME-Version: 1.0
-References: <20260313222206.778760-1-jitendra.vegiraju@broadcom.com>
- <20260313222206.778760-5-jitendra.vegiraju@broadcom.com>
- <abSXP3gMFQEiC5Lm@shell.armlinux.org.uk>
- <CAMdnO-LYAPfyvM4vgmGcZgy-aagHSkP+VDmpRskNU-414j3gnQ@mail.gmail.com>
-In-Reply-To: <CAMdnO-LYAPfyvM4vgmGcZgy-aagHSkP+VDmpRskNU-414j3gnQ@mail.gmail.com>
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Date: Wed, 18 Mar 2026 23:12:23 -0700
-X-Gm-Features: AaiRm523T3yfvZCD0epc5meBKP27na-ViVz8_6bCVOXjtZZcwVC4fiK6UmLEqL4
-Message-ID: <CAMdnO-+YWowCDh4iB9EZ=eqUidE6Mu4TOqjwyoMgyEaG=pBLBg@mail.gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Cc: quic_abchauha@quicinc.com, vladimir.oltean@nxp.com, chenchuangyu@xiaomi.com,
- edumazet@google.com, lizhi2@eswincomputing.com, yangtiezhu@loongson.cn,
- linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, rohan.g.thomas@altera.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, ast@kernel.org, wens@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- florian.fainelli@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
- horms@kernel.org, bpf@vger.kernel.org, davem@davemloft.net,
- ovidiu.panait.rb@renesas.com
-Subject: Re: [Linux-stm32] [PATCH net-next v7 4/5] net: stmmac: Add PCI
-	driver support for BCM8958x
+Content-Disposition: inline
+In-Reply-To: <20260317180329.1207625-3-arnaud.pouliquen@foss.st.com>
+Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, op-tee@lists.trustedfirmware.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-remoteproc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh+dt@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Jens Wiklander <jens.wiklander@linaro.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v21 2/6] dt-bindings: remoteproc: Add
+ STM32 TEE-controlled rproc binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,202 +63,226 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============1048444948951526194=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.19 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[broadcom.com : SPF not aligned (relaxed),reject];
-	SIGNED_SMIME(-2.00)[];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
-	R_DKIM_REJECT(1.00)[broadcom.com:s=google];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[34];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:quic_abchauha@quicinc.com,m:vladimir.oltean@nxp.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:yangtiezhu@loongson.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:bcm-kernel-feedback-list@broadcom.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:hawk@kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:ast@kernel.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:florian.fainelli@broadcom.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:horms@kernel.org,m:bpf@vger.kernel.org,m:davem@davemloft.net,m:ovidiu.panait.rb@renesas.com,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,m:andrew@lunn.c
- h,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:arnaud.pouliquen@foss.st.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mathieu.poirier@linaro.org,m:op-tee@lists.trustedfirmware.org,m:andersson@kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh+dt@kernel.org,m:sumit.garg@kernel.org,m:krzk+dt@kernel.org,m:jens.wiklander@linaro.org,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:robh@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	HAS_ATTACHMENT(0.00)[];
-	DKIM_TRACE(0.00)[broadcom.com:-];
-	RCVD_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.449];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[quicinc.com,nxp.com,xiaomi.com,google.com,eswincomputing.com,loongson.cn,st-md-mailman.stormreply.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,broadcom.com,redhat.com,altera.com,bp.renesas.com,lists.infradead.org,vger.kernel.org,lunn.ch,davemloft.net,renesas.com];
-	NEURAL_HAM(-0.00)[-0.116];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[broadcom.com:email,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,armlinux.org.uk:url,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 6C9192C6916
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[0.0.0.0:email,devicetree.org:url,stormreply.com:email,stormreply.com:url,st.com:email]
+X-Rspamd-Queue-Id: F0C4F2C7A31
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---===============1048444948951526194==
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000008a83b8064d5a74f8"
+On Tue, Mar 17, 2026 at 07:03:23PM +0100, Arnaud Pouliquen wrote:
+> Add a Device Tree binding for the STM32 remote processor controlled
+> via a Trusted Application running in OP-TEE.
+> This binding describes the interface and properties required for STM32MP
+> remoteproc instances managed by the TEE rproc service, including a
+> linkage to the TEE backend through the property "rproc-tee-phandle".
+> 
+> Signed-off-by: Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> ---
+> V21 updates:
+> - the m4 node is no more declared as a child of the optee-rproc node
+> - "rproc-tee-phandle" property is introduced to reference the optee-rproc
+> ---
+>  .../remoteproc/st,stm32-rproc-tee.yaml        | 108 ++++++++++++++++++
+>  1 file changed, 108 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+> new file mode 100644
+> index 000000000000..ca4dd1c8e7b0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/st,stm32-rproc-tee.yaml
+> @@ -0,0 +1,108 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/st,stm32-rproc-tee.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: STMicroelectronics STM32 remote processor controlled via TEE
+> +
+> +maintainers:
+> +  - Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>
+> +
+> +description: |
+> +  STM32MP remote processor controlled by a Trusted Application
+> +  running in OP-TEE. This node is a child of the TEE remoteproc service
+> +  (UUID 80a4c275-0a47-4905-8285-1486a9771a08) and exposes a remoteproc
+> +  instance managed by the Linux remoteproc core via the TEE rproc service.
+> +
+> +  Firmware loading, authentication and remote processor start/stop are managed
+> +  by the TEE application. The STM32-specific driver handles platform resources
+> +  such as the mailboxes and reserved-memory.
+> +
+> +properties:
+> +  compatible:
+> +    const: st,stm32mp1-m4-tee
 
---0000000000008a83b8064d5a74f8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Drop "tee", it suggests that compatible is tied to implementation of FW
+you put there.
 
-Hi Russell,
-On Mon, Mar 16, 2026 at 1:34=E2=80=AFPM Jitendra Vegiraju
-<jitendra.vegiraju@broadcom.com> wrote:
->
-> On Fri, Mar 13, 2026 at 4:01=E2=80=AFPM Russell King (Oracle)
-> <linux@armlinux.org.uk> wrote:
-> >
-> > > +
-> > > +     plat->suspend           =3D stmmac_pci_plat_suspend;
-> > > +     plat->resume            =3D brcm_pci_resume;
-> > > +     plat->bsp_priv =3D brcm_priv;
-> >
-> > Populating suspend/resume means that plat->init and plat->exit
-> > will only be called on driver probe (former), probe failure (latter)
-> > or remove (latter). Please consider using these to ensure that
-> > all appropriate resources are properly cleaned up in all cases.
-> >
->
-> Thanks for pointing this out. I will check resource cleanup more closely.
-After reviewing the need for  plat->init and plat-exit, I don't think we ne=
-ed
-these handlers as this driver with fixed-link doesn't need to restore any d=
-evice
-specific state such as clocks.
->
-> > Thanks.
-> >
-> > --
-> > RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> > FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+> +
+> +  reg:
+> +    description: |
 
---0000000000008a83b8064d5a74f8
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
+Do not need '|' unless you need to preserve formatting.
 
-MIIVNwYJKoZIhvcNAQcCoIIVKDCCFSQCAQExDzANBglghkgBZQMEAgEFADALBgkqhkiG9w0BBwGg
-ghKkMIIGqDCCBJCgAwIBAgIQfofDCS7XZu8vIeKo0KeY9DANBgkqhkiG9w0BAQwFADBMMSAwHgYD
-VQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSNjETMBEGA1UEChMKR2xvYmFsU2lnbjETMBEGA1UE
-AxMKR2xvYmFsU2lnbjAeFw0yMzA0MTkwMzUzNTNaFw0yOTA0MTkwMDAwMDBaMFIxCzAJBgNVBAYT
-AkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBS
-NiBTTUlNRSBDQSAyMDIzMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAwjAEbSkPcSyn
-26Zn9VtoE/xBvzYmNW29bW1pJZ7jrzKwPJm/GakCvy0IIgObMsx9bpFaq30X1kEJZnLUzuE1/hlc
-hatYqyORVBeHlv5V0QRSXY4faR0dCkIhXhoGknZ2O0bUJithcN1IsEADNizZ1AJIaWsWbQ4tYEYj
-ytEdvfkxz1WtX3SjtecZR+9wLJLt6HNa4sC//QKdjyfr/NhDCzYrdIzAssoXFnp4t+HcMyQTrj0r
-pD8KkPj96sy9axzegLbzte7wgTHbWBeJGp0sKg7BAu+G0Rk6teO1yPd75arbCvfY/NaRRQHk6tmG
-71gpLdB1ZhP9IcNYyeTKXIgfMh2tVK9DnXGaksYCyi6WisJa1Oa+poUroX2ESXO6o03lVxiA1xyf
-G8lUzpUNZonGVrUjhG5+MdY16/6b0uKejZCLbgu6HLPvIyqdTb9XqF4XWWKu+OMDs/rWyQ64v3mv
-Sa0te5Q5tchm4m9K0Pe9LlIKBk/gsgfaOHJDp4hYx4wocDr8DeCZe5d5wCFkxoGc1ckM8ZoMgpUc
-4pgkQE5ShxYMmKbPvNRPa5YFzbFtcFn5RMr1Mju8gt8J0c+dxYco2hi7dEW391KKxGhv7MJBcc+0
-x3FFTnmhU+5t6+CnkKMlrmzyaoeVryRTvOiH4FnTNHtVKUYDsCM0CLDdMNgoxgkCAwEAAaOCAX4w
-ggF6MA4GA1UdDwEB/wQEAwIBhjBMBgNVHSUERTBDBggrBgEFBQcDAgYIKwYBBQUHAwQGCisGAQQB
-gjcUAgIGCisGAQQBgjcKAwwGCisGAQQBgjcKAwQGCSsGAQQBgjcVBjASBgNVHRMBAf8ECDAGAQH/
-AgEAMB0GA1UdDgQWBBQAKTaeXHq6D68tUC3boCOFGLCgkjAfBgNVHSMEGDAWgBSubAWjkxPioufi
-1xzWx/B/yGdToDB7BggrBgEFBQcBAQRvMG0wLgYIKwYBBQUHMAGGImh0dHA6Ly9vY3NwMi5nbG9i
-YWxzaWduLmNvbS9yb290cjYwOwYIKwYBBQUHMAKGL2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5j
-b20vY2FjZXJ0L3Jvb3QtcjYuY3J0MDYGA1UdHwQvMC0wK6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFs
-c2lnbi5jb20vcm9vdC1yNi5jcmwwEQYDVR0gBAowCDAGBgRVHSAAMA0GCSqGSIb3DQEBDAUAA4IC
-AQCRkUdr1aIDRmkNI5jx5ggapGUThq0KcM2dzpMu314mJne8yKVXwzfKBtqbBjbUNMODnBkhvZcn
-bHUStur2/nt1tP3ee8KyNhYxzv4DkI0NbV93JChXipfsan7YjdfEk5vI2Fq+wpbGALyyWBgfy79Y
-IgbYWATB158tvEh5UO8kpGpjY95xv+070X3FYuGyeZyIvao26mN872FuxRxYhNLwGHIy38N9ASa1
-Q3BTNKSrHrZngadofHglG5W3TMFR11JOEOAUHhUgpbVVvgCYgGA6dSX0y5z7k3rXVyjFOs7KBSXr
-dJPKadpl4vqYphH7+P40nzBRcxJHrv5FeXlTrb+drjyXNjZSCmzfkOuCqPspBuJ7vab0/9oeNERg
-nz6SLCjLKcDXbMbKcRXgNhFBlzN4OUBqieSBXk80w2Nzx12KvNj758WavxOsXIbX0Zxwo1h3uw75
-AI2v8qwFWXNclO8qW2VXoq6kihWpeiuvDmFfSAwRLxwwIjgUuzG9SaQ+pOomuaC7QTKWMI0hL0b4
-mEPq9GsPPQq1UmwkcYFJ/Z4I93DZuKcXmKMmuANTS6wxwIEw8Q5MQ6y9fbJxGEOgOgYL4QIqNULb
-5CYPnt2LeiIiEnh8Uuh8tawqSjnR0h7Bv5q4mgo3L1Z9QQuexUntWD96t4o0q1jXWLyrpgP7Zcnu
-CzCCBYMwggNroAMCAQICDkXmuwODM8OFZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsT
-F0dsb2JhbFNpZ24gUm9vdCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpH
-bG9iYWxTaWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMXR2xv
-YmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
-bFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQCVB+hzymb57BTKezz3DQjxtEUL
-LIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDK
-RN5zlE7zp4l/T3hjCMgSUG1CZi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEG
-xb7ibTIGph75ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
-jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+vFAEYzTfa5MY
-vms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrxclZuLojFUUJEFZTuo8U4lptO
-TloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeECmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4L
-sgizYWYJarEGOmWWWcDwNf3J2iiNGhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiD
-D9H/3zAR+YXPM0j1ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPp
-DW+4LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNVHQ8BAf8E
-BAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn4tcc1sfwf8hnU6AwHwYD
-VR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJKoZIhvcNAQEMBQADggIBAIMl7ejR/ZVS
-zZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlbqDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSW
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGbTCCBFWg
-AwIBAgIMGHX6KxYK3WW2YyprMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI0MDkyNTEzNTAzMVoXDTI2MDkyNjEzNTAzMVowgbMxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjEaMBgGA1UEAxMRSml0ZW5kcmEgVmVnaXJhanUx
-LTArBgkqhkiG9w0BCQEWHmppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbTCCASIwDQYJKoZI
-hvcNAQEBBQADggEPADCCAQoCggEBAKWV+9PYvG4njqRsbQas79f8Q46VL7b1ZxvWT6ik6VMbdRZx
-tfpfZalVXksqcb02/N1H7UA9V04cV2q97FkSr/KxeFLMetPb3cVJZICg23IRO2NTPdmgPFzwkPTo
-35h9h/OYLgh3/9a1nTsC2xqJa8GtohD5+42rsskGcI57U4n1r1L4R5IL9ypSqDxX/xVEAdGI5FTj
-VgvoZC6iuEbnez+yO8TT3wun9b/PQowOB5P0CwIFv7ERW0S1s6B8yrbsoaTrz0vQaEA786k1pZkg
-ykC1+zXq/iTyZuPP4B4RkzFd43Pw+GAH0Tt2nx5V4rNisJHeAVNU92Gj01cEg0I+FnsCAwEAAaOC
-Ad8wggHbMA4GA1UdDwEB/wQEAwIFoDCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0
-dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQw
-OQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAy
-MzBlBgNVHSAEXjBcMAkGB2eBDAEFAwEwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggr
-BgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wCQYDVR0TBAIw
-ADBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWlt
-ZWNhMjAyMy5jcmwwKQYDVR0RBCIwIIEeaml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tMBMG
-A1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1Ud
-DgQWBBRq5Jlxz3MqC+zEgUxK566xEc2g3DANBgkqhkiG9w0BAQsFAAOCAgEARXrmeeWA31pp9Tr0
-M6mOlMv+Pr2raES4GzPSyftvxf6tBQCBNaqi6LSbyusDYOj3mG9bp6VeVn+68OxNY9iNAk+ujtId
-f3+30BlZOQ1v8z9u2peUOUtWI60y2MxhdH0X0n2H+BCGvUOFqs5z440jqqy1HsscZTXHB7FEZmVP
-fyD+0Z6cxyh7WNC6+BgLiFwf8iqmAbu7Yb1sGTUGyS5gfYEjJbF2PJfwNUcJDd7eS4w5Ju5mK5y7
-spgjH2/JmDgbkpSk9JyuWfjGZIg4ah/q2nb6UMd1XJb6gLQZuzPOI3SgXPvd8MHGjKZrX2BHOBSC
-bJJ8rp4w4a9QMS6dde2MFObusxkZAft4tUnwo+ProchHs7iA85sL7sWEZhAmjmKKCpECpEfZm0+/
-hpvKQV3AZp5vBstb4IVL8QmLj8beDVHYnNhEicsSiG1wW7zSYyBnmGbFRrFQIJnJDWPjTZOlVEyp
-T1ShrXRCtqJpOt6rgg+rFEY3D8j6/bAkJXnmKnE2LZ0YyrrKk7eC6UfNNimx38w3NWchtcGY8zJn
-Y/1/C9Jv/mWm/2lK8nvusOFxhKmbG83Hx8toQdZ5F1kYk6zAWjfB7lwXr/En9mCmLieJ18hen9EK
-qbYyUkmCmuoLi5GXFMJy+iQv6DgMVQ7CACagybU6FUrmL9lVa+A6caBEEh4xggJXMIICUwIBATBi
-MFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9i
-YWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwYdforFgrdZbZjKmswDQYJYIZIAWUDBAIBBQCg
-gccwLwYJKoZIhvcNAQkEMSIEINYa4z6UGpcjabiJYulOCRrZPxZUTfVF9+pdPkZKYfkBMBgGCSqG
-SIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDMxOTA2MTIzN1owXAYJKoZI
-hvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG
-9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAEaiQAnFaDsC
-C6CuaAWt1k2iuATKujEBZ5NzU5WbvK/KdsPptNrglD0RGdVpsJl5UUw2H4oT7T9Udl1m2zK/I2rK
-CQIL/Hsf3wrjHVKuHYZbseHqX+D5iEg2yTGSUknuqFKhrWgD4r9OzA+TkZtorCfGNbHb+JknjSOd
-7Q5AKdpcv714fy7enlibXav1Do8clrPo/51kL6XVvG+NhO+ncBha41GcYKu2znWiWPry3FvkByQ0
-qLgMi9Qsi6LSn8YauEkrlhfvyPFDeQe1TWvSA7JofJ+Fy7+JdJj3I5vCa8xv8vLLx2wA4N3bN36J
-jbnFNXitlYdIUw8pV6sXkyk+UjI=
---0000000000008a83b8064d5a74f8--
+> +      Remote processor identifier used by the TEE service. The <0> value
+> +      in the example denotes a single instance with ID 0.
+> +    maxItems: 1
+> +
+> +  mboxes:
+> +    description: |
+> +      Mailbox channels used for rpmsg/virtio functionality and processor
+> +      shutdown.
+> +    maxItems: 3
+> +
+> +  mbox-names:
+> +    items:
+> +      - const: vq0
+> +      - const: vq1
+> +      - const: shutdown
+> +
+> +  memory-region:
+> +    description: |
+> +      List of phandles to reserved-memory nodes describing the memory layout
+> +      for the interprocessors communication.
 
---===============1048444948951526194==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Drop description. You miss maxItems, though.
+
+> +
+> +  interrupts:
+> +    description: |
+
+Same comments...
+
+> +      Optional watchdog / status interrupt line used to detect crashes
+> +      and optionally wake up the system.
+> +    maxItems: 1
+> +
+> +  st,auto-boot:
+> +    type: boolean
+> +    description: |
+> +      If present, the remote processor will be automatically started by
+> +      the remoteproc core at boot.
+
+That's policy, not DT property.
+
+> +
+> +  wakeup-source:
+> +    type: boolean
+> +    description: |
+> +      Indicates that the watchdog interrupt can be used as a wakeup source.
+> +
+> +  rproc-tee-phandle:
+
+Missing vendor prefix, drop phandle. You do not say that "st,auto-boot"
+is "st,auto-boot-boolean"
+
+> +    description: |
+> +      Phandle to the remote processor backend node and its identifier. This property
+> +      is used to link the TEE remoteproc service to the remote processor instance
+> +      it controls. The value is a phandle reference to the remote processor node,
+> +      followed by a cell specifying the remote processor identifier used by the TEE.
+> +    $ref: /schemas/types.yaml#/definitions/phandle-array
+
+Missing constraints.
+
+I also do not understand which bus node this is being child, if not
+remote proc.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - rproc-tee-phandle
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    firmware {
+> +        tee_rproc: optee-rproc {
+> +            compatible = "80a4c275-0a47-4905-8285-1486a9771a08";
+> +        };
+> +    };
+
+Drop
+
+> +
+> +    m4: m4@0 {
+
+Drop unused label.
+
+Node names should be generic. See also an explanation and list of
+examples (not exhaustive) in DT specification:
+https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+If you cannot find a name matching your device, please check in kernel
+sources for similar cases or you can grow the spec (via pull request to
+DT spec repo).
+
+e.g. mcu, because m4 feels like given model (Cortex M4?).
+
+> +      compatible = "st,stm32mp1-m4-tee";
+> +      reg = <0 0>;
+> +
+> +      mboxes = <&ipcc 0>, <&ipcc 1>, <&ipcc 2>;
+> +      mbox-names = "vq0", "vq1", "shutdown";
+> +
+> +      memory-region = <&vdev0vring0>, <&m_ipc_shm>, <&mcuram2>,
+> +                      <&vdev0vring1>, <&vdev0buffer>, <&retram>;
+> +
+> +      interrupt-parent = <&exti>;
+> +      interrupts = <68 1>;
+> +
+> +      rproc-tee-phandle = <&tee_rproc 0>;
+> +      st,auto-boot;
+> +      wakeup-source;
+> +
+> +      status = "okay";
+
+Drop
+
+Best regards,
+Krzysztof
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============1048444948951526194==--
