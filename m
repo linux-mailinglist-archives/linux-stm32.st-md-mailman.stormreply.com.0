@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aKkzBrhZu2lfjAIAu9opvQ
+	id 4HUkOq5Zu2lfjAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 03:04:40 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 03:04:30 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6DCD2C4B38
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 03:04:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D76262C4ADC
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 03:04:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 76677C8F266;
-	Thu, 19 Mar 2026 02:04:39 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E4DBC8F286;
+	Thu, 19 Mar 2026 02:04:30 +0000 (UTC)
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 02B5FC8F294
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0ADC7C8F262
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 02:04:30 +0000 (UTC)
-X-UUID: f2eb22a2233711f1a21c59e7364eecb8-20260319
+ Thu, 19 Mar 2026 02:04:27 +0000 (UTC)
+X-UUID: f3535ac0233711f1a21c59e7364eecb8-20260319
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.11, REQID:f112277f-fc1f-4f34-9138-d4d22d580cc8, IP:0,
+X-CID-O-INFO: VERSION:1.3.11, REQID:a44ca008-d1ba-4472-b7ff-443f1045baa9, IP:0,
  U
  RL:0,TC:0,Content:-25,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
  ON:release,TS:0
-X-CID-META: VersionHash:89c9d04, CLOUDID:d0c6f5da407226d4688d1d01a9ebe28e,
+X-CID-META: VersionHash:89c9d04, CLOUDID:01771772bd513303bc6f8e60329af1db,
  BulkI
  D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|898,TC:nil,Content:0|15|50
  ,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OS
@@ -33,12 +33,12 @@ X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f2eb22a2233711f1a21c59e7364eecb8-20260319
+X-UUID: f3535ac0233711f1a21c59e7364eecb8-20260319
 X-User: xiaopei01@kylinos.cn
 Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
  (envelope-from <xiaopei01@kylinos.cn>)
  (Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
- with ESMTP id 693530950; Thu, 19 Mar 2026 10:04:23 +0800
+ with ESMTP id 518993943; Thu, 19 Mar 2026 10:04:23 +0800
 From: Pei Xiao <xiaopei01@kylinos.cn>
 To: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-kernel@vger.kernel.org, imx@lists.linux.dev,
@@ -46,15 +46,15 @@ To: linux-spi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-riscv@lists.infradead.org, linux-mediatek@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, broonie@kernel.org,
  Frank.Li@nxp.com, amelie.delaunay@foss.st.com
-Date: Thu, 19 Mar 2026 10:04:04 +0800
-Message-Id: <863ab1ddc4f3b9a25c0bf79e1581b65359cef6c3.1773885292.git.xiaopei01@kylinos.cn>
+Date: Thu, 19 Mar 2026 10:04:05 +0800
+Message-Id: <73d0d8ecb4e1af5a558d6a7866c0f886d94fe3d1.1773885292.git.xiaopei01@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <cover.1773885292.git.xiaopei01@kylinos.cn>
 References: <cover.1773885292.git.xiaopei01@kylinos.cn>
 MIME-Version: 1.0
 Cc: Pei Xiao <xiaopei01@kylinos.cn>
-Subject: [Linux-stm32] [PATCH v5 08/17] spi: rockchip-sfc: Simplify clock
-	handling with devm_clk_get_enabled()
+Subject: [Linux-stm32] [PATCH v5 09/17] spi: sifive: Simplify clock handling
+	with devm_clk_get_enabled()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,90 +94,107 @@ X-Spamd-Result: default: False [1.79 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[xiaopei01@kylinos.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.988];
+	NEURAL_HAM(-0.00)[-0.984];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,kylinos.cn:email,kylinos.cn:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: C6DCD2C4B38
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,kylinos.cn:email,kylinos.cn:mid]
+X-Rspamd-Queue-Id: D76262C4ADC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 Replace devm_clk_get() followed by clk_prepare_enable() with
-devm_clk_get_enabled() for both the interface clock "clk_sfc" and the
-AHB clock "hclk_sfc". This reduces boilerplate code and error handling,
-as the managed API automatically disables the clocks when the device is
-removed or if probe fails.
+devm_clk_get_enabled() for the bus clock. This reduces boilerplate code
+and error handling, as the managed API automatically disables the clock
+when the device is removed or if probe fails.
 
 Remove the now-unnecessary clk_disable_unprepare() calls from the probe
-error paths and the remove callback. Adjust error handling labels
-accordingly.
+error path and the remove callback. Adjust the error handling to use the
+existing put_host label.
 
 Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
 ---
- drivers/spi/spi-rockchip-sfc.c | 22 ++--------------------
- 1 file changed, 2 insertions(+), 20 deletions(-)
+ drivers/spi/spi-sifive.c | 21 ++++++---------------
+ 1 file changed, 6 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/spi/spi-rockchip-sfc.c b/drivers/spi/spi-rockchip-sfc.c
-index 174995042f53..b32b7c015edb 100644
---- a/drivers/spi/spi-rockchip-sfc.c
-+++ b/drivers/spi/spi-rockchip-sfc.c
-@@ -635,13 +635,13 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 		return PTR_ERR(sfc->regbase);
+diff --git a/drivers/spi/spi-sifive.c b/drivers/spi/spi-sifive.c
+index 6c7aba8befa0..54adbc057af6 100644
+--- a/drivers/spi/spi-sifive.c
++++ b/drivers/spi/spi-sifive.c
+@@ -312,7 +312,8 @@ static int sifive_spi_probe(struct platform_device *pdev)
+ 		goto put_host;
+ 	}
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->clk = devm_clk_get(&pdev->dev, "clk_sfc");
-+		sfc->clk = devm_clk_get_enabled(&pdev->dev, "clk_sfc");
- 	if (IS_ERR(sfc->clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->clk),
- 				     "Failed to get sfc interface clk\n");
+-	spi->clk = devm_clk_get(&pdev->dev, NULL);
++	/* Spin up the bus clock before hitting registers */
++	spi->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+ 	if (IS_ERR(spi->clk)) {
+ 		dev_err(&pdev->dev, "Unable to find bus clock\n");
+ 		ret = PTR_ERR(spi->clk);
+@@ -342,13 +343,6 @@ static int sifive_spi_probe(struct platform_device *pdev)
+ 		goto put_host;
+ 	}
  
- 	if (!has_acpi_companion(&pdev->dev))
--		sfc->hclk = devm_clk_get(&pdev->dev, "hclk_sfc");
-+		sfc->hclk = devm_clk_get_enabled(&pdev->dev, "hclk_sfc");
- 	if (IS_ERR(sfc->hclk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(sfc->hclk),
- 				     "Failed to get sfc ahb clk\n");
-@@ -657,18 +657,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 
- 	sfc->use_dma = !of_property_read_bool(sfc->dev->of_node, "rockchip,sfc-no-dma");
- 
--	ret = clk_prepare_enable(sfc->hclk);
+-	/* Spin up the bus clock before hitting registers */
+-	ret = clk_prepare_enable(spi->clk);
 -	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable ahb clk\n");
--		goto err_hclk;
+-		dev_err(&pdev->dev, "Unable to enable bus clock\n");
+-		goto put_host;
 -	}
 -
--	ret = clk_prepare_enable(sfc->clk);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to enable interface clk\n");
--		goto err_clk;
--	}
--
- 	/* Find the irq */
- 	ret = platform_get_irq(pdev, 0);
- 	if (ret < 0)
-@@ -730,10 +718,6 @@ static int rockchip_sfc_probe(struct platform_device *pdev)
- 	pm_runtime_set_suspended(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
- err_irq:
--	clk_disable_unprepare(sfc->clk);
--err_clk:
--	clk_disable_unprepare(sfc->hclk);
--err_hclk:
- 	return ret;
+ 	/* probe the number of CS lines */
+ 	spi->cs_inactive = sifive_spi_read(spi, SIFIVE_SPI_REG_CSDEF);
+ 	sifive_spi_write(spi, SIFIVE_SPI_REG_CSDEF, 0xffffffffU);
+@@ -357,14 +351,14 @@ static int sifive_spi_probe(struct platform_device *pdev)
+ 	if (!cs_bits) {
+ 		dev_err(&pdev->dev, "Could not auto probe CS lines\n");
+ 		ret = -EINVAL;
+-		goto disable_clk;
++		goto put_host;
+ 	}
+ 
+ 	num_cs = ilog2(cs_bits) + 1;
+ 	if (num_cs > SIFIVE_SPI_MAX_CS) {
+ 		dev_err(&pdev->dev, "Invalid number of spi targets\n");
+ 		ret = -EINVAL;
+-		goto disable_clk;
++		goto put_host;
+ 	}
+ 
+ 	/* Define our host */
+@@ -392,7 +386,7 @@ static int sifive_spi_probe(struct platform_device *pdev)
+ 			       dev_name(&pdev->dev), spi);
+ 	if (ret) {
+ 		dev_err(&pdev->dev, "Unable to bind to interrupt\n");
+-		goto disable_clk;
++		goto put_host;
+ 	}
+ 
+ 	dev_info(&pdev->dev, "mapped; irq=%d, cs=%d\n",
+@@ -401,13 +395,11 @@ static int sifive_spi_probe(struct platform_device *pdev)
+ 	ret = devm_spi_register_controller(&pdev->dev, host);
+ 	if (ret < 0) {
+ 		dev_err(&pdev->dev, "spi_register_host failed\n");
+-		goto disable_clk;
++		goto put_host;
+ 	}
+ 
+ 	return 0;
+ 
+-disable_clk:
+-	clk_disable_unprepare(spi->clk);
+ put_host:
+ 	spi_controller_put(host);
+ 
+@@ -421,7 +413,6 @@ static void sifive_spi_remove(struct platform_device *pdev)
+ 
+ 	/* Disable all the interrupts just in case */
+ 	sifive_spi_write(spi, SIFIVE_SPI_REG_IE, 0);
+-	clk_disable_unprepare(spi->clk);
  }
  
-@@ -747,8 +731,6 @@ static void rockchip_sfc_remove(struct platform_device *pdev)
- 			 DMA_BIDIRECTIONAL);
- 	free_pages((unsigned long)sfc->buffer, get_order(sfc->max_iosize));
- 
--	clk_disable_unprepare(sfc->clk);
--	clk_disable_unprepare(sfc->hclk);
- }
- 
- #ifdef CONFIG_PM
+ static int sifive_spi_suspend(struct device *dev)
 -- 
 2.25.1
 
