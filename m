@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qP+1FTr1u2nkqQIAu9opvQ
+	id GHp5EoP1u2nkqQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:08:10 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:09:23 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C57332CBA70
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:08:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD8A82CBACB
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:09:22 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59FEFC87ECE;
-	Thu, 19 Mar 2026 13:08:09 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BDACC87ECE;
+	Thu, 19 Mar 2026 13:09:22 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C4E6DC08D19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40772C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 13:08:07 +0000 (UTC)
+ Thu, 19 Mar 2026 13:09:21 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6703D44563
+ by sea.source.kernel.org (Postfix) with ESMTP id 0124D44507
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 13:08:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C47BC2BCB1
+ Thu, 19 Mar 2026 13:09:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C349CC4AF14
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 13:08:06 +0000 (UTC)
+ Thu, 19 Mar 2026 13:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773925686;
- bh=PLIQNmpARgORTyPtKiscw4UfX4zOOAigpCDT2JYNybY=;
+ s=k20201202; t=1773925759;
+ bh=Q6j72inhTsH6ewxfYJqIA8kdxCdrfzZ/qo9HHgaCAUs=;
  h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
- b=PLF4kov8VHF5Sz3cCLnIzd9CB3vRVzrNjXvudGe6zNM9EioZ5xUNAjtWGfOSMaeay
- lvq+NQihEbdMoSP9Jiq1NdWLcEhKx0vpVO9lGPcLGB4pqxvKGe/Aak/3Xq2Hbbyn3I
- 9uMMge3POiG3mLoH0PFauIh+4/wXlbhnx0S/DBSgx81OPUwDhJYiCaGEgaalECQ/Re
- OICBDCGhdAHSQ6zYFduWEAhPkfM9k+NCePHEqCIjsaCSJ4KY1ZfZg9lSij+ytrOd63
- 9ngQGI/xbOH0TpHR2JehTFci96wF/M9JIQb0wCz3HmT4DSc2qVUwu/qiII139nm9JO
- YaZVg7FnQY3TA==
-Received: by mail-lj1-f180.google.com with SMTP id
- 38308e7fff4ca-38a32d36396so7734941fa.0
+ b=Qygsp4SYDnjNIkRepZ6B/Da7WIVTVHYU4iXoNk8PmGV1OM/gGOd5/M9BvufNOMbpX
+ L3fe8ghS0ZDexaf/xoBcCNoxfpzJGgcSymUOSQM8LFCm7B7oLjrOmUhDXWw83okB85
+ JQKsLI1aTMKRjTk8mRQm4qDfSybEOQ/uU2kuBX7DlPaciRMwXzFDcFiQGi1TZaeY7U
+ /kYnMWhOloiKv/Vxw9DHsIIOnyr5Jm2RgGOup9G6c0BG3+vMniwNt0YL5DyO74/QJY
+ tvIbSDut+lE9CHg5aThsCyDdx3qXRcHu/ur7TUusVV3mLOE3vNUfEnXpdq66baJQkI
+ rj9/ECGl7VWpA==
+Received: by mail-lj1-f171.google.com with SMTP id
+ 38308e7fff4ca-389f9895c81so9380971fa.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 06:08:06 -0700 (PDT)
+ Thu, 19 Mar 2026 06:09:19 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVHozSny8XZYeu4Bt+1hmlpjkO+SsoSK64vJez9DU0E5RXBZQ5wFgfDnCuKdby8VPu9PGa/difIr6PBjw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw4mcQxv+NI446apzQk5/Irzb3pG4fnHbHqG6zzCDm6nEavr5dj
- W7u6crbJ+vrXOL0YsGs1uq0RpLPffM5QWItHfWcWxKP83C0MhHJtR5dyVV+VgUra/oG61cdL0EN
- paNu2qOipvB+HAYkkedyUQA+Am9GIYKk=
-X-Received: by 2002:a2e:bc20:0:b0:383:789:3c3 with SMTP id
- 38308e7fff4ca-38be5e6e7ebmr10670061fa.2.1773925684481; 
- Thu, 19 Mar 2026 06:08:04 -0700 (PDT)
+ AJvYcCUN+j9qqJ4E1qiJutEUArX5h6bDnQNafROkDEz4ePvL8RH34uPhvHb20N36AxHQM4QIa7Jzy+0e0To76w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx1TukcQTA1VpzbQwegXR/TSvOBB5gJW9eO9mbm+LQVsQAiiF6X
+ kn/CyLAD6HkvVW7w3VCCWqS4OQ9DtjOxdWj7UQ4LZQPDQtZLKPY6+cJ3aEg2e6zCBPDjrgtNOQQ
+ hSKPagTLzSZe4/f+ufK1wLn/M6GC941o=
+X-Received: by 2002:a05:651c:201e:b0:38a:4a27:1b58 with SMTP id
+ 38308e7fff4ca-38bd58700a4mr22921261fa.23.1773925758025; Thu, 19 Mar 2026
+ 06:09:18 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260319105947.6237-1-wsa+renesas@sang-engineering.com>
- <20260319105947.6237-5-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260319105947.6237-5-wsa+renesas@sang-engineering.com>
+ <20260319105947.6237-11-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260319105947.6237-11-wsa+renesas@sang-engineering.com>
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Thu, 19 Mar 2026 21:07:52 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67NVc0QD=_Ftwx5LSCQ8n1cEwuX1oMWZgEzowfGf7gMKA@mail.gmail.com>
-X-Gm-Features: AaiRm51rluS_yVFu6WIEO2l7ox-ygOi8igmHKgG-QVsILV0f84uRCi8SrIk-dv0
-Message-ID: <CAGb2v67NVc0QD=_Ftwx5LSCQ8n1cEwuX1oMWZgEzowfGf7gMKA@mail.gmail.com>
+Date: Thu, 19 Mar 2026 21:09:04 +0800
+X-Gmail-Original-Message-ID: <CAGb2v673oGgYbK9vxtgzCNSKR0=d+yT+3tD_bp_0AwLdVbht7w@mail.gmail.com>
+X-Gm-Features: AaiRm51-S2qI8OWMlxRbpEKWhlUg86es_OnJ0C138mWD9n1SBCUMxkSAhbQynxE
+Message-ID: <CAGb2v673oGgYbK9vxtgzCNSKR0=d+yT+3tD_bp_0AwLdVbht7w@mail.gmail.com>
 To: Wolfram Sang <wsa+renesas@sang-engineering.com>
 Cc: linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
  Boqun Feng <boqun@kernel.org>, linux-remoteproc@vger.kernel.org,
@@ -70,8 +70,8 @@ Cc: linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
  Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v5 04/15] hwspinlock: add callback to fill
- private data of a hwspinlock
+Subject: Re: [Linux-stm32] [PATCH v5 10/15] hwspinlock: handle hwspinlock
+ device allocation in the core
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,7 +94,7 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
@@ -103,15 +103,15 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[wens@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[25];
 	TO_DN_SOME(0.00)[];
 	FREEMAIL_CC(0.00)[vger.kernel.org,infradead.org,kernel.org,st-md-mailman.stormreply.com,lwn.net,gmail.com,redhat.com,lists.linux.dev,posteo.net,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,sholland.org];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[wens@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_SPAM(0.00)[0.694];
+	NEURAL_SPAM(0.00)[0.689];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
@@ -126,32 +126,32 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: C57332CBA70
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stormreply.com:email,stormreply.com:url,sang-engineering.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: DD8A82CBACB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 T24gVGh1LCBNYXIgMTksIDIwMjYgYXQgNzowMOKAr1BNIFdvbGZyYW0gU2FuZwo8d3NhK3JlbmVz
-YXNAc2FuZy1lbmdpbmVlcmluZy5jb20+IHdyb3RlOgo+Cj4gVG8gaGlkZSBpbnRlcm5hbCBjb3Jl
-IHN0cnVjdHVyZXMgZnJvbSBwcm92aWRlcnMsIGEgY2FsbGJhY2sgaXMgYWRkZWQgdG8KPiB0aGUg
-b3BzIHdoaWNoIGFsbG93cyB0byBzZXQgdGhlICdwcml2JyBmaWVsZCBvZiBhIGh3c3BpbmxvY2su
-IEl0IGlzCj4gY2FsbGVkIHdoZW4gYSBod3NwaW5sb2NrIGRldmljZSBpcyByZWdpc3RlcmVkIGFu
-ZCwgdGh1cywgaXRlcmF0ZWQgb3Zlcgo+IGFsbCBsb2Nrcy4gVGhlIHJlZ2lzdGVyLWZ1bmN0aW9u
-cyBhcmUgYWxzbyBleHRlbmRlZCB0byBwYXNzIGEgZGF0YQo+IHBvaW50ZXIgdG8gdGhpcyBjYWxs
-YmFjaywgc28gaXQgY2FuIGRvIG5lY2Vzc2FyeSBjYWxjdWxhdGlvbnMgZm9yIHRoZQo+IHByaXYg
-ZmllbGQgb2YgZWFjaCBod3NwaW5sb2NrLiBQcm92aWRlcnMgYXJlIGFkZGVkIG9ubHkgYW4gZW1w
-dHkKPiBwbGFjZWhvbGRlciBhbmQgYXJlIGNvbnZlcnRlZCBzZXBhcmF0ZWx5IGJlY2F1c2UgdGhl
-c2UgY2hhbmdlcyBuZWVkCj4gZGVkaWNhdGVkIHJldmlld3MuCj4KPiBTaWduZWQtb2ZmLWJ5OiBX
-b2xmcmFtIFNhbmcgPHdzYStyZW5lc2FzQHNhbmctZW5naW5lZXJpbmcuY29tPgo+IC0tLQo+ICBE
-b2N1bWVudGF0aW9uL2xvY2tpbmcvaHdzcGlubG9jay5yc3QgICAgIHwgIDMgKystCj4gIGRyaXZl
-cnMvaHdzcGlubG9jay9od3NwaW5sb2NrX2NvcmUuYyAgICAgfCAxOSArKysrKysrKysrKysrKyst
-LS0tCj4gIGRyaXZlcnMvaHdzcGlubG9jay9od3NwaW5sb2NrX2ludGVybmFsLmggfCAxOSArKysr
-KysrKysrKy0tLS0tLS0tCj4gIGRyaXZlcnMvaHdzcGlubG9jay9vbWFwX2h3c3BpbmxvY2suYyAg
-ICAgfCAgMiArLQo+ICBkcml2ZXJzL2h3c3BpbmxvY2svcWNvbV9od3NwaW5sb2NrLmMgICAgIHwg
-IDIgKy0KPiAgZHJpdmVycy9od3NwaW5sb2NrL3NwcmRfaHdzcGlubG9jay5jICAgICB8ICAyICst
-Cj4gIGRyaXZlcnMvaHdzcGlubG9jay9zdG0zMl9od3NwaW5sb2NrLmMgICAgfCAgMiArLQo+ICBk
-cml2ZXJzL2h3c3BpbmxvY2svc3VuNmlfaHdzcGlubG9jay5jICAgIHwgIDIgKy0KCkFja2VkLWJ5
-OiBDaGVuLVl1IFRzYWkgPHdlbnNAa2VybmVsLm9yZz4gIyBmb3Igc3VuNmkKX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBs
-aXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1t
-ZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+YXNAc2FuZy1lbmdpbmVlcmluZy5jb20+IHdyb3RlOgo+Cj4gUHJvdmlkZXJzIGhhdmUgYmVlbiBy
+ZWZhY3RvcmVkIHRvIGF2b2lkIHVzaW5nIGNvcmUgaW50ZXJuYWwgc3RydWN0dXJlcy4KPiBBcyBh
+IHJlc3VsdCwgdGhleSBkbyBub3QgbmVlZCB0byBhbGxvY2F0ZSB0aGUgaHdzcGlubG9jayBkZXZp
+Y2Ugb24gdGhlaXIKPiBvd24gYW55bW9yZSBiZWNhdXNlIHRoZXkgY2FuIGFjY2VzcyBldmVyeXRo
+aW5nIHRoZXkgbmVlZCB3aXRoIGhlbHBlcnMuCj4KPiBTbywgdGhlIGFsbG9jYXRpb24gaXMgbW92
+ZWQgdG8gdGhlIGNvcmUuIEFzIGEgcmVzdWx0LCB0aGUgcmVnaXN0ZXJpbmcKPiBmdW5jdGlvbnMg
+bm93IHJldHVybiBhIHBvaW50ZXIgdG8gdGhlIChzb29uKSBvcGFxdWUgaHdzcGlubG9jayBkZXZp
+Y2UKPiB3aGljaCBtYXkgYmUgbmVlZGVkIGZvciB1bnJlZ2lzdGVyaW5nIG9ubHkuCj4KPiBCZWNh
+dXNlIHRoZSBhcmd1bWVudCBsaXN0IG9mIHRoZSByZWdpc3RlcmluZyBmdW5jdGlvbnMgaXMgY2hh
+bmdlZCwgYWxsCj4gdXNlcnMgYXJlIGNoYW5nZWQgaGVyZSBhcyB3ZWxsLgo+Cj4gU2lnbmVkLW9m
+Zi1ieTogV29sZnJhbSBTYW5nIDx3c2ErcmVuZXNhc0BzYW5nLWVuZ2luZWVyaW5nLmNvbT4KPiAt
+LS0KPiAgRG9jdW1lbnRhdGlvbi9sb2NraW5nL2h3c3BpbmxvY2sucnN0ICB8ICA2ICsrLS0KPiAg
+ZHJpdmVycy9od3NwaW5sb2NrL2h3c3BpbmxvY2tfY29yZS5jICB8IDQ4ICsrKysrKysrKysrKysr
+Ky0tLS0tLS0tLS0tLQo+ICBkcml2ZXJzL2h3c3BpbmxvY2svb21hcF9od3NwaW5sb2NrLmMgIHwg
+MTAgKystLS0tCj4gIGRyaXZlcnMvaHdzcGlubG9jay9xY29tX2h3c3BpbmxvY2suYyAgfCAxMSAr
+Ky0tLS0KPiAgZHJpdmVycy9od3NwaW5sb2NrL3NwcmRfaHdzcGlubG9jay5jICB8IDE3ICsrKyst
+LS0tLS0KPiAgZHJpdmVycy9od3NwaW5sb2NrL3N0bTMyX2h3c3BpbmxvY2suYyB8ICA3ICsrLS0K
+Cj4gIGRyaXZlcnMvaHdzcGlubG9jay9zdW42aV9od3NwaW5sb2NrLmMgfCAxMiArKy0tLS0tCgpB
+Y2tlZC1ieTogQ2hlbi1ZdSBUc2FpIDx3ZW5zQGtlcm5lbC5vcmc+ICMgZm9yIHN1bjZpCl9fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
+aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
+Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
+bTMyCg==
