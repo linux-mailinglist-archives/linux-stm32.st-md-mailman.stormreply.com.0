@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eALAEKj1u2nkqQIAu9opvQ
+	id sJ6sGMv1u2nkqQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:10:00 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:10:35 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2FA02CBAEA
-	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:09:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 065922CBB2D
+	for <lists+linux-stm32@lfdr.de>; Thu, 19 Mar 2026 14:10:34 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9551FC87ECE;
-	Thu, 19 Mar 2026 13:09:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C16EBC87ECE;
+	Thu, 19 Mar 2026 13:10:34 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E3326C08D19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38C84C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 13:09:58 +0000 (UTC)
+ Thu, 19 Mar 2026 13:10:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id D2E6F440FB
+ by tor.source.kernel.org (Postfix) with ESMTP id 47E79600AD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 13:09:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B010EC2BCB4
+ Thu, 19 Mar 2026 13:10:32 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB589C2BCB2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 13:09:57 +0000 (UTC)
+ Thu, 19 Mar 2026 13:10:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1773925797;
- bh=Ts/ZBzEhwzBq6L1alBpL4MrUmv33n0V3E/Ul5uCiuTo=;
+ s=k20201202; t=1773925832;
+ bh=/z6FEu0IUK6nCL3Uiqn1iq1VRQstHdDNDk6ymaE5UrI=;
  h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc:From;
- b=RacmPq1bIqMeMcyhxiEK10j6ygmP3LMQK2Z2fVE3HCOxsgvgXy03lL3FuvuLQQvgj
- GiQcbk0Gc68ea8eJ4LngePUDz9C5XojYstENdaRQM1y0oSw68pXH0FB/x9xYOoXLj5
- yzHUkBwYEvcieaKcpfVCPm7nVCORUUsT0yOyNlGzfZbyxsZTMYNRLeKm/6/LsH6iAi
- g+KwM2FKgeEjnQE4mZhq0fF6zUla5vAiMm1h5fjWA7LIX/ZFlm4NfZRaEHQvb0eRdn
- ro9atKpn/5SRW63zxRDjmZnik2psm1mFQ05jHWL2srdHA6o0dMoRIWg/vWUDnwIL81
- 7blFfhRQzZ9RQ==
-Received: by mail-lj1-f181.google.com with SMTP id
- 38308e7fff4ca-38b3ee785a5so7626731fa.1
+ b=Bo01snnRFCsVSU9jXLHYlBSQbxAuKL8IlZztOzE7GGenHwqVix5ssfwMi9T3optQG
+ d+gdZbHjid/FAQoMdnnvLy7M2K/MKgAstWlXld4NzDhgAaD4vtKGHzQIdX788cS21V
+ dFWydrgXzY/v9glSzQoEPDrKsVEti1U+5GfLE/NEDAwz+HH1o3l/SSY5ICwNs7lfQE
+ SgYxMuBjZ2CuTOrkXPv4s5eyPP1f6e/bZWIElN+S6x7LjeGeeI3xFgd0/YAfwDebPv
+ qUmCFKkrzQXaTuT5I2A/RKhCEe1nrU8iKbsxLH3L/Inc4Pn/eW0rhPQhZNZyKFwJJv
+ 5fv/h7nyjmQUQ==
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5a278e0f7f6so1215035e87.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 06:09:57 -0700 (PDT)
+ Thu, 19 Mar 2026 06:10:31 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AJvYcCVnkzZLeL+hbYg9lV4Hq0Z0Ax0bpDZZaShi/+2IvkQvK9C6W05kYer1C16zNDARZjO32wAPgjbXUxM0iQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyXyR9FbrjiQ8bkk7rsDNHqOBsREY3CxqBgOfvgq1yATUnKkygp
- PB3S5LOGZVhulOjBlVifvDOOKwgFNIceyy0lsKIG2x/AcBZR97nCzIyTScqoc5qPxdaaJaxR1Wt
- EwECpUomkBZ74t0MamTd2mHwtMAgbseQ=
-X-Received: by 2002:a05:651c:324f:b0:38a:d354:cb2a with SMTP id
- 38308e7fff4ca-38be5f51b90mr10131901fa.18.1773925796044; Thu, 19 Mar 2026
- 06:09:56 -0700 (PDT)
+ AJvYcCVHyDYAAB9w+8k2JVbGveXZPKJ/QgRaA4nVtnqfzFbgraxUW5wd+CoGvUpZ3hSYrHizZISh8XcqTdI94w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwuoxBAVKdQTkg+QI4AiGlsJLBfP1aSRq+nFSvMqbMFdSTYcgXh
+ rg75z3tesE/WAchj67QEhCf+pXjlR7CwYwHz9CkPNISV5ZOsq7UFWOnC7TXFajDSqza8IrP0IOL
+ oZAqvs6qXf89KIb2VHmCNug2+4du8MKo=
+X-Received: by 2002:ac2:4303:0:b0:5a1:49a0:af35 with SMTP id
+ 2adb3069b0e04-5a27958560emr2184109e87.10.1773925830317; Thu, 19 Mar 2026
+ 06:10:30 -0700 (PDT)
 MIME-Version: 1.0
 References: <20260319105947.6237-1-wsa+renesas@sang-engineering.com>
- <20260319105947.6237-12-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260319105947.6237-12-wsa+renesas@sang-engineering.com>
+ <20260319105947.6237-15-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260319105947.6237-15-wsa+renesas@sang-engineering.com>
 From: Chen-Yu Tsai <wens@kernel.org>
-Date: Thu, 19 Mar 2026 21:09:43 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67j91R7vsY2WOjgWQxyD-2Y8mRXe1go-F2jsL+9vbrBPQ@mail.gmail.com>
-X-Gm-Features: AaiRm52DzwyqScnSD_1lE5a2W4uRQaDkIK3TFFUruN1gvKxXkVMyOzXMy0U3Fs4
-Message-ID: <CAGb2v67j91R7vsY2WOjgWQxyD-2Y8mRXe1go-F2jsL+9vbrBPQ@mail.gmail.com>
+Date: Thu, 19 Mar 2026 21:10:16 +0800
+X-Gmail-Original-Message-ID: <CAGb2v668mhN7XnjbA5Zg4ExRXLVqn8d9kDjap4wVNEEL780p7g@mail.gmail.com>
+X-Gm-Features: AaiRm53ZA49QZnlP2rMulPZJ-bDSE_dydGwTankSFX-RnHDx5Riad08-AOxumlo
+Message-ID: <CAGb2v668mhN7XnjbA5Zg4ExRXLVqn8d9kDjap4wVNEEL780p7g@mail.gmail.com>
 To: Wolfram Sang <wsa+renesas@sang-engineering.com>
 Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Samuel Holland <samuel@sholland.org>, Chunyan Zhang <zhang.lyra@gmail.com>,
@@ -67,8 +67,8 @@ Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Orson Zhai <orsonzhai@gmail.com>, linux-omap@vger.kernel.org,
  linux-sunxi@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 11/15] hwspinlock: move entries from
-	internal to public header
+Subject: Re: [Linux-stm32] [PATCH v5 14/15] hwspinlock: refactor provider.h
+	from public header
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,8 +86,8 @@ Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.89 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
@@ -108,7 +108,7 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	FORGED_SENDER(0.00)[wens@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_SPAM(0.00)[0.800];
+	NEURAL_SPAM(0.00)[0.687];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
@@ -123,27 +123,26 @@ X-Spamd-Result: default: False [4.89 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,mail.gmail.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,sang-engineering.com:email]
-X-Rspamd-Queue-Id: D2FA02CBAEA
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,sang-engineering.com:email,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 065922CBB2D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 T24gVGh1LCBNYXIgMTksIDIwMjYgYXQgNzowMOKAr1BNIFdvbGZyYW0gU2FuZwo8d3NhK3JlbmVz
-YXNAc2FuZy1lbmdpbmVlcmluZy5jb20+IHdyb3RlOgo+Cj4gUHJvdmlkZXJzIG5lZWQgdGhlIG9w
-cy1zdHJ1Y3R1cmUgYW5kIHRoZSBod2xvY2tfdG9faWQtZnVuY3Rpb24uIE1vdmUKPiB0aGVzZSBl
-bnRyaWVzIHRvIHRoZSBwdWJsaWMgaGVhZGVyLiBXaXRoIHRoaXMgY2hhbmdlLCBhbGwgcHJvdmlk
-ZXJzIGFyZQo+IGFsc28gdXBkYXRlZCB0byB1c2UgdGhlIHB1YmxpYyBoZWFkZXIgb25seS4gVGhl
-IGludGVybmFsIGhlYWRlciBpcyBub3cKPiB1c2VkIGJ5IHRoZSBjb3JlIG9ubHkuCj4KPiBTaWdu
-ZWQtb2ZmLWJ5OiBXb2xmcmFtIFNhbmcgPHdzYStyZW5lc2FzQHNhbmctZW5naW5lZXJpbmcuY29t
-Pgo+IC0tLQo+ICBkcml2ZXJzL2h3c3BpbmxvY2svaHdzcGlubG9ja19jb3JlLmMgICAgIHwgIDgg
-KysrKysrKwo+ICBkcml2ZXJzL2h3c3BpbmxvY2svaHdzcGlubG9ja19pbnRlcm5hbC5oIHwgMjkg
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCj4gIGRyaXZlcnMvaHdzcGlubG9jay9vbWFwX2h3c3Bp
-bmxvY2suYyAgICAgfCAgMiAtLQo+ICBkcml2ZXJzL2h3c3BpbmxvY2svcWNvbV9od3NwaW5sb2Nr
-LmMgICAgIHwgIDIgLS0KPiAgZHJpdmVycy9od3NwaW5sb2NrL3NwcmRfaHdzcGlubG9jay5jICAg
-ICB8ICAyIC0tCj4gIGRyaXZlcnMvaHdzcGlubG9jay9zdG0zMl9od3NwaW5sb2NrLmMgICAgfCAg
-MiAtLQoKPiAgZHJpdmVycy9od3NwaW5sb2NrL3N1bjZpX2h3c3BpbmxvY2suYyAgICB8ICAyIC0t
-CgpBY2tlZC1ieTogQ2hlbi1ZdSBUc2FpIDx3ZW5zQGtlcm5lbC5vcmc+ICMgZm9yIHN1bjZpCl9f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMy
-IG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0
-dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4
-LXN0bTMyCg==
+YXNAc2FuZy1lbmdpbmVlcmluZy5jb20+IHdyb3RlOgo+Cj4gRmFjdG9yIG91dCB0aGUgZW50cmll
+cyBvbmx5IG5lZWRlZCBmb3IgcHJvdmlkZXJzIGZyb20gdGhlIGdlbmVyaWMgcHVibGljCj4gaGVh
+ZGVyLiBUaGlzIGFsbG93cyBmb3IgYSBjbGVhbiBzZXBhcmF0aW9uIGJldHdlZW4gcHJvdmlkZXJz
+IGFuZAo+IGNvbnN1bWVycy4gQWxsIHByb3ZpZGVycyBhcmUgaW4gdGhlIGh3c3BpbmxvY2sgc3Vi
+c3lzdGVtIGN1cnJlbnRseSBhbmQKPiBhcmUgdHJpdmlhbGx5IGNvbnZlcnRlZCBoZXJlIGFzIHdl
+bGwuCj4KPiBTaWduZWQtb2ZmLWJ5OiBXb2xmcmFtIFNhbmcgPHdzYStyZW5lc2FzQHNhbmctZW5n
+aW5lZXJpbmcuY29tPgo+IC0tLQo+ICBNQUlOVEFJTkVSUyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIHwgIDEgKwo+ICBkcml2ZXJzL2h3c3BpbmxvY2svaHdzcGlubG9ja19jb3JlLmMgIHwgIDEg
+Kwo+ICBkcml2ZXJzL2h3c3BpbmxvY2svb21hcF9od3NwaW5sb2NrLmMgIHwgIDIgKy0KPiAgZHJp
+dmVycy9od3NwaW5sb2NrL3Fjb21faHdzcGlubG9jay5jICB8ICAyICstCj4gIGRyaXZlcnMvaHdz
+cGlubG9jay9zcHJkX2h3c3BpbmxvY2suYyAgfCAgMiArLQo+ICBkcml2ZXJzL2h3c3BpbmxvY2sv
+c3RtMzJfaHdzcGlubG9jay5jIHwgIDIgKy0KCj4gIGRyaXZlcnMvaHdzcGlubG9jay9zdW42aV9o
+d3NwaW5sb2NrLmMgfCAgMiArLQoKQWNrZWQtYnk6IENoZW4tWXUgVHNhaSA8d2Vuc0BrZXJuZWwu
+b3JnPiAjIGZvciBzdW42aQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1h
+bi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFp
+bG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
