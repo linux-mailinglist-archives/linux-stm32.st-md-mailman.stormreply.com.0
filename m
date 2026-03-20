@@ -2,66 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eFCxOgm6vWnyAwMAu9opvQ
+	id WDwfLsXGvWkrBgMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 22:20:09 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 23:14:29 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BEDAB2E1464
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 22:20:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 505A82E1A50
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 23:14:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8516FC36B3E;
-	Fri, 20 Mar 2026 21:20:09 +0000 (UTC)
-Received: from relay.smtp-ext.broadcom.com (lpdvsmtp11.broadcom.com
- [192.19.166.231])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD830C35E2B;
+	Fri, 20 Mar 2026 22:14:28 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF487C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 946C4C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 21:20:07 +0000 (UTC)
-Received: from mail-acc-it-01.broadcom.com (mail-acc-it-01.acc.broadcom.net
- [10.35.36.83])
- by relay.smtp-ext.broadcom.com (Postfix) with ESMTP id B1F1DC0017F3;
- Fri, 20 Mar 2026 14:20:05 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 relay.smtp-ext.broadcom.com B1F1DC0017F3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=broadcom.com;
- s=dkimrelay; t=1774041605;
- bh=zN4dslV6Zxx5Z3smcDyjIRq0uqjSqffHvQQbZlwmYuY=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=upHD9kEqFdaugDS2A9zgdf5u8GPsL2vZGU7PTa+kuYgkasB43jPL6uRUUbOJ7HGN4
- cH1t4wrkR0VviW/8Z+zV+F3zAv5jyCJsVz0RWI74nRAcHIeYtEjRO3OGHCsZv47NBZ
- rwKTZg3kQfNBs6UteckaKJvYb8JRh1MYfEc2ziDs=
-Received: from lvnvdb8054.lvn.broadcom.net (lvnvdb8054.lvn.broadcom.net
- [10.17.214.29])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by mail-acc-it-01.broadcom.com (Postfix) with ESMTPSA id 81537AE80;
- Fri, 20 Mar 2026 17:20:02 -0400 (EDT)
-From: "Jitendra Vegiraju" <jitendra.vegiraju@broadcom.com>
-To: netdev@vger.kernel.org
-Date: Fri, 20 Mar 2026 14:19:21 -0700
-Message-ID: <20260320211921.1202058-7-jitendra.vegiraju@broadcom.com>
-X-Mailer: git-send-email 2.45.4
-In-Reply-To: <20260320211921.1202058-1-jitendra.vegiraju@broadcom.com>
-References: <20260320211921.1202058-1-jitendra.vegiraju@broadcom.com>
+ Fri, 20 Mar 2026 22:14:27 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 219DA41838;
+ Fri, 20 Mar 2026 22:14:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E6EC2BC87;
+ Fri, 20 Mar 2026 22:14:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774044866;
+ bh=EJFefe3k86LwmaxBPXrya5hP9X6x4nyWEoivmKnN/xA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=I4f0P+4/Fr6KtbcDwJjO9w3QoIlF6KRTpZZJWZSbvooeYpf7n8wbwYC1XDUZKnHdS
+ xJOHJXSYItqCme2WWVfCRZflxAnLBFq0xUXkN/i0EoMg/pppX8wxvEhdW4so2zLAaW
+ 8o22ncvQ+k+qmAqGFLocIUB3mwyn4EFgiCAmzExcQ2PJXvFrx0OGiIndik/aoCynLN
+ 9JymF+UWIuaY29XIocf6s5fsDz9rF1s06hN8PoHaaGnJyhpqaOsm9NjsdMF+qSOTnQ
+ TtuOLyxXpYUlmButgynZGHhdY/u1nPzDI5uyj80JTcR+BPt0fmTl9WQ4HOYZ3YlHK1
+ lA5kQrtlVkd5Q==
+Date: Fri, 20 Mar 2026 22:14:24 +0000
+From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+To: Nathan Chancellor <nathan@kernel.org>
+Message-ID: <d709465e-79ba-4a12-9bf7-803a3732aa85@lucifer.local>
+References: <cover.1773944114.git.ljs@kernel.org>
+ <54ff3670662e10a66ce0c1a13c0ae93b99a5f201.1773944114.git.ljs@kernel.org>
+ <20260320210812.GA3988975@ax162>
 MIME-Version: 1.0
-Cc: quic_abchauha@quicinc.com, me@ziyao.cc, chenchuangyu@xiaomi.com,
- edumazet@google.com, lizhi2@eswincomputing.com, yangtiezhu@loongson.cn,
- linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- bcm-kernel-feedback-list@broadcom.com, vladimir.oltean@nxp.com,
- jitendra.vegiraju@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, rohan.g.thomas@altera.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, ast@kernel.org,
- rmk+kernel@armlinux.org.uk, wens@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- florian.fainelli@broadcom.com, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, horms@kernel.org,
- bpf@vger.kernel.org, davem@davemloft.net, ovidiu.panait.rb@renesas.com
-Subject: [Linux-stm32] [PATCH net-next v8 6/6] Add BCM8958x driver to build
-	system
+Content-Disposition: inline
+In-Reply-To: <20260320210812.GA3988975@ax162>
+Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ linux-doc@vger.kernel.org,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+ Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
+ linux-mm@kvack.org, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Marc Dionne <marc.dionne@auristor.com>,
+ "K . Y . Srinivasan" <kys@microsoft.com>,
+ linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, linux-scsi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, Richard Weinberger <richard@nod.at>,
+ Long Li <longli@microsoft.com>, linux-staging@lists.linux.dev,
+ Dexuan Cui <decui@microsoft.com>, linux-afs@lists.infradead.org,
+ Pedro Falcato <pfalcato@suse.de>, Ryan Roberts <ryan.roberts@arm.com>,
+ Arnd Bergmann <arnd@arndb.de>, Jann Horn <jannh@google.com>,
+ Haiyang Zhang <haiyangz@microsoft.com>,
+ "Liam R . Howlett" <Liam.Howlett@oracle.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, linux-arm-kernel@lists.infradead.org,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Bodo Stroesser <bostroesser@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH v3 15/16] mm: add
+	mmap_action_map_kernel_pages[_full]()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,113 +86,139 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [6.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[broadcom.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[broadcom.com:s=dkimrelay];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[quicinc.com,ziyao.cc,xiaomi.com,google.com,eswincomputing.com,loongson.cn,st-md-mailman.stormreply.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,broadcom.com,nxp.com,redhat.com,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,vger.kernel.org,lunn.ch,davemloft.net,renesas.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[44];
+	FORGED_RECIPIENTS(0.00)[m:nathan@kernel.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:mcoq
+ uelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:akpm@linux-foundation.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[36];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:quic_abchauha@quicinc.com,m:me@ziyao.cc,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:yangtiezhu@loongson.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:bcm-kernel-feedback-list@broadcom.com,m:vladimir.oltean@nxp.com,m:jitendra.vegiraju@broadcom.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:hawk@kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:ast@kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:florian.fainelli@broadcom.com,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:horms@kernel.org,m:bpf@vger.kernel.org,m:davem@davemloft.net,m:ovidiu.panait.rb@renesas.com,m:johnfastabend@
- gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com,linux-foundation.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[broadcom.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[broadcom.com:email,broadcom.com:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: BEDAB2E1464
-X-Rspamd-Action: add header
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 505A82E1A50
+X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spam: Yes
 
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+On Fri, Mar 20, 2026 at 02:08:12PM -0700, Nathan Chancellor wrote:
+> Hi Lorenzo,
+>
+> On Thu, Mar 19, 2026 at 06:23:39PM +0000, Lorenzo Stoakes (Oracle) wrote:
+> > A user can invoke mmap_action_map_kernel_pages() to specify that the
+> > mapping should map kernel pages starting from desc->start of a specified
+> > number of pages specified in an array.
+> >
+> > In order to implement this, adjust mmap_action_prepare() to be able to
+> > return an error code, as it makes sense to assert that the specified
+> > parameters are valid as quickly as possible as well as updating the VMA
+> > flags to include VMA_MIXEDMAP_BIT as necessary.
+> >
+> > This provides an mmap_prepare equivalent of vm_insert_pages().  We
+> > additionally update the existing vm_insert_pages() code to use
+> > range_in_vma() and add a new range_in_vma_desc() helper function for the
+> > mmap_prepare case, sharing the code between the two in range_is_subset().
+> >
+> > We add both mmap_action_map_kernel_pages() and
+> > mmap_action_map_kernel_pages_full() to allow for both partial and full VMA
+> > mappings.
+> >
+> > We update the documentation to reflect the new features.
+> >
+> > Finally, we update the VMA tests accordingly to reflect the changes.
+> >
+> > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+> > Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+> ...
+> > diff --git a/mm/util.c b/mm/util.c
+> > index 8cf59267a9ac..682d0d24e1c6 100644
+> > --- a/mm/util.c
+> > +++ b/mm/util.c
+> > @@ -1446,6 +1446,8 @@ int mmap_action_prepare(struct vm_area_desc *desc)
+> >  		return io_remap_pfn_range_prepare(desc);
+> >  	case MMAP_SIMPLE_IO_REMAP:
+> >  		return simple_ioremap_prepare(desc);
+> > +	case MMAP_MAP_KERNEL_PAGES:
+> > +		return map_kernel_pages_prepare(desc);
+> >  	}
+> >
+> >  	WARN_ON_ONCE(1);
+> > @@ -1476,6 +1478,9 @@ int mmap_action_complete(struct vm_area_struct *vma,
+> >  	case MMAP_REMAP_PFN:
+> >  		err = remap_pfn_range_complete(vma, action);
+> >  		break;
+> > +	case MMAP_MAP_KERNEL_PAGES:
+> > +		err = map_kernel_pages_complete(vma, action);
+> > +		break;
+> >  	case MMAP_IO_REMAP_PFN:
+> >  	case MMAP_SIMPLE_IO_REMAP:
+> >  		/* Should have been delegated. */
+> > @@ -1497,6 +1502,7 @@ int mmap_action_prepare(struct vm_area_desc *desc)
+> >  	case MMAP_REMAP_PFN:
+> >  	case MMAP_IO_REMAP_PFN:
+> >  	case MMAP_SIMPLE_IO_REMAP:
+> > +	case MMAP_MAP_KERNEL_PAGES:
+> >  		WARN_ON_ONCE(1); /* nommu cannot handle these. */
+> >  		break;
+> >  	}
+>
+> Not sure if it has been reported/addressed yet but it looks like
+> mmap_action_complete() was missed here, as pointed out by clang:
+>
+>   $ make -skj"$(nproc)" ARCH=arm LLVM=1 mrproper allnoconfig mm/util.o
+>   mm/util.c:1520:10: warning: enumeration value 'MMAP_MAP_KERNEL_PAGES' not handled in switch [-Wswitch]
+>    1520 |         switch (action->type) {
+>         |                 ^~~~~~~~~~~~
+>
+> I assume
+>
+> diff --git a/mm/util.c b/mm/util.c
+> index 682d0d24e1c6..c41c119a5a74 100644
+> --- a/mm/util.c
+> +++ b/mm/util.c
+> @@ -1523,6 +1523,7 @@ int mmap_action_complete(struct vm_area_struct *vma,
+>  	case MMAP_REMAP_PFN:
+>  	case MMAP_IO_REMAP_PFN:
+>  	case MMAP_SIMPLE_IO_REMAP:
+> +	case MMAP_MAP_KERNEL_PAGES:
+>  		WARN_ON_ONCE(1); /* nommu cannot handle this. */
+>
+>  		err = -EINVAL;
+> --
+>
+> should be the fix?
+>
+> Cheers,
+> Nathan
 
-Add PCI driver for BCM8958x to the linux build system and
-update MAINTAINERS file.
+Thanks, will fix, working on a respin now anyway :)
 
-Signed-off-by: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
----
- MAINTAINERS                                  |  8 ++++++++
- drivers/net/ethernet/stmicro/stmmac/Kconfig  | 11 +++++++++++
- drivers/net/ethernet/stmicro/stmmac/Makefile |  1 +
- 3 files changed, 20 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index a09bf30a057d..9ca631fe78f1 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5120,6 +5120,14 @@ N:	brcmstb
- N:	bcm7038
- N:	bcm7120
- 
-+BROADCOM BCM8958X ETHERNET DRIVER
-+M:	Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-+R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-+L:	netdev@vger.kernel.org
-+S:	Maintained
-+F:	drivers/net/ethernet/stmicro/stmmac/dw25gmac.*
-+F:	drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
-+
- BROADCOM BCMBCA ARM ARCHITECTURE
- M:	William Zhang <william.zhang@broadcom.com>
- M:	Anand Gore <anand.gore@broadcom.com>
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-index d3a6ab7383fc..94ab9f13d542 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-+++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-@@ -386,6 +386,17 @@ config DWMAC_LOONGSON
- 	  This selects the LOONGSON PCI bus support for the stmmac driver,
- 	  Support for ethernet controller on Loongson-2K1000 SoC and LS7A1000 bridge.
- 
-+config DWMAC_BRCM
-+	tristate "Broadcom XGMAC support"
-+	depends on STMMAC_ETH && PCI
-+	depends on COMMON_CLK
-+	select STMMAC_LIBPCI
-+	help
-+	  Support for ethernet controllers on Broadcom BCM8958x SoCs.
-+	  This selects Broadcom XGMAC specific PCI bus support for the
-+	  stmmac driver. This driver provides the glue layer on top of the
-+	  stmmac driver required for the Broadcom BCM8958x SoC devices.
-+
- config DWMAC_MOTORCOMM
- 	tristate "Motorcomm PCI DWMAC support"
- 	depends on PCI
-diff --git a/drivers/net/ethernet/stmicro/stmmac/Makefile b/drivers/net/ethernet/stmicro/stmmac/Makefile
-index a99bb0dfe5ab..a50a1bb04b0c 100644
---- a/drivers/net/ethernet/stmicro/stmmac/Makefile
-+++ b/drivers/net/ethernet/stmicro/stmmac/Makefile
-@@ -50,4 +50,5 @@ obj-$(CONFIG_STMMAC_PCI)	+= stmmac-pci.o
- obj-$(CONFIG_DWMAC_INTEL)	+= dwmac-intel.o
- obj-$(CONFIG_DWMAC_LOONGSON)	+= dwmac-loongson.o
- obj-$(CONFIG_DWMAC_MOTORCOMM)	+= dwmac-motorcomm.o
-+obj-$(CONFIG_DWMAC_BRCM)       += dwmac-brcm.o
- stmmac-pci-objs:= stmmac_pci.o
--- 
-2.34.1
-
+Cheers, Lorenzo
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
