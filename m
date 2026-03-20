@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +L2EGt3MvWnFCAMAu9opvQ
+	id IMO+JuDMvWmsCAMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 23:40:29 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 23:40:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5496E2E1D74
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 23:40:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DC872E1D83
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 23:40:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17C88C87EBD;
-	Fri, 20 Mar 2026 22:40:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2AFACC36B3E;
+	Fri, 20 Mar 2026 22:40:32 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9413BC36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DEC0C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 22:40:27 +0000 (UTC)
+ Fri, 20 Mar 2026 22:40:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 89CAC441B5;
- Fri, 20 Mar 2026 22:40:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C47DEC4CEF7;
- Fri, 20 Mar 2026 22:40:25 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4504944564;
+ Fri, 20 Mar 2026 22:40:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F6BC2BC87;
+ Fri, 20 Mar 2026 22:40:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774046426;
- bh=R1lkxijSil+wWCmTaCAVOrSSJhw850u2PwIZedjzsl0=;
+ s=k20201202; t=1774046429;
+ bh=qAhfMos8IwFooxBjEFHUxTCuNkdrDVKu5O5kx2DPVmE=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=i6DKCirEGA6ZKizhrliF1gHxi+wwd3A8ZZ9TJ46wWZGYGTuYJQEieZIrCaNLV0Ceu
- qrZEFXJM4/VLRUccl/77xdjQ4wRRVkIdtBV+/nu2XvIoRVT8p7pCJLAAVYVeU8/Hzo
- va/np2+Epr0pid/tAuswDsibpsHEi12de1oz2RUJQlsYB7UdRpwpZlijugUuLtLxrv
- 4x7AWSkBBb4HU+OspbVpMSRtPEJqebIKPtfhisYBdi1CvX+Dm4VvpDRVFl6BpL4tmf
- qUfrr4IQZoCv3oOucELvpWRO6oesrCrqDegzslK5EFUCjaXz8mFoxvNVfwFeU6XHxl
- tyaQV5/aT+25w==
+ b=TLisp+hv4ow09LB9AVlXKuMhwRKSSKuNEpFuAKH0Q7Ihro9jWw8Eh23H+jcy8zoIX
+ LTidWRL9ALKO7Kiqr25TAWzAyaWrR41GHIOGj2CjjPROLpiv7TyZNMW2wSVrGR93wq
+ Z1libGyblqUmK4pVfU6QSz+wSnOqWmUAOn3Z25KxC8a29jMs3jBVpQeI2awvI+aQwB
+ coj+MtOjo0bAokvhqSHMZ9iPlPPPJQ56r3OQXKPbv9koVAiApSi+Fx8OvPuE8H+XN5
+ IgwzEn04XCpE3Dy8vhxD39PO44ZXVqOBGxxDhgjxD9vCJMVNNS8wvf7LPTEMe1XMZn
+ nRx99TzqAolCg==
 From: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Date: Fri, 20 Mar 2026 22:39:33 +0000
-Message-ID: <8d1ee8ebd3542d006a47e8382fb80cf5b57ecf10.1774045440.git.ljs@kernel.org>
+Date: Fri, 20 Mar 2026 22:39:34 +0000
+Message-ID: <4c5e98297eb0aae9565c564e1c296a112702f144.1774045440.git.ljs@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1774045440.git.ljs@kernel.org>
 References: <cover.1774045440.git.ljs@kernel.org>
@@ -66,8 +66,7 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: [Linux-stm32] [PATCH v4 07/21] mm: have mmap_action_complete()
-	handle the rmap lock and unmap
+Subject: [Linux-stm32] [PATCH v4 08/21] mm: add vm_ops->mapped hook
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,11 +98,11 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_RECIPIENTS(0.00)[m:akpm@linux-foundation.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:vbabka@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.or
  g,m:mcoquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[43];
 	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[ljs@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -118,198 +117,304 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 5496E2E1D74
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 7DC872E1D83
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Rather than have the callers handle this both the rmap lock release and
-unmapping the VMA on error, handle it within the mmap_action_complete()
-logic where it makes sense to, being careful not to unlock twice.
+Previously, when a driver needed to do something like establish a
+reference count, it could do so in the mmap hook in the knowledge that the
+mapping would succeed.
 
-This simplifies the logic and makes it harder to make mistake with this,
-while retaining correct behaviour with regard to avoiding deadlocks.
+With the introduction of f_op->mmap_prepare this is no longer the case, as
+it is invoked prior to actually establishing the mapping.
 
-Also replace the call_action_complete() function with a direct invocation
-of mmap_action_complete() as the abstraction is no longer required.
+mmap_prepare is not appropriate for this kind of thing as it is called
+before any merge might take place, and after which an error might occur
+meaning resources could be leaked.
 
-Also update the VMA tests to reflect this change.
+To take this into account, introduce a new vm_ops->mapped callback which
+is invoked when the VMA is first mapped (though notably - not when it is
+merged - which is correct and mirrors existing mmap/open/close behaviour).
+
+We do better that vm_ops->open() here, as this callback can return an
+error, at which point the VMA will be unmapped.
+
+Note that vm_ops->mapped() is invoked after any mmap action is complete
+(such as I/O remapping).
+
+We intentionally do not expose the VMA at this point, exposing only the
+fields that could be used, and an output parameter in case the operation
+needs to update the vma->vm_private_data field.
+
+In order to deal with stacked filesystems which invoke inner filesystem's
+mmap() invocations, add __compat_vma_mapped() and invoke it on vfs_mmap()
+(via compat_vma_mmap()) to ensure that the mapped callback is handled when
+an mmap() caller invokes a nested filesystem's mmap_prepare() callback.
+
+Update the mmap_prepare documentation to describe the mapped hook and make
+it clear what its intended use is.
+
+The vm_ops->mapped() call is handled by the mmap complete logic to ensure
+the same code paths are handled by both the compatibility and VMA layers.
+
+Additionally, update VMA userland test headers to reflect the change.
 
 Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 ---
- mm/internal.h                   | 19 +++++++++++++++
- mm/util.c                       | 41 +++++++++++++++------------------
- mm/vma.c                        | 26 +--------------------
- tools/testing/vma/include/dup.h |  8 +------
- 4 files changed, 40 insertions(+), 54 deletions(-)
+ Documentation/filesystems/mmap_prepare.rst | 15 ++++
+ include/linux/fs.h                         |  9 ++-
+ include/linux/mm.h                         | 17 ++++
+ mm/util.c                                  | 90 +++++++++++++++-------
+ mm/vma.c                                   |  1 -
+ tools/testing/vma/include/dup.h            | 17 ++++
+ 6 files changed, 120 insertions(+), 29 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 0256ca44115a..760fbff9c430 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1817,6 +1817,25 @@ static inline int io_remap_pfn_range_prepare(struct vm_area_desc *desc)
- 	return 0;
+diff --git a/Documentation/filesystems/mmap_prepare.rst b/Documentation/filesystems/mmap_prepare.rst
+index ae484d371861..f14b35ee11d5 100644
+--- a/Documentation/filesystems/mmap_prepare.rst
++++ b/Documentation/filesystems/mmap_prepare.rst
+@@ -25,6 +25,21 @@ That is - no resources should be allocated nor state updated to reflect that a
+ mapping has been established, as the mapping may either be merged, or fail to be
+ mapped after the callback is complete.
+ 
++Mapped callback
++---------------
++
++If resources need to be allocated per-mapping, or state such as a reference
++count needs to be manipulated, this should be done using the ``vm_ops->mapped``
++hook, which itself should be set by the >mmap_prepare hook.
++
++This callback is only invoked if a new mapping has been established and was not
++merged with any other, and is invoked at a point where no error may occur before
++the mapping is established.
++
++You may return an error to the callback itself, which will cause the mapping to
++become unmapped and an error returned to the mmap() caller. This is useful if
++resources need to be allocated, and that allocation might fail.
++
+ How To Use
+ ==========
+ 
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+index a2628a12bd2b..c390f5c667e3 100644
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -2059,13 +2059,20 @@ static inline bool can_mmap_file(struct file *file)
  }
-
-+/*
-+ * When we succeed an mmap action or just before we unmap a VMA on error, we
-+ * need to ensure any rmap lock held is released. On unmap it's required to
-+ * avoid a deadlock.
-+ */
-+static inline void maybe_rmap_unlock_action(struct vm_area_struct *vma,
-+		struct mmap_action *action)
-+{
-+	struct file *file;
+ 
+ int compat_vma_mmap(struct file *file, struct vm_area_struct *vma);
++int __vma_check_mmap_hook(struct vm_area_struct *vma);
+ 
+ static inline int vfs_mmap(struct file *file, struct vm_area_struct *vma)
+ {
++	int err;
 +
-+	if (!action->hide_from_rmap_until_complete)
-+		return;
+ 	if (file->f_op->mmap_prepare)
+ 		return compat_vma_mmap(file, vma);
+ 
+-	return file->f_op->mmap(file, vma);
++	err = file->f_op->mmap(file, vma);
++	if (err)
++		return err;
 +
-+	VM_WARN_ON_ONCE(vma_is_anonymous(vma));
-+	file = vma->vm_file;
-+	i_mmap_unlock_write(file->f_mapping);
-+	action->hide_from_rmap_until_complete = false;
-+}
-+
- #ifdef CONFIG_MMU_NOTIFIER
- static inline int clear_flush_young_ptes_notify(struct vm_area_struct *vma,
- 		unsigned long addr, pte_t *ptep, unsigned int nr)
++	return __vma_check_mmap_hook(vma);
+ }
+ 
+ static inline int vfs_mmap_prepare(struct file *file, struct vm_area_desc *desc)
+diff --git a/include/linux/mm.h b/include/linux/mm.h
+index da94edb287cd..ad1b8c3c0cfd 100644
+--- a/include/linux/mm.h
++++ b/include/linux/mm.h
+@@ -777,6 +777,23 @@ struct vm_operations_struct {
+ 	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+ 	 */
+ 	void (*close)(struct vm_area_struct *vma);
++	/**
++	 * @mapped: Called when the VMA is first mapped in the MM. Not called if
++	 * the new VMA is merged with an adjacent VMA.
++	 *
++	 * The @vm_private_data field is an output field allowing the user to
++	 * modify vma->vm_private_data as necessary.
++	 *
++	 * ONLY valid if set from f_op->mmap_prepare. Will result in an error if
++	 * set from f_op->mmap.
++	 *
++	 * Returns %0 on success, or an error otherwise. On error, the VMA will
++	 * be unmapped.
++	 *
++	 * Context: User context.  May sleep.  Caller holds mmap_lock.
++	 */
++	int (*mapped)(unsigned long start, unsigned long end, pgoff_t pgoff,
++		      const struct file *file, void **vm_private_data);
+ 	/* Called any time before splitting to check if it's allowed */
+ 	int (*may_split)(struct vm_area_struct *vma, unsigned long addr);
+ 	int (*mremap)(struct vm_area_struct *vma);
 diff --git a/mm/util.c b/mm/util.c
-index 182f0f5cc400..a187f3ab4437 100644
+index a187f3ab4437..df95ae41e09b 100644
 --- a/mm/util.c
 +++ b/mm/util.c
-@@ -1219,13 +1219,7 @@ int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
- 	action->hide_from_rmap_until_complete = false;
-
+@@ -1163,33 +1163,7 @@ void flush_dcache_folio(struct folio *folio)
+ EXPORT_SYMBOL(flush_dcache_folio);
+ #endif
+ 
+-/**
+- * compat_vma_mmap() - Apply the file's .mmap_prepare() hook to an
+- * existing VMA and execute any requested actions.
+- * @file: The file which possesss an f_op->mmap_prepare() hook.
+- * @vma: The VMA to apply the .mmap_prepare() hook to.
+- *
+- * Ordinarily, .mmap_prepare() is invoked directly upon mmap(). However, certain
+- * stacked filesystems invoke a nested mmap hook of an underlying file.
+- *
+- * Until all filesystems are converted to use .mmap_prepare(), we must be
+- * conservative and continue to invoke these stacked filesystems using the
+- * deprecated .mmap() hook.
+- *
+- * However we have a problem if the underlying file system possesses an
+- * .mmap_prepare() hook, as we are in a different context when we invoke the
+- * .mmap() hook, already having a VMA to deal with.
+- *
+- * compat_vma_mmap() is a compatibility function that takes VMA state,
+- * establishes a struct vm_area_desc descriptor, passes to the underlying
+- * .mmap_prepare() hook and applies any changes performed by it.
+- *
+- * Once the conversion of filesystems is complete this function will no longer
+- * be required and will be removed.
+- *
+- * Returns: 0 on success or error.
+- */
+-int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
++static int __compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
+ {
+ 	struct vm_area_desc desc = {
+ 		.mm = vma->vm_mm,
+@@ -1221,8 +1195,49 @@ int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
  	set_vma_from_desc(vma, &desc);
--	err = mmap_action_complete(vma, action);
--	if (err) {
--		const size_t len = vma_pages(vma) << PAGE_SHIFT;
--
--		do_munmap(current->mm, vma->vm_start, len, NULL);
--	}
--	return err;
-+	return mmap_action_complete(vma, action);
+ 	return mmap_action_complete(vma, action);
  }
++
++/**
++ * compat_vma_mmap() - Apply the file's .mmap_prepare() hook to an
++ * existing VMA and execute any requested actions.
++ * @file: The file which possesss an f_op->mmap_prepare() hook.
++ * @vma: The VMA to apply the .mmap_prepare() hook to.
++ *
++ * Ordinarily, .mmap_prepare() is invoked directly upon mmap(). However, certain
++ * stacked filesystems invoke a nested mmap hook of an underlying file.
++ *
++ * Until all filesystems are converted to use .mmap_prepare(), we must be
++ * conservative and continue to invoke these stacked filesystems using the
++ * deprecated .mmap() hook.
++ *
++ * However we have a problem if the underlying file system possesses an
++ * .mmap_prepare() hook, as we are in a different context when we invoke the
++ * .mmap() hook, already having a VMA to deal with.
++ *
++ * compat_vma_mmap() is a compatibility function that takes VMA state,
++ * establishes a struct vm_area_desc descriptor, passes to the underlying
++ * .mmap_prepare() hook and applies any changes performed by it.
++ *
++ * Once the conversion of filesystems is complete this function will no longer
++ * be required and will be removed.
++ *
++ * Returns: 0 on success or error.
++ */
++int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
++{
++	return __compat_vma_mmap(file, vma);
++}
  EXPORT_SYMBOL(compat_vma_mmap);
-
-@@ -1320,26 +1314,30 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
+ 
++int __vma_check_mmap_hook(struct vm_area_struct *vma)
++{
++	/* vm_ops->mapped is not valid if mmap() is specified. */
++	if (vma->vm_ops && WARN_ON_ONCE(vma->vm_ops->mapped))
++		return -EINVAL;
++
++	return 0;
++}
++EXPORT_SYMBOL(__vma_check_mmap_hook);
++
+ static void set_ps_flags(struct page_snapshot *ps, const struct folio *folio,
+ 			 const struct page *page)
+ {
+@@ -1311,11 +1326,32 @@ void snapshot_page(struct page_snapshot *ps, const struct page *page)
+ 	}
+ }
+ 
++static int call_vma_mapped(struct vm_area_struct *vma)
++{
++	const struct vm_operations_struct *vm_ops = vma->vm_ops;
++	void *vm_private_data = vma->vm_private_data;
++	int err;
++
++	if (!vm_ops || !vm_ops->mapped)
++		return 0;
++
++	err = vm_ops->mapped(vma->vm_start, vma->vm_end, vma->vm_pgoff,
++			     vma->vm_file, &vm_private_data);
++	if (err)
++		return err;
++
++	if (vm_private_data != vma->vm_private_data)
++		vma->vm_private_data = vm_private_data;
++	return 0;
++}
++
  static int mmap_action_finish(struct vm_area_struct *vma,
  			      struct mmap_action *action, int err)
  {
-+	size_t len;
-+
-+	if (!err && action->success_hook)
-+		err = action->success_hook(vma);
-+
-+	/* do_munmap() might take rmap lock, so release if held. */
-+	maybe_rmap_unlock_action(vma, action);
+ 	size_t len;
+ 
 +	if (!err)
-+		return 0;
-+
- 	/*
- 	 * If an error occurs, unmap the VMA altogether and return an error. We
- 	 * only clear the newly allocated VMA, since this function is only
- 	 * invoked if we do NOT merge, so we only clean up the VMA we created.
- 	 */
--	if (err) {
--		if (action->error_hook) {
--			/* We may want to filter the error. */
--			err = action->error_hook(err);
--
--			/* The caller should not clear the error. */
--			VM_WARN_ON_ONCE(!err);
--		}
--		return err;
-+	len = vma_pages(vma) << PAGE_SHIFT;
-+	do_munmap(current->mm, vma->vm_start, len, NULL);
-+	if (action->error_hook) {
-+		/* We may want to filter the error. */
-+		err = action->error_hook(err);
-+		/* The caller should not clear the error. */
-+		VM_WARN_ON_ONCE(!err);
- 	}
--
--	if (action->success_hook)
--		return action->success_hook(vma);
--
--	return 0;
-+	return err;
- }
-
- #ifdef CONFIG_MMU
-@@ -1377,7 +1375,6 @@ EXPORT_SYMBOL(mmap_action_prepare);
-  */
- int mmap_action_complete(struct vm_area_struct *vma,
- 			 struct mmap_action *action)
--
- {
- 	int err = 0;
-
++		err = call_vma_mapped(vma);
+ 	if (!err && action->success_hook)
+ 		err = action->success_hook(vma);
+ 
 diff --git a/mm/vma.c b/mm/vma.c
-index 6105f54cea61..86f947c90442 100644
+index 86f947c90442..2d631db272e6 100644
 --- a/mm/vma.c
 +++ b/mm/vma.c
-@@ -2730,30 +2730,6 @@ static bool can_set_ksm_flags_early(struct mmap_state *map)
- 	return false;
- }
-
--static int call_action_complete(struct mmap_state *map,
--				struct mmap_action *action,
--				struct vm_area_struct *vma)
--{
--	int err;
--
--	err = mmap_action_complete(vma, action);
--
--	/* If we held the file rmap we need to release it. */
--	if (action->hide_from_rmap_until_complete) {
--		struct file *file = vma->vm_file;
--
--		i_mmap_unlock_write(file->f_mapping);
--	}
--
--	if (err) {
--		const size_t len = vma_pages(vma) << PAGE_SHIFT;
--
--		do_munmap(current->mm, vma->vm_start, len, NULL);
--	}
--
--	return err;
--}
--
- static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 		unsigned long len, vma_flags_t vma_flags,
- 		unsigned long pgoff, struct list_head *uf)
-@@ -2805,7 +2781,7 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
- 	__mmap_complete(&map, vma);
-
+@@ -2782,7 +2782,6 @@ static unsigned long __mmap_region(struct file *file, unsigned long addr,
+ 
  	if (have_mmap_prepare && allocated_new) {
--		error = call_action_complete(&map, &desc.action, vma);
-+		error = mmap_action_complete(vma, &desc.action);
-
+ 		error = mmap_action_complete(vma, &desc.action);
+-
  		if (error)
  			return error;
+ 	}
 diff --git a/tools/testing/vma/include/dup.h b/tools/testing/vma/include/dup.h
-index c62d3998e922..bf8cffe1ea58 100644
+index bf8cffe1ea58..b4b12fc742c1 100644
 --- a/tools/testing/vma/include/dup.h
 +++ b/tools/testing/vma/include/dup.h
-@@ -1296,13 +1296,7 @@ static inline int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
- 	action->hide_from_rmap_until_complete = false;
-
- 	set_vma_from_desc(vma, &desc);
--	err = mmap_action_complete(vma, action);
--	if (err) {
--		const size_t len = vma_pages(vma) << PAGE_SHIFT;
--
--		do_munmap(current->mm, vma->vm_start, len, NULL);
--	}
--	return err;
-+	return mmap_action_complete(vma, action);
- }
-
- static inline void vma_iter_init(struct vma_iterator *vmi,
---
+@@ -643,6 +643,23 @@ struct vm_operations_struct {
+ 	 * Context: User context.  May sleep.  Caller holds mmap_lock.
+ 	 */
+ 	void (*close)(struct vm_area_struct *vma);
++	/**
++	 * @mapped: Called when the VMA is first mapped in the MM. Not called if
++	 * the new VMA is merged with an adjacent VMA.
++	 *
++	 * The @vm_private_data field is an output field allowing the user to
++	 * modify vma->vm_private_data as necessary.
++	 *
++	 * ONLY valid if set from f_op->mmap_prepare. Will result in an error if
++	 * set from f_op->mmap.
++	 *
++	 * Returns %0 on success, or an error otherwise. On error, the VMA will
++	 * be unmapped.
++	 *
++	 * Context: User context.  May sleep.  Caller holds mmap_lock.
++	 */
++	int (*mapped)(unsigned long start, unsigned long end, pgoff_t pgoff,
++		      const struct file *file, void **vm_private_data);
+ 	/* Called any time before splitting to check if it's allowed */
+ 	int (*may_split)(struct vm_area_struct *vma, unsigned long addr);
+ 	int (*mremap)(struct vm_area_struct *vma);
+-- 
 2.53.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
