@@ -2,136 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kA4iHIKGvWnQ+gIAu9opvQ
+	id 2G52CzyRvWnY+wIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 18:40:18 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 19:26:04 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3D132DECEC
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 18:40:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B96642DF5C5
+	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 19:26:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74761C35E2B;
-	Fri, 20 Mar 2026 17:40:17 +0000 (UTC)
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com
- [209.85.214.225])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38A79C35E2B;
+	Fri, 20 Mar 2026 18:26:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DB84C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43F91C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 17:40:16 +0000 (UTC)
-Received: by mail-pl1-f225.google.com with SMTP id
- d9443c01a7336-2a7a9b8ed69so28841285ad.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 10:40:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774028415; x=1774633215;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ctHvhJ5qurhDod175+ND5IwP+p7N3D0locIaO764rGA=;
- b=qFaJB730u4gL82nUXoZhiGjyeNWX7PncMsWdSLOFtaZZ/+H7xXqJNX8r6WnpIQVS01
- uae39s9CG2eGoJfvzwSW7RCudp8vOy0NjpJOGUHbRHIHQjwinO0VKrINMlfWeKjvYg2j
- XGBJhkldnPA5hcpPLYftTFIQuFnbUarMHxVa2sqhY1Kfh7k4/+4xSxNDrOvA83IN5aPn
- nRPbx+L1irMymyxZD3XfWzxK+kl6jxhVtf1SVCcRoa7V60seAhHAzEp7NFbeE20Xeh6Y
- sG7d4immXHgGg4I7HJaHWnP6rlGfRkVd0Sn3Mxqjp44iLFuO2ZvHE4fbGLIXzoE6AUjg
- OZxg==
-X-Forwarded-Encrypted: i=2;
- AJvYcCWTiAQO5glS/AhBqLFdK7fd8IolbZ6D/KP7erDJqA2A47UTxpgfbBcDOZJkNbt11WQ+GBU1CIckdbiHMQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyBREE7V+kNNNsIfn5SJHoxR/Lfgs7Dq1hBkka4WxrbZjk8+N5Q
- buaodSpbOdPr8zXJATEeElTkJK11YUT2S78hwidrFgbr5rkD3rSNIKJGL30ix/6K2bYoxdBmwZa
- IjiEFV4Cd6VXX8NzrzfS4Sc+fw9oKRwEzvthr9Ui4GkP/VIlOSrCpCZXvtNMoasBBfaXyP/Wzy3
- fkiAhRcQ4d6KW8zK4PY3o/NcXeDZBtMSSvf2EotOrBIyl64Pvh89NZDpZI0QOybPTNea0cAGLpV
- O10mWz4Ttj6kjETeZGHuozNRZdTqsWs6uhtUGMKUw==
-X-Gm-Gg: ATEYQzyBG9lf6V6ulh+te5Y/oRxGrD9Kakci3nLShKVtMM/CzDMwQAAuaNP34No2avn
- ZYliH1b7rpBqYzU7d5s148zngvzVTjICyHqKQXdtIP09xu2BKg5g02wbeu9BGyNeco90rzkMAky
- /PxKHfeJFeRxeV2pjlEbcvEk5gesYOO66UFZBzy64+GsyXssEwRiW+moreLMRPCXMsn9ja9Mphk
- Bfr54L0vFyC2NYA8CDifwJeIWfRBuX5/KGyiy3rBvP19YQ8dXJ3nv8Ed2Gfv4RNWHM9nyhoeiG6
- siZPmEVJmFGWkQ926WbgA5x2bKYGpnKSHYAJVW1OcFKYUIerXh031Cr6awo6fs/6ZCI0Ec2EN/X
- IYoPR+/9zGcWqMVkJ7y00jmBP26s0241f4TZqbojEzILhtLqPTUwGHFwOIz4jbcAxq9RODiv6G8
- EnFbRqp65lhZlmH4HUMIC8tiKAOTjz6uHx0y3rVfLDF2+rY87/R3bU6VRnJzE/LmM/aw==
-X-Received: by 2002:a17:903:ad0:b0:2ae:593c:48fc with SMTP id
- d9443c01a7336-2b08281144amr33130885ad.53.1774028414469; 
- Fri, 20 Mar 2026 10:40:14 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-102.dlp.protect.broadcom.com. [144.49.247.102])
- by smtp-relay.gmail.com with ESMTPS id
- d9443c01a7336-2b0835f5ab6sm3585775ad.40.2026.03.20.10.40.13
- for <linux-stm32@st-md-mailman.stormreply.com>
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Fri, 20 Mar 2026 10:40:14 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-wr1-f69.google.com with SMTP id
- ffacd0b85a97d-439bab2d095so1299974f8f.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 10:40:13 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1774028412; cv=none;
- d=google.com; s=arc-20240605;
- b=IgNR4H/fmI8HdiPv01ElwinrxOx09pxo26BrwbHDF8eJk++mOiisfbLdbBjZxNw9mA
- vCLTj27WnsRCFkZEtSWSq33ZmVh0ziAdLurAXPhRgdrBYsJMYprf7gGJSaV0ngCv2z7/
- VTmeUiI4WQm/N/MDKUUMubEQeleNbA0Xv3g23knFsGuKPlCbiAsfDh6AQKw63kkrG1eP
- +ydJtDom9HUo7w0a8aAH309g/bkFjKt0MhW+StLp+qNbjL1mHodRMAXf/rXWOFODri7U
- zAhy0V7YO4BNyDV4X3Xn0YuRogr9JSeRCMyOB2O0e/kTQs6a3u1xOFE3UukPJzNS74fX
- ucIQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=ctHvhJ5qurhDod175+ND5IwP+p7N3D0locIaO764rGA=;
- fh=Q7yinNT39TuSYAreUtYNPXJ17KH683laC9ghN/fy4Ys=;
- b=M7lxrVubjkPoRn1ClzKM/1rZXCGgoa2q8lhCsLxl2YUjTZlu7/TZJ82YuHnqT4dzVB
- 8ZXRuZRdkLeWoCwZB+kSMkplXa4wyrAQ0BxLlVPebkAssh7uF2WVrfwrYSLl34AtyXPy
- r9X2b0iBSAaTHrTA0lFuO/80J3JkgkvHEXL4fMFKiGRcttjKfvARYR9xBCBDRqhP5fEC
- P1AFFcRjYblFyo7OSzK1vjvYDWfw9UcWulOVRu+RNH4PRZW/Fb9tzMmlFui3x0+6yWLW
- ZXyhCzX/6HLIPALP64qOru2U0Z8FhM5WyDIuvaqS0ZNxxUG92h6JY1oKc2Yx4+S0VqjI
- 1Yfg==; darn=st-md-mailman.stormreply.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1774028412; x=1774633212;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=ctHvhJ5qurhDod175+ND5IwP+p7N3D0locIaO764rGA=;
- b=K1cUemWFkEkYa3697G1ZMt28SDCBAe+NG9sECiiEEKrbMiAWPFTkBTzuMQ1y04WggN
- LTggtleZBnaxaCyotk5mdtZWMWf9rWoqMS7P1XTA0/V81T3LVduv1X6fFYve+KJeoS/a
- Blo8sKp4q8w2TJ0v4DXgDU2AL9nNAWokj1tKY=
-X-Forwarded-Encrypted: i=1;
- AJvYcCX8C6nYqX92kvRMAGaeUItOiE5X8JJBNvZxAEw7OW8qS1dALSJuu+u2mTDBHi6I9jLgSOIKw1oEvU164g==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:600c:608c:b0:485:4135:5c92 with SMTP id
- 5b1f17b1804b1-486feb5a653mr57923435e9.0.1774028412520; 
- Fri, 20 Mar 2026 10:40:12 -0700 (PDT)
-X-Received: by 2002:a05:600c:608c:b0:485:4135:5c92 with SMTP id
- 5b1f17b1804b1-486feb5a653mr57922905e9.0.1774028411896; Fri, 20 Mar 2026
- 10:40:11 -0700 (PDT)
+ Fri, 20 Mar 2026 18:26:02 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id F0CBB43BE9;
+ Fri, 20 Mar 2026 18:26:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF8CEC4AF65;
+ Fri, 20 Mar 2026 18:26:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1774031160;
+ bh=jlrQP6CtospijAjR1wos41IMDs4DAGnm2KjWl19/ukk=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=c7m/Av3S1jBwh4aIpwIEm9YlGIP56CKhDCFlVKaRpszyu5bhjBVFk1nMZYJwhzJez
+ WYIoQT23O5DoFyFbY0THi/N9uUJoG3bs2m2Pw/jJDp4iH1FwGneZV9KKsrnJIasPAA
+ WYTJYbR/iiXAq/bDhKGeNjNg4l3ZFf3eHRU7pCk7Dmq2tcMJ4V3YBW1Ey+qmkdexAf
+ YojwZsvqmQ8jtZOmDZ4vBtUdHpmZjxdWnp375kNIbVjbEeBB/O6rrY8W32M0/keBxL
+ eCayRRMpxenf78oyEXEwT+HxMKDj+q7xHEiBXDbjBjpbMVrQhG92Q9tXyJKutnlMSc
+ YpylKX0mgne4g==
+Date: Fri, 20 Mar 2026 11:26:00 -0700
+From: Kees Cook <kees@kernel.org>
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Message-ID: <202603201125.964AD89B@keescook>
+References: <20260320084914.7180-3-thorsten.blum@linux.dev>
+ <20260320084914.7180-4-thorsten.blum@linux.dev>
 MIME-Version: 1.0
-References: <20260313222206.778760-1-jitendra.vegiraju@broadcom.com>
- <20260313222206.778760-5-jitendra.vegiraju@broadcom.com>
- <abSXP3gMFQEiC5Lm@shell.armlinux.org.uk>
- <CAMdnO-LYAPfyvM4vgmGcZgy-aagHSkP+VDmpRskNU-414j3gnQ@mail.gmail.com>
- <CAMdnO-+YWowCDh4iB9EZ=eqUidE6Mu4TOqjwyoMgyEaG=pBLBg@mail.gmail.com>
- <abuwcYH791D_oJp_@shell.armlinux.org.uk>
-In-Reply-To: <abuwcYH791D_oJp_@shell.armlinux.org.uk>
-From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Date: Fri, 20 Mar 2026 10:39:59 -0700
-X-Gm-Features: AaiRm51daUnGzokEEKCgv3bQbjbYDVOMLsocPZLljrnpxo0gYhLkY9qweCsnxyA
-Message-ID: <CAMdnO-Jx+z7ZVFyuS-MhcaPr+jDEJ6sLiAL15Q2pYsphaXcEFg@mail.gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Cc: quic_abchauha@quicinc.com, vladimir.oltean@nxp.com, chenchuangyu@xiaomi.com,
- edumazet@google.com, lizhi2@eswincomputing.com, yangtiezhu@loongson.cn,
- linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- bcm-kernel-feedback-list@broadcom.com, kuba@kernel.org, pabeni@redhat.com,
- hawk@kernel.org, richardcochran@gmail.com, rohan.g.thomas@altera.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, ast@kernel.org, wens@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- florian.fainelli@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
- horms@kernel.org, bpf@vger.kernel.org, davem@davemloft.net,
- ovidiu.panait.rb@renesas.com
-Subject: Re: [Linux-stm32] [PATCH net-next v7 4/5] net: stmmac: Add PCI
-	driver support for BCM8958x
+Content-Disposition: inline
+In-Reply-To: <20260320084914.7180-4-thorsten.blum@linux.dev>
+Cc: linux-arm-kernel@lists.infradead.org,
+ Herbert Xu <herbert@gondor.apana.org.au>, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Sakari Ailus <sakari.ailus@linux.intel.com>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime =?iso-8859-1?Q?M=E9r=E9?= <maxime.mere@foss.st.com>,
+ "David S. Miller" <davem@davemloft.net>,
+ Colin Ian King <colin.i.king@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 2/2] crypto: stm32 - use
+ list_first_entry_or_null to simplify cryp_find_dev
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,262 +63,61 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============5826698447210763042=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.19 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[broadcom.com : SPF not aligned (relaxed),reject];
-	SIGNED_SMIME(-2.00)[];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
-	R_DKIM_REJECT(1.00)[broadcom.com:s=google];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[34];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:quic_abchauha@quicinc.com,m:vladimir.oltean@nxp.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:yangtiezhu@loongson.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:bcm-kernel-feedback-list@broadcom.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:hawk@kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:ast@kernel.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:florian.fainelli@broadcom.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:horms@kernel.org,m:bpf@vger.kernel.org,m:davem@davemloft.net,m:ovidiu.panait.rb@renesas.com,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,m:andrew@lunn.c
- h,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	HAS_ATTACHMENT(0.00)[];
-	DKIM_TRACE(0.00)[broadcom.com:-];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:thorsten.blum@linux.dev,m:linux-arm-kernel@lists.infradead.org,m:herbert@gondor.apana.org.au,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:sakari.ailus@linux.intel.com,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:maxime.mere@foss.st.com,m:davem@davemloft.net,m:colin.i.king@gmail.com,m:mcoquelinstm32@gmail.com,m:coliniking@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[kees@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[quicinc.com,nxp.com,xiaomi.com,google.com,eswincomputing.com,loongson.cn,st-md-mailman.stormreply.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,broadcom.com,redhat.com,altera.com,bp.renesas.com,lists.infradead.org,vger.kernel.org,lunn.ch,davemloft.net,renesas.com];
-	NEURAL_HAM(-0.00)[-0.015];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[kees@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[lists.infradead.org,gondor.apana.org.au,vger.kernel.org,st-md-mailman.stormreply.com,linux.intel.com,gmail.com,foss.st.com,davemloft.net];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_SPAM(0.00)[0.039];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,broadcom.com:email,armlinux.org.uk:email,armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: E3D132DECEC
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: B96642DF5C5
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---===============5826698447210763042==
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000005f8357064d782dfb"
+On Fri, Mar 20, 2026 at 09:49:14AM +0100, Thorsten Blum wrote:
+> Use list_first_entry_or_null() to simplify stm32_cryp_find_dev() and
+> remove the now-unused local variable 'struct stm32_cryp *tmp'.
+> 
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 
---0000000000005f8357064d782dfb
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-On Thu, Mar 19, 2026 at 1:15=E2=80=AFAM Russell King (Oracle)
-<linux@armlinux.org.uk> wrote:
->
-> On Wed, Mar 18, 2026 at 11:12:23PM -0700, Jitendra Vegiraju wrote:
-> > Hi Russell,
-> > On Mon, Mar 16, 2026 at 1:34=E2=80=AFPM Jitendra Vegiraju
-> > <jitendra.vegiraju@broadcom.com> wrote:
-> > >
-> > > On Fri, Mar 13, 2026 at 4:01=E2=80=AFPM Russell King (Oracle)
-> > > <linux@armlinux.org.uk> wrote:
-> > > >
-> > > > > +
-> > > > > +     plat->suspend           =3D stmmac_pci_plat_suspend;
-> > > > > +     plat->resume            =3D brcm_pci_resume;
-> > > > > +     plat->bsp_priv =3D brcm_priv;
-> > > >
-> > > > Populating suspend/resume means that plat->init and plat->exit
-> > > > will only be called on driver probe (former), probe failure (latter=
-)
-> > > > or remove (latter). Please consider using these to ensure that
-> > > > all appropriate resources are properly cleaned up in all cases.
-> > > >
-> > >
-> > > Thanks for pointing this out. I will check resource cleanup more clos=
-ely.
-> > After reviewing the need for  plat->init and plat-exit, I don't think w=
-e need
-> > these handlers as this driver with fixed-link doesn't need to restore a=
-ny device
-> > specific state such as clocks.
->
-> Huh?
->
-> plat->init and plat->exit have nothing to do with "restoring" anything.
->
-> plat->init is for platform specific initialisation.
->
-> plat->exit is for reversing the effects of plat->init once plat->init
-> has suceeded, and will be called should the probe fail or on device
-> removal.
->
-> So, where you have:
->
-> static int foo_probe()
-> {
->         do init stuff();
->
->         ret =3D stmmac_dvr_probe();
->         if (ret)
->                 goto cleanup;
->
->         return 0;
->
-> cleanup:
->         do cleanup stuff();
->
->         return ret;
-> }
->
-> static void foo_remove()
-> {
->         stmmac_dvr_remove();
->         do cleanup stuff();
-> }
->
-> Using ->init for "do init stuff()" and ->exit for "do cleanup stuff()"
-> will simplify the code, and actually make things more correct.
->
-> Currently, you have this in your remove path:
->
-> +       pci_free_irq_vectors(pdev);
-> +       device_set_node(&pdev->dev, NULL);
-> +       software_node_unregister_node_group(brcm_swnodes);
->
-> but in your probe error path, you have failure paths that leave
-> the swnode connected to the device, and you don't call
-> software_node_unregister_node_group(). Thus, it seems to me that
-> your cleanup path is buggy.
->
-> My suggestion of using ->init and ->exit means you have slightly
-> less to think about when stmmac_dvr_probe() fails - although if
-> you still have to do appropriate cleanup within ->init if it
-> partially fails.
->
-Sorry, I missed the resource leak with software node on probe error path.
-Your suggestion to use make use of ->init, ->exit makes the code
-look cleaner. I will make the changes in v8.
-> --
-> RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-> FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-
---0000000000005f8357064d782dfb
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-tJVewHuOmXgWQxNWV7Oiszu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x36
-2AczdlQAIiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8aHARc
-phXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADomK4OeDTDJfuvCp8g
-a907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXSe7frgP4lN/4Cm2isQl3D7vXM3PBQ
-ddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKppQ++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/
-07kwIwdMjxC/hpbZmVq0mVccpMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yL
-SqGQdCWnsz5LyCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQMIIGbTCCBFWg
-AwIBAgIMGHX6KxYK3WW2YyprMA0GCSqGSIb3DQEBCwUAMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQK
-ExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAy
-MDIzMB4XDTI0MDkyNTEzNTAzMVoXDTI2MDkyNjEzNTAzMVowgbMxCzAJBgNVBAYTAlVTMRMwEQYD
-VQQIEwpDYWxpZm9ybmlhMREwDwYDVQQHEwhTYW4gSm9zZTEZMBcGA1UEYRMQTlRSVVMrREUtNjYx
-MDExNzEWMBQGA1UEChMNQlJPQURDT00gSU5DLjEaMBgGA1UEAxMRSml0ZW5kcmEgVmVnaXJhanUx
-LTArBgkqhkiG9w0BCQEWHmppdGVuZHJhLnZlZ2lyYWp1QGJyb2FkY29tLmNvbTCCASIwDQYJKoZI
-hvcNAQEBBQADggEPADCCAQoCggEBAKWV+9PYvG4njqRsbQas79f8Q46VL7b1ZxvWT6ik6VMbdRZx
-tfpfZalVXksqcb02/N1H7UA9V04cV2q97FkSr/KxeFLMetPb3cVJZICg23IRO2NTPdmgPFzwkPTo
-35h9h/OYLgh3/9a1nTsC2xqJa8GtohD5+42rsskGcI57U4n1r1L4R5IL9ypSqDxX/xVEAdGI5FTj
-VgvoZC6iuEbnez+yO8TT3wun9b/PQowOB5P0CwIFv7ERW0S1s6B8yrbsoaTrz0vQaEA786k1pZkg
-ykC1+zXq/iTyZuPP4B4RkzFd43Pw+GAH0Tt2nx5V4rNisJHeAVNU92Gj01cEg0I+FnsCAwEAAaOC
-Ad8wggHbMA4GA1UdDwEB/wQEAwIFoDCBkwYIKwYBBQUHAQEEgYYwgYMwRgYIKwYBBQUHMAKGOmh0
-dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0L2dzZ2NjcjZzbWltZWNhMjAyMy5jcnQw
-OQYIKwYBBQUHMAGGLWh0dHA6Ly9vY3NwLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAy
-MzBlBgNVHSAEXjBcMAkGB2eBDAEFAwEwCwYJKwYBBAGgMgEoMEIGCisGAQQBoDIKAwIwNDAyBggr
-BgEFBQcCARYmaHR0cHM6Ly93d3cuZ2xvYmFsc2lnbi5jb20vcmVwb3NpdG9yeS8wCQYDVR0TBAIw
-ADBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWlt
-ZWNhMjAyMy5jcmwwKQYDVR0RBCIwIIEeaml0ZW5kcmEudmVnaXJhanVAYnJvYWRjb20uY29tMBMG
-A1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroPry1QLdugI4UYsKCSMB0GA1Ud
-DgQWBBRq5Jlxz3MqC+zEgUxK566xEc2g3DANBgkqhkiG9w0BAQsFAAOCAgEARXrmeeWA31pp9Tr0
-M6mOlMv+Pr2raES4GzPSyftvxf6tBQCBNaqi6LSbyusDYOj3mG9bp6VeVn+68OxNY9iNAk+ujtId
-f3+30BlZOQ1v8z9u2peUOUtWI60y2MxhdH0X0n2H+BCGvUOFqs5z440jqqy1HsscZTXHB7FEZmVP
-fyD+0Z6cxyh7WNC6+BgLiFwf8iqmAbu7Yb1sGTUGyS5gfYEjJbF2PJfwNUcJDd7eS4w5Ju5mK5y7
-spgjH2/JmDgbkpSk9JyuWfjGZIg4ah/q2nb6UMd1XJb6gLQZuzPOI3SgXPvd8MHGjKZrX2BHOBSC
-bJJ8rp4w4a9QMS6dde2MFObusxkZAft4tUnwo+ProchHs7iA85sL7sWEZhAmjmKKCpECpEfZm0+/
-hpvKQV3AZp5vBstb4IVL8QmLj8beDVHYnNhEicsSiG1wW7zSYyBnmGbFRrFQIJnJDWPjTZOlVEyp
-T1ShrXRCtqJpOt6rgg+rFEY3D8j6/bAkJXnmKnE2LZ0YyrrKk7eC6UfNNimx38w3NWchtcGY8zJn
-Y/1/C9Jv/mWm/2lK8nvusOFxhKmbG83Hx8toQdZ5F1kYk6zAWjfB7lwXr/En9mCmLieJ18hen9EK
-qbYyUkmCmuoLi5GXFMJy+iQv6DgMVQ7CACagybU6FUrmL9lVa+A6caBEEh4xggJXMIICUwIBATBi
-MFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9i
-YWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwYdforFgrdZbZjKmswDQYJYIZIAWUDBAIBBQCg
-gccwLwYJKoZIhvcNAQkEMSIEIOjDrFYUtizxQa+Umj9q17p/hPIJ1PoQph346uqBvFJGMBgGCSqG
-SIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDMyMDE3NDAxMlowXAYJKoZI
-hvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG
-9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBADRewii5RHsf
-ibILKSz9PSvvaZkgQJUIMEAg/gXysZSPaCCYgeWGc1Puh9bQiW5ol29xIwwW50CJbNtRR6CBF6Gm
-qS92udIowQxTHsZX327AE1fGVpUbLFiTQwUxZ8t00+wT36OYnfw9q2Mhg2dsJ7iu+KDNZ9hoQXi/
-Fa9QrpPoVQ8YQH4uOwyT4y9vCSK3zHp/HZpm2bleu6982evMw9zz1CcjP6OlP0SbNjtts3yFG0Xh
-nAQ8ETe5ekOvXqIYA3TtA/pVDwCoGXPt+yLCmzc33271cBHmcFCqu101U8aoTeR1D8PJViJ9+C+N
-0TzMVdmSHKgJrO/BYI+ZRokmfhk=
---0000000000005f8357064d782dfb--
-
---===============5826698447210763042==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+Kees Cook
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============5826698447210763042==--
