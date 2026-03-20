@@ -2,62 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AEC4JS8KvWkO5gIAu9opvQ
+	id MEHXKokXwWn5QQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 09:49:51 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2026 11:35:53 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BAEF2D778A
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 09:49:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 489B42F031C
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2026 11:35:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 280B5C87EBD;
-	Fri, 20 Mar 2026 08:49:51 +0000 (UTC)
-Received: from out-176.mta1.migadu.com (out-176.mta1.migadu.com
- [95.215.58.176])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CEC93C87EC8;
+	Mon, 23 Mar 2026 10:35:52 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C358C36B13
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B4C84C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 08:49:49 +0000 (UTC)
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1773996588;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references;
- bh=izBpg3f4YsX+0N/YH8T17Ma2BiNyBCvm7Snr6+pnP1s=;
- b=a6B8WhbCKhlkLZh25B+fJjUtDE+V8ipFSZHjbFSa9r9aV1THdd8ZfgOXQEW/TkU81tEbTK
- nUiuJzojPI6m77qrVliMsB6Gv6mxGyT+xhYB8K8Ct+mdxq8v/1wDKUmYjpO03K9fzcmQD1
- /PGidZXC+LvLp30mGIaS9Be1fSQ8GpE=
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Herbert Xu <herbert@gondor.apana.org.au>,
- "David S. Miller" <davem@davemloft.net>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Colin Ian King <colin.i.king@gmail.com>, Kees Cook <kees@kernel.org>,
- =?UTF-8?q?Maxime=20M=C3=A9r=C3=A9?= <maxime.mere@foss.st.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Thorsten Blum <thorsten.blum@linux.dev>
-Date: Fri, 20 Mar 2026 09:49:14 +0100
-Message-ID: <20260320084914.7180-4-thorsten.blum@linux.dev>
-In-Reply-To: <20260320084914.7180-3-thorsten.blum@linux.dev>
-References: <20260320084914.7180-3-thorsten.blum@linux.dev>
+ Fri, 20 Mar 2026 09:04:22 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8C79F6013A;
+ Fri, 20 Mar 2026 09:04:21 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4994C4CEF7;
+ Fri, 20 Mar 2026 09:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1773997461;
+ bh=xUkj9g/+sF9hLqzuMN/RQEM4VIjN8lYjJ0chPrZqsI0=;
+ h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+ b=B13IVhIdYsDkKyGIkMxVS9c/MB3na1dxWmD0JTg3kt1A0lhM0cflQ92WWV6Js5LeS
+ mHe13DWUJR5o+yDFAZOCmxw3i0bPJlOJgVHJ/QPFovh12DIRNBnKacZWOcVoKB8qOo
+ jMCWFi/p6eYXV0bK0XOZLgLgLAuFIsYAKcaxfUybbTZBT+wEoUdWaAeBLsoHCRBqiL
+ eBccbPQBi8UjNZolplSiY0MmlMnURPDpu97rlfs2uurYNAkoP8m4/OWEvKLm1SvvcT
+ D+KqgdsoGOXFxyKvjEcc+NeDCPpo99dSE0Ac67ihP1IHS04RJ/SEcHdk0hC0lKmzDw
+ nJWpyCes5UvTg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>, linux-stm32@st-md-mailman.stormreply.com
+In-Reply-To: <20260320040443.46038-1-rosenp@gmail.com>
+References: <20260320040443.46038-1-rosenp@gmail.com>
+Date: Fri, 20 Mar 2026 10:04:18 +0100
+Message-ID: <87cy0ylvn1.ffs@tglx>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1158; i=thorsten.blum@linux.dev;
- h=from:subject; bh=fS46rTjiGgSzi3MWcwcXeXN0mlGqe7jt3cqh8IomgFk=;
- b=owGbwMvMwCUWt7pQ4caZUj3G02pJDJl7uYRvdnaf6P13MGC5mZTXtuU8Nc1+4ffmGp9k0f7Ep
- cxpcfF0RykLgxgXg6yYIsuDWT9m+JbWVG4yidgJM4eVCWQIAxenAExkmRAjw1edX79VZN9LTwt8
- PNfnxL534ucuMNledLWqFPI+sV7nuD0jw76v8x3OP13QstZjSl2moWvhoVAX90W8d/dcffy1vG0
- yKxcA
-X-Developer-Key: i=thorsten.blum@linux.dev; a=openpgp;
- fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 2/2] crypto: stm32 - use
-	list_first_entry_or_null to simplify cryp_find_dev
+X-Mailman-Approved-At: Mon, 23 Mar 2026 10:35:52 +0000
+Cc: "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-arm-kernel@lists.infradead.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ "open list:IRQCHIP DRIVERS" <linux-kernel@vger.kernel.org>
+Subject: Re: [Linux-stm32] [PATCH] irqchip/stm32-exti: Use kzalloc_flex
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,81 +61,70 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [10.29 / 15.00];
+	MID_END_EQ_FROM_USER_PART(4.00)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
+	DATE_IN_PAST(1.00)[73];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com,kernel.org,linux.intel.com,linux.dev];
-	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:colin.i.king@gmail.com,m:kees@kernel.org,m:maxime.mere@foss.st.com,m:sakari.ailus@linux.intel.com,m:thorsten.blum@linux.dev,m:linux-kernel@vger.kernel.org,m:linux-crypto@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,m:coliniking@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_COUNT_TWO(0.00)[2];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:rosenp@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[tglx@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_TO(0.00)[gmail.com,st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[linux.dev:-];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	RCPT_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.171];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tglx@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.infradead.org,gmail.com,vger.kernel.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 7BAEF2D778A
-X-Rspamd-Action: no action
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 489B42F031C
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
+X-Spam: Yes
 
-Use list_first_entry_or_null() to simplify stm32_cryp_find_dev() and
-remove the now-unused local variable 'struct stm32_cryp *tmp'.
+On Thu, Mar 19 2026 at 21:04, Rosen Penev wrote:
 
-Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
----
- drivers/crypto/stm32/stm32-cryp.c | 16 +++++-----------
- 1 file changed, 5 insertions(+), 11 deletions(-)
+This is not a new submission. It's either V3 or a resend of V2. Please
+follow the documented process.
 
-diff --git a/drivers/crypto/stm32/stm32-cryp.c b/drivers/crypto/stm32/stm32-cryp.c
-index 3c9b3f679461..b79877099942 100644
---- a/drivers/crypto/stm32/stm32-cryp.c
-+++ b/drivers/crypto/stm32/stm32-cryp.c
-@@ -361,19 +361,13 @@ static int stm32_cryp_it_start(struct stm32_cryp *cryp);
- 
- static struct stm32_cryp *stm32_cryp_find_dev(struct stm32_cryp_ctx *ctx)
- {
--	struct stm32_cryp *tmp, *cryp = NULL;
-+	struct stm32_cryp *cryp;
- 
- 	spin_lock_bh(&cryp_list.lock);
--	if (!ctx->cryp) {
--		list_for_each_entry(tmp, &cryp_list.dev_list, list) {
--			cryp = tmp;
--			break;
--		}
--		ctx->cryp = cryp;
--	} else {
--		cryp = ctx->cryp;
--	}
--
-+	if (!ctx->cryp)
-+		ctx->cryp = list_first_entry_or_null(&cryp_list.dev_list,
-+						     struct stm32_cryp, list);
-+	cryp = ctx->cryp;
- 	spin_unlock_bh(&cryp_list.lock);
- 
- 	return cryp;
+Also this still applies:
+
+     https://lore.kernel.org/87ms0erbx4.ffs@tglx
+
+> Simplifies allocations by using a flexible array member in these structs.
+
+Simplify ...
+
+> No need for a second kfree.
+
+That's redundant information and can be seen from the patch. No?
+
+Thanks,
+
+        tglx
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
