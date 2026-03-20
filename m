@@ -2,79 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wH6qAnLHvGlS2wIAu9opvQ
+	id LS1qLokXwWmZQgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 05:05:06 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2026 11:35:53 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 999EA2D5B29
-	for <lists+linux-stm32@lfdr.de>; Fri, 20 Mar 2026 05:05:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D6872F031D
+	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2026 11:35:53 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 300EDC87ED2;
-	Fri, 20 Mar 2026 04:05:05 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0DFDC87EC5;
+	Mon, 23 Mar 2026 10:35:52 +0000 (UTC)
+Received: from mail-pl1-f193.google.com (mail-pl1-f193.google.com
+ [209.85.214.193])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E07CCC35E2B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B028C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 20 Mar 2026 04:05:03 +0000 (UTC)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2ad9a9be502so1242035ad.0
+ Fri, 20 Mar 2026 06:20:49 +0000 (UTC)
+Received: by mail-pl1-f193.google.com with SMTP id
+ d9443c01a7336-2ab46931cf1so22927705ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 19 Mar 2026 21:05:03 -0700 (PDT)
+ Thu, 19 Mar 2026 23:20:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1773979502; x=1774584302;
+ d=gmail.com; s=20230601; t=1773987648; x=1774592448;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Bi+cpYb6Vg0VXFOuregCJb6MTqBCf/daXiAT548yjY0=;
- b=FNecNZZgfPNC4+oym5154I2Vp+7pfgUi9Fu0yPpPD3Fw4r2LbjhaazlNSWifIMtLvc
- 9rHDk6MA+Na2ALp4CE/GEYwFwvSDBf/KRTlnjF5D66JW65LP1qpthFogBN0eRkFyZLJu
- 0WSe4e59X+sfzEPkm9EPo/534iqIy/ClHY/gjiNd7Ao8XSuYh5Yy5Fx23vVEuyPgG5tS
- NMmVBp94tpwhb4fy5kE+X3gl/ezZaYKfo5D8nboSJraCnD4/25JLhw96eB9um/ZvUr2S
- 0QGVhvPbD0KAmTRO5PbW873FxtlpCVA1sWbZVsioyoOt+uuYpZoRBlB1K3p6d8KhuMr4
- T/Gg==
+ bh=bsX7j3IsBCAR2JvcHeowKyby9MbV8ivPuVe631jWpdc=;
+ b=PjaEZfUk2/fr/X8GNABjE13YyyDL5XoiNUrZ8OereOz9nMEbSF4o9XVHnDmryTU6zM
+ +xy7JUgKA6AS1yplYXmqRWQc/bL5L27kiN7yaiWe2Ti/5+8ow0SMn9dv1BtK+WA+L3Cn
+ jaSu5Jdb+3bM+0GVEBS4vB2z76ak9vZrM7qm+RCYfVjxuTSm5ywhtFxudlXR/yq4iAXg
+ a06ZaHj8b/2eRYurr684fDFRrzq3ccq/MWJRF2wlDeCblzD8JwmyDuiigjN5UYsOUqag
+ Du/GZLY3T1Jz400z9OLe/tD3ZMzqVlcR0zxjGvdPixvQZBS6xqQVevGdlKfZxfmK7swl
+ LgeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1773979502; x=1774584302;
+ d=1e100.net; s=20251104; t=1773987648; x=1774592448;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=Bi+cpYb6Vg0VXFOuregCJb6MTqBCf/daXiAT548yjY0=;
- b=r6rQ5qfk30j6BhKGG0YvvAq9byFg4V7+eQslk9NOtOtNDXJU+EVjQAXrT12i6oLX89
- AB+hRDFNayDW7farcSDP+lYPbpthodEyo8J2npMCrLmD6dK4hbsBIeA/VFy5oB3KoPkl
- 00SztFzvAYqUd0R7/byE/uP/jJZ0sdWWnrdU9jI0AHfS0ANo4XON378Kj5+Gm7PhUus8
- KywihfL91qZdkqIQ2OiicQda/1KCdAT/ka+SsiQkJ8i5xHiikcPdIJxzeuWxitkeGbK8
- buX5xwiglD7g6ZZbmPTFjAwYyE50lHLWPd9DLkQx2wn40o/5z2HZWG6qbiU7SmHwd2zX
- csLw==
-X-Gm-Message-State: AOJu0YxR0tpg21KSlrWq6bvyuHZg6mQ2Dw49B2JisP9+nNNtR0c1DAqZ
- N2WBqAKTFf9WorD1MQuYnnVzWMu/97WLGOl3vMklr0Kj0X/p6xk1IWffVprSGh8j
-X-Gm-Gg: ATEYQzw7S19TXxd+Ej1WkFQDV+WvU0ivIMWDBgt6q+LOVZ62MsToXUWMdZIkP38E6Ox
- LF7JVNtlPx1ucUhzmvHSlx/P21rWHTXVKi7alal4x/qO+ZjBvDKrPNMO6Q0awHt4gJAZg6zuZrN
- 9UCKTfD6Q/8h/tLjrxPkcNNGrWC/P3LHfz169g22lfdhlpBlS+wCSGY18xJMTUkp6FhgoKvJhpM
- W+VVCc3RaW+Da866a414vR648zH79ugFhaQ2t6Qn7Vpzz4PtLQrpzzLlNgx3zSGwsHsoh1YrjIy
- XZYxeXDhaGgXX9TkOVA/8ym+dP18grHq43QtdadU4w0cBLZKC6XIGQe8bB0bVdRNGZZPJe5ZbgR
- AbUgmNMwdKXypR8zcc5els1sfqHpRINVE5UNi4l4szg3ZCFnD56w00vjO7RuCrW6rSPmYN8Ipm+
- CK3shpKVVyS84SsM+rya6rHg4OIJzuRzMe2Cg3EQ9gYFfypD3Ta0z5FkU=
-X-Received: by 2002:a17:902:e74b:b0:2b0:7531:b61e with SMTP id
- d9443c01a7336-2b0827c2095mr13747205ad.41.1773979501693; 
- Thu, 19 Mar 2026 21:05:01 -0700 (PDT)
-Received: from ryzen ([2601:644:8000:5b5d::8bd])
+ bh=bsX7j3IsBCAR2JvcHeowKyby9MbV8ivPuVe631jWpdc=;
+ b=g2AQF0oqGkpqABjxUNz+6BSf0v0F3A5JyUrj9g39BQjADOpHA/MTQJwSFrEoqnq41y
+ MOv+r++LSHRgYEA6s1U/h5fSI2euWTsqnMgY3IzPaJKp7/SFv467jhNJKDV/0LquVD75
+ KY4cduajoFLJ/YsEPomWnjvZhrh0iD7USQtfezx+0UU39lgPcDiJr/C88tO2U2n+8PD2
+ Z5tY+2/6Vrokk/c5AZo2cojQSXlUKBJnlqi9szVHx8LbzvOts9zce+sUfnyTHJVpGwEZ
+ 1K5Ogf2af2mXVhhJk87w7Vo8BZ26Qr5BjxUgzSbvB5pesGxR81XJC6zQbyqfEGKxkSo2
+ LUKw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCWZ0suMsb2Jw3b4B6yQhgjce8zOB+tAEYMONYTAG3yibInp8NQmYg1Kd1pcYOBwiveaYSCcgMxoo/5nQg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxayz1QDRes/f6T1wOJNslBBNMQOp2LttYu3uWHVUCPytD0oLpP
+ 8QVWuOW/B/WKBNP+2MmrFoG+XGG37hqm0bclgRhPaN6/ZmI3XtCneOqn
+X-Gm-Gg: ATEYQzw4G+gRQqW+z+q8tc28/b121okrOx9HauYXdImYiOMA7BPWFosRsRbkkWQMHnl
+ RoC/BY89ZeC4S6h2lHnkmSeuryFecftJkhe2tl3KV+peK1orNE2TyCZdfT+PMMdtbG03lbw6MEm
+ eQr0nZMaSWAODFfbGZFzE2dNIYp30lUW00r+Y/la2V2rfUXTk1Fa+mVUSeRk9Nt/+lK5IdMxOb/
+ OMC33a4q0zTIcSPrPM7tlkgMxi3M/fB1SRghpyn8g8mVS4zGZDwJLDjAjjg5Zgu4Y2jxvbKz+rV
+ +A6AWYO48OwSamPdH9ENoHtWb8Mml1AOZy9FcosHG621WDlH6QaeK/Y/Xc1qBo6Rdf+myfQdbDQ
+ KSB8cpjI7Vf7Rf1yHTb8JkXWKNVNZqvHbv/EC/Slq+xAqWKiuqtzlIqw8+HVIPxWHJA8geWGpnB
+ tObXL+IS/qi8j/1FyjQuO5WmbtDjMM2ljjH7+DV5RtYDOAFA==
+X-Received: by 2002:a17:903:1a2e:b0:2ae:cd8c:bd04 with SMTP id
+ d9443c01a7336-2b077165dabmr46941965ad.10.1773987648287; 
+ Thu, 19 Mar 2026 23:20:48 -0700 (PDT)
+Received: from XP-PC-yangg9.xiaopeng.local ([98.98.112.219])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2b083516ae1sm7212905ad.13.2026.03.19.21.05.00
+ d9443c01a7336-2b0836554acsm14418715ad.51.2026.03.19.23.20.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 19 Mar 2026 21:05:01 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 19 Mar 2026 21:04:43 -0700
-Message-ID: <20260320040443.46038-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ Thu, 19 Mar 2026 23:20:47 -0700 (PDT)
+From: yangg9 <cohenyang511@gmail.com>
+To: netdev@vger.kernel.org
+Date: Fri, 20 Mar 2026 14:19:55 +0800
+Message-ID: <20260320061955.833785-1-cohenyang511@gmail.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Cc: "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- "open list:IRQCHIP DRIVERS" <linux-kernel@vger.kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Subject: [Linux-stm32] [PATCH] irqchip/stm32-exti: Use kzalloc_flex
+X-Mailman-Approved-At: Mon, 23 Mar 2026 10:35:52 +0000
+Cc: linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ vladimir.oltean@nxp.com, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, yangg9@xiaopeng.com,
+ kuba@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: close reset IRQ window and avoid
+	double free
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -90,102 +95,96 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20230601];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	DATE_IN_PAST(1.00)[76];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_CC(0.00)[lists.infradead.org,vger.kernel.org,kernel.org,gmail.com];
-	ARC_NA(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:yangg9@xiaopeng.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,nxp.com,st-md-mailman.stormreply.com,lunn.ch,google.com,xiaopeng.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[cohenyang511@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	TO_DN_NONE(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[rosenp@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_FIVE(0.00)[5];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.380];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[cohenyang511@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 999EA2D5B29
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 4D6872F031D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Simplifies allocations by using a flexible array member in these structs.
-No need for a second kfree.
+From: yangg9 <yangg9@xiaopeng.com>
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+During reset, stmmac_reset_subtask() used to set STMMAC_DOWN before IRQs
+were freed in __stmmac_release(). That leaves a window where interrupts can
+still fire after the device is marked down, which may lead to interrupt
+storms while the interface is transitioning.
+
+Move stmmac_free_irq() earlier in the reset flow, before setting
+STMMAC_DOWN, so the reset path no longer has that interrupt window.
+
+Since IRQs are now released in stmmac_reset_subtask(), guard IRQ release in
+__stmmac_release() with STMMAC_DOWN to avoid a second free_irq() during the
+same reset sequence.
+
+This removes the interrupt-storm window in reset and prevents double IRQ
+release.
+
+Signed-off-by: yangg9 <yangg9@xiaopeng.com>
 ---
- drivers/irqchip/irq-stm32-exti.c | 13 +++----------
- 1 file changed, 3 insertions(+), 10 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/irqchip/irq-stm32-exti.c b/drivers/irqchip/irq-stm32-exti.c
-index 5fdf335acb46..144120cadfa0 100644
---- a/drivers/irqchip/irq-stm32-exti.c
-+++ b/drivers/irqchip/irq-stm32-exti.c
-@@ -45,8 +45,8 @@ struct stm32_exti_chip_data {
- struct stm32_exti_host_data {
- 	void __iomem *base;
- 	struct device *dev;
--	struct stm32_exti_chip_data *chips_data;
- 	const struct stm32_exti_drv_data *drv_data;
-+	struct stm32_exti_chip_data chips_data[];
- };
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 124d7a00f9f0..99b661379d9c 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -4212,8 +4212,9 @@ static void __stmmac_release(struct net_device *dev)
  
- static const struct stm32_exti_bank stm32f4xx_exti_b1 = {
-@@ -269,26 +269,20 @@ stm32_exti_host_data *stm32_exti_host_init(const struct stm32_exti_drv_data *dd,
- {
- 	struct stm32_exti_host_data *host_data;
+ 	netif_tx_disable(dev);
  
--	host_data = kzalloc_obj(*host_data);
-+	host_data = kzalloc_flex(*host_data, chips_data, dd->bank_nr);
- 	if (!host_data)
- 		return NULL;
+-	/* Free the IRQ lines */
+-	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
++	/* In reset flow IRQs can be freed before dev_close(). */
++	if (!test_bit(STMMAC_DOWN, &priv->state))
++		stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
  
- 	host_data->drv_data = dd;
--	host_data->chips_data = kzalloc_objs(struct stm32_exti_chip_data,
--					     dd->bank_nr);
--	if (!host_data->chips_data)
--		goto free_host_data;
+ 	/* Stop TX/RX DMA and clear the descriptors */
+ 	stmmac_stop_all_dma(priv);
+@@ -7331,6 +7332,8 @@ static void stmmac_reset_subtask(struct stmmac_priv *priv)
+ 	while (test_and_set_bit(STMMAC_RESETING, &priv->state))
+ 		usleep_range(1000, 2000);
  
- 	host_data->base = of_iomap(node, 0);
- 	if (!host_data->base) {
- 		pr_err("%pOF: Unable to map registers\n", node);
--		goto free_chips_data;
-+		goto free_host_data;
- 	}
- 
- 	return host_data;
- 
--free_chips_data:
--	kfree(host_data->chips_data);
- free_host_data:
- 	kfree(host_data);
- 
-@@ -389,7 +383,6 @@ static int __init stm32_exti_init(const struct stm32_exti_drv_data *drv_data,
- 	irq_domain_remove(domain);
- out_unmap:
- 	iounmap(host_data->base);
--	kfree(host_data->chips_data);
- 	kfree(host_data);
- 	return ret;
- }
++	stmmac_free_irq(priv->dev, REQ_IRQ_ERR_ALL, 0);
++
+ 	set_bit(STMMAC_DOWN, &priv->state);
+ 	dev_close(priv->dev);
+ 	dev_open(priv->dev, NULL);
 -- 
-2.53.0
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
