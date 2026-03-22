@@ -2,47 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wPj0FbDDv2kW8QMAu9opvQ
+	id apBDHLDDv2lA8QMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 22 Mar 2026 11:25:52 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03A572E8D70
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A1F22E8D71
 	for <lists+linux-stm32@lfdr.de>; Sun, 22 Mar 2026 11:25:51 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2241C87EBD;
-	Sun, 22 Mar 2026 10:16:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0B073C87EC8;
+	Sun, 22 Mar 2026 10:17:41 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DD9C1C349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0EAA2C349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 22 Mar 2026 10:16:53 +0000 (UTC)
+ Sun, 22 Mar 2026 10:17:39 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 7177943E29;
- Sun, 22 Mar 2026 10:16:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA548C19424;
- Sun, 22 Mar 2026 10:16:47 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id F3BB6442F5;
+ Sun, 22 Mar 2026 10:17:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134E2C19424;
+ Sun, 22 Mar 2026 10:17:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774174612;
- bh=po8CNnTkaQpHNLdR0yFceY24ysPtBKZ0S56BW+e5MOw=;
+ s=k20201202; t=1774174657;
+ bh=eVpUKNGxn3gmB5z4ZlpgOTqVBddGHzbne695kR2EpmM=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=hE1w3KiUolvaky3I2jyH23SJbxCpZg2xDQkAuvRw236wK/t8yGIvgxVtJ3rhMqnOw
- g3N06F++bLXBiAdoBCvT3P9LPeT11C1TXIhO2xeIEVZW8B6ZDpHkUd85wwRu9Itr3w
- HlFjzlUEo9nWeyMlIrdzCjqEZEdo1UpyBOTAjqDwk0hwl9m9dz0vd5ZkncvnRmR5Sc
- xgDQM4Rya32OYPCBUrsQe+/tJ0VPx9lNS/OJ2HUADij412RdZySs6mUnndpLainOOF
- gZ5Np9lolvvg7SHfBWTZaJQCcIVHWSEZfh1Jg5Bt3iv2MkuHLC76GBWTWJCgSP+XE8
- A97JWiU8rt+kw==
-Message-ID: <9b1a9660-3672-4165-b5bb-c7807ce885cc@kernel.org>
-Date: Sun, 22 Mar 2026 11:16:46 +0100
+ b=UfqSIWk6ebpum2EGHkIN7D11xsyn8h2dTcvYKJ/Ot/IEIjxoCGGf9sCJk8Jh/AOeR
+ CnlER9j2n+alpZhu/+7jMm3bqIsFBMvRvnhjRSTIiFiZhxhe96mrkXZwTd0PrALZK2
+ sJlGwpDL6jPFbtFD0Mvpt0AEDR9PPgkv+WY2ad2sCgkvzhGHyaF3J1WpN6dK/pJR1s
+ yMyVcBpDKD6VAdBRsb0K7v/PUMjABJXxESSvzQ0CvU9sWSCeLuCndcsgWO76kj1GOg
+ 0IsrQqXnnuXgfXHroyzOxE/Ngut8tut2aE2XGVz0rW/fkZVT5dO26JT3AH4Sr3Pt2W
+ NS2myhnDOEU3g==
+Message-ID: <d60ff766-0dba-442d-af0e-e5ed6709ff52@kernel.org>
+Date: Sun, 22 Mar 2026 11:17:32 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: David Heidelberg <david@ixit.cz>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <20260301-stmfts5-v1-0-22c458b9ac68@ixit.cz>
- <20260301-stmfts5-v1-8-22c458b9ac68@ixit.cz>
- <qibmsgfttxo6kiaqyjljj6otamqp7okfr4abwpmuo7daanl6qu@ka33zvoz7lte>
- <4b8c8d8c-d2f3-4938-a451-e8e9524d40c3@ixit.cz>
+To: david@ixit.cz, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+References: <20260315-stmfts5-v2-0-70bc83ee9591@ixit.cz>
+ <20260315-stmfts5-v2-9-70bc83ee9591@ixit.cz>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,18 +91,13 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <4b8c8d8c-d2f3-4938-a451-e8e9524d40c3@ixit.cz>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Henrik Rydberg <rydberg@bitmath.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-kernel@vger.kernel.org,
- Petr Hodina <petr.hodina@protonmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-input@vger.kernel.org,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, phone-devel@vger.kernel.org,
- Konrad Dybcio <konradybcio@kernel.org>,
+In-Reply-To: <20260315-stmfts5-v2-9-70bc83ee9591@ixit.cz>
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Petr Hodina <petr.hodina@protonmail.com>,
+ linux-input@vger.kernel.org, phone-devel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 08/10] dt-bindings: input: touchscreen: st,
- stmfts: Introduce STM FTS5
+Subject: Re: [Linux-stm32] [PATCH WIP v2 09/11] dt-bindings: input:
+ touchscreen: st, stmfts: Introduce STM FTS5
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,10 +114,10 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
@@ -127,62 +125,63 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,body];
+	FORGED_RECIPIENTS(0.00)[m:david@ixit.cz,m:dmitry.torokhov@gmail.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:rydberg@bitmath.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:petr.hodina@protonmail.com,m:linux-input@vger.kernel.org,m:phone-devel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:dmitrytorokhov@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[18];
-	FORGED_RECIPIENTS(0.00)[m:david@ixit.cz,m:dmitry.baryshkov@oss.qualcomm.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:rydberg@bitmath.org,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:andersson@kernel.org,m:dmitry.torokhov@gmail.com,m:linux-kernel@vger.kernel.org,m:petr.hodina@protonmail.com,m:mcoquelin.stm32@gmail.com,m:linux-input@vger.kernel.org,m:krzk+dt@kernel.org,m:phone-devel@vger.kernel.org,m:konradybcio@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:dmitrytorokhov@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[ixit.cz,gmail.com,foss.st.com,kernel.org,bitmath.org];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,bitmath.org,vger.kernel.org,gmail.com,protonmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	FREEMAIL_CC(0.00)[vger.kernel.org,protonmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 03A572E8D70
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,ixit.cz:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 0A1F22E8D71
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 15/03/2026 18:09, David Heidelberg wrote:
-> On 01/03/2026 23:40, Dmitry Baryshkov wrote:
+On 15/03/2026 19:52, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> [...]
+> Introduce more recent STM FTS5 touchscreen support.
 > 
->>> +    then:
->>> +      properties:
->>> +        switch-gpio:
->>> +          description: Switch between SLPI and AP mode.
->>
->> This doesn't sounds like the GPIO on the touchscreen, more like the
->> external schematic component. If it need sto be turned to one position,
->> it might be better to use GPIO hog for that.
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  .../devicetree/bindings/input/touchscreen/st,stmfts.yaml  | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
 > 
-> Right now yes, but the GPIO serves to switching between SLPI and AP mode at 
-> runtime, see [1]
-> 
-> The driver lack supports for SLPI, but at moment when SLPI support lands, we 
-> should be able do something like:
-> 
-> -> device starts, touchscreen works
-> -> screen goes to sleep, but instead of powering off touchscreen, it switches to 
-> SLPI mode
-> -> user taps at touchscreen, device wakes up
-> 
-> Thus I think we need to support this GPIO in the driver.
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+> index 64c4f24ea3dd0..66255893a99fb 100644
+> --- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+> @@ -16,10 +16,23 @@ description:
+>  
+>  allOf:
+>    - $ref: touchscreen.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: st,stmfts5
+> +    then:
+> +      properties:
+> +        switch-gpios:
+> +          description: Switch between SLPI and AP mode.
 
-But that's not role of this device. You cannot just hook random GPIOs
-into this device node, just because you want some use-case in the driver.
+Do not define properties in if:then: branches. Anyway, not a property of
+this device.
 
 Best regards,
 Krzysztof
