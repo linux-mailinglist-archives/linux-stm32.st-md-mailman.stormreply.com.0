@@ -2,38 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +OP0KZRXwmmGbwQAu9opvQ
+	id LTE9LVOJw2m2rQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:21:24 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4535E3057D3
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:21:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 37C0D320663
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3A24C87ECB;
-	Tue, 24 Mar 2026 09:21:23 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AB18CC87EDC;
+	Wed, 25 Mar 2026 07:05:54 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C1793C1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B95B2C87ECC
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 09:21:22 +0000 (UTC)
+ Tue, 24 Mar 2026 09:21:24 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id E9C291A2FBF;
- Tue, 24 Mar 2026 09:21:20 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 72F4C4E427C7;
+ Tue, 24 Mar 2026 09:21:24 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 9439C6011D;
- Tue, 24 Mar 2026 09:21:20 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4994F6011D;
+ Tue, 24 Mar 2026 09:21:24 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BED0610450A18; Tue, 24 Mar 2026 10:21:14 +0100 (CET)
+ with ESMTPSA id B977C10451116; Tue, 24 Mar 2026 10:21:19 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774344079; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding; bh=XijWvmr2G4/VSAMzAQPTLjRdqgm3qgu6QZB5IohDwQI=;
- b=VzyXjdRBB14XeFJ4BD1hGxlYC8ZBdMbt1OFR4Bu4zRp8XrdeeoLebzetzQJZQLdvaOVhWZ
- g0ZsM4r+0lrk8kIRI3iMaeupBBI/e3dRgx2xtmJDuyAcEZWab7WL9ElWCD+qaUGhsn5Wlx
- m30E8TpAYU2cThJhur+u9TUedmFddFoQ7P0Oz5IlqKCQGXvbOh6sq6n2hLJzutVswiZ/QU
- OUoo14Rab1A7/f+3n05Ik0uDOWcfHRQ2dKz79OOl9jRgUYqRSh/ZjOvsW0bTEXWAJObG/S
- WNGWRQ/ml+L+ZMHQktcmrcPkGTopJrERcrRQ5biLv5jP6zlEUSwbvPWNwHej1A==
+ t=1774344082; h=from:subject:date:message-id:to:cc:mime-version:
+ content-transfer-encoding:in-reply-to:references;
+ bh=3fR9TaU7lvH4uvfrULIcHLIjIm0TTYsxcGUZBDQbW9Y=;
+ b=0AM3DAUNovS0AoQN8tCoBO5bOV8LDo/FacTUkB56iZvdrUuaPxoPy1Ah89OVi/XSdaT8nb
+ FZXbYFiRaV7psWBEFgSjkAutu0QUrRzn6/TcgCvP9W7fmYg526DZobGsn0vrH4MV9+3xS+
+ W6+eiefzcn2wPpOOqrvkwBvt0V+eI8MFiYJjgFTpUpF7b7mq6lU4PeBQZAZQdv2yhlL5VW
+ ItTEI9zQDsiIZQtLhKDh59bS/Hhvb5vGeFS86ryS6btXPBwvteGyq0NsbZTF+0kf0m9oBM
+ YH8Deb/SR9xveifB+KNPKR/JZnRbHovueLqh0Hxm/iyoWvj1EqksvaWP78Ie2Q==
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
  davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
@@ -41,18 +42,21 @@ To: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Russell King <linux@armlinux.org.uk>
-Date: Tue, 24 Mar 2026 10:20:55 +0100
-Message-ID: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
+Date: Tue, 24 Mar 2026 10:20:56 +0100
+Message-ID: <20260324092102.687082-2-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.49.0
+In-Reply-To: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
+References: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
 X-Last-TLS-Session-Version: TLSv1.3
+X-Mailman-Approved-At: Wed, 25 Mar 2026 07:05:52 +0000
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
  linux-kernel@vger.kernel.org, Mun Yew Tham <mun.yew.tham@altera.com>,
  =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
  thomas.petazzoni@bootlin.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 0/5] net: stmmac: dwmac-socfpga:
-	Cleanup .fix_mac_speed
+Subject: [Linux-stm32] [PATCH net-next 1/5] net: stmmac: dwmac-socfpga: Move
+	internal helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,15 +83,15 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FREEMAIL_TO(0.00)[lunn.ch,kernel.org,davemloft.net,google.com,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
 	MIME_TRACE(0.00)[0:+];
 	RCPT_COUNT_TWELVE(0.00)[17];
+	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:kuba@kernel.org,m:davem@davemloft.net,m:edumazet@google.com,m:pabeni@redhat.com,m:horms@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:netdev@vger.kernel.org,m:rohan.g.thomas@altera.com,m:linux-kernel@vger.kernel.org,m:mun.yew.tham@altera.com,m:alexis.lothore@bootlin.com,m:thomas.petazzoni@bootlin.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_TO(0.00)[lunn.ch,kernel.org,davemloft.net,google.com,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -97,39 +101,68 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[bootlin.com:-];
-	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_SPAM(0.00)[0.859];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 4535E3057D3
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,bootlin.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 37C0D320663
 X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
 X-Spam: Yes
 
-Hi everyone,
+This is preparatory work to allow reusing the SGMII configuration helper
+and the wrapper to get the interface in the fix_mac_speed() callback.
 
-This small series does a bit of cleanup in the dwmad-socfpga glue
-driver, especially around the .fix_mac_speed() operation.
+Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+---
+ .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 24 +++++++++----------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-It's mostly about re-using existing helpers from the glue driver, as
-well as reorganizing the code to make the local private structures a
-little bit smaller.
-
-No functionnal changes are intended, this was tested on cyclone V.
-
-Maxime Chevallier (5):
-  net: stmmac: dwmac-socfpga: Move internal helpers
-  net: stmmac: dwmac-socfpga: Use the socfpga_sgmii_config() helper
-  net: stmmac: dwmac-socfpga: Use the correct type for interface modes
-  net: stmmac: dwmac-socfpga: get the phy_mode with the dedicated helper
-  net: stmmac: dwmac-sofcpga: Drop the struct device reference
-
- .../ethernet/stmicro/stmmac/dwmac-socfpga.c   | 58 +++++++++----------
- 1 file changed, 28 insertions(+), 30 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+index 5f89fd968ae9..42da73b92ceb 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
++++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
+@@ -72,6 +72,18 @@ struct socfpga_dwmac {
+ 	const struct socfpga_dwmac_ops *ops;
+ };
+ 
++static int socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
++{
++	return dwmac->plat_dat->phy_interface;
++}
++
++static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
++{
++	u16 val = enable ? SGMII_ADAPTER_ENABLE : SGMII_ADAPTER_DISABLE;
++
++	writew(val, dwmac->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
++}
++
+ static void socfpga_dwmac_fix_mac_speed(void *bsp_priv,
+ 					phy_interface_t interface, int speed,
+ 					unsigned int mode)
+@@ -244,18 +256,6 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
+ 	return ret;
+ }
+ 
+-static int socfpga_get_plat_phymode(struct socfpga_dwmac *dwmac)
+-{
+-	return dwmac->plat_dat->phy_interface;
+-}
+-
+-static void socfpga_sgmii_config(struct socfpga_dwmac *dwmac, bool enable)
+-{
+-	u16 val = enable ? SGMII_ADAPTER_ENABLE : SGMII_ADAPTER_DISABLE;
+-
+-	writew(val, dwmac->sgmii_adapter_base + SGMII_ADAPTER_CTRL_REG);
+-}
+-
+ static int socfpga_set_phy_mode_common(int phymode, u32 *val)
+ {
+ 	switch (phymode) {
 -- 
 2.49.0
 
