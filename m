@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GAwsFEKgwmm3fQQAu9opvQ
+	id AIIUANehwmm3fQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:31:30 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:38:15 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF6F30A2D9
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:31:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9496C30A49E
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:38:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BED9C87EC8;
-	Tue, 24 Mar 2026 14:31:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1AEE5C87EC8;
+	Tue, 24 Mar 2026 14:38:14 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0388C1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73B1FC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 14:31:27 +0000 (UTC)
+ Tue, 24 Mar 2026 14:38:12 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id A1F53600AC;
- Tue, 24 Mar 2026 14:31:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DCDC19424;
- Tue, 24 Mar 2026 14:31:18 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 5648760103;
+ Tue, 24 Mar 2026 14:38:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE6B0C19424;
+ Tue, 24 Mar 2026 14:38:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774362686;
- bh=0oYopjVJ5FfZx7yBJY5biK1wFueGF1ISoTXTBTdvEco=;
+ s=k20201202; t=1774363091;
+ bh=e5f6jgo0dBEyQUURQKSWrpDzBd0JxDsZ01SMVL8k3SU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=j/iVyRqoAgsG15GdgKyoiArd2eFqRcIl7DXzGaGTtG2Y0o7o+tjV70May3h7h7RLT
- V7S2RptNUFiSvB3YL9Arvd1/5pUSBJrsV385XLYdp8ncPFclpr5NciQAWxqxmbnEiV
- oGusSnopYimqq5x+nEGLkPHfJfSrph+4t9ZTsmakMF24m+DuJZinF+HwwBv0F6oXfj
- 8Ajb3LcvpJ0geiSO23cTGq4R54D5xwU781bHvtDBiy0/W+L+jGnt1gku6YsbTLI6qO
- tBqw5ZSz29d6y6/PZPYtjCgDpggJ+d1BrWbTeduVQTASS9C9lGiBuYSSdwtQJAyER5
- Iy/3msdCCKs7A==
-Message-ID: <82dc0ffb-a0e2-4358-b182-94af71ceb697@kernel.org>
-Date: Tue, 24 Mar 2026 15:31:16 +0100
+ b=qIMNEe8jc/gh4IeEeHB78CDBRX8uly5TJ7AQbfM/aTBCdNlUClXSmZ3DGj32XYiJq
+ w3bJ+ggFkIa6py50tYHZOmCtQhawWtrsj76/eDZGqNTS2E6DEDw7zok6+dGEPnugh1
+ rN0pTjYTfRuusdcmWnyo9rBjiDrJMXTlzi6iUnqi2UkrzVyRfQZmP9Akgci7mz3F+g
+ QuGR7o1Khy+ZyGWNS8jwo3oNlwx2iL889bycIRnXzH46HhBhKml65awhc9OfKZRYcU
+ c9A/SwhXZceArl/7YVlb4KEf7T2vzd4jdb/0Re/Fh6+vKY2naQlBbaFBfS5NTPAKfw
+ 5GaQjW2N9rzXA==
+Message-ID: <89b0e46e-693f-454e-ac74-6e396183c5c6@kernel.org>
+Date: Tue, 24 Mar 2026 15:38:01 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>
 References: <cover.1774045440.git.ljs@kernel.org>
- <42c3fbb701e361a17193ecda0d2dabcc326288a5.1774045440.git.ljs@kernel.org>
+ <8d1ee8ebd3542d006a47e8382fb80cf5b57ecf10.1774045440.git.ljs@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-In-Reply-To: <42c3fbb701e361a17193ecda0d2dabcc326288a5.1774045440.git.ljs@kernel.org>
+In-Reply-To: <8d1ee8ebd3542d006a47e8382fb80cf5b57ecf10.1774045440.git.ljs@kernel.org>
 Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
  linux-doc@vger.kernel.org,
@@ -68,8 +68,8 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 06/21] mm/vma: remove superfluous
- map->hold_file_rmap_lock
+Subject: Re: [Linux-stm32] [PATCH v4 07/21] mm: have mmap_action_complete()
+ handle the rmap lock and unmap
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -120,17 +120,27 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: DAF6F30A2D9
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 9496C30A49E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 3/20/26 23:39, Lorenzo Stoakes (Oracle) wrote:
-> We don't need to reference this field, it's confusing as it duplicates
-> mmap_action->hide_from_rmap_until_complete, so thread the mmap_action
-> through to __mmap_new_vma() instead and use the same field consistently.
+> Rather than have the callers handle this both the rmap lock release and
+> unmapping the VMA on error, handle it within the mmap_action_complete()
+> logic where it makes sense to, being careful not to unlock twice.
+> 
+> This simplifies the logic and makes it harder to make mistake with this,
+> while retaining correct behaviour with regard to avoiding deadlocks.
+> 
+> Also replace the call_action_complete() function with a direct invocation
+> of mmap_action_complete() as the abstraction is no longer required.
+> 
+> Also update the VMA tests to reflect this change.
 > 
 > Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+
+Nice simplification.
 
 Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
