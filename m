@@ -2,53 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id O0BdAnK1wWlyUwQAu9opvQ
+	id qG0gJHvdwWnxXQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2026 22:49:38 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 01:40:27 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EC922FDEDC
-	for <lists+linux-stm32@lfdr.de>; Mon, 23 Mar 2026 22:49:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CDD62FFD13
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 01:40:26 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22B24C87EC6;
-	Mon, 23 Mar 2026 21:49:37 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9358AC87EC5;
+	Tue, 24 Mar 2026 00:40:26 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 58A0BC5A4C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77D68C56603
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 23 Mar 2026 21:49:36 +0000 (UTC)
+ Tue, 24 Mar 2026 00:40:25 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 06FEF44186;
- Mon, 23 Mar 2026 21:49:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E23DC4CEF7;
- Mon, 23 Mar 2026 21:49:32 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 6308960120;
+ Tue, 24 Mar 2026 00:40:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16F0AC4CEF7;
+ Tue, 24 Mar 2026 00:40:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774302574;
- bh=e2ZhSCx0wJsAx1emJeyO4FU08Tb6VMlBPPL5XXi0V+k=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=MXR3s6Iie7Hp0vfWKYIxZqEwcifDLvFfeZtG7iRbEA0DhAy6OrFcIRNASgmDu1wES
- zn4IB9ubKrtOy0wXus4wPsc0eBevTbJva1lSU9ESfklLjSd5pBNB1nV24Q36di4wYW
- 0lXP0/FiXiQNTgJjuefwj+TrVnsIet/iqOzKs3Iq+mE+Od+sUt35pv7eHj4n55e+gz
- 13fLIGiGQyk69OH0znKnUMNM0rDD9dbru0bdVoDvY3E2gfDe4vCze6n6yxC9kUGOMb
- kSLEBVcMkyjMZKjC+Q98InaQDpdQcVNO4WZCXfb7pbVZYBqGq7rQw4g31sEWJnyczt
- 1LJaq/W2VhUWw==
-Date: Mon, 23 Mar 2026 21:49:30 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Pei Xiao <xiaopei01@kylinos.cn>
-Message-ID: <2f623083-5846-48d4-8c36-e55d663047c0@sirena.org.uk>
-References: <cover.1773885292.git.xiaopei01@kylinos.cn>
- <bcfc4a5191976b2ada9cd4094b61ac67a0ea9da7.1773885292.git.xiaopei01@kylinos.cn>
+ s=k20201202; t=1774312824;
+ bh=btYs4VEc0poy2Koo3Piud4wH+ItfAcitrk7kH+kgg4Q=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=otgPlMp8nLSa9QtK2QV9+4EArr7VD2cGlymo/MAOl9xOxt+d2wFXF6O7E/wlwtLwy
+ /QmeFsU6DH3Fy2GlmcIlH1l3/Y6HFx3dOipUKcI5h0i1cZRxjylLjh9PhXKF04jq3Z
+ xidLVVloQFWBfFTCi7L951RRBgoidIjgr7o8qfaz0oBRcPJUJ66oeVJkhWbFKsDQA3
+ CN8T2IQBLb1t+ofJc5govdyN+23scnt6JYIXcz+aWF6chqMUWaQ2VxVFC7b9iDbd+8
+ ViXMCX+hGRY0fuXizhO0y6GIuZUfHCToZaOwPVwAKoh4suNBFlH/GYSLUmJ2rBeE3r
+ OY4iqA/CaVFbg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 7CEE93808200; Tue, 24 Mar 2026 00:40:13 +0000 (UTC)
 MIME-Version: 1.0
-In-Reply-To: <bcfc4a5191976b2ada9cd4094b61ac67a0ea9da7.1773885292.git.xiaopei01@kylinos.cn>
-X-Cookie: Advancement in position.
-Cc: imx@lists.linux.dev, openbmc@lists.ozlabs.org, Frank.Li@nxp.com,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v5 15/17] spi: uniphier: Simplify clock
- handling with devm_clk_get_enabled()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <177431281229.391430.10437162930638421849.git-patchwork-notify@kernel.org>
+Date: Tue, 24 Mar 2026 00:40:12 +0000
+References: <abrNYVfZ1Iwff2EI@shell.armlinux.org.uk>
+In-Reply-To: <abrNYVfZ1Iwff2EI@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: andrew@lunn.ch, mohd.anwar@oss.qualcomm.com, vkoul@kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 maybe? 0/5] net: stmmac:
+	improve PCS support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -60,103 +60,86 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8841098369401795416=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [1.19 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:xiaopei01@kylinos.cn,m:imx@lists.linux.dev,m:openbmc@lists.ozlabs.org,m:Frank.Li@nxp.com,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-mediatek@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns];
 	DKIM_TRACE(0.00)[kernel.org:-];
+	TAGGED_FROM(0.00)[netdevbpf];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:vkoul@kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NO_DN(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	NEURAL_HAM(-0.00)[-1.000];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sirena.org.uk:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 8EC922FDEDC
+	FORGED_SENDER_MAILLIST(0.00)[];
+	SUBJECT_HAS_QUESTION(0.00)[]
+X-Rspamd-Queue-Id: 0CDD62FFD13
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hello:
 
---===============8841098369401795416==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Y/Y2tr05pHZcxD/m"
-Content-Disposition: inline
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
+On Wed, 18 Mar 2026 16:05:53 +0000 you wrote:
+> I am losing track of what version we're at, because each time the
+> series is reworked, changing the approach, which changes the
+> patches quite a bit, it makes it difficult. We've gone RFC to non-RFC
+> back to RFC and then to non-RFC again.
+> 
+> This series is the next of the three part series sorting out the PCS
+> support in stmmac, building on part 2:
+> 
+> [...]
 
---Y/Y2tr05pHZcxD/m
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Here is the summary with links:
+  - [net-next,v2,maybe?,1/5] net: stmmac: move default_an_inband to plat_stmmacenet_data
+    https://git.kernel.org/netdev/net-next/c/9a475dc71c38
+  - [net-next,v2,maybe?,2/5] net: stmmac: add struct stmmac_pcs_info
+    https://git.kernel.org/netdev/net-next/c/7d5a2da501e0
+  - [net-next,v2,maybe?,3/5] net: stmmac: add support for reading inband SGMII status
+    https://git.kernel.org/netdev/net-next/c/083757866735
+  - [net-next,v2,maybe?,4/5] net: stmmac: add BASE-X support to integrated PCS
+    https://git.kernel.org/netdev/net-next/c/68cff4fff61f
+  - [net-next,v2,maybe?,5/5] net: stmmac: use integrated PCS for BASE-X modes
+    https://git.kernel.org/netdev/net-next/c/365c62c8b530
 
-On Thu, Mar 19, 2026 at 10:04:11AM +0800, Pei Xiao wrote:
-> Replace devm_clk_get() followed by clk_prepare_enable() with
-> devm_clk_get_enabled() for the clock. This removes the need for
-> explicit clock enable and disable calls, as the managed API automatically
-> handles clock disabling on device removal or probe failure.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-This breaks an allmodconfig build:
-
-/build/stage/linux/drivers/spi/spi-uniphier.c: In function =E2=80=98uniphie=
-r_spi_remove=E2=80=99
-:
-/build/stage/linux/drivers/spi/spi-uniphier.c:773:35: error: unused variabl=
-e =E2=80=98pr
-iv=E2=80=99 [-Werror=3Dunused-variable]
-  773 |         struct uniphier_spi_priv *priv =3D spi_controller_get_devda=
-ta(host
-);
-      |                                   ^~~~
-
---Y/Y2tr05pHZcxD/m
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmnBtWkACgkQJNaLcl1U
-h9BGOQf+P4qqM5W2u6LtXeZ+RqwAf5bIlruWN7Zu6y+s0RsmbnL8SLo7ezN1P5XA
-CaagW1s3A1znQ+f+UOmPpt7CUIM1lfu4JMWMQEq/cZthfywlxT0GzJCFxfwmIfXc
-CIg28KtEajxKDNgRhc5AUvY+uPwX0bN3q2rUJ/kMcSeopHH61rIVinefkvqchzj3
-FcC4NVtnG1cKpbV/hwswiKs7/f4NPM3PJs/PUgGtrqtvcaylsOcjEkL/tUQN5bHY
-TupvhVwEX8LSCuTL2A0ihBwbZj1FWzwTqmb2nkc+zwDd0wOWosktdz/D4qYx04Ox
-knJf2rx/baCD+1NxJPUJXi0GgY9dkg==
-=IvRp
------END PGP SIGNATURE-----
-
---Y/Y2tr05pHZcxD/m--
-
---===============8841098369401795416==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8841098369401795416==--
