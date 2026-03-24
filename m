@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AJlwMgBiwmmecAQAu9opvQ
+	id 4BIyMAZiwmmecAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 11:05:52 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 11:05:58 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 810953062D8
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 11:05:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A55C13062E7
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 11:05:58 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4072AC87ECC;
-	Tue, 24 Mar 2026 10:05:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 696B8C87ECC;
+	Tue, 24 Mar 2026 10:05:58 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7014C87ECB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB97FC87ECB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 10:05:51 +0000 (UTC)
+ Tue, 24 Mar 2026 10:05:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=3g5KTX0Q2AFHsAU+7YicmbMQNdPcyctIgRz2EbTmeA8=; b=lJYJ5QrdV7XIS2OPLXc3EzJy/L
- f3mgDuvzCRUKO9hjNo3O6oMrdcPVOObK/E3+CzmS5iVw2ieN8z6wn4qKW+QiNd1QCpBB9rOMHuMcb
- a5ViJCnKEoqX5wz2vtXR22eFUnJALP8EM/oe+ckb9TmfuCQEg7Qlzi6k+HfHwccbPlUYpz/LQyDDk
- eboC5A7tsFAt1kXaxu2RTBbRPP94mZ91CMUyCWYRwv/Nj6MDoJJtyrn2ncivlonDXAgB9AR1h0I13
- HMbUrcNd/IySd+0xOmZqhuoOtl36U+MRPMLtNYw9FE9J/3IuCrK0Jq7ZV5S9KKcIZdzJez2LRz5PA
- qvzv9oZg==;
+ bh=tNCimm8lH9Nrd7S3bDMk3xh5Mpeyo9AVVd49TpvZ0+U=; b=eqYYP+b/qK4tA94P9WJPWHW9tP
+ j6cFfPGVoVTPfzTJP9T6B5f5x207aeF1LWNdobuh0k4rf9v2LVyB0LPV/f5dEoR5j9yzGSOt+FQWX
+ uxqou2VWkTHtUdXBHX/DUd3FG8WJuoJr515XfareNkQ+MUDtn0CFaTbBWRsk2F+kqZRXCpbebcEGS
+ TQ+sAKL/deq7lPhVemu7Ji3YR8eoP8/z3Eq2xYKbggmUjz4c3foCo8qf4o6Pmwy+5UBxaU3aN2/tp
+ BHRLTcQn66EDvy2v2MfyjPKENP1XckCo4btANKkgseF2zEWmdXnJUxpuwn6h/NFHrJU0Sx+ISHvAb
+ EVFVrPuA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:58178 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:58192 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w4ydp-000000001lL-2DMD;
- Tue, 24 Mar 2026 10:05:41 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w4ydu-000000001lY-3fSG;
+ Tue, 24 Mar 2026 10:05:46 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w4ydo-0000000Dlpb-34jd; Tue, 24 Mar 2026 10:05:40 +0000
+ id 1w4ydt-0000000Dlph-3WvI; Tue, 24 Mar 2026 10:05:45 +0000
 In-Reply-To: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
 References: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w4ydo-0000000Dlpb-34jd@rmk-PC.armlinux.org.uk>
-Date: Tue, 24 Mar 2026 10:05:40 +0000
+Message-Id: <E1w4ydt-0000000Dlph-3WvI@rmk-PC.armlinux.org.uk>
+Date: Tue, 24 Mar 2026 10:05:45 +0000
 Cc: Yao Zi <me@ziyao.cc>, devicetree@vger.kernel.org,
  Conor Dooley <conor+dt@kernel.org>, Rob Herring <robh@kernel.org>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -55,8 +55,8 @@ Cc: Yao Zi <me@ziyao.cc>, devicetree@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 1/2] net: stmmac: remove axi_kbbe,
- axi_mb and axi_rb members
+Subject: [Linux-stm32] [PATCH net-next 2/2] dt-bindings: remove
+ unimplemented AXI snps, kbbe snps, mb and snps, rb
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,63 +106,68 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 810953062D8
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: A55C13062E7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-axi_kbbe, axi_mb and axi_rb are all written, but nothing ever reads
-their values. Remove the code that sets these and the struct members.
+Remove the AXI snps,kbbe snps,mb and snps,rb properties as they have
+not been used, and although the driver parses these, the code hasn't
+ever used the parsed result. This parsing has now been removed.
+
+These were introduced by commit afea03656add ("stmmac: rework DMA bus
+setting and introduce new platform AXI structure").
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c | 1 -
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 3 ---
- include/linux/stmmac.h                                | 3 ---
- 3 files changed, 7 deletions(-)
+ .../devicetree/bindings/net/snps,dwmac.yaml    | 18 ------------------
+ 1 file changed, 18 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-index d245546b90db..02c786ce5dd4 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-motorcomm.c
-@@ -231,7 +231,6 @@ motorcomm_default_plat_data(struct pci_dev *pdev)
+diff --git a/Documentation/devicetree/bindings/net/snps,dwmac.yaml b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+index 98ebb6276bc6..6d4afd824418 100644
+--- a/Documentation/devicetree/bindings/net/snps,dwmac.yaml
++++ b/Documentation/devicetree/bindings/net/snps,dwmac.yaml
+@@ -203,11 +203,8 @@ title: Synopsys DesignWare MAC
+         * snps,xit_frm, unlock on WoL
+         * snps,wr_osr_lmt, max write outstanding req. limit
+         * snps,rd_osr_lmt, max read outstanding req. limit
+-        * snps,kbbe, do not cross 1KiB boundary.
+         * snps,blen, this is a vector of supported burst length.
+         * snps,fb, fixed-burst
+-        * snps,mb, mixed-burst
+-        * snps,rb, rebuild INCRx Burst
  
- 	plat->axi->axi_wr_osr_lmt	= 1;
- 	plat->axi->axi_rd_osr_lmt	= 1;
--	plat->axi->axi_mb		= true;
- 	plat->axi->axi_blen_regval	= DMA_AXI_BLEN4 | DMA_AXI_BLEN8 |
- 					  DMA_AXI_BLEN16 | DMA_AXI_BLEN32;
+   snps,mtl-rx-config:
+     $ref: /schemas/types.yaml#/definitions/phandle
+@@ -587,11 +584,6 @@ title: Synopsys DesignWare MAC
+         description:
+           max read outstanding req. limit
  
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 545b8a3425eb..5cae2aa72906 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -109,10 +109,7 @@ static struct stmmac_axi *stmmac_axi_setup(struct platform_device *pdev)
+-      snps,kbbe:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          do not cross 1KiB boundary.
+-
+       snps,blen:
+         $ref: /schemas/types.yaml#/definitions/uint32-array
+         description:
+@@ -604,16 +596,6 @@ title: Synopsys DesignWare MAC
+         description:
+           fixed-burst
  
- 	axi->axi_lpi_en = of_property_read_bool(np, "snps,lpi_en");
- 	axi->axi_xit_frm = of_property_read_bool(np, "snps,xit_frm");
--	axi->axi_kbbe = of_property_read_bool(np, "snps,kbbe");
- 	axi->axi_fb = of_property_read_bool(np, "snps,fb");
--	axi->axi_mb = of_property_read_bool(np, "snps,mb");
--	axi->axi_rb =  of_property_read_bool(np, "snps,rb");
- 
- 	if (of_property_read_u32(np, "snps,wr_osr_lmt", &axi->axi_wr_osr_lmt))
- 		axi->axi_wr_osr_lmt = 1;
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 5b2bece81448..eaaee329ef9d 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -133,10 +133,7 @@ struct stmmac_axi {
- 	u32 axi_blen_regval;
- 	bool axi_lpi_en;
- 	bool axi_xit_frm;
--	bool axi_kbbe;
- 	bool axi_fb;
--	bool axi_mb;
--	bool axi_rb;
- };
- 
- struct stmmac_rxq_cfg {
+-      snps,mb:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          mixed-burst
+-
+-      snps,rb:
+-        $ref: /schemas/types.yaml#/definitions/flag
+-        description:
+-          rebuild INCRx Burst
+-
+ required:
+   - compatible
+   - reg
 -- 
 2.47.3
 
