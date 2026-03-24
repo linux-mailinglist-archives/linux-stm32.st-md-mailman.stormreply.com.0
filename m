@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2HqGCCKfwmm3fQQAu9opvQ
+	id GAwsFEKgwmm3fQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:26:42 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:31:30 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A846130A1D9
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:26:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DAF6F30A2D9
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 15:31:29 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34FBCC87EC8;
-	Tue, 24 Mar 2026 14:26:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8BED9C87EC8;
+	Tue, 24 Mar 2026 14:31:29 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9B7BAC87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0388C1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 14:26:39 +0000 (UTC)
+ Tue, 24 Mar 2026 14:31:27 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 1748040207;
- Tue, 24 Mar 2026 14:26:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF10FC19424;
- Tue, 24 Mar 2026 14:26:29 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A1F53600AC;
+ Tue, 24 Mar 2026 14:31:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DCDC19424;
+ Tue, 24 Mar 2026 14:31:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774362397;
- bh=jbmeTUiHgD1/BUVa6y6/L4uBWdzAaIyEnuCWg6Aqqwk=;
+ s=k20201202; t=1774362686;
+ bh=0oYopjVJ5FfZx7yBJY5biK1wFueGF1ISoTXTBTdvEco=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=jHLE0f+jKQrZNp687YBoBRWvKqV1yWHDJoeSVdPwmNvSWECrmPXDTbAi2oKjk+1NJ
- qnx4cHZLM+LIL/EoJtJgr2egOHXEYl3PmIEgTgWfctCXapgNTUzCU72gmELiYyBz2u
- Bmagz4Dqlv/xXZnYGIqOcn/VE+9HcIDQca+kSTZwU2EdFdYDcSCQi3OsySsDqMWMEj
- xJBl1+rl8ONOJYI/rFp2Q6/AgAT6Ooo3EbuSldP/+bCHPCgnXfLdZYk7zRnOoBztke
- 5D4hhUKhkSo5DjVR7YkZzeoY/AhHGi4yeVpH65JJi5N0Pl6nFAlDHXYhnAvm2OMXP/
- QLKTQd8HLcvhQ==
-Message-ID: <d5b66671-697f-4a4d-8039-d9c9ac5ad4d7@kernel.org>
-Date: Tue, 24 Mar 2026 15:26:28 +0100
+ b=j/iVyRqoAgsG15GdgKyoiArd2eFqRcIl7DXzGaGTtG2Y0o7o+tjV70May3h7h7RLT
+ V7S2RptNUFiSvB3YL9Arvd1/5pUSBJrsV385XLYdp8ncPFclpr5NciQAWxqxmbnEiV
+ oGusSnopYimqq5x+nEGLkPHfJfSrph+4t9ZTsmakMF24m+DuJZinF+HwwBv0F6oXfj
+ 8Ajb3LcvpJ0geiSO23cTGq4R54D5xwU781bHvtDBiy0/W+L+jGnt1gku6YsbTLI6qO
+ tBqw5ZSz29d6y6/PZPYtjCgDpggJ+d1BrWbTeduVQTASS9C9lGiBuYSSdwtQJAyER5
+ Iy/3msdCCKs7A==
+Message-ID: <82dc0ffb-a0e2-4358-b182-94af71ceb697@kernel.org>
+Date: Tue, 24 Mar 2026 15:31:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>
 References: <cover.1774045440.git.ljs@kernel.org>
- <dda74230d26a1fcd79a3efab61fa4101dd1cac64.1774045440.git.ljs@kernel.org>
+ <42c3fbb701e361a17193ecda0d2dabcc326288a5.1774045440.git.ljs@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-In-Reply-To: <dda74230d26a1fcd79a3efab61fa4101dd1cac64.1774045440.git.ljs@kernel.org>
+In-Reply-To: <42c3fbb701e361a17193ecda0d2dabcc326288a5.1774045440.git.ljs@kernel.org>
 Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
  linux-doc@vger.kernel.org,
@@ -68,8 +68,8 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 05/21] mm: switch the rmap lock held
- option off in compat layer
+Subject: Re: [Linux-stm32] [PATCH v4 06/21] mm/vma: remove superfluous
+ map->hold_file_rmap_lock
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -121,64 +121,19 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: A846130A1D9
+X-Rspamd-Queue-Id: DAF6F30A2D9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 On 3/20/26 23:39, Lorenzo Stoakes (Oracle) wrote:
-> In the mmap_prepare compatibility layer, we don't need to hold the rmap
-> lock, as we are being called from an .mmap handler.
-> 
-> The .mmap_prepare hook, when invoked in the VMA logic, is called prior to
-> the VMA being instantiated, but the completion hook is called after the VMA
-> is linked into the maple tree, meaning rmap walkers can reach it.
-> 
-> The mmap hook does not link the VMA into the tree, so this cannot happen.
-> 
-> Therefore it's safe to simply disable this in the mmap_prepare
-> compatibility layer.
-> 
-> Also update VMA tests code to reflect current compatibility layer state.
+> We don't need to reference this field, it's confusing as it duplicates
+> mmap_action->hide_from_rmap_until_complete, so thread the mmap_action
+> through to __mmap_new_vma() instead and use the same field consistently.
 > 
 > Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
-a typo fix below, Andrew can fix locally?
-
-> ---
->  mm/util.c                       |  6 ++++-
->  tools/testing/vma/include/dup.h | 42 +++++++++++++++++----------------
->  2 files changed, 27 insertions(+), 21 deletions(-)
-> 
-> diff --git a/mm/util.c b/mm/util.c
-> index a2cfa0d77c35..182f0f5cc400 100644
-> --- a/mm/util.c
-> +++ b/mm/util.c
-> @@ -1204,6 +1204,7 @@ int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
-> 
->  		.action.type = MMAP_NOTHING, /* Default */
->  	};
-> +	struct mmap_action *action = &desc.action;
->  	int err;
-> 
->  	err = vfs_mmap_prepare(file, &desc);
-> @@ -1214,8 +1215,11 @@ int compat_vma_mmap(struct file *file, struct vm_area_struct *vma)
->  	if (err)
->  		return err;
-> 
-> +	/* being invoked from .mmmap means we don't have to enforce this. */
-
-				.mmap
-
-> +	action->hide_from_rmap_until_complete = false;
-> +
->  	set_vma_from_desc(vma, &desc);
-> -	err = mmap_action_complete(vma, &desc.action);
-> +	err = mmap_action_complete(vma, action);
->  	if (err) {
->  		const size_t len = vma_pages(vma) << PAGE_SHIFT;
-> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
