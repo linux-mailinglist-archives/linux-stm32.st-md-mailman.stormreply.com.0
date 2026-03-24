@@ -2,55 +2,69 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0GpoIINAwmmCagQAu9opvQ
+	id 2GrJIBlWwmmGbwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 08:42:59 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:15:05 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F7D73041BB
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 08:42:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1AC23056AF
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:15:01 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A3C1BC87EC8;
-	Tue, 24 Mar 2026 07:42:58 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [52.175.55.52])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2780EC87EC5
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3CEF8C87ECB;
+	Tue, 24 Mar 2026 09:15:01 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA63EC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 07:42:56 +0000 (UTC)
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Tue, 24 Mar 2026 15:42:31 +0800 (GMT+08:00)
-X-Originating-IP: [10.11.96.26]
-Date: Tue, 24 Mar 2026 15:42:31 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: krzk+dt@kernel.org
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <20260324073137.396-1-lizhi2@eswincomputing.com>
-References: <20260324073017.376-1-lizhi2@eswincomputing.com>
- <20260324073137.396-1-lizhi2@eswincomputing.com>
+ Tue, 24 Mar 2026 09:14:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=k2Hz1yOxyvLk9PND+a+O7YztgoEg7q/BSh75O/7XkQk=; b=s5KFzkqEJpNEnLHyxY19i1HjRz
+ oIU1ln9wgxsclooM8ffjWkVrEDW8zMltsHEJ4OQqNvuc1/psfQXl3c0g7VUSRqyV81+gIbw4l8fqf
+ OzGVKboQYNViO1AJASXz+H1nSFrYkTN2hUe58om3GYUrZVOgJVXwzlQ1mwpF5atRIAi7K1Hl++fCK
+ SH9LEd77cxIYw/sB52buLOmbdYsiHYYlYJEf1NHQPkcQAwRbkiveR28GQPsZCaoRR6ebnt1gT3HZ3
+ s8HYK5pWwk6AH7pVLmYhg3L61yGtYaolS3x9bM6H5fPtJui7O2eUSbdOxOe+jYsRMjrt1ufMWrnus
+ m8H3BunA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49582)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w4xqX-000000001cl-0bwB;
+ Tue, 24 Mar 2026 09:14:45 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w4xqT-000000004wa-3z8U; Tue, 24 Mar 2026 09:14:41 +0000
+Date: Tue, 24 Mar 2026 09:14:41 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Message-ID: <acJWAZrvvSn3G_jQ@shell.armlinux.org.uk>
+References: <abdYu864OmNWiWIW@shell.armlinux.org.uk>
+ <ablpxwGks9m38fhM@shell.armlinux.org.uk>
+ <absjNQ2s3Z5N2Zwo@oss.qualcomm.com>
+ <abtE7sDT75I7uPnk@shell.armlinux.org.uk>
+ <abvAuHFZzCFobO-V@shell.armlinux.org.uk>
+ <7566c66b-2dda-4b29-b59e-4e4a7e159e21@oss.qualcomm.com>
+ <abvy6nZyjyxUXMuf@shell.armlinux.org.uk>
+ <bcab38a5-e7f7-47c9-ab9c-99294e095c22@oss.qualcomm.com>
+ <abwSHGw39FTJGNb7@shell.armlinux.org.uk>
+ <acGhQ0oui+dVRdLY@oss.qualcomm.com>
 MIME-Version: 1.0
-Message-ID: <a904f82.5cd9.19d1ecb935c.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID: TAJkCgDHaXNnQMJpPjwLAA--.3417W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAQEQDGnBaxUzxAABs8
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWkCw
- CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
- daVFxhVjvjDU=
-Cc: Conor Dooley <conor.dooley@microchip.com>, edumazet@google.com,
- linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
- alex@ghiti.fr, ningyu@eswincomputing.com, kuba@kernel.org, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
- horms@kernel.org, rmk+kernel@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, palmer@dabbelt.com,
- mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v5 1/3] dt-bindings: ethernet:
- eswin: add clock sampling control
+Content-Disposition: inline
+In-Reply-To: <acGhQ0oui+dVRdLY@oss.qualcomm.com>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Andrew Lunn <andrew@lunn.ch>, Vinod Koul <vkoul@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/8] net: stmmac: improve PCS
+	support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,209 +76,216 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.09 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[eswincomputing.com];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	FORGED_RECIPIENTS(0.00)[m:krzk+dt@kernel.org,m:conor.dooley@microchip.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:pritesh.patel@einfochips.com,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:horms@kernel.org,m:rmk+kernel@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:krzk@kernel.org,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:mohd.anwar@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:andrew@lunn.ch,m:vkoul@kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_X_PRIO_THREE(0.00)[3];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[microchip.com,google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,einfochips.com,eswincomputing.com,ghiti.fr,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
-	HAS_XOIP(0.00)[];
-	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.995];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 1F7D73041BB
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: B1AC23056AF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-SGkgS3J6eXN6dG9mLAoKVGhpcyB2ZXJzaW9uIGtlZXBzIHRoZSBjb21wYXRpYmxlIG5hbWluZyBm
-cm9tIHY0LiBEbyB5b3UgaGF2ZSBhbnkKY29tbWVudHMgb3Igc3VnZ2VzdGlvbnMgb24gdGhlIGNv
-bXBhdGlibGUgb3IgYmluZGluZz8KClRoYW5rcywKWmhpIExpCgoKPiAtLS0tLeWOn+Wni+mCruS7
-ti0tLS0tCj4g5Y+R5Lu25Lq6OiBsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tCj4g5Y+R6YCB5pe2
-6Ze0OjIwMjYtMDMtMjQgMTU6MzE6MzYgKOaYn+acn+S6jCkKPiDmlLbku7bkuro6IGRldmljZXRy
-ZWVAdmdlci5rZXJuZWwub3JnLCBhbmRyZXcrbmV0ZGV2QGx1bm4uY2gsIGRhdmVtQGRhdmVtbG9m
-dC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20sIGt1YmFAa2VybmVsLm9yZywgcm9iaEBrZXJuZWwu
-b3JnLCBrcnprK2R0QGtlcm5lbC5vcmcsIGNvbm9yK2R0QGtlcm5lbC5vcmcsIG5ldGRldkB2Z2Vy
-Lmtlcm5lbC5vcmcsIHBhYmVuaUByZWRoYXQuY29tLCBtY29xdWVsaW4uc3RtMzJAZ21haWwuY29t
-LCBhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3QuY29tLCBybWsra2VybmVsQGFybWxpbnV4Lm9yZy51
-aywgcGp3QGtlcm5lbC5vcmcsIHBhbG1lckBkYWJiZWx0LmNvbSwgYW91QGVlY3MuYmVya2VsZXku
-ZWR1LCBhbGV4QGdoaXRpLmZyLCBsaW51eC1yaXNjdkBsaXN0cy5pbmZyYWRlYWQub3JnLCBsaW51
-eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tLCBsaW51eC1hcm0ta2VybmVsQGxp
-c3RzLmluZnJhZGVhZC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmcsIG1heGltZS5j
-aGV2YWxsaWVyQGJvb3RsaW4uY29tCj4g5oqE6YCBOiBuaW5neXVAZXN3aW5jb21wdXRpbmcuY29t
-LCBsaW5taW5AZXN3aW5jb21wdXRpbmcuY29tLCBwaW5rZXNoLnZhZ2hlbGFAZWluZm9jaGlwcy5j
-b20sIHByaXRlc2gucGF0ZWxAZWluZm9jaGlwcy5jb20sIHdlaXNoYW5nanVhbkBlc3dpbmNvbXB1
-dGluZy5jb20sIGhvcm1zQGtlcm5lbC5vcmcsICJaaGkgTGkiIDxsaXpoaTJAZXN3aW5jb21wdXRp
-bmcuY29tPiwgIkNvbm9yIERvb2xleSIgPGNvbm9yLmRvb2xleUBtaWNyb2NoaXAuY29tPgo+IOS4
-u+mimDogW1BBVENIIG5ldC1uZXh0IHY1IDEvM10gZHQtYmluZGluZ3M6IGV0aGVybmV0OiBlc3dp
-bjogYWRkIGNsb2NrIHNhbXBsaW5nIGNvbnRyb2wKPiAKPiBGcm9tOiBaaGkgTGkgPGxpemhpMkBl
-c3dpbmNvbXB1dGluZy5jb20+Cj4gCj4gRHVlIHRvIGNoaXAgYmFja2VuZCByZWFzb25zLCB0aGVy
-ZSBpcyBhbHJlYWR5IGFuIGFwcHJveGltYXRlbHkgNC01IG5zCj4gc2tldyBiZXR3ZWVuIHRoZSBS
-WCBjbG9jayBhbmQgZGF0YSBvZiB0aGUgZXRoMSBNQUMgY29udHJvbGxlciBpbnNpZGUKPiB0aGUg
-c2lsaWNvbi4KPiAKPiBGb3IgMTAwME0sIHRoZSBSWCBjbG9jayBtdXN0IGJlIGludmVydGVkIHNp
-bmNlIGl0IGlzIG5vdCBwb3NzaWJsZSB0bwo+IG1lZXQgdGhlIFJHTUlJIHRpbWluZyByZXF1aXJl
-bWVudHMgdXNpbmcgb25seSByeC1pbnRlcm5hbC1kZWxheS1wcyBvbgo+IHRoZSBNQUMgdG9nZXRo
-ZXIgd2l0aCB0aGUgc3RhbmRhcmQgMiBucyBkZWxheSBvbiB0aGUgUEhZLiBUaGVyZWZvcmUsCj4g
-ZXZlbiBvbiBhIHByb3Blcmx5IGRlc2lnbmVkIGJvYXJkLCBldGgxIHN0aWxsIHJlcXVpcmVzIFJY
-IGNsb2NrCj4gaW52ZXJzaW9uLgo+IAo+IFRoaXMgYmVoYXZpb3VyIGVmZmVjdGl2ZWx5IGJyZWFr
-cyB0aGUgUkdNSUkgdGltaW5nIGFzc3VtcHRpb25zIGF0IHRoZQo+IFNvQyBsZXZlbC4KPiAKPiBG
-b3IgdGhlIFRYIHBhdGggb2YgZXRoMSwgdGhlcmUgaXMgYWxzbyBhIHNrZXcgYmV0d2VlbiB0aGUg
-VFggY2xvY2sKPiBhbmQgZGF0YSBvbiB0aGUgTUFDIGNvbnRyb2xsZXIgaW5zaWRlIHRoZSBzaWxp
-Y29uLiBUaGlzIHNrZXcgaGFwcGVucwo+IHRvIGJlIGFwcHJveGltYXRlbHkgMiBucy4gVGhlcmVm
-b3JlLCBpdCBjYW4gYmUgY29uc2lkZXJlZCB0aGF0IHRoZQo+IDIgbnMgZGVsYXkgb2YgVFggaXMg
-cHJvdmlkZWQgYnkgdGhlIE1BQywgc28gdGhlIFRYIGlzIGNvbXBsaWFudCB3aXRoCj4gdGhlIFJH
-TUlJIHN0YW5kYXJkLgo+IAo+IEZvciAxMC8xMDAgb3BlcmF0aW9uLCB0aGUgYXBwcm94aW1hdGVs
-eSA0LTUgbnMgc2tldyBpbiB0aGUgY2hpcCBkb2VzCj4gbm90IGJyZWFrIHRoZSBzdGFuZGFyZC4g
-VGhlIFJHTUlJIHRpbWluZyB0YWJsZSAoU2VjdGlvbiAzLjMpIHNwZWNpZmllcwo+IHRoYXQgZm9y
-IDEwLzEwMCBvcGVyYXRpb24gdGhlIG1heGltdW0gdmFsdWUgaXMgdW5zcGVjaWZpZWQ6Cj4gaHR0
-cHM6Ly9jb21tdW5pdHkubnhwLmNvbS9wd214eTg3NjU0L2F0dGFjaG1lbnRzL3B3bXh5ODc2NTQv
-aW14LXByb2Nlc3NvcnMvMjA2NTUvMS9SR01JSXYyXzBfZmluYWxfaHAucGRmCj4gCj4gRHVlIHRv
-IHRoZSBldGgxIHNpbGljb24gYmVoYXZpb3IgZGVzY3JpYmVkIGFib3ZlLCBhIG5ldyBjb21wYXRp
-YmxlCj4gc3RyaW5nICJlc3dpbixlaWM3NzAwLXFvcy1ldGgtY2xrLWludmVyc2lvbiIgaXMgYWRk
-ZWQgdG8gdGhlIGRldmljZQo+IHRyZWUuIFRoaXMgYWxsb3dzIHRoZSBkcml2ZXIgdG8gaGFuZGxl
-IHRoZSBkaWZmZXJlbmNlcyBiZXR3ZWVuIGV0aDEKPiBhbmQgZXRoMCB0aHJvdWdoIGRlZGljYXRl
-ZCBsb2dpYy4KPiAKPiBUaGUgcngtaW50ZXJuYWwtZGVsYXktcHMgYW5kIHR4LWludGVybmFsLWRl
-bGF5LXBzIHByb3BlcnRpZXMgbm93IHVzZQo+IG1pbmltdW0gYW5kIG1heGltdW0gY29uc3RyYWlu
-dHMgdG8gcmVmbGVjdCB0aGUgYWN0dWFsIGhhcmR3YXJlIGRlbGF5Cj4gcmFuZ2UgKDAtMjU0MCBw
-cykgYXBwbGllZCBpbiAyMCBwcyBzdGVwcy4gVGhpcyByZWxheGVzIHRoZSBiaW5kaW5nCj4gdmFs
-aWRhdGlvbiBjb21wYXJlZCB0byB0aGUgcHJldmlvdXMgZW51bS1iYXNlZCBkZWZpbml0aW9uIGFu
-ZCBhdm9pZHMKPiByZWdyZXNzaW9ucyBmb3IgZXhpc3RpbmcgRFRCcyB3aGlsZSBrZWVwaW5nIHRo
-ZSBzYW1lIGhhcmR3YXJlIGxpbWl0cy4KPiAKPiBUcmVhdCB0aGUgUlgvVFggaW50ZXJuYWwgZGVs
-YXkgcHJvcGVydGllcyBhcyBvcHRpb25hbCwgYm9hcmQtc3BlY2lmaWMKPiB0dW5pbmcga25vYnMg
-YW5kIHJlbW92ZSB0aGVtIGZyb20gdGhlIGV4YW1wbGUgdG8gYXZvaWQgZW5jb3VyYWdpbmcKPiB0
-aGVpciB1c2UuCj4gCj4gSW4gYWRkaXRpb24sIHRoZSBiaW5kaW5nIG5vdyBpbmNsdWRlcyBhZGRp
-dGlvbmFsIGJhY2tncm91bmQgaW5mb3JtYXRpb24KPiBhYm91dCB0aGUgSFNQIENTUiByZWdpc3Rl
-cnMgYWNjZXNzZWQgYnkgdGhlIE1BQy4gVGhlIFRYRCBhbmQgUlhEIGRlbGF5Cj4gY29udHJvbCBy
-ZWdpc3RlcnMgYXJlIGluY2x1ZGVkIHNvIHRoZSBkcml2ZXIgY2FuIGV4cGxpY2l0bHkgY2xlYXIg
-YW55Cj4gcmVzaWR1YWwgY29uZmlndXJhdGlvbiBsZWZ0IGJ5IHRoZSBib290bG9hZGVyLgo+IAo+
-IEJhY2tncm91bmQgcmVmZXJlbmNlIGZvciB0aGUgSGlnaC1TcGVlZCBTdWJzeXN0ZW0gYW5kIEhT
-UCBDU1IgYmxvY2sgaXMKPiBhdmFpbGFibGUgaW4gQ2hhcHRlciAxMCAoIkhpZ2gtU3BlZWQgSW50
-ZXJmYWNlIikgb2YgdGhlIEVJQzc3MDBYIFNvQwo+IFRlY2huaWNhbCBSZWZlcmVuY2UgTWFudWFs
-LCBQYXJ0IDQKPiAoRUlDNzcwMFhfU29DX1RlY2huaWNhbF9SZWZlcmVuY2VfTWFudWFsX1BhcnQ0
-LnBkZik6Cj4gaHR0cHM6Ly9naXRodWIuY29tL2Vzd2luY29tcHV0aW5nL0VJQzc3MDBYLVNvQy1U
-ZWNobmljYWwtUmVmZXJlbmNlLU1hbnVhbC9yZWxlYXNlcwo+IAo+IFRoZXJlIGFyZSBjdXJyZW50
-bHkgbm8gaW4tdHJlZSB1c2VycyBvZiB0aGUgRUlDNzcwMCBFdGhlcm5ldCBkcml2ZXIsIHNvCj4g
-dGhlc2UgY2hhbmdlcyBhcmUgc2FmZS4KPiAKPiBGaXhlczogODg4YmQwZWNhOTNjICgiZHQtYmlu
-ZGluZ3M6IGV0aGVybmV0OiBlc3dpbjogRG9jdW1lbnQgZm9yIEVJQzc3MDAgU29DIikKPiBTaWdu
-ZWQtb2ZmLWJ5OiBaaGkgTGkgPGxpemhpMkBlc3dpbmNvbXB1dGluZy5jb20+Cj4gQWNrZWQtYnk6
-IENvbm9yIERvb2xleSA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+Cj4gLS0tCj4gIC4uLi9i
-aW5kaW5ncy9uZXQvZXN3aW4sZWljNzcwMC1ldGgueWFtbCAgICAgICB8IDY5ICsrKysrKysrKysr
-KysrKy0tLS0KPiAgMSBmaWxlIGNoYW5nZWQsIDU1IGluc2VydGlvbnMoKyksIDE0IGRlbGV0aW9u
-cygtKQo+IAo+IGRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
-bmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
-ZGluZ3MvbmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwKPiBpbmRleCA5MWU4Y2QxZGI2N2IuLjBi
-Mjc3MTlmZWI3ZCAxMDA2NDQKPiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGlu
-Z3MvbmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwKPiArKysgYi9Eb2N1bWVudGF0aW9uL2Rldmlj
-ZXRyZWUvYmluZGluZ3MvbmV0L2Vzd2luLGVpYzc3MDAtZXRoLnlhbWwKPiBAQCAtMjAsNiArMjAs
-NyBAQCBzZWxlY3Q6Cj4gICAgICAgIGNvbnRhaW5zOgo+ICAgICAgICAgIGVudW06Cj4gICAgICAg
-ICAgICAtIGVzd2luLGVpYzc3MDAtcW9zLWV0aAo+ICsgICAgICAgICAgLSBlc3dpbixlaWM3NzAw
-LXFvcy1ldGgtY2xrLWludmVyc2lvbgo+ICAgIHJlcXVpcmVkOgo+ICAgICAgLSBjb21wYXRpYmxl
-Cj4gIAo+IEBAIC0yOSw3ICszMCw5IEBAIGFsbE9mOgo+ICBwcm9wZXJ0aWVzOgo+ICAgIGNvbXBh
-dGlibGU6Cj4gICAgICBpdGVtczoKPiAtICAgICAgLSBjb25zdDogZXN3aW4sZWljNzcwMC1xb3Mt
-ZXRoCj4gKyAgICAgIC0gZW51bToKPiArICAgICAgICAgIC0gZXN3aW4sZWljNzcwMC1xb3MtZXRo
-Cj4gKyAgICAgICAgICAtIGVzd2luLGVpYzc3MDAtcW9zLWV0aC1jbGstaW52ZXJzaW9uCj4gICAg
-ICAgIC0gY29uc3Q6IHNucHMsZHdtYWMtNS4yMAo+ICAKPiAgICByZWc6Cj4gQEAgLTYzLDE2ICs2
-NiwyOSBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgICAtIGNvbnN0OiBzdG1tYWNldGgKPiAgCj4gICAg
-cngtaW50ZXJuYWwtZGVsYXktcHM6Cj4gLSAgICBlbnVtOiBbMCwgMjAwLCA2MDAsIDEyMDAsIDE2
-MDAsIDE4MDAsIDIwMDAsIDIyMDAsIDI0MDBdCj4gKyAgICBtaW5pbXVtOiAwCj4gKyAgICBtYXhp
-bXVtOiAyNTQwCj4gKyAgICBtdWx0aXBsZU9mOiAyMAo+ICAKPiAgICB0eC1pbnRlcm5hbC1kZWxh
-eS1wczoKPiAtICAgIGVudW06IFswLCAyMDAsIDYwMCwgMTIwMCwgMTYwMCwgMTgwMCwgMjAwMCwg
-MjIwMCwgMjQwMF0KPiArICAgIG1pbmltdW06IDAKPiArICAgIG1heGltdW06IDI1NDAKPiArICAg
-IG11bHRpcGxlT2Y6IDIwCj4gIAo+ICAgIGVzd2luLGhzcC1zcC1jc3I6Cj4gICAgICBkZXNjcmlw
-dGlvbjoKPiAgICAgICAgSFNQIENTUiBpcyB0byBjb250cm9sIGFuZCBnZXQgc3RhdHVzIG9mIGRp
-ZmZlcmVudCBoaWdoLXNwZWVkIHBlcmlwaGVyYWxzCj4gICAgICAgIChzdWNoIGFzIEV0aGVybmV0
-LCBVU0IsIFNBVEEsIGV0Yy4pIHZpYSByZWdpc3Rlciwgd2hpY2ggY2FuIHR1bmUKPiAgICAgICAg
-Ym9hcmQtbGV2ZWwncyBwYXJhbWV0ZXJzIG9mIFBIWSwgZXRjLgo+ICsKPiArICAgICAgQWRkaXRp
-b25hbCBiYWNrZ3JvdW5kIGluZm9ybWF0aW9uIGFib3V0IHRoZSBIaWdoLVNwZWVkIFN1YnN5c3Rl
-bQo+ICsgICAgICBhbmQgdGhlIEhTUCBDU1IgYmxvY2sgaXMgYXZhaWxhYmxlIGluIENoYXB0ZXIg
-MTAgKCJIaWdoLVNwZWVkIEludGVyZmFjZSIpCj4gKyAgICAgIG9mIHRoZSBFSUM3NzAwWCBTb0Mg
-VGVjaG5pY2FsIFJlZmVyZW5jZSBNYW51YWwsIFBhcnQgNAo+ICsgICAgICAoRUlDNzcwMFhfU29D
-X1RlY2huaWNhbF9SZWZlcmVuY2VfTWFudWFsX1BhcnQ0LnBkZikuIFRoZSBtYW51YWwgaXMKPiAr
-ICAgICAgcHVibGljbHkgYXZhaWxhYmxlIGF0Cj4gKyAgICAgIGh0dHBzOi8vZ2l0aHViLmNvbS9l
-c3dpbmNvbXB1dGluZy9FSUM3NzAwWC1Tb0MtVGVjaG5pY2FsLVJlZmVyZW5jZS1NYW51YWwvcmVs
-ZWFzZXMKPiArCj4gKyAgICAgIFRoaXMgcmVmZXJlbmNlIGlzIHByb3ZpZGVkIGZvciBiYWNrZ3Jv
-dW5kIGluZm9ybWF0aW9uIG9ubHkuCj4gICAgICAkcmVmOiAvc2NoZW1hcy90eXBlcy55YW1sIy9k
-ZWZpbml0aW9ucy9waGFuZGxlLWFycmF5Cj4gICAgICBpdGVtczoKPiAgICAgICAgLSBpdGVtczoK
-PiBAQCAtODIsNiArOTgsOCBAQCBwcm9wZXJ0aWVzOgo+ICAgICAgICAgICAgLSBkZXNjcmlwdGlv
-bjogT2Zmc2V0IG9mIEFYSSBjbG9jayBjb250cm9sbGVyIExvdy1Qb3dlciByZXF1ZXN0Cj4gICAg
-ICAgICAgICAgICAgICAgICAgICAgICByZWdpc3Rlcgo+ICAgICAgICAgICAgLSBkZXNjcmlwdGlv
-bjogT2Zmc2V0IG9mIHJlZ2lzdGVyIGNvbnRyb2xsaW5nIFRYL1JYIGNsb2NrIGRlbGF5Cj4gKyAg
-ICAgICAgICAtIGRlc2NyaXB0aW9uOiBPZmZzZXQgb2YgcmVnaXN0ZXIgY29udHJvbGxpbmcgVFhE
-IGRlbGF5Cj4gKyAgICAgICAgICAtIGRlc2NyaXB0aW9uOiBPZmZzZXQgb2YgcmVnaXN0ZXIgY29u
-dHJvbGxpbmcgUlhEIGRlbGF5Cj4gIAo+ICByZXF1aXJlZDoKPiAgICAtIGNvbXBhdGlibGUKPiBA
-QCAtOTMsOCArMTExLDYgQEAgcmVxdWlyZWQ6Cj4gICAgLSBwaHktbW9kZQo+ICAgIC0gcmVzZXRz
-Cj4gICAgLSByZXNldC1uYW1lcwo+IC0gIC0gcngtaW50ZXJuYWwtZGVsYXktcHMKPiAtICAtIHR4
-LWludGVybmFsLWRlbGF5LXBzCj4gICAgLSBlc3dpbixoc3Atc3AtY3NyCj4gIAo+ICB1bmV2YWx1
-YXRlZFByb3BlcnRpZXM6IGZhbHNlCj4gQEAgLTEwNCwyNCArMTIwLDQ5IEBAIGV4YW1wbGVzOgo+
-ICAgICAgZXRoZXJuZXRANTA0MDAwMDAgewo+ICAgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4s
-ZWljNzcwMC1xb3MtZXRoIiwgInNucHMsZHdtYWMtNS4yMCI7Cj4gICAgICAgICAgcmVnID0gPDB4
-NTA0MDAwMDAgMHgxMDAwMD47Cj4gKyAgICAgICAgaW50ZXJydXB0LXBhcmVudCA9IDwmcGxpYz47
-Cj4gKyAgICAgICAgaW50ZXJydXB0cyA9IDw2MT47Cj4gKyAgICAgICAgaW50ZXJydXB0LW5hbWVz
-ID0gIm1hY2lycSI7Cj4gICAgICAgICAgY2xvY2tzID0gPCZkMF9jbG9jayAxODY+LCA8JmQwX2Ns
-b2NrIDE3MT4sIDwmZDBfY2xvY2sgNDA+LAo+ICAgICAgICAgICAgICAgICAgPCZkMF9jbG9jayAx
-OTM+Owo+ICAgICAgICAgIGNsb2NrLW5hbWVzID0gImF4aSIsICJjZmciLCAic3RtbWFjZXRoIiwg
-InR4IjsKPiArICAgICAgICByZXNldHMgPSA8JnJlc2V0IDk1PjsKPiArICAgICAgICByZXNldC1u
-YW1lcyA9ICJzdG1tYWNldGgiOwo+ICsgICAgICAgIGVzd2luLGhzcC1zcC1jc3IgPSA8JmhzcF9z
-cF9jc3IgMHgxMDAgMHgxMDggMHgxMTggMHgxMTQgMHgxMWM+Owo+ICsgICAgICAgIHBoeS1oYW5k
-bGUgPSA8JmdtYWMwX3BoeTA+Owo+ICsgICAgICAgIHBoeS1tb2RlID0gInJnbWlpLWlkIjsKPiAr
-ICAgICAgICBzbnBzLGFhbDsKPiArICAgICAgICBzbnBzLGZpeGVkLWJ1cnN0Owo+ICsgICAgICAg
-IHNucHMsdHNvOwo+ICsgICAgICAgIHNucHMsYXhpLWNvbmZpZyA9IDwmc3RtbWFjX2F4aV9zZXR1
-cF9nbWFjMD47Cj4gKwo+ICsgICAgICAgIHN0bW1hY19heGlfc2V0dXBfZ21hYzA6IHN0bW1hYy1h
-eGktY29uZmlnIHsKPiArICAgICAgICAgICAgc25wcyxibGVuID0gPDAgMCAwIDAgMTYgOCA0PjsK
-PiArICAgICAgICAgICAgc25wcyxyZF9vc3JfbG10ID0gPDI+Owo+ICsgICAgICAgICAgICBzbnBz
-LHdyX29zcl9sbXQgPSA8Mj47Cj4gKyAgICAgICAgfTsKPiArICAgIH07Cj4gKwo+ICsgICAgZXRo
-ZXJuZXRANTA0MTAwMDAgewo+ICsgICAgICAgIGNvbXBhdGlibGUgPSAiZXN3aW4sZWljNzcwMC1x
-b3MtZXRoLWNsay1pbnZlcnNpb24iLCAic25wcyxkd21hYy01LjIwIjsKPiArICAgICAgICByZWcg
-PSA8MHg1MDQxMDAwMCAweDEwMDAwPjsKPiAgICAgICAgICBpbnRlcnJ1cHQtcGFyZW50ID0gPCZw
-bGljPjsKPiAtICAgICAgICBpbnRlcnJ1cHRzID0gPDYxPjsKPiArICAgICAgICBpbnRlcnJ1cHRz
-ID0gPDcwPjsKPiAgICAgICAgICBpbnRlcnJ1cHQtbmFtZXMgPSAibWFjaXJxIjsKPiAtICAgICAg
-ICBwaHktbW9kZSA9ICJyZ21paS1pZCI7Cj4gLSAgICAgICAgcGh5LWhhbmRsZSA9IDwmcGh5MD47
-Cj4gLSAgICAgICAgcmVzZXRzID0gPCZyZXNldCA5NT47Cj4gKyAgICAgICAgY2xvY2tzID0gPCZk
-MF9jbG9jayAxODY+LCA8JmQwX2Nsb2NrIDE3MT4sIDwmZDBfY2xvY2sgNDA+LAo+ICsgICAgICAg
-ICAgICAgICAgPCZkMF9jbG9jayAxOTQ+Owo+ICsgICAgICAgIGNsb2NrLW5hbWVzID0gImF4aSIs
-ICJjZmciLCAic3RtbWFjZXRoIiwgInR4IjsKPiArICAgICAgICByZXNldHMgPSA8JnJlc2V0IDk0
-PjsKPiAgICAgICAgICByZXNldC1uYW1lcyA9ICJzdG1tYWNldGgiOwo+IC0gICAgICAgIHJ4LWlu
-dGVybmFsLWRlbGF5LXBzID0gPDIwMD47Cj4gLSAgICAgICAgdHgtaW50ZXJuYWwtZGVsYXktcHMg
-PSA8MjAwPjsKPiAtICAgICAgICBlc3dpbixoc3Atc3AtY3NyID0gPCZoc3Bfc3BfY3NyIDB4MTAw
-IDB4MTA4IDB4MTE4PjsKPiAtICAgICAgICBzbnBzLGF4aS1jb25maWcgPSA8JnN0bW1hY19heGlf
-c2V0dXA+Owo+ICsgICAgICAgIGVzd2luLGhzcC1zcC1jc3IgPSA8JmhzcF9zcF9jc3IgMHgyMDAg
-MHgyMDggMHgyMTggMHgyMTQgMHgyMWM+Owo+ICsgICAgICAgIHBoeS1oYW5kbGUgPSA8JmdtYWMx
-X3BoeTA+Owo+ICsgICAgICAgIHBoeS1tb2RlID0gInJnbWlpLWlkIjsKPiAgICAgICAgICBzbnBz
-LGFhbDsKPiAgICAgICAgICBzbnBzLGZpeGVkLWJ1cnN0Owo+ICAgICAgICAgIHNucHMsdHNvOwo+
-IC0gICAgICAgIHN0bW1hY19heGlfc2V0dXA6IHN0bW1hYy1heGktY29uZmlnIHsKPiArICAgICAg
-ICBzbnBzLGF4aS1jb25maWcgPSA8JnN0bW1hY19heGlfc2V0dXBfZ21hYzE+Owo+ICsKPiArICAg
-ICAgICBzdG1tYWNfYXhpX3NldHVwX2dtYWMxOiBzdG1tYWMtYXhpLWNvbmZpZyB7Cj4gICAgICAg
-ICAgICAgIHNucHMsYmxlbiA9IDwwIDAgMCAwIDE2IDggND47Cj4gICAgICAgICAgICAgIHNucHMs
-cmRfb3NyX2xtdCA9IDwyPjsKPiAgICAgICAgICAgICAgc25wcyx3cl9vc3JfbG10ID0gPDI+Owo+
-IC0tIAo+IDIuMjUuMQpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1h
-bi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, Mar 24, 2026 at 01:53:31AM +0530, Mohd Ayaan Anwar wrote:
+> Hi,
+> On Thu, Mar 19, 2026 at 03:11:24PM +0000, Russell King (Oracle) wrote:
+> > On Thu, Mar 19, 2026 at 02:50:29PM +0100, Konrad Dybcio wrote:
+> > > On 3/19/26 1:58 PM, Russell King (Oracle) wrote:
+> > > > On Thu, Mar 19, 2026 at 11:09:33AM +0100, Konrad Dybcio wrote:
+> > > >> On 3/19/26 10:24 AM, Russell King (Oracle) wrote:
+> > > >>> On Thu, Mar 19, 2026 at 12:35:58AM +0000, Russell King (Oracle) wrote:
+> > > >>>> On Thu, Mar 19, 2026 at 03:42:05AM +0530, Mohd Ayaan Anwar wrote:
+> > > >>>>> [    8.650486] qcom-ethqos 23040000.ethernet: clk_csr value out of range (0xffffff00 exceeds mask 0x00000f00), truncating
+> > > >>>>
+> > > >>>> Please look into this first - with the MDIO bus operating at
+> > > >>>> who-knows-what frequency, this could make reading from the PHY
+> > > >>>> unreliable.
+> > > >>>
+> > > >>> My guess is clk_get_rate(priv->plat->stmmac_clk) is returning zero,
+> > > >>> which means we don't know the rate of the CSR clock.
+> > > >>>
+> > > >>> From what I can see in drivers/clk/qcom/gcc-qcs404.c and
+> > > >>> drivers/clk/qcom/gcc-sdx55.c, this looks like this case - the
+> > > >>> struct clk_branch makes no mention of any clock rate, nor does it
+> > > >>> have any parent. From what I can see, neither of these drivers
+> > > >>> specify any rates for any of their clocks, which likely means that
+> > > >>> clk_get_rate() will be zero for all of them.
+> > > >>>
+> > > >>> Sadly, when I designed the clk API, I didn't think that people would
+> > > >>> be stupid enough not to implement the API properly, more fool me.
+> > > >>>
+> > > >>> Under the old code, we would've used STMMAC_CSR_20_35M, which means
+> > > >>> we're assuming that the CSR clock is between 20 and 35MHz, even
+> > > >>> though the value is zero. Is that the case? If it's higher than
+> > > >>> 35MHz, then you've been operating the MDIO bus out of IEEE 802.3
+> > > >>> specification, which can make PHY access unrealible.
+> > > >>>
+> > > >>> In any case, please fix your clock drivers.
+> > > >>
+> > > >> I'm not 100% sure the currently-passed AXI clock is what we want
+> > > >> there and the docs aren't super helpful.. is there a synopsys-name
+> > > >> for it? What rates would you expect it to run at?
+> > > > 
+> > > > There is no easy answer to that - it depends on the bus interfaces
+> > > > and whether the CSR (register) clock is separate.
+> > > > 
+> > > > The likely possible names are hclk_i (for AHB master), aclk_i (for
+> > > > AXI master), or clk_csr_i.
+> > > > 
+> > > > It does state that the CSR clock should have a minimum frequency of
+> > > > 25MHz to allow all statistics to be properly collected.
+> > > > 
+> > > > The rate of the CSR clock needs to be known, as selecting the divider
+> > > > for generating MDC within IEEE 802.3 specifications is rather
+> > > > fundamental. You may find something there which hints at what rate
+> > > > the dwmac's CSR clock runs at.
+> > > 
+> > > If it's either AXI or AHB, in both cases their direct parent is controlled
+> > > by an entity external to Linux and their rates may change at runtime,
+> > > based on aggregated needs of the bus. They're defined as levels/corners
+> > > (abstract term for a hidden volt+freq combo).
+> > > 
+> > > It may be that the operating range for the EMAC removes that variability,
+> > > but with no concrete evidence and just anecdotal experience, that's only
+> > > the case for the AHB clock
+> > 
+> > The important thing is that the MDC doesn't exceed the max clock
+> > frequency for the PHY and any other device connected to the MDIO
+> > bus. IEEE 802.3 specifies a max frequency of 2.5MHz (minimum period
+> > for MDC shall be 400 ns). Some PHYs can operate in excess of this,
+> > but one would need to confirm that all devices on the MDIO bus
+> > supports higher frequencies before using them. In the kernel, we
+> > generally err on the side of caution and stick to IEEE 802.3.
+> > 
+> > There are two ways to achieve the divider value with stmmac.
+> > 
+> > 1. if priv->plat->csr_clk is set to a value other than -1, this
+> >    configures the hardware divisor (for "normal" cores, it takes
+> >    STMMAC_CSR_* constants that can be found in include/linux/stmmac.h)
+> > 
+> > 2. otherwise, the rate of priv->plat->stmmac_clk is used as the CSR
+> >    clock value, which is the reference clock for the divider that
+> >    generates the MDC clock, and an appropriate divider is selected.
+> >    Given the available dividers, it works out at between 1.25MHz for
+> >    a CSR clock of just over 20MHz and 2.47MHz for 800MHz. (I have a
+> >    patch which documents the ranges for each of the STMMAC_CSR_xxx
+> >    values.)
+> > 
+> > Note that the dividier constants are not the actual divider itself,
+> > as can be seen in include/linux/stmmac.h
+> > 
+> 
+> As noted by Konrad, the AXI and AHB clock rates are indeed unknown to
+> the Linux kernel:
+> [    7.739389] [DBG] priv->plat->stmmac_clk rate = 0
+> [    7.739391] [DBG] priv->plat->pclk rate = 0
+> 
+> Additionally, here's what I found (focusing on QCS9100 Ride R3, but
+> most of this should be applicable to all qcom-ethqos consumers):
+> 
+> 1. clk_csr_i is connected to the SLV_AHB clock, named "pclk" in the
+>    devicetree. This is the source for the MDC. The "stmmaceth" clock,
+>    provided by AXI, is used for data transfers. It appears that the
+>    devicetree gets it in reverse as per the stmmac clock
+>    documentation added by Russell, i.e., the right order would be:
+
+The documentation wasn't generated with some special knowledge, but by
+comparing the stmmac code with the databook and trying to work out what
+is going on. I would suggest not changing the DT description at the
+moment.
+
+It seems to me that the original intention was for "stmmac_clk" to be
+the "application clock", but then the Imagination Technologies
+Pistachio board came along, and "pclk" was added for possibly the slave
+interface - and thus pclk would really be more what CSR clock would be.
+
+However, the code that derives the CSR clock divider wasn't changed,
+and continued to use stmmac_clk.
+
+So now we're stuck with an utter mess, and there is no way now to work
+out exactly what was the case - I can find no documentation for this
+Pistachio board let alone the SoC. Hence:
+
+    There is confusion around stmmac_clk and pclk which can't be easily
+    resolved today as the Imagination Technologies Pistachio board that
+    pclk was introduced for has no public documentation and is likely now
+    obsolete. So the origins of pclk are lost to the winds of time.
+
+I haven't put much thought into whether this can be solved in some way.
+One passing throught is to basically deprecate the existing clock names
+and replace them with "application" and "csr-clock" which are the terms
+used in the databook.
+
+However, there's a couple of tables in the "Host (System Interface)
+Clock" section in the databook which gives the clocking for the various
+different configurations - the application clock is fairly easy to
+understand, but the CSR clock is quite complex as it depends on the
+master and slave interface configurations, as well as whether the
+designer selected the "use different clock for CSR" option.
+
+> 2. However, even with the correct naming, clk_get_rate() would return
+>    0 for both clocks since they are firmware-managed.
+> 
+> 3. For GCC_EMAC0_SLV_AHB_CLK, the hardware documentation mentions the
+>    range of 50 - 100 MHz. I am trying to check if there's any chance
+>    of it turboing to a higher rate. For now, I think we can assume
+>    this to be the working range.
+> 
+> In view of this, would setting priv->plat->clk_csr to
+> STMMAC_CSR_60_100M from the glue layer be correct?
+
+For the patch which I haven't submitted yet where I worked out the
+resulting ranges gives the following for this entry:
+
+        { CSR_F_60M,  STMMAC_CSR_60_100M },     // /42  1.43 - 2.38
+
+So, the divider is 42, which gives a range up to 2.38MHz with the
+100MHz input. At 50MHz, the MDIO clock will be 1.19MHz which is a
+little slow but 802.3 doesn't give a minimum rate. It will just
+take longer to access the PHY.
+
+The important thing is that the MDIO clock isn't too fast, as that
+will result in corrupted transfers. That said, some PHYs support
+faster MDIO clocks than 802.3 specifies, but in general it is a
+good idea that MACs stick to the 802.3 spec especially when they
+don't know what PHY (or indeed other MDIO devices) will be
+connected.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
