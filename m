@@ -2,53 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id vk5ZNlOJw2m8rQQAu9opvQ
+	id aJ0PNjlewmmecAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:49:45 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D795320667
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B73B305E50
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:49:45 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE6AFC8F269;
-	Wed, 25 Mar 2026 07:05:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E89BC87ECB;
+	Tue, 24 Mar 2026 09:49:45 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C5A1C87EC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 605C5C87EC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 09:49:04 +0000 (UTC)
+ Tue, 24 Mar 2026 09:49:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=O3zSGBMOP8SLkvjNah7bxtlePOkK0bAZhrbaj4sgYC0=; b=WdBMv7lOsX71X7cUozgMFqvRlJ
- DHuyWR1HAIB7+KhaI0Yeg5lREb6TcGa0VmTBcumcYtoEufxf/LjCR6dPA1i/sPgh6F+d+58qIPxnP
- 0HRnoRDi/9HiBCzYlnUl3Bzi6m9qPbvHPQwKss/btlVQfCnJggD51pS7XJArB+X0AKIBX0HgKCoYW
- eqGgsBn0Nr6lPXHbIpHlgJAPyIWxTxjzwbk3FbckBB4J01cqOPC2/cUtcfZsEYI3z2F2vAbN4aZLx
- wgJlCcpfWUmgBxOp95WyJLgaxY6cc843MuQC6A+c2Mqn+P7aESeRBgHSBg0Vut9nbj/8F57QwuPk7
- wzoeiVAQ==;
+ bh=aK2tPqCkus3zmIQkMrJkBfabg401fTA5smptamXvQuo=; b=zfbU6UaUkaSej+InccJO3A4k17
+ ea29hnoELaOyWAevHboVokXOg2LICrSevzz5m8UTE8ssev6xSYhxho1vQtFiSWA4hPqtV0TIQd/6O
+ 0Vy+tnTDH81LNcof0OMXUXJty1RlfxBU6MMfudAYkLKt2JVC4xf5QQcCKByP0EP+/ylXiLIe885b4
+ Ro06MKR7OzVcZGdqfxspkwSqRbTJgRboz5uk4+gZJIdsrdwiEeCIgWO2coSyTqUv4rmCoF1DM/GPu
+ 8g8r23LmJW63dE1Lgx2K1NnzVAnV+b/QUolc72U6h9myxM0w8OjOFEYl2RDf3IfyCfELCm06PaGdf
+ KHdOHllg==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:56490)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:51472)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w4yNZ-000000001hO-22Vr;
- Tue, 24 Mar 2026 09:48:53 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1w4yOC-000000001i2-2W9y;
+ Tue, 24 Mar 2026 09:49:32 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w4yNX-000000004xr-3Knl; Tue, 24 Mar 2026 09:48:51 +0000
-Date: Tue, 24 Mar 2026 09:48:51 +0000
+ id 1w4yOA-000000004y0-2N2V; Tue, 24 Mar 2026 09:49:30 +0000
+Date: Tue, 24 Mar 2026 09:49:30 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <acJeA6c2M4eSrxC4@shell.armlinux.org.uk>
+Message-ID: <acJeKpJWEjkZc1Bv@shell.armlinux.org.uk>
 References: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
- <20260324092102.687082-3-maxime.chevallier@bootlin.com>
+ <20260324092102.687082-4-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260324092102.687082-3-maxime.chevallier@bootlin.com>
-X-Mailman-Approved-At: Wed, 25 Mar 2026 07:05:52 +0000
+In-Reply-To: <20260324092102.687082-4-maxime.chevallier@bootlin.com>
 Cc: Andrew Lunn <andrew@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  thomas.petazzoni@bootlin.com, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -58,8 +57,8 @@ Cc: Andrew Lunn <andrew@lunn.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Simon Horman <horms@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, davem@davemloft.net,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/5] net: stmmac: dwmac-socfpga:
- Use the socfpga_sgmii_config() helper
+Subject: Re: [Linux-stm32] [PATCH net-next 3/5] net: stmmac: dwmac-socfpga:
+ Use the correct type for interface modes
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,7 +80,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -98,7 +97,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.563];
+	NEURAL_HAM(-0.00)[-1.000];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -109,14 +108,14 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,bootlin.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,shell.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 6D795320667
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,shell.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 7B73B305E50
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, Mar 24, 2026 at 10:20:57AM +0100, Maxime Chevallier wrote:
-> Use the existing socfpga_sgmii_config() helper in
-> socfpga_dwmac_fix_mac_speed(), instead of re-coding the register access.
+On Tue, Mar 24, 2026 at 10:20:58AM +0100, Maxime Chevallier wrote:
+> The internal helper socfpga_get_plat_phymode() returns an int where we
+> actually return a PHY_INTERFACE_MODE_xxx, use the correct type for this.
 > 
 > Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
