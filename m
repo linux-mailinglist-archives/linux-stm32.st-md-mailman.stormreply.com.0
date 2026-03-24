@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id J7l4L1OJw2m6rQQAu9opvQ
+	id ILGvKaBXwmnQbwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:21:36 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53EAA320665
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 765123057E2
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 10:21:36 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C7736C8F265;
-	Wed, 25 Mar 2026 07:05:54 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3B2D8C87ECC;
+	Tue, 24 Mar 2026 09:21:36 +0000 (UTC)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6259DC87ECC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4DE9EC87ECB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 09:21:32 +0000 (UTC)
+ Tue, 24 Mar 2026 09:21:34 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 41E0AC5809A;
- Tue, 24 Mar 2026 09:21:59 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 53C6CC5809B;
+ Tue, 24 Mar 2026 09:22:01 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0C16B6011D;
- Tue, 24 Mar 2026 09:21:32 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 217826011D;
+ Tue, 24 Mar 2026 09:21:34 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DAF8C10451116; Tue, 24 Mar 2026 10:21:28 +0100 (CET)
+ with ESMTPSA id 572B9104511A8; Tue, 24 Mar 2026 10:21:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1774344091; h=from:subject:date:message-id:to:cc:mime-version:
+ t=1774344093; h=from:subject:date:message-id:to:cc:mime-version:
  content-transfer-encoding:in-reply-to:references;
- bh=2MaJGVLz8R3aV7CXG66GxuSg5iwkZ6E8Ug7Y4Ilvlj8=;
- b=BZFuNgKc93q5zEqH9mzxnRoQqutfe7rG1jo52LFXE7ApKnSpBMhC0YodgvKmQ0v4A6n020
- RfdyqJDpz+CipOpRWNoHZ4x8J0i478dY/k2gRgRQTTkjiV9wPjmTK5LPY5e1HMJQzof1I/
- Vc5m1E2LhTEi8P+iNdZalfHXhKF9tBSja1k5tkf/BMTREPQRStBRtG+AOlAT0lLPKhUSIY
- 1J9TjHoFxGty2NFiRlOxTFObB32ZLQ5tUx9UgC89SwpErxwXRBC3zeNinQvYitT3FVNEf0
- ka0cSclctExJrh2CUsFibU0uX64f3Xe6wnCJcyXq3KATXXogQZM8wwNZ8WFk/A==
+ bh=E0H4SZ3DlYEVqlzu6JJsZInSW5jEBx0hElRQGDXixpQ=;
+ b=VYEdNHVvZITYjJxp+4w6ZHknWDgFyGHrKUuXfDFyQ/1eR/CXJ2M4JdSFABSwxtSEeDjrVH
+ mIsjeTUysEzm19uEMT6hr69dbUrpmVQ6oRtJ4CO9ZNOB0R4c95R9tDbRx6H9tN0ZSCPcOP
+ /FJExyqWh+lqxlw6RRjFeVaOcvsQzXMxrG9Jb6NeD+g0TH/eOVSPWU3mTobdX4J+gQuEgT
+ 6i4y85EFRH4wkXZVGQDeWDRu/RreMOVxlFvm5lpViKtR7ziRVfUoM/9zDq0X2sR4Xtwqj1
+ 1sjlfyKgE7TRWz3CPcOD6X6zLPotfFPmtVX/kAWkAjzc7jBJ+u+M+XP67BYAuQ==
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 To: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
  davem@davemloft.net, Eric Dumazet <edumazet@google.com>,
@@ -42,21 +42,20 @@ To: Andrew Lunn <andrew@lunn.ch>, Jakub Kicinski <kuba@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Russell King <linux@armlinux.org.uk>
-Date: Tue, 24 Mar 2026 10:20:59 +0100
-Message-ID: <20260324092102.687082-5-maxime.chevallier@bootlin.com>
+Date: Tue, 24 Mar 2026 10:21:00 +0100
+Message-ID: <20260324092102.687082-6-maxime.chevallier@bootlin.com>
 X-Mailer: git-send-email 2.49.0
 In-Reply-To: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
 References: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
 MIME-Version: 1.0
 X-Last-TLS-Session-Version: TLSv1.3
-X-Mailman-Approved-At: Wed, 25 Mar 2026 07:05:52 +0000
 Cc: netdev@vger.kernel.org, Rohan G Thomas <rohan.g.thomas@altera.com>,
  linux-kernel@vger.kernel.org, Mun Yew Tham <mun.yew.tham@altera.com>,
  =?UTF-8?q?Alexis=20Lothor=C3=A9?= <alexis.lothore@bootlin.com>,
  thomas.petazzoni@bootlin.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 4/5] net: stmmac: dwmac-socfpga: get
-	the phy_mode with the dedicated helper
+Subject: [Linux-stm32] [PATCH net-next 5/5] net: stmmac: dwmac-sofcpga: Drop
+	the struct device reference
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -83,15 +82,15 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_TO(0.00)[lunn.ch,kernel.org,davemloft.net,google.com,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
 	MIME_TRACE(0.00)[0:+];
 	RCPT_COUNT_TWELVE(0.00)[17];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:kuba@kernel.org,m:davem@davemloft.net,m:edumazet@google.com,m:pabeni@redhat.com,m:horms@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:netdev@vger.kernel.org,m:rohan.g.thomas@altera.com,m:linux-kernel@vger.kernel.org,m:mun.yew.tham@altera.com,m:alexis.lothore@bootlin.com,m:thomas.petazzoni@bootlin.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_TO(0.00)[lunn.ch,kernel.org,davemloft.net,google.com,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -101,77 +100,98 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[bootlin.com:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.859];
+	NEURAL_HAM(-0.00)[-1.000];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,bootlin.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 53EAA320665
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,bootlin.com:mid,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 765123057E2
 X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
 X-Spam: Yes
 
-We enable/disable the sgmii_adapter in the .fix_mac_speed() ops based on
-the phy_mode used in the plat_data. We currently get it with :
+We keep a reference to our the struct device in the socfpga_dwmac priv
+structure, but now it's only ever used to produce logs in the
+.set_phy_mode() ops, that are specific to this driver.
 
-socfpga_dwmac
-  ->dev
-    ->drv_data
-      ->netdev
-        ->priv
-	  ->stmmac_priv
-	    ->plat
-	      ->phy_interface
-
-where we can get it with :
-
-socfpga_dwmac
-  ->plat_data
-    ->phy_interface (done by socfpga_get_plat_phymode)
-
-Use that helper here.
-
-Note that we are also being passed a phy_interface_t from the
-.fix_mac_speed() callback, provided by phylink.
-
-We can handle that in the future when dynamic interface selection is
-supported. We'd need to guarantee that we have a Lynx PCS to handle it.
+When we call that ops, we always have a ref to the struct device around,
+so let's pass it to .set_phy_mode(). We can now discard that reference
+from struct socfpga_dwmac.
 
 Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-socfpga.c   | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-index 629074dbbc15..ae40de2ed8eb 100644
+index ae40de2ed8eb..1d7f0a57d288 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-socfpga.c
-@@ -89,9 +89,9 @@ static void socfpga_dwmac_fix_mac_speed(void *bsp_priv,
- 					unsigned int mode)
- {
- 	struct socfpga_dwmac *dwmac = (struct socfpga_dwmac *)bsp_priv;
--	struct stmmac_priv *priv = netdev_priv(dev_get_drvdata(dwmac->dev));
--	void __iomem *splitter_base = dwmac->splitter_base;
- 	void __iomem *sgmii_adapter_base = dwmac->sgmii_adapter_base;
-+	phy_interface_t phymode = socfpga_get_plat_phymode(dwmac);
-+	void __iomem *splitter_base = dwmac->splitter_base;
- 	u32 val;
+@@ -53,14 +53,14 @@
  
- 	if (sgmii_adapter_base)
-@@ -117,9 +117,8 @@ static void socfpga_dwmac_fix_mac_speed(void *bsp_priv,
- 		writel(val, splitter_base + EMAC_SPLITTER_CTRL_REG);
- 	}
+ struct socfpga_dwmac;
+ struct socfpga_dwmac_ops {
+-	int (*set_phy_mode)(struct socfpga_dwmac *dwmac_priv);
++	int (*set_phy_mode)(struct socfpga_dwmac *dwmac_priv,
++			    struct device *dev);
+ 	void (*setup_plat_dat)(struct socfpga_dwmac *dwmac_priv);
+ };
  
--	if ((priv->plat->phy_interface == PHY_INTERFACE_MODE_SGMII ||
--	     priv->plat->phy_interface == PHY_INTERFACE_MODE_1000BASEX) &&
--	     sgmii_adapter_base)
-+	if ((phymode == PHY_INTERFACE_MODE_SGMII ||
-+	     phymode == PHY_INTERFACE_MODE_1000BASEX) && sgmii_adapter_base)
- 		socfpga_sgmii_config(dwmac, true);
+ struct socfpga_dwmac {
+ 	u32	reg_offset;
+ 	u32	reg_shift;
+-	struct	device *dev;
+ 	struct plat_stmmacenet_data *plat_dat;
+ 	struct regmap *sys_mgr_base_addr;
+ 	struct reset_control *stmmac_rst;
+@@ -243,7 +243,6 @@ static int socfpga_dwmac_parse_data(struct socfpga_dwmac *dwmac, struct device *
+ 	dwmac->reg_offset = reg_offset;
+ 	dwmac->reg_shift = reg_shift;
+ 	dwmac->sys_mgr_base_addr = sys_mgr_base_addr;
+-	dwmac->dev = dev;
+ 	of_node_put(np_sgmii_adapter);
+ 
+ 	return 0;
+@@ -382,7 +381,8 @@ static int smtg_crosststamp(ktime_t *device, struct system_counterval_t *system,
+ 	return 0;
  }
  
+-static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
++static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac,
++				     struct device *dev)
+ {
+ 	struct regmap *sys_mgr_base_addr = dwmac->sys_mgr_base_addr;
+ 	phy_interface_t phymode = socfpga_get_plat_phymode(dwmac);
+@@ -391,7 +391,7 @@ static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
+ 	u32 ctrl, val, module;
+ 
+ 	if (socfpga_set_phy_mode_common(phymode, &val)) {
+-		dev_err(dwmac->dev, "bad phy mode %d\n", phymode);
++		dev_err(dev, "bad phy mode %d\n", phymode);
+ 		return -EINVAL;
+ 	}
+ 
+@@ -440,7 +440,8 @@ static int socfpga_gen5_set_phy_mode(struct socfpga_dwmac *dwmac)
+ 	return 0;
+ }
+ 
+-static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac)
++static int socfpga_gen10_set_phy_mode(struct socfpga_dwmac *dwmac,
++				      struct device *dev)
+ {
+ 	struct regmap *sys_mgr_base_addr = dwmac->sys_mgr_base_addr;
+ 	phy_interface_t phymode = socfpga_get_plat_phymode(dwmac);
+@@ -552,7 +553,7 @@ static int socfpga_dwmac_init(struct device *dev, void *bsp_priv)
+ {
+ 	struct socfpga_dwmac *dwmac = bsp_priv;
+ 
+-	return dwmac->ops->set_phy_mode(dwmac);
++	return dwmac->ops->set_phy_mode(dwmac, dev);
+ }
+ 
+ static void socfpga_gen5_setup_plat_dat(struct socfpga_dwmac *dwmac)
 -- 
 2.49.0
 
