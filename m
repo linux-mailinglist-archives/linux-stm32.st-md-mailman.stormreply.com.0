@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id D1YfKFSJw2nJrQQAu9opvQ
+	id 4FusK1SJw2lRrQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 326F2320686
+	by mail.lfdr.de (Postfix) with ESMTPS id 34D89320687
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:56 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8699DC8F27F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96AFFC8F281;
 	Wed, 25 Mar 2026 07:05:55 +0000 (UTC)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
- [209.85.215.182])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95979C87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B25B3C87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 18:27:51 +0000 (UTC)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-c70c112cb61so990047a12.0
+ Tue, 24 Mar 2026 18:28:01 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-35b905a05a8so3382923a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 11:27:51 -0700 (PDT)
+ Tue, 24 Mar 2026 11:28:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774376870; x=1774981670;
+ d=gmail.com; s=20251104; t=1774376880; x=1774981680;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=YOUVvE5FNmjkaySdFPrc+7+hSpPNsoY2HaGuj8AkFfI=;
- b=nFM+8Pb4TN0tPA8dSOQUQrPIbHU3mhcOncnP3gYtLttRmynnyF0f56GiFZKn9DXAeB
- J/IzM4Zh5kAmVhhk0u+t7p9iU0Nrj9vTpkGlPf7y8PyccqtV2/mSSZfpgGfWoo08XHOB
- 8qOXjRLHWya2HWWjqPLx67sLPUNx/EEgETW2zmSEKXW7fVkeTVgSP8Wa7bNjBtQwCbTj
- pCW902lgYB528RKRhEMA9IWxXzSwnjewad2f1BJFvr5pZjnlBm1/l8FcPD8TL8v3/FXA
- rPn70xZIQ76KiOBpvTeRCD33OJzJkTY1xSP8PINiJv1I7rk+UtFKbjF09rzJH/e45OlJ
- N/+g==
+ :reply-to; bh=HHa+g9Yvknw/nsgWzBDeK9srp0wKwbZMTd0+ms6kC4c=;
+ b=c/Lujb4ArK2pSR1X3dde+4mdGHAieUT7d0gHOYgx2jA7A9juQ1kFgI+6uEHKSdq+j6
+ l/gpFpNZhgIY7IGeTQckcD6U018hqSvY9pDGxC0tRaHpa6m7q49SUAecKe1PcOTwdfXy
+ 4iIMIch7kzaIBVQ0ose4Z1CseBIaw0pir3dn9caPvK/5XPj0JQ2w1azf6R8x461heFsV
+ flmzotkHJWzD5ZUPsSX+KgvVkdrX8MH12mb9aVQ4Of/oig4fQ8y0HUr/6hLiEQW23L0Z
+ sggVKQFU3xyIkpEDWBT4hIASnaheV4hm8YpW10/rw2mHF6OPRkjErfHBIfc1Tdqvn4hj
+ uEDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774376870; x=1774981670;
+ d=1e100.net; s=20251104; t=1774376880; x=1774981680;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=YOUVvE5FNmjkaySdFPrc+7+hSpPNsoY2HaGuj8AkFfI=;
- b=qdQwz0nOP32vIn4jt7O4ZvVyp2r4e6OAbUIfL0boEj92aYLSQo71Wzpf0j7ilKs1jE
- bFqRHZ6bc5VDd3v3b/wdVYJ8HUcwv7NjcYmIfwlpQ8QroAz5yvDV56k/24OY+SzLZFAe
- CpqNcXeSkF29nUQkd77g6hcYHK5B/IShf0EzqBiwa2W30Gocz6YvagxhA+1JPE7JcBFP
- NQw0Jhq2VYM1BVcE7F5xlTuP0DpYO7cg6ICT9504rYXn97wEG3W0q6qsUbV8c+0VJ9G7
- 5pTODR+3s78/rMlm8zcrJJnIAeuTVv7Mtw1jxIqUNRyQcuE7J1+aRdRXmNlbvp74NwIj
- XXiw==
+ bh=HHa+g9Yvknw/nsgWzBDeK9srp0wKwbZMTd0+ms6kC4c=;
+ b=WnEzdrH7uUMAM1YY7k08tHVe7+/OAYTy9Bq4m2pB6UrNG/xBsG+gxlc4u43x8QE4ZR
+ ooDiT7RF1rXQ48CzCd2tnbrbtfxsDl8XMsAg93wDgMpCpbyxAFvuuU1PozW95D0UBN4v
+ ZjotBvGH09m/O69Gszcc+1C4O7YogVmC/LxMryNNS8r0WkxFcJEeDYQlvMAdZK+jBlwh
+ 4eXTIFr1fqfPvh62E3GzW3CDME3xqbIGbyoGTHVkbDA54oCNbqG6IESyapc1lHw0DQxJ
+ 6uXwxL/xsCfArlAxTslWcqBMg5bOPu8MkrWEHm+K2e0l3iulev9bXc2C3Pbq5aoB7OKg
+ POlg==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWvxkFGofwcLt0YMIARqyRQbFQ21YZ9273ls58h8u4DjcpogYvB6aeayrELYbmTUfjnp1WIl6GIPSjrFA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxIthUAtHNWGvJqcaKCfpm5C7hT61IEzhlSrXVdFvnr2Dr1qgIc
- 4ZVuLM6C1B3pRVlSS94L16G9H/y0hNMU+IxuOfO4G2KTNnUAYXkvdKeV
-X-Gm-Gg: ATEYQzzz/kEUJQ7w+DtZXW3+SwiJAMmM8S4B5OAJ5xXuBziwmisf/A6wYvBdesdXB8y
- 5UMHkqXK6eBTzRW5lP4khwnBJDuy3cIpeEy61hu4yf29KE3spXnaQHTovtJFcXOcmMFx/HQJ0H7
- r4jqzXyQZDdXQmmNH0qoks/mZLvsY1iCZ+NcaRVyeFfqq3RBdNaxyVbTPRzzvL2+VYYrZ1Qk+4Q
- 2OAC8p752cctE/QziIWfEcopxUGZvBbWTSbEH30E0LC7GS29EFkhIO3SU6KvA4d0E75kbYnokHC
- zaGgOiy73HIR9rmZvYb+kK0G2nfmhmg8gxnrZvRZymopB7Bb7024cUB+EW/hX1umVjcVtoFZbSa
- NLFdgOplsRh1LnRHVj2KbOhURKWQsGfIp0cSnLSWEn1ZsGZKLXFH2KqV37UWGI3Yo5ynZJ4rAMS
- uy19gZ1O3msXsa2WgVZ+kHfBIKIBNX62+U4Rrk
-X-Received: by 2002:a17:90b:1dcd:b0:35b:a656:a60a with SMTP id
- 98e67ed59e1d1-35c0dcf48dbmr341601a91.8.1774376869963; 
- Tue, 24 Mar 2026 11:27:49 -0700 (PDT)
+ AJvYcCVUIHS7rTNjtot9EsC21+Fe5YjzwDWc8gjqCreYPw28KsB2jxTUQ+VxYH3cHHvoEjjwuIwibloLiZEnBw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy7Sztk2CB2uFB8Ovo/+hdtsAZObXfd5cvvZssn3qFSqUcbScux
+ KBSkgBpibQYCkS0qn5RJYSk5z9uNVqjC3F9CK8dI1H9msGCuVF/cSsPJ
+X-Gm-Gg: ATEYQzxhy5MVSDWoi/DJzwXvCz9JXeNf/Nj3T3CGcpQNlY3XhiV1FBI3Pronszg4THh
+ Dd8WBS9ewgZ7iV3n4j1OnRtVLXwEccahP8gcEcB+OdXbpL5oXmmWe2BbboXTHpHJQ6mOB10SGWE
+ L+j1du/pgfLQW4zoGn7HGzxZg8zCArn5Kv2KchQjA3w3hrQSXq6MHxqGUV/z9e1JxE664Md/Df9
+ faPiT7ikZCjzSJLEeUHCZ13/MHA7rt6QjBzpPohUtB9kjIScehhRLRVbY0qNm1CQe24FOgTRBcH
+ c9OP5nFzKPx8xenMDKIWTn0htn9cuin9aj6jlsAB/XpGRFyJiCG35ZLwZ5izj3Vly+owz6J1SKS
+ t/vxJHKYvSsin5bfXc2JnQ6yK77WTEPktzy3aPJ/U8s7knstbBec0toEg3VEssZYLH+EwS13cx5
+ VxYxrWzqeK5cYTvRQbh5F7w9HVSQ==
+X-Received: by 2002:a17:90b:4ec6:b0:35b:e551:90d2 with SMTP id
+ 98e67ed59e1d1-35c0dd95828mr337562a91.28.1774376879990; 
+ Tue, 24 Mar 2026 11:27:59 -0700 (PDT)
 Received: from [127.0.1.1] ([103.216.213.160])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c0d6060b5sm350576a91.17.2026.03.24.11.27.41
+ 98e67ed59e1d1-35c0d6060b5sm350576a91.17.2026.03.24.11.27.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 11:27:49 -0700 (PDT)
+ Tue, 24 Mar 2026 11:27:59 -0700 (PDT)
 From: Atharv Dubey <atharvd440@gmail.com>
-Date: Tue, 24 Mar 2026 23:56:52 +0530
+Date: Tue, 24 Mar 2026 23:56:53 +0530
 MIME-Version: 1.0
-Message-Id: <20260324-deverr-v1-4-7e591cce33a3@gmail.com>
+Message-Id: <20260324-deverr-v1-5-7e591cce33a3@gmail.com>
 References: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
 In-Reply-To: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
 To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>, 
@@ -87,11 +87,11 @@ To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>,
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
  Chunyan Zhang <zhang.lyra@gmail.com>, Jean Delvare <jdelvare@suse.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774376818; l=6197;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774376818; l=3441;
  i=atharvd440@gmail.com; s=20260314; h=from:subject:message-id;
- bh=s9JDU7GcgsnDDFXsrCxagGOfCSdKXg3wGsXTsgZz2H0=;
- b=ah0pTzAjwcV8FwCOGin97Y4dMl89Nw1GTUGKElGrgDchfwSWIGhdZL4fJM5yOH/LB2Vze2ERu
- 5pFUk9n36AADxerpZp4V7L4H+yM/I6gEVGRW6UOTZNuNCinHlE0yV/c
+ bh=fUyekU3vIj3XVF9IEZZuF8p06qRSr8GpHENT4b6dCL0=;
+ b=Lv6diY6U8yOO+wFg03BiFqyP3QS+BUZjUWZZhiQKaL58Ge1g8J4dtHf+S+KQwwxbmw5DUKteO
+ KpFdph3BhEcCYkTzwZIrFSEDvv+nlC32lTjIg5IZhXq8rp8u8lOOdaA
 X-Developer-Key: i=atharvd440@gmail.com; a=ed25519;
  pk=T6i1xWOKT/RUSDYATSgyVG/4X7ac8jPjRSG1mMAcqVk=
 X-Mailman-Approved-At: Wed, 25 Mar 2026 07:05:52 +0000
@@ -99,7 +99,7 @@ Cc: linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-i2c@vger.kernel.org, linux-tegra@vger.kernel.org,
  Atharv Dubey <atharvd440@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Enrico Zanda <e.zanda1@gmail.com>
-Subject: [Linux-stm32] [PATCH 04/10] i2c: stm32f7: Replace dev_err() with
+Subject: [Linux-stm32] [PATCH 05/10] i2c: stm32f4: Replace dev_err() with
  dev_err_probe() in probe function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -149,10 +149,10 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.950];
+	NEURAL_SPAM(0.00)[0.952];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 326F2320686
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 34D89320687
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -163,172 +163,101 @@ This simplifies the code while improving log.
 Signed-off-by: Enrico Zanda <e.zanda1@gmail.com>
 Signed-off-by: Atharv Dubey <atharvd440@gmail.com>
 ---
- drivers/i2c/busses/i2c-stm32f7.c | 78 ++++++++++++++++------------------------
- 1 file changed, 30 insertions(+), 48 deletions(-)
+ drivers/i2c/busses/i2c-stm32f4.c | 53 ++++++++++++++++------------------------
+ 1 file changed, 21 insertions(+), 32 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-stm32f7.c b/drivers/i2c/busses/i2c-stm32f7.c
-index 70cb5822bf17..e7cc7f0fb56c 100644
---- a/drivers/i2c/busses/i2c-stm32f7.c
-+++ b/drivers/i2c/busses/i2c-stm32f7.c
-@@ -481,28 +481,22 @@ static int stm32f7_i2c_compute_timing(struct stm32f7_i2c_dev *i2c_dev,
- 	int ret = 0;
- 
- 	specs = stm32f7_get_specs(setup->speed_freq);
--	if (specs == ERR_PTR(-EINVAL)) {
--		dev_err(i2c_dev->dev, "speed out of bound {%d}\n",
--			setup->speed_freq);
--		return -EINVAL;
--	}
-+	if (specs == ERR_PTR(-EINVAL))
-+		return dev_err_probe(i2c_dev->dev, -EINVAL, "speed out of bound {%d}\n",
-+				     setup->speed_freq);
- 
- 	if ((setup->rise_time > specs->rise_max) ||
--	    (setup->fall_time > specs->fall_max)) {
--		dev_err(i2c_dev->dev,
--			"timings out of bound Rise{%d>%d}/Fall{%d>%d}\n",
--			setup->rise_time, specs->rise_max,
--			setup->fall_time, specs->fall_max);
--		return -EINVAL;
--	}
-+	    (setup->fall_time > specs->fall_max))
-+		return dev_err_probe(i2c_dev->dev, -EINVAL,
-+				     "timings out of bound Rise{%d>%d}/Fall{%d>%d}\n",
-+				     setup->rise_time, specs->rise_max,
-+				     setup->fall_time, specs->fall_max);
- 
- 	i2c_dev->dnf = DIV_ROUND_CLOSEST(i2c_dev->dnf_dt, i2cclk);
--	if (i2c_dev->dnf > STM32F7_I2C_DNF_MAX) {
--		dev_err(i2c_dev->dev,
--			"DNF out of bound %d/%d\n",
--			i2c_dev->dnf * i2cclk, STM32F7_I2C_DNF_MAX * i2cclk);
--		return -EINVAL;
--	}
-+	if (i2c_dev->dnf > STM32F7_I2C_DNF_MAX)
-+		return dev_err_probe(i2c_dev->dev, -EINVAL,
-+				     "DNF out of bound %d/%d\n", i2c_dev->dnf * i2cclk,
-+				     STM32F7_I2C_DNF_MAX * i2cclk);
- 
- 	/*  Analog and Digital Filters */
- 	af_delay_min =
-@@ -567,8 +561,7 @@ static int stm32f7_i2c_compute_timing(struct stm32f7_i2c_dev *i2c_dev,
- 	}
- 
- 	if (list_empty(&solutions)) {
--		dev_err(i2c_dev->dev, "no Prescaler solution\n");
--		ret = -EPERM;
-+		ret = dev_err_probe(i2c_dev->dev, -EPERM, "no Prescaler solution\n");
- 		goto exit;
- 	}
- 
-@@ -624,8 +617,7 @@ static int stm32f7_i2c_compute_timing(struct stm32f7_i2c_dev *i2c_dev,
- 	}
- 
- 	if (!s) {
--		dev_err(i2c_dev->dev, "no solution at all\n");
--		ret = -EPERM;
-+		ret = dev_err_probe(i2c_dev->dev, -EPERM, "no solution at all\n");
- 		goto exit;
- 	}
- 
-@@ -674,11 +666,9 @@ static int stm32f7_i2c_setup_timing(struct stm32f7_i2c_dev *i2c_dev,
- 
- 	i2c_parse_fw_timings(i2c_dev->dev, t, false);
- 
--	if (t->bus_freq_hz > I2C_MAX_FAST_MODE_PLUS_FREQ) {
--		dev_err(i2c_dev->dev, "Invalid bus speed (%i>%i)\n",
--			t->bus_freq_hz, I2C_MAX_FAST_MODE_PLUS_FREQ);
--		return -EINVAL;
--	}
-+	if (t->bus_freq_hz > I2C_MAX_FAST_MODE_PLUS_FREQ)
-+		return dev_err_probe(i2c_dev->dev, -EINVAL, "Invalid bus speed (%i>%i)\n",
-+				     t->bus_freq_hz, I2C_MAX_FAST_MODE_PLUS_FREQ);
- 
- 	setup->speed_freq = t->bus_freq_hz;
- 	i2c_dev->setup.rise_time = t->scl_rise_ns;
-@@ -686,10 +676,8 @@ static int stm32f7_i2c_setup_timing(struct stm32f7_i2c_dev *i2c_dev,
- 	i2c_dev->dnf_dt = t->digital_filter_width_ns;
- 	setup->clock_src = clk_get_rate(i2c_dev->clk);
- 
--	if (!setup->clock_src) {
--		dev_err(i2c_dev->dev, "clock rate is 0\n");
--		return -EINVAL;
--	}
-+	if (!setup->clock_src)
-+		return dev_err_probe(i2c_dev->dev, -EINVAL, "clock rate is 0\n");
- 
- 	if (!of_property_read_bool(i2c_dev->dev->of_node, "i2c-digital-filter"))
- 		i2c_dev->dnf_dt = STM32F7_I2C_DNF_DEFAULT;
-@@ -698,8 +686,8 @@ static int stm32f7_i2c_setup_timing(struct stm32f7_i2c_dev *i2c_dev,
- 		ret = stm32f7_i2c_compute_timing(i2c_dev, setup,
- 						 &i2c_dev->timing);
- 		if (ret) {
+diff --git a/drivers/i2c/busses/i2c-stm32f4.c b/drivers/i2c/busses/i2c-stm32f4.c
+index b3d56d0aa9d0..44e8b04962bb 100644
+--- a/drivers/i2c/busses/i2c-stm32f4.c
++++ b/drivers/i2c/busses/i2c-stm32f4.c
+@@ -163,11 +163,9 @@ static int stm32f4_i2c_set_periph_clk_freq(struct stm32f4_i2c_dev *i2c_dev)
+ 		 * to hardware limitation
+ 		 */
+ 		if (freq < STM32F4_I2C_MIN_STANDARD_FREQ ||
+-		    freq > STM32F4_I2C_MAX_FREQ) {
 -			dev_err(i2c_dev->dev,
--				"failed to compute I2C timings.\n");
-+			dev_err_probe(i2c_dev->dev, ret,
-+				      "failed to compute I2C timings.\n");
- 			if (setup->speed_freq <= I2C_MAX_STANDARD_MODE_FREQ)
- 				break;
- 			setup->speed_freq =
-@@ -710,10 +698,8 @@ static int stm32f7_i2c_setup_timing(struct stm32f7_i2c_dev *i2c_dev,
- 		}
- 	} while (ret);
+-				"bad parent clk freq for standard mode\n");
+-			return -EINVAL;
+-		}
++		    freq > STM32F4_I2C_MAX_FREQ)
++			return dev_err_probe(i2c_dev->dev, -EINVAL,
++					     "bad parent clk freq for standard mode\n");
+ 	} else {
+ 		/*
+ 		 * To be as close as possible to 400 kHz, the parent clk
+@@ -175,11 +173,9 @@ static int stm32f4_i2c_set_periph_clk_freq(struct stm32f4_i2c_dev *i2c_dev)
+ 		 * maximum value of 46 MHz due to hardware limitation
+ 		 */
+ 		if (freq < STM32F4_I2C_MIN_FAST_FREQ ||
+-		    freq > STM32F4_I2C_MAX_FREQ) {
+-			dev_err(i2c_dev->dev,
+-				"bad parent clk freq for fast mode\n");
+-			return -EINVAL;
+-		}
++		    freq > STM32F4_I2C_MAX_FREQ)
++			return dev_err_probe(i2c_dev->dev, -EINVAL,
++					     "bad parent clk freq for fast mode\n");
+ 	}
  
+ 	cr2 |= STM32F4_I2C_CR2_FREQ(freq);
+@@ -772,22 +768,19 @@ static int stm32f4_i2c_probe(struct platform_device *pdev)
+ 		return PTR_ERR(i2c_dev->base);
+ 
+ 	irq_event = irq_of_parse_and_map(np, 0);
+-	if (!irq_event) {
+-		dev_err(&pdev->dev, "IRQ event missing or invalid\n");
+-		return -EINVAL;
+-	}
++	if (!irq_event)
++		return dev_err_probe(&pdev->dev, -EINVAL,
++				     "IRQ event missing or invalid\n");
+ 
+ 	irq_error = irq_of_parse_and_map(np, 1);
+-	if (!irq_error) {
+-		dev_err(&pdev->dev, "IRQ error missing or invalid\n");
+-		return -EINVAL;
+-	}
++	if (!irq_error)
++		return dev_err_probe(&pdev->dev, -EINVAL,
++				     "IRQ error missing or invalid\n");
+ 
+ 	i2c_dev->clk = devm_clk_get_enabled(&pdev->dev, NULL);
+-	if (IS_ERR(i2c_dev->clk)) {
+-		dev_err(&pdev->dev, "Failed to enable clock\n");
+-		return PTR_ERR(i2c_dev->clk);
+-	}
++	if (IS_ERR(i2c_dev->clk))
++		return dev_err_probe(&pdev->dev, PTR_ERR(i2c_dev->clk),
++				     "Failed to enable clock\n");
+ 
+ 	rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
+ 	if (IS_ERR(rst))
+@@ -807,19 +800,15 @@ static int stm32f4_i2c_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_request_irq(&pdev->dev, irq_event, stm32f4_i2c_isr_event, 0,
+ 			       pdev->name, i2c_dev);
 -	if (ret) {
--		dev_err(i2c_dev->dev, "Impossible to compute I2C timings.\n");
+-		dev_err(&pdev->dev, "Failed to request irq event %i\n",
+-			irq_event);
 -		return ret;
 -	}
 +	if (ret)
-+		return dev_err_probe(i2c_dev->dev, ret, "Impossible to compute I2C timings.\n");
++		return dev_err_probe(&pdev->dev, ret,
++				     "Failed to request irq event %i\n", irq_event);
  
- 	i2c_dev->analog_filter = of_property_read_bool(i2c_dev->dev->of_node,
- 						       "i2c-analog-filter");
-@@ -2175,10 +2161,8 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	setup = of_device_get_match_data(&pdev->dev);
--	if (!setup) {
--		dev_err(&pdev->dev, "Can't get device data\n");
--		return -ENODEV;
+ 	ret = devm_request_irq(&pdev->dev, irq_error, stm32f4_i2c_isr_error, 0,
+ 			       pdev->name, i2c_dev);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Failed to request irq error %i\n",
+-			irq_error);
+-		return ret;
 -	}
-+	if (!setup)
-+		return dev_err_probe(&pdev->dev, -ENODEV, "Can't get device data\n");
- 	i2c_dev->setup = *setup;
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret,
++				     "Failed to request irq error %i\n", irq_error);
  
- 	i2c_dev->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-@@ -2279,7 +2263,7 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 
- 		ret = dev_pm_set_wake_irq(i2c_dev->dev, irq_event);
- 		if (ret) {
--			dev_err(i2c_dev->dev, "Failed to set wake up irq\n");
-+			dev_err_probe(i2c_dev->dev, ret, "Failed to set wake up irq\n");
- 			goto clr_wakeup_capable;
- 		}
- 	}
-@@ -2305,9 +2289,8 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 	if (i2c_dev->smbus_mode) {
- 		ret = stm32f7_i2c_enable_smbus_host(i2c_dev);
- 		if (ret) {
--			dev_err(i2c_dev->dev,
--				"failed to enable SMBus Host-Notify protocol (%d)\n",
--				ret);
-+			dev_err_probe(i2c_dev->dev, ret,
-+				      "failed to enable SMBus Host-Notify protocol\n");
- 			goto i2c_adapter_remove;
- 		}
- 	}
-@@ -2315,9 +2298,8 @@ static int stm32f7_i2c_probe(struct platform_device *pdev)
- 	if (of_property_read_bool(pdev->dev.of_node, "smbus-alert")) {
- 		ret = stm32f7_i2c_enable_smbus_alert(i2c_dev);
- 		if (ret) {
--			dev_err(i2c_dev->dev,
--				"failed to enable SMBus alert protocol (%d)\n",
--				ret);
-+			dev_err_probe(i2c_dev->dev, ret,
-+				      "failed to enable SMBus alert protocol\n");
- 			goto i2c_disable_smbus_host;
- 		}
- 	}
+ 	ret = stm32f4_i2c_hw_config(i2c_dev);
+ 	if (ret)
 
 -- 
 2.43.0
