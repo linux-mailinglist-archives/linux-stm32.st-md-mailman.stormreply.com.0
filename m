@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eEqcFFSJw2m8rQQAu9opvQ
+	id iPm1E1SJw2m6rQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0253E320678
+	by mail.lfdr.de (Postfix) with ESMTPS id 02700320679
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 62F4CC8F273;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 747ACC8F279;
 	Wed, 25 Mar 2026 07:05:55 +0000 (UTC)
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59488C87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 56224C87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 18:27:33 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-35bb7afdc38so849218a91.1
+ Tue, 24 Mar 2026 18:27:42 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-35a1d4a095bso112737a91.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 11:27:33 -0700 (PDT)
+ Tue, 24 Mar 2026 11:27:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774376852; x=1774981652;
+ d=gmail.com; s=20251104; t=1774376861; x=1774981661;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=9Gsg2Xtdfdl+8IY6r0o/RyYDfTlBlRsSZJpA/oULFGs=;
- b=pzau/lQaSHAOTCiMg+d+dmUgT4oIlcV3PSqZ1eUkZtSsrR8bAj/8O58cswP2trpLkP
- xTonBVvEVisLZk01rqyQnez7Y0k7emmgCEGl+z2Hod9Me/9T+73UmECerdKiNU1l0IBS
- ddDu6RFyYLdLN2HTj1lcjRaUPonhZjmaEvpCUTgrdEGHbfLSH25fqKGE96+pQtwkwjnh
- TiSH5hg2eB2IvueLTEhsr86/HivB9UDlrPApYMQnV9OulMKGw/ytNxUv/7JGb9xn5ZJJ
- QTjQ5bz1lHukmnd2STu/De1NRV6lsaNYEynxpAxIBg1/WZAd7bZUapotnyT6Hf3NTAxP
- 7fWg==
+ :reply-to; bh=alJwQhTp7nkw0Ib79edmwantLXplbDvUqq4BVXNADKE=;
+ b=XbQXFAlq5DYC0xwzZWMk9l2GmGqxJHGRqCpSR2bm6kP7qFjOZ/BKES3VfcnQvqpzSp
+ bAIceoEXBTvzezyB3rpfwaL81gGGvdxBbNAs9LYavS3xSujVJ/bR/K2UPDRxUjKG4Hgb
+ nBNLqdbjAeNXRLcyKWY52pf81QPR0XoCdV0VeEmuqeKv4kr4kh8hW2pUV7q62GRMGpYr
+ i0j+CilQFr7Nj3WagTwLXiQl/O2T74o7QatNEGas/7Ibef993WTq3OWiw+MACKgBwjAC
+ tJHIzZ8eimk7I3OadiPyGmH5I2OtDDgF1nIOa5L129dY1U3V7mty9KCVYtRPLw43kSdh
+ ePNw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774376852; x=1774981652;
+ d=1e100.net; s=20251104; t=1774376861; x=1774981661;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=9Gsg2Xtdfdl+8IY6r0o/RyYDfTlBlRsSZJpA/oULFGs=;
- b=b/pVJruR1Ja7x4KLkWbId6J4BbaR5SMhDQD6WPkc6ot+BytcM0V1KVgqqIwTixt7UO
- wN3xcxIEMXcgJa3UbVygouoOxayMNr+HkVLJK2KCaOYMx9dDouNDnxEFkLGd3MmFWq6S
- aUDEqsIH6S/0qgxEYMuH7ebELPay4yUdSgOoz+mDQEc1HPv0nkKWFquH+0Vw2+kjBrPn
- +Y7RCW1WMI60cYWSFsAcUusxc/dbIOcf2/v2d+pQV8NwBTyeL+6igxnN7yt+YFb/Wtwa
- 80NblUVI+h2M8xlzwSCuTy3Y5TtCIDvXnP7cy+jWGgTx73FpknMmS1QmsDcwZ1jSYhVx
- 0c0g==
+ bh=alJwQhTp7nkw0Ib79edmwantLXplbDvUqq4BVXNADKE=;
+ b=D/x1GxNyjrGlV4XZccrLguWucs2eZSWNrgKeZPFRmyfN/6L1zIGoWoD3bthQredtRA
+ wRvFhW87LsMGvKmG440BzlgTN/81FiIYpUw1/zQl+nd023qhvQOmQBD27WEP7HWTJg14
+ tHp5wCVCTD/mQMwILj5CeBXE3FDxYLjVdaFx7xBLXZyY/GE2GMr10a70+VUZ04e9nm7B
+ DU+avcx8uHlbrcX2c5PRrPGhYPna6Lk6ry1rHMrvh6yBGMY4iHr2BV/euRj/roK312Zq
+ GmJBZ69A61IkMYNsIzoaQwz8qk1loa3tnvkDMTYu+aem4PlyPy4N4eKXELmF1zmsN2oy
+ lN3g==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWlXshrMxPPC63m56KxWSo+UqDP5mGto+cvyEn2tlRAcY7rGzFJPNiabufRo+j3/aT/6+rV7/YJtt4vZA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywk6Pawig2K37VdwAYHa8/qTxZ1UjsmFJjqoCXIn3bevrnrdEKw
- P0skPSWBfHLv0DlVHhuI6jMo9EX9b/1zzFTkDdT7m2unbjE7xzH8FxXZ
-X-Gm-Gg: ATEYQzzwwYqvAc8LRZyPklmlZAywcVWsuqCkvewFvllJAg2NFDEcyoSB7YggNivQ0E7
- jQImAg1IO3aQ24u44F0W0F6FM+QE37C4GmGPZD1GneAwkH0+8o+pm6a/Y/o4Z38cpD6anpASS6t
- kSR5CmhwohKMRXvhppECRV7UAPF+2XuQ8Tw2qIqslRLCKc74X3fm30rpc/uSHwbkn7z0y22XWLy
- 6PGfzHXwzE2a1S90kGkBWY57ICM5Yg4FK30Ng+ADu76+H+uBJU+n85FzQoxOpULoWTe/nURSSyJ
- 5GQQhDakoS+vTdNu5ot/B62VtNnyqbjbRxpVOdBkk0+meY3X0by2Wswy1N7+Y68Kc+j9jbhwejr
- pG3zoMG1SNXR8H461QVhlwgwqgeKKPDoE47HHNr0WsKm2I4xlq3dYcOMGKVihb33maNKZNMvlf+
- BO0wLlTAtdq1ujaATudn8WsnPnWY3dvi1CQLIb
-X-Received: by 2002:a17:90b:17c8:b0:35b:e591:99d1 with SMTP id
- 98e67ed59e1d1-35c0ddc4118mr351953a91.29.1774376851910; 
- Tue, 24 Mar 2026 11:27:31 -0700 (PDT)
+ AJvYcCU9iqJk0E6Jthbm4SIxZtHGKcbnOLD0TxVNmVlSKAbnstqJ4KIIUsEZBDMboCVxgB8yW8kqcEbBnBQDRQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwwMNkspcxqdt678BWKSnmUAEbSeJzVnN3d9AbfQ/0ti4bz6xld
+ v4kfKCB2NCg2HuXYXzr+XuYKLsSQlOSimdn/YVUjz9wkKOaXLyd/2+gP
+X-Gm-Gg: ATEYQzy3z7LJJR8IKRQ3mYXgwiLTHm0gvSsNRE1xK6PEE1mJYAW7W9TpmsJndmeVLLM
+ CZN7zdN7qGo6BUXZt4NJNg1EIRObiM1+TGWLqnK9cqv6wG0p7X19moAKiJeUMKhZwGUxJxdzz69
+ eYU9SKiwhN3dMd6I8sds8o2bJzHFjoL9OWjYUOBVJ8lz1qI+hWxDsCRK1VAYVldPpYtrDNc819W
+ osb0aBsLBFXJc5NxN070UZM9Dxz4qWj08eX/8ZfQ57kN7kZOltgWf+w0PpIFkoQL96P4V0QKY96
+ 6HnTBGie8rwDYAZLZyhmK4oZUtwomwNyuYBcO263Buu1tDnQU0yX5oabanevg437mkvLMHxHBlt
+ 46Lj59nHdVpUSab0rR0SSg24vnDnH8eI5ElvfeOsWDhJCb7QbG5Qrw1jtdbZ4LNk6vugly+4pRW
+ X/txiTHYeZUS/Fs3HzLvPJ7NY9Lw==
+X-Received: by 2002:a17:90b:57c4:b0:35b:9703:7664 with SMTP id
+ 98e67ed59e1d1-35c008d38f1mr4197956a91.10.1774376860812; 
+ Tue, 24 Mar 2026 11:27:40 -0700 (PDT)
 Received: from [127.0.1.1] ([103.216.213.160])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c0d6060b5sm350576a91.17.2026.03.24.11.27.21
+ 98e67ed59e1d1-35c0d6060b5sm350576a91.17.2026.03.24.11.27.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 11:27:31 -0700 (PDT)
+ Tue, 24 Mar 2026 11:27:40 -0700 (PDT)
 From: Atharv Dubey <atharvd440@gmail.com>
-Date: Tue, 24 Mar 2026 23:56:50 +0530
+Date: Tue, 24 Mar 2026 23:56:51 +0530
 MIME-Version: 1.0
-Message-Id: <20260324-deverr-v1-2-7e591cce33a3@gmail.com>
+Message-Id: <20260324-deverr-v1-3-7e591cce33a3@gmail.com>
 References: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
 In-Reply-To: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
 To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>, 
@@ -87,11 +87,11 @@ To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>,
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
  Chunyan Zhang <zhang.lyra@gmail.com>, Jean Delvare <jdelvare@suse.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774376818; l=1910;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774376818; l=3450;
  i=atharvd440@gmail.com; s=20260314; h=from:subject:message-id;
- bh=T//TFybKN0iS3J929ONSQMLq+NVtMUv+4U4PajSEtpE=;
- b=fr2E/ILXide+l6/sGLPzjFEjto2BGT6qqnz9x0FPbuW7SDMBkCcBooGAF0nF3tgg5wQpoDzh0
- nAnDJBBoQYcAomrkw15oBfCFd8unXKN1lYuv+oiXhwJuhidayGEmEVJ
+ bh=mGoeA4RoMr6oMafJS8Wz9uEiYGmdoZGvaadkVl07Ac4=;
+ b=mqDXFTn7P7YKfYZq5yfTqBReywbYSNkXTrDiQ10Gxn0U4N3AcD22e4px2/bKmxQtkFRLFhMV5
+ D6Rwa2VObbECiZHEiSRVGIVnkT5nDLR0wDkwvKuXdMmJb12BQQQ/qlI
 X-Developer-Key: i=atharvd440@gmail.com; a=ed25519;
  pk=T6i1xWOKT/RUSDYATSgyVG/4X7ac8jPjRSG1mMAcqVk=
 X-Mailman-Approved-At: Wed, 25 Mar 2026 07:05:52 +0000
@@ -99,7 +99,7 @@ Cc: linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-i2c@vger.kernel.org, linux-tegra@vger.kernel.org,
  Atharv Dubey <atharvd440@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Enrico Zanda <e.zanda1@gmail.com>
-Subject: [Linux-stm32] [PATCH 02/10] i2c: tegra: Replace dev_err() with
+Subject: [Linux-stm32] [PATCH 03/10] i2c: sun6i-p2wi: Replace dev_err() with
  dev_err_probe() in probe function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -149,10 +149,10 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.952];
+	NEURAL_SPAM(0.00)[0.951];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 0253E320678
+X-Rspamd-Queue-Id: 02700320679
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -163,52 +163,103 @@ This simplifies the code while improving log.
 Signed-off-by: Enrico Zanda <e.zanda1@gmail.com>
 Signed-off-by: Atharv Dubey <atharvd440@gmail.com>
 ---
- drivers/i2c/busses/i2c-tegra.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/i2c/busses/i2c-sun6i-p2wi.c | 55 ++++++++++++++-----------------------
+ 1 file changed, 20 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/i2c/busses/i2c-tegra.c b/drivers/i2c/busses/i2c-tegra.c
-index bec619b9af4e..51d15fca82fc 100644
---- a/drivers/i2c/busses/i2c-tegra.c
-+++ b/drivers/i2c/busses/i2c-tegra.c
-@@ -575,8 +575,8 @@ static int tegra_i2c_init_dma(struct tegra_i2c_dev *i2c_dev)
- 	dma_buf = dma_alloc_coherent(i2c_dev->dma_dev, i2c_dev->dma_buf_size,
- 				     &dma_phys, GFP_KERNEL | __GFP_NOWARN);
- 	if (!dma_buf) {
--		dev_err(i2c_dev->dev, "failed to allocate DMA buffer\n");
--		err = -ENOMEM;
-+		err = dev_err_probe(i2c_dev->dev, -ENOMEM,
-+				    "failed to allocate DMA buffer\n");
- 		goto err_out;
+diff --git a/drivers/i2c/busses/i2c-sun6i-p2wi.c b/drivers/i2c/busses/i2c-sun6i-p2wi.c
+index fb5280b8cf7f..dffbe776a195 100644
+--- a/drivers/i2c/busses/i2c-sun6i-p2wi.c
++++ b/drivers/i2c/busses/i2c-sun6i-p2wi.c
+@@ -194,22 +194,16 @@ static int p2wi_probe(struct platform_device *pdev)
+ 	int ret;
+ 
+ 	of_property_read_u32(np, "clock-frequency", &clk_freq);
+-	if (clk_freq > P2WI_MAX_FREQ) {
+-		dev_err(dev,
+-			"required clock-frequency (%u Hz) is too high (max = 6MHz)",
+-			clk_freq);
+-		return -EINVAL;
+-	}
++	if (clk_freq > P2WI_MAX_FREQ)
++		return dev_err_probe(dev, -EINVAL,
++				     "required clock-frequency (%u Hz) is too high (max = 6MHz)",
++				     clk_freq);
+ 
+-	if (clk_freq == 0) {
+-		dev_err(dev, "clock-frequency is set to 0 in DT\n");
+-		return -EINVAL;
+-	}
++	if (clk_freq == 0)
++		return dev_err_probe(dev, -EINVAL, "clock-frequency is set to 0 in DT\n");
+ 
+-	if (of_get_child_count(np) > 1) {
+-		dev_err(dev, "P2WI only supports one target device\n");
+-		return -EINVAL;
+-	}
++	if (of_get_child_count(np) > 1)
++		return dev_err_probe(dev, -EINVAL, "P2WI only supports one target device\n");
+ 
+ 	p2wi = devm_kzalloc(dev, sizeof(struct p2wi), GFP_KERNEL);
+ 	if (!p2wi)
+@@ -226,11 +220,9 @@ static int p2wi_probe(struct platform_device *pdev)
+ 	childnp = of_get_next_available_child(np, NULL);
+ 	if (childnp) {
+ 		ret = of_property_read_u32(childnp, "reg", &target_addr);
+-		if (ret) {
+-			dev_err(dev, "invalid target address on node %pOF\n",
+-				childnp);
+-			return -EINVAL;
+-		}
++		if (ret)
++			return dev_err_probe(dev, -EINVAL,
++					     "invalid target address on node %pOF\n", childnp);
+ 
+ 		p2wi->target_addr = target_addr;
  	}
+@@ -245,26 +237,20 @@ static int p2wi_probe(struct platform_device *pdev)
+ 		return irq;
  
-@@ -588,8 +588,8 @@ static int tegra_i2c_init_dma(struct tegra_i2c_dev *i2c_dev)
- err_out:
- 	tegra_i2c_release_dma(i2c_dev);
- 	if (err != -EPROBE_DEFER) {
--		dev_err(i2c_dev->dev, "cannot use DMA: %d\n", err);
--		dev_err(i2c_dev->dev, "falling back to PIO\n");
-+		dev_err_probe(i2c_dev->dev, err,
-+			      "cannot use DMA, falling back to PIO\n");
- 		return 0;
+ 	p2wi->clk = devm_clk_get_enabled(dev, NULL);
+-	if (IS_ERR(p2wi->clk)) {
+-		ret = PTR_ERR(p2wi->clk);
+-		dev_err(dev, "failed to enable clk: %d\n", ret);
+-		return ret;
+-	}
++	if (IS_ERR(p2wi->clk))
++		return dev_err_probe(dev, PTR_ERR(p2wi->clk),
++				     "failed to enable clk\n");
+ 
+ 	parent_clk_freq = clk_get_rate(p2wi->clk);
+ 
+ 	p2wi->rstc = devm_reset_control_get_exclusive(dev, NULL);
+-	if (IS_ERR(p2wi->rstc)) {
+-		dev_err(dev, "failed to retrieve reset controller: %pe\n",
+-			p2wi->rstc);
+-		return PTR_ERR(p2wi->rstc);
+-	}
++	if (IS_ERR(p2wi->rstc))
++		return dev_err_probe(dev, PTR_ERR(p2wi->rstc),
++				     "failed to retrieve reset controller\n");
+ 
+ 	ret = reset_control_deassert(p2wi->rstc);
+-	if (ret) {
+-		dev_err(dev, "failed to deassert reset line: %d\n", ret);
+-		return ret;
+-	}
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
+ 
+ 	init_completion(&p2wi->complete);
+ 	p2wi->adapter.dev.parent = dev;
+@@ -276,8 +262,7 @@ static int p2wi_probe(struct platform_device *pdev)
+ 
+ 	ret = devm_request_irq(dev, irq, p2wi_interrupt, 0, pdev->name, p2wi);
+ 	if (ret) {
+-		dev_err(dev, "can't register interrupt handler irq%d: %d\n",
+-			irq, ret);
++		dev_err_probe(dev, ret, "can't register interrupt handler irq%d\n", irq);
+ 		goto err_reset_assert;
  	}
- 
-@@ -1953,7 +1953,7 @@ static int tegra_i2c_init_clocks(struct tegra_i2c_dev *i2c_dev)
- 
- 	err = clk_enable(i2c_dev->div_clk);
- 	if (err) {
--		dev_err(i2c_dev->dev, "failed to enable div-clk: %d\n", err);
-+		dev_err_probe(i2c_dev->dev, err, "failed to enable div-clk\n");
- 		goto unprepare_clocks;
- 	}
- 
-@@ -1979,7 +1979,7 @@ static int tegra_i2c_init_hardware(struct tegra_i2c_dev *i2c_dev)
- 
- 	ret = pm_runtime_get_sync(i2c_dev->dev);
- 	if (ret < 0)
--		dev_err(i2c_dev->dev, "runtime resume failed: %d\n", ret);
-+		dev_err_probe(i2c_dev->dev, ret, "runtime resume failed\n");
- 	else
- 		ret = tegra_i2c_init(i2c_dev);
  
 
 -- 
