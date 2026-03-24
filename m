@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8B7aNJ6NwmlvewQAu9opvQ
+	id CPhrL6ONwmlvewQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 14:11:58 +0100
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 14:12:03 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FB583090D8
-	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 14:11:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A612E3090E1
+	for <lists+linux-stm32@lfdr.de>; Tue, 24 Mar 2026 14:12:03 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3ABA4C87ECB;
-	Tue, 24 Mar 2026 13:11:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 477FEC87ECB;
+	Tue, 24 Mar 2026 13:12:03 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4EC5C87EC8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE018C87EC8
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 13:11:56 +0000 (UTC)
+ Tue, 24 Mar 2026 13:12:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=/8kr4pctSw0pO/Mbf8GhPGw5pUepq7emeumsMapqBGk=; b=MHFuDJU3V1dKjT3u3Etg0HAUqr
- /FLqaA35G9zo57HqK7FDaH5tdN3/Otofp9qdRhnnjlCpJeR+S79QL99VB4Nd7XG+HAcX5O44UokJw
- rAaW1KZCOA+1G8oiWVVD3AzpFb888Vg4FiK4GG7MteFF8Dw2UKGfkiDuaPjd2ZqJ5HmF2yBo0mLJl
- BBPKatIjlegCKYLu9dcOPRChEqUGJwysdPjzuCpH7zTP09EjVKwJ6EGJh4SaFdxNq5llV/uDKPKiN
- qu3uuCk5UsNfECoywwZu/C7p04jHu77nvkGDAv49bnrQmyyrmWkPObh1E5dcv05ZVB2XtN0esWldM
- Ns7w1eKQ==;
+ bh=9580yafoCa1RxAXg+BY7iUMy1G/+IM8etLdguxInS2Q=; b=gI4NFi3LaT6vUHZMkSe9Ec9GAc
+ pWuDbfB2whLvmS/i/HWRthcsBt+Gs8TVCm0pkTf1Qv3GEYv/drzn11dp9XSepSW+HJBCsukZfnH6Z
+ 8P1BpeNY7qVAJDBY7JJxmgasBJFY4z7g0RAeAxceUiHkCfTFVo5zLsEfTDU8sVpUokxbLbMFB2ryM
+ VYo6Byh8k/MB3yFEXR6RksTxpUofvyxe3voysFSLPKMY/M7bhJwgdnQJwoApQlZ5QT6HhcMpbhOgK
+ t7v/7Wbr0yc2AT/TSNf4Fw3T+xOzuSHglmpYjut0t7VnoYFf2H2PCk5hJTvObrWB8FyiLJXC7kV5/
+ zh+oiKDg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:47346 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:38010 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w51Xt-00000000230-2NHV;
- Tue, 24 Mar 2026 13:11:45 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w51Xz-0000000023L-0ZLz;
+ Tue, 24 Mar 2026 13:11:51 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w51Xs-0000000DwVV-2bnh; Tue, 24 Mar 2026 13:11:44 +0000
+ id 1w51Xx-0000000DwVb-34Rx; Tue, 24 Mar 2026 13:11:49 +0000
 In-Reply-To: <acKNcX5PqtWYf8m3@shell.armlinux.org.uk>
 References: <acKNcX5PqtWYf8m3@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w51Xs-0000000DwVV-2bnh@rmk-PC.armlinux.org.uk>
-Date: Tue, 24 Mar 2026 13:11:44 +0000
+Message-Id: <E1w51Xx-0000000DwVb-34Rx@rmk-PC.armlinux.org.uk>
+Date: Tue, 24 Mar 2026 13:11:49 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 03/15] net: stmmac: qcom-ethqos:
- eliminate configure_func
+Subject: [Linux-stm32] [PATCH net-next 04/15] net: stmmac: qcom-ethqos: move
+ detection of invalid RGMII speed
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,107 +104,46 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 8FB583090D8
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,rmk-PC.armlinux.org.uk:mid,armlinux.org.uk:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: A612E3090E1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Since ethqos_fix_mac_speed() is called via a function pointer, and only
-indirects via the configure_func function pointer, eliminate this
-unnecessary indirection.
+Move detection of invalid RGMII speeds (which will never be triggered)
+before the switch() to allow register modifications that are common to
+all speeds to be moved out of the switch.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../stmicro/stmmac/dwmac-qcom-ethqos.c        | 33 ++++++++-----------
- 1 file changed, 14 insertions(+), 19 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index b9cfcf32cebc..84f713ec8c28 100644
+index 84f713ec8c28..7e389db40e8b 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -100,9 +100,6 @@ struct ethqos_emac_driver_data {
- struct qcom_ethqos {
- 	struct platform_device *pdev;
- 	void __iomem *rgmii_base;
--	void (*configure_func)(struct qcom_ethqos *ethqos,
--			       phy_interface_t interface, int speed);
--
- 	struct clk *link_clk;
- 	struct phy *serdes_phy;
- 	phy_interface_t phy_mode;
-@@ -521,13 +518,17 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 	return 0;
- }
+@@ -397,6 +397,11 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+ 	/* Select RGMII, write 0 to interface select */
+ 	rgmii_clrmask(ethqos, RGMII_CONFIG_INTF_SEL, RGMII_IO_MACRO_CONFIG);
  
--static void ethqos_configure_rgmii(struct qcom_ethqos *ethqos,
--				   phy_interface_t interface, int speed)
-+static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
-+				       phy_interface_t interface, int speed,
-+				       unsigned int mode)
- {
--	struct device *dev = &ethqos->pdev->dev;
-+	struct qcom_ethqos *ethqos = bsp_priv;
-+	struct device *dev;
- 	unsigned int i;
- 	u32 val;
- 
-+	dev = &ethqos->pdev->dev;
-+
- 	/* Reset to POR values and enable clk */
- 	for (i = 0; i < ethqos->num_rgmii_por; i++)
- 		rgmii_writel(ethqos, ethqos->rgmii_por[i].value,
-@@ -601,9 +602,12 @@ static void ethqos_pcs_set_inband(struct qcom_ethqos *ethqos, bool enable)
- /* On interface toggle MAC registers gets reset.
-  * Configure MAC block for SGMII on ethernet phy link up
-  */
--static void ethqos_configure_sgmii(struct qcom_ethqos *ethqos,
--				   phy_interface_t interface, int speed)
-+static void ethqos_fix_mac_speed_sgmii(void *bsp_priv,
-+				       phy_interface_t interface, int speed,
-+				       unsigned int mode)
- {
-+	struct qcom_ethqos *ethqos = bsp_priv;
++	if (speed != SPEED_1000 && speed != SPEED_100 && speed != SPEED_10) {
++		dev_err(dev, "Invalid speed %d\n", speed);
++		return -EINVAL;
++	}
 +
  	switch (speed) {
- 	case SPEED_2500:
  	case SPEED_1000:
-@@ -623,14 +627,6 @@ static void ethqos_configure_sgmii(struct qcom_ethqos *ethqos,
- 	ethqos_pcs_set_inband(ethqos, interface == PHY_INTERFACE_MODE_SGMII);
- }
- 
--static void ethqos_fix_mac_speed(void *priv, phy_interface_t interface,
--				 int speed, unsigned int mode)
--{
--	struct qcom_ethqos *ethqos = priv;
--
--	ethqos->configure_func(ethqos, interface, speed);
--}
--
- static int qcom_ethqos_serdes_powerup(struct net_device *ndev, void *priv)
- {
- 	struct qcom_ethqos *ethqos = priv;
-@@ -753,11 +749,11 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
- 	case PHY_INTERFACE_MODE_RGMII_ID:
- 	case PHY_INTERFACE_MODE_RGMII_RXID:
- 	case PHY_INTERFACE_MODE_RGMII_TXID:
--		ethqos->configure_func = ethqos_configure_rgmii;
-+		plat_dat->fix_mac_speed = ethqos_fix_mac_speed_rgmii;
+ 		rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE,
+@@ -510,9 +515,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+ 		rgmii_updatel(ethqos, RGMII_CONFIG_LOOPBACK_EN,
+ 			      loopback, RGMII_IO_MACRO_CONFIG);
  		break;
- 	case PHY_INTERFACE_MODE_2500BASEX:
- 	case PHY_INTERFACE_MODE_SGMII:
--		ethqos->configure_func = ethqos_configure_sgmii;
-+		plat_dat->fix_mac_speed = ethqos_fix_mac_speed_sgmii;
- 		plat_dat->mac_finish = ethqos_mac_finish_serdes;
- 		break;
- 	default:
-@@ -805,7 +801,6 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+-	default:
+-		dev_err(dev, "Invalid speed %d\n", speed);
+-		return -EINVAL;
+ 	}
  
- 	plat_dat->bsp_priv = ethqos;
- 	plat_dat->set_clk_tx_rate = ethqos_set_clk_tx_rate;
--	plat_dat->fix_mac_speed = ethqos_fix_mac_speed;
- 	plat_dat->dump_debug_regs = rgmii_dump;
- 	plat_dat->ptp_clk_freq_config = ethqos_ptp_clk_freq_config;
- 	plat_dat->core_type = DWMAC_CORE_GMAC4;
+ 	return 0;
 -- 
 2.47.3
 
