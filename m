@@ -2,78 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UMsEDVSJw2m2rQQAu9opvQ
+	id CDkYFVSJw2m2rQQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:56 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01C67320677
+	by mail.lfdr.de (Postfix) with ESMTPS id 096FB32067B
 	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 08:05:55 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2BB52C8F26E;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 465E3C8F270;
 	Wed, 25 Mar 2026 07:05:55 +0000 (UTC)
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
- [209.85.216.53])
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A4391C87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EEEF9C87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 18:27:11 +0000 (UTC)
-Received: by mail-pj1-f53.google.com with SMTP id
- 98e67ed59e1d1-354bc7c2c46so2790949a91.0
+ Tue, 24 Mar 2026 18:27:22 +0000 (UTC)
+Received: by mail-pj1-f47.google.com with SMTP id
+ 98e67ed59e1d1-35b88a4f123so69413a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 24 Mar 2026 11:27:11 -0700 (PDT)
+ Tue, 24 Mar 2026 11:27:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774376830; x=1774981630;
+ d=gmail.com; s=20251104; t=1774376841; x=1774981641;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=Y8dxWxemVY09l/RSeGxRpi4JIV8mJaxVcxtXBlCQ2JM=;
- b=D303OkibRGkUIt1QyEC223hy/2DsLnSHP+hYLO4GBZfECDzD7i9rLXvTXHnKSKET4k
- eoPIc0SSAAxaldIMFajtn/bowN+fpBzXLD3PHnme6WNmoM1wduKGY0+HucqJZ2toW0Fy
- xkbLt6UBw9r+veQTiDRBsEAGtN5WUrFTi3IO5BXZ4vuuf3iUL0QwW3RxgwxWVdbPuFuK
- /Mz4gDALYSPnf+vC2iEfNOsKZhHwkejyjbluHp/zD0VFl8uxBQVzZl/S6RsZNqtWfRc+
- 6Yo16dChSz4KOo60HPnRa5ZWEb6s5axd3l+GgAW+8Lb2VwokbWc+JpBS2JruqT0Qq5BW
- eWEQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=JU53ztXeIg9rAt/w2RhxQEA1HrNV+jGEvjmkGqWYdZA=;
+ b=MycxBayiUCuJ+a7rfLI1Qy1FkQwTMGARl88Yx/mxJISqIkj/c9SAGuWyvX1Oqd3W9p
+ J4gp8IWeJEYHaGaOhf8u2BOVUzLMgOtVSX5ANlEVPY5huTXgY7NufYVgnhxmn/yKhnv0
+ vBq9oh2yvrJZdn6USGN0/t3xH1sXRJ+yEMKkm36QM8ssbLAGzZ0e0oJMHduzHc83QZ9Z
+ zOga8MWAL5nplyWhrt2DFcrFq3gi6ZQTkNj2fyiLvvVmg1d/g8CRRL8B9VS+1cAxgz6V
+ boIvdAbHAgBVXIR3LcZfzcTCraJPJbwdUvywqBp40xv9aSgJHzZMRGo/8kY6Wiex6mBc
+ 2YTg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774376830; x=1774981630;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Y8dxWxemVY09l/RSeGxRpi4JIV8mJaxVcxtXBlCQ2JM=;
- b=J23zr74wTzz0oaOrPs3+taGAaRk3DwlQwBm+hnk7pIzFRh3BgskIFnFtjWQpeIPA6Y
- tls74AElQA3xyMRW17cMuPuQRTVXVu9y6ntzcoJGfCWWsrCPzA2RGSJ5nNK0QdKu+3Um
- NF7vArMTNphavT0WjyVmE0xrBlINKUCtfYI3tZxS6zlsrRUigQA3Z4jRCWtleLmpC/Mp
- hVnC2UM0k+8QfnIu4a3Fdj+YG7nxRn3TjfEYQ79IRVOZXjxzOtdBUTiKmKKNFgVDoKlH
- JU4svRokYK51dwBXKvLV6f/BZOFwWy1v36FE/5YGcz3kFqnsXvPMI/KXg7EZVygx/PSk
- HvCA==
+ d=1e100.net; s=20251104; t=1774376841; x=1774981641;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=JU53ztXeIg9rAt/w2RhxQEA1HrNV+jGEvjmkGqWYdZA=;
+ b=NBTmDNeL1q8oap+VDuVReF+8GduvP1jAkEQMYVVJIZsOX8nFjnZc2qzk2VndE4rSZO
+ gQhp0fZ8chGNqsxnvXg46jAOrcmuId27uCkLDPbsyNKaiTBZDoA7oh/Rr/4qfvpEyeCN
+ g9woL1EHE9mxDVcup8OM/0u6PpGCKjTDhjOUYngrrGsFezy5E7rZ02sVho6NV76q5QVx
+ rSrfrNnHtFf4NDc9uta2RiG580RqCD1uqv8u3DIqlSxf+qGngpZDoSDm6MSk6HYEbFV1
+ V3ipDWIVw0vXEfD/aIRL0O4OZ83W63W2zuoj4WV901hMKthiQWEcvGU4/ZJHH6BbxEO4
+ +fsQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCV3d0LqkqYFRUTIVaQH74VVWzXTSL2TsGa8WsvKhusEwlCyrx8lZBO0o15JEtMVP7FyQlmkv1gT5PT6RQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyj3/azT1ZJIyjUqjR1gQlZyoyFhXMarlIaLgHjEdCM+8usEEhz
- qzB5eGo9WkepJE33Qsb4tskpz2wHKbB31qknjIi7CvdIOANJwhQMvZqA
-X-Gm-Gg: ATEYQzxXtArYDf1u+5rUyk+fdTgAUQ391mClNEIF5e/zx8s/Ji5ABvp2vtSOQ2zEYYf
- Q5W35ZWFSPfsaS/RxQy5aF6xPmtggRwYYbo7CQQOrBu8NP+5P5zxBw+PSSt4GgkO5fZbyAzFP6K
- ds+b9XHMawcNN6RO/NBgpHttFOQK8yRWFMy7aq2MQE/UMSIu53socbEVw3Z+zeFU9pttNNwuXyd
- LePqMA4zg3CD7YXnxYfLae3L8y503CsbxJ+v/4XqCnPZ75ry5nJCWK29o60tq0H9sqXSZ762EaO
- VY+sD05uP5HKF6Xd4mAanrgUrTS1CMq2DrJKQYY/AEImkuj4e8DLtYmYoqmIxsgJORYt8jyuaPD
- j0sOrhYCMJgLjGgFwDzm+izrIuc2WKU5LBsikhXJrKhW+wDUXLJXyFh9YBBZW2r5EOe4xrP2Clf
- HVgS6NOlBpptBPNYoG6dsPgM89cQ==
-X-Received: by 2002:a17:90a:e705:b0:35a:329:73c6 with SMTP id
- 98e67ed59e1d1-35c0dc80d99mr378084a91.3.1774376829881; 
- Tue, 24 Mar 2026 11:27:09 -0700 (PDT)
+ AJvYcCUlgFH7fKq8choyMc0OZe5iZDZ/ErErEBO3Vmlv2dojPW5qy/snqsgt+NhP0kz8qWvMjA/yPanorTFqSQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxMJZXqMlhHo8T8VpakRE6MuwCVsu34ckEDlxnYke79NfyDf8BU
+ AwGCaVDnfQR/YR5qXFP65VsJjaAfDgKx82QSd6Dw2HUl61057bmJ0zOK
+X-Gm-Gg: ATEYQzw0jSgYow0JVayJGMncC6TnTIvOL0BjX7Ab08lDTm50IxMbmePJaXsHPYjX4yO
+ 5a+K0GDhUWsoNDx5yo0TL8K47xNdwhlSi96sdvgSCFdW5yUKO+3l7mMiMR9JEGWpVqIXMwDoezt
+ MEFTcioUJQ5YG5XSbyBlGrCfpM8gFVgF0ZOPref/S3336bQrHvFCkKdmjcFAanF4Dw1nd24TKEx
+ TmMWXKlTgEt2fA0IpfvfZmR5ICjLcB4O0MrBq+nJHnZQJYiY9kdhmLOe5M/9Efun+Qqns8gDXNi
+ 29DR5m+CoahUL/yy59K0tI5tVxacPW+jqutSaN0XdJJytgBAWU0ecaFj5eiV15jor9grBZT0Rsx
+ ON3gTy3pD9mPiv9einez2aykksRdyinHjDg9PuINmVNn8Z8WvMXpM284jBLTQthB+WbXA7UM6E9
+ NP54MqlxT/rAw0TK1x/9ql3qZQ6g==
+X-Received: by 2002:a17:90b:57e3:b0:34a:be93:72ee with SMTP id
+ 98e67ed59e1d1-35c0d1451d7mr559615a91.8.1774376841343; 
+ Tue, 24 Mar 2026 11:27:21 -0700 (PDT)
 Received: from [127.0.1.1] ([103.216.213.160])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c0d6060b5sm350576a91.17.2026.03.24.11.26.58
+ 98e67ed59e1d1-35c0d6060b5sm350576a91.17.2026.03.24.11.27.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Mar 2026 11:27:09 -0700 (PDT)
+ Tue, 24 Mar 2026 11:27:20 -0700 (PDT)
 From: Atharv Dubey <atharvd440@gmail.com>
-Date: Tue, 24 Mar 2026 23:56:48 +0530
-Message-Id: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
+Date: Tue, 24 Mar 2026 23:56:49 +0530
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAGnXwmkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDYyMT3ZTUstSiIl2TJIMkg1RTA0NL02QloOKCotS0zAqwQdGxtbUAXM4
- talgAAAA=
-X-Change-ID: 20260324-deverr-4b0b0e50195c
+Message-Id: <20260324-deverr-v1-1-7e591cce33a3@gmail.com>
+References: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
+In-Reply-To: <20260324-deverr-v1-0-7e591cce33a3@gmail.com>
 To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>, 
  Laxman Dewangan <ldewangan@nvidia.com>, Dmitry Osipenko <digetx@gmail.com>, 
  Thierry Reding <thierry.reding@gmail.com>, 
@@ -89,11 +87,11 @@ To: Till Harbaum <till@harbaum.org>, Andi Shyti <andi.shyti@kernel.org>,
  Baolin Wang <baolin.wang@linux.alibaba.com>, 
  Chunyan Zhang <zhang.lyra@gmail.com>, Jean Delvare <jdelvare@suse.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774376818; l=1970;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774376818; l=922;
  i=atharvd440@gmail.com; s=20260314; h=from:subject:message-id;
- bh=4eB96+tZs9fT6uON/Cp8K3KPDm65oymtk7Doe5oPZv8=;
- b=JHbyxUnpSIHVtTKhxJxQI2JLJGqRVx4xwS3l4IGQaiBFJ6HmJ/N18C/fndglYd7QgKbDy3Fs5
- kHTwhOvM/fYAd0raQ4P7x22Q0EFLgoDhJRXmkPQQ67kohmHbtFETWXF
+ bh=/rm2EO54Io9Vb7rL8ZSyeOBixCamQEqxJe9F/gCdBcU=;
+ b=ndfdbjfGLfy7wqu+RVI89cU1BdFSOOxdC43vbHuPhEqbITAhbeTXofEpCDO4hCGofdSsBz5rg
+ /eaMZdocnKzBw4U70BqYrFGGqU2cbJzMF6jNMLwPSl+hIPTFUD50Y/N
 X-Developer-Key: i=atharvd440@gmail.com; a=ed25519;
  pk=T6i1xWOKT/RUSDYATSgyVG/4X7ac8jPjRSG1mMAcqVk=
 X-Mailman-Approved-At: Wed, 25 Mar 2026 07:05:52 +0000
@@ -101,8 +99,8 @@ Cc: linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-i2c@vger.kernel.org, linux-tegra@vger.kernel.org,
  Atharv Dubey <atharvd440@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, Enrico Zanda <e.zanda1@gmail.com>
-Subject: [Linux-stm32] [PATCH 00/10] i2c: Replace dev_err() with
-	dev_err_probe()
+Subject: [Linux-stm32] [PATCH 01/10] i2c: tiny-usb: Replace dev_err() with
+ dev_err_probe() in probe function
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,56 +149,42 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.979];
+	NEURAL_SPAM(0.00)[0.952];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 01C67320677
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 096FB32067B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-This patch series replaces dev_err() with dev_err_probe() in the probe() 
-functions of each module. 
+From: Enrico Zanda <e.zanda1@gmail.com>
 
-This simplifies the code and improves logs.
+This simplifies the code while improving log.
 
+Signed-off-by: Enrico Zanda <e.zanda1@gmail.com>
+Signed-off-by: Atharv Dubey <atharvd440@gmail.com>
 ---
-This Patch series was intially sent out by Encrio[1],  
-this series is an effort to get it reviewed and upstream 
-it. 
+ drivers/i2c/busses/i2c-tiny-usb.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/i2c/busses/i2c-tiny-usb.c b/drivers/i2c/busses/i2c-tiny-usb.c
+index 9ef495f88ef2..0637c71126f9 100644
+--- a/drivers/i2c/busses/i2c-tiny-usb.c
++++ b/drivers/i2c/busses/i2c-tiny-usb.c
+@@ -260,9 +260,8 @@ static int i2c_tiny_usb_probe(struct usb_interface *interface,
+ 		 dev->usb_dev->bus->busnum, dev->usb_dev->devnum);
  
-[1]: https://lore.kernel.org/all/20250520194400.341079-3-e.zanda1@gmail.com/t/#u
+ 	if (usb_write(&dev->adapter, CMD_SET_DELAY, delay, 0, NULL, 0) != 0) {
+-		dev_err(&dev->adapter.dev,
+-			"failure setting delay to %dus\n", delay);
+-		retval = -EIO;
++		retval = dev_err_probe(&dev->adapter.dev, -EIO,
++				       "failure setting delay to %dus\n", delay);
+ 		goto error;
+ 	}
+ 
 
----
-Enrico Zanda (10):
-      i2c: tiny-usb: Replace dev_err() with dev_err_probe() in probe function
-      i2c: tegra: Replace dev_err() with dev_err_probe() in probe function
-      i2c: sun6i-p2wi: Replace dev_err() with dev_err_probe() in probe function
-      i2c: stm32f7: Replace dev_err() with dev_err_probe() in probe function
-      i2c: stm32f4: Replace dev_err() with dev_err_probe() in probe function
-      i2c: stm32: Replace dev_err() with dev_err_probe() in probe function
-      i2c: st: Replace dev_err() with dev_err_probe() in probe function
-      i2c: sprd: Replace dev_err() with dev_err_probe() in probe function
-      i2c: sis96x: Replace dev_err() with dev_err_probe() in probe function
-      i2c: sis630: Replace dev_err() with dev_err_probe() in probe function
-
- drivers/i2c/busses/i2c-sis630.c     | 31 +++++++--------
- drivers/i2c/busses/i2c-sis96x.c     | 30 +++++++-------
- drivers/i2c/busses/i2c-sprd.c       | 13 +++----
- drivers/i2c/busses/i2c-st.c         | 34 +++++++---------
- drivers/i2c/busses/i2c-stm32.c      |  4 +-
- drivers/i2c/busses/i2c-stm32f4.c    | 53 ++++++++++---------------
- drivers/i2c/busses/i2c-stm32f7.c    | 78 ++++++++++++++-----------------------
- drivers/i2c/busses/i2c-sun6i-p2wi.c | 55 ++++++++++----------------
- drivers/i2c/busses/i2c-tegra.c      | 12 +++---
- drivers/i2c/busses/i2c-tiny-usb.c   |  5 +--
- 10 files changed, 127 insertions(+), 188 deletions(-)
----
-base-commit: c612261bedd6bbab7109f798715e449c9d20ff2f
-change-id: 20260324-deverr-4b0b0e50195c
-
-Best regards,
 -- 
-Atharv Dubey <atharvd440@gmail.com>
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
