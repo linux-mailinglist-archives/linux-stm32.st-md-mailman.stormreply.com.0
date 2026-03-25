@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4KaMD7FJxGn5xwQAu9opvQ
+	id ALXXJxFLxGn5xwQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 21:46:41 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 21:52:33 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1A7E32BFA9
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 21:46:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 41EC632C049
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 21:52:33 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CBC7C8F269;
-	Wed, 25 Mar 2026 20:46:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E651BC8F269;
+	Wed, 25 Mar 2026 20:52:32 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5E67C8F268
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90F01C8F268
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 20:46:38 +0000 (UTC)
+ Wed, 25 Mar 2026 20:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=9QKg/ec1UB4Iqjz+3XvMVVCaBUJlpvPmNLrcDpzXquo=; b=Ve02YZRnNB03ruvQ/IjMJ/1ue1
- Bi8GDv/IOoGR1ANMgT981Oj4zKj2iU195jiS8WXu+7B+X6xJnKauwJSR4031QIWEgH+2vTwfVQr6y
- 6Uce6PdLDE3m76fpnRsKUBhpTJScPz4WkdEti7wSHIpkJlDYs4ox/dK/urm14+6tM4h1b8TQhing0
- q3JBKDYwRFu+WNMRY0DtkGZxWIuqCxaxHYQ6kgObXg6QaE2h1AxVEp6VucVunJ22eCyC+c/8oM7Sd
- UH972dpzdlSDv5EZv13lys3OTKfnntfc2ax0H2xncCFzdbdlgsnc4buqoC6Go4sQrHDOJ9VVuLLZ2
- JvH2jTZA==;
+ bh=5TaF136hS7gyiN2INSsjbTVG4M1m+RcQW4RSzUAK8mc=; b=bJgocfdzLBKes2wMXa50BQ/Sgw
+ 2VNxUldZJFRFO1DH1e3sWYkf+HpUKst8qeo6mEmxzisIlT9F643+8G7mP8W0cEG97CX9EddaPFnAx
+ 0auvwtk71mLu472gb4M/pgwwwT7auS75QFoEuI3Ulc0t8Td1yqPpRlQhMRL9Q0sVOXjuT1KRASHvT
+ KyQkPoRHlhfR1LscoVZHueKBsDdovNbEjbfAFOMWWjTHfKoz7+lVqv6Pq5sNuqrikvfHErcf50ZxE
+ dLM4luhf9tuxdUXNx8G4p2TIcbxgKN3UURxz0Ib/Wm84DDDPrXllvWnYoO6lVBmszS+dAvfAa4kcZ
+ Cij15muw==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:46352)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36514)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w5V7G-000000003sV-3Db4;
- Wed, 25 Mar 2026 20:46:14 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1w5VD1-000000003uJ-1ODG;
+ Wed, 25 Mar 2026 20:52:11 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w5V7D-000000006M4-0GW4; Wed, 25 Mar 2026 20:46:11 +0000
-Date: Wed, 25 Mar 2026 20:46:10 +0000
+ id 1w5VCy-000000006MD-0rz1; Wed, 25 Mar 2026 20:52:08 +0000
+Date: Wed, 25 Mar 2026 20:52:08 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Message-ID: <acRJkrKbF_lI03O4@shell.armlinux.org.uk>
+Message-ID: <acRK-F6TACsZqEhx@shell.armlinux.org.uk>
 References: <20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com>
- <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
+ <20260316-qcom-sa8255p-emac-v9-5-c58934e76ff2@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
+In-Reply-To: <20260316-qcom-sa8255p-emac-v9-5-c58934e76ff2@oss.qualcomm.com>
 Cc: imx@lists.linux.dev, s32@nxp.com,
  Geert Uytterhoeven <geert+renesas@glider.be>, Radu Rendec <rrendec@redhat.com>,
  linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
@@ -74,8 +74,8 @@ Cc: imx@lists.linux.dev, s32@nxp.com,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v9 2/6] net: stmmac: qcom-ethqos:
- use generic device properties
+Subject: Re: [Linux-stm32] [PATCH net-next v9 5/6] net: stmmac: qcom-ethqos:
+ split power management context into a separate struct
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,7 +115,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.442];
+	NEURAL_HAM(-0.00)[-0.544];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -126,28 +126,25 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,stormreply.com:email,stormreply.com:url,shell.armlinux.org.uk:mid,linaro.org:email,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: D1A7E32BFA9
+	DBL_BLOCKED_OPENRESOLVER(0.00)[shell.armlinux.org.uk:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,linaro.org:email,armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 41EC632C049
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, Mar 16, 2026 at 01:05:07PM +0100, Bartosz Golaszewski wrote:
+On Mon, Mar 16, 2026 at 01:05:10PM +0100, Bartosz Golaszewski wrote:
 > From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
 > 
-> In order to drop the dependency on CONFIG_OF, convert all device property
-> getters from OF-specific to generic device properties and stop pulling
-> in any linux/of.h symbols.
+> With match data split into general and power-management sections, let's
+> now do the same with runtime device data.
 
-Why is this desirable? Please see the recent discussion at
-
-https://lore.kernel.org/r/20260322-remove-device-find-by-of-node-v1-0-b72eb22a1215@gmail.com
-
-specifically replies from Andrew and myself.
-
-Merely wanting to drop a dependency is not a good enough reason for
-these kinds of conversions, because they in effect make the DT
-properties also apply to ACPI which may not be appropriate (note
-for example that MDIO busses are not represented in ACPI.)
+As I've already said, this conflicts with work that I have in progress,
+which will remove the serdes support from this driver _if_ we can get
+forward progress on the PCS bits from Mohd - that has become dependent
+on sorting out the MDIO bus clock which seems to have been totally
+broken in this driver for quite some time so that we can have confidence
+that any testing that is done is actually being done on a setup which is
+running within correct specification (and not running the MDIO bus at
+some insane speed that may lead to data corruption.)
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
