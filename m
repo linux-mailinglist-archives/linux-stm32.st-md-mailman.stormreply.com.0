@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OOb8JaW1w2litgQAu9opvQ
+	id cC0wKD+2w2litgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:15:01 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:17:35 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01351322B51
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:15:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3F819322BDA
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:17:35 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F2B4C87ED4;
-	Wed, 25 Mar 2026 10:15:00 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7600C87ED4;
+	Wed, 25 Mar 2026 10:17:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2DF5C87ED3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 357BBC87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 10:14:58 +0000 (UTC)
+ Wed, 25 Mar 2026 10:17:33 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id B6149600AC;
- Wed, 25 Mar 2026 10:14:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677D8C2BC9E;
- Wed, 25 Mar 2026 10:14:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C4352443B7;
+ Wed, 25 Mar 2026 10:17:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42BACC4CEF7;
+ Wed, 25 Mar 2026 10:17:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774433697;
- bh=mWCjyaxKu+x+LzWRgLuhujGHLbxlc3MmkD51VDioSIg=;
+ s=k20201202; t=1774433851;
+ bh=nA0qfgO+czMrdsJFZWiTSPRkj/MhdlMkek+0+cH4SK4=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Avb9roEtz2tZC7EnR8/vBPTkFsUrFyERzOI3tR4QciMupwqnA3DiWXvUrFwz/I8Gi
- iToXYDmfHcDBl+a0Z9K6rywnep3+HsnmYiTLv00vR8Hb44EItpTuJmrZrkc7RDMuof
- 3qYGqfxEmVJG1qEt1tGMGJ3FjTgRTeD1Xuk38xFFI74ll1XywwHliBcHsOjCiqH0s0
- Mf1322lzYqLtit9CzSq96FEzvxUS0em6gQP+PC+HiEQ7XGm7P5Ha2K8pVKtSU72lSb
- eV5gJPu7fOk1RVXaPY3BJekak8hgmqpoh2HE9XIskljcq/LHkXCpoUTbG74tqJfX7S
- iVt/tb9OUXrLw==
-Message-ID: <6fe7f335-2dbd-4d95-9918-702ca9fd10a7@kernel.org>
-Date: Wed, 25 Mar 2026 11:14:47 +0100
+ b=FsbzuEFDSLYe92S3XWu8yA78sOY17+zhlf5fynvhqSJTYFYJw6q0esNFUoK8ipb2a
+ u7R0mqK8LQby4NecGDUI2pWioR+y7am2SLggsBspBeZ15yYpkkr0SBGpm886/RhHiN
+ rad5UyakBWpkFvgRnnO3d8ty5mH43/XtNctbuFlXr+pC2FE4a3ufJUm13vdWVqj8co
+ 4Skreuix3aAhO5na1RQSvBFefxTvYLO7FZ0K5/iflLUiCqXO4VIdN7LbTK0OrRu670
+ 3FJ2hxkm9GwTrZwAenqnMthnSBKw3cgrQZw56I9+c3uoT2QVqVKcJOz1Sp0xitGyIg
+ 3yAvaJsltHt+A==
+Message-ID: <b009c82e-42c7-4808-972f-91c325432d82@kernel.org>
+Date: Wed, 25 Mar 2026 11:17:21 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>
 References: <cover.1774045440.git.ljs@kernel.org>
- <5a83ab00195dc8d0609fa6cc525493010ac4ead1.1774045440.git.ljs@kernel.org>
+ <094c5fcfb2459a4f6d791b1fb852b01e252a44d4.1774045440.git.ljs@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-In-Reply-To: <5a83ab00195dc8d0609fa6cc525493010ac4ead1.1774045440.git.ljs@kernel.org>
+In-Reply-To: <094c5fcfb2459a4f6d791b1fb852b01e252a44d4.1774045440.git.ljs@kernel.org>
 Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
  linux-doc@vger.kernel.org,
@@ -68,8 +68,8 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 12/21] misc: open-dice: replace
- deprecated mmap hook with mmap_prepare
+Subject: Re: [Linux-stm32] [PATCH v4 13/21] hpet: replace deprecated mmap
+ hook with mmap_prepare
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,25 +91,25 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[43];
 	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m
  :mcoquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.400];
+	NEURAL_HAM(-0.00)[-0.386];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -120,8 +120,8 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 01351322B51
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 3F819322BDA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -138,54 +138,49 @@ On 3/20/26 23:39, Lorenzo Stoakes (Oracle) wrote:
 Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 
 > ---
->  drivers/misc/open-dice.c | 19 +++++++++++--------
->  1 file changed, 11 insertions(+), 8 deletions(-)
+>  drivers/char/hpet.c | 12 +++++++-----
+>  1 file changed, 7 insertions(+), 5 deletions(-)
 > 
-> diff --git a/drivers/misc/open-dice.c b/drivers/misc/open-dice.c
-> index 24c29e0f00ef..45060fb4ea27 100644
-> --- a/drivers/misc/open-dice.c
-> +++ b/drivers/misc/open-dice.c
-> @@ -86,29 +86,32 @@ static ssize_t open_dice_write(struct file *filp, const char __user *ptr,
->  /*
->   * Creates a mapping of the reserved memory region in user address space.
->   */
-> -static int open_dice_mmap(struct file *filp, struct vm_area_struct *vma)
-> +static int open_dice_mmap_prepare(struct vm_area_desc *desc)
+> diff --git a/drivers/char/hpet.c b/drivers/char/hpet.c
+> index 60dd09a56f50..8f128cc40147 100644
+> --- a/drivers/char/hpet.c
+> +++ b/drivers/char/hpet.c
+> @@ -354,8 +354,9 @@ static __init int hpet_mmap_enable(char *str)
+>  }
+>  __setup("hpet_mmap=", hpet_mmap_enable);
+>  
+> -static int hpet_mmap(struct file *file, struct vm_area_struct *vma)
+> +static int hpet_mmap_prepare(struct vm_area_desc *desc)
 >  {
-> +	struct file *filp = desc->file;
->  	struct open_dice_drvdata *drvdata = to_open_dice_drvdata(filp);
+> +	struct file *file = desc->file;
+>  	struct hpet_dev *devp;
+>  	unsigned long addr;
 >  
-> -	if (vma->vm_flags & VM_MAYSHARE) {
-> +	if (vma_desc_test(desc, VMA_MAYSHARE_BIT)) {
->  		/* Do not allow userspace to modify the underlying data. */
-> -		if (vma->vm_flags & VM_WRITE)
-> +		if (vma_desc_test(desc, VMA_WRITE_BIT))
->  			return -EPERM;
->  		/* Ensure userspace cannot acquire VM_WRITE later. */
-> -		vm_flags_clear(vma, VM_MAYWRITE);
-> +		vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
->  	}
+> @@ -368,11 +369,12 @@ static int hpet_mmap(struct file *file, struct vm_area_struct *vma)
+>  	if (addr & (PAGE_SIZE - 1))
+>  		return -ENOSYS;
 >  
->  	/* Create write-combine mapping so all clients observe a wipe. */
-> -	vma->vm_page_prot = pgprot_writecombine(vma->vm_page_prot);
-> -	vm_flags_set(vma, VM_DONTCOPY | VM_DONTDUMP);
-> -	return vm_iomap_memory(vma, drvdata->rmem->base, drvdata->rmem->size);
-> +	desc->page_prot = pgprot_writecombine(desc->page_prot);
-> +	vma_desc_set_flags(desc, VMA_DONTCOPY_BIT, VMA_DONTDUMP_BIT);
-> +	mmap_action_simple_ioremap(desc, drvdata->rmem->base,
-> +				   drvdata->rmem->size);
+> -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
+> -	return vm_iomap_memory(vma, addr, PAGE_SIZE);
+> +	desc->page_prot = pgprot_noncached(desc->page_prot);
+> +	mmap_action_simple_ioremap(desc, addr, PAGE_SIZE);
 > +	return 0;
 >  }
->  
->  static const struct file_operations open_dice_fops = {
->  	.owner = THIS_MODULE,
->  	.read = open_dice_read,
->  	.write = open_dice_write,
-> -	.mmap = open_dice_mmap,
-> +	.mmap_prepare = open_dice_mmap_prepare,
+>  #else
+> -static int hpet_mmap(struct file *file, struct vm_area_struct *vma)
+> +static int hpet_mmap_prepare(struct vm_area_desc *desc)
+>  {
+>  	return -ENOSYS;
+>  }
+> @@ -710,7 +712,7 @@ static const struct file_operations hpet_fops = {
+>  	.open = hpet_open,
+>  	.release = hpet_release,
+>  	.fasync = hpet_fasync,
+> -	.mmap = hpet_mmap,
+> +	.mmap_prepare = hpet_mmap_prepare,
 >  };
 >  
->  static int __init open_dice_probe(struct platform_device *pdev)
+>  static int hpet_is_known(struct hpet_data *hdp)
 
 _______________________________________________
 Linux-stm32 mailing list
