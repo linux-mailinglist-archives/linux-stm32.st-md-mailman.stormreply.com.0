@@ -2,52 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ALXXJxFLxGn5xwQAu9opvQ
+	id +ChLOTtPxGljyAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 21:52:33 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 22:10:19 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41EC632C049
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 21:52:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7DD5D32C332
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 22:10:19 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E651BC8F269;
-	Wed, 25 Mar 2026 20:52:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 22EDBC8F269;
+	Wed, 25 Mar 2026 21:10:19 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90F01C8F268
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48EABC8F268
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 20:52:31 +0000 (UTC)
+ Wed, 25 Mar 2026 21:10:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
  MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
  Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
  Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
  List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=5TaF136hS7gyiN2INSsjbTVG4M1m+RcQW4RSzUAK8mc=; b=bJgocfdzLBKes2wMXa50BQ/Sgw
- 2VNxUldZJFRFO1DH1e3sWYkf+HpUKst8qeo6mEmxzisIlT9F643+8G7mP8W0cEG97CX9EddaPFnAx
- 0auvwtk71mLu472gb4M/pgwwwT7auS75QFoEuI3Ulc0t8Td1yqPpRlQhMRL9Q0sVOXjuT1KRASHvT
- KyQkPoRHlhfR1LscoVZHueKBsDdovNbEjbfAFOMWWjTHfKoz7+lVqv6Pq5sNuqrikvfHErcf50ZxE
- dLM4luhf9tuxdUXNx8G4p2TIcbxgKN3UURxz0Ib/Wm84DDDPrXllvWnYoO6lVBmszS+dAvfAa4kcZ
- Cij15muw==;
+ bh=/9QX/7zuW4PRdWvukdv95Pz7/SCg2+VZ38fqrKFSMfk=; b=MwzbQSsu1iD88gkB3IH1zeZiIR
+ KqZ0nyf0GKrdHH0VKi7UtAwIR8Lo/PcRwkIg9KR07u74bQOTES45rI9JMbopS+J2PF6wAoznrEGt6
+ cv+cD36+oFV4fnMEsbXqQ/fMekGhiWQW0TEGXE3IGmaU2FgBkQRhpbgPuOQObWEbHTKtb0PXZIOzm
+ Sfch0xoiZJ0LtuZesc8ncS0J3Oc9hwiwrx1y7+KGNpck0OxH0DfKS8HbczaRJFrgNCX255DaceQyA
+ Rv5kUxT3Tzv9fc1ZbUUgu2okVyMGDHfLxEf49X1a6px/CP6wELl7p/8VpXdP/TEcKp1mT7W8oNeDt
+ mj7p7fVA==;
 Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:36514)
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:52710)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w5VD1-000000003uJ-1ODG;
- Wed, 25 Mar 2026 20:52:11 +0000
+ (envelope-from <linux@armlinux.org.uk>) id 1w5VU9-000000003vl-1BWv;
+ Wed, 25 Mar 2026 21:09:53 +0000
 Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w5VCy-000000006MD-0rz1; Wed, 25 Mar 2026 20:52:08 +0000
-Date: Wed, 25 Mar 2026 20:52:08 +0000
+ id 1w5VU4-000000006NG-0Nnm; Wed, 25 Mar 2026 21:09:48 +0000
+Date: Wed, 25 Mar 2026 21:09:47 +0000
 From: "Russell King (Oracle)" <linux@armlinux.org.uk>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Message-ID: <acRK-F6TACsZqEhx@shell.armlinux.org.uk>
+Message-ID: <acRPGxx_KbrvUh6t@shell.armlinux.org.uk>
 References: <20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com>
- <20260316-qcom-sa8255p-emac-v9-5-c58934e76ff2@oss.qualcomm.com>
+ <20260316-qcom-sa8255p-emac-v9-6-c58934e76ff2@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260316-qcom-sa8255p-emac-v9-5-c58934e76ff2@oss.qualcomm.com>
+In-Reply-To: <20260316-qcom-sa8255p-emac-v9-6-c58934e76ff2@oss.qualcomm.com>
 Cc: imx@lists.linux.dev, s32@nxp.com,
  Geert Uytterhoeven <geert+renesas@glider.be>, Radu Rendec <rrendec@redhat.com>,
  linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
@@ -74,8 +74,8 @@ Cc: imx@lists.linux.dev, s32@nxp.com,
  Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
  "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v9 5/6] net: stmmac: qcom-ethqos:
- split power management context into a separate struct
+Subject: Re: [Linux-stm32] [PATCH net-next v9 6/6] net: stmmac: qcom-ethqos:
+ add support for sa8255p
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,7 +115,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.544];
+	NEURAL_HAM(-0.00)[-0.547];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -126,25 +126,110 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[shell.armlinux.org.uk:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,linaro.org:email,armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 41EC632C049
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,linaro.org:email,stormreply.com:email,stormreply.com:url,qualcomm.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 7DD5D32C332
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, Mar 16, 2026 at 01:05:10PM +0100, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+On Mon, Mar 16, 2026 at 01:05:11PM +0100, Bartosz Golaszewski wrote:
+> Extend the driver to support a new model - sa8255p. Unlike the
+> previously supported variants, this one's power management is done in
+> the firmware using SCMI. This is modeled in linux using power domains so
+> add support for them.
 > 
-> With match data split into general and power-management sections, let's
-> now do the same with runtime device data.
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-As I've already said, this conflicts with work that I have in progress,
-which will remove the serdes support from this driver _if_ we can get
-forward progress on the PCS bits from Mohd - that has become dependent
-on sorting out the MDIO bus clock which seems to have been totally
-broken in this driver for quite some time so that we can have confidence
-that any testing that is done is actually being done on a setup which is
-running within correct specification (and not running the MDIO bus at
-some insane speed that may lead to data corruption.)
+Shouldn't the SerDes driver be doing the power management rather than
+the ethernet driver?
+
+We already have the crappy situation with this driver that the stmmac
+clocks are not running when they need to be, which is now causing
+warnings with the VLAN code. The platform glue driver itself doesn't
+_actually_ have enough information on its own to know when it needs
+to ensure that the PCS and SerDes need to be operational which is what
+is leading to this problem.
+
+Also note that the core stmmac driver does runtime PM management which
+covers both the stmmac MDIO block and the core MAC as well. How does
+your implementation interact with those, when e.g. a MDIO bus on one
+stmmac instance could be used to access a PHY on a different instance.
+
+> +struct ethqos_emac_pd_ctx {
+> +	struct dev_pm_domain_list *pd_list;
+> +	int serdes_level;
+
+I don't think serdes_level is appropriate nor correct (see below.)
+
+> +static void ethqos_configure_sgmii_pd(struct qcom_ethqos *ethqos,
+> +				      phy_interface_t interface, int speed)
+> +{
+> +	switch (speed) {
+> +	case SPEED_2500:
+> +	case SPEED_1000:
+> +	case SPEED_100:
+> +	case SPEED_10:
+> +		ethqos->pd.serdes_level = speed;
+
+This is called at mac_link_up(), after mac_finish() has done its
+stuff...
+
+> +	}
+> +
+> +	ethqos_configure_sgmii(ethqos, interface, speed);
+> +}
+> +
+>  static void ethqos_configure(struct qcom_ethqos *ethqos,
+>  			     phy_interface_t interface, int speed)
+>  {
+> @@ -710,6 +785,45 @@ static int ethqos_mac_finish_serdes(struct net_device *ndev, void *priv,
+>  	return ret;
+>  }
+>  
+> +static int ethqos_mac_finish_serdes_pd(struct net_device *ndev, void *priv,
+> +				       unsigned int mode,
+> +				       phy_interface_t interface)
+> +{
+> +	struct qcom_ethqos *ethqos = priv;
+> +	struct device *dev = ethqos->pd.pd_list->pd_devs[ETHQOS_PD_SERDES];
+> +	int ret = 0;
+> +
+> +	qcom_ethqos_set_sgmii_loopback(ethqos, false);
+> +
+> +	if (interface == PHY_INTERFACE_MODE_SGMII ||
+> +	    interface == PHY_INTERFACE_MODE_2500BASEX)
+> +		ret = dev_pm_opp_set_level(dev, ethqos->pd.serdes_level);
+
+... which means this won't get called with anything but a stale speed
+from the _previous_ link up event.
+
+> +
+> +	return ret;
+> +}
+> +
+> +static int qcom_ethqos_pd_serdes_powerup(struct net_device *ndev, void *priv)
+> +{
+> +	struct qcom_ethqos *ethqos = priv;
+> +	struct device *dev = ethqos->pd.pd_list->pd_devs[ETHQOS_PD_SERDES];
+> +	int ret;
+> +
+> +	ret = qcom_ethqos_domain_on(ethqos, ETHQOS_PD_SERDES);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return dev_pm_opp_set_level(dev, ethqos->pd.serdes_level);
+
+and same here.
+
+The fundamental question arises - why does the power domain need to know
+the _media_ speed (which is completely unrelated to the speed at which
+the SerDes link operates at) ?
+
+For example, with SGMII, the link operates at 1.25GBaud irrespective of
+whether it is operating at an underlying Ethernet data rate of 10M, 100M
+or 1G speeds.
+
+To me, the whole "serdes_level" stuff looks completely wrong.
 
 -- 
 RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
