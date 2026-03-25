@@ -2,48 +2,48 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0BNXBuW3w2litgQAu9opvQ
+	id MFCYAFy6w2nUtgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:24:37 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:35:08 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B13D5322DE9
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:24:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8BF5D323136
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:35:07 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ADD5C87ED4;
-	Wed, 25 Mar 2026 10:24:36 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2B8ADC87ED4;
+	Wed, 25 Mar 2026 10:35:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDDD8C87ED3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D65BC87EC4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 10:24:34 +0000 (UTC)
+ Wed, 25 Mar 2026 10:35:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 6302F42B44;
- Wed, 25 Mar 2026 10:24:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44E4BC4CEF7;
- Wed, 25 Mar 2026 10:24:25 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 48ADB600AC;
+ Wed, 25 Mar 2026 10:35:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEB41C4CEF7;
+ Wed, 25 Mar 2026 10:34:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774434273;
- bh=p4SW4OpQ2gx0HoB77aBSsnjwhDuxQYBolk+cHDEmzKU=;
+ s=k20201202; t=1774434904;
+ bh=+W7AYaAXVw1i2DYITazSh58FngLmUYCv1t3fq5pVTRU=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=rltdof9WVS1oLv7QKy5GNxKTX8mlW2HgTiPkyXeuRV8FNUrkT4uU+tfK1KoQf3TX1
- xP+TliwzDp1e4MLsTqESjen2eS+wbB81pAShhC6mK28s3pqWxaEs2Mb+IrYppT8eZH
- TPC02Kd1mT9gqJydmCpD2Qwh0LJu38txLVjjjeMo4FGzB6IPFOWufdRWT40wn8htYz
- +f7Lm0aCjnia373FFBJqr5enbiSEeSfPNX/qtxpQrXBVpJ+mBWIgTTGoeDmwXCrtrR
- u/m4V4mFx7bCyD2IP4UzNrOTYy2mol024IH/vOfvsdtvhAH41ttZAmOrAXSl4Ravy0
- Nyg1aFmIMxaew==
-Message-ID: <325b874f-55f5-4e9d-a924-11efa95b8ec8@kernel.org>
-Date: Wed, 25 Mar 2026 11:24:23 +0100
+ b=XyqtwD0BVJpUUEeIxQNuop7kP0eDlwdduGR8d5uf2MwwJPd+cw307oTk9Phhs8x3l
+ Hh6rIELrW6PhJt0RPyJGSFPMzadyDZwsObuPFoqXKHX/qCFcrK66BtKCtHaH7HSpF+
+ 0NGL1KxEeCeVDvLkU166GKoCMV5sPI0Hq9RLohb9yNUsRArIsKfhzMbamkj//nH3YJ
+ 4ug/r3J4vaM4CSS0e7WBb9VfoiGQ7drIOGpXk5kZ8oqKTpFew/rcW80Y1ZfDDm0HKl
+ tIqVPpHAE7k98Loz1LnKsoU5+bfkVjx6lxzQNcGzna+siEzTrHVlZuoNwTrwpSF67C
+ HbfXsN+/yyUDQ==
+Message-ID: <ec28f19e-072f-4f26-ad6b-feadf7a88dfc@kernel.org>
+Date: Wed, 25 Mar 2026 11:34:54 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
 To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>
 References: <cover.1774045440.git.ljs@kernel.org>
- <9f3d559a264a83cf45518fcf35cc7ef1d7dfd500.1774045440.git.ljs@kernel.org>
+ <08ecc1e1d319564fd49b9e9012f994edaff921db.1774045440.git.ljs@kernel.org>
 From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-In-Reply-To: <9f3d559a264a83cf45518fcf35cc7ef1d7dfd500.1774045440.git.ljs@kernel.org>
+In-Reply-To: <08ecc1e1d319564fd49b9e9012f994edaff921db.1774045440.git.ljs@kernel.org>
 Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
  linux-doc@vger.kernel.org,
@@ -68,8 +68,8 @@ Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
  Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 15/21] stm: replace deprecated mmap
- hook with mmap_prepare
+Subject: Re: [Linux-stm32] [PATCH v4 16/21] staging: vme_user: replace
+ deprecated mmap hook with mmap_prepare
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -109,7 +109,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.388];
+	NEURAL_HAM(-0.00)[-0.415];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -121,7 +121,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: B13D5322DE9
+X-Rspamd-Queue-Id: 8BF5D323136
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -132,97 +132,15 @@ On 3/20/26 23:39, Lorenzo Stoakes (Oracle) wrote:
 > The driver previously used vm_iomap_memory(), so this change replaces it
 > with its mmap_prepare equivalent, mmap_action_simple_ioremap().
 > 
-> Also, in order to correctly maintain reference counting, add a
-> vm_ops->mapped callback to increment the reference count when successfully
-> mapped.
+> Functions that wrap mmap() are also converted to wrap mmap_prepare()
+> instead.
+> 
+> Also update the documentation accordingly.
 > 
 > Reviewed-by: Suren Baghdasaryan <surenb@google.com>
 > Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
 
 Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-
-> ---
->  drivers/hwtracing/stm/core.c | 31 +++++++++++++++++++++----------
->  1 file changed, 21 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-> index 37584e786bb5..f48c6a8a0654 100644
-> --- a/drivers/hwtracing/stm/core.c
-> +++ b/drivers/hwtracing/stm/core.c
-> @@ -666,6 +666,16 @@ static ssize_t stm_char_write(struct file *file, const char __user *buf,
->  	return count;
->  }
->  
-> +static int stm_mmap_mapped(unsigned long start, unsigned long end, pgoff_t pgoff,
-> +			   const struct file *file, void **vm_private_data)
-> +{
-> +	struct stm_file *stmf = file->private_data;
-> +	struct stm_device *stm = stmf->stm;
-> +
-> +	pm_runtime_get_sync(&stm->dev);
-> +	return 0;
-> +}
-> +
->  static void stm_mmap_open(struct vm_area_struct *vma)
->  {
->  	struct stm_file *stmf = vma->vm_file->private_data;
-> @@ -684,12 +694,14 @@ static void stm_mmap_close(struct vm_area_struct *vma)
->  }
->  
->  static const struct vm_operations_struct stm_mmap_vmops = {
-> +	.mapped = stm_mmap_mapped,
->  	.open	= stm_mmap_open,
->  	.close	= stm_mmap_close,
->  };
->  
-> -static int stm_char_mmap(struct file *file, struct vm_area_struct *vma)
-> +static int stm_char_mmap_prepare(struct vm_area_desc *desc)
->  {
-> +	struct file *file = desc->file;
->  	struct stm_file *stmf = file->private_data;
->  	struct stm_device *stm = stmf->stm;
->  	unsigned long size, phys;
-> @@ -697,10 +709,10 @@ static int stm_char_mmap(struct file *file, struct vm_area_struct *vma)
->  	if (!stm->data->mmio_addr)
->  		return -EOPNOTSUPP;
->  
-> -	if (vma->vm_pgoff)
-> +	if (desc->pgoff)
->  		return -EINVAL;
->  
-> -	size = vma->vm_end - vma->vm_start;
-> +	size = vma_desc_size(desc);
->  
->  	if (stmf->output.nr_chans * stm->data->sw_mmiosz != size)
->  		return -EINVAL;
-> @@ -712,13 +724,12 @@ static int stm_char_mmap(struct file *file, struct vm_area_struct *vma)
->  	if (!phys)
->  		return -EINVAL;
->  
-> -	pm_runtime_get_sync(&stm->dev);
-> -
-> -	vma->vm_page_prot = pgprot_noncached(vma->vm_page_prot);
-> -	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
-> -	vma->vm_ops = &stm_mmap_vmops;
-> -	vm_iomap_memory(vma, phys, size);
-> +	desc->page_prot = pgprot_noncached(desc->page_prot);
-> +	vma_desc_set_flags(desc, VMA_IO_BIT, VMA_DONTEXPAND_BIT,
-> +			   VMA_DONTDUMP_BIT);
-> +	desc->vm_ops = &stm_mmap_vmops;
->  
-> +	mmap_action_simple_ioremap(desc, phys, size);
->  	return 0;
->  }
->  
-> @@ -836,7 +847,7 @@ static const struct file_operations stm_fops = {
->  	.open		= stm_char_open,
->  	.release	= stm_char_release,
->  	.write		= stm_char_write,
-> -	.mmap		= stm_char_mmap,
-> +	.mmap_prepare	= stm_char_mmap_prepare,
->  	.unlocked_ioctl	= stm_char_ioctl,
->  	.compat_ioctl	= compat_ptr_ioctl,
->  };
 
 _______________________________________________
 Linux-stm32 mailing list
