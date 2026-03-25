@@ -2,74 +2,115 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id INY6OILtw2kAvAQAu9opvQ
+	id ECMuMMruw2k1vAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 15:13:22 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 15:18:50 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7125B3268F2
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 15:13:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 027E13269DF
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 15:18:49 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11D4FC8F261;
-	Wed, 25 Mar 2026 14:13:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70F3EC8F261;
+	Wed, 25 Mar 2026 14:18:49 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011021.outbound.protection.outlook.com [52.101.65.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19C34C8F260
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D86CC8F260
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 14:13:20 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id C103043D70;
- Wed, 25 Mar 2026 14:13:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2230C116C6;
- Wed, 25 Mar 2026 14:13:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774447999;
- bh=O4KR79NA3w5wXHTjCgl3Y/eCUkwrrxsmxAb2QYX2GZc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=THeeRJa+fvQrbUlWi1AzdB4xesJwfM/iMX3IW08X/F2tnmO2Sq9kSk/X2JbnvBwo+
- iPnryERXRmcoJKHw/RDO7vBm9UnM6P4u2a/TcWW6nfb0TUYORcveAXebJPr293zK4g
- +Ias1QKlEaBi/7zTZtA8JdEJ1rJD+alcOdsXxMvOub3PzN5vN6Q+XGM1CXkMhPMjr2
- Csb2YPWXjwzAvXrWoN0WUbuDkR+1/J4hY4VMkUm1BHPU75vVOYy14wxbfq7tTP5S66
- vlraXxz0FCKhIq2kJIQumHP3qwlqv9CrN5md/W0QopKDjxp/BTGH75Ssk1SU3JAold
- B+q4e2Bddgs5Q==
-Message-ID: <92042416-251e-43bf-b5a7-cfa9c826d020@kernel.org>
-Date: Wed, 25 Mar 2026 15:13:09 +0100
+ Wed, 25 Mar 2026 14:18:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PGCSYVsGqg4K+3t3VVX0Ma8OGN39Q2oKQ+F7UV4+MiuHBuUz8+IQ3gmQUcrmBbBJVKwfinP5BhVoJbkkqoezVMZqqAeV07UZJGfna+gD1eJHsHtb4vDIgLm0s8/PIjruRnkn4Wmgoi2z7Mj8gCFqLPmPJA0o9rF2SzB+X9gE3ucZ0vrIxdTMDXt6oOEwHDsHQGpJpWqOm2XIqgnAkaB3G6gRt7iOxmhEd8yMHNAHjKGUAeTn7hfUhB/NI1vMXPOO6YOp46+2mI9cXth0xfv5m4Fft52gSbbA4tUSOPE1YEqnGk3sn0OHcMyjmyeJ4oXMytg55z9weSD6W/tRslCmCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QFE4IdhrhQ4/jt1l7Oh2DkjYFkz0UvJ0Wc/Jqw5MvzU=;
+ b=MqJMmbDkh/huDs1AQbKaQ/2L3VcBJJpO0Zb6HlplmpMCByFLeoXPJSLJI4kIikCHObNN8MGiYZigEa2tOmUzkFivuILRcb5+2cZTawyzoW50z6rimIA0DzoZy3sOA+DYrJCcXLXM5TwG9BFsXd9k3XeLDuxFcr+uYfa1oD0eQ8YgVtUbJaNOJec4AJ8vdWcRnUyfJssQ4lXkP6re9B1R6z1lSNLF000KoqrqcXc6pbyR9kxh1Wd1T2DkZWk4DvKl2sTW7/hRGWVql16i0vDlCG7PUKt2zizPHORvLZ6m9CzL6HpSlGhjoa9hvHcUiwPOPpBhGBosl2OJ7kG9tx1+tw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=denx.de smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QFE4IdhrhQ4/jt1l7Oh2DkjYFkz0UvJ0Wc/Jqw5MvzU=;
+ b=BFUwxH1hsF9lJt1HROyslaC2RYewdVdY+uZ79JXjLjoopIMp+BK1WuKWl82BA9RQoKzYofoAArIrcZ6zGXTL+v1j0XZwjeNti0X9lWOuTkX3VTIyYnSr5l6LrEg0nc3l05Rgo8x93mjMmYxmsGKxQAHGg9UpT7mdN2SgwKm8KsrxSvctdy5J9y5WDuSkzZB+WUu4XsBWHKsTcAdHnIJrqjcnarX2NU6W0bYrh/BrwsV265QZ3S60UVfNgmPE32WpdtaiZ1PEIlF+n6j847RDwAW0GWTH8SvNQAOWqhkW8xG4SUUadMymo8WOC6gVj9rVrGVGSef9/DgW3jF62w/tPA==
+Received: from DUZPR01CA0219.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b4::16) by PAXPR10MB5255.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:28e::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9723.31; Wed, 25 Mar
+ 2026 14:18:44 +0000
+Received: from DU6PEPF0000B61F.eurprd02.prod.outlook.com
+ (2603:10a6:10:4b4:cafe::a6) by DUZPR01CA0219.outlook.office365.com
+ (2603:10a6:10:4b4::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.31 via Frontend Transport; Wed,
+ 25 Mar 2026 14:18:44 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU6PEPF0000B61F.mail.protection.outlook.com (10.167.8.134) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.9723.19 via Frontend Transport; Wed, 25 Mar 2026 14:18:44 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Mar
+ 2026 15:20:56 +0100
+Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Wed, 25 Mar
+ 2026 15:18:04 +0100
+Message-ID: <e5bdb8fb-0dfe-4a78-bca9-89f060cd2886@foss.st.com>
+Date: Wed, 25 Mar 2026 15:18:05 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@denx.de>
+References: <20260123-upstream_uboot_properties-v5-0-5167929d5af5@foss.st.com>
+ <20260123-upstream_uboot_properties-v5-4-5167929d5af5@foss.st.com>
 Content-Language: en-US
-To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>
-References: <cover.1774045440.git.ljs@kernel.org>
- <157583e4477705b496896c7acd4ac88a937b8fa6.1774045440.git.ljs@kernel.org>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-In-Reply-To: <157583e4477705b496896c7acd4ac88a937b8fa6.1774045440.git.ljs@kernel.org>
-Cc: linux-hyperv@vger.kernel.org, Michal Hocko <mhocko@suse.com>,
- Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
- linux-doc@vger.kernel.org,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Clemens Ladisch <clemens@ladisch.de>, David Howells <dhowells@redhat.com>,
- linux-mm@kvack.org, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Miquel Raynal <miquel.raynal@bootlin.com>,
- Marc Dionne <marc.dionne@auristor.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- linux-stm32@st-md-mailman.stormreply.com, Wei Liu <wei.liu@kernel.org>,
- linux-scsi@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>,
- Richard Weinberger <richard@nod.at>, Long Li <longli@microsoft.com>,
- linux-staging@lists.linux.dev, Dexuan Cui <decui@microsoft.com>,
- linux-afs@lists.infradead.org, Pedro Falcato <pfalcato@suse.de>,
- Ryan Roberts <ryan.roberts@arm.com>, Arnd Bergmann <arnd@arndb.de>,
- Jann Horn <jannh@google.com>, Haiyang Zhang <haiyangz@microsoft.com>,
- "Liam R . Howlett" <Liam.Howlett@oracle.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, David Hildenbrand <david@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, linux-arm-kernel@lists.infradead.org,
- Christian Brauner <brauner@kernel.org>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-fsdevel@vger.kernel.org,
- Mike Rapoport <rppt@kernel.org>, Bodo Stroesser <bostroesser@gmail.com>
-Subject: Re: [Linux-stm32] [PATCH v4 19/21] uio: replace deprecated mmap
- hook with mmap_prepare in uio_info
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20260123-upstream_uboot_properties-v5-4-5167929d5af5@foss.st.com>
+X-Originating-IP: [10.48.87.93]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU6PEPF0000B61F:EE_|PAXPR10MB5255:EE_
+X-MS-Office365-Filtering-Correlation-Id: 47e57442-6974-4081-2606-08de8a796c20
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|82310400026|1800799024|376014|36860700016|56012099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: ueDbsInH6X63WdVv+MOmH2eJVsns875d+Zag8kdxrD9cOm1OYX7+fGcVSRVw3Z5SeSxm3mV56aPKbnPlSDzr6zLf/QGlpQK93S+UDkNagi9ut6X3GPGk9Ca8trGgPXG+X6pIY9M8/3Oho2paFacVcX4bmh075FXRnyc8I1N2+wFHl1VowdgYkIpvU5L0OfRqi76immRa+0ym3DGLpL/6D2TAx8urEiOPvF2Kj48qIBDToJrFBO+lGFuQ8wUMtXumz5qejiZBEfZgfMMtbIj9O8dKxgLm4LoY2nACOXmoCWXsD2nVfD4QFdp/EFa8eoVKRaDOsJQfQhjTqU4bYaqM1V2fveomdr0U81DMZFGsIf5iyDQEeSgMUkeDI8xYvQAQhnvEE9pHWcs3M3qIVj8FnS53Qg9YhC0mLarGiPJKal7QhuC9EFTRiIN0oLcv0hN1jwybS4xqix2qBAjSgWchI6nxpgfPNbwX6IFSX0xREoCW0qVsrpI1J31KawOJe3yYlezf9QWGUoPAuTthSteNIONCOgusOhdlG7ZAt+lhJ/rodLbMQ3ikkA2c1DgeaLBTAEHzUf2cfG7kj5JXDcy+Ux6CzfMqyqTJEAcQfYzn5uS2eYVwlFpwu/pnIcnFK3nl7KauQqrvLyPthJTz/9balVxlRddrXmFlCEN5BKDpP4gPU2ImfoByU0FZ6dCFDuPrkKw6X/cvvNQcHhtCKmXgxdsGogyeLQuv5Tzj63vF6rewfDvSribLAnkLB2mvX0i7rZlDVDxAlEZttEjG3ywapw==
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(82310400026)(1800799024)(376014)(36860700016)(56012099003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: wZebRlwG1BS7z0F5+tcGYEHhTJnz6AErBughDK64JBjE2lXpraaeEZyE5oOzcjGzgrGEL5Rs8HHRevkjOGqHaRqcxTB/WOYFZ3UDOdN1S8tqLpSgdw6xesDT3jp5vFKhnFDPwu6+2F1l+x/URr+tAWYjnD173jPfNzJXTa1AmCYFYV7rAaI1E5PLT68WRlLZr2tGSNy7+TG/4eg8ajR7d+zQrq7W5TDzkKQ7J3Ja7/t4/whNEpicKFAfjyx4XjHJhcAjb3XK4ZfQjwnYPJghe0rABKYIF2E9I69taEvhTOL8AQO2gb8f1fRolyTWaju3gcw0DV1RWeMRAJ4COpIVYyDCk5xVx5OB02VG8w5RmLoa7cdCAdqePMJH01GHRGTkDaDV9YIXh8XEWpRchG7Zq7n4WUVc3rMgip1xYo8kGbunNU/4YLIvUFkLE9aSYqgH
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Mar 2026 14:18:44.1721 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 47e57442-6974-4081-2606-08de8a796c20
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF0000B61F.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5255
+Cc: Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel@dh-electronics.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Patrick Delaunay <patrick.delaunay@foss.st.com>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v5 4/6] ARM: dts: stm32: Add boot phase
+ tags for STMicroelectronics mp13 boards
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,92 +126,528 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:alexandre.torgue@foss.st.com,m:marex@denx.de,m:cniedermaier@dh-electronics.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:kernel@dh-electronics.com,m:mcoquelin.stm32@gmail.com,m:patrick.delaunay@foss.st.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m
- :mcoquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.386];
+	HAS_XOIP(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	TO_DN_SOME(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[dh-electronics.com,kernel.org,vger.kernel.org,gmail.com,foss.st.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	NEURAL_HAM(-0.00)[-0.358];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 7125B3268F2
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: 027E13269DF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/20/26 23:39, Lorenzo Stoakes (Oracle) wrote:
-> The f_op->mmap interface is deprecated, so update uio_info to use its
-> successor, mmap_prepare.
-> 
-> Therefore, replace the uio_info->mmap hook with a new
-> uio_info->mmap_prepare hook, and update its one user, target_core_user,
-> to both specify this new mmap_prepare hook and also to use the new
-> vm_ops->mapped() hook to continue to maintain a correct udev->kref
-> refcount.
-> 
-> Then update uio_mmap() to utilise the mmap_prepare compatibility layer to
-> invoke this callback from the uio mmap invocation.
-> 
-> Signed-off-by: Lorenzo Stoakes (Oracle) <ljs@kernel.org>
+Hi Marek
 
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Have you some remarks about DHCOR DT update ?
 
+Thanks
+Patrice
+
+On 1/23/26 11:14, Patrice Chotard wrote:
+> The bootph-all flag was introduced in dt-schema
+> (dtschema/schemas/bootph.yaml) to define node usage across
+> different boot phases.
+> 
+> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
+> present in all boot stages, so add missing bootph-all phase flag
+> to these nodes to support SD boot.
+> 
+> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
 > ---
->  drivers/target/target_core_user.c | 26 ++++++++++++++++++--------
->  drivers/uio/uio.c                 | 10 ++++++++--
->  include/linux/uio_driver.h        |  4 ++--
->  3 files changed, 28 insertions(+), 12 deletions(-)
+>  arch/arm/boot/dts/st/stm32mp131.dtsi             |   4 +-
+>  arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts |  21 ++++
+>  arch/arm/boot/dts/st/stm32mp135f-dk.dts          | 101 ++++++++++++++++
+>  arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi  | 145 +++++++++++++++++++----
+>  4 files changed, 247 insertions(+), 24 deletions(-)
 > 
-> diff --git a/drivers/target/target_core_user.c b/drivers/target/target_core_user.c
-> index af95531ddd35..edc2afd5f4ee 100644
-> --- a/drivers/target/target_core_user.c
-> +++ b/drivers/target/target_core_user.c
-> @@ -1860,6 +1860,17 @@ static struct page *tcmu_try_get_data_page(struct tcmu_dev *udev, uint32_t dpi)
->  	return NULL;
->  }
+> diff --git a/arch/arm/boot/dts/st/stm32mp131.dtsi b/arch/arm/boot/dts/st/stm32mp131.dtsi
+> index fd730aa37c22..80c97bc830eb 100644
+> --- a/arch/arm/boot/dts/st/stm32mp131.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp131.dtsi
+> @@ -30,7 +30,7 @@ arm-pmu {
+>  	};
 >  
-> +static int tcmu_vma_mapped(unsigned long start, unsigned long end, pgoff_t pgoff,
-> +			   const struct file *file, void **vm_private_data)
-> +{
-> +	struct tcmu_dev *udev = *vm_private_data;
+>  	firmware {
+> -		optee {
+> +		optee: optee {
+>  			method = "smc";
+>  			compatible = "linaro,optee-tz";
+>  			interrupt-parent = <&intc>;
+> @@ -85,7 +85,7 @@ intc: interrupt-controller@a0021000 {
+>  		      <0xa0022000 0x2000>;
+>  	};
+>  
+> -	psci {
+> +	psci: psci {
+>  		compatible = "arm,psci-1.0";
+>  		method = "smc";
+>  	};
+> diff --git a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
+> index 9902849ed040..526ab2e1a93c 100644
+> --- a/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
+> +++ b/arch/arm/boot/dts/st/stm32mp135f-dhcor-dhsbc.dts
+> @@ -350,6 +350,21 @@ timer@12 {
+>  	};
+>  };
+>  
+> +&uart4 {
+> +	bootph-all;
+> +};
 > +
-> +	pr_debug("vma_mapped\n");
+> +&uart4_pins_b {
+> +	bootph-all;
+> +
+> +	pins1 {
+> +		bootph-all;
+> +	};
+> +	pins2 {
+> +		bootph-all;
+> +	};
+> +};
+> +
+>  &usart1 { /* Expansion connector: RX:pin33 TX:pin37 */
+>  	pinctrl-names = "default", "sleep", "idle";
+>  	pinctrl-0 = <&usart1_pins_b>;
+> @@ -367,6 +382,10 @@ &usart2 { /* Expansion connector: RX:pin10 TX:pin8 RTS:pin11 CTS:pin36 */
+>  	status = "okay";
+>  };
+>  
+> +&usbphyc {
+> +	bootph-all;
+> +};
+> +
+>  &usbh_ehci {
+>  	phys = <&usbphyc_port0>;
+>  	status = "okay";
+> @@ -432,6 +451,7 @@ connector {
+>  
+>  /* LDO2 is expansion connector 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
+>  &vdd_ldo2 {
+> +	bootph-all;
+>  	regulator-always-on;
+>  	regulator-boot-on;
+>  	regulator-min-microvolt = <3300000>;
+> @@ -440,6 +460,7 @@ &vdd_ldo2 {
+>  
+>  /* LDO5 is carrier board 3V3 supply on STM32MP13xx DHCOR DHSBC rev.200 */
+>  &vdd_sd {
+> +	bootph-all;
+>  	regulator-always-on;
+>  	regulator-boot-on;
+>  	regulator-min-microvolt = <3300000>;
+> diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+> index 9764a6bfa5b4..83bc5ea90c3a 100644
+> --- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+> +++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
+> @@ -161,6 +161,10 @@ channel@12 {
+>  	};
+>  };
+>  
+> +&bsec {
+> +	bootph-all;
+> +};
+> +
+>  &crc1 {
+>  	status = "okay";
+>  };
+> @@ -208,6 +212,42 @@ phy0_eth1: ethernet-phy@0 {
+>  	};
+>  };
+>  
+> +&gpioa {
+> +	bootph-all;
+> +};
+> +
+> +&gpiob {
+> +	bootph-all;
+> +};
+> +
+> +&gpioc {
+> +	bootph-all;
+> +};
+> +
+> +&gpiod {
+> +	bootph-all;
+> +};
+> +
+> +&gpioe {
+> +	bootph-all;
+> +};
+> +
+> +&gpiof {
+> +	bootph-all;
+> +};
+> +
+> +&gpiog {
+> +	bootph-all;
+> +};
+> +
+> +&gpioh {
+> +	bootph-all;
+> +};
+> +
+> +&gpioi {
+> +	bootph-all;
+> +};
+> +
+>  &i2c1 {
+>  	pinctrl-names = "default", "sleep";
+>  	pinctrl-0 = <&i2c1_pins_a>;
+> @@ -342,6 +382,7 @@ goodix: goodix-ts@5d {
+>  
+>  &iwdg2 {
+>  	timeout-sec = <32>;
+> +	bootph-all;
+>  	status = "okay";
+>  };
+>  
+> @@ -349,6 +390,7 @@ &ltdc {
+>  	pinctrl-names = "default", "sleep";
+>  	pinctrl-0 = <&ltdc_pins_a>;
+>  	pinctrl-1 = <&ltdc_sleep_pins_a>;
+> +	bootph-some-ram;
+>  	status = "okay";
+>  
+>  	port {
+> @@ -358,6 +400,22 @@ ltdc_out_rgb: endpoint {
+>  	};
+>  };
+>  
+> +&optee {
+> +	bootph-all;
+> +};
+> +
+> +&pinctrl {
+> +	bootph-all;
+> +};
+> +
+> +&psci {
+> +	bootph-some-ram;
+> +};
+> +
+> +&rcc {
+> +	bootph-all;
+> +};
+> +
+>  &rtc {
+>  	pinctrl-names = "default";
+>  	pinctrl-0 = <&rtc_rsvd_pins_a>;
+> @@ -369,6 +427,14 @@ rtc_lsco_pins_a: rtc-lsco-0 {
+>  	};
+>  };
+>  
+> +&scmi {
+> +	bootph-all;
+> +};
+> +
+> +&scmi_clk {
+> +	bootph-all;
+> +};
+> +
+>  &scmi_regu {
+>  	scmi_vdd_adc: regulator@10 {
+>  		reg = <VOLTD_SCMI_STPMIC1_LDO1>;
+> @@ -392,6 +458,10 @@ scmi_v3v3_sw: regulator@19 {
+>  	};
+>  };
+>  
+> +&scmi_reset {
+> +	bootph-all;
+> +};
+> +
+>  &sdmmc1 {
+>  	pinctrl-names = "default", "opendrain", "sleep";
+>  	pinctrl-0 = <&sdmmc1_b4_pins_a &sdmmc1_clk_pins_a>;
+> @@ -402,9 +472,24 @@ &sdmmc1 {
+>  	st,neg-edge;
+>  	bus-width = <4>;
+>  	vmmc-supply = <&scmi_vdd_sd>;
+> +	bootph-pre-ram;
+>  	status = "okay";
+>  };
+>  
+> +&sdmmc1_b4_pins_a {
+> +	bootph-pre-ram;
+> +	pins {
+> +		bootph-pre-ram;
+> +	};
+> +};
+> +
+> +&sdmmc1_clk_pins_a {
+> +	bootph-pre-ram;
+> +	pins {
+> +		bootph-pre-ram;
+> +	};
+> +};
+> +
+>  /* Wifi */
+>  &sdmmc2 {
+>  	pinctrl-names = "default", "opendrain", "sleep";
+> @@ -436,6 +521,10 @@ &spi5 {
+>  	status = "disabled";
+>  };
+>  
+> +&syscfg {
+> +	bootph-all;
+> +};
+> +
+>  &timers3 {
+>  	/delete-property/dmas;
+>  	/delete-property/dma-names;
+> @@ -517,9 +606,20 @@ &uart4 {
+>  	pinctrl-2 = <&uart4_idle_pins_a>;
+>  	/delete-property/dmas;
+>  	/delete-property/dma-names;
+> +	bootph-all;
+>  	status = "okay";
+>  };
+>  
+> +&uart4_pins_a {
+> +	bootph-all;
+> +	pins1 {
+> +		bootph-all;
+> +	};
+> +	pins2 {
+> +		bootph-all;
+> +	};
+> +};
+> +
+>  &uart8 {
+>  	pinctrl-names = "default", "sleep", "idle";
+>  	pinctrl-0 = <&uart8_pins_a>;
+> @@ -583,6 +683,7 @@ usbotg_hs_ep: endpoint {
+>  };
+>  
+>  &usbphyc {
+> +	bootph-all;
+>  	status = "okay";
+>  };
+>  
+> diff --git a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
+> index c18156807027..4efaca84a72c 100644
+> --- a/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
+> +++ b/arch/arm/boot/dts/st/stm32mp13xx-dhcor-som.dtsi
+> @@ -54,6 +54,46 @@ vin: vin {
+>  	};
+>  };
+>  
+> +&bsec {
+> +	bootph-all;
+> +};
+> +
+> +&gpioa {
+> +	bootph-all;
+> +};
+> +
+> +&gpiob {
+> +	bootph-all;
+> +};
+> +
+> +&gpioc {
+> +	bootph-all;
+> +};
+> +
+> +&gpiod {
+> +	bootph-all;
+> +};
+> +
+> +&gpioe {
+> +	bootph-all;
+> +};
+> +
+> +&gpiof {
+> +	bootph-all;
+> +};
+> +
+> +&gpiog {
+> +	bootph-all;
+> +};
+> +
+> +&gpioh {
+> +	bootph-all;
+> +};
+> +
+> +&gpioi {
+> +	bootph-all;
+> +};
+> +
+>  &i2c3 {
+>  	i2c-scl-rising-time-ns = <96>;
+>  	i2c-scl-falling-time-ns = <3>;
+> @@ -216,9 +256,18 @@ eeprom0wl: eeprom@58 {
+>  
+>  &iwdg2 {
+>  	timeout-sec = <32>;
+> +	bootph-all;
+>  	status = "okay";
+>  };
+>  
+> +&pinctrl {
+> +	bootph-all;
+> +};
+> +
+> +&psci {
+> +	bootph-some-ram;
+> +};
+> +
+>  &qspi {
+>  	pinctrl-names = "default", "sleep";
+>  	pinctrl-0 = <&qspi_clk_pins_a
+> @@ -229,6 +278,7 @@ &qspi_bk1_sleep_pins_a
+>  		     &qspi_cs1_sleep_pins_a>;
+>  	#address-cells = <1>;
+>  	#size-cells = <0>;
+> +	bootph-all;
+>  	status = "okay";
+>  
+>  	flash0: flash@0 {
+> @@ -238,37 +288,35 @@ flash0: flash@0 {
+>  		spi-max-frequency = <108000000>;
+>  		#address-cells = <1>;
+>  		#size-cells = <1>;
+> +		bootph-all;
+>  	};
+>  };
+>  
+> -/* Console UART */
+> -&uart4 {
+> -	pinctrl-names = "default", "sleep", "idle";
+> -	pinctrl-0 = <&uart4_pins_b>;
+> -	pinctrl-1 = <&uart4_sleep_pins_b>;
+> -	pinctrl-2 = <&uart4_idle_pins_b>;
+> -	/delete-property/dmas;
+> -	/delete-property/dma-names;
+> -	status = "okay";
+> +&qspi_clk_pins_a {
+> +	bootph-all;
+> +	pins {
+> +		bootph-all;
+> +	};
+>  };
+>  
+> -/* Bluetooth */
+> -&uart7 {
+> -	pinctrl-names = "default", "sleep", "idle";
+> -	pinctrl-0 = <&uart7_pins_a>;
+> -	pinctrl-1 = <&uart7_sleep_pins_a>;
+> -	pinctrl-2 = <&uart7_idle_pins_a>;
+> -	uart-has-rtscts;
+> -	status = "okay";
+> +&qspi_bk1_pins_a {
+> +	bootph-all;
+> +	pins {
+> +		bootph-all;
+> +	};
+> +};
+>  
+> -	bluetooth {
+> -		compatible = "infineon,cyw43439-bt", "brcm,bcm4329-bt";
+> -		max-speed = <3000000>;
+> -		device-wakeup-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
+> -		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
+> +&qspi_cs1_pins_a {
+> +	bootph-all;
+> +	pins {
+> +		bootph-all;
+>  	};
+>  };
+>  
+> +&rcc {
+> +	bootph-all;
+> +};
+> +
+>  /* SDIO WiFi */
+>  &sdmmc1 {
+>  	pinctrl-names = "default", "opendrain", "sleep";
+> @@ -312,3 +360,56 @@ &sdmmc2 {
+>  	vqmmc-supply = <&vdd>;
+>  	status = "okay";
+>  };
+> +
+> +&syscfg {
+> +	bootph-all;
+> +};
+> +
+> +/* Console UART */
+> +&uart4 {
+> +	pinctrl-names = "default", "sleep", "idle";
+> +	pinctrl-0 = <&uart4_pins_b>;
+> +	pinctrl-1 = <&uart4_sleep_pins_b>;
+> +	pinctrl-2 = <&uart4_idle_pins_b>;
+> +	/delete-property/dmas;
+> +	/delete-property/dma-names;
+> +	status = "okay";
+> +};
+> +
+> +/* Bluetooth */
+> +&uart7 {
+> +	pinctrl-names = "default", "sleep", "idle";
+> +	pinctrl-0 = <&uart7_pins_a>;
+> +	pinctrl-1 = <&uart7_sleep_pins_a>;
+> +	pinctrl-2 = <&uart7_idle_pins_a>;
+> +	uart-has-rtscts;
+> +	status = "okay";
+> +
+> +	bluetooth {
+> +		compatible = "infineon,cyw43439-bt", "brcm,bcm4329-bt";
+> +		max-speed = <3000000>;
+> +		device-wakeup-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
+> +		shutdown-gpios = <&gpioi 2 GPIO_ACTIVE_HIGH>;
+> +	};
+> +};
+> +
+> +&vdd {
+> +	bootph-all;
+> +};
+> +
+> +&vddcpu {
+> +	bootph-all;
+> +};
+> +
+> +
+> +&vddcore {
+> +	bootph-all;
+> +};
+> +
+> +&vdd_ddr {
+> +	bootph-all;
+> +};
+> +
+> +&vref_ddr {
+> +	bootph-all;
+> +};
+> 
 
-This looked like testing leftover at first, but it matches
-tcmu_vma_open()/close() (in case anyone else wonders).
-
-> +
-> +	kref_get(&udev->kref);
-> +	return 0;
-> +}
-> +
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
