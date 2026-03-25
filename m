@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sF4VLEWzw2litgQAu9opvQ
+	id OOb8JaW1w2litgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:04:53 +0100
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:15:01 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 45DE0322A00
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:04:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01351322B51
+	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 11:15:00 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CC7EEC87ED4;
-	Wed, 25 Mar 2026 10:04:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F2B4C87ED4;
+	Wed, 25 Mar 2026 10:15:00 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D45A6C87ED3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C2DF5C87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 10:04:51 +0000 (UTC)
+ Wed, 25 Mar 2026 10:14:58 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 2A1CA42B3E;
- Wed, 25 Mar 2026 10:04:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99004C4CEF7;
- Wed, 25 Mar 2026 10:04:41 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B6149600AC;
+ Wed, 25 Mar 2026 10:14:57 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677D8C2BC9E;
+ Wed, 25 Mar 2026 10:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774433090;
+ s=k20201202; t=1774433697;
  bh=mWCjyaxKu+x+LzWRgLuhujGHLbxlc3MmkD51VDioSIg=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=TNJpNZcIC+RvxqTV15Sf9sni6H4IWM0T+i3wt5MLiMfUHkfT34q1CwGBusWH1kE3/
- dnN4SNi4+AvIgkYt4oSgjYjdYCeFsI6VrGO5PEXoPnnlOc1fbEncDzZgNiPcjbFygA
- /ZtI085ad/dYBptuY3ARMNcg2KQletfHZ9gpOpculjQh5nP+N4E8Zr8dD6BGl/fyUR
- zafOK0794Im+0DBGvQliZGSK7JRyRUDI4tpM02JeU+gvdZP2ymlEdlBc6wgAXyOd0B
- aK/i0OiLd75T1xW0NaawDtJsRy0EK96sVVOg5mJbXC0sIeQ13cP6pms6xqicRCBsL8
- W+CvXhvSGQluw==
-Message-ID: <e41b5b30-7371-4c61-b6f6-2bf35e4d68c6@kernel.org>
-Date: Wed, 25 Mar 2026 11:04:39 +0100
+ b=Avb9roEtz2tZC7EnR8/vBPTkFsUrFyERzOI3tR4QciMupwqnA3DiWXvUrFwz/I8Gi
+ iToXYDmfHcDBl+a0Z9K6rywnep3+HsnmYiTLv00vR8Hb44EItpTuJmrZrkc7RDMuof
+ 3qYGqfxEmVJG1qEt1tGMGJ3FjTgRTeD1Xuk38xFFI74ll1XywwHliBcHsOjCiqH0s0
+ Mf1322lzYqLtit9CzSq96FEzvxUS0em6gQP+PC+HiEQ7XGm7P5Ha2K8pVKtSU72lSb
+ eV5gJPu7fOk1RVXaPY3BJekak8hgmqpoh2HE9XIskljcq/LHkXCpoUTbG74tqJfX7S
+ iVt/tb9OUXrLw==
+Message-ID: <6fe7f335-2dbd-4d95-9918-702ca9fd10a7@kernel.org>
+Date: Wed, 25 Mar 2026 11:14:47 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Content-Language: en-US
@@ -98,12 +98,12 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[43];
 	FORGED_RECIPIENTS(0.00)[m:ljs@kernel.org,m:akpm@linux-foundation.org,m:linux-hyperv@vger.kernel.org,m:mhocko@suse.com,m:jack@suse.cz,m:vigneshr@ti.com,m:linux-doc@vger.kernel.org,m:alexander.shishkin@linux.intel.com,m:clemens@ladisch.de,m:dhowells@redhat.com,m:linux-mm@kvack.org,m:target-devel@vger.kernel.org,m:linux-mtd@lists.infradead.org,m:miquel.raynal@bootlin.com,m:marc.dionne@auristor.com,m:kys@microsoft.com,m:linux-stm32@st-md-mailman.stormreply.com,m:wei.liu@kernel.org,m:linux-scsi@vger.kernel.org,m:corbet@lwn.net,m:richard@nod.at,m:longli@microsoft.com,m:linux-staging@lists.linux.dev,m:decui@microsoft.com,m:linux-afs@lists.infradead.org,m:pfalcato@suse.de,m:ryan.roberts@arm.com,m:arnd@arndb.de,m:jannh@google.com,m:haiyangz@microsoft.com,m:Liam.Howlett@oracle.com,m:viro@zeniv.linux.org.uk,m:david@kernel.org,m:surenb@google.com,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:martin.petersen@oracle.com,m:gregkh@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m
  :mcoquelin.stm32@gmail.com,m:linux-fsdevel@vger.kernel.org,m:rppt@kernel.org,m:bostroesser@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[vbabka@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,suse.cz,ti.com,linux.intel.com,ladisch.de,redhat.com,kvack.org,lists.infradead.org,bootlin.com,auristor.com,microsoft.com,st-md-mailman.stormreply.com,kernel.org,lwn.net,nod.at,lists.linux.dev,suse.de,arm.com,arndb.de,google.com,oracle.com,zeniv.linux.org.uk,linuxfoundation.org,gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -121,7 +121,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 45DE0322A00
+X-Rspamd-Queue-Id: 01351322B51
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
