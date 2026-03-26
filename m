@@ -2,109 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OHetFmMxxWkP8AQAu9opvQ
+	id 8Iw7BjJlxWkn+AQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 14:15:15 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 17:56:18 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E60AC335C78
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 14:15:14 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85F60338CAD
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 17:56:17 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BB83C8F27A;
-	Thu, 26 Mar 2026 13:15:14 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011041.outbound.protection.outlook.com [52.101.65.41])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A98BC8F26C;
+	Thu, 26 Mar 2026 16:56:17 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D6E01C8F26C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B5AEC87EC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Mar 2026 13:15:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YBQBdyoProyV+Fd7nPUHVuk86LKhNXbkX/rNmB2SBmMxQGQN+azbehWXF3zLW76ofBUjC+YS1DBqnQAtMTxsq3jlRMjX1iT2x47zoPoFgcjDw2lPF+laXpLS8aIoJDtmAwDsn6r7jm00dPRc1q64vY5WhbPrZQ/pqY4u+IHSLIKgr3sI7JUV6RoMFSeLFdbAh23U4oPYvuzRgzys6vjvhCE9LFF7TIsrGAdpq+ud8lVfkX6fDLg5grYlzykcHZvYW7LdjGY5rmPzVKS+5peO20LukUqSyxUkCbJyLfoee77m9/rRXNHxSBtAt6qzI530J7UykstqPFg3VUPm+xm4NQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0J4JiCTuMpzL43oQlCp7uNuWDPFJSSdAoLZNsa5areU=;
- b=qnF+rxw80JrRHhbcT0X+u+zSjisXUSyzHanaodzSs/CV8DGuQCcWMCCsZanrtdXnr72PoO+f37ttVKIOoYC2SMaHr9yyp6sgCxe2wAC3YP/aStft/YjKRANYMWqMaUxlc5596zNeUmYAM+8ZS6H0sjeJpHeAXz3TPxzYeeo7kURqSMfnj20FsByvXspKSAxIAGgoK4Un+F1OBSOaf9Ed/l98GxbjbFQxXjikdQxf9ptX//y3RygkzWaNbOSWaozulacZBBKW+mXzgDtpjBAbiyVRAXvN2hMpTmml7tISNKE/hUY6yzpW+r/mbdyMuQxUW+ar01v3kn4agsEs4kQMiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0J4JiCTuMpzL43oQlCp7uNuWDPFJSSdAoLZNsa5areU=;
- b=TPYe2BqAMgI3VqDGPRYe+DcLNEoPRN/eJjSLvzOnzcNdhaH9DEVHD7TRJI5887eMgGVcQdXQ3XeyS1JU4JtviuDcvDCIKW1P0b6r0K1d0NvMRK1NlY6mmn5vwxLQG5SPmYU8Q0wCYYRDdKo2A7R0bogTkUw4V0BtkVfC2HD2k2fdPNKcpS57OJJCgJvLkgSxuIqfU43gYPAZK1dg3S3hxbXzxCpYzkpSAssd1xABnQxdIufkDYvHOJRIsxQdLDcHuHUjNTTv9kx+i99Qsj6bZ9IU3W6OgVeY74taQ62dAwxX0P1IjNQkmXuTm/UWB1HQ6BW9h+s73BgH3SFLTvId9Q==
-Received: from DU7PR01CA0022.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:50f::10) by VI0PR10MB8790.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:800:232::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9745.22; Thu, 26 Mar
- 2026 13:15:11 +0000
-Received: from DB5PEPF00014B9A.eurprd02.prod.outlook.com
- (2603:10a6:10:50f:cafe::5c) by DU7PR01CA0022.outlook.office365.com
- (2603:10a6:10:50f::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9723.32 via Frontend Transport; Thu,
- 26 Mar 2026 13:15:06 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB5PEPF00014B9A.mail.protection.outlook.com (10.167.8.167) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.9745.21 via Frontend Transport; Thu, 26 Mar 2026 13:15:11 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 26 Mar
- 2026 14:17:48 +0100
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.29; Thu, 26 Mar
- 2026 14:15:09 +0100
-Message-ID: <ebad7694-72e7-4a99-8f55-d8d0b3c4591c@foss.st.com>
-Date: Thu, 26 Mar 2026 14:15:09 +0100
+ Thu, 26 Mar 2026 16:56:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=tNUmiKN4fF40nM9pWiE85RUF4sgRs4iO5/OLdhEvvt4=; b=kXY46qQT5qzcTwqCfrKvP11HGq
+ t7K+Nj3BlywQwKVJHBo32nOQW961sBOhNM6FQDhIUViBvKHq2iNyA0rr8m9TTygVEJKRLscoxMdrN
+ 7eaXMTw69WouHlGL6LfWeaByyS3LZp7/hcu20kvS8I9S1VBSzNho0lCpzd5ZO93U/40k0INfLkEub
+ FlGjH1w8/zMZDQDGK9O1d17QLcyATzlzoDcmXHrdWVgegDsWEoSeznIXxz3pNCKXKGh2pH/C+NvTL
+ W++2TONR/xO0GHxc8BV6hHNBpIHnuZjZQhN51+sU9938mKQCKmCAUXWxlYhPgCXKwBD53W+PvXvl/
+ vEnpYZbg==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:35442)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w5nzr-0000000052T-3jxv;
+ Thu, 26 Mar 2026 16:55:51 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w5nzg-000000007C9-0FDQ; Thu, 26 Mar 2026 16:55:40 +0000
+Date: Thu, 26 Mar 2026 16:55:39 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Message-ID: <acVlC3v0Hyt94XDN@shell.armlinux.org.uk>
+References: <20260320211921.1202058-1-jitendra.vegiraju@broadcom.com>
+ <20260320211921.1202058-5-jitendra.vegiraju@broadcom.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzk@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Kevin Hilman <khilman@baylibre.com>, <soc@kernel.org>, <arm@kernel.org>
-References: <c1de351b-6272-4903-8231-d92e5190a60c@foss.st.com>
- <79cd2b07-40cc-4a74-a12d-b2b50999696f@kernel.org>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <79cd2b07-40cc-4a74-a12d-b2b50999696f@kernel.org>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B9A:EE_|VI0PR10MB8790:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5168f0c0-ee60-494c-c83e-08de8b39b5be
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|36860700016|82310400026|1800799024|56012099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: fC01+shW+i1/VtdZKbuIgAeJvPdFmGUcwErZc5g/ZIToigGjc6U/YKIQzIfXk86Na2PiaVp7acsJKffCUoix1N33Qc65nRq9fy9SEtiJkgjGeoJnbsv3ZNPKpXkp8ZlRwOmgzs16LCGQ+HQpd3a9cjPiq6V8bZmH4DUPhLeWYtbyeIB/MRiAp+aWd84yyBgQtgFqCxm0rUfNeQnCvb0RSAcDBSQwaAY8/KgDvIr4w7x9lAw0UX3+CdFqYU4udh7mbfnIwpFVvRrztKmqC8+l2BwOIcHqjUbzW8kdw1DOz5FWQDviWuoSaedJlEnv0YUCfcXtDL6W2IrzfodRRjzXP8uz0v18JZw2smhtM1P1QV3XibC/MPKrRWIYzbzialoe4sT/qGHWq6qMR4LlTyra4GckBvSD8wb0VGd5X6BSlq6nsDJ20QY6iKoKRFM6Gd/e9+eMSxx84Dyc4B9x9yhozEOdV/2hKzHGVqPdqaQaiFEMUpPGoD4pWBj9uAo8nkttKneOqJZ1v0q2HrXK1ZHe2BsRSpNg8ae4ncYle8qdZcxlu1RO60zLQLEyGesxlyQkrF74y1qcu4//gQbu5lBxGpQfAoblhIBdWNv/DZC1caQPK84skAOwWtfQZSt9IvMh1slk8YPNRv6KYZ/0EWQprAiM56NX34bOjOfcThPWw6aKytKZCpiLvR4JKvbtZMmt/1IaGUrBTfdxxaFi3eUJQW0kD8L9CC78IyjZQup21/rV5OxRAJ72ITVfvFrW5hWyccV+0FhXy2FzERJyw8ZYng==
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(36860700016)(82310400026)(1800799024)(56012099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: R7Wbyr7VNoYf6p2nSQkUtMeMLPHlGXmywwgS4GQIF0SN6pwZloUzzv45QAgsOajq0zejtcyvRXhWLam+kBK3U6mN94CAGBncqlhwd3LouAx64OdWQXX4uJndLOCje15ptOYYThd33PabSvSElZozcWySCvmtGwGh/VkGKpKFagnaiU/tdcOUP4FL6fJ+xuR1zcRcVEUpjIzi1bLX4J6+adtLXwXbfxvT41sE8bqxVXf9KTEwD2V8LOt3rV5a3l5IexeZlDIjvBSQozL6r9mqSfnNILhz6XbFGWMVxF39vasqjgh75Waxa9QzLILPbVUEWZ3TeQBqcwikgvnoeBT+bFOueHNAHYlhFy6p48We7sRKfS6qdwjSecIt7hnsrNV6tW132EAxAgij4xO9UV/mh9c0wM+sIzblF5WXhJx2GHtcDXO4J2mVRsSm72ep+/pX
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Mar 2026 13:15:11.0570 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5168f0c0-ee60-494c-c83e-08de8b39b5be
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B9A.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB8790
-Cc: "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: Re: [Linux-stm32] [GIT PULL] STM32 Bus firewall for v7.1
+Content-Disposition: inline
+In-Reply-To: <20260320211921.1202058-5-jitendra.vegiraju@broadcom.com>
+Cc: quic_abchauha@quicinc.com, me@ziyao.cc, chenchuangyu@xiaomi.com,
+ edumazet@google.com, lizhi2@eswincomputing.com, yangtiezhu@loongson.cn,
+ linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
+ daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
+ siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
+ bcm-kernel-feedback-list@broadcom.com, vladimir.oltean@nxp.com,
+ kuba@kernel.org, pabeni@redhat.com, hawk@kernel.org, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ ast@kernel.org, wens@kernel.org, linux-arm-kernel@lists.infradead.org,
+ mcoquelin.stm32@gmail.com, florian.fainelli@broadcom.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ boon.khai.ng@altera.com, horms@kernel.org, bpf@vger.kernel.org,
+ davem@davemloft.net, ovidiu.panait.rb@renesas.com
+Subject: Re: [Linux-stm32] [PATCH net-next v8 4/6] Add PCI driver support
+	for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,85 +74,484 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [2.89 / 15.00];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+X-Spamd-Result: default: False [3.39 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:krzk@kernel.org,m:arnd@arndb.de,m:khilman@baylibre.com,m:soc@kernel.org,m:arm@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,s:lists@lfdr.de];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:jitendra.vegiraju@broadcom.com,m:quic_abchauha@quicinc.com,m:me@ziyao.cc,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:yangtiezhu@loongson.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:bcm-kernel-feedback-list@broadcom.com,m:vladimir.oltean@nxp.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:hawk@kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:ast@kernel.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:florian.fainelli@broadcom.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:horms@kernel.org,m:bpf@vger.kernel.org,m:davem@davemloft.net,m:ovidiu.panait.rb@renesas.com,m:johnfastabend@gmail.com,m:mcoquelinstm32@gm
+ ail.com,m:andrew@lunn.ch,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[35];
+	FREEMAIL_CC(0.00)[quicinc.com,ziyao.cc,xiaomi.com,google.com,eswincomputing.com,loongson.cn,st-md-mailman.stormreply.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,broadcom.com,nxp.com,redhat.com,altera.com,bp.renesas.com,lists.infradead.org,vger.kernel.org,lunn.ch,davemloft.net,renesas.com];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.576];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.945];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: E60AC335C78
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 85F60338CAD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Krzysztof
+On Fri, Mar 20, 2026 at 02:19:19PM -0700, Jitendra Vegiraju wrote:
+> +static const struct property_entry fixed_link_properties[] = {
+> +	PROPERTY_ENTRY_U32("speed", 10000),
+> +	PROPERTY_ENTRY_BOOL("full-duplex"),
+> +	PROPERTY_ENTRY_BOOL("pause"),
+> +	{ }
+> +};
+> +
+> +static const struct software_node parent_swnode = {
+> +	.name = "phy-device",
+> +};
+> +
+> +static const struct software_node fixed_link_swnode = {
+> +	.name = "fixed-link",           /* MUST be named "fixed-link" */
+> +	.parent = &parent_swnode,
+> +	.properties = fixed_link_properties,
+> +};
+> +
+> +static const struct software_node *brcm_swnodes[] = {
+> +	&parent_swnode,
+> +	&fixed_link_swnode,
+> +	NULL
+> +};
 
-On 3/26/26 14:03, Krzysztof Kozlowski wrote:
-> On 26/03/2026 10:04, Alexandre TORGUE wrote:
->>    drivers/bus/Kconfig
->>    |  10 +++++++++
->>    drivers/bus/Makefile
->>    |   1 +
->>    drivers/bus/stm32_dbg_bus.c
->>    | 250
->> ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
->>    drivers/bus/stm32_etzpc.c
->>    |   3 +--
-> 
-> 
-> Hey Alexandre,
-> 
-> Might want to look at your terminal settings or scripts - it creates
-> pretty unreadable diffstat.
+Looking at this structure, I'm not sure it's correct. You seem to have:
 
-Yes strange. I use "COLUMNS=80 git request-pull v7.0-rc1 
-git://git.kernel.org/pub/scm/linux/kernel/git/atorgue/stm32.git 
-stm32-bus-firewall-for-7.1-1" since a long time.
+pci_device
+- "phy-device" swnode attached here (which describes the PCI device,
+  which isn't any kind of PHY)
+	- "fixed-link" attached as a child
 
-I think it's linked to my mailer (I just saw the same bad indent on my 
-device tree PR).
+The "fixed-link" is a property for the local network device which
+signifies that there isn't a PHY attached or there's an inaccessible
+PHY that only operates with one set of settings.
 
-With the same command I didn't get this issue for 7.0 cycle. I'll take 
-care of it next time.
+Maybe rename "phy-device" to "ethernet"?
 
-Thanks
-Alex
+> +
+> +struct brcm_priv_data {
+> +	void __iomem *mbox_regs;    /* MBOX  Registers*/
+> +	void __iomem *misc_regs;    /* MISC  Registers*/
+> +	void __iomem *xgmac_regs;   /* XGMAC Registers*/
+> +};
+> +
+> +struct dwxgmac_brcm_pci_info {
+> +	int (*setup)(struct pci_dev *pdev, struct plat_stmmacenet_data *plat);
+> +};
+> +
+> +static void misc_iowrite(struct brcm_priv_data *brcm_priv,
+> +			 u32 reg, u32 val)
+> +{
+> +	iowrite32(val, brcm_priv->misc_regs + reg);
+> +}
+> +
+> +static void dwxgmac_brcm_common_default_data(struct plat_stmmacenet_data *plat)
+> +{
+> +	int i;
+> +
+> +	plat->force_sf_dma_mode = true;
+> +	plat->mac_port_sel_speed = SPEED_10000;
+> +	plat->clk_ptp_rate = 125000000;
+> +	plat->clk_ref_rate = 250000000;
+> +	plat->tx_coe = true;
+> +	plat->rx_coe = STMMAC_RX_COE_TYPE1;
+> +	plat->rss_en = 1;
+> +	plat->max_speed = SPEED_10000;
+> +
+> +	/* Set default value for multicast hash bins */
+> +	plat->multicast_filter_bins = HASH_TABLE_SIZE;
 
+Already the default setup by stmmac_plat_dat_alloc().
 
-> Best regards,
-> Krzysztof
+> +
+> +	/* Set default value for unicast filter entries */
+> +	plat->unicast_filter_entries = 1;
 
+Already the default setup by stmmac_plat_dat_alloc().
+
+> +
+> +	/* Set the maxmtu to device's default */
+> +	plat->maxmtu = BRCM_MAX_MTU;
+> +
+> +	/* Set default number of RX and TX queues to use */
+> +	plat->tx_queues_to_use = BRCM_TX_Q_COUNT;
+> +	plat->rx_queues_to_use = BRCM_RX_Q_COUNT;
+> +
+> +	plat->tx_sched_algorithm = MTL_TX_ALGORITHM_SP;
+> +	for (i = 0; i < plat->tx_queues_to_use; i++) {
+> +		plat->tx_queues_cfg[i].use_prio = false;
+
+Already false.
+
+> +		plat->tx_queues_cfg[i].prio = 0;
+
+Already zero.
+
+> +		plat->tx_queues_cfg[i].mode_to_use = MTL_QUEUE_AVB;
+
+Since MTL_QUEUE_AVB is zero, this is already the case.
+
+> +	}
+
+All three points taken together mean that this loop is not required
+as all these members are being explicitly set to values of zero,
+which they already hold.
+
+> +
+> +	plat->rx_sched_algorithm = MTL_RX_ALGORITHM_SP;
+> +	for (i = 0; i < plat->rx_queues_to_use; i++) {
+> +		plat->rx_queues_cfg[i].use_prio = false;
+
+Already false.
+
+> +		plat->rx_queues_cfg[i].mode_to_use = MTL_QUEUE_AVB;
+
+Since MTL_QUEUE_AVB is zero, this is already the case.
+
+> +		plat->rx_queues_cfg[i].pkt_route = 0x0;
+
+Already zero.
+
+> +		plat->rx_queues_cfg[i].chan = i;
+
+stmmac_plat_dat_alloc() already initialises plat->rx_queues_cfg[].chan.
+
+> +	}
+
+Taking all these points together, it means that this loop also isn't
+required, since you're not changing anything that hasn't already been
+setup.
+
+> +}
+> +
+> +static int dwxgmac_brcm_default_data(struct pci_dev *pdev,
+> +				     struct plat_stmmacenet_data *plat)
+> +{
+> +	/* Set common default data first */
+> +	dwxgmac_brcm_common_default_data(plat);
+> +	plat->core_type = DWMAC_CORE_25GMAC;
+> +	plat->bus_id = 0;
+
+The underlying devm_kzalloc() which allocates "plat" will clear the
+struct to zeros, so this assignment to bus_id shouldn't be necessary.
+
+> +	plat->phy_addr = 0;
+
+You said there's no MDIO bus, so I don't think you need to initialise
+plat->phy_addr. stmmac_plat_dat_alloc() will set this to -1.
+
+> +	plat->phy_interface = PHY_INTERFACE_MODE_XGMII;
+> +
+> +	plat->dma_cfg->pbl = DEFAULT_DMA_PBL;
+> +	plat->dma_cfg->pblx8 = true;
+> +	plat->dma_cfg->aal = false;
+> +	plat->dma_cfg->eame = true;
+> +
+> +	plat->axi->axi_wr_osr_lmt = 31;
+> +	plat->axi->axi_rd_osr_lmt = 31;
+> +	plat->axi->axi_fb = false;
+
+devm_kzalloc() which is used to allocate plat->axi in the probe function
+will zero out this structure, so axi_fb will already be false.
+
+> +	plat->axi->axi_blen_regval = DMA_AXI_BLEN64;
+> +	return 0;
+> +}
+> +
+> +static struct dwxgmac_brcm_pci_info dwxgmac_brcm_pci_info = {
+> +	.setup = dwxgmac_brcm_default_data,
+> +};
+
+It looks to me like this is a copy of stmmac_pci.c / dwmac-intel.c etc.
+Do you know for certain that you're going to need to do different
+setups depending on the PCI device?
+
+What's the reasoning for the split between
+dwxgmac_brcm_common_default_data() and dwxgmac_brcm_default_data() ?
+
+> +
+> +static void brcm_config_misc_regs(struct pci_dev *pdev,
+> +				  struct brcm_priv_data *brcm_priv)
+> +{
+> +	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LOW,
+> +			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LO_VALUE);
+> +	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HIGH,
+> +			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HI_VALUE);
+> +
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_VALUE);
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_VALUE);
+> +
+> +	/* Enable Switch Link */
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MII_CTRL_OFFSET,
+> +		     XGMAC_PCIE_MISC_MII_CTRL_PAUSE_RX |
+> +		     XGMAC_PCIE_MISC_MII_CTRL_PAUSE_TX |
+> +		     XGMAC_PCIE_MISC_MII_CTRL_LINK_UP);
+> +}
+> +
+> +static int brcm_config_multi_msi(struct pci_dev *pdev,
+> +				 struct plat_stmmacenet_data *plat,
+> +				 struct stmmac_resources *res)
+> +{
+> +	int ret;
+> +	int i;
+> +
+> +	ret = pci_alloc_irq_vectors(pdev, BRCM_XGMAC_MSI_VECTOR_MAX,
+> +				    BRCM_XGMAC_MSI_VECTOR_MAX,
+> +				    PCI_IRQ_MSI | PCI_IRQ_MSIX);
+> +	if (ret < 0) {
+> +		dev_err(&pdev->dev, "%s: multi MSI enablement failed\n",
+> +			__func__);
+> +		return ret;
+> +	}
+> +
+> +	/* For RX MSI */
+> +	for (i = 0; i < plat->rx_queues_to_use; i++)
+> +		res->rx_irq[i] =
+> +			pci_irq_vector(pdev,
+> +				       BRCM_XGMAC_MSI_RX_VECTOR_START + i * 2);
+> +
+> +	/* For TX MSI */
+> +	for (i = 0; i < plat->tx_queues_to_use; i++)
+> +		res->tx_irq[i] =
+> +			pci_irq_vector(pdev,
+> +				       BRCM_XGMAC_MSI_TX_VECTOR_START + i * 2);
+> +
+> +	res->irq = pci_irq_vector(pdev, BRCM_XGMAC_MSI_MAC_VECTOR);
+> +
+> +	plat->flags |= STMMAC_FLAG_MULTI_MSI_EN;
+> +	plat->flags |= STMMAC_FLAG_TSO_EN;
+> +	plat->flags |= STMMAC_FLAG_SPH_DISABLE;
+> +	return 0;
+> +}
+> +
+> +static int brcm_pci_resume(struct device *dev, void *bsp_priv)
+> +{
+> +	struct pci_dev *pdev = to_pci_dev(dev);
+> +
+> +	brcm_config_misc_regs(pdev, bsp_priv);
+
+Is it worth declaring struct pdev for one place that it's used?
+
+	brcm_config_misc_regs(to_pci_dev(dev), bsp_priv);
+
+should work just as well.
+
+> +
+> +	return stmmac_pci_plat_resume(dev, bsp_priv);
+> +}
+> +
+> +static int dwxgmac_brcm_pci_probe(struct pci_dev *pdev,
+> +				  const struct pci_device_id *id)
+> +{
+> +	struct dwxgmac_brcm_pci_info *info =
+> +		(struct dwxgmac_brcm_pci_info *)id->driver_data;
+> +	struct plat_stmmacenet_data *plat;
+> +	struct brcm_priv_data *brcm_priv;
+> +	struct stmmac_resources res;
+> +	struct device *dev;
+> +	int rx_offset;
+> +	int tx_offset;
+> +	int vector;
+> +	int ret;
+> +
+> +	dev = &pdev->dev;
+
+As you go to the effort of declaring a struct device pointer, and
+assign it, do you think it would be a good idea to either use it for
+all &pdev->dev instances below, or just get rid of the two instances
+that you actually use "dev" ?
+
+I count six instances of "&pdev->dev" below vs two making use of "dev"
+directly.
+
+> +
+> +	brcm_priv = devm_kzalloc(&pdev->dev, sizeof(*brcm_priv), GFP_KERNEL);
+> +	if (!brcm_priv)
+> +		return -ENOMEM;
+> +
+> +	plat = stmmac_plat_dat_alloc(dev);
+> +	if (!plat)
+> +		return -ENOMEM;
+> +
+> +	plat->axi = devm_kzalloc(&pdev->dev, sizeof(*plat->axi), GFP_KERNEL);
+> +	if (!plat->axi)
+> +		return -ENOMEM;
+> +
+> +	/* This device is directly attached to the switch chip internal to the
+> +	 * SoC using XGMII interface. Since no MDIO is present, register
+> +	 * fixed-link software_node to create phylink.
+> +	 */
+> +	software_node_register_node_group(brcm_swnodes);
+> +	device_set_node(dev, software_node_fwnode(&parent_swnode));
+> +
+> +	/* Disable D3COLD as our device does not support it */
+> +	pci_d3cold_disable(pdev);
+> +
+> +	/* Enable PCI device */
+> +	ret = pcim_enable_device(pdev);
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "%s: ERROR: failed to enable device\n",
+> +			__func__);
+> +		return ret;
+
+What about cleaning up the swnodes ?
+
+> +	}
+> +
+> +	pci_set_master(pdev);
+> +
+> +	memset(&res, 0, sizeof(res));
+> +	res.addr = pcim_iomap_region(pdev, 0, pci_name(pdev));
+> +	if (IS_ERR(res.addr))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(res.addr),
+> +				     "failed to map IO region\n");
+
+Convention is to have a blank line here.
+
+> +	/* MISC Regs */
+> +	brcm_priv->misc_regs = res.addr + BRCM_XGMAC_IOMEM_MISC_REG_OFFSET;
+> +	/* MBOX Regs */
+> +	brcm_priv->mbox_regs = res.addr + BRCM_XGMAC_IOMEM_MBOX_REG_OFFSET;
+> +	/* XGMAC config Regs */
+> +	res.addr += BRCM_XGMAC_IOMEM_CFG_REG_OFFSET;
+> +	brcm_priv->xgmac_regs = res.addr;
+> +
+> +	plat->suspend		= stmmac_pci_plat_suspend;
+> +	plat->resume		= brcm_pci_resume;
+> +	plat->bsp_priv = brcm_priv;
+> +
+> +	ret = info->setup(pdev, plat);
+> +	if (ret)
+> +		return ret;
+
+What about cleaning up the swnodes ?
+
+> +
+> +	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LOW,
+> +			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LO_VALUE);
+> +	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HIGH,
+> +			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HI_VALUE);
+> +
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_VALUE);
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_VALUE);
+> +
+> +	/* SBD Interrupt */
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_SBD_ALL_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_SBD_ALL_VALUE);
+> +	/* EP_DOORBELL Interrupt */
+> +	misc_iowrite(brcm_priv,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST_DBELL_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST_DBELL_VALUE);
+> +	/* EP_H0 Interrupt */
+> +	misc_iowrite(brcm_priv,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST0_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST0_VALUE);
+> +	/* EP_H1 Interrupt */
+> +	misc_iowrite(brcm_priv,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST1_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_EP2HOST1_VALUE);
+> +
+> +	rx_offset = XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_RX0_PF0_OFFSET;
+> +	tx_offset = XGMAC_PCIE_MISC_MSIX_VECTOR_MAP_TX0_PF0_OFFSET;
+> +	vector = BRCM_XGMAC_MSI_RX_VECTOR_START;
+> +	for (int i = 0; i < BRCM_MAX_DMA_CHANNEL_PAIRS; i++) {
+> +		/* RX Interrupt */
+> +		misc_iowrite(brcm_priv, rx_offset, vector++);
+> +		/* TX Interrupt */
+> +		misc_iowrite(brcm_priv, tx_offset, vector++);
+> +		rx_offset += 4;
+> +		tx_offset += 4;
+> +	}
+
+It looks like this device can program the MSI vector numbers. Does
+it make sense to interleave them, or would it be simpler to have
+all the receive vectors and then all the transmit vectors?
+
+This also hard-codes the fact that BRCM_XGMAC_MSI_TX_VECTOR_START
+is one more than BRCM_XGMAC_MSI_RX_VECTOR_START, which isn't nice
+given that you use these macros when claiming the MSI vectors.
+
+> +
+> +	/* Enable Switch Link */
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MII_CTRL_OFFSET,
+> +		     XGMAC_PCIE_MISC_MII_CTRL_PAUSE_RX |
+> +		     XGMAC_PCIE_MISC_MII_CTRL_PAUSE_TX |
+> +		     XGMAC_PCIE_MISC_MII_CTRL_LINK_UP);
+> +	/* Enable MSI-X */
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_PCIESS_CTRL_OFFSET,
+> +		     XGMAC_PCIE_MISC_PCIESS_CTRL_EN_MSI_MSIX);
+> +
+> +	ret = brcm_config_multi_msi(pdev, plat, &res);
+> +	if (ret) {
+> +		dev_err(&pdev->dev,
+> +			"%s: ERROR: failed to enable IRQ\n", __func__);
+> +		goto err_disable_msi;
+> +	}
+> +
+> +	ret = stmmac_dvr_probe(&pdev->dev, plat, &res);
+> +	if (ret)
+> +		goto err_disable_msi;
+> +
+> +	return ret;
+> +
+> +err_disable_msi:
+> +	pci_free_irq_vectors(pdev);
+
+This is still buggy. What about cleaning up the swnodes?
+
+> +
+> +	return ret;
+> +}
+> +
+> +static void dwxgmac_brcm_pci_remove(struct pci_dev *pdev)
+> +{
+> +	stmmac_dvr_remove(&pdev->dev);
+> +	pci_free_irq_vectors(pdev);
+> +	device_set_node(&pdev->dev, NULL);
+> +	software_node_unregister_node_group(brcm_swnodes);
+
+As the remove function does way more cleanup than the probe function,
+this is a sign that the probe function is buggy. This is exactly why
+I suggested using ->init and ->exit in the previous review. I seem
+to have been ignored on that though... and the problem I already
+pointed out remains.
+
+Thanks.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
