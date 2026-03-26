@@ -2,70 +2,56 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oFQIHB+HxGl50AQAu9opvQ
+	id kOqwGtOkxGmZ1wQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 02:08:47 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 04:15:31 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A13232DC24
-	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 02:08:46 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7CD832EAB7
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 04:15:30 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 939DDC8F26A;
-	Thu, 26 Mar 2026 01:08:46 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBD1AC87ED3
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FF2AC8F273;
+	Thu, 26 Mar 2026 03:15:30 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [207.46.229.174])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C868C8F271
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 26 Mar 2026 01:08:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=HZk9cX6zPb++VDwxFCjztWsZ6cPWXsFQhOd6PIpC+jg=; b=3k+TjSE4T5siYJvmjf+q67z7Bo
- blgq/01N77awBnx7m8dxKS+XWCjvcdDITItvnD/oPHPgdpnl/fYTwqn9SZnLpumvD+4pQ9MuXPyJz
- LLcgWn8WmSKGBEQCaDnMeONlaYVoPwlRLHNuJiDEDQk8r41BKPWSIExdHBN5qyXIf2iA=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1w5ZD0-00DNsG-6i; Thu, 26 Mar 2026 02:08:26 +0100
-Date: Thu, 26 Mar 2026 02:08:26 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Message-ID: <409265d8-532a-44d4-abc6-02ac5a19d286@lunn.ch>
-References: <20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com>
- <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
+ Thu, 26 Mar 2026 03:15:28 +0000 (UTC)
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Thu, 26 Mar 2026 11:14:45 +0800 (GMT+08:00)
+X-Originating-IP: [10.11.96.26]
+Date: Thu, 26 Mar 2026 11:14:45 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Simon Horman" <horms@kernel.org>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <20260325180330.GL111839@horms.kernel.org>
+References: <20260324073017.376-1-lizhi2@eswincomputing.com>
+ <20260324073408.439-1-lizhi2@eswincomputing.com>
+ <20260325180330.GL111839@horms.kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
-Cc: imx@lists.linux.dev, s32@nxp.com,
- Geert Uytterhoeven <geert+renesas@glider.be>, Radu Rendec <rrendec@redhat.com>,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jerome Brunet <jbrunet@baylibre.com>, Rob Herring <robh@kernel.org>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Kevin Hilman <khilman@baylibre.com>, Magnus Damm <magnus.damm@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, linux-rockchip@lists.infradead.org,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
- Jan Petrous <jan.petrous@oss.nxp.com>, Maxime Ripard <mripard@kernel.org>,
- linux-mips@vger.kernel.org, Drew Fustini <dfustini@tenstorrent.com>,
- sophgo@lists.linux.dev, Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Chen-Yu Tsai <wens@kernel.org>, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v9 2/6] net: stmmac: qcom-ethqos:
- use generic device properties
+Message-ID: <2a12c839.5e64.19d28232537.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID: TAJkCgDHaXOlpMRpqdYLAA--.3593W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgERDGnEDooA3QADsp
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
+Cc: edumazet@google.com, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com, alex@ghiti.fr,
+ ningyu@eswincomputing.com, kuba@kernel.org, pabeni@redhat.com,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
+ rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
+ linmin@eswincomputing.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, palmer@dabbelt.com,
+ mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v5 3/3] riscv: dts: eswin:
+ eic7700-hifive-premier-p550: enable Ethernet controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,115 +63,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [3.09 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	DMARC_NA(0.00)[eswincomputing.com];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:bartosz.golaszewski@oss.qualcomm.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:geert+renesas@glider.be,m:rrendec@redhat.com,m:linux-kernel@vger.kernel.org,m:edumazet@google.com,m:linux-amlogic@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jbrunet@baylibre.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:romain.gantois@bootlin.com,m:khilman@baylibre.com,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:linux-rockchip@lists.infradead.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:jan.petrous@oss.nxp.com,m:mripard@kernel.org,m:linux-mips@vger.kernel.org,m:dfustini@tenstorrent.com,m:sophgo@lists.linux.dev,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:netdev@vger.kernel.
- org,m:andersson@kernel.org,m:bartosz.golaszewski@linaro.org,m:christophe.roullier@foss.st.com,m:linux-renesas-soc@vger.kernel.org,m:andrew+netdev@lunn.ch,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:geert@glider.be,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[47];
 	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	FORGED_RECIPIENTS(0.00)[m:horms@kernel.org,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:pritesh.patel@einfochips.com,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:rmk+kernel@armlinux.org.uk,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,glider.be,redhat.com,vger.kernel.org,google.com,lists.infradead.org,gmail.com,st-md-mailman.stormreply.com,baylibre.com,kernel.org,oss.qualcomm.com,bootlin.com,oss.nxp.com,tenstorrent.com,st.com,linaro.org,foss.st.com,lunn.ch,davemloft.net];
+	HAS_X_PRIO_THREE(0.00)[3];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[lunn.ch:-];
-	NEURAL_HAM(-0.00)[-0.414];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FREEMAIL_CC(0.00)[google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,einfochips.com,eswincomputing.com,ghiti.fr,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
+	HAS_XOIP(0.00)[];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas,dt,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lunn.ch:mid,bootlin.com:url]
-X-Rspamd-Queue-Id: 0A13232DC24
+	NEURAL_HAM(-0.00)[-1.000];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: C7CD832EAB7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, Mar 16, 2026 at 01:05:07PM +0100, Bartosz Golaszewski wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> 
-> In order to drop the dependency on CONFIG_OF, convert all device property
-> getters from OF-specific to generic device properties and stop pulling
-> in any linux/of.h symbols.
-> 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/Kconfig             | 2 +-
->  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 9 ++++-----
->  2 files changed, 5 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> index 07088d03dbab5bd1abf66e9460613b839c1d565e..e2af4fdd654340d618477ed87d3889dbb9aab456 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
-> @@ -135,7 +135,7 @@ config DWMAC_MESON
->  config DWMAC_QCOM_ETHQOS
->  	tristate "Qualcomm ETHQOS support"
->  	default ARCH_QCOM
-> -	depends on OF && (ARCH_QCOM || COMPILE_TEST)
-> +	depends on ARCH_QCOM || COMPILE_TEST
->  	help
->  	  Support for the Qualcomm ETHQOS core.
-
-Are you sure you want to do that?
-
-static int qcom_ethqos_probe(struct platform_device *pdev)
-{
-	struct device_node *np = pdev->dev.of_node;
-	const struct ethqos_emac_driver_data *data;
-	struct plat_stmmacenet_data *plat_dat;
-	struct stmmac_resources stmmac_res;
-	struct device *dev = &pdev->dev;
-	struct qcom_ethqos *ethqos;
-	int ret, i;
-
-	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-	if (ret)
-		return dev_err_probe(dev, ret,
-				     "Failed to get platform resources\n");
-
-	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
-	if (IS_ERR(plat_dat)) {
-		return dev_err_probe(dev, PTR_ERR(plat_dat),
-				     "dt configuration failed\n");
-	}
-
-https://elixir.bootlin.com/linux/v6.19.9/source/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c#L684
-
-
-#else
-struct plat_stmmacenet_data *
-devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
-{
-	return ERR_PTR(-EINVAL);
-}
-#endif /* CONFIG_OF */
-
-It seems like this is just going to result in the probe failing with
--EINVAL.
-
-	Andrew
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgoKPiAtLS0tLeWOn+Wni+mCruS7ti0tLS0tCj4g5Y+R5Lu25Lq6OiAiU2ltb24gSG9ybWFuIiA8
+aG9ybXNAa2VybmVsLm9yZz4KPiDlj5HpgIHml7bpl7Q6MjAyNi0wMy0yNiAwMjowMzozMCAo5pif
+5pyf5ZubKQo+IOaUtuS7tuS6ujogbGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbQo+IOaKhOmAgTog
+ZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGFuZHJldytuZXRkZXZAbHVubi5jaCwgZGF2ZW1A
+ZGF2ZW1sb2Z0Lm5ldCwgZWR1bWF6ZXRAZ29vZ2xlLmNvbSwga3ViYUBrZXJuZWwub3JnLCByb2Jo
+QGtlcm5lbC5vcmcsIGtyemsrZHRAa2VybmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0
+ZGV2QHZnZXIua2VybmVsLm9yZywgcGFiZW5pQHJlZGhhdC5jb20sIG1jb3F1ZWxpbi5zdG0zMkBn
+bWFpbC5jb20sIGFsZXhhbmRyZS50b3JndWVAZm9zcy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGlu
+dXgub3JnLnVrLCBwandAa2VybmVsLm9yZywgcGFsbWVyQGRhYmJlbHQuY29tLCBhb3VAZWVjcy5i
+ZXJrZWxleS5lZHUsIGFsZXhAZ2hpdGkuZnIsIGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5v
+cmcsIGxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20sIGxpbnV4LWFybS1r
+ZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywg
+bWF4aW1lLmNoZXZhbGxpZXJAYm9vdGxpbi5jb20sIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20s
+IGxpbm1pbkBlc3dpbmNvbXB1dGluZy5jb20sIHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNv
+bSwgcHJpdGVzaC5wYXRlbEBlaW5mb2NoaXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0
+aW5nLmNvbQo+IOS4u+mimDogUmU6IFtQQVRDSCBuZXQtbmV4dCB2NSAzLzNdIHJpc2N2OiBkdHM6
+IGVzd2luOiBlaWM3NzAwLWhpZml2ZS1wcmVtaWVyLXA1NTA6IGVuYWJsZSBFdGhlcm5ldCBjb250
+cm9sbGVyCj4gCj4gT24gVHVlLCBNYXIgMjQsIDIwMjYgYXQgMDM6MzQ6MDhQTSArMDgwMCwgbGl6
+aGkyQGVzd2luY29tcHV0aW5nLmNvbSB3cm90ZToKPiA+IEZyb206IFpoaSBMaSA8bGl6aGkyQGVz
+d2luY29tcHV0aW5nLmNvbT4KPiA+IAo+ID4gRW5hYmxlIHRoZSBvbi1ib2FyZCBHaWdhYml0IEV0
+aGVybmV0IGNvbnRyb2xsZXIgb24gdGhlCj4gPiBIaUZpdmUgUHJlbWllciBQNTUwIGRldmVsb3Bt
+ZW50IGJvYXJkLgo+ID4gCj4gPiBTaWduZWQtb2ZmLWJ5OiBaaGkgTGkgPGxpemhpMkBlc3dpbmNv
+bXB1dGluZy5jb20+Cj4gPiAtLS0KPiA+ICAuLi4vZHRzL2Vzd2luL2VpYzc3MDAtaGlmaXZlLXBy
+ZW1pZXItcDU1MC5kdHMgfCA0MiArKysrKysrKysrKysKPiA+ICBhcmNoL3Jpc2N2L2Jvb3QvZHRz
+L2Vzd2luL2VpYzc3MDAuZHRzaSAgICAgICAgfCA2NiArKysrKysrKysrKysrKysrKysrCj4gPiAg
+MiBmaWxlcyBjaGFuZ2VkLCAxMDggaW5zZXJ0aW9ucygrKQo+IAo+IFVuZm9ydHVuYXRlbHkgdGhp
+cyBkb2VzIG5vdCBjb21waWxlOgo+IAo+ICQgQVJDSD1yaXNjdiBtYWtlIGFsbG1vZGNvbmZpZyBk
+dGJzCj4gLi4uCj4gICBEVEMgICAgIGFyY2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcwMC1o
+aWZpdmUtcHJlbWllci1wNTUwLmR0Ygo+IGFyY2gvcmlzY3YvYm9vdC9kdHMvZXN3aW4vZWljNzcw
+MC5kdHNpOjMwMC4yOC0zMzAuNTogRVJST1IgKHBoYW5kbGVfcmVmZXJlbmNlcyk6IC9zb2MvZXRo
+ZXJuZXRANTA0MDAwMDA6IFJlZmVyZW5jZSB0byBub24tZXhpc3RlbnQgbm9kZSBvciBsYWJlbCAi
+Y2xrIgo+IC4uLgo+IAo+IC0tIAo+IHB3LWJvdDogY2hhbmdlcy1yZXF1ZXN0ZWQKCkhpIFNpbW9u
+LAoKVGhhbmtzIGZvciB5b3VyIHJldmlldy4KCllvdSdyZSByaWdodCwgdGhpcyBidWlsZCBmYWls
+dXJlIGlzIGR1ZSB0byBhbiBpbnZhbGlkIGNsb2NrIHJlZmVyZW5jZQooImNsayIpIGluIHRoZSBF
+dGhlcm5ldCBub2RlLCB3aGljaCBkb2VzIG5vdCBjb3JyZXNwb25kIHRvIGFuIGV4aXN0aW5nCmNs
+b2NrIHByb3ZpZGVyIGxhYmVsIGluIHRoZSBjdXJyZW50IERUUy4KCkZvciBjb250ZXh0LCB0aGlz
+IHdhcyBkaXNjdXNzZWQgZHVyaW5nIGFuIGVhcmxpZXIgcmV2aXNpb246Cmh0dHBzOi8vbG9yZS5r
+ZXJuZWwub3JnL2xrbWwvNWRlYThjZTAuNDQzNS4xOWM0NzEyMzFmNS5Db3JlbWFpbC5saXpoaTJA
+ZXN3aW5jb21wdXRpbmcuY29tLwoKVGhlIEVJQzc3MDAgY2xvY2sgY29udHJvbGxlciBzdXBwb3J0
+IGhhcyBzaW5jZSBiZWVuIGFwcGxpZWQsIHNvIEkgd2lsbAp1cGRhdGUgdGhlIERUUyB0byByZWZl
+cmVuY2UgdGhlIGNvcnJlY3QgY2xvY2sgcHJvdmlkZXIgYW5kIGVuc3VyZSB0aGUKYnVpbGQgcGFz
+c2VzIGNsZWFubHkuCgpJIHdpbGwgZml4IHRoaXMgaW4gdGhlIG5leHQgcmV2aXNpb24gKHY2KS4K
+ClRoYW5rcywKWmhpIExpCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
