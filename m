@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yKiSFedaxGl0ygQAu9opvQ
+	id oFQIHB+HxGl50AQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 23:00:07 +0100
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 02:08:47 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD79232CBD7
-	for <lists+linux-stm32@lfdr.de>; Wed, 25 Mar 2026 23:00:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A13232DC24
+	for <lists+linux-stm32@lfdr.de>; Thu, 26 Mar 2026 02:08:46 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 554ACC8F269;
-	Wed, 25 Mar 2026 22:00:06 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 939DDC8F26A;
+	Thu, 26 Mar 2026 01:08:46 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64DFFC8F268
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DBD1AC87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 25 Mar 2026 22:00:05 +0000 (UTC)
+ Thu, 26 Mar 2026 01:08:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=Xhr1D24nKivYP/3T0AfCxVIkR9YFjI1CmvRMS0ErUhs=; b=5tawHl3e+uz9eT1sXa8Trr9UO3
- ROaHbvVci5+1x1gHnzDm2slDD0JaznmGKOrxGbVFDkZMzS+rmgkpFFIzI8uoZ8Vm3HM5sU74Lbgg9
- /PopU1JjeSWjAX4u00eOPjCt0e4mbNvr581G0kAg+1PHB+QCwy6hnY76o/2fmt4nVWL0=;
+ bh=HZk9cX6zPb++VDwxFCjztWsZ6cPWXsFQhOd6PIpC+jg=; b=3k+TjSE4T5siYJvmjf+q67z7Bo
+ blgq/01N77awBnx7m8dxKS+XWCjvcdDITItvnD/oPHPgdpnl/fYTwqn9SZnLpumvD+4pQ9MuXPyJz
+ LLcgWn8WmSKGBEQCaDnMeONlaYVoPwlRLHNuJiDEDQk8r41BKPWSIExdHBN5qyXIf2iA=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1w5WGR-00DMmg-Oz; Wed, 25 Mar 2026 22:59:47 +0100
-Date: Wed, 25 Mar 2026 22:59:47 +0100
+ id 1w5ZD0-00DNsG-6i; Thu, 26 Mar 2026 02:08:26 +0100
+Date: Thu, 26 Mar 2026 02:08:26 +0100
 From: Andrew Lunn <andrew@lunn.ch>
 To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Message-ID: <ba85f84e-740d-47d6-a8a0-97823bf2c4d7@lunn.ch>
+Message-ID: <409265d8-532a-44d4-abc6-02ac5a19d286@lunn.ch>
 References: <20260316-qcom-sa8255p-emac-v9-0-c58934e76ff2@oss.qualcomm.com>
  <20260316-qcom-sa8255p-emac-v9-2-c58934e76ff2@oss.qualcomm.com>
 MIME-Version: 1.0
@@ -109,14 +109,14 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[lunn.ch:-];
-	NEURAL_HAM(-0.00)[-0.694];
+	NEURAL_HAM(-0.00)[-0.414];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas,dt,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,stormreply.com:email,stormreply.com:url,lunn.ch:mid]
-X-Rspamd-Queue-Id: DD79232CBD7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[linaro.org:email,lunn.ch:mid,bootlin.com:url]
+X-Rspamd-Queue-Id: 0A13232DC24
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -126,9 +126,63 @@ On Mon, Mar 16, 2026 at 01:05:07PM +0100, Bartosz Golaszewski wrote:
 > In order to drop the dependency on CONFIG_OF, convert all device property
 > getters from OF-specific to generic device properties and stop pulling
 > in any linux/of.h symbols.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@linaro.org>
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/Kconfig             | 2 +-
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 9 ++++-----
+>  2 files changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/Kconfig b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> index 07088d03dbab5bd1abf66e9460613b839c1d565e..e2af4fdd654340d618477ed87d3889dbb9aab456 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> +++ b/drivers/net/ethernet/stmicro/stmmac/Kconfig
+> @@ -135,7 +135,7 @@ config DWMAC_MESON
+>  config DWMAC_QCOM_ETHQOS
+>  	tristate "Qualcomm ETHQOS support"
+>  	default ARCH_QCOM
+> -	depends on OF && (ARCH_QCOM || COMPILE_TEST)
+> +	depends on ARCH_QCOM || COMPILE_TEST
+>  	help
+>  	  Support for the Qualcomm ETHQOS core.
 
-Adding to what Russell said, please document your new binding. e.g. in
-Documentation/firmware-guide/acpi/dsd.
+Are you sure you want to do that?
+
+static int qcom_ethqos_probe(struct platform_device *pdev)
+{
+	struct device_node *np = pdev->dev.of_node;
+	const struct ethqos_emac_driver_data *data;
+	struct plat_stmmacenet_data *plat_dat;
+	struct stmmac_resources stmmac_res;
+	struct device *dev = &pdev->dev;
+	struct qcom_ethqos *ethqos;
+	int ret, i;
+
+	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+	if (ret)
+		return dev_err_probe(dev, ret,
+				     "Failed to get platform resources\n");
+
+	plat_dat = devm_stmmac_probe_config_dt(pdev, stmmac_res.mac);
+	if (IS_ERR(plat_dat)) {
+		return dev_err_probe(dev, PTR_ERR(plat_dat),
+				     "dt configuration failed\n");
+	}
+
+https://elixir.bootlin.com/linux/v6.19.9/source/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c#L684
+
+
+#else
+struct plat_stmmacenet_data *
+devm_stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+{
+	return ERR_PTR(-EINVAL);
+}
+#endif /* CONFIG_OF */
+
+It seems like this is just going to result in the probe failing with
+-EINVAL.
 
 	Andrew
 _______________________________________________
