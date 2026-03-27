@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2MNfCUlDxmlRIAUAu9opvQ
+	id GA0pEVBDxmlRIAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:43:53 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:44:00 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC9FD34131B
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:43:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3217341332
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:43:59 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B582C8F288;
-	Fri, 27 Mar 2026 08:43:52 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A875CC8F287;
+	Fri, 27 Mar 2026 08:43:59 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2AF50C8F288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 668ADC8F280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Mar 2026 08:43:51 +0000 (UTC)
+ Fri, 27 Mar 2026 08:43:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=O9yYgHH46k8miSUiyGhGc2WsnL2hXAEwgSYhG9voR70=; b=WKwU8uR5HSxwgOXLYDOWTVMnmG
- vmGvEGCrScnecLiCQX+2B0h8OvqH8dlvqbX46GjXt391gE5GPw9L5hegQ4st9YrGnQTajqN8eW35L
- KNipF1PydDm4xZK8eNJ/MYTON/xIBlUSq+HPNSpmRmV0g6uL65NKpZmRu3bFOT09rktipdkj9P97x
- Np3HZb4l6O3qfhoFtDsQnnpJqEkQ2impWuqkUdvhLWeyZUJpa7jgET6YDcY6D6SXrfEFLppNgrzeH
- 4c7F0h030rf8WunFLm/MeHMRltDe6MlWQP6PVXLgD4ygVqwOfbcSz4DPHffOV33o27YAzjkm5/4IS
- +kWxj6UQ==;
+ bh=v5zv1KoW+UBKxbZ895MWOl/70blKXnrG1j2mMoFeT8s=; b=Z7NPIW5puVRFmo2a7gj+mDitUO
+ 4QQjZtQie1BMAhRpbEsHUuapb7ri+FhyS75KPzolQ3C0WgGK82pm/NQUM4BgzW+E9WQFHw9kUPVi4
+ e7X+78+TfdgBNT0jCZiJ5S86VW9zDs52HUiWsFDRuCR/lcElC7BPyY6QYbNFkjUprzwmw9XAbMkpC
+ DZc5052DPlX+DjB2CZXnyfD9PUlBHscQaVL9iS/8RLUgLdkF9bIgo6s4VrQ80r0+QBt11KMd3RAiY
+ Dkql7BJVf/NoIoSaAbnhBhxEq316EFW+Kvx3rbtqZvRer94mLKqfLIWYDwdUYB7X6HJSWZhxkULIE
+ DQ4Y+liw==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57576 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:53130 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w62nA-000000005pB-3qpq;
- Fri, 27 Mar 2026 08:43:44 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w62nF-000000005pW-445J;
+ Fri, 27 Mar 2026 08:43:50 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w62n9-0000000E3C9-2Zkr; Fri, 27 Mar 2026 08:43:43 +0000
+ id 1w62nE-0000000E3CF-331r; Fri, 27 Mar 2026 08:43:48 +0000
 In-Reply-To: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
 References: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w62n9-0000000E3C9-2Zkr@rmk-PC.armlinux.org.uk>
-Date: Fri, 27 Mar 2026 08:43:43 +0000
+Message-Id: <E1w62nE-0000000E3CF-331r@rmk-PC.armlinux.org.uk>
+Date: Fri, 27 Mar 2026 08:43:48 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 04/15] net: stmmac: qcom-ethqos:
- move detection of invalid RGMII speed
+Subject: [Linux-stm32] [PATCH net-next v2 05/15] net: stmmac: qcom-ethqos:
+ move RGMII_CONFIG_DDR_MODE
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +92,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.190];
+	NEURAL_HAM(-0.00)[-0.243];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -104,46 +104,54 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: DC9FD34131B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: E3217341332
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Move detection of invalid RGMII speeds (which will never be triggered)
-before the switch() to allow register modifications that are common to
-all speeds to be moved out of the switch.
+RGMII_CONFIG_DDR_MODE is always set irrespective of the speed. Move
+this out of the switch.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index f7e3a2b8803f..d19331067459 100644
+index d19331067459..34d9a6b2d023 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -397,6 +397,11 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 	/* Select RGMII, write 0 to interface select */
- 	rgmii_clrmask(ethqos, RGMII_CONFIG_INTF_SEL, RGMII_IO_MACRO_CONFIG);
+@@ -402,10 +402,10 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+ 		return -EINVAL;
+ 	}
  
-+	if (speed != SPEED_1000 && speed != SPEED_100 && speed != SPEED_10) {
-+		dev_err(dev, "Invalid speed %d\n", speed);
-+		return -EINVAL;
-+	}
++	rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE, RGMII_IO_MACRO_CONFIG);
 +
  	switch (speed) {
  	case SPEED_1000:
- 		rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE,
-@@ -510,9 +515,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 		rgmii_updatel(ethqos, RGMII_CONFIG_LOOPBACK_EN,
- 			      loopback, RGMII_IO_MACRO_CONFIG);
+-		rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE,
+-			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_clrmask(ethqos, RGMII_CONFIG_BYPASS_TX_ID_EN,
+ 			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_setmask(ethqos, RGMII_CONFIG_POS_NEG_DATA_SEL,
+@@ -443,8 +443,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
  		break;
--	default:
--		dev_err(dev, "Invalid speed %d\n", speed);
--		return -EINVAL;
- 	}
  
- 	return 0;
+ 	case SPEED_100:
+-		rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE,
+-			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_setmask(ethqos, RGMII_CONFIG_BYPASS_TX_ID_EN,
+ 			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_clrmask(ethqos, RGMII_CONFIG_POS_NEG_DATA_SEL,
+@@ -481,8 +479,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+ 		break;
+ 
+ 	case SPEED_10:
+-		rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE,
+-			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_setmask(ethqos, RGMII_CONFIG_BYPASS_TX_ID_EN,
+ 			      RGMII_IO_MACRO_CONFIG);
+ 		rgmii_clrmask(ethqos, RGMII_CONFIG_POS_NEG_DATA_SEL,
 -- 
 2.47.3
 
