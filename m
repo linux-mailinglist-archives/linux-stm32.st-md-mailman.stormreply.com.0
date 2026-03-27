@@ -2,49 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QNDXNR1XxmmMIwUAu9opvQ
+	id oAUMIStXxmmMIwUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 11:08:29 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 11:08:43 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7877A342306
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 11:08:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DB31342315
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 11:08:43 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1768C8F286;
-	Fri, 27 Mar 2026 10:08:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3037C8F286;
+	Fri, 27 Mar 2026 10:08:42 +0000 (UTC)
 Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DF292C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 166A9C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Mar 2026 10:08:26 +0000 (UTC)
+ Fri, 27 Mar 2026 10:08:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
- from:content-type:reply-to; bh=AzWhhK4eypW2x0fSnkzpK6RerezFsNCiDwe+T8oeXdU=; 
- b=H/afi3co8SjSAQvj7/xp1Gw0//RvM0gbu7N+aeSZfyH7Zc0wcsg79e0eSM33lHu2PQyn+SZfpeZ
- uzYPVVKCx2B9ZbsQ2juVUZpR2XUtkE4AMmIq6FCduRKwS+8ZjTb9PI9QXDVoWS0dLqWc8CPpL/MwN
- O1wSv9U9L5stxIFFn/JprphFPxgWpGi7Up2oOvdvJgC5KZy90/nt9sxyD25u3TnrXdAXm8eke2up8
- JZsfMzmiHUMbzGikFyJu4CJ2sRuQgsFUmsG8LVNWly3lqNt2q13twYd+AdfdyA4KEXFWEw0ez5qwT
- dF3YpvTydz0/zlEQHxpj0a1TnQVtVn8l0JKQ==;
+ from:content-type:reply-to; bh=c12kSdprXC39vKCXXFKji6j7eF/JjYqJMcZ0t574Ubo=; 
+ b=jBYSXik0SFiBONhs8ZtSl9Eh2coka3evQ7RheiY02Gfy3rufsMAH/8YDsyQJk/Pot2tM+rB123n
+ h34NTdyT1ALO6kevY5C3moaTyJedrrW2G1zeG7Das3yl69W4SLQKE9RmeL0WQTbBhQcHbdFKaCgCU
+ p5+wgD2eCp5pWCcduMb1Wc9vZ5g+aazxYFCuKQMnXmil2ZlcEz+h1fVBnjwBXxdG4Cx/2ati27VnU
+ Wtc53CjM6juKmqN9jvvqQCnT9h2G5jg3pcE0+0VLxDX6Z2ziGwTC8HjF4am+6ok5ddLqlNyDnumRj
+ 4iN8MXpHuPMikMfXJmAqoxD6UMWka5w0LtgA==;
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
  by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
- id 1w63hQ-001bnv-1f; Fri, 27 Mar 2026 18:08:12 +0800
+ id 1w63hh-001bo3-3D; Fri, 27 Mar 2026 18:08:29 +0800
 Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Fri, 27 Mar 2026 19:08:11 +0900
-Date: Fri, 27 Mar 2026 19:08:11 +0900
+ Fri, 27 Mar 2026 19:08:28 +0900
+Date: Fri, 27 Mar 2026 19:08:28 +0900
 From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Aleksander Jan Bajkowski <olek2@wp.pl>
-Message-ID: <acZXC_Sj_54PLIQs@gondor.apana.org.au>
-References: <20260319171128.10566-1-olek2@wp.pl>
+To: Thorsten Blum <thorsten.blum@linux.dev>
+Message-ID: <acZXHNMdYNgQfxCb@gondor.apana.org.au>
+References: <20260320084914.7180-3-thorsten.blum@linux.dev>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260319171128.10566-1-olek2@wp.pl>
-Cc: linux-kernel@vger.kernel.org, davem@davemloft.net,
- linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+In-Reply-To: <20260320084914.7180-3-thorsten.blum@linux.dev>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] crypto: testmgr - Add test vectors for
- authenc(hmac(md5), rfc3686(ctr(aes)))
+Subject: Re: [Linux-stm32] [PATCH 1/2] crypto: stm32 - use
+ list_first_entry_or_null to simplify hash_find_dev
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,58 +62,54 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.79 / 15.00];
-	SUSPICIOUS_RECIPS(1.50)[];
 	DMARC_POLICY_QUARANTINE(1.50)[apana.org.au : SPF not aligned (relaxed),quarantine];
+	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[gondor.apana.org.au:s=h01];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:olek2@wp.pl,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:thorsten.blum@linux.dev,m:mcoquelin.stm32@gmail.com,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[wp.pl];
-	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,davemloft.net,linux.intel.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
+	NEURAL_HAM(-0.00)[-0.633];
 	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
+	RCPT_COUNT_SEVEN(0.00)[8];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.358];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[gondor.apana.org.au:mid,apana.org.au:email,apana.org.au:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 7877A342306
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,gondor.apana.org.au:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,apana.org.au:email,apana.org.au:url,linux.dev:email]
+X-Rspamd-Queue-Id: 2DB31342315
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Mar 19, 2026 at 06:11:21PM +0100, Aleksander Jan Bajkowski wrote:
-> Test vectors were generated starting from existing RFC3686(CTR(AES)) test
-> vectors and adding HMAC(MD5) computed with software implementation.
-> Then, the results were double-checked on Mediatek MT7986 (safexcel).
-> Platform pass self-tests.
+On Fri, Mar 20, 2026 at 09:49:13AM +0100, Thorsten Blum wrote:
+> Use list_first_entry_or_null() to simplify stm32_hash_find_dev() and
+> remove the now-unused local variable 'struct stm32_hash_dev *tmp'.
 > 
-> Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
 > ---
->  crypto/testmgr.c |   7 ++
->  crypto/testmgr.h | 207 +++++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 214 insertions(+)
+>  drivers/crypto/stm32/stm32-hash.c | 16 +++++-----------
+>  1 file changed, 5 insertions(+), 11 deletions(-)
 
-Patch applied.  Thanks.
+All applied.  Thanks.
 -- 
 Email: Herbert Xu <herbert@gondor.apana.org.au>
 Home Page: http://gondor.apana.org.au/~herbert/
