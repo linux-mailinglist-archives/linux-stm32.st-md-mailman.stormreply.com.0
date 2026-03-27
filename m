@@ -2,69 +2,133 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4Gs+L2RtxmmkJwUAu9opvQ
+	id 0AJuFEagxmnrMQUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 12:43:32 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 16:20:38 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5798E343A8B
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 12:43:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D38B03469F3
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 16:20:37 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A7B5C8F287;
-	Fri, 27 Mar 2026 11:43:31 +0000 (UTC)
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3E460C8F288;
+	Fri, 27 Mar 2026 15:20:37 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B4B5C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1A71C8F273
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Mar 2026 11:43:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
- sang-engineering.com; h=date:from:to:cc:subject:message-id
- :references:mime-version:content-type:in-reply-to; s=k1; bh=H/mm
- EvjF+xhmn9Wns9betMD2C6MNmROj8DyAiLE02zM=; b=k4QvSzox0bVkfsfDjzFG
- LGuc3RY6Nc4A01kHbyNKckXguVBwpBOKFgCosfhLsRsjq4eDoNRYZpMIVCJ0O3hr
- gfeanKsyTEOWbah1eONyp6cI2lvZTWiinFUqQ1+gY2hdjjx+hPdnLjDCYK70TUJ4
- aFc/YaBf28GDjSGd7mxe254RWqDfD9attVFCtj8ikS1PeMOzQ7Wq1WpZ9OE7cTEW
- LWHjg90xTnSXm5laQso2Th3BJmrtN84wxdyQWCBE0l/PveVIj91/BXi11wFJWf4A
- 0Ik6WG0aYRHLixjG/wpRM3UOW+oQhTX4llCiif+gTG5sUZ6tFSGGFUkiiWl6Oq3N
- Rg==
-Received: (qmail 174700 invoked from network); 27 Mar 2026 12:43:25 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
- authenticated); 27 Mar 2026 12:43:25 +0100
-X-UD-Smtp-Session: l3s3148p1@m9s6AgBO++RUhsJN
-Date: Fri, 27 Mar 2026 12:43:24 +0100
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org
-Message-ID: <acZtXL7OiM0ceyMe@shikoro>
-References: <20260319105947.6237-1-wsa+renesas@sang-engineering.com>
+ Fri, 27 Mar 2026 15:20:34 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62RDhEAZ3748031
+ for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 27 Mar 2026 15:20:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=ss76jAqWiuezivNC5zEZJoYk
+ XwE9ZyVbXGzY7OaUfHw=; b=aI1ApZLNF6MrFXweEsidasxUME6VrN4llo6ogWgN
+ FK26tugsLvNNXbScTkuQxxJ2x4CAZq4hGVyXHc0Ny7LsJNqyJ8xPfYg468Kktf7V
+ poPtCUCMXryEgglpwszTeSqDlXL861NbWRnYNHMiGlznpEXSgMY7tkrs3azJsRso
+ 0HRi70nfii+izCGIY9q05lXNSco5rCg5mrvCJ6lXbc5lKRbY5R7OKFc//35xUJfi
+ mJVnF7SoOLs7tK4tz8dTjqpKut6HGHGPRAntsOlrRLGgpKuiDMWZdemY+T+2WHi/
+ NafbzFBBLmEo0jdaQXioYR0rK2HnJOSSBGhiah1xIND70g==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d5sxhgk25-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Mar 2026 15:20:33 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2adef9d486bso44834515ad.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 27 Mar 2026 08:20:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774624832; x=1775229632;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=ss76jAqWiuezivNC5zEZJoYkXwE9ZyVbXGzY7OaUfHw=;
+ b=RnpCItPOSWfwLkwEiL8woiouB4c7vkkpmvoR/nt+mzT8NpIEpjVjZw7Fpced0n+Pnx
+ ThTNcDLhwTWm5aEE2kx24aoCujPBHEC7QPVNAslvjeOjxZkFB1amxpas+r7relkZ+5y+
+ WXooXYp1yqu9vXZFm/Xd5i+CJNa5MFdY5hJuDSfIMWySbWvvMMGKgFlC6j6Wqpor3aJJ
+ o74X0kP3D6XKYo2n/8PYgC/T+zB7lsE9xgie830p2AqO6qROQNSe3A4/j0wOWnBJYXiK
+ mRexORhz7NEmI56V3rLM7KGKhn9UGkMWoJyzoN3reKykoPnf/qJUp+jPgBQ3fZFbu3GY
+ DUqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774624832; x=1775229632;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ss76jAqWiuezivNC5zEZJoYkXwE9ZyVbXGzY7OaUfHw=;
+ b=AEcZ2hDnKvOGwtYKISlc41a8Nbc3xsrb16LNTif71xEkQWNS5bMYoF55UysT4PoWoc
+ BFabn+vC2/miBkdrRuZi5aKl+W4XiiE3CpV/K+YGy0kB3fisgHeWACWE4S7vuJdgFvyM
+ 1AUVlMgMgP6P/baw5uHIr9z8G/H7l1+rodTdDUi9wtVdtjqexwqqK7XpwCvAfJqjQsSX
+ IkPppHCcMTmv/2G6yADq/2EZ/1dRUGKOhSx++fxtfPizwtnz+IGluPsBdV0zyDmPMTnm
+ aftpfUPiUFyzFxn8e5JAOj+2zeOeNl2yExu/GnOe7qEI20bwUhUSXo/IWIXvBFltXpag
+ NR+g==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXEwLZiKt2Wx31OkdcZEvYQZ5/be4immLLzgcWTe7s1LfKNgNKdv5Uqj/5sH7L0w5i33vLc/u4rvL3kVw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzt/XGLZpTmPAAMucrwQsm7oOQQuUCEM2soPPrVM2ci0x3MLn7Q
+ EfpfTAb7nfG4rRjOc2qyGWOHY+hYqf0gSOKW5yNv+kMwUV/9W+60d6Ouxgh1jcsqdY7Bdm6MHHM
+ QfgZUHhXef+AehwGUzAlPHyJ2PUKWS3wqUWJuctBPFSgVhenlGzoZbSGI5jLvWtAn1lWr0ZasP+
+ 9dKuY46mA=
+X-Gm-Gg: ATEYQzz+NDa2yj+x4dT7EMEQmVwFQg8XyBIJIECg7d1jNUKUJvju61gA7IGmE6A2rqT
+ YUVHeuRaQJ+iY/d+5pRXENKdcn6/2bYTUa0sEEX0/XXpnDv7EimnxS4st9DJDfeXfNRIvDgaN6Q
+ GhwmXUy3N+DJOKcAecuL5hD6OhNdXGvhKBD8GpNRTU+1E8Fzx7T9EI+W8HWiuFFrZPB77XuTVFJ
+ hlY369H2uMEwYXP7gMC4BjB597PMLPSVLaeLgbLzHMoaKXvtkxMDfevtjmwFuQ70JzvqDkva6G1
+ T+QEyXdgQ1++8t9H4akohE6b8/3vR0Co/BGIlzCwhLMUwllS+K028wBOaQ7JILclXA5R3FECx2Q
+ xPrLRdhjfPW4j+AFJuBCry60SzBlfvKhL+rM=
+X-Received: by 2002:a17:902:ecc4:b0:2aa:e3c7:6048 with SMTP id
+ d9443c01a7336-2b0cdc4357dmr31891855ad.23.1774624832329; 
+ Fri, 27 Mar 2026 08:20:32 -0700 (PDT)
+X-Received: by 2002:a17:902:ecc4:b0:2aa:e3c7:6048 with SMTP id
+ d9443c01a7336-2b0cdc4357dmr31891535ad.23.1774624831727; 
+ Fri, 27 Mar 2026 08:20:31 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2b0bc8fac97sm60839905ad.71.2026.03.27.08.20.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Mar 2026 08:20:31 -0700 (PDT)
+Date: Fri, 27 Mar 2026 20:50:24 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <acagOODP2QD2xJf6@oss.qualcomm.com>
+References: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260319105947.6237-1-wsa+renesas@sang-engineering.com>
-Cc: linux-doc@vger.kernel.org, linux-iio@vger.kernel.org,
- Boqun Feng <boqun@kernel.org>, linux-remoteproc@vger.kernel.org,
- Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Waiman Long <longman@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, Will Deacon <will@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org,
- Jonathan Corbet <corbet@lwn.net>, Chunyan Zhang <zhang.lyra@gmail.com>,
- Lee Jones <lee@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
- Orson Zhai <orsonzhai@gmail.com>, Wilken Gottwalt <wilken.gottwalt@posteo.net>,
- David Lechner <dlechner@baylibre.com>, Konrad Dybcio <konradybcio@kernel.org>,
- linux-sunxi@lists.linux.dev, driver-core@lists.linux.dev,
- Arnd Bergmann <arnd@arndb.de>, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Shuah Khan <skhan@linuxfoundation.org>, Chen-Yu Tsai <wens@kernel.org>,
- linux-arm-kernel@lists.infradead.org, Andy Shevchenko <andy@kernel.org>,
- Srinivas Kandagatla <srini@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Bjorn Andersson <andersson@kernel.org>, Samuel Holland <samuel@sholland.org>,
- linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
- Thomas Gleixner <tglx@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5 00/15] hwspinlock: move device alloc
- into core and refactor includes
+In-Reply-To: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
+X-Authority-Analysis: v=2.4 cv=QZVrf8bv c=1 sm=1 tr=0 ts=69c6a041 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=j9A04r5R_e2Fnr00k4AA:9 a=CjuIK1q_8ugA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-ORIG-GUID: VULrgNM3VmMintAJzdxq-_VoFQCol0uj
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzI3MDEwNiBTYWx0ZWRfX/LeTg5X2EYwy
+ a3cgbroWE8Hp7msHhyfgpy0Z9GBPoJNd6Y+l0mako1JIuiiYWwl/gl6Exhbx0aTmImke0Kl+sA8
+ ETJ0ggaVjGnYn6UNlZkXpBR+yiPO/ioauLI9I+phfKwlHtbNBTrB+GXyGvYzx+4kKj57T/B1EzY
+ 6lI7ntK1HCHfGU/NJCurNHQ34XGx5+vOjfAROUTNXFV0iy7laXzbo6lm/SGN9hgkHQIoq/mtcxP
+ 6SZFLOl1/lJ0aMghXe3HqkRqVjyd7HqMGnQG5aMA1TWTfCZYMKHUjUl0H63r932Nmiulp9c/o1A
+ 2gFtRYGoMtdn0vAkoKne0AUVreUNybAB8rpDTz6KF1wnHOg+kp0Il/edwsbAD4QotkbUGbn1yRf
+ wewneuWnvUW8JMvTjxOo9MiX+ltyo8SKxmKOdKCf1U83Sn6n1MRcPMzxdwBRL1brcWUQUT0MdJM
+ DUwyrTs/0g5yTxNKprQ==
+X-Proofpoint-GUID: VULrgNM3VmMintAJzdxq-_VoFQCol0uj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-26_04,2026-03-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 clxscore=1015 spamscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603270106
+Cc: Andrew Lunn <andrew@lunn.ch>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next v2 00/15] net: stmmac:
+	qcom-ethqos: more cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,88 +144,78 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.79 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[renesas];
-	DMARC_NA(0.00)[sang-engineering.com];
-	FORGED_RECIPIENTS(0.00)[m:linux-renesas-soc@vger.kernel.org,m:linux-doc@vger.kernel.org,m:linux-iio@vger.kernel.org,m:boqun@kernel.org,m:linux-remoteproc@vger.kernel.org,m:nuno.sa@analog.com,m:longman@redhat.com,m:dakr@kernel.org,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-omap@vger.kernel.org,m:corbet@lwn.net,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:jernej.skrabec@gmail.com,m:peterz@infradead.org,m:mingo@redhat.com,m:orsonzhai@gmail.com,m:wilken.gottwalt@posteo.net,m:dlechner@baylibre.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:driver-core@lists.linux.dev,m:arnd@arndb.de,m:linux-arm-msm@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:broonie@kernel.org,m:baolin.wang@linux.alibaba.com,m:skhan@linuxfoundation.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:andy@kernel.org,m:srini@kernel.org,m:gregkh@linuxfoundation.org,m:andersson@kernel.org,m:samuel@sholland.org,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:tglx
- @kernel.org,m:mcoquelin.stm32@gmail.com,m:rafael@kernel.org,m:linusw@kernel.org,m:jic23@kernel.org,m:zhanglyra@gmail.com,m:jernejskrabec@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[43];
-	RCVD_COUNT_THREE(0.00)[3];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[sang-engineering.com:-];
-	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,analog.com,redhat.com,st-md-mailman.stormreply.com,lwn.net,gmail.com,infradead.org,posteo.net,baylibre.com,lists.linux.dev,arndb.de,linux.alibaba.com,linuxfoundation.org,lists.infradead.org,sholland.org];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_SPAM(0.00)[0.078];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.255];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 5798E343A8B
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,oss.qualcomm.com:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: D38B03469F3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Mar 19, 2026 at 11:59:22AM +0100, Wolfram Sang wrote:
-> Changes since v4:
+Hi Russell,
+On Fri, Mar 27, 2026 at 08:42:58AM +0000, Russell King (Oracle) wrote:
+> Further cleanups to qcom-ethqos, mainly concentrating on the RGMII
+> code, making it clearer what the differences are for each speed, thus
+> making the code more readable.
 > 
-> * update Documentation, too, when ABI gets changed (Thanks Antonio!)
-> * rebased to 7.0-rc4
-> * added more tags (Thanks!)
+> I'm still not really happy with this. The speed specific configuration
+> remains split between ethqos_fix_mac_speed_rgmii() and
+> ethqos_rgmii_macro_init(), where the latter is only ever called from
+> the former. So, I think further work is needed here - maybe it needs
+> restructuring into the various componenet parts of the RGMII block?
 > 
-> My ultimate goal is to allow hwspinlock provider drivers outside of the
-> subsystem directory. It turned out that a simple split of the headers
-> files into a public provider and a public consumer header file is not
-> enough because core internal structures need to stay hidden. Even more,
-> their opaqueness could and should even be increased. That would also
-> allow the core to handle the de-/allocation of the hwspinlock device
-> itself.
+> v2:
+> - patch 2: fix typo in commit message
+> - patch 3: fix ethqos_fix_mac_speed() comment
 > 
-> This series does all that. Patches 1-2 remove the meanwhile unused
-> platform_data to ease further refactoring. Patches 3-9 abstract access
-> to internal structures away using helpers. Patch 10 then moves
-> hwspinlock device handling to the core, simplifying drivers. The
-> remaining patches refactor the headers until the internal one is gone
-> and the public ones are divided into provider and consumer parts. More
-> details are given in the patch descriptions.
+>  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 220 ++++++++-------------
+>  1 file changed, 87 insertions(+), 133 deletions(-)
 > 
-> One note about using a callback to initialize hwspinlock priv: I also
-> experimented with a dedicated 'set_priv' helper function. It felt a bit
-> clumsy to me. Drivers would need to save the 'bank' pointer again and
-> iterate over it. Because most drivers will only have a simple callback
-> anyhow, it looked leaner to me.
-> 
-> This series has been tested on a Renesas SparrowHawk board (R-Car V4H)
-> with a yet-to-be-upstreamed hwspinlock driver for the MFIS IP core. A
-> branch can be found here (without the MFIS driver currently):
-> 
-> git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/hwspinlock/refactor-alloc-buildtest
-> 
-> Build bots reported success.
 
-Sashiko found some valid issues[1], so I am already working on a v6.
+No issues found at 100M and 1G on the QCS615 Ride board with the KSZ9031
+RGMII PHY. As noted earlier, Ethernet support for this board is not yet
+upstream, but I have some local changes to make it work.
 
-[1] https://sashiko.dev/#/patchset/20260319105947.6237-1-wsa%2Brenesas%40sang-engineering.com
+10M could not be tested due to limitations of the link partner. But with
+100M working fine, I am fairly certain that this series will not
+introduce any new issues at 10M.
 
+Please feel free to add my:
+
+Tested-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+
+	Ayaan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
