@@ -2,59 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sFUHOYFDxmmgIAUAu9opvQ
+	id IJKfMIRDxmmgIAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:44:49 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:44:52 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EB1E3413A2
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:44:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CD2F3413AA
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 09:44:52 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50577C8F287;
-	Fri, 27 Mar 2026 08:44:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5C403C8F287;
+	Fri, 27 Mar 2026 08:44:52 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4707C8F280
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AE731C8F280
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Mar 2026 08:44:47 +0000 (UTC)
+ Fri, 27 Mar 2026 08:44:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=JlF/V14PwB75IsbEuhaJfwWNwWzBEh6C98Euf38uuoQ=; b=0RI78cVQOFbDkwM5SB0Kga7EPE
- YwEVJ1p5CZaWpSZDXommseI6/EYomQo72SXo5S62kdRyWZCsKruRANJUx7L/pZ9e9f19ls1Ty85Lp
- Nn90d9CV4MTpzUWHe5SmSuOWH1XujzWfPzKBwboCzM3Jv7nhvWqMiH9lTQ4CRSARpJo4bhedB7wwu
- hH8nLEs5ZUeFWaWIpgrx89vzczjN5jzXAA5nQEBVOZeVH9yH4KpF1C9FCQbfSiyqAM5PioVuUoz5/
- 7iF5CAnVO3+j9iEt2PZr3fM4fCP+UaOTI1RpYNWMHxwrI/fnj5jQBqrJtx3JIxc3wID8hcPhSHLT4
- t3I0Uc+w==;
+ bh=91aFdcZ4XqhYUXG8pjH2NRoyqYtPZcFZqsGvYKtLHds=; b=IGbqXh0gq9/IgZnjxawZpojuu/
+ Zq1EzKZFWSnD3uJcMKLmPghl5CH1uwivgbcjAczYbn9BA+zjrs3SERKb5R922BLbb9PTw7/4yNjNG
+ Z5r6RngAu9WfdSSim4kVH4sHTnototjxLRgxgWm5N1aDF6EH42wn5HH9Gp/qqTAczuJ6VM7TxA+hE
+ 5LNol7y0NWZBdUUmkUztq2d9CEOapSzWy+A6r9jM4hHqV0prvY5ChUpTSwAlDOAcK3Ml54IwmDCn/
+ Gb3P7EQnfR2ufrU3jJVjoSEH9qQ6wRGxz6tAd/aI9jHtHzrL2/+8l4r5kN5Bqr9qKtf3UaX+UghJl
+ KZjyzJaQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:51102 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:37304 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w62o1-000000005sI-1Sah;
- Fri, 27 Mar 2026 08:44:37 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w62o5-000000005sc-3tqY;
+ Fri, 27 Mar 2026 08:44:42 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w62ny-0000000E3D8-38Yp; Fri, 27 Mar 2026 08:44:34 +0000
+ id 1w62o3-0000000E3DE-3Vf8; Fri, 27 Mar 2026 08:44:39 +0000
 In-Reply-To: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
 References: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w62ny-0000000E3D8-38Yp@rmk-PC.armlinux.org.uk>
-Date: Fri, 27 Mar 2026 08:44:34 +0000
+Message-Id: <E1w62o3-0000000E3DE-3Vf8@rmk-PC.armlinux.org.uk>
+Date: Fri, 27 Mar 2026 08:44:39 +0000
 Cc: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
  linux-arm-msm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  netdev@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 14/15] net: stmmac: qcom-ethqos:
- correct prg_rclk_dly comment
+Subject: [Linux-stm32] [PATCH net-next v2 15/15] net: stmmac: qcom-ethqos:
+ move phase_shift to register update site
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -92,7 +92,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.358];
+	NEURAL_HAM(-0.00)[-0.310];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -105,37 +105,53 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: 8EB1E3413A2
+X-Rspamd-Queue-Id: 9CD2F3413AA
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The comment for calculating the prg_rclk_dly value is incorrect as it
-omits the brackets around the divisor. Add the brackets to allow the
-reader to correctly evaluate the value. Validated with the values given
-in the driver.
+Move the determination of the phase shift enable alongside the register
+update, and make "phase_shift" unsigned.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c | 17 +++++++++--------
+ 1 file changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-index 9dae40c27903..667676c29a95 100644
+index 667676c29a95..ad3a983d2a08 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-@@ -450,8 +450,10 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
- 		rgmii_setmask(ethqos, SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_EN,
- 			      SDCC_HC_REG_DDR_CONFIG);
- 	} else {
--		/* PRG_RCLK_DLY = TCXO period * TCXO_CYCLES_CNT / 2 * RX delay ns,
--		 * in practice this becomes PRG_RCLK_DLY = 52 * 4 / 2 * RX delay ns
-+		/* PRG_RCLK_DLY = TCXO period * TCXO_CYCLES_CNT /
-+		 *  (2 * RX delay ns),
-+		 * in practice this becomes PRG_RCLK_DLY = 52 * 4 /
-+		 *  (2 * RX delay ns)
- 		 */
- 		if (ethqos->has_emac_ge_3) {
- 			/* 0.9 ns */
+@@ -375,14 +375,7 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+ {
+ 	struct device *dev = &ethqos->pdev->dev;
+ 	unsigned int prg_rclk_dly, loopback;
+-	int phase_shift;
+-
+-	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+-	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
+-	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+-		phase_shift = 0;
+-	else
+-		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
++	unsigned int phase_shift;
+ 
+ 	/* Disable loopback mode */
+ 	rgmii_clrmask(ethqos, RGMII_CONFIG2_TX_TO_RX_LOOPBACK_EN,
+@@ -416,6 +409,14 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+ 
+ 	rgmii_clrmask(ethqos, RGMII_CONFIG2_DATA_DIVIDE_CLK_SEL,
+ 		      RGMII_IO_MACRO_CONFIG2);
++
++	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
++	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
++	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
++		phase_shift = 0;
++	else
++		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
++
+ 	rgmii_updatel(ethqos, RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN, phase_shift,
+ 		      RGMII_IO_MACRO_CONFIG2);
+ 
 -- 
 2.47.3
 
