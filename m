@@ -2,56 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0HYqKkXexWk9CgUAu9opvQ
+	id EPRGAI3+xWktFAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 02:32:53 +0100
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 04:50:37 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43B7633DDB3
-	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 02:32:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B7B9033EEB0
+	for <lists+linux-stm32@lfdr.de>; Fri, 27 Mar 2026 04:50:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CBE33C8F286;
-	Fri, 27 Mar 2026 01:32:52 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3F51DC8F282;
+	Fri, 27 Mar 2026 03:50:32 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 489D2C8F281
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EF6CFC87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 27 Mar 2026 01:32:51 +0000 (UTC)
+ Fri, 27 Mar 2026 03:50:30 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1025060103;
- Fri, 27 Mar 2026 01:32:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4761C19423;
- Fri, 27 Mar 2026 01:32:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 7419944554;
+ Fri, 27 Mar 2026 03:50:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C90CC19423;
+ Fri, 27 Mar 2026 03:50:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774575169;
- bh=2jW+B2lXjwLgZb3cDkL7mX6Gb7T5UWGOWeSgPIBscW0=;
+ s=k20201202; t=1774583429;
+ bh=PnEHeWbFVlolLNabOX9dBgcUyPXB6gpXLSwyCTFGe4Y=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=ZXDXEZvrfbba5SXaPx+s9TyX3f3xwmko6tdteBUp4OqwMzZl2Tu3DijxDIkmFmNGw
- PQI73u+fc0F62JnMperkHNN/7SG1wze0fLP8r5FfS3+XMYLHSQsUVT/5cKFSff4+4w
- B9EU2vPnuacs3cFkGNUaC3kWDJPF5YsYUJIzGYmJCxhG2hNuLFW5bo9mo0SCnGiEPa
- QzdDqnhMFZDvE285ndvp29Ns0cBLREcUN5xmVFjQj9N7KVgsOwsrmLBzqy57bAFCUE
- 5TJwCWQs8YgIyLaJ9k1ukwWOBbNTGDN7z4KzzKZmJ+eplrm0BT4ZbNzG1PjwQpgSYc
- TKUelsOgpRznw==
+ b=G5kYy8aQQzggA9TNGClm5ujA2vbnRCuj0qx580ZtaGSlsk5qVJ/c+GaN5wYxI/XCY
+ VIwIvgTlCplzz/n/KrT6PNe3UidStrRt6KIUZgu11TAhjXlu4JlJqWRu8WtI2kqoCK
+ KzsRFg5faQXxpUz8WxSLNIzztQBiQeTUszi+FA5RjD8tIS62JcsUN0Kdswe8Qfa0fb
+ qwxa6aDV3+fHYMiAQverComMOpfYugqH4jMK3+e/7ge3h/Ky3R6zB09PKeJ6DVyV2x
+ YTvm7i80xbUSYUS+Xpf3Ti9V0k1E8ZsICskeg//L3C9Oy3tOSKgJeJmpg68n19tp67
+ fzUeZAM6hSdtQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 400403809A07; Fri, 27 Mar 2026 01:32:37 +0000 (UTC)
+ B9FED3809A0B; Fri, 27 Mar 2026 03:50:16 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177457515578.3250412.707977713955076913.git-patchwork-notify@kernel.org>
-Date: Fri, 27 Mar 2026 01:32:35 +0000
-References: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
-In-Reply-To: <20260324092102.687082-1-maxime.chevallier@bootlin.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: linux-arm-kernel@lists.infradead.org, andrew@lunn.ch,
- mcoquelin.stm32@gmail.com, thomas.petazzoni@bootlin.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- rohan.g.thomas@altera.com, linux@armlinux.org.uk, mun.yew.tham@altera.com,
- edumazet@google.com, alexis.lothore@bootlin.com, horms@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH net-next 0/5] net: stmmac: dwmac-socfpga:
- Cleanup .fix_mac_speed
+Message-Id: <177458341528.3291104.15630228927960975815.git-patchwork-notify@kernel.org>
+Date: Fri, 27 Mar 2026 03:50:15 +0000
+References: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
+In-Reply-To: <acJh4z3pRKkeaFbR@shell.armlinux.org.uk>
+To: Russell King (Oracle) <linux@armlinux.org.uk>
+Cc: robh@kernel.org, andrew@lunn.ch, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, joabreu@synopsys.com, kuba@kernel.org, me@ziyao.cc,
+ peppe.cavallaro@st.com, krzk+dt@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 0/2] net: stmmac: remove unused
+ and unimplemented AXI properties
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,34 +76,33 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[lists.infradead.org,lunn.ch,gmail.com,bootlin.com,vger.kernel.org,st-md-mailman.stormreply.com,altera.com,armlinux.org.uk,google.com,kernel.org,redhat.com,davemloft.net];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	TAGGED_FROM(0.00)[netdevbpf];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[17];
-	FORGED_RECIPIENTS(0.00)[m:maxime.chevallier@bootlin.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelin.stm32@gmail.com,m:thomas.petazzoni@bootlin.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:rohan.g.thomas@altera.com,m:linux@armlinux.org.uk,m:mun.yew.tham@altera.com,m:edumazet@google.com,m:alexis.lothore@bootlin.com,m:horms@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:robh@kernel.org,m:andrew@lunn.ch,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:joabreu@synopsys.com,m:kuba@kernel.org,m:me@ziyao.cc,m:peppe.cavallaro@st.com,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.794];
+	NEURAL_HAM(-0.00)[-0.975];
 	RCVD_COUNT_FIVE(0.00)[5];
 	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	MISSING_XM_UA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
 	FROM_NO_DN(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 43B7633DDB3
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: B7B9033EEB0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -113,29 +111,23 @@ Hello:
 This series was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Tue, 24 Mar 2026 10:20:55 +0100 you wrote:
-> Hi everyone,
+On Tue, 24 Mar 2026 10:05:23 +0000 you wrote:
+> commit afea03656add ("stmmac: rework DMA bus setting and introduce new
+> platform AXI structure") added support for parsing all the stmmac AXI
+> attributes, and added code to set most of the appropriate register bits
+> with three exceptions:
 > 
-> This small series does a bit of cleanup in the dwmad-socfpga glue
-> driver, especially around the .fix_mac_speed() operation.
-> 
-> It's mostly about re-using existing helpers from the glue driver, as
-> well as reorganizing the code to make the local private structures a
-> little bit smaller.
+> 	snps,kbbe
+> 	snps,mb
+> 	snps,rb
 > 
 > [...]
 
 Here is the summary with links:
-  - [net-next,1/5] net: stmmac: dwmac-socfpga: Move internal helpers
-    https://git.kernel.org/netdev/net-next/c/845a04411118
-  - [net-next,2/5] net: stmmac: dwmac-socfpga: Use the socfpga_sgmii_config() helper
-    https://git.kernel.org/netdev/net-next/c/a7be7cc12442
-  - [net-next,3/5] net: stmmac: dwmac-socfpga: Use the correct type for interface modes
-    https://git.kernel.org/netdev/net-next/c/9b04ecdfb876
-  - [net-next,4/5] net: stmmac: dwmac-socfpga: get the phy_mode with the dedicated helper
-    https://git.kernel.org/netdev/net-next/c/adf1536f79a5
-  - [net-next,5/5] net: stmmac: dwmac-sofcpga: Drop the struct device reference
-    https://git.kernel.org/netdev/net-next/c/9bd1af853750
+  - [net-next,1/2] net: stmmac: remove axi_kbbe, axi_mb and axi_rb members
+    https://git.kernel.org/netdev/net-next/c/a800398e746f
+  - [net-next,2/2] dt-bindings: remove unimplemented AXI snps,kbbe snps,mb and snps,rb
+    https://git.kernel.org/netdev/net-next/c/af0331e1ac51
 
 You are awesome, thank you!
 -- 
