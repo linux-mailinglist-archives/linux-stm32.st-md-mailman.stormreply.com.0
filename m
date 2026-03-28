@@ -2,59 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id IOAtLBOgx2m0ZwUAu9opvQ
+	id oEzZKmUPymmS4wUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 10:32:03 +0100
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:33 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 447B534DEB3
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 10:32:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 079A6355BA7
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BFF10C8F289;
-	Sat, 28 Mar 2026 09:32:02 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A593C0693D;
+	Mon, 30 Mar 2026 05:51:32 +0000 (UTC)
+Received: from out203-205-221-153.mail.qq.com (out203-205-221-153.mail.qq.com
+ [203.205.221.153])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 377ECC8F288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1323AC8F288
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 09:32:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xqFakPzox2Tt3Kr/+AFr8gsg35djsA6QelXBB7J+GoA=; b=jygvWVodbHt83RJwV62jJhRo/5
- z0VCH6g9pH/qCd3XqiFSUCqYvbNZGNDnQxlqVkRcIhfqAZ8TDBFqILRXfzR/pNP9Ch0G+/Z1orBU6
- fJ2MiswMm/tP5kIRquSvC5KVFimg0r42SIZ3PYowf3dex2gkvXIOl7JeCuAlcucbDw0SSWyd3580u
- l8vcMcusWPjsnu+s2wI86C1j8TUX0LND+Rs0wzWiQc20L68cF2fUHl5g2CQe4w0wFdITgbKK16j4L
- 2FlwYN9SY+Qc2SY+gQ1xh52qlNwOtXKMeAUwwoFcduc0ESp54q7uCy+2E/2JYjrZHIG5LX0sM3odO
- 8kPsb3cg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:33302)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w6Q1G-0000000075R-4B5u;
- Sat, 28 Mar 2026 09:31:51 +0000
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w6Q1D-000000000Yj-0ZQ5; Sat, 28 Mar 2026 09:31:47 +0000
-Date: Sat, 28 Mar 2026 09:31:46 +0000
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>, Ong Boon Leong <boon.leong.ong@intel.com>
-Message-ID: <acegAqUb-Dzy87d8@shell.armlinux.org.uk>
-References: <acZQaDeCoib5S5UA@shell.armlinux.org.uk>
- <E1w63fl-0000000E3Vb-3JkY@rmk-PC.armlinux.org.uk>
- <aceQRSc5o4D-HHmq@shell.armlinux.org.uk>
+ Sat, 28 Mar 2026 13:44:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1774705444; bh=rFLCYdDTvsSc8eyn9nD3Tqfl6DUP1pTYa4FCzNUr3pk=;
+ h=From:To:Cc:Subject:Date;
+ b=KOMCcVlLrSMQeaHojSqK/zeAnVGbtcJlrLcB+MIJE7r4kLuWoYA3Uio9bd7lLw1PD
+ ZSRpJapMBdfvWl6d+RLqyAbqbF63QTA/+ZfB4wZpguMkkBiiHJlBlyHVH9cFCsDS7C
+ i4M3Lv0WVleKTatcpwmGoxHUA4ZAi5bRPmh7xbgI=
+Received: from mail.red54.com ([103.253.24.18])
+ by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
+ id AEC8E62D; Sat, 28 Mar 2026 21:43:44 +0800
+X-QQ-mid: xmsmtpt1774705424t775usdsw
+Message-ID: <tencent_833D2AD6577F21CF38ED1C3FE8814EB4B308@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahgv7/OMCpr9OjGJVJ35WpFVBu5hY3UbIKjaD8n0VNPx0ORi4DKu
+ xxvo2ulNpGH1tHptD/O0r4fn/N3oU+DBXq5Wvrksv8aJhedYI73PyPknhlyBoV4dkxU2r83r7NgI
+ NzwrZaQUBAv0z+0eZHNJpA1h98SMzsHksMuIhCNX+247Vu03Y6WYaaWg4KT4LQMkYan6BDNpOWPQ
+ 3Q1EFiAJ8/xgssRkADtBVYhWiFJgMWDI5UcX08lZdUV7J0fltBxXlgX1O1FfSE3yu4vutBdiz8in
+ 0/2assn8KjpWDrDI8szZiOrrhqXTV6Onvo4Ed/hJKWbAJjkiunnyj+XianaHH5GpuJjtKwRG21qa
+ fvKrrpFp/tuz993awFMvuSycJMs08dv5P0bqhAuC9oqCMSSECytdbpIAguHoY33CM7/p96qL+fdA
+ QSySXUGJETn+osENjS6n6i4rFd49XETgr/fDDmXES9/ZeS5wEHThWysFZVr1R0vXu1nLo4eS5zqV
+ uhSdn+8+EU17y4F9m1TsRe6I16vlRL3ZEbBmdaFT51n/myvF/rZU1tiP4FdGNCqyIAFSrMZYxhcb
+ 5toweIp9YUzq5vL1aTc9KDVR/kAg+2as78wu9tq78FcBdbvTD3jvLT/wYPooz7bgjNPmEYzXbxPG
+ KsD5BfY5fcUZvgoiW7TS2zuFHkdCiVAFkLjevFe8hcj5UzBEOx6K9vAZ6Pf9JHOpKWaAqZUc+vUZ
+ aB7bWPbtnxcBGwWG0pNIv4p169Iy3LzBtwEsdPVk7Q6UUU/V4hM3ma7nzkB5+G5ziifQFteY8gCf
+ DNfmWwccx5xbt9L7epqJN2vRpADeHUGoAByEKcZoMIq5FotygvnsmQ0HWDrtHcOca+oX6D8x1zzE
+ jc1JhA9nzlIeGj+ErnSbK8NRYtOAWPZ3e6eJFlD02uyAbZPjb3Z2HLTIkrG54v4bvN5C+MOx9kWK
+ DMAVGvbGKMW37w+w3ZcKjYZ7mwrFOLrjm5R3uC3dWn2d0EawK+UXZJXC36iw9Z7yboR7YuPC5xP8
+ T0yvBw0DByvqqwUxMLpi2J03/iQR3kiDjE5fjiPxaLXLcAj2/q
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: =?UTF-8?q?=E8=B0=A2=E8=87=B4=E9=82=A6=20=28XIE=20Zhibang=29?=
+ <Yeking@Red54.com>
+To: linux-rockchip@lists.infradead.org
+Date: Sat, 28 Mar 2026 13:43:31 +0000
+X-OQ-MSGID: <20260328134331.26627-1-Yeking@Red54.com>
+X-Mailer: git-send-email 2.43.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <aceQRSc5o4D-HHmq@shell.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+X-Mailman-Approved-At: Mon, 30 Mar 2026 05:51:31 +0000
+Cc: linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ =?UTF-8?q?=E8=B0=A2=E8=87=B4=E9=82=A6=20=28XIE=20Zhibang=29?=
+ <Yeking@Red54.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
  "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: simplify
- GSO/TSO test in stmmac_xmit()
+Subject: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: Fix typo in comment
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,186 +75,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	DATE_IN_PAST(1.00)[40];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[qq.com:s=s201512];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[red54.com : SPF not aligned (strict),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:boon.leong.ong@intel.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[Yeking@Red54.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:linux-rockchip@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:heiko@sntech.de,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:Yeking@Red54.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.881];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[Yeking@Red54.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,sntech.de,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,Red54.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,davemloft.net:email,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 447B534DEB3
+	DKIM_TRACE(0.00)[qq.com:-];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_SPAM(0.00)[0.974];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: 079A6355BA7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sat, Mar 28, 2026 at 08:24:37AM +0000, Russell King (Oracle) wrote:
-> On Fri, Mar 27, 2026 at 09:40:09AM +0000, Russell King (Oracle) wrote:
-> > The test in stmmac_xmit() to see whether we should pass the skbuff to
-> > stmmac_tso_xmit() is more complex than it needs to be. This test can
-> > be simplified by storing the mask of GSO types that we will pass, and
-> > setting it according to the enabled features.
-> > 
-> > Note that "tso" is a mis-nomer since commit b776620651a1 ("net:
-> > stmmac: Implement UDP Segmentation Offload"). Also note that this
-> > commit controls both via the TSO feature. We preserve this behaviour
-> > in this commit.
-> > 
-> > Also, this commit unconditionally accessed skb_shinfo(skb)->gso_type
-> > for all frames, even when skb_is_gso() was false. This access is
-> > eliminated.
-> > 
-> > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-> 
-> AI review of this patch regurgitates Jakub's point that was discussed.
-> 
-> > @@ -3700,7 +3700,7 @@ static int stmmac_hw_setup(struct net_device *dev)
-> >  	stmmac_set_rings_length(priv);
-> >  
-> >  	/* Enable TSO */
-> > -	if (priv->tso) {
-> > +	if (priv->gso_enabled_types) {
-> >  		for (chan = 0; chan < tx_cnt; chan++) {
-> >  			struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[chan];
-> >  
-> 
-> ...
-> 
-> > @@ -7828,7 +7834,7 @@ static int __stmmac_dvr_probe(struct device *device,
-> >  		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
-> >  		if (priv->plat->core_type == DWMAC_CORE_GMAC4)
-> >  			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
-> > -		priv->tso = true;
-> > +		stmmac_set_gso_types(priv, true);
-> 
-> Clearly, the issue it is regurgitating has been there for a long time
-> and isn't a new issue introduced by this patch.
-> 
-> AI needs to stop doing this, because it is encouraging multiple changes
-> in a single patch, which is against the normal kernel process.
-> 
-> As already pointed out, there are multiple issues with stmmac TSO
-> support, particularly with glue drivers that enable TSO on some
-> queues/channels and not others, since netdev core TSO support is
-> global across all channels.
-> 
-> So, won't the AI response in this patch - it's just another pre-
-> existing issue that needs fixing in a separate patch.
-
-Looking at the TSO vs TBS issue (which precludes the use of TSO on a
-channel in stmmac) I can't find an obvious reason for this in the
-available documentation. However, unfortunately, iMX8MP doesn't support
-TSO, so the TSO bits are elided there, but does support TBS (needing
-enhanced descriptors to be enabled). STM32MP151 on the other hand
-supports TSO but not TBS, and thus fails to mention anything about
-enhanced descriptors or TBS.
-
-When stmmac_enable_tbs() enables TBS, it isn't actually enabling a
-feature specific bit, but switching the channel to use enhanced
-descriptor format. This format extends the basic descriptors by
-placing four extra 32-bit words before the basic descriptor.
-
-Looking at the enhanced normal descriptor format for TDES3, it
-indicates that the format includes bit 18 in the control field, which
-is the TSE bit (TCP segmentation enable for this packet.) So, it seems
-it's not a limitation of the descriptor format.
-
-So, either "TSO and TBS cannot co-exist" is incorrect, or there is a
-hardware limitation that isn't documented between these two manuals.
-
-One other interesting point is that stmmac_tso_xmit() seems to
-handle the case where TSO and TBS are enabled on the channel:
-
-                if (tx_q->tbs & STMMAC_TBS_AVAIL)
-                        mss_desc = &tx_q->dma_entx[tx_q->cur_tx].basic;
-                else
-                        mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
-
-                stmmac_set_mss(priv, mss_desc, mss);
-...
-        if (tx_q->tbs & STMMAC_TBS_AVAIL)
-                desc = &tx_q->dma_entx[first_entry].basic;
-        else
-                desc = &tx_q->dma_tx[first_entry];
-        first = desc;
-
-etc.
-
-Avoiding enabling TSO for a TBS channel was added by this commit:
-
-commit 5e6038b88a5718910dd74b949946d9d9cee9a041
-Author: Ong Boon Leong <boon.leong.ong@intel.com>
-Date:   Wed Apr 21 17:11:49 2021 +0800
-
-    net: stmmac: fix TSO and TBS feature enabling during driver open
-
-    TSO and TBS cannot co-exist and current implementation requires two
-    fixes:
-
-     1) stmmac_open() does not need to call stmmac_enable_tbs() because
-        the MAC is reset in stmmac_init_dma_engine() anyway.
-     2) Inside stmmac_hw_setup(), we should call stmmac_enable_tso() for
-        TX Q that is _not_ configured for TBS.
-
-    Fixes: 579a25a854d4 ("net: stmmac: Initial support for TBS")
-    Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
-    Signed-off-by: David S. Miller <davem@davemloft.net>
-
-which doesn't really explain the background, and leaves all the TBS
-cruft in the TSO transmit path (nothing like properly updating the
-driver, eh? No wonder stmmac is such a mess!)
-
-Maybe Ong Boon Leong can indicate where this restriction comes from?
-Note: as mentioned previously, disabling TSO only on some channels is
-actually wrong - the netdev core doesn't know which channels support
-TSO and which don't, so the driver is likely to still get TSO skbuffs
-for channels that the above commit has disabled TSO support. So, if
-TBS is enabled and it is incompatible with TSO, then either we need
-to use software TSO support _or_ disable TSO for the entire interface.
-
-Incidentally, while looking at this, I found a few more pre-conditions
-for TSO:
-
-- TxPBL must be >= 4
-- MSS[13:0] must be more than the configured data width in bytes, up to
-  a maximum of 1023 bytes.
-
-I'm fairly certain that the driver does nothing to ensure that this
-in the case for either of these two points.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+Q29ycmVjdCB0aGUgdHlwbyAicmszNTIwIiB0byAicmszNTI4IiBpbiBjb21tZW50LgoKU2lnbmVk
+LW9mZi1ieTog6LCi6Ie06YKmIChYSUUgWmhpYmFuZykgPFlla2luZ0BSZWQ1NC5jb20+Ci0tLQog
+ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtcmsuYyB8IDIgKy0KIDEg
+ZmlsZSBjaGFuZ2VkLCAxIGluc2VydGlvbigrKSwgMSBkZWxldGlvbigtKQoKZGlmZiAtLWdpdCBh
+L2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLXJrLmMgYi9kcml2ZXJz
+L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jCmluZGV4IGIwNDQxYTM2OGNi
+MS4uOGQ3MDQyZTY4OTI2IDEwMDY0NAotLS0gYS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3Jv
+L3N0bW1hYy9kd21hYy1yay5jCisrKyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
+bWFjL2R3bWFjLXJrLmMKQEAgLTIxNCw3ICsyMTQsNyBAQCBzdGF0aWMgaW50IHJrX2NvbmZpZ3Vy
+ZV9pb19jbGtzZWwoc3RydWN0IHJrX3ByaXZfZGF0YSAqYnNwX3ByaXYpCiAJY3J1ID0gIWlvOwog
+CiAJLyogVGhlIGlvX2Nsa3NlbCBjb25maWd1cmF0aW9uIGNhbiBiZSBlaXRoZXI6Ci0JICogIDA9
+Q1JVLCAxPUlPIChyazM1MDYsIHJrMzUyMCwgcmszNTc2KSBvcgorCSAqICAwPUNSVSwgMT1JTyAo
+cmszNTA2LCByazM1MjgsIHJrMzU3Nikgb3IKIAkgKiAgMD1JTywgMT1DUlUgKHJrMzU4OCkKIAkg
+KiB3aGVyZSBDUlUgbWVhbnMgdGhlIHRyYW5zbWl0IGNsb2NrIGNvbWVzIGZyb20gdGhlIENSVSBh
+bmQgSU8KIAkgKiBtZWFucyB0aGUgdHJhbnNtaXQgY2xvY2sgY29tZXMgZnJvbSBJTy4KLS0gCjIu
+NDMuMAoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGlu
+dXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGlu
+Zm8vbGludXgtc3RtMzIK
