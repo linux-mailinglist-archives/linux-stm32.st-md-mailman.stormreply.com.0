@@ -2,95 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6KbaJ2UPymmL4gUAu9opvQ
+	id 2BwSFzcPyGmNggUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:33 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 18:26:15 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34C0E355BAB
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F3FC934F542
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 18:26:14 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BF17C8F287;
-	Mon, 30 Mar 2026 05:51:32 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A471CC8F28A;
+	Sat, 28 Mar 2026 17:26:14 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A799DC36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C8B35C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 16:07:17 +0000 (UTC)
-Received: by mail-pj1-f48.google.com with SMTP id
- 98e67ed59e1d1-35d99031e4eso236978a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 09:07:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774714036; x=1775318836;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=UqrrS9uvTvJ0weuIXquOC2uG3YCXwOkehaDJ4cbhf3E=;
- b=NF5xk9k2mi6DesV3z6JmzbeSwG49+YeBp+PmR8mkBmNw5vDWXnF+dInrC/jMwRPttq
- WPEitdkhDbZ0FtIjj+Y8T38nvcJs2ejNGdBrAaFgTANj0wE5qbxpWmhIob0q6uLvMp08
- QZol653pDowmDjrdKW6PYnQ67kBufjCxbvG2UlvQozsnTY6H8d+YJBoaTClg+e+/gGHs
- lXf8HF3clu2EizKtsbJK+6u1GAObb8bKAevVaLZTuaKJvhT6Tz+7U2bdCLJ8L18S5x9W
- mPBwis6qi6h4IAnmLEbYuWIYmtEJ8VOJHBvvrJ07bVgLtxb6VE0GuMKqpafLprwC9dLN
- QOCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774714036; x=1775318836;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=UqrrS9uvTvJ0weuIXquOC2uG3YCXwOkehaDJ4cbhf3E=;
- b=nytGSRjPAgF5jo8DaJ1gGUhwVnEQFHyjp8sKFWJANFO6wU6gp40/e0nWHGnNMLII+u
- 4ynA6bhZG8lm1Z/U6ysA6pba4ndXiO8KQNAPASohs4mCq2EICr60pMfAAv3vQzSqBTF1
- plN/R6x2uEHzl3JGT+4T1sZMiBmnEGvXO398dhVVaWGoVuCldBs1GY6AmBwOA3rYYePB
- Q47AdHEDMr9L/saX0+r8LHMJ/MquLE7ShagerIHDYTvkCEM8Lg9Q2w74cPxtW2aGlTDh
- jFTeeDXy10AJYEMEtylBLJP2kt+2e4RdX/Q3JX6Yt3oJC1Skww11jHIzxU7dO+fxexfe
- bXSw==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUkhf98O1beNNJpfA7Hy8wl5rgdXaVXEvGsosBXdNfiujEplQP/Ieg0JKT2EHX/IsT/dSshdp+XIGinDA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx0VPl+bWCj50I87d2vaZBk36qQ+Wyb8Uy9Xk6uhyeZBmLrGSmV
- BVguj0xPDByF+ZkdYfvXcvUvOwLgMq1RLzkED5eUZB8p6ktGWCbE7oGT
-X-Gm-Gg: ATEYQzxmMRdmT61dFM3ErH88ozwu5Fy71vehvRclIZYBEQTJ/av3jPurRTOKMUCQU21
- 6eI+eVaMtlo7p88jclP98OrDc32URLL8bLxMGtLGA5bg+bEvEjpUQo+fmG1EivCN4UeXUJGll5O
- Y9bO5/Ou4rLRRb5r/Lw2xsFGTCb5qI5v3DZmCD26R7Yakdr4a9wtJd+RVt1sFUUpdhnafB9l1L2
- cnz/uE62voAm0z6gxAaKuDtN3FtVbdoIkTJCzT4cpTDr63M3tv2eSHBF3H81S5xYsvncsH7q0O8
- eDrUt483Gt0FJfHh7Ym2wUqkun7Bu1F4TgJP5gWPJvOim/9Ify8tl9laybQKjLBAel1sQXK8Zde
- LVjRzfpA0nK04Dfl4U9S5N4fTPWzSsoBNYFJ12o+icb6cVFHU/iGz+/6c+SUEX9GC3PZYf7LPyY
- g3i08x2z99VXEphkbzYj9FGYkxgU+GVq0WN/i8
-X-Received: by 2002:a17:90b:390b:b0:35c:812:6126 with SMTP id
- 98e67ed59e1d1-35c300f9db0mr5029057a91.24.1774714036132; 
- Sat, 28 Mar 2026 09:07:16 -0700 (PDT)
-Received: from junjungu-PC.localdomain ([223.167.147.240])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c2ec27da0sm1988140a91.8.2026.03.28.09.07.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 09:07:15 -0700 (PDT)
-From: Felix Gu <ustc.gu@gmail.com>
-Date: Sun, 29 Mar 2026 00:07:07 +0800
+ Sat, 28 Mar 2026 17:26:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=n9Hfk5LT2CR+gwGA+kiCrqo/JJcx85QeXRTI7J2zjwk=; b=sPXXa6JDfYwpjzfZmoWh8H9a6X
+ 1Ia+N8IOKORvp8HcU3HMLlHzYyG+EKlq7ywX4KOo4hdbt8U2tx+J/USGKC+sTXZU+mx1TPst4BTTe
+ MyvkuzLk4rUNBt4AVUAhCiWTre1FZbX8XeEGYL+CVKuPKKvR2ouKQ4GUxZnLw1PUZlO67/ZY4eSby
+ 4NMqG6C2drl8YEq1hLfVakpgttvxZTP6YbKHjcKMWo0OkO+luUu2X8/LCHOQqfAnh2ohmwn9Eex/i
+ VprMw/DJSXyYphC1zCUh+8DuhBQ4l9w9MXacjMTjpHMzfAxPeeTL5VdxSK4ElEWBRzjMirq7sP64u
+ eqmWS+Rw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49404)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w6XQA-000000007Jc-0fDn;
+ Sat, 28 Mar 2026 17:26:02 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w6XQ6-000000000pe-3OlK; Sat, 28 Mar 2026 17:25:58 +0000
+Date: Sat, 28 Mar 2026 17:25:58 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>, Ong Boon Leong <boon.leong.ong@intel.com>
+Message-ID: <acgPJgW9r0l952qu@shell.armlinux.org.uk>
+References: <acZQaDeCoib5S5UA@shell.armlinux.org.uk>
+ <E1w63fl-0000000E3Vb-3JkY@rmk-PC.armlinux.org.uk>
+ <aceQRSc5o4D-HHmq@shell.armlinux.org.uk>
+ <acegAqUb-Dzy87d8@shell.armlinux.org.uk>
 MIME-Version: 1.0
-Message-Id: <20260329-stm32-ospi-v1-2-142122466412@gmail.com>
-References: <20260329-stm32-ospi-v1-0-142122466412@gmail.com>
-In-Reply-To: <20260329-stm32-ospi-v1-0-142122466412@gmail.com>
-To: Mark Brown <broonie@kernel.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Patrice Chotard <patrice.chotard@foss.st.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774714028; l=1104;
- i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=g/NC5thUm9GobODU/U36/p17WTlVCj1qLtVx9sZkHSc=;
- b=aSWLNSCRp0D8866dSgcbY+JT4XedGUT6QeFZ4e3z25/G+O1t9HoLZs4yvCDebAVPEe6SBW0MI
- wJBP5VFN2niD5tp1lOmoFBkjn9PFB5InUP/CCkXoqJ2mkl3cCcQcxGB
-X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
- pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
-X-Mailman-Approved-At: Mon, 30 Mar 2026 05:51:31 +0000
-Cc: linux-kernel@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 2/2] spi: stm32-ospi: Fix DMA channel leak on
- stm32_ospi_dma_setup() failure
+Content-Disposition: inline
+In-Reply-To: <acegAqUb-Dzy87d8@shell.armlinux.org.uk>
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next 2/2] net: stmmac: simplify
+ GSO/TSO test in stmmac_xmit()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,83 +71,193 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DATE_IN_PAST(1.00)[37];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_FROM(0.00)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:p.zabel@pengutronix.de,m:patrice.chotard@foss.st.com,m:linux-kernel@vger.kernel.org,m:ustc.gu@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-spi@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:ustcgu@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[ustcgu@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com,pengutronix.de];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:boon.leong.ong@intel.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.869];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[ustcgu@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_SPAM(0.00)[0.982];
-	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 34C0E355BAB
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,armlinux.org.uk:url,intel.com:email,davemloft.net:email,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: F3FC934F542
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-When stm32_ospi_dma_setup() fails, the DMA channels allocated by
-stm32_ospi_get_resources() were never released. Add proper cleanup
-in the error path.
+On Sat, Mar 28, 2026 at 09:31:46AM +0000, Russell King (Oracle) wrote:
+> On Sat, Mar 28, 2026 at 08:24:37AM +0000, Russell King (Oracle) wrote:
+> > On Fri, Mar 27, 2026 at 09:40:09AM +0000, Russell King (Oracle) wrote:
+> > > The test in stmmac_xmit() to see whether we should pass the skbuff to
+> > > stmmac_tso_xmit() is more complex than it needs to be. This test can
+> > > be simplified by storing the mask of GSO types that we will pass, and
+> > > setting it according to the enabled features.
+> > > 
+> > > Note that "tso" is a mis-nomer since commit b776620651a1 ("net:
+> > > stmmac: Implement UDP Segmentation Offload"). Also note that this
+> > > commit controls both via the TSO feature. We preserve this behaviour
+> > > in this commit.
+> > > 
+> > > Also, this commit unconditionally accessed skb_shinfo(skb)->gso_type
+> > > for all frames, even when skb_is_gso() was false. This access is
+> > > eliminated.
+> > > 
+> > > Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> > 
+> > AI review of this patch regurgitates Jakub's point that was discussed.
+> > 
+> > > @@ -3700,7 +3700,7 @@ static int stmmac_hw_setup(struct net_device *dev)
+> > >  	stmmac_set_rings_length(priv);
+> > >  
+> > >  	/* Enable TSO */
+> > > -	if (priv->tso) {
+> > > +	if (priv->gso_enabled_types) {
+> > >  		for (chan = 0; chan < tx_cnt; chan++) {
+> > >  			struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[chan];
+> > >  
+> > 
+> > ...
+> > 
+> > > @@ -7828,7 +7834,7 @@ static int __stmmac_dvr_probe(struct device *device,
+> > >  		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
+> > >  		if (priv->plat->core_type == DWMAC_CORE_GMAC4)
+> > >  			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
+> > > -		priv->tso = true;
+> > > +		stmmac_set_gso_types(priv, true);
+> > 
+> > Clearly, the issue it is regurgitating has been there for a long time
+> > and isn't a new issue introduced by this patch.
+> > 
+> > AI needs to stop doing this, because it is encouraging multiple changes
+> > in a single patch, which is against the normal kernel process.
+> > 
+> > As already pointed out, there are multiple issues with stmmac TSO
+> > support, particularly with glue drivers that enable TSO on some
+> > queues/channels and not others, since netdev core TSO support is
+> > global across all channels.
+> > 
+> > So, won't the AI response in this patch - it's just another pre-
+> > existing issue that needs fixing in a separate patch.
+> 
+> Looking at the TSO vs TBS issue (which precludes the use of TSO on a
+> channel in stmmac) I can't find an obvious reason for this in the
+> available documentation. However, unfortunately, iMX8MP doesn't support
+> TSO, so the TSO bits are elided there, but does support TBS (needing
+> enhanced descriptors to be enabled). STM32MP151 on the other hand
+> supports TSO but not TBS, and thus fails to mention anything about
+> enhanced descriptors or TBS.
+> 
+> When stmmac_enable_tbs() enables TBS, it isn't actually enabling a
+> feature specific bit, but switching the channel to use enhanced
+> descriptor format. This format extends the basic descriptors by
+> placing four extra 32-bit words before the basic descriptor.
+> 
+> Looking at the enhanced normal descriptor format for TDES3, it
+> indicates that the format includes bit 18 in the control field, which
+> is the TSE bit (TCP segmentation enable for this packet.) So, it seems
+> it's not a limitation of the descriptor format.
+> 
+> So, either "TSO and TBS cannot co-exist" is incorrect, or there is a
+> hardware limitation that isn't documented between these two manuals.
+> 
+> One other interesting point is that stmmac_tso_xmit() seems to
+> handle the case where TSO and TBS are enabled on the channel:
+> 
+>                 if (tx_q->tbs & STMMAC_TBS_AVAIL)
+>                         mss_desc = &tx_q->dma_entx[tx_q->cur_tx].basic;
+>                 else
+>                         mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
+> 
+>                 stmmac_set_mss(priv, mss_desc, mss);
+> ...
+>         if (tx_q->tbs & STMMAC_TBS_AVAIL)
+>                 desc = &tx_q->dma_entx[first_entry].basic;
+>         else
+>                 desc = &tx_q->dma_tx[first_entry];
+>         first = desc;
+> 
+> etc.
+> 
+> Avoiding enabling TSO for a TBS channel was added by this commit:
+> 
+> commit 5e6038b88a5718910dd74b949946d9d9cee9a041
+> Author: Ong Boon Leong <boon.leong.ong@intel.com>
+> Date:   Wed Apr 21 17:11:49 2021 +0800
+> 
+>     net: stmmac: fix TSO and TBS feature enabling during driver open
+> 
+>     TSO and TBS cannot co-exist and current implementation requires two
+>     fixes:
+> 
+>      1) stmmac_open() does not need to call stmmac_enable_tbs() because
+>         the MAC is reset in stmmac_init_dma_engine() anyway.
+>      2) Inside stmmac_hw_setup(), we should call stmmac_enable_tso() for
+>         TX Q that is _not_ configured for TBS.
+> 
+>     Fixes: 579a25a854d4 ("net: stmmac: Initial support for TBS")
+>     Signed-off-by: Ong Boon Leong <boon.leong.ong@intel.com>
+>     Signed-off-by: David S. Miller <davem@davemloft.net>
+> 
+> which doesn't really explain the background, and leaves all the TBS
+> cruft in the TSO transmit path (nothing like properly updating the
+> driver, eh? No wonder stmmac is such a mess!)
 
-Fixes: e35a7607e05d ("spi: stm32-ospi: Set DMA maxburst dynamically")
-Signed-off-by: Felix Gu <ustc.gu@gmail.com>
----
- drivers/spi/spi-stm32-ospi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The more I look at this, the more I'm convinced this commit is
+incorrect, even if it is the case that the hardware doesn't support
+TSO and TBS together.
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index 52997c3f7174..34498939bcdf 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -923,7 +923,7 @@ static int stm32_ospi_probe(struct platform_device *pdev)
- 	dma_cfg.dst_addr = ospi->regs_phys_base + OSPI_DR;
- 	ret = stm32_ospi_dma_setup(ospi, &dma_cfg);
- 	if (ret)
--		return ret;
-+		goto err_dma_free;
- 
- 	mutex_init(&ospi->lock);
- 
-@@ -975,6 +975,7 @@ static int stm32_ospi_probe(struct platform_device *pdev)
- err_pm_enable:
- 	pm_runtime_force_suspend(ospi->dev);
- 	mutex_destroy(&ospi->lock);
-+err_dma_free:
- 	if (ospi->dma_chtx)
- 		dma_release_channel(ospi->dma_chtx);
- 	if (ospi->dma_chrx)
+When TSO is enabled (NETIF_F_TSO set in the netif's features) then
+the core net layer can submit skbuffs that need to be processed using
+TSO.
+
+If such a skbuff hits a channel that has TSO disabled (because the
+above commit caused:
+
+	stmmac_enable_tso(priv, priv->ioaddr, 1, chan);
+
+not to be called) then the TSE bit in the transmit control register
+will not be set, thereby disabling TSO on this particular channel.
+
+However, stmmac_xmit() will still call through to stmmac_tso_xmit()
+which will dutifully populate the transmit ring with descriptors that
+assume TSE has been set in the transmit control register.
+
+It seems to me _that_ is even more broken than "the hardware doesn't
+support TSO and TBS together" - I have no idea what the stmmac hardware
+does if it encounters descriptors with TSE set but TSE is disabled in
+the transmit control register. My guess would be it would ignore the
+TSE bit in the descriptor and assume that it's one very large packet
+to be sent - and either error out because it's longer than the
+maximum the hardware can support or it will just try to transmit it
+anyway.
 
 -- 
-2.43.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
