@@ -2,94 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id Mba6G2YPymmb4wUAu9opvQ
+	id YBh6MOBJyGlVjgUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:34 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 22:36:32 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF2BB355BC5
-	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5957E35002A
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 22:36:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1594EC8F299;
-	Mon, 30 Mar 2026 05:51:33 +0000 (UTC)
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com
- [74.125.82.177])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE01BC8F289;
+	Sat, 28 Mar 2026 21:36:31 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 050C7C36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A7D8C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 19:25:34 +0000 (UTC)
-Received: by mail-dy1-f177.google.com with SMTP id
- 5a478bee46e88-2c0c955a481so4649708eec.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 12:25:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774725932; x=1775330732;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=nV0vTDjXno/BRjs9UsVyAooL1Z9SQRTeEW/NqAyKUfY=;
- b=llPZlyWDZcytQ/sABssvJi5Mu1/i98ccboMWQdvaz/D5i3r7PF5Ds0hgCb1KdL/j6u
- ztYzLM4qJ1CY99nKtBvK0C5VPJw4uPUQICVwDbr2AA26MEOgT/1PFhKXukqRF0V53Fok
- 9PFpGIde9Uxup5vn5WL4Dn/1pEXBxSZeI6dk1VtT8lcH52U2Iqi0M+s9VM5zvbwFSKJa
- 4OF/nE2rcy5V4950QBLdopG5hx4PO8/PxCyfsthyvSnSIQvyT6d9EKbSGrtrbAVFB0P9
- rJTsaxm00O0AzoaqSekrOzHCmI6K1wZH+m5LqGlX19yd3f+hTsn97dAm/uxYVV4gT0UI
- phSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774725932; x=1775330732;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=nV0vTDjXno/BRjs9UsVyAooL1Z9SQRTeEW/NqAyKUfY=;
- b=jiLRzuR+a7YH2o90lRpr42vYIamB3p+QEZXhaowmT5KFaUdxxpj3nOb/p5ZZPyk1uf
- FSTuVqC2Bi96GoD05qe14OmpYdTDzUQOUbJEjapPnft9iIve1f+KGi8AkpzKaY4M5pQh
- 86nW+GTBgo7cjLqy1e2+3BNX/S2TNpsBZ3ukhjLo2lSqJd2pCyesIlIt0CgOo2FCgX6U
- XmKVNmJsQTNqZGr6/Lzc5jfFFCr/ksTKdXmB3JkIUU4GFosJnl4TRkytZhfjQ/C4ZNae
- Im4xHni3YCI+xHjPz9B2wMVGGqsTt+WDY2ZSazBeorXnvyHITAB3t7syRWJDrLbmoibF
- XxoQ==
-X-Forwarded-Encrypted: i=1;
- AJvYcCV1bFQX02+horuBtJwOXIIc8grBEMkI1+896dgN+KIpSI3YQbItlR9nrF4wyrEfl3psbMD3SYbEJDDZRA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyCQgFN2GfDvI5tyh2v4Fz+R3XWEHU0EoYivgvXyt3//dLwkA+G
- 38JE0Hwu9LxBUh66kpbd3o1wovnCoJRPLTQdW9Y5Cy95nc1T1BddgXnJ
-X-Gm-Gg: ATEYQzwTLeGPYhK+qRknZHufBfaLXMidgosZrDPZLF+nYDT24mYmuSeVByFbv0ugjmg
- JVEaoIxBbJO20bek04x3JpzNoImS76JpJgrk2uPPTQHhIe2QftR3brIHF48xgbJ7HZpRuzk+QdF
- nIaAcMG2Gi/N15g8E8q2OW1fNBtrON5BaIsjE0Qppq54h5hmzbcmuCznERh5Kh51SEz6N5zNtr8
- +C9uo0vsOB3aheko+uu9dwPidVA4rPbv6EcPCMN1TzKRvMRHGf6u151svO82EKC9D70hQWpe8dz
- B8RJeex1voBDTAiCHgwfHt9K4DumRvAQfK1vGyFt3OilNP+CZ+Rzuep7jVSejqRgkAmxnzTFU3O
- esbvRkukn+R3YAD8UBd8xGWZ9oeUprMM5pHYWJQl6vPve4ucV3uZVw7fpwDyk2UAqFWY2BlORFA
- WKdR5plrHxy6DXTNMii1F0C+Z/vJdg1VbWMuTKfdFsoBgHvSO3XZ/UR0SS
-X-Received: by 2002:a05:7022:92a:b0:11b:9b9f:426b with SMTP id
- a92af1059eb24-12ab28e4dd5mr4350751c88.20.1774725932423; 
- Sat, 28 Mar 2026 12:25:32 -0700 (PDT)
-Received: from localhost (static-23-234-93-211.cust.tzulo.com. [23.234.93.211])
- by smtp.gmail.com with UTF8SMTPSA id
- a92af1059eb24-12ab970da7fsm2819438c88.0.2026.03.28.12.25.28
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 28 Mar 2026 12:25:30 -0700 (PDT)
-From: Sam Edwards <cfsworks@gmail.com>
-X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Date: Sat, 28 Mar 2026 12:25:03 -0700
-Message-ID: <20260328192503.520689-3-CFSworks@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260328192503.520689-1-CFSworks@gmail.com>
-References: <20260328192503.520689-1-CFSworks@gmail.com>
+ Sat, 28 Mar 2026 21:36:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:Content-Type:MIME-Version:
+ Message-ID:Subject:Cc:To:From:Date:Reply-To:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+ Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=d4q09W+eD8Stqj42zbiz4smzDCvADGAs3rAaGG5Y1sM=; b=c76FFFg4SPPzxGrdE9k3KDYBbf
+ 7LiMnn3gM32EcuvjgEcVqHX2wWFyXkK4CtbCJFeZDgBRAZz1bf+Xa8BsBFvgOci99LVIEFsXVuAeo
+ 0IYP+d+cWqRsVs6n+6AKbnW3wrPtizSR7rNZjOXJBdrEST6BXu5YI9M1IJ0MSQRvVGB6LF1aSAd/G
+ NIehs9P2f1lf32ICYauQW289EMGoxwvkRBg6L3nrzN+2r/JE2jm3mlYyosUpxkDgP4BRliPGm1HM1
+ cYfdk8hNG/jh1f8rlnqwd8S4NOVla7vjWEs6nOcildmY97BalsXYZX4fviNY8vf1D9jI16O0wiu4+
+ cj9p+Y7Q==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:40630)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w6bKT-000000007RJ-0s5p;
+ Sat, 28 Mar 2026 21:36:25 +0000
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w6bKP-0000000010D-1PC3; Sat, 28 Mar 2026 21:36:21 +0000
+Date: Sat, 28 Mar 2026 21:36:21 +0000
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 30 Mar 2026 05:51:31 +0000
-Cc: Baruch Siach <baruch@tkos.co.il>, linux-kernel@vger.kernel.org,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- Serge Semin <fancer.lancer@gmail.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, stable@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Sam Edwards <CFSworks@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Subject: [Linux-stm32] [RESEND PATCH net v3 2/2] net: stmmac: Prevent
-	indefinite RX stall on buffer exhaustion
+Content-Disposition: inline
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net-next 00/10] net: stmmac: TSO fixes/cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,112 +66,87 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
-	DATE_IN_PAST(1.00)[34];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[18];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.leong.ong@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:baruch@tkos.co.il,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:fancer.lancer@gmail.com,m:rmk+kernel@armlinux.org.uk,m:stable@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:peppe.cavallaro@st.com,m:CFSworks@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:andrew@lunn.ch,m:fancerlancer@gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[tkos.co.il,vger.kernel.org,nxp.com,gmail.com,armlinux.org.uk,st.com,st-md-mailman.stormreply.com,lists.infradead.org,renesas.com];
-	RCVD_COUNT_THREE(0.00)[4];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[cfsworks@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[cfsworks@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.858];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.999];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: CF2BB355BC5
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url]
+X-Rspamd-Queue-Id: 5957E35002A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The stmmac driver handles interrupts in the usual NAPI way: an interrupt
-arrives, the NAPI instance is scheduled and interrupts are masked, and
-the actual work occurs in the NAPI polling function. Once no further
-work remains, interrupts are unmasked and the NAPI instance is put to
-sleep to await a future interrupt. In the receive case, the MAC only
-sends the interrupt when a DMA operation completes; thus the driver must
-make sure a usable RX DMA descriptor exists before expecting a future
-interrupt.
+Hot off the press from reading various sources of dwmac information,
+this series attempts to fix the buggy hacks that were previously
+merged, and clean up the code handling this.
 
-The main receive loop in stmmac_rx() exits under one of 3 conditions:
-1) It encounters a DMA descriptor with OWN=1, indicating that no further
-   pending data exists. The MAC will use this descriptor for the next
-   RX DMA operation, so the driver can expect a future interrupt.
-2) It exhausts the NAPI budget. In this case, the driver doesn't know
-   whether the MAC has any usable DMA descriptors. But when the driver
-   consumes its full budget, that signals NAPI to keep polling, so the
-   question is moot.
-3) It runs out of (non-dirty) descriptors in the RX ring. In this case,
-   the MAC will only have a usable descriptor if stmmac_rx_refill()
-   succeeds (at least partially).
+I'm not sure whether "TSO" or "GSO" should be used to describe this
+feature - although it primarily handles TCP, dwmac4 appears to also
+be able to handle UDP.
 
-Currently, stmmac_rx() lacks any check against scenario #3 and
-stmmac_rx_refill() failing: it will stop NAPI polling and unmask
-interrupts to await an interrupt that will never arrive, stalling the
-receive pipeline indefinitely.
+In essence, this series adds a .ndo_features_check() method to handle
+whether TSO/GSO can be used for a particular skbuff - checking which
+queue the skbuff is destined for and whether that has TBS available
+which precludes TSO being enabled on that channel.
 
-Fix this by checking stmmac_rx_dirty(): it will return 0 if
-stmmac_rx_refill() fully succeeded and we can safely await an interrupt.
-Any nonzero value means some allocations failed, in which case we risk
-dropping frames if a large traffic burst exhausts the surviving
-non-dirties. Therefore, simply return the full budget (to keep polling)
-until all allocations succeed.
+I'm also adding a check that the header is smaller than 1024 bytes,
+as documented in those sources which have TSO support - this is due
+to the hardware buffering the header in "TSO memory" which I guess
+is limited to 1KiB. I expect this test never to trigger, but if
+the headers ever exceed that size, the hardware will likely fail.
 
-Fixes: 47dd7a540b8a ("net: add support for STMicroelectronics Ethernet controllers.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sam Edwards <CFSworks@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 5 +++++
- 1 file changed, 5 insertions(+)
+I'm also moving the VLAN insertion for TSO packets into core code -
+with the addition of .do_Features_check(), this can be done and
+unnecessary code removed from the stmmac driver.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index f98b070073c0..81f764352f3d 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -5604,6 +5604,7 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 	unsigned int desc_size;
- 	struct sk_buff *skb = NULL;
- 	struct stmmac_xdp_buff ctx;
-+	int budget = limit;
- 	int xdp_status = 0;
- 	int bufsz;
- 
-@@ -5870,6 +5871,10 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
- 	priv->xstats.rx_dropped += rx_dropped;
- 	priv->xstats.rx_errors += rx_errors;
- 
-+	/* If stmmac_rx_refill() failed, keep trying until it doesn't. */
-+	if (unlikely(stmmac_rx_dirty(priv, queue) > 0))
-+		return budget;
-+
- 	return count;
- }
- 
+I've changed the hardware initialisation to always enable TSO support
+on the channels even if the user requests TSO/GSO to be disabled -
+this fixes another issue as pointed out by Jakub in a previous review
+of the two patches (now patches 5 and 6.)
+
+I'm moving the setup of the GSO features, cleaning those up, and
+adding a warning if platform glue requests this to be enabled but the
+hardware has no support. Hopefully this will never trigger if everyone
+got the STMMAC_FLAG_TSO_EN flag correct.
+
+Also move the "TSO supported" message to the new
+stmmac_set_gso_features() function so keep all this TSO stuff together.
+
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h      |   3 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 135 ++++++++++++++--------
+ 2 files changed, 92 insertions(+), 46 deletions(-)
+
 -- 
-2.52.0
-
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
