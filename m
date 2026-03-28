@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iGGxChtKyGlVjgUAu9opvQ
+	id KPzMEx1KyGlVjgUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 22:37:31 +0100
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 22:37:33 +0100
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF1D3350097
-	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 22:37:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 022D23500A1
+	for <lists+linux-stm32@lfdr.de>; Sat, 28 Mar 2026 22:37:32 +0100 (CET)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A19BBC8F289;
-	Sat, 28 Mar 2026 21:37:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFD0AC8F289;
+	Sat, 28 Mar 2026 21:37:32 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CFA0C36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24210C8F28A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 21:37:28 +0000 (UTC)
+ Sat, 28 Mar 2026 21:37:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=xB7kZRpx0s0qXnkYZbHnPSkUdvkt4LqCLfoJJ3DHNgQ=; b=g81F8vmLqcQg3tFPxLx2XzUPR9
- 9Kk7rzo/kE9ZV1iCVOppdWSR903pRPBhJz7p7BYTlNidU1hxO7tSGs/OXzcNIzis6yFycOiy3e7AG
- O5T/H9aizkEl8mzBr6OL40Yoiu9j+8VV4xkwLVcAV8zNFWUJ/f1lw/Kw0bQkhm+5D1VvwCHMTBWBm
- H6rx7MHL9hOCM8ssUZFzHDnjmlq4UxJBcWrom5Aw9iPGEeLT/rO+vLgVVTINsfCi9wHMvfXy7ycgz
- QBeH3txMCcvPsmIXez7lgrd1EwV77OS/kGcyVm5f46PPfEtsnWMmPYFT1aA2DV8TMnj074SpCIHhT
- lZaC4vcQ==;
+ bh=mAKrOCApQzZu2zjOdNYoweFwV7e0x+wpN1tQch7jZX8=; b=X6ncgmiqT8+A6FjjlkaLMVhA+6
+ Vd1/NoHB/v/6tciiT5mrhH0oQykrLBJ9GET2Izdc/o/BHyhZKcewlwp5B+6iTVL0abrA4mhsm3MRs
+ f60U481DoOjuCFDWx0ZZ+Ep6ZkLswRe3MMz7xhyPIyupCKzeUe734oxKhwuaY5D0k35AS8TlfFm0f
+ raeGF85p2MSMlzMvHmPXr60A8AQlQTnoB0C22TWa8p9yooDknF5aAmj8iDSSUjsv9cSkdWDxRljnf
+ oV/KR7jC5ksDQXfDCYIwDF69w7+EzeNvARavEIeglsMnhDMUwkCrf7z5sTe8n+5mAS5tjJ6006irq
+ NE091BoA==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:43642 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:56392 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w6bLL-000000007Th-17Q0;
- Sat, 28 Mar 2026 21:37:19 +0000
+ (envelope-from <rmk@armlinux.org.uk>) id 1w6bLQ-000000007Tz-0swP;
+ Sat, 28 Mar 2026 21:37:24 +0000
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w6bLJ-0000000ELuL-2oxj; Sat, 28 Mar 2026 21:37:17 +0000
+ id 1w6bLO-0000000ELuR-3IhN; Sat, 28 Mar 2026 21:37:22 +0000
 In-Reply-To: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
 References: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w6bLJ-0000000ELuL-2oxj@rmk-PC.armlinux.org.uk>
-Date: Sat, 28 Mar 2026 21:37:17 +0000
+Message-Id: <E1w6bLO-0000000ELuR-3IhN@rmk-PC.armlinux.org.uk>
+Date: Sat, 28 Mar 2026 21:37:22 +0000
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 08/10] net: stmmac: make
- stmmac_set_gso_features() more readable
+Subject: [Linux-stm32] [PATCH net-next 09/10] net: stmmac: add warning when
+ TSO is requested but unsupported
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.355];
+	NEURAL_HAM(-0.00)[-0.275];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[rmk@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -103,50 +103,35 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,armlinux.org.uk:email,rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: DF1D3350097
+	DBL_BLOCKED_OPENRESOLVER(0.00)[rmk-PC.armlinux.org.uk:mid,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,armlinux.org.uk:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 022D23500A1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Make stmmac_set_gso_features() more readable by adding some whitespace
-and getting rid of the indentation.
+Add a warning message if TSO is requested by the platform glue code but
+the core wasn't configured for TSO.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 ++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 4442358e8280..3bfa4bbe857f 100644
+index 3bfa4bbe857f..c61ce1282368 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4385,13 +4385,19 @@ static void stmmac_set_gso_features(struct net_device *ndev)
- {
- 	struct stmmac_priv *priv = netdev_priv(ndev);
+@@ -4388,8 +4388,10 @@ static void stmmac_set_gso_features(struct net_device *ndev)
+ 	if (!(priv->plat->flags & STMMAC_FLAG_TSO_EN))
+ 		return;
  
--	if ((priv->plat->flags & STMMAC_FLAG_TSO_EN) && (priv->dma_cap.tsoen)) {
--		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
--		if (priv->plat->core_type == DWMAC_CORE_GMAC4)
--			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
--		stmmac_set_gso_types(priv, true);
--		dev_info(priv->device, "TSO feature enabled\n");
--	}
-+	if (!(priv->plat->flags & STMMAC_FLAG_TSO_EN))
-+		return;
-+
-+	if (!priv->dma_cap.tsoen)
-+		return;
-+
-+	ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
-+	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
-+		ndev->hw_features |= NETIF_F_GSO_UDP_L4;
-+
-+	stmmac_set_gso_types(priv, true);
-+
-+	dev_info(priv->device, "TSO feature enabled\n");
- }
+-	if (!priv->dma_cap.tsoen)
++	if (!priv->dma_cap.tsoen) {
++		dev_warn(priv->device, "platform requests unsupported TSO\n");
+ 		return;
++	}
  
- /**
+ 	ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
+ 	if (priv->plat->core_type == DWMAC_CORE_GMAC4)
 -- 
 2.47.3
 
