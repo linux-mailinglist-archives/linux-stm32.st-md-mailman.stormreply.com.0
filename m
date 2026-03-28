@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id RkBDIGUPymmS4wUAu9opvQ
+	id 6KbaJ2UPymmL4gUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:33 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EFE6355BA8
+	by mail.lfdr.de (Postfix) with ESMTPS id 34C0E355BAB
 	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FBF3C8F27D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BF17C8F287;
 	Mon, 30 Mar 2026 05:51:32 +0000 (UTC)
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
- [209.85.216.52])
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
+ [209.85.216.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D09DFC8F288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A799DC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 16:07:14 +0000 (UTC)
-Received: by mail-pj1-f52.google.com with SMTP id
- 98e67ed59e1d1-358e3cc5e7eso1560873a91.0
+ Sat, 28 Mar 2026 16:07:17 +0000 (UTC)
+Received: by mail-pj1-f48.google.com with SMTP id
+ 98e67ed59e1d1-35d99031e4eso236978a91.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 28 Mar 2026 09:07:14 -0700 (PDT)
+ Sat, 28 Mar 2026 09:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1774714033; x=1775318833;
+ d=gmail.com; s=20251104; t=1774714036; x=1775318836;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=6/qgP9gqmMpp2U/rdBQhHtYOkT3qsy2wmqdnlrMFSgg=;
- b=S+R42gSUeqpDkfPSmBlXVChX2mDevf0hBkEnSRmw7W4t5oJPmXNMUGUNr21fFQNl7f
- HZGmNRZT2Vkp3IdqHbCr+MnSTXFpfbh8aWwY/pg0lZ0EenNfB7kbGLRkHctADfsSvA7Z
- bwHl8ATkNyjUxk04SBBl8NqUAKp1pg6AmjbgaVYqjLtb8L3T8AByCnjeEkT4GtWmsV1g
- F4Kr5bzT5MctzTT2ajrXsYSKuzGxedDO4jJJ5Kz2s4nkRfStB+CipyLAZVzoT2dbrpmU
- QM04UTJ842IsGk8sSN/VlaNb80B6yTQpVuZVU3qH8l3l5dN5giFAODVP4/gUAjRJEEmy
- VpNQ==
+ :reply-to; bh=UqrrS9uvTvJ0weuIXquOC2uG3YCXwOkehaDJ4cbhf3E=;
+ b=NF5xk9k2mi6DesV3z6JmzbeSwG49+YeBp+PmR8mkBmNw5vDWXnF+dInrC/jMwRPttq
+ WPEitdkhDbZ0FtIjj+Y8T38nvcJs2ejNGdBrAaFgTANj0wE5qbxpWmhIob0q6uLvMp08
+ QZol653pDowmDjrdKW6PYnQ67kBufjCxbvG2UlvQozsnTY6H8d+YJBoaTClg+e+/gGHs
+ lXf8HF3clu2EizKtsbJK+6u1GAObb8bKAevVaLZTuaKJvhT6Tz+7U2bdCLJ8L18S5x9W
+ mPBwis6qi6h4IAnmLEbYuWIYmtEJ8VOJHBvvrJ07bVgLtxb6VE0GuMKqpafLprwC9dLN
+ QOCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774714033; x=1775318833;
+ d=1e100.net; s=20251104; t=1774714036; x=1775318836;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=6/qgP9gqmMpp2U/rdBQhHtYOkT3qsy2wmqdnlrMFSgg=;
- b=KN53++xkoJOHbNDffs46ugWNmhtEDZvpmscGwMUKimEsCQpbLerFWUqfJhfpoCi3JI
- yZsn4ENASzm6E7DMLullXNHL9WcXA3BsAuR2uJ5RWh9wfcdPlpEntvvwR0ZlWK8UYnSt
- yd0gXylsLUZm6XJxjg+43n7ikqQmkxXTc775v4MlcDxABYfiYPnfJ+NpSI4LzTfOjZqW
- RW+MxfORutKpz80faeco6cILsTCdCD+W+74/j4EoDzyNwgJ9Xnl6IScykA2Icq8wF9wn
- phB/9MfJAylRkvEF++9IYrTvKfex5ICcniJgzuMavqByUrfMVj7Z5JdA/GQ9KIrwqt7K
- +ahg==
+ bh=UqrrS9uvTvJ0weuIXquOC2uG3YCXwOkehaDJ4cbhf3E=;
+ b=nytGSRjPAgF5jo8DaJ1gGUhwVnEQFHyjp8sKFWJANFO6wU6gp40/e0nWHGnNMLII+u
+ 4ynA6bhZG8lm1Z/U6ysA6pba4ndXiO8KQNAPASohs4mCq2EICr60pMfAAv3vQzSqBTF1
+ plN/R6x2uEHzl3JGT+4T1sZMiBmnEGvXO398dhVVaWGoVuCldBs1GY6AmBwOA3rYYePB
+ Q47AdHEDMr9L/saX0+r8LHMJ/MquLE7ShagerIHDYTvkCEM8Lg9Q2w74cPxtW2aGlTDh
+ jFTeeDXy10AJYEMEtylBLJP2kt+2e4RdX/Q3JX6Yt3oJC1Skww11jHIzxU7dO+fxexfe
+ bXSw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCWl2c20xxLOlsS+lzsrowq8Ke3qgQIb2f63bUANsAagpZTvjXsuPDsohCIQFIY8dMv0RsRYTQ1m9cMLXg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx/oLm9tKcUQZOqS+ntfQ0PpYepY7cF6T0sflaM59kVFPJFx0yP
- sY6FjNd9JhcASXR7CflgSbToFrSUIzOBvNlaHwLTH//TYw8k37+zL6Oi
-X-Gm-Gg: ATEYQzwzwWi2aERLlrHi3ZDo3W+zLhOuii19jQZZmVr+qZ1yethtgk8AMuiLPhGVyOH
- bovfjqKSFD8VKkeTNW4Hyps2nYjmMcZwqwrdBho7eMGP+9d2qfx6WHyYP6sTo+e70XVlJs1ekuq
- 2eQNcppQfD33OQJmz3O56CTPHloV2ogUoRG3UwiQyGvr4GGUymsAREW2iqVOtPEx9ZyXOhI/XrS
- 5vRa7ghyh41i1T1ZZ5KSQhiRt6Z3Iet+IeHv1GyLiLW5aq94qNWkE8rJJvj4qVrl1fubv1w0Jfy
- rxpdf5r+0Y0hJYM8SuZM32U798pzNy3BVxYnTnrRpPiT9Bd9YVQw2GZRBB1TI5gF1hO88qdi/K4
- sjJrv9tWnpCyH5lEKtsxv0U+Cj3DzGTr6bVJOgBs5WMBpraYXdEmoGf1nKhF+v1oLHrS2ylF4qE
- 6P+2VrspfAXwA4c4Q/QbGFRCrzpCkeVIQxDOJr
-X-Received: by 2002:a17:90b:1e4f:b0:35a:1b43:dff1 with SMTP id
- 98e67ed59e1d1-35c300060damr6402909a91.12.1774714033225; 
- Sat, 28 Mar 2026 09:07:13 -0700 (PDT)
+ AJvYcCUkhf98O1beNNJpfA7Hy8wl5rgdXaVXEvGsosBXdNfiujEplQP/Ieg0JKT2EHX/IsT/dSshdp+XIGinDA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx0VPl+bWCj50I87d2vaZBk36qQ+Wyb8Uy9Xk6uhyeZBmLrGSmV
+ BVguj0xPDByF+ZkdYfvXcvUvOwLgMq1RLzkED5eUZB8p6ktGWCbE7oGT
+X-Gm-Gg: ATEYQzxmMRdmT61dFM3ErH88ozwu5Fy71vehvRclIZYBEQTJ/av3jPurRTOKMUCQU21
+ 6eI+eVaMtlo7p88jclP98OrDc32URLL8bLxMGtLGA5bg+bEvEjpUQo+fmG1EivCN4UeXUJGll5O
+ Y9bO5/Ou4rLRRb5r/Lw2xsFGTCb5qI5v3DZmCD26R7Yakdr4a9wtJd+RVt1sFUUpdhnafB9l1L2
+ cnz/uE62voAm0z6gxAaKuDtN3FtVbdoIkTJCzT4cpTDr63M3tv2eSHBF3H81S5xYsvncsH7q0O8
+ eDrUt483Gt0FJfHh7Ym2wUqkun7Bu1F4TgJP5gWPJvOim/9Ify8tl9laybQKjLBAel1sQXK8Zde
+ LVjRzfpA0nK04Dfl4U9S5N4fTPWzSsoBNYFJ12o+icb6cVFHU/iGz+/6c+SUEX9GC3PZYf7LPyY
+ g3i08x2z99VXEphkbzYj9FGYkxgU+GVq0WN/i8
+X-Received: by 2002:a17:90b:390b:b0:35c:812:6126 with SMTP id
+ 98e67ed59e1d1-35c300f9db0mr5029057a91.24.1774714036132; 
+ Sat, 28 Mar 2026 09:07:16 -0700 (PDT)
 Received: from junjungu-PC.localdomain ([223.167.147.240])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-35c2ec27da0sm1988140a91.8.2026.03.28.09.07.10
+ 98e67ed59e1d1-35c2ec27da0sm1988140a91.8.2026.03.28.09.07.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 28 Mar 2026 09:07:13 -0700 (PDT)
+ Sat, 28 Mar 2026 09:07:15 -0700 (PDT)
 From: Felix Gu <ustc.gu@gmail.com>
-Date: Sun, 29 Mar 2026 00:07:06 +0800
+Date: Sun, 29 Mar 2026 00:07:07 +0800
 MIME-Version: 1.0
-Message-Id: <20260329-stm32-ospi-v1-1-142122466412@gmail.com>
+Message-Id: <20260329-stm32-ospi-v1-2-142122466412@gmail.com>
 References: <20260329-stm32-ospi-v1-0-142122466412@gmail.com>
 In-Reply-To: <20260329-stm32-ospi-v1-0-142122466412@gmail.com>
 To: Mark Brown <broonie@kernel.org>, 
@@ -78,19 +78,19 @@ To: Mark Brown <broonie@kernel.org>,
  Philipp Zabel <p.zabel@pengutronix.de>, 
  Patrice Chotard <patrice.chotard@foss.st.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1774714028; l=1079;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774714028; l=1104;
  i=ustc.gu@gmail.com; h=from:subject:message-id;
- bh=B2M6TmSMVm9Sf6C3C9nuArJeOUQJv3qKC5BIO5ffMLE=;
- b=K3icUELnLZRMgZ/cPYJO9EzPAK2OMYHOCr7hyQOJnzEc4OMrk33Ar+ZZkU3slL5LvqPmk2sLA
- mJOwZbw8vXjAsa1nv9Kt2X0dyD1JJSNopgTjyIp2Ct8Tin+OylPlzR4
+ bh=g/NC5thUm9GobODU/U36/p17WTlVCj1qLtVx9sZkHSc=;
+ b=aSWLNSCRp0D8866dSgcbY+JT4XedGUT6QeFZ4e3z25/G+O1t9HoLZs4yvCDebAVPEe6SBW0MI
+ wJBP5VFN2niD5tp1lOmoFBkjn9PFB5InUP/CCkXoqJ2mkl3cCcQcxGB
 X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
  pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
 X-Mailman-Approved-At: Mon, 30 Mar 2026 05:51:31 +0000
 Cc: linux-kernel@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-spi@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 1/2] spi: stm32-ospi: Fix reset control leak
-	on probe error
+Subject: [Linux-stm32] [PATCH 2/2] spi: stm32-ospi: Fix DMA channel leak on
+ stm32_ospi_dma_setup() failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,7 +113,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -122,11 +122,11 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	TO_DN_SOME(0.00)[];
 	TAGGED_FROM(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:p.zabel@pengutronix.de,m:patrice.chotard@foss.st.com,m:linux-kernel@vger.kernel.org,m:ustc.gu@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-spi@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:ustcgu@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
 	RCVD_COUNT_THREE(0.00)[4];
-	ARC_NA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:p.zabel@pengutronix.de,m:patrice.chotard@foss.st.com,m:linux-kernel@vger.kernel.org,m:ustc.gu@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-spi@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:ustcgu@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[ustcgu@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com,pengutronix.de];
 	FROM_HAS_DN(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
@@ -142,45 +142,43 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_SPAM(0.00)[0.981];
+	NEURAL_SPAM(0.00)[0.982];
 	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 0EFE6355BA8
+X-Rspamd-Queue-Id: 34C0E355BAB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-When spi_register_controller() fails after reset_control_acquire()
-succeeds, the reset control is never released. This causes a resource
-leak in the error path.
+When stm32_ospi_dma_setup() fails, the DMA channels allocated by
+stm32_ospi_get_resources() were never released. Add proper cleanup
+in the error path.
 
-Add the missing reset_control_release() call in the error path.
-
-Fixes: cf2c3eceb757 ("spi: stm32-ospi: Make usage of reset_control_acquire/release() API")
+Fixes: e35a7607e05d ("spi: stm32-ospi: Set DMA maxburst dynamically")
 Signed-off-by: Felix Gu <ustc.gu@gmail.com>
 ---
- drivers/spi/spi-stm32-ospi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/spi/spi-stm32-ospi.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index acf2d182e8b1..52997c3f7174 100644
+index 52997c3f7174..34498939bcdf 100644
 --- a/drivers/spi/spi-stm32-ospi.c
 +++ b/drivers/spi/spi-stm32-ospi.c
-@@ -960,13 +960,15 @@ static int stm32_ospi_probe(struct platform_device *pdev)
- 	if (ret) {
- 		/* Disable ospi */
- 		writel_relaxed(0, ospi->regs_base + OSPI_CR);
--		goto err_pm_resume;
-+		goto err_reset_control;
- 	}
+@@ -923,7 +923,7 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+ 	dma_cfg.dst_addr = ospi->regs_phys_base + OSPI_DR;
+ 	ret = stm32_ospi_dma_setup(ospi, &dma_cfg);
+ 	if (ret)
+-		return ret;
++		goto err_dma_free;
  
- 	pm_runtime_put_autosuspend(ospi->dev);
+ 	mutex_init(&ospi->lock);
  
- 	return 0;
- 
-+err_reset_control:
-+	reset_control_release(ospi->rstc);
- err_pm_resume:
- 	pm_runtime_put_sync_suspend(ospi->dev);
- 
+@@ -975,6 +975,7 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+ err_pm_enable:
+ 	pm_runtime_force_suspend(ospi->dev);
+ 	mutex_destroy(&ospi->lock);
++err_dma_free:
+ 	if (ospi->dma_chtx)
+ 		dma_release_channel(ospi->dma_chtx);
+ 	if (ospi->dma_chrx)
 
 -- 
 2.43.0
