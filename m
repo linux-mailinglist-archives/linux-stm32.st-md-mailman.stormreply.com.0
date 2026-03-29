@@ -2,53 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +JJlD6JmyWm4xwUAu9opvQ
+	id uH2eIVBryWnqxwUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 19:51:30 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 20:11:28 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D74003536A9
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 19:51:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D716353910
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 20:11:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F058EC8F269;
-	Sun, 29 Mar 2026 17:42:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB099C8F269;
+	Sun, 29 Mar 2026 18:11:27 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E81E9C87ECD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C313C87ECD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Mar 2026 17:42:26 +0000 (UTC)
+ Sun, 29 Mar 2026 18:11:26 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id D683660054;
- Sun, 29 Mar 2026 17:42:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8E1C116C6;
- Sun, 29 Mar 2026 17:42:24 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B32C640499;
+ Sun, 29 Mar 2026 18:11:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C467C116C6;
+ Sun, 29 Mar 2026 18:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774806145;
- bh=Dgjm5JDJVPVi105xPjT0M4xjKqbcapeMVq6MJrJMHiM=;
+ s=k20201202; t=1774807884;
+ bh=LafMpKW3NSnJa5FfLZmmzqltgjxT9kZoM/+zl6NnOfY=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=K1jBwiTRDPR5JvC58W6u26L8/DtzjfHPUvIDFhoueqTs8Yyh8imbx+gyg0AEbJ/C0
- E/P0YqYGro7/VjB/9vvmPxzj73HJ4eBS1VwSEaZhQms+WwMizCdiV66lfek0iR+XlR
- 5NYPjEn7exjhGjtri4rs0Qw5sqU9W1VtBOsvxmJGAlzVMVcHt/vdg3iMHgMk/Mu7i0
- JQlYlUt+FkmspPZR98PWwk1stUEgEOpZBI8PMzOWegLeUSUp8hly7TiljKmUZE3ftQ
- QXAio38VTVRmvs8A4BEgGzp86HFnRZCx//Kcbr6dkoDVJ3E+xD5Vhk3Y+qWRz05zRX
- wZwT7h1mgwS0Q==
-Date: Sun, 29 Mar 2026 10:42:23 -0700
+ b=LQbJ0d7m1/4MbRj5Gfe3XxX/23mxGIieJS6s4DaYHm+Hy+HdfBeqs77lESjTdVKM1
+ kLcU88DlmdETb6SoRTQ4+OyHSjoapDFHBEge2uuxUKb1o3xXGf6p1GuFmMOaKQtLO9
+ xXOXSvM6pn71TueIDWkAkVDJpL2US9YS3eRalTUuzwedoDvXsz75Le3501eDcZXjzK
+ RWe0z6zORWeLKVgYFCiWkSZLsOIkdj3A5ZtgTZAmTb7y2dMRisBDtNZSJDJ5IVrwrh
+ jKT0plrGbQ3ctfzbGza+89J2IVfsQdVX5AUR+x+XjZMtw9ZMLDajWVUTrIyWTZTYjk
+ wqVk4LEnc1eJg==
+Date: Sun, 29 Mar 2026 11:11:23 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Message-ID: <20260329104223.358351ee@kernel.org>
-In-Reply-To: <acjzmxY9xmBInSwm@shell.armlinux.org.uk>
+Message-ID: <20260329111123.740bada9@kernel.org>
+In-Reply-To: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
 References: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
- <E1w6bKj-0000000ELtf-3md9@rmk-PC.armlinux.org.uk>
- <acjzmxY9xmBInSwm@shell.armlinux.org.uk>
 MIME-Version: 1.0
 Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
  Eric Dumazet <edumazet@google.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
  Paolo Abeni <pabeni@redhat.com>, "David
  S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 01/10] net: stmmac: fix TSO
- support when some channels have TBS available
+Subject: Re: [Linux-stm32] [PATCH net-next 00/10] net: stmmac: TSO
+	fixes/cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,7 +74,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,body];
+	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.leong.ong@intel.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
@@ -85,7 +83,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[kernel.org:-];
 	FROM_HAS_DN(0.00)[];
-	NEURAL_SPAM(0.00)[0.481];
+	NEURAL_SPAM(0.00)[0.375];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCPT_COUNT_SEVEN(0.00)[10];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -98,56 +96,23 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: D74003536A9
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 2D716353910
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sun, 29 Mar 2026 10:40:43 +0100 Russell King (Oracle) wrote:
-> On Sat, Mar 28, 2026 at 09:36:41PM +0000, Russell King (Oracle) wrote:
-> > According to the STM32MP25xx manual, which is dwmac v5.3, TBS (time
-> > based scheduling) is not permitted for channels which have hardware
-> > TSO enabled. Intel's commit 5e6038b88a57 ("net: stmmac: fix TSO and
-> > TBS feature enabling during driver open") concurs with this, but it
-> > is incomplete.
-> > 
-> > This commit avoids enabling TSO support on the channels which have
-> > TBS available, which, as far as the hardware is concerned, means we
-> > do not set the TSE bit in the DMA channel's transmit control register.
-> > 
-> > However, the net device's features apply to all queues(channels), which
-> > means these channels may still be handed TSO skbs to transmit, and the
-> > driver will pass them to stmmac_tso_xmit(). This will generate the
-> > descriptors for TSO, even though the channel has the TSE bit clear.
-> > 
-> > Fix this by checking whether the queue(channel) has TBS available,
-> > and if it does, fall back to software GSO support.  
-> 
-> This is sufficient for the immediate issue of fixing the patch below,
-> but I think there's another issue that also needs fixing here.
-> 
-> TSO requires the hardware to support checksum offload, and there is
-> a comment in the driver:
-> 
->         /* DWMAC IPs can be synthesized to support tx coe only for a few tx
->          * queues. In that case, checksum offloading for those queues that don't
->          * support tx coe needs to fallback to software checksum calculation.
->          *
->          * Packets that won't trigger the COE e.g. most DSA-tagged packets will
->          * also have to be checksummed in software.
->          */
-> 
-> So, it seems at the very least we need to add a check (in a subsequent
-> patch) for priv->plat->tx_queues_cfg[queue].coe_unsupported to
-> stmmac_channel_tso_permitted().
-> 
-> I'm also wondering about the stmmac_has_ip_ethertype() thing, which
-> checks whether the skb can be checksummed by the hardware, and how that
-> interacts with TSO, and whether that's yet another hole that needs
-> plugging.
+On Sat, 28 Mar 2026 21:36:21 +0000 Russell King (Oracle) wrote:
+> Hot off the press from reading various sources of dwmac information,
+> this series attempts to fix the buggy hacks that were previously
+> merged, and clean up the code handling this.
 
-If the driver "un-advertises" checksum offload accordingly the core
-should automatically clear TSO feature.
+We have a limit of 15 outstanding patches per tree.
+Please follow the community guidelines.
+
+While I have you - you have a significantly negative "reviewer score".
+You post much more than you review. Which should earn you extra 24h
+of delay in our system. I've been trying to ignore that and prioritize
+applying your patches but it'd be great if you could review a bit more.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
