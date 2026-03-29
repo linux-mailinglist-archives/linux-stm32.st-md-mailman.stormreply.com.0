@@ -2,59 +2,96 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id hf04LabzyGngsgUAu9opvQ
+	id mFGvOWUPymmL4gUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 11:40:54 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:33 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35DB03516AC
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 11:40:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7F57355BC6
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 07:51:33 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 758F8C87ECD;
-	Sun, 29 Mar 2026 09:40:53 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20F97C8F29B;
+	Mon, 30 Mar 2026 05:51:33 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9222C56603
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0F8EC87ECD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Mar 2026 09:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=VedDf6KjO7+dUX4YVKgtrHVL8jRFgWiX8TrdhyAcPls=; b=Jc2Py1MS/550Vpu9IWtlooDX44
- a0y5FYBt2WATmyZfNO92STW5xUTWe20esS0KQaitLEMVxE5zzvgpVCe+rGXRGf0nKgcKhnzpfVP/8
- HB0uIISrxjcnHVgMQgzk35Xa5LhZ7AVOgkHHiXLWa6PR3MI3d8M60nBpUUUnsM1nLJVlSxTcunyaC
- UvIW3GzBYgDtz87l1RA6s7K/U0JZjT/3yGHKm8hfd8cfCFOEyeZgAMmq8O+zKeDpSXU87fZR3V4IF
- 33/hmTlexM7N21VguQNH6cZXzpB+RcuGNjg8QNUS86npk/fjLmlUkbf0Nd77xQKRd1QkY0BOI2BdZ
- //cPxMQg==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:49578)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1w6mdT-000000007qA-0Mle;
- Sun, 29 Mar 2026 10:40:47 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1w6mdP-000000001cj-2hQZ; Sun, 29 Mar 2026 10:40:43 +0100
-Date: Sun, 29 Mar 2026 10:40:43 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <acjzmxY9xmBInSwm@shell.armlinux.org.uk>
-References: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
- <E1w6bKj-0000000ELtf-3md9@rmk-PC.armlinux.org.uk>
+ Sun, 29 Mar 2026 11:14:12 +0000 (UTC)
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-8297e0b27e5so1844506b3a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 29 Mar 2026 04:14:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1774782851; x=1775387651;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=QVjoQBkXiGI1oWD/lbihuPbS4PWSjwfos2KaFS/Ehss=;
+ b=lzrh5m9VgGyq8ooN9xbWzzMY4J2KTOorCuhzJXoCFskuEvjqHjD/Qgjhryu5+ai4gP
+ SQp5cwV+wklPkv9IrhsSvcN/xmPFuyCkxX70SuNJtHVatBbrFmuYX3bAlYAR68+MPmeH
+ frOk56BJQ9DbqkGCevPJLDcMbFWSAmgFHsj52ayjK6gDakxrzKdSF3+LcrMuyV23WFmF
+ O3Pp00SCOrZuDx39Dqxn0YFy0FvfO+RehhLBfJMNQxvKMptUYJ80ekraeWu3vDDOdaSg
+ bPhJ5pGK0HEz73yVd5h0YsSUxkyma3fROHfUD3s/7gffuQCkd8P4TM91wCMmdDJvQEuy
+ qkdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774782851; x=1775387651;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=QVjoQBkXiGI1oWD/lbihuPbS4PWSjwfos2KaFS/Ehss=;
+ b=VQGgYbcpzTMzoEeN8kUx35hXJR+iw7I3uAdtNRGdKgWMcY7UNr0kt54kS5MtmK1FcD
+ pRMVSBoGsl2m9vyXUWQgbmRq2nZSdE0y7PLC/ykKeAtsUojIpWuLuqyxDLOaP6ckoct5
+ pMxRXFCCN8YaIg0VuIFy3OCbvci07QYkywQ1wL+6+f3bK3DNAc1KcOkh8fE1t6EzqIys
+ eyDq3nkr3DyRc6TTPiFHjFFLqForVrPSLQky6W9rijJD4R45iPaXQnkzPp5YZxzBxDce
+ XIbpIbei3hvPsA1oiTbtPzXdxU444b2c1pYs7w4BfLE+EjSZPLbIw0I7Lp2/9hHb8VRG
+ +HOg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVcwpo3166cgQ3O3X8uWR5t9zxJ6UjKVp8ruGQx8lXo56xtMzCqCk2pnhLrplHDomq2pRwYuLty81Bx2A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxM/KnVD+aeXMTy6l/Dw5otYDA6RfE7sfs+Sph+gHVkqdSokb3n
+ wgfaHYqOyZOcZZv2u6yJFU0hkYCSjbCzQto5vC/duPTStFoGpiG6O202lt9QWi0QBdg=
+X-Gm-Gg: ATEYQzw5R8NT6HJ2Y+HOSOi0EcbipGlB201efI7e81yyXkLVIEvfsyNwrlPuj4j5xvy
+ 9X3/ck8rcpRS/Ezca0IHRQ583Fmm7Vq1yTaKg0FzKGgYlrhpBN+kXL4uiAr+F7F0SfPN+kBLc7R
+ CBERpDXVL6563LpPiPy3QCPENzAtTQJdhUkdVzXXQuBt5cyQIRBLsr2xobZiJ+6hxlT5XzTc7DU
+ 401K9NZkMURofLUH16ZPqXbAc61kV2OGu8C5J8brXmthkPK9ffDO8iYW3kCN3KKZ3qdd33hP83t
+ Rqy2QsLccyVY13FT02iBZPA+5wYNC5MbAOOk30NxEzdIdnBvbo9LB6fklr616lz7iy76IgJS041
+ IyLvdtQhEwMghH5QyZSvlYOedRqS1NUObiwUkzbqaxaNCtQaJzxo5T2LD/OnpDYn3NqegEkTF4z
+ 3Lv8ePnlWRUszNUYfcFo/BWo+a5qNC1orHoa4P
+X-Received: by 2002:a05:6a00:2395:b0:823:ad3:4ff4 with SMTP id
+ d2e1a72fcca58-82c9605da6amr8434908b3a.37.1774782850914; 
+ Sun, 29 Mar 2026 04:14:10 -0700 (PDT)
+Received: from junjungu-PC.localdomain ([223.167.147.240])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82ca85fc72asm4266744b3a.48.2026.03.29.04.14.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 29 Mar 2026 04:14:10 -0700 (PDT)
+From: Felix Gu <ustc.gu@gmail.com>
+Date: Sun, 29 Mar 2026 19:14:05 +0800
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <E1w6bKj-0000000ELtf-3md9@rmk-PC.armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 01/10] net: stmmac: fix TSO
- support when some channels have TBS available
+Message-Id: <20260329-ospi-v1-1-cc8cf1c82c4a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAH0JyWkC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDYyNL3fzigkxds8REUwMzgzQDS4NUJaDSgqLUtMwKsDHRsbW1AK/8AIF
+ WAAAA
+X-Change-ID: 20260329-ospi-6aa5060f090e
+To: Mark Brown <broonie@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Patrice Chotard <patrice.chotard@foss.st.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1774782848; l=1157;
+ i=ustc.gu@gmail.com; h=from:subject:message-id;
+ bh=u+hbg2H3lOYYW1ebDQugMjdlCQVFZ+T5/ivVf6GLPhs=;
+ b=Wc+RgivG/glkyD6BlqKjX69NgtVzBwdBy7l8yiL6UpV2oi7bjj4Pt1hW9blTiLqjXXkYTkr2Q
+ oNytratwqJCBjE2tZt6rpcUGtyqOf5tFXsRvhdA1IK+XuVfSZ9CeaiD
+X-Developer-Key: i=ustc.gu@gmail.com; a=ed25519;
+ pk=fjUXwmjchVN7Ja6KGP55IXOzFeCl9edaHoQIEUA+/hw=
+X-Mailman-Approved-At: Mon, 30 Mar 2026 05:51:31 +0000
+Cc: linux-kernel@vger.kernel.org, Felix Gu <ustc.gu@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-spi@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] spi: stm32-ospi: Fix resource leak in
+	remove() callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,87 +109,82 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TAGGED_FROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.leong.ong@intel.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrice.chotard@foss.st.com,m:linux-kernel@vger.kernel.org,m:ustc.gu@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-spi@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:ustcgu@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[ustcgu@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.853];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[ustcgu@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:url,st-md-mailman.stormreply.com:rdns,shell.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 35DB03516AC
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	NEURAL_SPAM(0.00)[0.983];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[]
+X-Rspamd-Queue-Id: D7F57355BC6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sat, Mar 28, 2026 at 09:36:41PM +0000, Russell King (Oracle) wrote:
-> According to the STM32MP25xx manual, which is dwmac v5.3, TBS (time
-> based scheduling) is not permitted for channels which have hardware
-> TSO enabled. Intel's commit 5e6038b88a57 ("net: stmmac: fix TSO and
-> TBS feature enabling during driver open") concurs with this, but it
-> is incomplete.
-> 
-> This commit avoids enabling TSO support on the channels which have
-> TBS available, which, as far as the hardware is concerned, means we
-> do not set the TSE bit in the DMA channel's transmit control register.
-> 
-> However, the net device's features apply to all queues(channels), which
-> means these channels may still be handed TSO skbs to transmit, and the
-> driver will pass them to stmmac_tso_xmit(). This will generate the
-> descriptors for TSO, even though the channel has the TSE bit clear.
-> 
-> Fix this by checking whether the queue(channel) has TBS available,
-> and if it does, fall back to software GSO support.
+The remove() callback returned early if pm_runtime_resume_and_get()
+failed, skipping the cleanup of spi controller and other resources.
 
-This is sufficient for the immediate issue of fixing the patch below,
-but I think there's another issue that also needs fixing here.
+Remove the early return so cleanup completes regardless of PM resume
+result.
 
-TSO requires the hardware to support checksum offload, and there is
-a comment in the driver:
+Fixes: 79b8a705e26c ("spi: stm32: Add OSPI driver")
+Signed-off-by: Felix Gu <ustc.gu@gmail.com>
+---
+ drivers/spi/spi-stm32-ospi.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-        /* DWMAC IPs can be synthesized to support tx coe only for a few tx
-         * queues. In that case, checksum offloading for those queues that don't
-         * support tx coe needs to fallback to software checksum calculation.
-         *
-         * Packets that won't trigger the COE e.g. most DSA-tagged packets will
-         * also have to be checksummed in software.
-         */
+diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
+index acf2d182e8b1..192a20de1ae6 100644
+--- a/drivers/spi/spi-stm32-ospi.c
++++ b/drivers/spi/spi-stm32-ospi.c
+@@ -984,11 +984,8 @@ static int stm32_ospi_probe(struct platform_device *pdev)
+ static void stm32_ospi_remove(struct platform_device *pdev)
+ {
+ 	struct stm32_ospi *ospi = platform_get_drvdata(pdev);
+-	int ret;
+ 
+-	ret = pm_runtime_resume_and_get(ospi->dev);
+-	if (ret < 0)
+-		return;
++	pm_runtime_resume_and_get(ospi->dev);
+ 
+ 	spi_unregister_controller(ospi->ctrl);
+ 	/* Disable ospi */
 
-So, it seems at the very least we need to add a check (in a subsequent
-patch) for priv->plat->tx_queues_cfg[queue].coe_unsupported to
-stmmac_channel_tso_permitted().
+---
+base-commit: 3b058d1aeeeff27a7289529c4944291613b364e9
+change-id: 20260329-ospi-6aa5060f090e
 
-I'm also wondering about the stmmac_has_ip_ethertype() thing, which
-checks whether the skb can be checksummed by the hardware, and how that
-interacts with TSO, and whether that's yet another hole that needs
-plugging.
-
+Best regards,
 -- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+Felix Gu <ustc.gu@gmail.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
