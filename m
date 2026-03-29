@@ -2,54 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SGj4C4N0yWmxyAUAu9opvQ
+	id gH11Cq90yWmxyAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 20:50:43 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 20:51:27 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4509353AAD
-	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 20:50:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE30F353ACC
+	for <lists+linux-stm32@lfdr.de>; Sun, 29 Mar 2026 20:51:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3FD20C8F269;
-	Sun, 29 Mar 2026 18:50:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5853EC8F269;
+	Sun, 29 Mar 2026 18:51:26 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A441C8F260
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73596C8F260
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 29 Mar 2026 18:50:40 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 3A2C941B20;
- Sun, 29 Mar 2026 18:50:39 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DD7AC2BCB1;
- Sun, 29 Mar 2026 18:50:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774810239;
- bh=O82FpE/7ZgUmCxQeK0am6BAdKnT2A6ZdwoNVv3WFz5w=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=FaRTxRSG1VuymtP02WGPHzUkmXvzxs2ZnPhrpHxCDzor/J0ZcNxBiOQTGAmm6Dbdj
- IojhvHCiJMHRNo0yWJtMkS7fhNE/bo5AbTpRhjvq24fIElUnik4SHYeO9MpG7nOuZP
- tNvWXfSol5idU2kOwo3qymDS3DVHkl5rl0GvhU1vT2XOk47maa9uhTTFbP/laHLfgh
- Au9F3RDZVp4xzUjopO2WRirIEsUFzUgj1vFcul8FzE/bQ+wLbojC+SWhIkArHhcysz
- /Bi7Ei6gj7lB+kIlZWdXAQRv8TD6+BUY+QxBRek0mF68LYoY2PeQqMEV2wZO0bgMVD
- 5V76/1hQhNHPw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 02DD13930012; Sun, 29 Mar 2026 18:50:25 +0000 (UTC)
+ Sun, 29 Mar 2026 18:51:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=MkB3zjZHS6vwd8b3RjjpKkeR3qneJxmhLMAiJQwBqNQ=; b=TCX48G0oF8y68pyA/xRADyxEkq
+ jROR84zUloQc8DGevldQokQgi6xVTEQQhemuENKvZzLxppUHSfIODkj5rGEp/eAx5TifM36relQ3J
+ Va0kGHW6imY3KKE+Z+RnFfVHwJuFhg7CEfCbLLerxkUaPjDur0NAkmoQjn82KfSzt+gk/fox6kCuN
+ ZWHbg9L48Q4jPv89fY1tyj2/GKZv328BqM1Ahl2CWGjQ453e9oGiLk4YFQV/HQE/qjk+mAM08jn7l
+ 2pS5ZsvysQ0797dn8zG3S1ffpZMrCyf0K8l0N2jLBk2Sn3/UVShJ4iefMLZsA4FFhfdRTaNi5rSBG
+ Tb1eIhPw==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:48698)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1w6vEF-000000008CD-24t8;
+ Sun, 29 Mar 2026 19:51:19 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1w6vED-000000001wx-10vu; Sun, 29 Mar 2026 19:51:17 +0100
+Date: Sun, 29 Mar 2026 19:51:17 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID: <acl0pTqJ97o0PRxY@shell.armlinux.org.uk>
+References: <achJ1dfeT6Q8rBuX@shell.armlinux.org.uk>
+ <20260329111123.740bada9@kernel.org>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177481022378.437043.15447396546007070348.git-patchwork-notify@kernel.org>
-Date: Sun, 29 Mar 2026 18:50:23 +0000
-References: <tencent_833D2AD6577F21CF38ED1C3FE8814EB4B308@qq.com>
-In-Reply-To: <tencent_833D2AD6577F21CF38ED1C3FE8814EB4B308@qq.com>
-To: =?utf-8?b?6LCi6Ie06YKmIChYSUUgWmhpYmFuZykgPFlla2luZ0ByZWQ1NC5jb20+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: linux-kernel@vger.kernel.org, heiko@sntech.de, andrew+netdev@lunn.ch,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-rockchip@lists.infradead.org, edumazet@google.com,
- mcoquelin.stm32@gmail.com, Yeking@Red54.com, kuba@kernel.org,
- pabeni@redhat.com, rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+Content-Disposition: inline
+In-Reply-To: <20260329111123.740bada9@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Ong Boon Leong <boon.leong.ong@intel.com>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] net: stmmac: dwmac-rk: Fix typo in comment
+Subject: Re: [Linux-stm32] [PATCH net-next 00/10] net: stmmac: TSO
+	fixes/cleanups
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,64 +66,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.89 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[netdevbpf];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:=?utf-8?b?6LCi6Ie06YKmIChYSUUgWmhpYmFuZykgPFlla2luZ0ByZWQ1NC5jb20+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,m:linux-kernel@vger.kernel.org,m:heiko@sntech.de,m:andrew+netdev@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rockchip@lists.infradead.org,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:Yeking@Red54.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:=?utf-8?b?6LCi6Ie06YKmIChYSUUgWmhpYmFuZykgPFlla2luZ0ByZWQ1NC5jb20@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:boon.leong.ong@intel.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,sntech.de,lunn.ch,st-md-mailman.stormreply.com,lists.infradead.org,google.com,gmail.com,Red54.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net];
-	NEURAL_SPAM(0.00)[0.745];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,?=,netdev,kernel];
+	NEURAL_HAM(-0.00)[-0.843];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FROM_NO_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[red54.com:email]
-X-Rspamd-Queue-Id: B4509353AAD
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,armlinux.org.uk:url,stm-ict-prod-mailman-01.stormreply.prv:helo,shell.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: BE30F353ACC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-SGVsbG86CgpUaGlzIHBhdGNoIHdhcyBhcHBsaWVkIHRvIG5ldGRldi9uZXQtbmV4dC5naXQgKG1h
-aW4pCmJ5IEpha3ViIEtpY2luc2tpIDxrdWJhQGtlcm5lbC5vcmc+OgoKT24gU2F0LCAyOCBNYXIg
-MjAyNiAxMzo0MzozMSArMDAwMCB5b3Ugd3JvdGU6Cj4gQ29ycmVjdCB0aGUgdHlwbyAicmszNTIw
-IiB0byAicmszNTI4IiBpbiBjb21tZW50Lgo+IAo+IFNpZ25lZC1vZmYtYnk6IOiwouiHtOmCpiAo
-WElFIFpoaWJhbmcpIDxZZWtpbmdAUmVkNTQuY29tPgo+IC0tLQo+ICBkcml2ZXJzL25ldC9ldGhl
-cm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy1yay5jIHwgMiArLQo+ICAxIGZpbGUgY2hhbmdlZCwg
-MSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkKCkhlcmUgaXMgdGhlIHN1bW1hcnkgd2l0aCBs
-aW5rczoKICAtIG5ldDogc3RtbWFjOiBkd21hYy1yazogRml4IHR5cG8gaW4gY29tbWVudAogICAg
-aHR0cHM6Ly9naXQua2VybmVsLm9yZy9uZXRkZXYvbmV0LW5leHQvYy8zMGZjZjI4ZDgzZWUKCllv
-dSBhcmUgYXdlc29tZSwgdGhhbmsgeW91IQotLSAKRGVldC1kb290LWRvdCwgSSBhbSBhIGJvdC4K
-aHR0cHM6Ly9rb3JnLmRvY3Mua2VybmVsLm9yZy9wYXRjaHdvcmsvcHdib3QuaHRtbAoKCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+On Sun, Mar 29, 2026 at 11:11:23AM -0700, Jakub Kicinski wrote:
+> On Sat, 28 Mar 2026 21:36:21 +0000 Russell King (Oracle) wrote:
+> > Hot off the press from reading various sources of dwmac information,
+> > this series attempts to fix the buggy hacks that were previously
+> > merged, and clean up the code handling this.
+> 
+> We have a limit of 15 outstanding patches per tree.
+> Please follow the community guidelines.
+
+I see that restriction was newly introduced back in January.
+
+> While I have you - you have a significantly negative "reviewer score".
+> You post much more than you review. Which should earn you extra 24h
+> of delay in our system. I've been trying to ignore that and prioritize
+> applying your patches but it'd be great if you could review a bit more.
+
+Sorry, but given the effort that stmmac is taking, I don't have much
+capacity to extend mental cycles elsewhere.
+
+This two patch series wouldn't have exploded into ten (or maybe even
+more) patches had someone not pointed out the problem with
+suspend/resume interacting with disabling TSO... which prompted me to
+look deeper and discover a multitude of other problems. Should I
+instead ignore these bugs and not bother trying to fix this stuff?
+
+Honestly, I'm getting tired of stmmac with it sucking lots of my time,
+and I suspect you're getting tired of the constant stream of patches
+for it - but the reason there's a constant stream is because there's
+so much that's wrong or broken in this driver.
+
+So either we let the driver rot, or... what?
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
