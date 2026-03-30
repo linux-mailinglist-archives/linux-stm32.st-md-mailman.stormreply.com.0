@@ -2,62 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qJP8IW38ymmlBwYAu9opvQ
+	id IMQ5DzBuymmw8wUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 00:42:53 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 14:36:00 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1895E3620C2
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 00:42:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B934C35B1BF
+	for <lists+linux-stm32@lfdr.de>; Mon, 30 Mar 2026 14:35:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8E653C8F27C;
-	Mon, 30 Mar 2026 22:42:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BF07C8F269;
+	Mon, 30 Mar 2026 12:35:59 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34FFBC3F945
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F293FC8F260
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 30 Mar 2026 22:42:51 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id CFA1A403A7;
- Mon, 30 Mar 2026 22:42:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43C97C4CEF7;
- Mon, 30 Mar 2026 22:42:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774910569;
- bh=WJUmNyHI33Ksdcve8J6YydVvh7qixIZn6EjlrvkUTHQ=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=Zb9Dbfg9hUNrWQ1loGToOdl+1qsAhj6+m14i2NRC2dGewKMaB/dOQAUNfCNDitaU5
- Cm6JFuFhUp8SAl896uBm8pOzBx0kNxAE+L8HJtxJjqNU7lP2e/P3qrvwZuQfDhKKsl
- 5WiW/O8KeP79L7C2tNjOYNv9HfcNALMLXxXefa8IEEF96uyCmocvry+vdD+8mX5JWE
- 58NTy+nu/i5eZ50YlWI+BTM9k3aj1e9O/2qEE101zQau/u6dTxtI4jg7b7BfcxYBzh
- NYL0xXx68l+jp5Ur/OZT/XIDeOtolO6mb9K1/MS/MHGlWPwoRKcJqf7RtwegRpni3I
- qMbbT8btEx6Pw==
-From: Mark Brown <broonie@kernel.org>
-To: Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Patrice Chotard <patrice.chotard@foss.st.com>, Felix Gu <ustc.gu@gmail.com>
-In-Reply-To: <20260329-ospi-v1-1-cc8cf1c82c4a@gmail.com>
-References: <20260329-ospi-v1-1-cc8cf1c82c4a@gmail.com>
-Message-Id: <177487334325.97912.13454188633754990000.b4-ty@b4>
-Date: Mon, 30 Mar 2026 13:22:23 +0100
+ Mon, 30 Mar 2026 12:35:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=wYBKS7dt5j38ighh50PUCkRqON2g0NPUuA+55y0x1ts=; b=1SkUQbL6OFfy1tSZ9NRgzdUTff
+ nx10vqYDxRH/htdOaPiVosjSKdhM+qxPyDPb/ZeO7l4XS0kH0sLr7vfDRKQspBuuHzII56mZcUeVW
+ pPYw7YPK1B530+BU4J4hpwSn8/TEQjcj6IM/G7WUTz09DeLGTvMLc3ou/fsCMWQZ6JEE=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1w7BqF-00E1x8-5E; Mon, 30 Mar 2026 14:35:39 +0200
+Date: Mon, 30 Mar 2026 14:35:39 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <0d650de4-eb45-481b-8c39-1bf455b948c9@lunn.ch>
+References: <E1w6AZm-0000000E54W-1F6E@rmk-PC.armlinux.org.uk>
+ <9d0a529a-d065-4f46-a93b-23195a4f9727@oss.qualcomm.com>
+ <acpqgpCsbo3lJs3l@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Mailer: b4 0.16-dev-3ac6c
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1122; i=broonie@kernel.org;
- h=from:subject:message-id; bh=WJUmNyHI33Ksdcve8J6YydVvh7qixIZn6EjlrvkUTHQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBpyvxnVDjtLZDM2CXSDaxJ2aMbGfIoYxQaaj+Ss
- wM4QuWJpYSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCacr8ZwAKCRAk1otyXVSH
- 0Fr0B/4wZMN1jN3fHRdwE1W1kQK3iCOwoQ4Wdk/P/GQWrK0U2e7fVUWAkUJvdd9hCc6Bk3fIk3T
- MSzzgV5Lbb8ObQvr2CmrR/7SKzDOfInspxZ0ik07JKpQi/jmvYsIPMkAtUK52GuBMkVKWlvHHF0
- 2YZSLXTZn2HE2CFINvMJBoUmXZ+AzT34SHCrZvT1IJmzpYoJWBSuSFk2c3oHlTnGk+okrcjPnHc
- 6+QEAo/fo9VoiKn5n9nRxMKGIp+2VuRnwP2H3BRb9bKgGuQwIPTXOeO0tvCYZv3aDAszEg8VLDo
- rqsehY1DJNNNhP40HYzH5m9+k7lJpEDpiBmaS2l+JX4R1rmp
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH] spi: stm32-ospi: Fix resource leak in
- remove() callback
+Content-Disposition: inline
+In-Reply-To: <acpqgpCsbo3lJs3l@shell.armlinux.org.uk>
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next] net: stmmac: qcom-ethqos:
+	set clk_csr
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,76 +62,69 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.29 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:patrice.chotard@foss.st.com,m:ustc.gu@gmail.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-spi@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:ustcgu@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:konrad.dybcio@oss.qualcomm.com,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_TO(0.00)[gmail.com,foss.st.com];
+	DKIM_TRACE(0.00)[lunn.ch:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.503];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.149];
+	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 1895E3620C2
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: B934C35B1BF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sun, 29 Mar 2026 19:14:05 +0800, Felix Gu wrote:
-> spi: stm32-ospi: Fix resource leak in remove() callback
+On Mon, Mar 30, 2026 at 01:20:18PM +0100, Russell King (Oracle) wrote:
+> On Mon, Mar 30, 2026 at 01:18:56PM +0200, Konrad Dybcio wrote:
+> > On 3/27/26 6:02 PM, Russell King (Oracle) wrote:
+> > > The clocks for qcom-ethqos return a rate of zero as firmware manages
+> > > their rate. According to hardware documentation, the clock which is
+> > > fed to the slave AHB interface can crange between 50 and 100MHz.
+> > 
+> > FWIW this __may__ possibly differ between platforms, but I'm not sure
+> > to what degree. Will there be visible impact if we e.g. have a 200 or
+> > 300 MHz clock somewhere?
+> 
+> When you add other platforms, you're going to have to deal with their
+> differences.
+> 
+> IEEE 802.3 states that the maximum clock rate for the MDIO bus is
+> 2.5MHz. You need to ensure that is the case.
+> 
+> Current qcom-ethqos code doesn't set clk_csr, and returns zero for
+> clk_get_rate() on the stmmac clocks because they are managed entirely
+> in firmware.
 
-Applied to
+Could a fixed clock be used in DT to represent clk_csr? Different
+platforms then set it to different frequencies, to represent whatever
+the firmware is doing.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.0
-
-Thanks!
-
-[1/1] spi: stm32-ospi: Fix resource leak in remove() callback
-      https://git.kernel.org/broonie/sound/c/73cd1f97946a
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
