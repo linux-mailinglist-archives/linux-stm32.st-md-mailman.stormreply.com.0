@@ -2,53 +2,148 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +BJWHGQay2lrDwYAu9opvQ
+	id 8NPqFC+Ry2kuIwYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 02:50:44 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 11:17:35 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0458B362D9F
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 02:50:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CCA7E366DDD
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 11:17:34 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A64CAC8F27C;
-	Tue, 31 Mar 2026 00:50:43 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B0DAC8F290;
+	Tue, 31 Mar 2026 09:17:34 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CC4BC3F945
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C7C1C8F28F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2026 00:50:41 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id F2BB460103;
- Tue, 31 Mar 2026 00:50:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1E04C4CEF7;
- Tue, 31 Mar 2026 00:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1774918240;
- bh=vOZ5ozREY8aVWVHfpkrVrUIzl1//7RR1KGfdLz9ztAc=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
- b=s0ZIyicKnATvyDapEsaRwx/CH1SV/5pPeZaTS9qxv0BfR7Ba83+vmnKvOunbrVL+R
- mkrAkJYbrM1u/0m02aKj2VN5bvWl99w9GyFe9wNjehITh02pTQNc+GfVQD8tO25+lO
- iCB+8/IOIoG2is0q9pgouteSazBXMXlYmFdA1cG66ERMGniEZkBstALfI121OW4MTB
- P/9spjd+0u232s1hTi/MOQNnIuVndPhG9E+5UfgCNKXn3DuuSLoAVLpCsfag3oaBbV
- 7Lt6Hy6zcAxFiVBUaQul28YA5UMRNC7iNjM+FiqzpGvXv74ZJMHvwv+4qk9h5NOHg1
- rXa482DSLQF0A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- BA154392FF85; Tue, 31 Mar 2026 00:50:25 +0000 (UTC)
+ Tue, 31 Mar 2026 09:17:32 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62V913rt2761385
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 31 Mar 2026 09:17:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:date:from:message-id:mime-version
+ :subject:to; s=qcppdkim1; bh=27Tk3ffYPxPUfBBGsz7J58heCMTnUpLGBrk
+ UR2F7Ums=; b=K3/9arNSg2eeAQ9lg3ebwIMS5xc7a+pMVUtyu2Pkab9mUYyb/9v
+ aEg3xEylIO7E39xzySgIsYw5rb8hjFCRF4emNK+zRk1Hl6w1DjiwEmlKm2hpwkjT
+ JCY8Q/IeOw60nu45NfwJ2dedYvsFZ0YkyVOAJIST8W/2kiwFBTea5wLJdYa5gbBF
+ Xe30fjYkoQgpxeOxJhsm5c0ZABm5aHjuN3rNBYRJJQrm7S6lV84s93L6O+oU6zMX
+ hUHuSSpfAGfQchykrc1Iu4QNyGj99POrTfyJjQyEc6zVScQcZnvKTUSgqlvB0dBy
+ HY6hYCbCG7JWqpKsGjaCEc/mCrKy2YeRulg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8b930292-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 31 Mar 2026 09:17:30 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id
+ d75a77b69052e-509044f54aaso172473151cf.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 31 Mar 2026 02:17:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1774948650; x=1775553450;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=27Tk3ffYPxPUfBBGsz7J58heCMTnUpLGBrkUR2F7Ums=;
+ b=RmiZ2iRnH5cU82jLrz7xNfRBoA1J1ZRnAAcKXphEHPrpjAYr6OrKXszwBpr9MhD9x+
+ iIm9sRpGuskKueBfaOt6lSyXfuOkzkqSJhmMHOXahs5KCkn1fiA42xWfPMqMugYTRgK7
+ F7kR6KyZCGZq1ePhtAdJBtoTAH7gLQZxqLpG9stj+QrujaJUyB6mYp0Dbv9hDOK0unaU
+ vxADVm5fOKwCajmgaXyfGmmT84qVJ3P0cNGXODRy3XAT0qEe9i1pFzkPql8L/0g3FTua
+ YzXuCpmmlUQC2DSyXOAcPwCds90n5sn93pKkjTD9eQnwQhmDR1jCJutQ/yKCOk0YTtlu
+ WQXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1774948650; x=1775553450;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=27Tk3ffYPxPUfBBGsz7J58heCMTnUpLGBrkUR2F7Ums=;
+ b=endsTVyC8LiVZjuVF8GrQQaQyEVALwzA5PzNxGAUHIpySri0a1AYvgd5hKsnxSbIK+
+ lbpHJmRvxNZoM2vjH+eQnkgud6YHi6lhwcGudfwbIAuIBkPw7KFr74zKnkTa4qeNLiss
+ ogBLjT94wCPbq3cbxTWSxweeTtWnZrtf/5dSe/MjmK9Lzrspz4DrUuH+Clp6Qg14Etgo
+ h+bsSb8IcG5I3Lljw864brrefz5ACFBy80oVlK03CVuS6sgDVhP3KjWhed/ouLg/7oFF
+ r9X351wpKm42LeHgRo2/xXkKuxlTR//2y1MPnl1/PyqRQvjwGVO+dfL8XIFUPTiomWZa
+ yOKg==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCVJ5Zftr3EWYJgKvI6QLTOis4a4UXvr74an1gG/ppKxFya2sni5yOsAruH+Fi3lXflbsgkcd7zeMjaQNA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyCM/6is+Bd1gta4adcVo6yrbAKy9exjMPXAocU7greXL+P3D5E
+ t4GamARG2cnrNOm337RxTiMQKdAAi+FCbmP0bd5pzXKIiwuJJfMumkx6h3gH1OJk92ZqwwXkZF8
+ WXsGlL2vkkm1ysr03/zTCTHJkAuD+3VEOoOb5Abyx1oPpr6HVdJ9d4a5l9ZNhfbMkJp/tWoVm8Z
+ i/nIjGMd8=
+X-Gm-Gg: ATEYQzzDxH6YbCBvsYoEL0SeAy0RJeAJyHpo0vKfSs0uhvZKgGXgIctDtFVizRhG1A2
+ OL/UqkauT/fU1WVn+OaxBHEcagbj+T7VE5aTJN7gKeTRVnsjRfvxOSYYOnqdi25YT2Cax3rP9kG
+ aw3Niu2VCvX4RB9BkHm9Nz0SolaRbpr/zSxRiMHBwnZek22XiacQmZGl3iCXiyP0lVrVB3IQwvW
+ nhdiIcfHJAfDVEh4CJ4BrHb6v3aViLkHBiG/8dZLEl5PqgoK4vpgpZNaU2mcNA918tfVTYDuitu
+ AicC+zvisfoDb/S+vezMZ1rQ6s+kLFSm/HmgFRVUPkUgJWEeXMRoAUd/6DX4S4xe/J5w4tTJGz9
+ t5nnZFDFEcZjcp/cLFjdV3bAZQ1pAhcLAW0wY
+X-Received: by 2002:a05:622a:488a:b0:509:1b01:8926 with SMTP id
+ d75a77b69052e-50ba37efac0mr197333971cf.6.1774948649787; 
+ Tue, 31 Mar 2026 02:17:29 -0700 (PDT)
+X-Received: by 2002:a05:622a:488a:b0:509:1b01:8926 with SMTP id
+ d75a77b69052e-50ba37efac0mr197333621cf.6.1774948649292; 
+ Tue, 31 Mar 2026 02:17:29 -0700 (PDT)
+Received: from quoll ([178.197.219.94]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48880946cc5sm135815e9.13.2026.03.31.02.17.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 02:17:28 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Tue, 31 Mar 2026 11:17:22 +0200
+Message-ID: <20260331091721.61613-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <177491822455.2035926.9761670989228068564.git-patchwork-notify@kernel.org>
-Date: Tue, 31 Mar 2026 00:50:24 +0000
-References: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
-In-Reply-To: <acZDEg9wdjhBTHlL@shell.armlinux.org.uk>
-To: Russell King (Oracle) <linux@armlinux.org.uk>
-Cc: andrew@lunn.ch, mohd.anwar@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, netdev@vger.kernel.org, kuba@kernel.org,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next v2 00/15] net: stmmac:
-	qcom-ethqos: more cleanups
+X-Developer-Signature: v=1; a=openpgp-sha256; l=22204;
+ i=krzysztof.kozlowski@oss.qualcomm.com; 
+ h=from:subject; bh=puBYKXZKqZwshdg9cKY8fmmVvZSJKudl/3fL6tVXyP0=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBpy5EhuxPIqfZahjL4HL42IPqsNNkGK9YRhoBxC
+ 2U2mFn1vdmJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCacuRIQAKCRDBN2bmhouD
+ 16xAD/9xUeUhqeb92Hj7wGO8TXWf1NqvnOhXh/SGZ5IFwKTO7bBeWCg6mABHCEnm7tpD1N81fPh
+ +DYil6Ha5ltXrPCj+cPdAMoIOlEAe7dUm3ZDkD4mEKHnWs27W9AKmOVgGPEuwGeeaZoJCCCTWZr
+ QuYTCfgXS3fItFLv9NzJ/E6gJ0KV0bH4T8ejhH2PEwqZhRj3VHiRN8Rg1mFmmj4HU9vU+QYKKol
+ vCXrq/2rdUDMdsT165fKXIqtTzr30Bfqo2SK25ejGy3yEA+Xh5sTaL/75YCKN4DMlif3V1OQ/oM
+ AWpc0lDqANVqfkyiuyriVpGfXu/hEzJWvXY3AGMx91grEwXNQqCpq8IBrqMIU6xkY0O6Ds8/JnT
+ UyevZ5UTIppENYl3m48fd3/1xH6/5MjjqHzakF8u8sKY+jxw8wT1VCzKD2vAqV3WsSibAeRZZm4
+ GRKQkCKt+OwdBapdwf/HNu+M/Td1Q9RXH8AcMNZUWEuCyOJW089K/HbBub7Z1X465tlDbwuimkz
+ UG4dC3Hfhw4MMgMPSy05A35IqeSotiUGB7LbCAUimE34jEw/JOG5IPH/QXRj+LoIf0f6GTDMMjH
+ TRt17l5zwqVOkYxSDe3BjtwEeL9U8o+0lj1gFsac3GoxlXWf1+9Tj5Q5LKP0xASLXsj4ZRog0NH
+ m9/+/BQpNyVD2OQ==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDA4OCBTYWx0ZWRfXzcnuEQQ1Nz3B
+ SL3PIgeXXRpBqHtK42zNK+NVCfRfJyg0KTfH3MXLE1GHai0PK+gGqJm69CAlsTtHE567NZhdRcA
+ d0lQozkLFvyUSl20etrHUAb520zIIwnqFZNQbypWZ+ij3uebbYc73VfmR/tZ5fX5/1U4izOMXla
+ fliUlNM6F20OCB40hLZ6FqFmywRWt6TlOJUrFeRz7CPsc/6DVOWIWGtXGSZQBsGat0riiBVeA+G
+ 8sD19KWTZQme4jq3Gv74eaONjwcIQw0xu/st6HAuXkW+5c0VtZn3KTeSEDfv3qjhs3jSlxYlfBJ
+ VidJ14XZzdV6M2IWSobrOYDUVIJVNrii7E9QAuN2CD4GlnLkyjhCV+EXA0QLN99LHjONRTAVxrx
+ zShNk69c9mPP1dULgW9Js7FN6MUa80B1KgjkFNo1EsdGkyjXs4Gfa6zY4MKTvrJ3poLrmdJ5J+V
+ l0FTR6L6Zy66bL8ZwXw==
+X-Proofpoint-ORIG-GUID: EqHo8dXOv5c4icF8hX2-GYH1NYZUtaFI
+X-Proofpoint-GUID: EqHo8dXOv5c4icF8hX2-GYH1NYZUtaFI
+X-Authority-Analysis: v=2.4 cv=NLjYOk6g c=1 sm=1 tr=0 ts=69cb912b cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=gOEeR9iKwsj33Yj5oN/cWg==:17
+ a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
+ a=JrXM2f3oU6NcKQTzfV0A:9 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_02,2026-03-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603310088
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [Linux-stm32] [PATCH 1/2] clk: qcom: Constify qcom_cc_driver_data
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,100 +159,520 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.79 / 15.00];
+X-Spamd-Result: default: False [6.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	TAGGED_FROM(0.00)[netdevbpf];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
 	RCVD_TLS_LAST(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-arm-msm@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:krzysztof.kozlowski@oss.qualcomm.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_NO_DN(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FROM_NEQ_ENVFROM(0.00)[krzysztof.kozlowski@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	NEURAL_HAM(-0.00)[-0.987];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	NEURAL_HAM(-0.00)[-0.902];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_COUNT_FIVE(0.00)[6];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	TO_DN_SOME(0.00)[]
-X-Rspamd-Queue-Id: 0458B362D9F
-X-Rspamd-Action: no action
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,qualcomm.com:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: CCA7E366DDD
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
+X-Spam: Yes
 
-Hello:
+The static 'struct qcom_cc_driver_data' contains probe match-like data
+and is not modified: neither by the driver defining it nor by common.c
+code using it.
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Make it const for code safety and code readability.
 
-On Fri, 27 Mar 2026 08:42:58 +0000 you wrote:
-> Further cleanups to qcom-ethqos, mainly concentrating on the RGMII
-> code, making it clearer what the differences are for each speed, thus
-> making the code more readable.
-> 
-> I'm still not really happy with this. The speed specific configuration
-> remains split between ethqos_fix_mac_speed_rgmii() and
-> ethqos_rgmii_macro_init(), where the latter is only ever called from
-> the former. So, I think further work is needed here - maybe it needs
-> restructuring into the various componenet parts of the RGMII block?
-> 
-> [...]
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ drivers/clk/qcom/apss-ipq5424.c            | 2 +-
+ drivers/clk/qcom/cambistmclkcc-kaanapali.c | 2 +-
+ drivers/clk/qcom/cambistmclkcc-sm8750.c    | 2 +-
+ drivers/clk/qcom/camcc-kaanapali.c         | 2 +-
+ drivers/clk/qcom/camcc-milos.c             | 2 +-
+ drivers/clk/qcom/camcc-qcs615.c            | 2 +-
+ drivers/clk/qcom/camcc-sc8180x.c           | 2 +-
+ drivers/clk/qcom/camcc-sm8450.c            | 2 +-
+ drivers/clk/qcom/camcc-sm8550.c            | 2 +-
+ drivers/clk/qcom/camcc-sm8650.c            | 2 +-
+ drivers/clk/qcom/camcc-sm8750.c            | 2 +-
+ drivers/clk/qcom/camcc-x1e80100.c          | 2 +-
+ drivers/clk/qcom/common.h                  | 2 +-
+ drivers/clk/qcom/dispcc-eliza.c            | 2 +-
+ drivers/clk/qcom/dispcc-glymur.c           | 2 +-
+ drivers/clk/qcom/dispcc-kaanapali.c        | 2 +-
+ drivers/clk/qcom/dispcc-milos.c            | 2 +-
+ drivers/clk/qcom/dispcc-qcs615.c           | 2 +-
+ drivers/clk/qcom/gcc-eliza.c               | 2 +-
+ drivers/clk/qcom/gcc-glymur.c              | 2 +-
+ drivers/clk/qcom/gcc-kaanapali.c           | 2 +-
+ drivers/clk/qcom/gcc-milos.c               | 2 +-
+ drivers/clk/qcom/gcc-sc8180x.c             | 2 +-
+ drivers/clk/qcom/gpucc-glymur.c            | 2 +-
+ drivers/clk/qcom/gpucc-kaanapali.c         | 2 +-
+ drivers/clk/qcom/gpucc-milos.c             | 2 +-
+ drivers/clk/qcom/gpucc-qcs615.c            | 2 +-
+ drivers/clk/qcom/videocc-glymur.c          | 2 +-
+ drivers/clk/qcom/videocc-kaanapali.c       | 2 +-
+ drivers/clk/qcom/videocc-milos.c           | 2 +-
+ drivers/clk/qcom/videocc-qcs615.c          | 2 +-
+ drivers/clk/qcom/videocc-sm8450.c          | 2 +-
+ drivers/clk/qcom/videocc-sm8750.c          | 2 +-
+ 33 files changed, 33 insertions(+), 33 deletions(-)
 
-Here is the summary with links:
-  - [net-next,v2,01/15] net: stmmac: qcom-ethqos: remove ethqos_configure()
-    https://git.kernel.org/netdev/net-next/c/c3dd3b1e76e0
-  - [net-next,v2,02/15] net: stmmac: qcom-ethqos: pass ethqos to ethqos_pcs_set_inband()
-    https://git.kernel.org/netdev/net-next/c/673416fb5b41
-  - [net-next,v2,03/15] net: stmmac: qcom-ethqos: eliminate configure_func
-    https://git.kernel.org/netdev/net-next/c/e9ed46a0b129
-  - [net-next,v2,04/15] net: stmmac: qcom-ethqos: move detection of invalid RGMII speed
-    https://git.kernel.org/netdev/net-next/c/426ce4677e81
-  - [net-next,v2,05/15] net: stmmac: qcom-ethqos: move RGMII_CONFIG_DDR_MODE
-    https://git.kernel.org/netdev/net-next/c/6be23c4c636a
-  - [net-next,v2,06/15] net: stmmac: qcom-ethqos: move 1G vs 100M/10M RGMII settings
-    https://git.kernel.org/netdev/net-next/c/82d5fdc82a33
-  - [net-next,v2,07/15] net: stmmac: qcom-ethqos: move two more RGMII_IO_MACRO_CONFIG2 out
-    https://git.kernel.org/netdev/net-next/c/dd07f2f9149a
-  - [net-next,v2,08/15] net: stmmac: qcom-ethqos: move 100M/10M speed programming
-    https://git.kernel.org/netdev/net-next/c/8b19a9184420
-  - [net-next,v2,09/15] net: stmmac: qcom-ethqos: move RGMII_CONFIG2_RSVD_CONFIG15 out
-    https://git.kernel.org/netdev/net-next/c/dae1de3df3e1
-  - [net-next,v2,10/15] net: stmmac: qcom-ethqos: move RGMII_CONFIG2_RX_PROG_SWAP
-    https://git.kernel.org/netdev/net-next/c/432c8a9f5528
-  - [net-next,v2,11/15] net: stmmac: qcom-ethqos: finally eliminate the switch
-    https://git.kernel.org/netdev/net-next/c/439a27f21ecc
-  - [net-next,v2,12/15] net: stmmac: qcom-ethqos: simplify prg_rclk_dly programming
-    https://git.kernel.org/netdev/net-next/c/3df0e86f8f8d
-  - [net-next,v2,13/15] net: stmmac: qcom-ethqos: move loopback decision next to reg update
-    https://git.kernel.org/netdev/net-next/c/67343aa24e59
-  - [net-next,v2,14/15] net: stmmac: qcom-ethqos: correct prg_rclk_dly comment
-    https://git.kernel.org/netdev/net-next/c/2d350a892aad
-  - [net-next,v2,15/15] net: stmmac: qcom-ethqos: move phase_shift to register update site
-    https://git.kernel.org/netdev/net-next/c/7f9f30166005
-
-You are awesome, thank you!
+diff --git a/drivers/clk/qcom/apss-ipq5424.c b/drivers/clk/qcom/apss-ipq5424.c
+index 2d622c1fe5d0..1662c83058bc 100644
+--- a/drivers/clk/qcom/apss-ipq5424.c
++++ b/drivers/clk/qcom/apss-ipq5424.c
+@@ -211,7 +211,7 @@ static struct clk_alpha_pll *ipa5424_apss_plls[] = {
+ 	&ipq5424_apss_pll,
+ };
+ 
+-static struct qcom_cc_driver_data ipa5424_apss_driver_data = {
++static const struct qcom_cc_driver_data ipa5424_apss_driver_data = {
+ 	.alpha_plls = ipa5424_apss_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(ipa5424_apss_plls),
+ };
+diff --git a/drivers/clk/qcom/cambistmclkcc-kaanapali.c b/drivers/clk/qcom/cambistmclkcc-kaanapali.c
+index 6ad912403b8b..77adb453ab21 100644
+--- a/drivers/clk/qcom/cambistmclkcc-kaanapali.c
++++ b/drivers/clk/qcom/cambistmclkcc-kaanapali.c
+@@ -395,7 +395,7 @@ static const struct regmap_config cam_bist_mclk_cc_kaanapali_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_bist_mclk_cc_kaanapali_driver_data = {
++static const struct qcom_cc_driver_data cam_bist_mclk_cc_kaanapali_driver_data = {
+ 	.alpha_plls = cam_bist_mclk_cc_kaanapali_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_bist_mclk_cc_kaanapali_plls),
+ 	.clk_cbcrs = cam_bist_mclk_cc_kaanapali_critical_cbcrs,
+diff --git a/drivers/clk/qcom/cambistmclkcc-sm8750.c b/drivers/clk/qcom/cambistmclkcc-sm8750.c
+index d889a8f6561d..f0d7e3b7c532 100644
+--- a/drivers/clk/qcom/cambistmclkcc-sm8750.c
++++ b/drivers/clk/qcom/cambistmclkcc-sm8750.c
+@@ -414,7 +414,7 @@ static const struct regmap_config cam_bist_mclk_cc_sm8750_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_bist_mclk_cc_sm8750_driver_data = {
++static const struct qcom_cc_driver_data cam_bist_mclk_cc_sm8750_driver_data = {
+ 	.alpha_plls = cam_bist_mclk_cc_sm8750_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_bist_mclk_cc_sm8750_plls),
+ 	.clk_cbcrs = cam_bist_mclk_cc_sm8750_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-kaanapali.c b/drivers/clk/qcom/camcc-kaanapali.c
+index c848ca99e9df..acf5f476955b 100644
+--- a/drivers/clk/qcom/camcc-kaanapali.c
++++ b/drivers/clk/qcom/camcc-kaanapali.c
+@@ -2615,7 +2615,7 @@ static const struct regmap_config cam_cc_kaanapali_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_kaanapali_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_kaanapali_driver_data = {
+ 	.alpha_plls = cam_cc_kaanapali_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_kaanapali_plls),
+ 	.clk_cbcrs = cam_cc_kaanapali_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-milos.c b/drivers/clk/qcom/camcc-milos.c
+index 0077c9c9249f..556c3c33c106 100644
+--- a/drivers/clk/qcom/camcc-milos.c
++++ b/drivers/clk/qcom/camcc-milos.c
+@@ -2117,7 +2117,7 @@ static const struct regmap_config cam_cc_milos_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_milos_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_milos_driver_data = {
+ 	.alpha_plls = cam_cc_milos_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_milos_plls),
+ 	.clk_cbcrs = cam_cc_milos_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-qcs615.c b/drivers/clk/qcom/camcc-qcs615.c
+index c063a3bfacd0..8377126c2cfe 100644
+--- a/drivers/clk/qcom/camcc-qcs615.c
++++ b/drivers/clk/qcom/camcc-qcs615.c
+@@ -1556,7 +1556,7 @@ static const struct regmap_config cam_cc_qcs615_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_qcs615_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_qcs615_driver_data = {
+ 	.alpha_plls = cam_cc_qcs615_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_qcs615_plls),
+ };
+diff --git a/drivers/clk/qcom/camcc-sc8180x.c b/drivers/clk/qcom/camcc-sc8180x.c
+index 0291e2f3ea80..bd06d271928e 100644
+--- a/drivers/clk/qcom/camcc-sc8180x.c
++++ b/drivers/clk/qcom/camcc-sc8180x.c
+@@ -2842,7 +2842,7 @@ static const struct regmap_config cam_cc_sc8180x_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_sc8180x_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_sc8180x_driver_data = {
+ 	.alpha_plls = cam_cc_sc8180x_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_sc8180x_plls),
+ 	.clk_cbcrs = cam_cc_sc8180x_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-sm8450.c b/drivers/clk/qcom/camcc-sm8450.c
+index ef8cf54d0eed..430b436a673e 100644
+--- a/drivers/clk/qcom/camcc-sm8450.c
++++ b/drivers/clk/qcom/camcc-sm8450.c
+@@ -3030,7 +3030,7 @@ static struct gdsc *cam_cc_sm8450_gdscs[] = {
+ 	[TITAN_TOP_GDSC] = &titan_top_gdsc,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_sm8450_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_sm8450_driver_data = {
+ 	.alpha_plls = cam_cc_sm8450_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_sm8450_plls),
+ 	.clk_cbcrs = cam_cc_sm8450_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-sm8550.c b/drivers/clk/qcom/camcc-sm8550.c
+index b8ece8a57a8a..8c42ae7544aa 100644
+--- a/drivers/clk/qcom/camcc-sm8550.c
++++ b/drivers/clk/qcom/camcc-sm8550.c
+@@ -3530,7 +3530,7 @@ static const struct regmap_config cam_cc_sm8550_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_sm8550_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_sm8550_driver_data = {
+ 	.alpha_plls = cam_cc_sm8550_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_sm8550_plls),
+ 	.clk_cbcrs = cam_cc_sm8550_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-sm8650.c b/drivers/clk/qcom/camcc-sm8650.c
+index 8b388904f56f..c0055fb08f62 100644
+--- a/drivers/clk/qcom/camcc-sm8650.c
++++ b/drivers/clk/qcom/camcc-sm8650.c
+@@ -3548,7 +3548,7 @@ static const struct regmap_config cam_cc_sm8650_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_sm8650_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_sm8650_driver_data = {
+ 	.alpha_plls = cam_cc_sm8650_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_sm8650_plls),
+ 	.clk_cbcrs = cam_cc_sm8650_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-sm8750.c b/drivers/clk/qcom/camcc-sm8750.c
+index a797b783d4a9..9b6d49981267 100644
+--- a/drivers/clk/qcom/camcc-sm8750.c
++++ b/drivers/clk/qcom/camcc-sm8750.c
+@@ -2666,7 +2666,7 @@ static const struct regmap_config cam_cc_sm8750_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_sm8750_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_sm8750_driver_data = {
+ 	.alpha_plls = cam_cc_sm8750_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_sm8750_plls),
+ 	.clk_cbcrs = cam_cc_sm8750_critical_cbcrs,
+diff --git a/drivers/clk/qcom/camcc-x1e80100.c b/drivers/clk/qcom/camcc-x1e80100.c
+index cbcc1c9fcb34..387420533125 100644
+--- a/drivers/clk/qcom/camcc-x1e80100.c
++++ b/drivers/clk/qcom/camcc-x1e80100.c
+@@ -2447,7 +2447,7 @@ static const struct regmap_config cam_cc_x1e80100_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data cam_cc_x1e80100_driver_data = {
++static const struct qcom_cc_driver_data cam_cc_x1e80100_driver_data = {
+ 	.alpha_plls = cam_cc_x1e80100_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(cam_cc_x1e80100_plls),
+ 	.clk_cbcrs = cam_cc_x1e80100_critical_cbcrs,
+diff --git a/drivers/clk/qcom/common.h b/drivers/clk/qcom/common.h
+index 953c91f7b145..69c4b21333e5 100644
+--- a/drivers/clk/qcom/common.h
++++ b/drivers/clk/qcom/common.h
+@@ -49,7 +49,7 @@ struct qcom_cc_desc {
+ 	size_t num_icc_hws;
+ 	unsigned int icc_first_node_id;
+ 	bool use_rpm;
+-	struct qcom_cc_driver_data *driver_data;
++	const struct qcom_cc_driver_data *driver_data;
+ };
+ 
+ /**
+diff --git a/drivers/clk/qcom/dispcc-eliza.c b/drivers/clk/qcom/dispcc-eliza.c
+index 062be01c1b01..60de3c743621 100644
+--- a/drivers/clk/qcom/dispcc-eliza.c
++++ b/drivers/clk/qcom/dispcc-eliza.c
+@@ -2076,7 +2076,7 @@ static void clk_eliza_regs_configure(struct device *dev, struct regmap *regmap)
+ 	regmap_set_bits(regmap, DISP_CC_MISC_CMD, BIT(4));
+ }
+ 
+-static struct qcom_cc_driver_data disp_cc_eliza_driver_data = {
++static const struct qcom_cc_driver_data disp_cc_eliza_driver_data = {
+ 	.alpha_plls = disp_cc_eliza_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(disp_cc_eliza_plls),
+ 	.clk_cbcrs = disp_cc_eliza_critical_cbcrs,
+diff --git a/drivers/clk/qcom/dispcc-glymur.c b/drivers/clk/qcom/dispcc-glymur.c
+index fd085cb90667..aae60291b55e 100644
+--- a/drivers/clk/qcom/dispcc-glymur.c
++++ b/drivers/clk/qcom/dispcc-glymur.c
+@@ -1934,7 +1934,7 @@ static const struct regmap_config disp_cc_glymur_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data disp_cc_glymur_driver_data = {
++static const struct qcom_cc_driver_data disp_cc_glymur_driver_data = {
+ 	.alpha_plls = disp_cc_glymur_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(disp_cc_glymur_plls),
+ 	.clk_cbcrs = disp_cc_glymur_critical_cbcrs,
+diff --git a/drivers/clk/qcom/dispcc-kaanapali.c b/drivers/clk/qcom/dispcc-kaanapali.c
+index 5ec4d2ab6b67..ffdb4de3a33e 100644
+--- a/drivers/clk/qcom/dispcc-kaanapali.c
++++ b/drivers/clk/qcom/dispcc-kaanapali.c
+@@ -1907,7 +1907,7 @@ static void clk_kaanapali_regs_configure(struct device *dev, struct regmap *regm
+ 	regmap_update_bits(regmap, DISP_CC_MISC_CMD, BIT(4), BIT(4));
+ }
+ 
+-static struct qcom_cc_driver_data disp_cc_kaanapali_driver_data = {
++static const struct qcom_cc_driver_data disp_cc_kaanapali_driver_data = {
+ 	.alpha_plls = disp_cc_kaanapali_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(disp_cc_kaanapali_plls),
+ 	.clk_cbcrs = disp_cc_kaanapali_critical_cbcrs,
+diff --git a/drivers/clk/qcom/dispcc-milos.c b/drivers/clk/qcom/dispcc-milos.c
+index 0a483fb6683a..17ff10cb2f6b 100644
+--- a/drivers/clk/qcom/dispcc-milos.c
++++ b/drivers/clk/qcom/dispcc-milos.c
+@@ -926,7 +926,7 @@ static void disp_cc_milos_clk_regs_configure(struct device *dev, struct regmap *
+ }
+ 
+ 
+-static struct qcom_cc_driver_data disp_cc_milos_driver_data = {
++static const struct qcom_cc_driver_data disp_cc_milos_driver_data = {
+ 	.alpha_plls = disp_cc_milos_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(disp_cc_milos_plls),
+ 	.clk_cbcrs = disp_cc_milos_critical_cbcrs,
+diff --git a/drivers/clk/qcom/dispcc-qcs615.c b/drivers/clk/qcom/dispcc-qcs615.c
+index 4a6d78466098..21974e2574f5 100644
+--- a/drivers/clk/qcom/dispcc-qcs615.c
++++ b/drivers/clk/qcom/dispcc-qcs615.c
+@@ -751,7 +751,7 @@ static const struct regmap_config disp_cc_qcs615_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data disp_cc_qcs615_driver_data = {
++static const struct qcom_cc_driver_data disp_cc_qcs615_driver_data = {
+ 	.alpha_plls = disp_cc_qcs615_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(disp_cc_qcs615_plls),
+ 	.clk_cbcrs = disp_cc_qcs615_critical_cbcrs,
+diff --git a/drivers/clk/qcom/gcc-eliza.c b/drivers/clk/qcom/gcc-eliza.c
+index 06ee1469badd..9356c5bf0a03 100644
+--- a/drivers/clk/qcom/gcc-eliza.c
++++ b/drivers/clk/qcom/gcc-eliza.c
+@@ -3050,7 +3050,7 @@ static void clk_eliza_regs_configure(struct device *dev, struct regmap *regmap)
+ 	qcom_branch_set_force_mem_core(regmap, gcc_ufs_phy_ice_core_clk, true);
+ }
+ 
+-static struct qcom_cc_driver_data gcc_eliza_driver_data = {
++static const struct qcom_cc_driver_data gcc_eliza_driver_data = {
+ 	.clk_cbcrs = gcc_eliza_critical_cbcrs,
+ 	.num_clk_cbcrs = ARRAY_SIZE(gcc_eliza_critical_cbcrs),
+ 	.dfs_rcgs = gcc_eliza_dfs_clocks,
+diff --git a/drivers/clk/qcom/gcc-glymur.c b/drivers/clk/qcom/gcc-glymur.c
+index 1a5d3d182705..7a199e1bd493 100644
+--- a/drivers/clk/qcom/gcc-glymur.c
++++ b/drivers/clk/qcom/gcc-glymur.c
+@@ -8561,7 +8561,7 @@ static void clk_glymur_regs_configure(struct device *dev, struct regmap *regmap)
+ 	qcom_branch_set_force_mem_core(regmap, gcc_ufs_phy_ice_core_clk, true);
+ }
+ 
+-static struct qcom_cc_driver_data gcc_glymur_driver_data = {
++static const struct qcom_cc_driver_data gcc_glymur_driver_data = {
+ 	.clk_cbcrs = gcc_glymur_critical_cbcrs,
+ 	.num_clk_cbcrs = ARRAY_SIZE(gcc_glymur_critical_cbcrs),
+ 	.dfs_rcgs = gcc_dfs_clocks,
+diff --git a/drivers/clk/qcom/gcc-kaanapali.c b/drivers/clk/qcom/gcc-kaanapali.c
+index 210ec7afbb67..44275bac095e 100644
+--- a/drivers/clk/qcom/gcc-kaanapali.c
++++ b/drivers/clk/qcom/gcc-kaanapali.c
+@@ -3485,7 +3485,7 @@ static void clk_kaanapali_regs_configure(struct device *dev, struct regmap *regm
+ 	qcom_branch_set_force_mem_core(regmap, gcc_ufs_phy_ice_core_clk, true);
+ }
+ 
+-static struct qcom_cc_driver_data gcc_kaanapali_driver_data = {
++static const struct qcom_cc_driver_data gcc_kaanapali_driver_data = {
+ 	.clk_cbcrs = gcc_kaanapali_critical_cbcrs,
+ 	.num_clk_cbcrs = ARRAY_SIZE(gcc_kaanapali_critical_cbcrs),
+ 	.dfs_rcgs = gcc_dfs_clocks,
+diff --git a/drivers/clk/qcom/gcc-milos.c b/drivers/clk/qcom/gcc-milos.c
+index 81fa09ec55d7..3438fb9039ee 100644
+--- a/drivers/clk/qcom/gcc-milos.c
++++ b/drivers/clk/qcom/gcc-milos.c
+@@ -3171,7 +3171,7 @@ static const struct regmap_config gcc_milos_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data gcc_milos_driver_data = {
++static const struct qcom_cc_driver_data gcc_milos_driver_data = {
+ 	.clk_cbcrs = gcc_milos_critical_cbcrs,
+ 	.num_clk_cbcrs = ARRAY_SIZE(gcc_milos_critical_cbcrs),
+ 	.dfs_rcgs = gcc_milos_dfs_clocks,
+diff --git a/drivers/clk/qcom/gcc-sc8180x.c b/drivers/clk/qcom/gcc-sc8180x.c
+index 88b95d5326d9..35c2e9d555b8 100644
+--- a/drivers/clk/qcom/gcc-sc8180x.c
++++ b/drivers/clk/qcom/gcc-sc8180x.c
+@@ -4675,7 +4675,7 @@ static void clk_sc8180x_regs_configure(struct device *dev, struct regmap *regmap
+ 	regmap_update_bits(regmap, 0x71028, 0x3, 0x3);
+ }
+ 
+-static struct qcom_cc_driver_data gcc_sc8180x_driver_data = {
++static const struct qcom_cc_driver_data gcc_sc8180x_driver_data = {
+ 	.clk_cbcrs = gcc_sc8180x_critical_cbcrs,
+ 	.num_clk_cbcrs = ARRAY_SIZE(gcc_sc8180x_critical_cbcrs),
+ 	.dfs_rcgs = gcc_sc8180x_dfs_clocks,
+diff --git a/drivers/clk/qcom/gpucc-glymur.c b/drivers/clk/qcom/gpucc-glymur.c
+index 1a1d946347d0..824b4e09c3f9 100644
+--- a/drivers/clk/qcom/gpucc-glymur.c
++++ b/drivers/clk/qcom/gpucc-glymur.c
+@@ -574,7 +574,7 @@ static const struct regmap_config gpu_cc_glymur_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data gpu_cc_glymur_driver_data = {
++static const struct qcom_cc_driver_data gpu_cc_glymur_driver_data = {
+ 	.alpha_plls = gpu_cc_glymur_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(gpu_cc_glymur_plls),
+ 	.clk_cbcrs = gpu_cc_glymur_critical_cbcrs,
+diff --git a/drivers/clk/qcom/gpucc-kaanapali.c b/drivers/clk/qcom/gpucc-kaanapali.c
+index d93d06067fbf..94f0feb254b3 100644
+--- a/drivers/clk/qcom/gpucc-kaanapali.c
++++ b/drivers/clk/qcom/gpucc-kaanapali.c
+@@ -437,7 +437,7 @@ static const struct regmap_config gpu_cc_kaanapali_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data gpu_cc_kaanapali_driver_data = {
++static const struct qcom_cc_driver_data gpu_cc_kaanapali_driver_data = {
+ 	.alpha_plls = gpu_cc_kaanapali_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(gpu_cc_kaanapali_plls),
+ 	.clk_cbcrs = gpu_cc_kaanapali_critical_cbcrs,
+diff --git a/drivers/clk/qcom/gpucc-milos.c b/drivers/clk/qcom/gpucc-milos.c
+index 4ee09879156e..7a8a3917db9b 100644
+--- a/drivers/clk/qcom/gpucc-milos.c
++++ b/drivers/clk/qcom/gpucc-milos.c
+@@ -518,7 +518,7 @@ static const struct regmap_config gpu_cc_milos_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data gpu_cc_milos_driver_data = {
++static const struct qcom_cc_driver_data gpu_cc_milos_driver_data = {
+ 	.alpha_plls = gpu_cc_milos_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(gpu_cc_milos_plls),
+ 	.clk_cbcrs = gpu_cc_milos_critical_cbcrs,
+diff --git a/drivers/clk/qcom/gpucc-qcs615.c b/drivers/clk/qcom/gpucc-qcs615.c
+index ec6739c08425..8233136db4d8 100644
+--- a/drivers/clk/qcom/gpucc-qcs615.c
++++ b/drivers/clk/qcom/gpucc-qcs615.c
+@@ -485,7 +485,7 @@ static void clk_qcs615_regs_crc_configure(struct device *dev, struct regmap *reg
+ 	regmap_update_bits(regmap, 0x1024, 0x00800000, 0x00800000);
+ }
+ 
+-static struct qcom_cc_driver_data gpu_cc_qcs615_driver_data = {
++static const struct qcom_cc_driver_data gpu_cc_qcs615_driver_data = {
+ 	.alpha_plls = gpu_cc_qcs615_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(gpu_cc_qcs615_plls),
+ 	.clk_cbcrs = gpu_cc_qcs615_critical_cbcrs,
+diff --git a/drivers/clk/qcom/videocc-glymur.c b/drivers/clk/qcom/videocc-glymur.c
+index ea20605dd1e5..4f1ad0db30e5 100644
+--- a/drivers/clk/qcom/videocc-glymur.c
++++ b/drivers/clk/qcom/videocc-glymur.c
+@@ -487,7 +487,7 @@ static void clk_glymur_regs_configure(struct device *dev, struct regmap *regmap)
+ 	regmap_update_bits(regmap, 0x9f24, BIT(0), BIT(0));
+ }
+ 
+-static struct qcom_cc_driver_data video_cc_glymur_driver_data = {
++static const struct qcom_cc_driver_data video_cc_glymur_driver_data = {
+ 	.alpha_plls = video_cc_glymur_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(video_cc_glymur_plls),
+ 	.clk_cbcrs = video_cc_glymur_critical_cbcrs,
+diff --git a/drivers/clk/qcom/videocc-kaanapali.c b/drivers/clk/qcom/videocc-kaanapali.c
+index 835a59536ba7..b060ee34e8a4 100644
+--- a/drivers/clk/qcom/videocc-kaanapali.c
++++ b/drivers/clk/qcom/videocc-kaanapali.c
+@@ -776,7 +776,7 @@ static void clk_kaanapali_regs_configure(struct device *dev, struct regmap *regm
+ 	regmap_set_bits(regmap, 0x8158, ACCU_CFG_MASK);
+ }
+ 
+-static struct qcom_cc_driver_data video_cc_kaanapali_driver_data = {
++static const struct qcom_cc_driver_data video_cc_kaanapali_driver_data = {
+ 	.alpha_plls = video_cc_kaanapali_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(video_cc_kaanapali_plls),
+ 	.clk_cbcrs = video_cc_kaanapali_critical_cbcrs,
+diff --git a/drivers/clk/qcom/videocc-milos.c b/drivers/clk/qcom/videocc-milos.c
+index acc9df295d4f..012a13f8fb0b 100644
+--- a/drivers/clk/qcom/videocc-milos.c
++++ b/drivers/clk/qcom/videocc-milos.c
+@@ -359,7 +359,7 @@ static const struct regmap_config video_cc_milos_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data video_cc_milos_driver_data = {
++static const struct qcom_cc_driver_data video_cc_milos_driver_data = {
+ 	.alpha_plls = video_cc_milos_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(video_cc_milos_plls),
+ 	.clk_cbcrs = video_cc_milos_critical_cbcrs,
+diff --git a/drivers/clk/qcom/videocc-qcs615.c b/drivers/clk/qcom/videocc-qcs615.c
+index 1b41fa44c17e..338ab803d56a 100644
+--- a/drivers/clk/qcom/videocc-qcs615.c
++++ b/drivers/clk/qcom/videocc-qcs615.c
+@@ -295,7 +295,7 @@ static const struct regmap_config video_cc_qcs615_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data video_cc_qcs615_driver_data = {
++static const struct qcom_cc_driver_data video_cc_qcs615_driver_data = {
+ 	.alpha_plls = video_cc_qcs615_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(video_cc_qcs615_plls),
+ 	.clk_cbcrs = video_cc_qcs615_critical_cbcrs,
+diff --git a/drivers/clk/qcom/videocc-sm8450.c b/drivers/clk/qcom/videocc-sm8450.c
+index dc168ce199cc..acd0928be1f6 100644
+--- a/drivers/clk/qcom/videocc-sm8450.c
++++ b/drivers/clk/qcom/videocc-sm8450.c
+@@ -427,7 +427,7 @@ static const struct regmap_config video_cc_sm8450_regmap_config = {
+ 	.fast_io = true,
+ };
+ 
+-static struct qcom_cc_driver_data video_cc_sm8450_driver_data = {
++static const struct qcom_cc_driver_data video_cc_sm8450_driver_data = {
+ 	.alpha_plls = video_cc_sm8450_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(video_cc_sm8450_plls),
+ 	.clk_cbcrs = video_cc_sm8450_critical_cbcrs,
+diff --git a/drivers/clk/qcom/videocc-sm8750.c b/drivers/clk/qcom/videocc-sm8750.c
+index 5c1034dd5f57..7e77822c132c 100644
+--- a/drivers/clk/qcom/videocc-sm8750.c
++++ b/drivers/clk/qcom/videocc-sm8750.c
+@@ -407,7 +407,7 @@ static void clk_sm8750_regs_configure(struct device *dev, struct regmap *regmap)
+ 	regmap_update_bits(regmap, 0x9f24, BIT(0), BIT(0));
+ }
+ 
+-static struct qcom_cc_driver_data video_cc_sm8750_driver_data = {
++static const struct qcom_cc_driver_data video_cc_sm8750_driver_data = {
+ 	.alpha_plls = video_cc_sm8750_plls,
+ 	.num_alpha_plls = ARRAY_SIZE(video_cc_sm8750_plls),
+ 	.clk_cbcrs = video_cc_sm8750_critical_cbcrs,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+2.51.0
 
 _______________________________________________
 Linux-stm32 mailing list
