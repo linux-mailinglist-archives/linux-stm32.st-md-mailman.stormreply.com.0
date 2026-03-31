@@ -2,90 +2,136 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YGkKNp2ly2mhJwYAu9opvQ
+	id gOvfGJI1zGmXRQYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 12:44:45 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 22:58:58 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D7C13683CF
-	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 12:44:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 015EF3714E2
+	for <lists+linux-stm32@lfdr.de>; Tue, 31 Mar 2026 22:58:57 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C228C8F287;
-	Tue, 31 Mar 2026 10:44:45 +0000 (UTC)
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com
- [209.85.167.46])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1060C8F287;
+	Tue, 31 Mar 2026 20:58:57 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9505CC58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A2A5C8F284
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2026 10:44:43 +0000 (UTC)
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5a284984dc0so611194e87.3
+ Tue, 31 Mar 2026 20:58:55 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 62VGdgbQ3926843
+ for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 31 Mar 2026 20:58:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=HddPcSAbUNS8veYlTx2o5Se9
+ 1feKqDMffrj4xcj/ilE=; b=nfMp43OvPKg9eH1vcdrAPIcAYlhRnyjwneuIP46G
+ 95nmc/u5yohrbiDrFUCHs6ZXEnG5EYXm/spSAwdxyXOkNvaHJ99r/HtY+iZHzEn/
+ 3fKvEOb+JWTFsKJpS92+tez1J2hGKS2ej7F00zGeKqCtTHM+7bnyz20x4k/2EgyJ
+ EIrLrDC1ONnIwrzo1Q7H/ljKWZjcN0DIDydUF3RvLlpn/fi240m/I+QVmzv0Tgvz
+ mjndNVO19zI2XiJVyfemN9TiyOeibZfO6gxfohI0Dn2eRQb61gfZ6hVcBmULUZ/S
+ SqLtMmQMPufxo/jv5e5PRFf1Wjl/+1Oy5FYxWBOrXavc8w==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4d8b9339rn-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2026 03:44:43 -0700 (PDT)
+ Tue, 31 Mar 2026 20:58:54 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-82ce0a9e558so677109b3a.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 31 Mar 2026 13:58:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1774953883; x=1775558683;
+ d=oss.qualcomm.com; s=google; t=1774990733; x=1775595533;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:references:to:subject
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to;
- bh=ltyTFwopAt48x4pgd03pJK6HEdSrWRvPeSYlpAsSeLU=;
- b=lw2KRYbApSJ9+RiBfRjafdnAQRSRFUyZOA7LdQA8wOeCEvPTLK71KRqoRN7wzzdUIJ
- HDC09m1fWORorpX2NWE7k1VVeXPbVTOUpWXvQyTpizLiRYB5ceGu/x4GMyq4HNCd092S
- 7IX85c4tulhWRQ9Dmd1pMSvC1YCqnjaFX3tUQbfrO+Qe8N4YRnS4GNPjy1Ej+7OzgGya
- XZSi6kpWjT++YF7e7YFuuuAJDxIovjcQzgjCQ3Td7uGs1StubAQRGvy3yTnIvWf1y7tD
- HIKRjYY8YQylxv4q/o7z/OBqI8HTPDOd6XHD2NIUrDSexNQP1sdwSJghnK299k5ykBF8
- yohA==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=HddPcSAbUNS8veYlTx2o5Se91feKqDMffrj4xcj/ilE=;
+ b=TIuu5mH1LeBjstHt1vCiNr0lEkmlJaZelho2YNk8pNxisxIwjUYQHXSKMlN82o2XPp
+ QB7sANShGKxdXXlIzeoI5GmDXXRLEYmgjJZ1t7f4Z4IATZ6yIJZzpXZ9IeKjQ8MesKNX
+ fA0cbJzGzv0wBnjt5RvfIGMT4k2upwJzQbq2MUYb2bcE2mihJGoPl4cnFeCtJ2JttT9u
+ MOc9FNRFSHwqW2STh4C27Ep//UTyJnIVRKdrwR6+YnYEAChjbkypkaTFDE4iltXJsbYY
+ 5Drl28ZwLcExikeO34Ob1mrmJriTMWjr2ZSDMFBsuN5uBWS8TkaadQAtdoztXn4+FqvE
+ ks9g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1774953883; x=1775558683;
- h=content-transfer-encoding:in-reply-to:from:references:to:subject
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=ltyTFwopAt48x4pgd03pJK6HEdSrWRvPeSYlpAsSeLU=;
- b=HeqHo7jk7vYL11+bZX2z22+OHEfPSpVC6GThZqdPVlzHAFlukA1DZV5I1jh+T/LVU1
- qWRCm4dwbZTTklFTqrHYNOC4h3Fx/rEEy1NUEL2N/G8mWld/ivJbcBo97nMpo9bkq0+D
- zewspscqZMLjRUVHSL1HB9+ZvYqKrKi6qfoex/qo9zt9D4rURFN1gn4yjUCCYUaaOTtL
- MFXtSEaUA7Nr1cV32HbecRuSoQA2e5Qc7hnIjDu3+cySNmFdy+dj8OzJL3v7ZYPNxphy
- JI2ptkcD9DzwzuyfLLQr4aNW5JcFhu5Cm0orBGyGq99Wex4W4hksIOXg0t58IBvB3Lvl
- RGNA==
+ d=1e100.net; s=20251104; t=1774990733; x=1775595533;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=HddPcSAbUNS8veYlTx2o5Se91feKqDMffrj4xcj/ilE=;
+ b=YBTQIJDcYbzeL1zspqkEzgDhCPb46U/ZFF4zTFB7gyCzzKefEI/+9Y+b1ewSkQh21/
+ CDED/YnrHkYzaPRJwKgqUQM3LMFqKqASVkAi7fYnRBVQkcEjmMUE4UhuVEgJezZcFMdj
+ 18dcA+QOOPyQtAaYxI80vzGAPcGyUSyIY/NON2LEpZwhuVKKR2Nskib+evjQENGavMaD
+ V7vfvosbBLaFBiewN0gft/kdUNBO99YsZQkWB462UsnzKFS2tyLTecZdUmzkOPPBjtCH
+ hDAQ9qEa6UpgfVbbLW1y4mnI4To8s/RG4hXU+UyNxy8LKFg3fyBSZ8t/Ll//H7mdtVxJ
+ c5EQ==
 X-Forwarded-Encrypted: i=1;
- AJvYcCVTflAkjj80cEXgPpLnOuxxpK4Ej0C8UL+dP9A1qipvsJoL3AzwCJNkVanRYqRUZQQSEdQTsVJmfA8/DQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwI5IFRCf041V1zclom/7ogrDLax+bcf30++dZpWNPCs1/8h0FH
- t4NZl5zniunm785NaQPhXO0uHMEwhlra89Uwc2pJOVpH58Df3oYsZHulag0thL7Lo9U=
-X-Gm-Gg: ATEYQzwufddRfZOCyUFp65RCe9xTyZ/5/cWqs7Pxju8V1SzOYyKYNsXdD4kyUBTMFov
- EiP1d4FiKZgz/f6C4ogsTBRVwUPOLclzD/URMVMfg15aVWMoUWv8jmtyJkQEYCg1wyOBt+d1Cfp
- QbzB7e2+/2cXRamn0czQ5euUPkDkyaaT/NSHLD+v5OiGPdMuIL7K4IzQ7Qxp14WoWcOZaKZK0Fm
- h9hesmSubJkjwa20hykeV+fG29tFPqphi1TWsZRaH0tRqBHqjM9xWZVXrdNAbZtNdW94c66NHjO
- c58OvK9URMwHq6bv/qAJKgn+5rGgCmi+Kc25xaCIlOisaE4m1rQxx3QmH72UmgOlygCbVYkO3fX
- Z1PrmMD4TDqdhp7nj0iBBxPO8dX7d+Uy6fE4iiwY5JOWAneYOLKSsUpDjRiZ1ae73mqbFoPwSI1
- PgVEzDpWpObBpjWF4FJmnZKCredfrIbvk22gZyEyYms7kA+Paa/L4bvRqj58g+/JOKITsjUoBjr
- oBDUA==
-X-Received: by 2002:a05:6512:3b89:b0:5a2:b53b:a457 with SMTP id
- 2adb3069b0e04-5a2b53ba55bmr1795381e87.3.1774953882760; 
- Tue, 31 Mar 2026 03:44:42 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi.
- [91.159.24.186]) by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a2b1403f69sm2330915e87.29.2026.03.31.03.44.42
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 03:44:42 -0700 (PDT)
-Message-ID: <ebc7630e-c87f-4c17-a743-05e0639d5093@linaro.org>
-Date: Tue, 31 Mar 2026 13:44:41 +0300
+ AJvYcCV5f4sb0xmYBzFIPHsm5MGN9QA+3cKeO4o4AKVghREPwWL8o3XFFqk2WFuC/Xu1hc4oArz5r+FLqOeOrg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyqYVZKSlpTSotSnHqi4d8l8gffhnh8yEgs0MQIb/n6i8VcpfUE
+ G1tgFb4pMI7HFtnQyTgRxfoGEtFyof0PENDURk0HdMxa0qfBqixg+wyxcvh5BHq9eQJBA77RGzm
+ QOm2ACuv4VGdl/y35gB3/UzETbOh3ooOWofsH5olImsmKkdaow1GI1JEIJpZIy5HP6R/mt49Rpe
+ wibO0a3iA=
+X-Gm-Gg: ATEYQzx/zcenk91LD0zq2mBjAs/IrtolAdMEzI6BgKO5Qc5TO3AoxbsatPVVgp0t+LD
+ Pf3Ii9GdvS4DvCMh7BZ7rlHsCascjo87arogKw9RXjfUgGVeXkJLd+bxxbDapEWyhhp4seQXXMu
+ /l5YTPBptOcCaVpYY+RXpYlHXEMIvwF9eWM/fdoKYfKhO1d1emGNY8DcxNMTvnPr/I6pVnsxINt
+ qNOdi7eXiLn5kTBtOJ+9Nd8onUAy6d/QWNXGt+BHLkvCEly7NJWf78KTaJ7f65hwGNNyJFqCPWD
+ 74LaWSlJTtXLiey6bgX9CoJU/q7AcWZKJ66LCpAX/EtKwW5Hs081XUv4thIv6NOd4RvAMUL+Xk6
+ PfcoKIhZwGcuYb/EX2sqfXB7iYJYgsO1t2Bo=
+X-Received: by 2002:a05:6a00:84d:b0:82a:60ad:874 with SMTP id
+ d2e1a72fcca58-82ce8957d6dmr1039527b3a.19.1774990733393; 
+ Tue, 31 Mar 2026 13:58:53 -0700 (PDT)
+X-Received: by 2002:a05:6a00:84d:b0:82a:60ad:874 with SMTP id
+ d2e1a72fcca58-82ce8957d6dmr1039494b3a.19.1774990732800; 
+ Tue, 31 Mar 2026 13:58:52 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-82caf97abfesm10359545b3a.1.2026.03.31.13.58.48
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Mar 2026 13:58:52 -0700 (PDT)
+Date: Wed, 1 Apr 2026 02:28:45 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>
+Message-ID: <acw1habUsiSqlrky@oss.qualcomm.com>
+References: <E1w6AZm-0000000E54W-1F6E@rmk-PC.armlinux.org.uk>
+ <9d0a529a-d065-4f46-a93b-23195a4f9727@oss.qualcomm.com>
+ <acpqgpCsbo3lJs3l@shell.armlinux.org.uk>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260331091721.61613-3-krzysztof.kozlowski@oss.qualcomm.com>
- <20260331091721.61613-4-krzysztof.kozlowski@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260331091721.61613-4-krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [Linux-stm32] [PATCH 2/2] clk: qcom: Constify list of critical
-	CBCR registers
+Content-Disposition: inline
+In-Reply-To: <acpqgpCsbo3lJs3l@shell.armlinux.org.uk>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwMzMxMDIwMiBTYWx0ZWRfX4Ve/v/r0YOFL
+ 5qGB6RT9t7GBvaKZJGzwbr/Zw/fTa87csiaU55PKAhKSrLsVEs1tayb9pBRiRhZFb3I4K8BVw+i
+ JqylQp/cqWxEs+3GWKCgMbVK682A3eFouuuOMM9WkW6J+RbsgaAY1sZm23tGzfmknvkKVStmSbW
+ 06WhIFgv2sFF8qJulSBIO526cxZVWf4z3T1SXuvGXHE1XqaKDNIjP4FtQgdwFokOW1BkCBlW/c2
+ aP6tMpnOuyDxfOBDhaFvnS0NAsZY7z5O+x2XD1eydV8Vf3CVKQiPiqCGX04tQOUfZzMBL3eNz8w
+ 5ftVeKGV+Iz3Q/aSEXWEcM+5kyDVJEooeAhPE9oJG5bgadXO1yRrJ3HW1ZhlBEUuBVwmIMKMFfA
+ UIZng3snOqzOXWO6GcrD634aGsDa31w8a2Qdha8LoanJDE405uwrDXUF8arMfPmE9aLKRAP8hBC
+ llHcLxFEh2HXyx1gI6A==
+X-Proofpoint-ORIG-GUID: sZ4X3E6r8ZLVjTCWTWE6g5JqI3yaUcrO
+X-Proofpoint-GUID: sZ4X3E6r8ZLVjTCWTWE6g5JqI3yaUcrO
+X-Authority-Analysis: v=2.4 cv=NLjYOk6g c=1 sm=1 tr=0 ts=69cc358e cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=Yq5XynenixoA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=9WimFISaW_B1XMulNl8A:9 a=CjuIK1q_8ugA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-03-31_05,2026-03-31_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 suspectscore=0 impostorscore=0 spamscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2603050001
+ definitions=main-2603310202
+Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Andrew Lunn <andrew@lunn.ch>, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next] net: stmmac: qcom-ethqos:
+	set clk_csr
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,62 +143,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[linaro.org:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:krzysztof.kozlowski@oss.qualcomm.com,m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-arm-msm@vger.kernel.org,m:linux-clk@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,baylibre.com,gmail.com,foss.st.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[vladimir.zapolskiy@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:konrad.dybcio@oss.qualcomm.com,m:andrew@lunn.ch,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.935];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[vladimir.zapolskiy@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[linaro.org:-];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	GREYLIST(0.00)[pass,meta];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MISSING_XM_UA(0.00)[];
+	NEURAL_HAM(-0.00)[-0.997];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,qualcomm.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,linaro.org:email,linaro.org:mid,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 6D7C13683CF
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,stormreply.com:email,stormreply.com:url,qualcomm.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 015EF3714E2
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 3/31/26 12:17, Krzysztof Kozlowski wrote:
-> The static array 'xxx_critical_cbcrs' contains probe match-like data and
-> is not modified: neither by the driver defining it nor by common.c code
-> using it.
+On Mon, Mar 30, 2026 at 01:20:18PM +0100, Russell King (Oracle) wrote:
+> On Mon, Mar 30, 2026 at 01:18:56PM +0200, Konrad Dybcio wrote:
+> > On 3/27/26 6:02 PM, Russell King (Oracle) wrote:
+> > > The clocks for qcom-ethqos return a rate of zero as firmware manages
+> > > their rate. According to hardware documentation, the clock which is
+> > > fed to the slave AHB interface can crange between 50 and 100MHz.
+> > 
+> > FWIW this __may__ possibly differ between platforms, but I'm not sure
+> > to what degree. Will there be visible impact if we e.g. have a 200 or
+> > 300 MHz clock somewhere?
 > 
-> Make it const for code safety and code readability.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+While I had made an identical change while retesting the PCS series,
+I was holding off on posting this patch for the same concern - what
+if some boards fall outside the 50 - 100 MHz range.
 
--- 
-Best wishes,
-Vladimir
+After some digging, the AHB clock appears to operate within:
+ - 50 to 100 MHz for lemans/monaco derivative boards (2500BASE-X
+   interface)
+ - 30 to 75 MHz for boards with an RGMII interface.
+
+This is not exhaustive, but it covers all boards I have access to
+which actually boot with the upstream kernel.
+
+Therefore, I think using the /42 divisor should be fine as it will
+ensure that MDC never goes beyond 2.5 MHz.
+
+If a future platform exceeds this range, we could switch to something
+like: plat_dat->clk_csr = data->clk_csr, with each EMAC version
+selecting the appropriate divisor.
+
+Due to some urgent work tasks, I am still finishing PCS series
+testing. I will provide a t-b once done.
+
+In the meanwhile, please feel free to add:
+
+Reviewed-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+
+	Ayaan
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
