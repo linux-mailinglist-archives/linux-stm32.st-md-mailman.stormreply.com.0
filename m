@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gGJ1KnfHzGn5WgYAu9opvQ
+	id uB7bFnzHzGn5WgYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:21:27 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:21:32 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2FEDC375BE7
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:21:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 134D5375BF6
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:21:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B992AC8F27D;
-	Wed,  1 Apr 2026 07:21:26 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C6C6DC8F27D;
+	Wed,  1 Apr 2026 07:21:31 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B894EC87ED3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 389A0C87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2026 07:21:24 +0000 (UTC)
+ Wed,  1 Apr 2026 07:21:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=n+HY1v6K7+3S1W+xgQPRi1IM8CgGBePKt4HiS0CKizY=; b=xga1V+rYa68nBzhLxefeYUC+YP
- PV10PJJvnsU6aFTZ/33/qdzmMT+jVnnQwl8ush7XUjanooN909UKCYw7cqbkWyOQpBO//mRGMbrNN
- ig//Mazu4aOlpa/8u7PykA538opRYxsEbpGk8lWNsFVgaYN2ly79lBNufzh+RE+QgqhwrRGrBVO8a
- Km3UQXHRMzfFB4dZ67sXDQb5HIqW1F6U3AXVhHGQc80FlZDIJ0MF4U4n2BWFqgvzEoa/OVm+7iMqZ
- +Yu4VrN1zSnL6tuFvIbxx2EEFakuBH+hDZv2UTPKO3wxE946aaPVMYcXbr5okw/CV2ahhfUgMBP/z
- JFijIxHw==;
+ bh=hHAJzxBi4jtiVuEdQes88GJtJsxfjTpth99yOnhHr4I=; b=am8nDDvdRVCzrRXXyLUGH8rSy5
+ TixduHQN8xllopGhkG0DaIiMbmH6MAKBovr9zGzj0vMfy4jeDjt0U+MhuwgPP10kkhusOXP435mVU
+ ih/pozTHlnRM7IHdPSsJVZMmZTFg4D0KjSUePG9QhVzbeOc7M5eyguIvtiB3q0AG9fP5CQRnA99Ix
+ BcfTOLug9IrMZJ5XjZFzWi4evMvH+PZkBRBcnkwltLRFCorKq/B3wovl0TKxB9Gu+kkWW4DvHIPQy
+ IBKWUTRSIU4ORIgTRiFTZLPceYruebhtujNTp4AU8On+sTuEYoCLGdmJJfPuSMmv6MvMkwZ31RJgw
+ 5RE7Rqow==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:37596 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:37612 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w7ptA-000000002fk-0Y28;
- Wed, 01 Apr 2026 08:21:20 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1w7ptF-000000002fz-2J51;
+ Wed, 01 Apr 2026 08:21:25 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w7pt9-0000000East-1YAO; Wed, 01 Apr 2026 08:21:19 +0100
+ id 1w7ptE-0000000Easz-28tv; Wed, 01 Apr 2026 08:21:24 +0100
 In-Reply-To: <aczHVF04LIGq_lYO@shell.armlinux.org.uk>
 References: <aczHVF04LIGq_lYO@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w7pt9-0000000East-1YAO@rmk-PC.armlinux.org.uk>
-Date: Wed, 01 Apr 2026 08:21:19 +0100
+Message-Id: <E1w7ptE-0000000Easz-28tv@rmk-PC.armlinux.org.uk>
+Date: Wed, 01 Apr 2026 08:21:24 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 02/14] net: stmmac: fix
-	.ndo_fix_features()
+Subject: [Linux-stm32] [PATCH net-next v2 03/14] net: stmmac: fix TSO
+ support when some channels have TBS available
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,55 +103,99 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 2FEDC375BE7
+	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: 134D5375BF6
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-netdev features documentation requires that .ndo_fix_features() is
-stateless: it shouldn't modify driver state. Yet, stmmac_fix_features()
-does exactly that, changing whether GSO frames are processed by the
-driver.
+According to the STM32MP25xx manual, which is dwmac v5.3, TBS (time
+based scheduling) is not permitted for channels which have hardware
+TSO enabled. Intel's commit 5e6038b88a57 ("net: stmmac: fix TSO and
+TBS feature enabling during driver open") concurs with this, but it
+is incomplete.
 
-Move this code to stmmac_set_features() instead, which is the correct
-place for it. We don't need to check whether TSO is supported; this
-is already handled via the setup of netdev->hw_features, and we are
-guaranteed that if netdev->hw_features indicates that a feature is
-not supported, .ndo_set_features() won't be called with it set.
+This commit avoids enabling TSO support on the channels which have
+TBS available, which, as far as the hardware is concerned, means we
+do not set the TSE bit in the DMA channel's transmit control register.
 
+However, the net device's features apply to all queues(channels), which
+means these channels may still be handed TSO skbs to transmit, and the
+driver will pass them to stmmac_tso_xmit(). This will generate the
+descriptors for TSO, even though the channel has the TSE bit clear.
+
+Fix this by checking whether the queue(channel) has TBS available,
+and if it does, fall back to software GSO support.
+
+Fixes: 5e6038b88a57 ("net: stmmac: fix TSO and TBS feature enabling during driver open")
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 32 ++++++++++++++++---
+ 1 file changed, 28 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index cd76f62e1b6e..c80b4a375ddb 100644
+index c80b4a375ddb..890a1efb8733 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6073,14 +6073,6 @@ static netdev_features_t stmmac_fix_features(struct net_device *dev,
- 	if (priv->plat->bugged_jumbo && (dev->mtu > ETH_DATA_LEN))
- 		features &= ~NETIF_F_CSUM_MASK;
- 
--	/* Disable tso if asked by ethtool */
--	if ((priv->plat->flags & STMMAC_FLAG_TSO_EN) && (priv->dma_cap.tsoen)) {
--		if (features & NETIF_F_TSO)
--			priv->tso = true;
--		else
--			priv->tso = false;
--	}
--
- 	return features;
+@@ -3619,6 +3619,17 @@ static void stmmac_safety_feat_configuration(struct stmmac_priv *priv)
+ 	}
  }
  
-@@ -6107,6 +6099,8 @@ static int stmmac_set_features(struct net_device *netdev,
- 			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
- 	}
- 
-+	priv->tso = !!(features & NETIF_F_TSO);
++/* STM32MP25xx (dwmac v5.3) states "Do not enable time-based scheduling for
++ * channels on which the TSO feature is enabled." If we have a skb for a
++ * channel which has TBS enabled, fall back to software GSO.
++ */
++static bool stmmac_tso_channel_permitted(struct stmmac_priv *priv,
++					 unsigned int chan)
++{
++	/* TSO and TBS cannot co-exist */
++	return !(priv->dma_conf.tx_queue[chan].tbs & STMMAC_TBS_AVAIL);
++}
 +
- 	if (features & NETIF_F_HW_VLAN_CTAG_RX)
- 		priv->hw->hw_vlan_en = true;
- 	else
+ /**
+  * stmmac_hw_setup - setup mac in a usable state.
+  *  @dev : pointer to the device structure.
+@@ -3707,10 +3718,7 @@ static int stmmac_hw_setup(struct net_device *dev)
+ 	/* Enable TSO */
+ 	if (priv->dma_cap.tsoen && priv->plat->flags & STMMAC_FLAG_TSO_EN) {
+ 		for (chan = 0; chan < tx_cnt; chan++) {
+-			struct stmmac_tx_queue *tx_q = &priv->dma_conf.tx_queue[chan];
+-
+-			/* TSO and TBS cannot co-exist */
+-			if (tx_q->tbs & STMMAC_TBS_AVAIL)
++			if (!stmmac_tso_channel_permitted(priv, chan))
+ 				continue;
+ 
+ 			stmmac_enable_tso(priv, priv->ioaddr, 1, chan);
+@@ -4919,6 +4927,21 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	return NETDEV_TX_OK;
+ }
+ 
++static netdev_features_t stmmac_features_check(struct sk_buff *skb,
++					       struct net_device *dev,
++					       netdev_features_t features)
++{
++	u16 queue;
++
++	if (skb_is_gso(skb)) {
++		queue = skb_get_queue_mapping(skb);
++		if (!stmmac_tso_channel_permitted(netdev_priv(dev), queue))
++			features &= ~NETIF_F_GSO_MASK;
++	}
++
++	return vlan_features_check(skb, features);
++}
++
+ static void stmmac_rx_vlan(struct net_device *dev, struct sk_buff *skb)
+ {
+ 	struct vlan_ethhdr *veth = skb_vlan_eth_hdr(skb);
+@@ -7214,6 +7237,7 @@ static void stmmac_get_stats64(struct net_device *dev, struct rtnl_link_stats64
+ static const struct net_device_ops stmmac_netdev_ops = {
+ 	.ndo_open = stmmac_open,
+ 	.ndo_start_xmit = stmmac_xmit,
++	.ndo_features_check = stmmac_features_check,
+ 	.ndo_stop = stmmac_release,
+ 	.ndo_change_mtu = stmmac_change_mtu,
+ 	.ndo_fix_features = stmmac_fix_features,
 -- 
 2.47.3
 
