@@ -2,90 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yChZKdqczGkaUgYAu9opvQ
+	id UNvFHd+czGkaUgYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 06:19:38 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 06:19:43 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F8FD3749BC
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 06:19:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FA8B3749C3
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 06:19:43 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D9E78C8F27F;
-	Wed,  1 Apr 2026 04:19:37 +0000 (UTC)
-Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
- [209.85.210.50])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA486C8F27F;
+	Wed,  1 Apr 2026 04:19:42 +0000 (UTC)
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com
+ [209.85.210.42])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 70599C87EBD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 84E9EC87EBD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2026 04:19:37 +0000 (UTC)
-Received: by mail-ot1-f50.google.com with SMTP id
- 46e09a7af769-7d7f09aa39fso7883146a34.0
+ Wed,  1 Apr 2026 04:19:41 +0000 (UTC)
+Received: by mail-ot1-f42.google.com with SMTP id
+ 46e09a7af769-7d86eb7c854so3418052a34.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 31 Mar 2026 21:19:37 -0700 (PDT)
+ Tue, 31 Mar 2026 21:19:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1775017176; x=1775621976;
+ d=gmail.com; s=20251104; t=1775017180; x=1775621980;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=dFONURkaqW7NTmmG72z2KFu2mOMfbPaei0blX1R+FTo=;
- b=RDamX21BdVaD4+ei5kRlV+dHZ2SijYrSlW6a46PmgSuIHOuL/c+B7Ta0krphrMryqW
- 8+9R0BuECwjnqDunH+a6d91uBTzEEAnweCgmGFBTv0drIc12EprgeW6PXSWCYYTQlYmP
- XSYhrxvf6zTqDNll9HNi1dvtcC2PLCPgwCPR5BodLd1Z3Z+pOxk3RJwRSLkIYdXuOzzF
- p5kGrwIR6Y1E+ChZYxp6a7lVNuMh1NI7ILZiNIoUyLY7JTHU7WYo3OBA35Cv0QfyZwPb
- 4IH2Q3WaYKlxd7Iy8zRWKmu/eYApGcjvjbM5nTSVSD/pb7B50rCIp7fNchfDoXXyocfe
- MmrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775017176; x=1775621976;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=dFONURkaqW7NTmmG72z2KFu2mOMfbPaei0blX1R+FTo=;
- b=sXJ8UMelKtHmZrm7ZEXiqEXYj9kKVE/uKOvDyrkepBhNbuvqu12ymYZBJL8vq0hf1F
- bdfCOQPC5NE5izQnrZOClev3TiCBHP7cK+TnyPTC/52uzCQuoWvPoSfP9r4b9Ze8vGvq
- O/+0BmE5IZhZhZzkNesKRNxC51BwLIpnISZPBbcfK+FwlGywQ6xmaW2BovpWIrOMgY0Q
- J+IC2psSgwEfT1rYtKW3ObicRclK0G+lL1FlcXzyXn+XdKv+sEdvD4JXg23/MA5oatb/
- hX/zMCU994nF/orScAsVgMeaktQrcNXV3n+5XkX2wTa/q7fSRLK3n89//voHVUhAbkWx
- 6DkA==
+ bh=DSD4qx/2JYM1VePcNlk14SPwVbO4qzamhYtHorOqJMs=;
+ b=NMxzyFsmVHE8jgoM+Z2BOtd6BIYC7sLUu7HXDYlwaQkjqpnEDcEw8tJrXepW0nfext
+ 96iTLYPPk8DzKdpFXZETBtx3CSKazg/qWfXo73kmE/jOq2iS2U9xiwpg/eplOxgaZnIn
+ 6WNuvV2lNS7RSfak8Oh2KzwliLZEF2A5OPteQUBXcMW9BQQlrG7f0uyCqCySRzosPM3a
+ M9zrzV1F/EHDwCdsGV+3vq0P+2g+L4Hb7+YnoN0Dmiar4lFc90fmXy6ZaGZC+V79UF8V
+ NO50P8bNO+OU5tmUATWiYYGzXMdo5dAAUoD2OXWe9cbSnvrP1azPkRhuW8cgSaQTcGOd
+ n6Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775017180; x=1775621980;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=DSD4qx/2JYM1VePcNlk14SPwVbO4qzamhYtHorOqJMs=;
+ b=jiQHgcK+gZpaypNOpMl2Fsl4YjS62ah2b7FtOqCbJEgsySap3ghidf4Bn7YNyNrxVf
+ ZItLtV9rPsPPlqYs23UdeRAH5iH4mQPQwqoUbSmyq42KhzJJeGFEYXzyGJa5PHot56Md
+ PvPAj5dz7WJRI0+eOrQQsGrw1eVkZu95c+CcbHbz1tszhrm8LrOU+1FVnMGVOxvA2UY+
+ kjI9cLnwBxEeBJZBcAMEIqp0T3M6t2kc5jVtbBwVkaVtcYrVL9oRfwif17FOlRvMAdz4
+ v2ocvMENc2ybAUr5+3Hf6bm3Mf7shnWiekCoadNXZygL2jMefM//fZGrecLpofTEUmcR
+ gFMw==
 X-Forwarded-Encrypted: i=1;
- AJvYcCUrHHnTVmtv9nFp1cFafJp6SUogupTFsg7QFsJ8GdRPJ0kpw0/9UV2gQeJhLG/quD8fzq8aFxdk5lXk/g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzcyRSCfYnNLHdN1tgcqOSnlWOyCjUuQqLLwDxQWjPLHZoxQTIp
- mEyTVxkCmTe/p9PSZhbbqroDzkPFiKvU9jrp5fZLFJj/eEKRrxSMnsQC
-X-Gm-Gg: ATEYQzwaXIZnhbEGkDIdlvHmJ1BvWxtpYVhDFhrxp/7gB/Tdsim2dp4oPm4s2clbJBk
- UHJEsNgl/8GC4QlQQuNNSAR0FQR3UPVqmKJdQnkOKbzDWd8GaoLKN+ips7ohr9PP0RJ7dBlFKvg
- cSsxQt/hFnVIWcJOvv6UIcmccgkmJl9YtISGGhVrdiaBSZi4gMFn4yZBgderPMHBKulKAb5p6Ya
- xeDl+NK0/9tz+flzoSMksqkqA36ZUcF85sYvrta1J2MrF+dEtXBlX6OLX+8zmAHSGvWONxdQts9
- 5ipSv7ZdflIcHyjqfyzGDHZBCgi0oLyF9UkAXcSbqFuemRgkKQV+O2PLvLcDO7TkPTb8Ohx/yPD
- BHPVRC7ujzhInZtZGWuW70bES5wEcyvr6lWJMLfGFTMo4PIb/PHu+a8nJtrqJVtnE3g7GfDnfvK
- 3Uft8hpo4eVAy7XTkvfUwkeNN3g20unve4C44f8FlQ1+6aqoIE8D2ejVvdVvw=
-X-Received: by 2002:a05:6830:43a9:b0:7d7:fada:89ca with SMTP id
- 46e09a7af769-7db99343898mr1622685a34.15.1775017176031; 
- Tue, 31 Mar 2026 21:19:36 -0700 (PDT)
+ AJvYcCWopBKs+1nRH2NUbMUubUTLaD7xCRg0zHZgjP4GY5dQBxyySDtmmzSQbp5esulVe07hvlg68xXIGyWv8Q==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzhfCjGHiT5Lz/s4yIspe7B4RHZ9G1iWI1Zx6V1ZpRPzSv+liM8
+ SvKGNAq/fNmZDmJRq0j8zrTJDkpKej6MpEh8+u0abRUA8v2qUUfZdEve
+X-Gm-Gg: ATEYQzxjvYmuOwKRDfHR3/4NaiBSBtM4X5IANAQS2z4+YIS0HsVsZ2icW7ra0JEhJIH
+ P/NDZqS9nGF1Aze2fouDeYtk2BS/0ExyOT8baHDuFlvrQ48xSL5oGc+KO3FANug84pySrJ2dGbk
+ 88ni0G7rhb6aqIJ0OqcTodfFiZBMNbi1FoeH9F72YjwSiCQCeBuAZUE3pZOko3YwvKSwvpwYsk7
+ eUrBDUkmjDVs0j8nty9xIs2iptei7mBVG2gccYbRGPpdFOTrBKXz4K/yiOAdTXo5ZHmdHmxcr2v
+ O697Fw9kIV1xEMFPNeisGWUVH4kNnuUq0h5iC5mnHEodjNoHzH1HhhJwqfSxF+Mruqqa5lQ5EJu
+ 9fTthqL4r6oIvOw4Idgu122T94Ntcb/BfglOwiV7Az6/FjWrtgnGCxZ6ovKoNcvQcHUhjkfiXw+
+ To0zxDkZMUhyKjZQMgpZdnnrOlFTR29d1nl+mkuU0Cxj+cOVzK8X0T0YbA3NY=
+X-Received: by 2002:a05:6830:452a:b0:7d7:db95:eee9 with SMTP id
+ 46e09a7af769-7db994cf1b0mr1337728a34.30.1775017180356; 
+ Tue, 31 Mar 2026 21:19:40 -0700 (PDT)
 Received: from localhost (static-23-234-115-121.cust.tzulo.com.
  [23.234.115.121]) by smtp.gmail.com with UTF8SMTPSA id
- 46e09a7af769-7da0a335440sm9588380a34.4.2026.03.31.21.19.32
+ 46e09a7af769-7da0a384631sm9647188a34.7.2026.03.31.21.19.36
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 31 Mar 2026 21:19:34 -0700 (PDT)
+ Tue, 31 Mar 2026 21:19:39 -0700 (PDT)
 From: Sam Edwards <cfsworks@gmail.com>
 X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>
-Date: Tue, 31 Mar 2026 21:19:27 -0700
-Message-ID: <20260401041929.12392-1-CFSworks@gmail.com>
+Date: Tue, 31 Mar 2026 21:19:28 -0700
+Message-ID: <20260401041929.12392-2-CFSworks@gmail.com>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260401041929.12392-1-CFSworks@gmail.com>
+References: <20260401041929.12392-1-CFSworks@gmail.com>
 MIME-Version: 1.0
 Cc: Baruch Siach <baruch@tkos.co.il>, linux-kernel@vger.kernel.org,
  Vladimir Oltean <vladimir.oltean@nxp.com>,
  Serge Semin <fancer.lancer@gmail.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, stable@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
  Giuseppe Cavallaro <peppe.cavallaro@st.com>, Sam Edwards <CFSworks@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Subject: [Linux-stm32] [PATCH net v4 0/2] stmmac crash/stall fixes when
-	under memory pressure
+Subject: [Linux-stm32] [PATCH net v4 1/2] net: stmmac: Prevent NULL deref
+	when RX memory exhausted
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,19 +110,19 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:baruch@tkos.co.il,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:fancer.lancer@gmail.com,m:rmk+kernel@armlinux.org.uk,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:peppe.cavallaro@st.com,m:CFSworks@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:andrew@lunn.ch,m:fancerlancer@gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:baruch@tkos.co.il,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:fancer.lancer@gmail.com,m:rmk+kernel@armlinux.org.uk,m:stable@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:peppe.cavallaro@st.com,m:CFSworks@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:andrew@lunn.ch,m:fancerlancer@gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	FREEMAIL_CC(0.00)[tkos.co.il,vger.kernel.org,nxp.com,gmail.com,armlinux.org.uk,st.com,st-md-mailman.stormreply.com,lists.infradead.org,renesas.com];
 	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[cfsworks@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[17];
+	RCPT_COUNT_TWELVE(0.00)[18];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
@@ -137,75 +140,76 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 3F8FD3749BC
+X-Rspamd-Queue-Id: 2FA8B3749C3
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi netdev,
+The CPU receives frames from the MAC through conventional DMA: the CPU
+allocates buffers for the MAC, then the MAC fills them and returns
+ownership to the CPU. For each hardware RX queue, the CPU and MAC
+coordinate through a shared ring array of DMA descriptors: one
+descriptor per DMA buffer. Each descriptor includes the buffer's
+physical address and a status flag ("OWN") indicating which side owns
+the buffer: OWN=0 for CPU, OWN=1 for MAC. The CPU is only allowed to set
+the flag and the MAC is only allowed to clear it, and both must move
+through the ring in sequence: thus the ring is used for both
+"submissions" and "completions."
 
-This is v4 of my series containing a pair of bugfixes for the stmmac driver's
-receive pipeline. These issues occur when stmmac_rx_refill() does not (fully)
-succeed, which happens more frequently when free memory is low.
+In the stmmac driver, stmmac_rx() bookmarks its position in the ring
+with the `cur_rx` index. The main receive loop in that function checks
+for rx_descs[cur_rx].own=0, gives the corresponding buffer to the
+network stack (NULLing the pointer), and increments `cur_rx` modulo the
+ring size. After the loop exits, stmmac_rx_refill(), which bookmarks its
+position with `dirty_rx`, allocates fresh buffers and rearms the
+descriptors (setting OWN=1). If it fails any allocation, it simply stops
+early (leaving OWN=0) and will retry where it left off when next called.
 
-The first patch closes Bugzilla bug #221010 [1], where stmmac_rx() can circle
-around to a still-dirty descriptor (with a NULL buffer pointer), mistake it for
-a filled descriptor (due to OWN=0), and attempt to dereference the buffer.
+This means descriptors have a three-stage lifecycle (terms my own):
+- `empty` (OWN=1, buffer valid)
+- `full` (OWN=0, buffer valid and populated)
+- `dirty` (OWN=0, buffer NULL)
 
-In testing that patch, I discovered a second issue: starvation of available RX
-buffers causes the NIC to stop sending interrupts; if the driver stops polling,
-it will wait indefinitely for an interrupt that will never come. (Note: the
-first patch makes this issue more prominent -- mostly because it lets the
-system survive long enough to exhibit it -- but doesn't *cause* it.) The second
-patch addresses that problem as well.
+But because stmmac_rx() only checks OWN, it confuses `full`/`dirty`. In
+the past (see 'Fixes:'), there was a bug where the loop could cycle
+`cur_rx` all the way back to the first descriptor it dirtied, resulting
+in a NULL dereference when mistaken for `full`. The aforementioned
+commit resolved that *specific* failure by capping the loop's iteration
+limit at `dma_rx_size - 1`, but this is only a partial fix: if the
+previous stmmac_rx_refill() didn't complete, then there are leftover
+`dirty` descriptors that the loop might encounter without needing to
+cycle fully around. The current code therefore panics (see 'Closes:')
+when stmmac_rx_refill() is memory-starved long enough for `cur_rx` to
+catch up to `dirty_rx`.
 
-Both patches are minimal, appropriate for stable, and designated to `net`. My
-focus is on small, obviously-correct, easy-to-explain changes: I'll follow up
-with another patch/series (something like [2]) for `net-next` that fixes the
-ring in a more robust way.
+Fix this by further tightening the clamp from `dma_rx_size - 1` to
+`dma_rx_size - stmmac_rx_dirty() - 1`, subtracting any remnant dirty
+entries and limiting the loop so that `cur_rx` cannot catch back up to
+`dirty_rx`. This carries no risk of arithmetic underflow: since the
+maximum possible return value of stmmac_rx_dirty() is `dma_rx_size - 1`,
+the worst the clamp can do is prevent the loop from running at all.
 
-The tx and zc paths seem to have similar low-memory bugs, to be addressed in
-separate series.
-
-Regards,
-Sam
-
+Fixes: b6cb4541853c7 ("net: stmmac: avoid rx queue overrun")
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221010
+Cc: stable@vger.kernel.org
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
 ---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-[1] https://bugzilla.kernel.org/show_bug.cgi?id=221010
-[2] https://lore.kernel.org/netdev/20260316021009.262358-4-CFSworks@gmail.com/
-
-v4:
-- Changed patch 2 to tolerate dirty stragglers up to a critical threshold (the
-  same threshold tolerated by the zero-copy path), to avoid nuisance looping
-  during OOM conditions (thanks Jakub)
-v3: https://lore.kernel.org/netdev/20260328192503.520689-1-CFSworks@gmail.com/T/
-- Rebased on latest net/main
-- Changed patch 2 to require that stmmac_rx_refill() *fully* succeeds before
-  exiting polling, to reduce the chance of rx drops.
-- DID NOT use the CIRC_SPACE() macro as suggested by Russell: I fear that the
-  perspective shift (first think of the dirty descriptors as the "work" that
-  refill "consumes" -- therefore the "space" is how much stmmac_rx() may loop)
-  is too counterintuitive for a stable fix, but I'll do it in v4 if reviewers
-  insist.
-- Updated the recipients for the series, which was invalidated in v2 due to the
-  `Fixes:`
-v2: https://lore.kernel.org/netdev/20260319184031.8596-1-CFSworks@gmail.com/T/
-- Completely rewrote the commit message of patch 1, now assuming the reader is
-  generally familiar with DMA but wholly unfamiliar with the stmmac device
-  (thanks Jakub!)
-- Added missing `Fixes:` to patch 2
-- Moved patch 2's `int budget = limit;` decl per the reverse-xmas-tree rule
-- Dropped patch 3: this was a code improvement not appropriate for stable
-- Generated the series with --subject-prefix='PATCH net'
-v1: https://lore.kernel.org/netdev/20260316021009.262358-1-CFSworks@gmail.com/
-
-Sam Edwards (2):
-  net: stmmac: Prevent NULL deref when RX memory exhausted
-  net: stmmac: Prevent indefinite RX stall on buffer exhaustion
-
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 13d3cac056be..fc11f75f7dc0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5609,7 +5609,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 	dma_dir = page_pool_get_dma_dir(rx_q->page_pool);
+ 	bufsz = DIV_ROUND_UP(priv->dma_conf.dma_buf_sz, PAGE_SIZE) * PAGE_SIZE;
+-	limit = min(priv->dma_conf.dma_rx_size - 1, (unsigned int)limit);
++	limit = min(priv->dma_conf.dma_rx_size - stmmac_rx_dirty(priv, queue) - 1,
++		    (unsigned int)limit);
+ 
+ 	if (netif_msg_rx_status(priv)) {
+ 		void *rx_head;
 -- 
 2.52.0
 
