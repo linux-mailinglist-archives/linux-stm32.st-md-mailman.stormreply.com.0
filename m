@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CDHcOp/HzGn5WgYAu9opvQ
+	id +Od+BaTHzGn5WgYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:22:07 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:22:12 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFCDA375C50
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:22:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C0248375C57
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Apr 2026 09:22:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A892C8F27F;
-	Wed,  1 Apr 2026 07:22:07 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 88CA5C8F27F;
+	Wed,  1 Apr 2026 07:22:11 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C134C8F27D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73D00C8F27D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Apr 2026 07:22:05 +0000 (UTC)
+ Wed,  1 Apr 2026 07:22:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=savUdynNQeYEd7h5mjaKKtMm1gt1Y/kK7gCSnE5/gVQ=; b=DKQkXiJCaGisM+oe3gHGjQnzDI
- giGBbjJUh3zc0agDIuQRMGAAu/vtPUYBw1ODRzXcAbGqKltXdQH0iqdt8tm10MOcCUJj9Ph3neVYd
- DK01z+W8Xu4p/O8Xs+SWq3m9K2oPm4GZbATUjASW3BUqNN9uvIie7M1QyfHBFsppVHE7zDx56hxet
- /c/yJQc5uDBxjVzfCqOhPtOjFDQ6jUhOz7CpIExiNeVlRKnT9z84bhfZz7GSYMQ+8wGxeP15Ku/mS
- XhIn/IvCLQ95SSBUhXjeNiDoR9c04uPMJf2+caqziTYctGoGKBSVz3XezwEYokEnLQweP6PIQ154g
- d59gDxpQ==;
+ bh=RVI5lyA9Y331B3DR8RZwCYHymPCwQsuFF9FPzNlqkkQ=; b=VW7sAHtiC9MFIwUar6jQRtimGQ
+ /wRXV3Vs36XkW4u3u17eTC52xwI86sxgun/V+MG23k4F5wpNFBf5F5MFWzx0ZKM4BMui6PPM//AK4
+ 8lqrQ6d5zrRIeOv/cg0HEIRJjP++MGWxg37+cps636ZWoUEHyohXVLFzUXIOoOOwnJyJc/mEYpvZQ
+ hM2Ud/gH1UbdR/CyrPb+IEg4ZjMr11ZBW1AU1M2vEvLUoGtKNMRvGILUAiGr3UPJF7vSJhryfKQAO
+ jK7AZinJDZLwCulNgFDgNZg4Go7TKOByswBHgLKlTiSfP20KTYJ3zM5LD9cU6lkPnFjAfcqXmIT3w
+ 3diHESWQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:57418 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:59024 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1w7ptk-000000002ht-1Lqh;
- Wed, 01 Apr 2026 08:21:56 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1w7ptp-000000002iE-2kwa;
+ Wed, 01 Apr 2026 08:22:02 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1w7ptj-0000000Eatb-11zK; Wed, 01 Apr 2026 08:21:55 +0100
+ id 1w7pto-0000000Eath-1VDH; Wed, 01 Apr 2026 08:22:00 +0100
 In-Reply-To: <aczHVF04LIGq_lYO@shell.armlinux.org.uk>
 References: <aczHVF04LIGq_lYO@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1w7ptj-0000000Eatb-11zK@rmk-PC.armlinux.org.uk>
-Date: Wed, 01 Apr 2026 08:21:55 +0100
+Message-Id: <E1w7pto-0000000Eath-1VDH@rmk-PC.armlinux.org.uk>
+Date: Wed, 01 Apr 2026 08:22:00 +0100
 Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
  Ong Boon Leong <boon.leong.ong@intel.com>, Jakub Kicinski <kuba@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next v2 09/14] net: stmmac: simplify
- GSO/TSO test in stmmac_xmit()
+Subject: [Linux-stm32] [PATCH net-next v2 10/14] net: stmmac: split out gso
+	features setup
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,112 +104,57 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,rmk-PC.armlinux.org.uk:mid,armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: CFCDA375C50
+X-Rspamd-Queue-Id: C0248375C57
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The test in stmmac_xmit() to see whether we should pass the skbuff to
-stmmac_tso_xmit() is more complex than it needs to be. This test can
-be simplified by storing the mask of GSO types that we will pass, and
-setting it according to the enabled features.
-
-Note that "tso" is a mis-nomer since commit b776620651a1 ("net:
-stmmac: Implement UDP Segmentation Offload"). Also note that this
-commit controls both via the TSO feature. We preserve this behaviour
-in this commit.
-
-Also, this commit unconditionally accessed skb_shinfo(skb)->gso_type
-for all frames, even when skb_is_gso() was false. This access is
-eliminated.
+Move the GSO features setup into a separate function, co-loated with
+other GSO/TSO support.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  3 +-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 28 +++++++++++--------
- 2 files changed, 19 insertions(+), 12 deletions(-)
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 21 ++++++++++++-------
+ 1 file changed, 14 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 919a93a52390..8ba8f03e1ce0 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -265,8 +265,9 @@ struct stmmac_priv {
- 	u32 rx_coal_frames[MTL_MAX_RX_QUEUES];
- 
- 	int hwts_tx_en;
-+	/* skb_shinfo(skb)->gso_type types that we handle */
-+	unsigned int gso_enabled_types;
- 	bool tx_path_in_lpi_mode;
--	bool tso;
- 	bool sph_active;
- 	bool sph_capable;
- 	u32 sarc_type;
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index d3cbe71b9af1..42e2196e82a4 100644
+index 42e2196e82a4..e868fb0c9894 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -4373,6 +4373,18 @@ static void stmmac_flush_tx_descriptors(struct stmmac_priv *priv, int queue)
- 	stmmac_set_queue_tx_tail_ptr(priv, tx_q, queue, tx_q->cur_tx);
+@@ -4385,6 +4385,19 @@ static void stmmac_set_gso_types(struct stmmac_priv *priv, bool tso)
+ 	}
  }
  
-+static void stmmac_set_gso_types(struct stmmac_priv *priv, bool tso)
++static void stmmac_set_gso_features(struct net_device *ndev)
 +{
-+	if (!tso) {
-+		priv->gso_enabled_types = 0;
-+	} else {
-+		/* Manage oversized TCP frames for GMAC4 device */
-+		priv->gso_enabled_types = SKB_GSO_TCPV4 | SKB_GSO_TCPV6;
++	struct stmmac_priv *priv = netdev_priv(ndev);
++
++	if ((priv->plat->flags & STMMAC_FLAG_TSO_EN) && (priv->dma_cap.tsoen)) {
++		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
 +		if (priv->plat->core_type == DWMAC_CORE_GMAC4)
-+			priv->gso_enabled_types |= SKB_GSO_UDP_L4;
++			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
++		stmmac_set_gso_types(priv, true);
++		dev_info(priv->device, "TSO feature enabled\n");
 +	}
 +}
 +
  static size_t stmmac_tso_header_size(struct sk_buff *skb)
  {
  	size_t size;
-@@ -4706,7 +4718,6 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	u32 queue = skb_get_queue_mapping(skb);
- 	int nfrags = skb_shinfo(skb)->nr_frags;
- 	unsigned int first_entry, tx_packets;
--	int gso = skb_shinfo(skb)->gso_type;
- 	struct stmmac_txq_stats *txq_stats;
- 	struct dma_desc *desc, *first_desc;
- 	struct stmmac_tx_queue *tx_q;
-@@ -4718,14 +4729,9 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
- 	if (priv->tx_path_in_lpi_mode && priv->eee_sw_timer_en)
- 		stmmac_stop_sw_lpi(priv);
+@@ -7888,13 +7901,7 @@ static int __stmmac_dvr_probe(struct device *device,
+ 		ndev->hw_features |= NETIF_F_HW_TC;
+ 	}
  
--	/* Manage oversized TCP frames for GMAC4 device */
--	if (skb_is_gso(skb) && priv->tso) {
--		if (gso & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))
--			return stmmac_tso_xmit(skb, dev);
--		if (priv->plat->core_type == DWMAC_CORE_GMAC4 &&
--		    (gso & SKB_GSO_UDP_L4))
--			return stmmac_tso_xmit(skb, dev);
+-	if ((priv->plat->flags & STMMAC_FLAG_TSO_EN) && (priv->dma_cap.tsoen)) {
+-		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
+-		if (priv->plat->core_type == DWMAC_CORE_GMAC4)
+-			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
+-		stmmac_set_gso_types(priv, true);
+-		dev_info(priv->device, "TSO feature enabled\n");
 -	}
-+	if (skb_is_gso(skb) &&
-+	    skb_shinfo(skb)->gso_type & priv->gso_enabled_types)
-+		return stmmac_tso_xmit(skb, dev);
++	stmmac_set_gso_features(ndev);
  
- 	if (priv->est && priv->est->enable &&
- 	    priv->est->max_sdu[queue]) {
-@@ -6151,7 +6157,7 @@ static int stmmac_set_features(struct net_device *netdev,
- 			stmmac_enable_sph(priv, priv->ioaddr, sph_en, chan);
- 	}
- 
--	priv->tso = !!(features & NETIF_F_TSO);
-+	stmmac_set_gso_types(priv, features & NETIF_F_TSO);
- 
- 	if (features & NETIF_F_HW_VLAN_CTAG_RX)
- 		priv->hw->hw_vlan_en = true;
-@@ -7886,7 +7892,7 @@ static int __stmmac_dvr_probe(struct device *device,
- 		ndev->hw_features |= NETIF_F_TSO | NETIF_F_TSO6;
- 		if (priv->plat->core_type == DWMAC_CORE_GMAC4)
- 			ndev->hw_features |= NETIF_F_GSO_UDP_L4;
--		priv->tso = true;
-+		stmmac_set_gso_types(priv, true);
- 		dev_info(priv->device, "TSO feature enabled\n");
- 	}
- 
+ 	if (priv->dma_cap.sphen &&
+ 	    !(priv->plat->flags & STMMAC_FLAG_SPH_DISABLE)) {
 -- 
 2.47.3
 
