@@ -2,58 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KM3bOJYMz2kNsgYAu9opvQ
+	id ucPqD9kRz2nXsgYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Apr 2026 02:40:54 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Apr 2026 03:03:21 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 79FAA38F95D
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Apr 2026 02:40:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F2838FC97
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Apr 2026 03:03:19 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC95FC0693D;
-	Fri,  3 Apr 2026 00:40:53 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ADE2C0693D;
+	Fri,  3 Apr 2026 01:03:19 +0000 (UTC)
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60BAAC36B30
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5745C36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Apr 2026 00:40:52 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 4C47460008;
- Fri,  3 Apr 2026 00:40:51 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F130C116C6;
- Fri,  3 Apr 2026 00:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775176851;
- bh=NJ+8mEhNn9wUSa9R8VvhGJpfu23Mm7qVZmFxt2lVutQ=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=bNJsrNHfYcRJm007j4S0gUwfNrjeWvZdoHliWvtkVxFWWc3/1jlesn+xPpAqsNfry
- HhSfY4bIiG6NLXrsbLCFeWKAJ6+3sJEDrdS8gHJ1u9OBgNqTkxXL7Y4Y3XuLfTkwbT
- gh3zzJA7WItfiCMP76cE/w0dGh4w88Q7/aeFZOpCpGt1s9fSkApVEdjpalyO83PeXY
- AEsd+6qBgB/SsrF3y4d8FXKBR+CCRachkUBXC0xV/V8w7UlVaYG9iD2h2Ry0bqJYP+
- 9GBOnmYjagrPaC5X4llk/14Li576IXy7ywUsYIQbvNA0KxyjFvi+cYMfyynW6KI4lz
- UiTTZ3PrZQRrA==
-Date: Thu, 2 Apr 2026 17:40:49 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Sam Edwards <cfsworks@gmail.com>
-Message-ID: <20260402174049.0ac088cc@kernel.org>
-In-Reply-To: <CAH5Ym4j5peYXc5c9ycJzimy26Tv+4x18hyy+j-H4v7PyWuWhtA@mail.gmail.com>
-References: <20260401041929.12392-1-CFSworks@gmail.com>
- <20260402080542.293e8729@kernel.org>
- <CAH5Ym4j5peYXc5c9ycJzimy26Tv+4x18hyy+j-H4v7PyWuWhtA@mail.gmail.com>
+ Fri,  3 Apr 2026 01:03:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+ from:content-type:reply-to; bh=7YoSEJ++U+bhsZHS7opTnIXvFxUfS1Ektt6/OuIFNhc=; 
+ b=Pcy7ukdfzC+ko0Rih10LxJA/9qlFtoganjfS6zaAZ35WkeQrRSOlmAvvaXUwmNwR7B37BTMhg7k
+ /ew7Tnlw/GUdOMSIDiMQPqRdnmeTsGRdARmFHP4IPEy0xsgKgXmzo+pZVXXD8KXDv+zabAez2r5w/
+ ZcbVGDNKtTC0zAHqKY34A+hn29cQzJiWBiDLC3u+BsxRqlfAbqHbMW9SA+7DmANiyje9TF3GVV0aZ
+ lJLzf0h9wabmwP4bLXE3fpetHCOsCoNaH2sao3DxGZiJ/nxFAcWQGnA9hOGvkxpdpW/oj7GEpy75m
+ iggZIsDgon/bj2jdGfOKUmUC4oYRfkwQH0Lw==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+ by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
+ id 1w8SWg-003Qwj-0L; Fri, 03 Apr 2026 09:03:02 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
+ Fri, 03 Apr 2026 09:03:00 +0800
+Date: Fri, 3 Apr 2026 09:03:00 +0800
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Aleksander Jan Bajkowski <olek2@wp.pl>
+Message-ID: <ac8RxOP3h7SEqBN5@gondor.apana.org.au>
+References: <20260303184916.69132-1-olek2@wp.pl>
 MIME-Version: 1.0
-Cc: Baruch Siach <baruch@tkos.co.il>, linux-kernel@vger.kernel.org,
- Vladimir Oltean <vladimir.oltean@nxp.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Serge Semin <fancer.lancer@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Paolo Abeni <pabeni@redhat.com>,
- "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Subject: Re: [Linux-stm32] [PATCH net v4 0/2] stmmac crash/stall fixes when
- under memory pressure
+Content-Disposition: inline
+In-Reply-To: <20260303184916.69132-1-olek2@wp.pl>
+Cc: linux-kernel@vger.kernel.org, davem@davemloft.net,
+ linux-crypto@vger.kernel.org, mcoquelin.stm32@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4] crypto: testmgr - Add test vectors for
+ authenc(hmac(md5), cbc(aes))
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,70 +56,75 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.89 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[apana.org.au : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[gondor.apana.org.au:s=h01];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:olek2@wp.pl,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:cfsworks@gmail.com,m:baruch@tkos.co.il,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:fancer.lancer@gmail.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:peppe.cavallaro@st.com,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:fancerlancer@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[16];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FREEMAIL_TO(0.00)[wp.pl];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[tkos.co.il,vger.kernel.org,nxp.com,st-md-mailman.stormreply.com,gmail.com,lunn.ch,google.com,st.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org,renesas.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,davemloft.net,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	NEURAL_SPAM(0.00)[0.852];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	NEURAL_SPAM(0.00)[0.123];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 79FAA38F95D
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,gondor.apana.org.au:mid,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 30F2838FC97
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-T24gVGh1LCAyIEFwciAyMDI2IDA5OjUzOjQzIC0wNzAwIFNhbSBFZHdhcmRzIHdyb3RlOgo+IE9u
-IFRodSwgQXByIDIsIDIwMjYgYXQgODowNeKAr0FNIEpha3ViIEtpY2luc2tpIDxrdWJhQGtlcm5l
-bC5vcmc+IHdyb3RlOgo+ID4gSSBtZWFudCB3ZSBuZWVkIGJvdGggYSB0aHJlc2hvbGQsIGFuZCBh
-IGRlbGF5IDooICAKPiAKPiBIaSBKYWt1YiAtIGdvdCBpdDogd2hlbiB0aGUgY3JpdGljYWwgdGhy
-ZXNob2xkIGlzIHJlYWNoZWQsIGFsbG93IHRoZQo+IE5BUEkgaW5zdGFuY2UgdG8gc2xlZXAgYW5k
-IHN0YXJ0IGEgdGltZXIgaW5zdGVhZC4KPiAKPiAxKSBXZSdkIGVpdGhlciBoYXZlIHRvIGxlYXZl
-IGludGVycnVwdHMgbWFza2VkIG9yIGxldCB0aGVtIHJhY2UKPiBhZ2FpbnN0IHRoZSB0aW1lci4g
-RWl0aGVyIG9uZSBpcyBtYW5hZ2VhYmxlLCBidXQgSSBmZWVsIGxpa2UgdGhvc2UKPiBpbnRlcmFj
-dGlvbnMgY2FycnkgKmp1c3QqIGVub3VnaCByZWdyZXNzaW9uIHJpc2sgdG8gYnVtcCB0aGF0IHBh
-dGNoIHRvCj4gLW5leHQuCj4gCj4gMikgQ291bGQgeW91IHBvaW50IG91dCB3aGljaCBOQVBJIGRy
-aXZlciBiZXN0IGhhbmRsZXMgdGhpcyBzaXR1YXRpb24/Cj4gSSdkIGxpa2UgdG8gcmVwbGljYXRl
-IGl0cyBhcHByb2FjaC4KCk5vdCBzdXJlLCB0aGUgbGFzdCBmZXcgTklDcyBJIHdvcmtlZCBvbiBo
-YWQgdGhlIGFiaWxpdHkgZm9yIFNXIAp0byB0cmlnZ2VyIElSUXMgZXhhY3RseSBiZWNhdXNlIG9m
-IHRoZSBSeCBidWZmZXIgZGVwbGV0aW9uIGlzc3VlLgpmYm5pY19uYXBpX2RlcGxldGlvbl9jaGVj
-aygpIGZvciBleGFtcGxlLgoKQnV0IGxldCdzIG5vdCBvdmVydGhpbmsgaXQuLiBzYXkgd2UgYXJt
-IGEgdGltZXIgYW5kIGxldCB0aGUgSVJRIApiZSB1bm1hc2tlZC4gVGhlIHRpbWVyIGp1c3QgcnVu
-cyBuYXBpX3NjaGVkdWxlKCkuIG5hcGlfc2NoZWR1bGUoKSAKaXMgdGhyZWFkLXNhZmUsIGlmIElS
-USBmaXJlcyB3aXRoIHRoZSB0aW1lciBhcm1lZCAtIG5vIHByb2JsZW0uCgpfX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
-c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Tue, Mar 03, 2026 at 07:48:44PM +0100, Aleksander Jan Bajkowski wrote:
+> Test vectors were generated starting from existing CBC(AES) test vectors
+> (RFC3602, NIST SP800-38A) and adding HMAC(MD5) computed with Python
+> script. Then, the results were double-checked on Mediatek MT7981 (safexcel)
+> and NXP P2020 (talitos). Both platforms pass self-tests.
+> 
+> Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+> ---
+> v4:
+> - rename aes-generic -> aes-lib
+> v3:
+> - correct sha384 -> md5 in description
+> v2:
+> - rebase and resolve conflicts
+> ---
+>  crypto/testmgr.c |   7 ++
+>  crypto/testmgr.h | 255 +++++++++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 262 insertions(+)
+
+Patch applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
