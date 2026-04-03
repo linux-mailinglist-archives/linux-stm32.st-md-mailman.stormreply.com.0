@@ -2,81 +2,53 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kHr5Chr0z2lT2AYAu9opvQ
+	id +NiHOAtJ0Glu5gYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Apr 2026 19:08:42 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 04 Apr 2026 01:11:07 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A2EA2396C93
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Apr 2026 19:08:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 82248398F56
+	for <lists+linux-stm32@lfdr.de>; Sat, 04 Apr 2026 01:11:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2D2DEC8F29A;
-	Fri,  3 Apr 2026 17:08:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 244A8C8F271;
+	Fri,  3 Apr 2026 23:11:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ABE35C8F27F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 52F98C87ED2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Apr 2026 17:08:39 +0000 (UTC)
+ Fri,  3 Apr 2026 23:11:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 8423844754;
- Fri,  3 Apr 2026 17:08:38 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 519D7C4AF19;
- Fri,  3 Apr 2026 17:08:38 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 314AA60133;
+ Fri,  3 Apr 2026 23:11:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C08C2BCB4;
+ Fri,  3 Apr 2026 23:11:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775236118;
- bh=TdrKbk/IAUXNS6Sk9zy9AdX94k46z6QijMe7AIc7bWA=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
- b=Lj5P/7snoFUsjral5txOxDHgw9vRFkIdWG6hA6XGpF/oNTs/Q7IFxbsYNMdwgXUrp
- CLgtgGidd75uqZsFjOuaT2STcZsx3Xqm9KoD8UCcj1kEEeobnbtvxANsEMQokHeFDq
- hEsw1IRvmER1lPC2SGDpoxC13QmvIj05Dd8Kup9GDAUR8zYicV+ar2bXiWtXxuCz9S
- Z40F3Ku3ehs+kFjQr6bykCrC3zhbyaNwTDklkshawPnA7DjAXBtlPyNq0o3IxuZQ59
- 2auLFyKEoiQ6JKdHTopHFyHSDkVj5cnDg/my1jZd9KhFVa7deZYG4lD76f0G530UTl
- 5enlCA/qA8LfQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 45F77E85385;
- Fri,  3 Apr 2026 17:08:38 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Fri, 03 Apr 2026 19:08:40 +0200
+ s=k20201202; t=1775257864;
+ bh=2A0r+UE5+pZzmP0NV8rxJD+zsPZ9QB1jSvMXTLu2Ruk=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc:From;
+ b=FyU06L9mYRKB/h2h7IPur11i1Wsp8wXpo+vZmEoNVth2G+LY1gWL/1qE94g72ZI0p
+ Ig3AqnmLV7DYLUmE6O1ZHNLrFfv8jVaegiFaNLxpo9lWRryCV6J2YKeXk4MfrIB/Jv
+ 3DYyddrTk9/vn0yH8rYIrlFtxCmIfOgeiVTDXRtkoCFNuCsYH9PtLamSEAaUP/EoIa
+ de2SseFZnafpvd76tFhRWls8kYia35FWrKWlSaMFiOfu/iMsrDUSCe076ddbwmkvXY
+ uURK963UR8ucsigR4FK3bJPnkQdE4zeA8kVsAYkhq/05Mlj/al20ScKB2Hbz9D/M/9
+ LKtmMX+SMQrKA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ B9D923809A14; Fri,  3 Apr 2026 23:10:46 +0000 (UTC)
 MIME-Version: 1.0
-Message-Id: <20260403-stmfts5-v3-11-5da768cfd201@ixit.cz>
-References: <20260403-stmfts5-v3-0-5da768cfd201@ixit.cz>
-In-Reply-To: <20260403-stmfts5-v3-0-5da768cfd201@ixit.cz>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Henrik Rydberg <rydberg@bitmath.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1795; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=TQFq+PWyeQhZg/mK5NDBcGQfwDmMOnudDkXhMTWZo0k=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBpz/QQaX/GLHPgoCPSGD4vNqAN8c8Vp77YqqTST
- i8q9/7tueKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCac/0EAAKCRBgAj/E00kg
- cnt3EAC9+/iOdH/C6Es8Y3zt7BHJHf73YRjGK9TxmQWh0Se913LW/Ngdu9eFlAJWY68ZVPNjmVQ
- fz1LCUrEtsNRrP6s7heETZ+K/mqf/w2eUlTxqf1HET5boZNzsCktlhmZdoKCssdMlnv43oebS10
- I5Vk+JD8virH49O9TKrew6a+jI1giQqXSwSz3LfCGo0TaVTPYhmui1VI50ths7OddPmZ6HXHi3N
- XV4Gz2OWsBluDhNmPrCVBCwFXcjNolDz5jpeZcUEAlIczTmx0NdhGx+6djhB0HZ3We7WsbdyjL2
- 6AGdgeIbfDwb/Wkx5YjSFgk+3fb+aqDi1DCobwtW12vOmp4E1LUNq8Vn2Cu8k8Jvpd5HccMpjDK
- Yk1r5QGsPcrwnH/9LX69W+5nT74tYVGtULwB8Rkd5q9E0QFp0XST3zfBGdT+RwuJL7PhHuGMh6U
- O1vX5VOfABaqlEAVllwLw06IcmAUPhtO229992eu/kc3i5RAdybgdklByl4cMq8qTwdcuCB3kbB
- DC1Fj6lCVj5NJ27yaa4GiQ0ZlfC1/cHmBYNhnk+9oAe12lDGa0YoZruthb6uyZMSbDb2qgeEqY/
- zurHwlr0x55LAv4y5pM00T9QB3Rc+fGWK4RJoWy+zJLIyrQwKTaDeZxf3LtdeO6ZKtpbf5D7zvD
- iYVCEiUAlCVnGyg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
- Petr Hodina <petr.hodina@protonmail.com>, David Heidelberg <david@ixit.cz>,
- linux-input@vger.kernel.org, phone-devel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH WIP v3 11/11] arm64: dts: qcom: sdm845-google:
- Add STM FTS touchscreen support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <177525784528.1484550.15000658564250210925.git-patchwork-notify@kernel.org>
+Date: Fri, 03 Apr 2026 23:10:45 +0000
+References: <E1w8JKr-0000000EdLC-41Bt@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1w8JKr-0000000EdLC-41Bt@rmk-PC.armlinux.org.uk>
+To: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Cc: andrew@lunn.ch, mohd.anwar@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, netdev@vger.kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: qcom-ethqos: set
+	clk_csr
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -88,112 +60,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: david@ixit.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TAGGED_FROM(0.00)[david.ixit.cz];
-	FORGED_RECIPIENTS(0.00)[m:dmitry.torokhov@gmail.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:rydberg@bitmath.org,m:andersson@kernel.org,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:petr.hodina@protonmail.com,m:david@ixit.cz,m:linux-input@vger.kernel.org,m:phone-devel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:dmitrytorokhov@gmail.com,m:mcoquelinstm32@gmail.com,m:conor@kernel.org,s:lists@lfdr.de];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,kernel.org,protonmail.com,ixit.cz,st-md-mailman.stormreply.com,lists.infradead.org];
-	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com,foss.st.com,kernel.org,bitmath.org];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	TAGGED_FROM(0.00)[netdevbpf];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_LAST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_NO_DN(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	DBL_PROHIBIT(0.00)[0.0.0.49:email];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	NEURAL_HAM(-0.00)[-0.787];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	HAS_REPLYTO(0.00)[david@ixit.cz];
-	NEURAL_HAM(-0.00)[-0.397];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ixit.cz:email,ixit.cz:replyto,ixit.cz:mid,protonmail.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: A2EA2396C93
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: 82248398F56
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-From: Petr Hodina <petr.hodina@protonmail.com>
+Hello:
 
-Basic touchscreen connected to second i2c bus.
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Signed-off-by: Petr Hodina <petr.hodina@protonmail.com>
-Co-developed-by: David Heidelberg <david@ixit.cz>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts | 19 ++++++++++++++++++-
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi  |  2 +-
- 2 files changed, 19 insertions(+), 2 deletions(-)
+On Thu, 02 Apr 2026 15:47:53 +0100 you wrote:
+> The clocks for qcom-ethqos return a rate of zero as firmware manages
+> their rate. According to hardware documentation, the clock which is
+> fed to the slave AHB interface can range between 50 to 100MHz for
+> non-RGMII and 30 to 75MHz for boards with a RGMII interfaces.
+> 
+> Currently, stmmac uses an undefined divisor value. Instead, use
+> STMMAC_CSR_60_100M which will mean we meet IEEE 802.3 specification
+> since this will generate:
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-index fa89be500fb85..8fb988130b551 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
-@@ -26,7 +26,24 @@ &i2c2 {
- 
- 	status = "okay";
- 
--	/* ST,FTS @ 49 */
-+	touchscreen@49 {
-+		compatible = "st,stmfts5";
-+		reg = <0x49>;
-+
-+		pinctrl-0 = <&touchscreen_irq_n>, <&touchscreen_reset>;
-+		pinctrl-names = "default";
-+
-+		interrupts-extended = <&tlmm 125 IRQ_TYPE_LEVEL_LOW>;
-+
-+		mode-switch-gpios = <&tlmm 136 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&tlmm 99 GPIO_ACTIVE_LOW>;
-+
-+		avdd-supply = <&vreg_l14a_1p8>;
-+		vdd-supply = <&vreg_l19a_3p3>;
-+
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <2160>;
-+	};
- };
- 
- &mdss_dsi0 {
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 6930066857768..4653c63ec26d2 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -466,7 +466,7 @@ touchscreen_reset: ts-reset-state {
- 		bias-pull-up;
- 	};
- 
--	touchscreen_pins: ts-pins-gpio-state {
-+	touchscreen_irq_n: ts-irq-n-gpio-state {
- 		pins = "gpio125";
- 		function = "gpio";
- 		drive-strength = <2>;
+Here is the summary with links:
+  - [net-next] net: stmmac: qcom-ethqos: set clk_csr
+    https://git.kernel.org/netdev/net-next/c/789ec16eb397
 
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
 
 _______________________________________________
