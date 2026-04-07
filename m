@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WAVCBBJp1GlCtwcAu9opvQ
+	id iLg+OhFp1GnptgcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Apr 2026 04:16:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Apr 2026 04:16:49 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 918833A8F28
+	by mail.lfdr.de (Postfix) with ESMTPS id 881703A8F26
 	for <lists+linux-stm32@lfdr.de>; Tue, 07 Apr 2026 04:16:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48FD9C8F281;
-	Tue,  7 Apr 2026 02:10:04 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 54F94C8F282;
+	Tue,  7 Apr 2026 02:10:07 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BAAB6C36B3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D4F29C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Apr 2026 02:10:02 +0000 (UTC)
+ Tue,  7 Apr 2026 02:10:05 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 886C94033D;
- Tue,  7 Apr 2026 02:10:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965B2C2BC9E;
- Tue,  7 Apr 2026 02:09:59 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 9F4A66133A;
+ Tue,  7 Apr 2026 02:10:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDFAFC2BCB2;
+ Tue,  7 Apr 2026 02:10:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775527801;
- bh=l09qNxpZb2Z1OjdsheCfqqB6WqqZEIYEjhtnuPN66eg=;
+ s=k20201202; t=1775527804;
+ bh=ZIIp/+ZUoCnQFU4UxASiRQxcQE6IhtOQ6CK/qGpyTpk=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=K/XT+t2dUq4UZUpycoC/TjCJryznGtdzS7KsFBX/zOgT6p/Dyu+gZjCGebF8q1Fsu
- tRc3uUvMRPSl8hAEGe+1yUuM2rM4yAPo1wvlPy6dRkrt7xS5EAVniNWzawuJT5q57v
- j2ElEqf7orzMg09jO30j1Bh10HhlVMiHh/oQcS1V/zAw59MJ2LDfLXsJ5wNK2bc88T
- O6e8KRDP2qyeDnLJW0qagfnBY7YC/XJHzWTKYNUp947c+jndZsiz6lax+fu8i0dZwg
- nfE9ST9hBXBB1/oEuTje5L2oNyFWaw96a5IRopzwr6d3RMT6tulObgZ5Bne0+G7g0z
- hYJkTyeJLAh9g==
+ b=YheRBWI9F1HtwM5G2yFcl/FwnK3egO39Fh7LQR9y1FIfLXGbOI8XXGmqxsOnBUXW9
+ YL8KsmM170BEIkKX0kBJX057CRwyWOO2CLV30RDNLLcbmsLc0+6XObTTmwtJXCWCn7
+ wGBEBWJEWCIpoOSwbFABvEe3w/u6CjzpfUAQi/SizmkqlqNO3c5t6RCEqF7UW4Ukx7
+ 9Sh/53wIf/nsDJPF8f9Xo6f+L4cI6QD4727REsxx16GfTCKmPj/Svcskl37NTaAnuh
+ jDtSzPfNSvHofGxD4YIskqMnAHHVSsoR5cbgmL8sh7bVMxVHMbY+eiXv9NrPkHfTQO
+ Wt9CKCQgD7mzQ==
 From: Jakub Kicinski <kuba@kernel.org>
 To: jitendra.vegiraju@broadcom.com
-Date: Mon,  6 Apr 2026 19:09:58 -0700
-Message-ID: <20260407020958.3674568-1-kuba@kernel.org>
+Date: Mon,  6 Apr 2026 19:10:01 -0700
+Message-ID: <20260407021001.3674617-1-kuba@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260402213629.1996133-3-jitendra.vegiraju@broadcom.com>
-References: <20260402213629.1996133-3-jitendra.vegiraju@broadcom.com>
+In-Reply-To: <20260402213629.1996133-4-jitendra.vegiraju@broadcom.com>
+References: <20260402213629.1996133-4-jitendra.vegiraju@broadcom.com>
 MIME-Version: 1.0
 Cc: quic_abchauha@quicinc.com, me@ziyao.cc, chenchuangyu@xiaomi.com,
  edumazet@google.com, lizhi2@eswincomputing.com, yangtiezhu@loongson.cn,
@@ -56,8 +56,8 @@ Cc: quic_abchauha@quicinc.com, me@ziyao.cc, chenchuangyu@xiaomi.com,
  linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
  horms@kernel.org, bpf@vger.kernel.org, davem@davemloft.net,
  ovidiu.panait.rb@renesas.com
-Subject: Re: [Linux-stm32] [PATCH net-next v9 2/4] net: stmmac: Integrate
-	dw25gmac into hwif handling
+Subject: Re: [Linux-stm32] [PATCH net-next v9 3/4] net: stmmac: Add PCI glue
+	driver for BCM8958x
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -106,107 +106,116 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
-	NEURAL_SPAM(0.00)[0.744];
+	NEURAL_SPAM(0.00)[0.766];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 918833A8F28
+X-Rspamd-Queue-Id: 881703A8F26
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 This is an AI-generated review of your patch. The human sending this
 email has considered the AI review valid, or at least plausible.
 ---
-net: stmmac: Integrate dw25gmac into hwif handling
+Date:   Thu Apr 2 21:36:28 2026 +0000
 
-Integrate dw25gmac support into stmmac hardware interface handling.
-Added a new entry to the stmmac_hw table in hwif.c.
+    net: stmmac: Add PCI glue driver for BCM8958x
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> index 511b0fd5e8343..a69f558c0db06 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-> @@ -287,6 +287,26 @@ static const struct stmmac_hwif_entry {
->  		.mmc = &dwxgmac_mmc_ops,
->  		.est = &dwmac510_est_ops,
->  		.setup = dwxlgmac2_setup,
-> +	}, {
-> +		.core_type = DWMAC_CORE_25GMAC,
-> +		.min_id = DW25GMAC_CORE_3_20,
+    Add pci ethernet driver support for Broadcom BCM8958x soc devices used
+    in automotive applications. This device features a pcie ethernet mac
+    directly attached to an integrated ethernet switch using an xgmii interface.
 
-Are there other areas where the core capabilities will be misidentified?
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
+> new file mode 100644
+> index 0000000000000..e8c6b4b618acb
+> --- /dev/null
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-brcm.c
+[ ... ]
+> +static const struct software_node *brcm_swnodes[] = {
+> +	&parent_swnode,
+> +	&fixed_link_swnode,
+> +	NULL
+> +};
 
-Throughout stmmac_main.c and stmmac_ethtool.c, hardware features branch
-explicitly on core_type == DWMAC_CORE_XGMAC instead of including
-DWMAC_CORE_25GMAC.
+Will this statically allocated global software node array cause issues if
+multiple devices are present?
 
-This seems to cause a few side effects:
-- stmmac_ethtool_get_drvinfo() misreports the driver as MAC100_ETHTOOL_NAME
-  (st_mac100).
-- stmmac_main.c enforces legacy MTU limits rather than XGMAC_JUMBO_LEN.
-- stmmac_dma_cap_show() debugfs output treats the 25GMAC count of multiple
-  MAC address registers as a simple boolean and omits Timestamp System Time
-  Source details.
+If a second device is probed, software_node_register_node_group might fail
+with an error. Additionally, if one device is unbound, unregistering the
+group could destroy the global nodes, causing a use-after-free for any other
+active instances.
 
-Does this also break MDIO communication for the PHY?
+Could these software nodes be dynamically allocated per-device?
 
-In stmmac_mdio_register(), XGMAC MDIO accessors are assigned strictly if
-priv->plat->core_type == DWMAC_CORE_XGMAC. Because 25GMAC is omitted, it
-falls into the else block and assigns legacy GMAC callbacks like
-stmmac_mdio_read_c22().
+[ ... ]
+> +static int brcm_drv_init(struct device *dev, void *bsp_priv)
+> +{
+> +	struct brcm_priv_data *brcm_priv = (struct brcm_priv_data *)bsp_priv;
+> +	struct pci_dev *pdev = to_pci_dev(dev);
+> +	int vector;
+> +	int ret;
+> +
+> +	/* This device is directly attached to the switch chip internal to the
+> +	 * SoC using XGMII interface. Since no MDIO is present, register
+> +	 * fixed-link software_node to create phylink.
+> +	 */
+> +	ret = software_node_register_node_group(brcm_swnodes);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret,
+> +				     "failed to register software_node\n");
+> +	device_set_node(dev, software_node_fwnode(&parent_swnode));
 
-The GMAC accessors format the control word using GMAC bitfields (checking
-MII_ADDR_GBUSY at bit 0), while the XGMAC register layout expects
-MII_XGMAC_BUSY at bit 22.
+Does device_set_node overwrite the device's primary firmware node here?
 
-Could this misconfiguration write invalid bit patterns to the register and
-wait on the wrong bit?
+Using device_set_node can destroy existing acpi or device tree companion
+nodes. Would it be safer to use device_add_software_node instead to attach
+the node without overwriting the primary firmware node?
 
-> +		.regs = {
-> +			.ptp_off = PTP_XGMAC_OFFSET,
-> +			.mmc_off = MMC_XGMAC_OFFSET,
-> +			.est_off = EST_XGMAC_OFFSET,
+> +
+> +	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LOW,
+> +			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_LO_VALUE);
+> +	pci_write_config_dword(pdev, XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HIGH,
+> +			       XGMAC_PCIE_CFG_MSIX_ADDR_MATCH_HI_VALUE);
+> +
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_LO_VALUE);
+> +	misc_iowrite(brcm_priv, XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_OFFSET,
+> +		     XGMAC_PCIE_MISC_MSIX_ADDR_MATCH_HI_VALUE);
 
-Will this misconfigure the Time-to-Output Value for EST (802.3 Qbv)?
+[ ... ]
 
-In stmmac_est.c, est_configure() and est_irq_status() use
-if (priv->plat->core_type == DWMAC_CORE_XGMAC) to differentiate XGMAC from
-GMAC5.
+> +static void brcm_drv_exit_cleanup(struct device *dev, void *bsp_priv)
+> +{
+> +	struct pci_dev *pdev = to_pci_dev(dev);
+> +
+> +	device_set_node(&pdev->dev, NULL);
+> +	software_node_unregister_node_group(brcm_swnodes);
+> +}
 
-Without 25GMAC in that check, it falls through to the GMAC5 logic, applying
-the EST_GMAC5_PTOV mask (bits 31:24) instead of the EST_XGMAC_PTOV mask
-(bits 31:23) to the EST control register at EST_XGMAC_OFFSET.
+If device_set_node is called with NULL, will it leave the device permanently
+mangled without its original firmware node upon unbind?
 
-> +		},
-> +		.desc = &dwxgmac210_desc_ops,
-> +		.dma = &dw25gmac400_dma_ops,
-> +		.mac = &dwxgmac210_ops,
+[ ... ]
+> +static int brcm_pci_resume(struct device *dev, void *bsp_priv)
+> +{
+> +	/* Enable Switch Link */
+> +	misc_iowrite(bsp_priv, XGMAC_PCIE_MISC_MII_CTRL_OFFSET,
+> +		     XGMAC_PCIE_MISC_MII_CTRL_PAUSE_RX |
+> +		     XGMAC_PCIE_MISC_MII_CTRL_PAUSE_TX |
+> +		     XGMAC_PCIE_MISC_MII_CTRL_LINK_UP);
+> +
+> +	return stmmac_pci_plat_resume(dev, bsp_priv);
+> +}
 
-Does adding these ops introduce a buffer overflow during ethtool register
-dumps?
+Will the hardware state configured in brcm_drv_init be fully restored after
+a suspend and resume cycle?
 
-Since stmmac_ethtool_get_regs_len() does not match DWMAC_CORE_25GMAC, it
-falls back to returning REG_SPACE_SIZE (4192 bytes, or 1048 u32 elements).
+When a pci device resumes from suspend, its internal state is typically reset
+to defaults. Since the pci core's pci_save_state does not save arbitrary mmio
+registers or custom extended configuration registers, it appears the msi-x
+routing and address match configurations programmed during probe might be
+lost.
 
-However, these ops use the dwxgmac2_dump_regs() and dwxgmac2_dma_dump_regs()
-callbacks, which write far beyond the 1048-element buffer:
-
-- dwxgmac2_dump_regs() writes up to index XGMAC_MAC_REGSIZE (1309 elements).
-- dwxgmac2_dma_dump_regs() writes from XGMAC_DMA_MODE / 4 (3072) to
-  XGMAC_REGSIZE (3647 elements).
-
-Will this corrupt kernel memory when a privileged user runs ethtool -d?
-
-> +		.vlan = &dwxgmac210_vlan_ops,
-> +		.hwtimestamp = &stmmac_ptp,
-> +		.ptp = &stmmac_ptp_clock_ops,
-> +		.mode = NULL,
-> +		.tc = &dwmac510_tc_ops,
-> +		.mmc = &dwxgmac_mmc_ops,
-> +		.est = &dwmac510_est_ops,
-> +		.setup = dw25gmac_setup,
-> +		.quirks = NULL,
->  	},
->  };
+Could this cause the msi-x interrupts to stop working after resume?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
