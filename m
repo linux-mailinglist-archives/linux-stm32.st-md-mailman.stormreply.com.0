@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gMlEF0kj1mklBQgAu9opvQ
+	id ELuvOdEi1mklBQgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:43:37 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:41:37 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F2D193BA0B3
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:43:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C52E3BA01A
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:41:37 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7FD62C87EBC;
-	Wed,  8 Apr 2026 09:43:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B334C87EBC;
+	Wed,  8 Apr 2026 09:41:37 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 86ACEC36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 31C45C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Apr 2026 09:43:35 +0000 (UTC)
+ Wed,  8 Apr 2026 09:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=FhdQTZ4PjxdShoN2GRJESKI6NUEw1EHbjw1nk/1gbzU=; b=LWVCNGgRtCTuIthGvixb61A+O8
- C2GNvXJWZ6kxkTafqTGqfuUL71asdjM1C2FYgZxL8iRhdtav91LuRpZsj/TXI9qZZBkvHrFk1Vj5i
- kbivRDeMv+KpkJm01SUtrvuMNbIS0+Q59yHymN4CAfKBoRgix4wOLmcW7+2gZmX5BimGmv+F8PV3t
- UcIubeLHH3CpwG9f2+lrHiAvC4NNr0YGeCUycptUVkDaa91iXSLScagfulUk1LMfd9H2SE24BsKZI
- x+b+iwzDfF8xqRZ3f6q7CB7HOycps5zd8x/ajUNl0ypsIUIjcAPyFbE5v2f1MlEVu7IzzR6F+syg1
- S+e4yaew==;
+ bh=ymap6qnTrcZjA2wjOv/aJIypsrfZm0ThDKHwcJw6fQA=; b=KBRtZISkGajYEF77tW0PaVeWQX
+ cPZnzgBxvtuhhdl0AWKtISEgdRk5ygONloyCeyvc7bShsFUU291gw31NnmZThiKumCavoDUxWZ7ht
+ cVFxKfusOkbLHw7diDcG/m/WO3KmVv7Y38vbfzTiDlCH3hIE7MQt+BAIhGaN+SOZknZvPt/nDFVer
+ nX9Wo9T5rTYa1vxaHQ/lmKiB9p4+CfBiZll05OfJ9M7/jxzZGMStDbGxzi0qdRsZw0SJavADbkyRZ
+ OUT8++lqg326oe/ePFqZ6aNhK2gp3lxLY6XKiSo7EBlX3bdqQV2MVuRQa7MzXTkTRzYo9u5SC8NNU
+ w5ecUjoQ==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:33750 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:36872 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1wAPC8-00000000246-3oVx;
- Wed, 08 Apr 2026 10:27:33 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1wAPCB-0000000024F-27WA;
+ Wed, 08 Apr 2026 10:27:35 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1wAPC1-0000000F7kl-15YL; Wed, 08 Apr 2026 10:27:25 +0100
+ id 1wAPC6-0000000F7kr-1b7i; Wed, 08 Apr 2026 10:27:30 +0100
 In-Reply-To: <adYfPBHsXxQUsMyr@shell.armlinux.org.uk>
 References: <adYfPBHsXxQUsMyr@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1wAPC1-0000000F7kl-15YL@rmk-PC.armlinux.org.uk>
-Date: Wed, 08 Apr 2026 10:27:25 +0100
+Message-Id: <E1wAPC6-0000000F7kr-1b7i@rmk-PC.armlinux.org.uk>
+Date: Wed, 08 Apr 2026 10:27:30 +0100
 Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
@@ -54,8 +54,8 @@ Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
  linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next 09/10] net: stmmac: clean up test
- for rx_coe debug printing
+Subject: [Linux-stm32] [PATCH RFC net-next 10/10] net: stmmac: only print
+ receive COE type for GMAC cores
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.278];
+	NEURAL_SPAM(0.00)[0.245];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
@@ -105,94 +105,35 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,rmk-PC.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: F2D193BA0B3
+	DBL_BLOCKED_OPENRESOLVER(0.00)[rmk-PC.armlinux.org.uk:mid,armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 8C52E3BA01A
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The test for printing rx_coe as opposed to rx_coe_type[12] and
-rxfifo_over_2048 has checked for an XGMAC core or the Synopssys IP
-version (snpsver) >= v4.0.
-
-Since the Synopsys IP version depends on the core type, avoid using it.
-
-The GMAC4 core type uses dwmac4_get_hw_feature(), which populates
-rx_coe but not rx_coe_type[12] or rxfifo_over_2048. XGMAC is the same
-but via dwxgmac2_get_hw_feature().
-
-dwmac-motorcomm populates rx_coe but not the others, and sets the core
-type to GMAC4. The Synopsys IP version is likely >= 4, but in any case
-printing rx_coe is clearly more correct.
-
-Lastly, dwmac-sun8i is an oddball - it sets rx_coe, but does not set
-core_type, leaving it as the defeault DWMAC_CORE_MAC100 since as far
-as I can see, none of the .dtsi files for this platform use any of the
-versioned snps,gmac-* compatibles. Moreover, sun8i_dwmac_setup() sets
-snpsver to zero (which stmmac_get_version() will have already done) so
-this has always used the rx_coe_type[12] path.
-
-Change the test to check for GMAC4 or XGMAC which covers the cases
-where rx_coe is set from the core hardware features.
-
-Also add a comment for the GMAC to GMAC4+ rx_coe feature translation in
-stmmac_hw_init(), and document rx_coe in struct plat_stmmacenet_data.
+As identified in the previous commit, only GMAC cores have a COE type,
+but priv->snpsver's numberspace is core specific. Change the test for
+printing this to check the core type instead of checking for the
+Synopssys IP version being < v4.0, which will incorrectly match XGMAC
+cores.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++++--
- include/linux/stmmac.h                            |  7 +++++++
- 2 files changed, 16 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index e47321119c83..93c031b3cfd5 100644
+index 93c031b3cfd5..f5fe97c1abd4 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -6624,11 +6624,15 @@ static int stmmac_dma_cap_show(struct seq_file *seq, void *v)
- 	seq_printf(seq, "\tAV features: %s\n", (priv->dma_cap.av) ? "Y" : "N");
- 	seq_printf(seq, "\tChecksum Offload in TX: %s\n",
- 		   (priv->dma_cap.tx_coe) ? "Y" : "N");
--	if (priv->snpsver >= DWMAC_CORE_4_00 ||
--	    priv->plat->core_type == DWMAC_CORE_XGMAC) {
-+	if (dwmac_is_xmac(priv->plat->core_type)) {
-+		/* gmac4, xgmac, and motorcomm populate this. */
- 		seq_printf(seq, "\tIP Checksum Offload in RX: %s\n",
- 			   (priv->dma_cap.rx_coe) ? "Y" : "N");
- 	} else {
-+		/* only dwmac1000 has these three. sun8i sets rx_coe, but
-+		 * sets snpsver to zero and leaves core_Type as MAC100, so
-+		 * uses this path.
-+		 */
- 		seq_printf(seq, "\tIP Checksum Offload (type1) in RX: %s\n",
- 			   (priv->dma_cap.rx_coe_type1) ? "Y" : "N");
- 		seq_printf(seq, "\tIP Checksum Offload (type2) in RX: %s\n",
-@@ -7441,6 +7445,9 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
- 		/* In case of GMAC4 rx_coe is from HW cap register. */
- 		priv->plat->rx_coe = priv->dma_cap.rx_coe;
- 
-+		/* GMAC (dwmac1000) has separate bits for the Rx COE type.
-+		 * Translate to the GMAC4/XGMAC rx_coe feature code.
-+		 */
- 		if (priv->dma_cap.rx_coe_type2)
- 			priv->plat->rx_coe = STMMAC_RX_COE_TYPE2;
- 		else if (priv->dma_cap.rx_coe_type1)
-diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
-index 4430b967abde..c80d45de0067 100644
---- a/include/linux/stmmac.h
-+++ b/include/linux/stmmac.h
-@@ -256,6 +256,13 @@ struct plat_stmmacenet_data {
- 	bool force_sf_dma_mode;
- 	bool force_thresh_dma_mode;
- 	bool riwt_off;
-+	/* rx_coe:
-+	 * for dwmac100, rx_coe does not appear to be defined.
-+	 * for dwmac1000, rx_coe takes one of the STMMAC_RX_COE_* constants,
-+	 *  which will be derived from the RXTYP[12]COE hardware feature bits.
-+	 * for dwmac4 and xgmac, rx_coe is a boolean from the RXCOESEL hardware
-+	 *  feature bit.
-+	 */
- 	int rx_coe;
- 	int max_speed;
- 	int maxmtu;
+@@ -7461,7 +7461,7 @@ static int stmmac_hw_init(struct stmmac_priv *priv)
+ 	if (priv->plat->rx_coe) {
+ 		priv->hw->rx_csum = priv->plat->rx_coe;
+ 		dev_info(priv->device, "RX Checksum Offload Engine supported\n");
+-		if (priv->snpsver < DWMAC_CORE_4_00)
++		if (priv->plat->core_type == DWMAC_CORE_GMAC)
+ 			dev_info(priv->device, "COE Type %d\n", priv->hw->rx_csum);
+ 	}
+ 	if (priv->plat->tx_coe)
 -- 
 2.47.3
 
