@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8JpsNeJz1mkWFggAu9opvQ
+	id QDsSGF511mlQFggAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:27:30 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:33:50 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A8903BE2D1
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:27:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E0C73BE40D
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:33:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17B4DC08D19;
-	Wed,  8 Apr 2026 15:27:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F79FC1A97F;
+	Wed,  8 Apr 2026 15:33:49 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 553EEC36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA73CC36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Apr 2026 15:27:29 +0000 (UTC)
+ Wed,  8 Apr 2026 15:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=op+B3ErYB5SBcGjElH6T2ek86yNhHxdxH13kWG1CBYs=; b=BKQmG4K9tJCtjhNAXG6TxT0IBN
- Pwo4XyCDvP0dqFbMMGg5bN2g3GV1rsk+ynecpZfDpMTojaOxoOwd/NZSeTZHHQlw66eksRNuugYzL
- Q7YvSmKjwb00aOSNcrav8Jln9k86I2MYVFd7JDLUf+++tiGHCZRsvaZDBxYXONCnpE6U=;
+ bh=8Uykcwf1/jusGhi677ao2PaEFHdQ0GoTAXYWwBrCb1c=; b=uwY/XJNme/3LLDWPW0fICklwUX
+ gLM4Z9OEfOBDB+8/hHkBi9lXWLMW5MC7UxUhvNHwp8OwdBzH/XTQJEGbsL3v+SqufRslh8JYlqHSl
+ +VjWve28F8N0vEku4zKPWRk/execLBSp7SuSDPJtU9qYc7sKGI3Dp2wSgIHfgdQfjZFA=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wAUoE-00FJBU-SA; Wed, 08 Apr 2026 17:27:14 +0200
-Date: Wed, 8 Apr 2026 17:27:14 +0200
+ id 1wAUuQ-00FJF6-IT; Wed, 08 Apr 2026 17:33:38 +0200
+Date: Wed, 8 Apr 2026 17:33:38 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Minda Chen <minda.chen@starfivetech.com>
-Message-ID: <ad9ee916-6f8a-4cb9-8016-54a02b00c7ab@lunn.ch>
+Message-ID: <c69cf692-87be-43b5-93ee-38040d5cb1bf@lunn.ch>
 References: <20260408084416.29753-1-minda.chen@starfivetech.com>
- <20260408084416.29753-2-minda.chen@starfivetech.com>
+ <20260408084416.29753-4-minda.chen@starfivetech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260408084416.29753-2-minda.chen@starfivetech.com>
+In-Reply-To: <20260408084416.29753-4-minda.chen@starfivetech.com>
 Cc: devicetree@vger.kernel.org,
  Emil Renner Berthing <emil.renner.berthing@canonical.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -47,8 +47,8 @@ Cc: devicetree@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [net-next v1 v1 1/5] dt-bindings: net: starfive,
- jh7110-dwmac: Remove JH8100
+Subject: Re: [Linux-stm32] [net-next v1 v1 3/5] dt-bindings: net: starfive,
+ jh7110-dwmac: Add JHB100 sgmii rx clk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,25 +93,37 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[lunn.ch:-];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	NEURAL_SPAM(0.00)[0.601];
+	NEURAL_SPAM(0.00)[0.682];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 7A8903BE2D1
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,lunn.ch:mid]
+X-Rspamd-Queue-Id: 0E0C73BE40D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Wed, Apr 08, 2026 at 04:44:12PM +0800, Minda Chen wrote:
-> Remove JH8100 dt-bindings because do not support it now.
+> +      - description: SGMII RX clock
+>  
+>    clock-names:
+> -    items:
+> -      - const: stmmaceth
+> -      - const: pclk
+> -      - const: ptp_ref
+> -      - const: tx
+> -      - const: gtx
+> +    minItems: 5
+> +    maxItems: 6
+> +    contains:
+> +      enum:
+> +       - stmmaceth
+> +       - pclk
+> +       - ptp_ref
+> +       - tx
+> +       - gtx
+> +       - rx
 
-Could you expand on that. If there are devices out in the field, we
-don't just drop support for it because the vendor has something newer.
-
-If the device never made it outside of the vendors lab, then we might
-consider dropping it.
-
-Please explain in detail why this is being dropped.
+If this is only used for sgmii, maybe it should have sgmii in the
+name?
 
 	Andrew
 _______________________________________________
