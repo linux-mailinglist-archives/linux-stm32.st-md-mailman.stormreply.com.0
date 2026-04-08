@@ -2,50 +2,83 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eFjbFyAN1mmfAwgAu9opvQ
+	id MJiMAEI91mlZBwgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 10:09:04 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 13:34:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 754073B8C2E
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 10:08:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8F58C3BB525
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 13:34:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2600EC87EC5;
-	Wed,  8 Apr 2026 08:08:57 +0000 (UTC)
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31178C87ED1;
+	Wed,  8 Apr 2026 11:34:25 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A968C87EBC
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A181FC36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Apr 2026 08:08:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
- from:content-type:reply-to; bh=l8aaaehgysH2hcfIZINOSwreJrwK4RdOvdUPlIC0mwY=; 
- b=slUEtJ/asWbPK7wnHP/gklNlHvd8xYUVOgV7KqsctVF0ppZufBjaEoKrx4uKCIFoT0WdMnVKWh+
- bJAWhVlVJTOA2HTDu1xujmh/z0mzsLtscPH+w7p04GhBOG4vIVpWC43em4L/bs3MVLhwN2L8J8SDD
- repz4041mk82cl6wgKpsEeZ6FX6WL3UWSpv4kYaVUjqnQLkCk0+Gg/R9BK+mz4c4CLwahZtGZaFmS
- A+uTUvQhzSAR8Zjjo65NbuJaSYXxhjM/0tPbVstNxH5expWzTHbzCIX3xFDHfAxqIZzmlbFLLjFjW
- kzGcG3agrG34DXtK3DBleJ1Bz6moytH7I1Hw==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
- by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
- id 1wANYN-004dIK-1B; Wed, 08 Apr 2026 16:08:43 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Wed, 08 Apr 2026 16:08:42 +0800
-Date: Wed, 8 Apr 2026 16:08:42 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Message-ID: <adYNClYB6RY820Xl@gondor.apana.org.au>
-References: <20260407192859.270745-1-hamzamahfooz@linux.microsoft.com>
+ Wed,  8 Apr 2026 08:44:39 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-66ba9898ae8so1185882a12.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Apr 2026 01:44:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1775637879; x=1776242679;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=Mn7wQQPeIAPXSFjgjTqJdELriWK6r3kCAJfIBvkQ3a0=;
+ b=ZPDLdGQxmDwhXwgtrBBusdYiwY3+GmTYguEfYG9q7IYI9wT8r0XzCUyiKNKAQ+McUp
+ CY8JXW19384t+DV+TTNfcoDdZ/UNTQDgTEF+MsGH7Ct6f8orgrgfW6NMZq1hNmLnx2sF
+ fy6p0ZhhyhobNvXeuEWRGrHyOLwOnyVpBTyOA5ziTGczl97FNG/PDOlSZa/5bsZW7JAF
+ vnnsey4Z8t5tPtNo2Y04aP95q0cEl6hnS1YhNX3goeMKW+OF/074WpjDCNe48D3+ifue
+ b2B834zfmOI4ph9M4HkfkwLlOzH1sonjS+IvxRbgfCPqid3hf7e/TI9IpU6zzQrQY+EG
+ b6Sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1775637879; x=1776242679;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=Mn7wQQPeIAPXSFjgjTqJdELriWK6r3kCAJfIBvkQ3a0=;
+ b=px3vu0yOt4kYPgewgMyk50Igh8cpZeH5WATuZJRTtj8qNJD48fHBE2j/Yv3C7aRNw8
+ 6kQTYci1z+rEjKoK9t0ZhEj/uRNHj+AB3tRyJ9K/xcOUTbKqcdpJbwEQBOCsetZKbx7X
+ ny5kGzpKgeZgPQJn3g8wpgdHwXjRrzDVdMPbTrq0HMR8RPoiwcPFrqQbM+yOAT+1kAVY
+ EX9V36ZP3Hweeya7jMpRwu9hczysi/ctQAStzZXaSNNNAO65kePZhmYBlk5EGURy7I/C
+ 4er7t1++bdV0EMeWCcmQ0/74LrtGCMkIF4Y8eL48bogJIga6mf4G2YTlOZv1WCBijPG9
+ Bkjw==
+X-Forwarded-Encrypted: i=1;
+ AJvYcCXJD52eRGVPu+GBO2WGft827gGhjvoInCCJqjpALuQnlnsfvCkAUcLbeO+L1fLIuGufYpH6Lpa4+GWq4g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw5iwlnzYc0E/E9FaQgtwBwsfgsWukUk05qC1L/KlkXmIDgXfiL
+ Ohn0oAfcKtp8q/kbACaj/Ke7dYRE+tBLxhTDo2gf1HOwNx9eh30HMU9g
+X-Gm-Gg: AeBDieuCtV6yAg9fXGmi029dFUo885MBuTNygnfEOf/4/8rasnvIPSijS9xOMrCMLP8
+ z6uC/lCToZNgZeOTPcFSrNIRwoEbK95bzEW2VUjVy9hl9AcHslZ6nq7X+IprcLHz7Hk5vHxGcEp
+ uxCRuZWYfzgt78FwfNH1MJSdsgMug+T6zm0ZMW9tLU29ib/oLbJNYIkfVPpZx+On9wL9gdZgdC0
+ l+CuySboXmGMmzBsPhit+fIE4bZPCzLbrF62B2vn2XQJ8lHSpzDBzsOMzybPs4fX2abj9DNfMKZ
+ SAsHH22DxgyF6j+Ks5xPkJqxGzoEKvMv2XtV+BHRcthG0dq1JDyAg2gTipap8rbEWlD8PiASa4d
+ RavWwo9TmTkjC6u01WK5/P25F6HJXQ+PipiKM3O6aIWWf7vIBEgjiKfjjwFnmE+DwOLGudd9gLd
+ joNigvZuXsuh0qgg0usaA7ex0Xs1NuqhZmySHPS6dvPg==
+X-Received: by 2002:a17:907:971a:b0:b97:fec5:eced with SMTP id
+ a640c23a62f3a-b9c46a55746mr1174761366b.0.1775637878710; 
+ Wed, 08 Apr 2026 01:44:38 -0700 (PDT)
+Received: from tm-Precision-5570.. ([213.192.89.162])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-66e034c9c47sm4815194a12.29.2026.04.08.01.44.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 08 Apr 2026 01:44:37 -0700 (PDT)
+From: Tomasz Merta <tommerta@gmail.com>
+To: alsa-devel@alsa-project.org
+Date: Wed,  8 Apr 2026 10:40:56 +0200
+Message-Id: <20260408084056.20588-1-tommerta@gmail.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260407192859.270745-1-hamzamahfooz@linux.microsoft.com>
-Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>, linux-kernel@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Paul Monson <paul.monson@capgemini.com>
-Subject: Re: [Linux-stm32] [PATCH] crypto: tstmgr - guard xxhash tests
+X-Mailman-Approved-At: Wed, 08 Apr 2026 11:34:23 +0000
+Cc: mcoquelin.stm32@gmail.com, linux-kernel@vger.kernel.org, tiwai@suse.com,
+ lgirdwood@gmail.com, broonie@kernel.org, Tomasz Merta <tommerta@gmail.com>,
+ Tomasz Merta <tomasz.merta@arrow.com>, perex@perex.cz,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] Subject: ASoC stm32_sai: fix incorrect BCLK
+	polarity for DSP_A/B, LEFT_J
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -61,68 +94,99 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[apana.org.au : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gondor.apana.org.au:s=h01];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_CC(0.00)[linux.microsoft.com,vger.kernel.org,davemloft.net,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org,capgemini.com];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:hamzamahfooz@linux.microsoft.com,m:jeffbarnes@linux.microsoft.com,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:paul.monson@capgemini.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
-	DKIM_TRACE(0.00)[gondor.apana.org.au:-];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RBL_SEM_FAIL(0.00)[52.209.6.89:query timed out];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	SEM_URIBL_FRESH15_UNKNOWN_FAIL(0.00)[stormreply.com:query timed out];
-	SEM_URIBL_UNKNOWN_FAIL(0.00)[capgemini.com:query timed out];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,suse.com,kernel.org,arrow.com,perex.cz,st-md-mailman.stormreply.com,lists.infradead.org];
+	FORGED_SENDER(0.00)[tommerta@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:alsa-devel@alsa-project.org,m:mcoquelin.stm32@gmail.com,m:linux-kernel@vger.kernel.org,m:tiwai@suse.com,m:lgirdwood@gmail.com,m:broonie@kernel.org,m:tommerta@gmail.com,m:tomasz.merta@arrow.com,m:perex@perex.cz,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[herbert@gondor.apana.org.au,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	NEURAL_SPAM(0.00)[0.726];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[tommerta@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[capgemini.com:email,apana.org.au:email,apana.org.au:url]
-X-Rspamd-Queue-Id: 754073B8C2E
+	NEURAL_SPAM(0.00)[0.940];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[]
+X-Rspamd-Queue-Id: 8F58C3BB525
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, Apr 07, 2026 at 12:28:59PM -0700, Hamza Mahfooz wrote:
-> If the kernel isn't built with CONFIG_CRYPTO_XXHASH and booted with FIPS
-> mode enabled it will currently panic. So, only benchmark xxhash64 if
-> CRYPTO_XXHASH is enabled.
-> 
-> Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>
-> Cc: Paul Monson <paul.monson@capgemini.com>
-> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-> ---
->  crypto/testmgr.c | 2 ++
->  1 file changed, 2 insertions(+)
+From: Tomasz Merta <tomasz.merta@arrow.com>
 
-Please show me the panic.  Normally it's not an issue if an algorithm
-is not present while the test vectors are.
+The STM32 SAI driver do not set the clock strobing bit (CKSTR) for DSP_A,
+DSP_B and LEFT_J formats, causing data to be sampled on the wrong BCLK
+edge when SND_SOC_DAIFMT_NB_NF is used.
 
-Thanks,
+Per ALSA convention, NB_NF requires sampling on the rising BCLK edge.
+The STM32MP25 SAI reference manual states that CKSTR=1 is required for
+signals received by the SAI to be sampled on the SCK rising edge.
+Without setting CKSTR=1, the SAI samples on the falling edge, violating
+the NB_NF convention. For comparison, the NXP FSL SAI driver correctly
+sets FSL_SAI_CR2_BCP for DSP_A, DSP_B and LEFT_J, consistent with its
+I2S handling.
+
+This patch adds SAI_XCR1_CKSTR for DSP_A, DSP_B and LEFT_J in
+stm32_sai_set_dai_fmt which was verified empirically with a cs47l35 codec.
+RIGHT_J (LSB) is not investigated and addressed by this patch.
+
+Note: the STM32 I2S driver (stm32_i2s_set_dai_fmt) may have the same issue
+for DSP_A mode, as I2S_CGFR_CKPOL is not set. This has not been verified
+and is left for a separate investigation.
+
+Signed-off-by: Tomasz Merta <tommerta@gmail.com>
+---
+ sound/soc/stm/stm32_sai_sub.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
+index 450e1585edee..3e82fa90e719 100644
+--- a/sound/soc/stm/stm32_sai_sub.c
++++ b/sound/soc/stm/stm32_sai_sub.c
+@@ -802,6 +802,7 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
+ 		break;
+ 	/* Left justified */
+ 	case SND_SOC_DAIFMT_MSB:
++		cr1 |= SAI_XCR1_CKSTR;
+ 		frcr |= SAI_XFRCR_FSPOL | SAI_XFRCR_FSDEF;
+ 		break;
+ 	/* Right justified */
+@@ -809,9 +810,11 @@ static int stm32_sai_set_dai_fmt(struct snd_soc_dai *cpu_dai, unsigned int fmt)
+ 		frcr |= SAI_XFRCR_FSPOL | SAI_XFRCR_FSDEF;
+ 		break;
+ 	case SND_SOC_DAIFMT_DSP_A:
++		cr1 |= SAI_XCR1_CKSTR;
+ 		frcr |= SAI_XFRCR_FSPOL | SAI_XFRCR_FSOFF;
+ 		break;
+ 	case SND_SOC_DAIFMT_DSP_B:
++		cr1 |= SAI_XCR1_CKSTR;
+ 		frcr |= SAI_XFRCR_FSPOL;
+ 		break;
+ 	default:
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
