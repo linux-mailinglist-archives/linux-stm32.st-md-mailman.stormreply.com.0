@@ -2,51 +2,51 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8MwcOocf1mklBQgAu9opvQ
+	id 6PJ6J40f1mklBQgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:27:35 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:27:41 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C403B9DF9
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:27:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 817863B9E07
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 11:27:41 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26031C08D19;
-	Wed,  8 Apr 2026 09:27:35 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3D069C08D19;
+	Wed,  8 Apr 2026 09:27:41 +0000 (UTC)
 Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65A50C36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8E8C6C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Apr 2026 09:27:33 +0000 (UTC)
+ Wed,  8 Apr 2026 09:27:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=armlinux.org.uk; s=pandora-2019; h=Date:Sender:Message-Id:Content-Type:
  Content-Transfer-Encoding:MIME-Version:Subject:Cc:To:From:References:
  In-Reply-To:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
  Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
  List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=NnhKaayKX2ym3axLouWbyDpq6J08FaMtPXyF8+AIVRQ=; b=C8O2NmSYhN3gcqt/4N8/XEsW4/
- 6LCi4AVhCwL+VBVW4gwYUj7fvUauUkWoYfqxGDbxBLMDaF57h4rqm+1+CN+5OPVdYa0LrLiaXYg/a
- Zh/Rzp2NsVCy/qCU0GbjKtTumihSgCbkR2FA2DVXU7izrvjcbzAHc4yVqNTDAbsBU+wx8abvr1g9c
- svIr2MjF+6UpTwuFCZkeUUj1wpxhNJ26N0HoCtRU1DLE0huxLLgpHYeVIu4f7s8JLhxvf2lkJ3jzX
- +NVhjrfz1Sz9EQAPqrE8c9Bp4+zxHF8ndkUpEKQ56tlcNxVq/m/BE2ypKPrX5OvGhVfruBO+RQYVI
- yz2fA7Ag==;
+ bh=uwM2BKpIP8DPPmF9GEljD2GJ7H5E0kHEdj42FXP3+Cs=; b=uH/u34qk6GM24zIbXzce3UMsVL
+ UmfldgOTD9CAxHzHo77TAr8gaP5peTsoUbEQwZL6lNORhwxQ5vHtQ9rFytveMZ3OUm8y3tP+IHhAF
+ v6EzFmNn+jToBnkiLxR4YArC/ggecfOmEVcT7BXmmhhQWYczVWMBlmhO0ZOfZUDOrEApDuaTNnAjz
+ VmGO7AXmVb2xsiDtwcrl3iHvwJjez50wAM376Ldq56NZ5FgcvL9Sj2QuceQnxgaJrmSFH5wiJXYiI
+ g2/lwRgvGK/jhujIqBkoGo79wPx6vQUq4WwpmKBQ0ZUBoEnYfVPYOR/dzxGoyr+miNsNN3tUku9YB
+ +jBEVZYg==;
 Received: from e0022681537dd.dyn.armlinux.org.uk
- ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:35142 helo=rmk-PC.armlinux.org.uk)
+ ([fd8f:7570:feb6:1:222:68ff:fe15:37dd]:33374 helo=rmk-PC.armlinux.org.uk)
  by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
  TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <rmk@armlinux.org.uk>) id 1wAPBd-0000000023B-0iEH;
- Wed, 08 Apr 2026 10:27:01 +0100
+ (envelope-from <rmk@armlinux.org.uk>) id 1wAPBi-0000000023N-3rkZ;
+ Wed, 08 Apr 2026 10:27:07 +0100
 Received: from rmk by rmk-PC.armlinux.org.uk with local (Exim 4.98.2)
  (envelope-from <rmk@rmk-PC.armlinux.org.uk>)
- id 1wAPBW-0000000F7k0-2Dr7; Wed, 08 Apr 2026 10:26:54 +0100
+ id 1wAPBb-0000000F7k5-2d0y; Wed, 08 Apr 2026 10:26:59 +0100
 In-Reply-To: <adYfPBHsXxQUsMyr@shell.armlinux.org.uk>
 References: <adYfPBHsXxQUsMyr@shell.armlinux.org.uk>
 From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 To: Andrew Lunn <andrew@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-Message-Id: <E1wAPBW-0000000F7k0-2Dr7@rmk-PC.armlinux.org.uk>
-Date: Wed, 08 Apr 2026 10:26:54 +0100
+Message-Id: <E1wAPBb-0000000F7k5-2d0y@rmk-PC.armlinux.org.uk>
+Date: Wed, 08 Apr 2026 10:26:59 +0100
 Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
@@ -54,8 +54,8 @@ Cc: Paolo Abeni <pabeni@redhat.com>, Samuel Holland <samuel@sholland.org>,
  Jakub Kicinski <kuba@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
  linux-sunxi@lists.linux.dev, "David S. Miller" <davem@davemloft.net>,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC net-next 03/10] net: stmmac: always fill
-	in ver->userver
+Subject: [Linux-stm32] [PATCH RFC net-next 04/10] net: stmmac: use
+ ver->userver and ver->snpsver to print version
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.167];
+	NEURAL_SPAM(0.00)[0.183];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	MID_RHS_MATCH_FROMTLD(0.00)[];
@@ -106,30 +106,35 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 98C403B9DF9
+X-Rspamd-Queue-Id: 817863B9E07
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Always fill in ver->userver irrespective of the core type. This has no
-functional impact but tidies up the code by removing an unnecessary
-conditional.
+Rather than using FIELD_GET() twice, reorder the code to extract the
+version fields into struct stmmac_version, and then print them.
 
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- drivers/net/ethernet/stmicro/stmmac/hwif.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/net/ethernet/stmicro/stmmac/hwif.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-index 830ff816ab4f..aacf78d4a2ee 100644
+index aacf78d4a2ee..7f95a2a5be4c 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
-@@ -47,8 +47,7 @@ static void stmmac_get_version(struct stmmac_priv *priv,
- 		 FIELD_GET(DWMAC_SNPSVER, version));
+@@ -42,12 +42,11 @@ static void stmmac_get_version(struct stmmac_priv *priv,
+ 		return;
+ 	}
  
+-	dev_info(priv->device, "User ID: 0x%x, Synopsys ID: 0x%x\n",
+-		 FIELD_GET(DWMAC_USERVER, version),
+-		 FIELD_GET(DWMAC_SNPSVER, version));
+-
  	ver->snpsver = FIELD_GET(DWMAC_SNPSVER, version);
--	if (core_type == DWMAC_CORE_XGMAC)
--		ver->userver = FIELD_GET(DWMAC_USERVER, version);
-+	ver->userver = FIELD_GET(DWMAC_USERVER, version);
+ 	ver->userver = FIELD_GET(DWMAC_USERVER, version);
++
++	dev_info(priv->device, "User ID: 0x%x, Synopsys ID: 0x%x\n",
++		 ver->userver, ver->snpsver);
  }
  
  static void stmmac_dwmac_mode_quirk(struct stmmac_priv *priv)
