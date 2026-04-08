@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QDsSGF511mlQFggAu9opvQ
+	id GP0AJhZ21mlQFggAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:33:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:36:54 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E0C73BE40D
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:33:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DB453BE494
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Apr 2026 17:36:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7F79FC1A97F;
-	Wed,  8 Apr 2026 15:33:49 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB814C1A97F;
+	Wed,  8 Apr 2026 15:36:53 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA73CC36B12
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B6F07C36B12
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Apr 2026 15:33:47 +0000 (UTC)
+ Wed,  8 Apr 2026 15:36:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=8Uykcwf1/jusGhi677ao2PaEFHdQ0GoTAXYWwBrCb1c=; b=uwY/XJNme/3LLDWPW0fICklwUX
- gLM4Z9OEfOBDB+8/hHkBi9lXWLMW5MC7UxUhvNHwp8OwdBzH/XTQJEGbsL3v+SqufRslh8JYlqHSl
- +VjWve28F8N0vEku4zKPWRk/execLBSp7SuSDPJtU9qYc7sKGI3Dp2wSgIHfgdQfjZFA=;
+ bh=tmXoZY5aOkLaEImVN2vLVAA9DnhfryMldvyw6aUObFs=; b=qqqCIuF3RhYGf2fcPvNK972dB8
+ lfrtDS0g6bOxJ4GS74+lkbwq0age0DAaux/e+jwYcJzdLYB/dyJQv79qDD3uDSURwQTZCwN8kAjya
+ 3XgiySpkzgtYicJ6I2O3U3yIMGiEz57xt89kmlg5uW9ZpwtjAo0klB/sV9wWMPGstq5k=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wAUuQ-00FJF6-IT; Wed, 08 Apr 2026 17:33:38 +0200
-Date: Wed, 8 Apr 2026 17:33:38 +0200
+ id 1wAUxQ-00FJGO-T3; Wed, 08 Apr 2026 17:36:44 +0200
+Date: Wed, 8 Apr 2026 17:36:44 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Minda Chen <minda.chen@starfivetech.com>
-Message-ID: <c69cf692-87be-43b5-93ee-38040d5cb1bf@lunn.ch>
+Message-ID: <49407bd8-f20b-46f7-9b98-8c88fc45e0f0@lunn.ch>
 References: <20260408084416.29753-1-minda.chen@starfivetech.com>
- <20260408084416.29753-4-minda.chen@starfivetech.com>
+ <20260408084416.29753-5-minda.chen@starfivetech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260408084416.29753-4-minda.chen@starfivetech.com>
+In-Reply-To: <20260408084416.29753-5-minda.chen@starfivetech.com>
 Cc: devicetree@vger.kernel.org,
  Emil Renner Berthing <emil.renner.berthing@canonical.com>,
  Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>,
@@ -47,8 +47,8 @@ Cc: devicetree@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
  "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [net-next v1 v1 3/5] dt-bindings: net: starfive,
- jh7110-dwmac: Add JHB100 sgmii rx clk
+Subject: Re: [Linux-stm32] [net-next v1 v1 4/5] net: stmmac: starfive: Add
+ JHB100 SGMII interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +70,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -93,39 +93,41 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DKIM_TRACE(0.00)[lunn.ch:-];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	NEURAL_SPAM(0.00)[0.682];
+	NEURAL_SPAM(0.00)[0.657];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,lunn.ch:mid]
-X-Rspamd-Queue-Id: 0E0C73BE40D
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 3DB453BE494
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-> +      - description: SGMII RX clock
->  
->    clock-names:
-> -    items:
-> -      - const: stmmaceth
-> -      - const: pclk
-> -      - const: ptp_ref
-> -      - const: tx
-> -      - const: gtx
-> +    minItems: 5
-> +    maxItems: 6
-> +    contains:
-> +      enum:
-> +       - stmmaceth
-> +       - pclk
-> +       - ptp_ref
-> +       - tx
-> +       - gtx
-> +       - rx
+> +	dwmac->sgmii_rx = devm_clk_get_optional(&pdev->dev, "rx");
+> +	if (IS_ERR(dwmac->sgmii_rx))
+> +		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->sgmii_rx),
+> +				     "error getting sgmii rx clock\n");
+> +
 
-If this is only used for sgmii, maybe it should have sgmii in the
-name?
+The SGMII clock is optional...
 
-	Andrew
+>  	/* Generally, the rgmii_tx clock is provided by the internal clock,
+>  	 * which needs to match the corresponding clock frequency according
+>  	 * to different speeds. If the rgmii_tx clock is provided by the
+>  	 * external rgmii_rxin, there is no need to configure the clock
+>  	 * internally, because rgmii_rxin will be adaptively adjusted.
+>  	 */
+> -	if (!device_property_read_bool(&pdev->dev, "starfive,tx-use-rgmii-clk"))
+> -		plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
+> +	if (!device_property_read_bool(&pdev->dev, "starfive,tx-use-rgmii-clk")) {
+> +		if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII)
+> +			plat_dat->set_clk_tx_rate = stmmac_starfive_sgmii_set_clk_rate;
+
+So you probably want to return an error here if it is missing.
+
+Or you might want to look at the compatible, and make the clock
+mandatory for this device.
+
+   Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
