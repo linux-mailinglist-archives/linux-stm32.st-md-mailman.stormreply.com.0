@@ -2,56 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wF0zNgqY12lNQAgAu9opvQ
+	id 6MBeNEzf12klTwgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 14:14:02 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 19:18:04 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78D3E3CA39B
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 14:14:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 628BE3CE080
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 19:18:04 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0CF38C87EC6;
-	Thu,  9 Apr 2026 12:14:02 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5309CC87EC5
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2B4FC08D19;
+	Thu,  9 Apr 2026 17:18:03 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5654DC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Apr 2026 12:14:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=9ehBZ2aD/9lNOYtyFLKz65mllx6XG726DMrd4UFMMzk=; b=a+32BEin6Dyh4EGcC3YooCOhUJ
- oFrf3MTW0RL8h7l/m6TPXTrtRPmwN5B0joICH6yHKkmGeFC6Ci8eCNwk7KhEkvEfvZ/smEcYU//PO
- eYvK+gHjyldsICJv8FlweATmoDyCGhquQLwIKuu8ZwnGTXZOv39a21mfMnp/No4YJ2+o=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1wAoGZ-00FQWZ-Le; Thu, 09 Apr 2026 14:13:47 +0200
-Date: Thu, 9 Apr 2026 14:13:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Minda Chen <minda.chen@starfivetech.com>
-Message-ID: <e022dd47-4dd2-4ade-aeac-0398b081ce23@lunn.ch>
-References: <20260408084416.29753-1-minda.chen@starfivetech.com>
- <20260408084416.29753-2-minda.chen@starfivetech.com>
- <ad9ee916-6f8a-4cb9-8016-54a02b00c7ab@lunn.ch>
- <SHXPR01MB086305E0C766E8BB17AF18DCE6582@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+ Thu,  9 Apr 2026 17:18:02 +0000 (UTC)
+Received: by linux.microsoft.com (Postfix, from userid 1216)
+ id 937EC20B710C; Thu,  9 Apr 2026 10:18:01 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 937EC20B710C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1775755081;
+ bh=uMAf/aAFn2cF17U/6EJfT5ll571ILEGPz4I3Tb9MzL4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=FyTJ0T0F6U8+kQZOAwLlJOpHbvHmcTLv1ZKXZ3WoGBXtCTdMmwn+K46HIl8/76vJM
+ bUHquLGXpUfuDi70JCvo3WyEHZQKdvU4Nx/BznJwKLCVcXU+h8GeU5FEcSg17CQqy8
+ rm1/wEAVFn6WefNv0YAR3dz+M/HmOhPX5GcTRQBE=
+Date: Thu, 9 Apr 2026 10:18:01 -0700
+From: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+To: Herbert Xu <herbert@gondor.apana.org.au>
+Message-ID: <adffSYxKIuaDLZit@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20260407192859.270745-1-hamzamahfooz@linux.microsoft.com>
+ <adYNClYB6RY820Xl@gondor.apana.org.au>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <SHXPR01MB086305E0C766E8BB17AF18DCE6582@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>, Conor Dooley <conor@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [net-next v1 v1 1/5] dt-bindings: net: starfive,
- jh7110-dwmac: Remove JH8100
+In-Reply-To: <adYNClYB6RY820Xl@gondor.apana.org.au>
+Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>, linux-kernel@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Paul Monson <paul.monson@capgemini.com>
+Subject: Re: [Linux-stm32] [PATCH] crypto: tstmgr - guard xxhash tests
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,56 +52,106 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
+	R_DKIM_REJECT(1.00)[linux.microsoft.com:s=default];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[linux.microsoft.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:minda.chen@starfivetech.com,m:devicetree@vger.kernel.org,m:emil.renner.berthing@canonical.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:conor@kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:robh+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:andrew@lunn.ch,m:robh@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FREEMAIL_CC(0.00)[vger.kernel.org,canonical.com,st-md-mailman.stormreply.com,kernel.org,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[lunn.ch:-];
+	FORGED_SENDER(0.00)[hamzamahfooz@linux.microsoft.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:jeffbarnes@linux.microsoft.com,m:linux-kernel@vger.kernel.org,m:davem@davemloft.net,m:linux-crypto@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:paul.monson@capgemini.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.629];
+	DKIM_TRACE(0.00)[linux.microsoft.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.905];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[hamzamahfooz@linux.microsoft.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[linux.microsoft.com,vger.kernel.org,davemloft.net,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org,capgemini.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 78D3E3CA39B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 628BE3CE080
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-> Yes. 
-> We (StarFive) stop developing on JH8100 now, And do NOT release the SoC outside.
+On Wed, Apr 08, 2026 at 04:08:42PM +0800, Herbert Xu wrote:
+> Please show me the panic.  Normally it's not an issue if an algorithm
+> is not present while the test vectors are.
+> =
 
-Please add that to the commit message as the justification of removing
-support.
 
-	Andrew
+alg: hash: failed to allocate transform for xxhash64: -2
+Kernel panic - not syncing: alg: self-tests for xxhash64 (xxhash64) failed =
+in fips mode!
+CPU: 0 PID: 425 Comm: modprobe Not tainted 6.6.130.2-2.azl3 #1
+Hardware name: Microsoft Corporation Virtual Machine/Virtual Machine, BIOS =
+Hyper-V UEFI Release v4.1 01/08/2026
+Call Trace:
+=A0<TASK>
+=A0dump_stack_lvl+0x4c/0x70
+=A0dump_stack+0x14/0x20
+=A0panic+0x179/0x330
+=A0alg_test+0x678/0x680
+=A0? __alloc_pages+0x1e2/0x340
+=A0do_test+0x26f8/0x7670 [tcrypt]
+=A0do_test+0x72c5/0x7670 [tcrypt]
+=A0tcrypt_mod_init+0x65/0xff0 [tcrypt]
+=A0? __pfx_tcrypt_mod_init+0x10/0x10 [tcrypt]
+=A0do_one_initcall+0x4e/0x330
+=A0? kmalloc_trace+0x2e/0xa0
+=A0do_init_module+0x68/0x250
+=A0load_module+0x1f2e/0x2150
+=A0? __do_sys_init_module+0xe6/0x1d0
+=A0__do_sys_init_module+0x19c/0x1d0
+=A0? __do_sys_init_module+0x19c/0x1d0
+=A0__x64_sys_init_module+0x1e/0x30
+=A0x64_sys_call+0x11b3/0x1c90
+=A0do_syscall_64+0x5a/0x80
+=A0? irqentry_exit_to_user_mode+0x29/0x50
+=A0? irqentry_exit+0x3f/0x50
+=A0? exc_page_fault+0x87/0x160
+=A0entry_SYSCALL_64_after_hwframe+0x78/0xe2
+RIP: 0033:0x7715f70fab9e
+Code: 48 8b 0d 85 32 12 00 f7 d8 64 89 01 48 83 c8 ff c3 66 2e 0f 1f 84 00 =
+00 00 00 00 90 f3 0f 1e fa 49 89 ca b8 af 00 00 00 0f 05 <48> 3d 01 f0 ff f=
+f 73 01 c3 48 8b 0d 52 32 12 00 f7 d8 64 89 01 48
+RSP: 002b:00007ffde8fef6c8 EFLAGS: 00000246 ORIG_RAX: 00000000000000af
+RAX: ffffffffffffffda RBX: 00005d0b39626af0 RCX: 00007715f70fab9e
+RDX: 00005d0b1710197a RSI: 0000000000028c39 RDI: 00005d0b39635310
+RBP: 00005d0b1710197a R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000071 R11: 0000000000000246 R12: 00005d0b39635310
+R13: 0000000000000000 R14: 00005d0b39626c20 R15: 00005d0b39626da0
+=A0</TASK>
+
+Seems like crypto_alg_mod_lookup() [1] fails and that triggers the panic() =
+at [2].
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/crypto/api.c?h=3Dv7.0-rc7#n338
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/crypto/testmgr.c?h=3Dv7.0-rc7#n5760
+
+BR,
+Hamza
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
