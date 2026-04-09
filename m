@@ -2,48 +2,125 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AL3VNcUT12kSKwgAu9opvQ
+	id EKwnHCMV12k1KwgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 04:49:41 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 04:55:31 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75C6C3C5B04
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 04:49:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6F653C5C60
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 04:55:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA835C87EC1;
-	Thu,  9 Apr 2026 02:49:40 +0000 (UTC)
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5A01DC87EC1;
+	Thu,  9 Apr 2026 02:55:30 +0000 (UTC)
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
+ (mail-bjschn02on2090.outbound.protection.partner.outlook.cn [139.219.17.90])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32817C08D19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 454DFC08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Apr 2026 02:49:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9084D11276A; Thu,  9 Apr 2026 04:49:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1775702977; h=from:subject:date:message-id:to:cc:mime-version:
- content-transfer-encoding; bh=Y/Vs+lajGNLuHVTZi9YuxQObAJW7yBV0C3O93uFX/q8=;
- b=fbd4W5wCyZNMs4RQdmQV/nWZ2NrK4FZ9nr5hlDhgtMMdsQCYm4IE3dhIv+WqKy056IZ+3m
- XRfHE9ZwPjNhSG9Kd9BNJ5kkzrqMulsMJ5Sb+pSFKp4xbG6YHzeRnwJgzY1/DuqNUTLVXD
- 0JmR4dqn3ZyP+R0Cg4nlY+SC4t7k5CUVa8LVvKNWVaKslG9Vn05rwD8QhH87FnVXv1H2s2
- i2Aa5GoPBPOqJPHPVSbIkDe1nWA0+jQwLox3uKzdpFRMoBNqcydS3SSrScQ4dGuV7k1vrt
- IFCNbBEYNo/orIfYT0YIpIYSVmzkcU+MboZdVnhpjVM9AsCwH8KOFs/nqg0VoQ==
-From: Marek Vasut <marex@nabladev.com>
-To: dri-devel@lists.freedesktop.org
-Date: Thu,  9 Apr 2026 04:48:41 +0200
-Message-ID: <20260409024928.344010-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+ Thu,  9 Apr 2026 02:55:28 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=N4MTtHz2jb2mGv7yAj6z2CsSTSQu+R9a+bwsZEmsLk3mF9UlKprYnS4JT2ZqzepUrgZAn5tUZDlobV+XuoJlTbySYO5lKG5xRLQGdxuIs4cAjqiIS+AG0B7SyuuPmMqxR+LqAS/HkRlHn4v8HoRqDUq5Eyxl4iIv01jerAAzlnJU01PyLTHWGTkMOZDfApiGnAX4P+92S0aJjsjA59GFrtDxRLGpjKmL/9obEhgz0HrrKxwQZcfaSyjT/hbSVbamtfn6mlawiMrSWQluTMyddtQH+BKBon3h2hY4zPWLnHhwGM4xi1zxM72+gcQyLXesnFX8+nshqq3PMhwnzDaohg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qgwuI2Tx4/0Kz7DsiIk5d+EuVJrmuKO7tnJHXGQJ8jU=;
+ b=MBeam2zGtedKYKtSYLaLfT5UjQH8ba40lnhJyIY9SI4q9p5Qy8RKArwG3vYsjMuuwdXy3JABYMfkIzPjCr9W0pnPLJv5NMatIFWp9aISUKxSO5Ph11gDv6N7xRdAMPdZrBmkocMLC4+1tdrnNO04m9Mv8Vw1yJP9spS32fxdfFLpBXdbBnj5iw98rs13kV+RZ0yr10N6bIdn7G/ujZ+9XHwOombNgrlOhyxOLuR/2wIKK+9VGpL2shCkBRbvMn1aM1v4PUCRL9KNC3Yb335z/oso2TmAihourTlrTPxhkVfChETFcfuwHXnhCr+PyD6ea0gz9huoQ8nz7EgCvSKVyQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:25::15) by SHXPR01MB0735.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:27::17) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9769.17; Thu, 9 Apr
+ 2026 02:55:22 +0000
+Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+ ([fe80::9b99:12dc:a115:b90f]) by
+ SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%6])
+ with mapi id 15.20.9723.018; Thu, 9 Apr 2026 02:55:22 +0000
+From: Minda Chen <minda.chen@starfivetech.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Thread-Topic: [net-next v1 v1 4/5] net: stmmac: starfive: Add JHB100 SGMII
+ interface
+Thread-Index: AQHcxzPqQrOYYRYKOE2TlrW8gU1Ob7XVTJkAgAC9nMA=
+Date: Thu, 9 Apr 2026 02:55:22 +0000
+Message-ID: <SHXPR01MB0863079ED69731F5ABBEB6A4E6582@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
+References: <20260408084416.29753-1-minda.chen@starfivetech.com>
+ <20260408084416.29753-5-minda.chen@starfivetech.com>
+ <49407bd8-f20b-46f7-9b98-8c88fc45e0f0@lunn.ch>
+In-Reply-To: <49407bd8-f20b-46f7-9b98-8c88fc45e0f0@lunn.ch>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0735:EE_
+x-ms-office365-filtering-correlation-id: b07cd339-f756-4bfa-b810-08de95e3718a
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|366016|7416014|376014|1800799024|56012099003|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: CFBVPofAe8X/3KRKYkbE1qsBCeEwP3ykTYKlmrcI1mt5anb4mX+cTetTpl6WmkX+rwsmaL8KLAI7JdQt1kyPjv2A9EYchBTNlrrrIaj7ByY4gGrz4ccyEO+aD59hAcaGIBp6AmiXxXqjwsPAFXw4H0pI+O2xF+CiZhp9by+av9UvW/d6kp6aQQSP/U4/rbbViMlBJm8DaLkVzpwyQeRDoI4kI3F4PuPzkKBKvKRZxdN/nncPYScGEVPBucGeXGMw8wgO48koS6n346d52c2nU+r0bu/DrXUAogk7+14AJofqOnW6jkwsEPGyeLCLwkAal9dJEdJ3UTI0VC7Qh79YrMnGkKl15yrqVqeMx1dn/0rVRVCjLVsFoBGr5l5gBK3nvQlRc8hOK3IM1VxgqwlKXmymihcMGelk3/MxSF8l7TQRROt5lZsR6GvUD7xnZHqs5HKYz0/a4rHs22PHcKOxsHlyL5ODeweLtH+QpKVAFT4CaoGuCPNl1e2D1m6NxHgy8YkjnPpT642BpkGr/XcgG0sseoHQapBtd43lRYpWscqwudR5kMAMSVumq6QisxPA63ilz2o6bNjcur6w0HDoINEyfabU+glcSLtPNoGfJuU=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
+ CAT:NONE;
+ SFS:(13230040)(366016)(7416014)(376014)(1800799024)(56012099003)(22082099003)(18002099003)(38070700021);
+ DIR:OUT; SFP:1102; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?RiUaw2Wlg4nIrnTHYeNl6sFRuTmDTxeaxHwaqBbgWEyxS4TCGv8ahgFJNpLv?=
+ =?us-ascii?Q?/goux9M/uQcZWp3wsqZvnL5D0BkD0Q7rTfv5Up7S8Pb4Bk1OCEyKGrrM7q9g?=
+ =?us-ascii?Q?oT7t1oAcCJvUkVp/HKwXLkLWYn/uHLKb+DI8UUdWHdGNmp1u2j2d5WQVejDk?=
+ =?us-ascii?Q?4amll6YW2uDsqyCK7zBz2T0oBO5O6dNhEtHLjSx38ba4eLCkcEJ1yC8thuCx?=
+ =?us-ascii?Q?B/Nggm0x40w/vmOyqW2DTCZs9JU1Zxyv53clpxvvidLkueB9GkG6KXpRK+Yt?=
+ =?us-ascii?Q?4KoU+X8N6BmvGPd4JDOQBGlUM0ADVszhL7ilcLJlAGyfyj6zsQ06x3e9f1s2?=
+ =?us-ascii?Q?3vLNre7bWiWABfWgStkZJsbKg/LwCEaa8lbiuEmfoT7TjZANZZVEALr6ytGV?=
+ =?us-ascii?Q?E954gNT69cXXc3QPEie0F46BEuTITcDpnrH5iXZz8katWOcZ20+oKVamDscP?=
+ =?us-ascii?Q?7Y2DusKkO7knkNYq8bovs0x+/iO1xpcj0krjfCO2yAmefOS8obteIUgsUV3C?=
+ =?us-ascii?Q?4qNWPxPj5Hpp+6J/qi3Xgn2yjxPpOJEGfTkttrInQe01zXt/Ecg9E7sn6SJO?=
+ =?us-ascii?Q?NDwFIUQVQuWBk+PrDqc1eictpVLUxCTndnrm8SxEHFL+xbPSkTD/b4E4b6wR?=
+ =?us-ascii?Q?0Weolv1C8U2tnVw06WASZNEvRDsTAYwzjGPk80xXfYOJQamwQq89+mLWWT3I?=
+ =?us-ascii?Q?D8cHcwuEpkNgLCGeFLpAoMfCyaA3UGLdzGpIJzYli2mZ4Y4Pz7E9aM7ydmCD?=
+ =?us-ascii?Q?5uZSji5E1lkKPyw4/lFLKMbRnhJEiEhFfQfVhijFg1iQdQImO6665x2MWMD2?=
+ =?us-ascii?Q?AuR01GCuPFpEQkddlzxcBKCfm9u33JRAK9ECksO1e6OQaent/1cLtla/fKBJ?=
+ =?us-ascii?Q?t205tfamwdb4tYXLbp/XKFJl5ZG0wE1VLs1GAwZolkALhiRTjl5la67dSDl/?=
+ =?us-ascii?Q?hlFDY1bhCsUHtaOIH8SmqQA0yNd5FOhKRUdARYK3BFL48Mx8gWI+zRPOBWED?=
+ =?us-ascii?Q?zLGwHDUmpUhZ4xpbDicFsVbDTpXmrchPUql3luqn04zxnE5GQBA1wJLpsyf9?=
+ =?us-ascii?Q?368X7x9AbqSqKVXu75e+UihZboEYA8Va8C9pKpSxjRB+H6RuFo5rX3m+0sDw?=
+ =?us-ascii?Q?H54yN+OMbdwwmEtDK1aBLLS5NgprTC+HiXqT+QTaOEJjjNcXsomdAHu8UDbB?=
+ =?us-ascii?Q?9W1DFjYZMi0P5HwEq4p7IY80YDwKXKBh2uSZImYAASqyrckSVfqJ7d+s1T+I?=
+ =?us-ascii?Q?30JiLWrYy9zlPgg+XmpvrJ0rjTD2Th42AfL1hQF9ccTFHWLe3DNk4rT2Z901?=
+ =?us-ascii?Q?0/53qn4jBEe0hnf6tajacsWcsGY1/PhfGG4oE9VyvXjbbygPcRQYWtVjCQ0l?=
+ =?us-ascii?Q?K9Y69txQQmiAWlbL1Ix3np4yslIF8xiKaU85O/AHNtxL45w1t9WBOuqN4+zV?=
+ =?us-ascii?Q?m0J5RGY4nQYiO0O/BylabX7EbwP2sMbj8DpI2iq7x131DOBk15MQQgvxtMg8?=
+ =?us-ascii?Q?LtUlFps+HIoaVnT2ixaDG+kzBmnDk++PBPnOeSoghPcD+S/Acp9hxchXHM3N?=
+ =?us-ascii?Q?k0Im4d3Kc2sHoDJXewcJ5Th+bUdN1MFyDOTqra0v6nlo4XyxogwZq3yr/I70?=
+ =?us-ascii?Q?hWNAvHVhVmU3ObyAeQZVnTaeqZBEPG7uK1F1XuowtPxzJti+U73qst1FpHmO?=
+ =?us-ascii?Q?aQ+bPFW1ODCAoz1UjPtXjmhzM2iuRccVmQ8osdRyYdlSYlNYQDHdAEZx3FYP?=
+ =?us-ascii?Q?1PdJjg+9ST/ILOAawBborTMTen8eQa4=3D?=
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: Simona Vetter <simona@ffwll.ch>, Marek Vasut <marex@nabladev.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Yannick Fertre <yannick.fertre@foss.st.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, David Airlie <airlied@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] drm/bridge: stm_lvds: Do not fail
-	atomic_check on disabled connector
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: b07cd339-f756-4bfa-b810-08de95e3718a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Apr 2026 02:55:22.7784 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 1l/rAuxcrFpp7PaGbbjy/np5l9C7gNFOjp4LFFnHa0b/7otPlGrGW3/diqRCyTE8stopfec4QH+cTTv4lz5z8HA/CDN3Er+dxN4SITKCoc8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0735
+Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ Emil Renner Berthing <emil.renner.berthing@canonical.com>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>, Conor Dooley <conor@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [net-next v1 v1 4/5] net: stmmac: starfive: Add
+ JHB100 SGMII interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,102 +136,80 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [6.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[nabladev.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[starfivetech.com : SPF not aligned (relaxed), No valid DKIM,quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[nabladev.com:s=dkim];
-	MID_CONTAINS_FROM(1.00)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_SENDER(0.00)[marex@nabladev.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[12];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:dri-devel@lists.freedesktop.org,m:simona@ffwll.ch,m:marex@nabladev.com,m:tzimmermann@suse.de,m:yannick.fertre@foss.st.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:airlied@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	ARC_NA(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	DKIM_TRACE(0.00)[nabladev.com:-];
-	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[minda.chen@starfivetech.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:devicetree@vger.kernel.org,m:emil.renner.berthing@canonical.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:conor@kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:robh+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:robh@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[marex@nabladev.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ffwll.ch,nabladev.com,suse.de,foss.st.com,linux.intel.com,kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_SPAM(0.00)[0.415];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.679];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[minda.chen@starfivetech.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,canonical.com,st-md-mailman.stormreply.com,kernel.org,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net];
+	R_DKIM_NA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 75C6C3C5B04
-X-Rspamd-Action: add header
+	DBL_BLOCKED_OPENRESOLVER(0.00)[SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: D6F653C5C60
+X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spam: Yes
 
-If the connector is disabled, the new connector state has .crtc field
-set to NULL and there is nothing more to validate after that point.
-The .crtc field being NULL is not an error. Test for .crtc being NULL,
-and if it is NULL, exit early with return 0.
 
-This fixes a failure in suspend/resume path, where the connector is
-already disabled, but .atomic_check is called, fails, returns -EINVAL
-and blocks the suspend entry.
 
-Fixes: aca1cbc1c986 ("drm/stm: lvds: add new STM32 LVDS Display Interface Transmitter driver")
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: David Airlie <airlied@gmail.com>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Maxime Ripard <mripard@kernel.org>
-Cc: Philippe Cornu <philippe.cornu@foss.st.com>
-Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-Cc: Simona Vetter <simona@ffwll.ch>
-Cc: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
----
- drivers/gpu/drm/stm/lvds.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> > +	dwmac->sgmii_rx = devm_clk_get_optional(&pdev->dev, "rx");
+> > +	if (IS_ERR(dwmac->sgmii_rx))
+> > +		return dev_err_probe(&pdev->dev, PTR_ERR(dwmac->sgmii_rx),
+> > +				     "error getting sgmii rx clock\n");
+> > +
+> 
+> The SGMII clock is optional...
+> 
+Yes. RGMII do not have this clock. 
 
-diff --git a/drivers/gpu/drm/stm/lvds.c b/drivers/gpu/drm/stm/lvds.c
-index fe38c0984b2b5..25e2ba98f36ae 100644
---- a/drivers/gpu/drm/stm/lvds.c
-+++ b/drivers/gpu/drm/stm/lvds.c
-@@ -897,14 +897,14 @@ static int lvds_connector_atomic_check(struct drm_connector *connector,
- 	if (!conn_state)
- 		return -EINVAL;
- 
-+	if (!conn_state->crtc)
-+		return 0;
-+
- 	if (list_empty(&connector->modes)) {
- 		drm_dbg(connector->dev, "connector: empty modes list\n");
- 		return -EINVAL;
- 	}
- 
--	if (!conn_state->crtc)
--		return -EINVAL;
--
- 	panel_mode = list_first_entry(&connector->modes,
- 				      struct drm_display_mode, head);
- 
--- 
-2.53.0
+> >  	/* Generally, the rgmii_tx clock is provided by the internal clock,
+> >  	 * which needs to match the corresponding clock frequency according
+> >  	 * to different speeds. If the rgmii_tx clock is provided by the
+> >  	 * external rgmii_rxin, there is no need to configure the clock
+> >  	 * internally, because rgmii_rxin will be adaptively adjusted.
+> >  	 */
+> > -	if (!device_property_read_bool(&pdev->dev, "starfive,tx-use-rgmii-clk"))
+> > -		plat_dat->set_clk_tx_rate = stmmac_set_clk_tx_rate;
+> > +	if (!device_property_read_bool(&pdev->dev, "starfive,tx-use-rgmii-clk")) {
+> > +		if (plat_dat->phy_interface == PHY_INTERFACE_MODE_SGMII)
+> > +			plat_dat->set_clk_tx_rate =
+> stmmac_starfive_sgmii_set_clk_rate;
+> 
+> So you probably want to return an error here if it is missing.
+> 
+No. RGMII still using stmmac_set_clk_tx_rate
 
+> Or you might want to look at the compatible, and make the clock mandatory for
+> this device.
+> 
+>    Andrew
+
+Okay I will check the rx clock whether exist .
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
