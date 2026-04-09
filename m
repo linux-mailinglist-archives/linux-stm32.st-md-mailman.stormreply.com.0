@@ -2,141 +2,187 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ePvxNevr12kbUwgAu9opvQ
+	id SCyLCvIb2WmLmQgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 20:11:55 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 17:49:06 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E4723CE812
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Apr 2026 20:11:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C23FF3D9B52
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 17:49:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47066C87EC6;
-	Thu,  9 Apr 2026 18:11:55 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6424BC87ED1;
+	Fri, 10 Apr 2026 15:49:05 +0000 (UTC)
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BE987C87EC5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 20875C87EC5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Apr 2026 18:11:53 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 639Cep1U2866294
- for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 9 Apr 2026 18:11:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 90mdpQup8rBx7BL1jnOaOW8ntM6siN7SFRLLyNJz170=; b=XHt5epio5cFRDWxq
- HkwPdJj1EDoY160Mj5/L9CiczSF99rZy+kQQrAw/5KOLGJMJMxmvQB5rb9NkeUP1
- mIu1l0w4X5UlkSKIPzJ9RMcxtmmSLIz8Vj26Llcy1dsC0tCpIiVQK4eJzKEek8D1
- lXoaOm+y99rz1qMXEZynoelqBzg9y3+lgN2HT6yZaLd46Ess3+2Rn2Kov6PnRGrl
- Hk1nTSBqtF3A+QGY21/qXYL0rldoGSNRmweb007b74ZqAY9iZvSNVp0BoSZz4WMq
- glvdOs1wpv8npsOtMYnHilgLXtiv9xa9w/kJ/jQIrwNBio9Xksyxrdozr86dqTHQ
- TfCbXA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
- [209.85.215.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4decayha5u-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Apr 2026 18:11:52 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id
- 41be03b00d2f7-c76c62eb15bso721514a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Apr 2026 11:11:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1775758311; x=1776363111;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=90mdpQup8rBx7BL1jnOaOW8ntM6siN7SFRLLyNJz170=;
- b=gKSyxmJxmK3gPgibHVm2pWok46pXFAu1ZfTaEuPKH14OSMXchonoeWDnc6uoVJEpvf
- Y52tNK1NiOZnPbuaxpCAcOf9TxtdcbZ9uobg+fi9vceHkp07HGL2CYnpcKCbWPsnqTtj
- ZZyHKebTpbZDW3hFCaU6WRbex2bkwsdL3IEB/vZ6+kUq7gk4fgvhz+Jig6kw/g1OZ5GZ
- WOKLYBFWX5VkkRIWi5jlskMgOigdvLlFLXxdVZWt4z6/FLlCXPaL/jUc6PdQAEIs8lTt
- ziQNlv1GJJbhKktouazt3qmYo0bL89YI65wTM7oDIbFo7z+QAP5D4/Tm/wtidhnj4hz/
- bVWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775758311; x=1776363111;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=90mdpQup8rBx7BL1jnOaOW8ntM6siN7SFRLLyNJz170=;
- b=lwryxppCAxSnavaA5fTe5vnaqW/NutCZqHJF3cjAt6hIMEHNg8hh9btteZ2jUHB4QP
- zR6gHdRq6eSyLS9wWg323DU3ah/QcQ9RTuUeRrppOMKAq7g5mpvR0qlzhDWLPh4JqKEX
- ZkJdEKRYz4c/dO7HkvazKvr5rw8pYikt0Wtlyrhhvdq07AZT0xt3dT64ALPdZ4LCV2jY
- ksb1XmboDIJ0POJqJ5/rL61pGTW6evyX4Z1Cy4LyMHXKd7Nnqczuegx93HJNLHc6VuZI
- PblXFTEDuqoIORx4IgB7CTEc1AIFf8eviuMksd5503ZaFWeOTtkOVQnxU/rTkuXZDcwf
- Eg5g==
-X-Forwarded-Encrypted: i=1;
- AJvYcCUJKf7wMSAWStUw+3F2gmkHjCf2JJ5V0GYjl4x3rR2Xd1EkhXnekjuJUVqGMAeGY9TAKzlfIOcyCB2x0A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxA4HBrpsTVyaZzjPJSXtgbpSKOlEgPIbTDi/Hx+sSPP/8t6SXD
- bTYy3GVJfbacc1ylvJtCWvXI4NrZa3a8esJdGX2zUH314b8+DxvSxQXbVbzFPGvkVsFCUdmEkl6
- Q5k1yhybDrCwRZUObuQ34aq6J1GMZKflipgjyQVt+4+z3vaWC9L0wL4CSfxBzEewNt3Eg1O1Ba/
- XM6OKpqQ4=
-X-Gm-Gg: AeBDiesqFz9ZK0e2t6tUAtA+rdyxn072im0rFBPVwU2TksJef34IuYAfztwNx14cs3b
- oUK6Phj29h3LV6Nd9tK+KTYkYoPGT799vbYvY8dIgMlI8295qxVHFUokgg8eI+gjzxTlo11Xxb9
- L5qGlDd7zQMg7V26TFL9xdUyapkpa+6wlSqR/Lva3P3ZZwn4KHfD1OP46NGsOcSGxOJEULaQ4hG
- 2b+ds9f7V4pV9nrGUf68YMP76K30RK21aMOaBeTx4JSC+Wnb5y+WXk309pRIIkBkVHorhzWd3uo
- DP+WM3sd4a57LQdTSaRiFcwaGTSFLvmKLY+3ObqHNtqK8b1aaA+o1tBZQABfP2P51GRf8jVGf6M
- WqjC1sj5Z018N0cIqzH/RBYf/FbPf/NE+PBa60JOE0lTBIA==
-X-Received: by 2002:a05:6a20:e291:b0:39f:461f:be7e with SMTP id
- adf61e73a8af0-39fc8342976mr5438780637.44.1775758310706; 
- Thu, 09 Apr 2026 11:11:50 -0700 (PDT)
-X-Received: by 2002:a05:6a20:e291:b0:39f:461f:be7e with SMTP id
- adf61e73a8af0-39fc8342976mr5438739637.44.1775758310061; 
- Thu, 09 Apr 2026 11:11:50 -0700 (PDT)
-Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7921a2d9ebsm66132a12.30.2026.04.09.11.11.44
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Apr 2026 11:11:49 -0700 (PDT)
-From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Thu, 09 Apr 2026 23:40:49 +0530
+ Thu,  9 Apr 2026 18:13:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=linux.org.uk; s=zeniv-20220401; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=BoGW7oywgvm57yYmgFIJhKPYzBfyhEW/uN+KSu6heaU=; b=JJcsCEcaKqyNrvJOUZ8XOnA1AS
+ yC//2gnLRa8FcBRiXofOYljopOoyt9r8CbkWaLEFmbUVfW5qK5utkUh3D77jxlkhKoZiYVbvdTEnm
+ X8jEr88bUddVEJ+24e8elVa7rPEDm9C+KeO3Yi+QSp+riwZi9Be8u3P2jnyNq7RhzU24dEi9YT5JB
+ 9o5OjQL5vQk2h32ksN+l6XHB7LZbu7YtKRAMPXU1ZH+Yata0JOXemtl88QWI3UJ7mBXR7GCgddkg5
+ qrhpzNPrKwHYiMCapxKfC0E4ZwUatWZBULD1y88efyo7haqTewJrOOn317SRlKBwAg9TXV76h3bsC
+ A/eZOWQA==;
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.99.1 #2 (Red Hat
+ Linux)) id 1wAtvH-00000003xj6-26He; Thu, 09 Apr 2026 18:16:11 +0000
+Date: Thu, 9 Apr 2026 19:16:11 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Philipp Hahn <phahn-oss@avm.de>
+Message-ID: <20260409181611.GP3836593@ZenIV>
+References: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
 MIME-Version: 1.0
-Message-Id: <20260409-eliza_mm_cc_v2-v2-8-bc0c6dd77bc5@oss.qualcomm.com>
-References: <20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com>
-In-Reply-To: <20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+Content-Disposition: inline
+In-Reply-To: <20260310-b4-is_err_or_null-v1-0-bd63b656022d@avm.de>
+X-Mailman-Approved-At: Fri, 10 Apr 2026 15:49:03 +0000
+Cc: Latchesar Ionkov <lucho@ionkov.net>, Juri Lelli <juri.lelli@redhat.com>,
+ Justin Sanders <justin@coraid.com>, Paulo Alcantara <pc@manguebit.org>,
+ Igor Russkikh <irusskikh@marvell.com>, linux-sh@vger.kernel.org,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Ulf Hansson <ulf.hansson@linaro.org>,
+ dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
+ Ben Segall <bsegall@google.com>, linux-sctp@vger.kernel.org,
+ Iyappan Subramanian <iyappan@os.amperecomputing.com>,
+ David Vernet <void@manifault.com>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Alexander Gordeev <agordeev@linux.ibm.com>,
+ "K. Y. Srinivasan" <kys@microsoft.com>, linux-clk@vger.kernel.org,
+ Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+ Anna Schumaker <anna@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ linux-omap@vger.kernel.org, Vincent Guittot <vincent.guittot@linaro.org>,
+ Long Li <longli@microsoft.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ James Morris <jmorris@namei.org>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ Andrea Righi <arighi@nvidia.com>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>, dm-devel@lists.linux.dev,
+ Shyam Prasad N <sprasad@microsoft.com>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Jiri Pirko <jiri@resnulli.us>,
+ Jesper Dangaard Brouer <hawk@kernel.org>, linux-pm@vger.kernel.org,
+ Potnuri Bharat Teja <bharat@chelsio.com>, linux-sound@vger.kernel.org,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+ John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+ Eric Van Hensbergen <ericvh@kernel.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Christian Brauner <brauner@kernel.org>,
+ Chris Mason <clm@fb.com>, linux-usb@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ David Ahern <dsahern@kernel.org>, Luis Chamberlain <mcgrof@kernel.org>,
+ Chuck Lever <chuck.lever@oracle.com>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Lukasz Luba <lukasz.luba@arm.com>, Jan Kara <jack@suse.com>,
+ linux-fsdevel@vger.kernel.org, Georgi Djakov <djakov@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-trace-kernel@vger.kernel.org,
+ Trond Myklebust <trondmy@kernel.org>,
+ Quan Nguyen <quan@os.amperecomputing.com>, linux-hyperv@vger.kernel.org,
+ Sylwester Nawrocki <s.nawrocki@samsung.com>,
+ Sandeep Dhavale <dhavale@google.com>, Jeff Layton <jlayton@kernel.org>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Max Filippov <jcmvbkbc@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, target-devel@vger.kernel.org,
+ Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Alex Deucher <alexander.deucher@amd.com>, Alasdair Kergon <agk@redhat.com>,
+ Simona Vetter <simona@ffwll.ch>, linux-cifs@vger.kernel.org,
+ Valentin Schneider <vschneid@redhat.com>, "H. Peter Anvin" <hpa@zytor.com>,
+ Paul Moore <paul@paul-moore.com>, Yoshinori Sato <ysato@users.sourceforge.jp>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Mark Greer <mgreer@animalcreek.com>,
+ Gregory Clement <gregory.clement@bootlin.com>, Lee Jones <lee@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-rockchip@lists.infradead.org,
+ iommu@lists.linux.dev, linux-media@vger.kernel.org,
+ Olga Kornievskaia <okorniev@redhat.com>, Vasily Gorbik <gor@linux.ibm.com>,
+ Pavel Machek <pavel@kernel.org>, apparmor@lists.ubuntu.com,
+ Mike Snitzer <snitzer@kernel.org>, Maxime Ripard <mripard@kernel.org>,
+ linux-gpio@vger.kernel.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Michael Chan <mchan@broadcom.com>, Xin Long <lucien.xin@gmail.com>,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Tom Talpey <tom@talpey.com>, Tony Luck <tony.luck@intel.com>,
+ Theodore Ts'o <tytso@mit.edu>, Zhenyu Wang <zhenyuw.linux@gmail.com>,
+ Dave Penkler <dpenkler@gmail.com>, Sandy Huang <hjc@rock-chips.com>,
+ Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+ Jon Maloy <jmaloy@redhat.com>, "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+ Keyur Chudgar <keyur@os.amperecomputing.com>,
+ Hongbo Li <lihongbo22@huawei.com>, Simon Horman <horms@kernel.org>,
+ Pavan Chebbi <pavan.chebbi@broadcom.com>, Andy Yan <andy.yan@rock-chips.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+ Heiner Kallweit <hkallweit1@gmail.com>,
+ Taras Chornyi <taras.chornyi@plvision.eu>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
+ Kees Cook <kees@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Alexei Starovoitov <ast@kernel.org>, David Sterba <dsterba@suse.com>,
+ linux-mtd@lists.infradead.org,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, linux-phy@lists.infradead.org,
+ Chunhai Guo <guochunhai@vivo.com>, Will Deacon <will@kernel.org>,
+ Zhi Wang <zhi.wang.linux@gmail.com>, Daniel Borkmann <daniel@iogearbox.net>,
+ Miklos Szeredi <miklos@szeredi.hu>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Dexuan Cui <decui@microsoft.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ amd-gfx@lists.freedesktop.org, Stanislav Fomichev <sdf@fomichev.me>,
+ Viacheslav Dubeyko <slava@dubeyko.com>,
+ Sami Tolvanen <samitolvanen@google.com>, linux-input@vger.kernel.org,
+ NeilBrown <neil@brown.name>, Vinod Koul <vkoul@kernel.org>,
+ Ilya Dryomov <idryomov@gmail.com>, linux-ext4@vger.kernel.org,
+ Mel Gorman <mgorman@suse.de>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Petr Pavlu <petr.pavlu@suse.com>, Neil Armstrong <neil.armstrong@linaro.org>,
+ intel-gfx@lists.freedesktop.org, Jamal Hadi Salim <jhs@mojatatu.com>,
+ Steven Rostedt <rostedt@goodmis.org>, Robert Foss <rfoss@kernel.org>,
+ Mark Brown <broonie@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ John Crispin <john@phrozen.org>, ceph-devel@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Gao Xiang <xiang@kernel.org>,
+ cocci@inria.fr, gfs2@lists.linux.dev, linux-nfs@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Linus Walleij <linusw@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ samba-technical@lists.samba.org, Liam Girdwood <lgirdwood@gmail.com>,
+ Steve French <sfrench@samba.org>, Julia Lawall <Julia.Lawall@inria.fr>,
+ Aaron Tomlin <atomlin@atomlin.com>, Changwoo Min <changwoo@igalia.com>,
+ Keerthy <j-keerthy@ti.com>, Tejun Heo <tj@kernel.org>,
+ sched-ext@lists.linux.dev, ntfs3@lists.linux.dev, linux-erofs@lists.ozlabs.org,
+ "David S. Miller" <davem@davemloft.net>, Rich Felker <dalias@libc.org>,
+ Jan Kara <jack@suse.cz>, Vignesh Raghavendra <vigneshr@ti.com>,
+ kvm@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Dominique Martinet <asmadeus@codewreck.org>,
+ Christian Schoenebeck <linux_oss@crudebyte.com>, Takashi Iwai <tiwai@suse.com>,
+ Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+ linux-mm@kvack.org, Haiyang Zhang <haiyangz@microsoft.com>,
+ Alex Williamson <alex@shazbot.org>, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Daniel Gomez <da.gomez@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Russell King <linux@armlinux.org.uk>, David Airlie <airlied@gmail.com>,
+ linux-leds@vger.kernel.org, Andreas Gruenbacher <agruenba@redhat.com>,
+ linux-scsi@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+ Joerg Roedel <joro@8bytes.org>, Jonas Karlman <jonas@kwiboo.se>,
+ Dai Ngo <Dai.Ngo@oracle.com>, Ingo Molnar <mingo@redhat.com>,
+ intel-wired-lan@lists.osuosl.org, Jakub Kicinski <kuba@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Marcel Holtmann <marcel@holtmann.org>,
+ Thomas Gleixner <tglx@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>,
+ Johan Hedberg <johan.hedberg@gmail.com>, linux-s390@vger.kernel.org,
+ Heiko Carstens <hca@linux.ibm.com>, Chao Yu <chao@kernel.org>,
+ Nicolas Palix <nicolas.palix@imag.fr>, linux-block@vger.kernel.org,
+ Bharath SM <bharathsm@microsoft.com>, Mikulas Patocka <mpatocka@redhat.com>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, Jeffle Xu <jefflexu@linux.alibaba.com>,
+ x86@kernel.org, Yue Hu <zbestahu@gmail.com>, Jens Axboe <axboe@kernel.dk>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.15-dev-aa3f6
-X-Authority-Analysis: v=2.4 cv=XtnK/1F9 c=1 sm=1 tr=0 ts=69d7ebe8 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=A5OVakUREuEA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=lLqgR-C0kdikbQ7S4h0A:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNDA5MDE2NyBTYWx0ZWRfX2/0JrfpwaYhj
- 9yBibgMdogwWReqS+OzmgUgclJ7RC2NEE09MaR42xDvfZgTPj1zEzQj/1Qm05mzw0mC9UgbyzQW
- lFXLITrt0X18HPoP7lVYgg2VgzD0pzxXD8p5an3W8z/c0xIKNi57mq6gDXNBRA8pGdKweUFZBBg
- zPlszD8OFaFpNUhbq8rljckNzSljbrcI+DimR1KpHgjz5b++WHgcNTqdIAueT/VHSshPON3OXyB
- Rt375lc7La1nfdEVX5JwRs+y5J0+Sj8gniZojEGV0C8UuCklykYO7JnQEDA0snJFRGf+2MB2jb7
- 7RESqNG78Y8Iw1Epw3j4+3JLAznXlf8gbvJrswzWidu5eBzq/BDYSGRZLeSXNrcQsFucU5LuHF9
- InvRP5A28VbJwsitma8ARBu23Y1GQsXdidd19hIH27obILQQy8q88ZSJJ2TeWRLJfybAT5RQszB
- jvNPe10SZo5MXQbprrg==
-X-Proofpoint-GUID: g3yWoFm4R_s5qF_WzbOrNAIfcacr9Neu
-X-Proofpoint-ORIG-GUID: g3yWoFm4R_s5qF_WzbOrNAIfcacr9Neu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-04-09_04,2026-04-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1011 malwarescore=0
- priorityscore=1501 bulkscore=0 phishscore=0 impostorscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2604010000
- definitions=main-2604090167
-Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Taniya Das <taniya.das@oss.qualcomm.com>,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 8/8] arm64: dts: qcom: eliza: Add support
- for MM clock controllers
+ John Johansen <john.johansen@canonical.com>,
+ Eduardo Valentin <edubezval@gmail.com>, netdev@vger.kernel.org,
+ v9fs@lists.linux.dev, linux-mips@vger.kernel.org,
+ Sven Schnelle <svens@linux.ibm.com>, Andrew Lunn <andrew@lunn.ch>,
+ linux-bluetooth@vger.kernel.org, linux-security-module@vger.kernel.org,
+ tipc-discussion@lists.sourceforge.net, linux-btrfs@vger.kernel.org,
+ Thomas Zimmermann <tzimmermann@suse.de>, Richard Weinberger <richard@nod.at>,
+ Phillip Lougher <phillip@squashfs.org.uk>,
+ Johannes Berg <johannes@sipsolutions.net>, Stephen Boyd <sboyd@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, linux-modules@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH 00/61] treewide: Use IS_ERR_OR_NULL over
+ manual NULL check - refactor
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,135 +198,56 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.89 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	R_DKIM_REJECT(1.00)[linux.org.uk:s=zeniv-20220401];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	DMARC_POLICY_SOFTFAIL(0.10)[zeniv.linux.org.uk : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,gmail.com,foss.st.com];
-	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:taniya.das@oss.qualcomm.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:phahn-oss@avm.de,m:lucho@ionkov.net,m:juri.lelli@redhat.com,m:justin@coraid.com,m:pc@manguebit.org,m:irusskikh@marvell.com,m:linux-sh@vger.kernel.org,m:catalin.marinas@arm.com,m:rodrigo.vivi@intel.com,m:ulf.hansson@linaro.org,m:dri-devel@lists.freedesktop.org,m:perex@perex.cz,m:bsegall@google.com,m:linux-sctp@vger.kernel.org,m:iyappan@os.amperecomputing.com,m:void@manifault.com,m:miquel.raynal@bootlin.com,m:agordeev@linux.ibm.com,m:kys@microsoft.com,m:linux-clk@vger.kernel.org,m:heiko@sntech.de,m:anna@kernel.org,m:wei.liu@kernel.org,m:linux-omap@vger.kernel.org,m:vincent.guittot@linaro.org,m:longli@microsoft.com,m:rafael@kernel.org,m:jmorris@namei.org,m:tursulin@ursulin.net,m:arighi@nvidia.com,m:borntraeger@linux.ibm.com,m:dm-devel@lists.linux.dev,m:sprasad@microsoft.com,m:daniel.lezcano@kernel.org,m:jiri@resnulli.us,m:hawk@kernel.org,m:linux-pm@vger.kernel.org,m:bharat@chelsio.com,m:linux-sound@vger.kernel.org,m:tsbogend@alpha.franken.de,m:ronniesahlberg@g
+ mail.com,m:glaubitz@physik.fu-berlin.de,m:ericvh@kernel.org,m:dietmar.eggemann@arm.com,m:serge@hallyn.com,m:brauner@kernel.org,m:clm@fb.com,m:linux-usb@vger.kernel.org,m:linux-wireless@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dsahern@kernel.org,m:mcgrof@kernel.org,m:chuck.lever@oracle.com,m:mhiramat@kernel.org,m:lukasz.luba@arm.com,m:jack@suse.com,m:linux-fsdevel@vger.kernel.org,m:djakov@kernel.org,m:akpm@linux-foundation.org,m:linux-trace-kernel@vger.kernel.org,m:trondmy@kernel.org,m:quan@os.amperecomputing.com,m:linux-hyperv@vger.kernel.org,m:s.nawrocki@samsung.com,m:dhavale@google.com,m:jlayton@kernel.org,m:dave.hansen@linux.intel.com,m:jcmvbkbc@gmail.com,m:edumazet@google.com,m:target-devel@vger.kernel.org,m:anthony.l.nguyen@intel.com,m:sebastian.hesselbarth@gmail.com,m:alexander.deucher@amd.com,m:agk@redhat.com,m:simona@ffwll.ch,m:linux-cifs@vger.kernel.org,m:vschneid@redhat.com,m:hpa@zytor.com,m:paul@paul-moore.com,m:ysato@users.sourceforge.jp,m:andrew+netdev@lunn.ch,m
+ :mgreer@animalcreek.com,m:gregory.clement@bootlin.com,m:lee@kernel.org,m:john.fastabend@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rockchip@lists.infradead.org,m:iommu@lists.linux.dev,m:linux-media@vger.kernel.org,m:okorniev@redhat.com,m:gor@linux.ibm.com,m:pavel@kernel.org,m:apparmor@lists.ubuntu.com,m:snitzer@kernel.org,m:mripard@kernel.org,m:linux-gpio@vger.kernel.org,m:jani.nikula@linux.intel.com,m:mchan@broadcom.com,m:lucien.xin@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[viro@zeniv.linux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FORGED_SENDER(0.00)[taniya.das@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_FIVE(0.00)[6];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.158];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[taniya.das@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[linux.org.uk:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[246];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[viro@zeniv.linux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[ionkov.net,redhat.com,coraid.com,manguebit.org,marvell.com,vger.kernel.org,arm.com,intel.com,linaro.org,lists.freedesktop.org,perex.cz,google.com,os.amperecomputing.com,manifault.com,bootlin.com,linux.ibm.com,microsoft.com,sntech.de,kernel.org,namei.org,ursulin.net,nvidia.com,lists.linux.dev,resnulli.us,chelsio.com,alpha.franken.de,gmail.com,physik.fu-berlin.de,hallyn.com,fb.com,oracle.com,suse.com,linux-foundation.org,samsung.com,linux.intel.com,amd.com,ffwll.ch,zytor.com,paul-moore.com,users.sourceforge.jp,lunn.ch,animalcreek.com,st-md-mailman.stormreply.com,lists.infradead.org,lists.ubuntu.com,broadcom.com,talpey.com,mit.edu,rock-chips.com,igalia.com,huawei.com,plvision.eu,baylibre.com,ideasonboard.com,vivo.com,iogearbox.net,szeredi.hu,fomichev.me,dubeyko.com,brown.name,suse.de,pengutronix.de,mojatatu.com,goodmis.org,efficios.com,phrozen.org,inria.fr,lists.samba.org,samba.org,atomlin.com,ti.com,lists.ozlabs.org,davemloft.net,libc.org,suse.cz,infradead.org,codewr
+ eck.org,crudebyte.com,paragon-software.com,kvack.org,shazbot.org,dilger.ca,alien8.de,armlinux.org.uk,8bytes.org,kwiboo.se,lists.osuosl.org,holtmann.org,linuxfoundation.org,imag.fr,linux.alibaba.com,kernel.dk,canonical.com,lists.sourceforge.net,nod.at,squashfs.org.uk,sipsolutions.net];
+	NEURAL_HAM(-0.00)[-0.462];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: 7E4723CE812
+X-Rspamd-Queue-Id: C23FF3D9B52
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add the device nodes for the multimedia clock controllers (cambistmclkcc,
-camcc, videocc, gpucc) for Qualcomm Eliza SoC.
+On Tue, Mar 10, 2026 at 12:48:26PM +0100, Philipp Hahn wrote:
+> While doing some static code analysis I stumbled over a common pattern,
+> where IS_ERR() is combined with a NULL check. For that there is
+> IS_ERR_OR_NULL().
 
-Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/eliza.dtsi | 54 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
+... and valid uses of IS_ERR_OR_NULL are rare as hen teeth.
+Most of those are "I'm not sure how this function returns an
+error, let's use that just in case".
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza.dtsi b/arch/arm64/boot/dts/qcom/eliza.dtsi
-index 4a7a0ac40ce6252a138bed06c7c190ada3ea61a3..7a2a3dba86b9395743781cdf724e81733140ecd0 100644
---- a/arch/arm64/boot/dts/qcom/eliza.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza.dtsi
-@@ -709,6 +709,18 @@ aggre2_noc: interconnect@1700000 {
- 			#interconnect-cells = <2>;
- 		};
- 
-+		cambistmclkcc: clock-controller@1760000 {
-+			compatible = "qcom,eliza-cambistmclkcc";
-+			reg = <0x0 0x01760000 0x0 0x6000>;
-+
-+			clocks = <&gcc GCC_CAM_BIST_MCLK_AHB_CLK>,
-+				 <&bi_tcxo_div2>,
-+				 <&sleep_clk>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
- 		mmss_noc: interconnect@1780000 {
- 			compatible = "qcom,eliza-mmss-noc";
- 			reg = <0x0 0x01780000 0x0 0x7d800>;
-@@ -862,6 +874,23 @@ tcsr: clock-controller@1fbf000 {
- 			#reset-cells = <1>;
- 		};
- 
-+		gpucc: clock-controller@3d90000 {
-+			compatible = "qcom,eliza-gpucc";
-+			reg = <0x0 0x03d90000 0x0 0xa000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&gcc GCC_GPU_GPLL0_CPH_CLK_SRC>,
-+				 <&gcc GCC_GPU_GPLL0_DIV_CPH_CLK_SRC>;
-+
-+			power-domains = <&rpmhpd RPMHPD_MX>,
-+					<&rpmhpd RPMHPD_CX>;
-+			required-opps = <&rpmhpd_opp_low_svs>,
-+					<&rpmhpd_opp_low_svs>;
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
- 		lpass_ag_noc: interconnect@7e40000 {
- 			compatible = "qcom,eliza-lpass-ag-noc";
- 			reg = <0x0 0x07e40000 0x0 0xe080>;
-@@ -883,6 +912,31 @@ lpass_lpicx_noc: interconnect@7420000 {
- 			#interconnect-cells = <2>;
- 		};
- 
-+		videocc: clock-controller@aaf0000 {
-+			compatible = "qcom,eliza-videocc";
-+			reg = <0x0 0xaaf0000 0x0 0x10000>;
-+
-+			clocks = <&bi_tcxo_div2>,
-+				 <&sleep_clk>,
-+				 <&gcc GCC_VIDEO_AHB_CLK>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+			#power-domain-cells = <1>;
-+		};
-+
-+		camcc: clock-controller@ade0000 {
-+			compatible = "qcom,eliza-camcc";
-+			reg = <0x0 0x0ade0000 0x0 0x20000>;
-+
-+			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
-+				 <&bi_tcxo_div2>,
-+				 <&sleep_clk>;
-+
-+			#clock-cells = <1>;
-+			#reset-cells = <1>;
-+		};
-+
- 		pdc: interrupt-controller@b220000 {
- 			compatible = "qcom,eliza-pdc", "qcom,pdc";
- 			reg = <0x0 0x0b220000 0x0 0x40000>,
-
--- 
-2.34.1
-
+Please, do not introduce more of that crap.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
