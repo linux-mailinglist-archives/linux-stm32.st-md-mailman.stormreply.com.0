@@ -2,133 +2,125 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +NVcIOAk2Gm9YggAu9opvQ
+	id SI4CLFAx2GmqZggAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 00:14:56 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 01:08:00 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2622D3D02B5
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 00:14:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43EA63D06E9
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 01:08:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87237C87ECC;
-	Thu,  9 Apr 2026 22:14:55 +0000 (UTC)
-Received: from mail-vk1-f227.google.com (mail-vk1-f227.google.com
- [209.85.221.227])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E61A3C87ECC;
+	Thu,  9 Apr 2026 23:07:59 +0000 (UTC)
+Received: from mail-oo1-f99.google.com (mail-oo1-f99.google.com
+ [209.85.161.99])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 95016C08D19
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E6288C87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Apr 2026 22:14:54 +0000 (UTC)
-Received: by mail-vk1-f227.google.com with SMTP id
- 71dfb90a1353d-56d357797acso978989e0c.1
+ Thu,  9 Apr 2026 23:07:58 +0000 (UTC)
+Received: by mail-oo1-f99.google.com with SMTP id
+ 006d021491bc7-673ee2a98b1so889884eaf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Apr 2026 15:14:54 -0700 (PDT)
+ Thu, 09 Apr 2026 16:07:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1775772893; x=1776377693;
+ d=1e100.net; s=20251104; t=1775776077; x=1776380877;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=aB0bwqNi4j6OGTv6J5eNtXtaQf3iDR/hAWd8xrlu2Qs=;
- b=MQ+bdgMN9FQQrHNK5fuiyj824KXERKSEqCYEidoTra2qucGTQHWooi2AglFxZ2ZrK8
- RCqgsJvsROeuVQmeUuOaI3Pb+H0rXSLbA8jJI5Ievhaow+jDIArUgf+iBVLWf1DWUXo9
- uFLKC+M1zyIucn+eOBk9W/V4YQ9qrnMqvoikT2BYwZGvANe6nImXvnePxNndnqeQ88JV
- x8NBJWr3xFuNvW1sFrk93YUmRqAB4inwjxL2mbs+7OueKaMXPQUMXe7FHfvVskzoHaIj
- qYYElKJt3YlGIWPcoipypozffXi/6RI02iiPxcA75xNMRAGaU02HnnzQyhjqolH8OarW
- ftqw==
+ bh=r54Ip/Oe4+zUV6uyDHDa456FeYDyYAWsV70HL3ovNYA=;
+ b=IDT/e8NYpJGPQU8jo8wcg6E63yzcKMX5UwReVBQ+M0RbIcZcWHvBvJYxPNzed686F2
+ QUr3A4vbVRgHlTAotJbYVEUHkO5o97tKykHenx/cUULbQXV8Glza78T0A2Z9fuYu/DiZ
+ GIHMhg67ygmHvS2ErESgziD4dJt3/wFLRh4+Ixil6u5mjNM+KEr8F01QzwsBSZJJUcfK
+ s3dVK3IZu0w+PA/LIOQw4AjGRkwDVfoLCYuNu+k6WvGufD/TB6lT/HGkcdt1UB9XTrxz
+ 9EEa/VV1VP3Rb3ts+REig1peYl66s1HKeBSYblUlziKpoLBdh4KMsf1nw6ECDaZb2p8s
+ RPiA==
 X-Forwarded-Encrypted: i=2;
- AJvYcCWg4mkCK6ZlnlO2T5rU30mYoOpLzbl7qHlEYnU53qeReGRkK7ThczpRUgq4sYQ6XjNB6Ert20BCVZoXmQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw6s7bBpRPD8fJi2InNBslPbLhqusa+nbYvs6KawtxdzfGWnF0i
- q7b4WtQXMdURd7qN3wSpkxfsvmzgQbIWqWwiR1XbVcsIX6a8jJ7QTWn3GH2VahoRf2KLPo3Mpql
- rR+YGjOI7gsPi29+PSqD6oZhEjFI4JNCtZ8uVydAL3toc8B0J/bWOLlPokY8vneCjGZFFQYd7yy
- mMD4juslPJZcwrwKXKNXhetzUiZladb+bJ1zwUQ66KJ5+cpFTe2ufxvd90CDN+ibzQoCJNn/MyE
- i6j4vGx/Qcp3jGCwgQJBNBwhqtcLNoh5uKvDrwgGA==
-X-Gm-Gg: AeBDiesHjEl+qUG9LlPuwaGAVHMeUmyEP+zcPKIFVctQnz9SwHF2ewvZ6N7/yHnYOpp
- UO+qma9CPnwIAfcnQnK3//MRGRSEQWz4E+oGy91k/eag5wGo8aAUAHidlGwRBBI+zqLY9BtL/oy
- 51CKU24WKiiJ4FDrgsUTzfsUBDtzLZRTDuJsoKxgZmnhn15iHTKSZ/dNkxxNEZN6v/LfSamL73N
- hi/PM7Dy4No1Y0/4/BywoaS0+u6ZdSlL8H9CBLwfqtYaB7S7+CcL8+OJDoxlGeDOVxXGQ7TbxX6
- KV/g2YfldXux0ih4QhXjfaDHQfKaRoVOgvBRNTrIL1hodD3yxehzU1CSJgTEUGcP9Y+394Om/ld
- kYdnmL2/Mfe+pOZbtRdlJ14MZ1r1+F67A3v+HZai5AfHNybiB0j7izr/jFEjUZxQtbl/S+XbGwk
- E55pPXUyA7n6xyeZI47aV4gkeCI4TE0DGo1v1CjIhYV1Yv77AtXJ6wvkVd9s9atnE=
-X-Received: by 2002:a05:6122:1689:b0:56b:9b7b:83e7 with SMTP id
- 71dfb90a1353d-56f3bc53702mr485722e0c.7.1775772893191; 
- Thu, 09 Apr 2026 15:14:53 -0700 (PDT)
+ AJvYcCVcGjW4ntPjhLG75rGFpBx37ewpd8eMoEet1t+28qL/JlcqR+jYoMF3a1RdOQwYSNKy2SHRlx8eCr4O+g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywh8rzExArA6IxBWJW0wlY0Nq8ad/lZtwa3Nmoc+iJuPs1nrraP
+ H5Xd92TN1QH77cb1i9SwCbdkSWdKMQGbthR/ur7G5NGzd27qzPDAS2q17tg8KICGfgJYr9QOb4E
+ BrpauW17dzdI+Qo553V0PzOgUknQzpKn7mMqxl3xnOQ1kcprg0KCYkSXTMZYYzeep/pfcieyH6s
+ cZAScuSqZLBPKOQS8md1L4smr9GpK6gqRdH4Ewa2HS4Lmi52oNRH67zb5oEJ/ycW+QQjNroQEDG
+ xNSd5KV1ztZ0eBRTrqGgUUh+0/+9AuP8TFZab7aSw==
+X-Gm-Gg: AeBDiespwnVKoL1oi9fffvb29ygDogua7+/Ho6mYMc1SftMZhkhQnfkxLIr8q09IuSn
+ qn6byB8P+9MyutRR76UuuzwrcDG+kscsOi0zHi5wwwr4N+TGUrMZP8u6e6QiH8QBvO0H64lSLym
+ cfwQYnC8VvU6vJ5FwUfqrO8mL2pJF+Kw2Ir/kxKy1Jb45aEgefp/jv39XqxILSn5PUWm5Ia1tqM
+ CTqd+9IVWCLRkS8qzAVCYCS+sAXtIQDSXjjoVmjV3/4XVWRySpRjwioPcJUeYVrPDmuV3t5SJYM
+ Ms5SBy9RlIOgbQXStFUFQ7DS3oCk+6RLnlqR2Sd+OzYnlwFEbq5K3An8tuyF7vQtseQRivqf2Gr
+ 2FrydA1jZgaq87adYSFJ4Vkx9cKAYsZwtYPxnL0Xf0Dki5M3UyU6SVCh+h/wp4OTXYe2hp0I0YF
+ CJ0H81ht7MZoZ8VDw8zgSpieFB8F2j6ZvIlXdR85uJSvvPM8rPHyY9i3hAJxjXn+w=
+X-Received: by 2002:a05:6820:c08e:b0:67d:e7c3:3c65 with SMTP id
+ 006d021491bc7-68be8dcf17emr455008eaf.56.1775776077451; 
+ Thu, 09 Apr 2026 16:07:57 -0700 (PDT)
 Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com
- (address-144-49-247-24.dlp.protect.broadcom.com. [144.49.247.24])
+ (address-144-49-247-29.dlp.protect.broadcom.com. [144.49.247.29])
  by smtp-relay.gmail.com with ESMTPS id
- 71dfb90a1353d-56f3b919d96sm63725e0c.3.2026.04.09.15.14.52
+ 586e51a60fabf-423ddb52608sm129932fac.12.2026.04.09.16.07.57
  for <linux-stm32@st-md-mailman.stormreply.com>
  (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Thu, 09 Apr 2026 15:14:53 -0700 (PDT)
+ Thu, 09 Apr 2026 16:07:57 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
 Received: by mail-wr1-f72.google.com with SMTP id
- ffacd0b85a97d-43cf5b4dac8so1382423f8f.0
+ ffacd0b85a97d-43d0c06c232so1457367f8f.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Apr 2026 15:14:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1775772892; cv=none;
+ Thu, 09 Apr 2026 16:07:56 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1775776076; cv=none;
  d=google.com; s=arc-20240605;
- b=YMEJvxhh2bzcRXL8MspiTsFqM9FKx6VPuMLoxoLdP/rH/InlUC66LDpHzBeUYRiKqF
- 4N/oKRslP7DAhTA0B30zU6ikNneZEFeq03V0YBHkk295MJx5e8WXEDbv7MOv3pfsAP+0
- Z9IF5x2gV75i/Z/oXEFJGHZe4zy48msKk6XuuXawyIQ7C24pRs2l/syLqhDCzOkql/dU
- zNleNwdAPDb8LziSYN2RRPIvNS9JlqROrbj49aIDs7YYDC1X6YDW7lylVxZAQmNmtEjK
- i+obXkbVY26u5ArtyFFjg4B2lm/AKinW84urWMkeIAIzqCGxWDlv7kFMmHG46wbTfjN3
- wLTw==
+ b=W77g6ChqQvUDflpJNTS5wrUFLoL+RbhwrhJ/WQs5Jgo07VcWAH4QWvo7BW/mHREy6F
+ V1NCSToDIZ90SZ0cRfj3C7jP/kRtasl8v1CR44ZCY7YMlWydAOuUMh7QIwUM3A5g/1je
+ alwyR1M7uO8Eg9GYrw8TtDYNKBEuVIZIBZqeAsWsfseuZiPTMs5f2m5jk+dby0FAT+ak
+ yx6Ls3lJJcGVjeSovOwYf/bdgjuPtd2aJYbEsCUwRc6iCJHmBVQtsik1OQxGLwPK2Ij6
+ Vy86XXI3bi5d51Ai5udaleijzRWcI5f9MPJe9ORRKZzW1JPgTdRUUvx1VHoEWMGJNFaL
+ 0WJg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20240605; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:dkim-signature;
- bh=aB0bwqNi4j6OGTv6J5eNtXtaQf3iDR/hAWd8xrlu2Qs=;
- fh=sLq90p9UIrJR4V2zLBUbmJltzM+PBiIT1xQZg+yIdEo=;
- b=b+eYSc/OMtOMAx/f+zAMO978YcgotrAEStsYgO9iHkjVeOMuXHTVXNZK3CTDlqLlX7
- 582qW5iNEd3MjvrqjwIOuNWL5C4QGrepmMT6amZkdSlnZfWR5Ln8fh5lJujauaQynhn3
- e3x/wjPEIuoBooKtsHKQaVpVXzz/s0tDQno3npRLyZ5ubz94VHr1+kwfhFdNB1Bk9s5/
- /eXw+550n0H5+xkvDcDr0a3r28TmzjqZ/hkg7+5wXd0sVzzejdOkblhdkPelqXUd0Uol
- imOhdqSjevmsN+OX6pfvfk7+C2GXYboZYKFORa42pCuhB2xtfhUnxltQr7SQtrjhnLgw
- N7sA==; darn=st-md-mailman.stormreply.com
+ bh=r54Ip/Oe4+zUV6uyDHDa456FeYDyYAWsV70HL3ovNYA=;
+ fh=LfXAysd7zC+p2ravYWE2/VVKk42w4RMDVTjpLD1sw/c=;
+ b=KXoTGtdFD9HsA7bbp6KkThqVivjUERTp4NtrbTE3tksXH9DwSzOeDkyrV3X2LqjYYI
+ Xrlw9MGXsG3P6zqaUBIuzkIH3zqaZg/PjpSHq9u7y0uGDwCvDrDkva+e86vKIrReNuDJ
+ sxyHTiQMrTin4DbW/RhU1MuZgkMUXHBHFL94uEVVSTRO/CSoexwwqjxaefCun1GLlJO7
+ nwGakTKmE7xbJbncdz2H8XG93BEFb/wCTC6W13B+8pMw6CFg2FHlfpFZjZCmHmqanNSQ
+ qQtS5Up99x2UdrU24Gs5ZwTKIo5UWVt0z2gsAWkI2EIgF7mVgA3i9uYovaPE4uNZY5oq
+ h3oA==; darn=st-md-mailman.stormreply.com
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=broadcom.com; s=google; t=1775772892; x=1776377692;
+ d=broadcom.com; s=google; t=1775776076; x=1776380876;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=aB0bwqNi4j6OGTv6J5eNtXtaQf3iDR/hAWd8xrlu2Qs=;
- b=fu7nRk6NFcjHGE1u+TTEiPK30FqRxFqTU+5HKS0htfMh8rwmV3Jd65kNJCyyzbyI1o
- cL8puYTkeWVAdUu1JEFns2a/fPpww8UwSc3NUrtY/GNXwbeyStft+OTq58rz2zqhOexM
- W5dVdwc5txZ5V1f/75agdLl75bs8bonJG+kQ8=
+ bh=r54Ip/Oe4+zUV6uyDHDa456FeYDyYAWsV70HL3ovNYA=;
+ b=VhOBRV2gRPbVfRb+5xv2mq3eRxLGLinCyTp6///v/Muhs2IqlGNKPUUKBF/pPXOogC
+ is73kwxJMHMVI8n/PwBUJZbbvN35y2QHGkBmIHEY5vut/Wpg5B8cF3JIbQ09D0Ei0I0u
+ OECpB4XAphA/tyHme03YyJ3YkgvvuMfZxtqf8=
 X-Forwarded-Encrypted: i=1;
- AJvYcCXUbJUYzaQk4MHoL0CSbyx1x+Cl7IBlc38BaPV5cLOwAdrfVc9+O9vwYxs2TdzrsGI50kmic1XqEQSV9Q==@st-md-mailman.stormreply.com
-X-Received: by 2002:a05:6000:2010:b0:43c:f7e5:817a with SMTP id
- ffacd0b85a97d-43d64292b01mr916396f8f.19.1775772891636; 
- Thu, 09 Apr 2026 15:14:51 -0700 (PDT)
-X-Received: by 2002:a05:6000:2010:b0:43c:f7e5:817a with SMTP id
- ffacd0b85a97d-43d64292b01mr916355f8f.19.1775772891127; Thu, 09 Apr 2026
- 15:14:51 -0700 (PDT)
+ AJvYcCWmcukxZCkGjOUGIHWcQ7IyO8HXzHrscV5JfsqtHtrgJJaBKA9fvTXwyJjD8jZmilP6uqmBfbmsaBsDLw==@st-md-mailman.stormreply.com
+X-Received: by 2002:a05:6000:2408:b0:43d:1c75:db70 with SMTP id
+ ffacd0b85a97d-43d642537a8mr1160274f8f.15.1775776075746; 
+ Thu, 09 Apr 2026 16:07:55 -0700 (PDT)
+X-Received: by 2002:a05:6000:2408:b0:43d:1c75:db70 with SMTP id
+ ffacd0b85a97d-43d642537a8mr1160236f8f.15.1775776075250; Thu, 09 Apr 2026
+ 16:07:55 -0700 (PDT)
 MIME-Version: 1.0
-References: <20260402213629.1996133-2-jitendra.vegiraju@broadcom.com>
- <20260407020954.3674529-1-kuba@kernel.org>
-In-Reply-To: <20260407020954.3674529-1-kuba@kernel.org>
+References: <adYfPBHsXxQUsMyr@shell.armlinux.org.uk>
+ <E1wAPBR-0000000F7ju-1fD9@rmk-PC.armlinux.org.uk>
+In-Reply-To: <E1wAPBR-0000000F7ju-1fD9@rmk-PC.armlinux.org.uk>
 From: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
-Date: Thu, 9 Apr 2026 15:14:37 -0700
-X-Gm-Features: AQROBzDIrVBrq9a8N-kCZj3is_dHAtUZh7lT-03nRSlBMuTVHnIsC_ZMyZ5jrJ4
-Message-ID: <CAMdnO-KHq273kkC2wBou7oEK1BAHbYYW4u9iRV9nfe0dNk_61A@mail.gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
+Date: Thu, 9 Apr 2026 16:07:42 -0700
+X-Gm-Features: AQROBzCWB9VUvQ4RpL1EJYfajIJ7yfPJs9yk-WkOxw3bptp81Ttc8d621uiKtaQ
+Message-ID: <CAMdnO-+TK65AxjTsDd017Mhop+VC3Xf8jtfaTXYpE6wBNZOt4g@mail.gmail.com>
+To: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Cc: vladimir.oltean@nxp.com, chenchuangyu@xiaomi.com, edumazet@google.com,
- lizhi2@eswincomputing.com, yangtiezhu@loongson.cn,
- linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- bcm-kernel-feedback-list@broadcom.com, quic_abchauha@quicinc.com,
- pabeni@redhat.com, hawk@kernel.org, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- ast@kernel.org, rmk+kernel@armlinux.org.uk, wens@kernel.org,
- linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
- florian.fainelli@broadcom.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
- horms@kernel.org, bpf@vger.kernel.org, davem@davemloft.net,
- ovidiu.panait.rb@renesas.com
-Subject: Re: [Linux-stm32] [PATCH net-next v9 1/4] net: stmmac: Add DW25GMAC
- support in stmmac core driver
+Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 02/10] net: stmmac: rename
+	dev_id to userver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -140,7 +132,7 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============7249668613471231864=="
+Content-Type: multipart/mixed; boundary="===============6124308451309945004=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.19 / 15.00];
@@ -155,137 +147,165 @@ X-Spamd-Result: default: False [4.19 / 15.00];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[34];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:vladimir.oltean@nxp.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:lizhi2@eswincomputing.com,m:yangtiezhu@loongson.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:bcm-kernel-feedback-list@broadcom.com,m:quic_abchauha@quicinc.com,m:pabeni@redhat.com,m:hawk@kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:ast@kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:florian.fainelli@broadcom.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:horms@kernel.org,m:bpf@vger.kernel.org,m:davem@davemloft.net,m:ovidiu.panait.rb@renesas.com,m:johnfastabend@gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm3
- 2@gmail.com,m:andrew@lunn.ch,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:rmk+kernel@armlinux.org.uk,m:andrew@lunn.ch,m:pabeni@redhat.com,m:samuel@sholland.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:wens@kernel.org,m:linux-sunxi@lists.linux.dev,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	HAS_ATTACHMENT(0.00)[];
-	DKIM_TRACE(0.00)[broadcom.com:-];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[nxp.com,xiaomi.com,google.com,eswincomputing.com,loongson.cn,st-md-mailman.stormreply.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,broadcom.com,quicinc.com,redhat.com,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,vger.kernel.org,lunn.ch,davemloft.net,renesas.com];
-	NEURAL_HAM(-0.00)[-0.976];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	HAS_ATTACHMENT(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[jitendra.vegiraju@broadcom.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[broadcom.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	NEURAL_HAM(-0.00)[-0.996];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,mail.gmail.com:mid,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Queue-Id: 2622D3D02B5
+	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,armlinux.org.uk:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 43EA63D06E9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
---===============7249668613471231864==
+--===============6124308451309945004==
 Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000006e63e4064f0e5851"
+	boundary="000000000000374f5e064f0f16e7"
 
---0000000000006e63e4064f0e5851
+--000000000000374f5e064f0f16e7
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Apr 6, 2026 at 7:09=E2=80=AFPM Jakub Kicinski <kuba@kernel.org> wro=
-te:
->
-> This is an AI-generated review of your patch. The human sending this
-> email has considered the AI review valid, or at least plausible.
-> ---
-> Subject: net: stmmac: Add DW25GMAC support in stmmac core driver
->
-> This commit introduces support for the DW25GMAC hardware in the stmmac
-> core driver, which uses a new Hyper-DMA (HDMA) architecture. It adds a
-> new DMA ops instance mapping virtual DMA channels to physical DMA
-> channels and sets up the basic device configurations.
->
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dw25gmac.c b/drivers/n=
-et/ethernet/stmicro/stmmac/dw25gmac.c
-> > new file mode 100644
-> > index 0000000000000..82eb22bff73e0
-> > --- /dev/null
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dw25gmac.c
->
-> [ ... ]
->
-> > +static int rd_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel)
-> > +{
-> > +     u32 reg_val =3D 0;
-> > +
-> > +     reg_val |=3D FIELD_PREP(XXVGMAC_MODE_SELECT, mode);
-> > +     reg_val |=3D FIELD_PREP(XXVGMAC_ADDR_OFFSET, channel);
-> > +     reg_val |=3D XXVGMAC_CMD_TYPE | XXVGMAC_OB;
-> > +     writel(reg_val, ioaddr + XXVGMAC_DMA_CH_IND_CONTROL);
-> > +     return readl(ioaddr + XXVGMAC_DMA_CH_IND_DATA);
-> > +}
->
-> Does this readl() need to wait for the hardware to clear the XXVGMAC_OB
-> (Operation Busy) bit? Returning immediately might read uninitialized or
-> stale data if the hardware hasn't finished the fetch.
->
-This is an issue. We will fix it.
-> > +
-> > +static void wr_dma_ch_ind(void __iomem *ioaddr, u8 mode, u32 channel, =
-u32 val)
-> > +{
-> > +     u32 reg_val =3D 0;
-> > +
-> > +     writel(val, ioaddr + XXVGMAC_DMA_CH_IND_DATA);
-> > +     reg_val |=3D FIELD_PREP(XXVGMAC_MODE_SELECT, mode);
-> > +     reg_val |=3D FIELD_PREP(XXVGMAC_ADDR_OFFSET, channel);
-> > +     reg_val |=3D XGMAC_OB;
->
-> This isn't a bug, but should this use the XXVGMAC_OB macro instead of
-> XGMAC_OB here for consistency?
->
-> > +     writel(reg_val, ioaddr + XXVGMAC_DMA_CH_IND_CONTROL);
-> > +}
->
-> Similarly, does this function need to poll for the busy bit to clear afte=
-r
-> the writel()? If back-to-back operations occur, the next indirect write
-> might overwrite the control and data registers while the hardware is stil=
-l
-> processing this request.
->
-Agreed. This is bug, we will fix it.
-> [ ... ]
->
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c b/driv=
-ers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > index f02b434bbd505..64c38de294da2 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
->
-> [ ... ]
->
-> > -int dwxgmac2_setup(struct stmmac_priv *priv)
-> > +static void dwxgmac2_common_setup(struct stmmac_priv *priv, char *mac_=
-name)
-> >  {
->
-> This isn't a bug, but should mac_name be declared as const char * since i=
-t
-> is passed string literals like "XGMAC2" and "DW25GMAC"? This avoids
-> discarded-qualifiers compiler warnings.
->
-> >       struct mac_device_info *mac =3D priv->hw;
-> >
-> > -     dev_info(priv->device, "\tXGMAC2\n");
-> > +     dev_info(priv->device, "\t%s\n", mac_name);
->
-Ack
-> [ ... ]
-> --
-> pw-bot: cr
+Hi Russell,
 
---0000000000006e63e4064f0e5851
+On Wed, Apr 8, 2026 at 2:27=E2=80=AFAM Russell King (Oracle)
+<rmk+kernel@armlinux.org.uk> wrote:
+>
+> The Synopsys Databook and several implementation TRMs identify bits
+> 15:8 of the version register in dwmac v3.xx and v4.xx as "userver".
+> We even print its value with "User ID". Rather than using "dev_id",
+> use "userver" instead.
+>
+> Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/hwif.c | 18 +++++++++---------
+>  1 file changed, 9 insertions(+), 9 deletions(-)
+>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.c b/drivers/net/eth=
+ernet/stmicro/stmmac/hwif.c
+> index 3774af66db48..830ff816ab4f 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/hwif.c
+> @@ -15,7 +15,7 @@
+>
+>  struct stmmac_version {
+>         u8 snpsver;
+> -       u8 dev_id;
+> +       u8 userver;
+>  };
+From the XGMAC databook that I have access to bits(15:8) identify the
+DEVID field of MAC_version register.
+The userver field is from bits(23:16) of the same register. This is a
+customer defined field (configured with coreConsultant).
+Currently stmmac doesn't care about bits(23:16).
+
+I think the confusion is coming from macro name in common.h
+#define DWMAC_USERVER   GENMASK_U32(15, 8)
+This should be named
+#define DWMAC_DEVID   GENMASK_U32(15, 8)
+Hope someone with access to another databook can confirm this.
+
+>
+>  static void stmmac_get_version(struct stmmac_priv *priv,
+> @@ -26,7 +26,7 @@ static void stmmac_get_version(struct stmmac_priv *priv=
+,
+>         u32 version;
+>
+>         ver->snpsver =3D 0;
+> -       ver->dev_id =3D 0;
+> +       ver->userver =3D 0;
+>
+>         if (core_type =3D=3D DWMAC_CORE_MAC100)
+>                 return;
+> @@ -48,7 +48,7 @@ static void stmmac_get_version(struct stmmac_priv *priv=
+,
+>
+>         ver->snpsver =3D FIELD_GET(DWMAC_SNPSVER, version);
+>         if (core_type =3D=3D DWMAC_CORE_XGMAC)
+> -               ver->dev_id =3D FIELD_GET(DWMAC_USERVER, version);
+> +               ver->userver =3D FIELD_GET(DWMAC_USERVER, version);
+>  }
+>
+>  static void stmmac_dwmac_mode_quirk(struct stmmac_priv *priv)
+> @@ -111,7 +111,7 @@ int stmmac_reset(struct stmmac_priv *priv)
+>  static const struct stmmac_hwif_entry {
+>         enum dwmac_core_type core_type;
+>         u32 min_snpsver;
+> -       u32 dev_id;
+> +       u32 userver;
+>         const struct stmmac_regs_off regs;
+>         const void *desc;
+>         const void *dma;
+> @@ -247,7 +247,7 @@ static const struct stmmac_hwif_entry {
+>         }, {
+>                 .core_type =3D DWMAC_CORE_XGMAC,
+>                 .min_snpsver =3D DWXGMAC_CORE_2_10,
+> -               .dev_id =3D DWXGMAC_ID,
+> +               .userver =3D DWXGMAC_ID,
+>                 .regs =3D {
+>                         .ptp_off =3D PTP_XGMAC_OFFSET,
+>                         .mmc_off =3D MMC_XGMAC_OFFSET,
+> @@ -269,7 +269,7 @@ static const struct stmmac_hwif_entry {
+>         }, {
+>                 .core_type =3D DWMAC_CORE_XGMAC,
+>                 .min_snpsver =3D DWXLGMAC_CORE_2_00,
+> -               .dev_id =3D DWXLGMAC_ID,
+> +               .userver =3D DWXLGMAC_ID,
+>                 .regs =3D {
+>                         .ptp_off =3D PTP_XGMAC_OFFSET,
+>                         .mmc_off =3D MMC_XGMAC_OFFSET,
+> @@ -291,7 +291,7 @@ static const struct stmmac_hwif_entry {
+>  };
+>
+>  static const struct stmmac_hwif_entry *
+> -stmmac_hwif_find(enum dwmac_core_type core_type, u8 snpsver, u8 dev_id)
+> +stmmac_hwif_find(enum dwmac_core_type core_type, u8 snpsver, u8 userver)
+>  {
+>         const struct stmmac_hwif_entry *entry;
+>         int i;
+> @@ -305,7 +305,7 @@ stmmac_hwif_find(enum dwmac_core_type core_type, u8 s=
+npsver, u8 dev_id)
+>                 if (snpsver < entry->min_snpsver)
+>                         continue;
+>                 if (core_type =3D=3D DWMAC_CORE_XGMAC &&
+> -                   dev_id !=3D entry->dev_id)
+> +                   userver !=3D entry->userver)
+>                         continue;
+>
+>                 return entry;
+> @@ -358,7 +358,7 @@ int stmmac_hwif_init(struct stmmac_priv *priv)
+>         /* Fallback to generic HW */
+>
+>         /* Use synopsys_id var because some setups can override this */
+> -       entry =3D stmmac_hwif_find(core_type, priv->synopsys_id, version.=
+dev_id);
+> +       entry =3D stmmac_hwif_find(core_type, priv->synopsys_id, version.=
+userver);
+>         if (!entry) {
+>                 dev_err(priv->device,
+>                         "Failed to find HW IF (id=3D0x%x, gmac=3D%d/%d)\n=
+",
+> --
+> 2.47.3
+>
+
+--000000000000374f5e064f0f16e7
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -378,18 +398,18 @@ Y/1/C9Jv/mWm/2lK8nvusOFxhKmbG83Hx8toQdZ5F1kYk6zAWjfB7lwXr/En9mCmLieJ18hen9EK
 qbYyUkmCmuoLi5GXFMJy+iQv6DgMVQ7CACagybU6FUrmL9lVa+A6caBEEh4xggJXMIICUwIBATBi
 MFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52LXNhMSgwJgYDVQQDEx9HbG9i
 YWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgwYdforFgrdZbZjKmswDQYJYIZIAWUDBAIBBQCg
-gccwLwYJKoZIhvcNAQkEMSIEIGwoVXYTb7jIt4pZrqv7oj7W19W19KkcepsmKqv6JpsJMBgGCSqG
-SIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDQwOTIyMTQ1MlowXAYJKoZI
+gccwLwYJKoZIhvcNAQkEMSIEIKWQy2mXIISkzcYEPlbdhtpPqkM/JUwZeydB13GuGHztMBgGCSqG
+SIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2MDQwOTIzMDc1NlowXAYJKoZI
 hvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsGCWCGSAFlAwQBAjAKBggqhkiG
-9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAAZLX4DO4Cov
-kQIFrRc07yuLHnUiFw6Zy57h25q9VBipyCFcX1t+qvtoZWuRRC34DLZB5+TL5jSkWkcypzrGbJL1
-a9ywfeNdACY6ZTGC1dzVICDIM4gdYlCBwXyly5bwm+/+rf+yKQS2wRFhZ0sWOrVpsTcglCi3F/UT
-plCuAp8w71I5vtcxJiWUmU5+BXXMQFdLdoSPO4hFp7aOW8hO87mQ0LIzTwtt3sn5Vu9mFCmbWw3b
-swspQ85xb5Ra9j5Do1TcVaB4HHXojqjB1a4dxXEhLjIxfb+NJHxYAE9e3RZHwwrJFmVXW/JduMra
-502KfFM/YwnlfaghhO75Mp8TqQ8=
---0000000000006e63e4064f0e5851--
+9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3DQEBAQUABIIBAEE2b2zWJhSn
+m11bQ8aBW6C9td4QBvPDmIdoV6rE+Y9H5jn/1fXAaPSdu3AoC3/79TkDGBpd3bg84S/rA7I1MmU2
+5eooWq3dKlgWLSwIsY8FT5Uuv5X03b8U5zCch+kX9I1LvJzPA4C1OWJYuJcM712tNQt8drk2I2Ye
+HajTx4I1gih4m/44YEUukvny325l2cxanNzopdMx24RkDEwcFfgjEjvsHYHDIFDCATl8g1yhMiyH
+1Qgq/8TDjrLVlXolQasoLRXfb8s+lEV55fQREW2D0zztsCabp5v8eBKmQPICfv1CTNa7t0haWdN0
+9M2LRyQbKpPprmWCMW2UncOAjjw=
+--000000000000374f5e064f0f16e7--
 
---===============7249668613471231864==
+--===============6124308451309945004==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -400,4 +420,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============7249668613471231864==--
+--===============6124308451309945004==--
