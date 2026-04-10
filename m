@@ -2,64 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KGKZBFq02GmshAgAu9opvQ
+	id uJEZBmS32GnnhAgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:27:06 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:40:04 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BEB73D412B
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1B903D43B9
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:40:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21ACDC08D19;
-	Fri, 10 Apr 2026 08:27:05 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B080C87EC5;
+	Fri, 10 Apr 2026 08:40:03 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37139C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2318CC36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Apr 2026 08:27:03 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BBF9142E37;
- Fri, 10 Apr 2026 08:27:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82EEEC19421;
- Fri, 10 Apr 2026 08:26:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775809622;
- bh=wiVpkLOHesaDxqsTty1+qn46GjmDPchZxN/XYbW0yVY=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ETa0mesoel9QguYJ8pV0cmtc3Cyt+G6JUpWibDvnx++QugKMurkEiMLxtwQDB5+4M
- 52/cbsopugbayzbSPnnyAbHWsP0AdFH67TlACy8kcfjh4JdG6u2Qq/LC1oH/Eiu4g6
- bfyMNUg5cCwzSZz9MdhsqS4IWcLAKxeL5tYLwh3e6uu5BnTlKtyIR0LjeFSbDSstuK
- fFnnYkgL415whPrxMxn28Q5jI5A2U/9LwBir5p2eofF6AYQid7qaJOIQ/pBC5aLcD5
- osR7giAvoly013z7WULooyA3wUIaHOb5+eAjs96gtEyycEn74RadjM7s8MUn7+f7Vk
- LV0Sgr7ATh/ZA==
-Message-ID: <b280ad04-d4ae-4904-9e99-3d057e3d221b@kernel.org>
-Date: Fri, 10 Apr 2026 09:26:56 +0100
+ Fri, 10 Apr 2026 08:40:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:
+ Content-Transfer-Encoding:Content-Type:MIME-Version:References:Message-ID:
+ Subject:Cc:To:From:Date:Reply-To:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=ZdOnR/1mCgonR7f2wP3H5JqrF/rCMapSujGWUMtD9/A=; b=rqmqyPCMlvW3KvDYDz3/ETNIAh
+ G+ESQPCwbBnKWQSJh+ewTI/voRE6d3Ofr1iTuT3bDkAk27P35fRCtsFZbsndaH/5R0K66REmgJSa9
+ 6DVG3w9ciTeMT7N2D8gBgu388hIIZw6pNykZbUBWSDiL7IR0aL2hPrX8lB4FFeNyxkZ34crCfawWq
+ ET2uU1utHtMx1ISS5KHV4cXaCRdUmtsF7xMSq6W4rlj8YdqvT2Z4amTnf9HBxDn9tiMn2tvOV0lU9
+ fP2Wv8AVO7k6NoEkFKJOMMsTBV69KWgM7sywkLGQu709m6YCrVMKL6osnzUr1As2obFMhYf3OddEf
+ Nyrg83EA==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:45482)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1wB7P7-000000004e2-341K;
+ Fri, 10 Apr 2026 09:39:53 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1wB7P4-000000005UF-3z5f; Fri, 10 Apr 2026 09:39:50 +0100
+Date: Fri, 10 Apr 2026 09:39:50 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Jitendra Vegiraju <jitendra.vegiraju@broadcom.com>
+Message-ID: <adi3Vks-N0a83ylE@shell.armlinux.org.uk>
+References: <adYfPBHsXxQUsMyr@shell.armlinux.org.uk>
+ <E1wAPBR-0000000F7ju-1fD9@rmk-PC.armlinux.org.uk>
+ <CAMdnO-+TK65AxjTsDd017Mhop+VC3Xf8jtfaTXYpE6wBNZOt4g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com>
- <20260409-eliza_mm_cc_v2-v2-8-bc0c6dd77bc5@oss.qualcomm.com>
- <cb5a40e8-e2e3-4ed9-a9c6-0daa9f408710@nxsw.ie>
- <Z8a4y73p6MgF8gQkVtottkgG2Ok8-Vhm8zzckWEbiU_DUO84x2VlwPt-VBL2g0utw3ZwZK0aUvI4ev-p_YRGoQ==@protonmail.internalid>
- <328b388c-438e-4f91-9384-0dad903355a5@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <328b388c-438e-4f91-9384-0dad903355a5@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 8/8] arm64: dts: qcom: eliza: Add
- support for MM clock controllers
+Content-Disposition: inline
+In-Reply-To: <CAMdnO-+TK65AxjTsDd017Mhop+VC3Xf8jtfaTXYpE6wBNZOt4g@mail.gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Paolo Abeni <pabeni@redhat.com>,
+ Samuel Holland <samuel@sholland.org>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC net-next 02/10] net: stmmac: rename
+	dev_id to userver
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,74 +68,82 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[bod@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,baylibre.com,gmail.com,foss.st.com];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:jitendra.vegiraju@broadcom.com,m:andrew@lunn.ch,m:pabeni@redhat.com,m:samuel@sholland.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:wens@kernel.org,m:linux-sunxi@lists.linux.dev,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.110];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[bod@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.865];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 7BEB73D412B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,armlinux.org.uk:email,armlinux.org.uk:url,stormreply.com:email,stormreply.com:url,shell.armlinux.org.uk:mid]
+X-Rspamd-Queue-Id: B1B903D43B9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On 10/04/2026 04:55, Taniya Das wrote:
->> Why do these two controllers have no power-domains ?
-> Bryan, on Eliza the videocc and camcc are connected on CX and MXA.
-
-Shouldn't you at least have:
-
-power-domains = <&rpmhpd RPMHPD_CX> ?
-
-And even
-
-power-domains = <&rpmhpd RPMHPD_MX>,
-                 <&rpmhpd RPMHPD_CX>;
-power-domain-names = "mx",
-                      "cx";
-
-Konrad's suggestion to me was that MXA should have a vote in my CSIPHY 
-series I think he and Jagadeesh discussed it but I'm not sure if they 
-_concluded_ what was the right thing to do.
-
-Right now I'm representing the dependency. MXA is always on ... and 
-there's nothing to do voting for it @ MX ?
-
----
-bod
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVGh1LCBBcHIgMDksIDIwMjYgYXQgMDQ6MDc6NDJQTSAtMDcwMCwgSml0ZW5kcmEgVmVnaXJh
+anUgd3JvdGU6Cj4gSGkgUnVzc2VsbCwKPiAKPiBPbiBXZWQsIEFwciA4LCAyMDI2IGF0IDI6Mjfi
+gK9BTSBSdXNzZWxsIEtpbmcgKE9yYWNsZSkKPiA8cm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWs+
+IHdyb3RlOgo+ID4KPiA+IFRoZSBTeW5vcHN5cyBEYXRhYm9vayBhbmQgc2V2ZXJhbCBpbXBsZW1l
+bnRhdGlvbiBUUk1zIGlkZW50aWZ5IGJpdHMKPiA+IDE1Ojggb2YgdGhlIHZlcnNpb24gcmVnaXN0
+ZXIgaW4gZHdtYWMgdjMueHggYW5kIHY0Lnh4IGFzICJ1c2VydmVyIi4KPiA+IFdlIGV2ZW4gcHJp
+bnQgaXRzIHZhbHVlIHdpdGggIlVzZXIgSUQiLiBSYXRoZXIgdGhhbiB1c2luZyAiZGV2X2lkIiwK
+PiA+IHVzZSAidXNlcnZlciIgaW5zdGVhZC4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBSdXNzZWxs
+IEtpbmcgKE9yYWNsZSkgPHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrPgo+ID4gLS0tCj4gPiAg
+ZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvaHdpZi5jIHwgMTggKysrKysrKysr
+LS0tLS0tLS0tCj4gPiAgMSBmaWxlIGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKSwgOSBkZWxldGlv
+bnMoLSkKPiA+Cj4gPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9z
+dG1tYWMvaHdpZi5jIGIvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvaHdpZi5j
+Cj4gPiBpbmRleCAzNzc0YWY2NmRiNDguLjgzMGZmODE2YWI0ZiAxMDA2NDQKPiA+IC0tLSBhL2Ry
+aXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2h3aWYuYwo+ID4gKysrIGIvZHJpdmVy
+cy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvaHdpZi5jCj4gPiBAQCAtMTUsNyArMTUsNyBA
+QAo+ID4KPiA+ICBzdHJ1Y3Qgc3RtbWFjX3ZlcnNpb24gewo+ID4gICAgICAgICB1OCBzbnBzdmVy
+Owo+ID4gLSAgICAgICB1OCBkZXZfaWQ7Cj4gPiArICAgICAgIHU4IHVzZXJ2ZXI7Cj4gPiAgfTsK
+PiBGcm9tIHRoZSBYR01BQyBkYXRhYm9vayB0aGF0IEkgaGF2ZSBhY2Nlc3MgdG8gYml0cygxNTo4
+KSBpZGVudGlmeSB0aGUKPiBERVZJRCBmaWVsZCBvZiBNQUNfdmVyc2lvbiByZWdpc3Rlci4KPiBU
+aGUgdXNlcnZlciBmaWVsZCBpcyBmcm9tIGJpdHMoMjM6MTYpIG9mIHRoZSBzYW1lIHJlZ2lzdGVy
+LiBUaGlzIGlzIGEKPiBjdXN0b21lciBkZWZpbmVkIGZpZWxkIChjb25maWd1cmVkIHdpdGggY29y
+ZUNvbnN1bHRhbnQpLgo+IEN1cnJlbnRseSBzdG1tYWMgZG9lc24ndCBjYXJlIGFib3V0IGJpdHMo
+MjM6MTYpLgoKVGhhbmtzIGZvciB0aGUgYWRkaXRpb25hbCBpbmZvcm1hdGlvbi4KCkkgZG9uJ3Qg
+aGF2ZSBhbnkgWEdNQUMgZG9jdW1lbnRhdGlvbiwgYnV0IHRoaXMgaW5kaWNhdGVzIHRoYXQgaXQg
+ZGlmZmVycwpiZXR3ZWVuIFhHTUFDIGFuZCBwcmV2aW91cyBjb3JlcyAtIEdNQUMgYW5kIEdNQUM0
+IGNvcmVzLCAxNTo4IGFyZQpkb2N1bWVudGVkIGFzIHVzZXJ2ZXIsIGFuZCAzMToxNiBhcmUgbWFy
+a2VkIGFzIHJlc2VydmVkLgoKTm90ZSB0aGF0IHRoZSBkZXZfaW5mbygpIGFsc28gcHJpbnRzIDE1
+OjggYXMgIlVzZXIgSUQiIG5vdCAiRGV2aWNlIElEIi4KClRvIGNvbmZpcm0sIGlzIHRoZSBYR01B
+QyB2ZXJzaW9uIHJlZ2lzdGVyIGF0IG9mZnNldCAweDIwID8gTGF0ZXIgR01BQwpjb3JlcyBtb3Zl
+ZCBpdCB0byAweDExMC4KCi0tIApSTUsncyBQYXRjaCBzeXN0ZW06IGh0dHBzOi8vd3d3LmFybWxp
+bnV4Lm9yZy51ay9kZXZlbG9wZXIvcGF0Y2hlcy8KRlRUUCBpcyBoZXJlISA4ME1icHMgZG93biAx
+ME1icHMgdXAuIERlY2VudCBjb25uZWN0aXZpdHkgYXQgbGFzdCEKX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0Ckxp
+bnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWls
+bWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
