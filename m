@@ -2,63 +2,64 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 2NFFBs6x2Gk8hAgAu9opvQ
+	id KGKZBFq02GmshAgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:16:14 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:27:06 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B85193D3DDE
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:16:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BEB73D412B
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Apr 2026 10:27:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 61660C08D19;
-	Fri, 10 Apr 2026 08:16:13 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 21ACDC08D19;
+	Fri, 10 Apr 2026 08:27:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1B637C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 37139C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Apr 2026 08:16:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1775808972; x=1807344972;
- h=from:to:cc:subject:date:message-id:in-reply-to:
- references:mime-version:content-transfer-encoding;
- bh=FlkvDopMbw59+z0XdHrMqtDa5KxFChBVJQJSz0U20X0=;
- b=dEtVV1F52nODlzYfJVXNBbm/mpM2IykLWDtSpnmlBJ62ePCXBkmjpfjP
- uA1lwh0d2+nv3gOC4cR/A2jdv9h3UXAMWO0X+zTOc2ysjoFVPCN+7hCun
- 4M40oI6nb/TgPX6QfZpvR+U1ZVcquO9q2orUrHf4JlCUggWRyWOsM4ISl
- vnkOfHbt2gP7Bvd5ONNa3KKjLsK8+j0aNJKEFru/nmXBfHf4gdPjQ/3a7
- 4fnsV/gQBxm4WZwCwu9rkF0LXASiQq44yiJENH0FpeSBUce3Mb+FFhmMy
- 4Rj+tHFK6LvgOSJueJiAiP/NhWI59t1hrJMM9E+jfTlFvyUnRn8/6H4hb g==;
-X-CSE-ConnectionGUID: zAlNbuGtRguZ6tzGV+c/xQ==
-X-CSE-MsgGUID: RdIMbONTQVeyp5CfmdE24w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11754"; a="76715079"
-X-IronPort-AV: E=Sophos;i="6.23,171,1770624000"; d="scan'208";a="76715079"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 10 Apr 2026 01:16:10 -0700
-X-CSE-ConnectionGUID: GIvxrKJuT6K0PufgwPoptQ==
-X-CSE-MsgGUID: lxTmbZwsRLa7jymHZyxuzQ==
-X-ExtLoop1: 1
-Received: from unknown (HELO localhost.png.intel.com) ([10.107.255.31])
- by fmviesa003.fm.intel.com with ESMTP; 10 Apr 2026 01:16:06 -0700
-From: KhaiWenTan <khai.wen.tan@linux.intel.com>
-To: linux@armlinux.org.uk
-Date: Fri, 10 Apr 2026 15:53:41 +0800
-Message-ID: <20260410075341.5806-1-khai.wen.tan@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <adirrTJujEsrsK4F@shell.armlinux.org.uk>
-References: <adirrTJujEsrsK4F@shell.armlinux.org.uk>
+ Fri, 10 Apr 2026 08:27:03 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id BBF9142E37;
+ Fri, 10 Apr 2026 08:27:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82EEEC19421;
+ Fri, 10 Apr 2026 08:26:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1775809622;
+ bh=wiVpkLOHesaDxqsTty1+qn46GjmDPchZxN/XYbW0yVY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ETa0mesoel9QguYJ8pV0cmtc3Cyt+G6JUpWibDvnx++QugKMurkEiMLxtwQDB5+4M
+ 52/cbsopugbayzbSPnnyAbHWsP0AdFH67TlACy8kcfjh4JdG6u2Qq/LC1oH/Eiu4g6
+ bfyMNUg5cCwzSZz9MdhsqS4IWcLAKxeL5tYLwh3e6uu5BnTlKtyIR0LjeFSbDSstuK
+ fFnnYkgL415whPrxMxn28Q5jI5A2U/9LwBir5p2eofF6AYQid7qaJOIQ/pBC5aLcD5
+ osR7giAvoly013z7WULooyA3wUIaHOb5+eAjs96gtEyycEn74RadjM7s8MUn7+f7Vk
+ LV0Sgr7ATh/ZA==
+Message-ID: <b280ad04-d4ae-4904-9e99-3d057e3d221b@kernel.org>
+Date: Fri, 10 Apr 2026 09:26:56 +0100
 MIME-Version: 1.0
-Cc: pabeni@redhat.com, yoong.siang.song@intel.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- vladimir.oltean@nxp.com, andrew+netdev@lunn.ch, edumazet@google.com,
- hong.aun.looi@intel.com, khai.wen.tan@linux.intel.com,
- mcoquelin.stm32@gmail.com, khai.wen.tan@intel.com, kuba@kernel.org,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org,
- ovidiu.panait.rb@renesas.com
-Subject: Re: [Linux-stm32] [PATCH net 1/1] net: stmmac: Update
-	default_an_inband before passing value to phylink_config
+User-Agent: Mozilla Thunderbird
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com>
+ <20260409-eliza_mm_cc_v2-v2-8-bc0c6dd77bc5@oss.qualcomm.com>
+ <cb5a40e8-e2e3-4ed9-a9c6-0daa9f408710@nxsw.ie>
+ <Z8a4y73p6MgF8gQkVtottkgG2Ok8-Vhm8zzckWEbiU_DUO84x2VlwPt-VBL2g0utw3ZwZK0aUvI4ev-p_YRGoQ==@protonmail.internalid>
+ <328b388c-438e-4f91-9384-0dad903355a5@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <328b388c-438e-4f91-9384-0dad903355a5@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 8/8] arm64: dts: qcom: eliza: Add
+ support for MM clock controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,51 +71,73 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[redhat.com,intel.com,vger.kernel.org,st-md-mailman.stormreply.com,nxp.com,lunn.ch,google.com,linux.intel.com,gmail.com,kernel.org,davemloft.net,lists.infradead.org,renesas.com];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FORGED_SENDER(0.00)[khai.wen.tan@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:pabeni@redhat.com,m:yoong.siang.song@intel.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:hong.aun.looi@intel.com,m:khai.wen.tan@linux.intel.com,m:mcoquelin.stm32@gmail.com,m:khai.wen.tan@intel.com,m:kuba@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
-	TO_DN_NONE(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[khai.wen.tan@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[bod@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,baylibre.com,gmail.com,foss.st.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.693];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_SPAM(0.00)[0.110];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[bod@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,linux.intel.com:mid]
-X-Rspamd-Queue-Id: B85193D3DDE
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 7BEB73D412B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Russell,
+On 10/04/2026 04:55, Taniya Das wrote:
+>> Why do these two controllers have no power-domains ?
+> Bryan, on Eliza the videocc and camcc are connected on CX and MXA.
 
-Thanks for the review. I will address the comments in v2.
+Shouldn't you at least have:
+
+power-domains = <&rpmhpd RPMHPD_CX> ?
+
+And even
+
+power-domains = <&rpmhpd RPMHPD_MX>,
+                 <&rpmhpd RPMHPD_CX>;
+power-domain-names = "mx",
+                      "cx";
+
+Konrad's suggestion to me was that MXA should have a vote in my CSIPHY 
+series I think he and Jagadeesh discussed it but I'm not sure if they 
+_concluded_ what was the right thing to do.
+
+Right now I'm representing the dependency. MXA is always on ... and 
+there's nothing to do voting for it @ MX ?
+
+---
+bod
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
