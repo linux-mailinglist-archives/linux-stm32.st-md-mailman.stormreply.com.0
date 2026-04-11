@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gPDOMy1U2mkQ0QgAu9opvQ
+	id 0MDEMZNU2mkQ0QgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Apr 2026 16:01:17 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Apr 2026 16:02:59 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6EFCF3E0357
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Apr 2026 16:01:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF323E039C
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Apr 2026 16:02:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC149C8F270;
-	Sat, 11 Apr 2026 14:01:16 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD27FC8F270;
+	Sat, 11 Apr 2026 14:02:58 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BF94AC87ED0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AFE11C87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Apr 2026 14:01:15 +0000 (UTC)
+ Sat, 11 Apr 2026 14:02:57 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 720DC41728;
- Sat, 11 Apr 2026 14:01:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAD43C4CEF7;
- Sat, 11 Apr 2026 14:01:13 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6C2EA415FE;
+ Sat, 11 Apr 2026 14:02:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0FF3C4CEF7;
+ Sat, 11 Apr 2026 14:02:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1775916074;
- bh=zMQAjZnqu7cingfSFT93HgX3xVl7kJGu55bIC2BPZC0=;
+ s=k20201202; t=1775916176;
+ bh=qTGXf6WynDlhqCeEMRmn0/Jqz0E8aUSyGBpnv9H90GQ=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=fibVdRXpFVBtMh8is7+fWFJ/FwQnltlwXPrjcVyD1/DX/+whtdITt+HgUl+9DBi48
- fne8Q+juqdi6mzg5B/DqvMzaWAcYfXhxOtBZqqn+tZPep9kSM64s2AyZ6yibdHdq1Y
- MzgRnlKpVIPWWm1fGjdUmyNn9Ej94ZapvduXyuElPrqIkN8I3CZ3nO8mWhHGiURbMQ
- bn0O9l6gf4xOF4wNajddiyQ4Er1Pz2STKoSctR44WVGrPIszV+QAT46ix2EpRlvkA3
- rw2EUaYEkjSdpmZTKNNClNBqPAQV6z25v+1HTW/8VTZ2scBFENkhPa81L23swDe71w
- OKGzWb9Z1upoA==
-Date: Sat, 11 Apr 2026 16:01:12 +0200
+ b=Q1kpwNnn6yIqce5aPejAr27ABKp8tmHqlIhPh2SZG6WlK+MT+50xikE68MEcRwPXg
+ oC7pR6bUg3H6tHB3Np88jjDfoKs78Cy1yz6LSP7I8ZzCmXP1aK4n50yKcZIxB481GL
+ ASVcppBVzj6w5TGjhKjU6ElNbOMq8hkBHrqKK4tGaabWBNX0pFt0d6CfveL2Nr/tqY
+ EczxhqnBDs9UCmPK/rg6ay8TUyECwTq0lLCWWY9NyD0lMk9QQdPzwCddyoI3G5KYa5
+ oBUX8l70kJqKZuhcNwQ6uDqnhDRIE+oq8Q2FCLH1UreGsYIqgvc27FrgTKEBBfJto7
+ XB9iQ+OC+yaIw==
+Date: Sat, 11 Apr 2026 16:02:54 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: David Heidelberg <david@ixit.cz>
-Message-ID: <20260411-proficient-observant-bonobo-fc98b8@quoll>
+Message-ID: <20260411-banana-coot-from-vega-2f4a96@quoll>
 References: <20260409-stmfts5-v4-0-64fe62027db5@ixit.cz>
- <20260409-stmfts5-v4-7-64fe62027db5@ixit.cz>
+ <20260409-stmfts5-v4-9-64fe62027db5@ixit.cz>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260409-stmfts5-v4-7-64fe62027db5@ixit.cz>
+In-Reply-To: <20260409-stmfts5-v4-9-64fe62027db5@ixit.cz>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Henrik Rydberg <rydberg@bitmath.org>, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
@@ -51,8 +51,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, phone-devel@vger.kernel.org,
  Konrad Dybcio <konradybcio@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 07/11] dt-bindings: input: touchscreen:
- st, stmfts: Introduce reset GPIO
+Subject: Re: [Linux-stm32] [PATCH v4 09/11] dt-bindings: input: touchscreen:
+ st, stmfts: Introduce STM FTS5
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,18 +69,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[17];
@@ -92,7 +92,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.768];
+	NEURAL_HAM(-0.00)[-0.677];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -103,20 +103,48 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,ixit.cz:email,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 6EFCF3E0357
+	DBL_BLOCKED_OPENRESOLVER(0.00)[ixit.cz:email,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
+X-Rspamd-Queue-Id: 6CF323E039C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Apr 09, 2026 at 12:15:50AM +0200, David Heidelberg wrote:
-> FTS has associated reset GPIO, document it.
+On Thu, Apr 09, 2026 at 12:15:52AM +0200, David Heidelberg wrote:
+> Introduce more recent STM FTS5 touchscreen support.
 > 
 > Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
->  Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
+>  .../devicetree/bindings/input/touchscreen/st,stmfts.yaml  | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+> index 64c4f24ea3dd0..441fc92b9a4ed 100644
+> --- a/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/st,stmfts.yaml
+> @@ -16,10 +16,19 @@ description:
+>  
+>  allOf:
+>    - $ref: touchscreen.yaml#
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: st,stmfts5
+> +    then:
+> +      required:
+> +        - mode-switch-gpios
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Does existing variant have these pins? If not, then missing else with
+"mode-switch-gpios: false".
+
+Please move entire allOf to the bottom, like in example-schema, so after
+"required" block.
+
+>  
+>  properties:
+>    compatible:
+> -    const: st,stmfts
+> +    enum:
+> +      - st,stmfts
+> +      - st,stmfts5
 
 Best regards,
 Krzysztof
