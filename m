@@ -2,45 +2,45 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id uCo/BgQ23Wl9agkAu9opvQ
+	id SNhRAQk23Wl9agkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Apr 2026 20:29:24 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Apr 2026 20:29:29 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1CCA3F208C
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Apr 2026 20:29:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D60E33F20AC
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Apr 2026 20:29:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B845C57A52;
-	Mon, 13 Apr 2026 18:29:23 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9899FC57B68;
+	Mon, 13 Apr 2026 18:29:28 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 074BBC57A51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 07370C57B41
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Apr 2026 18:29:23 +0000 (UTC)
+ Mon, 13 Apr 2026 18:29:28 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 792FDC5B1AD;
- Mon, 13 Apr 2026 18:29:59 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 8239E1A3207;
+ Mon, 13 Apr 2026 18:29:27 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id C3B5B5FFB9;
- Mon, 13 Apr 2026 18:29:22 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 4E7C55FFB9;
+ Mon, 13 Apr 2026 18:29:27 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 001941045055E; 
- Mon, 13 Apr 2026 20:29:16 +0200 (CEST)
+ with ESMTPSA id 65DB41045056A; 
+ Mon, 13 Apr 2026 20:29:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1776104960; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1776104965; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=nPa2ZZONaBOGLFMfEfBDzaDZgsD31jakJQraeqbgRCw=;
- b=Qm0jaSwT24/GdK/EsyzadjCMRmdSwzojdFiBoEhz9mF9mr7uXKqUeMuFzrXmwZ8OzPseYj
- rTiosoU1qw/9rhsO2QAeObwHnb3U0BdA/GKu2X7zqF4XwbXU+sdENJYYJMHV+epMpE+WAE
- 5wXX4mFLdnQpzrapducllk94LpMksGi5QQSsfjn+ECbIMOEFADC7qab70hxaKQz0r/EyiW
- +qT+y9jj+fwS4YIkWHcExGPabkcLddCDpfG8oxYqSCHg5OjMFegpaJ+esDIoGjiCGVX++x
- o1cerD3IbFhwDzv5lAIPNVJ37KUVFvTRPwtdsH6wD3ffqjvZudD30QIMdhw1KQ==
+ bh=Mdcp4bv1eu+3+1zz5d2KPvXdiRfH0YZIH1Hih1O/yps=;
+ b=MWPBldvWBlMlRLB7YRsCB6BeBrxux7LP6MczGCYn9+gqLTpdPE4XjlTfrNInbkuHOU245w
+ rnCCzBg/4H0eg0CCDktwD7qx8pXICwn9sDOLbeEbNFGXIaEQd2iOWyygEb+ZKxDXkwN0Ze
+ 3dLeaz/gU2DpaSNYvL9S6agidNul6GvFXrdnBQZ08Z1FGLVkWAVpx7UGogUMYF545oxiEK
+ cFdj+JTBc6ATUzw9po+Hw78YsxbuHGYR/K9YxFGuCsKwEUPY7zCalMX2s1SlgVn3BdG29p
+ BhSdIs+8pFh68+m0Vck/uK+J+HK7zfcanYuNTj4q1HRWPFXDcHSDTEsKjMjwrw==
 From: =?utf-8?q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?=
  <alexis.lothore@bootlin.com>
-Date: Mon, 13 Apr 2026 20:28:46 +0200
+Date: Mon, 13 Apr 2026 20:28:47 +0200
 MIME-Version: 1.0
-Message-Id: <20260413-kasan-v1-6-1a5831230821@bootlin.com>
+Message-Id: <20260413-kasan-v1-7-1a5831230821@bootlin.com>
 References: <20260413-kasan-v1-0-1a5831230821@bootlin.com>
 In-Reply-To: <20260413-kasan-v1-0-1a5831230821@bootlin.com>
 To: Alexei Starovoitov <ast@kernel.org>, 
@@ -71,8 +71,8 @@ Cc: linux-kselftest@vger.kernel.org,
  <alexis.lothore@bootlin.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  bpf@vger.kernel.org, Xu Kuohai <xukuohai@huawei.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH RFC bpf-next 6/8] selftests/bpf: do not run
- verifier JIT tests when BPF_JIT_KASAN is enabled
+Subject: [Linux-stm32] [PATCH RFC bpf-next 7/8] bpf,
+ x86: enable KASAN for JITed programs on x86
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -118,59 +118,30 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[alexis.lothore@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[bootlin.com:-];
-	NEURAL_HAM(-0.00)[-0.918];
+	NEURAL_HAM(-0.00)[-0.960];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: C1CCA3F208C
+X-Rspamd-Queue-Id: D60E33F20AC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-TXVsdGlwbGUgdmVyaWZpZXIgdGVzdHMgdmFsaWRhdGUgdGhlIGV4YWN0IGxpc3Qgb2YgSklUZWQg
-aW5zdHJ1Y3Rpb25zLgpFdmVuIGlmIHRoZSB0ZXN0IG9mZmVycyBzb21lIGZsZXhpYmlsaXR5IGlu
-IGl0cyBjaGVja3MgKGVnOiBub3QKZW5mb3JjaW5nIHRoZSBmaXJzdCBpbnN0cnVjdGlvbiB0byBi
-ZSB2ZXJpZmllZCByaWdodCBhdCB0aGUgYmVnaW5uaW5nIG9mCmppdGVkIGNvZGUsIGJ1dCByYXRo
-ZXIgc2VhcmNoaW5nIHdoZXJlIHRoZSBleHBlY3RlZCBKSVQgaW5zdHJ1Y3Rpb25zCmNvdWxkIGJl
-IGxvY2F0ZWQpLCBpdCBpcyBjb25mdXNlZCBieSB0aGUgbmV3IEtBU0FOIGluc3RydW1lbnRhdGlv
-biBKSVRlZAppbiBwcm9ncmFtczogdGhpcyBpbnN0cnVtZW50YXRpb24gY2FuIGJlIGluc2VydGVk
-IGFueXdoZXJlIGluLWJldHdlZW4Kc2VhcmNoZWQgaW5zdHJ1Y3Rpb25zLCBsZWFkaW5nIHRvIHRl
-c3QgZmFpbHVyZXMgZGVzcGl0ZSB0aGUgY29ycmVjdAppbnN0cnVjdGlvbnMgYmVpbmcgZ2VuZXJh
-dGVkLgoKUHJldmVudCB0aG9zZSBmYWlsdXJlcyBieSBza2lwcGluZyB0ZXN0cyBpbnZvbHZpbmcg
-SklUZWQgaW5zdHJ1Y3Rpb25zCmNoZWNrcyB3aGVuIGtlcm5lbCBpcyBidWlsdCB3aXRoIEtBU0FO
-IF9hbmRfIEpJVCBpcyBlbmFibGVkLCBhcyB0aG9zZQp0d28gY29uZGl0aW9ucyBsZWFkIHRoZSBK
-SVRlZCBjb2RlIHRvIGNvbnRhaW5zIEtBU0FOIGNoZWNrcy4KClNpZ25lZC1vZmYtYnk6IEFsZXhp
-cyBMb3Rob3LDqSAoZUJQRiBGb3VuZGF0aW9uKSA8YWxleGlzLmxvdGhvcmVAYm9vdGxpbi5jb20+
-Ci0tLQogdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3Rlc3RfbG9hZGVyLmMgICAgfCA1ICsr
-KysrCiB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdW5wcml2X2hlbHBlcnMuYyB8IDUgKysr
-KysKIHRvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi91bnByaXZfaGVscGVycy5oIHwgMSArCiAz
-IGZpbGVzIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS90b29scy90ZXN0
-aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9sb2FkZXIuYyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3Rz
-L2JwZi90ZXN0X2xvYWRlci5jCmluZGV4IGM0YzM0Y2FlNjEwMi4uZDJjMDA2MmVmMzFhIDEwMDY0
-NAotLS0gYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9sb2FkZXIuYworKysgYi90
-b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9sb2FkZXIuYwpAQCAtMTE3NSw2ICsxMTc1
-LDExIEBAIHZvaWQgcnVuX3N1YnRlc3Qoc3RydWN0IHRlc3RfbG9hZGVyICp0ZXN0ZXIsCiAJCXJl
-dHVybjsKIAl9CiAKKwlpZiAoaXNfaml0X2VuYWJsZWQoKSAmJiBzdWJzcGVjLT5qaXRlZC5jbnQg
-JiYgZ2V0X2thc2FuX2ppdF9lbmFibGVkKCkpIHsKKwkJdGVzdF9fc2tpcCgpOworCQlyZXR1cm47
-CisJfQorCiAJaWYgKHVucHJpdikgewogCQlpZiAoIWNhbl9leGVjdXRlX3VucHJpdih0ZXN0ZXIs
-IHNwZWMpKSB7CiAJCQl0ZXN0X19za2lwKCk7CmRpZmYgLS1naXQgYS90b29scy90ZXN0aW5nL3Nl
-bGZ0ZXN0cy9icGYvdW5wcml2X2hlbHBlcnMuYyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2Jw
-Zi91bnByaXZfaGVscGVycy5jCmluZGV4IGY5OTdkN2VjOGZkMC4uMjViZDA4NjQ4ZjVmIDEwMDY0
-NAotLS0gYS90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdW5wcml2X2hlbHBlcnMuYworKysg
-Yi90b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdW5wcml2X2hlbHBlcnMuYwpAQCAtMTQyLDMg
-KzE0Miw4IEBAIGJvb2wgZ2V0X3VucHJpdl9kaXNhYmxlZCh2b2lkKQogCX0KIAlyZXR1cm4gbWl0
-aWdhdGlvbnNfb2ZmOwogfQorCitib29sIGdldF9rYXNhbl9qaXRfZW5hYmxlZCh2b2lkKQorewor
-CXJldHVybiBjb25maWdfY29udGFpbnMoIkNPTkZJR19CUEZfSklUX0tBU0FOPXkiKTsKK30KZGlm
-ZiAtLWdpdCBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi91bnByaXZfaGVscGVycy5oIGIv
-dG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3VucHJpdl9oZWxwZXJzLmgKaW5kZXggMTUxZjY3
-MzI5NjY1Li5iYzVmNGM5NTNjOWQgMTAwNjQ0Ci0tLSBhL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3Rz
-L2JwZi91bnByaXZfaGVscGVycy5oCisrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi91
-bnByaXZfaGVscGVycy5oCkBAIC01LDMgKzUsNCBAQAogI2RlZmluZSBVTlBSSVZfU1lTQ1RMICJr
-ZXJuZWwvdW5wcml2aWxlZ2VkX2JwZl9kaXNhYmxlZCIKIAogYm9vbCBnZXRfdW5wcml2X2Rpc2Fi
-bGVkKHZvaWQpOworYm9vbCBnZXRfa2FzYW5faml0X2VuYWJsZWQodm9pZCk7CgotLSAKMi41My4w
-CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1z
-dG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNv
-bQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9s
-aW51eC1zdG0zMgo=
+TWFyayB4ODYgYXMgc3VwcG9ydGluZyBLQVNBTiBjaGVja3MgaW4gSklUZWQgcHJvZ3JhbXMgc28g
+dGhhdCB0aGUKY29ycmVzcG9uZGluZyBKSVQgY29tcGlsZXIgaW5zZXJ0cyBjaGVja3Mgb24gdGhl
+IHRyYW5zbGF0ZWQKaW5zdHJ1Y3Rpb25zLgoKU2lnbmVkLW9mZi1ieTogQWxleGlzIExvdGhvcsOp
+IChlQlBGIEZvdW5kYXRpb24pIDxhbGV4aXMubG90aG9yZUBib290bGluLmNvbT4KLS0tCiBhcmNo
+L3g4Ni9LY29uZmlnIHwgMSArCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNlcnRpb24oKykKCmRpZmYg
+LS1naXQgYS9hcmNoL3g4Ni9LY29uZmlnIGIvYXJjaC94ODYvS2NvbmZpZwppbmRleCBlMmRmMWIx
+NDcxODQuLmE1MGFhOWEwYjkzYyAxMDA2NDQKLS0tIGEvYXJjaC94ODYvS2NvbmZpZworKysgYi9h
+cmNoL3g4Ni9LY29uZmlnCkBAIC0yMzQsNiArMjM0LDcgQEAgY29uZmlnIFg4NgogCXNlbGVjdCBI
+QVZFX1NBTVBMRV9GVFJBQ0VfRElSRUNUCWlmIFg4Nl82NAogCXNlbGVjdCBIQVZFX1NBTVBMRV9G
+VFJBQ0VfRElSRUNUX01VTFRJCWlmIFg4Nl82NAogCXNlbGVjdCBIQVZFX0VCUEZfSklUCisJc2Vs
+ZWN0IEhBVkVfRUJQRl9KSVRfS0FTQU4JCWlmIFg4Nl82NAogCXNlbGVjdCBIQVZFX0VGRklDSUVO
+VF9VTkFMSUdORURfQUNDRVNTCiAJc2VsZWN0IEhBVkVfRUlTQQkJCWlmIFg4Nl8zMgogCXNlbGVj
+dCBIQVZFX0VYSVRfVEhSRUFECgotLSAKMi41My4wCgpfX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
+MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
+cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
