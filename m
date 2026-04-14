@@ -2,63 +2,124 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ONrILqJL3mmwqAkAu9opvQ
+	id 8O8nEaR732k3UAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Apr 2026 16:13:54 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 13:51:00 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 49AEA3FAF25
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Apr 2026 16:13:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27E49404086
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 13:51:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87C35C8F292;
-	Tue, 14 Apr 2026 14:13:53 +0000 (UTC)
-Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AA3AC8F29D;
+	Wed, 15 Apr 2026 11:50:59 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 73579C8F291
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AA818C8F286
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2026 14:13:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
- MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
- Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
- Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
- List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=bsBaXpNwI9biepD5DuuX73+8/Sux5QohEO/bGIUXfks=; b=Xy8DegYUTGoivNy2SMfRiIu3lz
- o2+N8ZMt5+PVNEzTOFRDK0ZWBFJ2HQTsy0A9PKoqF0HnN7P5XtXhFPV2VEFtlok2bCx6FsJWjpnw4
- CS5h8uZXBq1F/jXFSA/VavRyFskuHTNA8WAH/VFJklN2FNa6EL+18rk89Jwma9CPtrQhBP8T6R4oX
- H2qF3BrwL/SwaGp9NbSPmsuisHKEvnF3TdfIU+ElcrYeIJsgPzJdUZoI1Pz5glJbyMkLyHCtyfeSY
- +o4B17PAkoR1VhiW7Ztk5mLRFsXoiuaq2gibSoktvueEdPw31FGIG4Z9PaM2mtVH1BEwD7GkUQplE
- KAQWW+0g==;
-Received: from shell.armlinux.org.uk
- ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:39914)
- by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
- (envelope-from <linux@armlinux.org.uk>) id 1wCeWO-0000000015i-302d;
- Tue, 14 Apr 2026 15:13:44 +0100
-Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
- (envelope-from <linux@shell.armlinux.org.uk>)
- id 1wCeWL-000000001Gu-1VF4; Tue, 14 Apr 2026 15:13:41 +0100
-Date: Tue, 14 Apr 2026 15:13:41 +0100
-From: "Russell King (Oracle)" <linux@armlinux.org.uk>
-To: Sam Edwards <cfsworks@gmail.com>
-Message-ID: <ad5LlXzeQ8j14Mjg@shell.armlinux.org.uk>
-References: <E1wBBaR-0000000GZHR-1dbM@rmk-PC.armlinux.org.uk>
- <20260413110222.49fc3759@kernel.org>
- <ad06yiZZbLC9k3jY@shell.armlinux.org.uk>
- <CAH5Ym4i7VV53hQGY3AjAUW3B8g_ffgmw69kPhPrk2CmcRbguuQ@mail.gmail.com>
+ Tue, 14 Apr 2026 14:36:17 +0000 (UTC)
+Received: by mail-wr1-f49.google.com with SMTP id
+ ffacd0b85a97d-43cfd96354aso3352966f8f.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Apr 2026 07:36:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1776177377; cv=none;
+ d=google.com; s=arc-20240605;
+ b=JolTQAOiPl9JrwoOKgeS7BDkcLzhhMd4AVfqflDQk4QQxZ9XcK9noh2iNe1k/Ljovc
+ Ko4C97iT4bJrr3PV9TFRjy7pId4JAFFybZTuGmBIbiH1shZh78ltCKuqvNVmhyWFxg2P
+ k8v6Kh/iXIBQSTWec4I4/ENDmIJX8CvG2RRpmnppinzcFD+wIB/QaiHRGVmdlAFdrVWE
+ 54lQevCn6OS6an7JacFvtpsolMv1HQ3lhyPx7Ij4qYZSG5voohzWhF1HfNHV7L4i6fo4
+ lgqdj+F5bdYRLpIYla5DtuR+jVJ/IKc3t+xbAzvMgApuKp9hR/oi972Aa4b0+QQ4gvtW
+ 3OiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=AnsEV6VHaHqEew+Xa56Ltrfs2MD3YtoIUeXjaty5EkY=;
+ fh=GOnsxYoHOQUzReLW2aXQYOfVdIEWo1puhIisQQhT14w=;
+ b=DLsB6vtUR9AoD/ggJmAwmYKaK2eZFmbXyFDnDbOBxz9GWlf107VunlAv9P+iLRF44L
+ iDNlYoMLCjPAPYjYqpvh3ltrBUbpRCZY4I0WqYlWi8SjI/ZnREhpP6CuBQUqK0hVW0mz
+ QkmbP/oesXDeaxJag8f8kHS9TfyzIo1OZhk2YuLWds4pWEESXtgie6rP7yLBU9z1PcQy
+ Xq+P/UB23xK5EMZ29EZXjZ/1jIHizEOEegK1Oz5VnWcLa/ii94MzGYHgrWlvv8pNtzDn
+ ymeMbbvVTDx2FTsfb5uajkJAxfCcEnyywxH34D/1APjdwV5JF3jdmiyhRESbEoIJZew8
+ wW4A==; darn=st-md-mailman.stormreply.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1776177377; x=1776782177;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=AnsEV6VHaHqEew+Xa56Ltrfs2MD3YtoIUeXjaty5EkY=;
+ b=dcpX8WXut3IU6EbkvL4+3hwufdNS9c2BsqEBS1+F+zRV1MUuxhixlzY7MotJYLzEKV
+ xB/bdyNV7ETXKRrJbUAjIix+JMVgglMWrD0VYFHepJjgvyqewdnffu8pL6YLsz+ERUlx
+ yTKzlUEXnbytdNKOgpDQ5Wwhk1knrtsUrB0aGoikQECnsOvH1edifiUhx9tQZuiBqTCP
+ TuU+n+OZfoSpeh3b8S8OLLE7eEuccLzb3f0VbHGa3GACpDvli9yI1TUv5jiQsbs4xvB7
+ /zBJ24hUh8sIi43Pq5pQ1mGUo8icJdtnkoG3MTSCwfS0CPzvYHqN0z/lTZGOIhifAP0/
+ IT6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1776177377; x=1776782177;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=AnsEV6VHaHqEew+Xa56Ltrfs2MD3YtoIUeXjaty5EkY=;
+ b=MHsLkcRC05WxXoutiMaChFEIw96VUiMmpX0wW0iPfkXf1teFgt22P4BMgYEnLvR54V
+ 7Gj2KxdLTjh7cqSvxSlim3ICl9nSwWgIf/PfBGbFNWWhb+YGwjYwEA0Yu6oWe3KEfk8w
+ QZq5ZeQ3o/+FbcecPF5XiGrNyGIU9wY6lf7Ax/nSI5tU7uYnlz8wlyBnWsUMTy0RLBpV
+ 0oGd2aImG4gQAPP2k+vNGQmvmgjfYa0scuRU2bPL9El+E1SsAAFGxlsEg74n0i7DEC2m
+ qMX2v2Wo2a4Oi1T1THzQqD0RIFV0gnGrfRoWEKcfOPkrgJ/v+5Q/9Y+uHJMv+B+oR+oZ
+ eiiA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+H2LiDBXJlw/4P6bULxQTVe+Epn/lbCJ+SLR8h92UtnwfOBnTWfarceY39nu1nBor4qvD76fIF8bV5fw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Ywr5dW1GnV2SzaZvJ3BU+cnzKojm2OKYURXUDX6zD8wdcmJkBxW
+ X5Ip2O+9gArEMW+/L3U6Sxp0VecWrTrTNhq9eY9N+V6txGbY2An7DEhygnjKd3QDv/Ayvi2l6hK
+ 68z9xlXkf0IjehSMWxs4vWGqhbiHiBBc=
+X-Gm-Gg: AeBDiesKl9lEP2FVXte7Jdfo8kyGCyqR0c6XCX2p+J48pOxbtmQdjmBipdBtXCcMEvv
+ VGjVMXxTKjvQv6nnAflz3gRqueDiCUQ70wwB9b6Cy3kmv/JTeL1Z+g6tEs1Cn6Fyj9UYp4/j3px
+ nWvG199GRo8j5ifq/aZB+TCHXnL7Gmnn1927ePtN5GEUDpJ/ZnBhtZWE+BjBqS4fSFW+2SyVn1G
+ jLdRmFkhN+iRIUKOhHP7sVQQHzaLWuc6U/lz/16PTuHl68kvKYIgJDJFl30OSACnVqIecyeCMe2
+ 7o+UcTw9HBbmkHzp0Nc5eIdYu5Ebx+mi6bX4Vb858eoTY9nNJLbnQMuTKOYBrX13uvLYQjfed7p
+ VKRVWAz3k2UXUi0X7+21FRVf+nw==
+X-Received: by 2002:a05:6000:1a86:b0:43d:6e0:9458 with SMTP id
+ ffacd0b85a97d-43d642c08b5mr27685966f8f.39.1776177376758; Tue, 14 Apr 2026
+ 07:36:16 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <CAH5Ym4i7VV53hQGY3AjAUW3B8g_ffgmw69kPhPrk2CmcRbguuQ@mail.gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Linux Network Development Mailing List <netdev@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: enable RPS and RBU
-	interrupts
+References: <20260413-kasan-v1-0-1a5831230821@bootlin.com>
+ <20260413-kasan-v1-1-1a5831230821@bootlin.com>
+ <CA+fCnZfubV6LgRjO3NQvhrG2Q5o0ftkFFupLWVYS50XDnmCaog@mail.gmail.com>
+ <DHSWK17EZUDP.GIJ6BX2NFR6U@bootlin.com>
+In-Reply-To: <DHSWK17EZUDP.GIJ6BX2NFR6U@bootlin.com>
+From: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Date: Tue, 14 Apr 2026 07:36:05 -0700
+X-Gm-Features: AQROBzD11iC8gAKSEnmD0t_Id88yG4ZENQr7azgzst5W9dho6pOaDHcgJ_Mytlo
+Message-ID: <CAADnVQLJ=fJ7t1i2+_RYqU1gqYqiLP9Zrwo4vdZsgzjK_yzJTQ@mail.gmail.com>
+To: =?UTF-8?Q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
+X-Mailman-Approved-At: Wed, 15 Apr 2026 11:50:57 +0000
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Song Liu <song@kernel.org>,
+ Andrey Ryabinin <ryabinin.a.a@gmail.com>,
+ Alexander Potapenko <glider@google.com>,
+ Yonghong Song <yonghong.song@linux.dev>, "H. Peter Anvin" <hpa@zytor.com>,
+ Vincenzo Frascino <vincenzo.frascino@arm.com>, Shuah Khan <shuah@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Xu Kuohai <xukuohai@huawei.com>,
+ Daniel Borkmann <daniel@iogearbox.net>, X86 ML <x86@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Andrii Nakryiko <andrii@kernel.org>,
+ kasan-dev <kasan-dev@googlegroups.com>, Ingo Molnar <mingo@redhat.com>,
+ linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+ Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, ebpf@linuxfoundation.org,
+ Alexei Starovoitov <ast@kernel.org>, Borislav Petkov <bp@alien8.de>,
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, bpf <bpf@vger.kernel.org>,
+ Dmitry Vyukov <dvyukov@google.com>, Andrey Konovalov <andreyknvl@gmail.com>,
+ "open list:KERNEL SELFTEST FRAMEWORK" <linux-kselftest@vger.kernel.org>,
+ linux-mm <linux-mm@kvack.org>, Network Development <netdev@vger.kernel.org>,
+ David Ahern <dsahern@kernel.org>, LKML <linux-kernel@vger.kernel.org>,
+ Eduard Zingerman <eddyz87@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+ Jiri Olsa <jolsa@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH RFC bpf-next 1/8] kasan: expose generic
+	kasan helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,280 +131,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:cfsworks@gmail.com,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TAGGED_FROM(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:alexis.lothore@bootlin.com,m:thomas.petazzoni@bootlin.com,m:dave.hansen@linux.intel.com,m:song@kernel.org,m:ryabinin.a.a@gmail.com,m:glider@google.com,m:yonghong.song@linux.dev,m:hpa@zytor.com,m:vincenzo.frascino@arm.com,m:shuah@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:xukuohai@huawei.com,m:daniel@iogearbox.net,m:x86@kernel.org,m:john.fastabend@gmail.com,m:andrii@kernel.org,m:kasan-dev@googlegroups.com,m:mingo@redhat.com,m:linux-arm-kernel@lists.infradead.org,m:bastien.curutchet@bootlin.com,m:mcoquelin.stm32@gmail.com,m:ebpf@linuxfoundation.org,m:ast@kernel.org,m:bp@alien8.de,m:memxor@gmail.com,m:bpf@vger.kernel.org,m:dvyukov@google.com,m:andreyknvl@gmail.com,m:linux-kselftest@vger.kernel.org,m:linux-mm@kvack.org,m:netdev@vger.kernel.org,m:dsahern@kernel.org,m:linux-kernel@vger.kernel.org,m:eddyz87@gmail.com,m:tglx@kernel.org,m:jolsa@kernel.org,m:akpm@linux-foundation.org,m:martin.lau@linux.dev,m:davem@davemloft.net,m:ryabininaa@gmail.com,m:j
+ ohnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	NEURAL_SPAM(0.00)[0.368];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DKIM_TRACE(0.00)[armlinux.org.uk:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	RCPT_COUNT_TWELVE(0.00)[39];
+	FORGED_SENDER(0.00)[alexeistarovoitov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[bootlin.com,linux.intel.com,kernel.org,gmail.com,google.com,linux.dev,zytor.com,arm.com,st-md-mailman.stormreply.com,huawei.com,iogearbox.net,googlegroups.com,redhat.com,lists.infradead.org,linuxfoundation.org,alien8.de,vger.kernel.org,kvack.org,linux-foundation.org,davemloft.net];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[alexeistarovoitov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	MISSING_XM_UA(0.00)[];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,shell.armlinux.org.uk:mid]
-X-Rspamd-Queue-Id: 49AEA3FAF25
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_SPAM(0.00)[0.044];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,bootlin.com:email]
+X-Rspamd-Queue-Id: 27E49404086
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Sam,
-
-Most of this email was written this morning, but I didn't have a chance
-to finish nor send it due to how busy I am.
-
-I had also written a separate reply last night with detailed results of
-what I was seeing but didn't/haven't got around to sending it. Not
-currently sure whether I saved it as draft or got rid of it yet.
-
-On Mon, Apr 13, 2026 at 02:54:30PM -0700, Sam Edwards wrote:
-> On Mon, Apr 13, 2026, 11:49 Russell King (Oracle) <linux@armlinux.org.uk> wrote:
-> >
-> > On Mon, Apr 13, 2026 at 11:02:22AM -0700, Jakub Kicinski wrote:
-> > > On Fri, 10 Apr 2026 14:07:51 +0100 Russell King (Oracle) wrote:
-> > > > Since we are seeing receive buffer exhaustion on several platforms,
-> > > > let's enable the interrupts so the statistics we publish via ethtool -S
-> > > > actually work to aid diagnosis. I've been in two minds about whether
-> > > > to send this patch, but given the problems with stmmac at the moment,
-> > > > I think it should be merged.
-> > >
-> > > Sorry for a under-research response but wasn't there are person trying
-> > > to fix the OOM starvation issue? Who was supposed to add a timer?
-> > > Is your problem also OOM related or do you suspect something else?
-> >
-> > It is not OOM related. I have this patch applied:
-> >
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > index 131ea887bedc..614d0e10e3e6 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> > @@ -5095,14 +5095,18 @@ static inline void stmmac_rx_refill(struct stmmac_priv *priv, u32 queue)
-> >
-> >                 if (!buf->page) {
-> >                         buf->page = page_pool_alloc_pages(rx_q->page_pool, gfp);
-> > -                       if (!buf->page)
-> > +                       if (!buf->page) {
-> > +                               netdev_err(priv->dev, "q%u: no buffer 1\n", queue);
-> >                                 break;
-> > +                       }
-> >                 }
-> >
-> >                 if (priv->sph_active && !buf->sec_page) {
-> >                         buf->sec_page = page_pool_alloc_pages(rx_q->page_pool, gfp);
-> > -                       if (!buf->sec_page)
-> > +                       if (!buf->sec_page) {
-> > +                               netdev_err(priv->dev, "q%u: no buffer 2\n", queue);
-> >                                 break;
-> > +                       }
-> >
-> >                         buf->sec_addr = page_pool_get_dma_addr(buf->sec_page);
-> >                 }
-> >
-> > and it is silent, so we are not suffering starvation of buffers.
-> >
-> > However, the hardware hangs during iperf3, and because it triggers the
-> > MAC to stream PAUSE frames, and my network uses Netgear GS108 and GS116
-> > unmanaged switches that always use flow-control between them (there's no
-> > way not to) it takes down the entire network - as we've discussed
-> > before. So, this problem is pretty fatal to the *entire* network.
-> >
-> > With this patch, the existing statistical counters for this condition
-> > are incremented, and thus users can use ethtool -S to see what happened
-> > and report whether they are seeing the same issue.
-> >
-> > Without this patch applied, there are no diagnostics from stmmac that
-> > report what the state is. ethtool -d doesn't list the appropriate
-> > registers (as I suspect part of the problem is the number of queues
-> > is somewhat dynamic - userspace can change that configuration through
-> > ethtool).
-> >
-> > Thus, one has to resort to using devmem2 to find out what's happened.
-> > That's not user friendly.
-> >
-> > For me, devmem2 shows:
-> >
-> > Channel 0 status register:
-> > Value at address 0x02491160: 0x00000484
-> > bit 10: ETI early transmit interrupt - set
-> > bit 9 : RWT receive watchdog - clear
-> > bit 8 : RPS receieve process stopped - clear
-> > bit 7 : RBU receive buffer unavailable - set
-> > bit 6 : RI  receive interrupt - clear
-> > bit 2 : TBU transmit buffer unavailable - set
-> > bit 1 : TPS transmit process stopped - clear
-> > bit 0 : TI  transmit interrupt - clear
-> 
-> Should that reset trigger be RPS, not RBU? My understanding of these
-> status bits is RBU is just "RxDMA has failed to take a frame from the
-> RxFIFO" while RPS is "the RxFIFO is full." That would make RBU our
-> critical threshold to start proactively refilling, and RPS the "too
-> late, we lose" threshold.
-
-That's a fine theory, but look at the channel 0 status register above,
-noting that any interrupts that are raised but not enabled remain set.
-RPS is not set, so RPS is not being raised, only RBU when this
-condition occurs.
-
-> Thinking aloud: Do you suppose the RxDMA waits for a wakeup signal
-> sent whenever a frame is added to RxFIFO? That might explain why the
-> former never recovers once the latter is full: a manual wakeup needs
-> to be sent whenever we resolve RBU. Does the .enable_dma_reception()
-> op need to be implemented for dwmac5, or have you tried that already?
-
-I've not found anything in the closest documentation I have. The Xavier
-is Synopsys IP v5.0, whereas i.MX8M is v5.1 - and v5.1 compared to
-previous versions reads the same for statements concerning recovering
-from a RBU condition:
-
-"In ring mode, the application should advance the Receive Descriptor
-Tail Pointer register of a channel. This bit is set only when the DMA
-owns the previous Rx descriptor."
-
-I've tried expanding what happens when RBU fires, dumping some of the
-receive state and the receive ring:
-
-[   55.766199] dwc-eth-dwmac 2490000.ethernet eth0: q0: receive buffer unavailable: cur_rx=309 dirty_rx=309 last_cur_rx=245 last_cur_rx_post=309 last_dirty_rx=245 count=64 budget=64
-
-cur_rx == dirty_rx _should_ mean that we fully refilled the ring. These
-are their values at the point the RBU interrupt fires.
-
-last_cur_rx and last_dirty_rx are the values of cur_rx/dirty_rx when
-stmmac_rx() was last entered.
-
-last_cur_rx_post is the value of cur_rx when stmmac_rx() finished
-looping but before we have refilled the ring.
-
-count is the value of count just before stmmac_rx() returns, budget is
-the limit at that point.
-
-The patch that prints errors should we fail to allocate a buffer is in
-place, none of those errors fire, so we are fully repopulating the ring
-each time stmmac_rx() runs.
-
-[   55.766785] RX descriptor ring:
-[   55.766802] 000 [0x0000007fffffe000]: 0x0 0x12 0x0 0x340105ee
-[   55.766826] 001 [0x0000007fffffe010]: 0x0 0x12 0x0 0x340105ee
-[   55.766843] 002 [0x0000007fffffe020]: 0x0 0x12 0x0 0x340105ee
-[   55.766860] 003 [0x0000007fffffe030]: 0x0 0x12 0x0 0x340105ee
-...
-[   55.772205] 308 [0x0000007ffffff340]: 0x0 0x12 0x0 0x340105ee
-[   55.772221] 309 [0x0000007ffffff350]: 0x0 0x12 0x0 0x340105ee
-[   55.772237] 310 [0x0000007ffffff360]: 0x0 0x12 0x0 0x340105ee
-[   55.772253] 311 [0x0000007ffffff370]: 0x0 0x12 0x0 0x340105ee
-[   55.772268] 312 [0x0000007ffffff380]: 0x0 0x12 0x0 0x340105ee
-[   55.772284] 313 [0x0000007ffffff390]: 0x0 0x12 0x0 0x340105ee
-[   55.772300] 314 [0x0000007ffffff3a0]: 0x0 0x12 0x0 0x340105ee
-[   55.772315] 315 [0x0000007ffffff3b0]: 0x0 0x12 0x0 0x340105ee
-...
-[   55.775539] 511 [0x0000007ffffffff0]: 0x0 0x12 0x0 0x340105ee
-
-Every ring entry contains the same RDES3 value, so it really is
-completely full at the point RBU fires (bit 31 clear means software
-owns the descriptor, and it's basically saying first/last segment,
-RDES1 valid, buffer 1 length of 1518.
-
-The Rx tail pointer register contains 0xfffff3a0 which is entry 314.
-The current receive descriptor address is also 0xfffff3a0. Note that
-these values were obtained some time after the RBU interrupt fired
-(due to the time taken for devmem2 to access every stmmac register -
-I have a script that dumps the entire stmmac register state via
-devmem2.)
-
-The other thing to note is that when looking at debugfs
-stmmaceth/eth0/descriptor* (or whatever it's called, I don't have the
-NX powered to look at the moment, and I didn't take a copy of it last
-night) all tne descriptor entries are fully repopulated with buffers
-and owned by the hardware.
-
-I've tried using devmem2 to write to the rx tail pointer to kick it
-back into action, but that changes nothing. I've tried writing the
-next descriptor value and previous descriptor value, but that appears
-to have no effect, it stedfastly remains stuck - and as that is the
-documented recovery from RBU and there's no "receive demand" register
-listed in dwmac v4 or v5 documentation, there seems to be no other
-documented way.
-
-The debug registers that I provided in my previous email suggest that
-the MAC is waiting for a packet, and MTL's descriptor reader is idle
-(I'm guessing it would only briefly change when the tail pointer is
-updated.)
-
-Note that I have augmented the driver with more dma_rmb() + dma_wmb()
-in stmmac_rx(), dwmac4_wrback_get_rx_status(), and stmmac_rx_refill()
-to ensure that reads and writes to the descriptor ring are correctly
-ordered. While this generally allows iperf3 to run for a few more
-seconds, it doesn't solve the problem - it is very rare for iperf3
-to actually complete before stmmac has taken down my entire network.
-
-I have noticed that on some occasions I see a small number of RBU
-interrupts before it falls over.
-
-I'm not going to have much time to look at this today due to further
-appointments (I also didn't yesterday - only an hour in the morning
-and a bit more time late in the evening/night.) I should have more
-time during the rest of the week... but that may change.
-
-
-From the above, it looks like NAPI/stmmac driver isn't keeping up with
-the packet flow coming from an i.MX6 platform (which is limited to
-around 470Mbps due to internal SoC bus limitations.)
-
-
-I'll also mention that stmmac falls apart even more if I run iperf3 -c
--R against an x86 machine that is capable of saturating the network,
-so much so that the arm-smmu IOMMU throws errors even after the stmmac
-hardware has been soft-reset for addresses that were in the ring
-*prior* to the soft-reset occuring (stmmac is soft-reset each time the
-netdev is brought up.) The only recovery from that is to reboot -
-down/up the interface just spews more IOMMU errors. I don't have the
-details of that to hand and I don't have enough time to re-run that
-test this morning. From what I remember, the transmit side also stops
-processing descriptors (one can see them accumulate in the debugfs
-file,) which eventually leads to the netdev watchdog firing.
-
-
-It currently looks like the stmmac v5 EQoS IP works fine only under
-light packet loads. If one puts any stress on it, then the hardware
-totally falls apart. This may point to an issue with the AXI bus
-configuration that is specific to this platform, but that requires
-further investigation.
-
-I'll mention again, in case anyone's forgotten, that these problems
-pre-date any of my cleanups I've made to stmmac. From what I remember
-they are reproducible with the kernels that are supplied as part of
-the nVidia BSP. Again, as I don't have access to the nVidia platform
-at the moment, I can't include the details in this email.
-
--- 
-RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
-FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gVHVlLCBBcHIgMTQsIDIwMjYgYXQgNjoxM+KAr0FNIEFsZXhpcyBMb3Rob3LDqQo8YWxleGlz
+LmxvdGhvcmVAYm9vdGxpbi5jb20+IHdyb3RlOgo+Cj4gSGkgQW5kcmV5LCB0aGFua3MgZm9yIHRo
+ZSBwcm9tcHQgcmV2aWV3ICEKPgo+IE9uIFR1ZSBBcHIgMTQsIDIwMjYgYXQgMTI6MTkgQU0gQ0VT
+VCwgQW5kcmV5IEtvbm92YWxvdiB3cm90ZToKPiA+IE9uIE1vbiwgQXByIDEzLCAyMDI2IGF0IDg6
+MjnigK9QTSBBbGV4aXMgTG90aG9yw6kgKGVCUEYgRm91bmRhdGlvbikKPiA+IDxhbGV4aXMubG90
+aG9yZUBib290bGluLmNvbT4gd3JvdGU6Cj4gPj4KPgo+IFsuLi5dCj4KPiA+PiArI2lmZGVmIENP
+TkZJR19LQVNBTl9HRU5FUklDCj4gPj4gK3ZvaWQgX19hc2FuX2xvYWQxKHZvaWQgKnApOwo+ID4+
+ICt2b2lkIF9fYXNhbl9zdG9yZTEodm9pZCAqcCk7Cj4gPj4gK3ZvaWQgX19hc2FuX2xvYWQyKHZv
+aWQgKnApOwo+ID4+ICt2b2lkIF9fYXNhbl9zdG9yZTIodm9pZCAqcCk7Cj4gPj4gK3ZvaWQgX19h
+c2FuX2xvYWQ0KHZvaWQgKnApOwo+ID4+ICt2b2lkIF9fYXNhbl9zdG9yZTQodm9pZCAqcCk7Cj4g
+Pj4gK3ZvaWQgX19hc2FuX2xvYWQ4KHZvaWQgKnApOwo+ID4+ICt2b2lkIF9fYXNhbl9zdG9yZTgo
+dm9pZCAqcCk7Cj4gPj4gK3ZvaWQgX19hc2FuX2xvYWQxNih2b2lkICpwKTsKPiA+PiArdm9pZCBf
+X2FzYW5fc3RvcmUxNih2b2lkICpwKTsKPiA+PiArI2VuZGlmIC8qIENPTkZJR19LQVNBTl9HRU5F
+UklDICovCj4gPgo+ID4gVGhpcyBsb29rcyB1Z2x5LCBsZXQncyBub3QgZG8gdGhpcyB1bmxlc3Mg
+aXQncyByZWFsbHkgcmVxdWlyZWQuCj4gPgo+ID4gWW91IGNhbiBqdXN0IHVzZSBrYXNhbl9jaGVj
+a19yZWFkL3dyaXRlKCkgaW5zdGVhZCAtIHRoZXNlIGFyZSBwdWJsaWMKPiA+IHdyYXBwZXJzIGFy
+b3VuZCB0aGUgc2FtZSBzaGFkb3cgbWVtb3J5IGNoZWNraW5nIGZ1bmN0aW9ucy4gQW5kIHRoZXkK
+PiA+IGFsc28gd29yayB3aXRoIHRoZSBTV19UQUdTIG1vZGUsIGluIGNhc2UgdGhlIEJQRiB3b3Vs
+ZCB3YW50IHRvIHVzZQo+ID4gdGhhdCBtb2RlIGF0IHNvbWUgcG9pbnQuIChGb3IgSFdfVEFHUywg
+d2Ugb25seSBoYXZlIGthc2FuX2NoZWNrX2J5dGUoKQo+ID4gdGhhdCBjaGVja3MgYSBzaW5nbGUg
+Ynl0ZSwgYnV0IGl0IGNhbiBiZSBleHRlbmRlZCBpbiB0aGUgZnV0dXJlIGlmCj4gPiByZXF1aXJl
+ZCB0byBiZSB1c2VkIGJ5IEJQRi4pCj4KPiBBQ0ssIEknbGwgdHJ5IHRvIHVzZSB0aG9zZSBrYXNh
+bl9jaGVja19yZWFkIGFuZCBrYXNhbl9jaGVja193cml0ZSByYXRoZXIKPiB0aGFuIF9fYXNhbl97
+bG9hZCxzdG9yZX1YLgoKTm8uIFRoZSBwZXJmb3JtYW5jZSBwZW5hbHR5IHdpbGwgYmUgdG9vIGhp
+Z2guCmh3X3RhZ3Mgd29uJ3Qgd29yayB3aXRob3V0IGNvcnJlc3BvbmRpbmcgSklUIHdvcmsuCkkg
+c2VlIG5vIHBvaW50IHNhY3JpZmljaW5nIHBlcmZvcm1hbmNlIGZvciBhZXN0aGV0aWNzLgpfX2Fz
+YW5fbG9hZC9zdG9yZVggaXMgd2hhdCBjb21waWxlcnMgZW1pdC4KSW4gdGhhdCBzZW5zZSBKSVQg
+aXMgYSBjb21waWxlciBpdCBzaG91bGQgZW1pdCBleGFjdGx5IHRoZSBzYW1lLgpfX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5n
+IGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0
+LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
