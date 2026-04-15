@@ -2,107 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id acMyDCL03mnMMwAAu9opvQ
+	id wB6JH4L63mmzNAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 04:12:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 04:40:02 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98623FFB1E
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 04:12:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1913D3FFCF1
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 04:40:02 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E390BC58D7A;
-	Wed, 15 Apr 2026 02:12:48 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B7E44C58D7A;
+	Wed, 15 Apr 2026 02:39:54 +0000 (UTC)
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
+ [209.85.210.54])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 690D1C35E3C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B898EC36B30
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2026 02:12:47 +0000 (UTC)
-Received: by mail-wm1-f47.google.com with SMTP id
- 5b1f17b1804b1-488afb0427eso75526195e9.1
+ Wed, 15 Apr 2026 02:39:53 +0000 (UTC)
+Received: by mail-ot1-f54.google.com with SMTP id
+ 46e09a7af769-7dbb6c072f1so5794237a34.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Apr 2026 19:12:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1776219167; cv=none;
- d=google.com; s=arc-20240605;
- b=awutCQy6RYpg9m9SepQ48hzcTQEDm7IKUPe+jktzXL5OMrOFVPlcmEwI5xnzG0fwOF
- 9f1tNkoyIv7FR8gb4T8VVy7oOteJu6t3tTMWSAMnou6J8MCWurUR0SUa1qHAvpDFA8yD
- H/TVktLX5vnSPU4TPjcH7ofRKDvQx5SbquGFidtZA73So/uU3hO5S9tis+MuXicoNwcE
- 1PbSM1eCsWyo/3inpvvbMFpwOkt/9hPuHuw3XdDlefbJwuWI22ZEM5z44MMuSaCxZAqE
- jA9DYRSLrKlCKbtvBngQCQUWFSMjnYDH41fzs0o3dISIItlGiCsDDZAt18BsylCboOyd
- 8JJg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=aBV/+MFplyMX182F7OgLwYJLUvM+93jxAF1jhxn3A/M=;
- fh=Hm1bTAqK9dmJZ9trh8/BVL/yu5cpKO0341E/u59L86o=;
- b=gxnKGivrC4O3YNmIBABatYE7xkXJVCa+duZ3i42t0Tyxh+jvwHGWYro6gl9oGqWXAW
- uvwqimS6gmPvTkTacjCiewMa6l1VXeL12eKReu/nL9yrrt/yl3evzK0dnZoCj9DQAhWh
- 1KpXa7TNhQwDWY/HxxWt824D4IMU8UYVGoyCIJvh+1wu0A/sPrQJ7x1s5bf4zVP5E8yP
- lMsgAwqbLV3bGpKcNIFjrNxsCc1POXZtWX1xAVdZjtXXnc1eR/G/pIU/NP1E2l7buZxC
- KqbUOHp9VHLPO+0XVzsjS9CNHZFbv7cOZ+zAii/rFr2KtivNBI4jZ9vZqUuz981ApbQi
- ylxA==; darn=st-md-mailman.stormreply.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ Tue, 14 Apr 2026 19:39:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776219167; x=1776823967;
+ d=gmail.com; s=20251104; t=1776220792; x=1776825592;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=aBV/+MFplyMX182F7OgLwYJLUvM+93jxAF1jhxn3A/M=;
- b=hbcLWnkfPlLPWlmGOrCN6I/8jHBd3Q4CVB2kcBw+mIGCMhQJIZwGHBOP9h2PthsApN
- XjoepZ7hyMPUNTi+RVgRmTix47UO+NIdRY3tVuLx43pXb9kI7mqssp228vxij58ZELfX
- vk3brhlAPkgD4Ng2qsVhi6MMn5vMNgdiDc5IFQYbf3jOv5SSU2F1v7ss9DUNs3xyd7Um
- GQuusXzghnrMAd/C6Z+sG2FSOULujefD4Vo88xAuSb1X7WPJgnqgx5HaC2U8F7QzQ2w3
- pLd3+Dbl/mxbcP63P8gZPJfh8hChWdwB0xERvuU41KldRQDU+wCKcxlnzq5kiBkN+lVh
- XtCg==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=/4pZEJvuS7ozDbMvLtLQ4Yf4fNz+jgNzCYp57Or0UAE=;
+ b=IcLlPdiXrjtbCiw6517ffNhb3aevT+9hHvVRN70RkL4Ny5BBrQ9pX7crqGI0+P815x
+ lWqloByKsAqCMLs1nK9B659BbwDJH7YSstj1kHMZDculDsDO5Kqq3H3Gq132f3FbkOl8
+ dNB7wditTytSfaqCnQkD0YgzOEMvrLFiSyPPj3xkrp1fY5KqyC8D7RYMBn/mUs2YMn/e
+ cO4kGAH6pBH4tZ3rz+ed1xGTrmVgw/YEvnL39qNxyP2bPXsj+w4MzketSDzrU+zEtRtu
+ grYKtzKDboeh+6WBjJ/X5y5AK09Gcr3wHIpNNsvkUsKhIrlGiLUf46ToiprjndzdlnpB
+ nrXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776219167; x=1776823967;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=aBV/+MFplyMX182F7OgLwYJLUvM+93jxAF1jhxn3A/M=;
- b=FevfR+WHXmkqec0HurA6DKrffm2MEyguzlvsHDMvM5JyoxD70rGDiiWWWE224BTb1V
- zoFVSPgbM+dVgRh72CDvspEvslTJ1ZyWICEzqGupIfAhnQ6RpZihwbbgwRoxQssL92ZO
- in8hURhPq5ZWh+wd8HiuwNkaqcQ+hUMQhl38+IhpGTAV0d83awBRQmQ1eVxqtyOvaPOR
- 1X8ZgRp0o5MtDXhKOmWBY6iOlxISpnCmdAFDLsFaQbBKm5M+WVgm7fKrZKxhzMrsqt8M
- mL302ArhV0PyYr22m7MdF8pUlMV8HzZrieNB0Iwdb65oeSAJo1tfp/Pc99aYQ3YzVX5N
- YT5A==
+ d=1e100.net; s=20251104; t=1776220792; x=1776825592;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/4pZEJvuS7ozDbMvLtLQ4Yf4fNz+jgNzCYp57Or0UAE=;
+ b=OVmyQ4lkOkCt8oeLpYW8zo2rzx9pj6Lb02NTCD+987IxIBcFkS2XMYQGXdNJK7/eRI
+ hCOzY8pirV05fbFtv/SVklVfrNUXGkPd/kh+p0XbXAcXfCDwV+fd6w6kBXr1e2hhQf25
+ UyccMmvDIROsyB+p9PapC3w5eEGGP3gtYPjLTbTbj8pEBug3n7V6KzwKz1ve5HzDtOBN
+ xtMewIZz41y8WQ6PH826l6COcfAZzATj74WZcO0Ju9vaXX0AusT4vOt1bdSzt4qhgBI5
+ LOkJrdHTn2SAtsFxOlV+o078ZCtaxT/7CuVZzDQLt5NHjuW5lhedW8pbaUzUuuf77uQr
+ sQiA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9Q+TFv60pZlUKU1Cy7TWavOzCfcvdIFZHHXzmw6g1z9assrndaMRf73QB3cqhEb6xmMijoGk8JdpCgBg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw0zTxAt55fW8ktdm9z2rNvYm2eeHBSdbcaRj+NfZ2AhgnTMnou
- UVk/ke+E/sOMDeqfUUiLK/099YXGQFhl4lWkToUczEL39kAwaKTENzJynbHb/ckKASnzZy0KsII
- UBxT2SNf6c8jPqo/+tBAOewOyKFn5RB4=
-X-Gm-Gg: AeBDievAYtTB1s06gAy5L6bZJGQDVidBYYC5WFm02E4HFx8mSXzwR+lETlwL5z5l5Wo
- LN55oMS0W9WJCU+Bw4mBBZJ3UsBadAB2mJU6BewAafa3HjeQJI3KbyJmh0ZrGKuIT84g8l7fHSu
- zPe0hqTJa0JGuJe5DN1KALqTotpoLi+xlTrHN92MmdQBCvhFZXz0vrBBewdd8uD0Op/mvvUOWkr
- IYScwTWZhHRYUdPB5WbzEv6GHe/u2KkF6tI6T9cyA1GP8NTywRfXl/z6BxM/XOQYNWaxKZuTw9p
- YtUAU5XLJbA6DMcaBp7m5H2A9+Nd
-X-Received: by 2002:a05:600c:4f83:b0:488:7ff5:2c67 with SMTP id
- 5b1f17b1804b1-488d67f0aa2mr242704755e9.12.1776219166427; Tue, 14 Apr 2026
- 19:12:46 -0700 (PDT)
-MIME-Version: 1.0
-References: <E1wBBaR-0000000GZHR-1dbM@rmk-PC.armlinux.org.uk>
- <20260413110222.49fc3759@kernel.org> <ad06yiZZbLC9k3jY@shell.armlinux.org.uk>
- <CAH5Ym4i7VV53hQGY3AjAUW3B8g_ffgmw69kPhPrk2CmcRbguuQ@mail.gmail.com>
- <ad5LlXzeQ8j14Mjg@shell.armlinux.org.uk>
- <ad7nsUQvksJF7JFK@shell.armlinux.org.uk>
-In-Reply-To: <ad7nsUQvksJF7JFK@shell.armlinux.org.uk>
+ AFNElJ96+NdAeXYhWg17brySIuFgTpaQYqtlnPVgwyySSUvxTm9DOFXsBlrT+hsTnyZtRPM0YKfIqpVz5mljtQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzLHiQHKQQ0U3kj9ixp30/Rls4pR1/ueROErFc4a1QG6MWAmRTx
+ HeuEV9F/ippo+niPo9B7O0RxPA9yz5XDhygAFzjrcK6DGGmhDvjobmd9
+X-Gm-Gg: AeBDiete+DjxZbbGrNRce7ayC482wOXxPEvQN8cU1I9F6GNy11uss+pm0ul9Mez6uA3
+ Vi50pSWOyO7dBBlO1UPN7WO7mhzrAODqi8k5Re7MXA1ZSmWE9CR2h6lbiOiwHuT4eFK3ytPH2CN
+ WZ3SZWEGoQ+q5EgOjOm5edfh4rEKh0LmuLIzmiHa/u43dFU3ZqysXdIwhxqc0wTKU8PwFrvr/cE
+ tgWE+Z8hbak/zFHNVHDoZAdl7GzOR5kp83QEwlhhfyiy48TIdfvS57x0cIZaa0azFfIdHGL9bMj
+ 1h+BJ16VBjfGA7Nw7DXt7ygm6roEg1VQufhtP7tW5Ws9BACRjMrGC6BcMlv8qi4bdbzmr33+hiu
+ r//BXihC2g3rrvsKIL06xC/3dcryxrmazdPGXEXbgFpc3d1mVSenLocRqTqECVd8AedP1BkdKzz
+ E664ECjAiyNSrEeiwPVYi7J2oVqCLjYwFBd3hwnY4S6TPTYLVIgeP06qOBYTLwmydtA8VMLg==
+X-Received: by 2002:a05:6830:25c5:b0:7d9:f50f:96cf with SMTP id
+ 46e09a7af769-7dc27c6632amr11719357a34.6.1776220792258; 
+ Tue, 14 Apr 2026 19:39:52 -0700 (PDT)
+Received: from localhost (static-23-234-115-121.cust.tzulo.com.
+ [23.234.115.121]) by smtp.gmail.com with UTF8SMTPSA id
+ 46e09a7af769-7dc76a333e8sm406838a34.8.2026.04.14.19.39.50
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 14 Apr 2026 19:39:51 -0700 (PDT)
 From: Sam Edwards <cfsworks@gmail.com>
-Date: Tue, 14 Apr 2026 19:12:34 -0700
-X-Gm-Features: AQROBzCDcuqEllTQUrqo3wn50XlYGqYnBRK7Hkwk8UIZegBM5SM6IflWL3J01U4
-Message-ID: <CAH5Ym4jA8w9=UxMT4vKJpnXkuDHtkFtMcg4u2sy_0S+8wgy-9w@mail.gmail.com>
-To: "Russell King (Oracle)" <linux@armlinux.org.uk>
-Cc: Andrew Lunn <andrew@lunn.ch>,
- Linux Network Development Mailing List <netdev@vger.kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+X-Google-Original-From: Sam Edwards <CFSworks@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
  Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- "moderated list:BROADCOM BCM2711/BCM2835 ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: enable RPS and RBU
-	interrupts
+ Paolo Abeni <pabeni@redhat.com>
+Date: Tue, 14 Apr 2026 19:39:47 -0700
+Message-ID: <20260415023947.7627-1-CFSworks@gmail.com>
+X-Mailer: git-send-email 2.52.0
+MIME-Version: 1.0
+Cc: Baruch Siach <baruch@tkos.co.il>, linux-kernel@vger.kernel.org,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>, stable@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Sam Edwards <CFSworks@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [Linux-stm32] [PATCH net v5] net: stmmac: Prevent NULL deref when
+	RX memory exhausted
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,90 +98,141 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.49 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
-	MIME_BASE64_TEXT(0.10)[];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[cfsworks@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:baruch@tkos.co.il,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:fancer.lancer@gmail.com,m:maxime.chevallier@bootlin.com,m:rmk+kernel@armlinux.org.uk,m:stable@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:peppe.cavallaro@st.com,m:CFSworks@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:andrew@lunn.ch,m:fancerlancer@gmail.com,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[tkos.co.il,vger.kernel.org,nxp.com,gmail.com,bootlin.com,armlinux.org.uk,st.com,st-md-mailman.stormreply.com,lists.infradead.org,renesas.com];
 	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[cfsworks@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.991];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[cfsworks@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stormreply.com:url,stormreply.com:email,armlinux.org.uk:email]
-X-Rspamd-Queue-Id: A98623FFB1E
+	DKIM_TRACE(0.00)[gmail.com:-];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_SPAM(0.00)[0.652];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 1913D3FFCF1
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-T24gVHVlLCBBcHIgMTQsIDIwMjYgYXQgNjoxOeKAr1BNIFJ1c3NlbGwgS2luZyAoT3JhY2xlKQo8
-bGludXhAYXJtbGludXgub3JnLnVrPiB3cm90ZToKPiBPa2F5LCBqdXN0IGEgcXVpY2sgbm90ZSB0
-byBzYXkgdGhhdCBudmlkaWEncyA1LjEwLjIxNi10ZWdyYSBrZXJuZWwKPiBzdXJ2aXZlcyBpcGVy
-ZjMgLWMgLVIgdG8gdGhlIGlteDYuCgpIaSBSdXNzZWxsLAoKQXcsIHlvdSBiZWF0IG1lIHRvIGl0
-ISBJIHdhcyBhYm91dCB0byByZXBvcnQgdGhhdCA1LjEwLjEwNC10ZWdyYSBpcwp1bmFmZmVjdGVk
-LiBBbmQgbXkgaXBlcmYzIHNlcnZlciBpcyBhIG11bHRpLUdiRSBhbWQ2NCBtYWNoaW5lLgoKPiBE
-dW1waW5nIHRoZSByZWdpc3RlcnMgYW5kIGNvbXBhcmluZywgYW5kIHRoZW4gZm9yY2luZyB0aGUg
-UlFTIGFuZCBUUVMKPiB2YWx1ZXMgdG8gMHgyMyAoKzEgPSAzNiwgKjI1NiA9IDkyMTYgYnl0ZXMp
-IGFuZCAweDhmICgrMSA9IDE0NCwKPiAqMjU2ID0gMzY4NjQgeXRlcykgcmVzcGVjdGl2ZWx5IHNl
-ZW1zIHRvIHNvbHZlIHRoZSBwcm9ibGVtLiBVbmRlcgo+IG5ldC1uZXh0LCB0aGVzZSBib3RoIGVu
-ZCB1cCBiZWluZyAweGZmICgrMSA9IDI1NiwgKjI1NiA9IDY1NTM2IGJ5dGVzLikKPiBTdXNwaWNp
-b3VzbHksIDM2ICogNCA9IDE0NCwgYW5kIEkgYWxzbyBzZWUgdGhhdCB0aGlzIGtlcm5lbCBwcm9n
-cmFtcwo+IGFsbCBmb3VyIG9mIHRoZSBNVEwgcmVjZWl2ZSBvcGVyYXRpb24gbW9kZSByZWdpc3Rl
-cnMsIGJ1dCBvbmx5IHRoZQo+IGZpcnN0IE1UTCB0cmFuc21pdCBvcGVyYXRpb24gbW9kZSByZWdp
-c3Rlci4gSG93ZXZlciwgRE1BIGNoYW5uZWxzIDEtMwo+IGFyZW4ndCBpbml0aWFsaXNlZC4KCldv
-dywgZ3JlYXQhIEkgd29uZGVyIGlmIHRoZSBwcm9ibGVtIGlzIHRoYXQgdGhlIE1UTCBGSUZPcyBh
-cmUgc21hbGxlcgp0aGFuIHRoYXQsIHNvIHdoZW4gdGhlIERNQSBzdWZmZXJzIGEgbW9tZW50YXJ5
-IGhpY2N1cCwgdGhlIEZJRk9zIGFyZQphbGxvd2VkIHRvIG92ZXJmbG93LCBwdXR0aW5nIHRoZSBo
-YXJkd2FyZSBpbiBhIGJhZCBzdGF0ZS4KClRob3VnaCBJIHN1c3BlY3QgdGhpcyBpcyBvbmx5IGhh
-bGYgb2YgdGhlIHByb2JsZW06IGRvIHlvdSBzdGlsbCBzZWUKUkJVcz8gRXZlcnl0aGluZyB5b3Un
-dmUgc2hhcmVkIHNvIGZhciBzdWdnZXN0cyB0aGUgRE1BIGZhaWx1cmVzIGFyZQpfbm90XyBiZWNh
-dXNlIHRoZSByeCByaW5nIGlzIGRyeWluZyB1cC4gTXkgZ3V0J3MgdGVsbGluZyBtZSB0aGUgRE1B
-CnVuaXQgaXMgZW5jb3VudGVyaW5nIGFuIEFYSSBlcnJvciwgdHJpZ2dlcmluZyBSQlUgcGx1cyBz
-b21lIGtpbmQgb2YKcmVjb3ZlcnkgYmVoYXZpb3IsIGFuZCB0aGUgcmVjb3ZlcnkgdGFrZXMgdGhl
-IERNQSBvZmZsaW5lIGxvbmcgZW5vdWdoCmZvciB0aGUgRklGTyB0byBvdmVyZmxvdyAod2l0aG91
-dCB0cmlnZ2VyaW5nIFJQUyBiZWNhdXNlIHRoZSBSUVMKdGhyZXNob2xkIGlzIHVucmVhY2hhYmxl
-KS4KCkl0IHNlZW1zIHRoYXQgdGhlIHByb2JsZW0gaGFwcGVucyBsZXNzIGZyZXF1ZW50bHkgb24g
-bXkgdGVzdCBzZXR1cAp3aGVuIEkgYm9vdCB3aXRoIGlvbW11LnBhc3N0aHJvdWdoPTEgYnV0IHRo
-YXQgY291bGQgYmUgbXkgaW1hZ2luYXRpb24uCkJ1dCBpZiB0aGUgaGFyZHdhcmUgcmVtYWlucyBz
-dGFibGUgd2l0aCBSUVMgYW5kIFRRUyBzZXQgY29ycmVjdGx5LCBJCmRvbid0IGZlZWwgYW4gdXJn
-ZW50IG5lZWQgdG8gZGlnIGRlZXBlci4gOikKCj4gTG9va2luZyBiYWNrIGF0IDUuMTAsIEkgZG9u
-J3Qgc2VlIGFueSBjb2RlIHRoYXQgd291bGQgYWNjb3VudCBmb3IgdGhlc2UKPiB2YWx1ZXMgYmVp
-bmcgcHJvZ3JhbW1lZCBmb3IgVFFTIGFuZCBSUVMsIGl0IGxvb2tzIGxpa2UgdGhlIGNhbGN1bGF0
-aW9ucwo+IGFyZSBiYXNpY2FsbHkgdGhlIHNhbWUgYXMgd2UgaGF2ZSB0b2RheS4KCk5vdGUgdGhh
-dCBOdmlkaWEgaGF2ZSB0aGVpciBvd24gIm52ZXRoZXJuZXQiIGRyaXZlciBmb3IgdGhlaXIgdmVu
-ZG9yCmtlcm5lbCwgd2hpY2ggYXBwZWFycyB0byBwaWNrIHRoZSBGSUZPIHNpemVzIGZyb20gaGFy
-ZGNvZGVkIHRhYmxlcyBpbgppdHMgZXFvc19jb25maWd1cmVfbXRsX3F1ZXVlKCkgWzFdIGZ1bmN0
-aW9uLgoKQ2hlZXJzLApTYW0KClsxXSBodHRwczovL2dpdGh1Yi5jb20vcHJvc2tpL252ZXRoZXJu
-ZXQvYmxvYi9tYWluL252ZXRoZXJuZXRybS9vc2kvY29yZS9lcW9zX2NvcmUuYyNMMjYzCl9fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1h
-aWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBz
-Oi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0
-bTMyCg==
+The CPU receives frames from the MAC through conventional DMA: the CPU
+allocates buffers for the MAC, then the MAC fills them and returns
+ownership to the CPU. For each hardware RX queue, the CPU and MAC
+coordinate through a shared ring array of DMA descriptors: one
+descriptor per DMA buffer. Each descriptor includes the buffer's
+physical address and a status flag ("OWN") indicating which side owns
+the buffer: OWN=0 for CPU, OWN=1 for MAC. The CPU is only allowed to set
+the flag and the MAC is only allowed to clear it, and both must move
+through the ring in sequence: thus the ring is used for both
+"submissions" and "completions."
+
+In the stmmac driver, stmmac_rx() bookmarks its position in the ring
+with the `cur_rx` index. The main receive loop in that function checks
+for rx_descs[cur_rx].own=0, gives the corresponding buffer to the
+network stack (NULLing the pointer), and increments `cur_rx` modulo the
+ring size. After the loop exits, stmmac_rx_refill(), which bookmarks its
+position with `dirty_rx`, allocates fresh buffers and rearms the
+descriptors (setting OWN=1). If it fails any allocation, it simply stops
+early (leaving OWN=0) and will retry where it left off when next called.
+
+This means descriptors have a three-stage lifecycle (terms my own):
+- `empty` (OWN=1, buffer valid)
+- `full` (OWN=0, buffer valid and populated)
+- `dirty` (OWN=0, buffer NULL)
+
+But because stmmac_rx() only checks OWN, it confuses `full`/`dirty`. In
+the past (see 'Fixes:'), there was a bug where the loop could cycle
+`cur_rx` all the way back to the first descriptor it dirtied, resulting
+in a NULL dereference when mistaken for `full`. The aforementioned
+commit resolved that *specific* failure by capping the loop's iteration
+limit at `dma_rx_size - 1`, but this is only a partial fix: if the
+previous stmmac_rx_refill() didn't complete, then there are leftover
+`dirty` descriptors that the loop might encounter without needing to
+cycle fully around. The current code therefore panics (see 'Closes:')
+when stmmac_rx_refill() is memory-starved long enough for `cur_rx` to
+catch up to `dirty_rx`.
+
+Fix this by further tightening the clamp from `dma_rx_size - 1` to
+`dma_rx_size - stmmac_rx_dirty() - 1`, subtracting any remnant dirty
+entries and limiting the loop so that `cur_rx` cannot catch back up to
+`dirty_rx`. This carries no risk of arithmetic underflow: since the
+maximum possible return value of stmmac_rx_dirty() is `dma_rx_size - 1`,
+the worst the clamp can do is prevent the loop from running at all.
+
+Fixes: b6cb4541853c7 ("net: stmmac: avoid rx queue overrun")
+Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221010
+Cc: stable@vger.kernel.org
+Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+---
+
+Hi list,
+
+This is a single patch broken out of [1]. The second patch in that series,
+which proactively refills the RX ring buffer when memory is low, still has some
+unresolved feedback: it should use a timer to avoid nuisance polling while the
+system is suffering OOM.
+
+Further discussion makes me wonder whether that second patch should even be
+threshold-triggered at all, or if it should be a handler for the RBU
+("Receive Buffer Unavailable") interrupt instead.
+
+So, while that patch is back at the drawing board, I am submitting this one
+(which is higher-priority as it resolves a *panic*) separately.
+
+Regards,
+Sam
+
+[1] https://lore.kernel.org/all/20260401041929.12392-1-CFSworks@gmail.com/
+
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 13d3cac056be..fc11f75f7dc0 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5609,7 +5609,8 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 	dma_dir = page_pool_get_dma_dir(rx_q->page_pool);
+ 	bufsz = DIV_ROUND_UP(priv->dma_conf.dma_buf_sz, PAGE_SIZE) * PAGE_SIZE;
+-	limit = min(priv->dma_conf.dma_rx_size - 1, (unsigned int)limit);
++	limit = min(priv->dma_conf.dma_rx_size - stmmac_rx_dirty(priv, queue) - 1,
++		    (unsigned int)limit);
+ 
+ 	if (netif_msg_rx_status(priv)) {
+ 		void *rx_head;
+-- 
+2.52.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
