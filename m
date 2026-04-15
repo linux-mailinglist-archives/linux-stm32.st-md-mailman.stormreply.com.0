@@ -2,100 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wAixErul32miXAAAu9opvQ
+	id iBuRNL2832mOYQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 16:50:35 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 18:28:45 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3521D405852
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 16:50:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 511F6406605
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Apr 2026 18:28:45 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F0213C3F944;
-	Wed, 15 Apr 2026 14:50:34 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DCC94C3F944;
+	Wed, 15 Apr 2026 16:28:44 +0000 (UTC)
+Received: from pandora.armlinux.org.uk (pandora.armlinux.org.uk [78.32.30.218])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 67F45C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C070EC36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2026 14:50:33 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-488ba6366a7so84110035e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Apr 2026 07:50:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1776264633; x=1776869433;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=dN1czsyDMNwwt/ST8KAAFfEC2IVqy3l0935RmxW/E4s=;
- b=edhf3czg93kKoxBqJi48FOfCcoUfH02u3t2f3CEAh1W42HuPPhjlQHZLZQC8kTr+yl
- Qt5GV1jrZPE4gGuYgpdbdcaXZlXL39XAgUtQuNcyuKvFLX5N/PLYjyyzKWoemvqpmwxG
- gaO3Qvyod1mbbRtSix7A2r27oxO0eiQX/m1OT2XTpSHeCFpU16P1aaKScPweDo4oYWb6
- 1zOUVeJgR/Y4YGZT0g5Dfm8IE9+P9+qbpKeemG6ayV4frnrRVvsTmCKdiRsEgMPO5O/8
- /cb797TQyNmnie3lwjYrgse6E5MPNwBlrFWhDRxB11isu2ENVd7FHzTwjShhTvTaGGFB
- UjGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776264633; x=1776869433;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=dN1czsyDMNwwt/ST8KAAFfEC2IVqy3l0935RmxW/E4s=;
- b=O9Jhhyl2PY3gaH9Vy4SpCS3ULux6ITePez6y2jBnKjx7xdtTYV4vRecxp3vdD/iNsl
- 8NfwjQcuFmDDbuFQjHLtj2wmuT9/Hpi6rjuuxEpSKtYWIV51katX+8rzH6BRjRhg7M9O
- eLBWKWs2bF7cT9JDw0ahF0kYw+GYaY11987rdSejtv38zZ4GeNmrYAjtqViJuzEeVdqk
- bXIw2Mn3d5hYjQF8ejEa9chVVlfsCR5tlHYV2iTMK19LE1b9IozblnNr/jBzFC0aiQpy
- t8hlaby97eBfZvmNBzW/ZcS+aIxtXBJtKSNesZNynHw054f6WZa2gFSGhKxmaUodYGdF
- rwSA==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/8S8SYckuEbUtpvYNAjF94StKig9glysMadcy1EnVr1FWYeKQZ7GecvM0Lu8qVe7JXi1F7FoIN64lvew==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxzSwyvS11voUbRl2c/FX5cPwAQjv+OEqb2Mv5v4Ji8mE/k7bzK
- LKb/5gW6HUp/8Vwjzbxz3Tj5IDQl+LTePoA9ovCgEyjsPXvVLL5mLaKBbSm5jVr89h81k1c5n+U
- IXfmO
-X-Gm-Gg: AeBDietx4Y1JzCxBiOf7cnnbTDFk8VmcPX6TNbgPdGdw3fYF8rYOVBVNjvK8STmQGKh
- GTIJWGVV/2FNPx5Bfi5eidmHZhZtcMnMpeZuFzSr7auhRc9Symtw2654mROYJXDSOi4bH0aQ6zH
- y3qtZa6LSnl8o6vGU9Fw/hZQcsjT0q7nFiducbfVchd4SgMI1xkQFWW99Wcs5Qbue6Wur3wf4XM
- QH8JKGqlZThNJ4MezuuQk47eQ/2z2P233QFNsXA2VAbJZfIVH+AQUQU/BUiirnWUofryxjwqyXC
- 9soTh3NuKVW6AAY7ly2mUstSf3KDC7nNZfp5i9JjIGUIKCImgibGoGXm9RPy6D0PbnPklS9EmMo
- 9gDOel+SjO9M1z+EvkpVkH2x5E/q4uigQvPkAkp2a/8nHlzHyokOfabUijO9ymek+Mj7QMofNio
- MiAA6fg54D2w2vpt16y7nZ9g6Y6T/MvBSVSokaQVBEbDDCG5XkwZlOyoolf7Ju1Qj3wTaJZLStK
- /UyMNOQvZEezes=
-X-Received: by 2002:a05:6000:2884:b0:43d:7147:f51 with SMTP id
- ffacd0b85a97d-43d71471152mr23644870f8f.26.1776264632805; 
- Wed, 15 Apr 2026 07:50:32 -0700 (PDT)
-Received: from localhost
- (p200300f65f20eb084c777289617ec110.dip0.t-ipconnect.de.
- [2003:f6:5f20:eb08:4c77:7289:617e:c110])
- by smtp.gmail.com with UTF8SMTPSA id
- ffacd0b85a97d-43ead33d6e9sm6002565f8f.1.2026.04.15.07.50.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 15 Apr 2026 07:50:32 -0700 (PDT)
-From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 15 Apr 2026 16:50:13 +0200
-Message-ID: <788319f0fff963feca4df3c5fcdd471dcf70ccdf.1776264104.git.u.kleine-koenig@baylibre.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1776264104.git.u.kleine-koenig@baylibre.com>
-References: <cover.1776264104.git.u.kleine-koenig@baylibre.com>
+ Wed, 15 Apr 2026 16:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=armlinux.org.uk; s=pandora-2019; h=Sender:In-Reply-To:Content-Type:
+ MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+ Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+ List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+ bh=xpnoSDDGsBCL+2BDd4JTT1XxKpjuL1ghLwvkFgcvTjA=; b=nMR9rhZHp02XU3aSVh1bIewT7H
+ Xgo9Jdkgy1fEEb7SgxTiqMZO5/IOYh6iOuPqlHM7P0qcFq/Cz5ZxKt7zQ+rlZMaI2TBw2UgXBMHU5
+ HriC4AedygCY5+7VjHUYQUGcYOgcZXIRjZNYjCWAejcjmNe2GFDZZfIeUopiIIMIb9xmOjMtea/Cc
+ IZyVMbecLSxdYh7dmwr7LDrDAJ6VDKEZ4GLZ2nIEA0nmHkUBCudEyk/VgNCDISD6yOKZAFxxa7Bjg
+ ofArRRTshrucwsaKkGej5QQ6qcRl0a/6wOM8tgCs5b+wJSZ76Nvbz+8BuOD1D10HLy984fUXXb+0P
+ RXVJsO5A==;
+Received: from shell.armlinux.org.uk
+ ([fd8f:7570:feb6:1:5054:ff:fe00:4ec]:60524)
+ by pandora.armlinux.org.uk with esmtpsa (TLS1.3) tls
+ TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (Exim 4.98.2)
+ (envelope-from <linux@armlinux.org.uk>) id 1wD36N-000000002I9-1yPN;
+ Wed, 15 Apr 2026 17:28:31 +0100
+Received: from linux by shell.armlinux.org.uk with local (Exim 4.98.2)
+ (envelope-from <linux@shell.armlinux.org.uk>)
+ id 1wD36J-000000002LW-20lB; Wed, 15 Apr 2026 17:28:27 +0100
+Date: Wed, 15 Apr 2026 17:28:27 +0100
+From: "Russell King (Oracle)" <linux@armlinux.org.uk>
+To: Sam Edwards <cfsworks@gmail.com>
+Message-ID: <ad-8q4OrOm-VtGrO@shell.armlinux.org.uk>
+References: <20260415023947.7627-1-CFSworks@gmail.com>
+ <ad-LAB08-_rpmMzK@shell.armlinux.org.uk>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2329;
- i=u.kleine-koenig@baylibre.com; h=from:subject:message-id;
- bh=9qJeHZRbSFduELxueyX7SDFPcOQZv0zK9BdhVLKRq8s=;
- b=owEBbQGS/pANAwAKAY+A+1h9Ev5OAcsmYgBp36Wq+0h8W3DUxZQpoIufXzY1woEyJ2vEcI6Ty
- gE7fVgqv/2JATMEAAEKAB0WIQQ/gaxpOnoeWYmt/tOPgPtYfRL+TgUCad+lqgAKCRCPgPtYfRL+
- TvXYCACHODrtzojzM+GDH+KQoXVs9juGlZQxs8Z09ps0/buJOG5/BuNanRDVteKwiGuD1lPSqw/
- EDTDA7D8CPKFNhCisbvPeHB/EFl1IWJkLsD6M8dXvVdLMNzBhN1lNQtdBbxVI3800i4L5FQEx0n
- HwxnQG082WB04KVIjZ1vTW5Tg/nowjwM10bxYnIW3UOEY0kxAij8/84WzxQ/Nf7VgT4UVuYZnKJ
- /hKuqIua8QIlJmM21WZpG43NSwSQ3rUUSCSvVLBxfVculBsw9zy3STZ2YPJpBL3krO/H3L9DE2G
- FWHIDoN33CFxASh65+tEq68zFKRcnvVpPDM/LBt+F7qFQz3T
-X-Developer-Key: i=u.kleine-koenig@baylibre.com; a=openpgp;
- fpr=0D2511F322BFAB1C1580266BE2DCDD9132669BD6
-Cc: linux-pwm@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v1 2/2] pwm: stm32: Make use of
-	mul_u64_u64_div_u64_roundup()
+Content-Disposition: inline
+In-Reply-To: <ad-LAB08-_rpmMzK@shell.armlinux.org.uk>
+Cc: Baruch Siach <baruch@tkos.co.il>, linux-kernel@vger.kernel.org,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Serge Semin <fancer.lancer@gmail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ netdev@vger.kernel.org, stable@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org,
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: Re: [Linux-stm32] [PATCH net v5] net: stmmac: Prevent NULL deref
+ when RX memory exhausted
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,90 +73,134 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[armlinux.org.uk:s=pandora-2019];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[baylibre-com.20251104.gappssmtp.com:s=20251104];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	MIME_BASE64_TEXT(0.10)[];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[armlinux.org.uk : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DMARC_NA(0.00)[baylibre.com];
-	FORGED_RECIPIENTS(0.00)[m:fabrice.gasnier@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-pwm@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[foss.st.com,gmail.com];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FROM_HAS_DN(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.931];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCPT_COUNT_FIVE(0.00)[5];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DKIM_TRACE(0.00)[baylibre-com.20251104.gappssmtp.com:-];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	FORGED_RECIPIENTS(0.00)[m:cfsworks@gmail.com,m:baruch@tkos.co.il,m:linux-kernel@vger.kernel.org,m:vladimir.oltean@nxp.com,m:linux-stm32@st-md-mailman.stormreply.com,m:fancer.lancer@gmail.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:stable@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:peppe.cavallaro@st.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:fancerlancer@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[tkos.co.il,vger.kernel.org,nxp.com,st-md-mailman.stormreply.com,gmail.com,bootlin.com,lunn.ch,google.com,st.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org,renesas.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,baylibre.com:mid,baylibre.com:email]
-X-Rspamd-Queue-Id: 3521D405852
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linux@armlinux.org.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[armlinux.org.uk:-];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_SPAM(0.00)[0.841];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[shell.armlinux.org.uk:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 511F6406605
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-V2hlbiB0aGUgZHJpdmVyIHdhcyBjb252ZXJ0ZWQgdG8gdGhlIHdhdmVmb3JtIEFQSSB0aGUgbmVl
-ZCBmb3IgdGhpcwpmdW5jdGlvbiBhcmlzZWQgYnV0IGF0IHRoYXQgdGltZSB0aGlzIGZ1bmN0aW9u
-IGRpZG4ndCBleGlzdCB5ZXQuIEluIHRoZQptZWFudGltZSBpdCdzIGF2YWlsYWJsZSwgc28gc3dp
-dGNoIHRvIHRoZSBnbG9iYWwgZnVuY3Rpb24gYW5kIGRyb3AgdGhlCmRyaXZlciBzcGVjaWZpYyBp
-bXBsZW1lbnRhdGlvbi4KClNpZ25lZC1vZmYtYnk6IFV3ZSBLbGVpbmUtS8O2bmlnIDx1LmtsZWlu
-ZS1rb2VuaWdAYmF5bGlicmUuY29tPgotLS0KIGRyaXZlcnMvcHdtL3B3bS1zdG0zMi5jIHwgMjcg
-KysrKystLS0tLS0tLS0tLS0tLS0tLS0tLS0tCiAxIGZpbGUgY2hhbmdlZCwgNSBpbnNlcnRpb25z
-KCspLCAyMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL3B3bS9wd20tc3RtMzIu
-YyBiL2RyaXZlcnMvcHdtL3B3bS1zdG0zMi5jCmluZGV4IDkzNTI1N2E4OTBiMC4uYzcwOGU0YTdh
-ZDcwIDEwMDY0NAotLS0gYS9kcml2ZXJzL3B3bS9wd20tc3RtMzIuYworKysgYi9kcml2ZXJzL3B3
-bS9wd20tc3RtMzIuYwpAQCAtMTkzLDIyICsxOTMsNiBAQCBzdGF0aWMgaW50IHN0bTMyX3B3bV9y
-b3VuZF93YXZlZm9ybV90b2h3KHN0cnVjdCBwd21fY2hpcCAqY2hpcCwKIAlyZXR1cm4gcmV0Owog
-fQogCi0vKgotICogVGhpcyBzaG91bGQgYmUgbW92ZWQgdG8gbGliL21hdGgvZGl2NjQuYy4gQ3Vy
-cmVudGx5IHRoZXJlIGFyZSBzb21lIGNoYW5nZXMKLSAqIHBlbmRpbmcgdG8gbXVsX3U2NF91NjRf
-ZGl2X3U2NC4gVXdlIHdpbGwgY2FyZSBmb3IgdGhhdCB3aGVuIHRoZSBkdXN0IHNldHRsZXMuCi0g
-Ki8KLXN0YXRpYyB1NjQgc3RtMzJfcHdtX211bF91NjRfdTY0X2Rpdl91NjRfcm91bmR1cCh1NjQg
-YSwgdTY0IGIsIHU2NCBjKQotewotCXU2NCByZXMgPSBtdWxfdTY0X3U2NF9kaXZfdTY0KGEsIGIs
-IGMpOwotCS8qIFRob3NlIG11bHRpcGxpY2F0aW9ucyBtaWdodCBvdmVyZmxvdyBidXQgaXQgZG9l
-c24ndCBtYXR0ZXIgKi8KLQl1NjQgcmVtID0gYSAqIGIgLSBjICogcmVzOwotCi0JaWYgKHJlbSkK
-LQkJcmVzICs9IDE7Ci0KLQlyZXR1cm4gcmVzOwotfQotCiBzdGF0aWMgaW50IHN0bTMyX3B3bV9y
-b3VuZF93YXZlZm9ybV9mcm9taHcoc3RydWN0IHB3bV9jaGlwICpjaGlwLAogCQkJCQkgICBzdHJ1
-Y3QgcHdtX2RldmljZSAqcHdtLAogCQkJCQkgICBjb25zdCB2b2lkICpfd2ZodywKQEAgLTIyMywx
-NiArMjA3LDE1IEBAIHN0YXRpYyBpbnQgc3RtMzJfcHdtX3JvdW5kX3dhdmVmb3JtX2Zyb21odyhz
-dHJ1Y3QgcHdtX2NoaXAgKmNoaXAsCiAJCXU2NCBjY3JfbnM7CiAKIAkJLyogVGhlIHJlc3VsdCBk
-b2Vzbid0IG92ZXJmbG93IGZvciByYXRlID49IDE1MjU5ICovCi0JCXdmLT5wZXJpb2RfbGVuZ3Ro
-X25zID0gc3RtMzJfcHdtX211bF91NjRfdTY0X2Rpdl91NjRfcm91bmR1cCgoKHU2NCl3Zmh3LT5w
-c2MgKyAxKSAqICh3Zmh3LT5hcnIgKyAxKSwKLQkJCQkJCQkJCSAgICAgTlNFQ19QRVJfU0VDLCBy
-YXRlKTsKKwkJd2YtPnBlcmlvZF9sZW5ndGhfbnMgPSBtdWxfdTY0X3U2NF9kaXZfdTY0X3JvdW5k
-dXAoKCh1NjQpd2Zody0+cHNjICsgMSkgKiAod2Zody0+YXJyICsgMSksCisJCQkJCQkJCSAgIE5T
-RUNfUEVSX1NFQywgcmF0ZSk7CiAKLQkJY2NyX25zID0gc3RtMzJfcHdtX211bF91NjRfdTY0X2Rp
-dl91NjRfcm91bmR1cCgoKHU2NCl3Zmh3LT5wc2MgKyAxKSAqIHdmaHctPmNjciwKLQkJCQkJCQkg
-ICAgICAgTlNFQ19QRVJfU0VDLCByYXRlKTsKKwkJY2NyX25zID0gbXVsX3U2NF91NjRfZGl2X3U2
-NF9yb3VuZHVwKCgodTY0KXdmaHctPnBzYyArIDEpICogd2Zody0+Y2NyLCBOU0VDX1BFUl9TRUMs
-IHJhdGUpOwogCiAJCWlmICh3Zmh3LT5jY2VyICYgVElNX0NDRVJfQ0N4UChjaCArIDEpKSB7CiAJ
-CQl3Zi0+ZHV0eV9sZW5ndGhfbnMgPQotCQkJCXN0bTMyX3B3bV9tdWxfdTY0X3U2NF9kaXZfdTY0
-X3JvdW5kdXAoKCh1NjQpd2Zody0+cHNjICsgMSkgKiAod2Zody0+YXJyICsgMSAtIHdmaHctPmNj
-ciksCi0JCQkJCQkJCSAgICAgIE5TRUNfUEVSX1NFQywgcmF0ZSk7CisJCQkJbXVsX3U2NF91NjRf
-ZGl2X3U2NF9yb3VuZHVwKCgodTY0KXdmaHctPnBzYyArIDEpICogKHdmaHctPmFyciArIDEgLSB3
-Zmh3LT5jY3IpLAorCQkJCQkJCSAgICBOU0VDX1BFUl9TRUMsIHJhdGUpOwogCiAJCQl3Zi0+ZHV0
-eV9vZmZzZXRfbnMgPSBjY3JfbnM7CiAJCX0gZWxzZSB7Ci0tIAoyLjQ3LjMKCl9fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcg
-bGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3Qt
-bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Wed, Apr 15, 2026 at 01:56:32PM +0100, Russell King (Oracle) wrote:
+> On Tue, Apr 14, 2026 at 07:39:47PM -0700, Sam Edwards wrote:
+> > The CPU receives frames from the MAC through conventional DMA: the CPU
+> > allocates buffers for the MAC, then the MAC fills them and returns
+> > ownership to the CPU. For each hardware RX queue, the CPU and MAC
+> > coordinate through a shared ring array of DMA descriptors: one
+> > descriptor per DMA buffer. Each descriptor includes the buffer's
+> > physical address and a status flag ("OWN") indicating which side owns
+> > the buffer: OWN=0 for CPU, OWN=1 for MAC. The CPU is only allowed to set
+> > the flag and the MAC is only allowed to clear it, and both must move
+> > through the ring in sequence: thus the ring is used for both
+> > "submissions" and "completions."
+> > 
+> > In the stmmac driver, stmmac_rx() bookmarks its position in the ring
+> > with the `cur_rx` index. The main receive loop in that function checks
+> > for rx_descs[cur_rx].own=0, gives the corresponding buffer to the
+> > network stack (NULLing the pointer), and increments `cur_rx` modulo the
+> > ring size. After the loop exits, stmmac_rx_refill(), which bookmarks its
+> > position with `dirty_rx`, allocates fresh buffers and rearms the
+> > descriptors (setting OWN=1). If it fails any allocation, it simply stops
+> > early (leaving OWN=0) and will retry where it left off when next called.
+> > 
+> > This means descriptors have a three-stage lifecycle (terms my own):
+> > - `empty` (OWN=1, buffer valid)
+> > - `full` (OWN=0, buffer valid and populated)
+> > - `dirty` (OWN=0, buffer NULL)
+> > 
+> > But because stmmac_rx() only checks OWN, it confuses `full`/`dirty`. In
+> > the past (see 'Fixes:'), there was a bug where the loop could cycle
+> > `cur_rx` all the way back to the first descriptor it dirtied, resulting
+> > in a NULL dereference when mistaken for `full`. The aforementioned
+> > commit resolved that *specific* failure by capping the loop's iteration
+> > limit at `dma_rx_size - 1`, but this is only a partial fix: if the
+> > previous stmmac_rx_refill() didn't complete, then there are leftover
+> > `dirty` descriptors that the loop might encounter without needing to
+> > cycle fully around. The current code therefore panics (see 'Closes:')
+> > when stmmac_rx_refill() is memory-starved long enough for `cur_rx` to
+> > catch up to `dirty_rx`.
+> > 
+> > Fix this by further tightening the clamp from `dma_rx_size - 1` to
+> > `dma_rx_size - stmmac_rx_dirty() - 1`, subtracting any remnant dirty
+> > entries and limiting the loop so that `cur_rx` cannot catch back up to
+> > `dirty_rx`. This carries no risk of arithmetic underflow: since the
+> > maximum possible return value of stmmac_rx_dirty() is `dma_rx_size - 1`,
+> > the worst the clamp can do is prevent the loop from running at all.
+> > 
+> > Fixes: b6cb4541853c7 ("net: stmmac: avoid rx queue overrun")
+> > Closes: https://bugzilla.kernel.org/show_bug.cgi?id=221010
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Sam Edwards <CFSworks@gmail.com>
+> 
+> Locally, while debugging my issues, I used this to prevent cur_rx
+> catching up with dirty_rx:
+> 
+>                 status = stmmac_rx_status(priv, &priv->xstats, p);
+>                 /* check if managed by the DMA otherwise go ahead */
+>                 if (unlikely(status & dma_own))
+>                         break;
+> 
+>                 next_entry = STMMAC_NEXT_ENTRY(rx_q->cur_rx,
+>                                                priv->dma_conf.dma_rx_size);
+>                 if (unlikely(next_entry == rx_q->dirty_rx))
+>                         break;
+> 
+>                 rx_q->cur_rx = next_entry;
+> 
+> If we care about the cost of reloading rx_q->dirty_rx on every
+> iteration, then I'd suggest that the cost we already incur reading and
+> writing rx_q->cur_rx is something that should be addressed, and
+> eliminating that would counter the cost of reading rx_q->dirty_rx. I
+> suspect, however, that the cost is minimal, as cur_tx and dirty_rx are
+> likely in the same cache line.
+> 
+> It looks like any fix to stmmac_rx() will also need a corresponding
+> fix for stmmac_rx_zc().
+
+I have some further information, but a new curveball has just been
+chucked... and I've no idea what this will mean at this stage. Just
+take it that I won't be responding for a while.
+
+-- 
+RMK's Patch system: https://www.armlinux.org.uk/developer/patches/
+FTTP is here! 80Mbps down 10Mbps up. Decent connectivity at last!
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
