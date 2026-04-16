@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MBmoLKim4GlZkgAAu9opvQ
+	id gB36NT+n4GlZkgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2026 11:06:48 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2026 11:09:19 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8928140C00B
-	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2026 11:06:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B5CE940C037
+	for <lists+linux-stm32@lfdr.de>; Thu, 16 Apr 2026 11:09:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3398BC8F264;
-	Thu, 16 Apr 2026 09:06:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7ED8AC8F264;
+	Thu, 16 Apr 2026 09:09:18 +0000 (UTC)
 Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 34674C87ED3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 048CFC87ED3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 16 Apr 2026 09:06:45 +0000 (UTC)
+ Thu, 16 Apr 2026 09:09:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
- from:content-type:reply-to; bh=OkhT0SJSXNUabO8sjsvBTtSy3/Xnqv7M3gz/N6ysxEk=; 
- b=m8rWVK+PwBbAdMiq6WjvcnjUrVYIDVYXKcOy6mTtCJlAEJtwJkBCJdxz5RIU3kMXpU3ZhfEUcZb
- wn4/cNzbPVSr//Y2ZQrtBGlimJj9XABAoSoXVJQzosGBT4Ngh8R+D8hMqPZjdTboLmXAYrkGiPZXA
- QXK91HiP8IEkJg6THPulcf+ph0ylUPrW0iKa3F2X0Jc63OR7XgppS0SX/MJNpqimYsqkqr6jhULuc
- 5A5OQxZZY3HDdl/n1n8Lgkf92BnXyNzZw8Cd2Ssan69gOQX8TdWxDSWreNQfMkIEn0L5R64Dw0BDv
- ZtbD1uAdACjTfvGsLTgAXT1HLotOKDT/eQOg==;
+ from:content-type:reply-to; bh=TixMsx0BPtUUqZSYORuHKunvvHdtwvU6CPQXYjdpSlc=; 
+ b=ErtA4N6ex00IG5sZ4R0/6XrK72MfXtk43TUatl9ZTOD3lft947oTiyFT0exBCmptfvdJdoU1VvZ
+ Wt08uMK3BhnbLjof2cfOrdkxCsqmKuEaXQNNlou2dFrB6jujgDNmvrTc123nKdNtttyh9tFndMcmq
+ 5+Ii13rLjyYRHJ6/kztKxajGxgZTUUoaKYzvUVWqknnd/rQswOFCSI7/sC9L3ZJt+p9Y+wdPuxgcr
+ 2NN7tsnBqVUr48q/0zB64Khuc24EmMw4LufBb+QNIO83m3WkKT1gpDpSDRw2EOvnZ8c0WT5l7JllM
+ cv+avDHc4qKLlvNOWWfDT/stzw4FR7KDXhaA==;
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
  by formenos.hmeau.com with smtp (Exim 4.96 #2 (Debian))
- id 1wDIg7-006VCE-2a; Thu, 16 Apr 2026 17:06:28 +0800
+ id 1wDIik-006VE2-0F; Thu, 16 Apr 2026 17:09:11 +0800
 Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Thu, 16 Apr 2026 17:06:27 +0800
-Date: Thu, 16 Apr 2026 17:06:27 +0800
+ Thu, 16 Apr 2026 17:09:10 +0800
+Date: Thu, 16 Apr 2026 17:09:10 +0800
 From: Herbert Xu <herbert@gondor.apana.org.au>
 To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
-Message-ID: <aeCmk6LbLFT4Keo2@gondor.apana.org.au>
+Message-ID: <aeCnNsNrK5o2JcMu@gondor.apana.org.au>
 References: <20260407192859.270745-1-hamzamahfooz@linux.microsoft.com>
  <adYNClYB6RY820Xl@gondor.apana.org.au>
  <adffSYxKIuaDLZit@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <aeCmk6LbLFT4Keo2@gondor.apana.org.au>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <adffSYxKIuaDLZit@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <aeCmk6LbLFT4Keo2@gondor.apana.org.au>
 Cc: Jeff Barnes <jeffbarnes@linux.microsoft.com>, linux-kernel@vger.kernel.org,
  "David S. Miller" <davem@davemloft.net>, linux-crypto@vger.kernel.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -59,8 +60,8 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [4.79 / 15.00];
@@ -69,7 +70,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[gondor.apana.org.au:s=h01];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -84,7 +85,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[linux.microsoft.com,vger.kernel.org,davemloft.net,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org,capgemini.com];
-	NEURAL_SPAM(0.00)[0.963];
+	NEURAL_SPAM(0.00)[0.940];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -97,35 +98,24 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	RCPT_COUNT_SEVEN(0.00)[9];
 	MISSING_XM_UA(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[apana.org.au:url,apana.org.au:email,stormreply.com:url,stormreply.com:email,gondor.apana.org.au:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 8928140C00B
+	DBL_BLOCKED_OPENRESOLVER(0.00)[apana.org.au:url,apana.org.au:email,gondor.apana.org.au:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: B5CE940C037
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, Apr 09, 2026 at 10:18:01AM -0700, Hamza Mahfooz wrote:
-> =
+On Thu, Apr 16, 2026 at 05:06:27PM +0800, Herbert Xu wrote:
+>
+> So the error is coming from tcrypt.  I think that's where the ifdef
+> should be added.
 
-> alg: hash: failed to allocate transform for xxhash64: -2
-> Kernel panic - not syncing: alg: self-tests for xxhash64 (xxhash64) faile=
-d in fips mode!
-> CPU: 0 PID: 425 Comm: modprobe Not tainted 6.6.130.2-2.azl3 #1
-> Hardware name: Microsoft Corporation Virtual Machine/Virtual Machine, BIO=
-S Hyper-V UEFI Release v4.1 01/08/2026
-> Call Trace:
-> =A0<TASK>
-> =A0dump_stack_lvl+0x4c/0x70
-> =A0dump_stack+0x14/0x20
-> =A0panic+0x179/0x330
-> =A0alg_test+0x678/0x680
-> =A0? __alloc_pages+0x1e2/0x340
-> =A0do_test+0x26f8/0x7670 [tcrypt]
+On second thought, fips_allowed should not mean that an algorithm
+must be present.
 
-So the error is coming from tcrypt.  I think that's where the ifdef
-should be added.
+So we should change it such that an -ENOENT is not fatal, or at least
+when it's called from tcrypt.
 
 Thanks,
--- =
-
+-- 
 Email: Herbert Xu <herbert@gondor.apana.org.au>
 Home Page: http://gondor.apana.org.au/~herbert/
 PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
