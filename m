@@ -2,55 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id DYkkKM+44WmExQAAu9opvQ
+	id oDXPFE7d4WklzQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Apr 2026 06:36:31 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Apr 2026 09:12:14 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 283AD416E17
-	for <lists+linux-stm32@lfdr.de>; Fri, 17 Apr 2026 06:36:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA371417C1D
+	for <lists+linux-stm32@lfdr.de>; Fri, 17 Apr 2026 09:12:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6ACA5C8F286;
-	Fri, 17 Apr 2026 04:36:30 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 543E1C87ECF;
+	Fri, 17 Apr 2026 07:12:13 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 38CB6C87ED4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B0A40C35E3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 17 Apr 2026 04:36:29 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 1B89E6012A;
- Fri, 17 Apr 2026 04:36:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BC0C19425;
- Fri, 17 Apr 2026 04:36:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1776400587;
- bh=p9z6malVt1ssjUUpjdOzlvkCHo7e2WH64RUFkdyqG8c=;
- h=Date:From:Cc:To:In-Reply-To:References:Subject:From;
- b=gcEizoGL5OQpTaApJzj+G6WhUEdLesHSt3OdWa0XYZW+EDUvbKGQ4W7PeJT+g/+1t
- Dj2QVSVw5SdyRKKbaXbaSvjBSQfVfzHeDn3FB4V1iYjnVN0UsIULTDQoqLdT+Y0Ljj
- xZW/N6mKZuzbsjFk11dW2x4V77fe7MV+A8ZxYJQDrWy3WhWpOIGqmochFcbi0arqM6
- iahRgJmTeGAfx9W6liCZDKdWxYlh1gZKpG58cP039xfz8jihEATpyHS8kizBNP3pN4
- zoOY4R7mkENx/2Q/iUIaKIkSMn9+/cgGqCGBrjWfTu8ZMf4VQmQ4U7+q3eSi3qDqIX
- 6uscZjvr3l50A==
-Date: Thu, 16 Apr 2026 23:36:25 -0500
+ Fri, 17 Apr 2026 07:12:12 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 31E1C1A32FE;
+ Fri, 17 Apr 2026 07:12:12 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id F3C4F60497;
+ Fri, 17 Apr 2026 07:12:11 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 722BA10460946; 
+ Fri, 17 Apr 2026 09:12:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1776409931; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=IBacLVtaDD+BG01rHO7esJaLs6bAfvaO0ht5I5JeJ5A=;
+ b=1qZcnU3FfRAWiLLrD9RvQE+7jqFv5N4MZhKuMyPs+eKII4hMWEOQgP0ZKUhr7VlDVEQXQl
+ +r63/8FS6j054YsoP9zacr6dF9+AX2D2U1plFSffabMCcn6XjMmjJx7SQ85e4sNdjhb72a
+ Fd1NB40UEspXATaGNYE+s3Sbumr8TA7M0bwLbfy9rvwJUXc6jqko3Lv8fZZCqAfZJOso11
+ s8NAL8gvRFvyKD6KhFa9IdrxzYweb+RhIi37cX+rrpborQe1GGPL0mILxVpNLoX8OBph6g
+ +FFRILrQPDXucWndO02cJI09Jvzk1QsnCHlrf8mUsxi7P6Wo5x/wl6CC0P7rJQ==
+Message-ID: <680c384c-135f-44cd-a2cd-7e4fd0ec4bf7@bootlin.com>
+Date: Fri, 17 Apr 2026 09:11:59 +0200
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-In-Reply-To: <20260417024523.107786-4-minda.chen@starfivetech.com>
-References: <20260417024523.107786-1-minda.chen@starfivetech.com>
- <20260417024523.107786-4-minda.chen@starfivetech.com>
-Message-Id: <177640058543.32784.7631250778558524141.robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- netdev@vger.kernel.org, Conor Dooley <conor@kernel.org>,
+User-Agent: Mozilla Thunderbird
+To: "Russell King (Oracle)" <linux@armlinux.org.uk>,
+ Alexander Stein <alexander.stein@ew.tq-group.com>
+References: <aNKDqqI7aLsuDD52@shell.armlinux.org.uk>
+ <5987484.DvuYhMxLoT@steina-w> <aeC-tc2CooYDoBok@shell.armlinux.org.uk>
+ <2410317.ElGaqSPkdT@steina-w> <aeDSTIS9-TDSihbX@shell.armlinux.org.uk>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <aeDSTIS9-TDSihbX@shell.armlinux.org.uk>
+X-Last-TLS-Session-Version: TLSv1.3
+Cc: Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, Rob Herring <robh+dt@kernel.org>,
+ Eric Dumazet <edumazet@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [net-next v2 3/5] dt-bindings: net: starfive,
- jh7110-dwmac: Add JHB100 sgmii rx clk
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org, Heiner Kallweit <hkallweit1@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH net-next 5/6] net: stmmac: move PHY
+ handling out of __stmmac_open()/release()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,81 +72,175 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.79 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:minda.chen@starfivetech.com,m:devicetree@vger.kernel.org,m:emil.renner.berthing@canonical.com,m:netdev@vger.kernel.org,m:conor@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:robh+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:robh@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[lunn.ch,vger.kernel.org,st-md-mailman.stormreply.com,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_RECIPIENTS(0.00)[m:linux@armlinux.org.uk,m:alexander.stein@ew.tq-group.com,m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[bootlin.com:-];
+	NEURAL_SPAM(0.00)[0.072];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.928];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,canonical.com,kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net];
+	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 283AD416E17
+	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid]
+X-Rspamd-Queue-Id: AA371417C1D
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
+Hi,
 
-On Fri, 17 Apr 2026 10:45:21 +0800, Minda Chen wrote:
-> JHB100 SGMII interface tx/rx mac clock is split and require to
-> set clock rate in 10M/100M/1000M speed. So dts need to add a
-> new rx clock in code, dts and dt binding doc.
+On 16/04/2026 14:13, Russell King (Oracle) wrote:
+> On Thu, Apr 16, 2026 at 02:02:53PM +0200, Alexander Stein wrote:
+>> Hi Russel,
+>>
+>> Am Donnerstag, 16. April 2026, 12:49:25 CEST schrieb Russell King (Oracle):
+>>> On Thu, Apr 16, 2026 at 08:20:13AM +0200, Alexander Stein wrote:
+>>>> Am Mittwoch, 15. April 2026, 14:59:32 CEST schrieb Russell King (Oracle):
+>>>>> On Wed, Apr 15, 2026 at 08:08:40AM +0200, Alexander Stein wrote:
+>>>>>> Hi,
+>>>>>>
+>>>>>> Am Dienstag, 23. September 2025, 13:26:19 CEST schrieb Russell King (Oracle):
+>>>>>>> Move the PHY attachment/detachment from the network driver out of
+>>>>>>> __stmmac_open() and __stmmac_release() into stmmac_open() and
+>>>>>>> stmmac_release() where these actions will only happen when the
+>>>>>>> interface is administratively brought up or down. It does not make
+>>>>>>> sense to detach and re-attach the PHY during a change of MTU.
+>>>>>>
+>>>>>> Sorry for coming up now. But I recently noticed this commit breaks changing
+>>>>>> the MTU on i.MX8MP. Once I simply change the MTU I run into some DMA error:
+>>>>>> $ ip link set dev end1 mtu 1400
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-0
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-1
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-2
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-3
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Register MEM_TYPE_PAGE_POOL RxQ-4
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Link is Down
+>>>>>> imx-dwmac 30bf0000.ethernet end1: Failed to reset the dma
+>>>>>> imx-dwmac 30bf0000.ethernet end1: stmmac_hw_setup: DMA engine initialization failed
+>>>>>
+>>>>> This basically means that a clock is missing. Please provide more
+>>>>> information:
+>>>>>
+>>>>> - what kernel version are you using?
+>>>>
+>>>> Currently I am using v6.18.22.
+>>>> $ ethtool -i end1
+>>>> driver: st_gmac
+>>>> version: 6.18.22
+>>>> firmware-version: 
+>>>> expansion-rom-version: 
+>>>> bus-info: 30bf0000.ethernet
+>>>> supports-statistics: yes
+>>>> supports-test: no
+>>>> supports-eeprom-access: no
+>>>> supports-register-dump: yes
+>>>> supports-priv-flags: no
+>>>>
+>>>>> - has EEE been negotiated?
+>>>>
+>>>> No. It is marked as not supported
+>>>>
+>>>> $ ethtool --show-eee end1
+>>>> EEE settings for end1:
+>>>>         EEE status: not supported
+>>>>
+>>>>> - does the problem persist when EEE is disabled?
+>>>>
+>>>> As EEE is not supported the problem occurs even with EEE disabled.
+>>>>
+>>>>> - which PHY is attached to stmmac?
+>>>>
+>>>> It is a TI DP83867.
+>>>>
+>>>> imx-dwmac 30bf0000.ethernet eth1: PHY [stmmac-1:03] driver [TI DP83867] (irq=136)
+>>>>
+>>>>> - which PHY interface mode is being used to connect the PHY to stmmac?
+>>>>
+>>>> For this interface
+>>>>> phy-mode = "rgmii-id";
+>>>> is set.
+>>>>
+>>>> In case it is helpful. My platform is arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
+>>>> Thanks for assisting. If there a further questions, don't hesitate to ask.
+>>>
+>>> Thanks.
+>>>
+>>> So, as best I can determine at the moment, we end up with the following
+>>> sequence:
+>>>
+>>> stmmac_change_mtu()
+>>>  __stmmac_release()
+>>>   phylink_stop()
+>>>    phy_stop()
+>>>     phy->state = PHY_HALTED
+>>>     _phy_state_machine() returns PHY_STATE_WORK_SUSPEND
+>>>     _phy_state_machine_post_work()
+>>>      phy_suspend()
+>>>       genphy_suspend()
+>>>        phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN)
+>>>
+>>> With the DP83867, this causes most of the PHY to be powered down, thus
+>>> stopping the clocks, and this causes the stmmac reset to time out.
+>>>
+>>> Prior to this commit, we would have called phylink_disconnect_phy()
+>>> immediately after phylink_stop(), but I can see nothing that would
+>>> be affected by this change there (since that also calls
+>>> phy_suspend(), but as the PHY is already suspended, this becomes a
+>>> no-op.)
+>>>
+>>> However, __stmmac_open() would have called stmmac_init_phy(), which
+>>> would reattach the PHY. This would have called phy_init_hw(), 
+>>> resetting the PHY, and phy_resume() which would ensure that the
+>>> PDOWN bit is clear - thus clocks would be running.
+>>>
+>>> As a hack, please can you try calling phylink_prepare_resume()
+>>> between the __stmmac_release() and __stmmac_open() in
+>>> stmmac_change_mtu(). This should resume the PHY, thus restoring the
+>>> clocks necessary for stmmac to reset.
+>>
+>> I tried the following patch. This works as you suspected.
 > 
-> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-> ---
->  .../bindings/net/starfive,jh7110-dwmac.yaml   | 42 ++++++++++++++++---
->  1 file changed, 36 insertions(+), 6 deletions(-)
+> Brilliant, thanks for proving the theory why it broke.
 > 
+> I'll have a think about the best way to solve this, because
+> phylink_prepare_resume() is supposed to be paired with phylink_resume()
+> and that isn't the case here.
+> 
+> Please bear with me as my availability for looking at the kernel is
+> very unpredictable at present (family health issues.)
 
-My bot found errors running 'make dt_binding_check' on your patch:
+FWIW I am able to reproduce this with imx8mp + ksz9131
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml:56:8: [warning] wrong indentation: expected 8 but found 7 (indentation)
+I can give this a try as Russell isn't available.
 
-dtschema/dtc warnings/errors:
+Maxime
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260417024523.107786-4-minda.chen@starfivetech.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
