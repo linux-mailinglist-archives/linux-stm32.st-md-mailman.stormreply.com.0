@@ -2,64 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id QA7hFure6WkJmQIAu9opvQ
+	id 8AxVIaOG72lPCAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Apr 2026 10:57:14 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:11 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C7D344EDAD
-	for <lists+linux-stm32@lfdr.de>; Thu, 23 Apr 2026 10:57:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EDBE4759E5
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7749AC8F286;
-	Thu, 23 Apr 2026 08:57:13 +0000 (UTC)
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net
- (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CF23CC8F26B
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E85E8C5EC44;
+	Mon, 27 Apr 2026 15:54:09 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
+ (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C5C97C8F26B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 08:57:11 +0000 (UTC)
-Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
- by app2 (Coremail) with SMTP id TQJkCgDX7aDW3ulp6vkTAA--.23689S2;
- Thu, 23 Apr 2026 16:56:55 +0800 (CST)
-From: lizhi2@eswincomputing.com
-To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- maxime.chevallier@bootlin.com
-Date: Thu, 23 Apr 2026 16:56:50 +0800
-Message-ID: <20260423085650.820-1-lizhi2@eswincomputing.com>
-X-Mailer: git-send-email 2.52.0.windows.1
-In-Reply-To: <20260423085501.760-1-lizhi2@eswincomputing.com>
-References: <20260423085501.760-1-lizhi2@eswincomputing.com>
+ Thu, 23 Apr 2026 09:08:29 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260423090828euoutp02614ccf7f9e12facce8eacb844150adb6~o8T_w4bGt0346703467euoutp02u
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 23 Apr 2026 09:08:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260423090828euoutp02614ccf7f9e12facce8eacb844150adb6~o8T_w4bGt0346703467euoutp02u
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1776935308;
+ bh=wDBCWCKH25r3rzgbP56Jfhz7Hk9W93MZ0Xv826+RJBw=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=N00BaMEHjfQ8ysK/zJO0guD2i953Z2z8NHQqo5I2qmfPJrM9w5C539OBF6OFyef5E
+ d6TnEiVWxfHYQ1ztF5WqbkkDa+A9KMVyzjkS7a+cfGkfgsl2w76a+RPB/bAFiYHo9Z
+ Ehn/Js6B/jr+nyAGlWIYhnM403tgH2ym0Wv/R1m0=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260423090828eucas1p204606b1be37253296ac938bad852e8f4~o8T_JYoD82360223602eucas1p2l;
+ Thu, 23 Apr 2026 09:08:28 +0000 (GMT)
+Received: from AMDC4622.eu.corp.samsungelectronics.net (unknown
+ [106.120.77.34]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260423090827eusmtip2f7824fdaa66107f46994835bd820dac6~o8T9sjupi0699706997eusmtip2L;
+ Thu, 23 Apr 2026 09:08:27 +0000 (GMT)
+Date: Thu, 23 Apr 2026 11:08:24 +0200
+From: Jakub Raczynski <j.raczynski@samsung.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <aenhiHCZge2dMBFw@AMDC4622.eu.corp.samsungelectronics.net>
 MIME-Version: 1.0
-X-CM-TRANSID: TQJkCgDX7aDW3ulp6vkTAA--.23689S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jw45Ww4DKrW8XFW8Zr1DWrg_yoWfWr18pa
- 13urWfXr4kZF4Sqw4YvFy0kF47Gan2kFykCrnrtFW8Jw1v9F1kK34YqFy5XF1DZrWrXw13
- JFnrJ34ayF1Iy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBG14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
- Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
- k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
- MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
- 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4U
- JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcV
- C2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRdWrXUUUUU=
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
-Cc: pinkesh.vaghela@einfochips.com, weishangjuan@eswincomputing.com,
- linmin@eswincomputing.com, ningyu@eswincomputing.com,
- pritesh.patel@einfochips.com, Zhi Li <lizhi2@eswincomputing.com>,
- horms@kernel.org
-Subject: [Linux-stm32] [PATCH net-next v6 3/3] riscv: dts: eswin:
-	eic7700-hifive-premier-p550: enable Ethernet controller
+In-Reply-To: <52b06f0a-8283-4903-9d8a-2bbdf637dd5d@lunn.ch>
+X-CMS-MailID: 20260423090828eucas1p204606b1be37253296ac938bad852e8f4
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+ boundary="----hExaTKD8pSV4C1.mHO0xNjZioIzStKhMnOXfyxqZoi0.l2l2=_2e513_"
+X-RootMTR: 20260421115052eucas1p103281c5b25719a44c0875d6b0860bfa6
+X-EPHeader: CA
+X-CMS-RootMailID: 20260421115052eucas1p103281c5b25719a44c0875d6b0860bfa6
+References: <CGME20260421115052eucas1p103281c5b25719a44c0875d6b0860bfa6@eucas1p1.samsung.com>
+ <20260421115008.2690541-1-j.raczynski@samsung.com>
+ <7eb9e4d4-909c-4203-833d-bd8b664fdfbc@lunn.ch>
+ <aeiJ3zr4WJAm1UCk@AMDC4622.eu.corp.samsungelectronics.net>
+ <f1d51362-ca8f-481a-b9c1-400ab6422686@lunn.ch>
+ <aejYCYObZyFPpLat@AMDC4622.eu.corp.samsungelectronics.net>
+ <52b06f0a-8283-4903-9d8a-2bbdf637dd5d@lunn.ch>
+X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
+Cc: netdev@vger.kernel.org, kernel-janitors@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, kuba@kernel.org, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net/stmmac: Fix typos: 'tx_undeflow_irq'
+ -> 'tx_underflow_irq'
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,465 +79,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Rspamd-Queue-Id: 3EDBE4759E5
+X-Rspamd-Action: no action
+X-Rspamd-Server: lfdr
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DATE_IN_PAST(1.00)[102];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[samsung.com:s=mail20170921];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[samsung.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCPT_COUNT_TWELVE(0.00)[29];
 	RCVD_TLS_LAST(0.00)[];
-	DMARC_NA(0.00)[eswincomputing.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:devicetree@vger.kernel.org,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:maxime.chevallier@bootlin.com,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:lizhi2@eswincomputing.com,m:horms@kernel.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[vger.kernel.org,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,dabbelt.com,eecs.berkeley.edu,ghiti.fr,lists.infradead.org,st-md-mailman.stormreply.com,bootlin.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:netdev@vger.kernel.org,m:kernel-janitors@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:kuba@kernel.org,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+];
+	FORGED_SENDER(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[samsung.com:-];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DBL_PROHIBIT(0.00)[3.19.90.208:email,3.1.167.64:email];
+	NEURAL_HAM(-0.00)[-0.771];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.980];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NO_DN(0.00)[];
-	R_DKIM_NA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,3.1.50.16:email,eswincomputing.com:mid,eswincomputing.com:email,3.1.11.0:email,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,0.0.0.0:email,3.8.172.32:email,c000000:email,3.22.213.32:email,0.0.0.3:email,3.22.214.76:email]
-X-Rspamd-Queue-Id: 1C7D344EDAD
-X-Rspamd-Action: no action
-X-Rspamd-Server: lfdr
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,AMDC4622.eu.corp.samsungelectronics.net:mid]
 
-From: Zhi Li <lizhi2@eswincomputing.com>
+------hExaTKD8pSV4C1.mHO0xNjZioIzStKhMnOXfyxqZoi0.l2l2=_2e513_
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-Enable the on-board Gigabit Ethernet controller on the
-HiFive Premier P550 development board.
+On Wed, Apr 22, 2026 at 06:15:20PM +0200, Andrew Lunn wrote:
+> On Wed, Apr 22, 2026 at 04:15:37PM +0200, Jakub Raczynski wrote:
+> > On Wed, Apr 22, 2026 at 02:47:38PM +0200, Andrew Lunn wrote:
+> > > > I don't see anything wrong with it?
+> > > > - naming is correct, same as stmmac_extra_stats from common.h, as it
+> > > >   wouldn't compile otherwise
+> > > > - string length is ok, as max name length is ETH_GSTRING_LEN=32 and it is
+> > > >   not close
+> > > > - ethtool just polls data from driver and in my tests it is ok
+> > > > - all instances of 'undeflow' are changed
+> > > > - 'underflow' semantic is ok, 'undeflow' is just not correct
+> > > > 
+> > > > Please correct me if I am wrong, but imo no issues with this patch.
+> > > 
+> > > ABI
+> > > 
+> > > This name is published as part of the kAPI. You are changing its
+> > > name. User space could be looking for this name, even thought it has a
+> > > typo in it.
+> > > 
+> > >      Andrew
+> > >
+> > I don't think it is? This part of extra stats (struct stmmac_extra_stats) and
+> > is not part of standard ABI from
+> > Documentation/ABI/testing/sysfs-class-net-statistics
+> > nor is mentioned in
+> > Documentation/networking/device_drivers/ethernet/stmicro/stmmac.rst
+> > 
+> > These extra stats are specific to stmmac driver and most of these are more
+> > than standard
+> > https://www.kernel.org/doc/html/v7.0/networking/statistics.html#c.rtnl_link_stats64
+> > This name does not exist outside stmmac driver, so while some application may
+> > expect this (stmmac specific app), question is should this typo stick?
+> 
+> 47dd7a540b8a0 drivers/net/stmmac/stmmac_ethtool.c                  (Giuseppe Cavallaro      2009-10-14 15:13:45 -0700   81)     STMMAC_STAT(tx_undeflow_irq),
+> 
+> It has been exposed to user space for 17 years. In that time, there
+> could well be stmmac specific apps using it.
+> 
+> Just because it is not documented as ABI does not make it not ABI.
+> 
+>      Andrew
+>
 
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- .../devicetree/bindings/mfd/syscon.yaml       |   2 +
- .../dts/eswin/eic7700-hifive-premier-p550.dts | 232 ++++++++++++++++++
- arch/riscv/boot/dts/eswin/eic7700.dtsi        | 103 ++++++++
- 3 files changed, 337 insertions(+)
+Sure, up to you whether NAK or ACK this change.
 
-diff --git a/Documentation/devicetree/bindings/mfd/syscon.yaml b/Documentation/devicetree/bindings/mfd/syscon.yaml
-index e57add2bacd3..89e90b3f12a9 100644
---- a/Documentation/devicetree/bindings/mfd/syscon.yaml
-+++ b/Documentation/devicetree/bindings/mfd/syscon.yaml
-@@ -61,6 +61,7 @@ select:
-           - cirrus,ep7209-syscon2
-           - cirrus,ep7209-syscon3
-           - cnxt,cx92755-uc
-+          - eswin,eic7700-syscfg
-           - freecom,fsg-cs2-system-controller
-           - fsl,imx93-aonmix-ns-syscfg
-           - fsl,imx93-wakeupmix-syscfg
-@@ -173,6 +174,7 @@ properties:
-               - cirrus,ep7209-syscon2
-               - cirrus,ep7209-syscon3
-               - cnxt,cx92755-uc
-+              - eswin,eic7700-syscfg
-               - freecom,fsg-cs2-system-controller
-               - fsl,imx93-aonmix-ns-syscfg
-               - fsl,imx93-wakeupmix-syscfg
-diff --git a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-index 131ed1fc6b2e..12e032dbe88d 100644
---- a/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-+++ b/arch/riscv/boot/dts/eswin/eic7700-hifive-premier-p550.dts
-@@ -13,11 +13,243 @@ / {
- 
- 	aliases {
- 		serial0 = &uart0;
-+		ethernet0 = &gmac0;
-+		ethernet1 = &gmac1;
- 	};
- 
- 	chosen {
- 		stdout-path = "serial0:115200n8";
- 	};
-+
-+	vcc_1v8: vcc1v8 {
-+		 compatible = "regulator-fixed";
-+		 regulator-name = "vcc1v8";
-+		 regulator-always-on;
-+		 regulator-boot-on;
-+		 regulator-min-microvolt = <1800000>;
-+		 regulator-max-microvolt = <1800000>;
-+	 };
-+};
-+
-+&xtal24m {
-+	clock-frequency = <24000000>;
-+	clock-output-names = "xtal24m";
-+};
-+
-+&pinctrl {
-+	status = "okay";
-+	vrgmii-supply = <&vcc_1v8>;
-+
-+	pinctrl_gpio0: gpio0-grp {
-+		gpio0-pins {
-+			pins = "gpio0";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio5: gpio5-grp {
-+		gpio5-pins {
-+			pins = "gpio5";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio11: gpio11-grp {
-+		gpio11-pins {
-+			pins = "gpio11";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio14: gpio14-grp {
-+		gpio14-pins {
-+			pins = "mode_set1";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio15: gpio15-grp {
-+		gpio15-pins {
-+			pins = "mode_set2";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio28: gpio28-grp {
-+		gpio28-pins {
-+			pins = "gpio28";
-+			function = "gpio";
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio43: gpio43-grp {
-+		gpio43-pins {
-+			pins = "usb1_pwren";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio71: gpio71-grp {
-+		gpio71-pins {
-+			pins = "mipi_csi0_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio74: gpio74-grp {
-+		gpio74-pins {
-+			pins = "mipi_csi1_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio76: gpio76-grp {
-+		gpio76-pins {
-+			pins = "mipi_csi2_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio77: gpio77-grp {
-+		gpio77-pins {
-+			pins = "mipi_csi2_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio79: gpio79-grp {
-+		gpio79-pins {
-+			pins = "mipi_csi3_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio80: gpio80-grp {
-+		gpio80-pins {
-+			pins = "mipi_csi3_xhs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio82: gpio82-grp {
-+		gpio82-pins {
-+			pins = "mipi_csi4_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio84: gpio84-grp {
-+		gpio84-pins {
-+			pins = "mipi_csi4_mclk";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio85: gpio85-grp {
-+		gpio85-pins {
-+			pins = "mipi_csi5_xvs";
-+			function = "gpio";
-+			input-disable;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	pinctrl_gpio94: gpio94-grp {
-+		gpio94-pins {
-+			pins = "s_mode";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio106: gpio106-grp {
-+		gpio106-pins {
-+			pins = "gpio106";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+
-+	pinctrl_gpio111: gpio111-grp {
-+		gpio111-pins {
-+			pins = "gpio111";
-+			function = "gpio";
-+			input-disable;
-+			bias-disable;
-+		};
-+	};
-+};
-+
-+&gmac0 {
-+	phy-handle = <&gmac0_phy0>;
-+	phy-mode = "rgmii-id";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio106>;
-+	rx-internal-delay-ps = <20>;
-+	tx-internal-delay-ps = <100>;
-+	status = "okay";
-+};
-+
-+&gmac0_mdio {
-+	gmac0_phy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0>;
-+		reset-gpios = <&gpioD 10 GPIO_ACTIVE_LOW>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <80000>;
-+	};
-+};
-+
-+&gmac1 {
-+	phy-handle = <&gmac1_phy0>;
-+	phy-mode = "rgmii-rxid";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio111>;
-+	rx-internal-delay-ps = <200>;
-+	tx-internal-delay-ps = <200>;
-+	status = "okay";
-+};
-+
-+&gmac1_mdio {
-+	gmac1_phy0: ethernet-phy@0 {
-+		compatible = "ethernet-phy-id001c.c916";
-+		reg = <0>;
-+		reset-gpios = <&gpioD 15 GPIO_ACTIVE_LOW>;
-+		reset-assert-us = <10000>;
-+		reset-deassert-us = <80000>;
-+	};
- };
- 
- &uart0 {
-diff --git a/arch/riscv/boot/dts/eswin/eic7700.dtsi b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-index c3ed93008bca..5690d4c6981b 100644
---- a/arch/riscv/boot/dts/eswin/eic7700.dtsi
-+++ b/arch/riscv/boot/dts/eswin/eic7700.dtsi
-@@ -5,6 +5,9 @@
- 
- /dts-v1/;
- 
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/reset/eswin,eic7700-reset.h>
-+
- / {
- 	#address-cells = <2>;
- 	#size-cells = <2>;
-@@ -202,6 +205,11 @@ pmu {
- 				<0x00000000 0x0000000f 0xfffffffc 0x000000ff 0x00000078>;
- 	};
- 
-+	xtal24m: oscillator {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+	};
-+
- 	soc {
- 		compatible = "simple-bus";
- 		ranges;
-@@ -245,6 +253,83 @@ plic: interrupt-controller@c000000 {
- 			#interrupt-cells = <1>;
- 		};
- 
-+		hsp_power_domain: bus@50400000 {
-+			compatible = "simple-pm-bus";
-+			ranges;
-+			clocks = <&clk 171>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
-+
-+			hsp_sp_csr: hsp-sp-top-csr@50440000 {
-+				compatible = "eswin,eic7700-syscfg", "syscon";
-+				reg = <0x0 0x50440000 0x0 0x2000>;
-+			};
-+
-+			gmac0: ethernet@50400000 {
-+				compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
-+				reg = <0x0 0x50400000 0x0 0x10000>;
-+				interrupts = <61>;
-+				interrupt-names = "macirq";
-+				clocks = <&clk 186>,
-+					 <&clk 171>,
-+					 <&clk 40>,
-+					 <&clk 193>;
-+				clock-names = "axi", "cfg", "stmmaceth", "tx";
-+				resets = <&reset EIC7700_RESET_HSP_ETH0_ARST>;
-+				reset-names = "stmmaceth";
-+				eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
-+				snps,aal;
-+				snps,fixed-burst;
-+				snps,tso;
-+				snps,axi-config = <&stmmac_axi_setup_gmac0>;
-+				status = "disabled";
-+
-+				gmac0_mdio: mdio {
-+					compatible = "snps,dwmac-mdio";
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
-+
-+				stmmac_axi_setup_gmac0: stmmac-axi-config {
-+					snps,blen = <0 0 0 0 16 8 4>;
-+					snps,rd_osr_lmt = <2>;
-+					snps,wr_osr_lmt = <2>;
-+				};
-+			};
-+
-+			gmac1: ethernet@50410000 {
-+				compatible = "eswin,eic7700-qos-eth-clk-inversion", "snps,dwmac-5.20";
-+				reg = <0x0 0x50410000 0x0 0x10000>;
-+				interrupts = <70>;
-+				interrupt-names = "macirq";
-+				clocks = <&clk 186>,
-+					 <&clk 171>,
-+					 <&clk 40>,
-+					 <&clk 194>;
-+				clock-names = "axi", "cfg", "stmmaceth", "tx";
-+				resets = <&reset EIC7700_RESET_HSP_ETH1_ARST>;
-+				reset-names = "stmmaceth";
-+				eswin,hsp-sp-csr = <&hsp_sp_csr 0x200 0x208 0x218 0x214 0x21c>;
-+				snps,aal;
-+				snps,fixed-burst;
-+				snps,tso;
-+				snps,axi-config = <&stmmac_axi_setup_gmac1>;
-+				status = "disabled";
-+
-+				gmac1_mdio: mdio {
-+					compatible = "snps,dwmac-mdio";
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
-+
-+				stmmac_axi_setup_gmac1: stmmac-axi-config {
-+					snps,blen = <0 0 0 0 16 8 4>;
-+					snps,rd_osr_lmt = <2>;
-+					snps,wr_osr_lmt = <2>;
-+				};
-+			};
-+		};
-+
- 		uart0: serial@50900000 {
- 			compatible = "snps,dw-apb-uart";
- 			reg = <0x0 0x50900000 0x0 0x10000>;
-@@ -341,5 +426,23 @@ gpioD: gpio-port@3 {
- 				#gpio-cells = <2>;
- 			};
- 		};
-+
-+		pinctrl: pinctrl@51600080 {
-+			compatible = "eswin,eic7700-pinctrl";
-+			reg = <0x0 0x51600080 0x0 0x1fff80>;
-+		};
-+
-+		clk: clock-controller@51828000 {
-+			compatible = "eswin,eic7700-clock";
-+			reg = <0x0 0x51828000 0x0 0x300>;
-+			clocks = <&xtal24m>;
-+			#clock-cells = <1>;
-+		};
-+
-+		reset: reset-controller@51828300 {
-+			compatible = "eswin,eic7700-reset";
-+			reg = <0x0 0x51828300 0x0 0x200>;
-+			#reset-cells = <1>;
-+		};
- 	};
- };
--- 
-2.25.1
+IMO this name is specific to stmmac and should not be part of any app,
+as monitoring tools should be more universal. When monitoring interface this
+field will show some other way, via dropped packets and then you would use
+driver specific fields for debugging.
+
+Problem is, quick search on github shows this change propagated through
+hundreds of Linux forks or different RTOS. But no public app using this found,
+at least C app (but well, I didn't browse everything for obvious reasons).
+Funny how typo will live everywhere and not be fixed.
+So this change would make it differ from all the forks/RTOS'es that will
+probably never fix this. So thats the downside.
+
+Question is whether this should then remain that way forever?
+And was it really part of some ABI if no one noticed?
+
+Regards
+Jakub Raczynski
+
+------hExaTKD8pSV4C1.mHO0xNjZioIzStKhMnOXfyxqZoi0.l2l2=_2e513_
+Content-Type: text/plain; charset="utf-8"
+
+
+------hExaTKD8pSV4C1.mHO0xNjZioIzStKhMnOXfyxqZoi0.l2l2=_2e513_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+------hExaTKD8pSV4C1.mHO0xNjZioIzStKhMnOXfyxqZoi0.l2l2=_2e513_--
