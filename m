@@ -2,74 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8WfMBKWG72kuCQEAu9opvQ
+	id yifcDKWG72kwCQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:13 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C1B6475A26
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C297475A2F
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E60EC628D5;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9D9FEC62D2C;
 	Mon, 27 Apr 2026 15:54:11 +0000 (UTC)
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
- [209.85.167.169])
+Received: from mail-oi1-f176.google.com (mail-oi1-f176.google.com
+ [209.85.167.176])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 29BF5C8F26B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A8EBC8F26B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 20:55:04 +0000 (UTC)
-Received: by mail-oi1-f169.google.com with SMTP id
- 5614622812f47-479d593a0c3so3571829b6e.0
+ Thu, 23 Apr 2026 20:55:09 +0000 (UTC)
+Received: by mail-oi1-f176.google.com with SMTP id
+ 5614622812f47-466ec4c6846so2449351b6e.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 13:55:03 -0700 (PDT)
+ Thu, 23 Apr 2026 13:55:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977703; x=1777582503;
+ d=gmail.com; s=20251104; t=1776977708; x=1777582508;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=MqO5/EH/UF1TE1Yyx5zB/rmOp92tEJKuB03COKwdtP4=;
- b=gb9P68tf/lwiykkLTaTGUdhIYAICtHhlWnFMKmMIwP7ly106v8itZaBU4KUSeNtoaP
- kuTuwd47G8DBo791KynLzRzsFA8lZTWpmeob6Ob1N8kIfXkYnUaVjmgVV6OWA7RqQVK9
- 35soL5/+SJOzI1I4qIR47HCeueriAVtN04JDN3liZD3PHM2Mpi2zm/ULMeeNoiVlVGL1
- rO+yhS+TVMbQ/z3DqU7BOoeaYmov9HAknSRiCNv/sgWv/465Hff72PfetLwlp/syKvYm
- ck+5MR1Dq6YNG8UFdMagsHWo2d6aaW1OAUw/954sskD/SByHE/YeEQeFosCiTgJn3cWV
- DlZg==
+ :reply-to; bh=qXxdsOArU9ZJHRv0gxhcPUMG6BfjYVh32ZwNXW3DQls=;
+ b=FNTo6NKfQ9ROw9W1lTZRh74QAEG1Th7PbCyiszkg2STAWEiJGDa8U9BcHgH54OXjan
+ /bQqgH0KNUmA2ipuZTnm+3Fk8qtk7cBEjMqB69Qx/jMuOn2oie80trHdn717wFMvQKea
+ ariirPb0x7CsHBVQb57ckCj/C4msU/1ij5suvxLqx5AQHfdy/52QLqGdwcrCKo4VklY3
+ QvPPrrrLdTUiY8ZqJ8n5it2GxTsP+gQDoy+wpil63TrU2IDg1S/DJEP1wyqF2rGnya/C
+ EJmOYBbPx7MJ3ki3/EXTDx6AAzLzT07k72QrhzYapnmDMClZm8ewZ5DFlfSjupNiY7mt
+ kSOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977703; x=1777582503;
+ d=1e100.net; s=20251104; t=1776977708; x=1777582508;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=MqO5/EH/UF1TE1Yyx5zB/rmOp92tEJKuB03COKwdtP4=;
- b=cXBRkojr9aiS+3Zkvi6TwZCHt2w1JG0bmWKejdTkiriR5LSMw+7av4ZIYOl8hOiJVz
- Uy1rUd81LQ/XXvXmsyxOTUqmozF/aGqPefC5g3O8csVvkKIPFIoU+Uq89misuqzbWN03
- 8igZkLmU2nZGp7LzumcKzbHgj0labDaSeQcoezx/XnNu1A3ImdSjYw97ybAY72nq8gNg
- cmWoDx9x6qjyyMi1Wh2CoulwNg+1VM/ipr1HZITs8YamraD23XnKpP6Jz2Wcj0YJGj3M
- QJfiblnC3LZIC0SEZd28tEMHfVYNGuQgFaPsxQAukiYzEWPDHfCWphaW9Um0TE3uIKwu
- YznA==
+ bh=qXxdsOArU9ZJHRv0gxhcPUMG6BfjYVh32ZwNXW3DQls=;
+ b=BXoi3CKVZR5uvVl6txnwSlRTFisiRJO0JxBQ7ikWt8gMgCbLkxA8F7PINHzk+QQVuU
+ R1L4M/mbTYgTjHywpOUsezQEyoADtllljKIZwi10Cplq4lp9+TBAccvkdjDoTIE8JvEt
+ RCVY5E6hrBmEYI7G/wptCYvMQNTzgAmvWaAEGsbP5L4bpayiGTPl6ujWPyFrmHefqlwV
+ 5B/T6lDjgDNikjOHOUdrEc9RS95WZAVOmOl/8sQAjmmUXgc9dqk79CKLAUNc6RI3lf1Q
+ nGqYAeKjDqydQ2ATi9deyQ4c3bQhXZsNyN58OVaoEkN3peXr7oAvuZJO6T03oMEd0clr
+ fkIg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9TOmpwf9LPkr3kI3YfDXoMMLj6oSDGYDLsuElhJFBwuC0gUBxaTFt7OB9XRS+5uZD7UReNNmOmgc2LRg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YySjQl5t6KwGcKJQmC73r34rLyIUzoKNL5CFymo243ZHotIPkNM
- OfnzY7DJoNXyATIvAz3NcnKz1rOFS+ohY2depBn+eh8qlT+ollvH8XsmxLeqgxMOvM0=
-X-Gm-Gg: AeBDiet3q/YNgkOrWpg1fOLkL2GEi3yaL4XeOEPmXjIq7NVz9FfySWnqC03akl02WDn
- OETqQGu5EBctVdaxuIevuDEH015ATke+YB5xrz/7MGTr9ySorT6rF1fDpL61rBGi1ZpbFcYp4Ux
- 8pPcKzTEddOWt0nBXc3vzmTemeJgCHk4DcoJSy2vXljsxJZlp16QuiIKNfgvrww9ejdIxHwEZ7r
- GRC3P4U/IB2Vb+VXOs3G8d0o9+94JSC3r8ybySTCrsxOJZBNX8RLrn2OzL2/JKY/bQrB4WP+MFJ
- 18bPwanj0glDDO71WthGMw25tlUXECuJwKJ3vSt1Z6YK576ulveY7MKCIIXsRrOwvoXa4dC+Ka0
- vGhgdT/Sog6ImZgMbBHqKT7oFMrNsguEEPeOlADgD9zZGmGhLJ8Qdy9X9qv8Z8MR68DeTkJzruV
- ShOTrfd5MejbASgBcMudDio+dNtVv1FykRZcreJjfmdkuteJ0dbf35L/3shTYqKBWUGoj8i9ED
-X-Received: by 2002:a05:6808:4f0a:b0:468:698:a626 with SMTP id
- 5614622812f47-4799bf4b93dmr13762368b6e.22.1776977702799; 
- Thu, 23 Apr 2026 13:55:02 -0700 (PDT)
+ AFNElJ9FBWD9wdNjtnww5XjiYN/h4Ec8ysF7k8M3hY1YfGmeVbPxwmR6fv1d9/M1zKJIB/yzZObjYj1lGOudeQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwHsryiZ7KO2kW70iy5E0S4U4AwbQ/S/FrHt7AEedMWNmS1tGbg
+ XlAn7gJbzABlPx51j5cXOr2IRpDhRbpds+HDiU8/RxkfFBeoHT27TcQ7
+X-Gm-Gg: AeBDietw/60pq+MHEmThHZfWpx7cSuzY+iLN5ZyIrRsel+YQqOb5pBcaiYI6KwTImU3
+ twHk4CLjlJixZm/t0EdkygWejcK4jmmQ6jwV3QyB1XNdQmKDtl9ISJupvLuM7wAn2ecoL9brrKA
+ HFDkZA2r8Q2iOJMOWBgXQk6Fd3p15qLpesUp4AC9mcu+0KcQoM5cGMiuPhBY2tEllWeHaMmhFXn
+ t+mSl/zyJ+SXDAn/Ri7vvUdXRLBTR4qDJk4//3qtbA/7C9sAG2FP+HYkQh7m1aJ/9HtmM7vMGVX
+ TXUGt08NE0gU01MQ+gzML/eTQIDdzCZ09CEt5KuoyHnjpJi2GZv7c+1MTgWGu8FUiQuwQNg+JDW
+ J9pOTZjkPbX//cnEUZIq8Fp2yrpndGHpVEiQPda8I1Yi88P/k5kD/pSzzXFau2/5FARCLYxffm9
+ OGRn33dxR9nwh8Xi6Klx2GWYKWoZyp7uLXubnDVLSjh/40WqVKZMZCWH1CekuG4q89O0uVajMe0
+ aTLeXBctC4=
+X-Received: by 2002:a05:6808:2381:b0:467:f567:d609 with SMTP id
+ 5614622812f47-4799cacba8amr15988443b6e.34.1776977708127; 
+ Thu, 23 Apr 2026 13:55:08 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.58
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.55.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:55:02 -0700 (PDT)
+ Thu, 23 Apr 2026 13:55:07 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:53 -0600
+Date: Thu, 23 Apr 2026 14:53:54 -0600
 MIME-Version: 1.0
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-12-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-13-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -153,11 +154,11 @@ To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>,
  Russell King <linux+etnaviv@armlinux.org.uk>, 
  Christian Gmeiner <christian.gmeiner@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=982;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977637; l=739;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=y0aqiZzD4/dauxqWGWZpTeZQeDGgmhoKACp8yCx31Lc=;
- b=0ylBEG5Zr2L9JzVM3p0QOGGNJYPJlqcvdgDfrferqn+IIjg0mF/DXa7yY98RemD0Q77UWcis8
- afOWJy3fK3tDbGja7wdbkN+8vIczS7ipTPRP52IXbHMq4ogKAy8+JGS
+ bh=Lx8Le50+nsjiQgeV6zgGG9hZjacD3w46irda8Vp6AWc=;
+ b=SnpdcS+23XSjrZpeLIyoz7fp4858ZuhNdkUZ3gyhPRKYDKkKBaruLmuYi2tS21h9vU8M8wWZE
+ Y5Q7mlfCnULCyFEZyjXTXMc7I7vQ1FQTWqcfAQXyvf5zEOLG4FrW4jT
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
@@ -172,7 +173,8 @@ Cc: imx@lists.linux.dev, linux-doc@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Jim Cromie <jim.cromie@gmail.com>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-modules@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v14 12/92] dyndbg: drop NUM_TYPE_ARRAY
+Subject: [Linux-stm32] [PATCH v14 13/92] dyndbg: tweak pr_fmt to avoid
+ expansion conflicts
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -188,7 +190,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 3C1B6475A26
+X-Rspamd-Queue-Id: 7C297475A2F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
@@ -219,7 +221,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_GT_50(0.00)[129];
-	NEURAL_HAM(-0.00)[-0.899];
+	NEURAL_HAM(-0.00)[-0.893];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[jimcromie@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -231,35 +233,32 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,bootlin.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-ARRAY_SIZE works here, since array decl is complete.
+Disambiguate pr_fmt(fmt) arg, by changing it to _FMT_, to avoid naming
+confusion with many later macros also using that argname.
 
 no functional change
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- include/linux/dynamic_debug.h | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ lib/dynamic_debug.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
-index 441305277914..92627a03b4d1 100644
---- a/include/linux/dynamic_debug.h
-+++ b/include/linux/dynamic_debug.h
-@@ -132,11 +132,9 @@ struct ddebug_class_param {
- 		.mod_name = KBUILD_MODNAME,				\
- 		.base = _base,						\
- 		.map_type = _maptype,					\
--		.length = NUM_TYPE_ARGS(char*, __VA_ARGS__),		\
-+		.length = ARRAY_SIZE(_var##_classnames),		\
- 		.class_names = _var##_classnames,			\
- 	}
--#define NUM_TYPE_ARGS(eltype, ...)				\
--	(sizeof((eltype[]) {__VA_ARGS__}) / sizeof(eltype))
+diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
+index ffa1cf7c2c72..9575b92a8deb 100644
+--- a/lib/dynamic_debug.c
++++ b/lib/dynamic_debug.c
+@@ -11,7 +11,7 @@
+  * Copyright (C) 2013 Du, Changbin <changbin.du@gmail.com>
+  */
  
- extern __printf(2, 3)
- void __dynamic_pr_debug(struct _ddebug *descriptor, const char *fmt, ...);
+-#define pr_fmt(fmt) "dyndbg: " fmt
++#define pr_fmt(_FMT_) "dyndbg: " _FMT_
+ 
+ #include <linux/kernel.h>
+ #include <linux/module.h>
 
 -- 
 2.53.0
