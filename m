@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id kPvrKKSG72kBCQEAu9opvQ
+	id CBFmF6SG72lPCAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:12 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8FEE475A16
+	by mail.lfdr.de (Postfix) with ESMTPS id E8A16475A15
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A638C5F1FE;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8C9ECC60460;
 	Mon, 27 Apr 2026 15:54:10 +0000 (UTC)
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com
+ [209.85.167.174])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1A4BDC87EC6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1051BC87EC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 20:54:19 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-4779b2497b4so4191102b6e.3
+ Thu, 23 Apr 2026 20:54:24 +0000 (UTC)
+Received: by mail-oi1-f174.google.com with SMTP id
+ 5614622812f47-479d4df9035so2814039b6e.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 13:54:19 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977658; x=1777582458;
+ d=gmail.com; s=20251104; t=1776977663; x=1777582463;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=l1peIZB1cJ4wCWYePEqyi4U4OHQkEIk0zc+fw2Nxhlo=;
- b=hvZZbX0ZOTYaKB64GDhmyK2CJkHSQaj9MB9NKGJlcXD+qfqN1+sBmVuq9oqw6VnArT
- HsJFwg9hNowJt1YIGBjexzec8igfepzgOhMPd2/DuOLal5rRpfFQrOoKfBJ2VN1EgbLB
- FVdzrdKxb2Ab9U/Lc02rvSZq8QqESzZZUiwF/HUNZPTLJ9iqoOFoYVYj1vOaJgtclemk
- aiFv7Jk1P0yXBKNNIDbvYfWOF9CeohrWxUG/EUScjwrx4OsAfohv4RTJO5H5wk/WVhr1
- E7k4rbKrPP+rJkmpMcYOfjVks9ABtWwJIsvbnJC6cBoF3FxHR6indDCKqCFY97cpmDPI
- jd7w==
+ :reply-to; bh=XeWez1t8td9fUSkTZ45jVnBaujfXA4urEuOR5XIVYjA=;
+ b=QrmS2VylkdFm1JnlEcJTjiiSy4n/bHUN3tKWXXdJHLkhfsKBXvlVIa4n4AGOOxEMmn
+ 9eqnCKQGpwGeGTwlKiZy7ibLJyi5otYItaQ4OzXEoPeekV07CJIFKY1O/pjRrdwHP0LC
+ 2d3+QDGWonxyKNp+yilFry6Sa60qUOmzg0JY2qt3KTSagSAq4MIpbVMB9l0V5jHRYUkU
+ dm22rl5/o2l/upbo6RpTQV1PIfLI/OFpFikpr+JquB3Sg5dyiProtP6p4GgxFUxk5j6u
+ vzm0t4k3nUcVF1QWa8SlQixn8i5INQkG1ygMlu53ZAU46YnwGPqjGIoGGWp/8UdHRzaH
+ 0vPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977658; x=1777582458;
+ d=1e100.net; s=20251104; t=1776977663; x=1777582463;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=l1peIZB1cJ4wCWYePEqyi4U4OHQkEIk0zc+fw2Nxhlo=;
- b=Em2f5c7rHP9B2iW6rMc9766j+FmrEW0qfV6F94tt7ffLiHTbQQj+tWMhEYlBib2ua3
- 9iucasEpbByLkoh6r95GBCYaYNKJGeY8ld0H68H0Jny47T6ApRbcDlqvWXLzaDsFYd5O
- T+g02SX864g0P9b5sUD4F7uNpYLTwfq85z/kmh2djhP1FygKjVWJ4eNnI7AhKdBov2QN
- +ZThKYiyssZ4FXi2hg/X2pp5zIlMQ6bEhntyH0xb46FsY7I5iKI0WuyRQHN9TzegPjot
- JQr2v4hRNZa29vjA1oxSB/PpYh9eNNEW5Di8SOdRPtKHbwcnQERt0xiQ158pU8+ZHUuE
- 7Iag==
+ bh=XeWez1t8td9fUSkTZ45jVnBaujfXA4urEuOR5XIVYjA=;
+ b=b/GClm7BvKI+D6XymgjhKduOqqy5oxy/4gsQpIZgmH4N0LOt9Wgf6GNrjzvzsFK5ha
+ gIjsC+RLHF2uPA1V1iZ21JxUB6YgSNMTb/6gGp37+a4aW+ANQijOXSy4izzPUlEP691y
+ Q3loPn5Zp6G88Mm/37dvHTh4DTmIFzN1OtSuH2q2qDDXX8GM46UF60fq0Xx0s26P9g01
+ CG/TmeCwwaL86Uzc73aaH+w9mjf8R3FsrwzI6YtKYNIDgfh6UV564ZBE93/RbRyBKBoS
+ Q1NQX6LQJdMJCMmuPGCWp4ev0YozzFEQZ2zk89daUjGar3tLb4GBfY7HG19/pkiBxpKR
+ IwDw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/fXhO+PEDGwrsLjiewhcFf//wQSBafGKW3dwlO/hIYCcEl3+C33hT3zZYSsJuV0ptweBYQMrTp0nfGGA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw/3F5cJO9R4YrDtTuL3WhnHNJSu+shlAp6rG2Rk1TGdr0rbBBd
- 2HwZBwXgw/fgaAZbCV4K96pbNlXxCJAokkCy9s5j+0zy2N5mw4I900yp
-X-Gm-Gg: AeBDietMBr2vYxnSultrsDdFuk0LgP2VEHt2HqJmA0xpvvXhdlQMEcJ/kbZQvPX+v9a
- 9wZOQqorgSsSmtzmxi7BzD1Af46tCBbK1HqAgYxVkbanZl0QY3ntFgzNXXwNSq9U5OXbghHwPww
- 1GEEXVbPRtOdv+9QDxbDSWsazPsvQGtYaw3pew20TQ7UtfkwcApApUcIWPNvVKTR1nkEMhKhLhA
- n6thaj8E5bkAe5W/PEygxl8wdiSwXiXr4q5hoa+KJPVx3HKquU+fBq+n1+GZJHv7n2K0TeTIyFu
- ktVDrgLL5ReLCL3YhvZfFRvll5PQROtTkfee7bghII5z+fL1FGv0Se6vyXKn/4kXvhO2VuDZVCz
- WCPG6wbJDL70P+RCx9rXra9q8wC3dnNklep1HYfWZC1c016mlYDhmGkq0/73pstT3L8/Vijqb62
- uX4rsLVWboPgmeohO1hmKNwA9VY//5rFAdzzxNTEBxh1tVHeTtcsUlV/b83JfaYq4PEJL96V/I
-X-Received: by 2002:a05:6808:80b3:b0:479:d937:c4f4 with SMTP id
- 5614622812f47-479d937d218mr11467409b6e.19.1776977657796; 
- Thu, 23 Apr 2026 13:54:17 -0700 (PDT)
+ AFNElJ+S8UxnAd+RBjVoaKQbFQ9Gg0pjaTvLWka9+Y2ADnjfwdaM/rMcUqMki+oPI3idCIc07IL7G+stKHLarg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxTZsuM8wnzs/1n14czQjSRl/wJmi+ej/bQKq2QnhsXz5t8g9TF
+ Twe2GR6KjZsYp/A4G0ZAfC0tUvQQjPcK3qCT+Lk6x4OMQhxu0hlQLOn5
+X-Gm-Gg: AeBDievX+70gK2MRnplzOkhgExbGIth2Kpb4IAMZo7PZkrvwDkJyCJSxElABq0y4G7c
+ NFf279QJuf5hW5WuxKvOdKf/BXN2sl8dvzHJ5zN//IL/ACICqyGhxy4C/lE1fTKAhKADr4LQzsW
+ LyjdImugkAwnJALY9rYyk20jtARWXQt4LkjjCui+D5TR7FHw3OJjPn57DmjKIz3PFkMdAAufHN1
+ p5vyRQgjH71zyu1YLXmbqHzmV4jWPvTVnP/uxOjTEP5u8DSxXo73B2idhTNBtYgNG+5NPzLSvwI
+ TGKTKx8m254ADngNSQWWuSb5hes+zI2AQ6POSlGcNmJO3mzG5xPvH7frQN58WWm9XI+bfqaEKeg
+ 9EEOnhyVOeQvtH+amtEUOnT10QthLKDydtoiuexj2ecAtiDfpA2dmYcY2/2OJPPERkW0TO4eI16
+ G1dMA5Qoo8r1aWaRXDyMFQt7ZW2P6mCrRHUcAUvEOl9NmJAy9yRiFnhsQH5dONOII9PyPh7mT5
+X-Received: by 2002:a05:6808:308b:b0:453:58dc:c006 with SMTP id
+ 5614622812f47-4799bc8ecdcmr12645103b6e.3.1776977662798; 
+ Thu, 23 Apr 2026 13:54:22 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.13
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:54:17 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:22 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:44 -0600
+Date: Thu, 23 Apr 2026 14:53:45 -0600
 MIME-Version: 1.0
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-3-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-4-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -153,11 +153,11 @@ To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>,
  Russell King <linux+etnaviv@armlinux.org.uk>, 
  Christian Gmeiner <christian.gmeiner@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=3738;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=1428;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=dBPobWcjtsCPloRIZNIq7WrMQXPNqrRK7ZbNyYlUKjY=;
- b=Mq2FY9AhjybUNh2r2+R0eLZQJzbkYdY8eG/KkpbUCrUKuD8lbuRInjAtfOok3gY1b6jjhzeKk
- GFNhcQdx8P8CNk525EAsuvFZk9vQbFQyGNTNmtsMmoZIKphPxa+siA1
+ bh=sNU5+ypIpAa5nAh/P3nhq7a8EpP2K+tX+yS4ogUpRkQ=;
+ b=HjA55O/V4Utgz/Is+2KPNeba99m7x06Pmf6eKmFuis60V6Ckv9Whwi8Vq/ULE1QgolctL7g58
+ bkmCuf3PSdMCJgld6ykSOAGyPlyeM4J3BFTe9HpTql06GTY7Wia+MgQ
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
@@ -172,8 +172,8 @@ Cc: imx@lists.linux.dev, linux-doc@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Jim Cromie <jim.cromie@gmail.com>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-modules@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v14 03/92] dyndbg.lds.S: fix lost dyndbg
- sections in modules
+Subject: [Linux-stm32] [PATCH v14 04/92] vmlinux.lds.h: drop unused
+ HEADERED_SECTION* macros
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -189,7 +189,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: E8FEE475A16
+X-Rspamd-Queue-Id: E8A16475A15
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
@@ -220,7 +220,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_GT_50(0.00)[129];
-	NEURAL_HAM(-0.00)[-0.898];
+	NEURAL_HAM(-0.00)[-0.908];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[jimcromie@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -232,121 +232,43 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,arndb.de:email,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-In an (unused) experimental variation of this series, I had trouble
-with __dyndbg* sections getting lost in drm drivers.  While it didn't
-happen in this series, it exposed a non-obvious weakness.  So fix it,
-by following the model demonstrated in codetag.lds.h.
+These macros are unused, no point in carrying them any more.
 
-Introduce include/asm-generic/dyndbg.lds.h, with 2 macros:
+NB: these macros were just moved to bounded_sections.lds.h, from
+vmlinux.lds.h, which is the known entity, and therefore more
+meaningful in the 1-line summary, so thats what I used as the topic.
 
-DYNDBG_SECTIONS() gets the 2 BOUNDED_SECTION_BY(__yndbg*) calls from
-vmlinux.lds.h DATA_DATA, which now includes the new file and calls the
-new macro.
-
-MOD_DYNDBG_SECTIONS also has the 2 BOUNDED_SECTION_BY calls, but wraps
-them with output section syntax to keep them as known and separate ELF
-sections in the module.ko.
-
-dyndbg.lds.h includes (reuses) bounded-section.lds.h
-
-scripts/module.lds.S: now calls MOD_DYNDBG_SECTIONS right before the
-CODETAG macro (consistent with their placements in vmlinux.lds.h), and
-also includes dyndbg.lds.h
-
-This isolates vmlinux.lds.h from further __dyndbg section additions.
-
-CC: Arnd Bergmann <arnd@arndb.de>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- MAINTAINERS                       |  1 +
- include/asm-generic/dyndbg.lds.h  | 19 +++++++++++++++++++
- include/asm-generic/vmlinux.lds.h |  6 ++----
- scripts/module.lds.S              |  2 ++
- 4 files changed, 24 insertions(+), 4 deletions(-)
+ include/asm-generic/bounded_sections.lds.h | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5fcb7b991776..5c75109d2ee3 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -9069,6 +9069,7 @@ DYNAMIC DEBUG
- M:	Jason Baron <jbaron@akamai.com>
- M:	Jim Cromie <jim.cromie@gmail.com>
- S:	Maintained
-+F:	include/asm-generic/dyndbg.lds.h
- F:	include/linux/dynamic_debug.h
- F:	lib/dynamic_debug.c
- F:	lib/test_dynamic_debug.c
-diff --git a/include/asm-generic/dyndbg.lds.h b/include/asm-generic/dyndbg.lds.h
-new file mode 100644
-index 000000000000..f95683aa16b6
---- /dev/null
-+++ b/include/asm-generic/dyndbg.lds.h
-@@ -0,0 +1,19 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __ASM_GENERIC_DYNDBG_LDS_H
-+#define __ASM_GENERIC_DYNDBG_LDS_H
-+
-+#include <asm-generic/bounded_sections.lds.h>
-+#define DYNDBG_SECTIONS()					\
-+	. = ALIGN(8);						\
-+	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)
-+
-+#define MOD_DYNDBG_SECTIONS()                                           \
-+	__dyndbg : {							\
-+		BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)			\
-+	}								\
-+	__dyndbg_classes : {						\
-+		BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)	\
-+	}
-+
-+#endif /* __ASM_GENERIC_DYNDBG_LDS_H */
-diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index acb4aadd74da..9324066aab51 100644
---- a/include/asm-generic/vmlinux.lds.h
-+++ b/include/asm-generic/vmlinux.lds.h
-@@ -340,6 +340,7 @@
- /*
-  * .data section
-  */
-+#include <asm-generic/dyndbg.lds.h>
- #define DATA_DATA							\
- 	*(.xiptext)							\
- 	*(DATA_MAIN)							\
-@@ -353,10 +354,7 @@
- 	*(.data..do_once)						\
- 	STRUCT_ALIGN();							\
- 	*(__tracepoints)						\
--	/* implement dynamic printk debug */				\
--	. = ALIGN(8);							\
--	BOUNDED_SECTION_BY(__dyndbg_classes, ___dyndbg_classes)		\
--	BOUNDED_SECTION_BY(__dyndbg, ___dyndbg)				\
-+	DYNDBG_SECTIONS()						\
- 	CODETAG_SECTIONS()						\
- 	LIKELY_PROFILE()		       				\
- 	BRANCH_PROFILE()						\
-diff --git a/scripts/module.lds.S b/scripts/module.lds.S
-index 2dc4c8c3e667..027c5c286ea0 100644
---- a/scripts/module.lds.S
-+++ b/scripts/module.lds.S
-@@ -10,6 +10,7 @@
- #endif
+diff --git a/include/asm-generic/bounded_sections.lds.h b/include/asm-generic/bounded_sections.lds.h
+index 43e79603d4af..f5876e68cbe7 100644
+--- a/include/asm-generic/bounded_sections.lds.h
++++ b/include/asm-generic/bounded_sections.lds.h
+@@ -20,19 +20,4 @@
  
- #include <asm-generic/codetag.lds.h>
-+#include <asm-generic/dyndbg.lds.h>
+ #define BOUNDED_SECTION(_sec)	 BOUNDED_SECTION_BY(_sec, _sec)
  
- SECTIONS {
- 	/DISCARD/ : {
-@@ -59,6 +60,7 @@ SECTIONS {
- 		*(.rodata..L*)
- 	}
- 
-+	MOD_DYNDBG_SECTIONS()
- 	MOD_SEPARATE_CODETAG_SECTIONS()
- }
- 
+-#define HEADERED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_HDR_##_label_	= .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_PRE_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_, _HDR_) \
+-	_label_##_HDR_ = .;						\
+-	KEEP(*(.gnu.linkonce.##_sec_))					\
+-	BOUNDED_SECTION_POST_LABEL(_sec_, _label_, _BEGIN_, _END_)
+-
+-#define HEADERED_SECTION_BY(_sec_, _label_)				\
+-	HEADERED_SECTION_PRE_LABEL(_sec_, _label_, __start, __stop)
+-
+-#define HEADERED_SECTION(_sec)	 HEADERED_SECTION_BY(_sec, _sec)
+-
+ #endif /* _ASM_GENERIC_BOUNDED_SECTIONS_H */
 
 -- 
 2.53.0
