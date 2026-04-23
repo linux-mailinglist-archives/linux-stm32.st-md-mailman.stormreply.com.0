@@ -2,106 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wiCsJaOG72kPCQEAu9opvQ
+	id aKKDJqOG72kBCQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:11 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 590AA4759E7
+	by mail.lfdr.de (Postfix) with ESMTPS id 67B504759E8
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 075ADC5F1CF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 16EFEC5F1E9;
 	Mon, 27 Apr 2026 15:54:10 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC1A2C87EC6
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 72180C87EC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 15:20:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1776957644;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=iQf/P7hvHt9A1fs4c4DenfrxwjfBH28w3+BhoS4FuwU=;
- b=BahwhcjwWgzlYETYLkE+zf42eXHZWWb/NOANfjcwly3UlC6QmFLdDPs4ZTqMgC4jsi35qb
- IZMYgcKlVnuTGiE0MgCLgmUeP1HgdPBYx5Ar59OSJvIRJb5BDI4PK1/ViGFwaYg0mnb14U
- J9Lusefx4raQS6eD9a0Ngl0mox1IxV0=
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-466-b4q3tkRmPW-z0jEI5p3P0w-1; Thu, 23 Apr 2026 11:20:43 -0400
-X-MC-Unique: b4q3tkRmPW-z0jEI5p3P0w-1
-X-Mimecast-MFC-AGG-ID: b4q3tkRmPW-z0jEI5p3P0w_1776957641
-Received: by mail-qt1-f199.google.com with SMTP id
- d75a77b69052e-50d5d1c2289so146542241cf.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 08:20:43 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776957641; x=1777562441;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=iQf/P7hvHt9A1fs4c4DenfrxwjfBH28w3+BhoS4FuwU=;
- b=SkeJvgSLsXOdo1wBeVdelMHPuHie0/xA8PSQ3WywYKNj3+R5KEIt8qbU/YHGu1d9I1
- WvHvlm2chZnw/PDwtW695KpAYcGlmznt1z3whgXxWJKv47oqyNKzmntSOaAj55r1SnD4
- fkpncO0vL8hEdD8B/NvRRs1qHuyp7ycRsDOTOIkQoHPNPvQEiSaR9yuIK8XV8E9wsbej
- YSXgWNVbwMfvfzqyaM2tmFc70ujd2F8uFFgG/wmgkLsF7HYEWlF1KaaCXZAZu3DrtBSa
- KlFeHGoRo2obD6SYoWckfmp/J8XYipYpM8mDTRkic6pRNQd5RCXq+oobn0leTSRgamZF
- 22dw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ819Erk+50nz0GgIx8yol515258bJ3l1jZkakzp1sh22iPtPZOzfwLRXCHZ5c8/70JNZh4RUcbezDhYKA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzf0KNZfz1/ZxRbjjBy1u9ZnepUkZrckldyDQhoNIJ5y7uckZYC
- IsweRbSPm+ph9isE3r2Vd1CuaQbWh3LiHhdyAoHM/N52OeezYw4hr+xl6bJt3ixoa6C1L1mcp6G
- 99h4UbUj8ubz5m/OeU+cD6qEbAE23h/9dNQTSh4E8+FTa+SnPvztwnlHU6o7TpliKV6UYToYySA
- BVzVcQkg==
-X-Gm-Gg: AeBDietbV9bwdUukHZdWUEH+1Fz6kvGaGSIKBH/4kIrsUyw9PCfJNHkpbmTXnbBxcMs
- 7T4u589fWgtIt0nxvSaVssuRUXxPxyvE3czcFjaWly/ule+V2BAhpYc+HcBXsdHbuLXi1gGvn0i
- tZIc07GBgPrgCkRL6SilMeJ9vIsO2m9WAhoS4SUMo2aVd3MFDP7CwWsXcPLjEPjS4bx9bLB+3SP
- qI4pIs9w8nQjvNrXp6w220H+ITppTqb+y0x8NJnOgucxhyBQi1EnubvVF6VREfs7A87VlGV7wgt
- JomkF0DdtJtairOLweMK8kNIXcexH6xhHwdHefAXUU3QIAXDmWp0NNXGnliMFFMiRbFfIUaKuII
- 1X64gebOkLsMwEilHnth1NZSFnZ95sADh/UFOyeDQzw==
-X-Received: by 2002:a05:622a:1390:b0:50f:b076:43dd with SMTP id
- d75a77b69052e-50fb0764918mr197598031cf.36.1776957640938; 
- Thu, 23 Apr 2026 08:20:40 -0700 (PDT)
-X-Received: by 2002:a05:622a:1390:b0:50f:b076:43dd with SMTP id
- d75a77b69052e-50fb0764918mr197597111cf.36.1776957640401; 
- Thu, 23 Apr 2026 08:20:40 -0700 (PDT)
-Received: from rh-jkangas-kernel ([2601:1c2:4400:6bf0:7677:bcee:4ef0:e09d])
- by smtp.gmail.com with ESMTPSA id
- d75a77b69052e-50e5f5cc439sm105170541cf.17.2026.04.23.08.20.36
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 08:20:39 -0700 (PDT)
-Date: Thu, 23 Apr 2026 08:20:34 -0700
-From: Jared Kangas <jkangas@redhat.com>
-To: jan.petrous@oss.nxp.com
-Message-ID: <aeo4wlrSinKUsdrZ@rh-jkangas-kernel>
-References: <20260313-dwmac_multi_irq-v12-0-b5c9d0aa13d6@oss.nxp.com>
- <20260313-dwmac_multi_irq-v12-2-b5c9d0aa13d6@oss.nxp.com>
+ Thu, 23 Apr 2026 15:21:48 +0000 (UTC)
+Received: from [127.0.1.1] (unknown [52.177.6.131])
+ by linux.microsoft.com (Postfix) with ESMTPSA id 5914F20B7165;
+ Thu, 23 Apr 2026 08:21:46 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5914F20B7165
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+ s=default; t=1776957707;
+ bh=2WGY0Xr4OWcuoDKIFjbEVHuS8imyUOJyUmF5Ad3Krqw=;
+ h=From:Date:Subject:To:Cc:From;
+ b=UfD9SlG8qmtSdJze3JZv8FkmAj1BKyxhCCKdbuCe+jgLX3FGKQkj3yQa5VtGB6Rj9
+ YoBSzF0PhML3dQ/4N/1UGK5MGtA/q5K+Wbwr+AbM8fCoqq49QTpiqC37sw8FLZ60ZX
+ rQgSpSOY/8vAOJJcH2ny2gClneX0b9jQmL3LdZzs=
+From: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+Date: Thu, 23 Apr 2026 11:21:41 -0400
 MIME-Version: 1.0
-In-Reply-To: <20260313-dwmac_multi_irq-v12-2-b5c9d0aa13d6@oss.nxp.com>
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: t073yr2JdUMCegamBB8Lt9aCQuSeA9ipey_RYBzVFec_1776957641
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Message-Id: <20260423-disallow_rsa_sha1_signing_in_fips_mode-v2-1-a5fe72dd8a71@linux.microsoft.com>
+X-B4-Tracking: v=1; b=H4sIAAQ56mkC/5WNSw6CMBRFt0I6toY+AcWR+zCk6RdeAi3pI6gh7
+ N3KDswdnTs4Z2PkEjpi92Jjya1IGEMGOBXMDCr0jqPNzKCEpqwAuEVS4xhfMpGSNCghCfuAoZc
+ YpMeZ5BSt4zevdQPQKltXLMvm5Dy+j9CzyzwgLTF9ju4qfu/fiVXwvEvdanO1ldDuMaFJkaJfz
+ iZOrNv3/Qt9rp+Z4AAAAA==
+To: Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.13.0
+X-Spam-Status: No, score=-3.0 required=1.7 tests=ALL_TRUSTED,BAYES_00,
+ DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU autolearn=ham autolearn_force=no
+ version=3.4.6
+X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on
+ linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net
 X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
-Cc: imx@lists.linux.dev, NXP S32 Linux Team <s32@nxp.com>,
- vladimir.oltean@nxp.com, Frank Li <Frank.Li@nxp.com>,
- Eric Dumazet <edumazet@google.com>,
- Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Rob Herring <robh@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, rmk+kernel@armlinux.org.uk,
- linux-arm-kernel@lists.infradead.org, Chester Lin <chester62515@gmail.com>,
- Matthias Brugger <mbrugger@suse.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- boon.khai.ng@altera.com, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v12 2/4] arm64: dts: s32: set
- Ethernet channel irqs
+Cc: linux-kernel@vger.kernel.org, Jeff Barnes <jeffbarnes@linux.microsoft.com>,
+ linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: [Linux-stm32] [PATCH v2] crypto: testmgr - disallow RSA PKCS#1
+ SHA-1 sig algs in FIPS mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -117,79 +66,140 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 590AA4759E7
-X-Rspamd-Action: add header
+X-Rspamd-Queue-Id: 67B504759E8
+X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [6.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[redhat.com : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
+	R_DKIM_REJECT(1.00)[linux.microsoft.com:s=default];
 	DATE_IN_PAST(1.00)[96];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[linux.microsoft.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,google.com,oss.nxp.com,gmail.com,st-md-mailman.stormreply.com,kernel.org,redhat.com,vger.kernel.org,pengutronix.de,armlinux.org.uk,lists.infradead.org,suse.com,lunn.ch,altera.com,davemloft.net];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FORGED_RECIPIENTS(0.00)[m:jan.petrous@oss.nxp.com,m:imx@lists.linux.dev,m:s32@nxp.com,m:vladimir.oltean@nxp.com,m:Frank.Li@nxp.com,m:edumazet@google.com,m:ghennadi.procopciuc@oss.nxp.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:s.hauer@pengutronix.de,m:rmk+kernel@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:chester62515@gmail.com,m:mbrugger@suse.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:kernel@pengutronix.de,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:krzk@kernel.org,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[jkangas@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gondor.apana.org.au,davemloft.net,gmail.com,foss.st.com];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jkangas@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[redhat.com:-];
-	NEURAL_HAM(-0.00)[-0.603];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:herbert@gondor.apana.org.au,m:davem@davemloft.net,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:jeffbarnes@linux.microsoft.com,m:linux-crypto@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jeffbarnes@linux.microsoft.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[linux.microsoft.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.935];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jeffbarnes@linux.microsoft.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[nxp.com:email,suse.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
-X-Spam: Yes
+	RCPT_COUNT_SEVEN(0.00)[9];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 
-On Fri, Mar 13, 2026 at 08:13:33AM +0100, Jan Petrous via B4 Relay wrote:
-> From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> 
-> The GMAC Ethernet controller found on S32G2/S32G3 and S32R45
-> contains up to 5 RX and 5 TX channels.
-> It can operate in two interrupt modes:
-> 
->   1) Sharing IRQ mode: only MAC IRQ line is used
->      for all channels.
-> 
->   2) Multiple IRQ mode: every channel uses two IRQ lines,
->      one for RX and second for TX.
-> 
-> Specify all IRQ twins for all channels.
-> 
-> Reviewed-by: Matthias Brugger <mbrugger@suse.com>
-> Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> ---
+When booted with fips=1, RSA signature generation using SHA-1 must not be
+available.  However, pkcs1pad(rsa,sha1) can currently be instantiated
+because it is not present in alg_test_descs; alg_test() falls through the
+no_test path and succeeds, after which the algorithm appears in
+/proc/crypto as fips-capable.
 
-I missed that there was a net-next rebase and ended up sending a T-b to
-v11 instead of here ([1], [2]), sorry about that.
+Add explicit alg_test_descs entries for pkcs1pad(rsa,sha1) and
+pkcs1(rsa,sha1) without marking them fips_allowed, so they are treated as
+not FIPS-allowed when fips=1 is enabled.
 
-To give more details on my testing around this specific patch since the
-driver patch was merged: I configured RX queues 1-4 with
-'snps,route-multi-broad' across several different boots and verified
-that interrupts showed for all TX/RX channels in /proc/interrupts.
+Include both names to cover kernels where RSA sign/verify is provided via
+the pkcs1(...) signature template, while pkcs1pad(...) remains for the
+traditional wrapper naming and/or RSAES operations.
 
-Tested-by: Jared Kangas <jkangas@redhat.com>
+Signed-off-by: Jeff Barnes <jeffbarnes@linux.microsoft.com>
+---
+This series fixes an issue where SHA-1 RSA signature generation remains
+available when booted with fips=1.
 
-[1]: https://lore.kernel.org/all/aefX7Ajltzt5EqIR@rh-jkangas-kernel/
-[2]: https://lore.kernel.org/all/aefY8WGCuNr4BQG4@rh-jkangas-kernel/
+On a FIPS-enabled system, pkcs1pad(rsa,sha1) can be instantiated even
+though SHA-1 must not be available for signature generation. The reason
+is that the algorithm is not listed in crypto/testmgr.c's alg_test_descs,
+so alg_test() falls through the no_test path and succeeds. Once
+instantiated, /proc/crypto reports the algorithm as "fips: yes".
+
+This patch adds explicit alg_test_descs entries for:
+
+  - pkcs1pad(rsa,sha1)
+  - pkcs1(rsa,sha1)
+
+without setting fips=1, so they are treated as not FIPS-allowed in
+FIPS mode.
+
+Both names are covered to handle kernels where RSA signature operations
+are provided via the pkcs1(...) signature template, while pkcs1pad(...)
+remains for the historical wrapper naming and/or RSAES operations.
+
+Reproducer / evidence (current behavior):
+  1) Boot with fips=1 (confirm /proc/sys/crypto/fips_enabled == 1)
+  2) Allocate the transform:
+       crypto_alloc_akcipher("pkcs1pad(rsa,sha1)", 0, 0)
+  3) Observe that /proc/crypto now contains:
+       name   : pkcs1pad(rsa,sha1)
+       fips   : yes
+       selftest: passed
+  4) A simple in-kernel demo module can instantiate the transform and reach
+     the signing path in FIPS mode.
+
+With this change, attempts to instantiate these SHA-1 RSA signing
+templates in FIPS mode are rejected, preventing SHA-1 signature
+generation in approved mode.
+
+Thanks for taking a look.
+---
+Changes in v2:
+- Rewrap commit message body to conform to 75-column limit
+- Fix From/Signed-off-by address mismatch
+Link to v1: https://lore.kernel.org/r/20260422-disallow_rsa_sha1_signing_in_fips_mode-v1-1-1359bc7d41be@microsoft.com
+---
+ crypto/testmgr.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/crypto/testmgr.c b/crypto/testmgr.c
+index 30671e7bc349..e54d298a26c1 100644
+--- a/crypto/testmgr.c
++++ b/crypto/testmgr.c
+@@ -5306,6 +5306,9 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.suite = {
+ 			.sig = __VECS(pkcs1_rsa_none_tv_template)
+ 		}
++	}, {
++		.alg = "pkcs1(rsa,sha1)",
++		.test = alg_test_null,
+ 	}, {
+ 		.alg = "pkcs1(rsa,sha224)",
+ 		.test = alg_test_null,
+@@ -5341,6 +5344,9 @@ static const struct alg_test_desc alg_test_descs[] = {
+ 		.alg = "pkcs1pad(rsa)",
+ 		.test = alg_test_null,
+ 		.fips_allowed = 1,
++	}, {
++		.alg = "pkcs1pad(rsa,sha1)",
++		.test = alg_test_null,
+ 	}, {
+ 		.alg = "rfc3686(ctr(aes))",
+ 		.generic_driver = "rfc3686(ctr(aes-lib))",
+
+---
+base-commit: 8879a3c110cb8ca5a69c937643f226697aa551d9
+change-id: 20260422-disallow_rsa_sha1_signing_in_fips_mode-8fbb6229ad54
+
+Best regards,
+-- 
+Jeff Barnes <jeffbarnes@linux.microsoft.com>
 
 _______________________________________________
 Linux-stm32 mailing list
