@@ -2,74 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sBQ0G6SG72kECQEAu9opvQ
+	id mHIsBaOG72n/CAEAu9opvQ:T3
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:12 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F0649475A1C
+	by mail.lfdr.de (Postfix) with ESMTPS id 10785475A20
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2B6CC60469;
-	Mon, 27 Apr 2026 15:54:10 +0000 (UTC)
-Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
- [209.85.167.181])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0FCF7C6046C;
+	Mon, 27 Apr 2026 15:54:11 +0000 (UTC)
+Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
+ [209.85.167.175])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0BF44C8F26B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C6B3C8F26B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 20:54:39 +0000 (UTC)
-Received: by mail-oi1-f181.google.com with SMTP id
- 5614622812f47-470145d7df5so4423310b6e.0
+ Thu, 23 Apr 2026 20:54:44 +0000 (UTC)
+Received: by mail-oi1-f175.google.com with SMTP id
+ 5614622812f47-479fc1fc048so1991795b6e.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 13:54:38 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977678; x=1777582478;
+ d=gmail.com; s=20251104; t=1776977683; x=1777582483;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=mJr2/Y7a9Z56nZcPhFHsPKIdw2ZGjJ+UXlDP2b9GwxI=;
- b=Zw1GAI+rcB/q0MHkw9VpSk3P2KbTlUx05l4KxO8/x6NHoOmRmBLh9APDmqLQQJISdf
- +sOec1wSHC2eDsL5dDp0MCnZpoBUuLWsTh4kfugvC6MJkErnrxjICHFwJ3cpz1MeDVbK
- w+a87YNMy9mW2Ws+IQrzJLsV2KZ7biiBq6i4/QbgAqyiMgl7rhQQKdCMZR+Jc3+DwOAK
- EEbi6GT55rPX+wr6fQVJyVU/bN0mNC+hXwD3LrNBX2H0bGXtmT1p/dxocO8EJq+a2oqG
- CGjosDSEDpunlGJarGyhfmZbBuDvegsAGNVbnwfcWH4Q+eEKneaOUmzIsInZTR22mDyU
- KpiQ==
+ :reply-to; bh=xAEAq+kQJrWXZQykWzpQy5kgtDlX9Aaw3Ob6jXsM1wQ=;
+ b=knyWDEhs7SMXW0NcQrDWHIppyS4MPVQA/goCisLFPA0ff/qta520g9a+finLhGUNvy
+ D7eTSov5ia4AqhvWlJpDtj3+auSKPLF1BO7TcJRoE2O3xeoxdmh7zPoH+0piVgaNhh0w
+ d/xVFQYZzZ58F+PAVXSxe2UySZLHfWjgJzSo5M6mqUSyxJGaEgFfR0wHgvEVB/4FPlly
+ V9p7FnGfXyWitQnn3BDrv2tRWgRdPdQrQieFCyp/PzQJrXxfR1NCgJ/zYsHsSCcFL3N7
+ NWKOWvohPvp2s5F16rSEuD12v8kCI00BmgXHv8Z6m4+MwuTtourUuqmHQuxUMKO8BsdZ
+ 2LUg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977678; x=1777582478;
+ d=1e100.net; s=20251104; t=1776977683; x=1777582483;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=mJr2/Y7a9Z56nZcPhFHsPKIdw2ZGjJ+UXlDP2b9GwxI=;
- b=CeVR/SMBBXLWTIK4OAEo9q5ppSTL/FdJLUckWxW/TXTlj/cJfu+ioVbI0XyLnNhagJ
- igV9q7mBErtsaeGE23Ze78HXhIrIttzc9p9w8bQZ9SQN2HOQywNeW1LW4GikNgSpRcD2
- d7yDr3Ms0aGvWh/aKlx0a00/3cHPTAmkW4aECwLamouyR2lRyZs4oN1iPH6fy/+iqDLd
- O6iCKclf0s8T5KAUyGiZ4AuwYRkD4PQFZb2quLwx9d107WuLgCzSDYsSp3YyrkeokVy/
- HTkTlevXmfsV2lmCBn7Zye5DTmYwhrg69xM++o971gxstqbvGhT/sede6BFQ+D5Mv6xC
- MKjg==
+ bh=xAEAq+kQJrWXZQykWzpQy5kgtDlX9Aaw3Ob6jXsM1wQ=;
+ b=noz8Gt/IzNHw8LbKG77cOs3pF04h/flJLY7ZlonZJoP9O3iE7sd4mmEPJ4RSZQkHx0
+ Dwknhkp2KbLL2Jz01jnoKDd+PMLQ7e3P3m63cpjLxffJuXMnLDfHsCOV1O/qw2ERtkIz
+ nLhvTwCgAQq+SuLV0vq/ruXCkkNJxNOpkihi5MSdrNhjrHkzNOzP8vFrbEEKyS/qkDMD
+ 35++TailbJYmr5FKPoQ0PMWPO78S+sqR0vTNg867WnKMABAW2ggTOcp1v00ypLkyNh+w
+ JVPmRmVa2013iFl+XstXmuBPnqmlfat4y9Ax0/qQnXGBKuV5bxRH+DqXUgtqmR5j4pNT
+ PQWw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8Z8jvk8JoB3CZwksjWdluV9UoXYIpaY0Gg6PtdxvbfirKXI4FELWJconsjWz46zJ3kiwPa8NIfoBHe1w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxeF41GU4NzYvatKAsBpfU6L3PpAQRtYl18vmUP6oOFtlAXcz2X
- kFzrSlFmk6BcKovHMsk9CVL4rml45K3OxwRRqey28F/O5kp++2vYCP4V
-X-Gm-Gg: AeBDieu1s32HHnx1S6AmgrlMjLrwOLPwSeR93BgWp5h3Tp202k/WtPFOKBdmOV6e2iR
- L2JKwxyWlqiMfRlbJLRuBxyVnwawDiCIp45JffT7vPVs+TlwV4TFnqWW1eTeSvx0v6zU5XE+aE8
- SEvQ7wMNqBLEYwxXSmagfzEynP0bDvyX2NO8IvAurEj9OENQWsGvNVm1vxFhW2fV83ooI3hMvwo
- 31GAd/ZX5+dt6iobRD3hBPlCxrp08whcxikHQct1WV8LNlI1u7jfEGDoVXEByO5XGTCECHPSeDc
- j+k+rcxgL8BKe9G08sCiur7PvSbpo/etNXs6yxyPrerYWEhCAkrOnIhS9bYpmwOpsvrceE6DzU6
- 5Y/om0hHaZUyVLJ97Ys5RzrbhErGhQEzTdBaIxYDboejGFoEPjPyAU+CDTF/xzEOFEOpstaHgZb
- KqslZ24sjwao9gaSnX51yEgGohzpch5J8KfrvaVVFmvnf10DiGL0ixpOVWx0/Vs1P9GMcy+l7M
-X-Received: by 2002:a05:6808:d51:b0:466:f60b:19d7 with SMTP id
- 5614622812f47-4799c8febffmr15113908b6e.1.1776977677733; 
- Thu, 23 Apr 2026 13:54:37 -0700 (PDT)
+ AFNElJ+ShdDkRqycLfZLEXdIFlYCHms/ALHNirQ2HcQqe7QLnLXy59Lt2RHniYJCR+Ve/pnNJ7krcMzh9K+bQg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwqfF+4flfwU+MxmJ0jrGfmb4lWiiKaKuE22ePivBiV8llNA2oG
+ qEFBvcbLeLHWGRMM4zDYSnfhsJwC0mrZ1dAuiZ6PL+oEhrC12OihqppE
+X-Gm-Gg: AeBDietCVtowfdiRBCcMIV9i+6065wydFUelqRW5CNADuf2AM9jJmlI061OGPVISoLM
+ 4tyLTGhWV1mowUdeNU+U+53IMRCsNqF8GHXB3p5Rjwcn0avwTcR3xXCbvq5zOwC9BXmAobHRwjN
+ 9rHaKUJYsDE0IHZkaVppZo2BB6/TBwhd1wn/aJV8XwFmlPWAz4UbMVKAJjZB3A+a8IlpCA/uqg6
+ 8jM5MrZEqAaXTpzVmrBIsJ2f0cSg4YbKRnxzxWp8Z1Yqdva6xpLk0urbrKylpuAO1Ljpa+325P7
+ 3Op5oN4VIBhpToUVlt/j7GXgL5eQ1BJ8QoR/MoWMT7U30/9Sk/N53AzUryWIwR+9Ku7lNlb1nZz
+ 9ZzgoGrYcYpl3qYw6l3mgkc9eLqBBO0zTVVAKFu5/pkqREfCWt2pa1W09769914UAzhfFvF/Xwy
+ l7YspxoZFpIOyFVW7KAI6qztLRChMj5ZZ9lnZ4JO/ykYpMnOAw0xqqjNWMW5LmzR9ZpojWNh/8K
+ +RAv+bai8E=
+X-Received: by 2002:a05:6808:d4c:b0:45e:f443:dc3d with SMTP id
+ 5614622812f47-4799c9424e2mr16765336b6e.13.1776977682728; 
+ Thu, 23 Apr 2026 13:54:42 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.33
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:54:37 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:42 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:48 -0600
+Date: Thu, 23 Apr 2026 14:53:49 -0600
 MIME-Version: 1.0
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-7-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-8-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -153,11 +154,11 @@ To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>,
  Russell King <linux+etnaviv@armlinux.org.uk>, 
  Christian Gmeiner <christian.gmeiner@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=2677;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=1814;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=siK3DbSjtbdXIzp+rb57NbLxo/EWi9u81nppU4wsdus=;
- b=ePiF0EDWwi/oQY3TXS9i+qRl3hbaq3feRkC0e2PDbzK0sheeYllu5PZJlb5eUbhbmthqySsq4
- IoWvb2TDFhCDz/i/TjB+nfqMjI3xELvbI8eTQStIQFj10HRY4dVJV1a
+ bh=jPGjXS71/Sd5PdlEbYR5u6p1XmzzkhLL9WEpBvy8svQ=;
+ b=HMPoys38nD06ZJHUUrHCqtojr3UfS4NPv3Z3vnBVFyI30FyzOStWh/NmjFhaCcjRBJPNZBJ17
+ GJd8iWMP66nCqhCyzWgR1+dBVaXdJOf5pW87LkLUcDicQIXZDja/brX
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
@@ -172,8 +173,7 @@ Cc: imx@lists.linux.dev, linux-doc@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Jim Cromie <jim.cromie@gmail.com>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-modules@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v14 07/92] docs/dyndbg: update examples \012
-	to \n
+Subject: [Linux-stm32] [PATCH v14 08/92] docs/dyndbg: explain flags parse 1st
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -189,7 +189,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: F0649475A1C
+X-Rspamd-Queue-Id: 10785475A20
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
@@ -220,7 +220,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	RCPT_COUNT_GT_50(0.00)[129];
-	NEURAL_HAM(-0.00)[-0.882];
+	NEURAL_HAM(-0.00)[-0.885];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[jimcromie@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -232,57 +232,49 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,bootlin.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 
-commit 47ea6f99d06e ("dyndbg: use ESCAPE_SPACE for cat control")
-changed the control-file to display format strings with "\n" rather
-than "\012".  Update the docs to match the new reality.
+When writing queries to >control, flags are parsed 1st, since they are
+the only required field, and they require specific compositions.  So
+if the flags draw an error (on those specifics), then keyword errors
+aren't reported.  This can be mildly confusing/annoying, so explain it
+instead.
 
+cc: linux-doc@vger.kernel.org
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
-Tested-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- Documentation/admin-guide/dynamic-debug-howto.rst | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
+ Documentation/admin-guide/dynamic-debug-howto.rst | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/admin-guide/dynamic-debug-howto.rst b/Documentation/admin-guide/dynamic-debug-howto.rst
-index 095a63892257..4b14d9fd0300 100644
+index 4b14d9fd0300..9c2f096ed1d8 100644
 --- a/Documentation/admin-guide/dynamic-debug-howto.rst
 +++ b/Documentation/admin-guide/dynamic-debug-howto.rst
-@@ -38,12 +38,12 @@ You can view the currently configured behaviour in the *prdbg* catalog::
+@@ -109,10 +109,19 @@ The match-spec's select *prdbgs* from the catalog, upon which to apply
+ the flags-spec, all constraints are ANDed together.  An absent keyword
+ is the same as keyword "*".
  
-   :#> head -n7 /proc/dynamic_debug/control
-   # filename:lineno [module]function flags format
--  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\012
--  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\012"
--  init/main.c:1424 [main]run_init_process =_ "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =_ "    %s\012"
--  init/main.c:1427 [main]run_init_process =_ "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =_ "    %s\012"
-+  init/main.c:1179 [main]initcall_blacklist =_ "blacklisting initcall %s\n"
-+  init/main.c:1218 [main]initcall_blacklisted =_ "initcall %s blacklisted\n"
-+  init/main.c:1424 [main]run_init_process =_ "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =_ "    %s\n"
-+  init/main.c:1427 [main]run_init_process =_ "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =_ "    %s\n"
+-
+-A match specification is a keyword, which selects the attribute of
+-the callsite to be compared, and a value to compare against.  Possible
+-keywords are:::
++Note that since the match-spec can be empty, the flags are checked 1st,
++then the pairs of keyword and value.  Flag errs will hide keyword errs::
++
++  bash-5.2# ddcmd mod bar +foo
++  dyndbg: read 13 bytes from userspace
++  dyndbg: query 0: "mod bar +foo" mod:*
++  dyndbg: unknown flag 'o'
++  dyndbg: flags parse failed
++  dyndbg: processed 1 queries, with 0 matches, 1 errs
++
++So a match-spec is a keyword, which selects the attribute of the
++callsite to be compared, and a value to compare against.  Possible
++keywords are::
  
- The 3rd space-delimited column shows the current flags, preceded by
- a ``=`` for easy use with grep/cut. ``=p`` shows enabled callsites.
-@@ -59,10 +59,10 @@ query/commands to the control file.  Example::
- 
-   :#> ddcmd '-p; module main func run* +p'
-   :#> grep =p /proc/dynamic_debug/control
--  init/main.c:1424 [main]run_init_process =p "  with arguments:\012"
--  init/main.c:1426 [main]run_init_process =p "    %s\012"
--  init/main.c:1427 [main]run_init_process =p "  with environment:\012"
--  init/main.c:1429 [main]run_init_process =p "    %s\012"
-+  init/main.c:1424 [main]run_init_process =p "  with arguments:\n"
-+  init/main.c:1426 [main]run_init_process =p "    %s\n"
-+  init/main.c:1427 [main]run_init_process =p "  with environment:\n"
-+  init/main.c:1429 [main]run_init_process =p "    %s\n"
- 
- Error messages go to console/syslog::
- 
+   match-spec ::= 'func' string |
+ 		 'file' string |
 
 -- 
 2.53.0
