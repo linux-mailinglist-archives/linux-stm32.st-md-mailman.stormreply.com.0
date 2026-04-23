@@ -2,75 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MxybOaSG72ksCQEAu9opvQ
+	id 1YdzL6SG72kqCQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:12 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 355BE475A25
+	by mail.lfdr.de (Postfix) with ESMTPS id 29EE9475A23
 	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:12 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41FAFC60497;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5692AC628AC;
 	Mon, 27 Apr 2026 15:54:11 +0000 (UTC)
-Received: from mail-oi1-f175.google.com (mail-oi1-f175.google.com
- [209.85.167.175])
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com
+ [209.85.167.178])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 42B55C8F286
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FEDCC8F26B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 20:54:54 +0000 (UTC)
-Received: by mail-oi1-f175.google.com with SMTP id
- 5614622812f47-45f053b7b90so4049775b6e.0
+ Thu, 23 Apr 2026 20:54:59 +0000 (UTC)
+Received: by mail-oi1-f178.google.com with SMTP id
+ 5614622812f47-479dd56d016so3345960b6e.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 23 Apr 2026 13:54:54 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1776977693; x=1777582493;
+ d=gmail.com; s=20251104; t=1776977698; x=1777582498;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=3OHbRsO14nacRj9UKrh+9hs7l7M/scZ1A9iLFCIgQ2w=;
- b=pezgHQr9Bq4TXHwcEDU2liviLeyXzh9BY61hIuCPlod56juD0UzXQ7N3FyQsdJNDdZ
- NhfL398RWVz/arH6HbyOC5Y4xvD7BMtJkslu18rgw+CzEHg8Vg1SQh5ZSppAinRvL5OO
- 3d8IgfD9dVcctSt2Ecb6n1FBCssoVTUc0hiNJ59vhtvkKUgTQ85jFzI6MbPzg3c0u4ZU
- nhGenNglIQCYZ5xpb91L5odI8/KMdOXwrcPWo8u4PeNhaBnNdua3lSNDDmTXzcRzlF4o
- bg5bP+gpbVtOc6HmPBI7sswRHLG1Ghchn/r9QpSTv3Gv0lQVb2PppNa8R9deQWIieHOU
- eWQw==
+ :reply-to; bh=FdUnCLnqK7cADbbPufTlrq1d/w7tRGa85zNmvhkeAnE=;
+ b=qrfaSkw4H21w8+62guAn5O/up+Yy+dJrzUW1mN11NqwjZ5zqK31l6Zgm0mBZfVkuAo
+ mXu/IG5gldsZCOyQeE38oqUQPobI9ZiJaWZd/dumG8l9CHSB50IVztmgcQdo6i8hz06I
+ nv/pzeXN3AQyIB525IAEEk8apId07fNp9J/bUF29xJges9HxeqFsBUc/BjckEXvzVF43
+ L9ha1llZjoItiKjpls1gsEGNhmQ+e26pa955pLYE40P6sjmhTgX2tS8EkCd/tE4lJkHE
+ kUbEwOB6FdWMPn9GQ+uRS9vH6Q65lnaXtGizU6c9RtACRYyuQSB3pefw2NfiVlEXjsUw
+ g5ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1776977693; x=1777582493;
+ d=1e100.net; s=20251104; t=1776977698; x=1777582498;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=3OHbRsO14nacRj9UKrh+9hs7l7M/scZ1A9iLFCIgQ2w=;
- b=qVtF2jmWBC7l3DOYobkoaP8+vz/hagTMMKiUaypJzMGnG75dLs1GX3skfGxNyp2EGx
- Rhu8POzWO6PrNHLoZtniGu3gcQU8Web9CMcOjewmYWQRImbe58e/IywWDMtR7hrF0aoO
- 5/Bpk390g4N4zgSDinV/zkrk3l4Sru0L/yc45IxtjH+Z03tB5lnjIiaNYZoJWO57TYOz
- 78jFQjNBKtzMRBssD/HWDSRMKcQtptwOQVZz3yopM5kjElMF0ocV3NaPY/Nsba3WFqgE
- PCGy9tk3zMp5txWzuAlfhKyldwJ5c1cy1C65GK74ctm1A27IeImPzM0CaCIIcZNyZua5
- XnhQ==
+ bh=FdUnCLnqK7cADbbPufTlrq1d/w7tRGa85zNmvhkeAnE=;
+ b=l9ZKXKkxGbmZegNmTRk+MOeVdSGFu0laWQpU611KUK4kSjbMT3xCIh2lWZlUugNfsm
+ ctAJ9AdWw+YjNQggJmQIia8VBO0y0tOSgIf33GpP6hBTbt7MkIQNSj7gfgAPXBLMlRie
+ 4RpNt56DvBA6lp/uiF6bZl3yx28z6sNklTojvrtQlCFsRUT1tAOJ7PgjE5M7dCEtQE7F
+ LxQDDNPoHifYYWLiCXE31nJ1f8ZzgeaEaAroBzZJ8byNbb3itvJPEzgr2CmIBUf1Kbjj
+ djZOKNiWwJIYToU0h9aXBbeZWSHxrCzXbGvady6s+3qhgdtjlarvXbsCxClP/6/EnXGJ
+ NBag==
 X-Forwarded-Encrypted: i=1;
- AFNElJ96yDVZjV80egkhiYEFPEYspND4Bm46Orcyj7DyEdx2V5fPxuaMFsOF6SbjX++OpQSknag9CFVbJoI5gQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YypRXDyvJz7UtsUCMOhvq206PPCS0BEpxEB9rH0RmvaO8eTPMM9
- 8LVOo5zb1QcEjCuuJRsc5s0nsPhpycSwZRd6oc5/PnnmPlEfVWtVf9Ih
-X-Gm-Gg: AeBDieu5gF93iYXj1g7fqsElg0KfO5EXEERws97/j7XxkRK6Z8eaFfgVu63ARWF4tg4
- ROrPCICst6LBOZ34Md/l7KiZdphL9sp8r+X/Q+VVyuy19qYaVNi/R1zXC2bO5XX4+FY2ljSxAdm
- N5Pj2bzKfNsVQu/BABPls4VqnaaVXBNZVCOzImlBASOJVBOLogCCZ/3DLF7q+DgEoayzE7TUZS0
- msppEivjYP4jBSbX/WV91BSOEbyhZw7J03Rr6kjOHiixRZiSFTVk5Cq4RharxTsltqo/Q41B/CX
- MAzMIRTCb1D0qlW/gIQJpN8HOBZUu1BmGYFC0kscJCixOSsUPUds6/8sB1z7xltsbhKSrzYArYl
- xLZEeTNbwybDbjRtOw0NzZIR4eCHs00ilbuT4H0HEp8d/Ll12IArQv0bA/1NQOBB7KO6RbWb3Xk
- LhsVTtwDFTFnVyQkvZGBGEGp/kp8/bC/j+GpE+E+Hpdg9vxmOVakLO1rEaO8qL/DIaV7+RsSmSZ
- PYspanuGMg=
-X-Received: by 2002:a05:6808:d4a:b0:467:49c0:5f6d with SMTP id
- 5614622812f47-4799ca893f0mr15678939b6e.23.1776977692926; 
- Thu, 23 Apr 2026 13:54:52 -0700 (PDT)
+ AFNElJ8hPY5+JE0uY2/pVwbiPa8T4es/9RXgOkoVJ1Vgglko/eAxIbputMisX2mEZ6K1r7R4I3fdMwK/hYSi/g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwxyIxnHgF76C5fsv+4ZdaBRF16njLya2X1bGk1CMtWlfvbRJXV
+ PTpMkBh/ixz0TBqodITna+OVR0Y5IBBLFnmtKog097HxskHgK7PkxX39
+X-Gm-Gg: AeBDieuwqKttkDVgHz/2UYhrt7IveP8PjHnsQ3tomIBWoqm+5ZsCr0vu4A6C/B+nHQf
+ KtqbPeyH+u6BXJtLDkJ7YXMZTJkwUT5/4sui4AtC30RDM1BlzGnzVVyGtpmfHt8kOocKMePe3iN
+ BUYqC1XD2YhLrsBoPKEbnA+juqAAw7WTPx+e0LgwNI7tYS5Ezx0fdIBA+jRc0byXavC7c3CDubC
+ jEsznD993yuvzBYPH2VwO1m6Y7mWTXE0TSgl0uB1pOShRBYDVC10pOLkYIXlQc9E6zoi4XPSjdn
+ K5Duoel035jQL4yY/A8lnPVFQlpNANHu5e8wsTTFY9SnyqPDDLueTFgXt82cp70bbQQENrLnQZ7
+ ml1ir7h819NuU/YM9ZClRgxRPv6rFp+JIQ7IsFdPRGHaM4ANyik6iYAURf/SviK0eIvySl3i+L+
+ GWw8TRlGDxGjbtRjJZBtsWP9WXda9k7ZkRE+KrmHcMh8qQoTD623kqc9UO1LWEtOEpxoFSXFD6
+X-Received: by 2002:a05:6808:3a06:b0:45c:8fa8:7497 with SMTP id
+ 5614622812f47-4799ca25fddmr15351058b6e.34.1776977697862; 
+ Thu, 23 Apr 2026 13:54:57 -0700 (PDT)
 Received: from [192.168.0.245] (c-98-38-17-99.hsd1.co.comcast.net.
  [98.38.17.99]) by smtp.googlemail.com with ESMTPSA id
- 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.48
+ 5614622812f47-4799fead505sm14329744b6e.2.2026.04.23.13.54.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 23 Apr 2026 13:54:52 -0700 (PDT)
+ Thu, 23 Apr 2026 13:54:57 -0700 (PDT)
 From: Jim Cromie <jim.cromie@gmail.com>
-Date: Thu, 23 Apr 2026 14:53:51 -0600
+Date: Thu, 23 Apr 2026 14:53:52 -0600
 MIME-Version: 1.0
-Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-10-2b809a8019d0@gmail.com>
+Message-Id: <20260423-submit-dyndbg-classmap-foundation-v14-11-2b809a8019d0@gmail.com>
 References: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 In-Reply-To: <20260423-submit-dyndbg-classmap-foundation-v14-0-2b809a8019d0@gmail.com>
 To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>, 
@@ -154,11 +153,11 @@ To: Arnd Bergmann <arnd@arndb.de>, Jason Baron <jbaron@akamai.com>,
  Russell King <linux+etnaviv@armlinux.org.uk>, 
  Christian Gmeiner <christian.gmeiner@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=1024;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1776977636; l=1479;
  i=jim.cromie@gmail.com; s=20260203; h=from:subject:message-id;
- bh=4QM3LS2xsg7RLYgSN87KN0NOYRoI2SlINH0Xj+sS9wE=;
- b=zEZMT0WhA4tazHE8iUsJRCDfWjq/snV5y5Ucebwf2eD2LMkQH1VD4rtB+5MLgRCm4kUHuVv2l
- mCQ8zw3QDM0CpaAyRTte6a4hImlzDdBhTb6cuX8iNQbekmlAYqZ0f+w
+ bh=u5K5LyAR3nduZ9uYNLcH0Ml0SCvaXWSVYWZzdtQqFQ0=;
+ b=BwqYVXrj7tbCyuE3yuOq/lyxx2ju6pbTXiqpZ7eBU5OiT93pG4WNojxXxu/5WD0JGR4iMpceB
+ gZqSgyxc2D0C00QMgyFHR/Vqp9F39MflhbB9cQ7LMd6NXCLx1ABAvFL
 X-Developer-Key: i=jim.cromie@gmail.com; a=ed25519;
  pk=C6E5ODlPQo7ZBynATXH9wg7K6HxP0pIXyf4s38Qw0XE=
 X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
@@ -173,8 +172,8 @@ Cc: imx@lists.linux.dev, linux-doc@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, Jim Cromie <jim.cromie@gmail.com>,
  linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
  freedreno@lists.freedesktop.org, linux-modules@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v14 10/92] dyndbg: reword "class unknown,
- " to "class:_UNKNOWN_"
+Subject: [Linux-stm32] [PATCH v14 11/92] dyndbg: make ddebug_class_param
+ union members same size
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,7 +189,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 355BE475A25
+X-Rspamd-Queue-Id: 29EE9475A23
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
@@ -235,33 +234,46 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,bootlin.com:email]
 
-When a dyndbg classname is unknown to a kernel module (as before
-previous patch), the callsite is un-addressable via >control queries.
+struct ddebug_class_param keeps a ref to the state-storage of the
+param; make both class-types use the same unsigned long storage type.
 
-The control-file displays this condition as "class unknown,"
-currently.  That spelling is sub-optimal/too-generic, so change it to
-"class:_UNKNOWN_" to loudly announce the erroneous situation, and to
-make it uniquely greppable.
+ISTM this is simpler and safer; it avoids an irrelevant difference,
+and if 2 users somehow get class-type mixed up (or refer to the wrong
+union member), at least they will both see the same value.
 
 Reviewed-by: Louis Chauvet <louis.chauvet@bootlin.com>
 Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
 ---
- lib/dynamic_debug.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/dynamic_debug.h | 2 +-
+ lib/dynamic_debug.c           | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
+diff --git a/include/linux/dynamic_debug.h b/include/linux/dynamic_debug.h
+index a10adac8e8f0..441305277914 100644
+--- a/include/linux/dynamic_debug.h
++++ b/include/linux/dynamic_debug.h
+@@ -104,7 +104,7 @@ struct _ddebug_info {
+ struct ddebug_class_param {
+ 	union {
+ 		unsigned long *bits;
+-		unsigned int *lvl;
++		unsigned long *lvl;
+ 	};
+ 	char flags[8];
+ 	const struct ddebug_class_map *map;
 diff --git a/lib/dynamic_debug.c b/lib/dynamic_debug.c
-index 6b1e983cfedc..a9caf84ddb22 100644
+index a9caf84ddb22..ffa1cf7c2c72 100644
 --- a/lib/dynamic_debug.c
 +++ b/lib/dynamic_debug.c
-@@ -1166,7 +1166,7 @@ static int ddebug_proc_show(struct seq_file *m, void *p)
- 		if (class)
- 			seq_printf(m, " class:%s", class);
- 		else
--			seq_printf(m, " class unknown, _id:%d", dp->class_id);
-+			seq_printf(m, " class:_UNKNOWN_ _id:%d", dp->class_id);
- 	}
- 	seq_putc(m, '\n');
+@@ -811,7 +811,7 @@ int param_get_dyndbg_classes(char *buffer, const struct kernel_param *kp)
  
+ 	case DD_CLASS_TYPE_LEVEL_NAMES:
+ 	case DD_CLASS_TYPE_LEVEL_NUM:
+-		return scnprintf(buffer, PAGE_SIZE, "%d\n", *dcp->lvl);
++		return scnprintf(buffer, PAGE_SIZE, "%ld\n", *dcp->lvl);
+ 	default:
+ 		return -1;
+ 	}
 
 -- 
 2.53.0
