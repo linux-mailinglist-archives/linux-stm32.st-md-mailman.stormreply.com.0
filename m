@@ -2,89 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id wK15NrSG72n/CAEAu9opvQ
+	id EBC5CDcP72kq4wAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:28 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 09:24:39 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B1DC9475A89
-	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 17:54:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A696946E4FF
+	for <lists+linux-stm32@lfdr.de>; Mon, 27 Apr 2026 09:24:38 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7402EC7A83E;
-	Mon, 27 Apr 2026 15:54:28 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
- [209.85.215.169])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60976C055F4
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E3A1EC08D19;
+	Mon, 27 Apr 2026 07:24:37 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [207.46.229.174])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 96679C36B3C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Apr 2026 12:44:05 +0000 (UTC)
-Received: by mail-pg1-f169.google.com with SMTP id
- 41be03b00d2f7-c7971d0d97dso5579843a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 26 Apr 2026 05:44:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777207444; x=1777812244;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4HsOGoXcMVel5UZKKUbLYS7YRDhsp4Nm+pDK49IhB6w=;
- b=ES0tNwBXc1Hd95EPpq8W2rOQ5SgCQqJz4txvgU9Os/ZcpWI0Cq3L5eqqT9MaLMvcD2
- aViG2NRimb+W1vh9f9MOEGkL/H+HfEJlgT3v4evs10Cz8rC9ljadGpCmQ+YDaWFMxou6
- EwUbNMm2Pogj5A1bMH0SsI72kEvCfb1+vcpV7sHraTrahVdQIUo/xkfO6xxU9algHqZo
- 9SuucsnuOY29KkjLZjeBTIHf7MeSZmpYrNcmYQ6CJIiNnnYpKGy2M7eKaRds+lHA/2Xk
- yZwIn6XMIzMINmzg7JuoMzqubKh6FQjJuGxDGkQpzxs59DbB8eWj6jht0oz/8t1gnLuZ
- KEhA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777207444; x=1777812244;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=4HsOGoXcMVel5UZKKUbLYS7YRDhsp4Nm+pDK49IhB6w=;
- b=cXYtj/tAdGn72JJonSWvAlOxdHhhyW/x//8qdzvn5ZzreGt+sQ/3DPz0iyMjSa2+Jp
- hI9UB/dlEf7z6agSNBNs1VxEnNUX3l6E9TQ9IoqOv0LjI2Bv8iaIFayXhKvrP0RJldQm
- M7rlk1Rt/78ziSdR0M4amck7BY2lHlcNPKdmrHLXiL2cvbfb1GMM6iJdGjtRQQNHivtW
- yWXnWzT3BzF8KgnICihnryAZAI5ooh2ASTvgCpCtF+yiTyHk2Ko8+Jpc1H+obyThhTac
- jUMFMNEu7qRjpKNFcLV0tumd0/61romEmFY653cCof2ThAszhNcq8ZnFf4M+en/fxdHL
- gLug==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+NWP46hO7fBOx9mAOsvNmIQNXcaf38OTCvY5zA39fGqTqNYMk+XDN09nMLVhdNqpSqKaP5rXQb8lCF6Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxOr+BtlvF+r8/o6DDNtea0O6BE1Ckz+bZF0qcvYJuXp6mzjD8C
- H+HFxOB18ZOgh1c9RoYqEp5/eL1msVbHHn/8VDPMW5wcnbOB6sRxuY4=
-X-Gm-Gg: AeBDietxCl5Ydvhgf/RrWrQq1erEsVvCqmSNnumCmKrdNbDLQKNBUy90e/mNnufnAQ/
- 53kVyFdUKvw7cWZzsjO8G885CJ0txoNRqyWZiiUt3SER8qtMbpAAkJFqcIc/asdI4G627wA/L3h
- hf45qC22CncEa36gtJAVgTAjvb2adLoUDZsEnhUimh/79AO4KmtvB6CW1qMXLkbv9HeIeXV+6+i
- tXoOAw4zwBJbko+ijToku8ocKorqyAhzlg/d9Or2FjSlyBLEONDJQvQa3NtINXtotRNvPPNT/d5
- oXi/M1OhINhkxaPMySh9vmnzMbxxZc/LQ0oOLb0QGizAN5WzOyymmWqvzD0+aqK4ALtaAqf0zFG
- j8j9822sn793zzE9HjccWLI4ctjri3YgKeVhAXDNd+EGay5Qr/JBJPv8LmdoJmSvWZfuaNFYc6L
- ezzkPZQYqZqcxcA3ky0FeY11q165R5h1jJOG0E62ei/SM83UC3/0pXSUMd3cgnbpLJSxpQJaqXt
- U7XUArdhTIseKeVh31c5WuTyP//osYXJ/+scHwUcJ9VduM=
-X-Received: by 2002:a05:6a20:e211:b0:3a2:ebfc:6bee with SMTP id
- adf61e73a8af0-3a2ebfc7c17mr28544615637.41.1777207443705; 
- Sun, 26 Apr 2026 05:44:03 -0700 (PDT)
-Received: from localhost.localdomain ([1.226.165.54])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c7977031729sm23122558a12.25.2026.04.26.05.43.58
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Sun, 26 Apr 2026 05:44:03 -0700 (PDT)
-From: "=?UTF-8?q?=EB=B0=95=EB=AA=85=ED=9B=88?=" <mhun512@gmail.com>
-X-Google-Original-From: =?UTF-8?q?=EB=B0=95=EB=AA=85=ED=9B=88?=
- <pakmyeonghun@bagmyeonghun-ui-MacBookPro.local>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
- Alain Volmat <alain.volmat@foss.st.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Sun, 26 Apr 2026 21:43:49 +0900
-Message-ID: <20260426124353.38916-1-pakmyeonghun@bagmyeonghun-ui-MacBookPro.local>
-X-Mailer: git-send-email 2.47.1
+ Mon, 27 Apr 2026 07:24:36 +0000 (UTC)
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+ by app2 (Coremail) with SMTP id TQJkCgAXLaAPD+9pVwkVAA--.22769S2;
+ Mon, 27 Apr 2026 15:24:01 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ maxime.chevallier@bootlin.com
+Date: Mon, 27 Apr 2026 15:23:53 +0800
+Message-ID: <20260427072353.1114-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 27 Apr 2026 15:54:08 +0000
-Cc: linux-kernel@vger.kernel.org, Myeonghun Pak <mhun512@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] media: stm32: dcmi: unregister notifier on
-	probe failure
+X-CM-TRANSID: TQJkCgAXLaAPD+9pVwkVAA--.22769S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gr1kAw4UCr47XrWfJw4kCrg_yoW3tw4xpF
+ WUWrn8JFsxJF1xAan7t3W09a4Sqan3GF4jgr1rJrnrXws09Fyqqr1S9F45ZFyDurZ7ZryY
+ vF15KF4jka4j9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9E14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI4
+ 8JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
+ wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjx
+ v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
+ Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267
+ AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRifHU3UUUUU==
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
+Cc: pinkesh.vaghela@einfochips.com, weishangjuan@eswincomputing.com,
+ linmin@eswincomputing.com, ningyu@eswincomputing.com,
+ pritesh.patel@einfochips.com, Zhi Li <lizhi2@eswincomputing.com>,
+ horms@kernel.org
+Subject: [Linux-stm32] [PATCH net-next v7 0/4] net: stmmac: eic7700: fix
+	EIC7700 eth1 RX sampling timing
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,81 +73,244 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: B1DC9475A89
+X-Rspamd-Queue-Id: A696946E4FF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	DATE_IN_PAST(1.00)[27];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_THREE(0.00)[3];
+	DMARC_NA(0.00)[eswincomputing.com];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:hugues.fruchet@foss.st.com,m:alain.volmat@foss.st.com,m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:mhun512@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-media@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[mhun512@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_TO(0.00)[vger.kernel.org,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,dabbelt.com,eecs.berkeley.edu,ghiti.fr,lists.infradead.org,st-md-mailman.stormreply.com,bootlin.com];
 	ARC_NA(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[29];
+	FORGED_RECIPIENTS(0.00)[m:devicetree@vger.kernel.org,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:pjw@kernel.org,m:palmer@dabbelt.com,m:aou@eecs.berkeley.edu,m:alex@ghiti.fr,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:maxime.chevallier@bootlin.com,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:lizhi2@eswincomputing.com,m:horms@kernel.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.870];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[mhun512@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NO_DN(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	NEURAL_HAM(-0.00)[-0.996];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,bagmyeonghun-ui-MacBookPro.local:mid]
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
 
-From: Myeonghun Pak <mhun512@gmail.com>
+From: Zhi Li <lizhi2@eswincomputing.com>
 
-dcmi_graph_init() registers the async notifier before dcmi_probe() toggles
-the reset line. If reset_control_assert() or reset_control_deassert()
-fails afterwards, probe returns through err_cleanup and the driver core
-will not call dcmi_remove().
+v6 -> v7:
+  - Address checkpatch.pl --strict warnings for DTS changes:
+    - Split DT binding documentation and DTS board description into separate patches
+    - Fix DTS style issues reported by checkpatch:
+      - Reduce line length where applicable
+      - Add required description for rgmii-rxid
 
-Unregister the notifier before cleaning it up on that error path,
-matching the successful remove path and the V4L2 async notifier lifetime
-rules.
+  - DTS changes in this series are split into:
+    - Patch 3/4: syscon binding update (documentation / reference only)
+    - Patch 4/4: board DTS changes (architecture overview only)
 
-The local history only contains a Linux 7.0 snapshot, so the introducing
-commit could not be identified from this worktree and no Fixes tag is
-included in this draft.
+    These patches (3/4 and 4/4) are provided to facilitate review of the overall
+    Ethernet integration across binding, driver, and device tree, and are not
+    intended as final upstream submission in their current form.
 
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/media/platform/st/stm32/stm32-dcmi.c | 1 +
- 1 file changed, 1 insertion(+)
+    A cleaned-up, upstream-ready DTS series will be submitted separately once
+    all dependencies and final hardware integration are completed.
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-index 13762861b7..200b498127 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-@@ -2063,6 +2063,7 @@ static int dcmi_probe(struct platform_device *pdev)
- 	return 0;
- 
- err_cleanup:
-+	v4l2_async_nf_unregister(&dcmi->notifier);
- 	v4l2_async_nf_cleanup(&dcmi->notifier);
- err_media_entity_cleanup:
- 	media_entity_cleanup(&dcmi->vdev->entity);
+  - Note:
+    - Clock-related bindings referenced in earlier revisions are now already merged
+      into net-next, so dtbs_check warnings related to clock are no longer present
+      and are not relevant to this revision.
+
+  - No functional changes in the stmmac driver or binding semantics in this revision.
+
+  - Link to v6:
+    https://lore.kernel.org/lkml/20260423085501.760-1-lizhi2@eswincomputing.com/
+
+v5 -> v6:
+  - Update DTS/DTSI descriptions to fix invalid phandle references reported by DTC:
+    - Add missing GMAC provider nodes required for proper hardware description:
+      - HSP power domain: GMAC nodes moved under this domain to reflect
+        hardware power hierarchy.
+      - Clock nodes: added to provide clk phandles referenced by GMAC.
+      - Reset nodes: added to provide reset phandles referenced by GMAC.
+      - Pinctrl nodes: defines pinctrl settings for GMAC signals
+        (pinctrl_gpio106, pinctrl_gpio111).
+    - Move GMAC nodes under the correct HSP power domain.
+    - Ensure DTS builds without dtc errors and all phandle references
+      (clk/reset/pinctrl/power-domain) are valid.
+    - This update does not change runtime behavior; it only improves DTS
+      consistency and resolves issues reported by dtc.
+
+  - Note:
+    - The patch 3/3 for DTS changes in this series provide an overview of the GMAC
+      integration and its dependencies, as discussed previously:
+      https://lore.kernel.org/lkml/64bf6b40-b947-4ffa-8d48-4d6341931327@lunn.ch/
+
+    - It is **not intended for upstream inclusion** in its current form,
+      and is provided solely for architecture overview and integration
+      context.
+
+    - A fully cleaned and upstream-ready DTS series will be submitted
+      separately once all related components (pinctrl, clock, power-domain,
+      etc.) are finalized.
+
+  - dtbs_check has been run on top of net-next for reference purposes.
+    Remaining warnings are expected due to missing EIC7700 clock bindings[1]
+    in net-next and do not reflect issues in the DTS design itself.
+
+  - One remaining warning:
+    - eswin,eic7700-clock
+
+  - The clock binding has already been applied to upstream and is present
+    in mainline, but not yet available in net-next.
+
+  - The syscon binding is extended in this series to include the
+    eswin,eic7700-syscfg compatible.
+
+  - Any further refinement of the syscfg binding will be handled in
+    separate patches if needed.
+
+  - Dependencies:
+    - [1]EIC7700 clock binding:
+      https://lore.kernel.org/lkml/20260303080637.2100-1-dongxuyang@eswincomputing.com/
+      (already applied to upstream)
+
+  - Link to v5:
+    https://lore.kernel.org/lkml/20260324073017.376-1-lizhi2@eswincomputing.com/
+
+v4 -> v5:
+  - eswin,eic7700-eth.yaml:
+    - Add Acked-by from Conor Dooley
+    - No functional changes
+
+  - Update dwmac-eic7700.c:
+    - Disable clocks on the error path to fix a clock leak in
+      eic7700_dwmac_init() when regmap_set_bits() fails
+      (reported by Simon Horman <horms@kernel.org>)
+
+  - Link to v4:
+    https://lore.kernel.org/lkml/20260313075234.1567-1-lizhi2@eswincomputing.com/
+
+v3 -> v4:
+  - Update eswin,eic7700-eth.yaml:
+    - Improve commit message in dt-bindings patch to clarify the
+      hardware difference of the eth1 MAC and why a new compatible
+      string is required.
+    - Move the newly added eswin,hsp-sp-csr item to the end of the list
+      to avoid inserting entries in the middle of the binding schema.
+    - Simplify the compatible schema by replacing the previous oneOf
+      construct with an enum.
+
+  - Update dwmac-eic7700.c:
+    - Fix build issues.
+    - Adjust code to match the updated binding definition.
+
+  - Update DTS/DTSI descriptions:
+    - Move SoC-level descriptions to the .dtsi file.
+    - Keep board-specific configuration in the .dts file.
+
+  - Link to v3:
+    https://lore.kernel.org/lkml/20260303061525.846-1-lizhi2@eswincomputing.com/
+
+v2 -> v3:
+  - Update eswin,eic7700-eth.yaml:
+    - Extend rx-internal-delay-ps and tx-internal-delay-ps range
+      from 0-2400 to 0-2540 to match the full 7-bit hardware delay
+      field (127 * 20 ps).
+    - Add "multipleOf: 20" constraint to reflect the 20 ps hardware
+      step size.
+    - Make rx-internal-delay-ps and tx-internal-delay-ps optional.
+      A well-designed board should not require internal delay tuning.
+    - Remove rx-internal-delay-ps and tx-internal-delay-ps from the
+      example to avoid encouraging blind copy into board DTs.
+
+  - Update dwmac-eic7700.c:
+    - Treat rx-internal-delay-ps and tx-internal-delay-ps as optional
+      DT properties.
+    - Apply delay configuration only when properties are present.
+    - Keep TX/RX delay registers cleared by default to ensure a
+      deterministic state when no delay is specified.
+
+  - Describe Ethernet configuration for the HiFive Premier P550 board:
+    - Add GMAC controller nodes for the HiFive Premier P550 board
+      to describe the on-board Ethernet configuration.
+
+      The Ethernet controller depends on clock, reset, pinctrl
+      and HSP subsystem providers which are currently under
+      upstream review. These dependent nodes will be submitted
+      separately once the corresponding drivers are merged.
+
+      Due to these missing dependencies, dt-binding-check may
+      report warnings or failures for this series.
+
+  - No functional changes to RX clock inversion logic.
+
+  - Link to v2:
+    https://lore.kernel.org/lkml/20260209094628.886-1-lizhi2@eswincomputing.com/
+
+  - This series is based on the EIC7700 clock support series:
+    https://lore.kernel.org/all/20260210095008.726-1-dongxuyang@eswincomputing.com/
+    The clock series is currently under review.
+
+v1 -> v2:
+  - Update eswin,eic7700-eth.yaml:
+    - Drop the vendor-specific properties eswin,rx-clk-invert and
+      eswin,tx-clk-invert.
+    - Introduce a distinct compatible string
+      "eswin,eic7700-qos-eth-clk-inversion" to describe MAC instances that
+      require internal RGMII clock inversion.
+      This models the SoC-specific hardware difference directly via the
+      compatible string and avoids per-board configuration properties.
+    - Change rx-internal-delay-ps and tx-internal-delay-ps from enum to
+      minimum/maximum to reflect the actual delay range (0-2400 ps)
+    - Add reference to High-Speed Subsystem documentation in eswin,hsp-sp-csr
+      description. The HSP CSR block is described in Chapter 10
+      ("High-Speed Interface") of the EIC7700X SoC Technical Reference Manual,
+      Part 4 (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf):
+      https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
+
+  - Update dwmac-eic7700.c:
+    - Remove handling of eswin,rx-clk-invert and eswin,tx-clk-invert
+      properties.
+    - Select RX clock inversion based on the new
+      "eswin,eic7700-qos-eth-clk-inversion" compatible string, using
+      match data to apply the required configuration for affected MAC
+      instances (eth1).
+
+  - Link to v1:
+    https://lore.kernel.org/lkml/20260109080601.1262-1-lizhi2@eswincomputing.com/
+
+Zhi Li (4):
+  dt-bindings: ethernet: eswin: add clock sampling control
+  net: stmmac: eic7700: enable clocks before syscon access and correct
+    RX sampling timing
+  dt-bindings: mfd: syscon: add ESWIN EIC7700 compatible
+  riscv: dts: eswin: eic7700-hifive-premier-p550: enable Ethernet
+    controller
+
+ .../devicetree/bindings/mfd/syscon.yaml       |   2 +
+ .../bindings/net/eswin,eic7700-eth.yaml       |  69 ++++-
+ .../dts/eswin/eic7700-hifive-premier-p550.dts | 239 ++++++++++++++++++
+ arch/riscv/boot/dts/eswin/eic7700.dtsi        | 105 ++++++++
+ .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 183 ++++++++++----
+ 5 files changed, 541 insertions(+), 57 deletions(-)
+
 -- 
-2.47.1
+2.25.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
