@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id AQxwA6Xr8mmgvgEAu9opvQ
+	id GOrwAqXr8mltvgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2026 07:41:57 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92AE649DA82
+	by mail.lfdr.de (Postfix) with ESMTPS id 911E549DA81
 	for <lists+linux-stm32@lfdr.de>; Thu, 30 Apr 2026 07:41:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A9510C8F262;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D89C1C8F266;
 	Thu, 30 Apr 2026 05:41:55 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C386C58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3CAE4C87EDB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 29 Apr 2026 17:58:14 +0000 (UTC)
+ Wed, 29 Apr 2026 17:58:18 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 3D8511A3464;
- Wed, 29 Apr 2026 17:58:14 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 3F4D4C5CD60;
+ Wed, 29 Apr 2026 17:59:02 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 09E735FD43;
- Wed, 29 Apr 2026 17:58:14 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 0CCFF5FD43;
+ Wed, 29 Apr 2026 17:58:18 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 1A14B1072B175; 
- Wed, 29 Apr 2026 19:58:07 +0200 (CEST)
+ with ESMTPSA id 3C0971072B171; 
+ Wed, 29 Apr 2026 19:58:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1777485491; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1777485495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=5tIkRnE1ORjoj4u0h1eWmFg73tjo03bMRc5hBjhSYqM=;
- b=Vmb/o8DHri8qfjlDxdgxVCmz1cOiWo5fai2OHnEYLHyIsyVdpDTgWD44JJKYBik+Bop6+W
- qO/mPLDC2HvVPtzzFzJzmO0zmj8Ud0q8Cl6mkOzfLIV5t4BqhYfAOS/P4cCduBkSpSOfmM
- 5M8eLmzfXkqP4D5NBRKhvhmcWtsq9c1mg0MVwung6UnlsGwZeb4fsNZ/pNVgjm2S/Vrlqz
- cQsoBDbxgbA6MAC7jdwUUgJJZj7f2xsTfwFvpawEIDwOwqd6ZhkIt1k16aESiXmhdrWfdA
- Wg5O+8KVvlIUYgrSqKw5HE7tXplaioeNXtYi4yXBgQzvAFVe4lpxohvMt0C13A==
+ bh=djNQC+WiehgbSjZPUHPGAOR2nkZcZmEr0KjHIcYf3t4=;
+ b=NmSZF+iWjEyn2SmSbXR4+EkHCCLdjDtILUG9X51p5SCiphlxZnjKNNGhMMDdv6+IE8Z0pT
+ ASIHf/oK5ins8abEGkf3OT/DpAh4+l/rTkVjcESvNc56zjX3c6MzBilErApZ2Bhx8qWhnA
+ q4skr5wiZcq3mmwHq2jiVNGW1mYCJN/tNbDh2F3BzrrvyfD4fdGmhsSID0jKhhjNOiGAz6
+ jJJPYq8QKvuUtagfzMs9+zJqCAJairETws7j+Woa85G71iDosgPBr85dnsTyIGKlD82Shb
+ llYfvCKlpMGTCJF/Xyt0qdAzxC71iYXH4L/FxQpv9jVgln0FJY4chh9edS6YQw==
 From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 29 Apr 2026 19:56:46 +0200
+Date: Wed, 29 Apr 2026 19:56:47 +0200
 MIME-Version: 1.0
-Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-9-0f38b3c229ad@bootlin.com>
+Message-Id: <20260429-winbond-v6-18-rc1-cont-read-v3-10-0f38b3c229ad@bootlin.com>
 References: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
 In-Reply-To: <20260429-winbond-v6-18-rc1-cont-read-v3-0-0f38b3c229ad@bootlin.com>
 To: Mark Brown <broonie@kernel.org>, Richard Weinberger <richard@nod.at>, 
@@ -65,8 +65,8 @@ Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
  linux-spi@vger.kernel.org, linux-mtd@lists.infradead.org,
  linux-arm-kernel@lists.infradead.org, Santhosh Kumar K <s-k6@ti.com>,
  linux-stm32@st-md-mailman.stormreply.com, Pratyush Yadav <pratyush@kernel.org>
-Subject: [Linux-stm32] [PATCH v3 09/11] mtd: spinand: winbond: Create a
- helper to write the HS bit
+Subject: [Linux-stm32] [PATCH v3 10/11] mtd: spinand: winbond: Create a
+ helper to detect the need for the HS bit
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,7 +82,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 92AE649DA82
+X-Rspamd-Queue-Id: 911E549DA81
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
@@ -106,7 +106,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[bootlin.com:-];
-	NEURAL_SPAM(0.00)[0.985];
+	NEURAL_SPAM(0.00)[0.986];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -122,69 +122,63 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-Updating the HS bit is not complex but implies reading, setting/clearing
-a bit and writing. Clean a bit this section by moving this logic in its
-own helper.
+The logic is not complex but might be reused to cleanup a bit the
+section by moving it to a dedicated helper.
 
 Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/mtd/nand/spi/winbond.c | 34 ++++++++++++++++++----------------
- 1 file changed, 18 insertions(+), 16 deletions(-)
+ drivers/mtd/nand/spi/winbond.c | 31 +++++++++++++++++--------------
+ 1 file changed, 17 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/mtd/nand/spi/winbond.c b/drivers/mtd/nand/spi/winbond.c
-index 6c11f59a9f8d..b30a343a6672 100644
+index b30a343a6672..ffbcd25b0366 100644
 --- a/drivers/mtd/nand/spi/winbond.c
 +++ b/drivers/mtd/nand/spi/winbond.c
-@@ -404,13 +404,28 @@ static int w25w35nxxjw_ecc_get_status(struct spinand_device *spinand, u8 status)
- 	return -EINVAL;
+@@ -421,30 +421,33 @@ static int w25n0xjw_set_sr4_hs(struct spinand_device *spinand, bool enable)
+ 	return spinand_write_reg_op(spinand, W25N0XJW_SR4, sr4);
  }
  
-+static int w25n0xjw_set_sr4_hs(struct spinand_device *spinand, bool enable)
++/*
++ * SDR dual and quad I/O operations over 104MHz require the HS bit to
++ * enable a few more dummy cycles.
++ */
++static bool w25n0xjw_op_needs_hs(const struct spi_mem_op *op)
 +{
-+	int ret;
-+	u8 sr4;
++	if (op->cmd.dtr || op->addr.dtr || op->dummy.dtr || op->data.dtr)
++		return false;
++	else if (op->cmd.buswidth != 1 || op->addr.buswidth == 1)
++		return false;
++	else if (op->max_freq && op->max_freq <= 104 * HZ_PER_MHZ)
++		return false;
 +
-+	ret = spinand_read_reg_op(spinand, W25N0XJW_SR4, &sr4);
-+	if (ret)
-+		return ret;
-+
-+	if (enable)
-+		sr4 |= W25N0XJW_SR4_HS;
-+	else
-+		sr4 &= ~W25N0XJW_SR4_HS;
-+
-+	return spinand_write_reg_op(spinand, W25N0XJW_SR4, sr4);
++	return true;
 +}
 +
  static int w25n0xjw_hs_cfg(struct spinand_device *spinand,
  			   enum spinand_bus_interface iface)
  {
  	const struct spi_mem_op *op;
- 	bool hs;
--	u8 sr4;
--	int ret;
+-	bool hs;
  
  	if (iface != SSDR)
  		return -EOPNOTSUPP;
-@@ -429,20 +444,7 @@ static int w25n0xjw_hs_cfg(struct spinand_device *spinand,
- 	else
- 		hs = true;
  
--	ret = spinand_read_reg_op(spinand, W25N0XJW_SR4, &sr4);
--	if (ret)
--		return ret;
--
--	if (hs)
--		sr4 |= W25N0XJW_SR4_HS;
+-	/*
+-	 * SDR dual and quad I/O operations over 104MHz require the HS bit to
+-	 * enable a few more dummy cycles.
+-	 */
+ 	op = spinand->op_templates->read_cache;
+-	if (op->cmd.dtr || op->addr.dtr || op->dummy.dtr || op->data.dtr)
+-		hs = false;
+-	else if (op->cmd.buswidth != 1 || op->addr.buswidth == 1)
+-		hs = false;
+-	else if (op->max_freq && op->max_freq <= 104 * HZ_PER_MHZ)
+-		hs = false;
 -	else
--		sr4 &= ~W25N0XJW_SR4_HS;
--
--	ret = spinand_write_reg_op(spinand, W25N0XJW_SR4, sr4);
--	if (ret)
--		return ret;
--
--	return 0;
-+	return w25n0xjw_set_sr4_hs(spinand, hs);
+-		hs = true;
+ 
+-	return w25n0xjw_set_sr4_hs(spinand, hs);
++	return w25n0xjw_set_sr4_hs(spinand, w25n0xjw_op_needs_hs(op));
  }
  
  static int w35n0xjw_write_vcr(struct spinand_device *spinand, u8 reg, u8 val)
