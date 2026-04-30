@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id e56oKH6T+GnRwgIAu9opvQ
+	id pX/4DH6T+GnEwgIAu9opvQ:T2
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BB754BCFF9
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D6014BCFFD
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FA2CC58D7C;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1EC2C5A4DB;
 	Mon,  4 May 2026 12:39:25 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BABB6C8F26A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08BEAC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2026 15:56:25 +0000 (UTC)
+ Thu, 30 Apr 2026 15:56:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=sE
- zybTxl5A7lsGll3i9/ZIVwmqpi3pHGLUkxqxB3X5E=; b=Ev0pNmK+X/kmMND+dC
- EpxzIK8inHUSw6mGkY8INdzuWZ40vLd+JHraH+juElBjcZ5RLXrbuWRJuhTrQDc/
- zOnd9BQFW7fSaHNC3dagcPLYyUBMiejx54bgWhu2fks7Fjt3fJqxc2TJeOW5FkkO
- QrPvI10tC4X+JfJtL1CtMZasI=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=iC
+ fiPQKy7ydNIZx9BuCZLKIgIDMxYJ5OZgWqt3I9gXo=; b=aTp0iwLMbQ8BW0a3fa
+ 5ijjRQ2+ANinIhkuERPsyFJ7wb9M0GHuDlAm+TqB5gvTASOB1VeTQ01lGdMnTY0u
+ 8Tclt/2qSSXkucmph7jZ6d+gNrIfJ567rOQBoAffA++zFvjEaGZn2XyIPWqJXaGF
+ BbqJS0EklPLKkxIhxgBkqjzck=
 Received: from zhb.. (unknown [])
  by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wAXyu5Se_NpHedTCg--.49548S10; 
- Thu, 30 Apr 2026 23:55:08 +0800 (CST)
+ _____wAXyu5Se_NpHedTCg--.49548S11; 
+ Thu, 30 Apr 2026 23:55:10 +0800 (CST)
 From: Hans Zhang <18255117159@163.com>
 To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  neil.armstrong@linaro.org, khilman@baylibre.com, han.xu@nxp.com,
@@ -35,25 +35,25 @@ To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  alexandre.torgue@foss.st.com, lhjeff911@gmail.com,
  hayashi.kunihiko@socionext.com, mhiramat@kernel.org, jbrunet@baylibre.com,
  martin.blumenstingl@googlemail.com
-Date: Thu, 30 Apr 2026 23:54:54 +0800
-Message-Id: <20260430155456.36998-9-18255117159@163.com>
+Date: Thu, 30 Apr 2026 23:54:55 +0800
+Message-Id: <20260430155456.36998-10-18255117159@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260430155456.36998-1-18255117159@163.com>
 References: <20260430155456.36998-1-18255117159@163.com>
 MIME-Version: 1.0
-X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S10
-X-Coremail-Antispam: 1Uf129KBjvdXoWrur17tw43ur1xXF4xXr47Jwb_yoWfKFb_ur
- 1UAFn7Kw4q9F97JF48CryxZr909FWDWa1ktFnIqayfAwn8X3y7u3ykXr1DG3WDZr4kCr4F
- 9FsrX3Wvkry3JjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRN6pBPUUUUU==
+X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S11
+X-Coremail-Antispam: 1Uf129KBjvdXoWrur17tw4kXF48WrykWFy7Awb_yoWfCrg_Cr
+ 48Gr42yr4qkrZFyF4rKryfAryq9a95ur109FnFvrWfJrWDCr13Wrs7Ary5ZF15Aw45AF4a
+ grZrJ347Zr9xCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRNa9atUUUUU==
 X-Originating-IP: [240e:b8f:927e:5900:c497:d540:b00d:97f4]
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCwxxN8Gnze1xaPQAA34
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCxB5N8Gnze15lHwAA3i
 X-Mailman-Approved-At: Mon, 04 May 2026 12:39:23 +0000
 Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Hans Zhang <18255117159@163.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 08/10] spi: stm32-qspi: Use FIELD_MODIFY()
+Subject: [Linux-stm32] [PATCH 09/10] spi: sunplus-sp7021: Use FIELD_MODIFY()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +69,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 6BB754BCFF9
+X-Rspamd-Queue-Id: 7D6014BCFFD
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.39 / 15.00];
@@ -104,7 +104,7 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[18255117159@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.571];
+	NEURAL_HAM(-0.00)[-0.547];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DKIM_TRACE(0.00)[163.com:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -117,25 +117,23 @@ No functional change intended.
 
 Signed-off-by: Hans Zhang <18255117159@163.com>
 ---
- drivers/spi/spi-stm32-qspi.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/spi/spi-sunplus-sp7021.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index df1bbacec90a..ea69fe25686f 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -374,9 +374,8 @@ static int stm32_qspi_send(struct spi_device *spi, const struct spi_mem_op *op)
- 	int timeout, err = 0, err_poll_status = 0;
+diff --git a/drivers/spi/spi-sunplus-sp7021.c b/drivers/spi/spi-sunplus-sp7021.c
+index 35601212fb78..c1870322d976 100644
+--- a/drivers/spi/spi-sunplus-sp7021.c
++++ b/drivers/spi/spi-sunplus-sp7021.c
+@@ -290,8 +290,7 @@ static void sp7021_spi_setup_clk(struct spi_controller *ctlr, struct spi_transfe
+ 	div = max(2U, clk_rate / xfer->speed_hz);
  
- 	cr = readl_relaxed(qspi->io_base + QSPI_CR);
--	cr &= ~CR_PRESC_MASK & ~CR_FSEL;
--	cr |= FIELD_PREP(CR_PRESC_MASK, flash->presc);
--	cr |= FIELD_PREP(CR_FSEL, flash->cs);
-+	FIELD_MODIFY(CR_PRESC_MASK, &cr, flash->presc);
-+	FIELD_MODIFY(CR_FSEL, &cr, flash->cs);
- 	writel_relaxed(cr, qspi->io_base + QSPI_CR);
+ 	clk_sel = (div / 2) - 1;
+-	pspim->xfer_conf &= ~SP7021_CLK_MASK;
+-	pspim->xfer_conf |= FIELD_PREP(SP7021_CLK_MASK, clk_sel);
++	FIELD_MODIFY(SP7021_CLK_MASK, &pspim->xfer_conf, clk_sel);
+ 	writel(pspim->xfer_conf, pspim->m_base + SP7021_SPI_CONFIG_REG);
+ }
  
- 	if (op->data.nbytes)
 -- 
 2.34.1
 
