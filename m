@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id pX/4DH6T+GnEwgIAu9opvQ
+	id wIXVDH6T+GmwwgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8CE04BCFE0
+	by mail.lfdr.de (Postfix) with ESMTPS id C70014BCFDF
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D995C57B68;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5676BC57A52;
 	Mon,  4 May 2026 12:39:25 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A57B3C8F276
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 498A6C8F275
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Thu, 30 Apr 2026 15:56:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AS
- 93n7u+mL1S7OPp/PoO5Pi701E6fS59BvUwhYSShuE=; b=XlMGYU/qi9Z9z5RAyA
- E8DfyMJQU7Opp9AdAjrKlYYcAUb+esPSxKKAB4/6GvcFG1iIY6ADtLCwhG4rpbKt
- gKagWqTZUSAK0R0/FFwXRq0OtcMN+qiJIXCJ/iujOlDnYc016qBSpF2kks+wUIMX
- ll9lkzrcEYlut1ljJU3R0Uu9c=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ax
+ jDicrKppounBiGYtfzHy2w7g0lf22gdPRW8ADstbY=; b=FAsoKEvVljxlWVKfZp
+ +VnZlXjh13cnAHhJHMU4ng+BEMP9HEPIPF8XeTzO64hMaJuwRjm48LTek4DEv46P
+ 0vieuLj1/nU6KQnOdQgsqzHTC9tjDoMQGzj02WVpeGPI7DQkzQ1HrbdYSTluI6uf
+ car78L5nAbibcHquUFbDryNqo=
 Received: from zhb.. (unknown [])
  by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wAXyu5Se_NpHedTCg--.49548S3; 
- Thu, 30 Apr 2026 23:55:01 +0800 (CST)
+ _____wAXyu5Se_NpHedTCg--.49548S4; 
+ Thu, 30 Apr 2026 23:55:02 +0800 (CST)
 From: Hans Zhang <18255117159@163.com>
 To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  neil.armstrong@linaro.org, khilman@baylibre.com, han.xu@nxp.com,
@@ -35,26 +35,25 @@ To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  alexandre.torgue@foss.st.com, lhjeff911@gmail.com,
  hayashi.kunihiko@socionext.com, mhiramat@kernel.org, jbrunet@baylibre.com,
  martin.blumenstingl@googlemail.com
-Date: Thu, 30 Apr 2026 23:54:47 +0800
-Message-Id: <20260430155456.36998-2-18255117159@163.com>
+Date: Thu, 30 Apr 2026 23:54:48 +0800
+Message-Id: <20260430155456.36998-3-18255117159@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260430155456.36998-1-18255117159@163.com>
 References: <20260430155456.36998-1-18255117159@163.com>
 MIME-Version: 1.0
-X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S3
-X-Coremail-Antispam: 1Uf129KBjvdXoWrur17tw4kur1DKF47Zry7Jrb_yoWkGwc_CF
- ykuw4kJF1jgrsrGF4fJryxur90gwn0ga10gF1FqFyYy3s8ta15Zw4qvr1DGryUAa1DCwsY
- 9rnxZrykZrW3CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRNMKZJUUUUU==
+X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7urW7uF4rZr4DKr4xCryfZwb_yoW8XFW7pF
+ 48JFW7CF1Dt348Ca13CF4YkF1Yg395Zrs7Gw12qw1S93WvgF1DZFW5Kr48uryagFy8XFyI
+ gF4kuFW5KFnrA3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pE2Q6gUUUUU=
 X-Originating-IP: [240e:b8f:927e:5900:c497:d540:b00d:97f4]
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6xVL7mnze1VOMQAA3Q
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCxBZL7mnze1Zj5gAA3F
 X-Mailman-Approved-At: Mon, 04 May 2026 12:39:23 +0000
 Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Hans Zhang <18255117159@163.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 01/10] spi: amlogic-spifc-a1: Use
-	FIELD_MODIFY()
+Subject: [Linux-stm32] [PATCH 02/10] spi: amlogic-spisg: Use FIELD_MODIFY()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -70,7 +69,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: D8CE04BCFE0
+X-Rspamd-Queue-Id: C70014BCFDF
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.39 / 15.00];
@@ -105,7 +104,7 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[18255117159@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.605];
+	NEURAL_HAM(-0.00)[-0.623];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DKIM_TRACE(0.00)[163.com:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -118,26 +117,33 @@ No functional change intended.
 
 Signed-off-by: Hans Zhang <18255117159@163.com>
 ---
- drivers/spi/spi-amlogic-spifc-a1.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/spi/spi-amlogic-spisg.c | 13 +++++--------
+ 1 file changed, 5 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/spi/spi-amlogic-spifc-a1.c b/drivers/spi/spi-amlogic-spifc-a1.c
-index 7ee4c92e6e09..77a2c11bec5e 100644
---- a/drivers/spi/spi-amlogic-spifc-a1.c
-+++ b/drivers/spi/spi-amlogic-spifc-a1.c
-@@ -206,10 +206,9 @@ static int amlogic_spifc_a1_read(struct amlogic_spifc_a1 *spifc, void *buf,
- 	u32 val = readl(spifc->base + SPIFC_A1_USER_CTRL3_REG);
- 	int ret;
+diff --git a/drivers/spi/spi-amlogic-spisg.c b/drivers/spi/spi-amlogic-spisg.c
+index 19c5eba412ef..4c9f4088cb37 100644
+--- a/drivers/spi/spi-amlogic-spisg.c
++++ b/drivers/spi/spi-amlogic-spisg.c
+@@ -601,14 +601,11 @@ static int aml_spisg_prepare_message(struct spi_controller *ctlr,
  
--	val &= ~(SPIFC_A1_USER_DIN_MODE | SPIFC_A1_USER_DIN_BYTES);
- 	val |= SPIFC_A1_USER_DIN_ENABLE;
--	val |= FIELD_PREP(SPIFC_A1_USER_DIN_MODE, mode);
--	val |= FIELD_PREP(SPIFC_A1_USER_DIN_BYTES, size);
-+	FIELD_MODIFY(SPIFC_A1_USER_DIN_MODE, &val, mode);
-+	FIELD_MODIFY(SPIFC_A1_USER_DIN_BYTES, &val, size);
- 	writel(val, spifc->base + SPIFC_A1_USER_CTRL3_REG);
+ 	spisg->bytes_per_word = spi->bits_per_word >> 3;
  
- 	ret = amlogic_spifc_a1_request(spifc, true);
+-	spisg->cfg_spi &= ~CFG_SLAVE_SELECT;
+-	spisg->cfg_spi |= FIELD_PREP(CFG_SLAVE_SELECT, spi_get_chipselect(spi, 0));
+-
+-	spisg->cfg_bus &= ~(CFG_CPOL | CFG_CPHA | CFG_B_L_ENDIAN | CFG_HALF_DUPLEX);
+-	spisg->cfg_bus |= FIELD_PREP(CFG_CPOL, !!(spi->mode & SPI_CPOL)) |
+-			  FIELD_PREP(CFG_CPHA, !!(spi->mode & SPI_CPHA)) |
+-			  FIELD_PREP(CFG_B_L_ENDIAN, !!(spi->mode & SPI_LSB_FIRST)) |
+-			  FIELD_PREP(CFG_HALF_DUPLEX, !!(spi->mode & SPI_3WIRE));
++	FIELD_MODIFY(CFG_SLAVE_SELECT, &spisg->cfg_spi, spi_get_chipselect(spi, 0));
++	FIELD_MODIFY(CFG_CPOL, &spisg->cfg_bus, !!(spi->mode & SPI_CPOL));
++	FIELD_MODIFY(CFG_CPHA, &spisg->cfg_bus, !!(spi->mode & SPI_CPHA));
++	FIELD_MODIFY(CFG_B_L_ENDIAN, &spisg->cfg_bus, !!(spi->mode & SPI_LSB_FIRST));
++	FIELD_MODIFY(CFG_HALF_DUPLEX, &spisg->cfg_bus, !!(spi->mode & SPI_3WIRE));
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
