@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +OAnLH6T+Gl8wgIAu9opvQ
+	id pX/4DH6T+GnEwgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D99E4BCFFB
-	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8CE04BCFE0
+	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:25 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5329C5A4C0;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D995C57B68;
 	Mon,  4 May 2026 12:39:25 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BFCE5C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A57B3C8F276
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 30 Apr 2026 15:56:26 +0000 (UTC)
+ Thu, 30 Apr 2026 15:56:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=o8
- u8w2UWcyZeZiwf05Vd1PKU6i5IHTCnVEoz7yLvk1c=; b=fnEcgzN2VFnVE3cMIH
- 9ZUq5Q4C0+a+IlpYW+iGSTDe56JVGkJLGxSXC3uPO2+P+5p5N6L6UibBwGRUG3v1
- PV843Fz76Y+g8t8cRBuYMH6XK7KNltgmjSRbGADxjZrcUIcAM/DFDizXvFLFpxdP
- YGE/Q2KsUhdvyJLJ3YRE0mxfU=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=AS
+ 93n7u+mL1S7OPp/PoO5Pi701E6fS59BvUwhYSShuE=; b=XlMGYU/qi9Z9z5RAyA
+ E8DfyMJQU7Opp9AdAjrKlYYcAUb+esPSxKKAB4/6GvcFG1iIY6ADtLCwhG4rpbKt
+ gKagWqTZUSAK0R0/FFwXRq0OtcMN+qiJIXCJ/iujOlDnYc016qBSpF2kks+wUIMX
+ ll9lkzrcEYlut1ljJU3R0Uu9c=
 Received: from zhb.. (unknown [])
  by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wAXyu5Se_NpHedTCg--.49548S2; 
- Thu, 30 Apr 2026 23:54:59 +0800 (CST)
+ _____wAXyu5Se_NpHedTCg--.49548S3; 
+ Thu, 30 Apr 2026 23:55:01 +0800 (CST)
 From: Hans Zhang <18255117159@163.com>
 To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  neil.armstrong@linaro.org, khilman@baylibre.com, han.xu@nxp.com,
@@ -35,24 +35,26 @@ To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  alexandre.torgue@foss.st.com, lhjeff911@gmail.com,
  hayashi.kunihiko@socionext.com, mhiramat@kernel.org, jbrunet@baylibre.com,
  martin.blumenstingl@googlemail.com
-Date: Thu, 30 Apr 2026 23:54:46 +0800
-Message-Id: <20260430155456.36998-1-18255117159@163.com>
+Date: Thu, 30 Apr 2026 23:54:47 +0800
+Message-Id: <20260430155456.36998-2-18255117159@163.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260430155456.36998-1-18255117159@163.com>
+References: <20260430155456.36998-1-18255117159@163.com>
 MIME-Version: 1.0
-X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw43GF18GryUWryrGryrXrb_yoW8Jw1DpF
- 4fGFyxZw4xJ3yYyF43CrWYkFyaga93WFWqg3W7twn3ZanYyFyUXrWDK3WrJrW7JF97GFWx
- KFWjkrZ8CFs2vrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pi1SodUUUUU=
+X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S3
+X-Coremail-Antispam: 1Uf129KBjvdXoWrur17tw4kur1DKF47Zry7Jrb_yoWkGwc_CF
+ ykuw4kJF1jgrsrGF4fJryxur90gwn0ga10gF1FqFyYy3s8ta15Zw4qvr1DGryUAa1DCwsY
+ 9rnxZrykZrW3CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRNMKZJUUUUU==
 X-Originating-IP: [240e:b8f:927e:5900:c497:d540:b00d:97f4]
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC7BRL7mnze1RXzAAA3z
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6xVL7mnze1VOMQAA3Q
 X-Mailman-Approved-At: Mon, 04 May 2026 12:39:23 +0000
 Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Hans Zhang <18255117159@163.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 00/10] spi: Use FIELD_MODIFY() for bitfield
-	operations
+Subject: [Linux-stm32] [PATCH 01/10] spi: amlogic-spifc-a1: Use
+	FIELD_MODIFY()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +70,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 6D99E4BCFFB
+X-Rspamd-Queue-Id: D8CE04BCFE0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.39 / 15.00];
@@ -84,7 +86,7 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[18255117159@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_COUNT_THREE(0.00)[3];
 	FREEMAIL_FROM(0.00)[163.com];
 	RCPT_COUNT_TWELVE(0.00)[21];
@@ -93,7 +95,7 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[lists.linux.dev,vger.kernel.org,163.com,lists.infradead.org,st-md-mailman.stormreply.com];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[18255117159@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -103,47 +105,39 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[18255117159@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.547];
+	NEURAL_HAM(-0.00)[-0.605];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DKIM_TRACE(0.00)[163.com:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-Replace open-coded bitfield modifications with the standard FIELD_MODIFY()
-macro across multiple SPI controller drivers. This improves readability and
-adds compile-time checking without functional changes.
+Use FIELD_MODIFY() to remove open-coded bit manipulation.
+No functional change intended.
 
-Each patch modifies a single driver, allowing independent review and
-application.
+Signed-off-by: Hans Zhang <18255117159@163.com>
+---
+ drivers/spi/spi-amlogic-spifc-a1.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-Hans Zhang (10):
-  spi: amlogic-spifc-a1: Use FIELD_MODIFY()
-  spi: amlogic-spisg: Use FIELD_MODIFY()
-  spi: cadence-xspi: Use FIELD_MODIFY()
-  spi: meson-spicc: Use FIELD_MODIFY()
-  spi: nxp-xspi: Use FIELD_MODIFY()
-  spi: sn-f-ospi: Use FIELD_MODIFY()
-  spi: stm32-ospi: Use FIELD_MODIFY()
-  spi: stm32-qspi: Use FIELD_MODIFY()
-  spi: sunplus-sp7021: Use FIELD_MODIFY()
-  spi: uniphier: Use FIELD_MODIFY()
-
- drivers/spi/spi-amlogic-spifc-a1.c |  5 ++---
- drivers/spi/spi-amlogic-spisg.c    | 13 +++++--------
- drivers/spi/spi-cadence-xspi.c     |  3 +--
- drivers/spi/spi-meson-spicc.c      |  5 ++---
- drivers/spi/spi-nxp-xspi.c         | 12 ++++--------
- drivers/spi/spi-sn-f-ospi.c        |  5 ++---
- drivers/spi/spi-stm32-ospi.c       |  7 +++----
- drivers/spi/spi-stm32-qspi.c       |  5 ++---
- drivers/spi/spi-sunplus-sp7021.c   |  3 +--
- drivers/spi/spi-uniphier.c         | 13 +++++--------
- 10 files changed, 27 insertions(+), 44 deletions(-)
-
-
-base-commit: 3b3bea6d4b9c162f9e555905d96b8c1da67ecd5b
+diff --git a/drivers/spi/spi-amlogic-spifc-a1.c b/drivers/spi/spi-amlogic-spifc-a1.c
+index 7ee4c92e6e09..77a2c11bec5e 100644
+--- a/drivers/spi/spi-amlogic-spifc-a1.c
++++ b/drivers/spi/spi-amlogic-spifc-a1.c
+@@ -206,10 +206,9 @@ static int amlogic_spifc_a1_read(struct amlogic_spifc_a1 *spifc, void *buf,
+ 	u32 val = readl(spifc->base + SPIFC_A1_USER_CTRL3_REG);
+ 	int ret;
+ 
+-	val &= ~(SPIFC_A1_USER_DIN_MODE | SPIFC_A1_USER_DIN_BYTES);
+ 	val |= SPIFC_A1_USER_DIN_ENABLE;
+-	val |= FIELD_PREP(SPIFC_A1_USER_DIN_MODE, mode);
+-	val |= FIELD_PREP(SPIFC_A1_USER_DIN_BYTES, size);
++	FIELD_MODIFY(SPIFC_A1_USER_DIN_MODE, &val, mode);
++	FIELD_MODIFY(SPIFC_A1_USER_DIN_BYTES, &val, size);
+ 	writel(val, spifc->base + SPIFC_A1_USER_CTRL3_REG);
+ 
+ 	ret = amlogic_spifc_a1_request(spifc, true);
 -- 
 2.34.1
 
