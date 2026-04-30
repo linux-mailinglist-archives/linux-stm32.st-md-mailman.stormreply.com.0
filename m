@@ -2,32 +2,32 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YBiYK36T+GnRwgIAu9opvQ
+	id wDBuI36T+Gl8wgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BE4A4BCFFA
+	by mail.lfdr.de (Postfix) with ESMTPS id 69CBF4BCFF7
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82169C57B78;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 93F7FC58D7A;
 	Mon,  4 May 2026 12:39:25 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40692C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AADA1C8F262
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Thu, 30 Apr 2026 15:56:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mh
- XA4cqqHPFlshtdy+6Myvdjud+BTw8nlhOl5t9b4BU=; b=o8vXHoUBewuSn3444E
- d8AGVQhH/Uvg/8sMdhEzhu360oYztp0mtqMMuoTG8nvLVEeaRJDqUTIvg+4GUkLl
- qFgRs8sZm04XByzz184XL4yVyPPtX7doIThwpaGos9mdcE0qoijGqmMTRWFHtASL
- K8E5FT8tFOrnU9MKW/AWc9H9U=
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=3R
+ JLw2ptESdkRgCOXOQZAx2lu7EpkksUmCtcT/1GfHY=; b=e3TjQ5NGBlPXmvA5IV
+ nurBn0YnXKta1mNS0pgO8k08+Y8xuqN1h9QWr/g2qnQaSjkEMlDdg7BLA75NJWwm
+ i4Urgz/F5psrtaeHqN2mfswAsWxCuygB60ENj7qioTDv68H5v/j5kZ7UKiuujnFA
+ /hTOAhtwnuh/5+hMKkMsc2Pqw=
 Received: from zhb.. (unknown [])
  by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wAXyu5Se_NpHedTCg--.49548S7; 
- Thu, 30 Apr 2026 23:55:05 +0800 (CST)
+ _____wAXyu5Se_NpHedTCg--.49548S8; 
+ Thu, 30 Apr 2026 23:55:06 +0800 (CST)
 From: Hans Zhang <18255117159@163.com>
 To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  neil.armstrong@linaro.org, khilman@baylibre.com, han.xu@nxp.com,
@@ -35,25 +35,25 @@ To: broonie@kernel.org, sunny.luo@amlogic.com, xianwei.zhao@amlogic.com,
  alexandre.torgue@foss.st.com, lhjeff911@gmail.com,
  hayashi.kunihiko@socionext.com, mhiramat@kernel.org, jbrunet@baylibre.com,
  martin.blumenstingl@googlemail.com
-Date: Thu, 30 Apr 2026 23:54:51 +0800
-Message-Id: <20260430155456.36998-6-18255117159@163.com>
+Date: Thu, 30 Apr 2026 23:54:52 +0800
+Message-Id: <20260430155456.36998-7-18255117159@163.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260430155456.36998-1-18255117159@163.com>
 References: <20260430155456.36998-1-18255117159@163.com>
 MIME-Version: 1.0
-X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S7
-X-Coremail-Antispam: 1Uf129KBjvJXoW7urW7uF4ftw4UKF43Gr48WFg_yoW8Zry5pr
- 18Aa47GFW8tay0y3ZxZF4ayF1YqFs5X3W7A3Wkt39I93Z2vF1kZFWvkF1rJw1UJFy8KFya
- g392kFyUCw4Yv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piBMKNUUUUU=
+X-CM-TRANSID: _____wAXyu5Se_NpHedTCg--.49548S8
+X-Coremail-Antispam: 1Uf129KBjvdXoWrur17Kr15JryDWFyUKFyUJrb_yoWfZFc_CF
+ 1YvrWxJrZ0k3yxC3WxWFZ5A3s09rn8uF4kt3Z7tasxAwsxWw13Ww1ktrW8Aa4UZFs8ur40
+ 9wsrZrW8Cr1akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUvcSsGvfC2KfnxnUUI43ZEXa7sRN6pBPUUUUU==
 X-Originating-IP: [240e:b8f:927e:5900:c497:d540:b00d:97f4]
-X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbCxBlM72nze1lkagAA3I
+X-CM-SenderInfo: rpryjkyvrrlimvzbiqqrwthudrp/xtbC6xpM72nze1pO-wAA3Y
 X-Mailman-Approved-At: Mon, 04 May 2026 12:39:23 +0000
 Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Hans Zhang <18255117159@163.com>,
  linux-amlogic@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 05/10] spi: nxp-xspi: Use FIELD_MODIFY()
+Subject: [Linux-stm32] [PATCH 06/10] spi: sn-f-ospi: Use FIELD_MODIFY()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +69,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 6BE4A4BCFFA
+X-Rspamd-Queue-Id: 69CBF4BCFF7
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.39 / 15.00];
@@ -104,65 +104,38 @@ X-Spamd-Result: default: False [5.39 / 15.00];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[18255117159@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.626];
+	NEURAL_HAM(-0.00)[-0.599];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DKIM_TRACE(0.00)[163.com:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
 
 Use FIELD_MODIFY() to remove open-coded bit manipulation.
 No functional change intended.
 
 Signed-off-by: Hans Zhang <18255117159@163.com>
 ---
- drivers/spi/spi-nxp-xspi.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+ drivers/spi/spi-sn-f-ospi.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-nxp-xspi.c b/drivers/spi/spi-nxp-xspi.c
-index 385302a6e62f..037eac24e6fd 100644
---- a/drivers/spi/spi-nxp-xspi.c
-+++ b/drivers/spi/spi-nxp-xspi.c
-@@ -493,9 +493,8 @@ static void nxp_xspi_disable_ddr(struct nxp_xspi *xspi)
- 	writel(reg, base + XSPI_MCR);
+diff --git a/drivers/spi/spi-sn-f-ospi.c b/drivers/spi/spi-sn-f-ospi.c
+index b459d51cb3a8..f0320e96fe23 100644
+--- a/drivers/spi/spi-sn-f-ospi.c
++++ b/drivers/spi/spi-sn-f-ospi.c
+@@ -222,9 +222,8 @@ static void f_ospi_config_clk(struct f_ospi *ospi, u32 device_hz)
+ 	 */
+ 	val = readl(ospi->base + OSPI_CLK_CTL);
  
- 	reg &= ~XSPI_MCR_DDR_EN;
--	reg &= ~XSPI_MCR_DQS_FA_SEL_MASK;
- 	/* Use dummy pad loopback mode to sample data */
--	reg |= FIELD_PREP(XSPI_MCR_DQS_FA_SEL_MASK, 0x01);
-+	FIELD_MODIFY(XSPI_MCR_DQS_FA_SEL_MASK, &reg, 0x01);
- 	writel(reg, base + XSPI_MCR);
- 	xspi->support_max_rate = 133000000;
+-	val &= ~(OSPI_CLK_CTL_PHA | OSPI_CLK_CTL_DIV);
+-	val |= FIELD_PREP(OSPI_CLK_CTL_PHA, OSPI_CLK_CTL_PHA_180)
+-	     | FIELD_PREP(OSPI_CLK_CTL_DIV, div_reg);
++	FIELD_MODIFY(OSPI_CLK_CTL_PHA, &val, OSPI_CLK_CTL_PHA_180);
++	FIELD_MODIFY(OSPI_CLK_CTL_DIV, &val, div_reg);
  
-@@ -524,15 +523,13 @@ static void nxp_xspi_enable_ddr(struct nxp_xspi *xspi)
- 	writel(reg, base + XSPI_MCR);
- 
- 	reg |= XSPI_MCR_DDR_EN;
--	reg &= ~XSPI_MCR_DQS_FA_SEL_MASK;
- 	/* Use external dqs to sample data */
--	reg |= FIELD_PREP(XSPI_MCR_DQS_FA_SEL_MASK, 0x03);
-+	FIELD_MODIFY(XSPI_MCR_DQS_FA_SEL_MASK, &reg, 0x03);
- 	writel(reg, base + XSPI_MCR);
- 	xspi->support_max_rate = 200000000;
- 
- 	reg = readl(base + XSPI_FLSHCR);
--	reg &= ~XSPI_FLSHCR_TDH_MASK;
--	reg |= FIELD_PREP(XSPI_FLSHCR_TDH_MASK, 0x01);
-+	FIELD_MODIFY(XSPI_FLSHCR_TDH_MASK, &reg, 0x01);
- 	writel(reg, base + XSPI_FLSHCR);
- 
- 	reg = FIELD_PREP(XSPI_SMPR_DLLFSMPFA_MASK, 0x04);
-@@ -1096,8 +1093,7 @@ static int nxp_xspi_default_setup(struct nxp_xspi *xspi)
- 
- 	/* Give read/write access right to EENV0 */
- 	reg = readl(base + XSPI_FRAD0_WORD2);
--	reg &= ~XSPI_FRAD0_WORD2_MD0ACP_MASK;
--	reg |= FIELD_PREP(XSPI_FRAD0_WORD2_MD0ACP_MASK, 0x03);
-+	FIELD_MODIFY(XSPI_FRAD0_WORD2_MD0ACP_MASK, &reg, 0x03);
- 	writel(reg, base + XSPI_FRAD0_WORD2);
- 
- 	/* Enable the FRAD check for EENV0 */
+ 	writel(val, ospi->base + OSPI_CLK_CTL);
+ }
 -- 
 2.34.1
 
