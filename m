@@ -2,47 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4Iy4Oafd9GmfFQIAu9opvQ
+	id oFF8KGbf9Gn8FQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:06:47 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:14:14 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FAFB4AE4BE
-	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:06:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 402074AE6CB
+	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:14:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EDC28C8F26F;
-	Fri,  1 May 2026 17:06:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EAD2C8F26F;
+	Fri,  1 May 2026 17:14:13 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6002FC8F261
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0453EC8F261
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 May 2026 17:06:45 +0000 (UTC)
+ Fri,  1 May 2026 17:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=bZzzOxdjkmfCxqp8bZuNqOw9QLZECcXjlZTbJ9BtGjs=; b=znFlC6Z1LbaPEB8hdbXzJvnLmX
- ZBb5bVF2HsqCqy7NL8xzUAScLF3GtUTr2nfELsGPhw5RG6eMWlshgtivDVmVnuBJG1PPwK2X/OEFw
- 7Pwq/+yrfBQMddetIGMjgb6xDlSbYL5+c3pO1lHwmCZw38A89SyejKB1b5Jl0htXaRDk=;
+ bh=lLJVwKR+EGGEi9cMlsW7QVMJE91Mo9bGN8zBGdpkLnI=; b=u+I9EEI/AB86R5VT4TkU4k8rsU
+ TLMdzjjcBzScJIZfKf/g8wrUGda+btr5RWsguNxBF1nysIWqWMAh9H07fMriOjK5ANltD7k1sYxZN
+ ao1NhwskbN8CL5y3h6AjSycbFOfsaJBNkTxHY0vUNycbpPze7FRlIb6EWLc03k5qpeIc=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wIrJf-000qaI-Mk; Fri, 01 May 2026 19:06:15 +0200
-Date: Fri, 1 May 2026 19:06:15 +0200
+ id 1wIrQw-000qct-9N; Fri, 01 May 2026 19:13:46 +0200
+Date: Fri, 1 May 2026 19:13:46 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Alex Elder <elder@riscstar.com>
-Message-ID: <91332fc1-11ed-444e-a211-699420cf0108@lunn.ch>
+Message-ID: <9203d8dd-8ec0-415e-9c2e-5b06b1b8dc11@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-4-elder@riscstar.com>
+ <20260501155421.3329862-5-elder@riscstar.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260501155421.3329862-4-elder@riscstar.com>
+In-Reply-To: <20260501155421.3329862-5-elder@riscstar.com>
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
- edumazet@google.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ robh@kernel.org, mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
  daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
  maxime.chevallier@bootlin.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
  kuba@kernel.org, pabeni@redhat.com, konradybcio@kernel.org,
@@ -57,8 +56,8 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
  julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 03/12] net: pcs: pcs-xpcs:
- Preserve BMCR_ANENBLE during link up
+Subject: Re: [Linux-stm32] [PATCH net-next 04/12] net: stmmac: dma: create a
+ separate dma_device pointer
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -74,7 +73,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 8FAFB4AE4BE
+X-Rspamd-Queue-Id: 402074AE6CB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
@@ -111,48 +110,20 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,lunn.ch:mid,stormreply.com:url,stormreply.com:email,riscstar.com:email,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
 
-On Fri, May 01, 2026 at 10:54:11AM -0500, Alex Elder wrote:
-> From: Daniel Thompson <daniel@riscstar.com>
-> 
-> Currently the XCPS found on Toshiba TC9564 (a.k.a. Qualcomm QPS615)
-> is unable to operate at 1000base-X and slower with a PHY connected
-> using SGMII/2500base-X (in our case a Qualcomm QCA8081). The link
-> negotiates speed correctly but the MAC can't get any packets out.
+>  	if (priv->dma_cap.host_dma_width) {
+> -		ret = dma_set_mask_and_coherent(device,
+> -				DMA_BIT_MASK(priv->dma_cap.host_dma_width));
+> +		u64 mask = DMA_BIT_MASK(priv->dma_cap.host_dma_width);
+> +
+> +		ret = dma_set_mask_and_coherent(priv->dma_device, mask);
 
-We need to break this down into its components.
+I'm nitpicking, but i don't think you need to introduce mask.
+DMA_BIT_MASK... is already on a line of its own, and is within the 80
+limit. Nothing changes here with s/device/priv->dma_device/
 
-I assume you are saying the PHY negotiates the media speed with the
-link partner. That is PHY talking to PHY.
-
-But we also have the PCS talking to the PHY. There can be inband
-signalling here, for SGMII and 2500BaseX. But not for over clocked
-SGMII, which is how some vendors implement 2500BaseX. SGMII signalling
-does not work when overclocked to 2.5G.
-
-> This attracted attention to the ANENABLE bit and we observed that the
-> bit is currently set during config and cleared during link up.
-
-Here we are talking about the PCS ANEBNABLE, not the PHY ANEBNABLE. So
-this is negotiation between the PCS and the PHY.
-
-> Preserving the bit during link up allows the system to work as expected.
-
->  	int ret;
->  
->  	if (neg_mode == PHYLINK_PCS_NEG_INBAND_ENABLED)
->  		return;
-
-Think about this.
-
->  	ret = xpcs_write(xpcs, MDIO_MMD_VEND2, MII_BMCR,
-> -			 mii_bmcr_encode_fixed(speed, duplex));
-> +			 mii_bmcr_encode_fixed(speed, duplex) | an_enable);
-
-And mii_bmcr_encode_fixed().
-
-    Andrew
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
