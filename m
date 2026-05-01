@@ -2,44 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qapDN3oT9WnpIAIAu9opvQ
+	id ENuZIB0W9WkEIQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 22:56:26 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 23:07:41 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FEBE4AF969
-	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 22:56:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DF344AFB05
+	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 23:07:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9046DC8F273;
-	Fri,  1 May 2026 20:56:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 511BCC8F273;
+	Fri,  1 May 2026 21:07:40 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6D933C8F26F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 962FEC8F26F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 May 2026 20:56:23 +0000 (UTC)
+ Fri,  1 May 2026 21:07:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=3Tcbg9/ugxpQr7TMEC6mX5fl4hcvqIRPYh248BBUiSY=; b=G3dAtTYjFbHZBVFYI5xNUl+35H
- KRyZcgox694pudSxsak7WqvEaSJg6i8zmsRlzvrlJA0nRmjkBO6Ki8ttOeZGIjBBz33HVTKQwHVEa
- OMKtIGMqPN3Ly370NqGZwL6N2Xu0utn81eXt57J1kyFdGXLZLZHNAY4GisuufoMlJTZk=;
+ bh=MlvvIWkz8YMmdMlfmtJ0yWa0qZs1kSt9IYxCuFbScAk=; b=gXstL101nagcCiccTw5+p86AFI
+ LCVmkJk5MzBQrdomImehrJrPQ5TcMdXkBKDpTrJH8Nzremn/xMQUc42PTv2HqdmW3k9TDYfeSQu6/
+ NedeeZiflcknh8Jh9+gDnBe6QiG4b58NO6jTt4zCgB6LQI1eGJ8L39MQiugt3vvps6xo=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wIuth-000shL-GJ; Fri, 01 May 2026 22:55:41 +0200
-Date: Fri, 1 May 2026 22:55:41 +0200
+ id 1wIv4n-000soC-0l; Fri, 01 May 2026 23:07:09 +0200
+Date: Fri, 1 May 2026 23:07:09 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Alex Elder <elder@riscstar.com>
-Message-ID: <4cbe1a04-4a49-4e4d-95f4-ed4df1afa24f@lunn.ch>
+Message-ID: <f9336d01-e2d1-4894-848a-17ab20976872@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-5-elder@riscstar.com>
- <9203d8dd-8ec0-415e-9c2e-5b06b1b8dc11@lunn.ch>
- <539b9de3-4a78-44cf-9085-06cd0cab2d17@riscstar.com>
+ <20260501155421.3329862-12-elder@riscstar.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <539b9de3-4a78-44cf-9085-06cd0cab2d17@riscstar.com>
+In-Reply-To: <20260501155421.3329862-12-elder@riscstar.com>
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -58,8 +56,8 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
  julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 04/12] net: stmmac: dma: create a
- separate dma_device pointer
+Subject: Re: [Linux-stm32] [PATCH net-next 11/12] misc: tc956x_pci: add
+ TC956x/QPS615 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,7 +73,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 5FEBE4AF969
+X-Rspamd-Queue-Id: 1DF344AFB05
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
@@ -105,7 +103,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.995];
+	NEURAL_HAM(-0.00)[-0.999];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -113,29 +111,51 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
 	TO_DN_SOME(0.00)[]
 
-On Fri, May 01, 2026 at 01:06:23PM -0500, Alex Elder wrote:
-> On 5/1/26 12:13 PM, Andrew Lunn wrote:
-> > >   	if (priv->dma_cap.host_dma_width) {
-> > > -		ret = dma_set_mask_and_coherent(device,
-> > > -				DMA_BIT_MASK(priv->dma_cap.host_dma_width));
-> > > +		u64 mask = DMA_BIT_MASK(priv->dma_cap.host_dma_width);
-> > > +
-> > > +		ret = dma_set_mask_and_coherent(priv->dma_device, mask);
-> > 
-> > I'm nitpicking, but i don't think you need to introduce mask.
-> > DMA_BIT_MASK... is already on a line of its own, and is within the 80
-> > limit. Nothing changes here with s/device/priv->dma_device/
-> > 
-> > 	Andrew
-> 
-> I did this.  It was simply to silence a checkpatch.pl warning
-> about a long line.
-> 
-> I don't care either way, I'll gladly put it back the way it was.
+> diff --git a/drivers/misc/tc956x_pci.c b/drivers/misc/tc956x_pci.c
 
-Please pull checkpatch fixes out into a patch of their own.
+> +static inline void chip_reset_assert(const struct tc956x_chip *chip,
+> +				     enum reset_id id)
+> +{
+> +	tc956x_reset_clock_set(chip, true, true, true, (u8)id);
+> +}
 
-       Andrew
+This is in drivers/misc, where the rules might be different. But in
+netdev, we don't like inline functions in .c files. It is better to
+let the compiler decide.
+
+> +static void chip_init_state(struct tc956x_chip *chip)
+> +{
+> +	/* The only IP block we currently use is MSIGEN */
+> +	chip_reset_assert(chip, RESET_MCU);
+> +	chip_reset_assert(chip, RESET_MCU1);
+> +	chip_reset_assert(chip, RESET_INTC);
+> +	chip_reset_assert(chip, RESET_UART0);
+> +	chip_clock_disable(chip, CLOCK_MCU);
+> +	chip_clock_disable(chip, CLOCK_SRAM);
+> +	chip_clock_disable(chip, CLOCK_PLL);
+> +	chip_clock_disable(chip, CLOCK_SGMII);
+
+With my networking hat on, this one standard out.
+
+> +	chip_clock_disable(chip, CLOCK_REFCLK);
+
+The name REFCLK is sometimes used as for the clock signals for RGMII?
+
+> +static int
+> +tc956x_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct tc956x_chip *chip;
+> +	unsigned int msigen_irq;
+> +	int ret;
+> +
+> +	/* Despite being a PCI device, we require devicetree */
+> +	if (!dev->of_node)
+> +		return -EINVAL;
+
+Might be worth a dev_err(), since it is unusual.
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
