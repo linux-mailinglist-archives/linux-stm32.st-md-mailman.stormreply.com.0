@@ -2,46 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id oFF8KGbf9Gn8FQIAu9opvQ
+	id OAVwN1Dh9GlDFgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:14:14 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:22:24 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 402074AE6CB
-	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:14:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 772F94AE7EE
+	for <lists+linux-stm32@lfdr.de>; Fri, 01 May 2026 19:22:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EAD2C8F26F;
-	Fri,  1 May 2026 17:14:13 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F2D0FC8F26F;
+	Fri,  1 May 2026 17:22:23 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0453EC8F261
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0D4E4C8F261
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 May 2026 17:14:11 +0000 (UTC)
+ Fri,  1 May 2026 17:22:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=lLJVwKR+EGGEi9cMlsW7QVMJE91Mo9bGN8zBGdpkLnI=; b=u+I9EEI/AB86R5VT4TkU4k8rsU
- TLMdzjjcBzScJIZfKf/g8wrUGda+btr5RWsguNxBF1nysIWqWMAh9H07fMriOjK5ANltD7k1sYxZN
- ao1NhwskbN8CL5y3h6AjSycbFOfsaJBNkTxHY0vUNycbpPze7FRlIb6EWLc03k5qpeIc=;
+ bh=SwiATigxaIsNEJNb6TA2aHz+p+NGepW56ALj5gkDRG4=; b=3ooCs7Vkrx4fZwYWsBPIMUBZEs
+ EEP0t6lZIJIZaJyPnnt5FPRYpVnMHEXpy7YBIDkRFBeoYWpS8m23bGDsyIQnJGOtkQj16pBU4G9oa
+ JCai3Ie1xvAMoitw3cDAslP2FIT3HPzLOtxYimdxOlBS+143TO4PMiJ6Zn42eB3cNlkM=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wIrQw-000qct-9N; Fri, 01 May 2026 19:13:46 +0200
-Date: Fri, 1 May 2026 19:13:46 +0200
+ id 1wIrYk-000qfk-5n; Fri, 01 May 2026 19:21:50 +0200
+Date: Fri, 1 May 2026 19:21:50 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Alex Elder <elder@riscstar.com>
-Message-ID: <9203d8dd-8ec0-415e-9c2e-5b06b1b8dc11@lunn.ch>
+Message-ID: <f66c2e6e-2c3c-47d3-bd27-3facaf849190@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-5-elder@riscstar.com>
+ <20260501155421.3329862-6-elder@riscstar.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260501155421.3329862-5-elder@riscstar.com>
+In-Reply-To: <20260501155421.3329862-6-elder@riscstar.com>
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
- daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
+ edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
  daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
  maxime.chevallier@bootlin.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
  kuba@kernel.org, pabeni@redhat.com, konradybcio@kernel.org,
@@ -56,8 +57,8 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
  julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 04/12] net: stmmac: dma: create a
- separate dma_device pointer
+Subject: Re: [Linux-stm32] [PATCH net-next 05/12] net: stmmac: dwxgmac2: Add
+ multi MSI interrupt mode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,7 +74,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 402074AE6CB
+X-Rspamd-Queue-Id: 772F94AE7EE
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
@@ -110,20 +111,31 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,lunn.ch:mid,riscstar.com:email,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
 
->  	if (priv->dma_cap.host_dma_width) {
-> -		ret = dma_set_mask_and_coherent(device,
-> -				DMA_BIT_MASK(priv->dma_cap.host_dma_width));
-> +		u64 mask = DMA_BIT_MASK(priv->dma_cap.host_dma_width);
-> +
-> +		ret = dma_set_mask_and_coherent(priv->dma_device, mask);
+On Fri, May 01, 2026 at 10:54:13AM -0500, Alex Elder wrote:
+> From: Daniel Thompson <daniel@riscstar.com>
+> 
+> Currently there are no XGMAC platforms integrated using the multi MSI
+> interrupt mode. In other words no existing driver sets both
+> DWMAC_CORE_XGMAC and STMMAC_FLAG_MULTI_MSI_EN.
+> 
+> In order to support systems that do enable both options (such as the
+> Toshiba TC9564 whose driver is currently being developed) we need to
+> add logic to the XGMAC DMA callbacks. Happily we can simply
+> replicate similar code from GMAC4. Let's do that!
 
-I'm nitpicking, but i don't think you need to introduce mask.
-DMA_BIT_MASK... is already on a line of its own, and is within the 80
-limit. Nothing changes here with s/device/priv->dma_device/
+The word replicate made me think it has been cut/paste, rather than
+being refactored into a helper. However,
 
-	Andrew
+> +#define XGMAC_INTM_MASK			GENMASK(13, 12)
+
+#define DMA_BUS_MODE_INTM_MASK		GENMASK(17, 16)
+
+Different bits in the register, so the code structure is the same, but
+the code cannot be shared in a meaningful way. So this is O.K.
+
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
