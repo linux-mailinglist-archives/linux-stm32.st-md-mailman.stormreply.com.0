@@ -2,89 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SJgICICT+Gl8wgIAu9opvQ
+	id aMkWA4CT+GnSwgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:28 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD18D4BD04B
+	by mail.lfdr.de (Postfix) with ESMTPS id E82FB4BD053
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:27 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9646DC60497;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A8455C628AC;
 	Mon,  4 May 2026 12:39:27 +0000 (UTC)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182])
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
+ [209.85.160.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5A0A6C36B3E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 849D8C36B3E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  1 May 2026 18:06:28 +0000 (UTC)
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-7baee75f874so31257267b3.2
+ Fri,  1 May 2026 18:07:52 +0000 (UTC)
+Received: by mail-qt1-f180.google.com with SMTP id
+ d75a77b69052e-50e97863425so20690251cf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 01 May 2026 11:06:28 -0700 (PDT)
+ Fri, 01 May 2026 11:07:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777658787; x=1778263587;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777658871; x=1778263671;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=h1DjW845zhModhDu44NYwmrHvDI4OE4s13MqVWiObLc=;
- b=MmZZ9OHGAsf7yPlRipiMn80cxZIOIit+G9kdWJo1XwgeFZv36JL08geh3PZsJIAjR6
- dy7YrHYHw2rgQNkq537QozkgeJU6aHisMD6yq60IjHjlMqXG4gRM/NymdRSuyBw2oocP
- CLT3xDVP3/NrKcOSgWux85HU4QcwFYLQqSFHKtb9MJ6CnIXpqMTgVLOE6PMr2VmRCtxi
- 6zONyYgUuTPmMKLKPCD3XW0hZKssW0kzlvBAUs0piXiafSagSuibyvNc2E3e9cqrpzib
- PFdUUzP8NGCb1jCcQ94rQ0OywGZT+2F7qyVlUC54jf6UPl/gRdmRG6Pa8b3eIJ4+WXXh
- 8e9g==
+ bh=a7l6FEvqkNwJ0g7Pn9F7zooR8PbKdP3FdX90Rm3Ztm8=;
+ b=glXpLh8PbzAtgfbNdJ4EcTln/JgQqhEivKtAztxs+OEi6GbmlMFUXndAI8srqb1SPM
+ jVTWaV+OQ7abE/7m1e9v4gTC7CvquGwoLdP/++3sFej4HmlRajcyYoLbDge4W1gBmKCY
+ oMMy/MEpVsUXLVdNUsYBJci8QFI/N1QOgim16hHddXSVJHYYoKMvgy2gqJtBUTWe1ye3
+ 4HzOonp/m1wt2IpkSButC56NOCgQ6HZRgKZF4IjzYyL+2FzbKLg/HnW565iE8WYtZ2Vn
+ YVgx3Q5jNEtwLqjtZTqwVnhSMdar1PZhc6aDGXOOBOJ6TsQq9V0CbY5itiT9FOMeDBCp
+ 6E4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777658787; x=1778263587;
+ d=1e100.net; s=20251104; t=1777658871; x=1778263671;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=h1DjW845zhModhDu44NYwmrHvDI4OE4s13MqVWiObLc=;
- b=KMmc6Oe7/FGHDglt7Q7s1YDfWbxLG/wuQ0hsIXwi2ZpoP8vrxHlgQwe3yeOc2U5Q+c
- 4RCW3l8O74rVu9o7Ot2y1zukuPoNmzrL3MJX4JFWWZYMW0x57VJdKMbxb/pFh/xWxXcb
- ztxGMc0fj3rshiD9kV2pmWVefB1KZBGJTzPZ9trLvO732qxAZHydmW7mnaLHO7zdGom4
- 29yGU4JUAO00UGr+T2VglhcCdH8tl9TEhd5sTtJ9oamQB2a7Esvxf2K7WfhJFXGpPc5Q
- KeeGmQDYFY5s1EYDULdgEv/E9yFvsrR4T0StZpop5KfbRJY2FWDE2bAqdc4zyYfzEni2
- z/yQ==
+ bh=a7l6FEvqkNwJ0g7Pn9F7zooR8PbKdP3FdX90Rm3Ztm8=;
+ b=fPEpuE0tT0ISDve/arhH5SB0NDI6Z97LPdgCmBPzgk4WCkdBxeq+42zSrL8UltsqWe
+ JJnODesONVWd847dExCIWaSK2DeFbMunCyJnY/F+YA1LkJoWXxS+Rw/o80yvG4xukIyS
+ fVdq/zN/9xPCY+3Iv/oQu9SzmRK0LFETCUy5i7YG4f7ShztgDyMAX5J7GwKFZLPfAiYL
+ 7LJ136QkanmD1U5bWITk5SIrnSEXrvy6EgBMHb69MBudDVTb+kQAFbEGIWDOgHb23fQf
+ 9CMDuOTQz8Q1noKIhOXcVGkHXFMvpb6Ijlr6iFuBIqcr5j75FItFKYe85R9F2c7tVgVB
+ bdrQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8FGWJfdlHxMPqlkt7gTsaIRU08BsyERDeQqMRfSW0XOFM5HFGJuYIKtfJWNJDFfuB6VAkyXbOy6RoZlw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxXDoIMa9smxt3vHj8MUNjaw/J5zCyGwQQ7PqrNtG5bMfGKiVqG
- UAxJvkv0wOTLFgJ+UgAQSCutuzTLgEunBwNa0BEz92PtH5TKDEJFqh21m2xS6OFXtE0=
-X-Gm-Gg: AeBDieuacBOc+7D55diH2LwUJyIRwvERwZ/jjnrL8R0sIC6hz8BPxZ+vuiRQR8j84cK
- blQ2zlUOK3wNGUhv6bmBkbooQ0JqKAHnRTm26LiWgP3IuatWAko7yW/ugaRpo+mVXl3DbidfFZX
- VYkAteSHdrSLyXSuVltLIs/sc9SwQgiAPDKHNBPl3WecWviYPi9H5z+5xRNnxDj2MD0YJ8klo6+
- jrw8Atr3Twri/TfEwLMdkg3MrfW/9XKTZM2lqV9Mjy5tEIMsIgBxEC3J9g3PDTjZ0mDffyvwCZU
- p4RKNFnwZGD4aydUBuHlhDnZbe91uS2B7wu7kneaV+A8PlZ0I5wZmlxvbWlGV168IQQ0g524hkt
- Ng2zsNhAwlTSd3kN6lEgSnVL3Nv9Zun8rPsGptKRRzoY0bbDqSBy/sbHC55yRWkLkozc1nurDno
- R+aVQKEuyvEh9JGIUlI+EhMb+0o1uczTBeKtcdyDsuwvJpEMSgFe0BwRdIB7X80k0PpdCPg434E
- w==
-X-Received: by 2002:a05:690c:dd3:b0:7af:6904:3f3f with SMTP id
- 00721157ae682-7bd77170409mr4261187b3.45.1777658787005; 
- Fri, 01 May 2026 11:06:27 -0700 (PDT)
+ AFNElJ/Vh/1RvVU0ITZffRRyddIUA5hV0Jaa5mJ7lOpgM/UWrG2NQ5bXZexOMeoItnhx17YwE4w7H9ioVg8Vpw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzcG3nTTaW448PBT2ZMsbgqqcJwPMrhCgiZMB53GIO5DhbkhQyl
+ fod68DcwbZ/BSxWOjg58ydPPL1qiT9gwwW75M0MjqfHunK+IrcaclXJsXjZM1xa/OSA=
+X-Gm-Gg: AeBDieuBAasD2xoIRmJtJ7lxvJNxz19ot51c6QQG9Yry2pXYpJwLjV8dSohgnOuzFLj
+ 98joW0hbqoi9M4zrfd/7qlEC7X1yTkD/6IbfK7rFm1Ch/32qoz28mSYd9t1HDv2lbRlIZNlUrKJ
+ i0Adrq1Nb7ipEmzbSHiSODevOF+NuxHk8AKc9EwpX98pk/eIH8iOjbPr7zZxAQT0VeWyK4OQDu+
+ Tej2EKLqF0NusEZFVT0Mfn4/h6VwoOmkBzKer6XZL8Wx1uMmg0EaA8/FI8nTipRMNLdKYzI0yIQ
+ 0vCFjwZP6wbWLnki6py+J9t/P8+TIKl0wz3oeWGbZx7W+Kk+w/pTLmHqoTM7nW5bHP22ROlxTal
+ g0cm1h5WVb8ynSj9aKkd3Gpg8HfNdsOo0mRwU31IUYxh1m/MvtrPM4TnCD+OHWyN/s4oCtKk4+m
+ q3Ra9fIrXnreWHBQeVfoYFKZNWfzKO9MHwtPZqtqMp9ms/BlUFkuQinZo3BybPG/N0xda9rcA0z
+ 6IJB69Dfnz/
+X-Received: by 2002:a05:622a:903:b0:50b:3f6a:1d88 with SMTP id
+ d75a77b69052e-5104be231f4mr4182581cf.19.1777658871298; 
+ Fri, 01 May 2026 11:07:51 -0700 (PDT)
 Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net.
  [75.72.117.212]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-7bd66019105sm14575347b3.0.2026.05.01.11.06.23
+ d75a77b69052e-51040b80a4dsm20498971cf.24.2026.05.01.11.07.48
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 01 May 2026 11:06:26 -0700 (PDT)
-Message-ID: <539b9de3-4a78-44cf-9085-06cd0cab2d17@riscstar.com>
-Date: Fri, 1 May 2026 13:06:23 -0500
+ Fri, 01 May 2026 11:07:50 -0700 (PDT)
+Message-ID: <f60cc448-99d1-4fcc-bdbe-436b0c29d5eb@riscstar.com>
+Date: Fri, 1 May 2026 13:07:47 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Andrew Lunn <andrew@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-5-elder@riscstar.com>
- <9203d8dd-8ec0-415e-9c2e-5b06b1b8dc11@lunn.ch>
+ <20260501155421.3329862-3-elder@riscstar.com>
+ <f9a581a2-02ea-4948-8c97-835cb7638b1d@lunn.ch>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <9203d8dd-8ec0-415e-9c2e-5b06b1b8dc11@lunn.ch>
+In-Reply-To: <f9a581a2-02ea-4948-8c97-835cb7638b1d@lunn.ch>
 X-Mailman-Approved-At: Mon, 04 May 2026 12:39:23 +0000
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
- daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- robh@kernel.org, mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
+ edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
  daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
  maxime.chevallier@bootlin.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
  kuba@kernel.org, pabeni@redhat.com, konradybcio@kernel.org,
@@ -99,8 +100,8 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
  julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 04/12] net: stmmac: dma: create a
- separate dma_device pointer
+Subject: Re: [Linux-stm32] [PATCH net-next 02/12] net: pcs: pcs-xpcs: select
+ operating mode for 10G-baseR capable PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,7 +117,7 @@ Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: DD18D4BD04B
+X-Rspamd-Queue-Id: E82FB4BD053
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
@@ -144,7 +145,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.761];
+	NEURAL_HAM(-0.00)[-0.664];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -155,26 +156,34 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[checkpatch.pl:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-On 5/1/26 12:13 PM, Andrew Lunn wrote:
->>   	if (priv->dma_cap.host_dma_width) {
->> -		ret = dma_set_mask_and_coherent(device,
->> -				DMA_BIT_MASK(priv->dma_cap.host_dma_width));
->> +		u64 mask = DMA_BIT_MASK(priv->dma_cap.host_dma_width);
+On 5/1/26 11:50 AM, Andrew Lunn wrote:
+>> +static int xpcs_config_operating_mode(struct dw_xpcs *xpcs, int an_mode)
+>> +{
+>> +	int mdio_stat2, ret;
 >> +
->> +		ret = dma_set_mask_and_coherent(priv->dma_device, mask);
+>> +	switch (an_mode) {
+>> +	case DW_AN_C37_SGMII:
+>> +	case DW_AN_C37_1000BASEX:
+>> +	case DW_2500BASEX:
+>> +		mdio_stat2 = xpcs_read(xpcs, MDIO_MMD_PCS, MDIO_STAT2);
+>> +		if (mdio_stat2 < 0)
+>> +			return mdio_stat2;
+>> +
+>> +		/*
+>> +		 * If this XPCS supports 10Gbase-R then it will be the default
+>> +		 * which prevents 1000base-X and slower from working correctly.
 > 
-> I'm nitpicking, but i don't think you need to introduce mask.
-> DMA_BIT_MASK... is already on a line of its own, and is within the 80
-> limit. Nothing changes here with s/device/priv->dma_device/
+> It would be interesting to know if Toshiba messed up the integration
+> of the PCS, or there is an errata for the licensed IP.
+> 
+> Anybody got access to the databook and erratas?
 > 
 > 	Andrew
 
-I did this.  It was simply to silence a checkpatch.pl warning
-about a long line.
-
-I don't care either way, I'll gladly put it back the way it was.
+I have the same question.  We do not (currently/yet?) have access
+to this information.
 
 					-Alex
 _______________________________________________
