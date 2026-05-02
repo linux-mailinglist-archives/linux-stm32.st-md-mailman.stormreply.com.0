@@ -2,44 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GGTJKE4q9mksSwIAu9opvQ
+	id uERXJJYq9mksSwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 02 May 2026 18:46:06 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 02 May 2026 18:47:18 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 320A14B2DC5
-	for <lists+linux-stm32@lfdr.de>; Sat, 02 May 2026 18:46:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 342D24B2DFC
+	for <lists+linux-stm32@lfdr.de>; Sat, 02 May 2026 18:47:18 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8E43C8F277;
-	Sat,  2 May 2026 16:46:05 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E65AFC8F277;
+	Sat,  2 May 2026 16:47:17 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CFAA1C8F276
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 19CD9C8F276
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  2 May 2026 16:46:04 +0000 (UTC)
+ Sat,  2 May 2026 16:47:16 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 0ACEA40163;
- Sat,  2 May 2026 16:46:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB58BC19425;
- Sat,  2 May 2026 16:46:00 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C1293439E4;
+ Sat,  2 May 2026 16:47:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4943CC19425;
+ Sat,  2 May 2026 16:47:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777740362;
- bh=s93VJCDBnvDfrecPRtxHRCkkBez6Fz+HZPYqWbqIAkw=;
+ s=k20201202; t=1777740435;
+ bh=zymvXjOjeTSggFeuoM050BBTeP4ivuV+K0ZODz63sG8=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=mM0VFItvv0NwJhTS9Qka9pD2gQhdVDRZNLnEudvHavHJW8PcHO1CMmyYOlFMYXz72
- bW8edgGGN9KR5w5kt2QryXHza2K+FphEN+EM4T8tSbNtE1HSOOLzrc+jJPFnNtUhQH
- 4ixpGPO2jxLUANqnBRaPcgA9a/zpzuEzU0fK4wBgHb1zgFflgV4MpWUzVefa1ssRrX
- CS6kp8LDHcZKBTHfy+4rpnDCnoXki8a045qnr45cxJxAIf4sLzfCgohbieuv3ChkTE
- 9eHKCPBEQfvlwA6xypbDE/fQa1CJkU9UugGOdptKEvZovhqrc4dn+cQaaQfD3cOpTE
- IR1LR8d3C7y9Q==
-Date: Sat, 2 May 2026 09:45:59 -0700
+ b=C2a0Vi3QX0WD3xutTIXFvjrVMuUqle24NF4BAQHxyUpWgq77agsQiQDARZ48oGEr8
+ zWeFVrQ+2yNo3XsQXXseVTkoumlvbwMcqRQ9Yrv9/oCfoJJfiKSyfy/R/1KWeM8Ejx
+ j3kgXK8lc2stL15qKUXCkaF9uBbZyYkkj9ca4JUpNJEbRoD1qD1piUoN2e5hAWLFZo
+ hmI8PjcAL1L79x9BIkN1E2eRROzi9GCkLp+6y/VFSfpgKhQs2XFoSYrQPXb4whpnxD
+ 2Fh+iykG/8DvSFLTzfAlLeLNrYwBZESP4BuukCRYY4PUWPAJsNa9OBiyeLZcaDz2BO
+ p7nB8soAtHKMg==
+Date: Sat, 2 May 2026 09:47:12 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Alex Elder <elder@riscstar.com>
-Message-ID: <20260502094559.15c3f479@kernel.org>
-In-Reply-To: <20260501155421.3329862-12-elder@riscstar.com>
+Message-ID: <20260502094712.69b29dc8@kernel.org>
+In-Reply-To: <20260501155421.3329862-1-elder@riscstar.com>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-12-elder@riscstar.com>
 MIME-Version: 1.0
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
@@ -58,8 +57,7 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
  inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
  matthew.gerlach@altera.com, andersson@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 11/12] misc: tc956x_pci: add
- TC956x/QPS615 support
+Subject: Re: [Linux-stm32] [PATCH net-next 00/12] net: enable TC956x support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,7 +73,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 320A14B2DC5
+X-Rspamd-Queue-Id: 342D24B2DFC
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.79 / 15.00];
@@ -84,7 +82,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -116,19 +114,16 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-On Fri,  1 May 2026 10:54:19 -0500 Alex Elder wrote:
-> The Toshiba TC956x is an Ethernet AVB/TSN bridge,  and is
-> essentially a small and highly-specialized SoC.  It implements
-> a number of internal functions, including a GPIO controller,
-> control registers managing internal reset and clock control
-> signals, a PCIe switch and internal endpoint, and mapping
-> hardware that translates between PCIe and internal addressing.
+On Fri,  1 May 2026 10:54:08 -0500 Alex Elder wrote:
+>  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+>  create mode 100644 drivers/gpio/gpio-tc956x.c
+>  create mode 100644 drivers/misc/tc956x_pci.c
+>  create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
+>  create mode 100644 drivers/net/pcs/pcs-xpcs-regmap.c
+>  create mode 100644 include/linux/pcs/pcs-xpcs-regmap.h
+>  create mode 100644 include/soc/toshiba/tc956x-dwmac.h
 
-drivers/misc/tc956x_pci.c:541:17: error: call to undeclared function 'u32_get_bits'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-  541 |         chip->rev_id = u32_get_bits(val, NCID_REV_ID_MASK);
-      |                        ^
--- 
-pw-bot: cr
+Please add an entry to MAITNAINERS for tx956x stuff?
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
