@@ -2,37 +2,37 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id j2BULru39mmnXwIAu9opvQ
+	id CJANCoW79mkNYAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 03 May 2026 04:49:31 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 03 May 2026 05:05:41 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C2F84B42B7
-	for <lists+linux-stm32@lfdr.de>; Sun, 03 May 2026 04:49:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B19244B4375
+	for <lists+linux-stm32@lfdr.de>; Sun, 03 May 2026 05:05:40 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF85CC8F277;
-	Sun,  3 May 2026 02:49:30 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0F5BC8F277;
+	Sun,  3 May 2026 03:05:39 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96837C555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2370C555BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 May 2026 02:49:29 +0000 (UTC)
+ Sun,  3 May 2026 03:05:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=YmcxZf7SutD2K2WWcfwCmG8slAmsQJ99Yyc78yb8540=; b=XWLuIj4WipvGPsgidcptl/Qh5N
- U+weMbENiXqUhZ9K+Huxv3/eFR240BNp8ysGxJUv5weTFCmXBQJGDCLuNAubJCXHxy2cX7WXz2k3j
- OSsuuVcLs2dG3en05lRl41CWSaZ0IdcY0XVOyrk3VAoopjAUPxvah4wC+M7cYy7dpHHY=;
+ bh=vTkWlde2JHlNLRGm1ttbizoIX10aHI1/8IxqhQI+Whc=; b=WOqFdeGNyDYHYFP7rc3MuSp8dU
+ +Nq7spbXhTu22v9VhEL/bpGGO7Ny+KaFWZxNAfsJ0HQvqdYex7LnMbsUU5CcnClNP8nNEc2vlJqj1
+ z9ZnXFUs5K0tXBKfOy6LB27Y7HO6yRUvlHLIJRj8EWGVWE1xUyY3lEZWpWfi41LUNU0k=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wJMst-00158d-Un; Sun, 03 May 2026 04:48:43 +0200
-Date: Sun, 3 May 2026 04:48:43 +0200
+ id 1wJN8j-0015D5-2u; Sun, 03 May 2026 05:05:05 +0200
+Date: Sun, 3 May 2026 05:05:05 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Alex Elder <elder@riscstar.com>
-Message-ID: <3e5a42cc-53b8-4065-a32a-d754be40b4c7@lunn.ch>
+Message-ID: <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
  <20260501155421.3329862-10-elder@riscstar.com>
  <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
@@ -75,7 +75,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 4C2F84B42B7
+X-Rspamd-Queue-Id: B19244B4375
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
@@ -106,32 +106,78 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[lunn.ch:-];
-	NEURAL_HAM(-0.00)[-0.999];
+	NEURAL_HAM(-0.00)[-0.996];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,lunn.ch:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-> It's possible gpio-regmap.c *could* be used.  We started with
-> vendor code and this code got separated at some point along
-> the way.  It was working, and I don't think I pursued other
-> options at that point.  I'll look at this possibility before we
-> send out the next version.
+On Sat, May 02, 2026 at 08:45:48PM -0500, Alex Elder wrote:
+> On 5/1/26 1:36 PM, Andrew Lunn wrote:
+> > > + * There is a TC956X PCI power controller driver that accesses the
+> > > + * direction and output value registers for GPIOs 2 and 3.  These
+> > > + * GPIOs control the reset signal for the two downstream PCIe ports.
+> > > + * Their values will never change during operation of this driver, and
+> > > + * this driver reserves these two GPIOS.
+> > 
+> > Why doesn't this power controller driver actually use this driver to
+> > control the GPIOs? Chicken/egg?
+> 
+> I am not the one with authority on this, but yes, that's my
+> understanding.  *Something* about this chip requires that the
+> PCIe ports need to have some configuration done on them *before*
+> PCIe is powered up.  So that driver uses the I2C interface to
+> apply these settings.  Meanwhile this driver uses the PCIe-mapped
+> memory to manage the GPIO registers.
 
-The GPIO subsystem has made a big effort to provide generic code,
-since GPIOs are pretty simple things with a lot in common. So if the
-generic code works, or can be made to work with minor changes, you
-should use it.
+The diagram you have is:
 
-> What do you mean instantiate it twice?
 
-I _think_ you need one instance for the first 32 GPIOs, and a second
-one for the remaining GPIOs. But maybe config->reg_stride might allow
-it to work with a single instance?
+              ----------------------------------
+              |              Host              |
+              ------+...+----------+........+---
+                    |i2c|          |  PCIe  |
+    ----------------+...+----------+........+------
+    | TC956x        |I2C|          |upstream|     |
+    |               -----        --+--------+---  |
+    |  -----  ------  -------    | PCIe switch |  |
+    |  |SPI|  |GPIO|  |reset|    |             |  |
+    |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
+    |                 -------    ---++--++--++--  |
+    |  -----  ------     downstream//    \\  \\   |  downstream
+    |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
+    |  -----  ------   //PCIe port 3       \\     |
+    |                  ||                   \======= downstream
+    |  ----+-----------++-----------+----         |  PCIe port 2
+    |  | M | internal PCIe endpoint | M |         |
+    |  | S |------------------------| S |  ------ |
+    |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
+    |  | G |function 0|  |function 1| G |  ------ |
+    |  | E |----++----|  |----++----| E |         |
+    |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
+    --------+.......+------+.....+-----------------
+            |USXGMII|      |SGMII|
+          --+.......+--  --+.....+--
+          |  ARQ113C  |  | QEP8121 |
+          |    PHY    |  |   PHY   |
+          -------------  -----------
 
-   Andrew
+The two Ethernet controllers are hanging off port 3 of the
+switch. However, the GPIO block is just floating in space. What
+address space is it in?
+
+I'm wondering if the GPIO controller should be a device/driver of its
+own? It probes first. The PCI power controller driver then probes, and
+has phandles to the GPIO controller so it can activate ports 1 and
+2. Parallel to that the Ethernet driver(s) can probe, also using
+phandles to the GPIO they need.
+
+Looking at this diagram, putting the GPIO controller within one of the
+port 3 functions is wrong. But maybe the diagram is not accurate.
+
+     Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
