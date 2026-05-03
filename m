@@ -2,84 +2,84 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +P0PCYCT+GnSwgIAu9opvQ
+	id qA9aFoCT+GnRwgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:28 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BC9A4BD054
+	by mail.lfdr.de (Postfix) with ESMTPS id 4339D4BD06B
 	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 14:39:28 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B799EC628D5;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C73ECC62D2C;
 	Mon,  4 May 2026 12:39:27 +0000 (UTC)
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A7F4FC8F276
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A55F9C8F276
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 May 2026 01:45:54 +0000 (UTC)
-Received: by mail-qk1-f175.google.com with SMTP id
- af79cd13be357-900fa9f178dso44330685a.1
+ Sun,  3 May 2026 02:06:33 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-8d736211595so208310385a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 02 May 2026 18:45:54 -0700 (PDT)
+ Sat, 02 May 2026 19:06:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777772753; x=1778377553;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1777773992; x=1778378792;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :from:to:cc:subject:date:message-id:reply-to;
- bh=k2VDIdBulUU5TGbhBANhJGFN/QeEIFSIYNJHL/TT6dc=;
- b=fjnCckEBKSIIvO/GavDh0SqrI1IQpeaWfY7HMoebM1/IiGw0LbmEzepC+lQbKyO2ns
- d+S7Jn+SkPOwVuFRPfYV2Y7jYWdmVZtzN903ydggwhouZ3ZnFp/oG28fIjLPSFlY/tR6
- Cm/YVUCCQme/I+IEtmnmyV+33M/fmLU9n/Hf4GnO1zzFAbkpgxfyj9NK424xflvA7k4O
- ks97jVxLZkYH6EgwakMiNVMIgAgLRqr3PRV04pNYzBijVLXNT/gigslpDr0kajc8zWQg
- mBIWFDz6tk3ppGOLyixt56f39O2Z403viVEXx//QqU0CTIL1JincZ35nZNsIY0xiANzX
- +pVg==
+ bh=pi7lj8hY/RV2kHI36GdoypDFeZXohRaZRLU99hRCU8E=;
+ b=WfHArJ5Ji4uAAPgpm9qoOPv5dllrGzUaAfqnn4yuhUc1kwY00rKUS4R5xDF6eNir7L
+ eAB0AGt7TN30/dfEOMSkR6wuMpWSoi5XU9/lB2CJNI9kr7Sg8S0DNY4APKf5Xj2lUsiL
+ /xpCVSwGQJaNHbzBjQCTOyqx37sDX81/ZNlP39m3kbiifv2GCUhJY0rlKDfK8YofQAYs
+ JiNtHKIlO/3GG0N4c16SMxzdBSIy1NKi65qeGbc7/57qze5AmteQnR54UUAZBrhKKsMg
+ 95VMsYrhXlGCOa0XSIBKZvLF+0m1UFIVq9VjXOeJUjOUH8Grv6RJt/5ooiV9yKd22OS1
+ SH/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777772753; x=1778377553;
+ d=1e100.net; s=20251104; t=1777773992; x=1778378792;
  h=content-transfer-encoding:in-reply-to:from:content-language
  :references:cc:to:subject:user-agent:mime-version:date:message-id
  :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=k2VDIdBulUU5TGbhBANhJGFN/QeEIFSIYNJHL/TT6dc=;
- b=r0/KXFPwN/4q2tfbFmBLmp+Lcbej8KbvY5Gm+yJY18zXuVLFcWcbGu+UsdGj+m5+IJ
- 4Q5QLfxl2IXQCd9rC2Eyd1IuFT8OaRayyfsxDdyEuIO4tuks/lF2UCH3aOuHdfVn19sR
- YgBH13tGoKdogE4uXJYzIYjFikogvqUxpLfGU+Pk+R7ThjFQfdCzdJUfhb7kQQFki0P7
- G8xBHqrOC0OAFBmKq+vaT+XM4SRXlsHBEGT3y7ieS5b6e6UtIOJY85+Lkxke9RNlovxp
- XRyRUKFIsUysT2P5N+HA8+wfVfO0z5PjnFgnkXGLDOK3msPcawTuskHPnmy66540mHUx
- akxw==
+ bh=pi7lj8hY/RV2kHI36GdoypDFeZXohRaZRLU99hRCU8E=;
+ b=pw6A75qkdFT3zmFQPU3W0+GKZmt9KeVDxguezqU+DNdM26jpICgbadJmUOmqA7Qdnw
+ 2VYgm6WbZviUBOq7geh6EZlwxJ0GFJnHC60dbe2TJ1VVDG2Ouymart6diV7I9A5YMgsI
+ WowOefi4B+/gKZUr3dHp3/NF5CHTOpoaQ74BoAOM4JPoKCpz9s8IR0p58+f1/ezv56MB
+ lWsQCKaB5+dVa89RiMtSGP3YTmsBZWBCIxdrXMuJh5/TdNRhCuwO9mIdpku5VOG7h/qt
+ b99xGzwVcv4i9oKSHLAzVLUaTAjCiO3aSXztJ6uTkhpamg93VI6BUFNcJ+LaBRyKW1co
+ hX9A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9I9uFcn6nkkrEigLFkRzesA9NVUAs/dXoHWKoNkuc/WIj180QjkZRxgA3g8nE2PSPnNXI0jz06MnJ8fQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwXo7MRSmQvqjf50rQzE9KxRHyGqHQc6aoINdXFgn0CW4xAYxzO
- bR6J1wfPADxkgcbOGe6mhQvlg2FU3XFpAUgzQ6MZYbrreVDpNU0AzpgUw7Iw7OBH4Sg=
-X-Gm-Gg: AeBDiesqNMbk1VGWNh4l9xmFTSMySi0KAyPv18DKPAP+OSOhRA8acg2vhVJxCMukGGW
- s8LoCGERH17Ymnn4c33kz5X9b9cQOK2Zl/lTaptabMF6BMDz6RGVqejBywqtsj/29mCVTCQ2oc2
- Huom4unPAbNvAVWS+ezdS3THZbaTGISP56p4mpcgHCswEKDTKfVVeFTE7R929OgloGjPHhxT9Ty
- Lbik6caAzX+CxHXOeEgBEM5MTkXXtnWtIRipAZFZApYSsKFkR1DmTpb7QVbLsZKhN8RIXyflDR1
- Cc/j4b3BLIUNYGzC5htuFvxT27n/TdWta/3PGitKLm9Hv4XOZAUEHzzOdGvL1qqbhLWEaihtHE5
- xk2u2ENBLyA1UH8b9SaljSIex4CDikUFoKkrfxvTwckakAcH5Vzppe0Zy3jSxLdoi9h179OrxOx
- 31lwxhh+jDCnfJBzKu8BitHaCIpIU1sncaKmXziIk8ZKE5WII4Nu3t2tKY/OMfz4hZ9G+zvMrJc
- A==
-X-Received: by 2002:a05:620a:284a:b0:8eb:10d4:a471 with SMTP id
- af79cd13be357-8fd17e4b6c1mr769719785a.43.1777772753243; 
- Sat, 02 May 2026 18:45:53 -0700 (PDT)
+ AFNElJ+fe1dAiRsxO7Jtisbi0F2fDblhch/D0RcJwXxwlk0/2JFancDRPmBXSz4uTm42QL3BGJ8dx4pu/D0NNg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyQ1uHKP7JSbq6HEkx2GoGz5CjYPeq280ChrwHN5BuMVqHN4BoK
+ +9xJBh+EhFo6RnFtykrF74bnQ7nBnbb3VEltEzf8XmZJPHOE3muEfXzMo0g1QQYLsvM=
+X-Gm-Gg: AeBDievl7XfZMBHXnPVAf2KIxpvMpouSDY4GDd1DV2IDSSdwRH5lKsB21a640YEPOCh
+ R//H/kk6Sc6wl0gtuV359xqnA6SnH4R1NC94IKJk/yTtdRssntr6oh1zjNr9mmar2dXSjKUgkP+
+ hFmn3KTCF7iQ2l8KDdu7qnNIu40Azyq1Xvii/dYbtTC7aQI2pjRz+AEh9jTeFceaR5SN8lk0kfU
+ VuPqUwRaGIxyx89M5MTfV9AjtIHtoTTjC0IUIttDNgtJ5PC/vsp3VYtkJa6YGfcFZHeOc/YXsl4
+ KndKg0rzJMgrU9KPhsPxqzsGYJmjnmm1VYGXg2i0QboHv3D7gzQ344camirtjd2QNl7y7U60mxl
+ Q58SMxrC5Spu+DBchMi0hBKxfwqSzczwLAqVo2fcRfXYVYejW/InPVHp9mNUdPX5FYc8F4TNI+1
+ DpEgOugbRLsRAvaAV+xge5J7z+sDTuzif/L5S6V+aASWotZntSGZ9ZuFRvaLO14aJvmwAT+REgq
+ Q==
+X-Received: by 2002:a05:620a:4083:b0:8f1:5e8f:ffe8 with SMTP id
+ af79cd13be357-8fd16aa97ebmr768552485a.23.1777773992247; 
+ Sat, 02 May 2026 19:06:32 -0700 (PDT)
 Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net.
  [75.72.117.212]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-8fc2c9229c8sm680230385a.36.2026.05.02.18.45.49
+ 6a1803df08f44-8b53d831ac7sm72634806d6.49.2026.05.02.19.06.28
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 02 May 2026 18:45:52 -0700 (PDT)
-Message-ID: <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
-Date: Sat, 2 May 2026 20:45:48 -0500
+ Sat, 02 May 2026 19:06:31 -0700 (PDT)
+Message-ID: <083e91d0-d86f-4de9-a01f-ce44eadacc13@riscstar.com>
+Date: Sat, 2 May 2026 21:06:28 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Andrew Lunn <andrew@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
- <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+ <20260501155421.3329862-12-elder@riscstar.com>
+ <f9336d01-e2d1-4894-848a-17ab20976872@lunn.ch>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
+In-Reply-To: <f9336d01-e2d1-4894-848a-17ab20976872@lunn.ch>
 X-Mailman-Approved-At: Mon, 04 May 2026 12:39:23 +0000
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
@@ -99,8 +99,8 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
  julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
  hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 09/12] gpio: tc956x: add
-	TC956x/QPS615 support
+Subject: Re: [Linux-stm32] [PATCH net-next 11/12] misc: tc956x_pci: add
+ TC956x/QPS615 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -116,7 +116,7 @@ Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 0BC9A4BD054
+X-Rspamd-Queue-Id: 4339D4BD06B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
@@ -144,7 +144,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.655];
+	NEURAL_HAM(-0.00)[-0.666];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -157,34 +157,72 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-On 5/1/26 1:36 PM, Andrew Lunn wrote:
->> + * There is a TC956X PCI power controller driver that accesses the
->> + * direction and output value registers for GPIOs 2 and 3.  These
->> + * GPIOs control the reset signal for the two downstream PCIe ports.
->> + * Their values will never change during operation of this driver, and
->> + * this driver reserves these two GPIOS.
+On 5/1/26 4:07 PM, Andrew Lunn wrote:
+>> diff --git a/drivers/misc/tc956x_pci.c b/drivers/misc/tc956x_pci.c
 > 
-> Why doesn't this power controller driver actually use this driver to
-> control the GPIOs? Chicken/egg?
+>> +static inline void chip_reset_assert(const struct tc956x_chip *chip,
+>> +				     enum reset_id id)
+>> +{
+>> +	tc956x_reset_clock_set(chip, true, true, true, (u8)id);
+>> +}
+> 
+> This is in drivers/misc, where the rules might be different. But in
+> netdev, we don't like inline functions in .c files. It is better to
+> let the compiler decide.
 
-I am not the one with authority on this, but yes, that's my
-understanding.  *Something* about this chip requires that the
-PCIe ports need to have some configuration done on them *before*
-PCIe is powered up.  So that driver uses the I2C interface to
-apply these settings.  Meanwhile this driver uses the PCIe-mapped
-memory to manage the GPIO registers.
+That was a mistake.  I agree with that perspective.  These functions
+were moved out of the header file because they were only used here.
+And in the process, I neglected to drop the inline.  Will fix.
 
-> Maybe add a comment why gpio-regmap.c cannot be used. You probably
-> need to instantiate it twice, but i still think you will end up with
-> less code.
+>> +static void chip_init_state(struct tc956x_chip *chip)
+>> +{
+>> +	/* The only IP block we currently use is MSIGEN */
+>> +	chip_reset_assert(chip, RESET_MCU);
+>> +	chip_reset_assert(chip, RESET_MCU1);
+>> +	chip_reset_assert(chip, RESET_INTC);
+>> +	chip_reset_assert(chip, RESET_UART0);
+>> +	chip_clock_disable(chip, CLOCK_MCU);
+>> +	chip_clock_disable(chip, CLOCK_SRAM);
+>> +	chip_clock_disable(chip, CLOCK_PLL);
+>> +	chip_clock_disable(chip, CLOCK_SGMII);
+> 
+> With my networking hat on, this one standard out.
+> 
+>> +	chip_clock_disable(chip, CLOCK_REFCLK);
+> 
+> The name REFCLK is sometimes used as for the clock signals for RGMII?
 
-It's possible gpio-regmap.c *could* be used.  We started with
-vendor code and this code got separated at some point along
-the way.  It was working, and I don't think I pursued other
-options at that point.  I'll look at this possibility before we
-send out the next version.
+You're saying that the REFCLK disable stood out, and you want to
+understand what "REFCLK" actually represents?
 
-What do you mean instantiate it twice?
+I believe this is an *output* reference clock signal generated by the
+TC9564.  Looking at the schematic for the RB3gen2 it leads only to
+a test point.
+
+However I want to compare notes with Daniel on Monday about this.
+
+Would it draw less attention if it were named "REFCLKO"?
+
+In any case we can add some reassuring comments.
+
+> 
+>> +static int
+>> +tc956x_function_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	struct tc956x_chip *chip;
+>> +	unsigned int msigen_irq;
+>> +	int ret;
+>> +
+>> +	/* Despite being a PCI device, we require devicetree */
+>> +	if (!dev->of_node)
+>> +		return -EINVAL;
+> 
+> Might be worth a dev_err(), since it is unusual.
+
+Good suggestion.  I'll add that.
+
+Thanks a lot for your review.
 
 					-Alex
 
