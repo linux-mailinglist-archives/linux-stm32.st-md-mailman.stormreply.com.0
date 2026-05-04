@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sJcgM5GW+Wlk+AIAu9opvQ
+	id U6QvLJOW+Wl/+AIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 05 May 2026 09:04:49 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 05 May 2026 09:04:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C1D94C7717
+	by mail.lfdr.de (Postfix) with ESMTPS id 653554C7724
 	for <lists+linux-stm32@lfdr.de>; Tue, 05 May 2026 09:04:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9983CC8F26F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC915C8F287;
 	Tue,  5 May 2026 07:04:48 +0000 (UTC)
 Received: from mail.kernel-space.org (v2202511311555398556.powersrv.de
  [46.38.245.6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7E672C56612
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD574C57A50
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon,  4 May 2026 17:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel-space.org;
- s=s1; t=1777915003;
+ s=s1; t=1777915004;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=j9fbcKoaqme5Vz1fCTzuqtyu8Za4tl10mh+oXgKUmQo=;
- b=vqktDZFoJYnKsBv7Qg3+jR2KORdYcXNDAAApS5NXnpUaTfHbLvr8OfuEzxzckPuibuLM5u
- eaFoMh+hPSMYYR8kKZoNrCBtFIhAgqK7d/m6cjzE/ccJGbTgGKxse//ia/IZKONSmkl/3g
- 60Rhk+UlCDDKSdYz0PKhuwt/S+WP+L4=
+ bh=00ruy8kpQH+b21j+wCBZYocT5CVhNgJL2HRPgVpHHfE=;
+ b=IHWfVUeNiYLI1b0cX6OPSGhFy0PS5SCUQ3LbgLZUaE97G/SeEZyATgq2iy9gWCnvJybk9G
+ 050pyCyRVUjelXZVlF+/BLeYTmbUfZlAKzusLCON20Bry4n2hlXGBkMVSqgUr3xjSjcXuZ
+ pO1OGpD22Sf1QrdAD4fwZeeAh+vjLCs=
 Received: from [192.168.0.2] (<unknown> [2a07:7e81:7daa:0:62cf:84ff:feee:627])
- by oreshnik (OpenSMTPD) with ESMTPSA id 2e036497
+ by oreshnik (OpenSMTPD) with ESMTPSA id 6d3cd3bc
  (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
- Mon, 4 May 2026 17:16:43 +0000 (UTC)
+ Mon, 4 May 2026 17:16:44 +0000 (UTC)
 From: Angelo Dureghello <angelo@kernel-space.org>
-Date: Mon, 04 May 2026 19:16:41 +0200
+Date: Mon, 04 May 2026 19:16:42 +0200
 MIME-Version: 1.0
-Message-Id: <20260504-wip-stmark2-dac-v1-3-874c36a4910d@baylibre.com>
+Message-Id: <20260504-wip-stmark2-dac-v1-4-874c36a4910d@baylibre.com>
 References: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
 In-Reply-To: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -52,8 +52,8 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 03/10] m68k: mcf5441x: setup DAC clock name as
- per driver name
+Subject: [Linux-stm32] [PATCH 04/10] m68k: defconfig: update stmark2
+	defconfig
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +69,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 9C1D94C7717
+X-Rspamd-Queue-Id: 653554C7724
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
@@ -102,51 +102,33 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.946];
+	NEURAL_HAM(-0.00)[-0.945];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Later in this patchset, the mcf54415 DAC driver is added.
-Considering some other different ColdFire cpu DACs exists, the DAC driver
-is named as "mcf54415_dac", related to the mcf5441x family SoCs with
-DACs (mcf54415/6/7/8).
-
-So updating DAC clock names to bind with proper driver name.
+Update stmark2 defconfig enabling MCF5441X DACs.
 
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
- arch/m68k/coldfire/m5441x.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ arch/m68k/configs/stmark2_defconfig | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/arch/m68k/coldfire/m5441x.c b/arch/m68k/coldfire/m5441x.c
-index 5c33d3896cf7..b21638844fd4 100644
---- a/arch/m68k/coldfire/m5441x.c
-+++ b/arch/m68k/coldfire/m5441x.c
-@@ -43,8 +43,8 @@ DEFINE_CLK(0, "mcfpit.2", 34, MCF_BUSCLK);
- DEFINE_CLK(0, "mcfpit.3", 35, MCF_BUSCLK);
- DEFINE_CLK(0, "mcfeport.0", 36, MCF_CLK);
- DEFINE_CLK(0, "mcfadc.0", 37, MCF_CLK);
--DEFINE_CLK(0, "mcfdac.0", 38, MCF_CLK);
--DEFINE_CLK(0, "mcfdac.1", 39, MCF_CLK);
-+DEFINE_CLK(0, "mcf54415_dac.0", 38, MCF_CLK);
-+DEFINE_CLK(0, "mcf54415_dac.1", 39, MCF_CLK);
- DEFINE_CLK(0, "mcfrtc.0", 42, MCF_CLK);
- DEFINE_CLK(0, "mcfsim.0", 43, MCF_CLK);
- DEFINE_CLK(0, "mcfusb-otg.0", 44, MCF_CLK);
-@@ -106,8 +106,8 @@ static struct clk_lookup m5411x_clk_lookup[] = {
- 	CLKDEV_INIT("mcfpit.3", NULL, &__clk_0_35),
- 	CLKDEV_INIT("mcfeport.0", NULL, &__clk_0_36),
- 	CLKDEV_INIT("mcfadc.0", NULL, &__clk_0_37),
--	CLKDEV_INIT("mcfdac.0", NULL, &__clk_0_38),
--	CLKDEV_INIT("mcfdac.1", NULL, &__clk_0_39),
-+	CLKDEV_INIT("mcf54415_dac.0", NULL, &__clk_0_38),
-+	CLKDEV_INIT("mcf54415_dac.1", NULL, &__clk_0_39),
- 	CLKDEV_INIT("mcfrtc.0", NULL, &__clk_0_42),
- 	CLKDEV_INIT("mcfsim.0", NULL, &__clk_0_43),
- 	CLKDEV_INIT("mcfusb-otg.0", NULL, &__clk_0_44),
+diff --git a/arch/m68k/configs/stmark2_defconfig b/arch/m68k/configs/stmark2_defconfig
+index b3fb95f73a95..3941113bc60b 100644
+--- a/arch/m68k/configs/stmark2_defconfig
++++ b/arch/m68k/configs/stmark2_defconfig
+@@ -76,6 +76,8 @@ CONFIG_DMADEVICES=y
+ CONFIG_MCF_EDMA=y
+ # CONFIG_VIRTIO_MENU is not set
+ # CONFIG_VHOST_MENU is not set
++CONFIG_IIO=y
++CONFIG_MCF54415_DAC=y
+ CONFIG_EXT2_FS=y
+ CONFIG_EXT2_FS_XATTR=y
+ CONFIG_EXT2_FS_POSIX_ACL=y
 
 -- 
 2.54.0
