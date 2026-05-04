@@ -2,101 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 9QvqIjbE9mnBYQIAu9opvQ
+	id sN3ZLvtX+GnTtAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 03 May 2026 05:42:46 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 10:25:31 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1040B4B44EA
-	for <lists+linux-stm32@lfdr.de>; Sun, 03 May 2026 05:42:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D3FB4BA22F
+	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 10:25:30 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1DCBCC8F276;
-	Sun,  3 May 2026 03:42:45 +0000 (UTC)
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com
- [209.85.222.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 68D65C055F4;
+	Mon,  4 May 2026 08:25:30 +0000 (UTC)
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EE96BC555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 35C8EC2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  3 May 2026 03:42:43 +0000 (UTC)
-Received: by mail-ua1-f49.google.com with SMTP id
- a1e0cc1a2514c-95d04f205beso369464241.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 02 May 2026 20:42:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1777779763; x=1778384563;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :sender:from:to:cc:subject:date:message-id:reply-to;
- bh=PiiXKGJux6g44aioDbCLD/YNgU+NyVlVqd4RaEM0CyY=;
- b=hcXaVoAMspWSnBm6isq+yYlDeAn6VdwR/x9A9dg+RcJmP8bY0aPzI+1jtZA8MIgLeZ
- Gjs3AXRN/g3HAkzcd0BySc+41JVVKz9pMwPFtLKbm/NZi1ZjsX+OI+ZkW2kjcFazcyTM
- 1FhmDFJciX+z7tcZkjjtw8keC7AWSNRhz7EQcn68BdGUjH5lRofIjZb4dPEsnuVBYJwJ
- KoGmRSR2EqKogD2/QCUiTuKzKREsVXXDHtvRtx3fzpkT38SR3DQw7u6WxamJE1X9Mlp6
- 6A3EfJns9uAPsGLMfRZReVebMZIRj70/vnKmmnDwPKhHBPjo98CqUkg5K6kx1UDftRDT
- mHig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1777779763; x=1778384563;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=PiiXKGJux6g44aioDbCLD/YNgU+NyVlVqd4RaEM0CyY=;
- b=XSNSwJzxJ8UgfS9dHKG6ej0Sia7qupL0IDn268Gh1Ut9z36hwX9Y7FCSr7TRALVuFq
- Z17dcpZX29oWcZU/iZY4InlCxHUwTfrrIPTjBmahiLjcSUGfYgaRDrGHJ9MupgYke+tm
- SI5SfHvanmk55zpFnuFT5jAJX766lX5EAI/vpWfaeXx5Zpjppo7tO5PUy5SB88WJVazI
- 9G+gQ1npVchDoyln0tbOFfolSzI97/rLf1aqtsxuZNXGNA3R4WmlxAKScVV3xRBtZ7ti
- nhlCkcdf93YDfXAO3zv5Hs4xCZts/Cs9KK85Y6Kh15Cg7b8OqR4KhEa1rkGs7Ppydh8O
- R59w==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8zxOekL3OCddfNgMb1FhlUNmrtnMdXiDr3L07qRIp6QnemiMmRtglSGPTeEn7jCo1AvaerQv54D00Nog==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwP0yTbrVt+Wk02dD958KPm0BUJUiuV2xBXO+nAls6S4W34kblG
- TRv9nN06I7kBt8eFLAGLwfF2lkYbF4JtnkZVR0GZ4tPRvHoizeIqlRVC
-X-Gm-Gg: AeBDieuWDcS4OpfawJQP6aupRh6BoiGTfY0uqRdT9eqJAnlS4cV1wL2EneSewWOjzUZ
- XNiyWvOPOT5EulQN3Jpkziir9qWx8uCF4bXu8ySqcMPmIE+ladsnx8VYn96J2poxfc/X2T4LGxB
- V78VDv/EoiztUQ49BEyyRa0blS1mZQn779LDuZf8/xoTBVEsTSD2vJ3tkyrYKnXuTsleU+aGGGa
- Q1YTMU2nsgKmYjG6mkPruh5Oy6l6tcKBmG80mn0ciTOOo9LKVH+d9VCNLJD2RudNUM+RNa7wQG7
- bu/MeI7RmDh/Y8NMh1YZupzA8ugCetfAag0LuV1VHLzSGqs7MKRdMjpPseCihISSkEQcyPk/oi0
- EHYUqFs3Pa0tltQ9uw8B9R0gRv94Vq+PVx85/Wqk9HDAF9xCgIVbYAUqblkyL0KmGD4ugjEPJzW
- dYaaBv45uMks0Lao4yfaeSpEoy+qE9ZEvd8uDBekQflzM=
-X-Received: by 2002:a05:6102:4b0c:b0:604:f29d:84be with SMTP id
- ada2fe7eead31-62d84a67460mr2488161137.3.1777779762631; 
- Sat, 02 May 2026 20:42:42 -0700 (PDT)
-Received: from [172.27.209.232] ([129.222.53.215])
- by smtp.gmail.com with ESMTPSA id
- a1e0cc1a2514c-95ce0af57f6sm3669350241.8.2026.05.02.20.42.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 02 May 2026 20:42:41 -0700 (PDT)
-Message-ID: <1fe6bcb7-b5c0-454f-ad54-5014006edab5@gmail.com>
-Date: Sun, 3 May 2026 04:42:35 +0100
+ Mon,  4 May 2026 08:25:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ sang-engineering.com; h=date:from:to:cc:subject:message-id
+ :references:mime-version:content-type:in-reply-to; s=k1; bh=69yL
+ hlBI16XoVN9bn+X224Mok/47DWhaQAjx6HzSTTc=; b=mD/zbGAP2702YJM1OPmA
+ ub40M6Ut4DpN0w3RYqDDcsh29QDSXY0wM/vRVTbX0NA54uOKr4Jmry/szvORS14o
+ FFBX/ozRpyki7PoKTe7eLJcKX76Y558PbSZKvcGRVuugNtLQZSvCz8eK7CkVCFGW
+ 43l8hbVWYFEwby8OeP8ETvg6pWyd/5ij4neBkuEu+YV5ZwfXIAdjQcieN4Cafpfy
+ e2Ue3Ndw2B84JuiaKEGxUkDvY5NHyqaR1t4nt9Zcs9Zhyq/yIXq0SRhOKOQ8Xlv8
+ EoMHbpxFYI++ZYwWfA7ozfIVSfLir6TYYUA9dfQdwceeuVzEyv8Xmij7TJ58tBF5
+ nQ==
+Received: (qmail 2102619 invoked from network); 4 May 2026 10:25:28 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted,
+ authenticated); 4 May 2026 10:25:28 +0200
+X-UD-Smtp-Session: l3s3148p1@hdhNrPlQZrcujnvR
+Date: Mon, 4 May 2026 10:25:27 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Marek Vasut <marex@nabladev.com>
+Message-ID: <afhX9z20oxSZxM6L@ninjato>
+References: <20260502153218.56142-1-marex@nabladev.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, maxime.chevallier@bootlin.com,
- rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org,
- brgl@kernel.org, arnd@arndb.de, gregkh@linuxfoundation.org
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <20260501155421.3329862-10-elder@riscstar.com>
-Cc: me@ziyao.cc, linux-kernel@vger.kernel.org, daniel@riscstar.com,
- chenchuangyu@xiaomi.com, linux-stm32@st-md-mailman.stormreply.com,
- mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me, devicetree@vger.kernel.org,
- hawk@kernel.org, linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- livelycarpet87@gmail.com, ast@kernel.org, linux-gpio@vger.kernel.org,
- wens@kernel.org, linux-arm-kernel@lists.infradead.org, inochiama@gmail.com,
- a0987203069@gmail.com, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, matthew.gerlach@altera.com,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 09/12] gpio: tc956x: add
-	TC956x/QPS615 support
+Content-Disposition: inline
+In-Reply-To: <20260502153218.56142-1-marex@nabladev.com>
+Cc: Andi Shyti <andi.shyti@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] i2c: stm32f7: Move reinit_completion() to
+ stm32f7_i2c_xfer_core()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,62 +60,74 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 1040B4B44EA
+X-Rspamd-Queue-Id: 4D3FB4BA22F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [3.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[sang-engineering.com:s=k1];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	DMARC_NA(0.00)[sang-engineering.com];
+	TAGGED_FROM(0.00)[renesas];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:elder@riscstar.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:maxime.chevallier@bootlin.com,m:rmk+kernel@armlinux.org.uk,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:linusw@kernel.org,m:brgl@kernel.org,m:arnd@arndb.de,m:gregkh@linuxfoundation.org,m:me@ziyao.cc,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:linux-stm32@st-md-mailman.stormreply.com,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:devicetree@vger.kernel.org,m:hawk@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:ast@kernel.org,m:linux-gpio@vger.kernel.org,m:wens@kernel.org,m:li
- nux-arm-kernel@lists.infradead.org,m:inochiama@gmail.com,m:a0987203069@gmail.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:bpf@vger.kernel.org,m:matthew.gerlach@altera.com,m:hkallweit1@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:conor@kernel.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[julianbraha@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[48];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:marex@nabladev.com,m:andi.shyti@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-i2c@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ziyao.cc,vger.kernel.org,riscstar.com,xiaomi.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,altera.com,bp.renesas.com,lists.infradead.org];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[julianbraha@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	NEURAL_HAM(-0.00)[-0.990];
+	DKIM_TRACE(0.00)[sang-engineering.com:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.785];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[wsa@sang-engineering.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[7];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel,dt];
-	TO_DN_SOME(0.00)[]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 
-On 5/1/26 16:54, Alex Elder wrote:
-> +config GPIO_TC956X
-> +	tristate "Toshiba TC956X GPIO support"
-> +	depends on TOSHIBA_TC956X_PCI
-> +	default m if TOSHIBA_TC956X_PCI
+On Sat, May 02, 2026 at 05:31:54PM +0200, Marek Vasut wrote:
+> Currently, the driver may repeatedly call reinit_completion() during
+> transfer which contains multiple messages, while another thread is
+> waiting for the completion.
+> 
+> This happens during transfer with more than 1 message, invoked via
+> stm32f7_i2c_xfer_core() -> stm32f7_i2c_xfer_msg(). After invoking the
+> stm32f7_i2c_xfer_msg() to start transfer, stm32f7_i2c_xfer_core()
+> calls wait_for_completion_timeout() to wait for completion of the
+> transfer of all messages. When the first message transfer completes,
+> the hard IRQ handler triggers, and detects transfer completion, which
+> leads to stm32f7_i2c_isr_event_thread() IRQ thread being started. The
+> stm32f7_i2c_isr_event_thread() calls stm32f7_i2c_xfer_msg() in case
+> there are more messages.
+> 
+> Without this change, the second and later stm32f7_i2c_xfer_msg() would
+> call reinit_completion() on the completion which is still being waited
+> for in stm32f7_i2c_xfer_core(). Fix this by moving the reinit_completion()
+> into stm32f7_i2c_xfer_core(), together with wait_for_completion_timeout().
+> 
+> Since stm32f7_i2c_xfer_core() now waits for completion of the entire
+> transfer, increase the default timeout. This fixes sporadic transfer
+> timeouts on STM32MP25xx during kernel boot.
+> 
+> Fixes: aeb068c57214 ("i2c: i2c-stm32f7: add driver")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-Hi Alex,
+Reworded $subject a little and applied to for-current, thanks!
 
-In your Kconfig changes, this condition 'if TOSHIBA_TC956X_PCI' is dead
-code. Since you have the dependency on TOSHIBA_TC956X_PCI, you can just
-make the 'default m' unconditional - assuming this is what you intended.
-
-Perhaps you would prefer to use 'default TOSHIBA_TC956X_PCI', which
-would have GPIO_TC956X default to 'm' or 'y' when TOSHIBA_TC956X_PCI is
-'m' or 'y', respectively.
-
-- Julian Braha
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
