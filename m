@@ -2,52 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eHpdMi53+GlavgIAu9opvQ
+	id wKiDMT18+GkowAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 12:38:38 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 13:00:13 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 719264BBD71
-	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 12:38:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3825D4BC0F1
+	for <lists+linux-stm32@lfdr.de>; Mon, 04 May 2026 13:00:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 04388C055F4;
-	Mon,  4 May 2026 10:28:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6EA8CFAC40;
+	Mon,  4 May 2026 11:00:12 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0461AC2909A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0D33C2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  4 May 2026 10:28:49 +0000 (UTC)
+ Mon,  4 May 2026 11:00:11 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 0057C60125;
- Mon,  4 May 2026 10:28:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9D7C2BCB8;
- Mon,  4 May 2026 10:28:47 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 7217E60133;
+ Mon,  4 May 2026 11:00:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AE67C2BCB8;
+ Mon,  4 May 2026 11:00:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1777890528;
- bh=C8xErYLvhPi3/y5PT2xKoQR2XSjSO6oonC2p86NBA50=;
+ s=k20201202; t=1777892410;
+ bh=Qekei4EBSl8zy90b3baTSwFNYdFd4J9Yt5RBNUtCJWw=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=ditjBDesUUK94v7TkQQRnjRwaJ732nv/8eUZqEi8iRb2kdbutLnnnqFgN47QwqQ/p
- 0phoOneGTIIDY0Vk+TXrJTXbKPf+5Yyn6Hiz55PDQRqNLZ3t6KvKkaPlwK9aDvt81T
- dAApoGze9zzDj8XfUkbqYpuKRgYAa5/QWL/nh1cDLNmFj+ahpR13f22w0R9pyLzF0O
- lSHV/Y4jFKRhelvRTOgzuBdmBUvCVwALjoME4rr8Y+nOU4CL5iqSlfEKGWhgnfA6/l
- Ac/nXcoI6ECHc8+xDEl8mmt83TWDWBpFhYyqnWgc0JqM8jBHQve2WG/3tUP4on87ZD
- wCJGAOVM1XtfQ==
-Date: Mon, 4 May 2026 12:28:46 +0200
+ b=Ea8gYidQNl+OaH9FchlMaM9K+7g6ktdoQHPZPXS4Qs92VgpYkUkRUPZEDZDwNx0VH
+ Drq+pTs9CBE039unHT2/+Hu4Ky2OnpMq6+A8jUev0t6NMD0HQV+aIGH7nMCjRD3l83
+ YM3CptFu9pWmZn7Oi69MAVLlQGL4YBL2n/vA4LEjJJHEYA9khVhT+eOxgIC4mqFkGu
+ xIDmYOJtKTgQY6T5hX+jrjcR0s7iGVUWLJJTh5JuvV5zfAPqGfRnDQpdfoZm6+YOCP
+ ol3dq2DVdr/RxOxqX/rLm7m6/r9I10FeSAQTYgaOBZPi7m9mgQt1vE11qcLQ+0rDAJ
+ jFc/WIwAKuRTg==
+Date: Mon, 4 May 2026 13:00:07 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Manish Baing <manishbaing2789@gmail.com>
-Message-ID: <20260504-urban-judicious-buzzard-14bd50@quoll>
-References: <20260501073305.5866-1-manishbaing2789@gmail.com>
+To: Alex Elder <elder@riscstar.com>
+Message-ID: <20260504-fascinating-teal-tarsier-b116c8@quoll>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-9-elder@riscstar.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260501073305.5866-1-manishbaing2789@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-pwm@vger.kernel.org,
- linusw@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- thierry.reding@gmail.com, ukleinek@kernel.org, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: pwm: stmpe: convert to DT
-	schema
+In-Reply-To: <20260501155421.3329862-9-elder@riscstar.com>
+Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
+ edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
+ maxime.chevallier@bootlin.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
+ kuba@kernel.org, pabeni@redhat.com, konradybcio@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, hawk@kernel.org,
+ arnd@arndb.de, brgl@kernel.org, linux-arm-msm@vger.kernel.org,
+ richardcochran@gmail.com, rohan.g.thomas@altera.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, livelycarpet87@gmail.com,
+ linux-gpio@vger.kernel.org, rmk+kernel@armlinux.org.uk, wens@kernel.org,
+ bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ gregkh@linuxfoundation.org, linusw@kernel.org, a0987203069@gmail.com,
+ davem@davemloft.net, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
+ mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
+ julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 08/12] dt-bindings: net: toshiba,
+ tc965x-dwmac: add TC956x Ethernet bridge
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,59 +78,189 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 719264BBD71
-X-Rspamd-Action: no action
+X-Rspamd-Queue-Id: 3825D4BC0F1
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
+X-Spamd-Result: default: False [9.09 / 15.00];
+	SEM_URIBL(3.50)[0.0.0.0:email];
 	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	BAD_REP_POLICIES(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:manishbaing2789@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:linux-pwm@vger.kernel.org,m:linusw@kernel.org,m:linux-kernel@vger.kernel.org,m:devicetree@vger.kernel.org,m:thierry.reding@gmail.com,m:ukleinek@kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:thierryreding@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	GREYLIST(0.00)[pass,body];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[49];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:elder@riscstar.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@kernel.org,m:a09872
+ 03069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.898];
+	NEURAL_HAM(-0.00)[-0.906];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	R_SPF_ALLOW(0.00)[+ip4:52.209.6.89];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
 	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[devicetree.org:url,0.0.0.0:email,stormreply.com:url,stormreply.com:email,1c:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Spam: Yes
 
-On Fri, May 01, 2026 at 07:33:05AM +0000, Manish Baing wrote:
-> Convert the STMicroelectronics STMPE PWM controller bindings
-> from text format to YAML schema.
+On Fri, May 01, 2026 at 10:54:16AM -0500, Alex Elder wrote:
+> From: Daniel Thompson <daniel@riscstar.com>
 > 
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
+> Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
+> bridges.
+> 
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
 > ---
->  .../devicetree/bindings/pwm/st,stmpe-pwm.txt  | 18 --------
+>  .../bindings/net/toshiba,tc956x-dwmac.yaml    | 111 ++++++++++++++++++
+>  1 file changed, 111 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> new file mode 100644
+> index 0000000000000..d95d22a3761da
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> @@ -0,0 +1,111 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/toshiba,tc956x-dwmac.yaml#
 
-It is already covered by st,stmpe.yaml, which you were supposed to find
-with git grep.
+Filename and here: toshiba,tc9564-dwmac
+(s/x/4/)
 
-Instead, drop the TXT file.
+
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Toshiba TC956x Ethernet-AVB/TSN Controller
+> +
+> +maintainers:
+> +  - Alex Elder <elder@riscstar.com>
+> +  - Daniel Thompson <daniel@riscstar.com>
+> +
+> +description: |
+> +  This node provides properties for configuring the Ethernet PCI functions
+> +  that are attached to the internal downstream port of the TC956x's PCIe
+> +  switch.
+
+Describe rather the hardware directly, not the DTS or the binding
+itself.
+
+Just say what is the hardware, what is consists of, what is less
+obvious or usual (if there is such).
+
+> +
+> +  TC956x are a family of Ethernet-AVB/TSN bridge chips that combine a PCIe
+> +  switch together with a number of Ethernet controllers. These bindings
+> +  cover only the Ethernet functions of these devices.
+
+What about the rest of the hardware - a PCIe switch? Shouldn't it be
+described?
+
+> +
+> +allOf:
+> +  - $ref: /schemas/pci/pci-bus-common.yaml#
+> +  - $ref: /schemas/pci/pci-device.yaml#
+> +
+> +unevaluatedProperties: false
+
+Place both (allOf+unevaluatedProperties) after "required:".
+
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - pci1179,0220 # Toshiba TC9564 (a.k.a. Qualcomm QPS615)
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  gpio-controller: true
+> +
+> +  # We can't allOf reference Ethernet-controller.yaml because we end up with
+
+s/Ethernet-controller.yaml/ethernet-controller.yaml/
+
+> +  # contradictory $nodename rules (`ethernet@` versus `pci@`). Happily only a
+
+But which schema requires pci@ for devices? If I am not mistaken, only
+dtschema/schemas/pci/pci-bus-common.yaml requires it, and it does not
+apply to actual PCI device.
+
+
+> +  # small number of the properties are useful on TC956x so we can just reference
+> +  # what we need.
+> +  phy-connection-type:
+> +    $ref: ethernet-controller.yaml#/properties/phy-connection-type
+> +
+> +  phy-handle:
+> +    $ref: ethernet-controller.yaml#/properties/phy-handle
+> +
+> +  phy-mode:
+> +    $ref: ethernet-controller.yaml#/properties/phy-mode
+> +
+> +  mdio:
+> +    $ref: snps,dwmac.yaml#/properties/mdio
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +examples:
+> +  - |
+> +    pcie {
+> +      #address-cells = <3>;
+> +      #size-cells = <2>;
+> +
+> +      tc956x_emac0: pci@0,0 {
+> +        compatible = "pci1179,0220";
+> +        reg = <0x50000 0x0 0x0 0x0 0x0>;
+> +        #address-cells = <3>;
+> +        #size-cells = <2>;
+> +        device_type = "pci";
+> +        ranges;
+> +
+> +        gpio-controller;
+> +        #gpio-cells = <2>;
+> +
+> +        phy-mode = "10gbase-r";
+> +        phy-handle = <&tc956x_emac0_phy>;
+> +
+> +        mdio {
+> +          compatible = "snps,dwmac-mdio";
+> +          #address-cells = <1>;
+> +          #size-cells = <0>;
+> +
+> +          tc956x_emac0_phy: ethernet-phy@1c {
+> +            compatible = "ethernet-phy-id311c.1c12";
+> +            reg = <0x1c>;
+> +          };
+> +        };
+> +      };
+
+Keep only one example, unless you have different properties (not their
+values, but their presence),
+
 
 Best regards,
 Krzysztof
