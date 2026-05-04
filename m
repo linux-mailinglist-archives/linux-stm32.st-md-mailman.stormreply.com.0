@@ -2,21 +2,21 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id U6QvLJOW+Wl/+AIAu9opvQ
+	id HjfoIpOW+Wl9+AIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 05 May 2026 09:04:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 653554C7724
+	by mail.lfdr.de (Postfix) with ESMTPS id 48CA24C7723
 	for <lists+linux-stm32@lfdr.de>; Tue, 05 May 2026 09:04:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AC915C8F287;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C826CC8F289;
 	Tue,  5 May 2026 07:04:48 +0000 (UTC)
 Received: from mail.kernel-space.org (v2202511311555398556.powersrv.de
  [46.38.245.6])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD574C57A50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D2AD1C56612
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Mon,  4 May 2026 17:16:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel-space.org;
@@ -25,18 +25,18 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel-space.org;
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=00ruy8kpQH+b21j+wCBZYocT5CVhNgJL2HRPgVpHHfE=;
- b=IHWfVUeNiYLI1b0cX6OPSGhFy0PS5SCUQ3LbgLZUaE97G/SeEZyATgq2iy9gWCnvJybk9G
- 050pyCyRVUjelXZVlF+/BLeYTmbUfZlAKzusLCON20Bry4n2hlXGBkMVSqgUr3xjSjcXuZ
- pO1OGpD22Sf1QrdAD4fwZeeAh+vjLCs=
+ bh=66sbIWl/UECZcngzqfN9gySpU5b7WSWy5FgqX8acPdE=;
+ b=BF4e+y+FI93bmhmBDVYOS9Ywi3UsNwZ9B+nk/SFmHSkqT4n/jl++VpZSEEgYjk786kgiWq
+ 3+YgTbehRHNoNXXR+coeZLVsbMqaPAQgho3Tk1wlwOhIqHTt98tJRn/bWv9jMwYhFqs6/B
+ dYJJVVEHO2P347vzmmkLM4ucda/T3u0=
 Received: from [192.168.0.2] (<unknown> [2a07:7e81:7daa:0:62cf:84ff:feee:627])
- by oreshnik (OpenSMTPD) with ESMTPSA id 6d3cd3bc
+ by oreshnik (OpenSMTPD) with ESMTPSA id 31d53e53
  (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO); 
  Mon, 4 May 2026 17:16:44 +0000 (UTC)
 From: Angelo Dureghello <angelo@kernel-space.org>
-Date: Mon, 04 May 2026 19:16:42 +0200
+Date: Mon, 04 May 2026 19:16:43 +0200
 MIME-Version: 1.0
-Message-Id: <20260504-wip-stmark2-dac-v1-4-874c36a4910d@baylibre.com>
+Message-Id: <20260504-wip-stmark2-dac-v1-5-874c36a4910d@baylibre.com>
 References: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
 In-Reply-To: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -52,8 +52,7 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 04/10] m68k: defconfig: update stmark2
-	defconfig
+Subject: [Linux-stm32] [PATCH 05/10] m68k: add DAC modules base addresses
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,7 +68,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 653554C7724
+X-Rspamd-Queue-Id: 48CA24C7723
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
@@ -102,33 +101,36 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.945];
+	NEURAL_HAM(-0.00)[-0.937];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Update stmark2 defconfig enabling MCF5441X DACs.
+Add DAC controller 0 and 1 base addresses.
 
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
- arch/m68k/configs/stmark2_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/m68k/include/asm/m5441xsim.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/m68k/configs/stmark2_defconfig b/arch/m68k/configs/stmark2_defconfig
-index b3fb95f73a95..3941113bc60b 100644
---- a/arch/m68k/configs/stmark2_defconfig
-+++ b/arch/m68k/configs/stmark2_defconfig
-@@ -76,6 +76,8 @@ CONFIG_DMADEVICES=y
- CONFIG_MCF_EDMA=y
- # CONFIG_VIRTIO_MENU is not set
- # CONFIG_VHOST_MENU is not set
-+CONFIG_IIO=y
-+CONFIG_MCF54415_DAC=y
- CONFIG_EXT2_FS=y
- CONFIG_EXT2_FS_XATTR=y
- CONFIG_EXT2_FS_POSIX_ACL=y
+diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
+index f48cf63bd782..f5acc962bb95 100644
+--- a/arch/m68k/include/asm/m5441xsim.h
++++ b/arch/m68k/include/asm/m5441xsim.h
+@@ -191,6 +191,11 @@
+ #define MCFEPORT_EPPAR		0xfc090000
+ #define MCFEPORT_EPIER		0xfc090003
+ #define MCFEPORT_EPFR		0xfc090006
++/*
++ * DAC Modules.
++ */
++#define MCFDAC_BASE0		0xfc098000
++#define MCFDAC_BASE1		0xfc09c000
+ /*
+  *  RTC Module.
+  */
 
 -- 
 2.54.0
