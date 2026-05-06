@@ -2,57 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6B2EDKVW+2mvZgMAu9opvQ
+	id eKPSDPBW+2mvZgMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:56:37 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:57:52 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8D304DCB86
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:56:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9D884DCBE9
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:57:51 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55B3CC8F289;
-	Wed,  6 May 2026 14:56:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73D64C8F289;
+	Wed,  6 May 2026 14:57:51 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EF72C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06DE2C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2026 14:56:34 +0000 (UTC)
+ Wed,  6 May 2026 14:57:49 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 8EE4760180;
- Wed,  6 May 2026 14:56:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DBF4C2BCC7;
- Wed,  6 May 2026 14:56:26 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 07F8260103;
+ Wed,  6 May 2026 14:57:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EBFBC2BCB0;
+ Wed,  6 May 2026 14:57:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778079393;
- bh=bsx0g8RkKR5HeXJ4S13Js2wdRNvek52tucLoRCTiuXk=;
+ s=k20201202; t=1778079468;
+ bh=8si24IOti1/iGS8Ii+rD9oCJOsgxix/eRYlFpzIWYuI=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=QoBC5/IYlle6Vq2hjQXnBQOo894nXVp5QJ02RZ89WtAhqUTM0tDM14RkOaO4LxJNA
- AErds4eMBwdMIOkKRD8PKrNYGvPi1XUBXkr8ypSBq0fN3sO+nTMgXAyYsIzeWODE9B
- bxtD6SYSYRb/ip5194RD2Qr9eaOnfGUS0pGbcHkTWZedRvUuNMH02KrlVLCxkJdJnj
- gYCoblx/GOqMgQxusTpuEcGEbQalUhI8/ovIMtDlB6d1Tx999WliDiGOUrgZdw6cp3
- j8N2q/JdYSd+dZ1F5DWpJ5lO5oACn4EFQunWZz2O088S8aLgH/tYu8y9Niu00dQdbk
- c7GVGPFYi9o6Q==
-Date: Wed, 6 May 2026 15:56:21 +0100
+ b=lQnqq4MRZCzlWelxIgit2yM3HH4EOKJSumvuI3HQjVtEG+0doLGq2jGnpgVSB7+o3
+ YfqiifCEKZWvIZahx7FybsNrPwPyVqBKSp1bMxcBSbuweHLYfxYHemhRs1QQdLwWMe
+ hAs6YjV4pJpabCN9W/8x4pJ0fvzOfpJmK15/8c7hpjvsQFIbbE2KJvU898al6C+v5B
+ mtU9tL0BkU4OjJdS/wrEqYPBXieZ4/jB3tTMW7jgwMoN7TXkv3VS/v+ZFbl16IBihR
+ yhll48547hyJrCYB0GMa7d0s18ykDZMNNrIF27lHOh4GXK6JSiq/WnyHcOUS6bsqTF
+ Hhz3kEKxPaEqw==
+Date: Wed, 6 May 2026 15:57:37 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Angelo Dureghello <angelo@kernel-space.org>
-Message-ID: <20260506155621.5b858f6f@jic23-huawei>
-In-Reply-To: <20260504-wip-stmark2-dac-v1-7-874c36a4910d@baylibre.com>
+To: "Arnd Bergmann" <arnd@arndb.de>
+Message-ID: <20260506155737.6cd625a5@jic23-huawei>
+In-Reply-To: <ef773bbd-1cf2-4cc2-96a8-fccd3355d6b1@app.fastmail.com>
 References: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
- <20260504-wip-stmark2-dac-v1-7-874c36a4910d@baylibre.com>
+ <20260504-wip-stmark2-dac-v1-8-874c36a4910d@baylibre.com>
+ <ef773bbd-1cf2-4cc2-96a8-fccd3355d6b1@app.fastmail.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Cc: Andy Shevchenko <andy@kernel.org>,
- Angelo Dureghello <adureghello@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+Cc: Andy Shevchenko <andy@kernel.org>, Angelo
+ Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Greg Ungerer <gerg@uclinux.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Steven King <sfking@fdwdc.com>,
- linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Steven
+ King <sfking@fdwdc.com>, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Angelo Dureghello <angelo@kernel-space.org>,
  David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/10] m68k: mcf5441x: add CCR MISCCR2
-	bitfields
+Subject: Re: [Linux-stm32] [PATCH 08/10] m68k: stmark2: add mcf5441x DAC
+	platform devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,7 +71,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: A8D304DCB86
+X-Rspamd-Queue-Id: C9D884DCBE9
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
@@ -87,7 +90,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[16];
-	FORGED_RECIPIENTS(0.00)[m:angelo@kernel-space.org,m:andy@kernel.org,m:adureghello@baylibre.com,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:arnd@arndb.de,m:andy@kernel.org,m:adureghello@baylibre.com,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:gerg@uclinux.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:angelo@kernel-space.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -98,60 +101,35 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
-	NEURAL_HAM(-0.00)[-0.884];
+	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,vger.kernel.org,uclinux.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,kernel-space.org,lists.infradead.org];
+	NEURAL_HAM(-0.00)[-0.832];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[baylibre.com:email,kernel-space.org:email,sashiko.dev:url,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,sashiko.dev:url,arndb.de:email,stormreply.com:url,stormreply.com:email]
 
-On Mon, 04 May 2026 19:16:45 +0200
-Angelo Dureghello <angelo@kernel-space.org> wrote:
+On Mon, 04 May 2026 19:28:28 +0200
+"Arnd Bergmann" <arnd@arndb.de> wrote:
 
-> From: Angelo Dureghello <adureghello@baylibre.com>
+> On Mon, May 4, 2026, at 19:16, Angelo Dureghello wrote:
+> > @@ -94,8 +94,42 @@ static struct platform_device dspi_spi0_device = {  
+> ...
+> > +static struct resource dspi_dac1_resource[] = {
+> > +	[0] = {  
 > 
-> Add CCR MISCCR2 register bitfields.
+> This looks like the name has a copy-paste error: this is not
+> related to the 'dspi' controller at all but is just the dac, right?
 > 
-> Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
+>       Arnd
+> 
+
 https://sashiko.dev/#/patchset/20260504-wip-stmark2-dac-v1-0-874c36a4910d%40baylibre.com
-has valid suggestion that if you are using BIT() and GENMASK() you need
-a suitable header include.
+Has noted some more alongside this one.
+Seems unlikely a DAC has a bus number.
 
-
-> ---
->  arch/m68k/include/asm/m5441xsim.h | 15 +++++++++++++++
->  1 file changed, 15 insertions(+)
-> 
-> diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
-> index 9ce2cbb05316..93f7943d5550 100644
-> --- a/arch/m68k/include/asm/m5441xsim.h
-> +++ b/arch/m68k/include/asm/m5441xsim.h
-> @@ -145,6 +145,21 @@
->  #define MCF_CCM_SBFCR		0xec090022
->  #define MCF_CCM_FNACR		0xec090024
->  
-> +/* Bit definitions and macros for MCF_CCM_MISCCR2 */
-> +#define MCF_CCM_MISCCR2_ULPI		BIT(0)
-> +#define MCF_CCM_MISCCR2_FB_HALF		BIT(1)
-> +#define MCF_CCM_MISCCR2_ADC3_EN		BIT(2)
-> +#define MCF_CCM_MISCCR2_ADC7_EN		BIT(3)
-> +#define MCF_CCM_MISCCR2_ADC_EN		BIT(4)
-> +#define MCF_CCM_MISCCR2_DAC0_SEL	BIT(5)
-> +#define MCF_CCM_MISCCR2_DAC1_SEL	BIT(6)
-> +#define MCF_CCM_MISCCR2_DCC_BYP		BIT(7)
-> +#define MCF_CCM_MISCCR2_PLL_MODE	GENMASK(9, 7)
-> +#define MCF_CCM_MISCCR2_SWT_SCR		BIT(12)
-> +#define MCF_CCM_MISCCR2_RGPIO_HALF	BIT(13)
-> +#define MCF_CCM_MISCCR2_DDR2_CLK	BIT(14)
-> +#define MCF_CCM_MISCCR2_EXTCLK_BYP	BIT(15)
-> +
->  /*
->   *  UART module.
->   */
-> 
-
+Jonathan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
