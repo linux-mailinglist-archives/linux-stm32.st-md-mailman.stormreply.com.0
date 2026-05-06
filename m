@@ -2,66 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gO3ZEkBU+2n+ZQMAu9opvQ
+	id 0HB0CSZV+2n+ZQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:46:24 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:50:14 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7F8D4DC835
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:46:23 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0968B4DC972
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:50:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77848C8F289;
-	Wed,  6 May 2026 14:46:23 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BE7FFC8F289;
+	Wed,  6 May 2026 14:50:12 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 24EF9C36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 64ED2C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2026 14:46:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=vyEPyUZJeX9dO6F6nRE5z42G4sCReKS00+GvfPpcSWM=; b=lPzQdyINhroAWnkNF/Qgri1OvX
- sBk/9p971b+YnthhhMi3GnMwiaebMUyvGTxPL7iRNx1Ise2+lutlySwHs0KIdToFgYAOHZz4tuy7L
- 5BfnGqTk2MJAvy8DQoCx1v8ddewIDTqCDUWHNmERhbltK2nyc6BC1A4tHat7+Vc/TYqk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1wKdVO-001ekY-Pc; Wed, 06 May 2026 16:45:42 +0200
-Date: Wed, 6 May 2026 16:45:42 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Xilin Wu <sophon@radxa.com>
-Message-ID: <2af0fee3-d3d6-4434-847f-3fd2fbb841d3@lunn.ch>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
- <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
- <4C0D95BC59F1A4ED+53f3be85-2cdd-4058-8950-57970027d481@radxa.com>
+ Wed,  6 May 2026 14:50:11 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2E74A60132;
+ Wed,  6 May 2026 14:50:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 341B8C2BCB0;
+ Wed,  6 May 2026 14:50:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778079009;
+ bh=hxc/WekCWfmbeZgwsH46Ovr1LRwT9vTuK03wutn2Jkc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=EugWsNJrryhI0StVPBsD6CczQqq7eyRAPD0mmMONG8PVWY8yKRoBDbUYg3BP/ONkY
+ 65ykk2jYZ1h1266f8BK1RLmLLN6JxBZlPS0rWWCVwyxV2CUeECxW45HZCk74lfSBda
+ zC7ZTR5g9NQFEqTVPt1igmLn1JBPTeMyYYrr49+4AywYElDz3DZ0JoJeazbaTp3M6U
+ RuepEyo8Hm1okAeULdfJnC2QKN5tzEQABNQAOQQ7itaWqJV6QRYJUhte5JurnisvSR
+ Tmn6lSivHY6vcKTFN4O4K7xNjNvxqQNSnpR16X8jvT0vfgyIxZVWeTzGEjRQbAKGRV
+ qYW1aVLcRAsPg==
+Date: Wed, 6 May 2026 15:49:58 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Angelo Dureghello <angelo@kernel-space.org>
+Message-ID: <20260506154958.0c005263@jic23-huawei>
+In-Reply-To: <20260504-wip-stmark2-dac-v1-7-874c36a4910d@baylibre.com>
+References: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
+ <20260504-wip-stmark2-dac-v1-7-874c36a4910d@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <4C0D95BC59F1A4ED+53f3be85-2cdd-4058-8950-57970027d481@radxa.com>
-Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
- edumazet@google.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
- Alex Elder <elder@riscstar.com>, daniel@iogearbox.net, chenhuacai@kernel.org,
- john.fastabend@gmail.com, maxime.chevallier@bootlin.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me, kuba@kernel.org,
- pabeni@redhat.com, konradybcio@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, hawk@kernel.org, arnd@arndb.de, brgl@kernel.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
- rmk+kernel@armlinux.org.uk, wens@kernel.org, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org,
- linusw@kernel.org, a0987203069@gmail.com, davem@davemloft.net,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
- inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
- matthew.gerlach@altera.com, andersson@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 10/12] net: stmmac: tc956x: add
- TC956x/QPS615 support
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Angelo Dureghello <adureghello@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Steven King <sfking@fdwdc.com>,
+ linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
+ David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 07/10] m68k: mcf5441x: add CCR MISCCR2
+	bitfields
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,78 +68,87 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: D7F8D4DC835
+X-Rspamd-Queue-Id: 0968B4DC972
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:sophon@radxa.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@
- kernel.org,m:a0987203069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
+	FORGED_RECIPIENTS(0.00)[m:angelo@kernel-space.org,m:andy@kernel.org,m:adureghello@baylibre.com,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_THREE(0.00)[3];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[lunn.ch:-];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_GT_50(0.00)[50];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.959];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
+	NEURAL_HAM(-0.00)[-0.873];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCPT_COUNT_TWELVE(0.00)[16];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[]
 
-> Hi Andrew,
+On Mon, 04 May 2026 19:16:45 +0200
+Angelo Dureghello <angelo@kernel-space.org> wrote:
+
+> From: Angelo Dureghello <adureghello@baylibre.com>
 > 
-> Yes, the PHY is doing the WoL. And I guess this makes sense as it allows the
-> MAC to power down during suspend to save power.
+> Add CCR MISCCR2 register bitfields.
 > 
-> The INTN pin of QCA8081 is connected to the ETH_0_INT_N of QPS615. And the
-> INTN_WOL pin is connected to a SoC GPIO.
+> Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
+> ---
+>  arch/m68k/include/asm/m5441xsim.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 > 
-> Without this change, I can't get WoL to work. I have a working branch for
-> our board here:
-> https://github.com/strongtz/linux-radxa-qcom/commits/v7.0.2-8280-wip/
+> diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
+> index 9ce2cbb05316..93f7943d5550 100644
+> --- a/arch/m68k/include/asm/m5441xsim.h
+> +++ b/arch/m68k/include/asm/m5441xsim.h
+> @@ -145,6 +145,21 @@
+>  #define MCF_CCM_SBFCR		0xec090022
+>  #define MCF_CCM_FNACR		0xec090024
+>  
+> +/* Bit definitions and macros for MCF_CCM_MISCCR2 */
+> +#define MCF_CCM_MISCCR2_ULPI		BIT(0)
+> +#define MCF_CCM_MISCCR2_FB_HALF		BIT(1)
+> +#define MCF_CCM_MISCCR2_ADC3_EN		BIT(2)
+> +#define MCF_CCM_MISCCR2_ADC7_EN		BIT(3)
+> +#define MCF_CCM_MISCCR2_ADC_EN		BIT(4)
+> +#define MCF_CCM_MISCCR2_DAC0_SEL	BIT(5)
+> +#define MCF_CCM_MISCCR2_DAC1_SEL	BIT(6)
+> +#define MCF_CCM_MISCCR2_DCC_BYP		BIT(7)
+> +#define MCF_CCM_MISCCR2_PLL_MODE	GENMASK(9, 7)
 
-Please take a look at commit
+Overlapping fields? Bit 7 in both the two lines above.
 
-commit 6911308d7d111a9c367293b52f2dc265819f2b60
-Author: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Date:   Thu Oct 23 10:16:50 2025 +0100
+> +#define MCF_CCM_MISCCR2_SWT_SCR		BIT(12)
+> +#define MCF_CCM_MISCCR2_RGPIO_HALF	BIT(13)
+> +#define MCF_CCM_MISCCR2_DDR2_CLK	BIT(14)
+> +#define MCF_CCM_MISCCR2_EXTCLK_BYP	BIT(15)
+> +
+>  /*
+>   *  UART module.
+>   */
+> 
 
-    net: stmmac: convert to phylink-managed Wake-on-Lan
-
-In particular:
-
-    When STMMAC_FLAG_USE_PHY_WOL is not set, we provide the MAC's WoL
-    capabilities to phylink, which then allows phylink to choose between
-    the PHY and MAC for WoL depending on their individual capabilities
-    as described in the phylink commit. This only augments the WoL
-    functionality with PHYs that declare to the driver model that they are
-    wake-up capable. Currently, very few PHY drivers support this.
-    
-Could you actually patch the PHY driver to make it list its
-capabilities. That is the direction we want to go in the long term,
-and not use STMMAC_FLAG_USE_PHY_WOL.
-
-    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
