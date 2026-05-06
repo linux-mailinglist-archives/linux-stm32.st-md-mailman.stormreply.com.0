@@ -2,84 +2,102 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6KvoKMxl+2kbawMAu9opvQ
+	id AHsoKgR++2mEbwMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 18:01:16 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 19:44:36 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 825634DDC36
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 18:01:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF5F4DEF54
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 19:44:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2811EC8F289;
-	Wed,  6 May 2026 16:01:11 +0000 (UTC)
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D5A5DC8F289;
+	Wed,  6 May 2026 17:44:35 +0000 (UTC)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BED22C8F283
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 80E39C8F283
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2026 16:01:09 +0000 (UTC)
-X-QQ-mid: esmtpgz16t1778083257t46dc08ae
-X-QQ-Originating-IP: G9YZKnrl1p0wXA0Vy0+oySRdc1VRx/a+D0I73RMqFHw=
-Received: from [127.0.0.1] ( [116.234.74.217]) by bizesmtp.qq.com (ESMTP) with 
- id ; Thu, 07 May 2026 00:00:52 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8386846045021828038
-Message-ID: <EE8A30342A260FB4+57795644-675f-45b1-995d-48de28b14a34@radxa.com>
-Date: Thu, 7 May 2026 00:00:50 +0800
+ Wed,  6 May 2026 17:44:34 +0000 (UTC)
+Received: by mail-qk1-f169.google.com with SMTP id
+ af79cd13be357-8d65f4073bfso900892885a.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 06 May 2026 10:44:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778089473; x=1778694273;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=k6wXO6STmxH+YsbEuPXhWzzsM6OvvesRxD9MxXwGEOY=;
+ b=UeP+JWBT/ux9ZnLqRTE9W8rkS8hawJxGXcByc2mlWG5iM7hAlm3vSb0D3r1BGP4etJ
+ g2jeW8MdRL+yJCjQU/uf+iDoAF8tvXsfbay1THAogVYALewB887wFJtIePtJHONe4FMC
+ KbiHrwvvgLPW2cuy0JwXif1zVM3d73orC4Pgq5t8TOQ6Oc46yRbSVRTxmy50FO4EbHDC
+ 8qLS7QWUdZs2X0DTvT6dQy+8bGu4CS5AJqRD6fYw5E6WIxtZuC+/8YmFgbyAlttYTmIH
+ jUBoQB7Yu7HkknUNi16/Yw7fPNjvulI/6zjYANDF1iOTN/j+CIIk9L7ZCOjrUovi3FPd
+ mUqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778089473; x=1778694273;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=k6wXO6STmxH+YsbEuPXhWzzsM6OvvesRxD9MxXwGEOY=;
+ b=SBsDlJKtw6FVqymQLBTvI2Am87rVl8HpgoBoY7EuqyaGHznng8f20XWFb3Isb4CJHJ
+ 7J5qBARwsZwR345Zwdqa+EceCgBOYvdm0VYEF1/PyWEk7sQduUxURwA1RSppao7RXTUM
+ hothMZ554NsTOHMPmAaTJmXbKe9hZvZp1ASB6o85RLxIZAqM7iH8gcZUMW3txFspX3pS
+ FT9pkgB/Dup4tYWqEfPUXW9BzsHK38NgpefYwdyEsbiXzbXcIVZdNSpeLJn/38MOsJ8r
+ dfKX16yDFNhyxkBxaP37RDxtfK2KzYaxy0BTn/ijHXMU9/nF2KGYfdQe+u+j7S2zRTDB
+ zHbA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8psSjTPf61F4tP0kzx5r6XvSidtsyhWcmz/b8KgEKabF8/+Sotn05YyOuIowU4+47FjcsrDwvL9KR+Eg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwUr3Ic6KjPqE2yR/w8tgda1zCdrMTI1C2AxAXf2pqwfe4RnFX2
+ 6osa18kLrb826bXoHnGxyiyO7up/lB403CoVKsNyZhQ7jtRxIQsKUOx3qoi98wK4sMo=
+X-Gm-Gg: AeBDievhp2E9hjpBuW6eql87fKTu8F4uqrAY06NLpjVikp/FDgMBgo8Y9AjiSCagse7
+ eDHAFPKV6X36GwEtuSVBgzlxEoKxmiVJ8H7PcRRzj+owxSunURZaL3165GFnSr3hxKsfeS5xWk3
+ VpS0TLru/Wgv5P3VcRAiUE9sOSAnZqohTiJ55oMrQPoJWSrAj6CdMRbChY8YRNxbcQ9+XmUdnca
+ 2UE/OFzPd2NerLC5V6DusZ1av6zNE1XbP6UUawrR38D/3qmtWDfv2yEjjg1RjzVsI53Q7nOHWA3
+ +5cSXZgRQKYhkV32Y1rgFE+aNWmzqKShAEuGIJumtaZ57BgI2iO77gy36JZHdLOLynYe7NYBp7a
+ uctD+S3dRx1PoE8Q1HOCpfwTj1dWBcWJn50bTkP330AihFpC09yCynyr1gmGDLrHN5J/DBpp9Ga
+ zPp92J1CKq6GEtmvF32ixlcCWpJimB0r1CraSLlCSxwvAqA2hf8d0HmJmOTPKwLczRprPNq8e/d
+ A==
+X-Received: by 2002:a05:620a:f0c:b0:8f1:9e59:220e with SMTP id
+ af79cd13be357-904d63e7a90mr642596485a.39.1778089473124; 
+ Wed, 06 May 2026 10:44:33 -0700 (PDT)
+Received: from [172.22.22.28] (c-75-72-117-212.hsd1.mn.comcast.net.
+ [75.72.117.212]) by smtp.gmail.com with ESMTPSA id
+ af79cd13be357-8fc2c91cdfbsm1736572285a.34.2026.05.06.10.44.29
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 06 May 2026 10:44:32 -0700 (PDT)
+Message-ID: <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
+Date: Wed, 6 May 2026 12:44:28 -0500
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>
+To: Xilin Wu <sophon@radxa.com>, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ maxime.chevallier@bootlin.com, rmk+kernel@armlinux.org.uk,
+ andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org,
+ arnd@arndb.de, gregkh@linuxfoundation.org
 References: <20260501155421.3329862-1-elder@riscstar.com>
  <20260501155421.3329862-11-elder@riscstar.com>
- <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
- <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
- <4C0D95BC59F1A4ED+53f3be85-2cdd-4058-8950-57970027d481@radxa.com>
- <aftgorkah-Hjrvq2@aspen.lan>
- <549BE66F62F1470F+a489d4fd-10ab-484c-9b55-6aecfd05d383@radxa.com>
- <a8b5d96b-3c8f-4ec5-b205-bbacafbf47aa@lunn.ch>
+ <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
 Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <a8b5d96b-3c8f-4ec5-b205-bbacafbf47aa@lunn.ch>
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NYlggeZuI0UG5ceJbvnRxJWvN8cJfwrOSkmij5dH1qZMj0vYN4/mkdbk
- Iqo46RtHaNQup3gfYG3N/fW/GEqEdBaJmBUv9f28xfLpysM4DWtxo2wV53MmIqhnJzgXnU7
- PGk55JDkJ9LxlDwX60+kcTO+iv7TOZmstjBKNdHnsdhc4R6jXEREuX1eeGdUMMGGe4rYWmx
- fO5TDyTaxdYIbcbpERvOCA3xuy0x43jM3inNC0C7ppGhILRI7dZP72q2fcj6Gr+rO7psQwx
- /O5XIXQwHB0LG7VYHvCj8KSMiHXtzJY0eyR7qritmMcnuvSxhO0ERIznKVJ0g+m3tGrLf3A
- EFdq5tVI/AIkjE3m6xSZUu3GoCzZZlrl1HYG8mrcvJy2OzlBkN/GeAkyJeR1R5D293NvVSz
- mHb27v3iEEYS4MAnV3gy2xxCdV7ynPPUFiP+54/TVqAlJHDI8FK1c93Al4WBPNpdIl2dQ+o
- 2OPAYrIrSs9Jhmv65nhGHajAO85nccy+kdmBMjkw3Wh6v5U1mg1gnFvnX1Bo99kcT9WPHia
- rylWDq4At4A0+xRk/uK/4QKlnipmo0151IlTv0ZSLEeTZRsvC2cgxinq6DdzjzfKrYaSLJb
- 0OtRlbAtYA0EkypuOkC+b3FquIdJwLGZ3hH2fC8+2T9vW/LZBNndwXZ4zB5oTmbTiuoKhNK
- 2QxDSOg8J0K9tOI0PDA2PDcO3UB3hqhSQVMzLvnh5qKSQ0yhi4L/bm0rAZYOzC5PR8WzQy9
- HWWtccenfAiNTcfQOBpZ16w5unSa8zPNjhAYs5RCtouHfMuvFmpXh8yJ2kD5X13uJv3wOQx
- jBjCdH2B7qfV7NfJtdYfdSXsO6KUqu+szmAS7OvRrjRPitzWxm7jh48Vo4zlkFwbMMW22lm
- hVQXVrJ/TkOOaZ9KvkJ5SpFWhjwGXE21Uu//pEtQSIid0FwwOldiWmcL98vmeekB5HvoNYE
- VaGcdYzrpnkPIMoezsM9GQVHz67Fj8MQsqJlRnD5vChR41Re1ZHmX2j2CYj49yfefvqD5XL
- TGy7podOffB2BONmomlVKIcDSkYbw=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
-Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
+Cc: me@ziyao.cc, linux-kernel@vger.kernel.org,
  Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
- edumazet@google.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
- Alex Elder <elder@riscstar.com>, daniel@iogearbox.net, chenhuacai@kernel.org,
- john.fastabend@gmail.com, maxime.chevallier@bootlin.com,
- siyanteng@cqsoftware.com.cn, sdf@fomichev.me, kuba@kernel.org,
- pabeni@redhat.com, konradybcio@kernel.org, devicetree@vger.kernel.org,
- conor+dt@kernel.org, hawk@kernel.org, arnd@arndb.de, brgl@kernel.org,
- linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
- rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
- livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
- rmk+kernel@armlinux.org.uk, wens@kernel.org, bpf@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org,
- linusw@kernel.org, a0987203069@gmail.com, davem@davemloft.net,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
- inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
- matthew.gerlach@altera.com, andersson@kernel.org, hkallweit1@gmail.com
+ linux-stm32@st-md-mailman.stormreply.com, mohd.anwar@oss.qualcomm.com,
+ weishangjuan@eswincomputing.com, daniel@iogearbox.net, chenhuacai@kernel.org,
+ john.fastabend@gmail.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
+ devicetree@vger.kernel.org, hawk@kernel.org, linux-arm-msm@vger.kernel.org,
+ richardcochran@gmail.com, rohan.g.thomas@altera.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, livelycarpet87@gmail.com,
+ ast@kernel.org, linux-gpio@vger.kernel.org, wens@kernel.org,
+ linux-arm-kernel@lists.infradead.org, inochiama@gmail.com,
+ a0987203069@gmail.com, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, julianbraha@gmail.com,
+ matthew.gerlach@altera.com, hkallweit1@gmail.com
 Subject: Re: [Linux-stm32] [PATCH net-next 10/12] net: stmmac: tc956x: add
  TC956x/QPS615 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -93,78 +111,92 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 825634DDC36
+X-Rspamd-Queue-Id: 3FF5F4DEF54
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [2.39 / 15.00];
+X-Spamd-Result: default: False [3.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[riscstar-com.20251104.gappssmtp.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[radxa.com : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[riscstar.com : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_MUA_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	RSPAMD_URIBL_FAIL(0.00)[radxa.com:query timed out];
-	FORGED_SENDER(0.00)[sophon@radxa.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@ke
- rnel.org,m:a0987203069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:sophon@radxa.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:maxime.chevallier@bootlin.com,m:rmk+kernel@armlinux.org.uk,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:linusw@kernel.org,m:brgl@kernel.org,m:arnd@arndb.de,m:gregkh@linuxfoundation.org,m:me@ziyao.cc,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:linux-stm32@st-md-mailman.stormreply.com,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:devicetree@vger.kernel.org,m:hawk@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:ast@kernel.org,m:linux-gpio@vger.kernel.org,m:wens@kernel.org,m:linu
+ x-arm-kernel@lists.infradead.org,m:inochiama@gmail.com,m:a0987203069@gmail.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:bpf@vger.kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:hkallweit1@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:conor@kernel.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[49];
+	FORGED_SENDER(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[50];
-	NEURAL_HAM(-0.00)[-0.997];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[sophon@radxa.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.844];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
-	R_DKIM_NA(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RSPAMD_EMAILBL_FAIL(0.00)[linux-stm32.st-md-mailman.stormreply.com:query timed out,sophon.radxa.com:query timed out];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[ziyao.cc,vger.kernel.org,riscstar.com,xiaomi.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,altera.com,bp.renesas.com,lists.infradead.org];
 	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel,dt];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,radxa.com:mid,radxa.com:email]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
 
-On 5/6/2026 11:56 PM, Andrew Lunn wrote:
->>> Does that mean you don't get phy interrupts reported in /proc/interrupts
->>> before any suspend happens?
->>>
->>
->> No. The phy works in polling mode AFAIK.
-> 
-> You should be able to tell from dmesg:
-> 
-> Generic FE-GE Realtek PHY r8169-0-600:00: attached PHY driver (mii_bus:phy_addr=r8169-0-600:00, irq=MAC)
-> 
-> irq= can be MAC, POLL, or the interrupt number if interrupts are used.
-> 
-> If PHY WoL is used, i would expect interrupts to be used, otherwise
-> how is the PHY waking the system?
-> 
->       Andrew
-> 
-
-Yeah I know, it's indeed POLL. The phy is now waking the system using 
-the INTN_WOL pin directly connected to the SoC GPIO, instead of the INTN 
-pin connected to the QPS615.
-
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gNS81LzI2IDk6MzAgUE0sIFhpbGluIFd1IHdyb3RlOgo+IE9uIDUvMS8yMDI2IDExOjU0IFBN
+LCBBbGV4IEVsZGVyIHdyb3RlOgo+PiBGcm9tOiBEYW5pZWwgVGhvbXBzb24gPGRhbmllbEByaXNj
+c3Rhci5jb20+Cj4+Cj4+IFRvc2hpYmEgVEM5NTZ4IGlzIGFuIEV0aGVybmV0IEFWQi9UU04gYnJp
+ZGdlIGFuZCBpcyBlc3NlbnRpYWxseSBhCj4+IHNtYWxsIGFuZCBoaWdobHktc3BlY2lhbGl6ZWQg
+U29DLiBUQzk1NnggaW5jbHVkZXMgYW4gImVNQUMiIHN1YnN5c3RlbQo+PiB0aGF0IGNhbiBiZSBh
+Y2Nlc3NlZCwgYWxvbmcgd2l0aCBzZXZlcmFsIG90aGVyIHBlcmlwaGVyYWxzLCB2aWEgdHdvCj4+
+IFBDSWUgZW5kcG9pbnQgZnVuY3Rpb25zLiBUaGVyZSBpcyBhIG1haW4gZHJpdmVyIGZvciB0aGUg
+ZW5kcG9pbnQgdGhhdAo+PiBkZWNvbXBvc2VzIHRoaW5ncyBhbmQgY3JlYXRlcyBhdXhpbGlhcnkg
+YnVzIGRldmljZXMgdG8gbW9kZWwgdGhlIFNvQy4KPj4KPj4gVGhlIGVNQUMgY29uc2lzdHMgb2Yg
+YSBEZXNpZ253YXJlIFhHTUFDLCBYUENTIGFuZCBQTUEuIEVhY2ggZU1BQyBpcwo+PiBzdXBwb3J0
+ZWQgYnkgYW4gTVNJR0VOIHRoYXQgYnJpZGdlcyBUQzk1NnggbGV2ZWwgaW50ZXJydXB0cyB0byBQ
+Q0llCj4+IE1TSXMuCj4+Cj4+IEFkZCBhIGRyaXZlciBmb3IgdGhlIGVNQUMvTVNJR0VOIGNvbWJp
+bmF0aW9uLgo+Pgo+PiBDby1kZXZlbG9wZWQtYnk6IEFsZXggRWxkZXIgPGVsZGVyQHJpc2NzdGFy
+LmNvbT4KPj4gU2lnbmVkLW9mZi1ieTogQWxleCBFbGRlciA8ZWxkZXJAcmlzY3N0YXIuY29tPgo+
+PiBTaWduZWQtb2ZmLWJ5OiBEYW5pZWwgVGhvbXBzb24gPGRhbmllbEByaXNjc3Rhci5jb20+Cj4+
+IC0tLQo+PiDCoCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29uZmlnwqDC
+oCB8wqAgMTMgKwo+PiDCoCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9NYWtl
+ZmlsZcKgIHzCoMKgIDIgKwo+PiDCoCAuLi4vZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMt
+dGM5NTZ4LmPCoMKgwqAgfCA3OTEgKysrKysrKysrKysrKysrKysrCj4+IMKgIGluY2x1ZGUvc29j
+L3Rvc2hpYmEvdGM5NTZ4LWR3bWFjLmjCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHzCoCA4NCArKwo+
+PiDCoCA0IGZpbGVzIGNoYW5nZWQsIDg5MCBpbnNlcnRpb25zKCspCj4+IMKgIGNyZWF0ZSBtb2Rl
+IDEwMDY0NCBkcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9kd21hYy10Yzk1Nngu
+Ywo+PiDCoCBjcmVhdGUgbW9kZSAxMDA2NDQgaW5jbHVkZS9zb2MvdG9zaGliYS90Yzk1NngtZHdt
+YWMuaAo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
+YWMvS2NvbmZpZyBiL2RyaXZlcnMvIAo+PiBuZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvS2Nv
+bmZpZwo+PiBpbmRleCBlM2RkNWFkZGE1YWNhLi42NmJjZmFjY2JlMjFmIDEwMDY0NAo+PiAtLS0g
+YS9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9LY29uZmlnCj4+ICsrKyBiL2Ry
+aXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL0tjb25maWcKPj4gQEAgLTQwNCw2ICs0
+MDQsMTkgQEAgY29uZmlnIERXTUFDX01PVE9SQ09NTQo+PiDCoMKgwqDCoMKgwqDCoCBUaGlzIGVu
+YWJsZXMgZ2x1ZSBkcml2ZXIgZm9yIE1vdG9yY29tbSBEV01BQy1iYXNlZCBQQ0kgRXRoZXJuZXQK
+Pj4gwqDCoMKgwqDCoMKgwqAgY29udHJvbGxlcnMuIEN1cnJlbnRseSBvbmx5IFlUNjgwMSBpcyBz
+dXBwb3J0ZWQuCj4+ICtjb25maWcgRFdNQUNfVEM5NTZYCj4+ICvCoMKgwqAgdHJpc3RhdGUgIlRv
+c2hpYmEgVEM5NTZYIERXTUFDIHN1cHBvcnQiCj4+ICvCoMKgwqAgZGVwZW5kcyBvbiBQQ0kKPj4g
+K8KgwqDCoCBkZXBlbmRzIG9uIENPTU1PTl9DTEsKPj4gK8KgwqDCoCBkZXBlbmRzIG9uIFRPU0hJ
+QkFfVEM5NTZYX1BDSQo+PiArwqDCoMKgIGRlZmF1bHQgbSBpZiBUT1NISUJBX1RDOTU2WF9QQ0kK
+PiAKPiBIaSBBbGV4LAo+IAo+IEkgdGhpbmsgR0VORVJJQ19JUlFfQ0hJUCBzaG91bGQgYmUgc2Vs
+ZWN0ZWQgaGVyZS4KClllcyB0aGVyZSBhcmUgYSBudW1iZXIgb2YgdGhpbmdzIG1pc3NpbmcgaW4g
+dGhlIEtjb25maWcgZGVmaW5pdGlvbnMKYW5kIEknbSB3b3JraW5nIHRocm91Z2ggdGhlbSB0aGlz
+IHdlZWsuICBBbmQgeWVzLCBzaW5jZSB3ZSB1c2UKaXJxX2dlbmVyaWNfY2hpcF9vcHMgd2UgbXVz
+dCBlbnN1cmUgQ09ORklHX0dFTkVSSUNfSVJRX0NISVAgaXMKZW5hYmxlZCBoZXJlLgoKPiBUaGFu
+ayB5b3UgZm9yIHRoZSBkcml2ZXIuCgpUaGFuayB5b3UgZm9yIHlvdXIgZmVlZGJhY2sgKHRoaXMg
+YW5kIG90aGVycyBJIHNlZSkuCgoJCQkJCS1BbGV4CgoKX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0
+bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0
+b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
