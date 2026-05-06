@@ -2,66 +2,65 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0FP3LyGa+2ladAMAu9opvQ
+	id 0KJGMhqc+2lxeQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 21:44:33 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 21:52:58 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A48A74DFEE0
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 21:44:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 699964DFF7E
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 21:52:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A90AC8F289;
-	Wed,  6 May 2026 19:44:32 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EC9D0C8F289;
+	Wed,  6 May 2026 19:52:57 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 342C5C8F283
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E0718C8F283
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2026 19:44:30 +0000 (UTC)
+ Wed,  6 May 2026 19:52:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=K1q3NI3BsSpOEHU3gmV8o6cjnh4W3gSw9Ujwg8EaS+A=; b=r8sFM1pwHJMVxud91KWvxLzmcJ
- gwRnbQDJaMv62Iq9lhwBZzABSwYGSEE82UrEms+6AWU5jNfdJfR411CccFSrQH9zjssZ/YoBWl7O2
- DCTNp/nXrptBPLlYXwwXR0+qOG0wDZuVdAryAuBRIjI81zj4gUpXxwjsm7t7bhyEmcG0=;
+ bh=LLm/OyrLL/bFbrU/6UU1ygktiOEEMm3JkZVjxWOAaEM=; b=sTc/uhrdL+f56jIUOYaI0nqCje
+ VW5KJ91Ih/YjryXx+Dtp4boxbSBp2M6yCNeZ2uiaISvG8eGaokn5gkGgnJF8sE6m5eX8idzZSW83L
+ 7wzQEjNtqgX9EUcUGWHGKlsfwhGELCW2T+rQqz/LLmbboncShwHwquVOVBF6Eet5PNCs=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wKi9o-001hEj-Dc; Wed, 06 May 2026 21:43:44 +0200
-Date: Wed, 6 May 2026 21:43:44 +0200
+ id 1wKiI8-001hI4-02; Wed, 06 May 2026 21:52:20 +0200
+Date: Wed, 6 May 2026 21:52:19 +0200
 From: Andrew Lunn <andrew@lunn.ch>
-To: Alex Elder <elder@riscstar.com>
-Message-ID: <7d7b6b89-3ef4-4891-a794-c8b11f39db34@lunn.ch>
+To: Daniel Thompson <daniel@riscstar.com>
+Message-ID: <982d4d8c-5348-4fd7-8ad2-aac9b3791150@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-10-elder@riscstar.com>
- <736fb3b7-c88a-4ec4-96ad-d1b79cc48d30@lunn.ch>
- <30cec7dd-ac3c-47ab-896a-c29992bd5ba5@riscstar.com>
- <3666e3e6-e6f3-4cbf-b9fe-caa394fbab7c@lunn.ch>
- <0751a051-9894-45be-92d6-0d46f2c39293@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <224E233C593EF171+8c8a43dd-5061-40f8-9eb7-f360eabf2ecc@radxa.com>
+ <4015f47a-af62-441d-b1b8-a8598f963970@lunn.ch>
+ <afteD2d8d87Nyvl7@aspen.lan>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <0751a051-9894-45be-92d6-0d46f2c39293@riscstar.com>
+In-Reply-To: <afteD2d8d87Nyvl7@aspen.lan>
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
- daniel@riscstar.com, chenchuangyu@xiaomi.com, edumazet@google.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ chenchuangyu@xiaomi.com, edumazet@google.com, netdev@vger.kernel.org,
+ Xilin Wu <sophon@radxa.com>, linux-stm32@st-md-mailman.stormreply.com,
  robh@kernel.org, mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- maxime.chevallier@bootlin.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- kuba@kernel.org, pabeni@redhat.com, konradybcio@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org, hawk@kernel.org,
- arnd@arndb.de, brgl@kernel.org, linux-arm-msm@vger.kernel.org,
- richardcochran@gmail.com, rohan.g.thomas@altera.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, livelycarpet87@gmail.com,
- linux-gpio@vger.kernel.org, rmk+kernel@armlinux.org.uk, wens@kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- gregkh@linuxfoundation.org, linusw@kernel.org, a0987203069@gmail.com,
- davem@davemloft.net, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
- mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
- julianbraha@gmail.com, matthew.gerlach@altera.com, andersson@kernel.org,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 09/12] gpio: tc956x: add
-	TC956x/QPS615 support
+ Alex Elder <elder@riscstar.com>, daniel@iogearbox.net, chenhuacai@kernel.org,
+ john.fastabend@gmail.com, maxime.chevallier@bootlin.com,
+ siyanteng@cqsoftware.com.cn, sdf@fomichev.me, kuba@kernel.org,
+ pabeni@redhat.com, konradybcio@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, hawk@kernel.org, arnd@arndb.de, brgl@kernel.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
+ rmk+kernel@armlinux.org.uk, wens@kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org,
+ linusw@kernel.org, a0987203069@gmail.com, davem@davemloft.net,
+ andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
+ inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
+ matthew.gerlach@altera.com, andersson@kernel.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 10/12] net: stmmac: tc956x: add
+ TC956x/QPS615 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,7 +76,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: A48A74DFEE0
+X-Rspamd-Queue-Id: 699964DFF7E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
@@ -91,24 +90,24 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:elder@riscstar.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@kernel.org,m:a09872
- 03069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:daniel@riscstar.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:sophon@radxa.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@
+ kernel.org,m:a0987203069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[49];
+	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
+	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,xiaomi.com,google.com,radxa.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,riscstar.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[50];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[lunn.ch:-];
-	NEURAL_HAM(-0.00)[-0.938];
+	NEURAL_HAM(-0.00)[-0.950];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -116,52 +115,21 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,stormreply.com:url,stormreply.com:email]
 
-> >                ----------------------------------
-> >                |              Host              |
-> >                ------+...+----------+........+---
-> >                      |i2c|          |  PCIe  |
-> >      ----------------+...+----------+........+------
-> >      | TC956x        |I2C|          |upstream|     |
-> >      |               -----        --+--------+---  |
-> >      |  -----  ------  -------    | PCIe switch |  |
-> >      |  |SPI|  |GPIO|  |reset|    |             |  |
-> >      |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
-> >      |                 -------    ---++--++--++--  |
-> >      |  -----  ------     downstream//    \\  \\   |  downstream
-> >      |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
-> >      |  -----  ------   //PCIe port 3       \\     |
-> >      |                  ||                   \======= downstream
-> >      |  ----+-----------++-----------+----         |  PCIe port 2
-> >      |  | M | internal PCIe endpoint | M |         |
-> >      |  | S |------------------------| S |  ------ |
-> >      |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
-> >      |  | G |function 0|  |function 1| G |  ------ |
-> >      |  | E |----++----|  |----++----| E |         |
-> >      |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
-> >      --------+.......+------+.....+-----------------
-> >              |USXGMII|      |SGMII|
-> >            --+.......+--  --+.....+--
-> >            |  ARQ113C  |  | QEP8121 |
-> >            |    PHY    |  |   PHY   |
-> >            -------------  -----------
-> > 
+> TL;DR - there are conceivable (and sane) hardware designs where the
+> interrupt goes only to the TC9564 GPIO, but they are too different to
+> RB3gen2 (and related SBC designs) for them to be supported before
+> they exist!
 
+Agreed. I'm just trying to be cautious. It would be bad to saying that
+WoL is supported in general, because a board might come along where it
+does not work because the TC9564 itself cannot wake the system. If the
+driver needs to say WoL is supported, it should try to validate the
+system is using a supported set of features.
 
-> Because the internal endpoint won't operate until the PCIe
-> power controller has enabled power, this GPIO driver and
-> the PCIe power control driver won't interfere with each
-> other's access to the shared registers.
+But lets get the basic features supported first, WoL can be added
+later.
 
-What i find interesting is that there are two GPIOs, and two external
-downstream PCIe ports. A naive way of looking at this is that each
-external PCIe port has one GPIO. And the internal PCIe port does not
-have one. Hence the internal port might well work without any
-additional setup?  That was my thinking.
-
-But you are saying it is not as simple as this, and two GPIOs affect
-three ports? Do you have any idea what they actually do?
-
-      Andrew
+       Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
