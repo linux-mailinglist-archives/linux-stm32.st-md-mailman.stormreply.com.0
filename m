@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qGXlNAVW+2n+ZQMAu9opvQ
+	id 6B2EDKVW+2mvZgMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:53:57 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:56:37 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 737B94DCACB
-	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:53:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A8D304DCB86
+	for <lists+linux-stm32@lfdr.de>; Wed, 06 May 2026 16:56:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0BF78C8F289;
-	Wed,  6 May 2026 14:53:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55B3CC8F289;
+	Wed,  6 May 2026 14:56:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 17E4CC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EF72C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  6 May 2026 14:53:54 +0000 (UTC)
+ Wed,  6 May 2026 14:56:34 +0000 (UTC)
 Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id BA51E4180F;
- Wed,  6 May 2026 14:53:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0CB1C2BCB0;
- Wed,  6 May 2026 14:53:46 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 8EE4760180;
+ Wed,  6 May 2026 14:56:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DBF4C2BCC7;
+ Wed,  6 May 2026 14:56:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778079233;
- bh=iGeZEs7tmL4/Bkc+Vu171PnBQsEvMbUsJhWP2fZbvEg=;
+ s=k20201202; t=1778079393;
+ bh=bsx0g8RkKR5HeXJ4S13Js2wdRNvek52tucLoRCTiuXk=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=D9H/3V35Aobn4QmBiV3joX2pHhDLIEJ+RBY5fWA1GH7pasmhjb4uLKDVRPN+F59eb
- 9RefZ+mTsjqzTfLFnGRdAzL5EjuoZmm4zqTLAxLzqFxvDsFJvWh85VfMncsJb2f6M0
- M4K+IH63+dZka5XYC24lWJTENNsZpJtzNM6awxHEVijwL1KRqny4n6qEn0daE4AVnj
- oFCEMGIwn7XTNpJJ9dLPHUlXYKvLJTVheypPIfhriQ/AqWCLw0N5WGgehhJaHyBHq9
- ppjV6DLAuITB3xYbHNc3lWhiaF8MQQHs3Vk4uROL5BuvntUIaxiQs7aTaB9aOoAgCl
- 9sbg6D5RRXm3g==
-Date: Wed, 6 May 2026 15:53:42 +0100
+ b=QoBC5/IYlle6Vq2hjQXnBQOo894nXVp5QJ02RZ89WtAhqUTM0tDM14RkOaO4LxJNA
+ AErds4eMBwdMIOkKRD8PKrNYGvPi1XUBXkr8ypSBq0fN3sO+nTMgXAyYsIzeWODE9B
+ bxtD6SYSYRb/ip5194RD2Qr9eaOnfGUS0pGbcHkTWZedRvUuNMH02KrlVLCxkJdJnj
+ gYCoblx/GOqMgQxusTpuEcGEbQalUhI8/ovIMtDlB6d1Tx999WliDiGOUrgZdw6cp3
+ j8N2q/JdYSd+dZ1F5DWpJ5lO5oACn4EFQunWZz2O088S8aLgH/tYu8y9Niu00dQdbk
+ c7GVGPFYi9o6Q==
+Date: Wed, 6 May 2026 15:56:21 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Angelo Dureghello <angelo@kernel-space.org>
-Message-ID: <20260506155342.7155bf43@jic23-huawei>
-In-Reply-To: <20260504-wip-stmark2-dac-v1-9-874c36a4910d@baylibre.com>
+Message-ID: <20260506155621.5b858f6f@jic23-huawei>
+In-Reply-To: <20260504-wip-stmark2-dac-v1-7-874c36a4910d@baylibre.com>
 References: <20260504-wip-stmark2-dac-v1-0-874c36a4910d@baylibre.com>
- <20260504-wip-stmark2-dac-v1-9-874c36a4910d@baylibre.com>
+ <20260504-wip-stmark2-dac-v1-7-874c36a4910d@baylibre.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: Andy Shevchenko <andy@kernel.org>,
@@ -51,7 +51,8 @@ Cc: Andy Shevchenko <andy@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
  David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 09/10] m68k: stmark2: enable DACs outputs
+Subject: Re: [Linux-stm32] [PATCH 07/10] m68k: mcf5441x: add CCR MISCCR2
+	bitfields
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -67,7 +68,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 737B94DCACB
+X-Rspamd-Queue-Id: A8D304DCB86
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.29 / 15.00];
@@ -77,12 +78,12 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[16];
@@ -98,57 +99,57 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
-	NEURAL_HAM(-0.00)[-0.842];
+	NEURAL_HAM(-0.00)[-0.884];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,baylibre.com:email,stormreply.com:url,stormreply.com:email,kernel-space.org:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[baylibre.com:email,kernel-space.org:email,sashiko.dev:url,st-md-mailman.stormreply.com:rdns]
 
-On Mon, 04 May 2026 19:16:47 +0200
+On Mon, 04 May 2026 19:16:45 +0200
 Angelo Dureghello <angelo@kernel-space.org> wrote:
 
 > From: Angelo Dureghello <adureghello@baylibre.com>
 > 
-> Enabled DAC0 and DAC1 outpus disabling shared ADC inputs on ADC3 and ADC7.
+> Add CCR MISCCR2 register bitfields.
 > 
 > Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
+https://sashiko.dev/#/patchset/20260504-wip-stmark2-dac-v1-0-874c36a4910d%40baylibre.com
+has valid suggestion that if you are using BIT() and GENMASK() you need
+a suitable header include.
+
+
 > ---
->  arch/m68k/coldfire/stmark2.c | 8 ++++++++
->  1 file changed, 8 insertions(+)
+>  arch/m68k/include/asm/m5441xsim.h | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
 > 
-> diff --git a/arch/m68k/coldfire/stmark2.c b/arch/m68k/coldfire/stmark2.c
-> index 30da9bcbfd63..8fdfb9415cd7 100644
-> --- a/arch/m68k/coldfire/stmark2.c
-> +++ b/arch/m68k/coldfire/stmark2.c
-> @@ -137,6 +137,8 @@ static struct platform_device *stmark2_devices[] __initdata = {
+> diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
+> index 9ce2cbb05316..93f7943d5550 100644
+> --- a/arch/m68k/include/asm/m5441xsim.h
+> +++ b/arch/m68k/include/asm/m5441xsim.h
+> @@ -145,6 +145,21 @@
+>  #define MCF_CCM_SBFCR		0xec090022
+>  #define MCF_CCM_FNACR		0xec090024
+>  
+> +/* Bit definitions and macros for MCF_CCM_MISCCR2 */
+> +#define MCF_CCM_MISCCR2_ULPI		BIT(0)
+> +#define MCF_CCM_MISCCR2_FB_HALF		BIT(1)
+> +#define MCF_CCM_MISCCR2_ADC3_EN		BIT(2)
+> +#define MCF_CCM_MISCCR2_ADC7_EN		BIT(3)
+> +#define MCF_CCM_MISCCR2_ADC_EN		BIT(4)
+> +#define MCF_CCM_MISCCR2_DAC0_SEL	BIT(5)
+> +#define MCF_CCM_MISCCR2_DAC1_SEL	BIT(6)
+> +#define MCF_CCM_MISCCR2_DCC_BYP		BIT(7)
+> +#define MCF_CCM_MISCCR2_PLL_MODE	GENMASK(9, 7)
+> +#define MCF_CCM_MISCCR2_SWT_SCR		BIT(12)
+> +#define MCF_CCM_MISCCR2_RGPIO_HALF	BIT(13)
+> +#define MCF_CCM_MISCCR2_DDR2_CLK	BIT(14)
+> +#define MCF_CCM_MISCCR2_EXTCLK_BYP	BIT(15)
+> +
+>  /*
+>   *  UART module.
 >   */
->  static int __init init_stmark2(void)
->  {
-> +	uint16_t val;
-> +
->  	/* DSPI0, all pins as DSPI, and using CS1 */
->  	__raw_writeb(0x80, MCFGPIO_PAR_DSPIOWL);
->  	__raw_writeb(0xfc, MCFGPIO_PAR_DSPIOWH);
-> @@ -149,6 +151,12 @@ static int __init init_stmark2(void)
->  	/* CAN pads */
->  	__raw_writeb(0x50, MCFGPIO_PAR_CANI2C);
->  
-> +	/* Enable DAC0 and 1 */
-
-If it is useful to have a comment here at all I think it should also
-mention disabling the ADC inputs.  Or take the view that given
-well named defines no need to have any comment. 
-
-> +	val = __raw_readw(MCF_CCM_MISCCR2);
-> +	val &= ~(MCF_CCM_MISCCR2_ADC3_EN | MCF_CCM_MISCCR2_ADC7_EN);
-> +	val |= MCF_CCM_MISCCR2_DAC0_SEL | MCF_CCM_MISCCR2_DAC1_SEL;
-> +	__raw_writew(val, MCF_CCM_MISCCR2);
-> +
->  	platform_add_devices(stmark2_devices, ARRAY_SIZE(stmark2_devices));
->  
->  	spi_register_board_info(stmark2_board_info,
 > 
 
 _______________________________________________
