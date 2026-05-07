@@ -2,62 +2,52 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yCAeOtR1/GmdQQAAu9opvQ
+	id IOI4OKSF/GmOQwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 13:21:56 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 14:29:24 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB034E75F5
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 13:21:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E4A34E82FA
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 14:29:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 953D3C8F289;
-	Thu,  7 May 2026 11:21:55 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E8AB9C8F283;
+	Thu,  7 May 2026 12:29:23 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ED564C87ECE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 660B8C32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 May 2026 11:21:53 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 264464E42C2C;
- Thu,  7 May 2026 11:21:53 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E50F860495;
- Thu,  7 May 2026 11:21:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id DC49A102F24D0; 
- Thu,  7 May 2026 13:21:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1778152911; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=FomEAYdAik4HwDQHklL8rlVv12AzA09UWLuUsHpy4Ts=;
- b=p2LEdreKQU9Whuz9NS1a6llAszhUVywcfElxsQhXyjSxrqKsBjxbAtFgzNMmfqBMzG2wZr
- BvS6WoISuifX3s2eZ6aXvN262FR8oQcSQ2PkS2T1bddy6fKB46af9iGx3uaDztsTwj9u6G
- U0Cc/uQv8Hv8xhVA/hpU5q7Tys/j8iPb/jH5EjQl9JZJG4b6Z8HKV5u7mHa22zWXEPiohv
- KlxXxNfUZmP7MT+nFc2Kiw5ooZtKj/fQNjXR4Jw0gxzwAEFLUVB5stoEnfSusJVeWM+VUW
- QdG6GRC5qTR6gdf5GwcqnFkub93PVMMKtJDOHeBeFqvmdv1Py2YvDa7MAmAdAg==
-Message-ID: <92e8a3dd-a46a-499f-b5f6-99f7b99f45f5@bootlin.com>
-Date: Thu, 7 May 2026 13:21:41 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: lizhi2@eswincomputing.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- rmk+kernel@armlinux.org.uk, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
+ Thu,  7 May 2026 12:29:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=LmEIVv5Hxh+mKmeuHsN7vP/fAMiciYkPlIj13WZ+oiE=; b=MY/2xBVpjxX2ZXH6RhO3LIF2+N
+ x4csJK/N/xl92PKhwsmp0UjPRbRm/Rrtz4SozNtBf6AqtO5BJoH769H2UhBcDCNP470yRW+O/UVsa
+ pyds4D5Cno6Z40QB5+xOuQhW+Sr4uB2BZ2Pl5t32AxN2j3/AVfxPOL/DF5VxOthAVWf0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1wKxqo-001oGr-6c; Thu, 07 May 2026 14:29:10 +0200
+Date: Thu, 7 May 2026 14:29:10 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: lizhi2@eswincomputing.com
+Message-ID: <2436c6e9-4aad-4ffd-9fef-0cbbe38dc66d@lunn.ch>
 References: <20260507083037.152-1-lizhi2@eswincomputing.com>
- <20260507083214.192-1-lizhi2@eswincomputing.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20260507083214.192-1-lizhi2@eswincomputing.com>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: ningyu@eswincomputing.com, pinkesh.vaghela@einfochips.com,
- weishangjuan@eswincomputing.com, linmin@eswincomputing.com,
- pritesh.patel@einfochips.com
-Subject: Re: [Linux-stm32] [PATCH net v1 2/2] net: stmmac: eic7700: fix
- delay step calculation and ensure safe register initialization
+ <20260507083136.175-1-lizhi2@eswincomputing.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <20260507083136.175-1-lizhi2@eswincomputing.com>
+Cc: edumazet@google.com, linux-stm32@st-md-mailman.stormreply.com,
+ robh@kernel.org, pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com,
+ ningyu@eswincomputing.com, maxime.chevallier@bootlin.com, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ rmk+kernel@armlinux.org.uk, linux-arm-kernel@lists.infradead.org,
+ pinkesh.vaghela@einfochips.com, linmin@eswincomputing.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ mcoquelin.stm32@gmail.com, krzk+dt@kernel.org, davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net v1 1/2] dt-bindings: ethernet: eswin:
+ refine delay model and HSP register description
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,106 +63,85 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 7EB034E75F5
+X-Rspamd-Queue-Id: 6E4A34E82FA
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_TO(0.00)[eswincomputing.com,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,vger.kernel.org,gmail.com,foss.st.com,armlinux.org.uk,st-md-mailman.stormreply.com,lists.infradead.org];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:lizhi2@eswincomputing.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:ningyu@eswincomputing.com,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:pritesh.patel@einfochips.com,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[22];
 	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:lizhi2@eswincomputing.com,m:edumazet@google.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:pritesh.patel@einfochips.com,m:weishangjuan@eswincomputing.com,m:ningyu@eswincomputing.com,m:maxime.chevallier@bootlin.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:rmk+kernel@armlinux.org.uk,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	DKIM_TRACE(0.00)[bootlin.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.989];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[google.com,st-md-mailman.stormreply.com,kernel.org,einfochips.com,eswincomputing.com,bootlin.com,redhat.com,vger.kernel.org,armlinux.org.uk,lists.infradead.org,lunn.ch,gmail.com,davemloft.net];
+	NEURAL_SPAM(0.00)[0.222];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[lunn.ch:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	FORGED_SENDER_MAILLIST(0.00)[]
 X-Rspamd-Action: no action
 
-Hi,
+>      ethernet@50400000 {
+>          compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
+>          reg = <0x50400000 0x10000>;
+> -        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
+> -                <&d0_clock 193>;
+> -        clock-names = "axi", "cfg", "stmmaceth", "tx";
+>          interrupt-parent = <&plic>;
+>          interrupts = <61>;
+>          interrupt-names = "macirq";
+> -        phy-mode = "rgmii-id";
+> -        phy-handle = <&phy0>;
+> +        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
+> +                <&d0_clock 193>;
+> +        clock-names = "axi", "cfg", "stmmaceth", "tx";
 
-On 07/05/2026 10:32, lizhi2@eswincomputing.com wrote:
-> From: Zhi Li <lizhi2@eswincomputing.com>
-> 
-> Fix several issues in the EIC7700 DWMAC glue driver related to delay
-> configuration and register initialization.
-> 
-> The hardware implements TX/RX delay with a granularity of 20 ps per
-> step, but the driver previously assumed a 100 ps step. Update the
-> definitions to match the actual hardware behaviour and align with
-> the binding constraints.
-> 
-> Introduce explicit definitions for the maximum programmable delay
-> range based on the hardware limits.
-> 
-> Move HSP CSR configuration into the initialization path after clocks
-> are enabled. This ensures that all register accesses occur with the
-> required clocks active, avoiding undefined behaviour.
-> 
-> Clear the TXD and RXD delay control registers during initialization
-> to override any residual configuration left by the bootloader. This
-> ensures deterministic RGMII timing and prevents unintended delay
-> being applied.
-> 
-> The MAC RGMII delay programming is only required for 100Mbps and
-> 1000Mbps modes, where precise clock-to-data alignment is necessary for
-> reliable sampling.
-> 
-> For 10Mbps operation, timing margins are sufficiently relaxed and no
-> additional delay compensation is required. In this case, the driver
-> falls back to a safe default configuration with delay disabled.
-> 
-> For unsupported or unexpected link speeds, the driver avoids
-> programming invalid delay values and falls back to a safe default
-> state by explicitly clearing the delay configuration.
-> 
-> Explicitly programming zero ensures that no residual delay settings
-> from previous configurations or bootloader state remain active.
-> 
-> These changes fix incorrect delay programming and initialization
-> ordering for existing users.
-> 
-> This also aligns the driver implementation with the updated device
-> tree binding.
-
-There's a lot going on in this patch, can you split this into patches
-that solves each of these individual issues ?
-
-It's a mix of fixes (the reg access moved after clk config for example)
-and non-fixes (the RGMII timings, you're improving the granularity of
-the delays, is this required to fix existing setups, or is it a generic
-improvement ?), splitting this would make it both easier to review, and
-easier to bisect should problems arise in the future.
-
-Thanks,
-
-Maxime
+Please don't move the clocks around, since they have nothing to do
+with RGMII delays.
 
 
+>          resets = <&reset 95>;
+>          reset-names = "stmmaceth";
+> -        rx-internal-delay-ps = <200>;
+> -        tx-internal-delay-ps = <200>;
+> -        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
+> -        snps,axi-config = <&stmmac_axi_setup>;
+> +        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
+> +        phy-handle = <&phy0>;
+> +        phy-mode = "rgmii-id";
+>          snps,aal;
+>          snps,fixed-burst;
+>          snps,tso;
+> -        stmmac_axi_setup: stmmac-axi-config {
+> +        snps,axi-config = <&stmmac_axi_setup_gmac0>;
+> +
+> +        stmmac_axi_setup_gmac0: stmmac-axi-config {
+
+And what do these changes have to do with RGMII delays?
+
+    Andrew
+
+---
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
