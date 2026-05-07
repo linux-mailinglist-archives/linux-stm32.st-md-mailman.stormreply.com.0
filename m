@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id CKvgLwxO/GmZNwAAu9opvQ
+	id uLuxKidO/GmZNwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 10:32:12 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 10:32:39 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 63C0F4E4DD9
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 10:32:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51B384E4E01
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 10:32:39 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B528BC8F289;
-	Thu,  7 May 2026 08:32:11 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [207.46.229.174])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6481EC87ECE
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C8997C8F289;
+	Thu,  7 May 2026 08:32:38 +0000 (UTC)
+Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net
+ (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B917C87ECE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 May 2026 08:32:10 +0000 (UTC)
+ Thu,  7 May 2026 08:32:37 +0000 (UTC)
 Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
- by app1 (Coremail) with SMTP id TAJkCgC3THH6TfxpQ34XAA--.24500S2;
- Thu, 07 May 2026 16:31:55 +0800 (CST)
+ by app2 (Coremail) with SMTP id TQJkCgDX7J8QTvxpvXkXAA--.8522S2;
+ Thu, 07 May 2026 16:32:18 +0800 (CST)
 From: lizhi2@eswincomputing.com
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
@@ -28,35 +28,35 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
  maxime.chevallier@bootlin.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Thu,  7 May 2026 16:31:36 +0800
-Message-ID: <20260507083136.175-1-lizhi2@eswincomputing.com>
+Date: Thu,  7 May 2026 16:32:10 +0800
+Message-ID: <20260507083214.192-1-lizhi2@eswincomputing.com>
 X-Mailer: git-send-email 2.52.0.windows.1
 In-Reply-To: <20260507083037.152-1-lizhi2@eswincomputing.com>
 References: <20260507083037.152-1-lizhi2@eswincomputing.com>
 MIME-Version: 1.0
-X-CM-TRANSID: TAJkCgC3THH6TfxpQ34XAA--.24500S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuw1DAryxXw48KFyUGry5twb_yoW7ury7pa
- y5CrW5Grn8Xr4fWanrtw109ryaqan3WF43Cr18Jr97Xan09F9Yqr13tFy5Xa4UCrWxZFyU
- urZ0ga1rZ34qk3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUBv14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID: TQJkCgDX7J8QTvxpvXkXAA--.8522S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3CFW7GF4UtFyxuF13JFWDurg_yoWDWw1xpF
+ WkAFy5tr1jqF1fG3yvyF40qa4Fkw47WF1fArZ3GFn2vF90yrn8XayjyayakF98Wry7ZF15
+ J3yUJFyxuF129FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
  W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
  Y2ka0xkIwI1lw4CEc2x0rVAKj4xxMxkF7I0En4kS14v26r4a6rW5MxkIecxEwVCm-wCF04
  k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
  MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr4
- 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
- IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
- A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRuHqcUUUUU=
+ 1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1U
+ MIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I
+ 8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNSdgDUUUU
 X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 Cc: pinkesh.vaghela@einfochips.com, weishangjuan@eswincomputing.com,
  linmin@eswincomputing.com, ningyu@eswincomputing.com,
  pritesh.patel@einfochips.com, Zhi Li <lizhi2@eswincomputing.com>
-Subject: [Linux-stm32] [PATCH net v1 1/2] dt-bindings: ethernet: eswin:
-	refine delay model and HSP register description
+Subject: [Linux-stm32] [PATCH net v1 2/2] net: stmmac: eic7700: fix delay
+	step calculation and ensure safe register initialization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -68,200 +68,220 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 63C0F4E4DD9
+X-Rspamd-Queue-Id: 51B384E4E01
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_CONTAINS_FROM(1.00)[];
+	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
 	DMARC_NA(0.00)[eswincomputing.com];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:lizhi2@eswincomputing.com,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_COUNT_THREE(0.00)[3];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:netdev@vger.kernel.org,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:weishangjuan@eswincomputing.com,m:linmin@eswincomputing.com,m:ningyu@eswincomputing.com,m:pritesh.patel@einfochips.com,m:lizhi2@eswincomputing.com,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,vger.kernel.org,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[23];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NO_DN(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.997];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	R_DKIM_NA(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	NEURAL_HAM(-0.00)[-0.996];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FROM_NO_DN(0.00)[];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
 	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
 
-From: Zhi Li <lizhi2@eswincomputing.com>
-
-Refine the EIC7700 Ethernet dt-binding based on observed hardware behavior
-and clarify the original delay model for eth0.
-
-The previous binding used an enum-based definition for
-rx-internal-delay-ps and tx-internal-delay-ps. Replace it with a
-range-based model using:
-
-  - minimum: 0
-  - maximum: 2540
-  - multipleOf: 20
-
-This better reflects the actual hardware implementation, which
-supports 20ps granularity delay steps in the MAC RGMII interface.
-
-The tx/rx internal delay values are clarified as MAC-side programmable
-delay components applied on the RGMII clock/data path, representing
-the effective delay seen at the MAC interface.
-
-This does not change the intended hardware semantics, but aligns the
-binding with the actual hardware implementation.
-
-These properties are optional and only required when MAC-side fine
-tuning is needed; otherwise delay alignment is provided by PHY or
-board design.
-
-Depending on the selected RGMII timing mode, delay alignment may be
-provided by the PHY (e.g. rgmii-id) or by board/MAC-side configuration.
-When PHY or board design already provides the required delay, these
-MAC-side properties may be omitted. When MAC-side fine tuning is
-required, they should be provided to describe the internal RGMII
-timing adjustment.
-
-Additionally, extend the description of the HSP subsystem register
-layout used by the MAC glue logic. This includes explicit TXD and RXD
-delay control registers to ensure deterministic initialization and
-to override any residual configuration potentially left by bootloaders.
-
-Add reference to the EIC7700X SoC Technical Reference Manual,
-Chapter 10 ("High-Speed Interface"), Part 4 for background of the
-HSP CSR block:
-https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
-
-There are no in-tree users of this binding, so no ABI impact is
-expected.
-
-Fixes: 888bd0eca93c ("dt-bindings: ethernet: eswin: Document for EIC7700 SoC")
-Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
----
- .../bindings/net/eswin,eic7700-eth.yaml       | 50 +++++++++++++------
- 1 file changed, 36 insertions(+), 14 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-index 91e8cd1db67b..fab95603bd82 100644
---- a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-+++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
-@@ -63,16 +63,39 @@ properties:
-       - const: stmmaceth
- 
-   rx-internal-delay-ps:
--    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-+    minimum: 0
-+    maximum: 2540
-+    multipleOf: 20
-+    description:
-+      RX internal delay in picoseconds applied on the RGMII clock at the MAC
-+      side. The hardware supports 20 ps steps.
-+      This property is optional and only needed when MAC-side delay tuning
-+      is required.
- 
-   tx-internal-delay-ps:
--    enum: [0, 200, 600, 1200, 1600, 1800, 2000, 2200, 2400]
-+    minimum: 0
-+    maximum: 2540
-+    multipleOf: 20
-+    description:
-+      TX internal delay in picoseconds applied on the RGMII clock at the MAC
-+      side. The hardware supports 20 ps steps.
-+      This property is optional and only needed when MAC-side delay tuning
-+      is required.
- 
-   eswin,hsp-sp-csr:
-     description:
-       HSP CSR is to control and get status of different high-speed peripherals
-       (such as Ethernet, USB, SATA, etc.) via register, which can tune
-       board-level's parameters of PHY, etc.
-+
-+      Additional background information about the High-Speed Subsystem
-+      and the HSP CSR block is available in Chapter 10 ("High-Speed Interface")
-+      of the EIC7700X SoC Technical Reference Manual, Part 4
-+      (EIC7700X_SoC_Technical_Reference_Manual_Part4.pdf). The manual is
-+      publicly available at
-+      https://github.com/eswincomputing/EIC7700X-SoC-Technical-Reference-Manual/releases
-+
-+      This reference is provided for background information only.
-     $ref: /schemas/types.yaml#/definitions/phandle-array
-     items:
-       - items:
-@@ -82,6 +105,8 @@ properties:
-           - description: Offset of AXI clock controller Low-Power request
-                          register
-           - description: Offset of register controlling TX/RX clock delay
-+          - description: Offset of register controlling TXD delay
-+          - description: Offset of register controlling RXD delay
- 
- required:
-   - compatible
-@@ -93,8 +118,6 @@ required:
-   - phy-mode
-   - resets
-   - reset-names
--  - rx-internal-delay-ps
--  - tx-internal-delay-ps
-   - eswin,hsp-sp-csr
- 
- unevaluatedProperties: false
-@@ -104,24 +127,23 @@ examples:
-     ethernet@50400000 {
-         compatible = "eswin,eic7700-qos-eth", "snps,dwmac-5.20";
-         reg = <0x50400000 0x10000>;
--        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
--                <&d0_clock 193>;
--        clock-names = "axi", "cfg", "stmmaceth", "tx";
-         interrupt-parent = <&plic>;
-         interrupts = <61>;
-         interrupt-names = "macirq";
--        phy-mode = "rgmii-id";
--        phy-handle = <&phy0>;
-+        clocks = <&d0_clock 186>, <&d0_clock 171>, <&d0_clock 40>,
-+                <&d0_clock 193>;
-+        clock-names = "axi", "cfg", "stmmaceth", "tx";
-         resets = <&reset 95>;
-         reset-names = "stmmaceth";
--        rx-internal-delay-ps = <200>;
--        tx-internal-delay-ps = <200>;
--        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118>;
--        snps,axi-config = <&stmmac_axi_setup>;
-+        eswin,hsp-sp-csr = <&hsp_sp_csr 0x100 0x108 0x118 0x114 0x11c>;
-+        phy-handle = <&phy0>;
-+        phy-mode = "rgmii-id";
-         snps,aal;
-         snps,fixed-burst;
-         snps,tso;
--        stmmac_axi_setup: stmmac-axi-config {
-+        snps,axi-config = <&stmmac_axi_setup_gmac0>;
-+
-+        stmmac_axi_setup_gmac0: stmmac-axi-config {
-             snps,blen = <0 0 0 0 16 8 4>;
-             snps,rd_osr_lmt = <2>;
-             snps,wr_osr_lmt = <2>;
--- 
-2.25.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+RnJvbTogWmhpIExpIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgoKRml4IHNldmVyYWwgaXNz
+dWVzIGluIHRoZSBFSUM3NzAwIERXTUFDIGdsdWUgZHJpdmVyIHJlbGF0ZWQgdG8gZGVsYXkKY29u
+ZmlndXJhdGlvbiBhbmQgcmVnaXN0ZXIgaW5pdGlhbGl6YXRpb24uCgpUaGUgaGFyZHdhcmUgaW1w
+bGVtZW50cyBUWC9SWCBkZWxheSB3aXRoIGEgZ3JhbnVsYXJpdHkgb2YgMjAgcHMgcGVyCnN0ZXAs
+IGJ1dCB0aGUgZHJpdmVyIHByZXZpb3VzbHkgYXNzdW1lZCBhIDEwMCBwcyBzdGVwLiBVcGRhdGUg
+dGhlCmRlZmluaXRpb25zIHRvIG1hdGNoIHRoZSBhY3R1YWwgaGFyZHdhcmUgYmVoYXZpb3VyIGFu
+ZCBhbGlnbiB3aXRoCnRoZSBiaW5kaW5nIGNvbnN0cmFpbnRzLgoKSW50cm9kdWNlIGV4cGxpY2l0
+IGRlZmluaXRpb25zIGZvciB0aGUgbWF4aW11bSBwcm9ncmFtbWFibGUgZGVsYXkKcmFuZ2UgYmFz
+ZWQgb24gdGhlIGhhcmR3YXJlIGxpbWl0cy4KCk1vdmUgSFNQIENTUiBjb25maWd1cmF0aW9uIGlu
+dG8gdGhlIGluaXRpYWxpemF0aW9uIHBhdGggYWZ0ZXIgY2xvY2tzCmFyZSBlbmFibGVkLiBUaGlz
+IGVuc3VyZXMgdGhhdCBhbGwgcmVnaXN0ZXIgYWNjZXNzZXMgb2NjdXIgd2l0aCB0aGUKcmVxdWly
+ZWQgY2xvY2tzIGFjdGl2ZSwgYXZvaWRpbmcgdW5kZWZpbmVkIGJlaGF2aW91ci4KCkNsZWFyIHRo
+ZSBUWEQgYW5kIFJYRCBkZWxheSBjb250cm9sIHJlZ2lzdGVycyBkdXJpbmcgaW5pdGlhbGl6YXRp
+b24KdG8gb3ZlcnJpZGUgYW55IHJlc2lkdWFsIGNvbmZpZ3VyYXRpb24gbGVmdCBieSB0aGUgYm9v
+dGxvYWRlci4gVGhpcwplbnN1cmVzIGRldGVybWluaXN0aWMgUkdNSUkgdGltaW5nIGFuZCBwcmV2
+ZW50cyB1bmludGVuZGVkIGRlbGF5CmJlaW5nIGFwcGxpZWQuCgpUaGUgTUFDIFJHTUlJIGRlbGF5
+IHByb2dyYW1taW5nIGlzIG9ubHkgcmVxdWlyZWQgZm9yIDEwME1icHMgYW5kCjEwMDBNYnBzIG1v
+ZGVzLCB3aGVyZSBwcmVjaXNlIGNsb2NrLXRvLWRhdGEgYWxpZ25tZW50IGlzIG5lY2Vzc2FyeSBm
+b3IKcmVsaWFibGUgc2FtcGxpbmcuCgpGb3IgMTBNYnBzIG9wZXJhdGlvbiwgdGltaW5nIG1hcmdp
+bnMgYXJlIHN1ZmZpY2llbnRseSByZWxheGVkIGFuZCBubwphZGRpdGlvbmFsIGRlbGF5IGNvbXBl
+bnNhdGlvbiBpcyByZXF1aXJlZC4gSW4gdGhpcyBjYXNlLCB0aGUgZHJpdmVyCmZhbGxzIGJhY2sg
+dG8gYSBzYWZlIGRlZmF1bHQgY29uZmlndXJhdGlvbiB3aXRoIGRlbGF5IGRpc2FibGVkLgoKRm9y
+IHVuc3VwcG9ydGVkIG9yIHVuZXhwZWN0ZWQgbGluayBzcGVlZHMsIHRoZSBkcml2ZXIgYXZvaWRz
+CnByb2dyYW1taW5nIGludmFsaWQgZGVsYXkgdmFsdWVzIGFuZCBmYWxscyBiYWNrIHRvIGEgc2Fm
+ZSBkZWZhdWx0CnN0YXRlIGJ5IGV4cGxpY2l0bHkgY2xlYXJpbmcgdGhlIGRlbGF5IGNvbmZpZ3Vy
+YXRpb24uCgpFeHBsaWNpdGx5IHByb2dyYW1taW5nIHplcm8gZW5zdXJlcyB0aGF0IG5vIHJlc2lk
+dWFsIGRlbGF5IHNldHRpbmdzCmZyb20gcHJldmlvdXMgY29uZmlndXJhdGlvbnMgb3IgYm9vdGxv
+YWRlciBzdGF0ZSByZW1haW4gYWN0aXZlLgoKVGhlc2UgY2hhbmdlcyBmaXggaW5jb3JyZWN0IGRl
+bGF5IHByb2dyYW1taW5nIGFuZCBpbml0aWFsaXphdGlvbgpvcmRlcmluZyBmb3IgZXhpc3Rpbmcg
+dXNlcnMuCgpUaGlzIGFsc28gYWxpZ25zIHRoZSBkcml2ZXIgaW1wbGVtZW50YXRpb24gd2l0aCB0
+aGUgdXBkYXRlZCBkZXZpY2UKdHJlZSBiaW5kaW5nLgoKRml4ZXM6IGVhNzdkYmJkYmM0ZSAoIm5l
+dDogc3RtbWFjOiBhZGQgRXN3aW4gRUlDNzcwMCBnbHVlIGRyaXZlciIpClNpZ25lZC1vZmYtYnk6
+IFpoaSBMaSA8bGl6aGkyQGVzd2luY29tcHV0aW5nLmNvbT4KLS0tCiAuLi4vZXRoZXJuZXQvc3Rt
+aWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jICAgfCAxNTQgKysrKysrKysrKysrKy0tLS0tCiAx
+IGZpbGUgY2hhbmdlZCwgMTEyIGluc2VydGlvbnMoKyksIDQyIGRlbGV0aW9ucygtKQoKZGlmZiAt
+LWdpdCBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAu
+YyBiL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYwpp
+bmRleCBiY2I4ZTAwMGU3MjAuLjBmMWM2MjA2Mjc5NyAxMDA2NDQKLS0tIGEvZHJpdmVycy9uZXQv
+ZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvZHdtYWMtZWljNzcwMC5jCisrKyBiL2RyaXZlcnMvbmV0
+L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLWVpYzc3MDAuYwpAQCAtMjgsMjAgKzI4LDMx
+IEBACiAKIC8qCiAgKiBUWC9SWCBDbG9jayBEZWxheSBCaXQgTWFza3M6Ci0gKiAtIFRYIERlbGF5
+OiBiaXRzIFsxNDo4XSDigJQgVFhfQ0xLIGRlbGF5ICh1bml0OiAwLjFucyBwZXIgYml0KQotICog
+LSBSWCBEZWxheTogYml0cyBbMzA6MjRdIOKAlCBSWF9DTEsgZGVsYXkgKHVuaXQ6IDAuMW5zIHBl
+ciBiaXQpCisgKiAtIFRYIERlbGF5OiBiaXRzIFsxNDo4XSDigJQgVFhfQ0xLIGRlbGF5ICh1bml0
+OiAwLjAybnMgcGVyIGJpdCkKKyAqIC0gUlggRGVsYXk6IGJpdHMgWzMwOjI0XSDigJQgUlhfQ0xL
+IGRlbGF5ICh1bml0OiAwLjAybnMgcGVyIGJpdCkKICAqLwogI2RlZmluZSBFSUM3NzAwX0VUSF9U
+WF9BREpfREVMQVkJR0VOTUFTSygxNCwgOCkKICNkZWZpbmUgRUlDNzcwMF9FVEhfUlhfQURKX0RF
+TEFZCUdFTk1BU0soMzAsIDI0KQogCi0jZGVmaW5lIEVJQzc3MDBfTUFYX0RFTEFZX1VOSVQgMHg3
+RgorI2RlZmluZSBFSUM3NzAwX01BWF9ERUxBWV9TVEVQUwkJMHg3RgorI2RlZmluZSBFSUM3NzAw
+X0RFTEFZX1NURVBfUFMJCTIwCisjZGVmaW5lIEVJQzc3MDBfTUFYX0RFTEFZX1BTCVwKKwkoRUlD
+NzcwMF9NQVhfREVMQVlfU1RFUFMgKiBFSUM3NzAwX0RFTEFZX1NURVBfUFMpCiAKIHN0YXRpYyBj
+b25zdCBjaGFyICogY29uc3QgZWljNzcwMF9jbGtfbmFtZXNbXSA9IHsKIAkidHgiLCAiYXhpIiwg
+ImNmZyIsCiB9OwogCiBzdHJ1Y3QgZWljNzcwMF9xb3NfcHJpdiB7CisJc3RydWN0IGRldmljZSAq
+ZGV2OwogCXN0cnVjdCBwbGF0X3N0bW1hY2VuZXRfZGF0YSAqcGxhdF9kYXQ7CisJc3RydWN0IHJl
+Z21hcCAqZWljNzcwMF9oc3BfcmVnbWFwOworCXUzMiBldGhfYXhpX2xwX2N0cmxfb2Zmc2V0Owor
+CXUzMiBldGhfcGh5X2N0cmxfb2Zmc2V0OworCXUzMiBldGhfdHhkX29mZnNldDsKKwl1MzIgZXRo
+X2Nsa19vZmZzZXQ7CisJdTMyIGV0aF9yeGRfb2Zmc2V0OworCXUzMiBldGhfY2xrX2RseV9wYXJh
+bTsKIH07CiAKIHN0YXRpYyBpbnQgZWljNzcwMF9jbGtzX2NvbmZpZyh2b2lkICpwcml2LCBib29s
+IGVuYWJsZWQpCkBAIC02MSw4ICs3MiwyOCBAQCBzdGF0aWMgaW50IGVpYzc3MDBfY2xrc19jb25m
+aWcodm9pZCAqcHJpdiwgYm9vbCBlbmFibGVkKQogc3RhdGljIGludCBlaWM3NzAwX2R3bWFjX2lu
+aXQoc3RydWN0IGRldmljZSAqZGV2LCB2b2lkICpwcml2KQogewogCXN0cnVjdCBlaWM3NzAwX3Fv
+c19wcml2ICpkd2MgPSBwcml2OworCWludCByZXQ7CisKKwlyZXQgPSBlaWM3NzAwX2Nsa3NfY29u
+ZmlnKGR3YywgdHJ1ZSk7CisJaWYgKHJldCkKKwkJcmV0dXJuIHJldDsKKworCXJldCA9IHJlZ21h
+cF9zZXRfYml0cyhkd2MtPmVpYzc3MDBfaHNwX3JlZ21hcCwKKwkJCSAgICAgIGR3Yy0+ZXRoX3Bo
+eV9jdHJsX29mZnNldCwKKwkJCSAgICAgIEVJQzc3MDBfRVRIX1RYX0NMS19TRUwgfAorCQkJICAg
+ICAgRUlDNzcwMF9FVEhfUEhZX0lOVEZfU0VMSSk7CisJaWYgKHJldCkgeworCQllaWM3NzAwX2Ns
+a3NfY29uZmlnKGR3YywgZmFsc2UpOworCQlyZXR1cm4gcmV0OworCX0KKworCXJlZ21hcF93cml0
+ZShkd2MtPmVpYzc3MDBfaHNwX3JlZ21hcCwgZHdjLT5ldGhfYXhpX2xwX2N0cmxfb2Zmc2V0LAor
+CQkgICAgIEVJQzc3MDBfRVRIX0NTWVNSRVFfVkFMKTsKKworCXJlZ21hcF93cml0ZShkd2MtPmVp
+Yzc3MDBfaHNwX3JlZ21hcCwgZHdjLT5ldGhfdHhkX29mZnNldCwgMCk7CisJcmVnbWFwX3dyaXRl
+KGR3Yy0+ZWljNzcwMF9oc3BfcmVnbWFwLCBkd2MtPmV0aF9yeGRfb2Zmc2V0LCAwKTsKIAotCXJl
+dHVybiBlaWM3NzAwX2Nsa3NfY29uZmlnKGR3YywgdHJ1ZSk7CisJcmV0dXJuIDA7CiB9CiAKIHN0
+YXRpYyB2b2lkIGVpYzc3MDBfZHdtYWNfZXhpdChzdHJ1Y3QgZGV2aWNlICpkZXYsIHZvaWQgKnBy
+aXYpCkBAIC04OCwxOCArMTE5LDM4IEBAIHN0YXRpYyBpbnQgZWljNzcwMF9kd21hY19yZXN1bWUo
+c3RydWN0IGRldmljZSAqZGV2LCB2b2lkICpwcml2KQogCXJldHVybiByZXQ7CiB9CiAKK3N0YXRp
+YyB2b2lkIGVpYzc3MDBfZHdtYWNfZml4X3NwZWVkKHZvaWQgKnByaXYsIHBoeV9pbnRlcmZhY2Vf
+dCBpbnRlcmZhY2UsCisJCQkJICAgIGludCBzcGVlZCwgdW5zaWduZWQgaW50IG1vZGUpCit7CisJ
+c3RydWN0IGVpYzc3MDBfcW9zX3ByaXYgKmR3YyA9IChzdHJ1Y3QgZWljNzcwMF9xb3NfcHJpdiAq
+KXByaXY7CisJYm9vbCBuZWVkc19jYWxpYnJhdGlvbiA9IGZhbHNlOworCisJc3dpdGNoIChzcGVl
+ZCkgeworCWNhc2UgU1BFRURfMTAwMDoKKwljYXNlIFNQRUVEXzEwMDoKKwkJbmVlZHNfY2FsaWJy
+YXRpb24gPSB0cnVlOworCQlmYWxsdGhyb3VnaDsKKwljYXNlIFNQRUVEXzEwOgorCQlicmVhazsK
+KwlkZWZhdWx0OgorCQlkZXZfZXJyKGR3Yy0+ZGV2LCAiaW52YWxpZCBzcGVlZCAldVxuIiwgc3Bl
+ZWQpOworCQlicmVhazsKKwl9CisKKwlpZiAobmVlZHNfY2FsaWJyYXRpb24pIHsKKwkJcmVnbWFw
+X3dyaXRlKGR3Yy0+ZWljNzcwMF9oc3BfcmVnbWFwLCBkd2MtPmV0aF9jbGtfb2Zmc2V0LAorCQkJ
+ICAgICBkd2MtPmV0aF9jbGtfZGx5X3BhcmFtKTsKKwl9IGVsc2UgeworCQlyZWdtYXBfd3JpdGUo
+ZHdjLT5laWM3NzAwX2hzcF9yZWdtYXAsIGR3Yy0+ZXRoX2Nsa19vZmZzZXQsIDApOworCX0KK30K
+Kwogc3RhdGljIGludCBlaWM3NzAwX2R3bWFjX3Byb2JlKHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2Ug
+KnBkZXYpCiB7CiAJc3RydWN0IHBsYXRfc3RtbWFjZW5ldF9kYXRhICpwbGF0X2RhdDsKIAlzdHJ1
+Y3Qgc3RtbWFjX3Jlc291cmNlcyBzdG1tYWNfcmVzOwogCXN0cnVjdCBlaWM3NzAwX3Fvc19wcml2
+ICpkd2NfcHJpdjsKLQlzdHJ1Y3QgcmVnbWFwICplaWM3NzAwX2hzcF9yZWdtYXA7Ci0JdTMyIGV0
+aF9heGlfbHBfY3RybF9vZmZzZXQ7Ci0JdTMyIGV0aF9waHlfY3RybF9vZmZzZXQ7Ci0JdTMyIGV0
+aF9waHlfY3RybF9yZWdzZXQ7Ci0JdTMyIGV0aF9yeGRfZGx5X29mZnNldDsKLQl1MzIgZXRoX2Rs
+eV9wYXJhbSA9IDA7Ci0JdTMyIGRlbGF5X3BzOworCXUzMiBkZWxheV9wcywgdmFsOwogCWludCBp
+LCByZXQ7CiAKIAlyZXQgPSBzdG1tYWNfZ2V0X3BsYXRmb3JtX3Jlc291cmNlcyhwZGV2LCAmc3Rt
+bWFjX3Jlcyk7CkBAIC0xMTYsNzAgKzE2Nyw4OCBAQCBzdGF0aWMgaW50IGVpYzc3MDBfZHdtYWNf
+cHJvYmUoc3RydWN0IHBsYXRmb3JtX2RldmljZSAqcGRldikKIAlpZiAoIWR3Y19wcml2KQogCQly
+ZXR1cm4gLUVOT01FTTsKIAorCWR3Y19wcml2LT5kZXYgPSAmcGRldi0+ZGV2OworCiAJLyogUmVh
+ZCByeC1pbnRlcm5hbC1kZWxheS1wcyBhbmQgdXBkYXRlIHJ4X2NsayBkZWxheSAqLwogCWlmICgh
+b2ZfcHJvcGVydHlfcmVhZF91MzIocGRldi0+ZGV2Lm9mX25vZGUsCiAJCQkJICAicngtaW50ZXJu
+YWwtZGVsYXktcHMiLCAmZGVsYXlfcHMpKSB7Ci0JCXUzMiB2YWwgPSBtaW4oZGVsYXlfcHMgLyAx
+MDAsIEVJQzc3MDBfTUFYX0RFTEFZX1VOSVQpOworCQlpZiAoZGVsYXlfcHMgJSBFSUM3NzAwX0RF
+TEFZX1NURVBfUFMpCisJCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCAtRUlOVkFM
+LAorCQkJCSJyeCBkZWxheSBtdXN0IGJlIG11bHRpcGxlIG9mICVkcHNcbiIsCisJCQkJRUlDNzcw
+MF9ERUxBWV9TVEVQX1BTKTsKIAotCQlldGhfZGx5X3BhcmFtICY9IH5FSUM3NzAwX0VUSF9SWF9B
+REpfREVMQVk7Ci0JCWV0aF9kbHlfcGFyYW0gfD0gRklFTERfUFJFUChFSUM3NzAwX0VUSF9SWF9B
+REpfREVMQVksIHZhbCk7Ci0JfSBlbHNlIHsKLQkJcmV0dXJuIGRldl9lcnJfcHJvYmUoJnBkZXYt
+PmRldiwgLUVJTlZBTCwKLQkJCSJtaXNzaW5nIHJlcXVpcmVkIHByb3BlcnR5IHJ4LWludGVybmFs
+LWRlbGF5LXBzXG4iKTsKKwkJaWYgKGRlbGF5X3BzID4gRUlDNzcwMF9NQVhfREVMQVlfUFMpCisJ
+CQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCAtRUlOVkFMLAorCQkJCSJyeCBkZWxh
+eSBvdXQgb2YgcmFuZ2VcbiIpOworCisJCXZhbCA9IGRlbGF5X3BzIC8gRUlDNzcwMF9ERUxBWV9T
+VEVQX1BTOworCisJCWR3Y19wcml2LT5ldGhfY2xrX2RseV9wYXJhbSAmPSB+RUlDNzcwMF9FVEhf
+UlhfQURKX0RFTEFZOworCQlkd2NfcHJpdi0+ZXRoX2Nsa19kbHlfcGFyYW0gfD0KKwkJCQkgRklF
+TERfUFJFUChFSUM3NzAwX0VUSF9SWF9BREpfREVMQVksIHZhbCk7CiAJfQogCiAJLyogUmVhZCB0
+eC1pbnRlcm5hbC1kZWxheS1wcyBhbmQgdXBkYXRlIHR4X2NsayBkZWxheSAqLwogCWlmICghb2Zf
+cHJvcGVydHlfcmVhZF91MzIocGRldi0+ZGV2Lm9mX25vZGUsCiAJCQkJICAidHgtaW50ZXJuYWwt
+ZGVsYXktcHMiLCAmZGVsYXlfcHMpKSB7Ci0JCXUzMiB2YWwgPSBtaW4oZGVsYXlfcHMgLyAxMDAs
+IEVJQzc3MDBfTUFYX0RFTEFZX1VOSVQpOworCQlpZiAoZGVsYXlfcHMgJSBFSUM3NzAwX0RFTEFZ
+X1NURVBfUFMpCisJCQlyZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCAtRUlOVkFMLAor
+CQkJCSJ0eCBkZWxheSBtdXN0IGJlIG11bHRpcGxlIG9mICVkcHNcbiIsCisJCQkJRUlDNzcwMF9E
+RUxBWV9TVEVQX1BTKTsKIAotCQlldGhfZGx5X3BhcmFtICY9IH5FSUM3NzAwX0VUSF9UWF9BREpf
+REVMQVk7Ci0JCWV0aF9kbHlfcGFyYW0gfD0gRklFTERfUFJFUChFSUM3NzAwX0VUSF9UWF9BREpf
+REVMQVksIHZhbCk7Ci0JfSBlbHNlIHsKLQkJcmV0dXJuIGRldl9lcnJfcHJvYmUoJnBkZXYtPmRl
+diwgLUVJTlZBTCwKLQkJCSJtaXNzaW5nIHJlcXVpcmVkIHByb3BlcnR5IHR4LWludGVybmFsLWRl
+bGF5LXBzXG4iKTsKKwkJaWYgKGRlbGF5X3BzID4gRUlDNzcwMF9NQVhfREVMQVlfUFMpCisJCQly
+ZXR1cm4gZGV2X2Vycl9wcm9iZSgmcGRldi0+ZGV2LCAtRUlOVkFMLAorCQkJCSJ0eCBkZWxheSBv
+dXQgb2YgcmFuZ2VcbiIpOworCisJCXZhbCA9IGRlbGF5X3BzIC8gRUlDNzcwMF9ERUxBWV9TVEVQ
+X1BTOworCisJCWR3Y19wcml2LT5ldGhfY2xrX2RseV9wYXJhbSAmPSB+RUlDNzcwMF9FVEhfVFhf
+QURKX0RFTEFZOworCQlkd2NfcHJpdi0+ZXRoX2Nsa19kbHlfcGFyYW0gfD0KKwkJCQkgRklFTERf
+UFJFUChFSUM3NzAwX0VUSF9UWF9BREpfREVMQVksIHZhbCk7CiAJfQogCi0JZWljNzcwMF9oc3Bf
+cmVnbWFwID0gc3lzY29uX3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZShwZGV2LT5kZXYub2Zfbm9k
+ZSwKLQkJCQkJCQkgICAgICJlc3dpbixoc3Atc3AtY3NyIik7Ci0JaWYgKElTX0VSUihlaWM3NzAw
+X2hzcF9yZWdtYXApKQorCWR3Y19wcml2LT5laWM3NzAwX2hzcF9yZWdtYXAgPQorCQkJc3lzY29u
+X3JlZ21hcF9sb29rdXBfYnlfcGhhbmRsZShwZGV2LT5kZXYub2Zfbm9kZSwKKwkJCQkJCQkiZXN3
+aW4saHNwLXNwLWNzciIpOworCWlmIChJU19FUlIoZHdjX3ByaXYtPmVpYzc3MDBfaHNwX3JlZ21h
+cCkpCiAJCXJldHVybiBkZXZfZXJyX3Byb2JlKCZwZGV2LT5kZXYsCi0JCQkJUFRSX0VSUihlaWM3
+NzAwX2hzcF9yZWdtYXApLAorCQkJCVBUUl9FUlIoZHdjX3ByaXYtPmVpYzc3MDBfaHNwX3JlZ21h
+cCksCiAJCQkJIkZhaWxlZCB0byBnZXQgaHNwLXNwLWNzciByZWdtYXBcbiIpOwogCiAJcmV0ID0g
+b2ZfcHJvcGVydHlfcmVhZF91MzJfaW5kZXgocGRldi0+ZGV2Lm9mX25vZGUsCiAJCQkJCSAiZXN3
+aW4saHNwLXNwLWNzciIsCi0JCQkJCSAxLCAmZXRoX3BoeV9jdHJsX29mZnNldCk7CisJCQkJCSAx
+LCAmZHdjX3ByaXYtPmV0aF9waHlfY3RybF9vZmZzZXQpOwogCWlmIChyZXQpCiAJCXJldHVybiBk
+ZXZfZXJyX3Byb2JlKCZwZGV2LT5kZXYsIHJldCwKIAkJCQkgICAgICJjYW4ndCBnZXQgZXRoX3Bo
+eV9jdHJsX29mZnNldFxuIik7CiAKLQlyZWdtYXBfcmVhZChlaWM3NzAwX2hzcF9yZWdtYXAsIGV0
+aF9waHlfY3RybF9vZmZzZXQsCi0JCSAgICAmZXRoX3BoeV9jdHJsX3JlZ3NldCk7Ci0JZXRoX3Bo
+eV9jdHJsX3JlZ3NldCB8PQotCQkoRUlDNzcwMF9FVEhfVFhfQ0xLX1NFTCB8IEVJQzc3MDBfRVRI
+X1BIWV9JTlRGX1NFTEkpOwotCXJlZ21hcF93cml0ZShlaWM3NzAwX2hzcF9yZWdtYXAsIGV0aF9w
+aHlfY3RybF9vZmZzZXQsCi0JCSAgICAgZXRoX3BoeV9jdHJsX3JlZ3NldCk7Ci0KIAlyZXQgPSBv
+Zl9wcm9wZXJ0eV9yZWFkX3UzMl9pbmRleChwZGV2LT5kZXYub2Zfbm9kZSwKIAkJCQkJICJlc3dp
+bixoc3Atc3AtY3NyIiwKLQkJCQkJIDIsICZldGhfYXhpX2xwX2N0cmxfb2Zmc2V0KTsKKwkJCQkJ
+IDIsICZkd2NfcHJpdi0+ZXRoX2F4aV9scF9jdHJsX29mZnNldCk7CiAJaWYgKHJldCkKIAkJcmV0
+dXJuIGRldl9lcnJfcHJvYmUoJnBkZXYtPmRldiwgcmV0LAogCQkJCSAgICAgImNhbid0IGdldCBl
+dGhfYXhpX2xwX2N0cmxfb2Zmc2V0XG4iKTsKIAotCXJlZ21hcF93cml0ZShlaWM3NzAwX2hzcF9y
+ZWdtYXAsIGV0aF9heGlfbHBfY3RybF9vZmZzZXQsCi0JCSAgICAgRUlDNzcwMF9FVEhfQ1NZU1JF
+UV9WQUwpOworCXJldCA9IG9mX3Byb3BlcnR5X3JlYWRfdTMyX2luZGV4KHBkZXYtPmRldi5vZl9u
+b2RlLAorCQkJCQkgImVzd2luLGhzcC1zcC1jc3IiLAorCQkJCQkgMywgJmR3Y19wcml2LT5ldGhf
+Y2xrX29mZnNldCk7CisJaWYgKHJldCkKKwkJcmV0dXJuIGRldl9lcnJfcHJvYmUoJnBkZXYtPmRl
+diwgcmV0LAorCQkJCSAgICAgImNhbid0IGdldCBldGhfY2xrX29mZnNldFxuIik7CiAKIAlyZXQg
+PSBvZl9wcm9wZXJ0eV9yZWFkX3UzMl9pbmRleChwZGV2LT5kZXYub2Zfbm9kZSwKIAkJCQkJICJl
+c3dpbixoc3Atc3AtY3NyIiwKLQkJCQkJIDMsICZldGhfcnhkX2RseV9vZmZzZXQpOworCQkJCQkg
+NCwgJmR3Y19wcml2LT5ldGhfdHhkX29mZnNldCk7CiAJaWYgKHJldCkKIAkJcmV0dXJuIGRldl9l
+cnJfcHJvYmUoJnBkZXYtPmRldiwgcmV0LAotCQkJCSAgICAgImNhbid0IGdldCBldGhfcnhkX2Rs
+eV9vZmZzZXRcbiIpOworCQkJCSAgICAgImNhbid0IGdldCBldGhfdHhkX29mZnNldFxuIik7CiAK
+LQlyZWdtYXBfd3JpdGUoZWljNzcwMF9oc3BfcmVnbWFwLCBldGhfcnhkX2RseV9vZmZzZXQsCi0J
+CSAgICAgZXRoX2RseV9wYXJhbSk7CisJcmV0ID0gb2ZfcHJvcGVydHlfcmVhZF91MzJfaW5kZXgo
+cGRldi0+ZGV2Lm9mX25vZGUsCisJCQkJCSAiZXN3aW4saHNwLXNwLWNzciIsCisJCQkJCSA1LCAm
+ZHdjX3ByaXYtPmV0aF9yeGRfb2Zmc2V0KTsKKwlpZiAocmV0KQorCQlyZXR1cm4gZGV2X2Vycl9w
+cm9iZSgmcGRldi0+ZGV2LCByZXQsCisJCQkJICAgICAiY2FuJ3QgZ2V0IGV0aF9yeGRfb2Zmc2V0
+XG4iKTsKIAogCXBsYXRfZGF0LT5udW1fY2xrcyA9IEFSUkFZX1NJWkUoZWljNzcwMF9jbGtfbmFt
+ZXMpOwogCXBsYXRfZGF0LT5jbGtzID0gZGV2bV9rY2FsbG9jKCZwZGV2LT5kZXYsCkBAIC0yMDgs
+NiArMjc3LDcgQEAgc3RhdGljIGludCBlaWM3NzAwX2R3bWFjX3Byb2JlKHN0cnVjdCBwbGF0Zm9y
+bV9kZXZpY2UgKnBkZXYpCiAJcGxhdF9kYXQtPmV4aXQgPSBlaWM3NzAwX2R3bWFjX2V4aXQ7CiAJ
+cGxhdF9kYXQtPnN1c3BlbmQgPSBlaWM3NzAwX2R3bWFjX3N1c3BlbmQ7CiAJcGxhdF9kYXQtPnJl
+c3VtZSA9IGVpYzc3MDBfZHdtYWNfcmVzdW1lOworCXBsYXRfZGF0LT5maXhfbWFjX3NwZWVkID0g
+ZWljNzcwMF9kd21hY19maXhfc3BlZWQ7CiAKIAlyZXR1cm4gZGV2bV9zdG1tYWNfcGx0ZnJfcHJv
+YmUocGRldiwgcGxhdF9kYXQsICZzdG1tYWNfcmVzKTsKIH0KLS0gCjIuMjUuMQoKX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGlu
+ZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9z
+dC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
