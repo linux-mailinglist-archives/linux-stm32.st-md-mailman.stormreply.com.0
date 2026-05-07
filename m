@@ -2,42 +2,42 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iEeuJ5aI/GleRAAAu9opvQ
+	id KHyqOKeI/GleRAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 14:41:58 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 14:42:15 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4838F4E851E
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 14:41:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B1524E8543
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 14:42:15 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD7D3C8F283;
-	Thu,  7 May 2026 12:41:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F027AC8F283;
+	Thu,  7 May 2026 12:42:14 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 125B6C87ECE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96145C87ECE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 May 2026 12:41:56 +0000 (UTC)
+ Thu,  7 May 2026 12:42:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=suAbZsGxaGCtsebVoYqOWspXqWgKFY5vkNIOYTGshL4=; b=WF7qQ0DtMnBAxYbasHDFY/cUcA
- NLpqsN4kXi3tXI797o0WkmnnH5EbFxUWHVB4N041hMHlJGu9hvu1apLOZZyjSVVDK4fl/FTEZRsTp
- 9G/1KU9NApkHFJBZCYqoNXAhnVslBz1pYs8ke4RO3eLG/O5reMPayBjLL/Mh2gdlk6Og=;
+ bh=6Ourvj2gy9WcsFR16R5kadXRSlzivDujIwrNsP/U+vo=; b=c593q9x2L5mfrcnUwUt/92fJDo
+ 2g9xlWV62o0rfpvU3z4hBFmaeyYg32cboG9jSq7I8Vc824SN4EYlX5ti+iLr5aKgGI517bkvWTupQ
+ wMB8o+qrYwV8WW8O7bkVI4S6FAnCkDAyrfKlywYSt5UkCzvM+4vGsQZmifwV76bEhxRY=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wKy30-001oMv-Cs; Thu, 07 May 2026 14:41:46 +0200
-Date: Thu, 7 May 2026 14:41:46 +0200
+ id 1wKy3K-001oO5-D7; Thu, 07 May 2026 14:42:06 +0200
+Date: Thu, 7 May 2026 14:42:06 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Minda Chen <minda.chen@starfivetech.com>
-Message-ID: <98266e3a-a23b-4283-a493-65deb8c2a1e7@lunn.ch>
+Message-ID: <1f4765bb-cdd3-412d-a341-cb76709c8ce6@lunn.ch>
 References: <20260507094115.8355-1-minda.chen@starfivetech.com>
- <20260507094115.8355-5-minda.chen@starfivetech.com>
+ <20260507094115.8355-6-minda.chen@starfivetech.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260507094115.8355-5-minda.chen@starfivetech.com>
+In-Reply-To: <20260507094115.8355-6-minda.chen@starfivetech.com>
 Cc: devicetree@vger.kernel.org,
  Emil Renner Berthing <emil.renner.berthing@canonical.com>,
  netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
@@ -46,8 +46,8 @@ Cc: devicetree@vger.kernel.org,
  Rob Herring <robh+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [net-next v3 4/5] net: stmmac: starfive: Add
- jhb100 SGMII interface
+Subject: Re: [Linux-stm32] [net-next v3 5/5] net: stmmac: starfive: Add
+ STMMAC_FLAG_SPH_DISABLE flag
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -63,14 +63,14 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 4838F4E851E
+X-Rspamd-Queue-Id: 9B1524E8543
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
@@ -91,7 +91,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.435];
+	NEURAL_HAM(-0.00)[-0.526];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -100,18 +100,15 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
 
-> +static int stmmac_starfive_sgmii_set_clk_rate(void *bsp_priv, struct clk *clk_tx_i,
-> +					      phy_interface_t __maybe_unused interface,
-> +					      int speed)
-> +{
-> +	struct starfive_dwmac *dwmac = (void *)bsp_priv;
+On Thu, May 07, 2026 at 05:41:15PM +0800, Minda Chen wrote:
+> Add default disable split header flag in all the starfive
+> soc.
+> 
+> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
 
-Why (void *) when it is already a void *?
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
     Andrew
-
----
-pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
