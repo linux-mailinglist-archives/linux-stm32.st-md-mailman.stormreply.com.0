@@ -2,45 +2,43 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id +EnGLoKe/Gn3RwAAu9opvQ
+	id sA6gHqWf/GksSAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 16:15:30 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 16:20:21 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 67E7D4E9F09
-	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 16:15:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 196994EA054
+	for <lists+linux-stm32@lfdr.de>; Thu, 07 May 2026 16:20:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EB91DC8F289;
-	Thu,  7 May 2026 14:15:28 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A3CBC8F289;
+	Thu,  7 May 2026 14:20:20 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 231FDC32EB0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E4F0C32EB0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  7 May 2026 14:15:28 +0000 (UTC)
+ Thu,  7 May 2026 14:20:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=Jd92XsB5WE/g/etZHxA6nzPWEIbD+MK9uEeWSt6AGi4=; b=oUE8EmsRYnljUPNuD/yv/W2iSf
- ILVAFslXORF0Xh0CDF17xDATwzEFAIR5bBKd5RsG3TIfePMBbH3P5BwJP1jwprPfhpstyU8Byr5e/
- fw8Xeh94ss0mEpQtJUlhJmGqmRYdPO3xQTBFk0ctWwU6uCuKIXfm6us/azi5sDIAGxh8=;
+ bh=O6o+MI/ZaM7g5pL3TAM9qsBbo3OL8m3K0Zwub5rjDwA=; b=RXDlSnav06k7nFOhKPGZ7itZ7C
+ rkFKUXEKJ8+qXT7SE1YL4j1NFqq7pw5k5xp93U5sMldxJF0z/V/zEoMwxZgiG2G/PQifQZfcshZYi
+ roROI7HvlHzQBSzX/+Lkv8U1qMTmVDq7716Bx4k6sLN7cH0HOCIOdH2MRu7k03V/sDCY=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wKzUx-001p6o-HA; Thu, 07 May 2026 16:14:43 +0200
-Date: Thu, 7 May 2026 16:14:43 +0200
+ id 1wKzZt-001p9d-3e; Thu, 07 May 2026 16:19:49 +0200
+Date: Thu, 7 May 2026 16:19:49 +0200
 From: Andrew Lunn <andrew@lunn.ch>
-To: Xilin Wu <sophon@radxa.com>
-Message-ID: <fd839de4-0312-45aa-8e6a-4c7c199d9264@lunn.ch>
+To: Bjorn Andersson <andersson@kernel.org>
+Message-ID: <0de89be0-d842-46f4-8a23-d7e6cc62bcc4@lunn.ch>
 References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-11-elder@riscstar.com>
- <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
- <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
- <3A5C0389E7C0D241+21a4f16b-1af8-46ac-8831-0c1b49694df0@radxa.com>
+ <20260501155421.3329862-9-elder@riscstar.com>
+ <afycOwz5TpkegkZd@baldur>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <3A5C0389E7C0D241+21a4f16b-1af8-46ac-8831-0c1b49694df0@radxa.com>
+In-Reply-To: <afycOwz5TpkegkZd@baldur>
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
  edumazet@google.com, netdev@vger.kernel.org,
@@ -56,12 +54,12 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
  rmk+kernel@armlinux.org.uk, wens@kernel.org, bpf@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org,
- linusw@kernel.org, a0987203069@gmail.com, davem@davemloft.net,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
- inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
- matthew.gerlach@altera.com, andersson@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 10/12] net: stmmac: tc956x: add
- TC956x/QPS615 support
+ linusw@kernel.org, a0987203069@gmail.com, andrew+netdev@lunn.ch,
+ boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, inochiama@gmail.com,
+ krzk+dt@kernel.org, julianbraha@gmail.com, matthew.gerlach@altera.com,
+ davem@davemloft.net, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 08/12] dt-bindings: net: toshiba,
+ tc965x-dwmac: add TC956x Ethernet bridge
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,7 +75,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 67E7D4E9F09
+X-Rspamd-Queue-Id: 196994EA054
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -85,69 +83,58 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:sophon@radxa.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@
- kernel.org,m:a0987203069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:lin
+ usw@kernel.org,m:a0987203069@gmail.com,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:davem@davemloft.net,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[49];
 	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
+	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,lunn.ch,davemloft.net];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_GT_50(0.00)[50];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[lunn.ch:-];
-	NEURAL_HAM(-0.00)[-0.112];
+	NEURAL_HAM(-0.00)[-0.268];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,lunn.ch:mid]
 X-Rspamd-Action: no action
 
-> Hi Alex,
-> 
-> Do you think if a shutdown callback like this is required? It looks like the
-> driver sometimes does a MDIO MMIO read when the PCIe link is down, causing
-> the board to reset due to SoC side PCIe NoC timeout.
-> 
-> After this change, the board can always shutdown gracefully.
-> 
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> index 4e8b4a185583..34b8e3fe1b51 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
-> @@ -767,6 +767,17 @@ static void tc956x_dwmac_remove(struct auxiliary_device
-> *adev)
->         tc956x_mac_disable(td);
->  }
-> 
-> +static void tc956x_dwmac_shutdown(struct auxiliary_device *adev)
-> +{
-> +       struct device *dev = &adev->dev;
-> +       int ret;
-> +
-> +       ret = stmmac_suspend(dev);
+> Are there other consumers of these TC956x gpios which would result in a
+> board designer (and hence dts author) to ever reference this
+> gpio-controller in a different way?
 
-It seems odd to do a suspend in shutdown.
+This Ethernet device could driver an SFP cage. Such cages typically
+have a number of pins connect to GPIOs, so you can tell when there is
+a module in the cage, enable the transmit laser, know if light is
+entering the module from the link peer, etc.
 
-But lets backtrack. Why is the PCIe link down?
+    sfp2: sfp {
+      compatible = "sff,sfp";
+      i2c-bus = <&sfp_i2c>;
+      los-gpios = <&cps_gpio1 28 GPIO_ACTIVE_HIGH>;
+      mod-def0-gpios = <&cps_gpio1 27 GPIO_ACTIVE_LOW>;
+      pinctrl-names = "default";
+      pinctrl-0 = <&cps_sfpp0_pins>;
+      tx-disable-gpios = <&cps_gpio1 29 GPIO_ACTIVE_HIGH>;
+      tx-fault-gpios = <&cps_gpio1 26 GPIO_ACTIVE_HIGH>;
+    };
 
 	Andrew
-
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
