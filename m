@@ -2,89 +2,106 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id Nv0cGu/PAmoTxgEAu9opvQ
+	id sJOML0MmAmpooQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 08:59:59 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 20:56:03 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3415D51B64C
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 08:59:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55D24514BAE
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 20:56:03 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7DF7FC8F297;
-	Tue, 12 May 2026 06:59:58 +0000 (UTC)
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com
- [209.85.167.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06A78C8F288;
+	Mon, 11 May 2026 18:56:03 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 87030C8F288
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B518CC87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 17:12:27 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-5a88db610ccso5306006e87.2
+ Mon, 11 May 2026 18:56:01 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 778CA44471
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 10:12:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778519547; x=1779124347;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7HLgvNKbFd9dvErpzRIPe7Oy/Q20OX1O2SmZxWVb8gM=;
- b=ozxxY5r9aEMZTi8S3uVmYytiXn4ODfWtWsEX0dFQYWfAV4IOMYGhTnWURYVwfKEstR
- PS41Ymgz2M0/Qn4Hp+xPKuHvj4PL2lwFxm5n/PKCoJlXgjnPSxM2iBSGZPlp5AVFW5Nx
- C/rtBlAKjTVc5++SNyJ/6mHYvMdIEHv4ZzdTLUVxeFMclpMhiIUYqhXqYHsaUWm0GPC4
- ocG+5cBSHIKnUNfm0lL8DoZRdVZmwCxU3XETLdzBxAVZWhX2YtCGUTS3YzPrJ2uq4tsx
- Ke4LMOvenGHYm+cu4FaVibjQdHMHfXKPKmVDovdnSiLa08C8bcfZC400nvRq4itPci/b
- wDkw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778519547; x=1779124347;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=7HLgvNKbFd9dvErpzRIPe7Oy/Q20OX1O2SmZxWVb8gM=;
- b=OViCsWKZybH0zY4Llb71aKtz2tZv0RrJDkF6iFBPVLCVCci900jOyN/1AzKbOk64dH
- 8n1MRePHvoOFigVFZEZU69WWmFqx48ah/Truh+fJyeakMH5TQDRJOs8YvanqqLlF8Gnx
- fjLPnPQIGBG2kA5Upa0Ro/9r1MGIjnKPraQ5+YBSXL+klyDl3BUYKw5LV81UdX7Bfit2
- 8fwVeeFW+ghE2NHQHCbzhbpipx7XZreAzw/WPVkQ2iyfzFiPArjUh785Zl2ys23fLWqJ
- an5hatMBBdqyKkywlVn67hpUk/kDTZQuXKaCnm8YXlPz6GgZGQSfYfEfogmN5rkkrB7x
- fJug==
+ Mon, 11 May 2026 18:56:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6C8C2BCB0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 May 2026 18:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778525760;
+ bh=zIB79Xk6boPPhMmzQH/JqpB68ofRCBiWIY7ln6Jka+I=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+ b=gsXWUjbyow7NEAQM0X0NALFGmQpalpbS9xBt2Q8RvtDLJbAfXJJkychRH7mExvXH3
+ wLvWHyJefAS26wLfKstTSKg4fpYzXUzP9z8dBvpeunIG7OR8L+kw39IhzmarZrdw/h
+ btm81FfGDWtRy7mD9/ufgpqgi4b5BojlFQrrwerXbOl2YVC1Ogd4soD3R18nrQrEhG
+ nDr0emt/gHeMqaLpCF0fBYUdU7KS4/fQWh/w8yFK16D23lmWQHLQ/HbuI5h5SUrqtG
+ w7slVsBwfjrHsBXY80jeoLoXsCFsndGoqWJdNItHUlKljlND4E3ff8s1IBMBD4kXtw
+ okmwUrKGPyRTw==
+Received: by mail-lf1-f47.google.com with SMTP id
+ 2adb3069b0e04-5a86c1fe573so5103702e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 May 2026 11:56:00 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ/JjKoFMBrS7UGbtBzXYt9HOfkF5oBcLgHaPMjTQqyAj7TA0epJpY8WLsXKUr4g7cfzbyAYkOwiHC0tIw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyThcEC8omFQHz5GBGWB18y8+CyvdYXKC/v7tLeI3zbrJLcxwmC
- f0Prs8XjTuXqvZOYivCU6b1ZDd+II6XV9bIkkvS0cjzp+ZKjnP11+qVU
-X-Gm-Gg: Acq92OFjKPd0ZyCpJljc98HmwCmTWC+7Ntl81PjNektIglaQ0rXUANMXbSi8NGr9Nm0
- 2MjXLeXAEPHGCwUbVQ1HLf0IffHuKTlq90/T/RpvtmnK0pVXZNQLGabqKNKk7NRRr4HcFK375GF
- oia81QrPx+eI4ksRyCs9lAUxFzjb/2CrwaEUifpubmPv6Upz9N25tDgn0+GvGWOov0RRbKhwWlr
- IJq0si1qKvaqhdY1qCMSqsFlV2RMxjVwKcpdWfEngsNalskol6KJrVJ3eaZ9AAGpz8EfTy4zUAI
- q3x6wcNXLKKwoC1eY9VK1KvnngQNaOOH3DHNAd8OO5rD04c40aU6R1vnQMjdr205oycVIjYxoYq
- eB5PBtxyvg385bjQLXf46zoPTbXOseGE8dREVkS0yrWvPf3huXizE0qAi02ta6gNUYrKZ7Kacar
- jYTZuV9A3lADvY5GLvJC9kZceIGEEX7AQuPF1XG2FOfLyf0qaslwKZ9/Tjyp+Q
-X-Received: by 2002:a05:6512:3d8a:b0:5a8:a558:63b3 with SMTP id
- 2adb3069b0e04-5a8b709b088mr3026360e87.30.1778519546521; 
- Mon, 11 May 2026 10:12:26 -0700 (PDT)
-Received: from va-HP-Pavilion-Desktop-595-p0xxx.mshome.net ([193.0.150.248])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a95660b6sm2765488e87.62.2026.05.11.10.12.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 10:12:26 -0700 (PDT)
-From: Valery Borovsky <vebohr@gmail.com>
-To: linux-media@vger.kernel.org
-Date: Mon, 11 May 2026 20:12:11 +0300
-Message-ID: <b914d204dbcc642e56a8d54dff33c94f1a9802fa.1778518085.git.vebohr@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1778518085.git.vebohr@gmail.com>
-References: <cover.1778518085.git.vebohr@gmail.com>
+ AFNElJ8X/+b7mfqzDuM9QFFrATvCEJB7tfyfA0tUMO8/+IESl0Cy3leMdB6wkEDB4XZPhBqDp4KaWLwFdLaeyw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwEWZWIsWfDsLVxRQ6o+0AAl0eCIqgaetWgIMHt34ckjHf/A4J6
+ 4ea9LxIpQ6RU5aJluffW6WBsCuOBSCRNeL+JDFUsa8lVsi5lA42BLP0YCVU7svFDcdAjAbdhFLG
+ XPCUaaqBzUHN4+aYHJPKQc3jX4lamCYI=
+X-Received: by 2002:a05:6512:3ba4:b0:5a8:63e0:cd92 with SMTP id
+ 2adb3069b0e04-5a8b709be01mr3083162e87.33.1778525758018; Mon, 11 May 2026
+ 11:55:58 -0700 (PDT)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Tue, 12 May 2026 06:59:56 +0000
-Cc: linux-arm-kernel@lists.infradead.org, wens@kernel.org,
- linux-kernel@vger.kernel.org, sakari.ailus@linux.intel.com,
- samuel@sholland.org, hugues.fruchet@foss.st.com, mripard@kernel.org,
- linux-sunxi@lists.linux.dev, hverkuil@kernel.org, jernej.skrabec@gmail.com,
- mcoquelin.stm32@gmail.com, stable@vger.kernel.org, mchehab@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, hansg@kernel.org,
- Valery Borovsky <vebohr@gmail.com>
-Subject: [Linux-stm32] [PATCH 6/6] media: sun4i-csi: Return queued buffers
-	on start_streaming() failure
+References: <20260511165942.2774868-1-robh@kernel.org>
+In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 11 May 2026 20:55:46 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkmoN3iY=d5TgkLswgEt4Dgx_j3BAJPX-ASL+VnF_EzHw@mail.gmail.com>
+X-Gm-Features: AVHnY4LWa20oUaE1F0JxYrIcNTXFA3pQESxY2XotgaPrY2W88xHdQsN2xv93t9I
+Message-ID: <CAD++jLkmoN3iY=d5TgkLswgEt4Dgx_j3BAJPX-ASL+VnF_EzHw@mail.gmail.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>, linux-remoteproc@vger.kernel.org,
+ Heiko Stuebner <heiko@sntech.de>, imx@lists.linux.dev,
+ Tanmay Shah <tanmay.shah@amd.com>, Frank Li <Frank.Li@nxp.com>,
+ dri-devel@lists.freedesktop.org, Mirela Rabulea <mirela.rabulea@nxp.com>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Mohan Reddy Putluru <pmohan@couthit.com>, Suman Anna <s-anna@ti.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, Simona Vetter <simona@ffwll.ch>,
+ Detlev Casanova <detlev.casanova@collabora.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, David Airlie <airlied@gmail.com>,
+ Jackson Lee <jackson.lee@chipsnmedia.com>,
+ Parvathi Pudi <parvathi@couthit.com>, Nas Chung <nas.chung@chipsnmedia.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Ben Levinsky <ben.levinsky@amd.com>, Michal Simek <michal.simek@amd.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Hussain Khaja <basharath@couthit.com>, Paolo Abeni <pabeni@redhat.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Liu Ying <victor.liu@nxp.com>,
+ linux-arm-msm@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-spi@vger.kernel.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Roger Quadros <rogerq@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Jakub Kicinski <kuba@kernel.org>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Rob Clark <robin.clark@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Sean Paul <sean@poorly.run>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Roger Quadros <rogerq@ti.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ MD Danish Anwar <danishanwar@ti.com>, "Andrew F. Davis" <afd@ti.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, dmaengine@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, freedreno@lists.freedesktop.org,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: Consolidate "sram" property
+	definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,96 +113,58 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 3415D51B64C
+X-Rspamd-Queue-Id: 55D24514BAE
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.89 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,vger.kernel.org,linux.intel.com,sholland.org,foss.st.com,lists.linux.dev,gmail.com,st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:linux-media@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:wens@kernel.org,m:linux-kernel@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:samuel@sholland.org,m:hugues.fruchet@foss.st.com,m:mripard@kernel.org,m:linux-sunxi@lists.linux.dev,m:hverkuil@kernel.org,m:jernej.skrabec@gmail.com,m:mcoquelin.stm32@gmail.com,m:stable@vger.kernel.org,m:mchehab@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:hansg@kernel.org,m:vebohr@gmail.com,m:jernejskrabec@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[vebohr@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:akhilpo@oss.qualcomm.com,m:linux-remoteproc@vger.kernel.org,m:heiko@sntech.de,m:imx@lists.linux.dev,m:tanmay.shah@amd.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:mirela.rabulea@nxp.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:marijn.suijten@somainline.org,m:pmohan@couthit.com,m:s-anna@ti.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jbrunet@baylibre.com,m:simona@ffwll.ch,m:detlev.casanova@collabora.com,m:andrew+netdev@lunn.ch,m:airlied@gmail.com,m:jackson.lee@chipsnmedia.com,m:parvathi@couthit.com,m:nas.chung@chipsnmedia.com,m:martin.blumenstingl@googlemail.com,m:ben.levinsky@amd.com,m:michal.simek@amd.com,m:ezequiel@vanguardiasur.com.ar,m:basharath@couthit.com,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:khilman@baylibre.com,m:linux-media@vger.kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:tzimmermann@suse.de,m:neil.armstrong@linaro.org,m:victor.liu@nxp.com,m:linux-arm-msm@
+ vger.kernel.org,m:s.hauer@pengutronix.de,m:linux-spi@vger.kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:abhinav.kumar@linux.dev,m:rogerq@kernel.org,m:broonie@kernel.org,m:linux-mediatek@lists.infradead.org,m:kuba@kernel.org,m:matthias.bgg@gmail.com,m:linux-amlogic@lists.infradead.org,m:robin.clark@oss.qualcomm.com,m:mchehab@kernel.org,m:sean@poorly.run,m:kernel@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:mcoquelin.stm32@gmail.com,m:rogerq@ti.com,m:lumag@kernel.org,m:mathieu.poirier@linaro.org,m:lorenzo@kernel.org,m:andersson@kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:danishanwar@ti.com,m:afd@ti.com,m:jesszhan0024@gmail.com,m:vkoul@kernel.org,m:p.zabel@pengutronix.de,m:hugues.fruchet@foss.st.com,m:dmaengine@vger.kernel.org,m:krzk+dt@kernel.org,m:freedreno@lists.freedesktop.org,m:davem@davemloft.net,m:nbd@nbd.name,m:andrew@lunn.ch,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[vebohr@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.661];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FREEMAIL_CC(0.00)[oss.qualcomm.com,vger.kernel.org,sntech.de,lists.linux.dev,amd.com,nxp.com,lists.freedesktop.org,google.com,somainline.org,couthit.com,ti.com,gmail.com,st-md-mailman.stormreply.com,baylibre.com,ffwll.ch,collabora.com,lunn.ch,chipsnmedia.com,googlemail.com,vanguardiasur.com.ar,redhat.com,kernel.org,suse.de,linaro.org,pengutronix.de,linux.intel.com,linux.dev,lists.infradead.org,poorly.run,foss.st.com,davemloft.net,nbd.name];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[75];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.670];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-The vb2 framework hands buffers to the driver via buf_queue() before
-calling start_streaming().  If start_streaming() returns an error
-without first returning those buffers via vb2_buffer_done(),
-vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and the queued
-buffers leak.
-
-sun4i_csi_start_streaming() returned -EINVAL when no matching CSI
-format could be found, before any setup (scratch buffer allocation,
-pipeline start) had been performed.  The remaining error paths already
-converge on the err_clear_dma_queue label, which calls
-return_all_buffers(..., VB2_BUF_STATE_QUEUED) under csi->qlock.  Jump
-to that label directly: the intermediate err_disable_device /
-err_disable_pipeline / err_free_scratch_buffer labels are skipped,
-which is correct because nothing they would undo has happened yet.
-
-This mirrors the uvcvideo fix in commit 4cf3b6fd54eb ("media: uvcvideo:
-Return queued buffers on start_streaming() failure").
-
-Fixes: 577bbf23b758 ("media: sunxi: Add A10 CSI driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Valery Borovsky <vebohr@gmail.com>
----
- drivers/media/platform/sunxi/sun4i-csi/sun4i_dma.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/platform/sunxi/sun4i-csi/sun4i_dma.c b/drivers/media/platform/sunxi/sun4i-csi/sun4i_dma.c
-index e911c7f7acc5..4781db21c205 100644
---- a/drivers/media/platform/sunxi/sun4i-csi/sun4i_dma.c
-+++ b/drivers/media/platform/sunxi/sun4i-csi/sun4i_dma.c
-@@ -234,8 +234,10 @@ static int sun4i_csi_start_streaming(struct vb2_queue *vq, unsigned int count)
- 	int ret;
- 
- 	csi_fmt = sun4i_csi_find_format(&csi->fmt.pixelformat, NULL);
--	if (!csi_fmt)
--		return -EINVAL;
-+	if (!csi_fmt) {
-+		ret = -EINVAL;
-+		goto err_clear_dma_queue;
-+	}
- 
- 	dev_dbg(csi->dev, "Starting capture\n");
- 
--- 
-2.51.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gTW9uLCBNYXkgMTEsIDIwMjYgYXQgNjo1OeKAr1BNIFJvYiBIZXJyaW5nIChBcm0pIDxyb2Jo
+QGtlcm5lbC5vcmc+IHdyb3RlOgoKPiBUaGUgInNyYW0iIHByb3BlcnR5IGhhcyBiZWNvbWUgYSBk
+ZSBmYWN0byBzdGFuZGFyZCBwcm9wZXJ0eSwgc28gY3JlYXRlIGEKPiBjb21tb24gc2NoZW1hIGZv
+ciBpdCBhbmQgZHJvcCBhbGwgdGhlIGR1cGxpY2F0ZWQgZGVmaW5pdGlvbnMuCj4KPiBTaWduZWQt
+b2ZmLWJ5OiBSb2IgSGVycmluZyAoQXJtKSA8cm9iaEBrZXJuZWwub3JnPgoKSSBsaWtlIGl0LgpS
+ZXZpZXdlZC1ieTogTGludXMgV2FsbGVpaiA8bGludXN3QGtlcm5lbC5vcmc+CgpZb3VycywKTGlu
+dXMgV2FsbGVpagpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+XwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9y
+bXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9s
+aXN0aW5mby9saW51eC1zdG0zMgo=
