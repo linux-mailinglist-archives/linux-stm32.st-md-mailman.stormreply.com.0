@@ -2,50 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id MDdjDUgqAmp0ogEAu9opvQ
+	id CBObHO/PAmoJxgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 21:13:12 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 08:59:59 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC8C514E18
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 21:13:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ADC751B650
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 08:59:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1A1A7C8F288;
-	Mon, 11 May 2026 19:13:11 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8D9C3C8F299;
+	Tue, 12 May 2026 06:59:58 +0000 (UTC)
+Received: from CO1PR03CU002.outbound.protection.outlook.com
+ (mail-westus2azon11010010.outbound.protection.outlook.com [52.101.46.10])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91B8CC87EC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 71F64C08D19
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 19:13:09 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id 442BC436E7;
- Mon, 11 May 2026 19:13:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7717DC2BCB0;
- Mon, 11 May 2026 19:13:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778526788;
- bh=X12OJNlVrW0M7yx3AAq/R0gndQECFEYKmSvs2udKSlc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=NW11rcbanvSH3mYPfsfnY5FskXYqRF81nyAFznyqOu+Tj9fS9Fn2UP2Uger7MH+xX
- OIPltO+ignTcczF/De/23UMbQbAvZYWi0wiq9qGlWRO3TcQ/us/2Y0jggFmxj1RASE
- d7uy5V1i4kkTehiSes1hCgz/kMkxqxwq98/hBwWLyoBbuHCTtnpQBoeBgLg5JqRTc+
- QeQbjbCU9IHFabdjgefF0t7Vw8f4uDvx9GsYBnLqq1h3VgVq0tL+4SLZjVRyGkU9Te
- kAJOvGdNaIR8oN+JbZk9uAncauxpHUbngHEA4A0XNKWEqk/mzyj4SmSH7VF3LFYfXX
- NuWwV+XnIg/ZA==
-Date: Mon, 11 May 2026 21:13:04 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
-To: Manish Baing <manishbaing2789@gmail.com>
-Message-ID: <agIp2LODsGzHdPzw@monoceros>
-References: <20260509193928.19030-1-manishbaing2789@gmail.com>
+ Mon, 11 May 2026 21:18:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Yx15Yro/e938xOHheUupdSccP+1eK/WSQuRI5CQFvYmA0/4kxaAUKBvAqZZ/Q2oiFHcclw/POQLVeUDHSpBV8sDyLnOLRBcavtkfyp6DhbjtSeyf/Qb8d4ZKm+ZTw1l5ox5QUGTvERiUs0pdVW/VKv91ILCIUBmXo7q4n8Xpnxk9Ib75ox2Y1sDSJgXWr1XguH6cage+pi2XzZK6ZJnz3uvHmD1t+OYNAEKC2V2YFhKHe1vG3CULR2xRpASHaofREp3gL8E0akvSpmjiR25wnXBPpP85z8jtKFzv5ORffG1bOmHEObQ+h8KisewOjtHIZdnb5GsXV9hOZtQT9yYY4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2hX2neu3NHufsNJB1jyj+MLov8FQRt2+V9eSNT5YdsI=;
+ b=g33bpsphNBpZCNiCG17u4AKMlvPEEIcsEcTQ2vwcVuCrlj92rk8fKZr5s+911ECShUk5SnaS6Ly0aBUE46Zv5Y/jxpQifd0NCLC4sAfqe6j0sbVVSZ8GkBIjHxuZ0i4a7cdBQiIUmXkNDnmvdvsrtvHBMdfCOdOybWnvCsoZ8eb38Bioa21vQvtzw3ErrXT9ePdxjxsJHPI5K+hpGmhZkJP+YHaRw2UsCDDeyUM4IGLEdV0IvllCBidk8ObVIPyfcXptlX6AklBc8QgZGN5eFMhny8RX3C/rJdYcBqioZIxU5L0ni2RIgCjNnyhaPySsUCkYQnbyUR4Km/riXfS7PA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2hX2neu3NHufsNJB1jyj+MLov8FQRt2+V9eSNT5YdsI=;
+ b=eVm70cS7muIM7ezcODuIvjZC4D7w2Q6PyNeiKQon6H07UoZgo+yRDRsK48XDfdTRNuGfomEWFoB0icCiTBzcX0zW/9xdagH6Wcfm0A6kugs1fxiLIhlRAtxW/Hk9k0A/0JN7qw99+EOtzuAAEwkhIgQwO28K8wIRvnCySO2tVAA=
+Received: from PH7P220CA0123.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:327::26)
+ by DSWPR12MB999130.namprd12.prod.outlook.com (2603:10b6:8:36d::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.22; Mon, 11 May
+ 2026 21:18:43 +0000
+Received: from CY4PEPF0000EE37.namprd05.prod.outlook.com
+ (2603:10b6:510:327:cafe::56) by PH7P220CA0123.outlook.office365.com
+ (2603:10b6:510:327::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
+ 11 May 2026 21:18:43 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EE37.mail.protection.outlook.com (10.167.242.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 21:18:42 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Mon, 11 May
+ 2026 16:18:42 -0500
+Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via
+ Frontend Transport; Mon, 11 May 2026 16:18:41 -0500
+From: Ben Levinsky <ben.levinsky@amd.com>
+To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
+ <mathieu.poirier@linaro.org>, <linux-remoteproc@vger.kernel.org>
+Date: Mon, 11 May 2026 14:18:37 -0700
+Message-ID: <20260511211841.284809-1-ben.levinsky@amd.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-In-Reply-To: <20260509193928.19030-1-manishbaing2789@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- linusw@kernel.org, lee@kernel.org, linux-pwm@vger.kernel.org,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, krzk+dt@kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: mfd: st,
- stmpe: fix PWM schema and drop legacy binding
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE37:EE_|DSWPR12MB999130:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77c62e2e-5e45-43df-66e1-08deafa2e121
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|36860700016|1800799024|82310400026|56012099003|18002099003|11063799003;
+X-Microsoft-Antispam-Message-Info: zam02IVYasQhRVNQ/kBuJEjMcLrWZLRRkaMx5pfEt4mY+4SDeCAPsndNZm2i+tbB5FijfqF6D7SirEqtGYASa2vJy2YqLIC1UBVoqxJOef2kgM4Z0XYowvMdf5e9T7kvHmbvs3wFOjQfkTuot1f/m9YUhKMgeFi0zpZIbbgHLM6+EhQ16KKWCp1BzfnzdUoENlklqyS+eJ2+cN4lOiqZvS4g1mgzyKLED2EZvPOf49Q3BkHuq7cHwr4oC4xnCyT+2Ah9hmYij6xnl3Gp0uZ149RdCLjmblypf88mE4utzM4OTAw0fgkEBJZNreqCBRfJl5xgbs2j4tH8PIVw1U93Ike3DybZ4N+StWhT3+foT8tvOh9ySbt3RkT+0JcOlDPw5TTOcUD+EppRqxzTZggyn6cioj6GtJ8cFmA5gcLHyDP21Uye9UUIqcTSoPR+LXLFQAi4sydkNSVUQ9DrID9pkifIIXmoxlT53a4eHBj1Oava/vGgRn8/wFeNtO+jIWePMd4/1Y5KhCvttOs/ZutVzS2VXlbHuD+WXl6WNECyvSo3DJGczGG/DLHlRwp07J5Twu6fVTwVR1F4+Mnnls79mHbdP3+YVHMYGGGCnclLH2xpnxD8f8U5p0v30H2MUYvSk9GaPXzXraAnQC4uLwADTk9SjYXDY/2/01cnEn7JfDqXkPdcFzNpOxlgs6iJOAGCuUhU1/31CyTh3Rjyt8XkHqvj4CNkHP2SQZTRqVcfnHA=
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(36860700016)(1800799024)(82310400026)(56012099003)(18002099003)(11063799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: iHHkAaCw9qD/3J7chpnwzvg2BJ3pGq/1PRQz6Lo46my7hQOExihNkyiLKHw/VL1Ao8VjwI37gOhK8BKZ7GH2ZG6H481To5gs5ExkIWFUsu7J12hpPhX/lMMkyiXvAttxs7j3n8Vh12j1mYqn6NsH3OpSoeORMMcGQjWo2lxKWM2zFSn9eYVx0I95+7dBa2jWppo5rpg4dduMtBtZeNJSCmlGgjAXJqeYJqorZaFc/4QJxPrp5oq/zf6TGC9oJ9JFIIcoGeF8U7LKyQnz1seAo/cY9zxw+rMLjlp6UmQqxHhcvxA35/s5pq6iPw/eMpniQaEHVWMPWHAKYeD9G9kmkBIEu/nUSuB5cFkgfZ6DNLCmnvfGvzCuL9V8wHhk0LZVz32GJKwmYhQK1h4oZgF5oS0QUz6bNobggDKVDELzDP6H0ZFFxMie7nTs0qJ8Lj2N
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 21:18:42.8940 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77c62e2e-5e45-43df-66e1-08deafa2e121
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CY4PEPF0000EE37.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSWPR12MB999130
+X-Mailman-Approved-At: Tue, 12 May 2026 06:59:56 +0000
+Cc: imx@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>, tanmay.shah@amd.com,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Magnus
+ Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH 0/4] remoteproc: cleanup shared carveout and
+	resource-table helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -57,115 +117,99 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8573701643801733289=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: CFC8C514E18
+X-Rspamd-Queue-Id: 3ADC751B650
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.19 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [6.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	DMARC_POLICY_QUARANTINE(1.50)[amd.com : SPF not aligned (relaxed),quarantine];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
-	MID_RHS_NOT_FQDN(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[amd.com:s=selector1];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[ukleinek@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS(0.00)[m:manishbaing2789@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linusw@kernel.org,m:lee@kernel.org,m:linux-pwm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:linux-remoteproc@vger.kernel.org,m:imx@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelin.stm32@gmail.com,m:geert+renesas@glider.be,m:tanmay.shah@amd.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:magnus.damm@gmail.com,m:linux-kernel@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:kernel@pengutronix.de,m:festevam@gmail.com,m:patrice.chotard@foss.st.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[lists.linux.dev,st-md-mailman.stormreply.com,gmail.com,glider.be,amd.com,nxp.com,pengutronix.de,vger.kernel.org,foss.st.com,lists.infradead.org];
+	FORGED_SENDER(0.00)[ben.levinsky@amd.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.159];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,amd.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo];
+	DKIM_TRACE(0.00)[amd.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ben.levinsky@amd.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ukleinek@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	NEURAL_HAM(-0.00)[-0.654];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Action: no action
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Action: add header
+X-Spam: Yes
 
+This series is a preparatory remoteproc cleanup split out from review of
+the AMD BRAM-based remoteproc series.
 
---===============8573701643801733289==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ojcn2z3s6bmijsju"
-Content-Disposition: inline
+During review, there was a request to move the duplicated plain
+ioremap_wc()/iounmap() carveout callbacks into common code and to
+factor the "missing resource table is OK" ELF parsing path into a
+common helper as well. There was also a request to send that cleanup as
+its own patchset first, with the AMD BRAM series respun afterwards on
+top once this cleanup is merged.
 
+This series does that in four patches:
 
---ojcn2z3s6bmijsju
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] dt-bindings: mfd: st,stmpe: fix PWM schema and drop
- legacy binding
-MIME-Version: 1.0
+  1. add common subsystem-private callbacks for the exact-match
+     wc-ioremap carveout case
+  2. switch the in-tree exact-match users over to those callbacks
+  3. add a common helper for drivers that treat a missing ELF resource
+     table as optional, returning success on -EINVAL and propagating
+     other errors unchanged
+  4. switch the matching in-tree drivers over to that helper
 
-On Sat, May 09, 2026 at 07:39:28PM +0000, Manish Baing wrote:
-> The st,stmpe-pwm binding is already covered by the MFD schema in
-> Documentation/devicetree/bindings/mfd/st,stmpe.yaml. However, the
-> PWM subnode was missing a 'required' properties block. This allowed
-> Device Tree nodes to pass validation even if the 'compatible'
-> string was omitted. This omission could lead to probe failures
-> at runtime.
->=20
-> Fix the schema by adding the missing 'required' block and
-> remove the obsolete and redundant text binding file.
->=20
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
+For the carveout map/unmap cleanup, this series covers the exact-match
+users called out in review: xlnx_r5_remoteproc, rcar_rproc,
+st_remoteproc, stm32_rproc, imx_rproc, and imx_dsp_rproc. The zynqmp R5
+TCM mapping path is left alone because it also clears the mapped memory
+and is not an exact match.
 
-Reviewed-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
+For the optional resource-table handling, this series converts
+xlnx_r5_remoteproc, rcar_rproc, stm32_rproc, imx_rproc, and
+imx_dsp_rproc. st_remoteproc is intentionally left unchanged because its
+parse_fw() callback also builds carveouts and is therefore not a direct
+match for the helper introduced here.
 
-Lee: If you want to apply that patch, that's fine for me (take my
+Ben Levinsky (4):
+  remoteproc: add common wc-ioremap carveout callbacks
+  remoteproc: switch exact-match drivers to wc-ioremap callbacks
+  remoteproc: add helper for optional ELF resource tables
+  remoteproc: switch drivers to optional resource-table helper
 
-Acked-by: Uwe Kleine-K=F6nig <ukleinek@kernel.org>
+ drivers/remoteproc/imx_dsp_rproc.c       | 46 +++-----------
+ drivers/remoteproc/imx_rproc.c           | 45 +-------------
+ drivers/remoteproc/rcar_rproc.c          | 46 +-------------
+ drivers/remoteproc/remoteproc_internal.h | 38 +++++++++++-
+ drivers/remoteproc/st_remoteproc.c       | 31 +---------
+ drivers/remoteproc/stm32_rproc.c         | 44 +-------------
+ drivers/remoteproc/xlnx_r5_remoteproc.c  | 76 ++----------------------
+ 7 files changed, 60 insertions(+), 266 deletions(-)
 
-for that). If I should take it, I'm happily taking your's :-)
-
-Best regards
-Uwe
-
---ojcn2z3s6bmijsju
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoCKjoACgkQj4D7WH0S
-/k5puQf9FNIJGXHuObG07U1AYJ6EVJK43xAHsxWJ4826SymtYp2+r0Pt005bbShx
-QWVyaUgwmznt5j81FetFONeelX5eyASciJicMUOrDSeRZSyE64cdqaACaZgpgoOu
-CxS2URF2uTN2fr01n7pHoX1mCp3VHeMHu7SpoBkc6Enh0X96tGRYJXVSQR57Sy2R
-1muyW41Ijpfckw+5DOPPgV8wgnXdPcv9zWOpHRpO3WOl8maOaTkZ3beZkzdnkqcJ
-lYPtb8UJG55q5ZPw5k/ja3GegXWpzCHmGwCl77TQufhudnwcVyMcxP72WQSXh9Js
-BIdwoNz1fMDKIOuqS32bnxRqdtrMUw==
-=9yEQ
------END PGP SIGNATURE-----
-
---ojcn2z3s6bmijsju--
-
---===============8573701643801733289==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
+-- 
+2.34.1
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============8573701643801733289==--
