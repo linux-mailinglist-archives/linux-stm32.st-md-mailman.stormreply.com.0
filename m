@@ -2,115 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id p2JEBrOOAWoVeQEAu9opvQ
+	id gH0IMYXoAWoRmQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 10:09:23 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 16:32:37 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8933C509D7A
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 10:09:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 40C4A510349
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 16:32:36 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C77F7C8F287;
-	Mon, 11 May 2026 08:00:27 +0000 (UTC)
-Received: from OSPPR02CU001.outbound.protection.outlook.com
- (mail-norwayeastazon11013003.outbound.protection.outlook.com [40.107.159.3])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73CBAC8F287;
+	Mon, 11 May 2026 14:32:36 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2B5BAC87EC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59661C87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 08:00:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Ow/jVZL3GoIl+c93iPbYdSQvxzxsLubDtBwNyUwmtUnpkfi8DKzdthzm15X/eodfEJglfws+nPp2V0QxGpU/ITa1uX2/GMihppv9LYULS/04osF+SlGgWCeeBEWCJ+0MWqgUEX/SPZYUyffro37q6iEyTUwPP+IaaDcqN4kOJKrFCb2SSukgpENKVqXr/euv0pwfPUcHgp59aC9XBmCGaBj1Robv1aZQsjT1D7JQdwD7ieUHiNzaYp9SB8vrHR0Dgfh22If9azFR2d6xNUnq4TEzZW1KV0VxoVzwjwV6ws6gjf1Goah+gT+xTgQk8+3E9D7bbjyYgKWgHfgat+O40g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=5r9Q3EYcCO7i6tMHGCp//y/9iaflG6MqzqyAatSxt58=;
- b=bydxGoCUew0fK9DwIyRqvaLEUyVfD+tSQCa6ksva1fvaof1gee+4i7cBnAfBYNaUrQkeQAj0v1mJeQjnoyQZOwzp82XvGHqwuMabQndxuFSxS6tKGDpaYUg9LQdEE6V3Q24FhwezVi4CSjD3puw9TE6KDfln++2uKOwuzO/lhO7+vG4o+wndtE4o00myX1gMcZMIOR09L47i7NzSOyYdZEhk2bR/B9PA5Y6Ntr8EO5iinemh0mopF7TqXdMN5FwB3Iuc+Ge03JDemc8ITfK+YSu3H1B5mtlBXG8RFfZSCtfZuieylavsgYfEBpPgW2dod1aPkdxbQe79COHxATb9lg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=163.com smtp.mailfrom=foss.st.com; dmarc=fail
- (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=5r9Q3EYcCO7i6tMHGCp//y/9iaflG6MqzqyAatSxt58=;
- b=bYpS2M5QgaWdtfmN3hjk/wvKzjvlicIuxsLDfa+3H5sVJ92ShVHQLgv6dQeinHaXL4nW4lUiRjfgUo+4bEwtcjYJ3Seyehly+P2m5wMHQTLltNJdgRLZNq72ohCyWcvTkOA1KMGI0AwVtrIyLT4xkAX5c+019qNsAriKhAcMqJSG+YoOxs9rN1COGdevdKjprjO6XK/n1K67L2t28HvgROLGoSj4f/u64/DGY9exZTYAs7H3xgCo3FiDT8WrTHXFkqioyP7G+3KnYEWlemKuG5RfuyYKmZoeZaqK1E0g/USGWmfJPn45C0x9Zr6nvFuL4FfuZhL7dcSxdUtjYcLM0A==
-Received: from DUZPR01CA0059.eurprd01.prod.exchangelabs.com
- (2603:10a6:10:469::13) by AMBPR10MB9883.EURPRD10.PROD.OUTLOOK.COM
- (2603:10a6:20b:75e::14) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.23; Mon, 11 May
- 2026 08:00:23 +0000
-Received: from DB1PEPF000509F9.eurprd02.prod.outlook.com
- (2603:10a6:10:469:cafe::bf) by DUZPR01CA0059.outlook.office365.com
- (2603:10a6:10:469::13) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
- 11 May 2026 08:00:23 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DB1PEPF000509F9.mail.protection.outlook.com (10.167.242.155) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 08:00:21 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 11 May
- 2026 10:03:44 +0200
-Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 11 May
- 2026 10:00:17 +0200
-Message-ID: <4e9c1ede-d42f-4894-a3d1-28e095903f6e@foss.st.com>
-Date: Mon, 11 May 2026 10:00:17 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Hans Zhang <18255117159@163.com>, <broonie@kernel.org>,
- <sunny.luo@amlogic.com>, <xianwei.zhao@amlogic.com>,
- <neil.armstrong@linaro.org>, <khilman@baylibre.com>, <han.xu@nxp.com>,
- <haibo.chen@nxp.com>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <lhjeff911@gmail.com>,
- <hayashi.kunihiko@socionext.com>, <mhiramat@kernel.org>,
- <jbrunet@baylibre.com>, <martin.blumenstingl@googlemail.com>
+ Mon, 11 May 2026 14:32:34 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3EEE56001A;
+ Mon, 11 May 2026 14:32:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B853C2BCB0;
+ Mon, 11 May 2026 14:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1778509952;
+ bh=6yDaCsm6Fs9/qKu1KUmDi4lpZf7x22qyRdhvdJv9Oww=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+ b=icPhxbc98tRXVJGF37J6eXmeRpm12v6pan1cFmoGM0830Cpvh691Wj04oH6/hPSox
+ g6JS62vnM0lvZVuRfEF/xsyV7/un38Y+f6f9bxClpsCs5tS+1lyKmD14IsTMqR9dvJ
+ bNhzafjdJYFJ53Psw9zHojjB+gPBQ8KC2YHV3xNgErJXfwkCYpOymSCjR5TtCmKA6O
+ 2lTZQdRweGWxqNGQqXY0+wh6gwQQVGe3ZFP0vIOzzEbpLyf2TWz0SdUMvNM54TfvnF
+ 0hCrtu8nHVnrmARng8NGBDlhXTjWjZuxl0HIw6cOsjQsRN33fzrNrbsOaxlfddQsGY
+ AXQ6PTIJh9Ygg==
+From: Mark Brown <broonie@kernel.org>
+To: sunny.luo@amlogic.com, xianwei.zhao@amlogic.com, 
+ neil.armstrong@linaro.org, khilman@baylibre.com, han.xu@nxp.com, 
+ haibo.chen@nxp.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+ lhjeff911@gmail.com, hayashi.kunihiko@socionext.com, mhiramat@kernel.org, 
+ jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, 
+ Hans Zhang <18255117159@163.com>
+In-Reply-To: <20260430155456.36998-1-18255117159@163.com>
 References: <20260430155456.36998-1-18255117159@163.com>
- <20260430155456.36998-8-18255117159@163.com>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20260430155456.36998-8-18255117159@163.com>
-X-Originating-IP: [10.48.87.93]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F9:EE_|AMBPR10MB9883:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5af85cb-2e09-4064-f597-08deaf3359bc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|921020|18002099003|56012099003|22082099003;
-X-Microsoft-Antispam-Message-Info: uavQhdDhnLa2uO0ANj2WEDNU+AHiOHrbECtbFNtqrDeEE4LzfIDUJqY9X+gDFJ5U3EIkWXjNIQfblWV/Hk3Ur5CqoFgem/+OIqWlFRU/3YUYmZjfXggT/h9PbteljA0QigspAkj6+nZyuP84DMc9ozmfcQ6zPeQrOVV4yUT07KkzZX/918QmAb5gyqjEes9q0DG0CrifcmNshGL6F+/kxjvw/f1L4dXfXwAUw0YJpRXMChkf6YgjP2YxIgw949AtigX9gIzoyOLTnuKuqeIY9o6MaZ2tarPRf8SKf+wGraDmEJyKKuzsc6U3o1GsNpnCMMkE/HxHrRbVBvBKovfVxV8DYTIgXiWmEz3axKEs1lIDoRs1PLG+AjEcQR1zW6o1+qFGJTqeKY1eV9J4yxqD8WYqIxK8+PPAngUI8/lYAOaCuGYJEJZsy9d2lAD1JuAMfGPlzLeqObEb9njz11lz6dZsRJ7RnkUmCSuavCW78hUDBI1wltxQwscEEYSjoXtUdmmhdnp+cVN5ewNn4kEP6ygJIcuXnH7gprMISCctcqwy52C4iWfLBmhxm6AKxNH1FrbqpKeRHSOiUM+dBHe5y/ha/St2BQZ7T8j6O9Ph2TtEnaGRK2lVZRtYj9pSlycfq0Ey7owMkIJngDWsr2vZt6HNVhED+jJzsriYGZbDX7iIfckuzv9igH5veJ35nFPCQTil6m7qglS7IN4zQhKi6XcD48n0ml0RvqhAb2tSqZclmLy/zZU2KaNkffAQ0uu7TOOOURithrRKnfF6codmbA==
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(921020)(18002099003)(56012099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: FfYzux6GJTnoi4IRxf6iSKWv9F/oIRg1z4tIfZz8H8EumIUirKksgf3ofeiCc5QO2Zt5Tfm8m28JCwks1BXPf8Q1DDlogt9erfx2kf6USO5+IbHaWxJs3JNhG8BJYb8fXqgS4uAPJxn/aioXqyYiussiJUKGLV086NmRVltHCKuImAenzsfUl5BG2R+sAn6GyazlHPZqfYM7DQ5YcDHmMEuZAv4vZWkmc+3CSnn/AJ/FTdzgn5qp4iErYb9WLSOIaoW7N/5Q6c9anYcDtI9uSLIm7x8cPPbQWQvq4hvI7VkaINUV74jTwVcEAG9lzprKMX3ppiBLIsWAGY7S0A1DEZsk9o5Qq6GI+zj3hrj4Ne9tZJ+4sYICi9TlnnD9dt22yTEDEGR5O1XbSJr4mkHlla7QD8wTxCDDD+ntKKIkaBkM3w+Q51R8qINeRr4wtK4d
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 08:00:21.5878 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5af85cb-2e09-4064-f597-08deaf3359bc
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509F9.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9883
+Message-Id: <177850111749.988959.3324914194988461245.b4-ty@b4>
+Date: Mon, 11 May 2026 21:05:17 +0900
+MIME-Version: 1.0
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2369; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=6yDaCsm6Fs9/qKu1KUmDi4lpZf7x22qyRdhvdJv9Oww=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqAeh8vjkGkzUWV0FtkGu3VAG7YFX76JbuewSvr
+ 7LFDYp1pNuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCagHofAAKCRAk1otyXVSH
+ 0GgYB/0bjIyo5EXJiMTycuOQXtlDCYiBMJdMFY7I1IWduMD5RfXhniWXgWw9k/IIvjGySM8RXO0
+ IIhV/HTwGFzjDO2SXcPM4W+Jr/8ZF7Qgw9SE0jEpgJN4OAvuq+Xik1N3z68utaNT1f6RduItRcE
+ Zy7ES4g0a0t3V0NvEhMX9Mk5HL++3ycbAX6/3GtnZJOhFtHzPjYKbhhDxZiZYCsr+nKFTcHAFtq
+ jT3ZRGgXQKN3xMnPqBBedkhZqWWNnhB8QIFZg64/HuIhb4jAla7PrY4zWwZ5cIdM2zeACsGa6EQ
+ ddioBbSzHiHvztPDDNzxCiFvaq0EdY3ACBvex9ByywYEtj/R
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 07/10] spi: stm32-ospi: Use FIELD_MODIFY()
+Subject: Re: [Linux-stm32] [PATCH 00/10] spi: Use FIELD_MODIFY() for
+	bitfield operations
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,82 +77,103 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 8933C509D7A
+X-Rspamd-Queue-Id: 40C4A510349
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:18255117159@163.com,m:broonie@kernel.org,m:sunny.luo@amlogic.com,m:xianwei.zhao@amlogic.com,m:neil.armstrong@linaro.org,m:khilman@baylibre.com,m:han.xu@nxp.com,m:haibo.chen@nxp.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:lhjeff911@gmail.com,m:hayashi.kunihiko@socionext.com,m:mhiramat@kernel.org,m:jbrunet@baylibre.com,m:martin.blumenstingl@googlemail.com,m:imx@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-amlogic@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:martinblumenstingl@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:sunny.luo@amlogic.com,m:xianwei.zhao@amlogic.com,m:neil.armstrong@linaro.org,m:khilman@baylibre.com,m:han.xu@nxp.com,m:haibo.chen@nxp.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:lhjeff911@gmail.com,m:hayashi.kunihiko@socionext.com,m:mhiramat@kernel.org,m:jbrunet@baylibre.com,m:martin.blumenstingl@googlemail.com,m:18255117159@163.com,m:imx@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-amlogic@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:martinblumenstingl@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[amlogic.com,linaro.org,baylibre.com,nxp.com,gmail.com,foss.st.com,socionext.com,kernel.org,googlemail.com,163.com];
+	FORGED_SENDER(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[20];
 	GREYLIST(0.00)[pass,meta];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[21];
-	FREEMAIL_TO(0.00)[163.com,kernel.org,amlogic.com,linaro.org,baylibre.com,nxp.com,gmail.com,foss.st.com,socionext.com,googlemail.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[foss.st.com:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo];
-	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.850];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	NEURAL_HAM(-0.00)[-0.564];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
-
-
-On 4/30/26 17:54, Hans Zhang wrote:
-> Use FIELD_MODIFY() to remove open-coded bit manipulation.
-> No functional change intended.
+On Thu, 30 Apr 2026 23:54:46 +0800, Hans Zhang wrote:
+> spi: Use FIELD_MODIFY() for bitfield operations
 > 
-> Signed-off-by: Hans Zhang <18255117159@163.com>
-> ---
->  drivers/spi/spi-stm32-ospi.c | 7 +++----
->  1 file changed, 3 insertions(+), 4 deletions(-)
+> Replace open-coded bitfield modifications with the standard FIELD_MODIFY()
+> macro across multiple SPI controller drivers. This improves readability and
+> adds compile-time checking without functional changes.
 > 
-> diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-> index 4461c6e24b9e..3757f6ba8fc6 100644
-> --- a/drivers/spi/spi-stm32-ospi.c
-> +++ b/drivers/spi/spi-stm32-ospi.c
-> @@ -470,10 +470,9 @@ static int stm32_ospi_send(struct spi_device *spi, const struct spi_mem_op *op)
->  	u8 cs = spi->chip_select[ffs(spi->cs_index_mask) - 1];
->  
->  	cr = readl_relaxed(ospi->regs_base + OSPI_CR);
-> -	cr &= ~CR_CSSEL;
-> -	cr |= FIELD_PREP(CR_CSSEL, cs);
-> -	cr &= ~CR_FMODE_MASK;
-> -	cr |= FIELD_PREP(CR_FMODE_MASK, ospi->fmode);
-> +	FIELD_MODIFY(CR_CSSEL, &cr, cs);
-> +
-> +	FIELD_MODIFY(CR_FMODE_MASK, &cr, ospi->fmode);
->  	writel_relaxed(cr, regs_base + OSPI_CR);
->  
->  	if (op->data.nbytes)
+> Each patch modifies a single driver, allowing independent review and
+> application.
+> 
+> [...]
 
-Hi Hans
+Applied to
 
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.2
 
-Thanks
-Patrice
+Thanks!
+
+[01/10] spi: amlogic-spifc-a1: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/8262b1421ddd
+[02/10] spi: amlogic-spisg: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/b69bfa593329
+[03/10] spi: cadence-xspi: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/6fa473f4c5dc
+[04/10] spi: meson-spicc: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/cfdab17cd2d7
+[05/10] spi: nxp-xspi: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/0f2efc6d4938
+[06/10] spi: sn-f-ospi: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/579fcc06576d
+[07/10] spi: stm32-ospi: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/21ee6902a576
+[08/10] spi: stm32-qspi: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/3e0530c087a9
+[09/10] spi: sunplus-sp7021: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/673214ac9bcd
+[10/10] spi: uniphier: Use FIELD_MODIFY()
+        https://git.kernel.org/broonie/spi/c/ce7984bea2a1
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
