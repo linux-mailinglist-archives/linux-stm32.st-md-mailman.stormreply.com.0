@@ -2,66 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id gH0IMYXoAWoRmQEAu9opvQ
+	id +EpALLD4AWrOmwEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 16:32:37 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 17:41:36 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40C4A510349
-	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 16:32:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D00D511642
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 17:41:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73CBAC8F287;
-	Mon, 11 May 2026 14:32:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7651CC8F287;
+	Mon, 11 May 2026 15:41:35 +0000 (UTC)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 59661C87EC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7317DC8F274
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 14:32:34 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by tor.source.kernel.org (Postfix) with ESMTP id 3EEE56001A;
- Mon, 11 May 2026 14:32:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B853C2BCB0;
- Mon, 11 May 2026 14:32:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778509952;
- bh=6yDaCsm6Fs9/qKu1KUmDi4lpZf7x22qyRdhvdJv9Oww=;
- h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
- b=icPhxbc98tRXVJGF37J6eXmeRpm12v6pan1cFmoGM0830Cpvh691Wj04oH6/hPSox
- g6JS62vnM0lvZVuRfEF/xsyV7/un38Y+f6f9bxClpsCs5tS+1lyKmD14IsTMqR9dvJ
- bNhzafjdJYFJ53Psw9zHojjB+gPBQ8KC2YHV3xNgErJXfwkCYpOymSCjR5TtCmKA6O
- 2lTZQdRweGWxqNGQqXY0+wh6gwQQVGe3ZFP0vIOzzEbpLyf2TWz0SdUMvNM54TfvnF
- 0hCrtu8nHVnrmARng8NGBDlhXTjWjZuxl0HIw6cOsjQsRN33fzrNrbsOaxlfddQsGY
- AXQ6PTIJh9Ygg==
-From: Mark Brown <broonie@kernel.org>
-To: sunny.luo@amlogic.com, xianwei.zhao@amlogic.com, 
- neil.armstrong@linaro.org, khilman@baylibre.com, han.xu@nxp.com, 
- haibo.chen@nxp.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
- lhjeff911@gmail.com, hayashi.kunihiko@socionext.com, mhiramat@kernel.org, 
- jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, 
- Hans Zhang <18255117159@163.com>
-In-Reply-To: <20260430155456.36998-1-18255117159@163.com>
-References: <20260430155456.36998-1-18255117159@163.com>
-Message-Id: <177850111749.988959.3324914194988461245.b4-ty@b4>
-Date: Mon, 11 May 2026 21:05:17 +0900
+ Mon, 11 May 2026 15:41:33 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-48896199cbaso41064695e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 11 May 2026 08:41:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778514093; x=1779118893;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=QYUz8b5kzsmvQFipBJ/YClQFCzx8AI1CLI1nrVUTxv0=;
+ b=WLqbIM5pw1dC8R9bQLgCHXNCT+dTvkFO+frWT154ye4n20PV3dFYNjYMd9U6+DLGgd
+ k39o9XfdspKA6JMZNwyCS2SH6yYkUrlA1RXrpHd86JAINrQQH1ZFgpJMms7yFuukX3Hi
+ nX+l8j4geFIcydp5S2Tf0tu9LQwB7YLs43hLqOTuGu8jKsQn/NcZC5ZHbXA7+EXg2qLn
+ /igxVwW2jFfvb0FZAl45+VT4F0/NCaXxjHYQnA6oHIDSZDW6FAlaDX7gCWccZHa2DVWS
+ uw//axYy3b4fwrcyb11ZJfNpE653cFtQGevbL3yN+s/VdxHFMzccQ2XAE1CUOZirjh1Z
+ Ts2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778514093; x=1779118893;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=QYUz8b5kzsmvQFipBJ/YClQFCzx8AI1CLI1nrVUTxv0=;
+ b=FAANm3blfeIJu39soRBAbTMXqbq9HxKWddnFgZYlnIfcMKWj9+R1CY16J+asWBpLrw
+ ek/IS/9fBsrA7+82ZN6/GCmxFhI69tO9XK1vb8Q2vZcRc5yyTKQuPC6aeoZoaZ05VnSh
+ NKQyoF99vn5VUu0oEVdlKfpip+fA7KFrdcyKibwg9JwqB9Ggbua8u2xtGP7nOloTdqdL
+ Q94Vhx4+u3EcX9r00i9LSQokU1Lw/sqKQWlNpq+w4fQqyzxgCDWXxJpjG4ODQvYw+BdX
+ 0TblJuHUm/0y6KNYdmDBFLPIw76Zh1cNX5zXpHi3FogP5nVCuYVoWfV2pC7vDtV3nYhh
+ rLag==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/C8TavfMlwP+Wk+jE94x2GF/QqBrd0UYGXCoNwI6XXAbjAQHzLnoBHAyS0FXKVTjZaKne6GrjWgU+qig==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzlu0nZX4NYQ9WtTYPWZFgTymsQJsOz2gO2PIm/UnKvClEQ8+hg
+ yGR6c4JPnFDx8AOONcQzOtPNd7vDR/c2O/3j2a2bmmOmxsOqR8ltPIU5jd1UNXsPV+g=
+X-Gm-Gg: Acq92OH9NFKLM57T2fNeuW43hspnDtVoxhzZR8NeZevVjJnWt09wJotzgm1QsZTWvDf
+ pAsg5/uAu+KgH77bBq6jwBlzyz+2hCENbaVQxMdyxZfU2HOLqWzxKebMFV6SMpWkX/ObvmB+ppW
+ uaxnhXNqNNZuKAPkX2wecAJl1bMhKqdBj5pZYsQCR77m1Y2ltteM9BdFDXqW3wvCNYZSlRZ70pn
+ PJ+dwBaaN1mCO2tMWsz3f5UrgrwBkYKkTUCFsnsdqLz5nQRlzGnd5D9agJjUCRwvn7EtbYh34Yj
+ TgC/aYhpOWsqZqLy+TJdKvhVuJQ/U6/yYmb7P/rpWLGN8otkhp+j3cv4GfYQ7TMlNeQ0vWYdtEC
+ UFf85v9iAP/a7vnyB+9nwumtWKZIv8L/6E88lD6iSLdUN94sYkWKmgw1wZPaEwO7theSVuIahrT
+ r2SIWia36/S5y9M6jb2IDK3FvU40burwF4Bg5A5sfKj1Uv6mtaUwD+luWpwqi8hSuC9DqNUcM16
+ E5AvuQ5DsmUNTGczaaQ+E70clDi48a15udPNhAhd9UTf50XryrBfWnmuyNBD92Z1HakaRp3oGkq
+ o8leSayu
+X-Received: by 2002:a05:600c:1f89:b0:48e:8741:fd42 with SMTP id
+ 5b1f17b1804b1-48e8741ff8cmr37216095e9.12.1778514092586; 
+ Mon, 11 May 2026 08:41:32 -0700 (PDT)
+Received: from aspen.lan
+ (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+ by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-48e6d8e3247sm64622295e9.8.2026.05.11.08.41.30
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 11 May 2026 08:41:31 -0700 (PDT)
+Date: Mon, 11 May 2026 16:41:28 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Xilin Wu <sophon@radxa.com>
+Message-ID: <agH4qC74A540koDl@aspen.lan>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-11-elder@riscstar.com>
+ <DD71CDEABC7C16D5+02d052ff-13bb-4712-a847-91416f76c578@radxa.com>
+ <7f3a0f16-5159-4bbc-8b15-9b5841603bf6@riscstar.com>
+ <3A5C0389E7C0D241+21a4f16b-1af8-46ac-8831-0c1b49694df0@radxa.com>
 MIME-Version: 1.0
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2369; i=broonie@kernel.org;
- h=from:subject:message-id; bh=6yDaCsm6Fs9/qKu1KUmDi4lpZf7x22qyRdhvdJv9Oww=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqAeh8vjkGkzUWV0FtkGu3VAG7YFX76JbuewSvr
- 7LFDYp1pNuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCagHofAAKCRAk1otyXVSH
- 0GgYB/0bjIyo5EXJiMTycuOQXtlDCYiBMJdMFY7I1IWduMD5RfXhniWXgWw9k/IIvjGySM8RXO0
- IIhV/HTwGFzjDO2SXcPM4W+Jr/8ZF7Qgw9SE0jEpgJN4OAvuq+Xik1N3z68utaNT1f6RduItRcE
- Zy7ES4g0a0t3V0NvEhMX9Mk5HL++3ycbAX6/3GtnZJOhFtHzPjYKbhhDxZiZYCsr+nKFTcHAFtq
- jT3ZRGgXQKN3xMnPqBBedkhZqWWNnhB8QIFZg64/HuIhb4jAla7PrY4zWwZ5cIdM2zeACsGa6EQ
- ddioBbSzHiHvztPDDNzxCiFvaq0EdY3ACBvex9ByywYEtj/R
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
-Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
- linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 00/10] spi: Use FIELD_MODIFY() for
-	bitfield operations
+Content-Disposition: inline
+In-Reply-To: <3A5C0389E7C0D241+21a4f16b-1af8-46ac-8831-0c1b49694df0@radxa.com>
+Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
+ chenchuangyu@xiaomi.com, edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ Alex Elder <elder@riscstar.com>, daniel@iogearbox.net, chenhuacai@kernel.org,
+ john.fastabend@gmail.com, maxime.chevallier@bootlin.com,
+ siyanteng@cqsoftware.com.cn, sdf@fomichev.me, kuba@kernel.org,
+ pabeni@redhat.com, konradybcio@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, hawk@kernel.org, arnd@arndb.de, brgl@kernel.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
+ rmk+kernel@armlinux.org.uk, wens@kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, gregkh@linuxfoundation.org,
+ linusw@kernel.org, a0987203069@gmail.com, davem@davemloft.net,
+ andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
+ inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
+ matthew.gerlach@altera.com, andersson@kernel.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 10/12] net: stmmac: tc956x: add
+ TC956x/QPS615 support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -77,103 +116,72 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 40C4A510349
+X-Rspamd-Queue-Id: 4D00D511642
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	R_DKIM_REJECT(1.00)[riscstar-com.20251104.gappssmtp.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[riscstar.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:sunny.luo@amlogic.com,m:xianwei.zhao@amlogic.com,m:neil.armstrong@linaro.org,m:khilman@baylibre.com,m:han.xu@nxp.com,m:haibo.chen@nxp.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:lhjeff911@gmail.com,m:hayashi.kunihiko@socionext.com,m:mhiramat@kernel.org,m:jbrunet@baylibre.com,m:martin.blumenstingl@googlemail.com,m:18255117159@163.com,m:imx@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-amlogic@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:martinblumenstingl@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[amlogic.com,linaro.org,baylibre.com,nxp.com,gmail.com,foss.st.com,socionext.com,kernel.org,googlemail.com,163.com];
-	FORGED_SENDER(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:sophon@radxa.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@kernel.org,m:a09872030
+ 69@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[daniel@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[49];
+	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,riscstar.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[daniel@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	NEURAL_HAM(-0.00)[-0.564];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
+	NEURAL_HAM(-0.00)[-0.473];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url]
 X-Rspamd-Action: no action
 
-On Thu, 30 Apr 2026 23:54:46 +0800, Hans Zhang wrote:
-> spi: Use FIELD_MODIFY() for bitfield operations
-> 
-> Replace open-coded bitfield modifications with the standard FIELD_MODIFY()
-> macro across multiple SPI controller drivers. This improves readability and
-> adds compile-time checking without functional changes.
-> 
-> Each patch modifies a single driver, allowing independent review and
-> application.
-> 
-> [...]
+Hi Xilin
 
-Applied to
+On Thu, May 07, 2026 at 09:57:26PM +0800, Xilin Wu wrote:
+> Do you think if a shutdown callback like this is required? It looks like the
+> driver sometimes does a MDIO MMIO read when the PCIe link is down, causing
+> the board to reset due to SoC side PCIe NoC timeout.
+>
+> After this change, the board can always shutdown gracefully.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.2
+I've preferred controlled reboots to power cycles throughout development
+and I hadn't spotted any major problems with graceful shutdown (which
+isn't to say there have never crashes but generally I expect `reboot`
+to provoke a reboot successfully).
 
-Thanks!
+Just to be sure configured my board with irq=POLL (to match your setup)
+and still can't reproduce.
 
-[01/10] spi: amlogic-spifc-a1: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/8262b1421ddd
-[02/10] spi: amlogic-spisg: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/b69bfa593329
-[03/10] spi: cadence-xspi: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/6fa473f4c5dc
-[04/10] spi: meson-spicc: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/cfdab17cd2d7
-[05/10] spi: nxp-xspi: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/0f2efc6d4938
-[06/10] spi: sn-f-ospi: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/579fcc06576d
-[07/10] spi: stm32-ospi: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/21ee6902a576
-[08/10] spi: stm32-qspi: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/3e0530c087a9
-[09/10] spi: sunplus-sp7021: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/673214ac9bcd
-[10/10] spi: uniphier: Use FIELD_MODIFY()
-        https://git.kernel.org/broonie/spi/c/ce7984bea2a1
+We mostly run Debian/systemd so there might be something happening in
+userspace to sequence things nicely. However I have ruled out
+NetworkManager.service and networking.service (stopped this services
+does *not* tear down the network link).
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+Can you share a bit more about how to reproduce the problem (including
+reliability of reproduction)?
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Daniel.
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
