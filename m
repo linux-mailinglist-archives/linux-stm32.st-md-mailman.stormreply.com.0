@@ -2,86 +2,89 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qM0tNO7PAmq7xAEAu9opvQ
+	id 4HusOO7PAmq7xAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 08:59:58 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69DA951B62B
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A27C51B62C
 	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 08:59:58 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DFAD1C87EC1;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01F1EC8F288;
 	Tue, 12 May 2026 06:59:57 +0000 (UTC)
-Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
- [209.85.167.49])
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 21E61C87EC1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0E7BC87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 17:12:15 +0000 (UTC)
-Received: by mail-lf1-f49.google.com with SMTP id
- 2adb3069b0e04-5a85b30dd54so4667313e87.2
+ Mon, 11 May 2026 17:12:16 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-393d6025f99so39681561fa.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 11 May 2026 10:12:14 -0700 (PDT)
+ Mon, 11 May 2026 10:12:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778519534; x=1779124334;
+ d=gmail.com; s=20251104; t=1778519536; x=1779124336;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=1Ffx9yq19kp+YfhQJua5Fc4ABV19E4122HD3QSi0Mg4=;
- b=AF2hsYSXLMIe1SvPZvWSy3vgflK0ChmAJ6dRgFbV+ngOqxEQb5RLsr1dFXILTQ4i/z
- ICAS4SOwrVQkk3Yn6ovPOpqW4J79hDHYylEXqv8ixCESry3e0+3ekV+mSQ07dFMBlcrB
- ZGLxC6zrmvqSYbnyTCDT/JyvjiBVSdepgfbrRKYdEt+X6vkXygFivKc0do9V1v4gEq+K
- Xj1ZKg5JoAaExIH9FvtJNXPu0GKByWvdtqHuFsNRJ2rmtx8t3Ty0OwlJ+7h0fPF9qMGY
- sR72cLPbKf22ZmqbXqUCYuPzo1rrACcf4VxmwQRe0aZLeZGfoQTiiDclg2ai7o8hlOhg
- Ag+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778519534; x=1779124334;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=1Ffx9yq19kp+YfhQJua5Fc4ABV19E4122HD3QSi0Mg4=;
- b=XKufmhwULiYUHrMAAJu+ItE+eNWln0oGKvSW7pDhv5Z+ukuU6fHxMAVSwAaQ+IBhm2
- oM3sSThD/SjcenfPTLpdwKmmI2lolhA3rQt99FSWWjPJ+vGCpdkk8RRNeW7VwpUV8aPG
- zIEiu55q5hHvcfNgibGO2PgyjZAxwanR7bAmOnWJJKhZzKZ4Ie9knr1Ii+XIcVHnsySq
- sbGXUxc8P3OYFJPMZGxLKmUrhr9XNDWt0ROVQyIXEblKzWdtUjTEOOdYWsnAaJH3YNN0
- kG9/Z7ANsR6nGGdfLBOGsEm2BlXcbkNZi1vyvuSut+Q9ptWXXsu4hBBiYhJwcJhkQYDR
- +DxQ==
+ bh=s42sCXaEIYI2iT8o/2WjdzJavucMWxgVZFV2JYX3rF8=;
+ b=a2hEniSsbA+/ZYmKhMvKLpkuU+MXinsfrnJmhyfO8F77cT6EiBGIDp65WrMJKaZCYv
+ AOVh6p+5l94KW4m9YtjdWAMX0vnkQzgJS1mpVZy0uEwCWWL3SfF3BgHJki6K6TB01FBu
+ 21kzpuX0vqyebLMbDgpC7Qr7tcony9sIDtXQENA3qdIeYtkw1BVaNfjRI2+sIf5BP6i5
+ 7lDhe5mGh4reRQKlpZ65BWUZ/knx3SPomzGlx/v85mhMUAT2Rt8/4IytoTaPTO0uN8qL
+ U1FjNRnlRfDfEHbXcL40BUoNphk+hlJQS7+SejphmVui5fxuqMeyN5nsrKMAD9xwWO2M
+ xSgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778519536; x=1779124336;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=s42sCXaEIYI2iT8o/2WjdzJavucMWxgVZFV2JYX3rF8=;
+ b=Cni4o3pjw/TBA7qzWe6vWT0KXM1ID0Q2l02soiQFUHQX4zXcqS23b4ab1+G2q20oN9
+ zpEpLTRRe5hnbz4H6xjRqQj0pQxDKMDuIimrC1ZuOtKpkkrVxL07bWeSHoBchfGnMHGR
+ zSrjknjAtMBmK5chn8MI5NqVVbiDvXIvzUyfFPiSCsfc6kcfo2qPFwHwZXrFtEXsVGyY
+ zaWqe8zB/rds6dWUpcWJvElILuthhfCoTKDqoDovBEcEnAtbw4DjT4FPffomNzSxvyxg
+ CW4j0i3KIvhIHnzJsYdlcUX0ZKZRzm1Y/ryJ5RE+zvZtFmqKNMmTLz/O2R9Uc/JSVEt0
+ SxsQ==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+ezd0vhQZi8F/Kn+eK5M6i6x4aKsZ9WC0h6NaIsvqq5kaWbHiA2+BHREcnGs0nEjjDS7ubLvJmz0qcqg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwwAV75bUQP4zDR/j7p/5drAqn4Lx6gZ9BYiApF6vTaqtIIUORK
- Kpz7GmhpAKNr+d3+jpe3HpeikvdHq7r7I7KyE3EkSuogLW9/mvIs0eVz
-X-Gm-Gg: Acq92OEzKCme3bu3Xy0q8DQ7e4wVoiQFrwIEQqCE+NzENRfpPp2g/psV8mL4v8tSHqq
- Gt/7HmaYR2CtdcDGlj30N+o/6lDlsJbr1GhN4FsUJCuqd8utcBLhVBZWXePreAZ/i9hYFkItUSI
- uzDHInLLqazrtdQlLnxDfnNi5SNibNEI5/auiPGVPeT9Bh3t7X6TlfmdkiwlKzTzrkoFk3VRJ6q
- d8NYI9/QTMxRIQ1tJXfMf4opLYCXfYfiUEiaxqBqA1nRT6Xn5d+0jAjrtHUgoXjmaZfTxlKCRjC
- n1IOJiUlBI+c+AP9ifgIsiyyixRFybcyYQQtUuNNsNaauouZZV/wnzDkpKwyKsKYG6h7tEpt3OV
- bcTDgCtAAZLQiEZySv1jZOIIEM/TW9THuYb5RNvlUYmQ1JtRUG9hn6GxKh5aeewBGqFu8Oysxw7
- 5pj6NmCTMjinErXM27aRX9b9exiDikcGBbbTWtUw7ZN2Mzcc5qQZaZYappkQob
-X-Received: by 2002:a05:6512:3d9f:b0:5a8:6931:ddea with SMTP id
- 2adb3069b0e04-5a887add27dmr10425983e87.3.1778519533815; 
- Mon, 11 May 2026 10:12:13 -0700 (PDT)
+ AFNElJ9d+GbgS2SM87qC9popYGe97iJxoxcR0WXFuulfoXUxr8Po7CFIusP7LeYGb3Cj+cIvNN3l56wLfnd7mQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwVm0xuafP26B+Sm2Fj4yfl9TB2aCYuH1tG+CuDP9BXTjVnSfCF
+ ZJ47/xvnAE3UWhcHeAY0ccDKtaiYWYpzY244rIdXuLZwpNbpsH/T5HlC
+X-Gm-Gg: Acq92OH+/9INKdVQl1fbsfyNkJ1entouyuMqt4WENi5wzNKA66Ba1zaA5mM5dKO4z5p
+ aun2wB/XKMZlRcJSpGiYr+lMpeEPIMB6OwYg/Sq9xTHV3EWfo6ygoIkWP6n9ehvuPLpuDcYd25e
+ s6ZgnMeu0X5RXbHiHrjpmcnfze0TUjR8Y3ka2e2vqwcNRS2omXybEIDuPwUJuwKyKpaBd+NmAuj
+ CYjIWg8/K9G7zF8KqPM5Bcm6cVhmgEGxK/JEG54/hoPrdPIMJ/6SBhLJPeX9LP+s9KPfjmI1YO2
+ X7r7aYJEfjmN5di+v7rntl8wevFAHcCCoVeKJPwFS58aIIDVMrII1hjp5peV6VSGU3aCMXk3rqm
+ xJ6ZJPvIItMvuY1kZWrJA0nQ4YIMvLIh/caVSHd/qtCoVKyf1MriXPCJl+T9l2jGGkuOcz8BMkD
+ fdNKlkGjvWzBWWc+FNZcO5XRYdFfiYX5QW5SAnfDHvlRWiGsdXSQ2BFLxxatjZG40lh8MIkxM=
+X-Received: by 2002:a05:6512:a8c:b0:5a8:99dd:1648 with SMTP id
+ 2adb3069b0e04-5a8e0c8c320mr110927e87.0.1778519535453; 
+ Mon, 11 May 2026 10:12:15 -0700 (PDT)
 Received: from va-HP-Pavilion-Desktop-595-p0xxx.mshome.net ([193.0.150.248])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5a8a95660b6sm2765488e87.62.2026.05.11.10.12.12
+ 2adb3069b0e04-5a8a95660b6sm2765488e87.62.2026.05.11.10.12.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 11 May 2026 10:12:13 -0700 (PDT)
+ Mon, 11 May 2026 10:12:15 -0700 (PDT)
 From: Valery Borovsky <vebohr@gmail.com>
 To: linux-media@vger.kernel.org
-Date: Mon, 11 May 2026 20:12:05 +0300
-Message-ID: <cover.1778518085.git.vebohr@gmail.com>
+Date: Mon, 11 May 2026 20:12:06 +0300
+Message-ID: <649601988189f031670215cb35add5e80439559d.1778518085.git.vebohr@gmail.com>
 X-Mailer: git-send-email 2.51.0
+In-Reply-To: <cover.1778518085.git.vebohr@gmail.com>
+References: <cover.1778518085.git.vebohr@gmail.com>
 MIME-Version: 1.0
 X-Mailman-Approved-At: Tue, 12 May 2026 06:59:56 +0000
 Cc: linux-arm-kernel@lists.infradead.org, wens@kernel.org,
  linux-kernel@vger.kernel.org, sakari.ailus@linux.intel.com,
  samuel@sholland.org, hugues.fruchet@foss.st.com, mripard@kernel.org,
  linux-sunxi@lists.linux.dev, hverkuil@kernel.org, jernej.skrabec@gmail.com,
- mcoquelin.stm32@gmail.com, mchehab@kernel.org,
+ mcoquelin.stm32@gmail.com, stable@vger.kernel.org, mchehab@kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, hansg@kernel.org,
  Valery Borovsky <vebohr@gmail.com>
-Subject: [Linux-stm32] [PATCH 0/6] media: vb2: Return queued buffers from
-	start_streaming() on error
+Subject: [Linux-stm32] [PATCH 1/6] media: airspy: Return queued buffers on
+	start_streaming() failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +100,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 69DA951B62B
+X-Rspamd-Queue-Id: 6A27C51B62C
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -113,11 +116,11 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCVD_TLS_LAST(0.00)[];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWELVE(0.00)[16];
+	RCPT_COUNT_TWELVE(0.00)[17];
 	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,vger.kernel.org,linux.intel.com,sholland.org,foss.st.com,lists.linux.dev,gmail.com,st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:linux-media@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:wens@kernel.org,m:linux-kernel@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:samuel@sholland.org,m:hugues.fruchet@foss.st.com,m:mripard@kernel.org,m:linux-sunxi@lists.linux.dev,m:hverkuil@kernel.org,m:jernej.skrabec@gmail.com,m:mcoquelin.stm32@gmail.com,m:mchehab@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:hansg@kernel.org,m:vebohr@gmail.com,m:jernejskrabec@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:linux-media@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:wens@kernel.org,m:linux-kernel@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:samuel@sholland.org,m:hugues.fruchet@foss.st.com,m:mripard@kernel.org,m:linux-sunxi@lists.linux.dev,m:hverkuil@kernel.org,m:jernej.skrabec@gmail.com,m:mcoquelin.stm32@gmail.com,m:stable@vger.kernel.org,m:mchehab@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:hansg@kernel.org,m:vebohr@gmail.com,m:jernejskrabec@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[vebohr@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	GREYLIST(0.00)[pass,meta];
@@ -128,7 +131,7 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[vebohr@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.476];
+	NEURAL_HAM(-0.00)[-0.656];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
@@ -137,68 +140,49 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-The vb2 framework hands buffer ownership to the driver via buf_queue()
-before calling start_streaming().  If start_streaming() returns an
-error without first returning those buffers via vb2_buffer_done(),
-vb2_start_streaming() fires WARN_ON(owned_by_drv_count != 0) and the
-queued buffers leak.
+The vb2 framework hands buffers to the driver via buf_queue() before
+calling start_streaming().  If start_streaming() returns an error
+without first returning those buffers via vb2_buffer_done(),
+vb2_start_streaming() fires WARN_ON(owned_by_drv_count) and the queued
+buffers leak.
 
-This was previously fixed for uvcvideo in commit 4cf3b6fd54eb ("media:
-uvcvideo: Return queued buffers on start_streaming() failure").  The
-same pattern exists in six sibling drivers that still return an errno
-early (USB disconnect, signal-interrupted mutex, or media-graph /
-format lookup failure) without draining their internal queued-buffer
-list.  Each patch reuses or extends the helper / cleanup label that
-the driver's other error paths already use.
+airspy_start_streaming() returned -ENODEV early when the USB device had
+been disconnected (s->udev == NULL) without returning any buffers that
+buf_queue() had already accepted.  Take v4l2_lock first and jump to the
+existing err_clear_bit label, which already drains s->queued_bufs via
+vb2_buffer_done(..., VB2_BUF_STATE_QUEUED) before unlocking.
 
-  airspy.c          - moves mutex_lock above the !s->udev check and
-                      jumps to the existing err_clear_bit label, which
-                      already drains s->queued_bufs.
-  msi2500.c         - rebuilds start_streaming into a goto chain that
-                      drains the queue on every failure (including
-                      previously-masked set_usb_adc / ctrl_msg paths);
-                      parameterizes msi2500_cleanup_queued_bufs() with
-                      vb2_buffer_state so the start_streaming path
-                      passes _QUEUED.  Rolls back isoc_init via
-                      msi2500_isoc_cleanup() on ctrl_msg failure.
-  pwc-if.c          - calls pwc_cleanup_queued_bufs(.., _QUEUED) before
-                      each early return; state matches the existing
-                      pwc_isoc_init() error-path in the same function.
-  rtl2832_sdr.c     - calls rtl2832_sdr_cleanup_queued_bufs() before
-                      each early return and at the err label.  Adds an
-                      explicit success return so the cleanup at err no
-                      longer runs on the success path.  Parameterizes
-                      the helper with vb2_buffer_state.
-  dcmipp-bytecap.c  - replaces the bare -EINVAL return for failed
-                      subdev lookup with a goto err_buffer_done.
-  sun4i_dma.c       - replaces the bare -EINVAL return for failed
-                      csi-format lookup with a goto err_clear_dma_queue.
+This mirrors the uvcvideo fix in commit 4cf3b6fd54eb ("media: uvcvideo:
+Return queued buffers on start_streaming() failure").
 
-These sites were located by a Coccinelle pattern that matches
-`return -ERRNO` inside a start_streaming(struct vb2_queue *, unsigned
-int) callback without a preceding vb2_buffer_done() on the same path.
+Fixes: 634fe5033951 ("[media] airspy: AirSpy SDR driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Valery Borovsky <vebohr@gmail.com>
+---
+ drivers/media/usb/airspy/airspy.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-Build-tested with drivers/media/ allmodconfig.  Not runtime-tested on
-any of the six devices.  Maintainers with hardware are kindly asked to
-verify nothing regresses on their device.
-
-Valery Borovsky (6):
-  media: airspy: Return queued buffers on start_streaming() failure
-  media: msi2500: Return queued buffers on start_streaming() failure
-  media: pwc: Return queued buffers on start_streaming() failure
-  media: rtl2832_sdr: Return queued buffers on start_streaming() failure
-  media: stm32-dcmipp: Return queued buffers on start_streaming()
-    failure
-  media: sun4i-csi: Return queued buffers on start_streaming() failure
-
- drivers/media/dvb-frontends/rtl2832_sdr.c     | 19 ++++++++---
- .../st/stm32/stm32-dcmipp/dcmipp-bytecap.c    |  6 ++--
- .../platform/sunxi/sun4i-csi/sun4i_dma.c      |  6 ++--
- drivers/media/usb/airspy/airspy.c             |  8 +++--
- drivers/media/usb/msi2500/msi2500.c           | 32 ++++++++++++++-----
- drivers/media/usb/pwc/pwc-if.c                |  8 +++--
- 6 files changed, 57 insertions(+), 22 deletions(-)
-
+diff --git a/drivers/media/usb/airspy/airspy.c b/drivers/media/usb/airspy/airspy.c
+index 8f6b721ba107..57edb42463e8 100644
+--- a/drivers/media/usb/airspy/airspy.c
++++ b/drivers/media/usb/airspy/airspy.c
+@@ -522,11 +522,13 @@ static int airspy_start_streaming(struct vb2_queue *vq, unsigned int count)
+ 
+ 	dev_dbg(s->dev, "\n");
+ 
+-	if (!s->udev)
+-		return -ENODEV;
+-
+ 	mutex_lock(&s->v4l2_lock);
+ 
++	if (!s->udev) {
++		ret = -ENODEV;
++		goto err_clear_bit;
++	}
++
+ 	s->sequence = 0;
+ 
+ 	set_bit(POWER_ON, &s->flags);
 -- 
 2.51.0
 
