@@ -2,68 +2,116 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ZBklMZjs/2lhAQEAu9opvQ
+	id sCmCA7OOAWpyeAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 10 May 2026 04:25:28 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 10:09:23 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CB7650244D
-	for <lists+linux-stm32@lfdr.de>; Sun, 10 May 2026 04:25:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 88C1D509D79
+	for <lists+linux-stm32@lfdr.de>; Mon, 11 May 2026 10:09:22 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B6A5FC1A97C;
-	Sun, 10 May 2026 02:25:27 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FC01C8F274;
+	Mon, 11 May 2026 07:59:19 +0000 (UTC)
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011016.outbound.protection.outlook.com
+ [40.107.130.16])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6B6A6C0693D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA95EC87EC1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 10 May 2026 02:25:26 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id A825141ABE;
- Sun, 10 May 2026 02:25:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DAE5C2BCC7;
- Sun, 10 May 2026 02:25:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1778379924;
- bh=DuPHI1LqOFfQCPwSGvE4XxVWrva8Uk84ODEwZHi72xU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=e79y6hL/mgDvOZD8UHrjx/yvvGE14Vi42uRup1vVa+BwGGuz0tI3FboKrX6KCcHYW
- RzREP9nAcxXgbOLsICt59PEujBZfc43refGEy/MqJqsWO96s+Q3AgEvXjdaDOJlAAS
- iXt5onlnEIiRTPA221E7iqjKkNnVa/ou5prZT51yvrxvmamwRnnTONClO46LkwR6wZ
- t2IFlN52kGo0lvKsca1tHoXbtX8d3ZNYB/HRYPyRw5jkTtawLddwbKxR+1rJEj3vIi
- eoZSgqm4WxQI4AKYACjQH26b7yHJFcZfpkAvmuGCkgkL1k/4LZuGB+A3395nol8DbQ
- i0nDH3HyM9r4g==
-Date: Sat, 9 May 2026 21:25:16 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Message-ID: <af_sarCs9E5M7NLE@baldur>
-References: <20260501155421.3329862-1-elder@riscstar.com>
- <20260501155421.3329862-9-elder@riscstar.com>
- <afycOwz5TpkegkZd@baldur>
- <3c78f48c-6478-46d0-87c2-581bb58637dd@riscstar.com>
+ Mon, 11 May 2026 07:59:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VN0e09G4B7xOoK9PmIUnQAekjY6fmNDk/8dmOmBkkVFYF4Iovrju2zDd/QGYWrpazhYI+X8OC9i5z4IAHTzbo4stv0vCJpQbnvp2W+8hsSjRLJKKPTXXw6UAOdMngOzLtaHwSBUgeu7cXlov0jG5g+ozU8wOKe+SNoMc7gfhFRSYyoPkn+exGJIERSkZFZMpXili1bKuEsyT3Md74I7KO05UBEJz0ozZXvic2eLC+TFybcQXaQt7bwbtkvhByddazGL3NqcLLLcbJ/2C0eeMKC3QntIgSmBoX1siDOA7XnBkWU74ON9lN8X6XJNO3eHXt6tpH6Hm9Ubt4OUxFi0UzA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Yhf7Va2qE03OdWSTRymUrEKa4aA07ZjN+UxCUbh/ouo=;
+ b=eJw7HbWNVe0Rqhh6KvxDXntDX0om0N5rnVg2pE0PkunlORbIz8C+HfDs1/iGyctbo46oAk2mUVrNwv4zYDMttabTcd6MzVkeNqJtsN2+kAAfrLCTeOkQSGLb8JJdcTor4SgdY8it2+To22iMMD6ZK9gUp32nHUw3pX10CVLp3gBpmyuaMrJAjNgtIOO5d0DeWYWTw5lr4iXaVtfiMWPV/2VIn+afKXgnpi+NbHFjoBLkX57BE0aKVFdFrY6BEL0+sq4/Rmt4yC80pP4VQfqsyepJ7GWuRJIlzK9XJW+a/BP2SfmEDQySuKzCZEfJH26zhELX1a8CDdt8mLrVEGCqOQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=163.com smtp.mailfrom=foss.st.com; dmarc=fail
+ (p=none sp=none pct=100) action=none header.from=foss.st.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Yhf7Va2qE03OdWSTRymUrEKa4aA07ZjN+UxCUbh/ouo=;
+ b=f5WiGPBzfxG7HhljsWhHTDdWLaQdjDl9BLNqmowtU3+NMA5t7TwORnfuB9pDWO+plY9ERZKDI+s+K6+eDfIuvd6Hcdu7MUwKbYljbalY0nkwrZrGu+zp0RdUvLUDwLQXxyLsI3gojI+fuPXwVuaKqO7oTog4HegKmj5AJWCevZ8SFSc6LjYioTYPBEIYXEerNbY2H7vxqjBGAmZT3yT99Xxw56sMxPMAaEAJ8DwMfFVWvVQN16Tu5XM7G06lBWBlxSvh8N5NWZDZlD50IVcqNP1ztuNdt55vf0PNLnv8tjlgqVH36JELH6weFGeUCCYjur6+oax99g2M45Td1YTRNg==
+Received: from AS4P195CA0054.EURP195.PROD.OUTLOOK.COM (2603:10a6:20b:65a::14)
+ by PAXPR10MB5759.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:249::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9891.19; Mon, 11 May
+ 2026 07:59:14 +0000
+Received: from AMS1EPF00000043.eurprd04.prod.outlook.com
+ (2603:10a6:20b:65a:cafe::5c) by AS4P195CA0054.outlook.office365.com
+ (2603:10a6:20b:65a::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.20.9891.23 via Frontend Transport; Mon,
+ 11 May 2026 07:59:13 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AMS1EPF00000043.mail.protection.outlook.com (10.167.16.40) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.25.13 via Frontend Transport; Mon, 11 May 2026 07:59:13 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 11 May
+ 2026 10:02:55 +0200
+Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 11 May
+ 2026 09:59:06 +0200
+Message-ID: <283c1eb1-670f-45f3-bd33-dc8f9b0776ed@foss.st.com>
+Date: Mon, 11 May 2026 09:59:06 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <3c78f48c-6478-46d0-87c2-581bb58637dd@riscstar.com>
-Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
- edumazet@google.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
- daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
- maxime.chevallier@bootlin.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- kuba@kernel.org, pabeni@redhat.com, konradybcio@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org, hawk@kernel.org,
- arnd@arndb.de, brgl@kernel.org, linux-arm-msm@vger.kernel.org,
- richardcochran@gmail.com, rohan.g.thomas@altera.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, livelycarpet87@gmail.com,
- linux-gpio@vger.kernel.org, rmk+kernel@armlinux.org.uk, wens@kernel.org,
- bpf@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- gregkh@linuxfoundation.org, linusw@kernel.org, a0987203069@gmail.com,
- andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
- inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
- matthew.gerlach@altera.com, davem@davemloft.net, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next 08/12] dt-bindings: net: toshiba,
- tc965x-dwmac: add TC956x Ethernet bridge
+User-Agent: Mozilla Thunderbird
+To: Hans Zhang <18255117159@163.com>, <broonie@kernel.org>,
+ <sunny.luo@amlogic.com>, <xianwei.zhao@amlogic.com>,
+ <neil.armstrong@linaro.org>, <khilman@baylibre.com>, <han.xu@nxp.com>,
+ <haibo.chen@nxp.com>, <mcoquelin.stm32@gmail.com>,
+ <alexandre.torgue@foss.st.com>, <lhjeff911@gmail.com>,
+ <hayashi.kunihiko@socionext.com>, <mhiramat@kernel.org>,
+ <jbrunet@baylibre.com>, <martin.blumenstingl@googlemail.com>
+References: <20260430155456.36998-1-18255117159@163.com>
+ <20260430155456.36998-9-18255117159@163.com>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20260430155456.36998-9-18255117159@163.com>
+X-Originating-IP: [10.48.87.93]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000043:EE_|PAXPR10MB5759:EE_
+X-MS-Office365-Filtering-Correlation-Id: d4230464-567f-4e52-4786-08deaf333156
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|82310400026|36860700016|376014|7416014|1800799024|22082099003|18002099003|56012099003|921020;
+X-Microsoft-Antispam-Message-Info: QHePOoj2iWA/aL0ExawxzWdh/fbJ15lFYwGI9d4DTWAvLfhf64BGGg0AoW9Py5tKdZeMg6ayykY8NA/ZJxQDTjhzvR4Ci2bvxNzgKUBRalNhi2yxgUbAYr5G9kXL2ohzQqzJYTSw3e0rt/3L+Nsplm+oBYvhO81G0Rc5L2cUcXT2DXEv5a4SoC6FDCvZ99YiHtvlJ3CnykHQ52GQOZif0EooQijjjoxXRnHSJ9tBGegFwga3w4Ulggm5AJBz8EcX5qKFi6415HkKv7STlDqEFPwzDUkG05QOoT09SMNHWcXhBo63ZvPJtWD6IWskhk5w9aKtULUgCJ6y1T6G6ZDKk3jk/WOFWtquXEPVUl5BQUfDaSfVt13XuqR9u2JfwOl3Ki/SudF0gtJ8wp3GFJ14B7KngWE34lgwWa+TtZ/Ix774wZg5ZvWFMbUCEGfmM+qgfp7goC6DbWQ9MNjdV1HPQ9uhpjBFi/MC4cloApoZg/oexEY9sndxIFJtMAN35TUD9vWN+8X6tkub0WJX+tRSRzZu5L03UEp7cniIAe9TvWWU1LJ/6O/udMVlqMfxZzNGtmWhutR5iZRg4jyjDlQihK0lLHEbaJ5/iXtyDZsskMnGzSRIPx/gQlbjGOMDtj3/xjdjcJik5AQy34mQW8OVUilypEqx4daSgF9FfjK+EVDXPVimVjOuQ55OrS5vdxcBMr29+cdf1EvXC4nFC7OgKIcKY1L6yZqV3frMuHm/xeaSpyKc70BLiEwRWKIr6mTbVchI06pOujBrsn58glN1LQ==
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(82310400026)(36860700016)(376014)(7416014)(1800799024)(22082099003)(18002099003)(56012099003)(921020);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: H8dHFFV1T5EiTXwr2V3NJuxotUURbZpgQqzjf4ph0BGBy5Wcy/Yt6Mlu4n+QpnSwgjDD72LW65WIr54eV0SaLkZUvejWcZzsdKUc/rcxUJTroWqUiFjBN2jy2XIMq6xU92zkCvUzt10BZ0Ky+Mt5Qfe8fCfifRf/m1VOgSs5c6vJdZROZvsp/Gm6FaHLhezvCbLOp2Y2HBnsOROrreARUmfKu49s0zBWdmMCwVcWrhRSoTz6huC54urtaQ/hxxcdU1sdwkka1d1qKhZjevzULXq6ixGqHEZE4lmaCc3uCwQLlFfU2/VbHBPnPjlANLMpn/Tv3AI2idlAaYs08k6XcUBfT0d3RTMDXqH65mG63XOoILsc3yaykYIO8EbtW8HZOWf7UTkNM8PzXKDZf/q861bJJXBNT44nltom7NCnf0uNfZddLLxHKHcjDMI0+bSf
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 May 2026 07:59:13.8191 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d4230464-567f-4e52-4786-08deaf333156
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF00000043.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR10MB5759
+Cc: imx@lists.linux.dev, linux-kernel@vger.kernel.org,
+ linux-spi@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 08/10] spi: stm32-qspi: Use FIELD_MODIFY()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,101 +127,80 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 4CB7650244D
+X-Rspamd-Queue-Id: 88C1D509D79
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[andersson@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[48];
-	FORGED_RECIPIENTS(0.00)[m:elder@riscstar.com,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:gregkh@linuxfoundation.org,m:linusw@kernel.org,m:a09872
- 03069@gmail.com,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:davem@davemloft.net,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:18255117159@163.com,m:broonie@kernel.org,m:sunny.luo@amlogic.com,m:xianwei.zhao@amlogic.com,m:neil.armstrong@linaro.org,m:khilman@baylibre.com,m:han.xu@nxp.com,m:haibo.chen@nxp.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:lhjeff911@gmail.com,m:hayashi.kunihiko@socionext.com,m:mhiramat@kernel.org,m:jbrunet@baylibre.com,m:martin.blumenstingl@googlemail.com,m:imx@lists.linux.dev,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:linux-amlogic@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:martinblumenstingl@gmail.com,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,body];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	FREEMAIL_TO(0.00)[163.com,kernel.org,amlogic.com,linaro.org,baylibre.com,nxp.com,gmail.com,foss.st.com,socionext.com,googlemail.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[foss.st.com:mid,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo];
+	DKIM_TRACE(0.00)[foss.st.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.524];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[patrice.chotard@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andersson@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,riscstar.com,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,lunn.ch,davemloft.net];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	MISSING_XM_UA(0.00)[];
+	HAS_XOIP(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	NEURAL_HAM(-0.00)[-0.850];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Action: no action
 
-On Thu, May 07, 2026 at 01:37:09PM -0500, Alex Elder wrote:
-> On 5/7/26 9:12 AM, Bjorn Andersson wrote:
-> > On Fri, May 01, 2026 at 10:54:16AM -0500, Alex Elder wrote:
-> > > diff --git a/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml b/Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
-> > [..]
-> > > +
-> > > +  gpio-controller: true
-> > 
-> > I don't have any concern with the use of a proper gpio driver to model
-> > the implementation, but if I understand correctly this relationship
-> > between gpio controller and gpio consumer is strictly internal to "the
-> > PCI device".
-> 
-> (I think you're already cool with this but I still wanted to respond.)
-> 
 
-Thank you for the further clarifications, and added details, Alex. This
-does look reasonable to me.
 
-Regards,
-Bjorn
+On 4/30/26 17:54, Hans Zhang wrote:
+> Use FIELD_MODIFY() to remove open-coded bit manipulation.
+> No functional change intended.
+> 
+> Signed-off-by: Hans Zhang <18255117159@163.com>
+> ---
+>  drivers/spi/spi-stm32-qspi.c | 5 ++---
+>  1 file changed, 2 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+> index df1bbacec90a..ea69fe25686f 100644
+> --- a/drivers/spi/spi-stm32-qspi.c
+> +++ b/drivers/spi/spi-stm32-qspi.c
+> @@ -374,9 +374,8 @@ static int stm32_qspi_send(struct spi_device *spi, const struct spi_mem_op *op)
+>  	int timeout, err = 0, err_poll_status = 0;
+>  
+>  	cr = readl_relaxed(qspi->io_base + QSPI_CR);
+> -	cr &= ~CR_PRESC_MASK & ~CR_FSEL;
+> -	cr |= FIELD_PREP(CR_PRESC_MASK, flash->presc);
+> -	cr |= FIELD_PREP(CR_FSEL, flash->cs);
+> +	FIELD_MODIFY(CR_PRESC_MASK, &cr, flash->presc);
+> +	FIELD_MODIFY(CR_FSEL, &cr, flash->cs);
+>  	writel_relaxed(cr, qspi->io_base + QSPI_CR);
+>  
+>  	if (op->data.nbytes)
 
-> That is not correct.  These GPIO lines are used two ways for the
-> RB3gen2:
-> - drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c uses GPIOs 2 and 3 to
->   assert/deassert the reset lines associated with the two exposed
->   downstream PCIe ports on the PCIe switch within the TC956x.
-> 
-> - Each of the Ethernet PHYs has a reset GPIO.  On the RB3gen2, the
->   GPIOs used for the purpose come from the GPIO controller embedded
->   in the TC9564 (00 and 01).
-> 
-> These are therefore "exposed" (they are *not* strictly internal).
-> 
-> > Is this connection variable or is the link merely expressed in
-> > DeviceTree to mitigate the fact that you choose to implement the
-> > responsibilities of the two parts split into two device drivers?
-> 
-> It is variable.  These resets might be implemented by other GPIO
-> controllers on other platforms.
-> 
-> > Are there other consumers of these TC956x gpios which would result in a
-> > board designer (and hence dts author) to ever reference this
-> > gpio-controller in a different way?
-> 
-> They could.  Nine of these GPIOs are exposed by the TC956x pins
-> (GPIO00-06, GPIO12, GPIO35 and GPIO36).  The RB3gen2 uses 00-03
-> (and possibly 04 but that's for a PHY we haven't tested yet).
-> 
-> 					-Alex
-> 
-> > Regards,
-> > Bjorn
-> 
+Hi Hans
+
+Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+Thanks
+Patrice
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
