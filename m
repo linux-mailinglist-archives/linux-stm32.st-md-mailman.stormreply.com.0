@@ -2,59 +2,91 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yNpPAzS9AmrKwAEAu9opvQ
+	id YITBNorRAmoNxgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 07:40:04 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 09:06:50 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 95A9351A43F
-	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 07:40:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6A34451B773
+	for <lists+linux-stm32@lfdr.de>; Tue, 12 May 2026 09:06:50 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 27D05C87EC1;
-	Tue, 12 May 2026 05:40:03 +0000 (UTC)
-Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
- [52.175.55.52])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2418CC08D19
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D6607C87EC1;
+	Tue, 12 May 2026 07:06:49 +0000 (UTC)
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com
+ [209.85.217.45])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F419CC36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 12 May 2026 05:40:00 +0000 (UTC)
-Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
- ajax-webmail-app1 (Coremail) ; Tue, 12 May 2026 13:39:12 +0800 (GMT+08:00)
-X-Originating-IP: [10.11.96.26]
-Date: Tue, 12 May 2026 13:39:12 +0800 (GMT+08:00)
-X-CM-HeaderCharset: UTF-8
-From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
-To: "Jakub Kicinski" <kuba@kernel.org>
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
- 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
- mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
-In-Reply-To: <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
-References: <20260427072353.1114-1-lizhi2@eswincomputing.com>
- <20260427072508.1151-1-lizhi2@eswincomputing.com>
- <20260428180625.738223cf@kernel.org>
- <2117464.7991.19ddd2125d1.Coremail.lizhi2@eswincomputing.com>
- <20260430163551.7491407a@kernel.org>
- <38d052b7.7a70.19dfb0d782b.Coremail.lizhi2@eswincomputing.com>
+ Tue, 12 May 2026 07:06:47 +0000 (UTC)
+Received: by mail-vs1-f45.google.com with SMTP id
+ ada2fe7eead31-6314cc192a4so1030625137.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 12 May 2026 00:06:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778569607; x=1779174407;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=6U9R02UyT6PCn4mJzYYl/CPWidpbIlIhzjolxdPX7hg=;
+ b=lAwO86pO3aV4zcz/Scz0tBoR8nM/JtUmWT0DZR3WmWsEcZkOccfY2vGDYDJOR9jl7L
+ +dbTUFTl4th6EdyKmIXlxUuKEBjvtV1XZzwpvnQd6CBBRyCCAMHM1jRTI6esssfGSo2c
+ YFgXUgQJHuWPUnGm4Sm6tHQP/fZccP/sNiCYIQg61sFTUsQZWPkVhhCge2ISOuaSWMGC
+ odtJed4pWsS4o3rNEImA51x1EPpp3InTYuDjjCfzHCbwE+mLhEas7NpGjWMkI/yxT710
+ JPWj33jDaD2qD2fHUxjdsUaE0V6nNMPHRKDoL8DyPOc9JM8keXCu8LSi2hdOpU/HEiRw
+ v5GQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8I9tUo+jwcfN1S5y8eOGF8q2w8MxPNJbi9N1RdEOFX5XjPqByxCgzYthsefQSTaNWMVExTLCivMibpXQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwzSsbrAgwytjx38oDTWJpsmDuvPvwIV7+6sgu3c8jafhIucCV2
+ YUZpR4JJfk5natQyxeanl4XK4afK83qiAgAkG7kE68ns/3PiFF5Kpbnvfy5KEhv5
+X-Gm-Gg: Acq92OGbtzl53uYdhi7FUl1xauTXeLISLiOjk29Y5/A6sa4SULI38g2NEnyZ8Biirzm
+ uaD6eJ4gy7yFGOdZBgyPminBKvvBTVaFjx+FSkh55mLefQe1jAhiH+e/XXSZ8EV7B1oXVTTDhrf
+ OMoIQYeJ5R1jekAgXSYtfLX8s14NKvxLEmN+27O5s0cvHjtEKnRLHnXBLMXpgrVpmoF3SCP+eIA
+ cNYGpVmpUBOZIjpFXcyQ9I5eUwqml99Jqvr1UkqbN+Ylj0gR2EvSlnoqmQRZyGP160t8Bhd0WOZ
+ qePLTiwmZc2no9NTCARVjANSm9FP3wfHkRwUBmDqH9GKMCjhPfQsub59o1YVktKS7Xj4Xb2l2mY
+ zwpCEHPVbKP3yvLIhf74/ryLMnnZvXVmoY7RYB+BIrF5gcG6x9G2srI2Se3r4cYo7zWvLNpfIfD
+ cMKgVflqtbFZCzBiQVVMZC1qlSpOoBPxuapiQVOxuHREhZXpziJ+O4hLOgWMu3
+X-Received: by 2002:a05:6102:5e88:b0:5ff:c5c8:2734 with SMTP id
+ ada2fe7eead31-63617dd4204mr601809137.25.1778569606485; 
+ Tue, 12 May 2026 00:06:46 -0700 (PDT)
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com.
+ [209.85.217.43]) by smtp.gmail.com with ESMTPSA id
+ ada2fe7eead31-6313fdbf5c4sm8339102137.0.2026.05.12.00.06.45
+ for <linux-stm32@st-md-mailman.stormreply.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 12 May 2026 00:06:45 -0700 (PDT)
+Received: by mail-vs1-f43.google.com with SMTP id
+ ada2fe7eead31-63319183a49so715204137.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 12 May 2026 00:06:45 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ/ZxMwb/NmN/IlUfzEBooLSiOUkF2iAqO4jVGkn/zss1IOwoHB+IltE1ffETzyfPAzDZNT7M/uVmMU+qA==@st-md-mailman.stormreply.com
+X-Received: by 2002:a67:e7c5:0:b0:631:26f6:701c with SMTP id
+ ada2fe7eead31-636187cd6ffmr637420137.31.1778569604976; Tue, 12 May 2026
+ 00:06:44 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID: <446f69bd.7fe4.19e1ab248fb.Coremail.lizhi2@eswincomputing.com>
-X-Coremail-Locale: en_US
-X-CM-TRANSID: TAJkCgBnCXMAvQJqub8YAA--.6986W
-X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEFDGoCBREW-AAAsc
-X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
- CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
- daVFxhVjvjDU=
-Cc: edumazet@google.com, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
- pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com, alex@ghiti.fr,
- ningyu@eswincomputing.com, maxime.chevallier@bootlin.com, pabeni@redhat.com,
- devicetree@vger.kernel.org, conor+dt@kernel.org, aou@eecs.berkeley.edu,
- horms@kernel.org, rmk+kernel@armlinux.org.uk, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, pinkesh.vaghela@einfochips.com,
- linmin@eswincomputing.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, palmer@dabbelt.com,
- mcoquelin.stm32@gmail.com, pjw@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v7 2/4] net: stmmac: eic7700:
- enable clocks before syscon access and correct RX sampling timing
+References: <20260511211841.284809-1-ben.levinsky@amd.com>
+ <20260511211841.284809-3-ben.levinsky@amd.com>
+In-Reply-To: <20260511211841.284809-3-ben.levinsky@amd.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 12 May 2026 09:06:33 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXn8G-nJ-=_eVRnZO_1nzWuP-AjTVL5SWH-D1w2F2QVfA@mail.gmail.com>
+X-Gm-Features: AVHnY4Jzn5XG3w_TFgzZrTYfNPhFMcAA9wRYKEMGtDIRqvMdxDHMc6dhfvtpVZA
+Message-ID: <CAMuHMdXn8G-nJ-=_eVRnZO_1nzWuP-AjTVL5SWH-D1w2F2QVfA@mail.gmail.com>
+To: Ben Levinsky <ben.levinsky@amd.com>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, imx@lists.linux.dev,
+ tanmay.shah@amd.com, linux-remoteproc@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 2/4] remoteproc: switch exact-match
+	drivers to wc-ioremap callbacks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -66,118 +98,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 95A9351A43F
+X-Rspamd-Queue-Id: 6A34451B773
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [3.09 / 15.00];
+X-Spamd-Result: default: False [2.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[eswincomputing.com];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[27];
-	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:pritesh.patel@einfochips.com,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:maxime.chevallier@bootlin.com,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:horms@kernel.org,m:rmk+kernel@armlinux.org.uk,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_X_PRIO_THREE(0.00)[3];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,glider.be,linaro.org,lists.linux.dev,amd.com,kernel.org,nxp.com,foss.st.com,st-md-mailman.stormreply.com,pengutronix.de,lists.infradead.org];
+	FORGED_SENDER(0.00)[geert@linux-m68k.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:ben.levinsky@amd.com,m:mcoquelin.stm32@gmail.com,m:magnus.damm@gmail.com,m:linux-kernel@vger.kernel.org,m:geert+renesas@glider.be,m:mathieu.poirier@linaro.org,m:imx@lists.linux.dev,m:tanmay.shah@amd.com,m:linux-remoteproc@vger.kernel.org,m:andersson@kernel.org,m:Frank.Li@nxp.com,m:patrice.chotard@foss.st.com,m:linux-renesas-soc@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@pengutronix.de,m:festevam@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:magnusdamm@gmail.com,m:geert@glider.be,s:lists@lfdr.de];
+	DMARC_NA(0.00)[linux-m68k.org];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[geert@linux-m68k.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,einfochips.com,eswincomputing.com,ghiti.fr,bootlin.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
-	HAS_XOIP(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	R_DKIM_NA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	NEURAL_HAM(-0.00)[-0.992];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_HAM(-0.00)[-0.685];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:email,mail.gmail.com:mid,glider.be:email,linux-m68k.org:email]
 X-Rspamd-Action: no action
 
-CgoKPiAtLS0tLU9yaWdpbmFsIE1lc3NhZ2VzLS0tLS0KPiBGcm9tOiDmnY7lv5cgPGxpemhpMkBl
-c3dpbmNvbXB1dGluZy5jb20+Cj4gU2VuZCB0aW1lOldlZG5lc2RheSwgMDYvMDUvMjAyNiAxMDox
-MDo1Nwo+IFRvOiAiSmFrdWIgS2ljaW5za2kiIDxrdWJhQGtlcm5lbC5vcmc+Cj4gQ2M6IGFuZHJl
-dytuZXRkZXZAbHVubi5jaCwgZGV2aWNldHJlZUB2Z2VyLmtlcm5lbC5vcmcsIGRhdmVtQGRhdmVt
-bG9mdC5uZXQsIGVkdW1hemV0QGdvb2dsZS5jb20sIHJvYmhAa2VybmVsLm9yZywga3J6aytkdEBr
-ZXJuZWwub3JnLCBjb25vcitkdEBrZXJuZWwub3JnLCBuZXRkZXZAdmdlci5rZXJuZWwub3JnLCBw
-YWJlbmlAcmVkaGF0LmNvbSwgbWNvcXVlbGluLnN0bTMyQGdtYWlsLmNvbSwgYWxleGFuZHJlLnRv
-cmd1ZUBmb3NzLnN0LmNvbSwgcm1rK2tlcm5lbEBhcm1saW51eC5vcmcudWssIHBqd0BrZXJuZWwu
-b3JnLCBwYWxtZXJAZGFiYmVsdC5jb20sIGFvdUBlZWNzLmJlcmtlbGV5LmVkdSwgYWxleEBnaGl0
-aS5mciwgbGludXgtcmlzY3ZAbGlzdHMuaW5mcmFkZWFkLm9yZywgbGludXgtc3RtMzJAc3QtbWQt
-bWFpbG1hbi5zdG9ybXJlcGx5LmNvbSwgbGludXgtYXJtLWtlcm5lbEBsaXN0cy5pbmZyYWRlYWQu
-b3JnLCBsaW51eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnLCBtYXhpbWUuY2hldmFsbGllckBib290
-bGluLmNvbSwgbmluZ3l1QGVzd2luY29tcHV0aW5nLmNvbSwgbGlubWluQGVzd2luY29tcHV0aW5n
-LmNvbSwgcGlua2VzaC52YWdoZWxhQGVpbmZvY2hpcHMuY29tLCBwcml0ZXNoLnBhdGVsQGVpbmZv
-Y2hpcHMuY29tLCB3ZWlzaGFuZ2p1YW5AZXN3aW5jb21wdXRpbmcuY29tLCBob3Jtc0BrZXJuZWwu
-b3JnCj4gU3ViamVjdDogUmU6IFJlOiBbUEFUQ0ggbmV0LW5leHQgdjcgMi80XSBuZXQ6IHN0bW1h
-YzogZWljNzcwMDogZW5hYmxlIGNsb2NrcyBiZWZvcmUgc3lzY29uIGFjY2VzcyBhbmQgY29ycmVj
-dCBSWCBzYW1wbGluZyB0aW1pbmcKPiAKPiAKPiAKPiAKPiA+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0t
-LS0KPiA+IOWPkeS7tuS6ujogIkpha3ViIEtpY2luc2tpIiA8a3ViYUBrZXJuZWwub3JnPgo+ID4g
-5Y+R6YCB5pe26Ze0OjIwMjYtMDUtMDEgMDc6MzU6NTEgKOaYn+acn+S6lCkKPiA+IOaUtuS7tuS6
-ujog5p2O5b+XIDxsaXpoaTJAZXN3aW5jb21wdXRpbmcuY29tPgo+ID4g5oqE6YCBOiBhbmRyZXcr
-bmV0ZGV2QGx1bm4uY2gsIGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnLCBkYXZlbUBkYXZlbWxv
-ZnQubmV0LCBlZHVtYXpldEBnb29nbGUuY29tLCByb2JoQGtlcm5lbC5vcmcsIGtyemsrZHRAa2Vy
-bmVsLm9yZywgY29ub3IrZHRAa2VybmVsLm9yZywgbmV0ZGV2QHZnZXIua2VybmVsLm9yZywgcGFi
-ZW5pQHJlZGhhdC5jb20sIG1jb3F1ZWxpbi5zdG0zMkBnbWFpbC5jb20sIGFsZXhhbmRyZS50b3Jn
-dWVAZm9zcy5zdC5jb20sIHJtaytrZXJuZWxAYXJtbGludXgub3JnLnVrLCBwandAa2VybmVsLm9y
-ZywgcGFsbWVyQGRhYmJlbHQuY29tLCBhb3VAZWVjcy5iZXJrZWxleS5lZHUsIGFsZXhAZ2hpdGku
-ZnIsIGxpbnV4LXJpc2N2QGxpc3RzLmluZnJhZGVhZC5vcmcsIGxpbnV4LXN0bTMyQHN0LW1kLW1h
-aWxtYW4uc3Rvcm1yZXBseS5jb20sIGxpbnV4LWFybS1rZXJuZWxAbGlzdHMuaW5mcmFkZWFkLm9y
-ZywgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZywgbWF4aW1lLmNoZXZhbGxpZXJAYm9vdGxp
-bi5jb20sIG5pbmd5dUBlc3dpbmNvbXB1dGluZy5jb20sIGxpbm1pbkBlc3dpbmNvbXB1dGluZy5j
-b20sIHBpbmtlc2gudmFnaGVsYUBlaW5mb2NoaXBzLmNvbSwgcHJpdGVzaC5wYXRlbEBlaW5mb2No
-aXBzLmNvbSwgd2Vpc2hhbmdqdWFuQGVzd2luY29tcHV0aW5nLmNvbSwgaG9ybXNAa2VybmVsLm9y
-Zwo+ID4g5Li76aKYOiBSZTogW1BBVENIIG5ldC1uZXh0IHY3IDIvNF0gbmV0OiBzdG1tYWM6IGVp
-Yzc3MDA6IGVuYWJsZSBjbG9ja3MgYmVmb3JlIHN5c2NvbiBhY2Nlc3MgYW5kIGNvcnJlY3QgUlgg
-c2FtcGxpbmcgdGltaW5nCj4gPiAKPiA+IE9uIFRodSwgMzAgQXByIDIwMjYgMTQ6NDM6NTAgKzA4
-MDAgKEdNVCswODowMCkg5p2O5b+XIHdyb3RlOgo+ID4gPiA+IFdoeSBGaXhlcz8gSWYgZXRoMSBu
-ZXZlciB3b3JrZWQgdGhpcyBpcyBub3QgYSBmaXggYnV0IG5ldyBmdW5jdGlvbmFsaXR5Cj4gPiA+
-ID4gSWYgeW91IHdhbnQgdG8gbWFrZSB0aGlzIGEgZml4IHRvIHByZXZlbnQgaW5jb21wYXRpYmls
-aXR5IC0gY3V0IGl0IGRvd24KPiA+ID4gPiBqdXN0IHRvIHRoZSBldGgwIGNoYW5nZXMuCj4gPiA+
-ID4gICAKPiA+ID4gVGhhbmsgeW91IGZvciB0aGUgc3VnZ2VzdGlvbi4KPiA+ID4gCj4gPiA+IFlv
-dSdyZSByaWdodCB0aGF0IGV0aDEgbmV2ZXIgd29ya2VkIGF0IEdpZ2FiaXQgc3BlZWQsIHNvIHRo
-aXMgc2hvdWxkCj4gPiA+IG5vdCBiZSB0cmVhdGVkIGFzIGEgZml4Lgo+ID4gPiAKPiA+ID4gSW4g
-djgsIEkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBpbnRvIHR3byBwYXRjaGVzIHdpdGhpbiB0aGUg
-c2FtZSBzZXJpZXM6Cj4gPiA+IC0gUGF0Y2ggMSB3aWxsIGNvbnRhaW4gb25seSB0aGUgZml4ZXMg
-YWZmZWN0aW5nIHRoZSBleGlzdGluZyBldGgwCj4gPiA+IGZ1bmN0aW9uYWxpdHksIGFuZCB3aWxs
-IGtlZXAgdGhlIEZpeGVzIHRhZy4KPiA+ID4gLSBQYXRjaCAyIHdpbGwgYWRkIHRoZSBldGgxIHN1
-cHBvcnQgKFJYIGNsb2NrIGludmVyc2lvbiB3b3JrYXJvdW5kKQo+ID4gPiBhcyBuZXcgZnVuY3Rp
-b25hbGl0eSwgd2l0aG91dCBhIEZpeGVzIHRhZy4KPiA+ID4gCj4gPiA+IFBsZWFzZSBsZXQgbWUg
-a25vdyBpZiB5b3Ugd291bGQgcHJlZmVyIGEgZGlmZmVyZW50IHNwbGl0IG9yIG9yZGVyaW5nLgo+
-ID4gCj4gPiBJZiB5b3Ugd2FudCB0byBjb25zaWRlciBzb21lIHBhcnQgb2YgdGhpcyBjb21taXQg
-YSBmaXggaXQgaGFzIHRvIGJlCj4gPiBwb3N0ZWQgc2VwYXJhdGVseSB0byB0aGUgbmV0IHRyZWUg
-KHJhdGhlciB0aGFuIG5ldC1uZXh0KS4KPiA+IE9uY2UgaXQncyBtZXJnZWQgYW5kIG1ha2VzIGl0
-IHdheSBvdmVyIHRvIHRoZSBuZXQtbmV4dCB0cmVlIChlYWNoCj4gPiBUaHVyc2RheSkgeW91IGNh
-biBwb3N0IHRoZSBuZXQtbmV4dCBjaG5hZ2VzIGZvciBldGgxCj4gCj4gVGhhbmtzLCB1bmRlcnN0
-b29kLgo+IAo+IEkgd2lsbCBzcGxpdCB0aGUgY2hhbmdlcyBhY2NvcmRpbmdseToKPiAtIFNlbmQg
-dGhlIGV0aDAgZml4ZXMgYXMgYSBuZXcgdjEgc2VyaWVzIHRhcmdldGluZyBuZXQuCj4gLSBTZW5k
-IHRoZSBldGgxIGVuYWJsZW1lbnQgYXMgYSBuZXcgdjEgc2VyaWVzIHRhcmdldGluZyBuZXQtbmV4
-dC4KPiAKPiBUaGFua3MgZm9yIHRoZSBndWlkYW5jZS4KCkhpIEpha3ViLAoKSnVzdCB0byBjb25m
-aXJtIHRoZSB2ZXJzaW9uaW5nIGZvciB0aGUgZXRoMSBwYXJ0IGFmdGVyIHNwbGl0dGluZyB0aGUK
-b3JpZ2luYWwgdjcvdjggc2VyaWVzOgoKRm9yIHRoZSBuZXQgZml4IHBhcnQsIEkgaGF2ZSBhbHJl
-YWR5IHBvc3RlZCBpdCBhcyBhIG5ldyB2MSBzZXJpZXMKdGFyZ2V0aW5nIG5ldC4KCkZvciB0aGUg
-ZXRoMSBlbmFibGVtZW50IHBhcnQsIG15IGN1cnJlbnQgdW5kZXJzdGFuZGluZyBpcyB0aGF0IGl0
-CnNob3VsZCBiZSB0cmVhdGVkIGFzIGEgbmV3IGluZGVwZW5kZW50IHYxIHNlcmllcyBmb3IgbmV0
-LW5leHQsCnNpbmNlIHRoZSBzY29wZSBhbmQgdGFyZ2V0IHRyZWUgaGF2ZSBjaGFuZ2VkIGFmdGVy
-IHRoZSBzcGxpdC4KCldvdWxkIHlvdSBwcmVmZXIgdGhpcyBldGgxIHNlcmllcyB0byBzdGFydCBh
-cyB2MSwgb3Igc2hvdWxkIGl0CmNvbnRpbnVlIGFzIHY4IGZvciBjb250aW51aXR5IHdpdGggdGhl
-IG9yaWdpbmFsIHNlcmllcz8KCkkgd2lsbCBmb2xsb3cgeW91ciBwcmVmZXJyZWQgYXBwcm9hY2gg
-YmVmb3JlIHBvc3RpbmcgaXQuCgpUaGFua3MsClpoaQpfX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3Rt
-MzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rv
-cm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+Hi Ben,
+
+On Mon, 11 May 2026 at 23:18, Ben Levinsky <ben.levinsky@amd.com> wrote:
+> Replace the exact-match carveout map and unmap callbacks in the
+> existing remoteproc drivers with the common wc-ioremap helpers. Leave
+> the zynqmp R5 TCM callbacks alone because they also clear the mapped
+> memory and are not exact matches.
+>
+> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
+
+Thanks for your patch!
+
+>  drivers/remoteproc/rcar_rproc.c         | 33 ++---------------
+
+This change also makes sure mem->is_iomem is true, which looks like
+a valid bug fix. Do you know what was the impact of not setting
+this before?
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
