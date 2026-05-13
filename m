@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eBSGLgdBBGokGQIAu9opvQ
+	id 6L0yMQhBBGokGQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2026 11:14:47 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2026 11:14:48 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9CB253069A
-	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2026 11:14:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B32AB5306A7
+	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2026 11:14:48 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C815C8F297;
-	Wed, 13 May 2026 09:14:47 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7B1CDC8F292;
+	Wed, 13 May 2026 09:14:48 +0000 (UTC)
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
+ [209.85.221.48])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BE01C8F292
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 335C8C8F292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2026 09:14:46 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-448528f4e69so3820049f8f.3
+ Wed, 13 May 2026 09:14:47 +0000 (UTC)
+Received: by mail-wr1-f48.google.com with SMTP id
+ ffacd0b85a97d-43d7e23defbso3861288f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2026 02:14:46 -0700 (PDT)
+ Wed, 13 May 2026 02:14:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778663686; x=1779268486;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778663687; x=1779268487;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=66sbIWl/UECZcngzqfN9gySpU5b7WSWy5FgqX8acPdE=;
- b=L6uS5WUveU2pZGnrUk+e1EqQuCiPj2wa32jSbfwnAnNNSztg/lLf9DI0Vi7QQpeY5v
- Pcn9p4vfeBg+S441h7lBpEH3RUSkAMZVvEwkPDCmsnzmH4fvbPjhap93OVEUaQEbfblE
- 5uLjKSKM7+ylCasdwuLqyTj3wKjacWDz/kLQpG/JajHBGllZf92dVTmxXDcdlUfPBpsy
- /5u6C9TJ2jIbTLgT+H7Hkam9znzGmq3rePORWFvOEjUWWpjqQ7DPM9Ume818uSCTYdN1
- wm5IX0i7/nA0j/SDd/kqQQ6CIO/tAmAKvAHdG32Jwx8bpK4oPhsg+DH2JrU0Ok4xNfPf
- CNog==
+ :reply-to; bh=mqVoCiMOeXwzd334lL+Kbbn+xeppyD+CHd7jRk3nty8=;
+ b=yOgAQOvnx5lejz4+1Z+l0QyhmPsEtttBn8w+k1jqbIs8LZdePjMrWLdRHj0LxhWREI
+ HKng8QHNX5+Bsfbb5tTJe3JoXE0x0EbKBoQy1iqwtNtIBTt2XbmzvSl1AYnWJDuWki1B
+ nWxTHJ8gCBB/Jpc3mZhgdNqhq1fxbNyZaaxpE1g12p2uyTCJohHm4M19LZozH12zzLDG
+ M85WbWx7iuLeiSQgTZPveEi7IPbSWoPxe4kdlzo9LxmT7LnXyi9EJCjo+KunDieWhDpp
+ u5lRDFJ5NkE7v7BZLKpYQwttez6Fi2b7zYNZU22HCuFUcQrtX3DDkbUQPSqZAaSJZdnB
+ WPFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778663686; x=1779268486;
+ d=1e100.net; s=20251104; t=1778663687; x=1779268487;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=66sbIWl/UECZcngzqfN9gySpU5b7WSWy5FgqX8acPdE=;
- b=VS1Q0qnOLGmFdB1rsKPH10n0OJuX7kiMb7us0a6612Ti6uyg2TenjXgk1nz7IEK2TE
- 8txp2oySFbED8Lf/HG2NzUtu66gtIeKwFOQOpFkskhk6Y2a0jKsS3xBqwScKOmo0iLju
- hsNBAMFLiamPYKMmZ0J8dPohwtxmsXuSEoL8ID8XxnA/c0GkG5NJkMxCD1OrU579HEBx
- P4isbZapUgxW5I4wrmauo1YliQ7S2xLTgg5FZ5N3gXk7ypXYI2bs023UsZw6uZQbMLoZ
- YJ5BGz+mMniZdC90dft3UZAbdw4Ap8Ij+cm5L1El+rs36mqusXzeo9tiHRyunItxwNAl
- jc1w==
+ bh=mqVoCiMOeXwzd334lL+Kbbn+xeppyD+CHd7jRk3nty8=;
+ b=BypTNQklB2F/GwNg3wWsPQYiceItdMV62dyVy4A/n5pfb3CWZALEP5LSdNOYnptVoi
+ MsYpFknT6NKJBoB9pW2cgpOjpQX989Yb+1oLLT1Vq41LQRYr1aehp7JL03+A4QLYVXx0
+ OvZkhCL26h86IxTgnRIqsP8QcJksESHeKMNPwYLxckIRGkV95DJ3o5zR5EZFI+PS2cXq
+ HjflayCAmywlymS/riYDr1XtH+THuMmIcO4ACuZOqSOtqVymxImX9NxWdelmB8wS7FUz
+ H3UY9jAyM76xsE/73vodPQAgEhR4BLBdD2BmMV+LxcGXP2wEdzXp8hMu4gIbfWkBvS7h
+ zHeg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/uC/KuHPxLIpvMWK/WYMFBBCesEdzKzOjEGGQ8CUgFJqdoIKFGT4StXEur4DIY2aUy2b6WIPjHHopvDQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyD24csQTUvn/6/Al7O0O/2V5ITIkrbF0Mox1qElYRcSTQ2y1d4
- RqqyRznq2CzbSC367SxNxiCd0hxxrTEPtrFia/LOTqoLbA+cDqzVfwyysGKVYyzozKk=
-X-Gm-Gg: Acq92OFSLawyWTxKW0Xc1XdKveV3Txg54m5qKv3zO2T+COYXb/13EcgdTBur6TP5PYi
- EN0xIET8+tsVfu2e4RhfYEFX8wAntWFE49+LKxWacss93cky30FKL5Peyx7XxwCYITFqaine2ib
- s4zbBiO8GI2sXnWkdSKi7klY676jHmztSljefLl4c3bgrSKNfXtF+K57hpOVlfkPeYPh8hQPIWb
- BmSuPokSt0VAGZn4DH/2IWoAzysABd79j5g6wND0tzJrVM/wVu65aqkl2e9g27/uKCFAS9zAcFn
- JTcuXqEmxvXHWH304cW2SPeosjgefPCmpbT1GuBWTAdentYS0SsqGoOrY8sa6HshdJkLrIxeg/a
- qehyKx7/IVRkDTXRcb+5qP/yXQeNiaTzZdx7LvHuzzxiprHUS0+ITuKqn7tCicJRtK5GIG4KYgi
- VfQ4uCA3+A4nuIR5uS5Tpex9/JUGqWEMo=
-X-Received: by 2002:a05:6000:26c2:b0:43c:fdd:ea96 with SMTP id
- ffacd0b85a97d-45c59cd1579mr3756642f8f.26.1778663685719; 
- Wed, 13 May 2026 02:14:45 -0700 (PDT)
+ AFNElJ+odMY8r+YkTS2iqBFqWtPnSQscSTmKIJgFCrR7igKO827Bt+8I6r44O2AdPrOV8iUuCroJuXA4xRzVnQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwA/eonFy9LSbRtz3PNQZtWqtsc6kD4wsRuv6/DzGZRfqx02BKW
+ RvAIsyKrDPnKb7VwpypEymzNfCZb95qNqwOVKx/BmlswnoaK/bOqQGo4qdB+dQyi1Wc=
+X-Gm-Gg: Acq92OE9S7+8/iWuVEad/jRAPpiw+CqXaTj4wzQZOapt0/Q2uODoqXG01ECU5R5IsEK
+ qLtVZuhl4v1oEK9p5tmaJ0IZAzVpG7fHhGxIgUXOVo8Si1t9dkFHDxlz6ioZjXS5bvM8AQtoWGa
+ j2KXii/zIvpElmYrsvfF38XxtkuprpD9J7Urse75j4OpoLO8GUQqzJpuJRYfUUZ10dt949ec81R
+ FyhgWNXHl/NWujgRb0OP2rh/d+MBCW4dM6ZIUi/2RWJYenC4ZrDUA3HigoajEOlFXTYNYJQs5rj
+ 3HvOpYBUDkrG7T1bey674ZFLTgSUlfodIe+xq/u2feSnfCsuO6UZoi8OV9oBqq7dz6JEdNDsjrl
+ fOBv1guEM5Ts+PFH2olIJQCpd4JLjBkWAC6Tx+1XCvqdSrva6J7TUjtqIrn5NTr9P7espglhXgJ
+ QQF2F6Yab+vpXBry0pODycu4WCEqzgsqQ=
+X-Received: by 2002:a05:6000:3109:b0:43e:aa88:f1a1 with SMTP id
+ ffacd0b85a97d-45c59702ee1mr3542834f8f.30.1778663686628; 
+ Wed, 13 May 2026 02:14:46 -0700 (PDT)
 Received: from [192.168.0.2] ([2a07:7e81:7daa:0:62cf:84ff:feee:627])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4548e6a66bfsm34590821f8f.4.2026.05.13.02.14.44
+ ffacd0b85a97d-4548e6a66bfsm34590821f8f.4.2026.05.13.02.14.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 02:14:45 -0700 (PDT)
+ Wed, 13 May 2026 02:14:46 -0700 (PDT)
 From: Angelo Dureghello <adureghello@baylibre.com>
 X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Wed, 13 May 2026 11:14:29 +0200
+Date: Wed, 13 May 2026 11:14:30 +0200
 MIME-Version: 1.0
-Message-Id: <20260513-wip-stmark2-dac-v2-5-fcdae50cf51a@baylibre.com>
+Message-Id: <20260513-wip-stmark2-dac-v2-6-fcdae50cf51a@baylibre.com>
 References: <20260513-wip-stmark2-dac-v2-0-fcdae50cf51a@baylibre.com>
 In-Reply-To: <20260513-wip-stmark2-dac-v2-0-fcdae50cf51a@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -85,7 +85,7 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 05/11] m68k: add DAC modules base addresses
+Subject: [Linux-stm32] [PATCH v2 06/11] m68k: mcf5441x: add CCM registers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,7 +101,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: A9CB253069A
+X-Rspamd-Queue-Id: B32AB5306A7
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -130,7 +130,7 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[baylibre-com.20251104.gappssmtp.com:-];
-	NEURAL_HAM(-0.00)[-0.885];
+	NEURAL_HAM(-0.00)[-0.897];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -141,28 +141,43 @@ X-Rspamd-Action: no action
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Add DAC controller 0 and 1 base addresses.
+Add CCM module register offsets.
 
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
- arch/m68k/include/asm/m5441xsim.h | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/m68k/include/asm/m5441xsim.h | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
 
 diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
-index f48cf63bd782..f5acc962bb95 100644
+index f5acc962bb95..9ce2cbb05316 100644
 --- a/arch/m68k/include/asm/m5441xsim.h
 +++ b/arch/m68k/include/asm/m5441xsim.h
-@@ -191,6 +191,11 @@
- #define MCFEPORT_EPPAR		0xfc090000
- #define MCFEPORT_EPIER		0xfc090003
- #define MCFEPORT_EPFR		0xfc090006
+@@ -125,6 +125,26 @@
+ #define MCFPM_PPMHR1		0xfc040038
+ #define MCFPM_PPMLR1		0xfc04003c
+ #define MCFPM_LPCR		0xec090007
++
 +/*
-+ * DAC Modules.
++ * Chip Configuration Module (CCM).
 + */
-+#define MCFDAC_BASE0		0xfc098000
-+#define MCFDAC_BASE1		0xfc09c000
++#define MCF_CCM_CCR		0xec090004
++#define MCF_CCM_RCON		0xec090008
++#define MCF_CCM_CIR		0xec09000a
++#define MCF_CCM_MISCCR		0xec09000e
++#define MCF_CCM_CDRH		0xec090010
++#define MCF_CCM_CDRL		0xec090012
++#define MCF_CCM_UOCSR		0xec090014
++#define MCF_CCM_UHCSR		0xec090016
++#define MCF_CCM_MISCCR3		0xec090018
++#define MCF_CCM_MISCCR2		0xec09001a
++#define MCF_CCM_ADCTSR		0xec09001c
++#define MCF_CCM_DACTSR		0xec09001e
++#define MCF_CCM_SBFSR		0xec090020
++#define MCF_CCM_SBFCR		0xec090022
++#define MCF_CCM_FNACR		0xec090024
++
  /*
-  *  RTC Module.
+  *  UART module.
   */
 
 -- 
