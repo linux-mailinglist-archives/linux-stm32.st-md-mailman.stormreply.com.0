@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 0M0HIwdBBGokGQIAu9opvQ
+	id eBSGLgdBBGokGQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2026 11:14:47 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6DA22530692
+	by mail.lfdr.de (Postfix) with ESMTPS id A9CB253069A
 	for <lists+linux-stm32@lfdr.de>; Wed, 13 May 2026 11:14:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 31D97C87EC6;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6C815C8F297;
 	Wed, 13 May 2026 09:14:47 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 482A8C8F291
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BE01C8F292
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2026 09:14:45 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-44c350a5b87so4070696f8f.3
+ Wed, 13 May 2026 09:14:46 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-448528f4e69so3820049f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2026 02:14:45 -0700 (PDT)
+ Wed, 13 May 2026 02:14:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778663685; x=1779268485;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778663686; x=1779268486;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=00ruy8kpQH+b21j+wCBZYocT5CVhNgJL2HRPgVpHHfE=;
- b=HicBxUhD9cjXhoQ3/5H9tKGAlDPRO7AJTqYF75ZSXyFaegkjjT6wgrxpUqHIkEpRGK
- 6VKZvm5l6olJk6leBOu+cy/YHrO4Ow4241ZQ+io+NxIsrYCnjFFHIbXbQFXLiLvkcYZb
- n+SzkcQgfJuvk7C7TXeP/3NcFeGPFKTElpnjU7E0eQtLy7uYFej3AR6LpKDBO6kqOnPY
- Z42Zo1xSinoEQxJ5GqYoHTP+elnMUP0TI+HYCrYOj6LryIPv1yhVS1X47qKAN10CXVY+
- 4nxRcHSiY3x09mrP5Q+Bz3q0m3NlXCAes6B0R1C1sUiRA8QHLcpRJ7KtsvoZnvyYMvRc
- IQWg==
+ :reply-to; bh=66sbIWl/UECZcngzqfN9gySpU5b7WSWy5FgqX8acPdE=;
+ b=L6uS5WUveU2pZGnrUk+e1EqQuCiPj2wa32jSbfwnAnNNSztg/lLf9DI0Vi7QQpeY5v
+ Pcn9p4vfeBg+S441h7lBpEH3RUSkAMZVvEwkPDCmsnzmH4fvbPjhap93OVEUaQEbfblE
+ 5uLjKSKM7+ylCasdwuLqyTj3wKjacWDz/kLQpG/JajHBGllZf92dVTmxXDcdlUfPBpsy
+ /5u6C9TJ2jIbTLgT+H7Hkam9znzGmq3rePORWFvOEjUWWpjqQ7DPM9Ume818uSCTYdN1
+ wm5IX0i7/nA0j/SDd/kqQQ6CIO/tAmAKvAHdG32Jwx8bpK4oPhsg+DH2JrU0Ok4xNfPf
+ CNog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778663685; x=1779268485;
+ d=1e100.net; s=20251104; t=1778663686; x=1779268486;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=00ruy8kpQH+b21j+wCBZYocT5CVhNgJL2HRPgVpHHfE=;
- b=ppGsG2fZUSRNir8Sop6PxAhvoowvis4NaHTVC2o31qwhirfnWfgsIGIj2wqBd+sQ6w
- fhr2Zc8BmGMQUQr3ASRsIODs2PBgFEu0V+K7zeOBw98f1ns3RtqO8tFX8k42FLmk1HwU
- xpC3TguSTvQz+fTW4fvAdsb3yQb+UEmDH7bfqkn74T2W10B/GcOj1zn3zVQeqV4fD5Ni
- CfLc6QioQoMONHX6pbbJKg9qrdErQDCGltj3gcnm+Bu128PgR5TzNEcIc+ORWDOdZ8PW
- p1rn2moqNAMHTuUcCnWZ2P10rdwjesSdQgxPBiL0N4N7dBIio0tfqqOe68vyNDGx5RwM
- NGrQ==
+ bh=66sbIWl/UECZcngzqfN9gySpU5b7WSWy5FgqX8acPdE=;
+ b=VS1Q0qnOLGmFdB1rsKPH10n0OJuX7kiMb7us0a6612Ti6uyg2TenjXgk1nz7IEK2TE
+ 8txp2oySFbED8Lf/HG2NzUtu66gtIeKwFOQOpFkskhk6Y2a0jKsS3xBqwScKOmo0iLju
+ hsNBAMFLiamPYKMmZ0J8dPohwtxmsXuSEoL8ID8XxnA/c0GkG5NJkMxCD1OrU579HEBx
+ P4isbZapUgxW5I4wrmauo1YliQ7S2xLTgg5FZ5N3gXk7ypXYI2bs023UsZw6uZQbMLoZ
+ YJ5BGz+mMniZdC90dft3UZAbdw4Ap8Ij+cm5L1El+rs36mqusXzeo9tiHRyunItxwNAl
+ jc1w==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9HOjNUNlBNkmKi+suwFFN9HFYFikZ8E+rIIuynFkDvAZq57i4KtYFoSRrkPawJ+g+GejckE/hXedM8cw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz6beRsebs9v0vB3B6oZyXfYUhrXMbbEkaatDu64SEbgKQEOx1K
- M2dtAmU3pGnPZZ2i4tCGNMamy40ReTs2ecVlEDs+NsCdGeRzmTGLelHo/gyxhhfd1E4=
-X-Gm-Gg: Acq92OFBwFIC55xQsGNLpXekHb354JSdfX3r2s5/GMDVQFI5sqpBe1HJ3wAdBDFWpC6
- u25oFoIMMQjHs6OZdy97P+ofDY0UQ6nticHZnXsDk2A7u17SjqVvN6v/713JWqi/Mh7bRwUMMUs
- 94Z39W1JNNSc4+hmEQ5w7M1OP41fYMhedgsqAlhLN7QdeoLB2DZF4bfAsm+0JqjgIvKuvnvxMHw
- 7KtrGrkH1N4nnLC99h8Z8KsSBOzbhAl0tQN4DZ0TgqffMSmMQrQEUzFLr7TWiPxWNIryHhdGOYt
- YTwXFYoKkelSb0AJflV1ud/TXR5hd5CMNjrBUBh7dU8Iw0N+21nqJ96/IvYIBRT9Ef9fTre2oBc
- BGUcJwKuI5fKPUW+sUVub5ci21/5CV6Kd+rB8cCBbvI+87w6cXJIBxOck6GsEk4oo+dhrIHLoHB
- w1ESXMUGTt3MwBSWzzZ64jEGTFbLFmdlg=
-X-Received: by 2002:a05:6000:605:b0:45c:3f0b:be08 with SMTP id
- ffacd0b85a97d-45c599ebe6fmr3537011f8f.23.1778663684744; 
- Wed, 13 May 2026 02:14:44 -0700 (PDT)
+ AFNElJ/uC/KuHPxLIpvMWK/WYMFBBCesEdzKzOjEGGQ8CUgFJqdoIKFGT4StXEur4DIY2aUy2b6WIPjHHopvDQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyD24csQTUvn/6/Al7O0O/2V5ITIkrbF0Mox1qElYRcSTQ2y1d4
+ RqqyRznq2CzbSC367SxNxiCd0hxxrTEPtrFia/LOTqoLbA+cDqzVfwyysGKVYyzozKk=
+X-Gm-Gg: Acq92OFSLawyWTxKW0Xc1XdKveV3Txg54m5qKv3zO2T+COYXb/13EcgdTBur6TP5PYi
+ EN0xIET8+tsVfu2e4RhfYEFX8wAntWFE49+LKxWacss93cky30FKL5Peyx7XxwCYITFqaine2ib
+ s4zbBiO8GI2sXnWkdSKi7klY676jHmztSljefLl4c3bgrSKNfXtF+K57hpOVlfkPeYPh8hQPIWb
+ BmSuPokSt0VAGZn4DH/2IWoAzysABd79j5g6wND0tzJrVM/wVu65aqkl2e9g27/uKCFAS9zAcFn
+ JTcuXqEmxvXHWH304cW2SPeosjgefPCmpbT1GuBWTAdentYS0SsqGoOrY8sa6HshdJkLrIxeg/a
+ qehyKx7/IVRkDTXRcb+5qP/yXQeNiaTzZdx7LvHuzzxiprHUS0+ITuKqn7tCicJRtK5GIG4KYgi
+ VfQ4uCA3+A4nuIR5uS5Tpex9/JUGqWEMo=
+X-Received: by 2002:a05:6000:26c2:b0:43c:fdd:ea96 with SMTP id
+ ffacd0b85a97d-45c59cd1579mr3756642f8f.26.1778663685719; 
+ Wed, 13 May 2026 02:14:45 -0700 (PDT)
 Received: from [192.168.0.2] ([2a07:7e81:7daa:0:62cf:84ff:feee:627])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4548e6a66bfsm34590821f8f.4.2026.05.13.02.14.43
+ ffacd0b85a97d-4548e6a66bfsm34590821f8f.4.2026.05.13.02.14.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 02:14:44 -0700 (PDT)
+ Wed, 13 May 2026 02:14:45 -0700 (PDT)
 From: Angelo Dureghello <adureghello@baylibre.com>
 X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Wed, 13 May 2026 11:14:28 +0200
+Date: Wed, 13 May 2026 11:14:29 +0200
 MIME-Version: 1.0
-Message-Id: <20260513-wip-stmark2-dac-v2-4-fcdae50cf51a@baylibre.com>
+Message-Id: <20260513-wip-stmark2-dac-v2-5-fcdae50cf51a@baylibre.com>
 References: <20260513-wip-stmark2-dac-v2-0-fcdae50cf51a@baylibre.com>
 In-Reply-To: <20260513-wip-stmark2-dac-v2-0-fcdae50cf51a@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -85,8 +85,7 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 04/11] m68k: defconfig: update stmark2
-	defconfig
+Subject: [Linux-stm32] [PATCH v2 05/11] m68k: add DAC modules base addresses
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,7 +101,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 6DA22530692
+X-Rspamd-Queue-Id: A9CB253069A
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -131,7 +130,7 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[baylibre-com.20251104.gappssmtp.com:-];
-	NEURAL_HAM(-0.00)[-0.915];
+	NEURAL_HAM(-0.00)[-0.885];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
@@ -142,26 +141,29 @@ X-Rspamd-Action: no action
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Update stmark2 defconfig enabling MCF5441X DACs.
+Add DAC controller 0 and 1 base addresses.
 
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
- arch/m68k/configs/stmark2_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+ arch/m68k/include/asm/m5441xsim.h | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/arch/m68k/configs/stmark2_defconfig b/arch/m68k/configs/stmark2_defconfig
-index b3fb95f73a95..3941113bc60b 100644
---- a/arch/m68k/configs/stmark2_defconfig
-+++ b/arch/m68k/configs/stmark2_defconfig
-@@ -76,6 +76,8 @@ CONFIG_DMADEVICES=y
- CONFIG_MCF_EDMA=y
- # CONFIG_VIRTIO_MENU is not set
- # CONFIG_VHOST_MENU is not set
-+CONFIG_IIO=y
-+CONFIG_MCF54415_DAC=y
- CONFIG_EXT2_FS=y
- CONFIG_EXT2_FS_XATTR=y
- CONFIG_EXT2_FS_POSIX_ACL=y
+diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
+index f48cf63bd782..f5acc962bb95 100644
+--- a/arch/m68k/include/asm/m5441xsim.h
++++ b/arch/m68k/include/asm/m5441xsim.h
+@@ -191,6 +191,11 @@
+ #define MCFEPORT_EPPAR		0xfc090000
+ #define MCFEPORT_EPIER		0xfc090003
+ #define MCFEPORT_EPFR		0xfc090006
++/*
++ * DAC Modules.
++ */
++#define MCFDAC_BASE0		0xfc098000
++#define MCFDAC_BASE1		0xfc09c000
+ /*
+  *  RTC Module.
+  */
 
 -- 
 2.54.0
