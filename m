@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id RkVRBnTaCmoi8wQAu9opvQ
+	id EIVTNXXaCmoA8wQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:23:00 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:23:01 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78985569991
+	by mail.lfdr.de (Postfix) with ESMTPS id 8B60E569992
 	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:22:59 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 186D9C57B72;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 32236C58D77;
 	Mon, 18 May 2026 09:22:59 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178])
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B1230C87EC6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9355C87EC6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2026 10:44:07 +0000 (UTC)
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-2b941cd869cso41594715ad.1
+ Wed, 13 May 2026 10:44:12 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2adff872068so35515235ad.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 13 May 2026 03:44:07 -0700 (PDT)
+ Wed, 13 May 2026 03:44:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778669046; x=1779273846;
+ d=gmail.com; s=20251104; t=1778669051; x=1779273851;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=8VLjZ5HRUHB7pc8eNKnSNbRiReFzaEooAwXWvAuxy2w=;
- b=N/7G/EJXf8uPVqbuQwtOEPwHsfopWhsnj651eR1m/s51AjtTErMW5uVdKPkQ4bIvZL
- fL0+7vgEFaClOOniSJqvOeSFXBt/RnYJG8B2ipb9jwxkDZrTtz1uzJjj4kWzZWPXyPrG
- psO5L6m9lf6ZYZ4cA07hw/o/NePqqYXCJ0VfyUmHCK8/QjiuMCIrJed+mZFJUBKOLMmW
- ABYmG2tP6462QS1uZgW8w5sAjznx8ZxkvqbVth2Q2pTolrdUHMBBubjWTFzHUAETzexv
- AppKuizauhQj2dzaBSwMoC4xkhYkSTqkjkRJr7iJMdNZo7m6WzY/iOz2H7n0dqAlSSvZ
- JOHA==
+ bh=Eh0yf1lgtPbRzrPbuzjigiZ2dhg3uZqppPUNeSjlJCQ=;
+ b=jD/zJNriRm5KOKahhsqPs/M2noremGo0IGHy8EsGcFDff15rMX0EvThpVYlkQ3UVtn
+ 9p+tFLDwf64af7kU9/PPvoHpn+Fc0noTKDkJNtMBP9lMMebSDdT0fAnQPzvCNb6Cg6uN
+ EwbPznPEdfvbh2lrIBEid+NwGTCvP+81aPcKdYfioAn90V5Egxh2v6g6xCzwwfRZqfKU
+ s1FpOLvn5hISdgNQCZ4VjltgcseZXyuRHN3+vGnzy3jprXTlLar27DLMSvhaJjo3784h
+ jtto7VX6E1PuSxg+2TbgJXhBWWZXZ5qOmNaeUHo86i0yBzjV5Jz/eJqCyrTxMZZb57lV
+ qb9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778669046; x=1779273846;
+ d=1e100.net; s=20251104; t=1778669051; x=1779273851;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=8VLjZ5HRUHB7pc8eNKnSNbRiReFzaEooAwXWvAuxy2w=;
- b=PXvsgLEuM6bs8/c9M6MvLKoN2QGZgcQg2dsyOuUzDYN5srmQuhDzL1vFOHs+63LlEw
- HvozXjDE10u1S96cQwSqPVHgLlIHZevePbofcW8wpEMSpn5aSYDZqvgSlCqmN9WKHyZZ
- lfrFljbVRorCySiPCPxOHM6V1J0qYxOnVnnQLf21U+q756bQfoivhK8FSO12kOF2rEGn
- P8eERiggq3Q+KtOfmLHZbOTkXsxldror4NGVXun6ETZSgnGPcnn+M/DM0knFyjYwx9do
- 3QVrLsXZuNN+fQLIo0aTws7fz5NLII8gp67n6us9YoeoxLk8Kl3+eTsDFfvWwEErf7k2
- iYJQ==
+ bh=Eh0yf1lgtPbRzrPbuzjigiZ2dhg3uZqppPUNeSjlJCQ=;
+ b=q4TLRnB0Q9wSkqtPhUMbzQhr1jRbCWKxhfAt3NXGyR09l8P4xJfurmEaXTCYPma11E
+ 7Xv1m/3PgawMiLtXCItAlNuTGFio4+WEfFlL2O09rOqpsc37/s+YO2dP0mhxCTvjtT4u
+ FnoXCt4eoIkRnsC7A1PAyDrAwhK46x5TGMzQpr1qj+U2oUuhawIunoZlaGbmZL9WY70v
+ uMYkXdnmzr5E2kkdVIEx+X8ElWbTMOHAs0WjQDRoz6zkchtuF2BU9hSevXkW+YdDxkss
+ tjUSnYYVNTaxD5022nF1FC4Ry2K9VOg1smKM10enuj/hpvEw8YpVaWMdmpjWsJF/rS3P
+ NUow==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/Sz107To4QhJfqTV6/HMtPu3p0th2nr2Lch+bOwNfIwFkk2eEzMJylArKAuAhReumnmKVXL7mwh0LoKw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyTHMmQpqGjhYShlZGQaI8V8T9SUmKgE8CTAdM6FpgDnr79MxOv
- D/UGhVfvTtT3gkGZaWMLQBQG24bWV6Eg4e3T8g5D/5uKKL1NgzFPfq7i
-X-Gm-Gg: Acq92OFOOHa674ID1jd01aPj3bS6Zo0/qDEq2lYUF9dfh17Nj2Wu/f1qgbtS43lbBmB
- KjKorFDD95tDUCHQhztlR/9NUZMdC8DPvV22GTVXDRr4ma9HScNEEoA59ckwP881xPkj3+ZT+mB
- 3/fHLZJdRhNGU4oeTGC/TeLjSWdnVz9HJp3dGv0pO1K0eTLZRBbUs1LydnGpAOpcSU78BmxlyTm
- x+M9N7KGQIejvYNPRdAbt2rPx4wVbh2pCo4pVDDBjNE51bbmbE+1WH8kTSW6eiAxy4wEcslWRjq
- Mx3h31s5Xf/daJO6eFZ3y1qjZ5fq5zun9VGqCSwYBi+4fUR75G1hXo61meR/N07aTi43kKYXUE4
- 55/WXl7dH2pci5/0O3Pc3z4vlPQhhHxME0qLILzDKxtuoN7QyvFqT8t/EfQEr0zk3Sm6HQEDW6r
- LNuQCI9/KBNXWE0WHkrhQ0P2g8npvADwyW7Wcz4Bu02X/l0Spo3QqRAbMyjQ==
-X-Received: by 2002:a17:902:c40f:b0:2ba:bfc:76b5 with SMTP id
- d9443c01a7336-2bd2f4dba62mr24128275ad.4.1778669046222; 
- Wed, 13 May 2026 03:44:06 -0700 (PDT)
+ AFNElJ8pM6GgdnIjxNanYCDP+NMlNTkEnFgsBQ5waK8ANi7eDpujFvMAUpZC8G60ez4ylMmbkkUS3rWol16mpA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw/k1SzgXmfLKou8FGaNwXJoOnz1AoWKEGAV0SGAz+Ql3FPwmO9
+ jGR5HW53+7EvKwJSRH/G4cupJei4KmwrFNm9TAaAIWDhPNczvLbPzNK3
+X-Gm-Gg: Acq92OHW79NdqKDBAWYHiJWWvzG/RCC5nPTY3KNivAG63mLKtiu/9p1T5mGhQt05zqq
+ 9AxuWprghXkjo+ulBtgX+0r2yPrZEx9jm73nTzreFlDFTkgQ9d5ALytYVRl+i9u0mdmZ0fT3yiA
+ StVHSq2seprAAbaT3mAtBCbWxCB/Y5V5BIe/TZwEADNHlaQcOpe8+CluDrOWH3/yY0AQzIzljfm
+ UC3lgvf/YrtK/ZGO00bN/bUJwcu9yOkwE6/6Kw20vect8Y1VsrCcCr0Yg6ahxiDm6C8d9lXeyUf
+ wnN3wTYjbHQT3SpTR6wZ/lJmrloGUiLEoYpCWGeeV15373CuVAj8fbV3mnkJKkDwexEjavBAh6Y
+ lrvuLwEjDoZ4MW+hLyt8StviG0HCk+MF0yXjK5r0kwXKJtwPDAa4WacunDwQUiWlfKoz3vf5BE9
+ ku/PHJ8B5P+qh0B/2IhjMmGBAUpyfCKY+UxqYo0jw+lCmdDFH61WCD8rLiXg==
+X-Received: by 2002:a17:903:3843:b0:2b2:4260:109 with SMTP id
+ d9443c01a7336-2bd275c6580mr30109575ad.23.1778669051359; 
+ Wed, 13 May 2026 03:44:11 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2baf1e35e9dsm170479535ad.39.2026.05.13.03.44.03
+ d9443c01a7336-2baf1e35e9dsm170479535ad.39.2026.05.13.03.44.08
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 13 May 2026 03:44:06 -0700 (PDT)
+ Wed, 13 May 2026 03:44:11 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Olivier Moysan <olivier.moysan@foss.st.com>,
  Arnaud Pouliquen <arnaud.pouliquen@foss.st.com>,
  Mark Brown <broonie@kernel.org>
-Date: Wed, 13 May 2026 17:43:28 +0700
-Message-ID: <20260513104329.81592-4-phucduc.bui@gmail.com>
+Date: Wed, 13 May 2026 17:43:29 +0700
+Message-ID: <20260513104329.81592-5-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260513104329.81592-1-phucduc.bui@gmail.com>
 References: <20260513104329.81592-1-phucduc.bui@gmail.com>
@@ -83,8 +83,8 @@ Cc: Liam Girdwood <lgirdwood@gmail.com>, linux-kernel@vger.kernel.org,
  Takashi Iwai <tiwai@suse.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Jaroslav Kysela <perex@perex.cz>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 3/4] ASoC: stm: stm32_sai_sub: Use guard() for
-	mutex & spin locks
+Subject: [Linux-stm32] [PATCH 4/4] ASoC: stm: stm32_spdifrx: Use guard() for
+	spin locks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,7 +100,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 78985569991
+X-Rspamd-Queue-Id: 8B60E569992
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -144,106 +144,127 @@ X-Rspamd-Action: no action
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Clean up the code using guard() for mutex & spin locks.
+Clean up the code using guard() for spin locks.
 Merely code refactoring, and no behavior change.
 
 Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
 ---
- sound/soc/stm/stm32_sai_sub.c | 29 +++++++++++------------------
- 1 file changed, 11 insertions(+), 18 deletions(-)
+ sound/soc/stm/stm32_spdifrx.c | 44 +++++++++++++----------------------
+ 1 file changed, 16 insertions(+), 28 deletions(-)
 
-diff --git a/sound/soc/stm/stm32_sai_sub.c b/sound/soc/stm/stm32_sai_sub.c
-index 3e82fa90e719..ea9e8bddd63f 100644
---- a/sound/soc/stm/stm32_sai_sub.c
-+++ b/sound/soc/stm/stm32_sai_sub.c
-@@ -280,9 +280,8 @@ static int snd_pcm_iec958_get(struct snd_kcontrol *kcontrol,
+diff --git a/sound/soc/stm/stm32_spdifrx.c b/sound/soc/stm/stm32_spdifrx.c
+index 57b711c44278..2f83ca989e68 100644
+--- a/sound/soc/stm/stm32_spdifrx.c
++++ b/sound/soc/stm/stm32_spdifrx.c
+@@ -322,7 +322,6 @@ static void stm32_spdifrx_dma_ctrl_stop(struct stm32_spdifrx_data *spdifrx)
+ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
  {
- 	struct stm32_sai_sub_data *sai = snd_kcontrol_chip(kcontrol);
+ 	int cr, cr_mask, imr, ret;
+-	unsigned long flags;
  
--	mutex_lock(&sai->ctrl_lock);
-+	guard(mutex)(&sai->ctrl_lock);
- 	memcpy(uctl->value.iec958.status, sai->iec958.status, 4);
--	mutex_unlock(&sai->ctrl_lock);
+ 	/* Enable IRQs */
+ 	imr = SPDIFRX_IMR_IFEIE | SPDIFRX_IMR_SYNCDIE | SPDIFRX_IMR_PERRIE;
+@@ -330,7 +329,7 @@ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
+ 	if (ret)
+ 		return ret;
  
- 	return 0;
- }
-@@ -292,9 +291,8 @@ static int snd_pcm_iec958_put(struct snd_kcontrol *kcontrol,
- {
- 	struct stm32_sai_sub_data *sai = snd_kcontrol_chip(kcontrol);
+-	spin_lock_irqsave(&spdifrx->lock, flags);
++	guard(spinlock_irqsave)(&spdifrx->lock);
  
--	mutex_lock(&sai->ctrl_lock);
-+	guard(mutex)(&sai->ctrl_lock);
- 	memcpy(sai->iec958.status, uctl->value.iec958.status, 4);
--	mutex_unlock(&sai->ctrl_lock);
+ 	spdifrx->refcount++;
  
- 	return 0;
- }
-@@ -658,10 +656,10 @@ static irqreturn_t stm32_sai_isr(int irq, void *devid)
- 		status = SNDRV_PCM_STATE_XRUN;
+@@ -365,22 +364,17 @@ static int stm32_spdifrx_start_sync(struct stm32_spdifrx_data *spdifrx)
+ 				"Failed to start synchronization\n");
  	}
  
--	spin_lock(&sai->irq_lock);
--	if (status != SNDRV_PCM_STATE_RUNNING && sai->substream)
--		snd_pcm_stop_xrun(sai->substream);
--	spin_unlock(&sai->irq_lock);
-+	scoped_guard(spinlock, &sai->irq_lock) {
-+		if (status != SNDRV_PCM_STATE_RUNNING && sai->substream)
-+			snd_pcm_stop_xrun(sai->substream);
+-	spin_unlock_irqrestore(&spdifrx->lock, flags);
+-
+ 	return ret;
+ }
+ 
+ static void stm32_spdifrx_stop(struct stm32_spdifrx_data *spdifrx)
+ {
+ 	int cr, cr_mask, reg;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&spdifrx->lock, flags);
++	guard(spinlock_irqsave)(&spdifrx->lock);
+ 
+-	if (--spdifrx->refcount) {
+-		spin_unlock_irqrestore(&spdifrx->lock, flags);
++	if (--spdifrx->refcount)
+ 		return;
+-	}
+ 
+ 	cr = SPDIFRX_CR_SPDIFENSET(SPDIFRX_SPDIFEN_DISABLE);
+ 	cr_mask = SPDIFRX_CR_SPDIFEN_MASK | SPDIFRX_CR_RXDMAEN;
+@@ -396,8 +390,6 @@ static void stm32_spdifrx_stop(struct stm32_spdifrx_data *spdifrx)
+ 	/* dummy read to clear CSRNE and RXNE in status register */
+ 	regmap_read(spdifrx->regmap, STM32_SPDIFRX_DR, &reg);
+ 	regmap_read(spdifrx->regmap, STM32_SPDIFRX_CSR, &reg);
+-
+-	spin_unlock_irqrestore(&spdifrx->lock, flags);
+ }
+ 
+ static int stm32_spdifrx_dma_ctrl_register(struct device *dev,
+@@ -744,19 +736,19 @@ static irqreturn_t stm32_spdifrx_isr(int irq, void *devid)
+ 			return IRQ_HANDLED;
+ 		}
+ 
+-		spin_lock(&spdifrx->irq_lock);
+-		if (spdifrx->substream)
+-			snd_pcm_stop(spdifrx->substream,
+-				     SNDRV_PCM_STATE_DISCONNECTED);
+-		spin_unlock(&spdifrx->irq_lock);
++		scoped_guard(spinlock, &spdifrx->irq_lock) {
++			if (spdifrx->substream)
++				snd_pcm_stop(spdifrx->substream,
++					     SNDRV_PCM_STATE_DISCONNECTED);
++		}
+ 
+ 		return IRQ_HANDLED;
+ 	}
+ 
+-	spin_lock(&spdifrx->irq_lock);
+-	if (err_xrun && spdifrx->substream)
+-		snd_pcm_stop_xrun(spdifrx->substream);
+-	spin_unlock(&spdifrx->irq_lock);
++	scoped_guard(spinlock, &spdifrx->irq_lock) {
++		if (err_xrun && spdifrx->substream)
++			snd_pcm_stop_xrun(spdifrx->substream);
 +	}
  
  	return IRQ_HANDLED;
  }
-@@ -894,11 +892,9 @@ static int stm32_sai_startup(struct snd_pcm_substream *substream,
+@@ -765,12 +757,10 @@ static int stm32_spdifrx_startup(struct snd_pcm_substream *substream,
+ 				 struct snd_soc_dai *cpu_dai)
  {
- 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
- 	int imr, cr2, ret;
+ 	struct stm32_spdifrx_data *spdifrx = snd_soc_dai_get_drvdata(cpu_dai);
+-	unsigned long flags;
+ 	int ret;
+ 
+-	spin_lock_irqsave(&spdifrx->irq_lock, flags);
+-	spdifrx->substream = substream;
+-	spin_unlock_irqrestore(&spdifrx->irq_lock, flags);
++	scoped_guard(spinlock_irqsave, &spdifrx->irq_lock)
++		spdifrx->substream = substream;
+ 
+ 	ret = clk_prepare_enable(spdifrx->kclk);
+ 	if (ret)
+@@ -846,11 +836,9 @@ static void stm32_spdifrx_shutdown(struct snd_pcm_substream *substream,
+ 				   struct snd_soc_dai *cpu_dai)
+ {
+ 	struct stm32_spdifrx_data *spdifrx = snd_soc_dai_get_drvdata(cpu_dai);
 -	unsigned long flags;
  
--	spin_lock_irqsave(&sai->irq_lock, flags);
--	sai->substream = substream;
--	spin_unlock_irqrestore(&sai->irq_lock, flags);
-+	scoped_guard(spinlock_irqsave, &sai->irq_lock)
-+		sai->substream = substream;
+-	spin_lock_irqsave(&spdifrx->irq_lock, flags);
+-	spdifrx->substream = NULL;
+-	spin_unlock_irqrestore(&spdifrx->irq_lock, flags);
++	scoped_guard(spinlock_irqsave, &spdifrx->irq_lock)
++		spdifrx->substream = NULL;
  
- 	if (STM_SAI_PROTOCOL_IS_SPDIF(sai)) {
- 		snd_pcm_hw_constraint_mask64(substream->runtime,
-@@ -1083,7 +1079,7 @@ static void stm32_sai_set_iec958_status(struct stm32_sai_sub_data *sai,
- 		return;
- 
- 	/* Force the sample rate according to runtime rate */
--	mutex_lock(&sai->ctrl_lock);
-+	guard(mutex)(&sai->ctrl_lock);
- 	switch (runtime->rate) {
- 	case 22050:
- 		sai->iec958.status[3] = IEC958_AES3_CON_FS_22050;
-@@ -1116,7 +1112,6 @@ static void stm32_sai_set_iec958_status(struct stm32_sai_sub_data *sai,
- 		sai->iec958.status[3] = IEC958_AES3_CON_FS_NOTID;
- 		break;
- 	}
--	mutex_unlock(&sai->ctrl_lock);
+ 	clk_disable_unprepare(spdifrx->kclk);
  }
- 
- static int stm32_sai_configure_clock(struct snd_soc_dai *cpu_dai,
-@@ -1284,7 +1279,6 @@ static void stm32_sai_shutdown(struct snd_pcm_substream *substream,
- 			       struct snd_soc_dai *cpu_dai)
- {
- 	struct stm32_sai_sub_data *sai = snd_soc_dai_get_drvdata(cpu_dai);
--	unsigned long flags;
- 
- 	stm32_sai_sub_reg_up(sai, STM_SAI_IMR_REGX, SAI_XIMR_MASK, 0);
- 
-@@ -1298,9 +1292,8 @@ static void stm32_sai_shutdown(struct snd_pcm_substream *substream,
- 	if (!sai->sai_mclk && sai->put_sai_ck_rate)
- 		sai->put_sai_ck_rate(sai);
- 
--	spin_lock_irqsave(&sai->irq_lock, flags);
--	sai->substream = NULL;
--	spin_unlock_irqrestore(&sai->irq_lock, flags);
-+	scoped_guard(spinlock_irqsave, &sai->irq_lock)
-+		sai->substream = NULL;
- }
- 
- static int stm32_sai_pcm_new(struct snd_soc_pcm_runtime *rtd,
 -- 
 2.43.0
 
