@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id FsETIoF2BWoFXgIAu9opvQ
+	id mHeXNcp3BWoaXgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 09:15:13 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 09:20:42 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 274C953EC63
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 09:15:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 813AC53ECF1
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 09:20:42 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 38281C8F290;
-	Thu, 14 May 2026 07:15:12 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B622CC8F290;
+	Thu, 14 May 2026 07:20:41 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 77BDCC8F289
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BDC0DC8F289
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2026 07:15:11 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-44a14580111so5564836f8f.0
+ Thu, 14 May 2026 07:20:40 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-4891c00e7aeso63683075e9.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2026 00:15:11 -0700 (PDT)
+ Thu, 14 May 2026 00:20:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778742911; x=1779347711;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1778743240; x=1779348040;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references
  :mail-followup-to:message-id:subject:cc:to:from:date:from:to:cc
  :subject:date:message-id:reply-to;
- bh=cb1yUNLCTgn66O03RLwbPulTwZS1mMXYrlXUWjjfA8I=;
- b=tyexMeqY5uqjCCMNfUZcvwKfpratCEWTAPowCacsDO/suQJ8Fa02V4mJcjwRiILIy9
- SBN3J2qa5SPD47ry67s2Stzhf0W8brtD1j85U7bOjkTrXoUJe74DCn6sruCLusS/2AXV
- JIpkXxbzX7Y7skjFXshlzmZ2bJAfkKaNOu/ZlF9MT7TYbyc7EvwKPSijT0GyeqRztcV4
- MZ8mFFpXCAAXfO12ovY2dUQwvPMVeA9nRtfacXCxgGoRlD5vqnTe2xsbzm2K8x1NIY9e
- oP6G5Ngf0OiQO5Y9mU6RL4ev3QShSrFdtY2g7m/ffxOOX62kirjcOhnaHOY8RvSOJKMp
- bu0g==
+ bh=ojBKerXcsom5YLOUywnRgFuJgAkEyWjWD8C2JpwtbUw=;
+ b=O5k6ZkZoiSs6sWV1U/qtJR3gc38k5B/cglquB9iyTjquCfKyy3nmy1+HgIHflxdtj5
+ 4303YmZ6xMWSv8KENYwj+5KxD+fwKfGml9k+QSPNpF1DE23B5qkBzLrsglODzh5ZCkJD
+ jO5Rax+BBmV8DjBDWY00tmwFm+NM1nxV0m6iWInn7r1tvo+n0HdrZbvUioR/Im9JpfsR
+ U6AVGlijYPX5DUginBf/traF3txHZQFRPM8HuehkyCZ/bJztx2ZEs7eDn+Ix6PWRenOy
+ pYhAjBSY+IAg3eCqUTK9La3iid4Yk0Nml3AnVcfY67g03ZpbN3boLAExJ0zE4X/aFzNE
+ 73SQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778742911; x=1779347711;
+ d=1e100.net; s=20251104; t=1778743240; x=1779348040;
  h=in-reply-to:content-disposition:mime-version:references
  :mail-followup-to:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=cb1yUNLCTgn66O03RLwbPulTwZS1mMXYrlXUWjjfA8I=;
- b=HFYzisQmoTlL0QLeiOqXxPeAb/hpV3SZh8vGzLpLfrhypSq92urdjt0hdIiqguNOZu
- pWqhuK2N0aSEWsc1J1EtnVlI5ooljWXKpQmmrag8vda0rFDxqPG8smp9J49Qj26KKnMO
- hZKpXS+6q0ALFPsBCXkx6iVdBiMt4o5VfQORHhRwfZYz3g5kzN80YvUKb1BTqlanJgYx
- BuFh0uhu612VbnSboii8+Wjp232zyFdheimLXmD1KBlwwfcABALitD+oTH7rlKdYcYq8
- mQQMGm/348ruGuPVfbQ8ef0cnhjumRc/6oYO53lDG1nG4o6hTrjrhvf107qA1HVAED0P
- 9dqQ==
+ bh=ojBKerXcsom5YLOUywnRgFuJgAkEyWjWD8C2JpwtbUw=;
+ b=oUru52NEMIdtXEpKqWKN13W6sWz1RDVaCagn73uK8rW1lp7rfiV00ayAmQCPMyyCHD
+ w9/7EVkg4O4XXv1eX0pogr2x7oavq1VbBGmU9b/zbnDowcp09qtcRRmkLq94riy9IVDV
+ EwFIa/yqwK89SjEj0gZ2zR1nUFwbMey5hjkbyzyPqjyJ5lelIYWlAvj89mJq4AVnEz3V
+ 5wiWwsvQ8y9UEVpp/B5Ww14+PI0zjB6XH9MHgrGj7nVqzx5tYeTkeEz50Ssd8QAQyMnM
+ jiUaCiB+nk+mzzKH6cD8VKD4e6nsgBedQN/nZ0Nw/5Wi8vJHorGD9SIFBT55iC46MZdQ
+ RCfA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+UPC64Xz88UkbPlcjAN+Gh6Mqzsy+eRosl4+dhh4vIsSkJEjKBV/fRHfi23nw0HA/IMOJudV7S5Dw30A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwLOEklKGVLTn+IwdJ49jMsqcJxRPnJ73smR4dvZmpSpitrDOvm
- Ezcc7VUUnHEKAuJsMkkszVYTAZGJr3Jv5Vn+b/3gIj3ZCNoFAmoTLFYUepxsXRJdB9U=
-X-Gm-Gg: Acq92OEV6RK4+3jARKnN+y1oIodif/So5bdNnmj1TkvhUEzEycLy1GD/rrQbsXswJqT
- nOVPQ/i7U+ghwIAnmJxr4nRxD0GrU6nBbgH9efpWbiBCVpL5xn5kYCABbPHlEdfKVvC1X6hWCzt
- UXDWP1c5pKJhdseb+O1gTJALgCdKRjX6Gn+lvGVXAF3Xsoi7nVtNCqh8bshoDpvOHqS5EybWI20
- zkfkjcZHNvSSj/HRgTr011wa8PQc9RnaAlFcZHgkMDjlHusRtDfpsQTVjUI0kByaMq4OlfZURM2
- U7M/k/Fc8uobrZCT1YyPIXZoK+7m4c5VFg95aakUn/UdG+Xs0p97FlOCtVWb8Bd+/BzP9V/CRuG
- e2pOvEYWMTrvH2Z0CaAbZTC2f3k1dmedTB8AIUAYs0oAElNl6u6tbkl/+5nNTNo7XqjCrI4EXYY
- +/V+f8dd0LlYo6qLLsvpFLVZcDeA==
-X-Received: by 2002:a5d:588f:0:b0:44a:9b52:8891 with SMTP id
- ffacd0b85a97d-45c7814a552mr9697538f8f.11.1778742910811; 
- Thu, 14 May 2026 00:15:10 -0700 (PDT)
+ AFNElJ8t9oJ05zf4wm7K2VVCmm/2iRAVdF2jpZhf7PEJHFn2Zjw9FuSOMpZN8Bfgcrhwomktf9qAIhxNxb/7sw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx45I5an8yg+Fs2rNEvc0OmLuq6KMmNQZTT8Pr1aesHowJoxgdx
+ VoyfJKc6c4AwxgHWAa5uIwzCcPbXv9uOUc2Eo0N+ieLs34UZ39cLCg/3Wrxw9XBDgjg=
+X-Gm-Gg: Acq92OF3afJt2OpIwSN0u9fTD9cLeFiH3S0JoX49w8jRBZJUAEaChgzMq6Bt4X8o/mK
+ WN40sGZozqpJTk2qqFGto3xXoR7FNbh98INolZ6b7kv6yk09fWVN40l+bi4btGuzaWAUnK97mTo
+ JoRk65jJ74fAx5TNvkKaNdt8E6+Jyq058DvpOMcfoN5/Ohtjm609PDEPghKhS4r766tp2S+4Uo4
+ 8tMLENSVJryq2pc0LOLcUaQLTAICzlbuelJ7KpcTQyvSytDMtMv81FK1vkiiTBFkFa6phkZH+Su
+ 1OiPr9pGiM1JjmqoPUavFOk8Uh0SHeW1Z89Ez2T2/haTe/7Tnc5Z7UB4Q7qEt5SbA8soknApJXJ
+ JYm8cjXvcZTOV7kF5wCydqEU/8kUrc8oap2R8XKvJhWZA0PkOePZWLVXvJEQBIEG04BexrLVVLw
+ 3McEAYU4yLMH4e7+zhm1K0YZisnc1iBu8Y7WbZ
+X-Received: by 2002:a05:600c:1547:b0:485:ae14:8191 with SMTP id
+ 5b1f17b1804b1-48fc9a02785mr93973495e9.5.1778743239978; 
+ Thu, 14 May 2026 00:20:39 -0700 (PDT)
 Received: from archlinux ([2a07:7e81:7daa:0:62cf:84ff:feee:627])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45da15a666fsm4327136f8f.36.2026.05.14.00.15.09
+ 5b1f17b1804b1-48fdc6f0ab7sm22461275e9.15.2026.05.14.00.20.38
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 May 2026 00:15:10 -0700 (PDT)
-Date: Thu, 14 May 2026 09:15:09 +0200
+ Thu, 14 May 2026 00:20:39 -0700 (PDT)
+Date: Thu, 14 May 2026 09:20:38 +0200
 From: Angelo Dureghello <adureghello@baylibre.com>
 To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Message-ID: <y4zg2d5zghoz3miqevutiin5swfnx5y2zew2zlv4jklxsyly5g@sxeyvth2tkrk>
+Message-ID: <cabngw2wuxh7cfx4cw4ik46dmxs72u47jyo6hcwgdd7a5whny2@dsp4cysetarw>
 Mail-Followup-To: Andy Shevchenko <andriy.shevchenko@intel.com>, 
  Greg Ungerer <gerg@linux-m68k.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
  Steven King <sfking@fdwdc.com>, Arnd Bergmann <arnd@arndb.de>, 
@@ -83,11 +83,11 @@ Mail-Followup-To: Andy Shevchenko <andriy.shevchenko@intel.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  linux-iio@vger.kernel.org
 References: <20260513-wip-stmark2-dac-v2-0-fcdae50cf51a@baylibre.com>
- <20260513-wip-stmark2-dac-v2-8-fcdae50cf51a@baylibre.com>
- <agTcEECgJvBydhe2@ashevche-desk.local>
+ <20260513-wip-stmark2-dac-v2-9-fcdae50cf51a@baylibre.com>
+ <agTcoVbImqMgfQy5@ashevche-desk.local>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <agTcEECgJvBydhe2@ashevche-desk.local>
+In-Reply-To: <agTcoVbImqMgfQy5@ashevche-desk.local>
 Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
  linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
@@ -97,8 +97,8 @@ Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
  David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
  Jonathan Cameron <jic23@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v2 08/11] m68k: stmark2: add mcf5441x DAC
-	platform devices
+Subject: Re: [Linux-stm32] [PATCH v2 09/11] m68k: stmark2: use ioport.h
+	macros for resources
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,7 +114,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 274C953EC63
+X-Rspamd-Queue-Id: 813AC53ECF1
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -139,7 +139,7 @@ X-Spamd-Result: default: False [3.79 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[baylibre-com.20251104.gappssmtp.com:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.334];
+	NEURAL_HAM(-0.00)[-0.357];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -150,60 +150,63 @@ X-Spamd-Result: default: False [3.79 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
 Hi Andy,
 
-On 13.05.2026 23:16, Andy Shevchenko wrote:
-> On Wed, May 13, 2026 at 11:14:32AM +0200, Angelo Dureghello wrote:
+On 13.05.2026 23:18, Andy Shevchenko wrote:
+> On Wed, May 13, 2026 at 11:14:33AM +0200, Angelo Dureghello wrote:
 > 
-> > Add mcf5441x DAC platform devices.
+> > Align also other resource declaration using DEFINE_RES_.
 > 
-> ...
-> 
-> > +static struct resource dac0_resource[] = {
-> > +	DEFINE_RES_MEM(MCFDAC_BASE0, 0x100),
-> > +};
-> > +
-> > +static struct platform_device dac0_device = {
-> > +	.name = "mcf54415_dac",
-> > +	.id = 0,
-> > +	.num_resources = ARRAY_SIZE(dac0_resource),
-> > +	.resource = dac0_resource,
-> > +};
-> 
-> It can be
-> 
-> static struct resource dac0_resource = DEFINE_RES_MEM(MCFDAC_BASE0, 0x100);
-> 
-> static struct platform_device dac0_device = {
-> 	.name = "mcf54415_dac",
-> 	.id = 0,
-> 	.num_resources = 1,
-> 	.resource = &dac0_resource,
-> };
+> DEFINE_RES_*()
 > 
 > ...
 > 
-> Same for the rest. But I haven't seen the followups and don't know if those
-> structures are going to be expanded. The commit message doesn't say anything
-> about that. So I assume my suggestion valid.
+> >  static struct resource dspi_spi0_resource[] = {
+> > -	[0] = {
+> > -		.start = MCFDSPI_BASE0,
+> > -		.end   = MCFDSPI_BASE0 + 0xFF,
+> > -		.flags = IORESOURCE_MEM,
+> > -		},
+> > -	[1] = {
+> > -		.start = 12,
+> > -		.end   = 13,
+> > -		.flags = IORESOURCE_DMA,
+> > -	},
+> > -	[2] = {
+> > -		.start = MCF_IRQ_DSPI0,
+> > -		.end   = MCF_IRQ_DSPI0,
+> > -		.flags = IORESOURCE_IRQ,
+> > -	},
+> > +	DEFINE_RES_MEM(MCFDSPI_BASE0, 0x100),
+> > +	DEFINE_RES_DMA(12),
+> > +	DEFINE_RES_DMA(13),
+> > +	DEFINE_RES_IRQ(MCF_IRQ_DSPI0),
+> >  };
 > 
+> This conversion drops hard indices, would it be a problem (for example,
+> some code modifies the fields based on the [hard coded] index...)?
+> 
+> If not, perhaps good to mention in the commit message and move IRQ to be the
+> second one?
+>
 
-no. They are not going to be expanded, anyway, is there a real gain
-using an hardcoded 1 there ?
-
-Would not reissue a v3 for this honestly.
+i can't see any directly-related code accessing these resources by index,
+so would not change this if there isn't any risk. 
+Also i see DEFINE_RES_() stuff widely used in other arch, so thios make me
+think accessing by index is something wrong.
 
 > -- 
 > With Best Regards,
 > Andy Shevchenko
-> 
-> 
 
 Regards,
 angelo
+
+> 
+> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
