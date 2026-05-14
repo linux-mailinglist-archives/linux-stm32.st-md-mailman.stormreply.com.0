@@ -2,151 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id sOtfO9znBWqPdQIAu9opvQ
+	id gJxZNAPpBWqPdQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 17:18:52 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 17:23:47 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 94A75543E78
-	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 17:18:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 757A6543F45
+	for <lists+linux-stm32@lfdr.de>; Thu, 14 May 2026 17:23:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B473EC8F263;
-	Thu, 14 May 2026 15:18:51 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012000.outbound.protection.outlook.com [52.101.53.0])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F702C8F263;
+	Thu, 14 May 2026 15:23:47 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E2A1DC36B0B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61969C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2026 15:18:50 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=TXFrWPquLzE6Bpef/4RtSQVmrOwJ93jic1ZLvYEPTwD4xf8uQY3OCRvvQI9J4O2/Uwwz/d9YjkeANz6ApEqmhoCFQCI5cvh53b8T21rjMVu+t+lpZZ4sCcQwtVVWrdQ5+cYPLDt9rkE9mNQNHoRR4gQ20QRxJ05XsmYh3+g4mjG1HHXDaK7SyP6ybGXipi0n/b1SWz5ArFBg3WctPPD/AY1B/KX9gAnYK5PItwegJkcQmr6y/fZIaWYWZ5fgImlVs6e0wxjcxEHDaPVJRsqE+quURjVGiFrhnX55TPO8dlp5qFwu9IYv31UbVPom1zaU/BfrWuhxw7ven2kynxpQ7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=82HPIZb934xq7hP0IkNiKj+xuQ4pFwyQoeWjUNdr8fQ=;
- b=QNX0+RCjM1lHkRq2nxEUWDdX88oVmqVxHSSEz3updK3mG3rR6CWs6/hE4xeUT6XuXLgZNFAK3Oe9PsO5RJO3wSy4/dqePJ7i+5pj3aWfqmP3X51gLMTHNnDRwBdZKLktU/CB8AkUacUX6oixaQHk7MQ6FahS958u2gK16HlMctuGbQ6PIhvEeCyDHZUKDVoc+nxdGJ1AJOz1c7VV3MrukytmKWTrLaW1QlKJhaU/bb1b7h1TBCiZ/VdPxpLanDkRNva2cynaRUfyu3egWw9irhhBdot/wduNG1+1TrpG8/nkxqcpUuhQ/Rl2e04g17fXDRZviZosSs7Dli93LJvpqA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=82HPIZb934xq7hP0IkNiKj+xuQ4pFwyQoeWjUNdr8fQ=;
- b=vL+gf6NoL+H3q3KvdmMHNuRjpIAsIB8CgepqSku9FN/fJpOS7yjYAFyX5a9bmCtqB6MHrnk0biYen2SYAfw3zSLjay0XcYUUdwpJhPTDsjP9imPEv4BqkweBuZw4e1yQNx9NNV+y1upZkxWPgI1ji/dJsWgJJCBaCBMv7wwZf58=
-Received: from BY5PR03CA0026.namprd03.prod.outlook.com (2603:10b6:a03:1e0::36)
- by MN2PR12MB4128.namprd12.prod.outlook.com (2603:10b6:208:1dd::15)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9913.11; Thu, 14 May
- 2026 15:18:45 +0000
-Received: from SJ5PEPF000001D0.namprd05.prod.outlook.com
- (2603:10b6:a03:1e0:cafe::a4) by BY5PR03CA0026.outlook.office365.com
- (2603:10b6:a03:1e0::36) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.20.9870.27 via Frontend Transport; Thu,
- 14 May 2026 15:18:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF000001D0.mail.protection.outlook.com (10.167.242.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.25.13 via Frontend Transport; Thu, 14 May 2026 15:18:45 +0000
-Received: from SATLEXMB04.amd.com (10.181.40.145) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.41; Thu, 14 May
- 2026 10:18:25 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by SATLEXMB04.amd.com
- (10.181.40.145) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 14 May
- 2026 10:18:25 -0500
-Received: from [172.31.11.23] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Thu, 14 May 2026 10:18:20 -0500
-Message-ID: <f2222868-fef2-4a40-be1c-214020289440@amd.com>
-Date: Thu, 14 May 2026 10:18:19 -0500
+ Thu, 14 May 2026 15:23:46 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-48d146705b4so96116425e9.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 14 May 2026 08:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1778772226; x=1779377026;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=+gKCjNZN7Myh92wsTwdDyQ4hRCAPzb5zU67ocdyFfL8=;
+ b=YoPllqYppu/757V+kNdRSZzDfEXvjRVQ79vJLpirydmngZMaAn15Y5W2nrXtEXkPXq
+ 85cMYD533XNIyc98K5CJTa2XuS9VV3HfppvUveRGrPZCMRI5BN72A8yg4liMaOd4tSuL
+ 7z4Yao7QCuRxbYxLT3r3tvGIZKW8rv0mXVjFccFgsGOtAJ8BwOuZ9Zahx00vt8aJ/Jaq
+ NqnCktHL1dcxIkdg+JUgHYpDYOxzPzlJTBePujkzxlkJlq+NaSZhuVOEoM80RXETevAZ
+ SjVf+oMcuX9xtK2kiWZLPwypmpPujfVzioWGB2Cs0j6h8sFc33HuNAhxaO3x07xoGbz8
+ dVUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1778772226; x=1779377026;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=+gKCjNZN7Myh92wsTwdDyQ4hRCAPzb5zU67ocdyFfL8=;
+ b=ID2ewpazYJX8XeqaHAWPnnGXJP/BwPswnb2FBOwjUERPWVCV42MiLkyrj+0EDBNA/0
+ EjSPnCfUnYCPsUeWnR4Pir/DRBcMRRszTDGNAZPdWEugF0LQ0GXUP7906Uq8wuSBs+Zo
+ eE1yW6jMrJu3yHYcrIR2rAHWFDoF4vZD9dlywsCWmRFfv2QA1x/4g8nze92vovQepUYs
+ k37YVnU4vKOrwiJVA8tBSYGdcWBpCqqcJiXnMPMLTKvMs7Qj6lTXZtWNE635/t5vPtsD
+ XlkjH73fM2Kt1jxCiJA2VEwEsoL8tcTtEXjqHw1m1FrCTdpAlE9ILCtwPjByKvM6cL1G
+ s9+g==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+b9pTwkfjeo13pEd3ogLaTFX7LV/bjBwMwjIH+1VdRhwK/BgVWIus/OClrJqBe8gEIeBTVg+w6crHvZg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzdo31467+VwOav0VsEm8TkkyhGvSo621lPHGGxvY5eYkf34zMJ
+ jmvTAgR6LT2nNOpI6kcfbM+ld3uIAsz9dhRCH34ZO1mongMOd+4La+l4QtQNWqBW1F0=
+X-Gm-Gg: Acq92OGB3Tqp55TxosysF1iHb1YAZCge6vb0FW8RL57pMrkDFKFkaFQZ3XR9yJEntV6
+ f+Wb3unIF0qtpZlOr754pO6izXdguN6GOGcLIIMLLmOhVknBqirSWg2UkPHkUDMKzzwy9aqXVW3
+ 7/dBl1P1g9432Hmh+0DjbUTLRfKqiU2bzCmyjcZTRPtH8T61IyvM2zLoOwIWGom4ExYFrjKY64g
+ Hsc9WNo2Da7F6M/o0dD4/s/Yh/ZppJ2+kLS/zewxIveeyyJPae90EgxKdR5GG/cX494iTltRVUD
+ hR2dExmAshu/RfnzAXmrO6AawyCHGa+Z5nOSqBagAm4/s2TAFQjKyHtC4U6gKTD8o03EL5Wjy5H
+ JwIx6rt5+VaHWtK0cEvIFiLtu7/mrEDCcUeLE3l7zkYSOTi62EWoTOB110IMPEKrN34T6AAL/kh
+ JkZGOHrU1nUObQBdr6dEACp0jdcZFll5/K5J6NUujqSG3DVnzOE9JEDA6bdO1tKWoPHQpv/N9nb
+ 2n2V3Cz7Thr37n99yRFk5PEpziZQo9JN//Pqw27lQomH+TFefNAWzhrd3ATN1GYvO8wVM8X93OP
+ j/6Ir1UxA/zVwU9CqAA=
+X-Received: by 2002:a05:600c:c104:b0:48f:e230:2a25 with SMTP id
+ 5b1f17b1804b1-48fe2302b27mr16709485e9.32.1778772225397; 
+ Thu, 14 May 2026 08:23:45 -0700 (PDT)
+Received: from aspen.lan
+ (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+ by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-45d9ec39806sm7358296f8f.9.2026.05.14.08.23.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 May 2026 08:23:44 -0700 (PDT)
+Date: Thu, 14 May 2026 16:23:41 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <agXo_evi1oFLBJoo@aspen.lan>
+References: <20260501155421.3329862-1-elder@riscstar.com>
+ <20260501155421.3329862-13-elder@riscstar.com>
+ <01d6ea18-e022-41c7-a642-ac0321957923@oss.qualcomm.com>
+ <agRzai1UoHEIotZe@aspen.lan>
+ <3c6e7ec5-f600-44ee-a97a-211a99102744@lunn.ch>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: "Rob Herring (Arm)" <robh@kernel.org>, Liu Ying <victor.liu@nxp.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
- <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Rob Clark <robin.clark@oss.qualcomm.com>, 
- Sean Paul <sean@poorly.run>, Konrad Dybcio <konradybcio@kernel.org>, "Akhil P
- Oommen" <akhilpo@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang
- <jesszhan0024@gmail.com>, Marijn Suijten <marijn.suijten@somainline.org>,
- Vinod Koul <vkoul@kernel.org>, Nas Chung <nas.chung@chipsnmedia.com>, Jackson
- Lee <jackson.lee@chipsnmedia.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Mirela Rabulea <mirela.rabulea@nxp.com>, "Detlev
- Casanova" <detlev.casanova@collabora.com>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>, Heiko Stuebner <heiko@sntech.de>, "Hugues
- Fruchet" <hugues.fruchet@foss.st.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, MD Danish Anwar <danishanwar@ti.com>, Roger Quadros
- <rogerq@kernel.org>, Parvathi Pudi <parvathi@couthit.com>, "Mohan Reddy
- Putluru" <pmohan@couthit.com>, Bjorn Andersson <andersson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, "Jerome
- Brunet" <jbrunet@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Michal Simek <michal.simek@amd.com>,
- Mark Brown <broonie@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, "Linus
- Walleij" <linusw@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>, "Felix
- Fietkau" <nbd@nbd.name>, "Andrew F. Davis" <afd@ti.com>, Hussain Khaja
- <basharath@couthit.com>, Suman Anna <s-anna@ti.com>, Ben Levinsky
- <ben.levinsky@amd.com>, Tanmay Shah <tanmay.shah@amd.com>, Erwan Leray
- <erwan.leray@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-References: <20260511165942.2774868-1-robh@kernel.org>
-Content-Language: en-US
-From: "Shah, Tanmay" <tanmays@amd.com>
-In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
-Received-SPF: None (SATLEXMB04.amd.com: tanmays@amd.com does not designate
- permitted sender hosts)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF000001D0:EE_|MN2PR12MB4128:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5794162-9094-4f75-6f33-08deb1cc1728
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|7416014|376014|3023799003|921020|22082099003|18002099003|56012099003|11063799003;
-X-Microsoft-Antispam-Message-Info: j434hSJwySlu8HAmf+PxHnPKbC7mjagUUc/NDouRkBkY97/dERW9Z3NdALbm64PVV7jZ9WcxXqu8oGDc/M7KIwlzrPEHBuF/eKy8fQId+tAStvKEy7IS9M5aDTW6rrbUA5EDR8Ql4vUbrf8vMWCETcxjglknUVjl4J+gKiDBdhp8dK+CrLmUJwPOjQkPLSx0uqfc9tUdN6R5grhq0JKZWcdTmX5J63ARD4yecvv7nMnU41Z8zo2WJvYl3NEF7Hv2I/EscDrZ+6vRhFKDt3iA05aGj+AHrIGEH37gEiY3caacAUTiWwYle6TXpwKh7CHhYPBfmCJutonDk6XawnLsmk3sNPcM2Lj7ZG9wiFKyPx7JB9sLjHzsCNXWvgw0EC3CvS1RE5b6xPxK73dHkRO+WuYZKaefyVgsFgI/wdbSuZqbdffTLcE2ouzESZNwLcuVHsHmpvOAy2kls4ZAF3c5Z4AKJ6RdxHJwzsd1sdSgNvIX3QonUe5QIES8G6JscyGdeUjY2EgHkEQaNqsZ54K85xA91+Z/PE5Lisw85CO1dVKnHSdQBnfVLlEfshtWXpjUk5WwBtG3N7eaEJgFA0tAI5r8er+kM88320VKcaX6MFfowambZD505E4gVUDT9YH/teLrkQMnDeIvOfWMoWJXvTRU6Inf28FvEDfO4F2UatvgqbmEHxLWeTD7xB3arbyDbe3vE+Tztg2yt+U9nTAj56SMPQodK31lktZQfnXeUFo=
-X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(7416014)(376014)(3023799003)(921020)(22082099003)(18002099003)(56012099003)(11063799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: zexsxn6b5AthW2x+zN0EYG9Ngq90bzd6CSKZTo2VzAp9+IndlYFtjc0S1vCc+1ye4M6eW/K7Eg9Ame/XU2bmjHW6AAkQg2ZXL3VWruC8RMhlz3C5NPvkT/reFIzJzDifl24yr6nscFHPHZPACTQAzhmb1+Q4EXDbvl4HuX58SY5DpG84Ypb4DnSGdq7ZVYSLlKzky88SvE0iGBXgS75cLEYbGluJ+iqH8in47hkM8OcUFFda7cC0CfcVqq6QDKcRRkWtzbItTLB20YfRJmHDuw6tH0hHLPFIAQspAVAq3tvU/L9LzCCDgC2Z57d8Cinof/v5dO170/01BJhgo11YnfWBr+ZvCVk8pjcEd69HiZDOTVn4ynP8eVudbot44W1AZB+UPC+NRQhO+GDO6eMgWKBNZItuByTgyapW2Qqdc8FezBEnikkAgkEaqUkOEAO8
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 14 May 2026 15:18:45.2187 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5794162-9094-4f75-6f33-08deb1cc1728
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
- Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: SJ5PEPF000001D0.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4128
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-spi@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
- dmaengine@vger.kernel.org, linux-amlogic@lists.infradead.org,
- linux-media@vger.kernel.org, freedreno@lists.freedesktop.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- Roger Quadros <rogerq@ti.com>
-Subject: Re: [Linux-stm32] [PATCH] dt-bindings: Consolidate "sram" property
-	definition
+Content-Disposition: inline
+In-Reply-To: <3c6e7ec5-f600-44ee-a97a-211a99102744@lunn.ch>
+Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
+ chenchuangyu@xiaomi.com, edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ Alex Elder <elder@riscstar.com>, daniel@iogearbox.net, chenhuacai@kernel.org,
+ john.fastabend@gmail.com, maxime.chevallier@bootlin.com,
+ siyanteng@cqsoftware.com.cn, sdf@fomichev.me, kuba@kernel.org,
+ pabeni@redhat.com, konradybcio@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, hawk@kernel.org, arnd@arndb.de, brgl@kernel.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
+ rmk+kernel@armlinux.org.uk, wens@kernel.org, bpf@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, gregkh@linuxfoundation.org,
+ andersson@kernel.org, a0987203069@gmail.com, davem@davemloft.net,
+ andrew+netdev@lunn.ch, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
+ inochiama@gmail.com, krzk+dt@kernel.org, julianbraha@gmail.com,
+ matthew.gerlach@altera.com, linusw@kernel.org, hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next 12/12] arm64: dts: qcom:
+ qcs6490-rb3gen2: enable TC9564 with a single QCS8081 phy
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -158,379 +114,234 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: tanmay.shah@amd.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 94A75543E78
+X-Rspamd-Queue-Id: 757A6543F45
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [5.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[amd.com : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [3.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[riscstar-com.20251104.gappssmtp.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	R_DKIM_REJECT(1.00)[amd.com:s=selector1];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[riscstar.com : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_TO(0.00)[kernel.org,nxp.com,pengutronix.de,linux.intel.com,suse.de,gmail.com,ffwll.ch,oss.qualcomm.com,poorly.run,linux.dev,somainline.org,chipsnmedia.com,collabora.com,vanguardiasur.com.ar,sntech.de,foss.st.com,lunn.ch,davemloft.net,google.com,redhat.com,ti.com,couthit.com,linaro.org,baylibre.com,googlemail.com,amd.com,nbd.name];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER(0.00)[tanmays@amd.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:victor.liu@nxp.com,m:p.zabel@pengutronix.de,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:robin.clark@oss.qualcomm.com,m:sean@poorly.run,m:konradybcio@kernel.org,m:akhilpo@oss.qualcomm.com,m:lumag@kernel.org,m:abhinav.kumar@linux.dev,m:jesszhan0024@gmail.com,m:marijn.suijten@somainline.org,m:vkoul@kernel.org,m:nas.chung@chipsnmedia.com,m:jackson.lee@chipsnmedia.com,m:mchehab@kernel.org,m:mirela.rabulea@nxp.com,m:detlev.casanova@collabora.com,m:ezequiel@vanguardiasur.com.ar,m:heiko@sntech.de,m:hugues.fruchet@foss.st.com,m:alain.volmat@foss.st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:danishanwar@ti.com,m:rogerq@k
- ernel.org,m:parvathi@couthit.com,m:pmohan@couthit.com,m:andersson@kernel.org,m:mathieu.poirier@linaro.org,m:neil.armstrong@linaro.org,m:khilman@baylibre.com,m:jbrunet@baylibre.com,m:martin.blumenstingl@googlemail.com,m:michal.simek@amd.com,m:broonie@kernel.org,m:matthias.bgg@gmail.com,m:angelogioacchino.delregno@collabora.com,m:linusw@kernel.org,m:lorenzo@kernel.org,m:nbd@nbd.name,m:afd@ti.com,m:basharath@couthit.com,m:s-anna@ti.com,m:ben.levinsky@amd.com,m:tanmay.shah@amd.com,m:erwan.leray@foss.st.com,m:fabrice.gasnier@foss.st.com,m:devicetree@vger.kernel.org,m:imx@lists.linux.dev,m:linux-arm-msm@vger.kernel.org,m:linux-remoteproc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-spi@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-mediatek@lists.infradead.org,m:netdev@vger.kernel.org,m:dmaengine@vger.kernel.org,m:linux-amlogic@lists.infradead.org,m:linux-media@vger.kernel.org,m:freedreno@lists.freedesktop.org,m:linux-stm32@st-md-m
- ailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:rogerq@ti.com,m:krzk@kernel.org,m:conor@kernel.org,s:lists@lfdr.de];
-	DKIM_TRACE(0.00)[amd.com:-];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[devicetree.org:url,amd.com:email,amd.com:mid,amd.com:replyto,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	REPLYTO_DOM_EQ_FROM_DOM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:me@ziyao.cc,m:ast@kernel.org,m:linux-kernel@vger.kernel.org,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:elder@riscstar.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:bpf@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:konrad.dybcio@oss.qualcomm.com,m:gregkh@linuxfoundation.org,
+ m:andersson@kernel.org,m:a0987203069@gmail.com,m:davem@davemloft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:inochiama@gmail.com,m:krzk+dt@kernel.org,m:julianbraha@gmail.com,m:matthew.gerlach@altera.com,m:linusw@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER(0.00)[daniel@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[tanmays@amd.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[80];
-	MID_RHS_MATCH_FROM(0.00)[];
-	HAS_REPLYTO(0.00)[tanmay.shah@amd.com];
-	NEURAL_HAM(-0.00)[-0.434];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
+	RCPT_COUNT_GT_50(0.00)[50];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	RCVD_COUNT_SEVEN(0.00)[8]
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[daniel@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,vger.kernel.org,xiaomi.com,google.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,riscstar.com,iogearbox.net,gmail.com,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,linuxfoundation.org,davemloft.net,lunn.ch];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_SPAM(0.00)[0.531];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,aspen.lan:mid,1c:email]
 X-Rspamd-Action: no action
 
-Reviewed-by: Tanmay Shah <tanmay.shah@amd.com>
-
-On 5/11/2026 11:59 AM, Rob Herring (Arm) wrote:
-> The "sram" property has become a de facto standard property, so create a
-> common schema for it and drop all the duplicated definitions.
-> 
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
->  .../imx/fsl,imx8qxp-dc-command-sequencer.yaml |  2 +-
->  .../devicetree/bindings/display/msm/gpu.yaml  |  6 +----
->  .../bindings/dma/stericsson,dma40.yaml        |  8 ++----
->  .../bindings/media/cnm,wave521c.yaml          |  2 +-
->  .../bindings/media/nxp,imx8-jpeg.yaml         |  6 ++---
->  .../bindings/media/rockchip,vdec.yaml         |  5 ++--
->  .../bindings/media/st,stm32-dcmi.yaml         |  6 ++---
->  .../devicetree/bindings/net/mediatek,net.yaml |  3 +--
->  .../bindings/net/ti,icssg-prueth.yaml         |  2 +-
->  .../bindings/net/ti,icssm-prueth.yaml         |  2 +-
->  .../remoteproc/amlogic,meson-mx-ao-arc.yaml   |  7 +----
->  .../bindings/remoteproc/ti,k3-dsp-rproc.yaml  |  8 ------
->  .../bindings/remoteproc/ti,k3-r5f-rproc.yaml  |  8 ------
->  .../remoteproc/xlnx,zynqmp-r5fss.yaml         |  9 +------
->  .../devicetree/bindings/spi/st,stm32-spi.yaml | 10 +++----
->  .../bindings/sram/sram-consumer.yaml          | 26 +++++++++++++++++++
->  16 files changed, 48 insertions(+), 62 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/sram/sram-consumer.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/display/imx/fsl,imx8qxp-dc-command-sequencer.yaml b/Documentation/devicetree/bindings/display/imx/fsl,imx8qxp-dc-command-sequencer.yaml
-> index 27118f4c0d28..fd095e5742c5 100644
-> --- a/Documentation/devicetree/bindings/display/imx/fsl,imx8qxp-dc-command-sequencer.yaml
-> +++ b/Documentation/devicetree/bindings/display/imx/fsl,imx8qxp-dc-command-sequencer.yaml
-> @@ -41,7 +41,7 @@ properties:
->        - const: sw3
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> +    maxItems: 1
->      description: phandle pointing to the mmio-sram device node
->  
->  required:
-> diff --git a/Documentation/devicetree/bindings/display/msm/gpu.yaml b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> index 04b2328903ca..358759fad8dc 100644
-> --- a/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> +++ b/Documentation/devicetree/bindings/display/msm/gpu.yaml
-> @@ -84,13 +84,9 @@ properties:
->      maxItems: 64
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle-array
->      minItems: 1
->      maxItems: 4
-> -    items:
-> -      maxItems: 1
-> -    description: |
-> -      phandles to one or more reserved on-chip SRAM regions.
-> +    description:
->        phandle to the On Chip Memory (OCMEM) that's present on some a3xx and
->        a4xx Snapdragon SoCs. See
->        Documentation/devicetree/bindings/sram/qcom,ocmem.yaml
-> diff --git a/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml b/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml
-> index 607da11e7baa..d8f92838f4c9 100644
-> --- a/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml
-> +++ b/Documentation/devicetree/bindings/dma/stericsson,dma40.yaml
-> @@ -136,13 +136,9 @@ properties:
->      maxItems: 1
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle-array
-> -    description: A phandle array with inner size 1 (no arg cells).
-> -      First phandle is the LCPA (Logical Channel Parameter Address) memory.
-> -      Second phandle is the  LCLA (Logical Channel Link base Address) memory.
-> -    maxItems: 2
->      items:
-> -      maxItems: 1
-> +      - description: LCPA (Logical Channel Parameter Address) memory.
-> +      - description: LCLA (Logical Channel Link base Address) memory.
->  
->    memcpy-channels:
->      $ref: /schemas/types.yaml#/definitions/uint32-array
-> diff --git a/Documentation/devicetree/bindings/media/cnm,wave521c.yaml b/Documentation/devicetree/bindings/media/cnm,wave521c.yaml
-> index 6a11c1d11fb5..6cd33dfd095d 100644
-> --- a/Documentation/devicetree/bindings/media/cnm,wave521c.yaml
-> +++ b/Documentation/devicetree/bindings/media/cnm,wave521c.yaml
-> @@ -37,7 +37,7 @@ properties:
->      maxItems: 1
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> +    maxItems: 1
->      description:
->        The VPU uses the SRAM to store some of the reference data instead of
->        storing it on DMA memory. It is mainly used for the purpose of reducing
-> diff --git a/Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml b/Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
-> index 18cc6315a821..6ba668aa633d 100644
-> --- a/Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
-> +++ b/Documentation/devicetree/bindings/media/nxp,imx8-jpeg.yaml
-> @@ -56,10 +56,10 @@ properties:
->      maxItems: 5               # Wrapper and 4 slots
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> +    maxItems: 1
->      description:
-> -      Optional phandle to a reserved on-chip SRAM regions. The SRAM can
-> -      be used for descriptor storage, which may improve bus utilization.
-> +      The SRAM can be used for descriptor storage, which may improve bus
-> +      utilization.
->  
->  required:
->    - compatible
-> diff --git a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
-> index 42022401d0ff..4f38a0ef29d8 100644
-> --- a/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
-> +++ b/Documentation/devicetree/bindings/media/rockchip,vdec.yaml
-> @@ -91,9 +91,8 @@ properties:
->      maxItems: 1
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> -    description: |
-> -      phandle to a reserved on-chip SRAM regions.
-> +    maxItems: 1
-> +    description:
->        Some SoCs, like rk3588 provide on-chip SRAM to store temporary
->        buffers during decoding.
->  
-> diff --git a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> index d9fbb90b0977..7c2ddd27780f 100644
-> --- a/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> +++ b/Documentation/devicetree/bindings/media/st,stm32-dcmi.yaml
-> @@ -47,10 +47,10 @@ properties:
->      maxItems: 1
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> +    maxItems: 1
->      description:
-> -      phandle to a reserved SRAM region which is used as temporary
-> -      storage memory between DMA and MDMA engines.
-> +      SRAM region which is used as temporary storage memory between DMA and
-> +      MDMA engines.
->  
->    port:
->      $ref: /schemas/graph.yaml#/$defs/port-base
-> diff --git a/Documentation/devicetree/bindings/net/mediatek,net.yaml b/Documentation/devicetree/bindings/net/mediatek,net.yaml
-> index cc346946291a..6bbd83c6aaf7 100644
-> --- a/Documentation/devicetree/bindings/net/mediatek,net.yaml
-> +++ b/Documentation/devicetree/bindings/net/mediatek,net.yaml
-> @@ -67,8 +67,7 @@ properties:
->        - const: ppe
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> -    description: phandle to mmio SRAM
-> +    maxItems: 1
->  
->    mediatek,ethsys:
->      $ref: /schemas/types.yaml#/definitions/phandle
-> diff --git a/Documentation/devicetree/bindings/net/ti,icssg-prueth.yaml b/Documentation/devicetree/bindings/net/ti,icssg-prueth.yaml
-> index c296e5711848..883033b19b8f 100644
-> --- a/Documentation/devicetree/bindings/net/ti,icssg-prueth.yaml
-> +++ b/Documentation/devicetree/bindings/net/ti,icssg-prueth.yaml
-> @@ -21,7 +21,7 @@ properties:
->        - ti,am654-sr1-icssg-prueth  # for AM65x SoC family, SR1.0
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> +    maxItems: 1
->      description:
->        phandle to MSMC SRAM node
->  
-> diff --git a/Documentation/devicetree/bindings/net/ti,icssm-prueth.yaml b/Documentation/devicetree/bindings/net/ti,icssm-prueth.yaml
-> index a98ad45ca66f..9370c43bc66a 100644
-> --- a/Documentation/devicetree/bindings/net/ti,icssm-prueth.yaml
-> +++ b/Documentation/devicetree/bindings/net/ti,icssm-prueth.yaml
-> @@ -24,7 +24,7 @@ properties:
->        - ti,am3359-prueth   # for AM33x SoC family
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> +    maxItems: 1
->      description:
->        phandle to OCMC SRAM node
->  
-> diff --git a/Documentation/devicetree/bindings/remoteproc/amlogic,meson-mx-ao-arc.yaml b/Documentation/devicetree/bindings/remoteproc/amlogic,meson-mx-ao-arc.yaml
-> index 76e8ca44906a..3f710433e937 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/amlogic,meson-mx-ao-arc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/amlogic,meson-mx-ao-arc.yaml
-> @@ -48,12 +48,7 @@ properties:
->      minItems: 1
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> -    description:
-> -      phandles to a reserved SRAM region which is used as the memory of
-> -      the ARC core. The region should be defined as child nodes of the
-> -      AHB SRAM node as per the generic bindings in
-> -      Documentation/devicetree/bindings/sram/sram.yaml
-> +    maxItems: 1
->  
->    amlogic,secbus2:
->      $ref: /schemas/types.yaml#/definitions/phandle
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> index b51bb863d759..8b1ed384ef22 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-dsp-rproc.yaml
-> @@ -75,16 +75,8 @@ properties:
->  # --------------------
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle-array
->      minItems: 1
->      maxItems: 4
-> -    items:
-> -      maxItems: 1
-> -    description: |
-> -      phandles to one or more reserved on-chip SRAM regions. The regions
-> -      should be defined as child nodes of the respective SRAM node, and
-> -      should be defined as per the generic bindings in,
-> -      Documentation/devicetree/bindings/sram/sram.yaml
->  
->  allOf:
->    - if:
-> diff --git a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-> index 775e9b3a1938..14e6b2f817b3 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/ti,k3-r5f-rproc.yaml
-> @@ -224,16 +224,8 @@ patternProperties:
->            at 0x0) or 0 (BTCM at 0x0), default value is 1 if omitted.
->  
->        sram:
-> -        $ref: /schemas/types.yaml#/definitions/phandle-array
->          minItems: 1
->          maxItems: 4
-> -        items:
-> -          maxItems: 1
-> -        description: |
-> -          phandles to one or more reserved on-chip SRAM regions. The regions
-> -          should be defined as child nodes of the respective SRAM node, and
-> -          should be defined as per the generic bindings in,
-> -          Documentation/devicetree/bindings/sram/sram.yaml
->  
->      required:
->        - compatible
-> diff --git a/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml b/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml
-> index ee63c03949c9..c7d5e58330d6 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/xlnx,zynqmp-r5fss.yaml
-> @@ -106,20 +106,13 @@ patternProperties:
->            - const: rx
->  
->        sram:
-> -        $ref: /schemas/types.yaml#/definitions/phandle-array
->          minItems: 1
->          maxItems: 8
-> -        items:
-> -          maxItems: 1
-> -        description: |
-> +        description:
->            phandles to one or more reserved on-chip SRAM regions. Other than TCM,
->            the RPU can execute instructions and access data from the OCM memory,
->            the main DDR memory, and other system memories.
->  
-> -          The regions should be defined as child nodes of the respective SRAM
-> -          node, and should be defined as per the generic bindings in
-> -          Documentation/devicetree/bindings/sram/sram.yaml
-> -
->        memory-region:
->          description: |
->            List of phandles to the reserved memory regions associated with the
-> diff --git a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> index 472e92974714..6d7d595e4ab3 100644
-> --- a/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> +++ b/Documentation/devicetree/bindings/spi/st,stm32-spi.yaml
-> @@ -89,12 +89,10 @@ properties:
->        - const: rxm2m
->  
->    sram:
-> -    $ref: /schemas/types.yaml#/definitions/phandle
-> -    description: |
-> -      Phandles to a reserved SRAM region which is used as temporary
-> -      storage memory between DMA and MDMA engines.
-> -      The region should be defined as child node of the AHB SRAM node
-> -      as per the generic bindings in Documentation/devicetree/bindings/sram/sram.yaml
-> +    maxItems: 1
-> +    description:
-> +      SRAM region which is used as temporary storage memory between DMA and
-> +      MDMA engines.
->  
->    power-domains:
->      maxItems: 1
-> diff --git a/Documentation/devicetree/bindings/sram/sram-consumer.yaml b/Documentation/devicetree/bindings/sram/sram-consumer.yaml
-> new file mode 100644
-> index 000000000000..f00087bd2879
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sram/sram-consumer.yaml
-> @@ -0,0 +1,26 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sram/sram-consumer.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: SRAM Consumers
-> +
-> +maintainers:
-> +  - Rob Herring <robh@kernel.org>
-> +
-> +select: true
-> +
-> +properties:
-> +  sram:
-> +    description:
-> +      Phandles to one or more reserved on-chip SRAM regions. The regions
-> +      should be defined as child nodes of the respective SRAM node, and
-> +      should be defined as per the generic bindings in,
-> +      Documentation/devicetree/bindings/sram/sram.yaml
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      maxItems: 1
-> +
-> +additionalProperties: true
-> +...
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gV2VkLCBNYXkgMTMsIDIwMjYgYXQgMDQ6MzU6MTNQTSArMDIwMCwgQW5kcmV3IEx1bm4gd3Jv
+dGU6Cj4gPiBIb3dldmVyIHRoZSByZWFsIHJlYXNvbiB3ZSBqYW1tZWQgdGhpcyBvbiBpcyBiZWNh
+dXNlIEkgY291bGRuJ3QgZmluZCBhCj4gPiB3YXkgdG8gZ2V0IHRoZSBwaHkvbWRpbyBjb2RlIHRv
+IHR1cm4gb25lIG9uLiBIb3dldmVyIGl0IGlzIHBvc3NpYmxlIHRvCj4gPiBhZGQgcmVndWxhdG9y
+IHN1cHBvcnQgdG8gTURJTyBkZXZpY2VzIGJ5IGV4dGVuZGluZyB0aGVpciBleGlzdGluZyBsb2dp
+Ywo+ID4gdG8gbWFuYWdlIHJlc2V0cyBzbyBpdCBjYW4gYWxzbyBtYW5hZ2UgYSByZWd1bGF0b3Iu
+IEl0IGNvbWVzIG91dCBmYWlybHkKPiA+IGNsZWFuIHNvIHdlIGNhbiBhZGQgdGhhdCB0byB0aGUg
+cGF0Y2ggc2V0IGFuZCByZW1vdmUgdGhlCj4gPiByZWd1bGF0b3ItYWx3YXlzLW9uLgo+Cj4gV2Us
+IEkgaGF2ZSByZWplY3RlZCB0aGlzIGJlZm9yZS4gSXQgbWlnaHQgbG9vayBjbGVhbiBhbmQgZWFz
+eSwgYnV0IGl0Cj4gaXMgbm90LiBIb3cgZG8geW91IGRldGVybWluZSB0aGUgb3JkZXIgb2YgZW5h
+YmxpbmcgcmVzZXQsIHJlZ3VsYXRvcnMKPiBjbG9ja3M/IEhvdyBkbyB5b3Ugc3BlY2lmeSB0aGUg
+bmVlZCBzbGVlcHMgaW4gYmV0d2VlbiB0aGVzZSBkaWZmZXJlbnQKPiBvcGVyYXRpb25zPwoKSSBh
+Z3JlZSBpdCBpcyBvbmx5IGVhc3kgZm9yIHRoZSBlYXN5IGNhc2VzLiBJIGNhbiBldmVuIGJlIHNw
+ZWNpZmljCnRoYXQsIGZvciBtZSwgdGhlIGVhc3kgY2FzZXMgbWVhbiBlbmFibGluZyBhIHNpbmds
+ZSByZWd1bGF0b3IgYW5kIHdoZXJlCnBvd2VyLW9uIHJlc2V0IGlzIG5vdCBzaWduaWZpY2FudGx5
+IHNsb3dlciB0aGFuIHJlc2V0LXBpbiByZXNldAptZWFuaW5nIHdlIGRvbuKAmXQgbmVlZCB0byBk
+aXN0aW5ndWlzaCBiZXR3ZWVuIGEgcG93ZXItY3ljbGluZyByZXNldCBhbmQKYSByZXNldC1waW4g
+cmVzZXQpLgoKSG93ZXZlciBJIHRoaW5rIHRoYXQgY29tcGxleCBjYXNlcyBjYW5ub3QgYmUgaGFu
+ZGxlZCBieSBnZW5lcmljIE1ESU8KY29kZS4gSSB0aGluayB0aGVzZSBjYXNlcyBhcmUgYmVzdCBz
+b2x2ZWQgZnJvbSB0aGUgTURJTyBwcm9iZSBtZXRob2Qgb2YKaW5kaXZpZHVhbCBQSFkgZHJpdmVy
+cy4KCgo+IFRoZXJlIGlzIG5vdGhpbmcgaW4gcGFydGljdWxhciBNRElPIHNwZWNpZmljIGhlcmUs
+IGFuZCB0aGVyZSBpcwo+IGdlbmVyaWMgcG93ZXIgc2VxdWVuY2luZyBjb2RlIGluIHRoZSBrZXJu
+ZWwuIEFuZCBhIHdoaWxlIGJhY2ssCj4gc29tZWJvZHkgc2FpZCB0aGV5IHdvdWxkIGxvb2sgYXQg
+d2hhdCBpcyBuZWVkZWQgdG8gbWFrZSBNRElPIGJ1c3Nlcwo+IGFuZCBFdGhlcm5ldCBQSFlzIG1h
+a2UgdXNlIG9mIHRoYXQgZ2VuZXJpYyBwb3dlciBzZXF1ZW5jaW5nIGNvZGUuIFRoYXQKPiBpcyB0
+aGUgYmV0dGVyIHdheSB0byBkbyB0aGlzLgoKSeKAmWQgbG92ZSB0byBrbm93IGlmIHRoZXkgZ290
+IGFueXdoZXJlLiBJ4oCZdmUgcmV2aWV3ZWQgdGhlIHB3cnNlcQpzdWJzeXN0ZW0gYW5kIEkgZG9u
+4oCZdCB0aGluayBpdCBpcyBpbnRlbmRlZCB0byBzb2x2ZSB0aGUgcHJvYmxlbXMKcHJlc2VudGVk
+IGJ5IHRoZSBldGhlcm5ldCBwaHlzIG9uIGEgcmIzZ2VuMi4gTGV0IG1lIHRyeSB0byBleHBsYWlu
+IG15CnJlYXNvbmluZy4gTWF5YmUgc29tZW9uZSB3aWxsIGJlIGFibGUgdG8gcG9pbnQgb3V0IHdo
+YXQgSSBoYXZlIG1pc3NlZCEKCknigJltIGFmcmFpZCB0aGlzIG11c3QgYmUgbmVjZXNzYXJpbHkg
+bG9uZyBidXQgdG8gaGVscCBuYXZpZ2F0ZSB0aGUKZ2VuZXJhbCBzdHJ1Y3R1cmUgaXM6CgogMS4g
+UXVpY2sgcmV2aWV3IG9mIHRoZSBwd3JzZXEgc3Vic3lzdGVtCiAyLiBRdWljayByZXZpZXcgb2Yg
+dGhlIFBDSSBwb3dlciBjb250cm9sIGRyaXZlciwgYm90aCB0aGUgY29uY2VwdCBhbmQKICAgIHRv
+IG5vdGUgd2h5IHNvbWUgUENJIHBvd2VyIGNvbnRyb2wgZHJpdmVycyBkbyBub3QgdXNlIHB3cnNl
+cQogMy4gU3VtbWFyaXplIGhvdyB0aGlzIHdvcmtzIG9uIERUCiA0LiBJbnRyb2R1Y2UgYSBkZXNj
+cmlwdGlvbiBvZiBhbiBxY2E4MDgxIGluIOKAnG1vZGVybiBkZXZpY2V0cmVl4oCdCiA1LiBFeGFt
+aW5lIHdoZXRoZXIgcHdyc2VxIG9yIHRoZSBwb3dlciBjb250cm9sIGRyaXZlciBjb25jZXB0IHdv
+dWxkCiAgICBtYWtlIHdyaXRpbmcgTURJTyBkZXZpY2UgZHJpdmVycyBlYXNpZXIgdGhhbiDigJxq
+dXN0IGRvaW5nIGl0IGluIHRoZQogICAgcHJvYmUgbWV0aG9k4oCdCgpwd3JzZXEgaXMgb25seSBn
+ZW5lcmljIGluIHRoZSBzZW5zZSB0aGF0IGhhcyBhIGNvbXBhY3QgY29uc3VtZXIgQVBJIGFuZAp0
+aGF0IGl0IHByb3ZpZGVzIHJldXNhYmxlIHRvb2xzIHRoYXQgYWxsb3cgKnNwZWNpZmljKiBwb3dl
+ciBzZXF1ZW5jaW5nCmRyaXZlcnMgdG8gYmUgd3JpdHRlbiByZWxhdGl2ZWx5IGVhc2lseS4gVGhl
+IHNwZWNpZmljIGRyaXZlcnMgY3JlYXRlZAp3aXRoIHRoZXNlIHRvb2xzIHR5cGljYWxseSBiaW5k
+IHRvIHNvbWV0aGluZyBjb25jcmV0ZSBpbiB0aGUgRFQgKGUuZy4KY29tcGF0aWJsZSA9ICJwY2ll
+LW0yLW0tY29ubmVjdG9yIiBvciAicWNvbSx3Y242ODU1LXBtdSIpOiB0aGluZ3MgeW91CmNhbiBw
+b2ludCB0byBzdWNoIGFzIHRoZSBNLjIgc2xvdCBvciBhIHNwZWNpYWwgcHVycG9zZSBwb3dlciBt
+YW5hZ2VtZW50CnVuaXQgaW4gYSBjb21ibyBjaGlwLgoKVGhlIHB3cnNlcSBjb3JlIGFsbG93cyBl
+YWNoIGRyaXZlciB0byByZWdpc3RlciBhIC5tYXRjaCgpIG1ldGhvZCB0bwphbGxvdyBwd3JzZXEg
+ZHJpdmVyIHJlY29nbmlzZSB0aGF0IGFub3RoZXIgZHJpdmVyIGhhcyBhc2tlZCBmb3IgaXRzCmhl
+bHAgdG8gZW5hYmxlIGEgcHdyc2VxIHRhcmdldC4gVGhleSB1c3VhbGx5IG1hdGNoLCBub3QgYnkg
+Y29tcGF0aWJsZQpidXQgYnkgdHJhdmVyc2luZyB0aGUgcGhhbmRsZSByZWxhdGlvbnNoaXBzIGZy
+b20gdGhlIGRldmljZeKAmXMgRFQgbm9kZQp0byB2ZXJpZnkgdGhhdCB0aGV5IGxpbmsgYmFjayB0
+byB0aGUgcHdyc2VxIGRyaXZlciBpbiB0aGUgZXhwZWN0ZWQKbWFubmVyLgoKRm9yIGV0aGVybmV0
+IHBoeXMgSSdtIGRvdWJ0ZnVsIHB3cnNlcSBvZmZlcnMgYW55IGJlbmVmaXQgYmVjYXVzZSBtb3N0
+CnBoeXMgYXJlIHN0YW5kYWxvbmUgYW5kIHRoZXJlZm9yZSBqdXN0IGdldCBhIGJ1bmNoIG9mIGJv
+YXJkIGxldmVsCnJlZ3VsYXRvcnM6IHRoZXJlIGlzbuKAmXQgYW55dGhpbmcgY29uY3JldGUgaW4g
+dGhlIERUIGZvciB3aGljaCB3ZSBjYW4KaW5zdGFudGlhdGUgYSBwd3JzZXEgZGV2aWNlLiBXaXRo
+b3V0IGEgZGV2aWNlIGl0IGlzIGRpZmZpY3VsdCB0byBmaXJlCnVwIGEgZHJpdmVyIHRoYXQgaXMg
+cmVzcG9uc2libGUgZm9yIGtub3dpbmcgd2hhdCBwb3dlciBzZXF1ZW5jZSBpcwpuZWVkZWQgdG8g
+YWN0aXZhdGUgdGhlIHBoeS4gSXQgaXMgdGhlcmVmb3JlIGJldHRlciB0byBlbmNvZGUgdGhpcwpr
+bm93bGVkZ2UgaW4gdGhlIHBoeSBkcml2ZXIgaW5zdGVhZC4KCkFub3RoZXIgcmVsYXRlZC1idXQt
+ZGlmZmVyZW50IGNvbmNlcHQgaXMgUENJIHBvd2VyIGNvbnRyb2wgZHJpdmVycy4KV2hlbiBwd3Jz
+ZXEgd2FzIGludHJvZHVjZWQgdGhlIGZpcnN0IGNsaWVudCB3YXMgYSBQQ0kgcG93ZXIgY29udHJv
+bApkcml2ZXIuIFBDSSBwb3dlciBjb250cm9sIGRyaXZlcnMgYXJlIHVzZWQgdG8gc29sdmUgY2hp
+Y2tlbi1hbmQtZWdnIGJ1cwplbnVtZXJhdGlvbiBwcm9ibGVtcy4gVGhleSB3b3JrIGJpbmRpbmcg
+YSBwbGF0Zm9ybSBidXMgZHJpdmVyIHRvIGFueQpQQ0kgZGV2aWNlIHdpdGggYSBjb21wYXRpYmxl
+IHN0cmluZyAoZS5nLiBjb21wYXRpYmxlID0gInBjaTE3Y2IsMTEwMyIpCmJlZm9yZSBhdHRlbXB0
+aW5nIHRvIGVudW1lcmF0ZSB0aGUgcmVhbCBkZXZpY2UuIFRoZSBwbGF0Zm9ybSBkZXZpY2UKZHJp
+dmVyIHJlc3BvbnNpYmxlIGZvciB0dXJuaW5nIG9uIHRoZSBwb3dlciByZWFkeSBmb3IgZW51bWVy
+YXRpb24gYnV0CmRvZXMgbm90IGRyaXZlIHRoZSBhY3R1YWwgUENJIGRldmljZS4gVGhpcyBlbnN1
+cmVzIHRoZSBkZXZpY2UgY2FuCnJlc3BvbmQgdG8gZW51bWVyYXRpb24gcmVxdWVzdHMgYW5kLCBl
+dmVudHVhbGx5LCBwcm9iZSB0aGUg4oCccmVhbOKAnSBQQ0kKZHJpdmVyLgoKTm90ZSB0aGF0IHRo
+ZSBQQ0kgcG93ZXIgY29udHJvbCBkcml2ZXJzIGRvIG5vdCBoYXZlIHRvIHVzZSB0aGUgcHdyc2Vx
+CmZyYW1ld29yayB0byB0dXJuIHRoZSBwb3dlciBvbi4gVGhlcmUgYXJlIGV4YW1wbGVzIG9mIGJv
+dGggaW4gdGhlCmN1cnJlbnQgdHJlZToKCiogcGNpLXB3cmN0cmwtcHdyc2VxLmMgdXNlcyBwd3Jz
+ZXEgYW5kIGlzLCBhdCBpdCdzIGNvcmUsIGp1c3QgdGFibGUgb2YKICBjb21wYXRpYmxlIHN0cmlu
+Z3MgYW5kIHB3cnNlcSB0YXJnZXQgbmFtZXMuIFRoaXMgYWxsb3dzIGl0IHJlY29nbml6ZSwKICBm
+cm9tIHRoZSBjb21wYXRpYmxlIHN0cmluZyB3aGF0IHB3cnNlcSB0YXJnZXQgdG8gcmVxdWVzdC4K
+ICBGb3IgZXhhbXBsZSBvbiB3Y242ODU1IGl0IGNhbiByZXF1ZXN0IHRoYXQgb25seSB0aGUgV0xB
+TiBoYXJkd2FyZQogIGJlIGVuYWJsZWQgKEJUIHBvd2VyLW9uIGlzIHJlcXVlc3RlZCBzZXBhcmF0
+ZWx5IGJlZm9yZSB1c2luZyB0aGUKICBIQ0kgVUFSVCkuCgoqIHBjaS1wd3JjdHJsLXRjOTU2My5j
+IGlzIHRoZSBwb3dlciBjb250cm9sbGVyIGRyaXZlciBmb3IgdGhlCiAgVEM5NTZ4IFBDSWUgc3dp
+dGNoLiBUaGlzIGlzIGFuIGV4YW1wbGUgb2YgdGhlIGNhc2Ugd2hlcmUgdGhlcmUKICBpcyBub3Ro
+aW5nIGZvciBhIHB3cnNlcSBkcml2ZXIgdG8gYmluZCB0by4gVEM5NTZ4IGp1c3QgZ2V0cyBhIGJ1
+bmNoCiAgb2YgaW5kaXZpZHVhbCByZWd1bGF0b3JzIGFuZCBhIHJlc2V0IGxpbmUuIEZvciB0aGF0
+IHJlYXNvbgogIHBjaS1wd3JjdHJsLXRjOTU2MyBqdXN0IHVzZXMgdGhlIHJlZ3VsYXIgQyBjb2Rl
+IHRvIGdyYWIgZXZlcnl0aGluZwogIGlzIG5lZWRzLCByZWx5aW5nIG9uIHRoaW5ncyBsaWtlIHRo
+ZSBidWxrIHJlZ3VsYXRvciBoZWxwZXJzIGtlZXAgdGhlCiAgY29kZSBhcyBjb21wYWN0IGFzIHBv
+c3NpYmxlLgoKT25lIGtleSBpbnNpZ2h0IGFib3V0IHRoZSBhYm92ZSBpcyB0aGF0IHRoZXJlIGFy
+ZSB0aHJlZSBzZXBhcmF0ZSBkZXZpY2UKZHJpdmVycyBwYXJzaW5nIHNwZWNpZmljIHByb3BlcnRp
+ZXMgb2YgdGhlIG5vZGUuIEhhdmluZyBhbGwgdGhlCnByb3BlcnRpZXMgcmVsYXRlZCB0byBhIGRl
+dmljZSBpbiBhIHNpbmdsZSBub2RlIHdhcyB2ZXJ5IHN0cm9uZ2x5CnB1c2hlZCBmb3IgYnkgUm9i
+IEhbMV0gYW5kIEFGQUlLIGlzIGEga2V5IGV4cGVjdGF0aW9uIGZvciBuZXcgRFQKYmluZGluZ3Mu
+IFRoaXMgc3Ryb25nbHkgaW5mbHVlbmNlcyB0aGUgc2NvcGUgb2YgcHdyc2VxIGFuZCBQQ0kgcG93
+ZXIKY29udHJvbCAoYW5kIHBvd2VyIGRvbWFpbnMpIGFuZCBkaXNjb3VyYWdlcyBnaXZpbmcgRFQg
+YSBnZW5lcmljIG1lYW5zCnRvIGV4cHJlc3MgcG93ZXIgc2VxdWVuY2luZy4gVGhhdCBrbm93bGVk
+Z2UgaXMgaGFuZGVkIHRvIHVzIGltcGxpY2l0bHkKYnkgdGhlIGNvbXBhdGlibGUgc3RyaW5nIQoK
+Rm9yIGV4YW1wbGUsIGluIHRoZSBjYXNlIG9mIFdDTjY4NTVbMl0gd2UgaGF2ZToKCjEuIHBjaS1w
+d3JjdHJsLXB3cnNlcSB3aGljaCB1c2VzIHRoZSBjb21wYXRpYmxlIHN0cmluZyB0byBnZXQgaXRz
+ZWxmCiAgIGJvdW5kIGFuZCB0byBkZWNpZGUgd2hhdCBwd3JzZXEgdGFyZ2V0IHRvIGVuYWJsZS4K
+Mi4gcHdyc2VxLXFjb20td2NuIHdoaWNoIHJlYWRzIGFsbCB0aGUgKi1zdXBwbHkgcHJvcGVydGll
+cyB0b2dldGhlcgogICB3aXRoIGEgY291cGxlIG9mIGNsb2NrcyBhbmQgZW5hYmxlIGxpbmVzLiBJ
+dCBlbnN1cmVzIHdlIGRvbid0CiAgIGVuYWJsZSBhbnl0aGluZyB1bnRpbCB0aGUgcG93ZXIgbGlu
+ZXMgaGF2ZSBzZXR0bGVkLgozLiBhdGgxMWtbX3BjaV0gd2hpY2ggaXNu4oCZdCBwcm9iZWQgdW50
+aWwgdGhlIGRldmljZSBpcyDigJxvbuKAnSBhbmQKICAgdGhlbiByZWFkcyB0aGUgcmVtYWluaW5n
+IHByb3BlcnRpZXMgc3VjaCBhcyBxY29tLGNhbGlicmF0aW9uLXZhcmlhbnQKClsxXTogaHR0cHM6
+Ly9sb3JlLmtlcm5lbC5vcmcvYWxsL0NBTF9Kc3FMQW5KcVo5NV9iZjZfZkZtUEpGTWp1eTQzVWZQ
+MlV4ekVtRk1ObkdfdC1VZ0BtYWlsLmdtYWlsLmNvbS8KWzJdOiBodHRwczovL2dpdGh1Yi5jb20v
+dG9ydmFsZHMvbGludXgvYmxvYi9tYXN0ZXIvYXJjaC9hcm02NC9ib290L2R0cy9xY29tL3NjODI4
+MHhwLWxlbm92by10aGlua3BhZC14MTNzLmR0cyNMOTg3QzEtTDEwMDRDMwoKSW4gc2hvcnQsIHRo
+ZSBwd3JzZXEgY2xpZW50IEFQSSBpcyBiZWd1aWxpbmdseSBzaW1wbGUgYnV0IHRoYXQgZG9lcyBu
+b3QKbWVhbiB0aGUgcHJvdmlkZXJzIGFyZSBnZW5lcmljLiBJbiB0aGUgYWJvdmUgZXhhbXBsZSB0
+aGVyZSBtdXN0IHN0aWxsCmJlIHNvbWV0aGluZywgd3JpdHRlbiBpbiBDLCB0aGF0IGNvbnRhaW5z
+IGtub3dsZWRnZSBvZiBob3cgdG8gdHVybiBvbiBhCndjbjY4NTUuCgpMZXTigJlzIHR1cm4gb3Vy
+IGF0dGVudGlvbiB0byBNRElPLgoKRm9sbG93aW5nIHRoZSBwYXR0ZXJuIGFib3ZlIHdoZXJlIGFs
+bCB0aGUgbGlua3MgcmVsYXRlZCB0byBwb3dlciBjb21lCmZyb20gdGhlIG1haW4gZGV2aWNlIG5v
+ZGUsIHRoZW4gdGhlIHBoeSBub2RlIGZvciB0aGUgcWNhODA4MSBpbiBhbgpyYjNnZW4yIHdvdWxk
+IGxvb2sgbGlrZSBzb21ldGhpbmcgbGlrZSB0aGlzOgoKICAgIHRjOTU2eF9lbWFjMV9waHk6IGV0
+aGVybmV0LXBoeUAxYyB7CiAgICAgICAgY29tcGF0aWJsZSA9ICJldGhlcm5ldC1waHktaWQwMDRk
+LmQxMDEiOwogICAgICAgIHJlZyA9IDwweDFjPjsKCiAgICAgICAgcmVzZXQtZ3Bpb3MgPSA8JnRj
+OTU2eF9lbWFjMCAxIEdQSU9fQUNUSVZFX0xPVz47CiAgICAgICAgIyBPbiBSQjNnZW4yIGFsbCBz
+dXBwbGllcyBhcmUgY29udHJvbGxlZCBieSBhIHNpbmdsZSBHUElPCiAgICAgICAgIyBzbyB3ZSBs
+aW5rIGFsbCBzdXBwbGllcyB0byB0aGF0IHNpbmdsZSByZWd1bGF0b3IKICAgICAgICBhdmRkLXN1
+cHBseSA9IDwmcWVwXzFwOD47CiAgICAgICAgYXZkZDE4LXN1cHBseSA9IDwmcWVwXzFwOD47CiAg
+ICAgICAgdmRkLXN1cHBseSA9IDwmcWVwXzFwOD47CiAgICAgICAgdmRkbGRvLXN1cHBseSA9IDwm
+cWVwXzFwOD47CiAgICAgICAgdmRkMTgtc3VwcGx5ID0gPCZxZXBfMXA4PjsKICAgICAgICB2ZGQx
+MjUtc3VwcGx5ID0gPCZxZXBfMXA4PjsKCiAgICAgICAgcGluY3RybC1uYW1lcyA9ICJkZWZhdWx0
+IjsKICAgICAgICBwaW5jdHJsLTAgPSA8JnFlcF9pcnFfcGluPjsKICAgICAgICBpbnRlcnJ1cHRz
+LWV4dGVuZGVkID0gPCZ0bG1tIDEwMSBJUlFfVFlQRV9MRVZFTF9MT1c+OwogICAgfTsKCk9uY2Ug
+d2UgaGF2ZSBlc3RhYmxpc2hlZCB3aGF0IHRoZSBEVCBsb29rcyBsaWtlIHRoZW4gdGhlIHF1ZXN0
+aW9uCmJlY29tZXMgd2hlcmUgdG8gcHV0ICJzb21ldGhpbmcsIHdyaXR0ZW4gaW4gQyBbb3IgUnVz
+dF0sIHRoYXQgY29udGFpbnMKYnVybmVkIGluIGtub3dsZWRnZSBvZiBob3cgdG8gdHVybiBvbiBh
+IHdjbjY4NTVeSF5IXkheSF5IXkheSHFjYTgwODEiPwoKVGhlIHFjYTgwODEgb24gcmIzZ2VuMiBq
+dXN0IGdldHMgYSBidW5jaCBvZiBpbmRpdmlkdWFsIHJlZ3VsYXRvcnMgYW5kIGEKcmVzZXQuIEFz
+IGluIHRoZSBwY2ktcHdyY3RybC10Yzk1NjMgZXhhbXBsZSBhYm92ZSwgdGhpcyBtZWFucyB0aGVy
+ZSBpcwpub3RoaW5nIGluIHRoZSBEVCBmb3IgYSBwd3JzZXEgZHJpdmVyIHRvIGJpbmQgdG8uIEV2
+ZW4gaWYgd2UgY291bGQgZmluZAphIHdheSB0byBkbyB0aGF0LCBpdCBpcyBub3Qgb2J2aW91c2x5
+IHVzZWZ1bCB0byBkZWNvdXBsZSBob3cgdG8gdHVybiBvbgphbiBNRElPIGRldmljZSBmcm9tIGhv
+dyB0byBkcml2ZSBpdC4gVGh1cyBJIHRoaW5rIHRoZSByaWdodCBhbnN3ZXIgdG8KdGhhdCBpcyB0
+byBwdXQgdGhlIGNvZGUgdG8gZmlyZSB1cCB0aGUgcmVndWxhdG9ycyBpbnRvIHRoZSBxY2E4MDh4
+LmMKZHJpdmVyIGFuZCBpdCBsb29rcyB0byBtZSBsaWtlIHRoZSBleGlzdGluZyBwcm9iZS9yZW1v
+dmUgbWV0aG9kcyB3b3VsZAphbHJlYWR5IHdvcmsgcGVyZmVjdGx5IHdlbGwgYXMgdGhlIHBsYWNl
+IHRvIHB1dCBpdC4KCkRvZXMgTURJTyBidXMgY29kZSBuZWVkIHRvIGtub3cgYWJvdXQgcHdyc2Vx
+IGF0IGFsbD8gSSBkb24ndCB0aGluayBzby4KUGVyaGFwcyB0aGVyZSBhcmUgcGh5cyB0aGF0IGFy
+ZSBzdWl0YWJsZSB0byBiZSBtYW5hZ2VkIHZpYSBwd3JzZXEKYmVjYXVzZSB0aGV5IGFyZSBwYXJ0
+IG9mIGEgbGFyZ2VyIGV0aGVybmV0IGNoaXAgd2l0aCBzb21lIGtpbmQgb2YgUE1VLApidXQgdGhh
+dCBkb2VzbuKAmXQgcmVxdWlyZSBpdCB0byBiZSBleHBvc2VkIG91dHNpZGUgdGhlIGRyaXZlci4g
+VGhlCmRyaXZlcnMgZm9yIHN1Y2ggYSBwaHkgY2FuIHNpbXBseSBjYWxsIHRoZSBwd3JzZXEgQVBJ
+cyBmcm9tIGl0cyBwcm9iZQptZXRob2QuCgpEbyB3ZSBuZWVkIHNvbWV0aGluZyBlcXVpdmFsZW50
+IHRvIFBDSSBwb3dlciBjb250cm9sIGZvciB0aGUgTURJTyBidXM/CkkgZG9uJ3QgdGhpbmsgdGhl
+IHNhbWUgY2hpY2tlbi1hbmQtZWdnIHByb2JsZW0gYWN0dWFsbHkgZXhpc3RzIGZvciBNRElPCmJ1
+cy4gSWYgYSBzdWJub2RlIHdpdGggYSBjb21wYXRpYmxlIHN0cmluZyAoYW5kIHJlZ3VsYXRvcnMp
+IGV4aXN0cyB3ZQpkb24ndCBuZWVkIHRvIHNjYW4gdGhhdCBhZGRyZXNzIGJlY2F1c2Ugd2UgYWxy
+ZWFkeSBrbm93IGVub3VnaCBhYm91dAp0aGUgYnVzIHRvIHByb2JlIHRoZSBkcml2ZXIgYW5kIHRo
+ZXJlZm9yZSBjYW4gbGV0IHRoZSBkcml2ZXIgaGFuZGxlCnR1cm5pbmcgb24gdGhlIHBvd2VyIChq
+dXN0IGxpa2Ugd2UgZG8gZm9yIEkyQyBvciBTUEkgZHJpdmVycykuCgpNRElPIGRvZXMgaGF2ZSBi
+dXMgc2Nhbm5pbmcgYnV0IHdlIG9ubHkgbmVlZCB0byBzY2FuIGZvciB0aGluZ3Mgd2UKZG9u4oCZ
+dCBrbm93IGFib3V0IGFuZCBtdXN0IGRvIHNvIG9uIHRoZSBhc3N1bXB0aW9uIHRoZXkgYXJlIGFs
+cmVhZHkKcG93ZXJlZCBvbi4gVGhhdOKAmXMgYmVjYXVzZSB3aGVuIHdlIGRvbuKAmXQga25vdyB3
+aGF04oCZcyB0aGVyZSB0aGVuIHlvdXIKZWFybGllciBxdWVzdGlvbiAoIkhvdyBkbyB5b3UgZGV0
+ZXJtaW5lIHRoZSBvcmRlciBvZiBlbmFibGluZyByZXNldCwKcmVndWxhdG9ycyBjbG9ja3M/Iikg
+aXMgaW1wb3NzaWJsZSB0byBhbnN3ZXIuIFRoZXJlIGNvdWxkIGJlIGEgZ2VuZXJpYwpidXMtc3Vw
+cGx5IHByb3BlcnR5IHRvIGhhbmRsZSBlYXN5IGNhc2VzIHdoZXJlIGEgc2luZ2xlIHJlZ3VsYXRv
+cgphY3RpdmF0ZXMgZXZlcnl0aGluZyBvbiB0aGUgYnVzIGFsdGhvdWdoIHRoaXMgaXNu4oCZdCBu
+ZWVkZWQgb24gUkIzZ2VuMgpzaW5jZSB3ZSBzdGF0aWNhbGx5IGtub3cgd2hhdCBpcyBvbiB0aGUg
+YnVzLgoKSWYgeW91J3ZlIGdvdCB0aGlzIGZhciBhbmQgbm90IGZvdW5kIGEgZmF0YWwgbWlzdGFr
+ZSBpbiB0aGUgcmVhc29uaW5nCnRoZW4gcGVyaGFwcyBpdCBzb3VuZHMgbGlrZSBhbiBhd2Z1bCBs
+b3Qgb2YgY2h1cm4gdG8gaGF2ZSB0byBtb2RpZnkKZWFjaCBQSFkgZHJpdmVyIGV2ZXJ5IHRpbWUg
+dGhhdCBQSFkgaXMgdXNlZCBpbiBhbiBlbWJlZGRlZCBwbGF0Zm9ybQp3aXRoIHNvZnR3YXJlIGNv
+bnRyb2xsZWQgcmVndWxhdG9ycyEKClRoYXQsIGluIGEgbnV0c2hlbGwsIGlzIHdoeSBJIHdhcyB0
+ZW1wdGVkIHRvIGNvcHkgdGhlIHBoeS1zdXBwbHkKcHJvcGVydHkgdG8gY292ZXIgdGhlICJlYXN5
+IGNhc2VzIiB3ZSBkaXNjdXNzZWQgYXQgdGhlIG91dHNldC4gRG9pbmcgc28KZG9lcyBub3RoaW5n
+IHRvIGltcGVkZSB0aGUgaGFyZCBjYXNlcyBzaW5jZSB0aGUgY29kZSBmb3IgdGhhdCB3b3VsZApz
+dGlsbCB3b3JrIGZpbmUgZnJvbSB0aGUgTURJTyBwcm9iZSBtZXRob2QuIEF0IHdvcnN0IGEgZHJp
+dmVyIG1pZ2h0CmhhdmUgdG8gcmVnaXN0ZXIgd2l0aCBhIGZsYWcgdG8gc3VwcHJlc3MgYW55IGdl
+bmVyaWMgcG93ZXIvcmVzZXQgbG9naWMKZnJvbSB0aGUgY29yZSAoc2luY2UgaXQncyBvYnZpb3Vz
+bHkgd3JvbmcgdG8gd2FpdCBmb3IgYSByZXNldCB0bwpjb21wbGV0ZSBvbiBhIGRldmljZSB0aGF0
+IGlzbid0IHBvd2VyZWQgdXApLgoKVG8gYmUgY2xlYXIgSeKAmW0gdmVyeSBoYXBweSB0byBiYWNr
+IGF3YXkgZnJvbSBwaHktc3VwcGx5LiBXZSB1c2UgdGhlIHNhbWUKcGF0dGVybnMgd2Ugc2VlIGlu
+IEkyQyBhbmQgU1BJIGRyaXZlcnMgYW5kIHJlbHkgcHVyZWx5IG9uIHByb2JlIG1ldGhvZHMKaW5z
+dGVhZCB0byB0dXJuIG9uIHJlZ3VsYXRvcnMuIEhvd2V2ZXIgSSBkb27igJl0IHNlZSBob3cgdG8g
+ZXhwbG9pdCBwb3dlcgpzZXF1ZW5jaW5nIGNvZGUgdG8gaGVscCBkZXNjcmliZSB0aGVzZSB0aGlu
+Z3MgZ2VuZXJpY2FsbHkuCgoKRGFuaWVsLgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3Qt
+bWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBs
+eS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
