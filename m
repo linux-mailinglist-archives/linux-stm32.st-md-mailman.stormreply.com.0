@@ -2,104 +2,62 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 07YyEnfaCmoz8wQAu9opvQ
+	id 7JZiCnfaCmou8wQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:23:03 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAF565699AF
+	by mail.lfdr.de (Postfix) with ESMTPS id AD9A95699AC
 	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:23:00 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4019C5F1C5;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9883C5F1D4;
 	Mon, 18 May 2026 09:22:59 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3EE9C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 083DBC01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 15 May 2026 04:49:07 +0000 (UTC)
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-3665b67ed66so4792698a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 14 May 2026 21:49:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1778820546; cv=none;
- d=google.com; s=arc-20240605;
- b=ZBa11uwr24d8zEi8ovA0O3llPfJKGLJZATIRVpd5nNmrzyE7BHro5wXSASQ8eb7pbu
- 8Yk5bNWnfPsmwMh776BNctMxQbR5y5ycYJRe2zK1eA0Cgob8NUIO5EBfE/QL54+lj81C
- olO/ioYbZd965TIierfrYR2MDIFZILT9sPLLdOB/8Q3LB5Fv/rqJ577aG4VtL9RwG+At
- fMpX8uk+q1L5sQGoQepS+M0IBmK+H9z4bTQXjL7USGPh6DdbGh0xwL5z/vEjIa+qz7aI
- 9p9IgO8cSKH165+nqGmdUDed2wfmkgRpuHh+GZBOjcg3itEdC0ND5xeEVIHmw6/mlrfB
- +tgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:dkim-signature;
- bh=7Ze77vbekY63STpWUt0uP8LUCQHGr3bsiE2SLku80DU=;
- fh=GrUVzUqeQZ9cUa/VSX2S2k3t5jHZAmDwHP7rn/gWMS0=;
- b=b1NUMcNh2TIt1AC22UofSWd74WwRbA6LiHifPuo0UD7YxOC1le9THUhTMYqZh+T0E/
- sOSfQPqCp/bHJ1QW/19OIviu2l4yQhn9YEmnn8yMzKgGCrc6IGUNx2oemneAmKTwiIgn
- 0OUtRySe9qe+B/AYVbyIYqzMcA2XAF3HmUraCqMlgYMDEdg6ouLnNLX1UdA96n6AN4sM
- TE7s7sGx8v+IWvYNk7nLdO4khzupbqkoWGajm2QuCN8HNQ3CoDShvViGLxECR9TY8dUr
- wvBuiW6MyDNYxfjNmybsAoUwEl9vfBNrSvPjHRqu9m5fSD4UM1b/jdokwm7qm7EcCAAj
- nKYA==; darn=st-md-mailman.stormreply.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1778820546; x=1779425346;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:from:to:cc:subject:date:message-id:reply-to;
- bh=7Ze77vbekY63STpWUt0uP8LUCQHGr3bsiE2SLku80DU=;
- b=KUphVm6aZG3dtK9ypc+Yrzi2YVFNzMgFDsPcdFsRssnbPkO8rpQuW6wvsYbJbKYur/
- XstZsJ/vSD02D/0HbFwU5J2b1u6ybo4STDkeofOrUDWgKJPH/B43JEh2lbHpHYPBcljF
- OKL40h9fS60knRoBLkCm4y70BoKawDffbPAAic18OKkuEHtrbuuivcKqqjxU3/dPD0RN
- KrQg3lnYtpRLrawWAa4e35krcKFu+StdQaWTNGOdKXF5q+WAP08fLb2sOOCLTNi35KGA
- q1zRKZKyq87GTV8QHFAI8rrNb3EyMmRBgqM8kxWzwnC+pD0f6RldiKtycjICSY1NtuDQ
- 6CJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1778820546; x=1779425346;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=7Ze77vbekY63STpWUt0uP8LUCQHGr3bsiE2SLku80DU=;
- b=n9hvV5UiZOzsKORNj8lwpFD1OxgX4HZVf3DRGMsBxINIUtXfpqQG9YsB6o+NCBy5CN
- kZEyDlXmZtenzyZg/3W8yGgc/CvmGSYLLuv3iq5H3GaDGFF6nTwMbv1j04gEw4YuqNe9
- qv2IudmrS0Ad5fUrpzfUPTjd8SpVBTWr5uhs3XfW+Ohk15sd7jJIsPDwspRPKatZ0JZu
- WxofDO4Od7rrsyciQ6Yxx8aRVkBfyKIVsZ2wxN/sWwRPuFsp34NPFsbdhIDj46K5mKSK
- 6LZ8/tke2Jr6v7tJl1HATBCy0+huYNcd8w5rWCB9Bs4+M8qMLoRu0/HjE/p2Vz8r3Lbn
- dxXw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/EaTzMGvyjKhociZB/tyM9htA273J5otMm34RCFnHuqgV3Y1K3T+9sK6YG7xyv9RlLOtTo6Mr1BqGetQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxD76bPcWZtZTKXoTaAUrpkC72OEcIP9nkAclWFeIWIy3kDi8KV
- kPeBzw+lnDnNOdIbnq9qbO86QSfYVUYD5xTiqnXrw66yQ0MN7s2uZPmhOUu7sA3+wgmIQUGM4ZZ
- 476gDenYBpuARGJXnNHOXBadU9szMwmE=
-X-Gm-Gg: Acq92OH+9d6N3r/I1R4oK+4Xw0+9oJrm9K7tYqqRhiovLf/RHqrU3HWfM5mzjwTtVFU
- 1X56n4N6Z26CXdWX7/Qgzz8kAwkeprQpnKpbE9Q49ZrvKPyioq5fVnhhypwqkEdT2fSpGO2I66B
- DiybA41HZDtUoRoyeAlN1rto+eQsC018+7uzB6RmE6rvBY6d1cB5Q+i6GjR1iYKvZPESyDXxOyj
- mE8Ovmkui2+uyyYezc8OBYqUA0jTyxOzGDstLGa6/ZTkdjyT+MdSLAyxR+ch5Sz0MmYwUBBHnz7
- TipUWBHgOlxwtvOQlUSNJ9N4UxAREj6q6mIl55pA7J4sQC8U
-X-Received: by 2002:a17:90b:57c7:b0:369:2e00:1ff0 with SMTP id
- 98e67ed59e1d1-369519c6663mr2379277a91.6.1778820546309; Thu, 14 May 2026
- 21:49:06 -0700 (PDT)
+ Fri, 15 May 2026 05:40:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+ s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ii
+ zYTJX5EmybqG8LJ5U61c42f+3Bl+gwgY9z3qf5SUk=; b=ZgvlwtMbvG5zdcwKM1
+ bEcBP1pCGEoye4D0eALrnDkBR3EqjbXMyYhyXkdYrBLw4MInHo4EsX/rgGK0dfbS
+ Fxy3xuBLGRgTn02mrX7dxRRJt7whzWIK8CT1oL8xXUFO1m0jg1gWKc5SL/7zEucT
+ qwl7fSzVxeDaLnhWJibFu6vrU=
+Received: from PC-YLX4CAEK.company.local (unknown [])
+ by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id
+ _____wD3n5GCsQZqBgrWBQ--.2418S2; 
+ Fri, 15 May 2026 13:39:15 +0800 (CST)
+From: Ding Hui <dinghui1111@163.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
+ linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32
+ ARCHITECTURE), 
+ linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE), 
+ linux-kernel@vger.kernel.org (open list)
+Date: Fri, 15 May 2026 13:38:37 +0800
+Message-Id: <20260515053856.2310369-1-dinghui1111@163.com>
+X-Mailer: git-send-email 2.34.1
 MIME-Version: 1.0
-References: <20260513104329.81592-1-phucduc.bui@gmail.com>
- <20260513104329.81592-3-phucduc.bui@gmail.com>
- <agUknFcDIfwrOCld@sirena.co.uk>
- <CAABR9nHfXi5G4+sVnLbWWJctQHkWASTzTwiV424bO6BXZDqX+Q@mail.gmail.com>
- <agZ92TVjcYpEv_eH@sirena.co.uk>
-In-Reply-To: <agZ92TVjcYpEv_eH@sirena.co.uk>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Fri, 15 May 2026 11:48:55 +0700
-X-Gm-Features: AVHnY4LSRW3rAmjavn6_eDy_Qm1nhNiehY-HxiVuY8qyBRTItYTFMQaIPdHoTM4
-Message-ID: <CAABR9nHR13e3d46_Z7Q8ZkjQzKbkcPs2Er4sAvq6G1EEj-xoXw@mail.gmail.com>
-To: Mark Brown <broonie@kernel.org>
+X-CM-TRANSID: _____wD3n5GCsQZqBgrWBQ--.2418S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGw1Dtw47Ww4DGw4rCr1ftFb_yoW5Kr1rpa
+ 9Ik3y2yw1ktF4xJw43Jw48ZFy5XayrtF45G3s7Gws3ua1avF9Yvr13trWjva48CFn5AF1f
+ tFW5Caykua1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jEsjbUUUUU=
+X-Originating-IP: [220.248.55.69]
+X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC8wOo1GoGsYOaZwAA3v
 X-Mailman-Approved-At: Mon, 18 May 2026 09:22:57 +0000
-Cc: linux-kernel@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 2/4] ASoC: stm: stm32_i2s: Use guard() for
-	spin locks
+Cc: dinghui@lixiang.com, xiasanbo@lixiang.com, liuxuanjun@lixiang.com,
+ yangchen11@lixiang.com
+Subject: [Linux-stm32] [PATCH] net: stmmac: fix fatal bus error on resume by
+	reinitializing RX buffers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,84 +73,140 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: DAF565699AF
+X-Rspamd-Queue-Id: AD9A95699AC
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [5.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
-	DATE_IN_PAST(1.00)[76];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	MID_CONTAINS_FROM(1.00)[];
+	DATE_IN_PAST(1.00)[75];
+	R_DKIM_REJECT(1.00)[163.com:s=s110527];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[163.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	FREEMAIL_FROM(0.00)[163.com];
 	MIME_TRACE(0.00)[0:+];
-	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
 	RCVD_COUNT_THREE(0.00)[3];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:dinghui@lixiang.com,m:xiasanbo@lixiang.com,m:liuxuanjun@lixiang.com,m:yangchen11@lixiang.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[dinghui1111@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_SENDER(0.00)[phucducbui@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:broonie@kernel.org,m:linux-kernel@vger.kernel.org,m:tiwai@suse.com,m:linux-sound@vger.kernel.org,m:lgirdwood@gmail.com,m:mcoquelin.stm32@gmail.com,m:perex@perex.cz,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[phucducbui@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[163.com:-];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,suse.com,gmail.com,perex.cz,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[dinghui1111@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	HAS_XOIP(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	NEURAL_SPAM(0.00)[0.996];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,mail.gmail.com:mid]
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_SPAM(0.00)[0.997];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
 
-Hi,
+From: Ding Hui <dinghui@lixiang.com>
 
+On suspend, stmmac_suspend() calls stmmac_disable_all_queues() which
+stops the RX NAPI, but the RX DMA engine may still be running for a
+short window before stmmac_stop_all_dma() takes effect. During that
+window the hardware can write incoming frames into the buffers pointed
+to by the RX descriptors and write back the descriptors (clearing the
+OWN bit, updating length/status). Because NAPI is already disabled,
+the driver never refills these descriptors, so the RX ring is left in
+a "consumed but not refilled" state with HW-written content in the
+descriptor buffer-address fields.
 
-> > I'll send a v2 of the whole series with this fix.
-> > Would that work for you?
->
-> Yes.
+On resume, stmmac_clear_descriptors() only re-arms the OWN bit (rdes3)
+and does not repopulate the RX buffer address fields. As a result the
+descriptors still contain whatever the hardware wrote back during the
+suspend race. When the DMA is restarted, it dereferences these stale
+addresses and triggers a fatal bus error.
 
-Thank you for the confirmation.
-By the way, I have an architectural question that came up during my cleanup...
+Fix this by treating the RX ring the same way as on close/open around
+a PM transition:
 
-I noticed that the STM drivers currently manage clk_prepare_enable()/
-clk_disable_unprepare() directly from the dai_startup()/shutdown() paths.
+ - In stmmac_suspend(), after stmmac_stop_all_dma(), walk every RX
+   queue and free its buffers via dma_free_rx_xskbufs() when an XSK
+   pool is attached or dma_free_rx_skbufs() otherwise, then reset
+   rx_q->buf_alloc_num and clear rx_q->xsk_pool so the queue state
+   matches a freshly closed queue.
 
-After looking through various vendor audio drivers, I noticed that
-PM/clock handling styles still vary quite a lot between implementations.
+ - In stmmac_resume(), call init_dma_rx_desc_rings() before
+   stmmac_reset_queues_param() so RX buffers are re-allocated and
+   the descriptor buffer-address fields are properly repopulated
+   before the DMA is restarted.
 
-For example:
+After this change, post-resume RX descriptors always reference freshly
+allocated, driver-owned buffers, and the bus error no longer occurs.
 
-some Intel drivers enable clocks during dai_link init.
+Signed-off-by: Ding Hui <dinghui@lixiang.com>
+---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
-Samsung separates bus/interface clocks and operational clocks,
-enabling them in different paths such as probe() and set_sysclk()
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 3591755ea30b..8ed43187cf20 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -8176,6 +8176,9 @@ int stmmac_suspend(struct device *dev)
+ {
+ 	struct net_device *ndev = dev_get_drvdata(dev);
+ 	struct stmmac_priv *priv = netdev_priv(ndev);
++	u32 rx_count = priv->plat->rx_queues_to_use;
++	struct stmmac_rx_queue *rx_q;
++	u32 queue;
+ 	u8 chan;
+ 
+ 	if (!ndev || !netif_running(ndev))
+@@ -8198,6 +8201,19 @@ int stmmac_suspend(struct device *dev)
+ 	/* Stop TX/RX DMA */
+ 	stmmac_stop_all_dma(priv);
+ 
++	/* Free RX queue resources */
++	for (queue = 0; queue < rx_count; queue++) {
++		rx_q = &priv->dma_conf.rx_queue[queue];
++
++		/* Release the DMA RX socket buffers */
++		if (rx_q->xsk_pool)
++			dma_free_rx_xskbufs(priv, &priv->dma_conf, queue);
++		else
++			dma_free_rx_skbufs(priv, &priv->dma_conf, queue);
++		rx_q->buf_alloc_num = 0;
++		rx_q->xsk_pool = NULL;
++	}
++
+ 	stmmac_legacy_serdes_power_down(priv);
+ 
+ 	/* Enable Power down mode by programming the PMT regs */
+@@ -8316,6 +8332,14 @@ int stmmac_resume(struct device *dev)
+ 
+ 	mutex_lock(&priv->lock);
+ 
++	ret = init_dma_rx_desc_rings(ndev, &priv->dma_conf, GFP_KERNEL);
++	if (ret < 0) {
++		netdev_err(priv->dev, "%s: rx dma desc rings init failed\n", __func__);
++		mutex_unlock(&priv->lock);
++		rtnl_unlock();
++		return ret;
++	}
++
+ 	stmmac_reset_queues_param(priv);
+ 
+ 	stmmac_free_tx_skbufs(priv);
+-- 
+2.34.1
 
-UX500 and STM enable clocks during DAI startup()/shutdown()
-
-Tegra, Sunxi, and Rockchip often manage clocks through runtime
-PM callbacks
-
-From a maintainer perspective, is there generally interest in gradually
-converging these drivers toward more modern/common PM patterns,
-or is preserving existing hardware-specific sequencing usually preferred
-unless there is a concrete issue to solve?
-
-Best regard,
-Phuc
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
