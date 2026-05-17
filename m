@@ -2,78 +2,76 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yNbpIXIGCmqNwAQAu9opvQ
+	id cPbiJHIGCmqNwAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 21EBB562FDA
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7957D562FDB
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36734C87EDD;
-	Sun, 17 May 2026 18:18:25 +0000 (UTC)
-Received: from mail-oo1-f44.google.com (mail-oo1-f44.google.com
- [209.85.161.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 449D2C8F286;
+	Sun, 17 May 2026 18:18:26 +0000 (UTC)
+Received: from mail-oo1-f49.google.com (mail-oo1-f49.google.com
+ [209.85.161.49])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5DCEC01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A6412C8F286
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 May 2026 18:18:23 +0000 (UTC)
-Received: by mail-oo1-f44.google.com with SMTP id
- 006d021491bc7-6948e6bc30cso211494eaf.0
+ Sun, 17 May 2026 18:18:25 +0000 (UTC)
+Received: by mail-oo1-f49.google.com with SMTP id
+ 006d021491bc7-69b4f7d66e2so237540eaf.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 May 2026 11:18:23 -0700 (PDT)
+ Sun, 17 May 2026 11:18:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779041902; x=1779646702;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779041904; x=1779646704;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=qsZdJm4r4wPMlOdbscvoNtCvMluN7DKgMfAmDRA1Fe4=;
- b=kX+IaBesIYqNbTkLLUvVVN95xNPA5FwKm+6xiQ9/s7ZEpew1gOQjYRlW7tEPuE+9zk
- AhkSdzDyLQOOqrSSLywyPRRQkWV7Pht9HmC2ZjIS69Lp9bAtzYGcUFXyuNqF01YSykuB
- EAU+tpl/R7gQX+46xORRlkUDPoO0wiK7BBxGGL8P+HDrecSTlAJ5f+vjva+a0ciU+Jfd
- pX0m5/P+Uf86k5lRjK6yoBDnyY3TqsrY96S4mzMyj5oUvXSV0n6GtNyMQgitxK1gntJi
- cWhnY3nowx023lLk4RwHoe5IUwUwvTlDkFjly33+gKvTFGdU0gKZTGl5C9aIoyL/8pLC
- SRYQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=R5md7O2xvTV43+eK3/wu5mO/23eGXmmz5QIIajGxZX4=;
+ b=UfBYgov5Q2FoHtR01F26ZKDwo/ZLZmp89zn46YPGDZYsOf9SMkNdOHTY7BvM47NB8S
+ zgDtEg/Zt9zlYyurE3ReDKEDwaSNWH21KAU36ZI7dNfH9ht7G+Z1FcwEqBYZ4iKFng+9
+ TeEinPrcQeaNLcYrgVnYz6SCcDxhUV2B/PAMLLbIWW//2XT1yucib+q/NE/HOtC9SvMc
+ mdM2VkuM9UB5CMJcZFbznKYefRsbFSVWhKGjxg+Lqamp+wWLFbImDWKcKPbgxKIn6haS
+ wc4LH0BqzmfZyV8nxD0PR1l2x1L2JxVMHpbxlvKL6Jw3Fro8aPD2db0OIODkpLassmf2
+ ZFpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779041902; x=1779646702;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=qsZdJm4r4wPMlOdbscvoNtCvMluN7DKgMfAmDRA1Fe4=;
- b=gPlkdFFmqWjxraA2f+ZSFO4BXYykgAak/T0lKWEoYH+BA+WAbC78buq85z2mrmjJ3u
- VeMn+1mWGn/66ol3V/lPzfr60Pj+k8N0TcaF5TEqA8znJMr82gHq0PN3G3l5r5HGf9ai
- xQ76v3Z0utjcGQ9VHkAnJiEEp4pygfiQOmbeZ1IUYxeuqPoEUlY5hbjeRFTAvUdKrNE8
- JyQnvXGNw9Fo5t2MFM4Bd3TGp9Ko0o6rhvmXlDK2Nxa8xAD9s2whYjy1qBoN7gZR4ynU
- jIjtNeNbMCD2tmhX9TkbSgmWdVQkcI3pjQsYQVLP22LKffBWcD/zAid/7VHG2jv4OBe8
- TRwg==
+ d=1e100.net; s=20251104; t=1779041904; x=1779646704;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=R5md7O2xvTV43+eK3/wu5mO/23eGXmmz5QIIajGxZX4=;
+ b=noN4p8D9NZ2oUpFBbVaSD9Y9oD3M+gPvD4qZcQliZ9X3Sra7ryjkYvNl6RrHEteWkF
+ wwR4p0r35jjgQqFBDRXKJ3pXrCudkEoMpCzblk1TUd0FYQqqVMyY/orInDFk+P9GR9h7
+ ZSH896GGABliY5xcw3qiZBMxzSI/tJPchrmLStpBVfd9c4b7tpVQDFBxj7V0qTl2SJ4O
+ jhBMjCmmivRI8B4RFW2G2gfpm0M2CBRe8NwdIoJI27tRPZb1xl65qmT+NMCmlyP1Psp8
+ Kajt0NZnrcdlsQ2lAT7pO2Kq46Th/QbNqgvvak8KJwIPYWrEmVWEd0KuA4eDThXJlnAB
+ QxBA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ82HxRy+4fkKy/TzTwGtzsLq4iGN0bEmgeEDVkNldjLE96m72/G8Fx68SWDhIPYEp6wksNbbgTdcdwkuQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyFkQUj4fGWzQZSY6XBg9xvruiD8LvbFaolGQFl3zYmKSTxKvhw
- al/nfY8c/xAyBF7OKrjGLAEiuLryJR3N7Hr11pDirN24X1sSkOmoiR+JNtshurK4/e8=
-X-Gm-Gg: Acq92OH0dqriKdC0mvD1LbBbI5hOdyspnIdCM2vSdNby6KpoyKma1/JmOzjX233v+vh
- BwRM7kR0QL10X9+HmqeFXYwgu4A3vVPLVv8jyymRFHfSCrU+eogg9GdRWoW/wuSgQlv9Qe/zFKy
- BpKV+H3rFGZmfFI/dD6SjgQOT/6/brnbB0/ifufd1LK8hsYjcbZT+H72kUZeB70MJycVxi0Eu9l
- /eYFJZfmcIR6jv6BANnRbgjvT15auYbX4MOikxjm9BTn/bS4HitGZukqooTbLdkIGBnwYENhdl2
- 90A84V9eiLqyATzai1sViMxR3dDt5Ylqm2AH3qcncfV6dGJ6BrnPY/52PEYmsn+3kobQJNPvIJf
- n5OvQo8r9a8gBhBWEZyESZ+fIFeG8K/ET9U4vlC9TQo2MXXm7hirRUx+H2Qq1sBe+7uS9rIUfNH
- y/g+HcLk/131CorcZg+DLtlcoCyxeEJtpqJOyb8JcC/gxKvuHE
-X-Received: by 2002:a05:6820:2210:b0:69b:8ff9:f582 with SMTP id
- 006d021491bc7-69c942ea069mr8317738eaf.14.1779041902495; 
- Sun, 17 May 2026 11:18:22 -0700 (PDT)
+ AFNElJ/YS03m8y2ZbFeNamq+aKbSycNMeRRFVfdIHhJ60MCleklAPXgu6OF0rxMsrs/wOvq9vY1tmh7eExwQEw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyblVo0qQTVhVgHdngBhD516CLlUPf3lKNJvRU3wy90I4gzT4/u
+ yF0khionCVeB9lLPEsjgRMLzJhrnWP4EikLgfLaFQC7hh57m/U/r3PNc+0H/Nb1C6p0=
+X-Gm-Gg: Acq92OGMSdu+1OEBHqQl54OIx2NnzhHLyXitFu/XUKFBcIrL4jyS8wPCnxOtvEaDXix
+ hXl3f9oRNcf7IjXiJIIy85H4873yI0K2hjIo4QGR9hgDQJdRIgCRKEWooKD/156F7ukdRwdWSTU
+ YsCYS2EDWI0K0pyj92r36h8LaxMr6ub49k0qKlFzxzVv+VFDgW4pgIYc2ZPTL27UGMobaaa17fp
+ uRSuaJMw68ekVJ3RJ9O/7oQ0UO62Gus8WjeWIE7zmW1RfyMI/v8IO1dLgWBmiYAgkwFYi0qBTAP
+ zkKmYF3UrqyOLfi3i5Wwua6i0kXeKC73xCAwpKj7BhwBtmuIPoyF/xMvKvwwJC6pT0IF0i591yY
+ 2DNpvVi2ChoLiztqVCED1c9AWSxsXZMKhNvYUlEFmC3/DC+RiWEgFfMKp7gmBIaWXoK3WGwGvyq
+ B4IcNTF/6M6Xb58WVJAo7E1nV8NPEKzFXdgUQqWg==
+X-Received: by 2002:a05:6820:4c87:b0:694:9707:4e59 with SMTP id
+ 006d021491bc7-69c953dd3b3mr6941197eaf.46.1779041904452; 
+ Sun, 17 May 2026 11:18:24 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:7a4b:ddf0:f61:f58d])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-43a95766535sm2085539fac.15.2026.05.17.11.18.19
+ 586e51a60fabf-43a95766535sm2085539fac.15.2026.05.17.11.18.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 11:18:21 -0700 (PDT)
+ Sun, 17 May 2026 11:18:23 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Sun, 17 May 2026 13:17:17 -0500
-Message-Id: <20260517-iio-timestamp-cleanup-v1-0-61fb908c11c7@baylibre.com>
+Date: Sun, 17 May 2026 13:17:18 -0500
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWXcgCdgWryJdxPhXR2waMqkIp
- Xc31uW3eG8jRRYonZuNMt6issQK2zYUHj7ewXKrJmdcZ062Z5GFi8zQ4ufE4QUf18QWGNxkBut
- 7Q7VNGZN8ju9l/FvX6xOh/Ga071+ddszSeQAAAA==
-X-Change-ID: 20260517-iio-timestamp-cleanup-1ee82f081a70
+Message-Id: <20260517-iio-timestamp-cleanup-v1-1-61fb908c11c7@baylibre.com>
+References: <20260517-iio-timestamp-cleanup-v1-0-61fb908c11c7@baylibre.com>
+In-Reply-To: <20260517-iio-timestamp-cleanup-v1-0-61fb908c11c7@baylibre.com>
 To: Jyoti Bhayana <jbhayana@google.com>, Jonathan Cameron <jic23@kernel.org>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
  Andy Shevchenko <andy@kernel.org>, 
@@ -84,22 +82,23 @@ To: Jyoti Bhayana <jbhayana@google.com>, Jonathan Cameron <jic23@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2130; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1891; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=MZIBkvx/lDO1bwCjTF68CpPH6+1oeby0gOD1GNgDaLg=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqCgYvvz5e3v6t+m0Wx/sHGclkR4moFXIFRNL5j
- Yark2JG+RuJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCagoGLwAKCRDCzCAB/wGP
- wL2YCACJAC5NP41M0YnHAqSNkQZmeewP7XoDQMe6oGaErE+EeI/S4A/ytTbQDa6svMIA/r63BzZ
- uDS7S/8nbyVhwAsCra78MomRhRpjuZ+CbozTwamJHbIqHsw0MgU+tot4UZveWPlRLBNr/RMimSu
- QnGbYsInSPtIo8f0cQY458S6vcMkqGQwNoqfx4d8AZ+pX1FdO6axfFyMhOR4i05M/eh1uwCel1n
- RYmEHw/N6RX/1kq9CLVRQ1/l+m2rp+VYZ43fGdfmWrwXmgvAVNflkkSZqSs4vKkrk6UR3TxF1UR
- V8aTbiassPuhHkFYW2x/L5AvCqT5pn3gp5r/sgESNDAnSEyT
+ bh=YHpI50wSYZTXW1ieL+zX+tDCAyrdW9auMcLS2k6lfoQ=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqCgY2aTT2VX5TYgMCbz8OOiBDnYFmV3i0a+6HO
+ ro398kMNK6JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCagoGNgAKCRDCzCAB/wGP
+ wOFCB/4xQ4eSKQgFfsKouXQR3vu8NexauORSshAXou2t3MRLSZK5t6EF9VUuh0inu/5WRCWFGej
+ u4u1nzKt/RtnOitc15cyY9Nnn7nkczdAzczNckuYghWXqK91XhaJgcRwG/HFuNtLIj4lKoxm+Sf
+ q0Pu9iIKleW9yv4r8X+98Kbv5DjrCSCaPYDHTexcSLUAT8wJohTJAL71EMnB6FODtdCObmx812I
+ rURmDEmfF633QDjdS0XJe4MEqg1T4IkiUhtfcGY8NszNTCxYMwSfI7i0oUR13FIruJz1m3VsXVT
+ jK2zkSF2GmXef8vaZjcYIebODvZ4ngMnNUIx3PtA78Mw9WPo
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: chrome-platform@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 0/8] iio: timestamp declaration cleanup
+Subject: [Linux-stm32] [PATCH 1/8] iio: common: scmi_sensors: simplify
+ timestamp channel definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,7 +114,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 21EBB562FDA
+X-Rspamd-Queue-Id: 7957D562FDB
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -123,7 +122,7 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
@@ -146,56 +145,63 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	DKIM_TRACE(0.00)[baylibre-com.20251104.gappssmtp.com:-];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.709];
+	NEURAL_SPAM(0.00)[0.749];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
-While looking around the code, I noticed that there are a lot of places
-were we are manually filling all of the fields of an IIO timestamp.
+Use IIO_CHAN_SOFT_TIMESTAMP() to define the timestamp channel instead of
+manually filling in the struct iio_chan_spec fields. This makes the code
+less verbose and mistake-prone.
 
-This is error-prone (as seen in the first patch) and more verbose than
-it needs to be.
+In fact, there was an error here as the sign should be 's' instead of
+'u' which is now changed to 's' by using IIO_CHAN_SOFT_TIMESTAMP().
 
-I went with the approach of using the existing IIO_CHAN_SOFT_TIMESTAMP()
-macro for doing a struct assignment. This does require a cast, which
-makes it a bit more verbose, but we were already doing that in to
-drivers, so I went with it anyway.
-
-If we want to consider alternatives, we could make a iio helper function
-or macro like the first and second patches did.
+If we find that this breaks userspace, we will have to revert this
+change, but seems unlikely since the timestamp channel is well-known to
+be a signed 64-bit integer globally.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
-David Lechner (8):
-      iio: common: scmi_sensors: simplify timestamp channel definition
-      iio: adc: dln2-adc: simplify timestamp channel definition
-      iio: adc: at91_adc: simplify timestamp channel definition
-      iio: adc: cc10001_adc: simplify timestamp channel definition
-      iio: adc: stm32-adc: simplify timestamp channel definition
-      iio: common: cros_ec_sensors: simplify timestamp channel definition
-      iio: light: cros_ec_light_prox: simplify timestamp channel definition
-      iio: pressure: cros_ec_baro: simplify timestamp channel definition
+ drivers/iio/common/scmi_sensors/scmi_iio.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
 
- drivers/iio/adc/at91_adc.c                            | 12 +++---------
- drivers/iio/adc/cc10001_adc.c                         | 10 ++--------
- drivers/iio/adc/dln2-adc.c                            | 12 +-----------
- drivers/iio/adc/stm32-adc.c                           | 10 ++--------
- drivers/iio/common/cros_ec_sensors/cros_ec_activity.c |  8 +-------
- drivers/iio/common/cros_ec_sensors/cros_ec_sensors.c  |  8 +-------
- drivers/iio/common/scmi_sensors/scmi_iio.c            | 13 +------------
- drivers/iio/light/cros_ec_light_prox.c                |  8 +-------
- drivers/iio/pressure/cros_ec_baro.c                   |  8 +-------
- 9 files changed, 13 insertions(+), 76 deletions(-)
----
-base-commit: 8678fb54958893818ddeccd05fea560a4e1fc759
-change-id: 20260517-iio-timestamp-cleanup-1ee82f081a70
+diff --git a/drivers/iio/common/scmi_sensors/scmi_iio.c b/drivers/iio/common/scmi_sensors/scmi_iio.c
+index 5136ad9ada04..86e1782deee5 100644
+--- a/drivers/iio/common/scmi_sensors/scmi_iio.c
++++ b/drivers/iio/common/scmi_sensors/scmi_iio.c
+@@ -419,17 +419,6 @@ static const struct iio_chan_spec_ext_info scmi_iio_ext_info[] = {
+ 	{ }
+ };
+ 
+-static void scmi_iio_set_timestamp_channel(struct iio_chan_spec *iio_chan,
+-					   int scan_index)
+-{
+-	iio_chan->type = IIO_TIMESTAMP;
+-	iio_chan->channel = -1;
+-	iio_chan->scan_index = scan_index;
+-	iio_chan->scan_type.sign = 'u';
+-	iio_chan->scan_type.realbits = 64;
+-	iio_chan->scan_type.storagebits = 64;
+-}
+-
+ static void scmi_iio_set_data_channel(struct iio_chan_spec *iio_chan,
+ 				      enum iio_chan_type type,
+ 				      enum iio_modifier mod, int scan_index)
+@@ -629,7 +618,7 @@ scmi_alloc_iiodev(struct scmi_device *sdev,
+ 					 "Error in registering sensor update notifier for sensor %s\n",
+ 					 sensor->sensor_info->name);
+ 
+-	scmi_iio_set_timestamp_channel(&iio_channels[i], i);
++	iio_channels[i] = (struct iio_chan_spec)IIO_CHAN_SOFT_TIMESTAMP(i);
+ 	iiodev->channels = iio_channels;
+ 	return iiodev;
+ }
 
-Best regards,
---  
-David Lechner <dlechner@baylibre.com>
+-- 
+2.43.0
 
 _______________________________________________
 Linux-stm32 mailing list
