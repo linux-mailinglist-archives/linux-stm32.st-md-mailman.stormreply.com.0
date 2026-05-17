@@ -2,88 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id SHq+KYDaCmog8wQAu9opvQ
+	id KIAXBPqpCWq/kAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:23:12 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 13:43:54 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51C68569A03
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 11:23:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BF9F3560C9C
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 13:43:49 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 111D9C7A830;
-	Mon, 18 May 2026 09:23:12 +0000 (UTC)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 60EDBC8F281;
+	Sun, 17 May 2026 11:43:49 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C133DC01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1F815C01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 May 2026 11:42:31 +0000 (UTC)
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-c8027e876fcso455760a12.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 May 2026 04:42:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779018150; x=1779622950;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=aybAOu/Wnku8jJKJm8nyG/Glu+5oR3YJ4061r8jTr0g=;
- b=gyu7bshkCCGcOfeaVA7yHfXZwFzR6HBr5lJTmHTfY0cD7ebJFhy/DsTfj1vRxqzFWP
- CEIdH4C7M06+2SdXGZY3WTrw4pH+SO5JWVqXJwb/O8SXYaTgWFOxuuo6sxhvv3f3bJKl
- 7nW9JvPJO1VdveihxOwsqxIYUbnsmEgeCV9JiN/aRixbwYRkdtNadtipL3zFwkUK+JHK
- YWj2vhfh545CxgR7UbH3NSkiMBogEu99X7J8+2Avh6zGj3VpDy3EYhdJRwPd8oHtkb+j
- EjlgKJWDdy3YKYq8F0AJNK+ftnMyUj9wCOVOv97TxchH/UHr01RpWsBrYO9jgMOhV3To
- ElMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779018150; x=1779622950;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=aybAOu/Wnku8jJKJm8nyG/Glu+5oR3YJ4061r8jTr0g=;
- b=B7PH+g1X9JaMhAOVnKJz0u59KHUy/IgqRPz1+otq2Zkd/3w0FNGbgdGqqJ/ZU+XWt0
- AKfF4pmPcd2hSbk2icZGvEoDeRmfBzaruvgAJxb5UE8O8fbhQoc+ynPjth14lIw4/wJ0
- CZA0OPfto77oD7DijSRC5kIg5WzGzTfSYIoAawCEl3mClZQdBWF0vfTgfnznOEEFzGIT
- z0Qh7JsyRd8y/+lG/K62KuTGj/oCVvN7nATFC3zLsjDugmHdevDNpFe6tcXcULNkWR6/
- whi7Zlm8alxal5oWXTwWp09Tl4VQEKK6N2jIQ/wB6vOYV9shVpfA24pskaUKs/bKl8RK
- 7rbg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8yenRJGx3YrXVd//F+j1kl3P5dh2wSNIaR1ILXgW3sJ0MuOtZ3rOWpqcoA3onF/R3CTRtYqRC3eYLclQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwDrhU5XDqmqJvdWISrskg9BQ5TLonOPthHHe/q7kMmjfRyG2K3
- ajZW96n+Q5YwfM5sFw9lJwfwXhcw/LTjyEYEWBX53mxAaMWu1xqcMMMa
-X-Gm-Gg: Acq92OGJmtUct6CvTOrLoSEUjU5wY5uIfFZPv0firJOn7VIL1Ai3ebwg8tMEmE27S0a
- 38OhoypkiRThkM8HXx0sH5A1HVX7EnulcWHGNtK1pgKP1DRCHkB2WAFDCesiscvFF181q52UHlZ
- 6JtjmB0A/RsRvxxm8yGniYwFrCdCcgSiHiV2Nz71Y3AhiRTg3BUqRitVFGt//aBwWYBUp3LJ4aQ
- CXPeZg3KKTsezycoMSCwaOOBXQ/bB9fpp6DmqPUZ23HEUOyiRJsbz/PoziUGeZxGd6bkRww0fBw
- hwccVy0gQ9qX41Kh1tluTWetmJWxsMf6y1r0Levm6ejiB714F8D6PHMRkq6s+K20vg2d3BfEfOd
- BMF3mPRhWTICc1pDHAXOkEySlowBuS2OxsF3nfveWXBuKqQOwsMD0vmVNiMQwMXxtDHv2qTzs0v
- eW1AQOs9KiRJH+
-X-Received: by 2002:a17:903:1b45:b0:2bc:ffe1:c380 with SMTP id
- d9443c01a7336-2bd7e86c179mr114076265ad.8.1779018150104; 
- Sun, 17 May 2026 04:42:30 -0700 (PDT)
-Received: from lgs.. ([101.36.106.88]) by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bd5bd5f30bsm135198645ad.16.2026.05.17.04.42.25
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 04:42:29 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Kees Cook <kees@kernel.org>, Guangshuo Li <lgs201920130244@gmail.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Dillon Min <dillon.minfei@gmail.com>, linux-media@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sun, 17 May 2026 19:42:16 +0800
-Message-ID: <20260517114216.950713-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+ Sun, 17 May 2026 11:43:47 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by tor.source.kernel.org (Postfix) with ESMTP id 13B8D600BB;
+ Sun, 17 May 2026 11:43:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EBCEC2BCB0;
+ Sun, 17 May 2026 11:43:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779018226;
+ bh=S2hLW0ECNDf1VAnqrTJ4Mw0W1eh9WjufgWQJI7GfTws=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=fo7pCTs5v/OzRFKbx5k9YCj/rghUcBhldH+5CLLSwdZsLNoVl584fJVoCPPXI5U90
+ fw7YgLqxkcV9YolrACZb6plA1swzMCM7nC/gnktIikW1/jSSsFfRpVv9Bjb5ruIsXy
+ LnNIJVXTMTdlLZr81uPMpJSBh8f2gEeWf07Qkg/D9MGdVuCudTVQd18tjC/S99dMfj
+ ooSluCxCmFQtf+oBLjLfYa4vl/1/7N1xPq4vojDZ8hYeBSud2VPC2e/wzsQkIRvtrn
+ NJCUgziPa7K5+REs7TOAR+9jXJ0VCFsp5hb5KYKN/yIAjIy3pk4LnlGS7xHu/ShHpI
+ R0i09NBKSQn7A==
+Date: Sun, 17 May 2026 12:43:36 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Angelo Dureghello <adureghello@baylibre.com>
+Message-ID: <20260517124336.242ffb6a@jic23-huawei>
+In-Reply-To: <CALSJ-wAqFni+OwSUcQS+KESfe7SbWMxc0aCURHtTZ93Rx6GZhw@mail.gmail.com>
+References: <CALSJ-wAqFni+OwSUcQS+KESfe7SbWMxc0aCURHtTZ93Rx6GZhw@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 18 May 2026 09:22:57 +0000
-Subject: [Linux-stm32] [PATCH] media: stm32: dma2d: avoid double free on
-	video register failure
+Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Steven King <sfking@fdwdc.com>,
+ linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
+ David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 03/11] m68k: mcf5441x: setup DAC clock
+ name as per driver name
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,102 +66,167 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 51C68569A03
+X-Rspamd-Queue-Id: BF9F3560C9C
 X-Rspamd-Server: lfdr
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[lgs201920130244@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_COUNT_THREE(0.00)[4];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORGED_RECIPIENTS(0.00)[m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:hverkuil+cisco@kernel.org,m:laurent.pinchart@ideasonboard.com,m:benjamin.gaignard@collabora.com,m:kees@kernel.org,m:lgs201920130244@gmail.com,m:jacopo.mondi@ideasonboard.com,m:dillon.minfei@gmail.com,m:linux-media@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,m:hverkuil@kernel.org,m:dillonminfei@gmail.com,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
+	FORGED_RECIPIENTS(0.00)[m:adureghello@baylibre.com,m:andy@kernel.org,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com,ideasonboard.com,collabora.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	GREYLIST(0.00)[pass,meta];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[lgs201920130244@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,baylibre.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,cisco];
-	NEURAL_SPAM(0.00)[0.994];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	NEURAL_SPAM(0.00)[0.140];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url]
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Action: no action
 
-dma2d_probe() allocates a video_device with video_device_alloc() and
-releases it from the rel_vdev error path if video_register_device()
-fails.
+On Sun, 17 May 2026 02:11:33 -0700
+Angelo Dureghello <adureghello@baylibre.com> wrote:
 
-This can double free the video_device when __video_register_device()
-reaches device_register() and that call fails:
+> Hi Greg,
+> 
+> jfyi, for some reason i was not in to/cc, but i could grab the message
+> in lore.
+> 
+> On Thu, May 14, 2026 at 10:54:32PM +1000, Greg Ungerer wrote:
+> > Hi Angelo,
+> >
+> > On 14/5/26 17:05, Angelo Dureghello wrote:  
+> > > Hi Greg,
+> > >
+> > > On 14.05.2026 11:27, Greg Ungerer wrote:  
+> > > > Hi Angelo,
+> > > >
+> > > > On 13/5/26 19:14, Angelo Dureghello wrote:  
+> > > > > From: Angelo Dureghello <adureghello@baylibre.com>
+> > > > >
+> > > > > Later in this patchset, the mcf54415 DAC driver is added.
+> > > > > Considering some other different ColdFire cpu DACs exists, the DAC driver
+> > > > > is named as "mcf54415_dac", related to the mcf5441x family SoCs with
+> > > > > DACs (mcf54415/6/7/8).
+> > > > >
+> > > > > So updating DAC clock names to bind with proper driver name.  
+> > > >
+> > > > I am not sure I like naming the clocks here with a prefix for the
+> > > > specific SoC part number this is in. It might be unlikely now, but
+> > > > what if another ColdFire family SoC member uses this same hardware block?
+> > > > That is very common amongst other hardware blocks within the ColdFire
+> > > > family. Can we come up with a name more specific to just this type
+> > > > of DAC hardware block?
+> > > >  
+> > >
+> > > from a brief study, this 12bit DAC, and DAC module in general, is only on
+> > > this mcf45441x family. There are some ColdFire with ADC only, as those
+> > > mcf5249/53/82.
+> > > The mcf51mm/ag/je are the opnly to have a 5bit dacs, but these are mcus.
+> > > So, if i don't miss any existing model, the name may be correct,
+> > > unless we want rename it to a more generic mcf_dac.  
+> >
+> > Yes, I would suggest just leaving it as is, "mcfdac".
+> > That is not currently used by any other ColdFire variants supported by
+> > the kernel.
+> >  
+> 
+> Ok, will fix this in a v3, just asking confirmation on the name to
+> Jonathan and all, since it involves iio too.
+> 
+> Chaches are:
+> mcfdac
+> mcf-dac  or mcf_dac (we have drivers as vf610_dac and cio-dac)
 
-  video_register_device()
-    -> __video_register_device()
-       -> device_register() fails
-          -> put_device(&vdev->dev)
-             -> v4l2_device_release()
-                -> vdev->release(vdev)
-                   -> video_device_release(vdev)
+I'm a bit lost.  If we are talking about clocks that's fine as confusion is very
+unlikely.  If we are talking driver naming - pick a part on which it exists and
+name it after that.
 
-  dma2d_probe()
-    -> rel_vdev
-       -> video_device_release(vfd)
+Historically we made a few mistakes letting in very generic driver names
+and it causes confusion when a non compatible part comes along.
 
-Use video_device_release_empty() while registering the device so that
-registration failure paths do not free vfd through vdev->release().
-dma2d_probe() then releases vfd exactly once from rel_vdev. Restore
-video_device_release() after successful registration so the registered
-device keeps its normal lifetime handling.
+If we know these have 'versions' of IP like the QC ones do, then we could name
+them after generations but that is often not actually documented anywhere
+so would need confirmation from Coldfire folk.
 
-This issue was found by a static analysis tool I am developing.
+Jonathan
 
-Fixes: 002e8f0d5927 ("media: stm32-dma2d: STM32 DMA2D driver")
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/st/stm32/dma2d/dma2d.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/media/platform/st/stm32/dma2d/dma2d.c b/drivers/media/platform/st/stm32/dma2d/dma2d.c
-index a3ad19256859..0e36ddfa8c7b 100644
---- a/drivers/media/platform/st/stm32/dma2d/dma2d.c
-+++ b/drivers/media/platform/st/stm32/dma2d/dma2d.c
-@@ -651,6 +651,7 @@ static int dma2d_probe(struct platform_device *pdev)
- 	}
- 
- 	*vfd = dma2d_videodev;
-+	vfd->release = video_device_release_empty;
- 	vfd->lock = &dev->mutex;
- 	vfd->v4l2_dev = &dev->v4l2_dev;
- 	vfd->device_caps = V4L2_CAP_VIDEO_M2M | V4L2_CAP_STREAMING;
-@@ -669,6 +670,8 @@ static int dma2d_probe(struct platform_device *pdev)
- 		goto free_m2m;
- 	}
- 
-+	vfd->release = video_device_release;
-+
- 	video_set_drvdata(vfd, dev);
- 	dev->vfd = vfd;
- 	v4l2_info(&dev->v4l2_dev, "device registered as /dev/video%d\n",
--- 
-2.43.0
+> 
+> Regards,
+> angelo
+> 
+> > Regards
+> > Greg
+> >
+> >  
+> 
+> 
+> 
+> >  
+> > > > Regards
+> > > > Greg
+> > > >
+> > > >  
+> > >
+> > > Regards,
+> > > angelo  
+> > > >
+> > > >  
+> > > > > Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
+> > > > > ---
+> > > > >    arch/m68k/coldfire/m5441x.c | 8 ++++----
+> > > > >    1 file changed, 4 insertions(+), 4 deletions(-)
+> > > > >
+> > > > > diff --git a/arch/m68k/coldfire/m5441x.c b/arch/m68k/coldfire/m5441x.c
+> > > > > index 5b5e09ecf487..b724d7fc1a08 100644
+> > > > > --- a/arch/m68k/coldfire/m5441x.c
+> > > > > +++ b/arch/m68k/coldfire/m5441x.c
+> > > > > @@ -43,8 +43,8 @@ DEFINE_CLK(0, "mcfpit.2", 34, MCF_BUSCLK);
+> > > > >    DEFINE_CLK(0, "mcfpit.3", 35, MCF_BUSCLK);
+> > > > >    DEFINE_CLK(0, "mcfeport.0", 36, MCF_CLK);
+> > > > >    DEFINE_CLK(0, "mcfadc.0", 37, MCF_CLK);
+> > > > > -DEFINE_CLK(0, "mcfdac.0", 38, MCF_CLK);
+> > > > > -DEFINE_CLK(0, "mcfdac.1", 39, MCF_CLK);
+> > > > > +DEFINE_CLK(0, "mcf54415_dac.0", 38, MCF_CLK);
+> > > > > +DEFINE_CLK(0, "mcf54415_dac.1", 39, MCF_CLK);
+> > > > >    DEFINE_CLK(0, "mcfrtc.0", 42, MCF_CLK);
+> > > > >    DEFINE_CLK(0, "mcfsim.0", 43, MCF_CLK);
+> > > > >    DEFINE_CLK(0, "mcfusb-otg.0", 44, MCF_CLK);
+> > > > > @@ -106,8 +106,8 @@ static struct clk_lookup m5411x_clk_lookup[] = {
+> > > > >    	CLKDEV_INIT("mcfpit.3", NULL, &__clk_0_35),
+> > > > >    	CLKDEV_INIT("mcfeport.0", NULL, &__clk_0_36),
+> > > > >    	CLKDEV_INIT("mcfadc.0", NULL, &__clk_0_37),
+> > > > > -	CLKDEV_INIT("mcfdac.0", NULL, &__clk_0_38),
+> > > > > -	CLKDEV_INIT("mcfdac.1", NULL, &__clk_0_39),
+> > > > > +	CLKDEV_INIT("mcf54415_dac.0", NULL, &__clk_0_38),
+> > > > > +	CLKDEV_INIT("mcf54415_dac.1", NULL, &__clk_0_39),
+> > > > >    	CLKDEV_INIT("mcfrtc.0", NULL, &__clk_0_42),
+> > > > >    	CLKDEV_INIT("mcfsim.0", NULL, &__clk_0_43),
+> > > > >    	CLKDEV_INIT("mcfusb-otg.0", NULL, &__clk_0_44),
+> > > > >  
+> > > >  
+> >
+> >  
 
 _______________________________________________
 Linux-stm32 mailing list
