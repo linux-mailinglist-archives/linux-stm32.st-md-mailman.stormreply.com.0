@@ -2,74 +2,74 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id DTKNOnUGCmq9wAQAu9opvQ
+	id CMWINngGCmq9wAQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:29 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:32 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A115D562FE8
-	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BC4D4562FF7
+	for <lists+linux-stm32@lfdr.de>; Sun, 17 May 2026 20:18:32 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6A375C8F28B;
-	Sun, 17 May 2026 18:18:29 +0000 (UTC)
-Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com
- [209.85.160.44])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 79968C8F28B;
+	Sun, 17 May 2026 18:18:32 +0000 (UTC)
+Received: from mail-oo1-f51.google.com (mail-oo1-f51.google.com
+ [209.85.161.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9E216C01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7AC83C8F28C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 May 2026 18:18:28 +0000 (UTC)
-Received: by mail-oa1-f44.google.com with SMTP id
- 586e51a60fabf-404254ffe8aso1347210fac.0
+ Sun, 17 May 2026 18:18:29 +0000 (UTC)
+Received: by mail-oo1-f51.google.com with SMTP id
+ 006d021491bc7-6841e6a5e51so641798eaf.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 17 May 2026 11:18:28 -0700 (PDT)
+ Sun, 17 May 2026 11:18:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779041907; x=1779646707;
+ d=baylibre-com.20251104.gappssmtp.com; s=20251104; t=1779041908; x=1779646708;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=8MRGfKr8H7ah4yZfqeoPinkYJCKeiXt9tjcXW8VOiYM=;
- b=VcU/jgatw/ROGI2pocslbL+ZZq8UnyL2uMF0LsaZr1ycta8p/YynNBVeWSGl9rgVQA
- EabyRF5WnO2VssPj4/xO9HUewHyPbxdVywhkOXAG57NPeuGlNg5xcDgcfXY4PWvDfEXe
- UzWV/+gZ52z+XiHvByGFOitH9rekmwEBlj4GuDqtbrqAvyKw1OAN2TyiNPf2C2CIbvtl
- dzhLuYGiAzi0xS4ofzRrhiA9ZXqBDkk/xYs46mV/CRcdYFyaipNCfuD4N2D3kBj99fIE
- PaSz1QuzIGJABSJ1WN2CtSFy99CDWvbMEPPqek3nJ5Mu3KecXhTzc9shWxXnZNYGIO75
- L8sA==
+ :reply-to; bh=ECANKKg4MTkRxfSENzBkwIS1NPIhToNwg5GYCZ/bh6o=;
+ b=ciVvIlHxwOicyqlJcpriem8N+1Ww3wY2e50XpgJFYVYmtI73cAxcUl0ssltYotUSKn
+ nzMz5W+p/l/gBKpz9k1YQWkGasTWLnE1MNApgXT0p0B8c961zLvRON+k8/lmOzotbKbW
+ NLZc/o6IxK9GG7zUwJbEKSUjS3OsrQ1k2mvceJXUlW/5I45kztsEwBAqy4KMl5ufIGTM
+ sL1jIiIjvuRyGs+ILHe3wjt1JBCTQRkOiNAktzTFdeZ02erWrR2w7xZkY/iG4fu6j5IQ
+ byp8yHpnBsw9ZRUFp7X9lH2nPwkGev81SYNkGWYEyUIE2EO48VrrG7DJfpeyBK7UpFUY
+ oz6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779041907; x=1779646707;
+ d=1e100.net; s=20251104; t=1779041908; x=1779646708;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=8MRGfKr8H7ah4yZfqeoPinkYJCKeiXt9tjcXW8VOiYM=;
- b=mvbxNTrOeAjPoAJItzAnrN88Y+A1nkEKum87WF2Q/ppomCcg3/6QY20Yt2dA0KJZ1J
- GlY+xYFlNRvFqtpnkUcUqsgog/m/b+cdYjjh3+fnoKpTEzPdZPHzvSZUwrIOCGBtam8X
- MhPLqeq42QWlJq6jmn6TtqAgmIs8CaoLbIFZQ5V3E/e8f7ctuyRV/MXJwslXrzxW/QMN
- EMCn8ZL13NK1vU0APK7evX9YDEh9YTaSB21aFMwDSt2J1abIe5xkIMxxcs7XcXziMkgX
- LEmNSpULfQF+XMnPo3tzN8c+UFThQ3pmeq83g1+2Qea8S6JMPGWa0vm4l/QDhMMVV+ug
- EE+w==
+ bh=ECANKKg4MTkRxfSENzBkwIS1NPIhToNwg5GYCZ/bh6o=;
+ b=MyfqZ+oXpaizQ/cT3rKC/Q6x6EPebM2rOMBX25Tg3g4M3G9DNMDOp/nZOr6EOWuKlV
+ hsm4GGJvK5NO4/zH+MHLoYxvyorpKYLW9DrxVw9zaEihJh9s5HNvZUyLY9I1VdPkUmof
+ 7ZYs3znmoc1Ncae9bz6Cp1NF8n6NRKBM/pRrvKRtsD0A6+J5oJ4zTOqExvnz4I8rW2i8
+ MveFu7hMNSB4yqn915pz2mLDpSUWxvkboHD1z6mL3wVphjCzwTYfp1Uz+HTx7lJZVhSj
+ X9aqdUlXJgpnvMviMmYxrz8rD8xcUvU9hpTUgAQyBazMvwo3iQP+ZIqwo2V6c1Yp3nwK
+ M3ig==
 X-Forwarded-Encrypted: i=1;
- AFNElJ88TTRRXURlbAKwZB+ahiqV/VAiYZc/MZhhzBT0Ra5jLONDhIJlqRklg9zTnR83o6OWSheo+/mYpZuRDA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwITf6TUO5UmOr/5f/XB/P0O9zNYUUVybzKsfyxzyyL5akDVOlX
- 3gha87gxUGDYDdGjKhLM2CnfYmwbidZK13w5L4iX1FlBK+WpXpDJsur9Mti2f2ZndUU=
-X-Gm-Gg: Acq92OHp6m8uC6p3eAx2PUbTdFTuPUSIHkgh0yAur5n0bewiC6BYirdvpBX62qfiKfs
- BPK+D3+YrkKGwVDyWDrDNgo9T0qMPa+bhIw9qvHGqhcJMcOrJQaWFs3bdMYE9bYNdZAw8ko1a8C
- oTxz9LzZstvoek36zaCeGrcaetABP3q8a4DRuzdqN3ndoFdv0JYPT93+SD4gelGWD7o/q+kpy1o
- 6he5b1r+UfzU7Zc6HusHP1VYJeEhBLZKiMS/vvekyhHmLK5qJt1L2gxtuQFZ7wmI2XuP/wMFSDU
- 7TGSlLhUT7vB6GRRx2rYkEw0F3k9cdAiiSe9BAIb3+S5b1dUhCeyp/JOF5KERxI/3AFlGjJyhwg
- Sbq52gdYC6QLzTAcNv1NvYuhS8GRtQ2go5HRAIqf8jhc9RycIRNCN1quk6BBuc0cDAELDGU3Bij
- 6wxx9XQvgi+I2yaZKasrkjflhXRNLkD0RWkDiNrQ==
-X-Received: by 2002:a05:6870:1797:b0:435:486c:f2fc with SMTP id
- 586e51a60fabf-439f94bfe19mr8687343fac.18.1779041907408; 
- Sun, 17 May 2026 11:18:27 -0700 (PDT)
+ AFNElJ8yJ4QwMiQVHaszQ9fz5pQb/0DNWfycE1jZGhYCPDcucNbrcgZdhOYPmRMkFX1yjsr+6wlTSkcC/ODGMg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxFIddVdD3ca/mb86bbCjszBUIj1l8f2dp1n1NtNHy5c34uCALc
+ po+VtJuB8kUQEGYtUDHlfuMaJJ/xABfPdS2nrmwTVVk/qlQgDVPYw/G9UMzOzdO6vFA=
+X-Gm-Gg: Acq92OF88nJOx2VX7xK7PWBnhJbc0QK8jX0PQxQl1H+ECx+dsGC/uI3l5XOQiAfyEBr
+ qNeOaFfaDJj/FIIXSeB9jAP9JZxo6jE/l2sk/Tu43udQ4F6ZzZ9xEngopQanyMQyGO703SvZfwK
+ w5qQT3ozz16EFonBHmedoAtaWA0FMbTug/g53CZIY8PZNXAMBF44WBllPw9HL9t2343/YVd73+4
+ RGJ9KP10YNBHvHEUaGphW97+eo15boV5OAWCgPC6q9ySiL4zot88l/QmAXyAE0Mrj05XiIPmeq8
+ ERg1SrKKv+rorLN+SxsaY4b4erboJ1uRa88C/iqGn/G8X2UERkesgfXV3NwplGm84Jv2wbM4rx3
+ +ekw1eIOp9RkdWfdbVE8YsDJitKel6sulx+IHBjw+Nk0B43Ujc61fZFP0etjxRHpeHnuHhhy/lw
+ HynyN7Ifcu0GSA5FP5m9l6gHTjJZ0=
+X-Received: by 2002:a05:6820:20e:b0:696:7697:647a with SMTP id
+ 006d021491bc7-69c942ef628mr8599698eaf.16.1779041908361; 
+ Sun, 17 May 2026 11:18:28 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:7a4b:ddf0:f61:f58d])
  by smtp.gmail.com with ESMTPSA id
- 586e51a60fabf-43a95766535sm2085539fac.15.2026.05.17.11.18.24
+ 586e51a60fabf-43a95766535sm2085539fac.15.2026.05.17.11.18.27
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 May 2026 11:18:26 -0700 (PDT)
+ Sun, 17 May 2026 11:18:28 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Sun, 17 May 2026 13:17:19 -0500
+Date: Sun, 17 May 2026 13:17:20 -0500
 MIME-Version: 1.0
-Message-Id: <20260517-iio-timestamp-cleanup-v1-2-61fb908c11c7@baylibre.com>
+Message-Id: <20260517-iio-timestamp-cleanup-v1-3-61fb908c11c7@baylibre.com>
 References: <20260517-iio-timestamp-cleanup-v1-0-61fb908c11c7@baylibre.com>
 In-Reply-To: <20260517-iio-timestamp-cleanup-v1-0-61fb908c11c7@baylibre.com>
 To: Jyoti Bhayana <jbhayana@google.com>, Jonathan Cameron <jic23@kernel.org>, 
@@ -82,22 +82,22 @@ To: Jyoti Bhayana <jbhayana@google.com>, Jonathan Cameron <jic23@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1479; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1410; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=BwNLo5FYKl87iXnoZu+CcTxTzv1iNen3r6e4SjxMA7s=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqCgY8TJDJ6Ft/FcVQ5VpLbl7I3sreJsrciaZuR
- YcR8uAF1CeJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCagoGPAAKCRDCzCAB/wGP
- wOqBCACLIOEEYmguYfD2EXtVfXwCV+RMMhWS2cj5j6FCUGhFAIT3c6jLdr4I9QvxORRNbgHFE+u
- 8irHHh2DH8okhGX6jVbG4CmXaHnJQcresATqKmSXGuI/Y5g3mOXB69I/wgkefbvup1uazdswGAW
- GrFSQL0eYVZyNMZMWJn26wexmzWpk4waVuT6s87rOiIC1MGPCIRk7NO3le4sj8d9E2CWCjbycgf
- xq+7BVUqhUVWXYT2gbdFFdHRY2mFqcvldot7KGVW+0OrVUJd9I2oXmxfZ03O1XH5KNKNWA5CGgo
- BnO79x5kMgSBG1qUGXnvKcYFIOAi3JCqJz0ljFkZHqE2o7tV
+ bh=C48Abd8eNikDaFfFId0eSCBHL6bq+0x5TvEL5GoFu8w=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqCgZDEZ17zmDQ4U89aCy+DcS8oW4YodZ7dhEf8
+ 0qbBK+H7XGJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCagoGQwAKCRDCzCAB/wGP
+ wJFGB/9B3fVze53U8lx+G9ghHy0Zh5HQ9zTEiq/MOyWnB+E6PZoNL92fCoc4WMGniCoaEyd6UCT
+ S8/2ofgAd0JD6A+5gZ4A3Z6ioBLYgUhJB1cHu1KUM29AIBLuDxp4xU/9MsG4PhsURfN/lRehJMA
+ TIBIIL84aV7F9kAT9F1FpaGDR/nQSJxXDhoEa8ITP6iA442nNGUPY34z1zkTKtuuSPA77R7r8+V
+ RIzxuL++W+LZLHPnaWA91BW32quPK4BG2mAgCxFA5La2kmd/mk/1EYpzGp93fuc89AhgdccUHvZ
+ 2XE8TzX6pT/qCvLiY0eYEtpxXW7n17P6PId2jHScku1P7KKe
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: chrome-platform@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/8] iio: adc: dln2-adc: simplify timestamp
+Subject: [Linux-stm32] [PATCH 3/8] iio: adc: at91_adc: simplify timestamp
  channel definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -114,7 +114,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: A115D562FE8
+X-Rspamd-Queue-Id: BC4D4562FF7
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -145,11 +145,11 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	DKIM_TRACE(0.00)[baylibre-com.20251104.gappssmtp.com:-];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.558];
+	NEURAL_SPAM(0.00)[0.716];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,lval.channel:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Action: no action
 
 Use IIO_CHAN_SOFT_TIMESTAMP() to define the timestamp channel instead of
@@ -158,39 +158,39 @@ less verbose and mistake-prone.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/dln2-adc.c | 12 +-----------
- 1 file changed, 1 insertion(+), 11 deletions(-)
+ drivers/iio/adc/at91_adc.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/iio/adc/dln2-adc.c b/drivers/iio/adc/dln2-adc.c
-index eb902a946efe..b7250fbe4fae 100644
---- a/drivers/iio/adc/dln2-adc.c
-+++ b/drivers/iio/adc/dln2-adc.c
-@@ -444,16 +444,6 @@ static int dln2_update_scan_mode(struct iio_dev *indio_dev,
- 	lval.scan_type.endianness = IIO_LE;				\
- }
+diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
+index 6e1930f7c65d..260e3e0c09fc 100644
+--- a/drivers/iio/adc/at91_adc.c
++++ b/drivers/iio/adc/at91_adc.c
+@@ -481,7 +481,7 @@ static irqreturn_t at91_adc_9x5_interrupt(int irq, void *private)
+ static int at91_adc_channel_init(struct iio_dev *idev)
+ {
+ 	struct at91_adc_state *st = iio_priv(idev);
+-	struct iio_chan_spec *chan_array, *timestamp;
++	struct iio_chan_spec *chan_array;
+ 	int bit, idx = 0;
+ 	unsigned long rsvd_mask = 0;
  
--/* Assignment version of IIO_CHAN_SOFT_TIMESTAMP */
--#define IIO_CHAN_SOFT_TIMESTAMP_ASSIGN(lval, _si) {	\
--	lval.type = IIO_TIMESTAMP;			\
--	lval.channel = -1;				\
--	lval.scan_index = _si;				\
--	lval.scan_type.sign = 's';			\
--	lval.scan_type.realbits = 64;			\
--	lval.scan_type.storagebits = 64;		\
--}
+@@ -519,14 +519,8 @@ static int at91_adc_channel_init(struct iio_dev *idev)
+ 		chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
+ 		idx++;
+ 	}
+-	timestamp = chan_array + idx;
 -
- static const struct iio_info dln2_adc_info = {
- 	.read_raw = dln2_adc_read_raw,
- 	.write_raw = dln2_adc_write_raw,
-@@ -614,7 +604,7 @@ static int dln2_adc_probe(struct platform_device *pdev)
+-	timestamp->type = IIO_TIMESTAMP;
+-	timestamp->channel = -1;
+-	timestamp->scan_index = idx;
+-	timestamp->scan_type.sign = 's';
+-	timestamp->scan_type.realbits = 64;
+-	timestamp->scan_type.storagebits = 64;
++
++	chan_array[idx] = (struct iio_chan_spec)IIO_CHAN_SOFT_TIMESTAMP(idx);
  
- 	for (i = 0; i < chans; ++i)
- 		DLN2_ADC_CHAN(dln2->iio_channels[i], i)
--	IIO_CHAN_SOFT_TIMESTAMP_ASSIGN(dln2->iio_channels[i], i);
-+	dln2->iio_channels[i] = (struct iio_chan_spec)IIO_CHAN_SOFT_TIMESTAMP(i);
- 
- 	indio_dev->name = DLN2_ADC_MOD_NAME;
- 	indio_dev->info = &dln2_adc_info;
+ 	idev->channels = chan_array;
+ 	return idev->num_channels;
 
 -- 
 2.43.0
