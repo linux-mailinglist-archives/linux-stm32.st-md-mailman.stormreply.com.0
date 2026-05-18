@@ -2,24 +2,24 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UJ+xIqF3Cmo61wQAu9opvQ
+	id sBrPAcJ3Cmo61wQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 04:21:21 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 04:21:54 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 13438565022
-	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 04:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7EAA565047
+	for <lists+linux-stm32@lfdr.de>; Mon, 18 May 2026 04:21:53 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 477A3C87EDD;
-	Mon, 18 May 2026 02:21:20 +0000 (UTC)
-Received: from zg8tmja2lje4os4yms4ymjma.icoremail.net
- (zg8tmja2lje4os4yms4ymjma.icoremail.net [206.189.21.223])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 11E68C01FB6
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5B619C87EDD;
+	Mon, 18 May 2026 02:21:53 +0000 (UTC)
+Received: from zg8tmja5ljk3lje4mi4ymjia.icoremail.net
+ (zg8tmja5ljk3lje4mi4ymjia.icoremail.net [209.97.182.222])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 760F3C01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 18 May 2026 02:21:18 +0000 (UTC)
+ Mon, 18 May 2026 02:21:52 +0000 (UTC)
 Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
- by app1 (Coremail) with SMTP id TAJkCgAHqXKIdwpqr00aAA--.40286S2;
- Mon, 18 May 2026 10:20:57 +0800 (CST)
+ by app2 (Coremail) with SMTP id TQJkCgA3TaCydwpqsUoaAA--.47399S2;
+ Mon, 18 May 2026 10:21:40 +0800 (CST)
 From: lizhi2@eswincomputing.com
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
@@ -28,16 +28,16 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk,
  maxime.chevallier@bootlin.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Mon, 18 May 2026 10:20:55 +0800
-Message-ID: <20260518022055.444-1-lizhi2@eswincomputing.com>
+Date: Mon, 18 May 2026 10:21:37 +0800
+Message-ID: <20260518022137.464-1-lizhi2@eswincomputing.com>
 X-Mailer: git-send-email 2.52.0.windows.1
 In-Reply-To: <20260518021919.404-1-lizhi2@eswincomputing.com>
 References: <20260518021919.404-1-lizhi2@eswincomputing.com>
 MIME-Version: 1.0
-X-CM-TRANSID: TAJkCgAHqXKIdwpqr00aAA--.40286S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Ww1xWryDArW8XF17KryxAFb_yoW7tF18pF
- WkAa4Yqr17tFyfG3yqyF40qa4Fkw47WF1rCayfKFn7ZF90yryDWa90kayakFy5Kry7uF13
- J3yUAFyxu3W2kFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: TQJkCgA3TaCydwpqsUoaAA--.47399S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFy5KF1UZr1fGFWUtF1kXwb_yoW5Xw47pF
+ WkAFy5Xrn2qryxKanIvFnYgryFyan7Ka1Sk34SkFnI9FyYkry5Ka4jva4YkF1UJrWUAFy3
+ t3yUAF1xuF13CFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUBm14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -55,8 +55,8 @@ X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 Cc: pinkesh.vaghela@einfochips.com, weishangjuan@eswincomputing.com,
  linmin@eswincomputing.com, ningyu@eswincomputing.com,
  pritesh.patel@einfochips.com, Zhi Li <lizhi2@eswincomputing.com>
-Subject: [Linux-stm32] [PATCH net v2 2/5] net: stmmac: eswin: fix HSP CSR
-	init ordering after clock enable
+Subject: [Linux-stm32] [PATCH net v2 3/5] net: stmmac: eswin: clear TXD and
+	RXD delay registers during initialization
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,7 +72,7 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 13438565022
+X-Rspamd-Queue-Id: A7EAA565047
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
@@ -100,7 +100,7 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.624];
+	NEURAL_HAM(-0.00)[-0.591];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
@@ -110,163 +110,76 @@ X-Rspamd-Action: no action
 
 From: Zhi Li <lizhi2@eswincomputing.com>
 
-Fix the initialization ordering of the HSP CSR configuration in the
-EIC7700 DWMAC glue driver.
+Clear the TXD and RXD delay control registers during EIC7700 DWMAC
+initialization.
 
-The HSP CSR registers control MAC-side RGMII delay behavior and must
-only be accessed after the corresponding clocks are enabled. The
-previous implementation could trigger register access before clock
-enablement, leading to undefined behavior depending on boot state.
+These registers may retain values programmed by the bootloader. If left
+unchanged, residual delays can alter the effective RGMII timing seen by
+the MAC and override the configuration described by the device tree.
 
-Move the HSP CSR configuration into the post-clock-enable initialization
-path to ensure all register accesses occur under valid clock domains.
+This may violate the expected RGMII timing model and can cause link
+instability or prevent the Ethernet controller from operating correctly.
 
-This change ensures deterministic initialization and prevents
-clock-dependent register access failures during probe or resume.
+Explicitly clearing these registers ensures that the MAC delay settings
+are determined solely by the kernel configuration.
+
+The corresponding register offsets are optional, and the registers are
+only cleared when the offsets are provided in the device tree.
 
 Fixes: ea77dbbdbc4e ("net: stmmac: add Eswin EIC7700 glue driver")
 Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
 ---
- .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 73 +++++++++++--------
- 1 file changed, 41 insertions(+), 32 deletions(-)
+ .../ethernet/stmicro/stmmac/dwmac-eic7700.c   | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-index bcb8e000e720..63001c4acdb7 100644
+index 63001c4acdb7..541b279f08a1 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
-@@ -42,6 +42,11 @@ static const char * const eic7700_clk_names[] = {
- 
- struct eic7700_qos_priv {
- 	struct plat_stmmacenet_data *plat_dat;
-+	struct regmap *eic7700_hsp_regmap;
-+	u32 eth_axi_lp_ctrl_offset;
-+	u32 eth_phy_ctrl_offset;
-+	u32 eth_clk_offset;
-+	u32 eth_clk_dly_param;
+@@ -46,7 +46,11 @@ struct eic7700_qos_priv {
+ 	u32 eth_axi_lp_ctrl_offset;
+ 	u32 eth_phy_ctrl_offset;
+ 	u32 eth_clk_offset;
++	u32 eth_txd_offset;
++	u32 eth_rxd_offset;
+ 	u32 eth_clk_dly_param;
++	bool has_txd_offset;
++	bool has_rxd_offset;
  };
  
  static int eic7700_clks_config(void *priv, bool enabled)
-@@ -61,8 +66,28 @@ static int eic7700_clks_config(void *priv, bool enabled)
- static int eic7700_dwmac_init(struct device *dev, void *priv)
- {
- 	struct eic7700_qos_priv *dwc = priv;
-+	int ret;
+@@ -84,6 +88,12 @@ static int eic7700_dwmac_init(struct device *dev, void *priv)
+ 	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_axi_lp_ctrl_offset,
+ 		     EIC7700_ETH_CSYSREQ_VAL);
+ 
++	if (dwc->has_txd_offset)
++		regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_txd_offset, 0);
 +
-+	ret = eic7700_clks_config(dwc, true);
-+	if (ret)
-+		return ret;
++	if (dwc->has_rxd_offset)
++		regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_rxd_offset, 0);
 +
-+	ret = regmap_set_bits(dwc->eic7700_hsp_regmap,
-+			      dwc->eth_phy_ctrl_offset,
-+			      EIC7700_ETH_TX_CLK_SEL |
-+			      EIC7700_ETH_PHY_INTF_SELI);
-+	if (ret) {
-+		eic7700_clks_config(dwc, false);
-+		return ret;
-+	}
-+
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_axi_lp_ctrl_offset,
-+		     EIC7700_ETH_CSYSREQ_VAL);
+ 	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_clk_offset,
+ 		     dwc->eth_clk_dly_param);
  
--	return eic7700_clks_config(dwc, true);
-+	regmap_write(dwc->eic7700_hsp_regmap, dwc->eth_clk_offset,
-+		     dwc->eth_clk_dly_param);
-+
-+	return 0;
- }
- 
- static void eic7700_dwmac_exit(struct device *dev, void *priv)
-@@ -93,12 +118,6 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 	struct plat_stmmacenet_data *plat_dat;
- 	struct stmmac_resources stmmac_res;
- 	struct eic7700_qos_priv *dwc_priv;
--	struct regmap *eic7700_hsp_regmap;
--	u32 eth_axi_lp_ctrl_offset;
--	u32 eth_phy_ctrl_offset;
--	u32 eth_phy_ctrl_regset;
--	u32 eth_rxd_dly_offset;
--	u32 eth_dly_param = 0;
- 	u32 delay_ps;
- 	int i, ret;
- 
-@@ -121,8 +140,9 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 				  "rx-internal-delay-ps", &delay_ps)) {
- 		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
- 
--		eth_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
--		eth_dly_param |= FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
-+		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
-+		dwc_priv->eth_clk_dly_param |=
-+				 FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
- 	} else {
- 		return dev_err_probe(&pdev->dev, -EINVAL,
- 			"missing required property rx-internal-delay-ps\n");
-@@ -133,53 +153,42 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
- 				  "tx-internal-delay-ps", &delay_ps)) {
- 		u32 val = min(delay_ps / 100, EIC7700_MAX_DELAY_UNIT);
- 
--		eth_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
--		eth_dly_param |= FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
-+		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
-+		dwc_priv->eth_clk_dly_param |=
-+				 FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
- 	} else {
- 		return dev_err_probe(&pdev->dev, -EINVAL,
- 			"missing required property tx-internal-delay-ps\n");
- 	}
- 
--	eic7700_hsp_regmap = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
--							     "eswin,hsp-sp-csr");
--	if (IS_ERR(eic7700_hsp_regmap))
-+	dwc_priv->eic7700_hsp_regmap =
-+			syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
-+							"eswin,hsp-sp-csr");
-+	if (IS_ERR(dwc_priv->eic7700_hsp_regmap))
- 		return dev_err_probe(&pdev->dev,
--				PTR_ERR(eic7700_hsp_regmap),
-+				PTR_ERR(dwc_priv->eic7700_hsp_regmap),
- 				"Failed to get hsp-sp-csr regmap\n");
- 
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 1, &eth_phy_ctrl_offset);
-+					 1, &dwc_priv->eth_phy_ctrl_offset);
- 	if (ret)
+@@ -190,6 +200,18 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
  		return dev_err_probe(&pdev->dev, ret,
- 				     "can't get eth_phy_ctrl_offset\n");
+ 				     "can't get eth_clk_offset\n");
  
--	regmap_read(eic7700_hsp_regmap, eth_phy_ctrl_offset,
--		    &eth_phy_ctrl_regset);
--	eth_phy_ctrl_regset |=
--		(EIC7700_ETH_TX_CLK_SEL | EIC7700_ETH_PHY_INTF_SELI);
--	regmap_write(eic7700_hsp_regmap, eth_phy_ctrl_offset,
--		     eth_phy_ctrl_regset);
--
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 2, &eth_axi_lp_ctrl_offset);
-+					 2, &dwc_priv->eth_axi_lp_ctrl_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
- 				     "can't get eth_axi_lp_ctrl_offset\n");
- 
--	regmap_write(eic7700_hsp_regmap, eth_axi_lp_ctrl_offset,
--		     EIC7700_ETH_CSYSREQ_VAL);
--
- 	ret = of_property_read_u32_index(pdev->dev.of_node,
- 					 "eswin,hsp-sp-csr",
--					 3, &eth_rxd_dly_offset);
-+					 3, &dwc_priv->eth_clk_offset);
- 	if (ret)
- 		return dev_err_probe(&pdev->dev, ret,
--				     "can't get eth_rxd_dly_offset\n");
--
--	regmap_write(eic7700_hsp_regmap, eth_rxd_dly_offset,
--		     eth_dly_param);
-+				     "can't get eth_clk_offset\n");
- 
++	ret = of_property_read_u32_index(pdev->dev.of_node,
++					 "eswin,hsp-sp-csr",
++					 4, &dwc_priv->eth_txd_offset);
++	if (!ret)
++		dwc_priv->has_txd_offset = true;
++
++	ret = of_property_read_u32_index(pdev->dev.of_node,
++					 "eswin,hsp-sp-csr",
++					 5, &dwc_priv->eth_rxd_offset);
++	if (!ret)
++		dwc_priv->has_rxd_offset = true;
++
  	plat_dat->num_clks = ARRAY_SIZE(eic7700_clk_names);
  	plat_dat->clks = devm_kcalloc(&pdev->dev,
+ 				      plat_dat->num_clks,
 -- 
 2.25.1
 
