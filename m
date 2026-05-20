@@ -2,69 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id iB2FL0uqDmr6AwYAu9opvQ
+	id gMEmOBvSDWpP3gUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2026 08:46:35 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 May 2026 17:24:11 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F69059F9C0
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2026 08:46:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A665590BF0
+	for <lists+linux-stm32@lfdr.de>; Wed, 20 May 2026 17:24:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 81EFAC87ED5;
-	Thu, 21 May 2026 06:46:34 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9787C87ED1;
+	Wed, 20 May 2026 15:24:10 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 50DF9C01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 30B6EC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 May 2026 14:25:16 +0000 (UTC)
-Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
- by sea.source.kernel.org (Postfix) with ESMTP id E875D44408;
- Wed, 20 May 2026 14:25:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BC46CC2BCB0;
- Wed, 20 May 2026 14:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
- s=k20201202; t=1779287114;
- bh=BnMsVWcwl4AFbezmgy6BVdcgEuOZPKK25nQ5D6YYan8=;
- h=From:Date:Subject:To:Cc:Reply-To:From;
- b=FSTivjF3qnEkoR4a1VMkETSnoNUlSeaOa7nZBdulljcMl8yjnG8G0K2kLzisnfyHI
- kz0DjDQQ7ekIvdzVztIWZ865sGO70Tru8z4GZPtd0sx1EYXQZWY8KUEiZemX8xUarX
- 7iy9iNrepnMR53XQh4D5ygqb31zp/nNQRHh4AUk2p5zU0cRRn8Zo7l4iEE6KfctLvW
- CfkAaLFIjzYVriCClpQPwssIwcPGu1YbcbLyEBXo7Uyx2yt0Tcbyyw9BybNfXMq4lZ
- DRWZXEXpPkjfqQadgn5Wepak5Ew7LtZfzMHGhdQttgmD1TTGCiOfWWjXJ9vq8ig3w2
- 9l6bDmCOSWY3A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by smtp.lore.kernel.org (Postfix) with ESMTP id 9DD48CD4F54;
- Wed, 20 May 2026 14:25:14 +0000 (UTC)
-From: Abid Ali via B4 Relay <devnull+dev.taqnialabs.gmail.com@kernel.org>
-Date: Wed, 20 May 2026 14:25:12 +0000
+ Wed, 20 May 2026 15:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=kNMIfVK1t4JwfaOevWXD8LztlJ1NDF/MO/IaQ8lcPZc=; b=Zy4qsVk2VIEMXyiH3/0AgPbuHI
+ imrSS+xEi3g3I8muamtJQPNS4ZyzploNR06neqgcgrMmWdqIYg2XD3fTQzJVwxjjqkH9WpftUKUBf
+ 7nIsN1zJrRIkh0soZxllX1rlIq1bwo8hbvr1LEeswq5t6/p93YFrEKT6IW0naIzUkRGg=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1wPim7-003r0s-Jl; Wed, 20 May 2026 17:23:59 +0200
+Date: Wed, 20 May 2026 17:23:59 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: dev.taqnialabs@gmail.com
+Message-ID: <bd8efd40-e203-4cdc-af25-12b1e2727922@lunn.ch>
+References: <20260520-xgmac-mmc_rx_crc-cleanup-v1-1-7133f529859f@gmail.com>
 MIME-Version: 1.0
-Message-Id: <20260520-xgmac-mmc_rx_crc-cleanup-v1-1-7133f529859f@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAEfEDWoC/x3MQQqEMAxA0atI1gY6BUXmKjJIJqYamFZJcSiId
- 7e4fIv/T8hiKhnezQkmf826pYpX2wCvlBZBnavBO9+7zjssSyTGGHmyMrEx8k8oHTtSYKE+EA3
- 0hZrvJkHLsx4/13UDz9N5oWoAAAA=
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779287113; l=1169;
- i=dev.taqnialabs@gmail.com; s=20260425; h=from:subject:message-id;
- bh=utjrD6shew6tFykTsrj0bAnoJoit1s0RWNNHVzKqLU8=;
- b=NXVGghpu3DrYDgU1IEKAByx2WJBLoEnBEgQZdMPa5C1VCDN5XDktpigly5SEq3LSFM1EXKlCn
- ZO/KUbnUElnAF4ecknXrNJjeTn+7H0lnAzl2cm4akf7MlUABjM4th4k
-X-Developer-Key: i=dev.taqnialabs@gmail.com; a=ed25519;
- pk=4Syx51HH/MOySSUpi79M2ToLOdwt1yiNb338eKZBJNk=
-X-Endpoint-Received: by B4 Relay for dev.taqnialabs@gmail.com/20260425 with
- auth_id=752
-X-Original-From: Abid Ali <dev.taqnialabs@gmail.com>
-X-Mailman-Approved-At: Thu, 21 May 2026 06:46:32 +0000
-Cc: Abid Ali <dev.taqnialabs@gmail.com>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] net: stmmac: mmc: Remove duplicate mmc_rx crc
+Content-Disposition: inline
+In-Reply-To: <20260520-xgmac-mmc_rx_crc-cleanup-v1-1-7133f529859f@gmail.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: mmc: Remove duplicate mmc_rx
+	crc
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -76,88 +56,65 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Reply-To: dev.taqnialabs@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [6.79 / 15.00];
-	FREEMAIL_REPLYTO_NEQ_FROM(2.00)[];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dev.taqnialabs@gmail.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:devtaqnialabs@gmail.com,s:lists@lfdr.de];
-	TAGGED_FROM(0.00)[dev.taqnialabs.gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com];
-	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FREEMAIL_REPLYTO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
-	HAS_REPLYTO(0.00)[dev.taqnialabs@gmail.com];
-	RCVD_COUNT_FIVE(0.00)[5];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	NEURAL_HAM(-0.00)[-1.000];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FORGED_RECIPIENTS(0.00)[m:dev.taqnialabs@gmail.com,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:devtaqnialabs@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 5F69059F9C0
-X-Rspamd-Action: add header
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-1.000];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[lunn.ch:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	FORGED_SENDER_MAILLIST(0.00)[]
+X-Rspamd-Queue-Id: 7A665590BF0
+X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
-X-Spam: Yes
 
-From: Abid Ali <dev.taqnialabs@gmail.com>
+On Wed, May 20, 2026 at 02:25:12PM +0000, Abid Ali via B4 Relay wrote:
+> From: Abid Ali <dev.taqnialabs@gmail.com>
+> 
+> Double read of mmc_rx_crc_error in XGMAC is removed.
 
-Double read of mmc_rx_crc_error in XGMAC is removed.
+The commit message should explain "Why?". I can read the code add see
+what the patch does.
 
-Signed-off-by: Abid Ali <dev.taqnialabs@gmail.com>
----
- drivers/net/ethernet/stmicro/stmmac/mmc_core.c | 2 --
- 1 file changed, 2 deletions(-)
+Why remove the double read? Why is this safe to do? This is hardware,
+maybe it has latches values? Or clear on read? Maybe two reads are
+required? So the Why? Is very important, more important than the code
+change itself.
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-index 1b3b114e7..d81581dfa 100644
---- a/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/mmc_core.c
-@@ -479,8 +479,6 @@ static void dwxgmac_mmc_read(void __iomem *mmcaddr, struct stmmac_counters *mmc)
- 			     &mmc->mmc_rx_multicastframe_g);
- 	dwxgmac_read_mmc_reg(mmcaddr, MMC_XGMAC_RX_CRC_ERR,
- 			     &mmc->mmc_rx_crc_error);
--	dwxgmac_read_mmc_reg(mmcaddr, MMC_XGMAC_RX_CRC_ERR,
--			     &mmc->mmc_rx_crc_error);
- 	mmc->mmc_rx_run_error += readl(mmcaddr + MMC_XGMAC_RX_RUNT_ERR);
- 	mmc->mmc_rx_jabber_error += readl(mmcaddr + MMC_XGMAC_RX_JABBER_ERR);
- 	mmc->mmc_rx_undersize_g += readl(mmcaddr + MMC_XGMAC_RX_UNDER);
+    Andrew
 
 ---
-base-commit: 028ef9c96e96197026887c0f092424679298aae8
-change-id: 20260520-xgmac-mmc_rx_crc-cleanup-afcea6faa8ab
-
-Best regards,
--- 
-Abid Ali <dev.taqnialabs@gmail.com>
-
-
+pw-bot: cr
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
