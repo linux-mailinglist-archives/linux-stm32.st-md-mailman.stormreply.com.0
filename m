@@ -2,96 +2,101 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id yBh1CXIxDmrj7wUAu9opvQ
+	id qFwHOmycDmqTAgYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2026 00:10:58 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2026 07:47:24 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B452F59BCC0
-	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2026 00:10:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86FA459F34F
+	for <lists+linux-stm32@lfdr.de>; Thu, 21 May 2026 07:47:23 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BFDDC87ED1;
-	Wed, 20 May 2026 22:10:57 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5664C01FB6
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9EF09C87ED1;
+	Thu, 21 May 2026 05:47:23 +0000 (UTC)
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
+ [209.85.219.52])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+ (No client certificate requested)
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C06E9C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 May 2026 22:10:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1779315055;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=WUlhTj/LDnGR8NwnkPfh/TBbgWAfcMJHYKZWXxRTj+o=;
- b=CwdgPJI5enHFtdkCsS5ZCwZJeFbYn3T6H7GUMjBbAFcLoy8nZP6+3CvhsLhYdbqQAGJO6R
- f22Mztnmd96EzIewK0bWP5K4xNZSg83TLmFdsJOD+NyX8KP+2c5kndrxWTuiVpJ8rXBg5e
- oj3JMSLHvcJdX3QiC0jmAYb1MQhtoLk=
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-428-hue_Oc0bMmmbUhCJAozgiA-1; Wed, 20 May 2026 18:10:54 -0400
-X-MC-Unique: hue_Oc0bMmmbUhCJAozgiA-1
-X-Mimecast-MFC-AGG-ID: hue_Oc0bMmmbUhCJAozgiA_1779315054
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-90fc64a47edso1183481985a.2
+ Thu, 21 May 2026 05:47:22 +0000 (UTC)
+Received: by mail-qv1-f52.google.com with SMTP id
+ 6a1803df08f44-8b7105dfb35so73469576d6.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 20 May 2026 15:10:54 -0700 (PDT)
+ Wed, 20 May 2026 22:47:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779342441; cv=none;
+ d=google.com; s=arc-20240605;
+ b=gzbz50eOJ3EAfnV1mlKsdqIFhvcHg2U5vYMC9YjJ3eCaZAB/z3cmEiO8xiPIIT0IqV
+ XPa6tbxxfB9v60rX2C5xap+LKQgsEeiJlPh+U+LFvTskIbTHkD6320d0gzY+NLdzq/oa
+ KdzSLZl7zrzbFva3mJmPTYNEVR5apZioD8F9hCNINlWYPT2yK5CohI8Tp6nxQ0G5d+BD
+ tTo7TfEez/MJoMIcJ72I/Xq+v+GSBo10GoME+wWs7Zs4/fyehg4GjL+ku5Wpwxs/jhu9
+ tBOHaIHzNqi0cykBgwFHOrfvoP75Dn3PZCL/tIpWwvcf9llj+eM5RRCpqvMa6uXRV0w9
+ 4DqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20240605; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=w25KogIBywA1a93/rf1RBOgU5z4hh07df7N09bLqYmU=;
+ fh=vrR2Wic+DUX8484qUxqEhxm8I7T2UwtzV31pT06zeUo=;
+ b=UdYAqF5pKq+6ZCQqBPRWrctkGsF7FU5Tohc5IS6ZAjfK/Ax5nVwOCZr+ACisjYUT1Q
+ /qHjigrIP/Xy1dL7jhczRNdARFFIG8VIBwbHqOl3DwfgFhVtjWbb/f6/XgSqxe9s4sTi
+ d+vDZULTo5Zoy0u2KLGeHv9PMIaBgUMI48dWH+Zo2THkQ111+yEhaC+r2xr1yHuqayRB
+ Ji8/sO/YZacJDrdeBB4TlCxaESr502AGShDmtY5uIvbcvLL1oXelzYbzwV0VrnebucRr
+ e2fuAjZ5RntNnD2LPLPkk+mqXGzeuoZJ6i23+zbfb7TIAQaBGzLO86d0KvwDO/eA1grJ
+ 9Afw==; darn=st-md-mailman.stormreply.com
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1779342441; x=1779947241;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=w25KogIBywA1a93/rf1RBOgU5z4hh07df7N09bLqYmU=;
+ b=Tkx2GPUNrOhtrAJn/+OBUAaSVxxomYh3L6eAevxmjhs5I6aWUrECtoZkyZb/FGlkxU
+ 94BTAP+eA/PZxdu+kKOUD7+ZZP3KxBwJYnEwx2ekcBhS9l27tBGhEpltn2YD6/5upWE8
+ dKjXBWNIZsYae6XdUXyXxzq9jZTyHxT5HBHbbX5yzSXSjeOk5mo6pNYNhJqzdqYrC93J
+ DepWSe4QhI99OdypOKXiEZQ8oOo+WlGH0A1c5IStIv72jhu5OTxoyw3Vpg+XS7Djzjy8
+ 7WBo45FVdHonFShqBlYOA8Nhzs8JiOU/Ix4+BucnAhCWqpF3WysragCp9xdJE8B1VB3t
+ C/GA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779315054; x=1779919854;
- h=user-agent:in-reply-to:content-disposition:mime-version:references
- :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+ d=1e100.net; s=20251104; t=1779342441; x=1779947241;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=WUlhTj/LDnGR8NwnkPfh/TBbgWAfcMJHYKZWXxRTj+o=;
- b=ErrLns5zcLBCkugK5Ql5Ai48oMbHAEmTi3qUCRHbMVe+VK+ddvmUnCRJ869l6VVKtO
- akHmOluQDivo5AMglk3fLmPmnjDftUQBAG1AtPqPxSKekdPrOp0zswbJCLxDsM8/k8ds
- AsQFhwJ4/MA7wxXBTMUgo5wZ0WhKgLGegUeZQOxImB8ezk8tUiC71reCFhFkaoc6MabN
- mcuVAMGOhNjKV2WvjoPgw5pxyV4G7J/hQi6DBqe34GN+Afjs470LFKrAN/90mK0p8xmf
- z8zkU1JJkhMNdcyI9UaaRnVCTCf/bg5WcpqgKp7HPXQfzhh1BnnO3+6FsSPtlDfUGr90
- gpew==
+ bh=w25KogIBywA1a93/rf1RBOgU5z4hh07df7N09bLqYmU=;
+ b=GljTk+OnFT5b/XT3dKFniuyUGoU8E0JZy8sUKiLcmZKC3Pc6OB12BSAlbfCyQLpW7s
+ HfEnpzYmkiCqJajxMqeMYuZPDC7nLVipEd28Bv64ktT9HwH9c2HnZHiI6w40KdpqBxG5
+ jGjXvAC0u5OMK/5qZEJEE2OSUwRRh/rIZ6Cr49cWod3XL6qPFlfXuOVDlPq26KyrCEUW
+ wPtlrAT73rf/7jBhn79HgjLmUOHZwsfDzj/QXWBkIOLYZc9OIzlDSGVT4+lb9N11Sma8
+ gNOjtNyrv/7kalh87a3oM5ArZAi02OhH/IdBmruu1Cemcu6xtLFI+fZ13snMFqn9Kmw+
+ QU1A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+8Clt97g94sRALq6cN4qPFnIIdOq8gLbg7JsVBG15EeqnLBi8vtWApWAdrDUPG56HE8ygZBo+Gs4Favw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyqXrtsykq/yAywCDUYwPwOgLepgpHRdMf7I9hkO3vI81VrzKS1
- JCs3AVQc37prn63IGBXTAkLv+KzGBQnfUouQ9zgTeO6wBeiJ0H5m3Ke5ERLTjL9dukrm7M+2B5T
- JKNZUghee/FIilg7iNNvNqddu3GbqLCt+U8Qgcl7NvykkPTKOi1Watru5pvNoVgaD1IWaMpJe+n
- 6Qkl691A==
-X-Gm-Gg: Acq92OELkEJkmTB5a6vTr9PvofODEfYqozIHAb37ZIvW5Pq3cUnfY53Fhg91GJc1E4l
- i6nDcP1RrX+m3s35I2uiDrA2gR1uV+2yVH5mMSwK8Bdyj6mbi6XQP7z5H2auQHar8TjYDRRc/Ee
- ppDjDbk/Huzw1H5DOeLR9DMaVmajiaQdBjhPrTas8O2mZuLv07pL7lPiPlaA8U5p1I9ylU7PtAu
- eQ2Wtw/XJxk63EHUUATnecLJ/d25w1Re5HHCnXopGd+VVJE6m3Up4urYRMNdbjWY1dkOp7AGvtD
- uYLM0+RR5Did84cdmHX8qvXVhbocPJMBILGW3/ixJmoOIHnaR5xlyMktAyMXT0gxUYVpEtzaZ6W
- i3F7Gjk/q5Qxw9mYbTGSvgCI3uCU=
-X-Received: by 2002:a05:620a:370a:b0:8cd:8938:f000 with SMTP id
- af79cd13be357-914a2ce9f9amr16389185a.28.1779315053909; 
- Wed, 20 May 2026 15:10:53 -0700 (PDT)
-X-Received: by 2002:a05:620a:370a:b0:8cd:8938:f000 with SMTP id
- af79cd13be357-914a2ce9f9amr16384985a.28.1779315053518; 
- Wed, 20 May 2026 15:10:53 -0700 (PDT)
-Received: from redhat.com ([69.43.42.202]) by smtp.gmail.com with ESMTPSA id
- af79cd13be357-910bab3a207sm2240740085a.15.2026.05.20.15.10.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 20 May 2026 15:10:52 -0700 (PDT)
-Date: Wed, 20 May 2026 18:10:51 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: Rosen Penev <rosenp@gmail.com>
-Message-ID: <ag4xa-WmnGti3naD@redhat.com>
-References: <20260519222639.34508-1-rosenp@gmail.com>
+ AFNElJ8jQRCzaxpBi4wCM54Vho96IL2pNdy9O32Ikd57ezTGFeZY1R2+sAxNLSsj4HLRxchvvnefuXDZYwsVOw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyJcAdPIn4G4pL+P4/+JyP70iBoaGr+vG9Y6fk4oxhO5RsQYlx5
+ jtG8x8PQcs6eoMO3zWGuufcBLq5IX+tHEkoXNp+4coi6MGG+vyyBeesYb36y540IG/Fre+6tzyf
+ pHHEip6HMGW9CPemxrT/E8QTodqJ1rY8=
+X-Gm-Gg: Acq92OEdpUvS3I06WDhgtMaFOluapyVcx3HwB8L9VRgLkU9OOlxvJ7kTJGYPSRT+Csk
+ 27lC/vBCQAfcAANKi8Yo5VLy7h63TaNWVyb7PB8FLEm742r4IFe3fM0lk/TwFv0eq2ENTMo8/AK
+ 552ZyXSSzSpmPphmx0dvdDLnbiUWcyeaR8VIvCkWPgJlP7aLEq/AmMth/M0rreCqn5UaODBpTaE
+ +GaMdX7bGl4oVaLwu/lkFuMqVTHX8YlNFc1g7920XAZXFgGkCa0S4D80ojDXSslKdOA0W64sL4o
+ tEliU1+/9TKnYB1tq6EWgo0aQBt+983StlPE2UsdAyhXZehp/A==
+X-Received: by 2002:a05:6214:4589:b0:8ac:b1ad:3a24 with SMTP id
+ 6a1803df08f44-8cc6e369142mr24275146d6.27.1779342441405; Wed, 20 May 2026
+ 22:47:21 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20260519222639.34508-1-rosenp@gmail.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: oWOqcAE9TGn7KWNZvgAJdxzNMov4BSdaZ6rYwVmhbC0_1779315054
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Cc: Nicolas Le Bayon <nicolas.le.bayon@foss.st.com>,
- open list <linux-kernel@vger.kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Alok Tiwari <alok.a.tiwari@oracle.com>,
- Michael Turquette <mturquette@baylibre.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, linux-clk@vger.kernel.org,
- "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [Linux-stm32] [PATCH] clk: stm32: add missing bitfield.h header
+References: <20260509193928.19030-1-manishbaing2789@gmail.com>
+ <agnY16I4sYAdRd9T@monoceros>
+In-Reply-To: <agnY16I4sYAdRd9T@monoceros>
+From: Manish Baing <manishbaing2789@gmail.com>
+Date: Thu, 21 May 2026 11:17:10 +0530
+X-Gm-Features: AVHnY4KAzV-NI5cDZgO-6QHQZfraoFlbvvmbGV2Hd6qkCVQ1Ph4LlYmyO8Rq1VQ
+Message-ID: <CAJvdc_enTOF=+1rumSz4FD5T1ME0fnJ+SVC+jMuOTMxzyx8P1Q@mail.gmail.com>
+To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ linusw@kernel.org, lee@kernel.org, linux-pwm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] dt-bindings: mfd: st,
+ stmpe: fix PWM schema and drop legacy binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,61 +108,84 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[redhat.com : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:rosenp@gmail.com,m:nicolas.le.bayon@foss.st.com,m:linux-kernel@vger.kernel.org,m:sboyd@kernel.org,m:alok.a.tiwari@oracle.com,m:mturquette@baylibre.com,m:linux-stm32@st-md-mailman.stormreply.com,m:gabriel.fernandez@foss.st.com,m:mcoquelin.stm32@gmail.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	FORGED_SENDER(0.00)[bmasney@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[manishbaing2789@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_FROM(0.00)[gmail.com];
+	FORGED_RECIPIENTS(0.00)[m:ukleinek@kernel.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linusw@kernel.org,m:lee@kernel.org,m:linux-pwm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[foss.st.com,vger.kernel.org,kernel.org,oracle.com,baylibre.com,st-md-mailman.stormreply.com,gmail.com,lists.infradead.org];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	NEURAL_HAM(-0.00)[-1.000];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[bmasney@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	DKIM_TRACE(0.00)[redhat.com:-];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[manishbaing2789@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROMTLD(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: B452F59BCC0
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: 86FA459F34F
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Tue, May 19, 2026 at 03:26:39PM -0700, Rosen Penev wrote:
-> It seems some ARM header includes this and the build passes there, but
-> nowhere else. Note that the driver has COMPILE_TEST in depends.
-> 
-> Fixes: 37ae8501cdb0 ("clk: stm32: introduce clocks for STM32MP21 platfor")
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-
-Reviewed-by: Brian Masney <bmasney@redhat.com>
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgVXdlLAo+IElmIHRoZSBwYXRjaCB3YXMgc3BsaXQgaW50byB0d28sIGVhY2ggdG91Y2hpbmcg
+anVzdCBvbmUgb2YgdGhlIGZpbGVzLAo+IHRoZXJlIHdvdWxkIGJlIG5vIG5lZWQgZm9yIG1lcmdl
+IGNvb3JkaW5hdGlvbi4gQWxzbyBsb2dpY2FsbHkgaXQncyB0d28KPiBwYXRjaGVzLiBXb3VsZCB5
+b3UgbWluZCBzcGxpdHRpbmc/CgpUaGF0IG1ha2VzIHBlcmZlY3Qgc2Vuc2UuIEkgd2lsbCBzcGxp
+dCB0aGlzIGludG8gYSB0d28tcGF0Y2ggc2VyaWVzCihvbmUgZm9yIHRoZSBNRkQgWUFNTCBmaXgg
+YW5kIG9uZSBmb3IgdGhlIFBXTSBUWFQgZGVsZXRpb24pIGFuZCBzdWJtaXQKaXQgc2hvcnRseSBh
+cyB2NC4KVGhhbmtzIGZvciB0aGUgZmVlZGJhY2shCgpUaGFua3MgYW5kIFJlZ2FyZHMsCk1hbmlz
+aAoKCk9uIFN1biwgTWF5IDE3LCAyMDI2IGF0IDg6MzXigK9QTSBVd2UgS2xlaW5lLUvDtm5pZyA8
+dWtsZWluZWtAa2VybmVsLm9yZz4gd3JvdGU6Cj4KPiBIZWxsbywKPgo+IE9uIFNhdCwgTWF5IDA5
+LCAyMDI2IGF0IDA3OjM5OjI4UE0gKzAwMDAsIE1hbmlzaCBCYWluZyB3cm90ZToKPiA+IFRoZSBz
+dCxzdG1wZS1wd20gYmluZGluZyBpcyBhbHJlYWR5IGNvdmVyZWQgYnkgdGhlIE1GRCBzY2hlbWEg
+aW4KPiA+IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9tZmQvc3Qsc3RtcGUueWFt
+bC4gSG93ZXZlciwgdGhlCj4gPiBQV00gc3Vibm9kZSB3YXMgbWlzc2luZyBhICdyZXF1aXJlZCcg
+cHJvcGVydGllcyBibG9jay4gVGhpcyBhbGxvd2VkCj4gPiBEZXZpY2UgVHJlZSBub2RlcyB0byBw
+YXNzIHZhbGlkYXRpb24gZXZlbiBpZiB0aGUgJ2NvbXBhdGlibGUnCj4gPiBzdHJpbmcgd2FzIG9t
+aXR0ZWQuIFRoaXMgb21pc3Npb24gY291bGQgbGVhZCB0byBwcm9iZSBmYWlsdXJlcwo+ID4gYXQg
+cnVudGltZS4KPiA+Cj4gPiBGaXggdGhlIHNjaGVtYSBieSBhZGRpbmcgdGhlIG1pc3NpbmcgJ3Jl
+cXVpcmVkJyBibG9jayBhbmQKPiA+IHJlbW92ZSB0aGUgb2Jzb2xldGUgYW5kIHJlZHVuZGFudCB0
+ZXh0IGJpbmRpbmcgZmlsZS4KPiA+Cj4gPiBTaWduZWQtb2ZmLWJ5OiBNYW5pc2ggQmFpbmcgPG1h
+bmlzaGJhaW5nMjc4OUBnbWFpbC5jb20+Cj4gPiAtLS0KPiA+IENoYW5nZXMgaW4gdjM6Cj4gPiAt
+IEFkZGVkICdyZXF1aXJlZCcgcHJvcGVydGllcyB0byB0aGUgcHdtIHN1Ym5vZGUgaW4gc3Qsc3Rt
+cGUueWFtbAo+ID4gICB0byBjbG9zZSBhIHZhbGlkYXRpb24gZ2FwIGlkZW50aWZpZWQgYnkgdGhl
+IFNhc2hpa28uCj4gPiAtIFVwZGF0ZWQgY29tbWl0IG1lc3NhZ2UgYW5kIGRlc2NyaXB0aW9uIHRv
+IHJlZmxlY3QgTUZEIHN1YnN5c3RlbSBjaGFuZ2VzLgo+ID4KPiA+IENoYW5nZXMgaW4gdjI6Cj4g
+PiAgLSBEcm9wcHBlZCB0aGUgVFhUIGZpbGUgaW5zdGVhZCBvZiBjb252ZXJ0aW5nIHRvIFlBTUws
+IGFzIHRoZQo+ID4gICAgZnVuY3Rpb25hbGl0eSBpcyBhbHJlYWR5IGNvdmVyZWQgYnkgc3Qsc3Rt
+cGUueWFtbC4KPiA+Cj4gPiAgLi4uL2RldmljZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bXBlLnlh
+bWwgICAgICB8ICA0ICsrKysKPiA+ICAuLi4vZGV2aWNldHJlZS9iaW5kaW5ncy9wd20vc3Qsc3Rt
+cGUtcHdtLnR4dCAgIHwgMTggLS0tLS0tLS0tLS0tLS0tLS0tCj4KPiBJZiB0aGUgcGF0Y2ggd2Fz
+IHNwbGl0IGludG8gdHdvLCBlYWNoIHRvdWNoaW5nIGp1c3Qgb25lIG9mIHRoZSBmaWxlcywKPiB0
+aGVyZSB3b3VsZCBiZSBubyBuZWVkIGZvciBtZXJnZSBjb29yZGluYXRpb24uIEFsc28gbG9naWNh
+bGx5IGl0J3MgdHdvCj4gcGF0Y2hlcy4gV291bGQgeW91IG1pbmQgc3BsaXR0aW5nPwo+Cj4gQmVz
+dCByZWdhcmRzCj4gVXdlCl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFu
+LnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
