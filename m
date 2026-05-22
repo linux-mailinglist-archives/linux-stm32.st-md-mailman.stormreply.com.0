@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UAgKB9DIEGq0dgYAu9opvQ
+	id UGGHCNHIEGpIdgYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 23:21:20 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 23:21:21 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04CF65BA522
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 23:21:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BFE35BA52B
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 23:21:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B974BC8F298;
-	Fri, 22 May 2026 21:21:19 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5D2BC87ECE;
+	Fri, 22 May 2026 21:21:20 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 78786C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7F915C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2026 21:21:18 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-43d77f6092eso4599075f8f.2
+ Fri, 22 May 2026 21:21:19 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-49048e043e5so5874765e9.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2026 14:21:18 -0700 (PDT)
+ Fri, 22 May 2026 14:21:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779484878; x=1780089678;
+ d=baylibre.com; s=google; t=1779484879; x=1780089679;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=h/JC/lCvJB29DmlH+qRhnlQ7JKVcjCcbMoFC+b+6/88=;
- b=nff+NOfEbHbAGRwJAKRL787eQ4oszMtZ225Ou5ylr62S+NjLXIVhWA7TdqO+sMNjXx
- R21j3g4ZF/oiWNY3prU6u6GDu6tJMwuSPzRjOovRffotCqpv+LIx65HkysC2X5Fh5CAs
- EO/8sFhbpApRX/4ItVlHCP8O/ppnJRomEC+zR4ghLDcyO0BIS8In0DvxR0y36lQg6+mp
- Vwh8bxKCY5tCsHMT3up+7KM58vdPc+adpwU/UsQOsO9mw/1Yfe4Knyxm2B7eNidY+qCE
- 0Zv6E/+OcwWbrNmPWxkOHxiesbgmCHWT91aQpapUtFP6uVl4nccSXLXFFxanBelqQwmc
- 8+xQ==
+ :reply-to; bh=glJxT588UgnMfOXSLSAgwe+j1CYbc1X+ny/bK5Tp2LU=;
+ b=JlsyIZ1omtVIF8Xrjozv9tSqczjSlkU3p2VYgIrl1snBc5C33TyXn/soilbdtp4skC
+ I0muzsb6RpYrUGSe2a+yJ3jcXq3G2jduPekf2aHbUxZqJlvRB7Wq6lNiNRqba22EI3WT
+ C8e5kFoEk6LOR0IezfkyQG/M/jO7SosEQbmDXdImm4+wkLCG0U8NPjY5x4t8Vp1okQLT
+ DYOOoozjvkzkt9x84NTm5jF/yu5EDi3i+tRR7KFRGuWL1qoJZatJi1Mnme9F6YTy1bon
+ SfdwYU2xW9eK3EHbugOdEvXgYtczHXEZNawrXJpzi6bEbDm7tDaYWD/3QmizlkQnvyEI
+ dlKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779484878; x=1780089678;
+ d=1e100.net; s=20251104; t=1779484879; x=1780089679;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=h/JC/lCvJB29DmlH+qRhnlQ7JKVcjCcbMoFC+b+6/88=;
- b=kT8iQIfGs/51oqHDLD9Mz0Ksq58lmipKNnHb+5W+/IRLyOn6c/jl2qqX7szhStrE7i
- TsvgD1jb4e5Avr6CrH1lJpx14NjTbfxvd9ShMTMXEYoR/MoqtgpJ29iynA4N5Rvhgraz
- CuqfbPdEp/alDpzgOKpAMF9wu2o1wK//JKSsdWu9wi0cUAkMuId/0BnedcHrd3ZngbzR
- IxHn3qe4NgmwCcno0dg/L7YmdY2DtBRQcCHZfEjyiWOPdeIRF8XNPWI0V51l0jaE1oWZ
- K9N1gZE5P5+OPzQGiKF/gIcMP9B1wit9Yx+xhkTs7ITJbR0PnJcfOlDwrh+ehl1guaVr
- zMMA==
+ bh=glJxT588UgnMfOXSLSAgwe+j1CYbc1X+ny/bK5Tp2LU=;
+ b=B7Kh83pSNMVhvGWzOk740Y22s0qelgUr3hWyvcyF0aADIvc2Iihvf32Dm73SX5FKY0
+ QrtQGo4CwdPRfckJs48GsAEIcbWq2fhqTlDj4WKFlZssw5QOGh9bhEgy5tmVuJrEuIS/
+ xf31X95Nwgno+xvVT4ShNCua4ImAVWsX8A24bWmTMxUOunlphUynTqwVlfCuTuX8Q2Zq
+ jOqqc7c7DWBT20sIAA9CQisKmyO7zU6S0F2gDq1Oyfm7AG4OesLR+xRJnzVS1Jx13V0a
+ V1i4Jhskv/rHQ7F5ltQ2xBJE6jVHQCGlz+2N04wDXfrY2k8IH8Y4FYub4svtCakMpICR
+ MZZw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+dVdubRPKcpzSGV0cfVGn9PiUpajBafE/71Wy0ubsD3rNhiq5eVgBce5JIIpkNWHoZ7UGOSxrHRHwlxg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzCBilntpmayG++BFz3CgAxL0ctg6EgsYnvh84r7WD3/UdrfYur
- IbZ3DaWlMsyCjHfD7w0caoG8vuFZYGg/NMODKfcM5ysHqky2luXTIatvLJpuXwdw7/0=
-X-Gm-Gg: Acq92OHf6EIjTRJfnQTt/HMjGEzAlUGJy99iTjlmH5Aq87c7fi2Y9nnrG+akRIQjqfn
- EwzsfbCdQipEez4gJh9eSRml13VEYAm2NVtYL1mYjJ16/xr8eP1hdx8qOfNvOtbaV0XpkFEcVsv
- 3WUVgqBvXg5hZbUJpF+EmhfRlNIm51X7NXmAQBsT1LFDrejLYkMYzqWXUbCdQ0c5916rSjozhi9
- 60NqqW2Nxe2psaPZYNtKzgbk9K6FGQZ/B18z7WuU3hgHPnf3x4O+SXR67aiNO0w6kAtLLTfFw8H
- DFPoMuAunW/kYh5sqfhl4YEmocHWvpIUqRyM8Hw39/gIptGZz9AFCq91Z7vWvXZPah1TLysKHNP
- 505KIESMpbGtqUr+ntIyapOHjokwQ70Ih0SyTAhNA/3bF9CrYnw9CRROLTloCiYZ+9QVY5sI1Og
- 8TGFbNAhaFKPq15shbljaOxtjI4GFnDMo=
-X-Received: by 2002:a05:600c:5298:b0:48e:7854:1608 with SMTP id
- 5b1f17b1804b1-490428dd523mr79562455e9.25.1779484877951; 
- Fri, 22 May 2026 14:21:17 -0700 (PDT)
+ AFNElJ92ZHE4F3gz5thWlTJnscXvN3P+sU1H90ezdhIQ0UA04pWHH3zwD/MyLZoIn3CZkatPjRs+IiBmIgClEg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxasH2TNzFpuCQhbQwJRcsLSVQXahfoNN5suqg7ZZHnjz9nHiH1
+ SJtG42xapojb/l3SNt+vyMxnlLnGLdOI7FZeMDiT0rtOqeYDEL2/NubHgZWcVdt3l7Y=
+X-Gm-Gg: Acq92OGyDdCVhzsHgt36bhl9IXbzzDpxenDdATn11ok4xVYE9x33dca3pqoXnHF0X+U
+ RTrgmMQcWR5Cs7sekn+drnBMb4HOt1CTGREuqrr4cOI+AtMQZvs+h5FZ/vyLAgWjG10+W9EfOoI
+ APQZQmFH+RZDkTm9PCFXD5NSicG+t86N7F7Ta1lNrq0mYoUhvxus/l9OIErkpBAIx45Up4NLvCh
+ teFs8ZB/spCqBdQnBjchHddpZH4OLpMCTCE3R+jLwDtpvP+Y5LzeBewNc7y2QGnyg9p0qLi5bIV
+ W2xTUBdOk369sur8snODsEbeKES0y63eLAderwXFbmdoXnIWJRtUkoEycFgx+kvs3myemA8bWNZ
+ lJE0Rv/DcgSONdiib9fudVoiroMbBJrNcjNeyjVEO0W0aTSQrcG48s/K3HX+LJgdPfdHRsQqGB4
+ AlaVTqIeug6mbITNjkzZg0VQbGjDdeX+k=
+X-Received: by 2002:a05:600c:a106:b0:48e:635a:18d2 with SMTP id
+ 5b1f17b1804b1-490424a0d41mr53927465e9.2.1779484878961; 
+ Fri, 22 May 2026 14:21:18 -0700 (PDT)
 Received: from [192.168.0.2] ([2a07:7e81:7daa:0:62cf:84ff:feee:627])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490454a0b82sm73312225e9.9.2026.05.22.14.21.16
+ 5b1f17b1804b1-490454a0b82sm73312225e9.9.2026.05.22.14.21.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 22 May 2026 14:21:17 -0700 (PDT)
+ Fri, 22 May 2026 14:21:18 -0700 (PDT)
 From: Angelo Dureghello <adureghello@baylibre.com>
 X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Fri, 22 May 2026 23:20:30 +0200
+Date: Fri, 22 May 2026 23:20:31 +0200
 MIME-Version: 1.0
-Message-Id: <20260522-wip-stmark2-dac-v3-2-16be0ad35a67@baylibre.com>
+Message-Id: <20260522-wip-stmark2-dac-v3-3-16be0ad35a67@baylibre.com>
 References: <20260522-wip-stmark2-dac-v3-0-16be0ad35a67@baylibre.com>
 In-Reply-To: <20260522-wip-stmark2-dac-v3-0-16be0ad35a67@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -85,8 +85,8 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 02/11] m68k: mcf5441x: add clock for DAC
-	channel 1
+Subject: [Linux-stm32] [PATCH v3 03/11] m68k: mcf5441x: initialize DAC
+ clocks by iio DAC driver name
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,54 +129,51 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[baylibre.com:-];
-	NEURAL_HAM(-0.00)[-0.741];
+	NEURAL_HAM(-0.00)[-0.734];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 04CF65BA522
+X-Rspamd-Queue-Id: 0BFE35BA52B
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Add missing clock for mcf5441x DAC channel 1.
+Later in this patchset, the mcf54415 DAC driver is added.
+Considering some other different ColdFire cpu DACs exists, the DAC driver
+is named as "mcf54415_dac", related to the mcf5441x family SoCs with
+DACs (mcf54415/6/7/8).
+
+So updating DAC CLKDEDV_INIT with proper driver name.
 
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
- arch/m68k/coldfire/m5441x.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- none
+Changes in v3
+- roll back clock names as they was originally
+---
+ arch/m68k/coldfire/m5441x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/m68k/coldfire/m5441x.c b/arch/m68k/coldfire/m5441x.c
-index 613b0275d9d8..5b5e09ecf487 100644
+index 5b5e09ecf487..b02ca2eb55a4 100644
 --- a/arch/m68k/coldfire/m5441x.c
 +++ b/arch/m68k/coldfire/m5441x.c
-@@ -44,6 +44,7 @@ DEFINE_CLK(0, "mcfpit.3", 35, MCF_BUSCLK);
- DEFINE_CLK(0, "mcfeport.0", 36, MCF_CLK);
- DEFINE_CLK(0, "mcfadc.0", 37, MCF_CLK);
- DEFINE_CLK(0, "mcfdac.0", 38, MCF_CLK);
-+DEFINE_CLK(0, "mcfdac.1", 39, MCF_CLK);
- DEFINE_CLK(0, "mcfrtc.0", 42, MCF_CLK);
- DEFINE_CLK(0, "mcfsim.0", 43, MCF_CLK);
- DEFINE_CLK(0, "mcfusb-otg.0", 44, MCF_CLK);
-@@ -106,6 +107,7 @@ static struct clk_lookup m5411x_clk_lookup[] = {
+@@ -106,8 +106,8 @@ static struct clk_lookup m5411x_clk_lookup[] = {
+ 	CLKDEV_INIT("mcfpit.3", NULL, &__clk_0_35),
  	CLKDEV_INIT("mcfeport.0", NULL, &__clk_0_36),
  	CLKDEV_INIT("mcfadc.0", NULL, &__clk_0_37),
- 	CLKDEV_INIT("mcfdac.0", NULL, &__clk_0_38),
-+	CLKDEV_INIT("mcfdac.1", NULL, &__clk_0_39),
+-	CLKDEV_INIT("mcfdac.0", NULL, &__clk_0_38),
+-	CLKDEV_INIT("mcfdac.1", NULL, &__clk_0_39),
++	CLKDEV_INIT("mcf54415_dac.0", NULL, &__clk_0_38),
++	CLKDEV_INIT("mcf54415_dac.1", NULL, &__clk_0_39),
  	CLKDEV_INIT("mcfrtc.0", NULL, &__clk_0_42),
  	CLKDEV_INIT("mcfsim.0", NULL, &__clk_0_43),
  	CLKDEV_INIT("mcfusb-otg.0", NULL, &__clk_0_44),
-@@ -176,6 +178,7 @@ static struct clk * const disable_clks[] __initconst = {
- 	&__clk_0_35, /* pit.3 */
- 	&__clk_0_37, /* adc */
- 	&__clk_0_38, /* dac.0 */
-+	&__clk_0_39, /* dac.1 */
- 	&__clk_0_44, /* usb otg */
- 	&__clk_0_45, /* usb host */
- 	&__clk_0_47, /* ssi.0 */
 
 -- 
 2.54.0
