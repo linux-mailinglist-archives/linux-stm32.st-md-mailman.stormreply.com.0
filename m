@@ -2,48 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id WN6fKcZIEGrzVgYAu9opvQ
+	id cJEgGuaVEGqBZwYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 14:15:02 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 19:44:06 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E33E85B3B09
-	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 14:15:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC7905B874E
+	for <lists+linux-stm32@lfdr.de>; Fri, 22 May 2026 19:44:05 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2C7EAC8F297;
-	Fri, 22 May 2026 12:15:01 +0000 (UTC)
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CB55C36B2A;
+	Fri, 22 May 2026 17:44:05 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 525C3C8F296
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC032C36B13
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2026 12:14:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
- s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
- References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
- Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
- Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=OP5kDDbyBhNllN1CVAUniMuZiS5jxiyCHBQ7Quk3BjE=; b=3sAJHlb1Y53fSEQSPVdAZv/eZp
- Q8qp25xnlsxFpfIamFD5kztSb+v2mEAFDvjR3XMwVVWbyJtolvV9oZu5mPdm9tVtYeMzClk4AKhUn
- ykIWGY3DIiK+ciO6VW26TzXFSoknY2RgYO42+xJe+6vyDFkpwLsyNaZH9nJDx8h+00N4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
- (envelope-from <andrew@lunn.ch>)
- id 1wQOm8-004AaJ-07; Fri, 22 May 2026 14:14:48 +0200
-Date: Fri, 22 May 2026 14:14:47 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Abid Ali <dev.taqnialabs@gmail.com>
-Message-ID: <12d899f2-3baf-4ad0-8834-a489cba543bd@lunn.ch>
-References: <2d702678-5b2b-451e-b692-228efcbbefc4@lunn.ch>
- <20260522065434.6231-1-dev.taqnialabs@gmail.com>
+ Fri, 22 May 2026 17:44:03 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8EF0B43874;
+ Fri, 22 May 2026 17:44:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 459851F000E9;
+ Fri, 22 May 2026 17:44:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779471842;
+ bh=K22gNRoh2z9yLN92hgi07gB7wLMlyv2U+j/zIg7Two8=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=V28kY8SvG4Ipwl37n1Zb+BfUlvKbi/q1KOCANLazO/AUMWs8LdVgsU3OBjuKJGv2b
+ zKrZYp0Gn2nMNdOzH2LEHgmmHKVe0Ijy+lqwXpeENrI/13C9sk7ZNybhVDXs9qEP9J
+ k0LXZuZ0Wxni335iDzREvLxxITTHHAqY4Pu4tOLtPXNUjjdF/wAYwx+Toic5gYzefA
+ qhFYvxxXZAKetz0xjRsZqQdvOe8jY36EY+q+vxjr80T+EOi/z+CBq3xLMkfb7brp5M
+ uYWOF4iidpCPPeqva2arWerxghmxsIZk62BJUxApUJrSYK3qqqxpnEp4n4OQXZGFJq
+ Q8Zb0nGbTaoSg==
+From: Mark Brown <broonie@kernel.org>
+To: olivier.moysan@foss.st.com, arnaud.pouliquen@foss.st.com, 
+ phucduc.bui@gmail.com
+In-Reply-To: <20260515112458.34378-1-phucduc.bui@gmail.com>
+References: <20260515112458.34378-1-phucduc.bui@gmail.com>
+Message-Id: <177945340534.6494.9459779300774728810.b4-ty@b4>
+Date: Fri, 22 May 2026 13:36:45 +0100
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260522065434.6231-1-dev.taqnialabs@gmail.com>
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, edumazet@google.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: mmc: Remove duplicate
-	mmc_rx crc
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1740; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=xWFVqWztShCirmApW3gFp7kLzV92xCyCzkRDksqOHGE=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqEJXfKyDXbJQfdrp4L/s53dZlnV+F057bQiQt5
+ UY/e23F22iJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCahCV3wAKCRAk1otyXVSH
+ 0Ow7B/4pPIJXmPZTefFXWsQL84lP4Kk48+aWzm16FutztIvaUHaW1SJXmqmauCZI5b1uMEiEFae
+ ahkGNn5CfFZMHif8/yzHTIs6/3zEp30fPmDt7ze1Tebq46VEQgqGlmuoDsJZqSlB76vi0VGogGx
+ a1K4GSvksfz6BM3oob91h7qSZrHxV+SB+xbfULBKRgGL9uCE7IvKlRw3G14ze9ro6YkCNMeWuu8
+ qIb9Br51R1/zI1OOB1D1YPE2x/RDo/dQSyiyKJHGO3h0k9DX1jiJt3kzucwNrNDyB7k/39fZARD
+ cBHgjFmjdq/vmNOk7MW66pJ1R3mukbEsVIo39LidLtFi5f37
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org,
+ linux-sound@vger.kernel.org, tiwai@suse.com, mcoquelin.stm32@gmail.com,
+ perex@perex.cz, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2 0/4] ASoC: stm: Use guard() for mutex &
+	spin locks
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -59,60 +74,93 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:dev.taqnialabs@gmail.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:devtaqnialabs@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[foss.st.com,gmail.com];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:olivier.moysan@foss.st.com,m:arnaud.pouliquen@foss.st.com,m:phucduc.bui@gmail.com,m:lgirdwood@gmail.com,m:linux-kernel@vger.kernel.org,m:linux-sound@vger.kernel.org,m:tiwai@suse.com,m:mcoquelin.stm32@gmail.com,m:perex@perex.cz,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:phucducbui@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[lunn.ch:-];
-	NEURAL_HAM(-0.00)[-0.585];
-	MID_RHS_MATCH_FROM(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.687];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[broonie@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,suse.com,perex.cz,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,lunn.ch:email]
-X-Rspamd-Queue-Id: E33E85B3B09
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Queue-Id: EC7905B874E
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Fri, May 22, 2026 at 06:54:34AM +0000, Abid Ali wrote:
-> On Thu, May 21, 2026 at 20:44:53 +0200, Andrew Lunn wrote:
-> > Thanks for the updated commit message.
-> >
-> > Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+On Fri, 15 May 2026 18:24:54 +0700, phucduc.bui@gmail.com wrote:
+> ASoC: stm: Use guard() for mutex & spin locks
 > 
-> Much appreciated.
+> From: bui duc phuc <phucduc.bui@gmail.com>
 > 
-> Should I send a v3 with the Reviewed-by trailer added ?
+> Hi all,
+> 
+> This series converts mutex and spinlock handling in the STM drivers
+> to use guard() helpers.
+> The changes are code cleanup only and should have no functional impact.
+> 
+> [...]
 
-No need. patchworks will pick it up when the Maintainer applies the
-patch. You only need to append it if you need to send a new version of
-the patch.
+Applied to
 
-	Andrew
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
+
+Thanks!
+
+[1/4] ASoC: stm: stm32_adfsdm: Use guard() for mutex locks
+      https://git.kernel.org/broonie/sound/c/dabf5b45b18c
+[2/4] ASoC: stm: stm32_i2s: Use guard() for spin locks
+      https://git.kernel.org/broonie/sound/c/b212cb00168c
+[3/4] ASoC: stm: stm32_sai_sub: Use guard() for mutex & spin locks
+      https://git.kernel.org/broonie/sound/c/5e54b4c280af
+[4/4] ASoC: stm: stm32_spdifrx: Use guard() for spin locks
+      https://git.kernel.org/broonie/sound/c/3f0d573c3259
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
