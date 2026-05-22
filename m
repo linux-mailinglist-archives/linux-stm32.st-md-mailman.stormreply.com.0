@@ -2,87 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id III+ELzwE2qmHgcAu9opvQ
+	id 6P6FELzwE2o6HwcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 08:48:28 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4FBF5C6B7F
+	by mail.lfdr.de (Postfix) with ESMTPS id D013C5C6B80
 	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 08:48:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4A118C87EBF;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57344C87ED4;
 	Mon, 25 May 2026 06:48:26 +0000 (UTC)
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
- [209.85.128.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 10CBDC87ED0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 080E1C87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 22 May 2026 06:54:56 +0000 (UTC)
-Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-49040362e4aso8920695e9.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 21 May 2026 23:54:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1779432896; x=1780037696;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=wJ0C563Ghgv+mwad+zKEpzaeJ9PbuKH0EuvqylaFOXw=;
- b=U5Y8KNBj9Sh291RT12u3NTopFhnSrUVIFxTSbf+VYtPLg+my4oVrBCdRsMJvPBfjFl
- Bmqg9adTKVJSGg/E77G2x1HfD945FjZRTMCc9q5Q24DXGKbX9pYzaRnR3JVpYC+Qgsha
- ndeyHfQ6BwNTFN6b6IztT1wGsKvPaUIzVvHntmSrOCCxRFLBy4KzuesOjJRg1cRb/7Gv
- OOt1g5HWs2xywtULrkBg9wBPHX8DLEUw2wESdPyQRmrlUBI4fWNvR8iVX/9Zda33sMn7
- FtcQC9ca62fi2pfMXRzouF9v2ejNSMgJSkG2tPdVzwC6d5bGwfatqEqfxU6P1xICWaEv
- ESDA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779432896; x=1780037696;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=wJ0C563Ghgv+mwad+zKEpzaeJ9PbuKH0EuvqylaFOXw=;
- b=NqxvRKizEWXKLb5RDH9I5IlWFXdjITe3KZxF3Ox10/+2WiYy1uY7vaTvSanNd0vwaL
- b+2Qc9erd998fjdCBVaIlPBPLw8NAUNf+1yMsHxLvUY0J2qqcQJeByaOwY+MXBRMcoyJ
- 93IO/gjnlnRqwdY9kYspZku8L77zksAg3c7VLJA1MGCrkhrtc0K3yqO1la+FL8wJMOvo
- sSPw3ob7Zzw3utJyW5K1zsE8vZiBLEEL5jUW0PdvddCmHXTKti+L8JCb4iBkh0mUWNCo
- TLw4z28k20VMIOGPo1eHoGD9gAO5ik3WG4HdXDI6AB07pIqz+5D5191lZOy4wtDEAaWn
- +FBQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8FDkb5XOc0901ZYIuvTiW1mM0tjZdGIkZPpa3i8Fw1QLv9YJ51QniThcvfsVnge0gQ3XTKdN7C83M4Dw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx0/yWbc1j2WYLttyu5/6IPGaGtQWY5Zy5ZN+NgEXevITwTMdcM
- jBfQqMUxSIX3SEqKf8aKg1qrRCev0SrnYw+Ir1IyFyOvojntouYT8ec1
-X-Gm-Gg: Acq92OHAGz98iHy/XKUWJ2wqn66mowgkysBSSbzXmeprCEr6ucVZblzor/by+EhSRwI
- Qa7pKok7LvoycSwKYSJOVM4/hfTl//pU8pLmtdi7xbsGRr6AsgbaiKeNKKOLhQn5ONU5Ye+zQmf
- Xc2KMe3zoJPEaGBCMJWB5DEgvTcAofE5hiHpojnvnc+f08QgLCd9W32S8g3orFeT1xWDldABqlN
- E/16xgQLH+W2NiKYGssZwWXLa/1A06LCcQvyaI317iwX+vqvFmDQ15Bqnh5sm0kb9zVEuNcvGBv
- aOaok9NMv3eP2xiZ9AN1AuDVDKJQstVPc66NF8LMLfXfs+gv/flX2epUMTWNLh61xxMCh2JNEZc
- 7WTA5v1s6aHWi070aazszEKHXmG+xg3b+Iv/wqVwjzHl13UrTwhVdUSaVmEGzRXsdzC5EfPHfV/
- tt8NjsTAEfOwJWvafvrkrCluimQ8rlO8VyqKrf3tpGvrIilWQgF7PAMMxY2Q==
-X-Received: by 2002:a05:600c:4ecc:b0:490:3a07:c467 with SMTP id
- 5b1f17b1804b1-490426cf642mr25318265e9.22.1779432896201; 
- Thu, 21 May 2026 23:54:56 -0700 (PDT)
-Received: from INBSWN167928.ad.harman.com ([31.215.251.63])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490428d4cefsm9693025e9.14.2026.05.21.23.54.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 21 May 2026 23:54:54 -0700 (PDT)
-From: Abid Ali <dev.taqnialabs@gmail.com>
-To: andrew@lunn.ch
-Date: Fri, 22 May 2026 06:54:34 +0000
-Message-ID: <20260522065434.6231-1-dev.taqnialabs@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <2d702678-5b2b-451e-b692-228efcbbefc4@lunn.ch>
-References: <2d702678-5b2b-451e-b692-228efcbbefc4@lunn.ch>
+ Fri, 22 May 2026 07:09:31 +0000 (UTC)
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sea.source.kernel.org (Postfix) with ESMTP id 93411441FC;
+ Fri, 22 May 2026 07:09:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 65710C2BCB3;
+ Fri, 22 May 2026 07:09:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+ s=k20201202; t=1779433770;
+ bh=80mcAzKT7KUOX54cAxYT9sDC70vp0A2zMTxwr1FmLH8=;
+ h=From:Date:Subject:To:Cc:Reply-To:From;
+ b=sMKl7SxS2Vk+cDojK4O5Lml29VnBNPY/z5CJgfEe/Io12YNbfNezWyctuvYoohECU
+ okawJjSENLD0dzfwNeuUbfFn+j7RIw9gFMGZGUKp5CZfBe5PH7ABgpQokXJ8QKy74Y
+ rYZifadcbgZ1klbnyqKmvFb/1Fmh8MpZicwT+jhnoyzFlWl9dPpBZQeYJciU1D5oJi
+ yheZYSrc+Aw7yPRrDYzYXN48deGBeCOtBam2as0zGoF/I/uuJVefSZeAFdENFge4DR
+ b1NXQUAHCwGz1WCPQXGkFve4Dppwh//FCVpwLA1P0xAAW+Nvtni1LZLyCxTe6V1SCn
+ DMWdg7oMO2RfQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by smtp.lore.kernel.org (Postfix) with ESMTP id 4CD41CD5BB3;
+ Fri, 22 May 2026 07:09:30 +0000 (UTC)
+From: Abid Ali via B4 Relay <devnull+dev.taqnialabs.gmail.com@kernel.org>
+Date: Fri, 22 May 2026 07:09:27 +0000
 MIME-Version: 1.0
-X-Mailman-Approved-At: Mon, 25 May 2026 06:48:25 +0000
-Cc: dev.taqnialabs@gmail.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2] net: stmmac: mmc: Remove duplicate
-	mmc_rx crc
+Message-Id: <20260522-stmmac-rx-desc-cleanup-v2-1-76e78eb471e1@gmail.com>
+X-B4-Tracking: v=1; b=H4sIACYBEGoC/4WNQQqDMBBFryKz7pQ4jK3tynsUFyGOOmBUEisW8
+ e5NvUD5q/fhv79DlKAS4ZntEGTVqNOYgC4ZuN6OnaA2iYEM3QxTgXHx3joMGzYSHbpB7Piekdm
+ 0pii54AdBGs9BWt1O8atO3GtcpvA5f9b81/5Vrjmm2Ly0d8OOiarOWx2ubvJQH8fxBRZJ+qW8A
+ AAA
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779433768; l=1102;
+ i=dev.taqnialabs@gmail.com; s=20260425; h=from:subject:message-id;
+ bh=EIgrw7dXm9oPWp3zniVVX0HGvfR5iqNaEldPBGWkDIg=;
+ b=hdVWBxzASNSfqv2s2Nbdsqb2HKzuMkf5yETC5Qk0aOAbyTz2fCbXgQSNPGOm5QD6odXNFnEhV
+ SQbDhBYjaBMCsywRVUjkT/8JlHiG/CY7a+CIU++RSilyke3vIhGeR7s
+X-Developer-Key: i=dev.taqnialabs@gmail.com; a=ed25519;
+ pk=4Syx51HH/MOySSUpi79M2ToLOdwt1yiNb338eKZBJNk=
+X-Endpoint-Received: by B4 Relay for dev.taqnialabs@gmail.com/20260425 with
+ auth_id=752
+X-Original-From: Abid Ali <dev.taqnialabs@gmail.com>
+X-Mailman-Approved-At: Mon, 25 May 2026 06:48:26 +0000
+Cc: Abid Ali <dev.taqnialabs@gmail.com>, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH v2] net: stmmac: fix RX DMA leak on TX alloc
+	failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -94,62 +78,93 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Reply-To: dev.taqnialabs@gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [7.79 / 15.00];
+	FREEMAIL_REPLYTO_NEQ_FROM(2.00)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20201202];
 	DATE_IN_PAST(1.00)[71];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dev.taqnialabs@gmail.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:devtaqnialabs@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com];
+	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_REPLYTO(0.00)[gmail.com];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
 	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[devtaqnialabs@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:dev.taqnialabs@gmail.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:devtaqnialabs@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	GREYLIST(0.00)[pass,meta];
-	FROM_HAS_DN(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	REPLYTO_DOM_NEQ_FROM_DOM(0.00)[];
+	HAS_REPLYTO(0.00)[dev.taqnialabs@gmail.com];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.875];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[devtaqnialabs@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[devnull@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TAGGED_FROM(0.00)[dev.taqnialabs.gmail.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: C4FBF5C6B7F
-X-Rspamd-Action: no action
+	DKIM_TRACE(0.00)[kernel.org:-];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	NEURAL_SPAM(0.00)[0.871];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: D013C5C6B80
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
+X-Spam: Yes
 
-On Thu, May 21, 2026 at 20:44:53 +0200, Andrew Lunn wrote:
-> Thanks for the updated commit message.
->
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+From: Abid Ali <dev.taqnialabs@gmail.com>
 
-Much appreciated.
+Free RX DMA resources when alloc_dma_tx_desc_resources() fails in
+alloc_dma_desc_resources().
 
-Should I send a v3 with the Reviewed-by trailer added ?
+Signed-off-by: Abid Ali <dev.taqnialabs@gmail.com>
+---
+Changes in v2:
+- Restructured return path based on feedback.
+- Link to v1: https://lore.kernel.org/r/20260425-stmmac-rx-desc-cleanup-v1-1-1a18a704c422@gmail.com
+---
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-- Abid
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 13d3cac05..240453daa 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2370,6 +2370,8 @@ static int alloc_dma_desc_resources(struct stmmac_priv *priv,
+ 		return ret;
+ 
+ 	ret = alloc_dma_tx_desc_resources(priv, dma_conf);
++	if (ret)
++		free_dma_rx_desc_resources(priv, dma_conf);
+ 
+ 	return ret;
+ }
+
+---
+base-commit: 028ef9c96e96197026887c0f092424679298aae8
+change-id: 20260425-stmmac-rx-desc-cleanup-440f05845492
+
+Best regards,
+-- 
+Abid Ali <dev.taqnialabs@gmail.com>
+
 
 _______________________________________________
 Linux-stm32 mailing list
