@@ -2,74 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 8JhyO2moE2ptEgcAu9opvQ
+	id kOe6DmuoE2opEgcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 03:39:53 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 03:39:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF215C5338
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 03:39:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8C9D5C5346
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 03:39:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A0694C8F296;
-	Mon, 25 May 2026 01:39:53 +0000 (UTC)
-Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
- [209.85.210.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id ABA08C87EC4;
+	Mon, 25 May 2026 01:39:54 +0000 (UTC)
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com
+ [209.85.210.50])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D54EFC36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B5AA2C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2026 01:39:51 +0000 (UTC)
-Received: by mail-ot1-f53.google.com with SMTP id
- 46e09a7af769-7dcd17e19b6so5104641a34.1
+ Mon, 25 May 2026 01:39:53 +0000 (UTC)
+Received: by mail-ot1-f50.google.com with SMTP id
+ 46e09a7af769-7de7c57b52cso8103869a34.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 24 May 2026 18:39:51 -0700 (PDT)
+ Sun, 24 May 2026 18:39:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1779673191; x=1780277991;
+ d=baylibre.com; s=google; t=1779673192; x=1780277992;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=qcM+8coPu4v1e9MEXIssy6i1P2Q9YXTHeGPSK4NKRC4=;
- b=oHra4246BmAnxf38IPL8rBDRQf//ENEE7Ha+PGOnezDNKryKMlUHOr4FrBmglMfCjZ
- X+cN8g3aUaG/3xGMFpcoBAfpdNrY1LYp25JlQUyA8L0Ii7874GvFVqNZ+3xG2yQmdxvA
- ECShrE0c54j41DWfA1hsu6+l0lB0oiqjbyJsViUq/D5gx6Gfh+6rHQLeVd+1l3XTqsTe
- JXVfWjgrfsIo6lEUe/E/sBA2Ec8TX11b3rCsLwWcsr1eti8EjxzAgVg+I//ZnsLZCnm0
- bK40WvoUPnirxRb5aJj+yN+rhZMckBiYs8bXrhfjt+hP+zAqkt+bf356MReGVX82RXw3
- Qn2A==
+ :reply-to; bh=FkaH77BKXkVbsk7oK6FTHGHPATCcUs5m7bHAn/ge5ys=;
+ b=VZlvshD9jTIuxplWOYsIxkQ1QjDK3Ku1lMN9OgxeqExYt6ocYlQ6RKuQ011RQajpmP
+ V0TWt3gYnV3Bb1gvsBU+bg5J50DZgu0frx1VGQXuyVuy6l64bQ/GwE7VsPfTscEYjQZH
+ vm4zdCvwkSL6dfuOXPnJVmgbkbf+1WXep2OVtKdWVPTnmpZuN75gJ2/LJsinzwDBYZVl
+ TkjnuA6P9lqjmzLqXep5tgoRiXNJRiJjXTAfwNZOBwnhEVFBwyYfPCEskcgiZmcZdVLO
+ flyBGpCiFKjbBBkanOfb9/LP2V9v/U1EgwupW0wBmACnZeTIblPJFi5MoGOtmMjwcZeB
+ gYWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779673191; x=1780277991;
+ d=1e100.net; s=20251104; t=1779673192; x=1780277992;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=qcM+8coPu4v1e9MEXIssy6i1P2Q9YXTHeGPSK4NKRC4=;
- b=Jt0m8ZbxtQcnbF+Pnj2bKkhhTQ+Ci7qPz15UL1fJULlaYi3h5c53RpzcFotDsjX5wm
- 5Ol+uy9epVVPxjVQRm6JRDBg4gzXXJYeAOtdBvqQw4YzkwgaOJAL/TPA1pEkjx5dI2jA
- IgIdmi29tjqUZl0AhRckcSMUgBTKK4KkgGe9NLotEkg0ZuMoxhwdAPFvF836uNzfqu20
- 6MjOHnRdf4YYHOO5ywRv4Hgos8OWwHqtZ2PSCWZoULDzn9IZQ+3h/8vinjhvQA7D0GsV
- OSvpudPtKqnkx57DPbJfdwS9U91xqGPwee1HCbOWZRf8FIhwme9W1Ob3Pa+qblugk5x8
- a1Uw==
+ bh=FkaH77BKXkVbsk7oK6FTHGHPATCcUs5m7bHAn/ge5ys=;
+ b=BxbvVy/Fxzkbgm2jOjwJYVtetIdcHBsmrIQ9RvuxuDCHF5eWRBR+yOJzDXjDih69xv
+ R/7G3qFUNiLktIEoTIzT5yahRwGQNW++ygVwrOvvWNw13eW8aOGV9Kg4W0qyGcJFCIft
+ k4B4D5PA0NJ7vz4a63/pFkZPSrSDhRTTs/SmE6ktUPSA4ScH2SRsUC+wKmwKB+ap0e4b
+ zW/xFJKGWw80tlfbsOMtkf8CoHQxh8YHHRi+v4eykgP9pB+5/KZTxfXDif/5ikrEWCht
+ SdBeu6lVbYw9+/MpHW6nDVYkcw/POgxNGK4KsJJBBJI7NXpIzth8AlNDl4sOGmwzrzzJ
+ 2dIw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8MxpRuBnLEA0FOwiS3irP+s11q6U/Ng1RZt8BzXMb1vPqjfLlkV17GGAc0xFptRYtdtE9NcYGUgGGloQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzP00U2IG+/IzEwlBGKwa2JSKhF99zFGOZ5dmb8zna2KZoPVfbv
- /Nqthzg9eaocLGLATJnOTls4BGRRfcz1j9IHt2M2a+UpzznSQwxoJXjGzCNR0aBw/SU=
-X-Gm-Gg: Acq92OH5Qa+neQ1me6fLG689WmLXIgIMUkvA7TGw/zjCZtJxHkgD5GoV2eQtHshtfnJ
- 5JPNzdKmObQ8S1rJH1fsNduuMCgLHywdtRtcTv1yP13DTva8xzr6TEwS8n6qt/ytPegCchv7ftE
- ukGZzG0U9Q0vacomh3kx+U7O5/0qMqPMh3AHW2VuPW6FRuKvB/j/Wd/nY/VUZuttUxetmcO3ZNA
- mZTob7pW+2c4wg5tXHKz7xcj6i6ORkfIlBEzM8JDt0NUbKR+trt/BD+bVcQ7wRKW0kY0a/ayghn
- bchYnv6w22o9WrtY21XjmpkfB3rxpah4MV7QcLaO3VMoFtvxYeQ6lRMGEu755ogGklPpmc+2KE9
- ljRP//nzWmQ9krxK881HWCwMWcJsU/2eDr7+Jj5pGEGGn4NbTWl6E2PDGD6bT0D/gQq9FerZ1BR
- zOftQHfB9KNMuYNu1OS6V10QyaCl0s
-X-Received: by 2002:a05:6830:6d0c:b0:7dc:d99c:c441 with SMTP id
- 46e09a7af769-7e5fedc8241mr7219838a34.8.1779673190623; 
- Sun, 24 May 2026 18:39:50 -0700 (PDT)
+ AFNElJ/ULDyhycJkmqlDqDjeyCbkHRqFTDdHRKIboDu/DZaTHo8I8VlNqQ+4mXap8LdhAl3SFxwf87OXv7sevQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxK9SztCU7FAXihlAxo9Gav+RIwkQlaw74XNqKINw2EycdJZWH4
+ HsWWs+oOV7QJhlEi0itTplHYxvDv5Tp3p6NE6dEYxAwuuNsOVwfRik7ozmutUvZE8/LV5b5cK/D
+ FCvSCWf8=
+X-Gm-Gg: Acq92OGnerZOqdFMcb3HP5buzsOL2sAqIKEtSHMXbn1Ck5HMSKXIczwJ+CngFDOV7Wl
+ 3RNBMRAArJqlJn96TRDk8kt3y7mTwyCce4soOiQOYK79QdGTSNSL7DwHqwqgwaIuBzAmJ1ly0Me
+ d/uoXxZ/dRZWlkXvcQ1zgWOHLTkzoN+3yjG8GZTDUvzq4YOEE+ty+dTD9giLkRGSwdC2muHSC2g
+ Vr0DSD0gtFgczEwWH7+6cM+pXNyVq3jOxMSmHLjSFVKIXwxDKelu8uUPAtyKuLuRFEhM52g8E5g
+ 7PWYF2ycht67Hh8Op06puCpQUv3BjQC5sNMTaCeAossRrh1gAkUHcZZpk00YkzyQyFq4fbYQwTd
+ nWHdmNajMQo6zmI1UwF13YKWi/TP9MT/Zu/FijY3vqEQ0taGpgxix+qLbTbIyCzJREbkCJhumAA
+ IanExU9V8LL7PvQzRXmTuEFyj/+VZK
+X-Received: by 2002:a05:6830:67eb:b0:7e3:d199:3164 with SMTP id
+ 46e09a7af769-7e5fedf1913mr8821807a34.11.1779673192588; 
+ Sun, 24 May 2026 18:39:52 -0700 (PDT)
 Received: from [127.0.1.1] ([2600:8803:e7e4:500:713b:3006:84c3:c1bb])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7e6060b2dffsm6250206a34.0.2026.05.24.18.39.49
+ 46e09a7af769-7e6060b2dffsm6250206a34.0.2026.05.24.18.39.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 24 May 2026 18:39:50 -0700 (PDT)
+ Sun, 24 May 2026 18:39:51 -0700 (PDT)
 From: David Lechner <dlechner@baylibre.com>
-Date: Sun, 24 May 2026 20:38:36 -0500
+Date: Sun, 24 May 2026 20:38:37 -0500
 MIME-Version: 1.0
-Message-Id: <20260524-iio-timestamp-cleanup-v2-4-c37c9408b7f7@baylibre.com>
+Message-Id: <20260524-iio-timestamp-cleanup-v2-5-c37c9408b7f7@baylibre.com>
 References: <20260524-iio-timestamp-cleanup-v2-0-c37c9408b7f7@baylibre.com>
 In-Reply-To: <20260524-iio-timestamp-cleanup-v2-0-c37c9408b7f7@baylibre.com>
 To: Jyoti Bhayana <jbhayana@google.com>, Jonathan Cameron <jic23@kernel.org>, 
@@ -82,23 +83,23 @@ To: Jyoti Bhayana <jbhayana@google.com>, Jonathan Cameron <jic23@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, 
  Benson Leung <bleung@chromium.org>, Guenter Roeck <groeck@chromium.org>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1388; i=dlechner@baylibre.com; 
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1345; i=dlechner@baylibre.com; 
  h=from:subject:message-id;
- bh=kT7iBeb9XCkWmH0M5c7AuCVAJn+S9r0mo1T4JiYsl94=; 
- b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqE6g4ZzvN+pLtbr0EtlFMYHDp7WfJxXmMKDzwC
- v9MYmHcbzCJATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCahOoOAAKCRDCzCAB/wGP
- wM4kB/4oMi3qMB93dUQsrGEQKP3Ylxt+25M4VOOtJqdg7N8vJaJ1C6Lmi5F/KK6qCauA/lzIV4X
- si8btQlgwRRXDQ6XKwu3cWj/ai0R3djV9ReHCVfEGuiQQ0tUgB2QROHEnXiC0F4tBS6FWCVUlYJ
- I6DBZOM1nFp9tt6ap6GXFJ3BcwoZ7V/n5Z3GOC+N2BdEyABMsqK6hVrc8Db1ksyYyjbzIhaETVj
- tIJsfrSn2JjVJ5299p8Gm7hdyOXXZh/t2uRbe9QEeahWGaTwcNWvv9HlO4izEY1uM+pkipAIoh7
- Sdf1+Nlh+iWCpQuVbssgfyPaZxlw0P8K6guLhv28vVycI7U5
+ bh=a5s5z+cub3SAmh1xynpckVoWZ22C7+19bL3gHnAgtKo=; 
+ b=owEBbQGS/pANAwAKAcLMIAH/AY/AAcsmYgBqE6g/yjb213zQLbMwk6iuHebY91dnjXtb+FUCD
+ vvtjZPSn4+JATMEAAEKAB0WIQTsGNmeYg6D1pzYaJjCzCAB/wGPwAUCahOoPwAKCRDCzCAB/wGP
+ wPwgB/kBmXUguncTbHCacyEQoFcxVZzlf/TOYZUKfnV2TLLum71flgDtMY1b0gdyXRmp3fM/OyK
+ GuIvva8ImnHI+QUy7DVup2FJijaxuRZL4liv8BzuDmz+jrk+tGdFxjou/iziU5yzpsxn3h0UReg
+ crutlwGxtN4TM7gBRUBqtvDGeGuTAtMiyHz3lJidkFemL9Vnwdy11RXMoLo6xpspnIby3loNKcM
+ rwkb03JkzYTPV90rUuc1zVI4NWRdGhcSJ6QcGg25nQV8e+pjnmj4ZPxBeI518VkgGwI2bg+ySOG
+ 7EkIojBOcPvtAZMyAu4+KQxGhDwPFUmM2l1bB+pLFJTdoSgq
 X-Developer-Key: i=dlechner@baylibre.com; a=openpgp;
  fpr=8A73D82A6A1F509907F373881F8AF88C82F77C03
 Cc: chrome-platform@lists.linux.dev, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 4/9] iio: adc: at91_adc: simplify timestamp
- channel definition
+Subject: [Linux-stm32] [PATCH v2 5/9] iio: adc: cc10001_adc: simplify
+ timestamp channel definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,14 +142,14 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[dlechner@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	DKIM_TRACE(0.00)[baylibre.com:-];
-	NEURAL_HAM(-0.00)[-0.672];
+	NEURAL_HAM(-0.00)[-0.682];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[baylibre.com:mid,baylibre.com:email,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: DBF215C5338
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,baylibre.com:mid,baylibre.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: E8C9D5C5346
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
@@ -158,39 +159,37 @@ less verbose and mistake-prone.
 
 Signed-off-by: David Lechner <dlechner@baylibre.com>
 ---
- drivers/iio/adc/at91_adc.c | 12 +++---------
- 1 file changed, 3 insertions(+), 9 deletions(-)
+ drivers/iio/adc/cc10001_adc.c | 10 ++--------
+ 1 file changed, 2 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iio/adc/at91_adc.c b/drivers/iio/adc/at91_adc.c
-index 6e1930f7c65d..f610ad729bf3 100644
---- a/drivers/iio/adc/at91_adc.c
-+++ b/drivers/iio/adc/at91_adc.c
-@@ -481,7 +481,7 @@ static irqreturn_t at91_adc_9x5_interrupt(int irq, void *private)
- static int at91_adc_channel_init(struct iio_dev *idev)
+diff --git a/drivers/iio/adc/cc10001_adc.c b/drivers/iio/adc/cc10001_adc.c
+index 2c51b90b7101..d42b747325aa 100644
+--- a/drivers/iio/adc/cc10001_adc.c
++++ b/drivers/iio/adc/cc10001_adc.c
+@@ -262,7 +262,7 @@ static const struct iio_info cc10001_adc_info = {
+ static int cc10001_adc_channel_init(struct iio_dev *indio_dev,
+ 				    unsigned long channel_map)
  {
- 	struct at91_adc_state *st = iio_priv(idev);
 -	struct iio_chan_spec *chan_array, *timestamp;
 +	struct iio_chan_spec *chan_array;
- 	int bit, idx = 0;
- 	unsigned long rsvd_mask = 0;
+ 	unsigned int bit, idx = 0;
  
-@@ -519,14 +519,8 @@ static int at91_adc_channel_init(struct iio_dev *idev)
- 		chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW);
+ 	indio_dev->num_channels = bitmap_weight(&channel_map,
+@@ -289,13 +289,7 @@ static int cc10001_adc_channel_init(struct iio_dev *indio_dev,
  		idx++;
  	}
--	timestamp = chan_array + idx;
--
+ 
+-	timestamp = &chan_array[idx];
 -	timestamp->type = IIO_TIMESTAMP;
 -	timestamp->channel = -1;
 -	timestamp->scan_index = idx;
 -	timestamp->scan_type.sign = 's';
 -	timestamp->scan_type.realbits = 64;
 -	timestamp->scan_type.storagebits = 64;
-+
 +	chan_array[idx] = IIO_CHAN_SOFT_TIMESTAMP(idx);
  
- 	idev->channels = chan_array;
- 	return idev->num_channels;
+ 	indio_dev->channels = chan_array;
+ 
 
 -- 
 2.43.0
