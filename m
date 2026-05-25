@@ -2,129 +2,128 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aHbHDnYtFGpYKgcAu9opvQ
+	id YBLcC5ctFGpYKgcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 13:07:34 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 13:08:07 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAFCE5C9A5B
-	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 13:07:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C435E5C9A92
+	for <lists+linux-stm32@lfdr.de>; Mon, 25 May 2026 13:08:06 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C0635C1A979;
-	Mon, 25 May 2026 11:07:32 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D944CC3F944;
+	Mon, 25 May 2026 11:08:05 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40D62C3F944
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA29C1A979
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2026 11:07:32 +0000 (UTC)
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+ Mon, 25 May 2026 11:08:04 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 64P7NqSJ2211897
- for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 25 May 2026 11:07:31 GMT
+ 64PAusps417294
+ for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 25 May 2026 11:08:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=/5NQfF+ZUa2lq7+ZRulYI6A2
- NsYPt5ClBqhGGJ3BoYU=; b=kGi2RGmBw1JUMOoGdEou6hvnPDbPITcGo5Mt/uJu
- CRBahgR1LKFIrw/sgAokxejEB+4OK7Wsu4gDmyxuLP3N++LW/9Wm2s0DAAX+xQGH
- qGXzjDboMFXCPairiM9W8UsJbigEQORV2O1mAD/s4lKSe8UXgXvmbxa07kE0xOXV
- Q68r6KwQkuZo17+sV8NdI+9ZQn7QcO226pjtD5ENpz6qKCahEgUQLTYzVienfz0H
- 8nfGnQ8pAcoTEWijFzl9EYYXwwkPURTZ9R8nBnnWithSIdpZrHt0Am3BVeS12VSo
- w7ZZKSCNEF/cb0ZVSmLJrH5vyCOnq3KO8MclI+P/e7zHtw==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4m7pc15-1
+ :references:subject:to; s=qcppdkim1; bh=BQBUQK+ERcgosuGR7NTC0wOZ
+ R9xugN2ow/YBjTyK1Iw=; b=XVS+dLy/RFtu826qPtQMuxk+BHyD5ZXsASq4GYvG
+ 1UhkAaRZLGsZS1qqo60dlz+3TKh0TzAi0METbxd8pdlrtVv+XkxXo9f5XgSGEp33
+ PQGy8s0G436YEymGx7nlWEQhA7U+E7r/zybdER/dTe/2pZCzf7KNSXOxQZl4uKVN
+ xJDF6xqEXG5+TL8fkr8lfDSkl+DF7E2ZEie2mV261jkg9ZPZ9rIofjtsvYNYlr8y
+ E8l0tHGmzbyVD+jAGNRwMc633sdcFVgqL0l77S8ZkdEtcWyrwwepctsdTGCdcHSD
+ lCq4ZOYOv8UvfWLcXDDVr7mZapD3d47NCnF9OO1wxVLdxg==
+Received: from mail-ua1-f71.google.com (mail-ua1-f71.google.com
+ [209.85.222.71])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb36t6j0w-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2026 11:07:30 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-63144b84f14so13311510137.0
+ Mon, 25 May 2026 11:08:02 +0000 (GMT)
+Received: by mail-ua1-f71.google.com with SMTP id
+ a1e0cc1a2514c-95fc647f356so13932984241.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 25 May 2026 04:07:30 -0700 (PDT)
+ Mon, 25 May 2026 04:08:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1779707250; x=1780312050;
+ d=oss.qualcomm.com; s=google; t=1779707281; x=1780312081;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=/5NQfF+ZUa2lq7+ZRulYI6A2NsYPt5ClBqhGGJ3BoYU=;
- b=cxylGqQcO+4RNjY9Z4Rih2PBiG7dDjGNPH99slX8BV/tr4eVO4xuKYKWlIxw3HkKMX
- BJanTEqz8Y2G1yQvYMMynWAtlgcXCCzPpgYS8ZPWxH4beZYfM19PFz8p3nu+IEKTf7+g
- 2BBmpKL7mQiRpUHSzOjpqTNjvYJdM+C4GZqMR2bHdT4m8S/8cFu43tZSy9xltHkllXBZ
- yv0pgf7DCX8cJTTlJdJKTI47/txgykh5vHwrwvDX6iblvWn0ekYCtkF6H9I4hpQnfKWi
- ZTRjmdnnUJ5VyPwvR1dxcEgfisbJ9bxNTroO6SpPWhq+Ayk2Rkqh4Q0ikfim9OV8YY1e
- fnoQ==
+ bh=BQBUQK+ERcgosuGR7NTC0wOZR9xugN2ow/YBjTyK1Iw=;
+ b=BnxamHIeUkW+XQUD7FnRuPlpBI7HgO9LZ/aaOTnaazx/MUTO+45Tta9mxw3J4f9kMj
+ mKQjll/o/Zjs5eOIzD8sUghxhaKrfuIb9YYFU6ti2qu6JwwnZMKZi6/Nx8rKt3YrX0Ge
+ O6Oq8KY4XBxA0rD7uN2xmOfLEnqs0oHP1t7MJ+SszCTZPee0RFh13MS0HpdS7tTV/O1p
+ RRZy01VG9RBoD96SZKCW1g7vLRphrqXd7ziTfXYSpdoo6AdK40rR4VkU9JuoEaaFDffD
+ HPmBeQzvWaGtaVEZTtDubao20F6JJdXqvKrFzTn9xlsg2lXm6Mt9RvGIJI4ZxnWZCH0w
+ tP+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779707250; x=1780312050;
+ d=1e100.net; s=20251104; t=1779707281; x=1780312081;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/5NQfF+ZUa2lq7+ZRulYI6A2NsYPt5ClBqhGGJ3BoYU=;
- b=S4NaRxRoKYoFi0pnZlUddEFQMe7mTIAQLxXxoEMgMecMN5/BhnuZSFeX9kQRWVUqWW
- J+xaKZ42IOmvnkRWqrqLd8/rDLSJKOpjuuiSP0V6L2NX0myKmeWHZkASNUitkKdiVLt1
- 5XfvPtvpyL0xvA9g7jl1JGJma3NZn9aAAE/alMS6JLZj9o5F/WYt2f8/6SSGVzYPpQTo
- tkk/LNu5Vf9udXMVK2RTo6Tw62ypV6/1OLQe1rnTSI8Hkt/vCkO968bfgbBaB7CE3NKk
- FSdiNeaoEXYNP8E8x2QqT9/nygy9q6Lo22uKCnGkQiXprDDvZVlRYNbZ+U4TTaGpnKAW
- x15w==
+ bh=BQBUQK+ERcgosuGR7NTC0wOZR9xugN2ow/YBjTyK1Iw=;
+ b=Ho1RZrAQKB8UAAX/zUJGBhG8dr4hWrclO0J4z1+IGJmnzevzURrJNs1v24db8VLJH0
+ As8Zo69TxRGCsKTmifgwHvc2X8v1B0WWYCEqGgg9NfiWuWN8McVQuL+ipaM7WzyyZR2D
+ f4pRKC+RiYBNjER+J07uT2d4Efgm+fX0jzxfGqaKJbQ5VLw2j/oCcy8pxOHEbZbjj8ZN
+ 9JYy5kmzCHO8GdfweQgYkDQUPqjLGBWZNf3JvU60J55nc0KiOFwUR2vgVeFYnJ0z06/j
+ vnVChRu47n+zJOmalOhPf9/b6YgnXZm8jpeWX7OVl9sqbTZf6FHjBREjBftE5VJzQ9qb
+ iqvg==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+x2pmo+48SLvu4auHwgkuzKkKIvlpGUYadIHDAb0xygp5XiCLaDAbabhXLgvft3zQzlGMZdD+BWVL9Dg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxnNxxaOBeEyFytH3iu4AyS1EmYGDlc4aM5y8aRtIdYdF7wWNZ3
- y8cexVVamNzrKASZ58JOeZO7nrqI7jckuV9CAUh2ex4Th8zS+gISL/bOsHjQ/MrTKbRasABtW3k
- OOIqnr4/uEHUW0gU+7tOd7+9TzlCXeg3n+/aHsUVlMb0gJb74/ZKO3NWN6EIz3LMNBvNEgHW8qY
- Qs+fH2LXQ=
-X-Gm-Gg: Acq92OH00fyU3lBY8ttxbKMQrfONR15nGkAn53Uak7/UAfEGij/YqOuqr6Ywdf3/pgp
- 9b7j3Fy70U2WyS+6gFDpE6VhSMhoZWTNt83WYpQehb80IVY67didrAi3KpdOPpUkwb1VF7ivhKL
- wTSw6oNyL+naE+bydrH5W+Dzb88CeSNN5J9iOBfeo/dtNyTVtjfdeJZEt2Z9Hfli2VS/P5fqGIH
- 4/ADKEM8uVETP7OV7N90hHlnMDf8Mv6n2cNyPogG2zVVgN8miI9JXGJjAz78OhgRC+jlY9FOxzW
- KEhPXslg1geuSus4uVjmpaRI+OYf7mu7EaWQJrOGhjyacgRTB835RARnq1pNWqFnUcWET49Uu3T
- fws83Kep6ExyQDCtguecl+0vb8D0NXGjiRPtfFbWnERTLBYxVfWk3oFFDjygHG5g7S7KhzKvcQX
- NdBZognrdDI2pwW6z5StTB2sy5u8Q7jt02eSs=
-X-Received: by 2002:a05:6102:688f:b0:631:81d6:e158 with SMTP id
- ada2fe7eead31-67c8fcbdbdfmr6780124137.27.1779707250291; 
- Mon, 25 May 2026 04:07:30 -0700 (PDT)
-X-Received: by 2002:a05:6102:688f:b0:631:81d6:e158 with SMTP id
- ada2fe7eead31-67c8fcbdbdfmr6780116137.27.1779707249899; 
- Mon, 25 May 2026 04:07:29 -0700 (PDT)
+ AFNElJ8xIKCS7oN7jMIU8/olc2FZKEkqNUYRivUJ4i+91nd2K8jSlfgGzM9OKU2iKbyciFfM6ExbbLm8CZQabg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yw99nFsKR3jsH2bg+70sDWDq4IbYa1mvAvv8e/akVsIqH/dx19D
+ IHsDX1ysD7UaycLcuZ8hS8iPe2ePwaq1edfrQlHu2JVQNvEQWh9AjFGhgcRiT+IVRQByPVNTYzF
+ mUvinU9JfWQH8I8Hi/yqIa5xXxc6m3yvbXXfC998dsLVbdG+Cn7pNb7o0ys285gjfQdoAuamsrp
+ 55TCwHmY7qtM2TGrZJXA==
+X-Gm-Gg: Acq92OGmKkhbvs9PqSf8ToOuUBEc0ch8LgMGz+rSIhumH2UNa3pjbGVdg6uBXDhstl4
+ K/hErnZ3mrsRTA+cp4Izg4XBmvrW3/SwKl5KynuHmBx2lHA6zWZwtLW9Oir/sXExqFI5HNLZckS
+ gEe9J85wy2rplADFHVGZ751wwZRxx/+wW3VVrhKFOiKmrS+hGcI4qFgL3livwZN7RkdGFT+WGN5
+ gbSaOhNxoBROT9XfRRdRHgedpY56H66mOe4DAleOCdjcHWKPE9XyODeKxfn2BX0SLw7D8swtSoA
+ x+BboiTr6v9STtyy69dt2l4uX8ZocmIZ05gAsI2Cu5LeD2/faHdzyU+iNLnYd2vb8+OHfJTaY2K
+ PVzJSosCVbRdJpGid/YnVxjPZ/KEpCR5AbrPSYqEfsC/8hIjsZ9UHHRnAwrQkEfuwd+E7DydfVL
+ enbvZ+ne9HYD+e05GXxmA7vLjPbVTqA3d/5kA=
+X-Received: by 2002:a05:6102:4b87:b0:632:d8d5:291b with SMTP id
+ ada2fe7eead31-67c8451a9fdmr7416029137.30.1779707281658; 
+ Mon, 25 May 2026 04:08:01 -0700 (PDT)
+X-Received: by 2002:a05:6102:4b87:b0:632:d8d5:291b with SMTP id
+ ada2fe7eead31-67c8451a9fdmr7416011137.30.1779707281261; 
+ Mon, 25 May 2026 04:08:01 -0700 (PDT)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5aa32cf96b3sm2600950e87.80.2026.05.25.04.07.28
+ 2adb3069b0e04-5aa32cf4f1csm2578738e87.70.2026.05.25.04.07.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 25 May 2026 04:07:28 -0700 (PDT)
-Date: Mon, 25 May 2026 14:07:26 +0300
+ Mon, 25 May 2026 04:08:00 -0700 (PDT)
+Date: Mon, 25 May 2026 14:07:58 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Taniya Das <taniya.das@oss.qualcomm.com>
-Message-ID: <bnwy2srhmflo7drgavqonka7wrzbiwas5xjbabei2b6wfzci2b@62pkd4dr23j5>
+Message-ID: <kmscrht56ljnkntponlvzuumxgdm3d5s6ttye4hwtq3uaykwsj@z3pyzcib7pk6>
 References: <20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com>
- <20260525-eliza_mm_cc_v2-v5-4-a1d125619a5a@oss.qualcomm.com>
+ <20260525-eliza_mm_cc_v2-v5-5-a1d125619a5a@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260525-eliza_mm_cc_v2-v5-4-a1d125619a5a@oss.qualcomm.com>
-X-Proofpoint-GUID: Au0RNpAwgNy9hJwBqzJafxpHGtU8axvp
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDExMyBTYWx0ZWRfX62TzH0lydxTA
- CKfFKDuMTIoa1YRMgZxy19TvVjlLXwCZ1U2MqeWQvRV6iGfcibLIkAhpaJl8VrL+ZQBRwsP6Lww
- SqTG54vWfLHMbDsdgnRUzHgragMbNE4dvgryqlHwEGJmZ32xWqtNIzaq9BFKRviuSdwqZMU+sxT
- VtBDHApekbmQpav96aqG163bF0Uun/LmsJvBFx62kMqi1ajjKk+uO2d9QhsBH7663LjPiiZ9AMh
- QSu9e93vGT+4kg5wIs0R7AzBejTgR1e92ivi3TfnnyamEzsWDK6cTAjFrtWIjmeJk0xZq6ca5V4
- ekmiT+BjSHGYfHx+xpbUT1Pw4tO2F2Ic2rUiPO1xMGe1LvJtULsfBfvGhs5Mb9tVbSNHcrS76l6
- 9LnBWZd0pHZwdSwrC0QfJDUhnqIGESlG0m7rdemr2IVz/dUaMlbKV/Zpt5KmZPCduYeTyMPeA4F
- Hrg1BxUI9SXl5jp8nJg==
-X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a142d72 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260525-eliza_mm_cc_v2-v5-5-a1d125619a5a@oss.qualcomm.com>
+X-Proofpoint-GUID: LGv3OPw51ecHNLHYBqNGZ2MpzU4rKEji
+X-Authority-Analysis: v=2.4 cv=Fto1OWrq c=1 sm=1 tr=0 ts=6a142d92 cx=c_pps
+ a=KB4UBwrhAZV1kjiGHFQexw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=d7ClhsmVZ3m4v3ji_18A:9 a=CjuIK1q_8ugA:10 a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-ORIG-GUID: Au0RNpAwgNy9hJwBqzJafxpHGtU8axvp
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=whjPl3NbLinN2m9j5McA:9 a=CjuIK1q_8ugA:10 a=o1xkdb1NAhiiM49bd1HK:22
+X-Proofpoint-ORIG-GUID: LGv3OPw51ecHNLHYBqNGZ2MpzU4rKEji
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDExMyBTYWx0ZWRfX02SEumfr77L2
+ 442PBOaZm1v4w1OBqg6pw37wk5GCh1DcTBInBOvmOOdRfhZYPKHuk29+1M+JqFL+CdS5jJJJkvw
+ P6qnuv415S3QItGYtFoXZNh3zpVC/ME43rfoEpm9PbIUH/bioRw6g2afjSMPzReuOPodB6DUClc
+ asmkhAMB4+uRwkrV+0eiDKTEv3uqIMHML/j1XlUYi0B1vOJyJzXlig/zjpxQ4rgg01bdTQpHyDq
+ SOYQJf4YUXfysQYHhHg6s+77Ks80lQyIJSPDYRe1kcMezeoLbnQIQbGVWPO1KuHPSO8i/PUo4WV
+ +62E0QVXubheOaWKyktvcj0Gec4pxilqjMu2zlFcqXuqBkvauYWRRvWPNeVq3S+ilIjUrW+okPC
+ SiQsy6zm2xwyTzvJZ7fUI55NPL3dLZWXWQiQ/ooqz90mNu8HJaovpSibxCB933OnDgZ9eKWb3y3
+ 6g3pdbplEYH5DXqBBeA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 malwarescore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605250113
+ phishscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
+ lowpriorityscore=0 spamscore=0 clxscore=1015 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605250113
 Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
@@ -139,8 +138,8 @@ Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 4/7] clk: qcom: videocc: Add video
- clock controller driver for Eliza
+Subject: Re: [Linux-stm32] [PATCH v5 5/7] clk: qcom: gpucc: Add GPU Clock
+ Controller driver for Eliza
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -163,7 +162,7 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -182,7 +181,7 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	NEURAL_HAM(-0.00)[-0.895];
+	NEURAL_HAM(-0.00)[-0.888];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,oss.qualcomm.com,vger.kernel.org,fairphone.com,st-md-mailman.stormreply.com,gmail.com,baylibre.com];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
@@ -191,21 +190,20 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[]
-X-Rspamd-Queue-Id: CAFCE5C9A5B
+X-Rspamd-Queue-Id: C435E5C9A92
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, May 25, 2026 at 04:16:06PM +0530, Taniya Das wrote:
-> Add support for the video clock controller for video clients to be able
-> to request for videocc clocks on Eliza platform.
+On Mon, May 25, 2026 at 04:16:07PM +0530, Taniya Das wrote:
+> Add Graphics Clock Controller (GPUCC) support for Eliza platform.
 > 
 > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 > ---
->  drivers/clk/qcom/Kconfig         |  10 +
->  drivers/clk/qcom/Makefile        |   1 +
->  drivers/clk/qcom/videocc-eliza.c | 404 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 415 insertions(+)
+>  drivers/clk/qcom/Kconfig       |  10 +
+>  drivers/clk/qcom/Makefile      |   1 +
+>  drivers/clk/qcom/gpucc-eliza.c | 607 +++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 618 insertions(+)
 > 
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
