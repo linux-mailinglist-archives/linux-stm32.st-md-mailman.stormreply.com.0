@@ -2,61 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id UJBoOWEFFWroSAcAu9opvQ
+	id eA3eI14tFWpmTQcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2026 04:28:49 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2026 07:19:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3AB8E5CFE9D
-	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2026 04:28:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 245DC5D0CB7
+	for <lists+linux-stm32@lfdr.de>; Tue, 26 May 2026 07:19:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA841C5A4CA;
-	Tue, 26 May 2026 02:28:48 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A127FC8F290;
+	Tue, 26 May 2026 05:19:25 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012068.outbound.protection.outlook.com
+ [40.93.195.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C50ABC030CD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 14E08C5A4C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 26 May 2026 02:28:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=lw
- 4/4FT2rvt0MC5tdmiJL7oUXfl2ms2f6Q38CmkzsO0=; b=jxnhjdmJVIWAml/kE5
- u5qCxxbg0JHWtE27q94QEN9ZgRfopHORr6sfGxYz1NZj7FaDA1/9eB+xaknOY9Ie
- BZDnTh7i1h1pU7pbh58mw8+I8Nu2niWqaT6BYmbdYe4TT3890Ei02po91Cb0MizK
- EsP3WPZNPJtsPzguS+4p3VVOw=
-Received: from PC-YLX4CAEK.company.local (unknown [])
- by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id
- _____wAX0JUKBRVqTduMDQ--.20654S2; 
- Tue, 26 May 2026 10:27:23 +0800 (CST)
-From: Ding Hui <dinghui1111@163.com>
-To: andrew@lunn.ch, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Ding Hui <dinghui@lixiang.com>,
- netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
- linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32
- ARCHITECTURE), 
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE), 
- linux-kernel@vger.kernel.org (open list)
-Date: Tue, 26 May 2026 10:26:17 +0800
-Message-Id: <20260526022620.501229-1-dinghui1111@163.com>
-X-Mailer: git-send-email 2.34.1
+ Tue, 26 May 2026 05:19:24 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cbtwVvo4OG1HspWPmvateho+MvOmBDBAmE/JsipdWqTVhz6619K7Op6MiU/tpCy4+719XTHO+g0/o32cnPfweoRyUOAxLgt2Tp9fKcaZY8AHds4DlDl5i1Hs5l3rbdIe9hmzn1YiR26W99UZIUm1L3ugTDQFvKee6kR19ysj5WBGmzLMkacswOpsDKz+QYFPgTSRtfbFSRozsnAQ53vuEm6nvIWup7B+gP3lieY4y9PtQPcc7NPmTwT9GlMDajScoJX+/9xCkJ6NAOySeop7mjjp6DM2/mkyhNljKtPaZgasahYhu4bf0hIMz6OLLZkSIamG47NS+9DDV/2pSAU5/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eJ+Vi4+B5kPJUFu/fodRO6Xgp2oKpWw/SA0EwT0Bjy4=;
+ b=fpX8gV1vaypJw4YQ9nu1S+tPN4gyt3qEWcOm7I2dhqm2aMi7jVurnlAlvsYoVx11Rr1EwmP5KyzOmC0QrWP4mAU5KxKyqlC+uxdEQC2t2njc0VSNetFaj7hVNhB+/UQiBUPvQ/RfzRXCE/xUmsfMuURUbDCJ8xvwBZjC6hr5VbEdqTap4dnViKpyvuRsn2VfteCmFxNImJxa0aDLgxUnM5dv2peEOyfIL9UyVQbK61hvc8NoMt8kNOCkQnBG1cw2cgsMUqov7y/bn40QwlwmbSpT9CYlf3um9ULDZ9UVJeAdFJGR3o/oFsdwZHlajMwCJtiWHLAIj4mjHE4PXTXcuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eJ+Vi4+B5kPJUFu/fodRO6Xgp2oKpWw/SA0EwT0Bjy4=;
+ b=asirksYik12U9qwYXLOeFFCVVWPIemLoaA1DG4Djs4JLbGJFOkUuaLzdTRGucjDXQGFbyhML3N5MkM7vi3Sfs1QXM9GH1ADfxqHHRJApjuoWU2eaCi1C3roE08bki5bcFrbq+p2htAydEHf3qucpdxev/xwt2EDWw8L2YBalmDprInxAuWFI5ulsJR4VDr1GOhI27AaDHXUIIX/Kw/v5FXaQLQFCaipLi/qMyzF58KMYEnx7cZImRBaO81Uy6HvHgXz47zWjDyFWJAVuuKNNupqtUz3Fjrc02M2gGlpnczsw0/m24+8R878UX9N/4XhC9YRT3XT1VLzAW7HakXMwbQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by SA1PR03MB989270.namprd03.prod.outlook.com (2603:10b6:806:4f4::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
+ 2026 05:19:23 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%6]) with mapi id 15.21.0048.019; Tue, 26 May 2026
+ 05:19:22 +0000
+From: muhammad.nazim.amirul.nazle.asmade@altera.com
+To: netdev@vger.kernel.org
+Date: Mon, 25 May 2026 22:19:21 -0700
+Message-ID: <20260526051921.14540-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-Mailer: git-send-email 2.43.7
+X-ClientProxiedBy: SJ0PR03CA0199.namprd03.prod.outlook.com
+ (2603:10b6:a03:2ef::24) To SJ0PR03MB6964.namprd03.prod.outlook.com
+ (2603:10b6:a03:432::18)
 MIME-Version: 1.0
-X-CM-TRANSID: _____wAX0JUKBRVqTduMDQ--.20654S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AF4UCFWfAr45uw1fKFyUWrg_yoWxAryrpa
- yayw4DKr1kJrs3Gw4rJw48ZFy5Aan0yFW3Ww4xXw4a9a1a9r9avF1ayrWYya4UGr4kZr92
- yr4DA39rCF1DAFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jtiSdUUUUU=
-X-Originating-IP: [220.248.55.69]
-X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC8wwkUGoVBQw11QAA3d
-Cc: xiasanbo@lixiang.com, liuxuanjun@lixiang.com, yangchen11@lixiang.com
-Subject: [Linux-stm32] [PATCH v2] net: stmmac: fix fatal bus error on resume
-	by reinitializing RX buffers
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR03MB6964:EE_|SA1PR03MB989270:EE_
+X-MS-Office365-Filtering-Correlation-Id: 43b7257e-7371-469d-1409-08debae658cb
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|55112099003|11063799006|56012099003|18002099003;
+X-Microsoft-Antispam-Message-Info: PTV++ier5csNlMPFdMFAaJLPmrL94YWJtII/u3E5pvdIMGUngqfNySyhvxBb6A7Y/yu1+SbX1+y+lKqogfULh4YlJN44gSEcTLhGWrTFCPG+nvvG2O0vcLDwfw2CzzKJNMaw9FVpT1DiDqynubTJOH92FN43R5P6CusQ9UkD7P4k+l4uUK9YPorhwl5Lm8glQNeQWQ2xNwOci6XVcPXWU8MQbhRqot12TwZHF/TJP85JN3AHhIt0TIjiyyAEIdksTyQ33lCaPQUGfadBRQjDE+Vt7NCu0n2vksvtrEXVk78WnGI5taEFOyz09VqrwaXj8WMN9syZJ0b4/H6fJ2iTB9Pflk0vsLGGOVt2FOZPwhUkHgIZhsTrxl6RyrnXrnPr2gA353Y3+cMy4ax159LiPUE0Ku+IRALt+IfEPn06tO5bgowR9ZN22ZD1aaYsLU52Zw/sF//sgOY3Ley/6SEtabiMmoUBSTlgyzjilvMaOpJAa9vVfVmuujNcyrOz07yUGMltJ5RN2+Fi0D43jxKv9VDXRw4hnuIjxIF1DWFG23EicgeKq9A8nw2cJMR7zdfmR2lehMtN3xvQrAsXL3CGbOQuMWyX6T8p0i7EYNUvNvYDdVWWGV69Gq7PlSy4AjUzEAQ3ZBEiAxp2yqt+LkWMskCQ7OcGiF6fe5QBurZqookGymdeQMMPJS8eVte+Taxu
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR03MB6964.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(55112099003)(11063799006)(56012099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?u65+tg35OUOV4CLq9G0hzLAos5KvkOP/6fK+1LPFZHboGY/A9K5OYHKRv1xs?=
+ =?us-ascii?Q?bOpYWYqaDy+Pigu+xiT+x7AO45BtgPA/NFoXlO6v5A3ov/RfWCa4lJMvNqAF?=
+ =?us-ascii?Q?OWVeDZQeB3EUhsYh5YY0zn9MDTF029+0qISKwV+NZiv/1tzli/xXkKjEopWg?=
+ =?us-ascii?Q?bVixLS0Uy0EUo3ukwr3vVcwuGYZn/mZCACQgW0OrVGshyBMSj5PMCaMqYXjQ?=
+ =?us-ascii?Q?QG+4vOZ0N2v2fOGUA9MacR2c696fC377wFIepz28+1EX+9ng14N6YW5MJZ5v?=
+ =?us-ascii?Q?2drFfBTXs8pI/gAxzSzvF7Je+CJGFLOCWudP9b+LvW3C0KBTjXEiuxEMoPZR?=
+ =?us-ascii?Q?Pu5ks/FC6pFDJphGbmZubbRHZd1rPzx2iM08R2NT3R0wWp/CZnS7QxiFgo+C?=
+ =?us-ascii?Q?W6Xo89k9ANp+yACqSyhnB/LcAVJrD0O2QaSL/Y+ysoJ4c5aCmF3JdQdYUCne?=
+ =?us-ascii?Q?InjPPg3WsAiexqI1aGuv+AlygHXOdVuT70rxkqruOx/VpQWfSybhamG5cCda?=
+ =?us-ascii?Q?aSYcabD+4fPrUhNzbJSQEvtzeKThHbzTK1rA3DL7NPLoGwh5InJbZUPp3/yW?=
+ =?us-ascii?Q?QRrn2kidBsKE+yg2DubNf8JMO5qZHmcmqHgSVcVNj/qZDWHDLZ3JeYL+J8xK?=
+ =?us-ascii?Q?czbgKJpC0ljEIE5RaU3B9MLG/+KrGfJCaNVJn2EF96ja+PvJA0L8af5jUuXv?=
+ =?us-ascii?Q?nUTWWFAw8mcR7XbLa7+GryqhT7eIEB4F8EqTQsb5l56gfQdd8A5xiOB1Zwcn?=
+ =?us-ascii?Q?7GgMfBM14z0hnb/zusJY9jfYbtZ+ebJA4ply/SZZQ+adbCh+skkizhjoTOMX?=
+ =?us-ascii?Q?heIEpm7/Pf3oaO3OfQaH1GpiPZ1qyLfAZDTMANs1HvMi1x6QPryQmeGeVX80?=
+ =?us-ascii?Q?2d8aZhuEBHmmBnW2FKJ5udmDKlP7D1CoqrisBBjr/pM6OvOrdmvGC/QBck/6?=
+ =?us-ascii?Q?lehUcXqVDmLeVtOl5SUqX5EbSnMCU9suo9sKmnN1lKpQuZWc+joeqTTLmasx?=
+ =?us-ascii?Q?UJ5xOZ4olbAiruAMpuoH8gs6XnnoP0XxIGGZ8u0oXnUzuTnBDaktw+62I1HC?=
+ =?us-ascii?Q?fiPZlZfsZJ6WpjxcXl/fZZ7n8h4s+LafrvmXx/iuGtph+vralrDRmpTVuDAc?=
+ =?us-ascii?Q?QfPcEiESZjj5TPYdSkerJPfvNGr8BKdHfaT3vuX6UJOt9l5s6h06VQoFt+X1?=
+ =?us-ascii?Q?KB4b3yCWJqh4UuCZRnp+P2se7iTcI9UoQJk0runj8bo8+gNQS4pPZKZh4qu2?=
+ =?us-ascii?Q?BN7wm1tXRWSuoBLHkeTDB1TsrAP173p/2T3Or3778TEA1j0+ZYhb7Gk9rJF+?=
+ =?us-ascii?Q?6FxDkT5YX2YJmaL8aewXSXgmM2ePAUXWrzFafecZCtf0ShHTkQuRpwjE8Ra1?=
+ =?us-ascii?Q?Vj/LYlCE2oc0J7Wr2uSLRefGutZXeEkOJzRKBSKb5Qlefz3LhJWD0BsK3/IB?=
+ =?us-ascii?Q?wIdaAM+n+S6SmIMXrI3Q/IQQ7ePZh/5TecHz7gxN92ENKJaKivWzRlYnhsI7?=
+ =?us-ascii?Q?wqGqEgogpkGZZn48vO6FoldLlESP7aBBFGsEnTqRjGxf3SdaUkstXbRcxnm0?=
+ =?us-ascii?Q?88ZOceytMGcsgpW9WqZBF8oPYeA0MMqA5qSI++kRok3ly1l0zP8k+1nnqXD0?=
+ =?us-ascii?Q?bViQSgIXa8UweA1HQLLGtmTl8MbipBlXYu988g5OedWurFveWIK/QdJKCx6H?=
+ =?us-ascii?Q?27/19zeXyINsglNzZjYqcjT/JBr6kk/rVND4kc88vXkxcwzV5MyvYCnADYzx?=
+ =?us-ascii?Q?do2XNe79ZBIuidb5LqM0GAxdiFLrfwh16GfubtBopOOP3SzvP9B1hJOxyr6E?=
+X-MS-Exchange-AntiSpam-MessageData-1: 5vs0yLLhHIAdHw==
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 43b7257e-7371-469d-1409-08debae658cb
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 05:19:22.9058 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AQIURGYrut8GK2Y8eHQFTcNDCuvA5bvaNzqtcmHAvFgEMsuPdvPDrCOkz0jN/18Y9LGxxLHnHNEI4E0m9EF7zb3nwSaMTXjqYKFla4T0mdGOSpHyBm7VZ5fPTwxNffh1+SByAyx/PTM8uxTZoxQsUA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR03MB989270
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, edumazet@google.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v2] net: stmmac: Improve Tx timer arm logic
+	further
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,216 +132,109 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [7.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[altera.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[163.com:s=s110527];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[altera.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[163.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,lixiang.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:dinghui@lixiang.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:xiasanbo@lixiang.com,m:liuxuanjun@lixiang.com,m:yangchen11@lixiang.com,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[dinghui1111@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[18];
-	FREEMAIL_FROM(0.00)[163.com];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[163.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[dinghui1111@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[muhammad.nazim.amirul.nazle.asmade@altera.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
+	DKIM_TRACE(0.00)[altera.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	NEURAL_HAM(-0.00)[-0.754];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_NONE(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[muhammad.nazim.amirul.nazle.asmade@altera.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	NEURAL_HAM(-0.00)[-0.958];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lixiang.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 3AB8E5CFE9D
-X-Rspamd-Action: no action
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FROM_NO_DN(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,altera.com:mid,altera.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 245DC5D0CB7
+X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
+X-Spam: Yes
 
-From: Ding Hui <dinghui@lixiang.com>
+From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-On suspend, stmmac_suspend() calls stmmac_disable_all_queues() which
-stops the RX NAPI, but the RX DMA engine may still be running for a
-short window before stmmac_stop_all_dma() takes effect. During that
-window the hardware can write incoming frames into the buffers pointed
-to by the RX descriptors and write back the descriptors (clearing the
-OWN bit and overwriting RDES0/1/2 with status/timestamp data). Because
-NAPI is already disabled, the driver never refills these descriptors,
-so the RX ring is left in a "consumed but not refilled" state with
-stale content in the descriptor buffer-address fields.
+Calling hrtimer_start() on an already-active txtimer is unnecessary
+and expensive. Skip the restart if the timer is already active by
+adding an hrtimer_active() check before hrtimer_start().
 
-On resume, stmmac_clear_descriptors() only re-arms the OWN bit and
-does not repopulate the RX buffer address fields. When the DMA is
-restarted it dereferences these stale addresses and triggers a fatal
-bus error.
+This avoids redundant timer restarts under burst traffic and ensures
+NAPI is scheduled within tx_coal_timer microseconds of the first
+packet rather than having the window reset on every packet.
 
-Fix this without any allocation by introducing
-stmmac_reinit_rx_descriptors(), called from stmmac_resume() before
-stmmac_clear_descriptors(). The helper iterates every RX descriptor
-slot and re-programs its buffer address fields:
+There is no race concern: hrtimer_start() is internally serialized and
+safe to call on an active timer. In the event of a race between
+hrtimer_active() and hrtimer_start(), the worst case is calling
+hrtimer_start() on an already-active timer, which is identical to the
+pre-patch behaviour. The meaning of tx_coal_timer is unchanged.
 
- - For normal (page_pool) queues: restore RDES0/1 from buf->addr and
-   RDES2 from buf->sec_addr. The DMA mapping has remained valid across
-   suspend/resume because no pages were freed.
+Performance on Cyclone V with dwmac-socfpga (iperf3 -u -b 0 -l 64):
+  Before: ~45200 pps
+  After:  ~52300 pps (~15% improvement)
 
- - For AF_XDP zero-copy queues: restore the DMA address from
-   xsk_buff_xdp_get_dma(buf->xdp). Slots with buf->xdp == NULL (TX-only
-   XSK socket) are skipped to avoid a NULL-pointer dereference.
+Additionally, ~10% improvement in UDP throughput observed on Agilex5,
+with hrtimer CPU usage reduced from ~8% to ~0.6%.
 
- - For chain mode: call stmmac_mode_init() to rebuild the des3 next-
-   descriptor pointer chain, which hardware may have overwritten with
-   a PTP timestamp value (as noted in chain_mode.c:refill_desc3()).
-
-This approach keeps all RX buffers alive across the PM transition and
-avoids any allocation in the resume path, eliminating the OOM risk
-raised against the previous approach of freeing and re-allocating
-buffers.
-
-Signed-off-by: Ding Hui <dinghui@lixiang.com>
+Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 ---
-
 Changes in v2:
-- Introducing stmmac_reinit_rx_descriptors() to reinitializing rx
-  buffers without any allocation.
-- Modify commit log.
-- Link to v1:
-  https://lore.kernel.org/netdev/20260515053856.2310369-1-dinghui1111@163.com/
+ - Expanded commit message to address race condition concern and clarify
+   tx_coal_timer semantics (Andrew Lunn)
+ - Added performance numbers to commit message (Andrew Lunn)
+ - Added Agilex5 performance data with hrtimer CPU usage improvement
+ - Added Tested-by and Reviewed-by from Maxime Chevallier
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 90 +++++++++++++++++++
- 1 file changed, 90 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions()
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3591755ea30b..0dc27d8c66a0 100644
+index 3591755ea30b..35da51c26248 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1642,6 +1642,79 @@ static void stmmac_clear_descriptors(struct stmmac_priv *priv,
- 		stmmac_clear_tx_descriptors(priv, dma_conf, queue);
+@@ -3341,12 +3341,14 @@ static void stmmac_tx_timer_arm(struct stmmac_priv *priv, u32 queue)
+ 	 * Try to cancel any timer if napi is scheduled, timer will be armed
+ 	 * again in the next scheduled napi.
+ 	 */
+-	if (unlikely(!napi_is_scheduled(napi)))
+-		hrtimer_start(&tx_q->txtimer,
+-			      STMMAC_COAL_TIMER(tx_coal_timer),
+-			      HRTIMER_MODE_REL);
+-	else
++	if (unlikely(!napi_is_scheduled(napi))) {
++		if (unlikely(!(hrtimer_active(&tx_q->txtimer))))
++			hrtimer_start(&tx_q->txtimer,
++				      STMMAC_COAL_TIMER(tx_coal_timer),
++				      HRTIMER_MODE_REL);
++	} else {
+ 		hrtimer_try_to_cancel(&tx_q->txtimer);
++	}
  }
  
-+/**
-+ * stmmac_reinit_rx_descriptors - re-program RX descriptors from existing
-+ *				   buffers (allocation-free)
-+ * @priv: driver private structure
-+ * @dma_conf: structure holding the dma data
-+ * @queue: RX queue index
-+ *
-+ * Description: walk rx_q->buf_pool[] and re-program every RX descriptor's
-+ * buffer-address fields from the buffers that are already attached to the
-+ * queue. This is intended for the resume path: between suspend and resume
-+ * the descriptor buffer-address fields may have been overwritten by HW
-+ * writeback (RDESx are reused for status/length on completion), but the
-+ * underlying RX buffers (page_pool pages or XSK frames) are still alive
-+ * in buf_pool[]. By re-using them we avoid any allocation on resume,
-+ * which is unsafe under memory pressure.
-+ *
-+ * This helper is expected to be called only in stmmac_resume.
-+ */
-+static void stmmac_reinit_rx_descriptors(struct stmmac_priv *priv,
-+					 struct stmmac_dma_conf *dma_conf,
-+					 u32 queue)
-+{
-+	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
-+	int i;
-+
-+	for (i = 0; i < dma_conf->dma_rx_size; i++) {
-+		struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
-+		struct dma_desc *p = stmmac_get_rx_desc(priv, rx_q, i);
-+
-+		if (rx_q->xsk_pool) {
-+			dma_addr_t dma_addr;
-+
-+			/* The XSK pool may not be fully populated (e.g.
-+			 * xdpsock TX-only); skip empty slots.
-+			 */
-+			if (!buf->xdp)
-+				continue;
-+
-+			dma_addr = xsk_buff_xdp_get_dma(buf->xdp);
-+			stmmac_set_desc_addr(priv, p, dma_addr);
-+			stmmac_set_desc_sec_addr(priv, p, 0, false);
-+		} else {
-+			/* Theoretically unreachable: napi_disable() in
-+			 * stmmac_suspend() ensures all initialized slots
-+			 * have a valid page before we get here.
-+			 * Defensive check only.
-+			 */
-+			if (!buf->page)
-+				continue;
-+
-+			stmmac_set_desc_addr(priv, p, buf->addr);
-+			stmmac_set_desc_sec_addr(priv, p, buf->sec_addr,
-+						 priv->sph_active &&
-+						 buf->sec_page);
-+
-+			if (dma_conf->dma_buf_sz == BUF_SIZE_16KiB)
-+				stmmac_init_desc3(priv, p);
-+		}
-+	}
-+
-+	/* Chain mode: re-link descriptor 'next' pointers. This is
-+	 * allocation-free; it just rewrites the per-descriptor next
-+	 * field which may have been clobbered by HW writeback.
-+	 */
-+	if (priv->descriptor_mode == STMMAC_CHAIN_MODE) {
-+		void *des = priv->extend_desc ? (void *)rx_q->dma_erx
-+					      : (void *)rx_q->dma_rx;
-+
-+		stmmac_mode_init(priv, des, rx_q->dma_rx_phy,
-+				 dma_conf->dma_rx_size, priv->extend_desc);
-+	}
-+}
-+
  /**
-  * stmmac_init_rx_buffers - init the RX descriptor buffer.
-  * @priv: driver private structure
-@@ -8272,6 +8345,7 @@ int stmmac_resume(struct device *dev)
- {
- 	struct net_device *ndev = dev_get_drvdata(dev);
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-+	u32 queue;
- 	int ret;
- 
- 	if (priv->plat->resume) {
-@@ -8316,6 +8390,22 @@ int stmmac_resume(struct device *dev)
- 
- 	mutex_lock(&priv->lock);
- 
-+	/* Re-program the RX descriptors from the buffers that are still
-+	 * attached to priv->dma_conf.rx_queue[].buf_pool[]. The buffer-
-+	 * address fields of the RX descriptors may have been overwritten
-+	 * by HW writeback while the DMA was being stopped on suspend
-+	 * (RDESx are reused for status/length on completion), so they
-+	 * must be repopulated before the DMA is restarted in
-+	 * stmmac_hw_setup() below; otherwise the controller would
-+	 * dereference stale addresses and trigger a fatal bus error.
-+	 *
-+	 * This path is allocation-free: it relies entirely on the RX
-+	 * buffers preserved across suspend, which makes the resume path
-+	 * safe under memory pressure.
-+	 */
-+	for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++)
-+		stmmac_reinit_rx_descriptors(priv, &priv->dma_conf, queue);
-+
- 	stmmac_reset_queues_param(priv);
- 
- 	stmmac_free_tx_skbufs(priv);
 -- 
-2.34.1
+2.43.7
 
 _______________________________________________
 Linux-stm32 mailing list
