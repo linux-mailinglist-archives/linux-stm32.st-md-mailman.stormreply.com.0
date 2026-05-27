@@ -2,88 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id ICWFJh0FF2rT1QcAu9opvQ
+	id YLyEDiUaF2ov4gcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 16:52:13 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 18:21:57 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B8B15E645A
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 16:52:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C441F5E7AC0
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 18:21:56 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 00A2BC8F290;
-	Wed, 27 May 2026 14:52:13 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 737C4C8F290;
+	Wed, 27 May 2026 16:21:56 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5C602C8F28E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5B4DC36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2026 14:52:11 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-3665a90bcd3so12699269a91.1
+ Wed, 27 May 2026 16:21:54 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 85D1F444E7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2026 07:52:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1779893530; x=1780498330;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=GysSj+xcxKb96SCtQcauT9ZCA24G3J8cy9Fr5XJtfec=;
- b=XGMMyMMn2fwpSbdlAHmaQocscb7soKa25XDtelo5S84WhtgUFWol2mQHHsY4qrgGBo
- 7lRwENYQzahHu3h1SiGuEdySxzZkKBpMtt2WGfqrc1fC2FQlCHHqMEMxErXmkOc6VB84
- 0HCOn7ZuxAXIQOoma7fCk2qTJCgiD/73pZx5FlbaFVyaT3nHSK6PlbntPpTf788i62z/
- fTaWvsedq7rduQNcjwDoaI66TuUGid5EGNEodzmLwy9b2freHFPvbPzsSmGavIwduLyd
- cpVKr6FF2SuF+85PsctVkkyJxx7nSVWkHHvUv0Z9BlQ21JjQM1Cn2KRPMjZJX3tbqg38
- GIjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1779893530; x=1780498330;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=GysSj+xcxKb96SCtQcauT9ZCA24G3J8cy9Fr5XJtfec=;
- b=R7ImsboRHMLQLzz9xtguB0yI2RG518Kfypaz0v5457VyuJiQ/ylBUtAGS/O8E0Mxuj
- VSgQvxXcPgT0oSd1c35T05cMBazDRNyMZbru8vBz/bpkNhi4+Urcrefn+sj2x7/3UCgl
- 5Xzpr6MWidvprvmMHOn7qiaeUoU77paESQKfjwj33Sh3WTFtBmNrycAMWY4p7Aj8r5vf
- L1RQKHK01Yr+K3Rj31KtLvVceLzwBHarKIevwmMXo3mdtBbN8NKnaEmW9/HMYXeXnb1r
- slJvWBUKEb6AKMxrXVcADnOPhUFWlsJJ/PEVjOT9wzASN1s/D78I2tF/3hCRIYxmtAmJ
- Wj+g==
+ Wed, 27 May 2026 16:21:53 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60CCF1F0155C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 May 2026 16:21:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779898913;
+ bh=zc/BrRX6BDzOZ1YxVqm6B33Dd86tu453/aG5x7by2Ek=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=P41/TPXzjKCimocX2l+68xKVYLMQD2YFpgRnY8N95Jn9yNOi1yXTdaams4CJab49O
+ bX2ZaZys0qJ+rca4L6XTxpTwg2SW1F51yFoZOHDInvjFUOAaS2KPfgFRA1UvoLQgVX
+ On6byVttJQ3khgpcDI5UnvlOIls7rPsFiOc821kso1A1SJ+Wl0pHSqBjaVtn4Wl3tl
+ g8ySCprcy41UoQjBQYm0+IEky/9tU0P/cALgnmFxvT1zYK927Dk9PGxRd/B1Gt0W/n
+ zSn35gq7XfCyNMBEBmJOyVU1WPljsJ8qfpisHiRIHdJ0c+cLfQAGBnQgty7dyXDTwX
+ RUaLFUHeSe3jQ==
+Received: by mail-lf1-f46.google.com with SMTP id
+ 2adb3069b0e04-5a858881ad2so14788500e87.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 May 2026 09:21:53 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ8AoVfKGCUymm2iTiF99tUmn54VwKnjwkovU1C9oYLohx9XTdWn/OogjXFkezR6OPVNTM6at5ipavoglA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzppenNqdtgroiZ5Zz+R7ISbYuDO54JmP2xlzNJLYlH10JJaYsb
- o6tfGTGw3glTaKr596FVjp8Wc48WAIRlaei3798SBJ4uEiyi9OgIzqJQroXeriIqmDA=
-X-Gm-Gg: Acq92OHxeHV+mDVps6To6DUsE3du0OT2yoHi3xLLW/1QMYvVxc+NT/SozBWjccHkRAI
- WBMzsSjS4i0axHsHye00CtSPAPUuvDZ0sUeeN0Yh+fYuThjsjB53wtU7hIRdXTr1mqE8YiRo540
- 2xJ+CkaiLuaS9+FZvwwL6ivygun9KqeoTmKyEQF/+A5Dxj52o5TI4TyiWRbKPyZYnBdEsiMBGbH
- 3sU8pZh46Clz1VfzpLxF3nQXYrrwAGpzY+ajdoIv3qZKstkQepxZ/Pk/oFKP04k+vqx+eovzaoE
- SC0iAb5oULeEFXrXyr2Zjac8XDB32dBKfQhtrxNpsXJrzxoWAUMKgO9vScuXT+ymH2fW64WK4Ms
- 2k2ejTuepq7RmQnE7800Ue1JYLMdOug/toQ7BY18Zf3u00uxmVh4h06VeE9T6MpU95sX/aQAf15
- 8MXjXpG1V/dR92HfyiuAS3Z4zWiBKc8KG7wx4mgw==
-X-Received: by 2002:a17:90b:3fcb:b0:367:c442:3f20 with SMTP id
- 98e67ed59e1d1-36a6762cebdmr25100604a91.19.1779893529666; 
- Wed, 27 May 2026 07:52:09 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:9466:b49b:cd0e:2dac])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-36a721c7baasm19906738a91.9.2026.05.27.07.52.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 27 May 2026 07:52:08 -0700 (PDT)
-Date: Wed, 27 May 2026 08:52:06 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Ben Levinsky <ben.levinsky@amd.com>
-Message-ID: <ahcFFkc2b0Pq9icR@p14s>
-References: <20260514162129.1504162-1-ben.levinsky@amd.com>
- <20260514162129.1504162-3-ben.levinsky@amd.com>
+ AFNElJ8gMXhKbyCGGbmlJr0fP7ERb1mEGMlTbQj4LIFn5jadjDj9pKKp4AKCWA1DIsCWULBoJUM0TXcerucCFw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxwbtk1AOtkck79Vbx62Mv7xJnX9zCsjv7WSHSCr1eMcskEvBUQ
+ 9VT0Ada6uBM1F4tDRsiySG58fjGXQyQQMrltNaI+qPmqQuTeCHu5ZQTgJVezjFrbVyA5uudDSI7
+ 0sECfumyG1+xmijVT955fvE+RrXgpqog=
+X-Received: by 2002:a05:6512:2201:b0:5a8:86a6:c476 with SMTP id
+ 2adb3069b0e04-5aa323843dcmr6639602e87.37.1779898912083; Wed, 27 May 2026
+ 09:21:52 -0700 (PDT)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260514162129.1504162-3-ben.levinsky@amd.com>
-Cc: daniel.baluta@nxp.com, imx@lists.linux.dev, magnus.damm@gmail.com,
- linux-kernel@vger.kernel.org, mcoquelin.stm32@gmail.com,
- geert+renesas@glider.be, tanmay.shah@amd.com, linux-remoteproc@vger.kernel.org,
- andersson@kernel.org, Frank.Li@nxp.com, linux-renesas-soc@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, kernel@pengutronix.de,
- festevam@gmail.com, s.hauer@pengutronix.de,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v2 2/5] remoteproc: switch exact-match
- drivers to wc-ioremap callbacks
+References: <20260523173251.72540-1-manishbaing2789@gmail.com>
+ <20260523173251.72540-2-manishbaing2789@gmail.com>
+In-Reply-To: <20260523173251.72540-2-manishbaing2789@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 27 May 2026 18:21:39 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=5GoXqgRCmH=f1btY3eToi3_wMBJEarohJuZhyKxowJg@mail.gmail.com>
+X-Gm-Features: AVHnY4JfnnRkXYHTThwWUKLSwG3QzP6v1BK1Sk1xyc9ylqzeUPifpk0-WhZKh-8
+Message-ID: <CAD++jL=5GoXqgRCmH=f1btY3eToi3_wMBJEarohJuZhyKxowJg@mail.gmail.com>
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-pwm@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>, lee@kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, ukleinek@kernel.org,
+ mcoquelin.stm32@gmail.com, krzk+dt@kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 1/2] dt-bindings: mfd: st,
+ stmpe: Add missing properties for PWM subnode
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -95,416 +75,64 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.89 / 15.00];
+X-Spamd-Result: default: False [4.89 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[linaro.org:s=google];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:ben.levinsky@amd.com,m:daniel.baluta@nxp.com,m:imx@lists.linux.dev,m:magnus.damm@gmail.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:geert+renesas@glider.be,m:tanmay.shah@amd.com,m:linux-remoteproc@vger.kernel.org,m:andersson@kernel.org,m:Frank.Li@nxp.com,m:linux-renesas-soc@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@pengutronix.de,m:festevam@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,m:geert@glider.be,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[mathieu.poirier@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:manishbaing2789@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:linux-pwm@vger.kernel.org,m:conor.dooley@microchip.com,m:lee@kernel.org,m:linux-kernel@vger.kernel.org,m:devicetree@vger.kernel.org,m:ukleinek@kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,microchip.com,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	NEURAL_SPAM(0.00)[0.669];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:-];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.938];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mathieu.poirier@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[nxp.com,lists.linux.dev,gmail.com,vger.kernel.org,glider.be,amd.com,kernel.org,st-md-mailman.stormreply.com,pengutronix.de,lists.infradead.org];
+	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,amd.com:email,st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 3B8B15E645A
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,microchip.com:email]
+X-Rspamd-Queue-Id: C441F5E7AC0
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Thu, May 14, 2026 at 09:21:26AM -0700, Ben Levinsky wrote:
-> Replace the exact-match carveout map and unmap callbacks in the
-> existing remoteproc drivers with the common wc-ioremap helpers. This
-> covers xlnx_r5_remoteproc, rcar_rproc, st_remoteproc, stm32_rproc,
-> imx_rproc, and imx_dsp_rproc.
-> 
-> Leave the zynqmp R5 TCM callbacks alone because they also clear the
-> mapped memory and are therefore not exact matches for the shared
-> helpers.
-> 
-> Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be> # renesas
-> ---
->  drivers/remoteproc/imx_dsp_rproc.c      | 36 ++++---------------
->  drivers/remoteproc/imx_rproc.c          | 32 ++---------------
->  drivers/remoteproc/rcar_rproc.c         | 33 ++---------------
->  drivers/remoteproc/st_remoteproc.c      | 31 ++--------------
->  drivers/remoteproc/stm32_rproc.c        | 34 ++----------------
->  drivers/remoteproc/xlnx_r5_remoteproc.c | 47 +++----------------------
->  6 files changed, 18 insertions(+), 195 deletions(-)
-> 
-> diff --git a/drivers/remoteproc/imx_dsp_rproc.c b/drivers/remoteproc/imx_dsp_rproc.c
-> index 008741af9f11..2d9f14fbef1d 100644
-> --- a/drivers/remoteproc/imx_dsp_rproc.c
-> +++ b/drivers/remoteproc/imx_dsp_rproc.c
-> @@ -644,32 +644,6 @@ static void imx_dsp_rproc_free_mbox(struct imx_dsp_rproc *priv)
->  	mbox_free_channel(priv->rxdb_ch);
->  }
->  
-> -static int imx_dsp_rproc_mem_alloc(struct rproc *rproc,
-> -				   struct rproc_mem_entry *mem)
-> -{
-> -	struct device *dev = rproc->dev.parent;
-> -	void *va;
-> -
-> -	va = ioremap_wc(mem->dma, mem->len);
-> -	if (!va) {
-> -		dev_err(dev, "Unable to map memory region: %pa+%zx\n",
-> -			&mem->dma, mem->len);
-> -		return -ENOMEM;
-> -	}
-> -
-> -	mem->va = va;
-> -
-> -	return 0;
-> -}
-> -
-> -static int imx_dsp_rproc_mem_release(struct rproc *rproc,
-> -				     struct rproc_mem_entry *mem)
-> -{
-> -	iounmap(mem->va);
-> -
-> -	return 0;
-> -}
-> -
->  /**
->   * imx_dsp_rproc_add_carveout() - request mailbox channels
->   * @priv: private data pointer
-> @@ -700,8 +674,10 @@ static int imx_dsp_rproc_add_carveout(struct imx_dsp_rproc *priv)
->  
->  		/* Register memory region */
->  		mem = rproc_mem_entry_init(dev, NULL, (dma_addr_t)att->sa,
-> -					   att->size, da, imx_dsp_rproc_mem_alloc,
-> -					   imx_dsp_rproc_mem_release, "dsp_mem");
-> +					   att->size, da,
-> +					   rproc_mem_entry_ioremap_wc,
-> +					   rproc_mem_entry_iounmap,
-> +					   "dsp_mem");
->  
->  		if (mem)
->  			rproc_coredump_add_segment(rproc, da, att->size);
-> @@ -732,8 +708,8 @@ static int imx_dsp_rproc_add_carveout(struct imx_dsp_rproc *priv)
->  		/* Register memory region */
->  		mem = rproc_mem_entry_init(dev, NULL, (dma_addr_t)res.start,
->  					   resource_size(&res), da,
-> -					    imx_dsp_rproc_mem_alloc,
-> -					    imx_dsp_rproc_mem_release,
-> +					   rproc_mem_entry_ioremap_wc,
-> +					   rproc_mem_entry_iounmap,
->  					   "%.*s", strchrnul(res.name, '@') - res.name, res.name);
->  		if (!mem)
->  			return -ENOMEM;
-> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
-> index 7f54322244ac..6249815b54d8 100644
-> --- a/drivers/remoteproc/imx_rproc.c
-> +++ b/drivers/remoteproc/imx_rproc.c
-> @@ -600,35 +600,6 @@ static void *imx_rproc_da_to_va(struct rproc *rproc, u64 da, size_t len, bool *i
->  	return va;
->  }
->  
-> -static int imx_rproc_mem_alloc(struct rproc *rproc,
-> -			       struct rproc_mem_entry *mem)
-> -{
-> -	struct device *dev = rproc->dev.parent;
-> -	void *va;
-> -
-> -	dev_dbg(dev, "map memory: %p+%zx\n", &mem->dma, mem->len);
-> -	va = ioremap_wc(mem->dma, mem->len);
-> -	if (IS_ERR_OR_NULL(va)) {
-> -		dev_err(dev, "Unable to map memory region: %p+%zx\n",
-> -			&mem->dma, mem->len);
-> -		return -ENOMEM;
-> -	}
-> -
-> -	/* Update memory entry va */
-> -	mem->va = va;
-> -
-> -	return 0;
-> -}
-> -
-> -static int imx_rproc_mem_release(struct rproc *rproc,
-> -				 struct rproc_mem_entry *mem)
-> -{
-> -	dev_dbg(rproc->dev.parent, "unmap memory: %pa\n", &mem->dma);
-> -	iounmap(mem->va);
-> -
-> -	return 0;
-> -}
-> -
->  static int imx_rproc_sm_lmm_prepare(struct rproc *rproc)
->  {
->  	struct imx_rproc *priv = rproc->priv;
-> @@ -692,7 +663,8 @@ static int imx_rproc_prepare(struct rproc *rproc)
->  		/* Register memory region */
->  		mem = rproc_mem_entry_init(priv->dev, NULL, (dma_addr_t)res.start,
->  					   resource_size(&res), da,
-> -					   imx_rproc_mem_alloc, imx_rproc_mem_release,
-> +					   rproc_mem_entry_ioremap_wc,
-> +					   rproc_mem_entry_iounmap,
->  					   "%.*s", strchrnul(res.name, '@') - res.name,
->  					   res.name);
->  		if (!mem)
-> diff --git a/drivers/remoteproc/rcar_rproc.c b/drivers/remoteproc/rcar_rproc.c
-> index 3c25625f966d..e3121fadd292 100644
-> --- a/drivers/remoteproc/rcar_rproc.c
-> +++ b/drivers/remoteproc/rcar_rproc.c
-> @@ -19,35 +19,6 @@ struct rcar_rproc {
->  	struct reset_control *rst;
->  };
->  
-> -static int rcar_rproc_mem_alloc(struct rproc *rproc,
-> -				 struct rproc_mem_entry *mem)
-> -{
-> -	struct device *dev = &rproc->dev;
-> -	void *va;
-> -
-> -	dev_dbg(dev, "map memory: %pa+%zx\n", &mem->dma, mem->len);
-> -	va = ioremap_wc(mem->dma, mem->len);
-> -	if (!va) {
-> -		dev_err(dev, "Unable to map memory region: %pa+%zx\n",
-> -			&mem->dma, mem->len);
-> -		return -ENOMEM;
-> -	}
-> -
-> -	/* Update memory entry va */
-> -	mem->va = va;
-> -
-> -	return 0;
-> -}
-> -
-> -static int rcar_rproc_mem_release(struct rproc *rproc,
-> -				   struct rproc_mem_entry *mem)
-> -{
-> -	dev_dbg(&rproc->dev, "unmap memory: %pa\n", &mem->dma);
-> -	iounmap(mem->va);
-> -
-> -	return 0;
-> -}
-> -
->  static int rcar_rproc_prepare(struct rproc *rproc)
->  {
->  	struct device *dev = rproc->dev.parent;
-> @@ -73,8 +44,8 @@ static int rcar_rproc_prepare(struct rproc *rproc)
->  		mem = rproc_mem_entry_init(dev, NULL,
->  					   res.start,
->  					   resource_size(&res), da,
-> -					   rcar_rproc_mem_alloc,
-> -					   rcar_rproc_mem_release,
-> +					   rproc_mem_entry_ioremap_wc,
-> +					   rproc_mem_entry_iounmap,
->  					   res.name);
->  
->  		if (!mem)
-> diff --git a/drivers/remoteproc/st_remoteproc.c b/drivers/remoteproc/st_remoteproc.c
-> index a07edf7217d2..486180cdccb4 100644
-> --- a/drivers/remoteproc/st_remoteproc.c
-> +++ b/drivers/remoteproc/st_remoteproc.c
-> @@ -88,33 +88,6 @@ static void st_rproc_kick(struct rproc *rproc, int vqid)
->  		dev_err(dev, "failed to send message via mbox: %d\n", ret);
->  }
->  
-> -static int st_rproc_mem_alloc(struct rproc *rproc,
-> -			      struct rproc_mem_entry *mem)
-> -{
-> -	struct device *dev = rproc->dev.parent;
-> -	void *va;
-> -
-> -	va = ioremap_wc(mem->dma, mem->len);
-> -	if (!va) {
-> -		dev_err(dev, "Unable to map memory region: %pa+%zx\n",
-> -			&mem->dma, mem->len);
-> -		return -ENOMEM;
-> -	}
-> -
-> -	/* Update memory entry va */
-> -	mem->va = va;
-> -
-> -	return 0;
-> -}
-> -
-> -static int st_rproc_mem_release(struct rproc *rproc,
-> -				struct rproc_mem_entry *mem)
-> -{
-> -	iounmap(mem->va);
-> -
-> -	return 0;
-> -}
-> -
->  static int st_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
->  {
->  	struct device *dev = rproc->dev.parent;
-> @@ -138,8 +111,8 @@ static int st_rproc_parse_fw(struct rproc *rproc, const struct firmware *fw)
->  			mem = rproc_mem_entry_init(dev, NULL,
->  						   (dma_addr_t)res.start,
->  						   resource_size(&res), res.start,
-> -						   st_rproc_mem_alloc,
-> -						   st_rproc_mem_release,
-> +						   rproc_mem_entry_ioremap_wc,
-> +						   rproc_mem_entry_iounmap,
->  						   "%.*s",
->  						   strchrnul(res.name, '@') - res.name,
->  						   res.name);
-> diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
-> index 632614013dc6..7ac8265b60ac 100644
-> --- a/drivers/remoteproc/stm32_rproc.c
-> +++ b/drivers/remoteproc/stm32_rproc.c
-> @@ -113,35 +113,6 @@ static int stm32_rproc_pa_to_da(struct rproc *rproc, phys_addr_t pa, u64 *da)
->  	return -EINVAL;
->  }
->  
-> -static int stm32_rproc_mem_alloc(struct rproc *rproc,
-> -				 struct rproc_mem_entry *mem)
-> -{
-> -	struct device *dev = rproc->dev.parent;
-> -	void *va;
-> -
-> -	dev_dbg(dev, "map memory: %pad+%zx\n", &mem->dma, mem->len);
-> -	va = (__force void *)ioremap_wc(mem->dma, mem->len);
-> -	if (IS_ERR_OR_NULL(va)) {
-> -		dev_err(dev, "Unable to map memory region: %pad+0x%zx\n",
-> -			&mem->dma, mem->len);
-> -		return -ENOMEM;
-> -	}
-> -
-> -	/* Update memory entry va */
-> -	mem->va = va;
-> -
-> -	return 0;
-> -}
-> -
-> -static int stm32_rproc_mem_release(struct rproc *rproc,
-> -				   struct rproc_mem_entry *mem)
-> -{
-> -	dev_dbg(rproc->dev.parent, "unmap memory: %pa\n", &mem->dma);
-> -	iounmap((__force __iomem void *)mem->va);
-> -
-> -	return 0;
-> -}
-> -
->  static int stm32_rproc_of_memory_translations(struct platform_device *pdev,
->  					      struct stm32_rproc *ddata)
->  {
-> @@ -237,8 +208,8 @@ static int stm32_rproc_prepare(struct rproc *rproc)
->  			mem = rproc_mem_entry_init(dev, NULL,
->  						   (dma_addr_t)res.start,
->  						   resource_size(&res), da,
-> -						   stm32_rproc_mem_alloc,
-> -						   stm32_rproc_mem_release,
-> +						   rproc_mem_entry_ioremap_wc,
-> +						   rproc_mem_entry_iounmap,
->  						   "%.*s", strchrnul(res.name, '@') - res.name,
->  						   res.name);
->  			if (mem)
-> @@ -957,4 +928,3 @@ MODULE_DESCRIPTION("STM32 Remote Processor Control Driver");
->  MODULE_AUTHOR("Ludovic Barre <ludovic.barre@st.com>");
->  MODULE_AUTHOR("Fabien Dessenne <fabien.dessenne@st.com>");
->  MODULE_LICENSE("GPL v2");
-> -
-
-Spurious change.
-
-> diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
-> index 45a62cb98072..e5d1903c9636 100644
-> --- a/drivers/remoteproc/xlnx_r5_remoteproc.c
-> +++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
-> @@ -447,45 +447,6 @@ static int zynqmp_r5_rproc_stop(struct rproc *rproc)
->  	return ret;
->  }
->  
-> -/*
-> - * zynqmp_r5_mem_region_map()
-> - * @rproc: single R5 core's corresponding rproc instance
-> - * @mem: mem descriptor to map reserved memory-regions
-> - *
-> - * Callback to map va for memory-region's carveout.
-> - *
-> - * return 0 on success, otherwise non-zero value on failure
-> - */
-> -static int zynqmp_r5_mem_region_map(struct rproc *rproc,
-> -				    struct rproc_mem_entry *mem)
-> -{
-> -	void __iomem *va;
-> -
-> -	va = ioremap_wc(mem->dma, mem->len);
-> -	if (IS_ERR_OR_NULL(va))
-> -		return -ENOMEM;
-> -
-> -	mem->va = (void *)va;
-> -
-> -	return 0;
-> -}
-> -
-> -/*
-> - * zynqmp_r5_rproc_mem_unmap
-> - * @rproc: single R5 core's corresponding rproc instance
-> - * @mem: mem entry to unmap
-> - *
-> - * Unmap memory-region carveout
-> - *
-> - * return: always returns 0
-> - */
-> -static int zynqmp_r5_mem_region_unmap(struct rproc *rproc,
-> -				      struct rproc_mem_entry *mem)
-> -{
-> -	iounmap((void __iomem *)mem->va);
-> -	return 0;
-> -}
-> -
->  /*
->   * add_mem_regions_carveout()
->   * @rproc: single R5 core's corresponding rproc instance
-> @@ -522,8 +483,8 @@ static int add_mem_regions_carveout(struct rproc *rproc)
->  			rproc_mem = rproc_mem_entry_init(&rproc->dev, NULL,
->  							 (dma_addr_t)res.start,
->  							 resource_size(&res), res.start,
-> -							 zynqmp_r5_mem_region_map,
-> -							 zynqmp_r5_mem_region_unmap,
-> +							 rproc_mem_entry_ioremap_wc,
-> +							 rproc_mem_entry_iounmap,
->  							 "%.*s",
->  							 strchrnul(res.name, '@') - res.name,
->  							 res.name);
-> @@ -560,8 +521,8 @@ static int add_sram_carveouts(struct rproc *rproc)
->  		rproc_mem = rproc_mem_entry_init(&rproc->dev, NULL,
->  						 dma_addr,
->  						 len, da,
-> -						 zynqmp_r5_mem_region_map,
-> -						 zynqmp_r5_mem_region_unmap,
-> +						 rproc_mem_entry_ioremap_wc,
-> +						 rproc_mem_entry_iounmap,
->  						 sram->sram_res.name);
->  		if (!rproc_mem) {
->  			dev_err(&rproc->dev, "failed to add sram %s da=0x%x, size=0x%lx",
-> -- 
-> 2.34.1
-> 
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gU2F0LCBNYXkgMjMsIDIwMjYgYXQgNzozM+KAr1BNIE1hbmlzaCBCYWluZyA8bWFuaXNoYmFp
+bmcyNzg5QGdtYWlsLmNvbT4gd3JvdGU6Cgo+IFRoZSBzdCxzdG1wZS1wd20gYmluZGluZyBpcyBh
+bHJlYWR5IGNvdmVyZWQgYnkgdGhlIE1GRCBzY2hlbWEgaW4KPiBEb2N1bWVudGF0aW9uL2Rldmlj
+ZXRyZWUvYmluZGluZ3MvbWZkL3N0LHN0bXBlLnlhbWwuIEhvd2V2ZXIsIHRoZQo+IFBXTSBzdWJu
+b2RlIHdhcyBtaXNzaW5nIGEgJ3JlcXVpcmVkJyBwcm9wZXJ0aWVzIGJsb2NrLiBUaGlzIGFsbG93
+ZWQKPiBEZXZpY2UgVHJlZSBub2RlcyB0byBwYXNzIHZhbGlkYXRpb24gZXZlbiBpZiB0aGUgJ2Nv
+bXBhdGlibGUnCj4gc3RyaW5nIHdhcyBvbWl0dGVkLiBUaGlzIG9taXNzaW9uIGNvdWxkIGxlYWQg
+dG8gcHJvYmUgZmFpbHVyZXMKPiBhdCBydW50aW1lLgo+Cj4gRml4IHRoZSBzY2hlbWEgYnkgYWRk
+aW5nIHRoZSBtaXNzaW5nICdyZXF1aXJlZCcgYmxvY2suCj4KPiBTaWduZWQtb2ZmLWJ5OiBNYW5p
+c2ggQmFpbmcgPG1hbmlzaGJhaW5nMjc4OUBnbWFpbC5jb20+Cj4gQWNrZWQtYnk6IENvbm9yIERv
+b2xleSA8Y29ub3IuZG9vbGV5QG1pY3JvY2hpcC5jb20+Cj4gQWNrZWQtYnk6IFV3ZSBLbGVpbmUt
+S8O2bmlnIDx1a2xlaW5la0BrZXJuZWwub3JnPgoKUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWog
+PGxpbnVzd0BrZXJuZWwub3JnPgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
+CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
+YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
