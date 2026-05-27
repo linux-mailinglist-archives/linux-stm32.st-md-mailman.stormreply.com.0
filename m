@@ -2,120 +2,67 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id R+WbCTiuFmojogcAu9opvQ
+	id yErpF37wFmpcxwcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 10:41:28 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 15:24:14 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1AE7F5E13D2
-	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 10:41:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ED1B65E4E45
+	for <lists+linux-stm32@lfdr.de>; Wed, 27 May 2026 15:24:13 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 86FE2C8F292;
-	Wed, 27 May 2026 08:41:26 +0000 (UTC)
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
- (mail-sh0chn02on2099.outbound.protection.partner.outlook.cn [139.219.146.99])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B6A3C8F290;
+	Wed, 27 May 2026 13:24:13 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F36A0C8F28E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 23D1CC8F28E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 27 May 2026 08:41:24 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=P+nhUiK0J7j9Eubo/Fj8fz+morVz00pkiKnu8sOtBTXq2Sdec8Quj36iIDo+50jyGaA2EuH0LT1kN2CLvYdxtRpmFjAvJ0tlGzJ6WDmy7fYuzO4R2IP7yvIp2vbUeETKf6B6Y1X3z+BX/uvGmsIx/OGyfhBQ5Ijfm0DU1qQzVO8k1Bdnn4aK+53LRThe0DW0sdZAk+U+bVZkb2zV+X6Gatj61yMY15Q3ULtbZCaIiuZiyCV8tw5t4rieCKjt5r5zIPmO56b3h4uJr3VTLr/r7lUfM8MuPjw46Xe81oIoICQ3IpbTWLcsvRLjr2/NkbWU6cIYynmKn8PIZ8tDo97RjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qvfzEu8uwAUkb/LGG2KjDhQRE+QjOYrCIOP6wkuiXck=;
- b=bd/dQE5JDq/0nDAVcU9cWhdCuO701IacokRwmuBXeH4cDpRDAQJQVz+owai7DfRFwPc2aRJMVJ5VnmDeXOFr2hGjub5K84Kfe31k2L2YWcyREoSfA3oFb6fTcwMDumTBtsYTdo9V5CC+hHfIbWX3Z3VPPg2q1agxEAOSFz4PdIVaJVwOuUbpFstj73l/DOBhzH/7OQnHxztUt4oH2iUamFKb4ihM2Og/XI8vfwzQORwkkD0je3M/BM6FQ9dqWVkkx2V293TDqDzJ41bcxPbTubQeNWbq5Gv5h5xVjUbAXBbdhfPkIIQrE7THLhneHPabs9Gjvdt6VJ1W3CeUMk9TkA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15) by SHXPR01MB0750.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.22; Wed, 27 May
- 2026 08:41:19 +0000
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- ([fe80::9b99:12dc:a115:b90f]) by
- SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
- with mapi id 15.20.9891.021; Wed, 27 May 2026 08:41:19 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
-To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Emil Renner Berthing <emil.renner.berthing@canonical.com>,
- Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org
-Date: Wed, 27 May 2026 16:41:08 +0800
-Message-Id: <20260527084108.121416-5-minda.chen@starfivetech.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260527084108.121416-1-minda.chen@starfivetech.com>
-References: <20260527084108.121416-1-minda.chen@starfivetech.com>
-X-ClientProxiedBy: SH0PR01CA0014.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::26) To SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15)
+ Wed, 27 May 2026 13:24:12 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id CE57F44182
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 May 2026 13:24:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27BA1F0155C
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 May 2026 13:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1779888250;
+ bh=ynx0YVdRpScOcVOUl3nY0Y9gWTKj9Ts8mNFO+WkHlNc=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=M4ZoD6+JXZamGLbvvzX/8mFPVFodp59z3BYZHOJ1maZT37ITWJ1ws8ONO9jIbUftd
+ LhBznDJJWgJ/U3q/e786ivP8rwVQtbr3RJRmy6qBsz0ICUZOKF6QS/jIpX3pL85Hki
+ SBmpqnhbtAvifobPfoWvZGlHFvxvtwHbn014qxWtP3eC7ft5ucRqNyM7sDgcHxJLzZ
+ CjuHGcMnd1dOC7Ya72IC7X4enemClLRXmDi8GBQi7DjBa5i3d4hQ/BgtcnHmfcskwr
+ iSmD9SSLkwPopili/8IrKg0QYxQQW1DIGqW3wIH4gZu6D00pC5ZOrV7RLY/I77dU83
+ JWF0LkIvryJTQ==
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-5aa474d3be0so1788381e87.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 27 May 2026 06:24:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8+3xiNmgeymgkXwbFQm1jy4+zolKGvvW4oCLe4FJl+zpu43MlGCmg6PfmwBqmSHzf4fAdP7tAbHhB5ag==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzrAFW4651VKzFStKzQzcLLagScloaGvtVTz0d0JARQkpO3DQXv
+ uU5gDcmdXOV0NgXmIcLDL71hKgbw6E+CJWOjjOaq3rXj5NEoszBwoMlzbwqtZNh4WaF2a/XuBpA
+ d2XgfuoAQlS4pOE5Xd0GZSVtTzKfw1Mo=
+X-Received: by 2002:a05:6512:31c4:b0:5a8:7317:5417 with SMTP id
+ 2adb3069b0e04-5aa32369f4amr7061708e87.9.1779888249425; Wed, 27 May 2026
+ 06:24:09 -0700 (PDT)
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0750:EE_
-X-MS-Office365-Filtering-Correlation-Id: 973cb098-5168-4bf1-b727-08debbcbb906
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|52116014|7416014|1800799024|366016|56012099006|38350700014|921020|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: ZNhA7ABKfeZBoQp/ZwYj8JGpljPxGkc+T1L9e6ztMRksfhkR+1r2j+NhdxAuu2UTmUru6VFwslP0vqzDyno/kav15AoVHyoIbpqXWbj85fCfxy1tOu+QzsIndjiIsdPbuX2frXgkFhyPPPITeoxxo8wlzRvtgwQWIcdk3LEmlB7o1dxHWEG0z4AoJyFn8whrBU84GF++y4hJjIyyMlQA2PueL5s1z9LqoYNnm0JTBXoquKEyrkHAFrL4QnK9HzHOuqQT/50L1kYpI9EQ2bef5R9e73SnB9mnM58ac+7j3mx6MJtYjrsP5KTD3opXXsQQX6A6/ZrsVrcNc1RmuJgY02GpulBa5kMFyBV8l7TV96PRrptYSpW8UYExd357afEqy9Yy/gHWWJ2YZiU4U45u+TsdyO27XpgtH7WB+AbUaGDbvE1pz3gGfrrR/cmi+FKUnJQpwtC0tr8W5NBJeHqrTISNgiYTmojKf/wkke27cepJwHiXc095UVzutxtnVvtmRwypk2zTg7oSDAxC5OPKeR/UNsln/hy/kPEeqvu6q+gTQNvOofF2ZlBPUCW5LaWFFfWPflDAQVXDY4fJf+ZMtg==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(366016)(56012099006)(38350700014)(921020)(18002099003)(22082099003);
- DIR:OUT; SFP:1102; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?OFY0C9+a0wQQdXRVDMp9zNWExdgLzGeJgZLvtVdN3zABDlFaxBpDH10CuY9y?=
- =?us-ascii?Q?JQSmkSA8C2CtaxKx9YLdSIkQKvLiSYWqRncjmzG2pgGHKDlnM+LgMzrBUG95?=
- =?us-ascii?Q?kHJsmap9fVDLynbYr65Te/2445wKw0CamW7pj1x0KNhOMDT8Js2HkXaS4Pjm?=
- =?us-ascii?Q?Ro661SgaBcxmQASNmag1OFAkWkMtnJy6ZXq2WKY6i4rIjOOSysxlmyn6qxf6?=
- =?us-ascii?Q?Oln/F9cifHLOtcU8oAgCIhVOA0U1z2Zdcl4eRgBmdsaj3zfJaS9106C4tdQk?=
- =?us-ascii?Q?/P5aUuPC9FQvgDoOAXZoYwsRCAhTtVAaVUXhZkpdJmi7404d+ATo+XgTXneA?=
- =?us-ascii?Q?yJoKMHGlTGQs+CP8BblzgO7pqfqlRbvDXcWmLCrJ+4h9o8WLyol10BLGHpsq?=
- =?us-ascii?Q?8AH9dzv/2/QszGukBeY7mTa+8llCRUjpax1YBaFU73qA6rtCKZMQw+NZcCib?=
- =?us-ascii?Q?Ag3ZnHrPiwSTwcmFBoxfQpMYft5ze9YjD9OlNl/V0V/bQOU1PDoh+x70W7ON?=
- =?us-ascii?Q?smIEnPvOeNVCSE3ZR4z8DPRKIDBlq4H/HKPkex4XXTHvHPuaLiY8Jtq8l/Ts?=
- =?us-ascii?Q?d7qEhcp1QKGDUHePUvDwJMDv+SiJhFOVLik17D2liD5mBsWWxCx/9u0cbWZm?=
- =?us-ascii?Q?wgxKrPJtHpt3L0FXpoZBtFN9Ps75wBsrcbYI8ZLJ/kSQTG9lbv3S6WifGvaO?=
- =?us-ascii?Q?OWLrloJGY+U5eui3dWSb01qxCF41A8Nwn2SuzHY0ScyBC4VPo4YNg6I5TDPe?=
- =?us-ascii?Q?9k/mqvFoc7qgmf4uxmrz5YfWbflEQqMKOAhHhFiVOyOiZwW3t49SOCv0yHyt?=
- =?us-ascii?Q?iWr8fJ4eg6HaaxQikCFVf2OcWiG7NIT9I6SIyO+vO4sU8c2fg9MZDJGyhH54?=
- =?us-ascii?Q?FPIFR1H/wQgt50CxcSHZqcOCId5Aquvgy1dBJ34a0EwqdQW+1ZYei4u0LDRG?=
- =?us-ascii?Q?tjl+DpbTr7+uRKxRbcAk4Q34kdXwr3gqlKHFz7Cm5wBtakG34vio+Hqqe51l?=
- =?us-ascii?Q?1WXteh2Njqs6VT6l3QRCCoNqCzgRw11d6jnFdBj8SkRVCr51m4aCkQyaEBPw?=
- =?us-ascii?Q?nVDCVoUzEMKuwMmix5sZzTeXamY149jXWyPzER1ksbYxDBHfeJtqVUr3J9Df?=
- =?us-ascii?Q?sIMHLXLevaZFIA0oSdTQvfMvdexRSD4vlyVxGzb9PCCh/mdZHRy37+A7Z+Ru?=
- =?us-ascii?Q?kmha++0M1AZHmKeYDNSaVtRgIzFpwzV3oRkjxlAarFvURuIyhfELJyi48L0h?=
- =?us-ascii?Q?jyenWt9V0bDGCrH4+I0mlMYKkNUKt9Yh37AMBHZOivNpjwWpoNpUR51N/Yho?=
- =?us-ascii?Q?mteoPuRDNvRDi7IQou8G6+p52bEseheIAM0aoDJOiWtDBd9DmvTBgi+djNBp?=
- =?us-ascii?Q?OIWo/0aNglmulyr2g3E8CmJX3Ny6SRePkQs6tUYOLgWC5+23/eQ5Aet4KfBZ?=
- =?us-ascii?Q?IoyXOvM/R8VsdZmOT+CAfm8WugrHvBVOhYEp9a92U7RO/I/e6ltj8CQeatO5?=
- =?us-ascii?Q?imXvz/So6z+ObmdVWPgf5PJwWZPU/7R/b7n7QibuCazAbUvrTYxOVwrV2YJC?=
- =?us-ascii?Q?26OW1aVHjSj1eXpIIItEQWcAtID1hZN9BRWPXvN5eYlg4jsxpnG6kdvOUSGR?=
- =?us-ascii?Q?px6AzXg2aEFsbubt7M89c8mNmlp5kvR0pojr+MIsEMgle6hU0AwpOGR8DrZz?=
- =?us-ascii?Q?zQUGZKrMMeZEA/gscF8c6Ax2DJL6SXl2p4v1tdzhfJ5iSDwA/KKDWjrw4pat?=
- =?us-ascii?Q?UnTDq2+lpd6oFDcmx0nXD/fkBDvyIIc=3D?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 973cb098-5168-4bf1-b727-08debbcbb906
-X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 08:41:19.1011 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 18tWXMb9AXOhZiQwEMcBU+fTcuiTdHEg6OuQfn+pupTJeC1F4CoS/spOczFKAr47yq2bva5QhNR7nEUuPJGVbuvpToXrg1D6q2I8w5fdETw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0750
-Cc: devicetree@vger.kernel.org, Minda Chen <minda.chen@starfivetech.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [net-next v5 4/4] net: stmmac: starfive: Add
-	STMMAC_FLAG_SPH_DISABLE flag
+References: <20260508184626.15938-1-manishbaing2789@gmail.com>
+In-Reply-To: <20260508184626.15938-1-manishbaing2789@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 27 May 2026 15:23:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk0QWoTCXEqZbm_ECV2YQdL6PBZp2+EMSVH6DrmPx=dKw@mail.gmail.com>
+X-Gm-Features: AVHnY4LJ4ZgmIO12q-22xaSmmAdfwCpy1pxkuhOelzvqfy6Ynt81zGPLoHbXLKo
+Message-ID: <CAD++jLk0QWoTCXEqZbm_ECV2YQdL6PBZp2+EMSVH6DrmPx=dKw@mail.gmail.com>
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-pwm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ thierry.reding@gmail.com, ukleinek@kernel.org, mcoquelin.stm32@gmail.com,
+ krzk+dt@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v2] dt-bindings: pwm: stmpe: drop legacy
+	binding
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,73 +74,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[starfivetech.com : SPF not aligned (relaxed), No valid DKIM,quarantine];
+X-Spamd-Result: default: False [4.89 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:alexandre.torgue@foss.st.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:emil.renner.berthing@canonical.com,m:robh+dt@kernel.org,m:krzk+dt@kernel.org,m:conor@kernel.org,m:netdev@vger.kernel.org,m:devicetree@vger.kernel.org,m:minda.chen@starfivetech.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:robh@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[foss.st.com,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,canonical.com,vger.kernel.org];
-	FORGED_SENDER(0.00)[minda.chen@starfivetech.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:manishbaing2789@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:linux-pwm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:devicetree@vger.kernel.org,m:thierry.reding@gmail.com,m:ukleinek@kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:thierryreding@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,meta];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	NEURAL_SPAM(0.00)[0.740];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[minda.chen@starfivetech.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	NEURAL_HAM(-0.00)[-0.853];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_DKIM_NA(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns]
-X-Rspamd-Queue-Id: 1AE7F5E13D2
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[]
+X-Rspamd-Queue-Id: ED1B65E4E45
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Add default disable split header flag in all the starfive
-soc.
-
-Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
----
- drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-index b1717a6f97f1..b1ea248e3311 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-starfive.c
-@@ -148,7 +148,7 @@ static int starfive_dwmac_probe(struct platform_device *pdev)
- 			return err;
- 	}
- 
--	plat_dat->flags |= STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP;
-+	plat_dat->flags |= (STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP | STMMAC_FLAG_SPH_DISABLE);
- 	plat_dat->dma_cfg->dche = true;
- 
- 	return stmmac_dvr_probe(&pdev->dev, plat_dat, &stmmac_res);
--- 
-2.17.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gRnJpLCBNYXkgOCwgMjAyNiBhdCA4OjQ24oCvUE0gTWFuaXNoIEJhaW5nIDxtYW5pc2hiYWlu
+ZzI3ODlAZ21haWwuY29tPiB3cm90ZToKCj4gVGhlIHN0LHN0bXBlLXB3bSBiaW5kaW5nIGlzIGFs
+cmVhZHkgY292ZXJlZCBieSB0aGUgTUZEIHNjaGVtYQo+IERvY3VtZW50YXRpb24vZGV2aWNldHJl
+ZS9iaW5kaW5ncy9tZmQvc3Qsc3RtcGUueWFtbC4gUmVtb3ZlIHRoZQo+IG9ic29sZXRlIGFuZCBy
+ZWR1bmRhbnQgdGV4dCBiaW5kaW5nIGZpbGUuCj4KPiBTaWduZWQtb2ZmLWJ5OiBNYW5pc2ggQmFp
+bmcgPG1hbmlzaGJhaW5nMjc4OUBnbWFpbC5jb20+CgpSZXZpZXdlZC1ieTogTGludXMgV2FsbGVp
+aiA8bGludXN3QGtlcm5lbC5vcmc+CgpJZiB0aGUgUFdNIG1haW50YWluZXIgaXMgYnVzeSBtYXli
+ZSBSb2IgY2FuIHF1ZXVlIHRoaXMgcGF0Y2g/CgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
+aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
+L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
+Mgo=
