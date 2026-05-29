@@ -2,82 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id GOLxCSC3GWpByggAu9opvQ
+	id cGiULsPOGWqNzAgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 17:56:16 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 19:37:07 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF6C9605226
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 17:56:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 53A976069DB
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 19:37:07 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AEBEDC8F296;
-	Fri, 29 May 2026 15:56:14 +0000 (UTC)
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
- [209.85.128.41])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E265AC8F296;
+	Fri, 29 May 2026 17:37:06 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DAE7CC87ED1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC7DCC87ED1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2026 15:56:12 +0000 (UTC)
-Received: by mail-wm1-f41.google.com with SMTP id
- 5b1f17b1804b1-49042aeeb75so95482455e9.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2026 08:56:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1780070172; x=1780674972;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=LnHNg9n0JGZsDydxLfv4khIj43e63eeZtcUcMwaZSDY=;
- b=htsK01jmRL5ro+16hZLsYgBniWtJUwrFLc/ce24FS4FumqVV0jsUN/ylj2pfCrdA0Q
- WJfK9ui0yYZgGPOgE1M4LQWzBLYvY4z/cIqhCjCSmyVuAiUqxOf3UNskuIcSDWFQmPjT
- y1rEoFOH9LtayDqhIzEqzKtKxZJENUhP7tPXc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780070172; x=1780674972;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=LnHNg9n0JGZsDydxLfv4khIj43e63eeZtcUcMwaZSDY=;
- b=RuzZJUqzY7EHLA9TC4iWWdUnAyka4d8qR4lf/LOzINKMKuZXJ6grpJEjw7wx39bW6O
- cbtZJcuxXvcLIOMvKsIZBeiYznMYls4m/aipkq6x+nuSVCdxRTT58Dj2Pz9FKyjk6E08
- XCtygZpGAeLsnl8XL+ksZw4stMdaD9mFix2rBoOrMPsKmtp1rkkrNkd/JiKowgR+iBpu
- p7dkGT8IG76y5LTEpRrKXpH190cME/VgK0hPWCPwYC9HQUSIS9dxZzizQa0prm7aB2qf
- pz2LfivB9IXjKhLu7vd7nX7E04fKWYGRec2QceY3QADs6r8G4DSmEuxMQf2MwTAYARW4
- fpgg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+qQpMo7UJ8bLksCigpGA/SxCaifEAeOQ03uLT3b1+sH44KqwNt4XvvFjyKAjIZpxVqfa5jN89efHvZ7A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yy2/71ncmpUdmiL3EEAHlJoGvZXAEinMMebb8BsDONC7NuyUl5G
- EFV0w3huvqQJr8fY/pHCjFB6+4zzT5xBnRMGrmxV5dNBpjxItqtu3qQesgcXHklc02o=
-X-Gm-Gg: Acq92OFGvFK6VcNwp38xaD7VT/CUwB2C1Ni2ZvJi0G1/nfjX/wgd8wvrMdD8t3suPAG
- 4YIRonvUPQ1gA4SxlPttK2yfqt6mpMRUvJTwBgGcNGq2uG60B9cbC69c+rxawU6cLrKA7Ch8O1/
- LXcrrrTI6ykZvF5fODWIVGUR6xTiDFmbHGuKMurbmgitaMmAavff+R2Jh+SqcMvJgMtBHjJ/azl
- 03vH25q4Nm9gbtvOwRO5Tx/PRWL/J9hM/hpMuSdJC4JrYyx+wWZFyZ7NNQiLoTVVygV6CSq0trW
- G8njbdk8dwkPp4B9SDg8hMxZvLnriYFY37PT5mEUvXCrFUsnMXUpkhRNPUSRLe9hJ/qjR5N5kuJ
- 2Shu5JkMmmKen39P830juyLY/EvCWPK5RiYnz0ighCjjnqecdOP1soEeH7MR2I/hGv7EZlTSWGO
- Xz4VqSQlpVZ45NvwR40UVBg753zXip2MD73schKrvkjSwXPU4gfLrnGWTwXk27ysKRkH7/2zFE7
- e10d72zDfj4gSNyT3ihvDOpGCIu5MKw8ARkJwK3OEA26jzPIlES6iP3Epje7EMv03HrvQ==
-X-Received: by 2002:a05:600c:8a0d:20b0:48a:906b:14ca with SMTP id
- 5b1f17b1804b1-490a293dcaamr2867795e9.20.1780070172253; 
- Fri, 29 May 2026 08:56:12 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.43.161])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef354c682sm4114680f8f.23.2026.05.29.08.56.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 08:56:11 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri, 29 May 2026 17:55:50 +0200
-Message-ID: <20260529155607.3948045-1-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
+ Fri, 29 May 2026 17:37:04 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 8A17543BE5;
+ Fri, 29 May 2026 17:37:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BD61F00893;
+ Fri, 29 May 2026 17:37:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780076223;
+ bh=Gkuk1hSYF7azCaKHz/S3pZc2XU3K06FzR8lRjatZQwc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=XyPCHAU055g5ZN7YMdDu61wHTj2INteS4tKl7VRuD1bN8aKrsNK9viwY5qoL9mtGk
+ L7u0p3sRKKV9oeaoVoQsrKwl+EbB76H7gaokCR4TMYIbJC0m7i6wCTJIvH7ydwPbjZ
+ WBMncnMKC03ne5NRA1Sz6MmtemeRvtrATJkZnVvCf7++zDWRFJdfJV5/dNZ18twMH+
+ frmdzmc4u9ey980lzvzqhgccf31Qj6TSaHn73ea885R++JKooTRvRTrOb2OBHcu3CF
+ IAdnjwa7U0P1q/n/5TgsVQsg5qodfYeEZjAZltiLu229k2mJWqTMR9aTtAWkFkxtu3
+ 262jQgwYtbyiA==
+Date: Fri, 29 May 2026 19:37:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Message-ID: <20260529-bipedal-notorious-macaque-a999f4@quoll>
+References: <20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com>
+ <20260525-eliza_mm_cc_v2-v5-2-a1d125619a5a@oss.qualcomm.com>
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- devicetree@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH] arm64: dts: st: add power-domains to sdmmc1
-	on stm32mp251
+Content-Disposition: inline
+In-Reply-To: <20260525-eliza_mm_cc_v2-v5-2-a1d125619a5a@oss.qualcomm.com>
+Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Ajit Pandey <ajit.pandey@oss.qualcomm.com>, devicetree@vger.kernel.org,
+ Stephen Boyd <sboyd@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-clk@vger.kernel.org,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH v5 2/7] dt-bindings: clock: qcom: document
+ the Eliza GPU Clock Controller
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -93,73 +71,60 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[amarulasolutions.com:s=google];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[amarulasolutions.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:dario.binacchi@amarulasolutions.com,m:devicetree@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:michael@amarulasolutions.com,m:linux-amarula@amarulasolutions.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[kernel.org,amarulasolutions.com,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_SENDER(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:linux-arm-kernel@lists.infradead.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:imran.shaik@oss.qualcomm.com,m:ajit.pandey@oss.qualcomm.com,m:devicetree@vger.kernel.org,m:sboyd@kernel.org,m:linux-arm-msm@vger.kernel.org,m:andersson@kernel.org,m:linux-clk@vger.kernel.org,m:luca.weiss@fairphone.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jagadeesh.kona@oss.qualcomm.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:konradybcio@kernel.org,m:mturquette@baylibre.com,m:linux-kernel@vger.kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[amarulasolutions.com:-];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.879];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	NEURAL_HAM(-0.00)[-0.898];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.infradead.org,kernel.org,oss.qualcomm.com,vger.kernel.org,fairphone.com,st-md-mailman.stormreply.com,gmail.com,baylibre.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[amarulasolutions.com:mid,amarulasolutions.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,2.223.199.96:email]
-X-Rspamd-Queue-Id: AF6C9605226
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	MISSING_XM_UA(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email]
+X-Rspamd-Queue-Id: 53A976069DB
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-The sdmmc1 node was introduced early in the SoC bring-up before power
-domains were systematically mapped. Add the missing power-domains
-property to align it with the rest of the peripheral nodes.
+On Mon, May 25, 2026 at 04:16:04PM +0530, Taniya Das wrote:
+> Add bindings documentation for the Eliza Graphics Clock Controller.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> ---
+>  .../bindings/clock/qcom,sm8450-gpucc.yaml          |  3 ++
+>  include/dt-bindings/clock/qcom,eliza-gpucc.h       | 51 ++++++++++++++++++++++
+>  2 files changed, 54 insertions(+)
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
----
+Best regards,
+Krzysztof
 
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 673fbc5632e6..b3416c928c08 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1664,6 +1664,7 @@ sdmmc1: mmc@48220000 {
- 				cap-mmc-highspeed;
- 				max-frequency = <120000000>;
- 				access-controllers = <&rifsc 76>;
-+				power-domains = <&CLUSTER_PD>;
- 				status = "disabled";
- 			};
- 
--- 
-2.43.0
-
-base-commit: 8fde5d1d47f69db6082dfa34500c27f8485389a5
-branch: stm32mp251-sdmmc1-power-domains
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
