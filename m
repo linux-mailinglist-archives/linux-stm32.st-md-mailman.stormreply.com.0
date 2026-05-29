@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id cGiULsPOGWqNzAgAu9opvQ
+	id GOJsNEnPGWrgzAgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 19:37:07 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 19:39:21 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53A976069DB
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 19:37:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AAF7606A94
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 19:39:21 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E265AC8F296;
-	Fri, 29 May 2026 17:37:06 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1FAB3C8F296;
+	Fri, 29 May 2026 17:39:21 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC7DCC87ED1
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CA5D1C87ED1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2026 17:37:04 +0000 (UTC)
+ Fri, 29 May 2026 17:39:19 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8A17543BE5;
- Fri, 29 May 2026 17:37:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BD61F00893;
- Fri, 29 May 2026 17:37:02 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id C5A53605D6;
+ Fri, 29 May 2026 17:39:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22C31F00893;
+ Fri, 29 May 2026 17:39:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780076223;
- bh=Gkuk1hSYF7azCaKHz/S3pZc2XU3K06FzR8lRjatZQwc=;
+ s=k20260515; t=1780076358;
+ bh=0WI4qQyv1EBpPKFRUbV0AQ8EnBM8UW7h22nNav4ht4s=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=XyPCHAU055g5ZN7YMdDu61wHTj2INteS4tKl7VRuD1bN8aKrsNK9viwY5qoL9mtGk
- L7u0p3sRKKV9oeaoVoQsrKwl+EbB76H7gaokCR4TMYIbJC0m7i6wCTJIvH7ydwPbjZ
- WBMncnMKC03ne5NRA1Sz6MmtemeRvtrATJkZnVvCf7++zDWRFJdfJV5/dNZ18twMH+
- frmdzmc4u9ey980lzvzqhgccf31Qj6TSaHn73ea885R++JKooTRvRTrOb2OBHcu3CF
- IAdnjwa7U0P1q/n/5TgsVQsg5qodfYeEZjAZltiLu229k2mJWqTMR9aTtAWkFkxtu3
- 262jQgwYtbyiA==
-Date: Fri, 29 May 2026 19:37:01 +0200
+ b=Z310wI/JnTJ55UPI2NaUhuoQKsf2EhdkhQdN8jU3oDCtKPpmWt+FK14n2kUk9JHRF
+ j0m5swxjsiuXc7sIomdwRUXJAQKApd8tESOB2MaBefqP2BZ1HgZZP434x1eA9BEySw
+ pJFHz2nsjpLZWLfqlwcXBzgXGJVyvznOrcxDKoCyL6eKfilULbvurOgoADNF1SfYpx
+ ASmT5Ks5kF+CwQkdtb7304ywS0f6XQaUpdCaqZ1kOIYPV72AUOMbaQ9VfNiGV1jWf1
+ C3FWloTyFBPzluVScwSsbiQ0YfgNM3LKilJncymHrSsdRd9HTpdGbrQYPHzoaeC+Ao
+ Pb63skQKRLliA==
+Date: Fri, 29 May 2026 19:39:16 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Taniya Das <taniya.das@oss.qualcomm.com>
-Message-ID: <20260529-bipedal-notorious-macaque-a999f4@quoll>
+Message-ID: <20260529-jade-weasel-of-perspective-c2e0aa@quoll>
 References: <20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com>
- <20260525-eliza_mm_cc_v2-v5-2-a1d125619a5a@oss.qualcomm.com>
+ <20260525-eliza_mm_cc_v2-v5-3-a1d125619a5a@oss.qualcomm.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260525-eliza_mm_cc_v2-v5-2-a1d125619a5a@oss.qualcomm.com>
+In-Reply-To: <20260525-eliza_mm_cc_v2-v5-3-a1d125619a5a@oss.qualcomm.com>
 Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>, Imran Shaik <imran.shaik@oss.qualcomm.com>,
  Ajit Pandey <ajit.pandey@oss.qualcomm.com>, devicetree@vger.kernel.org,
@@ -54,8 +54,8 @@ Cc: linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH v5 2/7] dt-bindings: clock: qcom: document
- the Eliza GPU Clock Controller
+Subject: Re: [Linux-stm32] [PATCH v5 3/7] dt-bindings: clock: qcom: Add
+ support for CAMCC for Eliza
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,18 +72,18 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[19];
@@ -95,7 +95,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.898];
+	NEURAL_HAM(-0.00)[-0.886];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[krzk@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
@@ -107,18 +107,22 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email]
-X-Rspamd-Queue-Id: 53A976069DB
+X-Rspamd-Queue-Id: 7AAF7606A94
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Mon, May 25, 2026 at 04:16:04PM +0530, Taniya Das wrote:
-> Add bindings documentation for the Eliza Graphics Clock Controller.
+On Mon, May 25, 2026 at 04:16:05PM +0530, Taniya Das wrote:
+> Eliza camera clock controller is on CX and MX rails similar to Milos.
+> Add compatible string for Eliza camera and camera BIST clock
+> controller to the existing Milos camcc binding and add the
+> dt-bindings header for Eliza.
+> 
+> The camera clock controller provides power domains, so 'power-domain-cells'
+> must be present in the device tree node. Add this to required properties
+> to enforce it in the binding schema.
 > 
 > Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 > ---
->  .../bindings/clock/qcom,sm8450-gpucc.yaml          |  3 ++
->  include/dt-bindings/clock/qcom,eliza-gpucc.h       | 51 ++++++++++++++++++++++
->  2 files changed, 54 insertions(+)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
