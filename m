@@ -2,48 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id YP2ODiL3GGqvpQgAu9opvQ
+	id WBU7IHNAGWpVtAgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 04:17:06 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 09:29:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D497E5FC4BD
-	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 04:17:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 155EA5FE85C
+	for <lists+linux-stm32@lfdr.de>; Fri, 29 May 2026 09:29:54 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A47FC8F28E;
-	Fri, 29 May 2026 02:17:05 +0000 (UTC)
-Received: from BN1PR04CU002.outbound.protection.outlook.com
- (mail-eastus2azon11010020.outbound.protection.outlook.com [52.101.56.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C84F8C8F291;
+	Fri, 29 May 2026 07:29:53 +0000 (UTC)
+Received: from SN4PR0501CU005.outbound.protection.outlook.com
+ (mail-southcentralusazon11011040.outbound.protection.outlook.com
+ [40.93.194.40])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5BE91C8F291
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CCAFC87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2026 02:17:04 +0000 (UTC)
+ Fri, 29 May 2026 02:17:08 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PGzk8AGYbk/0hyW5apMfQJSegGDTeQaO2fkegJNeWKam+kg+52WGEv9EdsRXcH56+jczdVjCP9DKU7d85+3IO/azXXSm+V0f27OBzMQIqF5xFzs0KmfZk4fHT4nqQ3oouNKA74q+pdYpasDhU3bcEs1yeo8kUJa0nBBbOk6l+WaZQq3LnLt6m2gw3sBWFaOuNjn4olCpJrc+PAiLtEB8dGR/TqBNJ3AJy+CCRSgY+JO8OahlaS8ckemuWb9hxFpedYSprHs1tNMkIuWc3/Gzg+tFXcQ6cUQoDRn590V4zlIx0HOoqKZjMK7RCBdWGBPu1Ho9HybgkjpkatWl/Qzwtg==
+ b=XiXe9VTnZpdQOrwm7Ub9UfTululW81I+MfElcge1S/cMdVj0uwTirWIvqQaxjyOE8y8Ed415yXoQiC42IOsLwyns+WEb2fqAiYYOAC0O/mMSO45T4rrytPZmTI4YaArdjugB3DQFS1icg0oD4UbUBthYjyQzuSZqxsYOT8KM5HLEzG3Htbnf6eBa5fffhqcEaA3uAgFHT3GuH7sQ55i8Wq8nkEMmUMRiRe8qwLQ6TjQgujyWOAtHPwXnoVDbqVpYs0Rci/NqypPmBOOcWuFP/SPFjEQJ6VpVRr47p3eoiPBoJFe+Kvq7RMtLkCfcWy5hjinPKxWNmEfXWfuyrp1TVA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=IPBnHCMcJan4ctGF+zcZRN31l++FIMVrmZPVx/pQOgU=;
- b=EWVlzov9oC+mdFtW/pJGEFfhSqxX0wp5D8hYXo91fx6122Y/ungprzV1iVHEem/FbSQdNj6uNCHTPY4WWtox92VEmmdpMuHmz4n+fTbKb9Vi3dwKaOUGSkVUhOojyhzD5EUKPIzZ9uSgRm3kYaVQ2JPdByz3uJJrvKeK6OtiZRKflsExlvoRiH5njEjnYVW3O63XwU2QLeY00O4B+xd9mK3QQoQkwrgS+b04oVVjK7c0N6LPTCoFLumKGib+wyYLPR4/RKXIvlCDcbCTQtCqiaQ/GEdJqHg32Ya8YNIHFWEZdQBdkrFdz3Pv9/wHmNqfdYMwtSq3oNwUCagXlp8RoQ==
+ bh=N1Mismg1crM8CcnfL79MR42jPTSXv0lL5FbcaDD325A=;
+ b=IoFcvj7IZQxdquPkThiSy9cQcE+lbhr0XDv39vIl4iWFVBqAJFgzofLgiRqap9ZnZqi2SrRqRzb4A8MmUZnjNQ2gnCHtAzECLPhIybbGH7RVoQW/h6vJvexIERQqmzkuqd66woq4aLTCzzoxF3oPZ6dCiER8pcYFplJzgZZrnTVlrxZBTBpg7t3ctQtnSxVQpkVtCPNBhaJPuS3X5ahx5zSngoQ0ZwLTITQxJNbvMWmYxsMRYxy8OwZD7zoc7yD1tWxGh6DFUiKG3foks72dKFjqA95ajUQ2Unt/5TH3YY407ilEnt+DrJLJMTa3oomvaTGrP2xSFjbdLahCrX8yVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
  (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=IPBnHCMcJan4ctGF+zcZRN31l++FIMVrmZPVx/pQOgU=;
- b=HWlD3u2qGcxD3/TtwjuZQerk0Vzy6y8Yx36cLMVc68zvYXcug7G2NHaCiqI15t8RRhgmDokU8UR5ZYFHM9/TUsgKQ/Zgov4X6gi2F1OpHKTsCmgX3jIX6IezH3K47kKN7osyAQkLnZgnwxy1ZL+4g9VKjDdNKKE+DeUy/VMXBNA=
-Received: from CH0PR08CA0006.namprd08.prod.outlook.com (2603:10b6:610:33::11)
- by SA1PR12MB7039.namprd12.prod.outlook.com (2603:10b6:806:24e::8)
+ bh=N1Mismg1crM8CcnfL79MR42jPTSXv0lL5FbcaDD325A=;
+ b=D1WfqtclqWe55cvuOWEQfyptxt9t3SNZsVF00DTUvm4qMKmlav2l2VUbH2GxHgO+1u3YuY+Svt9/hZWSduNXM8s5ocpZJM/4B55jE+n0QlNy6rn6uFFCG1vYDN/47zfaMf+KxdAt6KtqTylNa+Ga/q15MR7/SM+3Q3jqtPEFmgA=
+Received: from DS1PR03CA0013.namprd03.prod.outlook.com (2603:10b6:8:450::6) by
+ SA5PPF916D632A9.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8d6)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Fri, 29 May
- 2026 02:16:59 +0000
-Received: from CH3PEPF00000014.namprd21.prod.outlook.com
- (2603:10b6:610:33:cafe::af) by CH0PR08CA0006.outlook.office365.com
- (2603:10b6:610:33::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.14 via Frontend Transport; Fri, 29
- May 2026 02:16:59 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Fri, 29 May
+ 2026 02:17:01 +0000
+Received: from CH3PEPF00000015.namprd21.prod.outlook.com
+ (2603:10b6:8:450:cafe::64) by DS1PR03CA0013.outlook.office365.com
+ (2603:10b6:8:450::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 02:17:01 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
  smtp.mailfrom=amd.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=amd.com;
@@ -51,51 +52,52 @@ Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
  165.204.84.17 as permitted sender) receiver=protection.outlook.com;
  client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
 Received: from satlexmb08.amd.com (165.204.84.17) by
- CH3PEPF00000014.mail.protection.outlook.com (10.167.244.119) with Microsoft
+ CH3PEPF00000015.mail.protection.outlook.com (10.167.244.120) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.0 via Frontend Transport; Fri, 29 May 2026 02:16:59 +0000
+ 15.21.92.0 via Frontend Transport; Fri, 29 May 2026 02:17:01 +0000
 Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Thu, 28 May
- 2026 21:16:59 -0500
+ 2026 21:17:01 -0500
 Received: from xsjblevinsk51.xilinx.com (10.180.168.240) by satlexmb08.amd.com
  (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via
- Frontend Transport; Thu, 28 May 2026 21:16:58 -0500
+ Frontend Transport; Thu, 28 May 2026 21:17:00 -0500
 From: Ben Levinsky <ben.levinsky@amd.com>
 To: Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier
  <mathieu.poirier@linaro.org>, <linux-remoteproc@vger.kernel.org>,
  <ben.levinsky@amd.com>
-Date: Thu, 28 May 2026 19:16:35 -0700
-Message-ID: <20260529021637.2077602-4-ben.levinsky@amd.com>
+Date: Thu, 28 May 2026 19:16:36 -0700
+Message-ID: <20260529021637.2077602-5-ben.levinsky@amd.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260529021637.2077602-1-ben.levinsky@amd.com>
 References: <20260529021637.2077602-1-ben.levinsky@amd.com>
 MIME-Version: 1.0
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000014:EE_|SA1PR12MB7039:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cf804de-6909-4263-37dc-08debd285d66
+X-MS-TrafficTypeDiagnostic: CH3PEPF00000015:EE_|SA5PPF916D632A9:EE_
+X-MS-Office365-Filtering-Correlation-Id: bb3937bf-7cc4-4b4a-2b84-08debd285e98
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|82310400026|376014|7416014|36860700016|56012099006|18002099003|11063799006|6133799003|22082099003;
-X-Microsoft-Antispam-Message-Info: Fay+azgUHKwL555qMDuV+ZVKQvN2SwqOnEqSuL/QLCcVr8374DBCLeO+rq1FXuuBFuuAH7aeuX5I1VzX4wanlOoabXFOuUdqbwvX9Dh/1hDE2GSV3iCdaRQgYSlxkBxgfw4g4Ew7zzmTzpsZnSnWHNz8tmIkClqRxxMqgB6ZZw1EnQz6lQiAJU+/r7SSuRdqcAT7ZhCQcodblkUKhDG0pdqzPY7dtM0lLwEVEwt7WGpoxnohnLpHFYFw4FVC93despdZ5qKTKOoud/b8OyyS/DSVXT4SEcMOsa/yMxSPvlfZh+qN/Tf71m6ywYCJ/HnSoBqeVV5yKvduArnHT5OICjjataYEhPd8Q/YYo9tFCngBPt20wGmCt7gl/lSDNA154s+VxpdW+b6drXyCjWiPt3G2TRq+7mHt6AKcr43HckU8ZAnWL1UWbUdVrs4Qa6K6CEd+LSe3li+K1wzgLkDfpNwderRcUpCT8hdTjYKD0aPGffT1Y40twM1okokxoRI8LoOq8N3CfwvHi3Ng7l0JGRaBdZTnKOf6MsBAedGshqT/dRnl3wDU/nbFwOZfRKkOoDiJidK2Us5OBcPKscxEhTjw5zdQj82xUVMiL3HJwrh7DvsGLPKi6n5Mbk+OnfIP5pnlnDTaD41UUQ7iBU29mCIC5gUAiYff/znlRr/gl3Use1QxCHu1y8xjcri0FPEnGOuDVBUocjzJxHczXbuLfuWAcIc6uQoob1PuEGpFtas=
+ ARA:13230040|1800799024|376014|36860700016|82310400026|7416014|22082099003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: HoVIPfxwRGW4JP2ZUOwbCZDom3ZDpe20NLMCe0l1ctYePSmgZAF702yw2A8e7hETiZVp+iwE3EHduHsQ3fkj3CZpanJ3GnFcNzfpKzGGzCi4UZW7GbB/m2vBXGYzWbzD/1gHoLnJyYQj/EDLSKV0MA2p67cotRqr4L9C+qB5eYcrEZ18UGjO/NGsQXEQU524LruuUyBUEq7zYd13q1FGvuJfUJP3pOSpjGehqDYLH3cSeKRVheLukpKSN0Mxh2i1sJHPJ5U96oIciOm+H65X3BtJHjm4PvXvJ0jsIS+eIz5zPPiE6g/PKf43PEzgTvLuzXuS5WYEjx9bxF+1cBwu/KWfMcklDfRH7sZsyg3tOnQjmSqgph9fEtFY6liaD9Ru5yoqktGXnbRiLcqrHqnKcpbJX4sGEOiy5AILuazOcCNAIMSY4OIG8/+fQdKa5TSfyll6EIn8YDMNuoZn2Eui7Qy+QC2X5LCJBV6KE5SvugRbBsVxLeCtPdaKRCpvWNA2ptmY8vj28BTtapbeKMqqclozHWOVIrDkzthPLPm4yx6NcbvG4slyQNFLL/D8hpi/+X42vNDS/dmdMofk2781zAsIScOi4BKkgTe7Xh2VIcY8uTgJ6z9PZDRvk/5F+w8eCb0cejO30Pi66MGyf47cVw9a50DkkeLncWuECHVqVyoSum9QT6QVDD+i2EH+oPPi+NPMrMy68ZllK3omNpW5LrWrHGZt3+yRcM2WellOqVc=
 X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:satlexmb08.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(82310400026)(376014)(7416014)(36860700016)(56012099006)(18002099003)(11063799006)(6133799003)(22082099003);
+ SFS:(13230040)(1800799024)(376014)(36860700016)(82310400026)(7416014)(22082099003)(18002099003)(11063799006)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: fAdSOttbnIX7PY9BlZRxYTETvrKvBkS1qufxDtz2mjB0yRx6EJT6/uImYcqKEttzSkJOkZ/rHfKW7JfkhRwI2YsGTCEGVY9sM4E5WksSELnh2e98yfjThV68Z/hSf1p5cfbaiuJg57XhsUCaZJCoZSyF28aNBhzMQq6y4bKkTW3L/X53riPJV26EVVz3JkyTGm8w58uTsME0fMbm9kOyX4PoApEg97Gt6OrEgtfG3OXqbwEt7U9MhFmzHq53pztj+XndUWQSLZZAa5RXr21RnE5O41cMworex71LFxpBMLONJhDmXuxJ6bJ3z0Td1FP4A7WdBOqCfghukYZANv/7k10fLlJgvW40m43OsPM4TN3dYfJC2UAiAryWoq9QFob22DWUbL7Lt7EIzZM3k+4HTl8AXzZ1+gu3qGFEMsOgGJt4E53zcCYyJtIhltU51ATe
+X-MS-Exchange-AntiSpam-MessageData-0: CTjJkvmuDUmFXLNOcyRyYxgUhsm6Z817pmwXCrT7n5xLy0iREE3nNfBT+wZTb104ZYMsQu9iuYGFfdn0wVpKRNt3basUp3W72m4s7/8ed5vfsZIQel8FTo8GP3KQ9n67hObQZe57c1sFn0cSm7vZjF8kl0Tl/wy4RpbzjU4qjZNpHJSMz7G+HRAGt8VJ/4vNz6E/thfvHUOewSkC9fPdvTidEsawW0i5xZiFFlP/IMXBVH1EajHTYlyP4FMAqM7sGmrt17D5sOA0/su1PLKdHgPqEIqaqOAz/ECyGjppXI9qHordPyZ7kzAZwmQW7HwWep8zsXxNtrJGTM2qmBl+v0R65EQZ5b2OsOPPSZutl5oXSuTH5xxiGW0u7WoLC+plKgvXTbocYw5UHG4e2wAwWy5dSZwiOvT91Gr/gcP7HT64gkiA/sacpcsjTBmUR0kO
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 02:16:59.5909 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cf804de-6909-4263-37dc-08debd285d66
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 02:17:01.6233 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: bb3937bf-7cc4-4b4a-2b84-08debd285e98
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
  Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000014.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: CH3PEPF00000015.namprd21.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7039
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPF916D632A9
+X-Mailman-Approved-At: Fri, 29 May 2026 07:29:53 +0000
 Cc: Daniel Baluta <daniel.baluta@nxp.com>, imx@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
@@ -106,8 +108,8 @@ Cc: Daniel Baluta <daniel.baluta@nxp.com>, imx@lists.linux.dev,
  linux-renesas-soc@vger.kernel.org,
  Pengutronix Kernel Team <kernel@pengutronix.de>,
  Fabio Estevam <festevam@gmail.com>, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v3 3/5] remoteproc: mark wc-ioremap carveouts
-	as iomem
+Subject: [Linux-stm32] [PATCH v3 4/5] remoteproc: add helper for optional
+	ELF resource tables
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,7 +134,7 @@ X-Spamd-Result: default: False [6.79 / 15.00];
 	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
@@ -144,7 +146,7 @@ X-Spamd-Result: default: False [6.79 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,amd.com:mid,amd.com:email];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[amd.com:mid,amd.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo];
 	DKIM_TRACE(0.00)[amd.com:-];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
@@ -153,44 +155,47 @@ X-Spamd-Result: default: False [6.79 / 15.00];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_HAM(-0.00)[-0.735];
+	NEURAL_HAM(-0.00)[-0.733];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: D497E5FC4BD
+X-Rspamd-Queue-Id: 155EA5FE85C
 X-Rspamd-Action: add header
 X-Rspamd-Server: lfdr
 X-Spam: Yes
 
-Carveouts registered through the shared wc-ioremap helper are backed by
-I/O memory, but rproc_da_to_va() only reports that to its callers when
-mem->is_iomem is set on the carveout.
-
-Without that flag, the remoteproc ELF loader and coredump paths can
-fall back to normal memcpy()/memset() accessors instead of the I/O
-helpers used for iomapped memory.
-
-Mark shared wc-ioremap carveouts as iomem so the framework uses the
-proper memcpy_toio(), memset_io(), and memcpy_fromio() accessors for
-these regions.
+Add a helper macro around rproc_elf_load_rsc_table() for thin parse_fw()
+wrappers that treat a missing ELF resource table as optional while
+keeping per-driver logging decisions local to the caller of
+rproc_elf_load_rsc_table_optional().
 
 Signed-off-by: Ben Levinsky <ben.levinsky@amd.com>
 ---
- drivers/remoteproc/remoteproc_internal.h | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/remoteproc/remoteproc_internal.h | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/drivers/remoteproc/remoteproc_internal.h b/drivers/remoteproc/remoteproc_internal.h
-index 46080c1c030e..9afda697271d 100644
+index 9afda697271d..02c00475b010 100644
 --- a/drivers/remoteproc/remoteproc_internal.h
 +++ b/drivers/remoteproc/remoteproc_internal.h
-@@ -136,6 +136,7 @@ static inline int rproc_mem_entry_ioremap_wc(struct rproc *rproc,
- 	}
- 
- 	mem->va = (__force void *)va;
-+	mem->is_iomem = true;
- 
+@@ -149,6 +149,17 @@ static inline int rproc_mem_entry_iounmap(struct rproc *rproc,
  	return 0;
  }
+ 
++#define rproc_elf_load_rsc_table_optional(rproc, fw, dev_func, fmt, ...)	\
++	({									\
++		int ret = rproc_elf_load_rsc_table(rproc, fw);			\
++		if (ret == -EINVAL) {						\
++			dev_func(&rproc->dev, fmt, ##__VA_ARGS__);		\
++			return 0;						\
++		} else {							\
++			return ret;						\
++		}								\
++	})
++
+ static inline int rproc_prepare_device(struct rproc *rproc)
+ {
+ 	if (rproc->ops->prepare)
 -- 
 2.34.1
 
