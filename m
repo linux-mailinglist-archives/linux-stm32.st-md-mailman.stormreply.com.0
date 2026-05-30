@@ -2,81 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id qChMKSp8GmrW4ggAu9opvQ
+	id aKMcCtPRGmqM9AgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 May 2026 07:56:58 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 May 2026 14:02:27 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3E33F60B617
-	for <lists+linux-stm32@lfdr.de>; Sat, 30 May 2026 07:56:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B42D260CB1C
+	for <lists+linux-stm32@lfdr.de>; Sat, 30 May 2026 14:02:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4DE27C8F26A;
-	Sat, 30 May 2026 05:56:57 +0000 (UTC)
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com
- [74.125.82.174])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D464C36B3E;
+	Sat, 30 May 2026 12:02:26 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0F280C36B3D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 879A9C36B3D
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 30 May 2026 05:56:54 +0000 (UTC)
-Received: by mail-dy1-f174.google.com with SMTP id
- 5a478bee46e88-304ec41197bso1374075eec.1
+ Sat, 30 May 2026 12:02:24 +0000 (UTC)
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-4908b92904fso34630935e9.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 29 May 2026 22:56:54 -0700 (PDT)
+ Sat, 30 May 2026 05:02:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780120613; x=1780725413;
+ d=baylibre.com; s=google; t=1780142544; x=1780747344;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:from:to
- :cc:subject:date:message-id:reply-to;
- bh=uR8xbGosrZDiZ3bGOF/uomoehMbPSntRHGsC0W465dY=;
- b=c7COhUbe2HWnrhVOE+BNAHbgZ8kS3g079ZNqEw3H2xtGbQ23rBf0Esu9ZnTu2/rNTI
- /DHC7Fb8TNqUKHY5qt2/zJb6mVsdqvF+upuE9obJHMegLq0X2sGQMLhLcnYZ+U+4ehqQ
- 3pXuumkeZ6mZSof0DAEOErRM0ijpBAPsTppIToAZl8Kezu2XayEc28G8a3rk/CP5XQ8K
- n4iBuxFs9Bq8r59wfc0GpHJGUMbtxGlWANRQLTAuKb2y5bDPkn9yfbpTylfeYYE2pRst
- M+jcsHoJg23GtQitoMk+Ra/TQZQQjBJuMRcbqFqy4S6v2iaMsRLX4etR8FIuM45S/gbW
- GKcw==
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=BgNiBxvAE0zM3QGPzW0VTokh/HeWsq2F7ow5cn6lSMc=;
+ b=gv3ca0B+cxBZ+rttqJpQSXXEEimq9voR84LvQEQyj3Yx4CFtm7Y28YtXeixA8G7q6v
+ s/wcPRw1+ECXTlOqWr7CoybaqfyBIuO1Y8EHjUF3viIgCF7Q0bFiyD9+eYymFkTJTD+w
+ McY7JhkeaKM4Fqayf9cUU8Ms8TdT/5yDgxD6hGXAOHgWR2oLSbiwOtD67Rga4Y0wGXYu
+ DSiReguL5ct2TsDceDauJKnjaJwmHY/+0JLubSnWA9Tjl4pe6fbKEJSAGqyL7y3+00bz
+ 9FMAgGroqgBnIAVX+8GLFgeZOl/mU9zkEXUdwD4Z5hMLrA3IeTMy3Y4hvrbKFeMK9oWP
+ 2hcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780120613; x=1780725413;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=uR8xbGosrZDiZ3bGOF/uomoehMbPSntRHGsC0W465dY=;
- b=aFNTrJUXhMwFqIQfjOJANbtW2V9Ba5DJnYMg0rC5FidEqtBrch+4GVI3I0Ik1aMYf5
- nd3Ma9ts+NAQ6pzANauQBKhxz9KThgsS9XySBNDdZBgTvZEjMEwl1bvyAtfKBR1IyiLc
- jUZmDruOLuvq7hdTo52bV2PViTnY5h1pbwg5le5ImdblgcGnFVgnsMV9kk9YXaXNeNWN
- /iJKVHZynz4ELOMsJ9rs3mNVWSBGu2DwJ+xcSlCvHQkGzLKAGCq3htFfcfZfYfRLcnwW
- qb2AGfuC2qitmVmRiOVfhus+FtZ1FJ1MV4+on/8Hty9amScXHXD9HtmIYZxN7hPQFjpM
- oltA==
+ d=1e100.net; s=20251104; t=1780142544; x=1780747344;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=BgNiBxvAE0zM3QGPzW0VTokh/HeWsq2F7ow5cn6lSMc=;
+ b=nt3vo+owyRnURt0qesTi/8NNMNeNuzdNyJMw6RiLbcsI8/vpodfN/op5+v089uZFXs
+ 73bPaa65uSF5/5JCBUOpJBnaMbKlM+ju3+bdPR7K+9txq1U5FFuwWVHN/iM7J/haTXLb
+ AirINWn553DZvGtCNhDGhD2xTfUjS0TpjBFWpSBlREQFMGE8OD9sGU1F9CrUEwh+RNeR
+ g50Yh/q10VGPoplY92o4N43vW3K30kAr9kXpkQqOnQfYZEYUMVAOFyp2DGZP0seaEaxa
+ UoEtKfkEM/2y4w0tjCPTHDw2+Oqu6Ii+1Bahe/JVflztRS9udLppVZyamtGUIDRGpXbQ
+ mBTw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8lBUa5E3yjbM5NrcpwSR93xEwd+0Dbw4aPxamKAJ0zrGxnkEevSNiiIkK4T6sP5VNVbf3BsQfX2Strcw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yx6SLgKKYLYYEPpVspbZhEDrH5kWYaa8J0PDieoizCoPtW9PsWL
- pbnbPGccyNBSe1A21VuKnIhOlu7zTz00ekwioI46xHslJ/+/i5VFQrRW
-X-Gm-Gg: Acq92OEFY5YgpaCQWGQUdXmMbxaij9wJloa4zW3pRJT03dXZYtUZpQQoszIbA+I1tDe
- cVcoVEVbl6VhjcpSkOfLMZI3+dL8wKfNa7vWSjK0ugMz+GjCC4rQa13thhBYiKQNpo3eal1JdFb
- rRSCEMYsnkT8169YfPM4D5tQdMhQwuBE4lBBlOrNlQHmfo+J5rXEwUj37KrlbnUpZ25bYvMdrV6
- qMb0cwHb6I1mQCJEbAWpeyRCOy7kCOXIpM+QA3hx6wfY/LPY3AwdAoxClrzKSndz4LFkCc196dm
- UIinc0P4rxoiWHyu1b4zLbQwT+i9tVq/abkMBVCheevOZ7lbEcucXKQCvp7pIqoT0G0D9ZN3Rp+
- dOCK8s0ooO5bODn15hTnGVE9pImKuLuBHNY7ZvHgBQZc8wQZXHNihiEjVN8JAPjF2ZohsQ14FR+
- WMzGW2kkQO/uWAEZGMDLGC8EXlGcnIzhsvQy4al+dKKO5ZW5E2i55VJuEUcAdlrojMAL12ZyF0C
- q4=
-X-Received: by 2002:a05:7300:80c9:b0:2e0:1f09:d924 with SMTP id
- 5a478bee46e88-304fa526036mr1388786eec.5.1780120613171; 
- Fri, 29 May 2026 22:56:53 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:307d:2a52:8823:4a01])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-304ed53f002sm3397737eec.18.2026.05.29.22.56.50
+ AFNElJ8EcgCDlvW0y3t4uNXu9KE7+wiNCYaSrRbwBW9S4bYjY+LqJal/IqKog+3E8pKwBQgGdOmCJYaFjr7cQg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyrGNNVKAbGmVpUXTKluKZXXIIkrEf8fiy7U5z/Q3FxjKXLmd8b
+ WaidSka0pFdMiwh3BP0IAstnc36a1DAlGLQmhSi9mWL7+Wv7g18GcDnmAghZAKvzR8U=
+X-Gm-Gg: Acq92OFtxaZDq4XLrFDp1Wxa5qTpmRHdrzLss8+j29qJoP5h277b/3Huj58LR10cvVc
+ Cr0b3whtQe1XYq2nrsXCb4fSLyipnoRREx941dvWuEME+0y0iXfAff3DBnMty37VCfUgyon2JFF
+ NK+GqjX0ELEOlaamVr11D1WtdNYpIJ2vuA7x4PsulJimoJudgqz2TCOIqskLLiGrXx6Ok1nCcZs
+ lyU6HDGbTapyTk440FMkotpfMtJ/DHFBA7Fs1uwjS8FFgVxeCnm6dCQFDHISvkmHiYwMisPnsLE
+ jKhO2xtHNnDLyQTp6EbzSmT2lQBjIY2uetjV0dtf3aQ0+WDUhntwSuWJLZ+a588raby3OpuXEje
+ PZ2+uWM9nmw/G5Mzze8+xW6fQRQqe7P5BE7jBamGz+9ij8Dkl9xsO8/v1ylVtgPsAAslKYYiRMi
+ Iu1ZPUKE4UEtKJjy4cHeM2D+V51d+TdTwHXxAgUDakIDXGPgo4lQ==
+X-Received: by 2002:a05:600c:6558:b0:48f:d5a0:284e with SMTP id
+ 5b1f17b1804b1-490a294b864mr44962555e9.28.1780142543403; 
+ Sat, 30 May 2026 05:02:23 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-4909caa7faasm103845575e9.11.2026.05.30.05.02.22
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 29 May 2026 22:56:52 -0700 (PDT)
-Date: Fri, 29 May 2026 22:56:48 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ Sat, 30 May 2026 05:02:22 -0700 (PDT)
+Date: Sat, 30 May 2026 14:02:20 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
  <u.kleine-koenig@baylibre.com>
-Message-ID: <ahp7WuHiPYa7Q_pX@google.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Message-ID: <ahrP4STTFdUsBp0O@monoceros>
 References: <20260515164848.497608-2-u.kleine-koenig@baylibre.com>
+ <ahp7WuHiPYa7Q_pX@google.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260515164848.497608-2-u.kleine-koenig@baylibre.com>
+In-Reply-To: <ahp7WuHiPYa7Q_pX@google.com>
 Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Nick Dyer <nick@shmanahar.org>, Kees Cook <kees@kernel.org>,
  Claudiu Beznea <claudiu.beznea@tuxon.dev>, David Heidelberg <david@ixit.cz>,
@@ -118,169 +116,121 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/mixed; boundary="===============6944133701874951741=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [1.69 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[baylibre.com:s=google];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	TAGGED_FROM(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[dmitrytorokhov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:u.kleine-koenig@baylibre.com,m:alexandre.belloni@bootlin.com,m:nick@shmanahar.org,m:kees@kernel.org,m:claudiu.beznea@tuxon.dev,m:david@ixit.cz,m:marco.crivellari@suse.com,m:javier.carrasco@wolfvision.net,m:mingo@kernel.org,m:m.tretter@pengutronix.de,m:andriy.shevchenko@linux.intel.com,m:geert+renesas@glider.be,m:johannes.kirchmair@skidata.com,m:anshulusr@gmail.com,m:phucduc.bui@gmail.com,m:thorsten.blum@linux.dev,m:josua@solid-run.com,m:zhao.xichao@vivo.com,m:linux-input@vger.kernel.org,m:jeff@labundy.com,m:platform-driver-x86@vger.kernel.org,m:marek.vasut+renesas@mailbox.org,m:sakari.ailus@linux.intel.com,m:michael.hennerich@analog.com,m:ii4gsp@gmail.com,m:job@noorman.info,m:kuzhylol@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:support.opensource@diasemi.com,m:mpenttil@redhat.com,m:y.oudjana@protonmail.com,m:krzysztof.kozlowski@oss.qualcomm.com,m:linusw@kernel.org,m:clamor95@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:nicolas.ferre@microch
- ip.com,m:jekhor@gmail.com,m:linux-kernel@vger.kernel.org,m:petr.hodina@protonmail.com,m:tglx@kernel.org,m:mcoquelin.stm32@gmail.com,m:hansg@kernel.org,m:geert@glider.be,m:phucducbui@gmail.com,m:marek.vasut@mailbox.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:dmitry.torokhov@gmail.com,m:alexandre.belloni@bootlin.com,m:nick@shmanahar.org,m:kees@kernel.org,m:claudiu.beznea@tuxon.dev,m:david@ixit.cz,m:marco.crivellari@suse.com,m:javier.carrasco@wolfvision.net,m:mingo@kernel.org,m:m.tretter@pengutronix.de,m:andriy.shevchenko@linux.intel.com,m:geert+renesas@glider.be,m:johannes.kirchmair@skidata.com,m:anshulusr@gmail.com,m:phucduc.bui@gmail.com,m:thorsten.blum@linux.dev,m:josua@solid-run.com,m:zhao.xichao@vivo.com,m:linux-input@vger.kernel.org,m:jeff@labundy.com,m:platform-driver-x86@vger.kernel.org,m:marek.vasut+renesas@mailbox.org,m:sakari.ailus@linux.intel.com,m:michael.hennerich@analog.com,m:ii4gsp@gmail.com,m:job@noorman.info,m:kuzhylol@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:support.opensource@diasemi.com,m:mpenttil@redhat.com,m:y.oudjana@protonmail.com,m:krzysztof.kozlowski@oss.qualcomm.com,m:linusw@kernel.org,m:clamor95@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:nicolas.ferre@microchip.
+ com,m:jekhor@gmail.com,m:linux-kernel@vger.kernel.org,m:petr.hodina@protonmail.com,m:tglx@kernel.org,m:mcoquelin.stm32@gmail.com,m:hansg@kernel.org,m:dmitrytorokhov@gmail.com,m:geert@glider.be,m:phucducbui@gmail.com,m:marek.vasut@mailbox.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[42];
+	DMARC_NA(0.00)[baylibre.com];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	DKIM_TRACE(0.00)[baylibre.com:-];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	NEURAL_HAM(-0.00)[-0.846];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[dmitrytorokhov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FREEMAIL_CC(0.00)[bootlin.com,shmanahar.org,kernel.org,tuxon.dev,ixit.cz,suse.com,wolfvision.net,pengutronix.de,linux.intel.com,glider.be,skidata.com,gmail.com,linux.dev,solid-run.com,vivo.com,vger.kernel.org,labundy.com,mailbox.org,analog.com,noorman.info,lists.infradead.org,diasemi.com,redhat.com,protonmail.com,oss.qualcomm.com,st-md-mailman.stormreply.com,microchip.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	NEURAL_HAM(-0.00)[-0.122];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 3E33F60B617
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: B42D260CB1C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Hi Uwe,
 
-On Fri, May 15, 2026 at 06:48:47PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> While being less compact, using named initializers allows to more easily
-> see which members of the structs are assigned which value without having
-> to lookup the declaration of the struct. And it's also more robust
-> against changes to the struct definition.
-> =
+--===============6944133701874951741==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="5hgmmhirtt5ohzik"
+Content-Disposition: inline
 
-> The mentioned robustness is relevant for a planned change to struct
-> i2c_device_id that replaces .driver_data by an anonymous union.
-> =
 
-> This patch doesn't modify the compiled arrays, only their representation
-> in source form benefits. The former was confirmed with x86 and arm64
-> builds.
-> =
+--5hgmmhirtt5ohzik
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1] Input: Use named initializers for arrays of
+ i2c_device_data
+MIME-Version: 1.0
 
-> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
-ibre.com>
-> ---
-> Hello,
-> =
+Hello Dmitry,
 
-> the mentioned change to i2c_device_id is the following:
-> =
+On Fri, May 29, 2026 at 10:56:48PM -0700, Dmitry Torokhov wrote:
+> I like the ability to properly set up pointers for driver data, however
+> I do not think we should use named initializers for name field. As long
+> as we are not planning on moving its position I like the brevity of just
+> saying
+>=20
+> 	{ "ili210x", .driver_data_ptr =3D &ili210x_chip },
+>=20
+> Can we keep the old style for the name field?
 
-> 	diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicet=
-able.h
-> 	index 23ff24080dfd..aebd3a5e90af 100644
-> 	--- a/include/linux/mod_devicetable.h
-> 	+++ b/include/linux/mod_devicetable.h
-> 	@@ -477,7 +477,11 @@ struct rpmsg_device_id {
-> 	=
+I have no strong opinion here, my patch introduces the named initializer
+for both members for consistency. Note that my patches for all the other
+subsystems (and also other *_device_id) do the same and you're the first
+maintainer with that expressed preference.
 
-> 	 struct i2c_device_id {
-> 	 	char name[I2C_NAME_SIZE];
-> 	-	kernel_ulong_t driver_data;     /* Data private to the driver */
-> 	+	union {
-> 	+		/* Data private to the driver */
-> 	+		kernel_ulong_t driver_data;
-> 	+		const void *driver_data_ptr;
-> 	+	};
-> 	 };
-> 	=
+I even sent a few patches that adapt initializers without .driver_data
+(e.g.
+https://lore.kernel.org/all/177932943265.3832404.360063047381979287.git-pat=
+chwork-notify@kernel.org/)
+that got positive feedback so far.
 
-> 	 /* pci_epf */
-> =
+So if you're ok with having input differ in style from (up to now) all
+other subsystems, I can rework the patch.
 
-> and this requires that .driver_data is assigned via a named initializer
-> for static data. This requirement isn't a bad one because named
-> initializers are also much better readable than list initializers.
-> =
+Best regards
+Uwe
 
-> The union added to struct i2c_device_id enables further cleanups like:
-> =
+--5hgmmhirtt5ohzik
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> 	diff --git a/drivers/input/touchscreen/ili210x.c b/drivers/input/touchsc=
-reen/ili210x.c
-> 	index 66ada7ffbc80..94aa4dc002c5 100644
-> 	--- a/drivers/input/touchscreen/ili210x.c
-> 	+++ b/drivers/input/touchscreen/ili210x.c
-> 	@@ -969,7 +969,7 @@ static int ili210x_i2c_probe(struct i2c_client *clie=
-nt)
-> 	 =
+-----BEGIN PGP SIGNATURE-----
 
-> 		chip =3D device_get_match_data(dev);
-> 		if (!chip && id)
-> 	-		chip =3D (const struct ili2xxx_chip *)id->driver_data;
-> 	+		chip =3D id->driver_data_ptr;
-> 		if (!chip)
-> 			return dev_err_probe(&client->dev, -ENODEV, "unknown device model\n");
-> 	 =
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoa0coACgkQj4D7WH0S
+/k5r2ggAr649aJrsJJlkFeVB/fh8+B5LDe4ym+MWA77b0yhq2eW8wormOagLI3cS
+ZsKy4bfc4GPxEs6Hq4U1Xtb5rZQ4FZl0S07+51ZaYlq5RbMC/B/SVTiuASJVBVPZ
+B4s5kh1AWRq20efV0vpGmMVkGWdWbbWfSDJ88TI8OoCIHy0LYFyBfz9XdnD2pdag
+csvvcPKwLzXbvnQDsAb1CyMxa0P5xeJSgzH5Zq3dkY7GCsHzqv+4dmXzIRjgXwmE
+F0tGpraE9YOlHYxoqXNfPa2xIKxihaRChziJOKNt3hN9BQ75tAHWpwEFGWDYHn8c
+xpL0QD4yV6RvVsMilRsLYNC4h2ZaoA==
+=umK9
+-----END PGP SIGNATURE-----
 
-> 	@@ -1049,10 +1049,10 @@ static int ili210x_i2c_probe(struct i2c_client *=
-client)
-> 	 }
-> 	 =
+--5hgmmhirtt5ohzik--
 
-> 	 static const struct i2c_device_id ili210x_i2c_id[] =3D {
-> 	-	{ .name =3D "ili210x", .driver_data =3D (long)&ili210x_chip },
-> 	-	{ .name =3D "ili2117", .driver_data =3D (long)&ili211x_chip },
-> 	-	{ .name =3D "ili2120", .driver_data =3D (long)&ili212x_chip },
-> 	-	{ .name =3D "ili251x", .driver_data =3D (long)&ili251x_chip },
-> 	+	{ .name =3D "ili210x", .driver_data_ptr =3D &ili210x_chip },
-> 	+	{ .name =3D "ili2117", .driver_data_ptr =3D &ili211x_chip },
-> 	+	{ .name =3D "ili2120", .driver_data_ptr =3D &ili212x_chip },
-> 	+	{ .name =3D "ili251x", .driver_data_ptr =3D &ili251x_chip },
-> 		{ }
-> 	 };
-> 	 MODULE_DEVICE_TABLE(i2c, ili210x_i2c_id);
-> =
+--===============6944133701874951741==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
-> that are an improvement for readability (again!) and it keeps some
-> properties of the pointers (here: being const) without having to pay
-> attention for that.
-> =
-
-> My additional motivation for this effort is CHERI[1]. This is a hardware
-> extension that uses 128 bit pointers but unsigned long is still 64 bit.
-> So with CHERI you cannot store pointers in unsigned long variables.
-
-I like the ability to properly set up pointers for driver data, however
-I do not think we should use named initializers for name field. As long
-as we are not planning on moving its position I like the brevity of just
-saying
-
-	{ "ili210x", .driver_data_ptr =3D &ili210x_chip },
-
-Can we keep the old style for the name field?
-
-Thanks.
-
--- =
-
-Dmitry
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============6944133701874951741==--
