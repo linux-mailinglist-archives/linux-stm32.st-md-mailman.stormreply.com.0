@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id eLssJxNTHGqTMgkAu9opvQ
+	id uIw5JxNTHGqeMgkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 17:26:11 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5CE1E616D4B
+	by mail.lfdr.de (Postfix) with ESMTPS id 71175616D4C
 	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 17:26:11 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 209C9C90082;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 36B33C90085;
 	Sun, 31 May 2026 15:26:11 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
+ [209.85.221.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45463C90083
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 60CC2C90081
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 May 2026 15:26:08 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-45ee5cdbd28so2024346f8f.1
+ Sun, 31 May 2026 15:26:09 +0000 (UTC)
+Received: by mail-wr1-f43.google.com with SMTP id
+ ffacd0b85a97d-45ef82204c6so570528f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 May 2026 08:26:08 -0700 (PDT)
+ Sun, 31 May 2026 08:26:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1780241168; x=1780845968;
+ d=baylibre.com; s=google; t=1780241169; x=1780845969;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=PT9tXjqszedmkm8utnuW3FRNsoSqZ3umHWBcRjh1WUU=;
- b=I27lZe1inJ7yNGpWx3rG9aJTjI+B1aru7OpUoDE6Gxl+wCMOH73w0Fz9D+wwztxVcQ
- PoUHEEo/lZ2GSB37Mmz4GOvqzdkaOxfqF/o6F3CQSJ0+S1C+7iSrolL/j+JRXn4X2Dwi
- QZxoPtHh7gfWcU3DOTI3L3RRjUccgTer1s0koKJ2w0KlVMuvMoL6U4gR69qy1BTjoaCR
- 3JDDYKCGQRFxxwo1LdECY40idych5N8mxkrmoXZKgSEugq/yC/HYtJQodbUrcEkj9B+Z
- Rvqxe+W7e+0HasOUnswmDZ2nCpSxPOH4lp329+ovd9BFSXMsNTw8VXWbYNFc1ngi7/yT
- X97w==
+ :reply-to; bh=vo148tLRdvHB4Hf8KQfkCKci/SYla3jkLQmLRXKSwIw=;
+ b=GHDXKWrJym+tgKqJgCePxuxqIk6i9uaW/yhbm5RJB5QbF7K8GWYn4R6EvP5FgD1q+X
+ VxTUzrt6QPqTzdkjEdVD2arUwk1140rBRBXeX7eWcqiT6uU+NOdqRzA65CPCaawNhq6A
+ 0nvaDxNWaTFyPLT6ET/gLAiPKiM6GcexZDAwbezGLPY8xVtwrgQJmrcMOQNhwgDLv0md
+ zthyuX6r+PzEsYNKANPR3VFgWdWNhT/99cefJVSAGfX70AegXKSBIlxd8g0DzUk5iKCo
+ Gz6fvUv9l3+B76neLO+Y5LiVHtjsdI9TKDI8+YQJ+YSf7xsScYTpMkDPe/dRA6U2c5/j
+ //uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780241168; x=1780845968;
+ d=1e100.net; s=20251104; t=1780241169; x=1780845969;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=PT9tXjqszedmkm8utnuW3FRNsoSqZ3umHWBcRjh1WUU=;
- b=Tbo8PAtZW8jF8mx435/JtAQifUlWEBPU5pJ+kB7lFe38Djk/qyAq6uC/yj7+K8EaDh
- 7evWYyXFHzOe2gCXkunhflejxtE+TzIfoyuGVpFwKPkPgrPfsDKPXG0YE+RYlvU9Lox4
- xHomXIUKHIAipmJchxHrp11TeiBhCKlhIoZEHBiO3c4IqlOyKNRjeDgaD5qrfdJZYvlG
- AuVpGPgISVvSdaCVCQlHRWa6BtNZFEVoNGiNjqziCdAd61beirKoC6dJhYbjAFXKc9zg
- cycu/4BVTdxD0tHzt1G7W+UhFGOrYQTsQt2kkGo6R6UPKbkjMN+yooOaq3vP5Aseo5jv
- JX8w==
+ bh=vo148tLRdvHB4Hf8KQfkCKci/SYla3jkLQmLRXKSwIw=;
+ b=LJcXVq8lhOMWcJO/kgd2AdA0qutqRjH644N2Lq6MgTgQ89SNfKIrFNRcAn3NMilktC
+ Rw1F68ihtMP0uU3mJhI5AObEhwY2c5YxJgFmje/jOIPxs/9DIKVYImmkgwUIhNE2yz76
+ EkkqlVRNMFdg+eHixx/3CQgJ/l7uA1HYnWQCzaIRgJX736SaE4N0kUxeqPrQ+cRdtfb9
+ QuPeBNEaod/MvA4a8MuYI6Hk3Rbj6Lj8YQHRJO8sUenadhAyPYQQKDmKMZOYAF9aBplM
+ bmFEvZSW7//WobUhwwBV+4TJVXi86edwpMGw7YtV4tyezhxAMdIEW12ak4bSZH2tP2Eb
+ 8jSA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8JPvu6q7LWdFjXUecROJvZt2wCN7KYW/QO9D/ulB9ZrwrSTH7CE3r0GsYcfV3/0rLUz54fl7jgFhXzRA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzqCgzn9mqPLyHJHDSdRS3gOFRezMUMejS0oHw7oiDeEbMJbjYe
- oLMQOZk5RmVGJRd0CX01wtfWKQtOhJL/jaGMuBMPbfHQYqoK5atElmRvGueDFT+uihM=
-X-Gm-Gg: Acq92OEjQP0jFbk0GNXUAjqwrlLqBmU/TWlfmNhfQI6C/Grn3dkArvedjkmF+dK+oZn
- Nk3mDR/7Yw82WVnA3aexFUhIL3Fvmo/gEWd1YmHUjel2WdN7L6vMVnu+Q2Adnqr6HIny9z0rT9Y
- bD+b5ik1vwpbbI/me61OwGvd/rm2xkbxP+JrCJYbzd4g2afZ1qBWNsgn+nnMoQfetQ1aOff3t48
- 96VeJuc4bZLKbDnFZ0/woP68pgZU6KjXS5tr9Md5B9Su0DB9JiDSVv4ACSs95G2inMcyVD3Przt
- MivFwmF1IBvhW9jOszqOYYOHDUSksnTIjR3J/kAGX3ZQbEPF1hgt8g/CdW/auUiMTUxDu1hvB4m
- bpXXmEM5g6wOx6V2YyR5Djklp7rZzmDbxlWBbz6GPTpCCNHvsWv5+EWH4db8+sdCDps+0/HvDNa
- AagGAm6j1a7Boa9g5S3d6rRX6vKdYQpkuQrM3qxp/VhQ==
-X-Received: by 2002:adf:eacc:0:b0:45e:dc0a:bcb with SMTP id
- ffacd0b85a97d-45ef1385deamr11155719f8f.22.1780241167790; 
- Sun, 31 May 2026 08:26:07 -0700 (PDT)
+ AFNElJ9oA5RVaq5xCva+G7qxlzqEI8vsEjWorWszOlAId10+zonRoOTpe8XvXKSKuKrhv2dR9NKyCvz7fa8l8w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwsxLrVhBnBKp7w5dJlep+7jlqBiKtrwnKKkA4Zajn0P5778O14
+ kV232LHp/hE1Fo+e0aN9eHIlAFpDFNFySfswX7Jn+ywPTxAdpZWkqtVf9+fTm1zHYas=
+X-Gm-Gg: Acq92OGEN/shxgVXx6oGteExuCU4d3ciWZvPnvM1OA2QZGpAhbeYpTneiaO1u3DehdO
+ UZ6WtYtTHHtnsZQ8Z0ddWp149N4xYGDEyYn7OkDCgG/W8xS221VsFhZv7IN72zgoye4NKv6AsUW
+ qR3CGemF7NJz8eNtvuk7BGhrUB2ayqP2aJoXF4x+rookBcXxY14zVcjOJUX3Mvy0vf8AeJ9GI6p
+ 1l/XTW9ZKCKrt3OyLr9qpyaTOnaAIRvSSLOOX7i/QODSnQEkbUBDHpeD7W5Nz7j6Ncp8nr4oHiC
+ ycZ6CgXB1WQLEWuB5FuGU8Ri8HFzJbSjBq1Fsa65dsyYLu+Y9+R9+1ShFGbJIz3NM3wfeZtj56x
+ o9AtDPusFB92GkAjJGt9C/tT7rPJNpr9yEzP8LPOHwHjAMOxlohUX3FvBgHQTSMOXq8h1rlxN3g
+ JUv4/nySQEhCqlKV2gaF26gVQljnI2/dG0Y10FeswUQQ==
+X-Received: by 2002:adf:f690:0:b0:45e:ed10:8dff with SMTP id
+ ffacd0b85a97d-45ef6b7fe7dmr10702843f8f.24.1780241168825; 
+ Sun, 31 May 2026 08:26:08 -0700 (PDT)
 Received: from [192.168.0.2] ([2a07:7e81:7daa:0:202:c9ff:fe53:eda4])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-45ef354cf0dsm18526622f8f.17.2026.05.31.08.26.06
+ ffacd0b85a97d-45ef354cf0dsm18526622f8f.17.2026.05.31.08.26.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 31 May 2026 08:26:07 -0700 (PDT)
+ Sun, 31 May 2026 08:26:08 -0700 (PDT)
 From: Angelo Dureghello <adureghello@baylibre.com>
 X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Sun, 31 May 2026 17:26:02 +0200
+Date: Sun, 31 May 2026 17:26:03 +0200
 MIME-Version: 1.0
-Message-Id: <20260531-wip-stmark2-dac-v4-9-7e65ab4215dd@baylibre.com>
+Message-Id: <20260531-wip-stmark2-dac-v4-10-7e65ab4215dd@baylibre.com>
 References: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
 In-Reply-To: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -85,8 +85,7 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 09/11] m68k: stmark2: add mcf5441x DAC
-	platform devices
+Subject: [Linux-stm32] [PATCH v4 10/11] m68k: stmark2: enable DACs outputs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -131,72 +130,54 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	DKIM_TRACE(0.00)[baylibre.com:-];
 	MID_RHS_MATCH_FROM(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.501];
+	NEURAL_SPAM(0.00)[0.508];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,baylibre.com:mid,baylibre.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 5CE1E616D4B
+X-Rspamd-Queue-Id: 71175616D4C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Add mcf5441x DAC platform devices.
+Enabled DAC0 and DAC1 outpus disabling shared ADC inputs on ADC3 and ADC7.
 
 Reviewed-by: Jonathan Cameron <jic23@kernel.org>
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
 Changes in v2:
-- fix copy-paste error on naming
-- use DEFINE_RES()
-Changes in v3:
-- simplified DACs as single resource entries in place of an array
+- using mcf_read16/mcf_write16
+- remove unuseful comment
 ---
- arch/m68k/coldfire/stmark2.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ arch/m68k/coldfire/stmark2.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/arch/m68k/coldfire/stmark2.c b/arch/m68k/coldfire/stmark2.c
-index 536252ccb87e..d3be4b2953fd 100644
+index d3be4b2953fd..8aa9286e85d2 100644
 --- a/arch/m68k/coldfire/stmark2.c
 +++ b/arch/m68k/coldfire/stmark2.c
-@@ -8,6 +8,7 @@
-  * for more details.
+@@ -113,6 +113,8 @@ static struct platform_device *stmark2_devices[] __initdata = {
   */
+ static int __init init_stmark2(void)
+ {
++	u16 val;
++
+ 	/* DSPI0, all pins as DSPI, and using CS1 */
+ 	mcf_write8(0x80, MCFGPIO_PAR_DSPIOWL);
+ 	mcf_write8(0xfc, MCFGPIO_PAR_DSPIOWH);
+@@ -125,6 +127,11 @@ static int __init init_stmark2(void)
+ 	/* CAN pads */
+ 	mcf_write8(0x50, MCFGPIO_PAR_CANI2C);
  
-+#include <linux/ioport.h>
- #include <linux/platform_device.h>
- #include <linux/mtd/partitions.h>
- #include <linux/spi/spi.h>
-@@ -83,8 +84,28 @@ static struct platform_device dspi_spi0_device = {
- 	},
- };
++	val = mcf_read16(MCF_CCM_MISCCR2);
++	val &= ~(MCF_CCM_MISCCR2_ADC3_EN | MCF_CCM_MISCCR2_ADC7_EN);
++	val |= MCF_CCM_MISCCR2_DAC0_SEL | MCF_CCM_MISCCR2_DAC1_SEL;
++	mcf_write16(val, MCF_CCM_MISCCR2);
++
+ 	platform_add_devices(stmark2_devices, ARRAY_SIZE(stmark2_devices));
  
-+static struct resource dac0_resource = DEFINE_RES_MEM(MCFDAC_BASE0, 0x100);
-+
-+static struct platform_device dac0_device = {
-+	.name = "mcf54415_dac",
-+	.id = 0,
-+	.num_resources = 1,
-+	.resource = &dac0_resource,
-+};
-+
-+static struct resource dac1_resource = DEFINE_RES_MEM(MCFDAC_BASE1, 0x100);
-+
-+static struct platform_device dac1_device = {
-+	.name = "mcf54415_dac",
-+	.id = 1,
-+	.num_resources = 1,
-+	.resource = &dac1_resource,
-+};
-+
- static struct platform_device *stmark2_devices[] __initdata = {
- 	&dspi_spi0_device,
-+	&dac0_device,
-+	&dac1_device,
- };
- 
- /*
+ 	spi_register_board_info(stmark2_board_info,
 
 -- 
 2.54.0
