@@ -2,44 +2,44 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id OHCZHStZHGq7NAkAu9opvQ
+	id 6E39NcZjHGopNgkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 17:52:11 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 18:37:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C1BB617038
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 17:52:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7061B617251
+	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 18:37:26 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 125F0C8F29C;
-	Sun, 31 May 2026 15:52:10 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA2F3C8F29C;
+	Sun, 31 May 2026 16:37:25 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BBDBC8F265
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5C83C8F296
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 May 2026 15:52:09 +0000 (UTC)
+ Sun, 31 May 2026 16:37:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C3E0940BC1;
- Sun, 31 May 2026 15:52:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D94DD1F00893;
- Sun, 31 May 2026 15:52:01 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 8C4DA438B4;
+ Sun, 31 May 2026 16:37:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB461F00893;
+ Sun, 31 May 2026 16:37:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780242727;
- bh=eR7tTyyqGKiLll6lxmnF9fbyjgtiuG6PiIQ2to9I1lg=;
+ s=k20260515; t=1780245443;
+ bh=8dPW62n88YQXm3Z36nWQvCD7sx0nKMwKDYpNZjRfzAg=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=h7RlG9KI/qfwxt2MsBovFn4HsnPdEBEKVBXKizu1orQVjrTKARHZbjpD8kKgxlssj
- wltUyYNcOlBeaT/p8R8eNPrfW3FzOTjAyA5ZW44rJqOoSqVtI9A2EmPSgW39EnhzlC
- oewlM5ij6RXj4miHavwwDBWMRmyMVQe21ko0yV8+8Sr4D2OFrSBh0Z61g9ifiThWze
- 7Hdl2u6trUHg3TZXxiubT2kew7hUo5d49LGShYYVkLrwcFikOBYmBnDPwHcoQ+enVg
- VM5gGJ0TodGV5zk8t3B2uBzIFVoCeHTX7FQIdxG/qf3uqK8FVoCfOsh2dg9hsZQXWk
- Nd4CAFthuAUzw==
-Date: Sun, 31 May 2026 16:51:55 +0100
+ b=KMWtajpBY0KRKAKVL+H/b4P+QmKnJzbK8NIAENgKdrv84uTTuuCoONUfMnivH38F7
+ GdjUn2ym94LkI4H7IV2bgIIHxjT080IJjKKqqx/Y1wSbYllh5PTPOUJQwGoF7cIZNh
+ 02cJgw/QcMM3M4jjqJG9U6DSHhsEfhZmM6hRCPDmssTTXvG1q9MiUMScF58txE+/0I
+ 2fxUNYHaZyrTkdJYFMYYzbmk/W9a9sDZchwGcbbfxI3XK68KekzMcgLyHMIXaaPdw0
+ IUwfqdVW3JZVxPJ0hD5NAGxjB3Uc8c7R0ND9PbBnzlxCxwd1BuWHAaglUvmsI1CjkE
+ EMBBTUFzNwJjA==
+Date: Sun, 31 May 2026 17:37:12 +0100
 From: Jonathan Cameron <jic23@kernel.org>
 To: Angelo Dureghello <adureghello@baylibre.com>
-Message-ID: <20260531165155.13e586cd@jic23-huawei>
-In-Reply-To: <20260531-wip-stmark2-dac-v4-4-7e65ab4215dd@baylibre.com>
+Message-ID: <20260531173712.4295981a@jic23-huawei>
+In-Reply-To: <20260531-wip-stmark2-dac-v4-11-7e65ab4215dd@baylibre.com>
 References: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
- <20260531-wip-stmark2-dac-v4-4-7e65ab4215dd@baylibre.com>
+ <20260531-wip-stmark2-dac-v4-11-7e65ab4215dd@baylibre.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
 Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
@@ -50,8 +50,7 @@ Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
  David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 04/11] m68k: defconfig: update stmark2
-	defconfig
+Subject: Re: [Linux-stm32] [PATCH v4 11/11] iio: dac: add mcf54415 DAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,44 +98,164 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.959];
+	NEURAL_SPAM(0.00)[0.956];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email,baylibre.com:email]
-X-Rspamd-Queue-Id: 1C1BB617038
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,stormreply.com:url,stormreply.com:email]
+X-Rspamd-Queue-Id: 7061B617251
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sun, 31 May 2026 17:25:57 +0200
+On Sun, 31 May 2026 17:26:04 +0200
 Angelo Dureghello <adureghello@baylibre.com> wrote:
 
 > From: Angelo Dureghello <adureghello@baylibre.com>
 > 
-> Update stmark2 defconfig enabling MCF5441X DACs.
+> Add basic version of mcf54415 DAC driver. DAC is embedded in the cpu and
+> DAC configuration registers are mapped in the internal IO address space.
+> 
+> The DAC accepts a 12-bit digital signal and creates a monotonic 12-bit
+> analog output varying from DAC_VREFL to DAC_VREFH. The DAC module
+> consists of a conversion unit, an output amplifier, and the associated
+> digital control blocks. Default register values for DAC_VREFL and DAC_VREFH
+> are respectively 0 and 0xfff, left untouched in this initial version.
+> 
+> This initial version of the driver is minimalistic, "output raw" only, to
+> be extended in the future. DMA and external sync are disabled, default mode
+> is high speed, default format is right-justified 12bit on 16bit word.
 > 
 > Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
-> ---
->  arch/m68k/configs/stmark2_defconfig | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/arch/m68k/configs/stmark2_defconfig b/arch/m68k/configs/stmark2_defconfig
-> index b3fb95f73a95..3941113bc60b 100644
-> --- a/arch/m68k/configs/stmark2_defconfig
-> +++ b/arch/m68k/configs/stmark2_defconfig
-> @@ -76,6 +76,8 @@ CONFIG_DMADEVICES=y
->  CONFIG_MCF_EDMA=y
->  # CONFIG_VIRTIO_MENU is not set
->  # CONFIG_VHOST_MENU is not set
-> +CONFIG_IIO=y
-> +CONFIG_MCF54415_DAC=y
-
-Sashiko makes the reasonable point that this symbol doesn't exist yet.
-We don't care that much as they make different paths anyway but generally
-I'd make sure defconfig updates are after the symbols are added.
-
 https://sashiko.dev/#/patchset/20260531-wip-stmark2-dac-v4-0-7e65ab4215dd%40baylibre.com
->  CONFIG_EXT2_FS=y
->  CONFIG_EXT2_FS_XATTR=y
->  CONFIG_EXT2_FS_POSIX_ACL=y
+Has some comments.
+
+My assumption is the DAC registers are not going to be wiped out by
+reset, so that one is wrong.
+
+For the others they are the fun question of what do we do if resume()
+fails and leaves the device effectively disabled.  I'm not that bothered
+if the answer is everything fails.
+
+So just really minor stuff inline.  
+
+> ---
+> Changes in v2:
+> - remove tests from commit message, moved to patch 0
+> - remove additional blank lines
+> - remove dead code and unused definitions
+> - use regmap
+> - add limit check on raw write
+> - non functional style fixes
+> - add COMPILE_TEST to Kconfig
+> Changes in v3:
+> - add comments where needed
+> - code style changes
+> - remove unneeded variables
+> - use regmap_set_bits where possible
+> - remove macro not needed to define a single channel
+> - set up regmap to big_endian accesses for next patches that will come,
+>   that will adjust ColdFire readx/writex as standard LE (links in 0/x).
+> - add return value check on regmap calls
+> - sashiko: remove unneeded .io_port from regmap init.
+> - sashiko: add select REGMAP_MMIO in Kconfig
+> Changes in v4:
+> - remove unused includes
+> - sashiko: return "ret" as regmap_read ret value in case of error
+> - sashiko: using u32 as regmap_read value
+> - use local variable in mcf54415_dac_init() for better readability
+> - sashiko: check mcf54415_dac_init return value also in resume()
+
+> diff --git a/drivers/iio/dac/mcf54415_dac.c b/drivers/iio/dac/mcf54415_dac.c
+> new file mode 100644
+> index 000000000000..474a2c327fcd
+> --- /dev/null
+> +++ b/drivers/iio/dac/mcf54415_dac.c
+
+> +
+> +static int mcf54415_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan,
+> +			     int *val, int *val2, long mask)
+> +{
+> +	struct mcf54415_dac *info = iio_priv(indio_dev);
+> +	int ret;
+> +	u32 reg;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		ret = regmap_read(info->map, MCF54415_DAC_DATA, &reg);
+> +		if (ret)
+> +			return ret;
+> +		*val = (int)reg & 0xfff;
+
+Given it's unsigned and the masking means it will fit, I don't see an
+obvious reason for needing the cast. Compiler should be able to tell it
+can always safely assign this.  Maybe GENMASK(11, 0) would be slightly
+nicer than 0xfff but up to you as 3 fs isn't easy to count ;)
+
+> +		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SCALE:
+> +		/* Reference voltage as per ColdFire datasheet is 3.3V */
+> +		*val = 3300 /* mV */;
+> +		*val2 = 12;
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int mcf54415_dac_suspend(struct device *dev)
+> +{
+> +	struct mcf54415_dac *info = iio_priv(dev_get_drvdata(dev));
+> +
+> +	mcf54415_dac_exit(info);
+> +	clk_disable_unprepare(info->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mcf54415_dac_resume(struct device *dev)
+> +{
+> +	struct mcf54415_dac *info = iio_priv(dev_get_drvdata(dev));
+> +	int ret;
+> +
+> +	ret = clk_prepare_enable(info->clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = mcf54415_dac_init(info);
+> +	if (ret) {
+
+Generally we aim for side effect free failure, so I think I agree
+with sashiko that you should be turning off the clk again here.
+Any failure in here should leave device suspended.  That then leaves
+us with a dead clock and the shut down path may still try to access
+the device. 
+
+Anyhow, I'd add the clk_disable_unprepare() call here for consistency
+even though it doesn't really help us with carrying on.
+
+> +		dev_err(dev, "could not resume device\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(mcf54415_dac_pm_ops,
+> +				mcf54415_dac_suspend, mcf54415_dac_resume);
+> +
+> +static struct platform_driver mcf54415_dac_driver = {
+> +	.probe = mcf54415_dac_probe,
+> +	.driver = {
+> +		.name = "mcf54415_dac",
+> +		.pm = pm_sleep_ptr(&mcf54415_dac_pm_ops),
+> +	},
+> +};
+> +module_platform_driver(mcf54415_dac_driver);
+> +
+> +MODULE_AUTHOR("Angelo Dureghello <angelo@kernel-space.org>");
+> +MODULE_DESCRIPTION("NXP MCF54415 DAC driver");
+> +MODULE_LICENSE("GPL");
 > 
 
 _______________________________________________
