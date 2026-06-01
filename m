@@ -2,55 +2,110 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 6E39NcZjHGopNgkAu9opvQ
+	id kK5+JFU8HWoqWQkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 18:37:26 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 10:01:25 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7061B617251
-	for <lists+linux-stm32@lfdr.de>; Sun, 31 May 2026 18:37:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E573461B39C
+	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 10:01:24 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EA2F3C8F29C;
-	Sun, 31 May 2026 16:37:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2821CFAC40;
+	Mon,  1 Jun 2026 08:01:23 +0000 (UTC)
+Received: from AM0PR02CU008.outbound.protection.outlook.com
+ (mail-westeuropeazon11013060.outbound.protection.outlook.com [52.101.72.60])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E5C83C8F296
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB64EC36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 31 May 2026 16:37:24 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8C4DA438B4;
- Sun, 31 May 2026 16:37:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB461F00893;
- Sun, 31 May 2026 16:37:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780245443;
- bh=8dPW62n88YQXm3Z36nWQvCD7sx0nKMwKDYpNZjRfzAg=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=KMWtajpBY0KRKAKVL+H/b4P+QmKnJzbK8NIAENgKdrv84uTTuuCoONUfMnivH38F7
- GdjUn2ym94LkI4H7IV2bgIIHxjT080IJjKKqqx/Y1wSbYllh5PTPOUJQwGoF7cIZNh
- 02cJgw/QcMM3M4jjqJG9U6DSHhsEfhZmM6hRCPDmssTTXvG1q9MiUMScF58txE+/0I
- 2fxUNYHaZyrTkdJYFMYYzbmk/W9a9sDZchwGcbbfxI3XK68KekzMcgLyHMIXaaPdw0
- IUwfqdVW3JZVxPJ0hD5NAGxjB3Uc8c7R0ND9PbBnzlxCxwd1BuWHAaglUvmsI1CjkE
- EMBBTUFzNwJjA==
-Date: Sun, 31 May 2026 17:37:12 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Angelo Dureghello <adureghello@baylibre.com>
-Message-ID: <20260531173712.4295981a@jic23-huawei>
-In-Reply-To: <20260531-wip-stmark2-dac-v4-11-7e65ab4215dd@baylibre.com>
-References: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
- <20260531-wip-stmark2-dac-v4-11-7e65ab4215dd@baylibre.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+ Mon,  1 Jun 2026 08:01:22 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QRzzmnhUwyquc8iDiuHsoX7B7N+wzAoz45f7jvJMy3MmD2fsPnP0XrRh6u0yOX4x4ZL+zPr94BR3cPxP4IXMOeXO6oE0NGRCec4NbcE0kej3GrApScwz0JTPkq8NyXu9Z0C9wGNGJedqlslAOrKCbX6kygTk+QP6nL+WCWUeJBcVwHOJaSe6x4MuLDqaWkXhY50XS9wg9SX4rusG24rVPMM5PYYapn2iRpPTNqf8mEsGNzQS7iQ/QBjBwpkwZkNYaUnuTjtbt1J49ScjGcB0XqnYPyWsUcpdH7gAPMGH/lbrSKSq9+W6ApjstIb9taZUbuI9k84oX2F0wkdE6ycIZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aUYk8lD+a291OHqguuiEfZqGcNUEgLeGspxyAkjLdRU=;
+ b=OQ4Nd6yvt+QXvQ5Ormd5xZNy5JwbhTJhPMyIGnKK8EclzxhUDZySGYDo0/0lqT5q5H0BOG48HQleTYlCnGe0HNspQ07uMPIHbHpiHtgREGZf6pll3KPKL/xyaLTxlnh7x5N6TrzMBo9qMkRuaKJ94wN7+SArCJAKQmsvATkd8IxaFc1m2AEL8SP19Y35G0lUHlu5gP+5FbFMml5tbDC+Uh82f5VXxUZs5q91E7Z+Kz/70VZpZeVtY3hJTJ3+R69iaoy2WDWYR4tkwmPzTsQ+H2WG+0WwkkP+lwH8COjKuwW8CMPlw/5vfYkiHAKKP1He0uBH00CaM345gEnR7E8MsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aUYk8lD+a291OHqguuiEfZqGcNUEgLeGspxyAkjLdRU=;
+ b=PQ5kla0ePEj6WL7BmJJ0w4iRpZXPTVom63jP9CD7M1meiEGuAVuylFbvneY190MxrTOUoHa7ShZOjVaLu8l6De2i4uSaeuLMkL1LwHVDlMrCN93jvghAB63IBEnwE3iQUZv1N6dO/mr0yBMi2ure8SrtHkhcmFANWHGT3DhW/evuWyIT8J6GgfAwEZD4KuLsVsp4XhbWAAOfWSLIK26EZ6KmLe21fMoLxi8UgkIBHlZn5doFgAQT3BVakyfbjJkW94RTgURk9efPsIX8v+VwujZoj8M6EtICK9rZ+y0+VKSewzJzPUnpf4OMmC6mpOdt/rJL8UPgmnM41nFnJWjXVg==
+Received: from DU2P251CA0020.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:230::29)
+ by DB9PR10MB5977.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:39c::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 08:01:19 +0000
+Received: from DU2PEPF00028D02.eurprd03.prod.outlook.com
+ (2603:10a6:10:230:cafe::24) by DU2P251CA0020.outlook.office365.com
+ (2603:10a6:10:230::29) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Mon, 1
+ Jun 2026 08:01:19 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU2PEPF00028D02.mail.protection.outlook.com (10.167.242.186) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 08:01:19 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 1 Jun
+ 2026 10:05:02 +0200
+Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 1 Jun
+ 2026 10:01:18 +0200
+Message-ID: <d0bd6b92-328e-4fdc-80e8-b4e5f493e19d@foss.st.com>
+Date: Mon, 1 Jun 2026 10:01:17 +0200
 MIME-Version: 1.0
-Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Steven King <sfking@fdwdc.com>,
- linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
- David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 11/11] iio: dac: add mcf54415 DAC
+User-Agent: Mozilla Thunderbird
+To: Marek Vasut <marex@nabladev.com>, <linux-arm-kernel@lists.infradead.org>
+References: <20260411130300.19603-1-marex@nabladev.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <20260411130300.19603-1-marex@nabladev.com>
+X-Originating-IP: [10.48.86.79]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D02:EE_|DB9PR10MB5977:EE_
+X-MS-Office365-Filtering-Correlation-Id: 372fe290-a6e7-4982-bfcc-08debfb3f6b6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|1800799024|82310400026|36860700016|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: aPElhx97ZD4r2DPi+Tz8SkeH78izHX/qNZX59Zw6N1l+7UcH9Ebzs07fJggw0RISAl72g/J48uWJ1aqt9tvlSnG54JELojDWUBVMROLHS/2f0nPkNkPv2XhaOh98upNkxsjd5CfwuENSWvcmFAHheBSpuTUbIl2GrKzWBZC0lEe4iuDlt1K9azaU+h0HnxksiNQxWbCG3JSemG/C/D3in8PUVS10/EGxsuXXWq3UFlw3kjk6PDPwsMzuRRXJsWj+BlBANpOgF/lwu/HN8lQvSs8X2HylNC+4ukq00uAxcgNBZ2skjVlIMdca7qZOmXiuW2tRdOhukAET2Wj4FAWc2kEByISL+BuHcqviB5le9JlZUGRiG61htSoBJUFVL7+T816ju58V4M866GDnrpJ+S2I57MYwTlk30tRHKRxfeMInBaPJ6nbkycKsimjLX1HRHHcCheAnzzt3I8W7imPbUY7iD1BiNxonV+M0fTx+g1uuHG+hdo0RyxGTqr6sBQhN69UY83mSdgbNEhYuO7sSPT93Cn6DTLd34P3MI1rWLgdysX6dEcW9ET2OcnNvm+BvhPOiw2H8m/trXGxk8MTUPuUrT1ccOFvOm75tZ6LsRacthxfpyevtdWcxWqftxDhnBUHDFz5sJCbvuQ2MCBpCqofrLpET5OcjIiOhqQCt+bnV/zz6+j+eeJfU52LdO0JrAg9iFkhYLPufMlrn5sjUbNOkJvsucTaWeDyY5qaCYfg=
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(18002099003)(22082099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: ziudcibVk8rBqC1AEjIqg4t4zu1giFF7rlsol8u2Sw6fNYUUIo7H3E9Pq3dYpbU1OmFqxEU4kgryqe47+pqwCoWDm7gzRCS/cIqzEnZXtkYLCYZYNzz3J0NAaoQbeeUf85nVcTr+W1rixQtJDroHGL5IyKf0O5wFiOmkWyXDzd6Wr/LSEk46LXJUf7VJOu2jk4/bH6RhFty166Hk+6DaANaFR7gyC5T2/JwWhVp0hYyxRoERchxki8vroN++glqG1ejnVzvCX1rtiFFbE6rbU/3MMAjgyLwgKL6LV75UaSpixDwVukkG4nW3571XQ+5Ln041FgJPwegqgpe169fww175ylyUWjz2AhnstY8x13fxUPe1iB6vcmFFYafyBwvWGu1gStf8o/kTkurOWDh7HroTFeagBO3PgTx7fi3+5/8j3km5CnZRpKYFfcoEN0zs
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 08:01:19.1241 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 372fe290-a6e7-4982-bfcc-08debfb3f6b6
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D02.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR10MB5977
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: Fix SAI addresses on
+	stm32mp251
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -62,202 +117,120 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:adureghello@baylibre.com,m:andy@kernel.org,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:marex@nabladev.com,m:linux-arm-kernel@lists.infradead.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:devicetree@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,gmail.com,vger.kernel.org,st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,baylibre.com,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	NEURAL_SPAM(0.00)[0.956];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	NEURAL_SPAM(0.00)[0.981];
+	RCPT_COUNT_SEVEN(0.00)[9];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,stormreply.com:url,stormreply.com:email]
-X-Rspamd-Queue-Id: 7061B617251
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	RCVD_COUNT_SEVEN(0.00)[7]
+X-Rspamd-Queue-Id: E573461B39C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-On Sun, 31 May 2026 17:26:04 +0200
-Angelo Dureghello <adureghello@baylibre.com> wrote:
+Hi Marek
 
-> From: Angelo Dureghello <adureghello@baylibre.com>
+On 4/11/26 15:02, Marek Vasut wrote:
+> The second field of SAI register addresses should be within 0x3f0 bytes
+> from the start of the SAI register addresses, the second field describes
+> the ID registers which are at that addrses. Currently, the second field
+> does not match RM, fix it.
 > 
-> Add basic version of mcf54415 DAC driver. DAC is embedded in the cpu and
-> DAC configuration registers are mapped in the internal IO address space.
-> 
-> The DAC accepts a 12-bit digital signal and creates a monotonic 12-bit
-> analog output varying from DAC_VREFL to DAC_VREFH. The DAC module
-> consists of a conversion unit, an output amplifier, and the associated
-> digital control blocks. Default register values for DAC_VREFL and DAC_VREFH
-> are respectively 0 and 0xfff, left untouched in this initial version.
-> 
-> This initial version of the driver is minimalistic, "output raw" only, to
-> be extended in the future. DMA and external sync are disabled, default mode
-> is high speed, default format is right-justified 12bit on 16bit word.
-> 
-> Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
-https://sashiko.dev/#/patchset/20260531-wip-stmark2-dac-v4-0-7e65ab4215dd%40baylibre.com
-Has some comments.
-
-My assumption is the DAC registers are not going to be wiped out by
-reset, so that one is wrong.
-
-For the others they are the fun question of what do we do if resume()
-fails and leaves the device effectively disabled.  I'm not that bothered
-if the answer is everything fails.
-
-So just really minor stuff inline.  
-
+> Fixes: bf26d75a95f1 ("arm64: dts: st: add sai support on stm32mp251")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 > ---
-> Changes in v2:
-> - remove tests from commit message, moved to patch 0
-> - remove additional blank lines
-> - remove dead code and unused definitions
-> - use regmap
-> - add limit check on raw write
-> - non functional style fixes
-> - add COMPILE_TEST to Kconfig
-> Changes in v3:
-> - add comments where needed
-> - code style changes
-> - remove unneeded variables
-> - use regmap_set_bits where possible
-> - remove macro not needed to define a single channel
-> - set up regmap to big_endian accesses for next patches that will come,
->   that will adjust ColdFire readx/writex as standard LE (links in 0/x).
-> - add return value check on regmap calls
-> - sashiko: remove unneeded .io_port from regmap init.
-> - sashiko: add select REGMAP_MMIO in Kconfig
-> Changes in v4:
-> - remove unused includes
-> - sashiko: return "ret" as regmap_read ret value in case of error
-> - sashiko: using u32 as regmap_read value
-> - use local variable in mcf54415_dac_init() for better readability
-> - sashiko: check mcf54415_dac_init return value also in resume()
-
-> diff --git a/drivers/iio/dac/mcf54415_dac.c b/drivers/iio/dac/mcf54415_dac.c
-> new file mode 100644
-> index 000000000000..474a2c327fcd
-> --- /dev/null
-> +++ b/drivers/iio/dac/mcf54415_dac.c
-
-> +
-> +static int mcf54415_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan,
-> +			     int *val, int *val2, long mask)
-> +{
-> +	struct mcf54415_dac *info = iio_priv(indio_dev);
-> +	int ret;
-> +	u32 reg;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		ret = regmap_read(info->map, MCF54415_DAC_DATA, &reg);
-> +		if (ret)
-> +			return ret;
-> +		*val = (int)reg & 0xfff;
-
-Given it's unsigned and the masking means it will fit, I don't see an
-obvious reason for needing the cast. Compiler should be able to tell it
-can always safely assign this.  Maybe GENMASK(11, 0) would be slightly
-nicer than 0xfff but up to you as 3 fs isn't easy to count ;)
-
-> +		return IIO_VAL_INT;
-> +	case IIO_CHAN_INFO_SCALE:
-> +		/* Reference voltage as per ColdFire datasheet is 3.3V */
-> +		*val = 3300 /* mV */;
-> +		*val2 = 12;
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-> +
-> +static int mcf54415_dac_suspend(struct device *dev)
-> +{
-> +	struct mcf54415_dac *info = iio_priv(dev_get_drvdata(dev));
-> +
-> +	mcf54415_dac_exit(info);
-> +	clk_disable_unprepare(info->clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int mcf54415_dac_resume(struct device *dev)
-> +{
-> +	struct mcf54415_dac *info = iio_priv(dev_get_drvdata(dev));
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(info->clk);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = mcf54415_dac_init(info);
-> +	if (ret) {
-
-Generally we aim for side effect free failure, so I think I agree
-with sashiko that you should be turning off the clk again here.
-Any failure in here should leave device suspended.  That then leaves
-us with a dead clock and the shut down path may still try to access
-the device. 
-
-Anyhow, I'd add the clk_disable_unprepare() call here for consistency
-even though it doesn't really help us with carrying on.
-
-> +		dev_err(dev, "could not resume device\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +
-> +}
-> +
-> +static DEFINE_SIMPLE_DEV_PM_OPS(mcf54415_dac_pm_ops,
-> +				mcf54415_dac_suspend, mcf54415_dac_resume);
-> +
-> +static struct platform_driver mcf54415_dac_driver = {
-> +	.probe = mcf54415_dac_probe,
-> +	.driver = {
-> +		.name = "mcf54415_dac",
-> +		.pm = pm_sleep_ptr(&mcf54415_dac_pm_ops),
-> +	},
-> +};
-> +module_platform_driver(mcf54415_dac_driver);
-> +
-> +MODULE_AUTHOR("Angelo Dureghello <angelo@kernel-space.org>");
-> +MODULE_DESCRIPTION("NXP MCF54415 DAC driver");
-> +MODULE_LICENSE("GPL");
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+> Cc: Olivier Moysan <olivier.moysan@foss.st.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 8 ++++----
+>   1 file changed, 4 insertions(+), 4 deletions(-)
 > 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> index 673fbc5632e69..9c63fdb5a885a 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -1202,7 +1202,7 @@ spi5: spi@40280000 {
+>   
+>   			sai1: sai@40290000 {
+>   				compatible = "st,stm32mp25-sai";
+> -				reg = <0x40290000 0x4>, <0x4029a3f0 0x10>;
+> +				reg = <0x40290000 0x4>, <0x402903f0 0x10>;
+>   				ranges = <0 0x40290000 0x400>;
+>   				#address-cells = <1>;
+>   				#size-cells = <1>;
+> @@ -1236,7 +1236,7 @@ sai1b: audio-controller@40290024 {
+>   
+>   			sai2: sai@402a0000 {
+>   				compatible = "st,stm32mp25-sai";
+> -				reg = <0x402a0000 0x4>, <0x402aa3f0 0x10>;
+> +				reg = <0x402a0000 0x4>, <0x402a03f0 0x10>;
+>   				ranges = <0 0x402a0000 0x400>;
+>   				#address-cells = <1>;
+>   				#size-cells = <1>;
+> @@ -1270,7 +1270,7 @@ sai2b: audio-controller@402a0024 {
+>   
+>   			sai3: sai@402b0000 {
+>   				compatible = "st,stm32mp25-sai";
+> -				reg = <0x402b0000 0x4>, <0x402ba3f0 0x10>;
+> +				reg = <0x402b0000 0x4>, <0x402b03f0 0x10>;
+>   				ranges = <0 0x402b0000 0x400>;
+>   				#address-cells = <1>;
+>   				#size-cells = <1>;
+> @@ -1362,7 +1362,7 @@ usart1: serial@40330000 {
+>   
+>   			sai4: sai@40340000 {
+>   				compatible = "st,stm32mp25-sai";
+> -				reg = <0x40340000 0x4>, <0x4034a3f0 0x10>;
+> +				reg = <0x40340000 0x4>, <0x403403f0 0x10>;
+>   				ranges = <0 0x40340000 0x400>;
+>   				#address-cells = <1>;
+>   				#size-cells = <1>;
 
+Applied on stm32-next.
+
+thanks!
+Alex
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
