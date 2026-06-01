@@ -2,106 +2,92 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id 4EDZBbhEHWqlXwkAu9opvQ
+	id KDC+G6yvHWondAkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 10:37:12 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 18:13:32 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 961D161B8DC
-	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 10:37:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 010C062264C
+	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 18:13:31 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 01A87C030CD;
-	Mon,  1 Jun 2026 08:37:11 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011033.outbound.protection.outlook.com [52.101.65.33])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 964A3C5663A;
+	Mon,  1 Jun 2026 16:13:31 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97BA6C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 049E6C56612
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Jun 2026 08:37:09 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ivtYY59XfvWKFeowSC5qER/GIHx/UFF0tCdweaCQT0kF9qda+cEuKSD0UXQdFZtLBvTxNkGuDrlDBkRlJCXtFapB+hKi9XZcXV6z9p7jHjS0IAze+gGDnZtBqXDnNvAk1ANiXZx6HarcY+QGQ2alFk26znluEAfZw9gU4rq0ci5eNTsGVWFSjDgHRHA7jfVhDs+qlW9Hc8fUERN0P/pz1BvBYYew+JRKjh+3nwB5MfjXhfAQnKAH90Vg1XHWG5Tjsrb/EjuBw/Ssk1GzTm7oIFoB/MB72SMEVMG8owQmyn1EiOGGAunhKS1W+0/6lB8XXNe+G8/6f6DU/XZg1TY0Cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Y6tTEa2oLYwRstok30decRqOUDGO6bNbpjTQaPevAcU=;
- b=LF0k0sHMCzCZ2NkQNd5D9d+C1KQXgEQXPW42/IVMqij0OEVZ8PED9VSKC+EwajteupeoXkp1KvBwpYkm+MOSUSe2WC9xdz5LQda/IbqkttWziImGobjRLY0892GOo86aY4EYkAWEPZArIL1LyqHBIoKuuOBJ0k8JYQMHWblGcoesYw3rDUzObFN9b/puB27df8QpVHevKuAfPbE5Y0sRw/N57n5+8sOHN1ViFodOoceco54JVzxb5t7XjhHt5vN5GdgkVq1En4gCGBfbmpcKsrdZ0+l4cSBxllxIP6y/EL/LWqxqfSMF/WHNVz3PolmbODyj5Z5rpPtvaT66PmXofA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=arndb.de smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Y6tTEa2oLYwRstok30decRqOUDGO6bNbpjTQaPevAcU=;
- b=iF0qyXVtVh9Ln73e1jWubKiUNddAo+6znyKNVNXb48c8zUpljND2txiP1xQcDC6/IeyjU5G4j0TgI6qev6XzS8aBErokKq1/W9jj5slCpNDQH0glGVyE68AR2qrl7cGE8nfg1iDz253n7XZAi6vDiCC8RmYapsQrpKx7RJVDRsPt9Lfx/3eWvoDboCEoIZqZ7U0f2eNehCyDcsm4R68c/VZzhgks8VXUeCM3BDKthdHJeP5HeC6ESxx1IGrgyCqvaY5wCBIw4abAkDMFaexOjbZwiElZa3QennF/KTJuF/TF3oa9UjnN+ryaXwyQ/ePjXMidhTIGTBh0f/LvNLBzdg==
-Received: from DU2PR04CA0247.eurprd04.prod.outlook.com (2603:10a6:10:28e::12)
- by DU4PR10MB8832.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:560::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Mon, 1 Jun 2026
- 08:37:01 +0000
-Received: from DB5PEPF00014B96.eurprd02.prod.outlook.com
- (2603:10a6:10:28e:cafe::68) by DU2PR04CA0247.outlook.office365.com
- (2603:10a6:10:28e::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.17 via Frontend Transport; Mon, 1
- Jun 2026 08:37:01 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB5PEPF00014B96.mail.protection.outlook.com (10.167.8.234) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 08:37:00 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 1 Jun
- 2026 10:41:09 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Mon, 1 Jun
- 2026 10:36:59 +0200
-Message-ID: <5f52acde-00e3-4f9c-97bd-9ab068320bc2@foss.st.com>
-Date: Mon, 1 Jun 2026 10:36:58 +0200
+ Mon,  1 Jun 2026 14:42:34 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2bf125989f2so27391475ad.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 01 Jun 2026 07:42:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=linaro.org; s=google; t=1780324953; x=1780929753;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=I0dhUfw0XKND2zjq9zxpBDoT9bHm0cEZAjiXz5KStSE=;
+ b=NRK5hvTbZNHQqOnVXPeZPM5W8WKVGYQTisQ+Wl2EkW3o/B1xutSYlUJ4Hvam2s4NDc
+ QhHTnYcgvxL6hge+9aobPGi/tpKcRRSjr/IVqsKcAeQHolfXuqg6pC70/0F89bQs1skW
+ yCspadD59dgmoDkg+317Gcqo2bEHfvWUC2C7dzLYpjrw284vKOkp+QBU5rxdFYyZyJUG
+ WluOn5mMUb/S9+fPnVKx/dg37eD9X7vd3dDSAX+IYExaCVX5SlZJ8KZ/A1Lpbk1Ab+0O
+ o8RwEItztfbF+oVCujHtHPqKKfM6SOe71HsiBEPwikZLUT5cXCg2Q8/x2pCVjVsY+9id
+ AXqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780324953; x=1780929753;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=I0dhUfw0XKND2zjq9zxpBDoT9bHm0cEZAjiXz5KStSE=;
+ b=FmISITHCYlF8qqPg/q5DQXtIYtdXttAy3lDRpldM5HZvjJ9P86bZHDxcvINS7gJzum
+ jyQsC9pi8gLxMAKput6s7YpivzBsMj7IaOY/o6NjVrNJnYvpjrOwsY5spuxlMMXFtxd8
+ 6eu/f+AA7Wm25lsLXRORD7ga5Vcp8XAJG4feM4DflzWRIWRiSw/+k5tj6SJEYQB6mgKH
+ Kx/r4SlEpuzYwSr3qiwvTcqy+VFy4AGYWkTMiUxCsurPRqtgbJayBkrQ+0jztDPS1IcX
+ kdgDfQP21itW7W6dRbKjE9PDHwx0FumCrVrRnR0JXPbZtQqemp+0/C2dMQXhdqWOMX4h
+ +1Ag==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ8Zf6Lb0sgtE1EY7FVynhEMO31tyS9Iym6Hol2nPMe/qFxDOQnFZiz61iSCxwlciLy8HD6oJhmtPEliJA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwuhD5Og4+HQjlXzUamGNpFsn4uvdw+IH86ObxLKfVNQt7PKqRb
+ LEzrMe2rwvFcFymzh6LbnBW9rrGmc/XyAiT3ULra19nzKdHOV6dPXs0NhwvZXcSA5vU=
+X-Gm-Gg: Acq92OEinJuOlZHPIieDHdtYn67EXeIg5cCDJLkftKf/+DCeY11eGEVrohcIc+O+gGX
+ Wz5sm/eyPygW/4q0mepIp+hAKs9TsUUsY7layPD7bE718OSgKE427S2MWbR8HHJS4caCqwQ1yh1
+ IZp0+1b/plpAHOxlwXjliHS7cDiwBfUc8hGgubPCfBaYS6ILdmSU+N2OopdG6dwdmWqln49FI3k
+ QR/Uppd38nxH1FHaqpW1jp7eQNjHVO1UhplvWPS4LJlWe6HbtOXBgLfe5sqWoolyS9K1rXs7Qht
+ 8aRmeHum9CJuVoxvF98y3f/2QVhx1Oy9bDaCqYLBiApX7rKh/oF+8kH0tGK5Sj6OrVktRsWWYsU
+ DJ45zdgwgXf+WIC+ZasKv21Yt/V5vt3Ky/BL9BcLzhDh42JHlYksmndx6XjafTBNLjC/0JFrgVo
+ O9pWoFCDjDstNnjp0YfDbxsS+ryM8k2HAXGvNsNLZvIRhSfc7z
+X-Received: by 2002:a17:902:e74b:b0:2bd:63dc:b7ad with SMTP id
+ d9443c01a7336-2bf3679ebc4mr132076775ad.2.1780324953150; 
+ Mon, 01 Jun 2026 07:42:33 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:86cc:b476:3696:fced])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2bf23c0842esm107038115ad.57.2026.06.01.07.42.31
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 01 Jun 2026 07:42:32 -0700 (PDT)
+Date: Mon, 1 Jun 2026 08:42:29 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Ben Levinsky <ben.levinsky@amd.com>, arnaud.pouliquen@foss.st.com,
+ daniel.baluta@nxp.com, peng.fan@oss.nxp.com
+Message-ID: <ah2aVdlsLqy9aeHP@p14s>
+References: <20260529021637.2077602-1-ben.levinsky@amd.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Arnd Bergmann <arnd@arndb.de>, Kevin Hilman <khilman@baylibre.com>,
- <soc@kernel.org>, <arm@kernel.org>
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-X-Originating-IP: [10.48.86.79]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B96:EE_|DU4PR10MB8832:EE_
-X-MS-Office365-Filtering-Correlation-Id: 79669a22-8081-4d06-c081-08debfb8f34c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|1800799024|36860700016|82310400026|376014|18002099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: RpEoVmU9UFIJr1e5QjUX7sLWPEvfPJRFlFkH79Hh7TzZGYSgatfOJ1s3Sznsst8OJbL9hACvrApsLWkocuyqmsY8MRVff7ULbDBeQKfI5RGjXB7dEz1ie105TopBPnCCMjjSxLPG2+LdeXLUL2EGyloOCXPa+v6mfTtiybUjpYwdnwyLc7Ed8GwIAz1lmGB22kW2x9E2xGjYK22wfFGBQ8jq5ofAhWL4pxKSWKh+R5OTZ8Kw9GvkpINB70EnttUsCRNY5TxYhrU2xqoutxNGXtnTc8w2w9Icgf+3gNFaCiOLr8i+Us6o1FKHpbnkaCPUjcwYM1ly06F2DbrPizZh9+slRHs4NOQQbaetCKdGX58j10m6HOxWhMN29Yh1pFxgcWBsn4pGIiPxpBczdtpRmcxNcnlmGd/PuKLmjiOAc1ONmiwGjG6hoOTMhVBveYWiXYUEEDrvCoCBWKy6bTdlHV1edKthFk0NrlMATmnigCJWG+eIr0yyK4QoWFscVf/98k6r6CQ1cmsRQvm7uTHAxL+ooEHQd9R9B1o7QY6aEytNSi0utMWIueuZVoHveFtGDTCA2LAjC2uQ4N6dlhxclDWz0sIL97vU0PkNjwE9sFkOMt6gduCxF7fIKgu+pOOX219tOEO4IvJUC8UWijKgFh0rlTV6fE/vx7uW2qfZdg0f4t746yb/vKA5722st6BHzWauTzSmYaCymsaK4zaa+HYNMjap8R8zkiO7xUWvj14=
-X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(18002099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: G1NizXP6zIgqdIdWzJxdcJrF+UIgKaL1zqpslXrZ/3Cfa8sY5pwLXA1yEbzf1bZU0WKRSRzjeOf1sVHjCZ8S0eyc8YWr5hNQYTsPuw4ZXnRRImoAFgM/+UNlRZkumj1iE3E4gwyN44fO8JJj9QHf6W09CGu3lQoN81P2l8IMy7A+XCBfW6ZNPTWjykVW5NiIOq1lWcAFO3ZcFXIGeDuY9p7rCOt+6xGCANxyecnDopNqSjp2zOxS6Bej7l5KwNxBpvUF49d610zE30JuwNIQmul4ZGoawDgASiuCOsNh9ARQq0rDV0m4vW/6/kT57c2aI/+EEpaVge06PfGS/zt8BkoPVAQy/xfL2QpupXrMGAgimX6uP6kkPHnPbgt4v0OmR7gqXIWxiBh2+3BzgC1s5U1dZwqBmXw77vXz0XS3bgWOLWQZGt9Sn8rA9F58Q611
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 08:37:00.8848 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 79669a22-8081-4d06-c081-08debfb8f34c
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DB5PEPF00014B96.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8832
-Cc: "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>
-Subject: [Linux-stm32] [GIT PULL] STM32 DT changes for v7.2#1
+Content-Disposition: inline
+In-Reply-To: <20260529021637.2077602-1-ben.levinsky@amd.com>
+X-Mailman-Approved-At: Mon, 01 Jun 2026 16:13:30 +0000
+Cc: Daniel Baluta <daniel.baluta@nxp.com>, imx@lists.linux.dev,
+ Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Tanmay Shah <tanmay.shah@amd.com>, linux-remoteproc@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3 0/5] remoteproc: cleanup shared
+ carveout and resource-table helpers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,98 +99,150 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [2.99 / 15.00];
+X-Spamd-Result: default: False [3.89 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[linaro.org:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_BASE64_TEXT(0.10)[];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:arnd@arndb.de,m:khilman@baylibre.com,m:soc@kernel.org,m:arm@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FORGED_SENDER(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:ben.levinsky@amd.com,m:arnaud.pouliquen@foss.st.com,m:daniel.baluta@nxp.com,m:peng.fan@oss.nxp.com,m:imx@lists.linux.dev,m:magnus.damm@gmail.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:geert+renesas@glider.be,m:tanmay.shah@amd.com,m:linux-remoteproc@vger.kernel.org,m:andersson@kernel.org,m:Frank.Li@nxp.com,m:linux-renesas-soc@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@pengutronix.de,m:festevam@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,m:geert@glider.be,s:lists@lfdr.de];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[20];
+	FORGED_SENDER(0.00)[mathieu.poirier@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[linaro.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[alexandre.torgue@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[foss.st.com:-];
-	HAS_XOIP(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	NEURAL_SPAM(0.00)[0.999];
-	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mathieu.poirier@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[nxp.com,lists.linux.dev,gmail.com,vger.kernel.org,glider.be,amd.com,kernel.org,st-md-mailman.stormreply.com,pengutronix.de,lists.infradead.org];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	RCVD_COUNT_SEVEN(0.00)[7]
-X-Rspamd-Queue-Id: 961D161B8DC
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	NEURAL_SPAM(0.00)[0.952];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: 010C062264C
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-SGkgQVJNIFNvQyBtYWludGFpbmVycywKClBsZWFzZSBjb25zaWRlciB0aGlzIGZpcnN0IHJvdW5k
-IG9mIFNUTTMyIERUIGNoYW5nZXMgZm9yIHY3LjIgY3ljbGUuCgpUaGFua3MKQWxleAoKVGhlIGZv
-bGxvd2luZyBjaGFuZ2VzIHNpbmNlIGNvbW1pdCAyNTRmNDk2MzRlZTE2YTczMTE3NGQyYWUzNGJj
-NTBiZDVmNDVlNzMxOgoKICAgTGludXggNy4xLXJjMSAoMjAyNi0wNC0yNiAxNDoxOTowMCAtMDcw
-MCkKCmFyZSBhdmFpbGFibGUgaW4gdGhlIEdpdCByZXBvc2l0b3J5IGF0OgoKICAgZ2l0Oi8vZ2l0
-Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L2F0b3JndWUvc3RtMzIuZ2l0IHRh
-Z3Mvc3RtMzItZHQtZm9yLTcuMi0xCgpmb3IgeW91IHRvIGZldGNoIGNoYW5nZXMgdXAgdG8gZmJh
-NGEzMWE3ZjNiNmIyOWIwMWM4MzE4MGY4M2U3ZWQ0YzM5ODczODoKCiAgIGFybTY0OiBkdHM6IHN0
-OiBGaXggU0FJIGFkZHJlc3NlcyBvbiBzdG0zMm1wMjUxICgyMDI2LTA1LTI5IDE4OjUzOjExICsw
-MjAwKQoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLQpTVE0zMiBEVCBmb3IgdjcuMiwgcm91bmQgMQoKSGlnaGxpZ2h0czoKLS0t
-LS0tLS0tLQoKLSBNUFU6CiAgIC0gU1RNMzJNUDEzOgogICAgIC0gRW5hYmxlIFBIWSBTU0MgKFNw
-cmVhZCBTcGVjdHJ1bSkgb24gREhDT1JFIERIU0JDIGJvYXJkLgogICAgIC0gQWRkIGJvYXJkIHBp
-biBkb2N1bWVudGF0aW9uIHN0bTMybXAxMzVmLWRrIHRvIGhlbHAgdXNlci4KCiAgIC0gU1RNUDMy
-TVAxNToKICAgICAtICBQcm90b25pYzoKICAgICAgIC0gVXBkYXRlIE1FQ0lPUjAgYW5zIE1FQ0lP
-UjEgYm9hcmRzOgogICAgICAgICAtIERlZmluZSBBREMgY2hhbm5lbHMgYW5kIEdQSU8gbGluZSBk
-ZWZpbml0aW9ucyBpbiBib2FyZCBhbmQKCSAgbm8gbG9uZ2VyIGluIGNvbW1vbiBmaWxlLgogICAg
-ICAgICAtIEZpeCBBREMgc2FtcGxpbmcuCgogICAtIFNUTTMyTVAyNToKICAgICAtIEZpeCBTQUkg
-YWRkcmVzc2VzLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLQpEYXZpZCBKYW5kZXIgKDcpOgogICAgICAgQVJNOiBkdHM6IHN0
-bTMyOiBzdG0zMm1wMTV4LW1lY2lvMS1pbzogRW5hYmxlIGludGVybmFsIEFEQyByZWZlcmVuY2UK
-ICAgICAgIEFSTTogZHRzOiBzdG0zMjogc3RtMzJtcDE1eC1tZWNpbzEtaW86IEZpeCBBREMgc2Ft
-cGxpbmcgdGltZXMKICAgICAgIEFSTTogZHRzOiBzdG0zMjogc3RtMzJtcDE1eC1tZWNpbzEtaW86
-IE1vdmUgZGl2ZXJnZW50IG1lY2lvMSBBREMgY2hhbm5lbHMgdG8gYm9hcmQgZmlsZXMKICAgICAg
-IEFSTTogZHRzOiBzdG0zMjogc3RtMzJtcDE1eC1tZWNpbzEtaW86IEZpeCBHUElPIG5hbWVzIHR5
-cG8KICAgICAgIEFSTTogZHRzOiBzdG0zMjogc3RtMzJtcDE1eC1tZWNpbzEtaW86IE1vdmUgZ3Bp
-by1saW5lLW5hbWVzIHRvIGJvYXJkIGZpbGVzCiAgICAgICBBUk06IGR0czogc3RtMzI6IHN0bTMy
-bXAxNXgtbWVjaW8xLWlvOiBGaXggZXhwYW5kZXIgZ3BpbyBsaW5lIHR5cG8KICAgICAgIEFSTTog
-ZHRzOiBzdG0zMjogc3RtMzJtcDE1eC1tZWNpbzEtaW86IE1vdmUgZXhwYW5kZXIgZ3Bpby1saW5l
-LW5hbWVzIHRvIGJvYXJkIGZpbGVzCgpNYXJlayBWYXN1dCAoMik6CiAgICAgICBBUk06IGR0czog
-c3RtMzI6IEVuYWJsZSBQSFkgU1NDIG9uIERIIFNUTTMyTVAxM3h4IERIQ09SIERIU0JDIGJvYXJk
-CiAgICAgICBhcm02NDogZHRzOiBzdDogRml4IFNBSSBhZGRyZXNzZXMgb24gc3RtMzJtcDI1MQoK
-VXdlIEtsZWluZS1Lw7ZuaWcgKDEpOgogICAgICAgQVJNOiBkdHM6IHN0bTMyOiBhZGQgYm9hcmQg
-cGluIGRvY3VtZW50YXRpb24gc3RtMzJtcDEzNWYtZGsKCiAgYXJjaC9hcm0vYm9vdC9kdHMvc3Qv
-c3RtMzJtcDEzNWYtZGhjb3ItZGhzYmMuZHRzIHwgICA0ICsrKysKICBhcmNoL2FybS9ib290L2R0
-cy9zdC9zdG0zMm1wMTM1Zi1kay5kdHMgICAgICAgICAgfCAgMjggKysrKysrKysrKysrKysrKysr
-KysrKysrLS0tLQogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAxNTFjLW1lY2lvMXIwLmR0
-cyAgICB8IDEyOCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKwogIGFyY2gvYXJtL2Jvb3QvZHRzL3N0L3N0bTMybXAx
-NTNjLW1lY2lvMXIxLmR0cyAgICB8IDE0NCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysK
-ICBhcmNoL2FybS9ib290L2R0cy9zdC9zdG0zMm1wMTV4LW1lY2lvMS1pby5kdHNpICAgfCAxNDYg
-KysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KICBhcmNoL2FybTY0L2Jvb3QvZHRzL3N0
-L3N0bTMybXAyNTEuZHRzaSAgICAgICAgICAgfCAgIDggKysrKy0tLS0KICA2IGZpbGVzIGNoYW5n
-ZWQsIDMyMCBpbnNlcnRpb25zKCspLCAxMzggZGVsZXRpb25zKC0pCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApM
-aW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Good morning,
+
+On Thu, May 28, 2026 at 07:16:32PM -0700, Ben Levinsky wrote:
+> This series is a preparatory remoteproc cleanup split out from review of
+> the AMD BRAM-based remoteproc series.
+> 
+> During review, there was a request to move the duplicated plain
+> ioremap_wc()/iounmap() carveout callbacks into common code and to
+> factor the "missing resource table is OK" ELF parsing path into a
+> common helper as well. There was also a request to send that cleanup as
+> its own patchset first, with the AMD BRAM series respun afterwards on
+> top once this cleanup is merged.
+> 
+> This version keeps the same overall cleanup goals as v2, but reworks
+> the optional resource-table pieces based on follow-up review:
+> 
+>   - reshape the optional resource-table helper in patch 4 into the thin
+>     parse_fw() wrapper form suggested on the thread
+>   - switch the patch 5 clients over to that helper shape directly,
+>     without post-helper rproc->table_ptr checks
+>   - keep the driver-local parse_fw() wrappers and their existing log
+>     messages and severity choices
+>   - retain as much of the existing per-driver parse_fw() logic and code
+>     placement as possible while moving the missing-table handling
+>     through the shared helper
+> 
+> This series now does that in five patches:
+> 
+>   1. add common subsystem-private callbacks for the exact-match
+>      wc-ioremap carveout case
+>   2. switch the in-tree exact-match users over to those callbacks
+>   3. mark carveouts mapped through the shared wc-ioremap helper as
+>      iomem so the framework uses the proper I/O accessors
+>   4. add a common helper for drivers that treat a missing ELF resource
+>      table as optional while keeping per-driver logging decisions local
+>   5. switch the matching in-tree drivers over to that helper while
+>      keeping thin local parse_fw() wrappers
+> 
+> For the carveout map/unmap cleanup, this series covers the exact-match
+> users called out in review: xlnx_r5_remoteproc, rcar_rproc,
+> st_remoteproc, stm32_rproc, imx_rproc, and imx_dsp_rproc. The zynqmp R5
+> TCM mapping path is left alone because it also clears the mapped memory
+> and is not an exact match.
+> 
+> For the optional resource-table handling, this series converts
+> xlnx_r5_remoteproc, rcar_rproc, stm32_rproc, imx_rproc, and
+> imx_dsp_rproc. st_remoteproc is intentionally left unchanged because its
+> parse_fw() callback also builds carveouts and is therefore not a direct
+> match for the helper introduced here.
+> 
+> Changes in v3:
+>   - rework patch 4 so the optional resource-table helper matches the
+>     thin-wrapper form suggested in review
+>   - note that patch 4 still triggers a checkpatch --strict warning for
+>     the flow-control macro form, but that implementation follows the
+>     maintainer's review suggestion for the thin parse_fw() wrapper shape
+>   - update patch 5 to use that helper shape directly in the client
+>     parse_fw() callbacks
+>   - drop the post-helper rproc->table_ptr checks from the converted
+>     drivers
+>   - keep the converted parse_fw() wrappers otherwise close to their
+>     existing structure and placement
+>   - test xlnx_r5_remoteproc on the latest tree with firmware images
+>     both with and without an ELF resource table
+> 
+> Changes in v2:
+>   - split the mem->is_iomem change out into a separate patch
+>   - add a common error message on ioremap_wc() failure
+>   - drop logging from the optional resource-table helper
+>   - keep driver-local parse_fw() wrappers to preserve per-platform
+>     missing-resource-table logging policy
+> 
+> Ben Levinsky (5):
+>   remoteproc: add common wc-ioremap carveout callbacks
+>   remoteproc: switch exact-match drivers to wc-ioremap callbacks
+>   remoteproc: mark wc-ioremap carveouts as iomem
+>   remoteproc: add helper for optional ELF resource tables
+>   remoteproc: switch drivers to optional resource-table helper
+> 
+>  drivers/remoteproc/imx_dsp_rproc.c       | 41 +++-----------
+>  drivers/remoteproc/imx_rproc.c           | 40 ++------------
+>  drivers/remoteproc/rcar_rproc.c          | 41 ++------------
+>  drivers/remoteproc/remoteproc_internal.h | 38 +++++++++++++
+>  drivers/remoteproc/st_remoteproc.c       | 31 +----------
+>  drivers/remoteproc/stm32_rproc.c         | 39 ++-----------
+>  drivers/remoteproc/xlnx_r5_remoteproc.c  | 70 +++++-------------------
+
+This set looks good to me.  I am fine with the checkpatch warning on the macro -
+given the redundancy it avoids, I think it can be tolerated.
+
+Wolfram has already indicated he wanted to test these changes - Arnaud, Daniel
+and Peng, please do the same for your platforms.
+
+Thanks,
+Mathieu
+
+>  7 files changed, 73 insertions(+), 227 deletions(-)
+> 
+> -- 
+> 2.34.1
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
