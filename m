@@ -1,75 +1,53 @@
 Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
-	by lfdr with LMTP
-	id sJj/NAilHmq3IwAAu9opvQ
+	by mail.lfdr.de with LMTP
+	id BwhgC3bSHmr5VQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:40:24 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 14:54:14 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7996462BB66
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:40:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98BA862E2FC
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 14:54:13 +0200 (CEST)
+Authentication-Results: mail.lfdr.de;
+	dkim=fail ("body hash did not verify") header.d=lunn.ch header.s=20171124 header.b=REi3cfCU;
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	dmarc=fail reason="SPF not aligned (strict)" header.from=lunn.ch (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 48681C8F271;
-	Tue,  2 Jun 2026 09:40:24 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 418E9C8F271;
+	Tue,  2 Jun 2026 12:54:13 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E633C57A50
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0E9B4C56600
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2026 09:40:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780393223; x=1811929223;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=jqR4dzKGvV3HqFH6eaz3fG39vDCQjIDVnOKaJWrWjRM=;
- b=Jus0K09LAI0ZkT6HmHC3qDm55NWWJQz/8hlY12N7QoflcSFxoi+rrfkM
- zZGSc0B2CfveqJxoX5lX8olH3S4D19q/DOneW+zQE0yZLoztticjqnAAp
- 3uSMKsrrbVsjV5qxKcYOUZUpvwCv+as+2zFa0FruhcfHjljWTXpxC/zkV
- eudqpvH/D+mWJjP5IrSTHaiysjOYq2TjP46W+qW8lene685sdKQnaIK2J
- dQ4s+A5ilo0tBaE4MEngZKGrrBggFZC1XadXwew35dtCVOMwIkAZgPYk2
- dAM1j0vGo3bHnkVR79khQGFuVcu0Rpp26jKYuYL4v7/mdNdYrc/71SbDR A==;
-X-CSE-ConnectionGUID: OUCFAUEKTr+3H7P+58SAeg==
-X-CSE-MsgGUID: AW7P9V2YQGqD/Pc1BWr9AQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="80203798"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="80203798"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
- by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 02:40:21 -0700
-X-CSE-ConnectionGUID: h4duNntZTUmobA4ypFYP9w==
-X-CSE-MsgGUID: p/6IPsYQQO+Vr1wS+/oE7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="240853439"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.229])
- by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 02:40:17 -0700
-Date: Tue, 2 Jun 2026 12:40:15 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <ah6k_wfIpwuussC2@ashevche-desk.local>
-References: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
- <20260531-wip-stmark2-dac-v4-4-7e65ab4215dd@baylibre.com>
- <20260531165155.13e586cd@jic23-huawei>
- <ah6hVLn_OES-ql9j@ashevche-desk.local>
+ Tue,  2 Jun 2026 12:54:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=TuIVDcZuJzoCwT1ZOsuB5NzdjH1SzRB+pSXSxMDUWpE=; b=REi3cfCUof3hFc32AU98C+iOK5
+ XWxDzR7/7hF0xQKcwc7gaOXz93TUpEGPV1N3ayF1rNA57Z5wxKVdyIO4btANOLG007QwEDaw4TrE9
+ c2Dfu8hMQCC0K2vGWZDjfYYVyG0o9ppzstfi0l573+HXkciw5cIvh3jE8jYOF2Begvic=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1wUOd9-005goR-KX; Tue, 02 Jun 2026 14:54:03 +0200
+Date: Tue, 2 Jun 2026 14:54:03 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: muhammad.nazim.amirul.nazle.asmade@altera.com
+Message-ID: <9730021d-0d8e-4728-abd8-7e722349ea33@lunn.ch>
+References: <20260529064659.32287-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <ah6hVLn_OES-ql9j@ashevche-desk.local>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Andy Shevchenko <andy@kernel.org>,
- Angelo Dureghello <adureghello@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Steven King <sfking@fdwdc.com>, linux-m68k@lists.linux-m68k.org,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
- David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 04/11] m68k: defconfig: update stmark2
-	defconfig
+In-Reply-To: <20260529064659.32287-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v3] net: stmmac: Improve Tx timer arm
+	logic further
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -85,58 +63,79 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 7996462BB66
-X-Rspamd-Server: lfdr
+X-Rspamd-Action: no action
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:andy@kernel.org,m:adureghello@baylibre.com,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[16];
-	HAS_ORG_HEADER(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:muhammad.nazim.amirul.nazle.asmade@altera.com,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[lunn.ch:-];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,ashevche-desk.local:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
-X-Rspamd-Action: no action
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,lunn.ch:mid,lunn.ch:from_mime,lunn.ch:email,bootlin.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
+X-Rspamd-Server: lfdr
+X-Rspamd-Queue-Id: 98BA862E2FC
 
-On Tue, Jun 02, 2026 at 12:24:36PM +0300, Andy Shevchenko wrote:
-> On Sun, May 31, 2026 at 04:51:55PM +0100, Jonathan Cameron wrote:
+On Thu, May 28, 2026 at 11:46:59PM -0700, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> 
+> Calling hrtimer_start() on an already-active txtimer is unnecessary
+> and expensive. Skip the restart if the timer is already active by
+> adding an hrtimer_active() check before hrtimer_start().
+> 
+> Previously, each packet reset the timer to tx_coal_timer in the future,
+> acting as a sliding window that delayed NAPI under burst traffic. With
+> this change, an already-active timer is left to fire sooner, scheduling
+> NAPI within tx_coal_timer of the first packet and freeing TX descriptors
+> earlier.
+> 
+> There is no race concern: hrtimer_start() is internally serialized and
+> safe to call on an active timer. In the event of a race between
+> hrtimer_active() and hrtimer_start(), the worst case is calling
+> hrtimer_start() on an already-active timer, which is identical to the
+> pre-patch behaviour.
+> 
+> Performance on Cyclone V with dwmac-socfpga (iperf3 -u -b 0 -l 64):
+>   Before: ~45200 pps
+>   After:  ~52300 pps (~15% improvement)
+> 
+> Additionally, ~10% improvement in UDP throughput observed on Agilex5,
+> with hrtimer CPU usage reduced from ~8% to ~0.6%.
+> 
+> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+> Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 
-...
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-> TL;DR: This change has to be fixed accordingly.
-
-After reviewing the whole series, the fix is trivial, just move this to be the
-last patch in the series.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+    Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
