@@ -2,92 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id KDC+G6yvHWondAkAu9opvQ
+	id aCUHEZ1JHmq+iQkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 18:13:32 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 05:10:21 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 010C062264C
-	for <lists+linux-stm32@lfdr.de>; Mon, 01 Jun 2026 18:13:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CE1B9627922
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 05:10:20 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 964A3C5663A;
-	Mon,  1 Jun 2026 16:13:31 +0000 (UTC)
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
- [209.85.214.182])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3810C5663A;
+	Tue,  2 Jun 2026 03:10:19 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 049E6C56612
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5846DC0693F
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  1 Jun 2026 14:42:34 +0000 (UTC)
-Received: by mail-pl1-f182.google.com with SMTP id
- d9443c01a7336-2bf125989f2so27391475ad.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 01 Jun 2026 07:42:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1780324953; x=1780929753;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=I0dhUfw0XKND2zjq9zxpBDoT9bHm0cEZAjiXz5KStSE=;
- b=NRK5hvTbZNHQqOnVXPeZPM5W8WKVGYQTisQ+Wl2EkW3o/B1xutSYlUJ4Hvam2s4NDc
- QhHTnYcgvxL6hge+9aobPGi/tpKcRRSjr/IVqsKcAeQHolfXuqg6pC70/0F89bQs1skW
- yCspadD59dgmoDkg+317Gcqo2bEHfvWUC2C7dzLYpjrw284vKOkp+QBU5rxdFYyZyJUG
- WluOn5mMUb/S9+fPnVKx/dg37eD9X7vd3dDSAX+IYExaCVX5SlZJ8KZ/A1Lpbk1Ab+0O
- o8RwEItztfbF+oVCujHtHPqKKfM6SOe71HsiBEPwikZLUT5cXCg2Q8/x2pCVjVsY+9id
- AXqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780324953; x=1780929753;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=I0dhUfw0XKND2zjq9zxpBDoT9bHm0cEZAjiXz5KStSE=;
- b=FmISITHCYlF8qqPg/q5DQXtIYtdXttAy3lDRpldM5HZvjJ9P86bZHDxcvINS7gJzum
- jyQsC9pi8gLxMAKput6s7YpivzBsMj7IaOY/o6NjVrNJnYvpjrOwsY5spuxlMMXFtxd8
- 6eu/f+AA7Wm25lsLXRORD7ga5Vcp8XAJG4feM4DflzWRIWRiSw/+k5tj6SJEYQB6mgKH
- Kx/r4SlEpuzYwSr3qiwvTcqy+VFy4AGYWkTMiUxCsurPRqtgbJayBkrQ+0jztDPS1IcX
- kdgDfQP21itW7W6dRbKjE9PDHwx0FumCrVrRnR0JXPbZtQqemp+0/C2dMQXhdqWOMX4h
- +1Ag==
-X-Forwarded-Encrypted: i=1;
- AFNElJ8Zf6Lb0sgtE1EY7FVynhEMO31tyS9Iym6Hol2nPMe/qFxDOQnFZiz61iSCxwlciLy8HD6oJhmtPEliJA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwuhD5Og4+HQjlXzUamGNpFsn4uvdw+IH86ObxLKfVNQt7PKqRb
- LEzrMe2rwvFcFymzh6LbnBW9rrGmc/XyAiT3ULra19nzKdHOV6dPXs0NhwvZXcSA5vU=
-X-Gm-Gg: Acq92OEinJuOlZHPIieDHdtYn67EXeIg5cCDJLkftKf/+DCeY11eGEVrohcIc+O+gGX
- Wz5sm/eyPygW/4q0mepIp+hAKs9TsUUsY7layPD7bE718OSgKE427S2MWbR8HHJS4caCqwQ1yh1
- IZp0+1b/plpAHOxlwXjliHS7cDiwBfUc8hGgubPCfBaYS6ILdmSU+N2OopdG6dwdmWqln49FI3k
- QR/Uppd38nxH1FHaqpW1jp7eQNjHVO1UhplvWPS4LJlWe6HbtOXBgLfe5sqWoolyS9K1rXs7Qht
- 8aRmeHum9CJuVoxvF98y3f/2QVhx1Oy9bDaCqYLBiApX7rKh/oF+8kH0tGK5Sj6OrVktRsWWYsU
- DJ45zdgwgXf+WIC+ZasKv21Yt/V5vt3Ky/BL9BcLzhDh42JHlYksmndx6XjafTBNLjC/0JFrgVo
- O9pWoFCDjDstNnjp0YfDbxsS+ryM8k2HAXGvNsNLZvIRhSfc7z
-X-Received: by 2002:a17:902:e74b:b0:2bd:63dc:b7ad with SMTP id
- d9443c01a7336-2bf3679ebc4mr132076775ad.2.1780324953150; 
- Mon, 01 Jun 2026 07:42:33 -0700 (PDT)
-Received: from p14s ([2604:3d09:148c:c800:86cc:b476:3696:fced])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2bf23c0842esm107038115ad.57.2026.06.01.07.42.31
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 01 Jun 2026 07:42:32 -0700 (PDT)
-Date: Mon, 1 Jun 2026 08:42:29 -0600
-From: Mathieu Poirier <mathieu.poirier@linaro.org>
-To: Ben Levinsky <ben.levinsky@amd.com>, arnaud.pouliquen@foss.st.com,
- daniel.baluta@nxp.com, peng.fan@oss.nxp.com
-Message-ID: <ah2aVdlsLqy9aeHP@p14s>
-References: <20260529021637.2077602-1-ben.levinsky@amd.com>
+ Tue,  2 Jun 2026 03:10:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 3B0AD6001D;
+ Tue,  2 Jun 2026 03:10:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E398A1F00893;
+ Tue,  2 Jun 2026 03:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780369816;
+ bh=MVK+ez5S2h1Xv9Lonr2tNkxvedzyuxQASoNieH4/EYg=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc;
+ b=YqPyqP/60tv2uyAFgYdzz7jaGWJRnWBVlMjNMsmz1lQOuI4I0deSQQKOts3XB1Dkz
+ zITfa5yzWyGjZLK8EsvUwJWsG1eeejTLRxVmHF5V3mpAtuAVtUQvsjv+fpl1g11IDh
+ 0mBVtn+v0o90ic5uWHZVhTns3W6LAvmgetb8r4oykt/9Rh0CFo4ph+fPsK0tdwtLcB
+ 4yjmujjZMgVwIH4W1/rbNImAuRamPkrZKYkosrCjxQk0q4S9FcQzsG6Fx1O1BDQdUx
+ 0crfvLRfn2exVJSkNbQr5A0I8X8JG74bG870l6ODXWjsFwBYclmCYxPhNHCot2fyrf
+ 0UdvjHsHuQcTw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 56AB938119F9; Tue,  2 Jun 2026 03:10:20 +0000 (UTC)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260529021637.2077602-1-ben.levinsky@amd.com>
-X-Mailman-Approved-At: Mon, 01 Jun 2026 16:13:30 +0000
-Cc: Daniel Baluta <daniel.baluta@nxp.com>, imx@lists.linux.dev,
- Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Tanmay Shah <tanmay.shah@amd.com>, linux-remoteproc@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- linux-renesas-soc@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 0/5] remoteproc: cleanup shared
- carveout and resource-table helpers
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <178036981914.224606.5617424802966318344.git-patchwork-notify@kernel.org>
+Date: Tue, 02 Jun 2026 03:10:19 +0000
+References: <20260527084108.121416-1-minda.chen@starfivetech.com>
+In-Reply-To: <20260527084108.121416-1-minda.chen@starfivetech.com>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: devicetree@vger.kernel.org, emil.renner.berthing@canonical.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ conor@kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ edumazet@google.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net
+Subject: Re: [Linux-stm32] [net-next v5 0/4] Add StarFive jhb100 soc SGMII
+	GMAC support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,145 +65,82 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [3.89 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[linaro.org:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linaro.org : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:ben.levinsky@amd.com,m:arnaud.pouliquen@foss.st.com,m:daniel.baluta@nxp.com,m:peng.fan@oss.nxp.com,m:imx@lists.linux.dev,m:magnus.damm@gmail.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:geert+renesas@glider.be,m:tanmay.shah@amd.com,m:linux-remoteproc@vger.kernel.org,m:andersson@kernel.org,m:Frank.Li@nxp.com,m:linux-renesas-soc@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:kernel@pengutronix.de,m:festevam@gmail.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,m:geert@glider.be,s:lists@lfdr.de];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	FORGED_SENDER(0.00)[mathieu.poirier@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TAGGED_FROM(0.00)[netdevbpf];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_CC(0.00)[vger.kernel.org,canonical.com,st-md-mailman.stormreply.com,kernel.org,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net];
 	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_RECIPIENTS(0.00)[m:minda.chen@starfivetech.com,m:devicetree@vger.kernel.org,m:emil.renner.berthing@canonical.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:conor@kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:robh+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:andrew@lunn.ch,m:robh@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[linaro.org:-];
+	NEURAL_SPAM(0.00)[0.478];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mathieu.poirier@linaro.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[nxp.com,lists.linux.dev,gmail.com,vger.kernel.org,glider.be,amd.com,kernel.org,st-md-mailman.stormreply.com,pengutronix.de,lists.infradead.org];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	NEURAL_SPAM(0.00)[0.952];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
 	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: 010C062264C
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FROM_NO_DN(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+X-Rspamd-Queue-Id: CE1B9627922
 X-Rspamd-Action: no action
 X-Rspamd-Server: lfdr
 
-Good morning,
+Hello:
 
-On Thu, May 28, 2026 at 07:16:32PM -0700, Ben Levinsky wrote:
-> This series is a preparatory remoteproc cleanup split out from review of
-> the AMD BRAM-based remoteproc series.
-> 
-> During review, there was a request to move the duplicated plain
-> ioremap_wc()/iounmap() carveout callbacks into common code and to
-> factor the "missing resource table is OK" ELF parsing path into a
-> common helper as well. There was also a request to send that cleanup as
-> its own patchset first, with the AMD BRAM series respun afterwards on
-> top once this cleanup is merged.
-> 
-> This version keeps the same overall cleanup goals as v2, but reworks
-> the optional resource-table pieces based on follow-up review:
-> 
->   - reshape the optional resource-table helper in patch 4 into the thin
->     parse_fw() wrapper form suggested on the thread
->   - switch the patch 5 clients over to that helper shape directly,
->     without post-helper rproc->table_ptr checks
->   - keep the driver-local parse_fw() wrappers and their existing log
->     messages and severity choices
->   - retain as much of the existing per-driver parse_fw() logic and code
->     placement as possible while moving the missing-table handling
->     through the shared helper
-> 
-> This series now does that in five patches:
-> 
->   1. add common subsystem-private callbacks for the exact-match
->      wc-ioremap carveout case
->   2. switch the in-tree exact-match users over to those callbacks
->   3. mark carveouts mapped through the shared wc-ioremap helper as
->      iomem so the framework uses the proper I/O accessors
->   4. add a common helper for drivers that treat a missing ELF resource
->      table as optional while keeping per-driver logging decisions local
->   5. switch the matching in-tree drivers over to that helper while
->      keeping thin local parse_fw() wrappers
-> 
-> For the carveout map/unmap cleanup, this series covers the exact-match
-> users called out in review: xlnx_r5_remoteproc, rcar_rproc,
-> st_remoteproc, stm32_rproc, imx_rproc, and imx_dsp_rproc. The zynqmp R5
-> TCM mapping path is left alone because it also clears the mapped memory
-> and is not an exact match.
-> 
-> For the optional resource-table handling, this series converts
-> xlnx_r5_remoteproc, rcar_rproc, stm32_rproc, imx_rproc, and
-> imx_dsp_rproc. st_remoteproc is intentionally left unchanged because its
-> parse_fw() callback also builds carveouts and is therefore not a direct
-> match for the helper introduced here.
-> 
-> Changes in v3:
->   - rework patch 4 so the optional resource-table helper matches the
->     thin-wrapper form suggested in review
->   - note that patch 4 still triggers a checkpatch --strict warning for
->     the flow-control macro form, but that implementation follows the
->     maintainer's review suggestion for the thin parse_fw() wrapper shape
->   - update patch 5 to use that helper shape directly in the client
->     parse_fw() callbacks
->   - drop the post-helper rproc->table_ptr checks from the converted
->     drivers
->   - keep the converted parse_fw() wrappers otherwise close to their
->     existing structure and placement
->   - test xlnx_r5_remoteproc on the latest tree with firmware images
->     both with and without an ELF resource table
-> 
-> Changes in v2:
->   - split the mem->is_iomem change out into a separate patch
->   - add a common error message on ioremap_wc() failure
->   - drop logging from the optional resource-table helper
->   - keep driver-local parse_fw() wrappers to preserve per-platform
->     missing-resource-table logging policy
-> 
-> Ben Levinsky (5):
->   remoteproc: add common wc-ioremap carveout callbacks
->   remoteproc: switch exact-match drivers to wc-ioremap callbacks
->   remoteproc: mark wc-ioremap carveouts as iomem
->   remoteproc: add helper for optional ELF resource tables
->   remoteproc: switch drivers to optional resource-table helper
-> 
->  drivers/remoteproc/imx_dsp_rproc.c       | 41 +++-----------
->  drivers/remoteproc/imx_rproc.c           | 40 ++------------
->  drivers/remoteproc/rcar_rproc.c          | 41 ++------------
->  drivers/remoteproc/remoteproc_internal.h | 38 +++++++++++++
->  drivers/remoteproc/st_remoteproc.c       | 31 +----------
->  drivers/remoteproc/stm32_rproc.c         | 39 ++-----------
->  drivers/remoteproc/xlnx_r5_remoteproc.c  | 70 +++++-------------------
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-This set looks good to me.  I am fine with the checkpatch warning on the macro -
-given the redundancy it avoids, I think it can be tolerated.
-
-Wolfram has already indicated he wanted to test these changes - Arnaud, Daniel
-and Peng, please do the same for your platforms.
-
-Thanks,
-Mathieu
-
->  7 files changed, 73 insertions(+), 227 deletions(-)
+On Wed, 27 May 2026 16:41:04 +0800 you wrote:
+> jhb100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
+> Managent Controller). Similar with Aspeed 27x0.
 > 
-> -- 
-> 2.34.1
+> The jhb100 minimal system upstream is in progress:
+> https://patchwork.kernel.org/project/linux-riscv/cover/20260508053632.818548-1-changhuang.liang@starfivetech.com/
+> 
+> jhb100 GMAC still using designware GMAC core like JH7100 and JH7110,
+> and contains 2 SGMII interfaces, 1 RGMII/RMII interface, 1 RMII
+> interface. In JH7100/JH7110 dwmac-starfive.c have supported RGMII/RMII
+> interface. So require to add SGMII support to dwmac-starfive.c for JHB100.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v5,1/4] dt-bindings: net: starfive,jh7110-dwmac: Remove jh8100
+    https://git.kernel.org/netdev/net-next/c/106ce4a01c17
+  - [net-next,v5,2/4] dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 support
+    https://git.kernel.org/netdev/net-next/c/64772e4d06a5
+  - [net-next,v5,3/4] net: stmmac: starfive: Add jhb100 SGMII interface
+    https://git.kernel.org/netdev/net-next/c/98182c748125
+  - [net-next,v5,4/4] net: stmmac: starfive: Add STMMAC_FLAG_SPH_DISABLE flag
+    https://git.kernel.org/netdev/net-next/c/7e9ea8de277a
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
