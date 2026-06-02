@@ -2,116 +2,156 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id NOt2DEvXHmorVwAAu9opvQ:T2
+	id BhuzNtboHmrpYwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 15:14:51 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 16:29:42 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B2F662E607
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 15:14:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 66D2762F4A1
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 16:29:42 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=foss.st.com header.s=selector2 header.b=FhMJsVUn;
+	dkim=fail ("body hash did not verify") header.d=foss.st.com header.s=selector2 header.b=eUA1Apos;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=foss.st.com (policy=none);
 	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B87D1C8F296;
-	Tue,  2 Jun 2026 13:14:50 +0000 (UTC)
-Received: from AS8PR04CU009.outbound.protection.outlook.com
- (mail-westeuropeazon11011022.outbound.protection.outlook.com [52.101.70.22])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19272C8F271;
+	Tue,  2 Jun 2026 14:29:42 +0000 (UTC)
+Received: from AM0PR83CU005.outbound.protection.outlook.com
+ (mail-westeuropeazon11010052.outbound.protection.outlook.com [52.101.69.52])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7D73C8F271
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1C148C57A50
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2026 13:14:49 +0000 (UTC)
+ Tue,  2 Jun 2026 14:29:40 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OVehXWBGC0BsT82G5Gp+5tLmi03MoONuvlmE3syiYa6dih89Jwo71DtFGxgDWvcOSVjbcBGP9eCO+4OZZ2p7wBxjucjkcaEn+7m3nZfD5K5Dte8v+hBPYUyXUtlj1xLn34fQTtYHZ+olkmCchRcIFLMwlRWewLnHPUqsGWYAflaLLBnOCejmNVuVyj7QjSbBPGqOBNJNpB+paie5etLnNUk0YJ20kKgi1WiW7PtP9zCfo+JQHM2a888wsgi9MEvrvZmccvopUyiQZwwN1YAiTx8Qak3Ytxyc3SnAgwslwtbIIGRmox6b8FpKypw0HUA/XTcUsRerMtXNMKC4NCkHog==
+ b=nAjC7cViLDG/A+FtzEsWD40JzJhWGHc24dS8Nfaez/jCMKtoN7Vo+Fiqn4tmuhHV+hUAEWv6z2C8gog/8uBoujgU8xnw7VSZv7sXf9UY3e8FmuLJdenO9mRgjlPEFHlrd6ukfsaCH6QL5yVzoZs6RVCNnjFUw5BYxp5thd374zmNDjZ5RP9VGHbI84DvcqEbFma80NBluH4BtDRRWNvaDDcyPAFSZE8+uw/0InWtwzfLawNW9m1AKWkWNC1FzELiIqfXGOYXkE5lm0pwJ79dMYDf1HXQOUKX9GaLlnHrFUNfBgEPBFeyQfWAZaQ5DshBCumvkPsZkpCkEMx9OmNhuA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2tiES/GbyB4fWos+Pgblp+C1jXwj9g+q/ZWaN/wgUNQ=;
- b=IofHPFlFmCJJBJWpLU8vmlqGuggC8Low1twWEFd4JQFeab6671UDsoPF+cMgN2DbJOJUUEP6uElTaBdClzcBBi8HZmc/tR5j/Iu5hVwJyxnLc/jkosEHiFeqk1c6YBQM9/RJEdFIgVmfvBfeKmpOg0b+0E0Q+9uFLTbxiZp5+MQDy/8hMEFbCrxBnAcXbI9ow7RlJ7QN6SXKVuMwf4WcbdGDjOx2RbS052Nz3bd2y8w7Hdi/HZX0u5yDOY2Tv7+oa36fvKE3OSoyAj8MT6jzPbF7x1zY5+TDQrF5YcLy/rxTXeSZshrYsCL427Qgin0whRxp8a6ghGyb9eBwR/yhiA==
+ bh=/DFoeL/DBkSdNltDI2+oyIzqYORaDpNnOZX+SZizLn0=;
+ b=VI0FGGtZwdSN6Kogp6RRIOi7G/aMwOVvOxWZO5dBoI9mwUT3+Rf1tyyS7iEBnzo43q7BH2doEMOPsa7RiZ/QelWC192paHuVb0U/dnqnRU+xePK//9x3W/BSpU8stNl62FImUlCJdOoH1eo329BRBy5KujjcNZH86U84EFhX+KLtTozPF+lFNCCEKCLmSjVIbyIZURfYAKjYco7/QU6VDZyin88v1NwcR1yWyCcYSfdIJ6BqiZts4PwXlDiPamJesGw1G6tiD0unb0py3GVvcUClPkNj1hoJ1Uu22y/upCberkjKOGE7/sis5DjfESQIk7i8VE7JjxMXsMfKPyYF3w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2tiES/GbyB4fWos+Pgblp+C1jXwj9g+q/ZWaN/wgUNQ=;
- b=FhMJsVUnUi64OrB0t1VrNkI9HKUxi9q27GgD05x/HmwmHecUmxEfOHm7xnRcJsc7YQQ3qAE7QUFh/UWOEi2zRtgzBLBvPRUYx2OkO7NL7SQ6yH0Rk1mRU4EjRxJRCfWRACZEvqYNqz3N7jzs0jtSVszpWBEMba5oeA/3b8eIwdGz8Y/2ZBuaTGATeRN2ZWSUkZQ1fztgH2pWgSwHDIiUWRQd7rvUCcCQKDbU0NClJWfp0V3Wy8rRev/iUYJuxrKteFTLPVsmNGRyq2s0nAaEzecU7Jse9y5JmvbcMyHctBW9gEFcoLgqgIqxaym436WKiMP9bQwEcmXLf9ndq7WZhQ==
-Received: from CWLP265CA0462.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1d4::8)
- by DU4PR10MB9047.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:55f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 13:14:45 +0000
-Received: from AMS0EPF00000195.eurprd05.prod.outlook.com
- (2603:10a6:400:1d4:cafe::60) by CWLP265CA0462.outlook.office365.com
- (2603:10a6:400:1d4::8) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
- Jun 2026 13:14:45 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ bh=/DFoeL/DBkSdNltDI2+oyIzqYORaDpNnOZX+SZizLn0=;
+ b=eUA1AposxWT75qtkT6GUYvdB+9Ir3YCiWqk2qPr7TMy/FsxkiHdB48k8+dsi3J2popcWyNJOk5vaq46g1BgKzgvtEYqt+Xu3npQcB9VfBRiOlThzGtE7XeFUscikNqL2Hb2yqFbHBVo48AResFP0SGvw9t/WtfnGizvzYALXTSCPsomOaQUhhLJUe3yaDLQJ1rJLfZihUe1+UEhbmLK7LSPVNxtWXpjmmbPmHDxSOPN5N85lqPdj8WzEEAo2C2xK2VgbA1kRDOwRuUXLoQd8p0qbv6fi8yAi0iDZCkhYKlyo56CFr6FV28ccjXryDSB68kFS4qRI/+j2CWqp791DwQ==
+Received: from DU2PR04CA0246.eurprd04.prod.outlook.com (2603:10a6:10:28e::11)
+ by AMBPR10MB9320.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:6a9::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
+ 14:29:38 +0000
+Received: from DB1PEPF000509F5.eurprd02.prod.outlook.com
+ (2603:10a6:10:28e:cafe::5c) by DU2PR04CA0246.outlook.office365.com
+ (2603:10a6:10:28e::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Tue, 2
+ Jun 2026 14:29:38 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS0EPF00000195.mail.protection.outlook.com (10.167.16.215) with Microsoft
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DB1PEPF000509F5.mail.protection.outlook.com (10.167.242.151) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 13:14:45 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 14:29:37 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
- 2026 15:18:29 +0200
-Received: from localhost (10.130.77.119) by STKDAG1NODE2.st.com
+ 2026 16:33:46 +0200
+Received: from [10.48.87.71] (10.48.87.71) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
- 2026 15:14:44 +0200
-From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Tue, 2 Jun 2026 15:14:10 +0200
+ 2026 16:29:33 +0200
+Message-ID: <14358d35-2ce1-4d7d-8bc6-e40da4d9b75f@foss.st.com>
+Date: Tue, 2 Jun 2026 16:29:32 +0200
 MIME-Version: 1.0
-Message-ID: <20260602-stm32-dcmipp-pixel-pipes-support-v2-13-3c76b5f93157@foss.st.com>
-References: <20260602-stm32-dcmipp-pixel-pipes-support-v2-0-3c76b5f93157@foss.st.com>
-In-Reply-To: <20260602-stm32-dcmipp-pixel-pipes-support-v2-0-3c76b5f93157@foss.st.com>
-To: Hugues Fruchet <hugues.fruchet@foss.st.com>, Alain Volmat
- <alain.volmat@foss.st.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.13.0
-X-Originating-IP: [10.130.77.119]
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+User-Agent: Mozilla Thunderbird
+To: "Rob Herring (Arm)" <robh@kernel.org>
+References: <20260511165942.2774868-1-robh@kernel.org>
+Content-Language: en-US
+From: Amelie Delaunay <amelie.delaunay@foss.st.com>
+In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+X-Originating-IP: [10.48.87.71]
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS0EPF00000195:EE_|DU4PR10MB9047:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33e2159d-3c26-4b35-6c77-08dec0a8eaa0
+X-MS-TrafficTypeDiagnostic: DB1PEPF000509F5:EE_|AMBPR10MB9320:EE_
+X-MS-Office365-Filtering-Correlation-Id: b0cde00e-6949-49f5-f185-08dec0b3601e
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|1800799024|36860700016|82310400026|11063799006|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: eomKL01yGca4y3V+9n5FZlfQKeucA/xu8zSKQlySJtvKpVnfGIuFG5X7xTrmkqJiUZqUFLG4frYH+7OIjuDfv/78x5+XX9vOh9dm9M4bBwMo6gys1Qrnzumgy60fjdFk4EwWyMYFs5LvY9kSvq4BAVVlsMlZ+vQiYcfQe1x8cCOkV7fULnCEMXR0P7nLpqnFCgpEpEDm3QHYnmscOO1XkJyK9Wbx7V/OSvDZlmZauj/OF1WNGHhKoRByNMi9ntqHTpRq8YVmV3kUfcOAOAiTILMYWzjAcVrk8WTg3lHvArIX8ZpriXeDd7u/SS0xGtWKmaUKsip+AtL343PDoj/TORHqM5yj5BvLjVk2ndj8D1HTS58X2gfycOoKBlqpIwVqemvml3Ma1Kbdx6CkzX//4EYnlDmGCB71W9m4MK6Vo27cf4aJlJkfbll59TEVMWm58mRzCcK4rTIKNgFkaIu6X0hEERJ3pM2a8Ej1ZHhi9YfPzss/VrS+hn/8795mn9yzOLnj+Q2Y0fZ4nUskac/sDFm0OHPDtRItdJ0uREnJjfhTDYuyLtfJqh/v42kXZ+JUwKmAfZ3zdU2PTmEIprbNSYoZzW/AEFhK60k9R3RdAEPnuvsQsiN/vSJipZ9iEhC16e93SRK5YulgQ9y0HbbOrfHa5l2m2kUfbUZzWk5xRwuBIke6jzLgY6WrsOUIsUP38lPNgwjwzvD2QyYhsD4VMeJ8dlyuNPcFbt3gWAgfRIM=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ ARA:13230040|1800799024|7416014|36860700016|82310400026|376014|18002099003|3023799007|11063799006|22082099003|56012099006;
+X-Microsoft-Antispam-Message-Info: WoiZQnXY9lhhRT/z5Y5Rj899Io6tIuOZN55x3x58LjDRWY5RlNk9AQa4IA7TQ3NNzyyqW9LngKLlE+LfMfTR0dRgMVizKHQ67jyGzVEcx1nK+HmDoUMgFal0lIpnGix/1zOLQG5Y8vcnY/IH0SQRqUYNJ7ebfq4dm+PhftmCxOZZAdzPOFF0GdcT6LdnuiDTNYoNenB7QbBDKtB197gnjxCIt7RbxZ/YTygbe1CURVoiPGdoc6uzGaV9GtRYNdWWyEhXnbhu4DEmlKpVxjYR4r+M4stbcGWUnMdog+DiyPsuYWvIKRf9gPkGVUzVnZvoffUKFrGLQrTFk+3xOogq+KxJUenHqYlUqjRQPVM3Bt7DD3+3ZCArV3uxqIz1WX1z6pGmUIdSqDIDt8SrHg8lwgxcwKko/GQWlrCdmDc0RZhTgXAMNRFxTbGi2QcLg8azQAjeRhrKy1fkncIz/cfRhsHUh+LyvJPUmc7raaI6pypyuw9lflSGzFMvk5DLYD+scxdW5Uvm2vPdFsameWpCLSK3hEC3mgzZWjlXtZs3mtrYwg59ey8PL51pn0R24iw5sJif1caCl82GdS8VVBKugGJYgbOTE8RBNrglBvUedmb9ueDS79yHFNNPLIwS++lnmo1DAlJgXLutRxnGGwkC+o/2PjcDyt6Xc//Iz2pANUTFtX/h6JzYhg4oHr1qDuvrfoEwxls8HoqElVmqXbDoUnL2666hSnS+XP1FYqU+tZY=
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
  IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(11063799006)(56012099006)(6133799003)(18002099003)(22082099003);
+ SFS:(13230040)(1800799024)(7416014)(36860700016)(82310400026)(376014)(18002099003)(3023799007)(11063799006)(22082099003)(56012099006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: 1Kd9gLYyszXZLCicgpYitrdgTo9B86jL7/lzNg3tMTU66OYoYvjL+XRbF2AS0XBcvyvOukcnAhH4VGHWavfsALlln6+7PiPJ56tfvPGh1newy/G4O1wyUqodQhU8ais0/s7JGJQ/bw9tYnCgm9i2zFf7wZo8KSppIh1MMpvYErL1GA56B51DW7pnzM0wftRb3+o2u2GhBP1JOqxY50PRFb2vC15uvZseEtXb/zYgnRvCWRiOWbUyxHVmiZotQT7w8Pg/2cmnowlXaiSeqDwEp2vsqeEW98BiL+jsqvxvoJ9Bdt44HpzItPzlMfoFmtlH8/DfLAq4oMxDkF2kKHexnf/WXWBsEdDzqgW4owPmYxVDmS6hBNTS/1AxkNq07A8QbUHSilUsotsyISGAeZQgvUi357+QGhtB3ZxZN8LVaPhmGhgx2Ck+fHLLB0k8Snvn
+X-MS-Exchange-AntiSpam-MessageData-0: jagGbSISWk6WVljYbqvzNZeMQmXF8wnwolT1poC4IPw+kZnaJWOAvae+By8ALFkwZX3ScvkRDexX+MC/qfuFMgZCeNiCBhpQNcNK5wR+JpMVswGDWFPorUXjO+JGL+08nUJuRwfjG+Od8WcO/J1GzR+70eGjwwmAQYajjOni8eY72yCWfs3LtMwQptyN+8b3YfsncxwDsZHV5F6M+6+Gavs1T6oCEacPSj3XuKq0QIu/zBvVpZSpaLUVOCeu3EYYGUV/vT9VAtzdiHSMUAhWJXzKRE26xqOT0WXe6QkuS/U+A8fSLo8e3jViDM/StnOJcbR4rNhh/tKgU3zmTiWbnhYcXE61cRDTKGsLGOKauXdsZ6JkozjOta7d+c0Wo/RJX4bxubydVeIG27LcE2Xe/yHiWw0YXCWaKo9/8iANXE7tJFn+kIM27xOO9u5cQx5e
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 13:14:45.5711 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33e2159d-3c26-4b35-6c77-08dec0a8eaa0
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 14:29:37.6730 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: b0cde00e-6949-49f5-f185-08dec0b3601e
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
  Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS0EPF00000195.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: DB1PEPF000509F5.eurprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB9047
-Cc: linux-kernel@vger.kernel.org, sakari.ailus@linux.intel.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH v2 13/13] media: stm32: dcmipp: instantiate &
- link stm32mp25 subdevs
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AMBPR10MB9320
+Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, Tanmay Shah <tanmay.shah@amd.com>,
+ linux-remoteproc@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Mirela Rabulea <mirela.rabulea@nxp.com>, Eric
+ Dumazet <edumazet@google.com>, Marijn Suijten <marijn.suijten@somainline.org>,
+ Mohan Reddy Putluru <pmohan@couthit.com>, "Andrew F. Davis" <afd@ti.com>,
+ David Airlie <airlied@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Jerome Brunet <jbrunet@baylibre.com>, Simona Vetter <simona@ffwll.ch>,
+ Detlev Casanova <detlev.casanova@collabora.com>, Suman Anna <s-anna@ti.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Fabio Estevam <festevam@gmail.com>,
+ Jackson Lee <jackson.lee@chipsnmedia.com>,
+ Parvathi Pudi <parvathi@couthit.com>, Nas Chung <nas.chung@chipsnmedia.com>,
+ linux-rockchip@lists.infradead.org, Ben Levinsky <ben.levinsky@amd.com>,
+ Michal Simek <michal.simek@amd.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Hussain Khaja <basharath@couthit.com>, Paolo Abeni <pabeni@redhat.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ linux-media@vger.kernel.org, Linus
+ Walleij <linusw@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Liu
+ Ying <victor.liu@nxp.com>, linux-arm-msm@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Roger Quadros <rogerq@kernel.org>, Mark Brown <broonie@kernel.org>,
+ linux-mediatek@lists.infradead.org, Frank Li <Frank.Li@nxp.com>,
+ Jakub Kicinski <kuba@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-amlogic@lists.infradead.org, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Sean Paul <sean@poorly.run>,
+ Pengutronix
+ Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Roger Quadros <rogerq@ti.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>, netdev@vger.kernel.org,
+ Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+ MD Danish Anwar <danishanwar@ti.com>, linux-spi@vger.kernel.org,
+ Jessica Zhang <jesszhan0024@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Hugues Fruchet <hugues.fruchet@foss.st.com>, dmaengine@vger.kernel.org,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, freedreno@lists.freedesktop.org,
+ "David S. Miller" <davem@davemloft.net>, Felix Fietkau <nbd@nbd.name>
+Subject: Re: [Linux-stm32] [PATCH] dt-bindings: Consolidate "sram" property
+ definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -123,133 +163,62 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:hugues.fruchet@foss.st.com,m:alain.volmat@foss.st.com,m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:sakari.ailus@linux.intel.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-media@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo];
+	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:imx@lists.linux.dev,m:heiko@sntech.de,m:akhilpo@oss.qualcomm.com,m:tanmay.shah@amd.com,m:linux-remoteproc@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:mirela.rabulea@nxp.com,m:edumazet@google.com,m:marijn.suijten@somainline.org,m:pmohan@couthit.com,m:afd@ti.com,m:airlied@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jbrunet@baylibre.com,m:simona@ffwll.ch,m:detlev.casanova@collabora.com,m:s-anna@ti.com,m:angelogioacchino.delregno@collabora.com,m:andrew+netdev@lunn.ch,m:festevam@gmail.com,m:jackson.lee@chipsnmedia.com,m:parvathi@couthit.com,m:nas.chung@chipsnmedia.com,m:linux-rockchip@lists.infradead.org,m:ben.levinsky@amd.com,m:michal.simek@amd.com,m:ezequiel@vanguardiasur.com.ar,m:basharath@couthit.com,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:khilman@baylibre.com,m:linux-media@vger.kernel.org,m:linusw@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:p.zabel@pengutronix.de,m:neil.armstrong@linaro.org,m:v
+ ictor.liu@nxp.com,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:abhinav.kumar@linux.dev,m:rogerq@kernel.org,m:broonie@kernel.org,m:linux-mediatek@lists.infradead.org,m:Frank.Li@nxp.com,m:kuba@kernel.org,m:matthias.bgg@gmail.com,m:linux-amlogic@lists.infradead.org,m:robin.clark@oss.qualcomm.com,m:mchehab@kernel.org,m:sean@poorly.run,m:kernel@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:rogerq@ti.com,m:mcoquelin.stm32@gmail.com,m:martin.blumenstingl@googlemail.com,m:lumag@kernel.org,m:mathieu.poirier@linaro.org,m:lorenzo@kernel.org,m:netdev@vger.kernel.org,m:andersson@kernel.org,m:linux-kernel@vger.kernel.org,m:danishanwar@ti.com,m:linux-spi@vger.kernel.org,m:jesszhan0024@gmail.com,m:vkoul@kernel.org,m:tzimmermann@suse.de,m:hugues.fruchet@foss.st.com,m:dmaengine@vger.kernel.org,m:krzk+dt@kernel.org,m:freedreno@lists.freedesktop.org,m:davem@davemloft.net,m:nbd@nbd.name,m:andrew@lunn.ch,s:lists@lfdr.de];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	GREYLIST(0.00)[pass,meta];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,foss.st.com:from_mime,foss.st.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st.com:email];
+	FREEMAIL_CC(0.00)[lists.linux.dev,sntech.de,oss.qualcomm.com,amd.com,vger.kernel.org,lists.freedesktop.org,nxp.com,google.com,somainline.org,couthit.com,ti.com,gmail.com,st-md-mailman.stormreply.com,baylibre.com,ffwll.ch,collabora.com,lunn.ch,chipsnmedia.com,lists.infradead.org,vanguardiasur.com.ar,redhat.com,kernel.org,pengutronix.de,linaro.org,linux.intel.com,linux.dev,poorly.run,googlemail.com,suse.de,foss.st.com,davemloft.net,nbd.name];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[76];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alain.volmat@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[foss.st.com:-];
-	ALIAS_RESOLVED(0.00)[];
+	HAS_XOIP(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[10];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 2B2F662E607
+X-Rspamd-Queue-Id: 66D2762F4A1
 
-Add topology of the two pixel pipes (main & aux) of the stm32mp25.
-Do not make the link from dcmipp_input immutable and enabled by
-default since not all pipes are always used together so when a pipeline
-is not being used its link should be disconnected to allow proper
-pipeline check.
-Not doing this would most probably lead to pipeline start failure due
-to incompatible pads configurations on the unused pipe.
 
-Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
----
- .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 42 ++++++++++++++++++++--
- 1 file changed, 40 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index a52b3b0e3c37..44440f8ea9f5 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -75,6 +75,11 @@ static const struct dcmipp_pipeline_config stm32mp13_pipe_cfg = {
- 	.hw_revision	= DCMIPP_STM32MP13_VERR
- };
- 
-+#define	ID_MAIN_ISP 3
-+#define	ID_MAIN_POSTPROC 4
-+#define	ID_MAIN_CAPTURE	5
-+#define	ID_AUX_POSTPROC 6
-+#define	ID_AUX_CAPTURE 7
- static const struct dcmipp_ent_config stm32mp25_ent_config[] = {
- 	{
- 		.name = "dcmipp_input",
-@@ -91,13 +96,46 @@ static const struct dcmipp_ent_config stm32mp25_ent_config[] = {
- 		.init = dcmipp_capture_ent_init,
- 		.release = dcmipp_capture_ent_release,
- 	},
-+	{
-+		.name = "dcmipp_main_isp",
-+		.init = dcmipp_isp_ent_init,
-+		.release = dcmipp_isp_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_main_postproc",
-+		.init = dcmipp_pixelproc_ent_init,
-+		.release = dcmipp_pixelproc_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_main_capture",
-+		.init = dcmipp_capture_ent_init,
-+		.release = dcmipp_capture_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_aux_postproc",
-+		.init = dcmipp_pixelproc_ent_init,
-+		.release = dcmipp_pixelproc_ent_release,
-+	},
-+	{
-+		.name = "dcmipp_aux_capture",
-+		.init = dcmipp_capture_ent_init,
-+		.release = dcmipp_capture_ent_release,
-+	},
- };
- 
- static const struct dcmipp_ent_link stm32mp25_ent_links[] = {
--	DCMIPP_ENT_LINK(ID_INPUT, 1, ID_DUMP_BYTEPROC, 0,
--			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_INPUT, 1, ID_DUMP_BYTEPROC, 0, 0),
- 	DCMIPP_ENT_LINK(ID_DUMP_BYTEPROC, 1, ID_DUMP_CAPTURE,  0,
- 			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_INPUT,	2, ID_MAIN_ISP,  0, 0),
-+	DCMIPP_ENT_LINK(ID_MAIN_ISP,	1, ID_MAIN_POSTPROC,  0,
-+			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_MAIN_ISP,	2, ID_AUX_POSTPROC,  0, 0),
-+	DCMIPP_ENT_LINK(ID_MAIN_POSTPROC,	1, ID_MAIN_CAPTURE,  0,
-+			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
-+	DCMIPP_ENT_LINK(ID_INPUT,	3, ID_AUX_POSTPROC,  0, 0),
-+	DCMIPP_ENT_LINK(ID_AUX_POSTPROC,	1, ID_AUX_CAPTURE,  0,
-+			MEDIA_LNK_FL_ENABLED | MEDIA_LNK_FL_IMMUTABLE),
- };
- 
- #define DCMIPP_STM32MP25_VERR  0x30
+On 5/11/26 18:59, Rob Herring (Arm) wrote:
+> The "sram" property has become a de facto standard property, so create a
+> common schema for it and drop all the duplicated definitions.
+> 
+> Signed-off-by: Rob Herring (Arm)<robh@kernel.org>
+> ---
+>   .../devicetree/bindings/spi/st,stm32-spi.yaml | 10 +++----
 
--- 
-2.43.0
-
+Acked-by: Amelie Delaunay <amelie.delaunay@foss.st.com> #st,stm32-spi.yaml
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
