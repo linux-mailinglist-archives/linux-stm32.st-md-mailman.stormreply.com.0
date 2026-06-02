@@ -2,73 +2,72 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id mLxfMl+hHmquDAAAu9opvQ
+	id KM3tNQeiHmquDAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:24:47 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:27:35 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 555DE62B6AA
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:24:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 730AF62B839
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:27:35 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F351AC8F271;
-	Tue,  2 Jun 2026 09:24:46 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AF44C8F271;
+	Tue,  2 Jun 2026 09:27:35 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0720C56600
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB438C56600
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2026 09:24:44 +0000 (UTC)
+ Tue,  2 Jun 2026 09:27:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780392285; x=1811928285;
+ t=1780392453; x=1811928453;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=dmW9oDcU2mcbwI8dPNWwDJs8S3z5iYkuegCzVTuA9XQ=;
- b=Mdk3GxY1mRkD/I6khIakO5Z6Jmw3E3DQI4I8NAQ/aTsJopk6SMUOt0/Q
- vMUbjx0oj6cKTgiqIjaypw/fQSvvIaGn2KEHDaQ7JnmZZ7vTbBKHrp5rh
- nSXN6ii2fE1Q7GzG2jeItz6q09j20o77ffTY1LG+5nyjN7ibHE6x5IAFy
- yU/1sQPUfghbmnK5WUvVKhJWiPsZhCXZS2WY2+EoJHhCnf4KFWDJMCbXo
- jopmiP4Rw2zmGQBslEQ4HmlzZvsUq2CyzovW75B7pFONTiUlseIYzzOsG
- nol2QwEM9P1uByPgp7JWxDj50FT0WGdSwQehqmnwsgjXLi4QPgxMWHc4P w==;
-X-CSE-ConnectionGUID: xfm/u1SJTbeT9jZeahBctA==
-X-CSE-MsgGUID: OY0d65a7Q/qFndiFyWrWWg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81072264"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="81072264"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ bh=ItblxYpNb+2Ay97S4QWuJOOupifreuKenS9xKDaH38Q=;
+ b=PhSxLBCVuIaSl+gJqvj/wZoxsYtyh6+2GzhbaTblwSkBu3oI0dxSutAL
+ 5bLJBDL++Ol7vojZc4lWdW9mDqw8iLvyKoqNHa+hmjOH+9aZzU7/mMxvn
+ kQ+aSrStigPv4yJHwpQMMVeGSJ/wppjbYklFIu0HuoWv+yQHRqXhZ3R00
+ 0zBapCAN+T62ttkm5xWDju0bV2LJCRSG9A35v4pPraSyf52whgvs6kupW
+ QUSqVtS5tXhRv1EKtvKL21dg0c7kdFQ4bFhnKpee7i69LIWq+qxeeihPm
+ SdOUYCm1sr2jUkWIDTax8AK65qu4pmMmLMDnA8sQRgQkExoV1R1kSQOhc Q==;
+X-CSE-ConnectionGUID: 3NmjkJ86Ro6BTqqcaLOR3Q==
+X-CSE-MsgGUID: QfcaQ1SBRfGZyEIhXsmLTw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81072427"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="81072427"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 02:24:42 -0700
-X-CSE-ConnectionGUID: 77NfOhEcQD2SfDz3F9aTng==
-X-CSE-MsgGUID: ngJI9wi+SQ6GlRwtWahacg==
+ 02 Jun 2026 02:27:31 -0700
+X-CSE-ConnectionGUID: LFPp70urSQm5UUL05sBrfA==
+X-CSE-MsgGUID: 6O4Zj6lvSPe1U7nQPoyqcw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="248940582"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="239414468"
 Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
  ([10.245.245.229])
- by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jun 2026 02:24:38 -0700
-Date: Tue, 2 Jun 2026 12:24:36 +0300
+ by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 02:27:27 -0700
+Date: Tue, 2 Jun 2026 12:27:25 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Message-ID: <ah6hVLn_OES-ql9j@ashevche-desk.local>
+To: Angelo Dureghello <adureghello@baylibre.com>
+Message-ID: <ah6h_XW2wvgEYXKd@ashevche-desk.local>
 References: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
- <20260531-wip-stmark2-dac-v4-4-7e65ab4215dd@baylibre.com>
- <20260531165155.13e586cd@jic23-huawei>
+ <20260531-wip-stmark2-dac-v4-9-7e65ab4215dd@baylibre.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260531165155.13e586cd@jic23-huawei>
+In-Reply-To: <20260531-wip-stmark2-dac-v4-9-7e65ab4215dd@baylibre.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Andy Shevchenko <andy@kernel.org>,
- Angelo Dureghello <adureghello@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
+Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
  linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
  Steven King <sfking@fdwdc.com>, linux-m68k@lists.linux-m68k.org,
  Geert Uytterhoeven <geert@linux-m68k.org>,
+ linux-arm-kernel@lists.infradead.org,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
  David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v4 04/11] m68k: defconfig: update stmark2
-	defconfig
+ Jonathan Cameron <jic23@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v4 09/11] m68k: stmark2: add mcf5441x DAC
+	platform devices
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,61 +83,58 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Queue-Id: 555DE62B6AA
+X-Rspamd-Queue-Id: 730AF62B839
 X-Rspamd-Server: lfdr
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[16];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:adureghello@baylibre.com,m:andy@kernel.org,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:jic23@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:andy@kernel.org,m:adureghello@baylibre.com,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCPT_COUNT_TWELVE(0.00)[16];
 	HAS_ORG_HEADER(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,lists.infradead.org,gmail.com,uclinux.org,baylibre.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,ashevche-desk.local:mid,stormreply.com:email,stormreply.com:url,checkpatch.pl:url,st-md-mailman.stormreply.com:rdns]
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,ashevche-desk.local:mid,stormreply.com:email,stormreply.com:url]
 X-Rspamd-Action: no action
 
-On Sun, May 31, 2026 at 04:51:55PM +0100, Jonathan Cameron wrote:
-> On Sun, 31 May 2026 17:25:57 +0200
-> Angelo Dureghello <adureghello@baylibre.com> wrote:
+On Sun, May 31, 2026 at 05:26:02PM +0200, Angelo Dureghello wrote:
+
+> Add mcf5441x DAC platform devices.
 
 ...
 
-> > +CONFIG_MCF54415_DAC=y
-> 
-> Sashiko makes the reasonable point that this symbol doesn't exist yet.
-> We don't care that much as they make different paths anyway but generally
-> I'd make sure defconfig updates are after the symbols are added.
-> 
-> https://sashiko.dev/#/patchset/20260531-wip-stmark2-dac-v4-0-7e65ab4215dd%40baylibre.com
+> --- a/arch/m68k/coldfire/stmark2.c
+> +++ b/arch/m68k/coldfire/stmark2.c
+> @@ -8,6 +8,7 @@
+>   * for more details.
+>   */
+>  
+> +#include <linux/ioport.h>
 
-There is even Bugzilla report for dangling entries and the ongoing patch review
-for adding this check to the `make` menu and some to checkpatch.pl.
-
-TL;DR: This change has to be fixed accordingly.
+If I'm not mistaken this part has to be done in the previous patch?
 
 -- 
 With Best Regards,
