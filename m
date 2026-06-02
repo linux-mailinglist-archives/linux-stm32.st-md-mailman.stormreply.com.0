@@ -2,54 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by lfdr with LMTP
-	id aCUHEZ1JHmq+iQkAu9opvQ
+	id mLxfMl+hHmquDAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 05:10:21 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:24:47 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE1B9627922
-	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 05:10:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 555DE62B6AA
+	for <lists+linux-stm32@lfdr.de>; Tue, 02 Jun 2026 11:24:47 +0200 (CEST)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C3810C5663A;
-	Tue,  2 Jun 2026 03:10:19 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F351AC8F271;
+	Tue,  2 Jun 2026 09:24:46 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5846DC0693F
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A0720C56600
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  2 Jun 2026 03:10:18 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3B0AD6001D;
- Tue,  2 Jun 2026 03:10:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E398A1F00893;
- Tue,  2 Jun 2026 03:10:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780369816;
- bh=MVK+ez5S2h1Xv9Lonr2tNkxvedzyuxQASoNieH4/EYg=;
- h=Subject:From:Date:References:In-Reply-To:To:Cc;
- b=YqPyqP/60tv2uyAFgYdzz7jaGWJRnWBVlMjNMsmz1lQOuI4I0deSQQKOts3XB1Dkz
- zITfa5yzWyGjZLK8EsvUwJWsG1eeejTLRxVmHF5V3mpAtuAVtUQvsjv+fpl1g11IDh
- 0mBVtn+v0o90ic5uWHZVhTns3W6LAvmgetb8r4oykt/9Rh0CFo4ph+fPsK0tdwtLcB
- 4yjmujjZMgVwIH4W1/rbNImAuRamPkrZKYkosrCjxQk0q4S9FcQzsG6Fx1O1BDQdUx
- 0crfvLRfn2exVJSkNbQr5A0I8X8JG74bG870l6ODXWjsFwBYclmCYxPhNHCot2fyrf
- 0UdvjHsHuQcTw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 56AB938119F9; Tue,  2 Jun 2026 03:10:20 +0000 (UTC)
+ Tue,  2 Jun 2026 09:24:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780392285; x=1811928285;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=dmW9oDcU2mcbwI8dPNWwDJs8S3z5iYkuegCzVTuA9XQ=;
+ b=Mdk3GxY1mRkD/I6khIakO5Z6Jmw3E3DQI4I8NAQ/aTsJopk6SMUOt0/Q
+ vMUbjx0oj6cKTgiqIjaypw/fQSvvIaGn2KEHDaQ7JnmZZ7vTbBKHrp5rh
+ nSXN6ii2fE1Q7GzG2jeItz6q09j20o77ffTY1LG+5nyjN7ibHE6x5IAFy
+ yU/1sQPUfghbmnK5WUvVKhJWiPsZhCXZS2WY2+EoJHhCnf4KFWDJMCbXo
+ jopmiP4Rw2zmGQBslEQ4HmlzZvsUq2CyzovW75B7pFONTiUlseIYzzOsG
+ nol2QwEM9P1uByPgp7JWxDj50FT0WGdSwQehqmnwsgjXLi4QPgxMWHc4P w==;
+X-CSE-ConnectionGUID: xfm/u1SJTbeT9jZeahBctA==
+X-CSE-MsgGUID: OY0d65a7Q/qFndiFyWrWWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81072264"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="81072264"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 02:24:42 -0700
+X-CSE-ConnectionGUID: 77NfOhEcQD2SfDz3F9aTng==
+X-CSE-MsgGUID: ngJI9wi+SQ6GlRwtWahacg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; d="scan'208";a="248940582"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.229])
+ by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jun 2026 02:24:38 -0700
+Date: Tue, 2 Jun 2026 12:24:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Message-ID: <ah6hVLn_OES-ql9j@ashevche-desk.local>
+References: <20260531-wip-stmark2-dac-v4-0-7e65ab4215dd@baylibre.com>
+ <20260531-wip-stmark2-dac-v4-4-7e65ab4215dd@baylibre.com>
+ <20260531165155.13e586cd@jic23-huawei>
 MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <178036981914.224606.5617424802966318344.git-patchwork-notify@kernel.org>
-Date: Tue, 02 Jun 2026 03:10:19 +0000
-References: <20260527084108.121416-1-minda.chen@starfivetech.com>
-In-Reply-To: <20260527084108.121416-1-minda.chen@starfivetech.com>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: devicetree@vger.kernel.org, emil.renner.berthing@canonical.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- conor@kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
- edumazet@google.com, robh+dt@kernel.org, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, krzk+dt@kernel.org, pabeni@redhat.com, davem@davemloft.net
-Subject: Re: [Linux-stm32] [net-next v5 0/4] Add StarFive jhb100 soc SGMII
-	GMAC support
+Content-Disposition: inline
+In-Reply-To: <20260531165155.13e586cd@jic23-huawei>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+Cc: Andy Shevchenko <andy@kernel.org>,
+ Angelo Dureghello <adureghello@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+ Steven King <sfking@fdwdc.com>, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
+ David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v4 04/11] m68k: defconfig: update stmark2
+	defconfig
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,80 +84,65 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Rspamd-Queue-Id: 555DE62B6AA
+X-Rspamd-Server: lfdr
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	TAGGED_FROM(0.00)[netdevbpf];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_CC(0.00)[vger.kernel.org,canonical.com,st-md-mailman.stormreply.com,kernel.org,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORGED_RECIPIENTS(0.00)[m:minda.chen@starfivetech.com,m:devicetree@vger.kernel.org,m:emil.renner.berthing@canonical.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:conor@kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:robh+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:andrew@lunn.ch,m:robh@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[16];
+	FORGED_SENDER(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:andy@kernel.org,m:adureghello@baylibre.com,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
+	HAS_ORG_HEADER(0.00)[];
 	ARC_NA(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	NEURAL_SPAM(0.00)[0.478];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	TO_DN_SOME(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FROM_NO_DN(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
-X-Rspamd-Queue-Id: CE1B9627922
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,ashevche-desk.local:mid,stormreply.com:email,stormreply.com:url,checkpatch.pl:url,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Action: no action
-X-Rspamd-Server: lfdr
 
-Hello:
+On Sun, May 31, 2026 at 04:51:55PM +0100, Jonathan Cameron wrote:
+> On Sun, 31 May 2026 17:25:57 +0200
+> Angelo Dureghello <adureghello@baylibre.com> wrote:
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+...
 
-On Wed, 27 May 2026 16:41:04 +0800 you wrote:
-> jhb100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
-> Managent Controller). Similar with Aspeed 27x0.
+> > +CONFIG_MCF54415_DAC=y
 > 
-> The jhb100 minimal system upstream is in progress:
-> https://patchwork.kernel.org/project/linux-riscv/cover/20260508053632.818548-1-changhuang.liang@starfivetech.com/
+> Sashiko makes the reasonable point that this symbol doesn't exist yet.
+> We don't care that much as they make different paths anyway but generally
+> I'd make sure defconfig updates are after the symbols are added.
 > 
-> jhb100 GMAC still using designware GMAC core like JH7100 and JH7110,
-> and contains 2 SGMII interfaces, 1 RGMII/RMII interface, 1 RMII
-> interface. In JH7100/JH7110 dwmac-starfive.c have supported RGMII/RMII
-> interface. So require to add SGMII support to dwmac-starfive.c for JHB100.
-> 
-> [...]
+> https://sashiko.dev/#/patchset/20260531-wip-stmark2-dac-v4-0-7e65ab4215dd%40baylibre.com
 
-Here is the summary with links:
-  - [net-next,v5,1/4] dt-bindings: net: starfive,jh7110-dwmac: Remove jh8100
-    https://git.kernel.org/netdev/net-next/c/106ce4a01c17
-  - [net-next,v5,2/4] dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 support
-    https://git.kernel.org/netdev/net-next/c/64772e4d06a5
-  - [net-next,v5,3/4] net: stmmac: starfive: Add jhb100 SGMII interface
-    https://git.kernel.org/netdev/net-next/c/98182c748125
-  - [net-next,v5,4/4] net: stmmac: starfive: Add STMMAC_FLAG_SPH_DISABLE flag
-    https://git.kernel.org/netdev/net-next/c/7e9ea8de277a
+There is even Bugzilla report for dangling entries and the ongoing patch review
+for adding this check to the `make` menu and some to checkpatch.pl.
 
-You are awesome, thank you!
+TL;DR: This change has to be fixed accordingly.
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+With Best Regards,
+Andy Shevchenko
 
 
 _______________________________________________
