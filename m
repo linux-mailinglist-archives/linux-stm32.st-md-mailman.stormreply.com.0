@@ -2,53 +2,168 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Aof/AQyZIWqPJgEAu9opvQ
+	id BJKzJHDMIWr3NwEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 17:26:04 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 21:05:20 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 772F6641689
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 17:26:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D0BE642C8E
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 21:05:20 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=u77s7L9l;
+	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=nag1wMmw;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linux.dev (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=intel.com (policy=none);
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 29885C8F273;
-	Thu,  4 Jun 2026 15:26:03 +0000 (UTC)
-Received: from out-171.mta0.migadu.com (out-171.mta0.migadu.com
- [91.218.175.171])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B581DC8F273;
+	Thu,  4 Jun 2026 19:05:19 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7D014C8F272
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1465FC8F272
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jun 2026 15:26:01 +0000 (UTC)
-Date: Thu, 4 Jun 2026 17:25:11 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780586760;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=NWfW0hKJr7V2QHw5t2GqWFv/XZ92T8o2+LvBF+8aRiQ=;
- b=u77s7L9lvDcDngWoCERRvAK3Aq4diy97hg0nomLMQ3iC49BY78r3gj0FTkVsaGowxEwFkK
- QImcgY+Cs49udcGD0eE/38RSMGT2aoX5Ivq+gQ8k75uFPV/5LrmyMLMSlwRZCpVjzAmo6R
- iUmEo1tdchC8aPc3LBxRJEnIh7dgzGE=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Thorsten Blum <thorsten.blum@linux.dev>
-To: Alexander Shishkin <alexander.shishkin@linux.intel.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Message-ID: <aiGY109NSk8TWV0F@linux.dev>
-References: <20260508144705.3940-3-thorsten.blum@linux.dev>
+ Thu,  4 Jun 2026 19:05:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1780599919; x=1812135919;
+ h=message-id:date:subject:to:cc:references:from:
+ in-reply-to:content-transfer-encoding:mime-version;
+ bh=KBH1Br2NVnKKKUYYRhudJQCf94QExIE5CsaB9hSQoU8=;
+ b=nag1wMmwoZH/2irZHIbFFWOSx5dPO1N7abaqSpzfZkKSnj9IWK8xv3bd
+ MpzsgZt9AXDpHO8AuUkeFjrnBoXnK0oBaCX60/vson6M9dNvLQiuX3WD0
+ Jqkd+98x85XadYp2t7yABvKpr1jH0havlutJIEydPPeK+NVbRoLBFRc51
+ CQ6ONeuOIRkOjpIkyvbUCXv6IaXDtgpYySEFPpTVRVuxZX46zH/vo6ci/
+ TkjNIz4Vzkc1lTBA/hW4plL0Wd0kOwdSpXRSp13Mio5ZS4ebpgxh9NGxP
+ wS4olG3HnW7Fa9hc73Nnmbkjl2xDkyi/qyQwF2f7Ypc4VBzyzLmeclQnA A==;
+X-CSE-ConnectionGUID: 4jf7y0HmQeGSGWd90NGo4A==
+X-CSE-MsgGUID: QC/IRweiSsiEgZOoqnNypw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="98852388"
+X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; d="scan'208";a="98852388"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2026 12:05:16 -0700
+X-CSE-ConnectionGUID: j1E7qhLsRP6omV63Eh70Xg==
+X-CSE-MsgGUID: BjEBPkouSGWVU8vrf6gKkA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; d="scan'208";a="241644834"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by fmviesa007.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2026 12:05:16 -0700
+Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 4 Jun 2026 12:05:14 -0700
+Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
+ FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37 via Frontend Transport; Thu, 4 Jun 2026 12:05:14 -0700
+Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.33) by
+ edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Thu, 4 Jun 2026 12:05:14 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QjZZ9HXYdFCCyM8Xob4mkmRXGN72rN94TTRcKQk2E83lQmqV+igHh89bU5EjMaACWvhqbiC4waAPUoFcScRhzXGvHOS3JVhjQHr1TwYr5AzV7ZYfmD79t2x0zwRsqnGfvZWxSOSVkivZMUfjtRh7IYVaLTc3F/22pEtn2iU9TXRjBX7kgP+qdqU3k+khHzWH8iXGBLB/kTyhcrpeZPpYtIYPxvAbfQJlp+IzJc7876F1R3W1r2GITJreBfMrWHBaW9VZM9W3dzyu9WBQ3uERnX76/ZKNJ2AY1LmBWqXg8nVp8hFb441JJ6jQtfnvLqwSeJ17ugEGQ7UzPKlDwC6LZA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C+bE4ePjPb3qWVtVaIwDfwymqAPxdxhgtkWKZ9l08Hk=;
+ b=q4F+4aAQcN6jIEYS1Ill9ERFT2I4AhQP+kHGlEzdfUufuI+a/2nTfkeZad9qHSkiubOTyfKk+9Jvoo/BNcIRllU3aO9xnxAGxPVzYfoNVtfM03rAfV36frSsfbiQqoey52MK33NVSuJOGd6z73a8eZUWXOGG4sCP5tno+SLw+HZjKDBHuwjzVeBYxGzjloK9PD3Fr88xuo/wNqpqittLbH/IbP15s5CeqKPtJI2SYVcR71S5sNlKdtto22ru9690qtsDvcRjumyVvVqMNVZBpMKqyNrU4WNu8T1vEokZPCriZ7w8V36TkcqoOm88zyt8gCv64TBlqEXYuL4cTyVACA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com (2603:10b6:8:134::14)
+ by SJ0PR11MB8293.namprd11.prod.outlook.com (2603:10b6:a03:44f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
+ 19:05:11 +0000
+Received: from DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58]) by DS0PR11MB7381.namprd11.prod.outlook.com
+ ([fe80::4c39:dfe6:d6dc:6f58%5]) with mapi id 15.21.0092.007; Thu, 4 Jun 2026
+ 19:05:11 +0000
+Message-ID: <65617cc3-5e3d-468e-a444-db7e839320c8@intel.com>
+Date: Thu, 4 Jun 2026 12:05:08 -0700
+User-Agent: Mozilla Thunderbird
+To: <muhammad.nazim.amirul.nazle.asmade@altera.com>, <netdev@vger.kernel.org>
+References: <20260604083037.24407-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Language: en-US
+From: Jacob Keller <jacob.e.keller@intel.com>
+In-Reply-To: <20260604083037.24407-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+X-ClientProxiedBy: MW4PR03CA0218.namprd03.prod.outlook.com
+ (2603:10b6:303:b9::13) To DS0PR11MB7381.namprd11.prod.outlook.com
+ (2603:10b6:8:134::14)
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260508144705.3940-3-thorsten.blum@linux.dev>
-X-Migadu-Flow: FLOW_OUT
-Cc: linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH RESEND] stm class: remove unnecessary
- local variable in stm_write
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR11MB7381:EE_|SJ0PR11MB8293:EE_
+X-MS-Office365-Filtering-Correlation-Id: b456b798-f95a-4fc6-1eda-08dec26c33b0
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|7416014|366016|376014|56012099006|22082099003|18002099003|11063799006;
+X-Microsoft-Antispam-Message-Info: o4YG7ncJd/oejLnVXExB4jTkTO3ejGd8LOVxgl8nKY+z7STj1ckr3VPIW25sPmAnlyH4OLP85QDO/KHrEtOY1GbDpzKvhzZTU8l2lK9g9W8w6OILTIkN81mBbR54liq9AqKdZR5wQeCalH/V3M+Qb3Di8gXGtltv1oIGQ5bSLOhnvL/Sd5GAJ/wgYZZeP0VVA5ab+9gTNIUthqp99vI58ubu7j4Yba0WwndECctyZz4dGkOyqsGbMC4fNIa7mpSDZo2KW1LAxJmeLnBtiJ1kja26ScGqQWUuxOSnJZvf0eeJxuihYjMv+j9wahwsvpcz4Cq09pK5zTobvdiJmGSXdbxF/iKgTP8fYG6oiyG7EAm7Sl5mcVcT0EX4XnfpnloFOQP2xLhLoCHI8Ewa2nL6ZYJCU3G0ZsCd3H9Trf4dXQhChTPTauFx6Z9HLc56kY+JAXaPzTxsIwLo3PkPo+l/51/5/rCUKbeaFkfiUz3KkO52yM1CWXmTaL45qIChBDwchjweDoDeqpb7NtbcCPTuLo8ze2SHrXEkEOgnCIrlZL73eKAco7erBQHTx1VPInNWPPWd0qA0QUBbH06dZqRqdpVt/D2xhpTyzOta5iWRMKJCHGE/vt5PUbEw8DToiK/aWJr47b9JBBs9KuMNfiOXCa44dIPnQarsexncUGCcE+k6iaOBtmw1eZSXHCqty05D
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS0PR11MB7381.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(7416014)(366016)(376014)(56012099006)(22082099003)(18002099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?T1JMSkpwOTB3SzRoeEdocjRqNFJKUlVrcklMMmJaMVhCaWFXSUgvQmRSdGR1?=
+ =?utf-8?B?VTRJYjl2RC9ySGJCVTlGZnRpL0U3OTlVazdGVnVIUzkwYXI5RW4vMFlCUW01?=
+ =?utf-8?B?czdadTNKNnVQVU1jRkc4TndtbkFkTmx2aVVMVHpGMS8yUWJ5dlRHTnM0c2tP?=
+ =?utf-8?B?Rmptbm52ZHRMN25vdXJLM1MwQjVNa3JuQWNtcTBDRWRIaXJrRkcrTVhXeEd4?=
+ =?utf-8?B?Y3p1OUJWS0VaQklhQTdsZzZTdW1WWlQ2ZDA2NnI0akFzNS9yME1QdXRHL0p5?=
+ =?utf-8?B?Q1JsWTlIaWNGOGM3NW1oV0trWm44QURiemh3bktySUdOOHNyT01RdkRBeFJV?=
+ =?utf-8?B?MUx1OFZ6SlRhcUpGZGRPOWRzLzc1TytxQjd0UlhIenR2TFlDVUZKOUhPdUt5?=
+ =?utf-8?B?ZDczREVDbnRrUkw4cmFhZVhMY1BwazhET3I1b2F2RG5mN0FLOXhxYzM2VlVC?=
+ =?utf-8?B?aHUvbUp1Ulp2T0ZnNHhwcEhIUWZiaWtLRndnTlVtdVpkOHpnckJnd1g0RThn?=
+ =?utf-8?B?OGpMSTNuNXBpamw5aTlCQVlkS2xXdkRZdzEzYmhKQXJsSC8rNUd6UEdsNGJq?=
+ =?utf-8?B?YVBjWFltZ3F2NVZ1QnJHeUx0REE3Wk5JNHh3OGlyL016NnpsTkZKNllwOFZY?=
+ =?utf-8?B?NzhNUUlMN1Nybi9VZ0o0MlpzcGZZV1dlQXZGY2hxNmI0RlhUWkhQcDgzT1BR?=
+ =?utf-8?B?ZjdWSEN5YXpGY2xkOGw5N2V0Z0Z0NTdPbXlqMDNhRXg4OUVOQ09vUHRiazVB?=
+ =?utf-8?B?UDkvTzg4OVZNMm9KQ3ArV2Uyb21CVkZ2WktSbUM4S1kxaUJvWDYwNFlmRUxS?=
+ =?utf-8?B?cGtsTlUwUDh6TmVTTjZNN3JhZkU4NER1TjUrTHlpbkdFc3BXZ2NyYVFyb25N?=
+ =?utf-8?B?dVJJNmJVVDJGRFNCMEE4MmVEVVJOM2NCTFF1S2dKNGVNNkczZFpTbUw1aXA5?=
+ =?utf-8?B?U0VCZzJZbkxsNno0Q29BOU85OXNNUUp2a2Frak5jWUtHWW96c1p6ZWE1YUJI?=
+ =?utf-8?B?cm9NbEgwb0llZCthdkhQT3drK0M2L3pYM244RDZ2THZlY0ZCOHJrdFljaUJG?=
+ =?utf-8?B?dk1TdzJGVzF0QlNncWE5SVhpeTUrZWZ2MytGdmdGdEY4MmRTWVVheDhzTUta?=
+ =?utf-8?B?Q2RWbmMzcVc3dng4NThOSEpQNEM5cGhZUUovRUNJNWxUQ0diMFlVRENlYlMx?=
+ =?utf-8?B?a1h3MTRGeW5VclVIbXVIcnFIMnpHUUJzSTduQmpKU0RxbVFjd3hYNGpYOXBm?=
+ =?utf-8?B?aTlTc1Y4YmFwZTYyU0lTS0h2TnRucllvY1dGTDNXN0NBMkcrbzZDbEdEeFRm?=
+ =?utf-8?B?a3phd29lR284a3V0T3lscXp3aTh0WjlvSEhKcU5sNTVmVVFJWjkwTXJVaDVs?=
+ =?utf-8?B?emVrSGI2RjdUL1N1RDYyNEVmRlppVmVSZGdubUl5Umw5aVJpRWw2Rmt6MTlm?=
+ =?utf-8?B?R0Z5K1B3YXhHWXgyZFVYLzdBQ1ZWRE02WkZmYXdWK0RhcnplMFhQcGFYN0RH?=
+ =?utf-8?B?SXplT0laWDlxaUQ4SXpFRDZNMDBvRHJnK09pUkJjV0Jib0swa1cxZkIvVmxK?=
+ =?utf-8?B?bmYxb1d2UTNzNEhhWFdhL2g2eTlGMGNpOHNNMTd1cEJqWDk3WjEvR002bGlh?=
+ =?utf-8?B?RFJvWDlPTGtpNlpTbjBuWmxuOHcxcVRIb29pS0NJMTBGZ2ZyWTl0dGRMcmlU?=
+ =?utf-8?B?MWt1RFRNOVpZYnNxWkJFNTMwVlRxcmltNkhKNHVFSDB2UlFhMEtmU096RUkw?=
+ =?utf-8?B?TkhzcVRiWnFKYjRuUTFDNS92YmNtT1Fhc0pXUXdOdjVoaEJHQzFJUllkbTc2?=
+ =?utf-8?B?V2UwcXlJM0pmYTQxcmV6VzBBLzVFWnREZmp5cC84TlRpZGp2bFdIZXQrMG96?=
+ =?utf-8?B?S0hxU1NzZ2pRMHIzcktnTFQ1akQ1dWZqc0pSS0F3V1E1cGc2K2t6RW80MzdE?=
+ =?utf-8?B?OXNhVmtYaFVqK2tyZ1E3cWZ6N2xvcHBJZU8rVExnVjY1N2J0TFRxck9MKzh6?=
+ =?utf-8?B?cHcxbmRhcE9tMTBXdWIvUTIrb1lPM1VKVzNvNGFKeUd4REp2Wk1hSWcwVHJN?=
+ =?utf-8?B?YkJBZ2Qybk1JWlF3dWtwZXh0NlY3MFc3MmtUZUMwb1I4bmFlbVFzQXVrSWQ1?=
+ =?utf-8?B?Rk01c1lVK1dadnZ0QzZDRzRpS1ZJUk9PNUdMY2hDYlFCeVBWdTdRSkt5VjVv?=
+ =?utf-8?B?eHphaEs2czVFbVU4TE0wUnNObEZrOTQ3WUVVMnZzamNVV1VlMlBqQXFMY2t5?=
+ =?utf-8?B?YjdaVXVJM0J1YTZYTm4zejdSUU11QlhHbGpWclRyY2ZhdVlIN3Y5KzZPSzBP?=
+ =?utf-8?B?MFB3VHd5K090c1FTWVc5UEVQUzFlUVc1TFNTcEkraWwrZjJ6cndkaGxjdE1p?=
+ =?utf-8?Q?i5nNm9PQJ7R32lN8=3D?=
+X-Exchange-RoutingPolicyChecked: RxyKOONNo22bUqpnq4MXneVAOHeebN3gbBgE/DuNaPCIWsz86S9Oc2kt0KbDAF5PsTtieACBSBD/LsV45ne0c1FfHksrY1nS/5n2LuZ3bU68/n/2PVf+EWIwT1ASo4oU53H+rFBw1HE4i+KefsgEoh+npsRmJE1fptJEfq1WV2zqFDG4vUGEYg+0HxsTJJw49sRMePBUssTM5otXst88TUI6Tl0iTdJH0ONQNexaeq/TfikPL2T9tuqJbA0JAdZRowXEjGVX4kDeRLfirAfW3+E6XYrvtlIrXpu0SzMwNe//HkfWc1ytZaHNn+E4pL0ZntM+ReACMaYQ/jFb0O2vIw==
+X-MS-Exchange-CrossTenant-Network-Message-Id: b456b798-f95a-4fc6-1eda-08dec26c33b0
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR11MB7381.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 19:05:11.4082 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 22MZcx5GsdXTwjrszNHAbBCUT7uabLgZM/j0sNuIs5ZKQQPemlNVNcyfBjEdoT8/oyljzss4k9HrmsnLFLAWcSM8y9ELhe/zO9Gb/P8w134=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR11MB8293
+X-OriginatorOrg: intel.com
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, edumazet@google.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: xgmac: report L3/L4 filter
+ match count in ethtool stats
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -65,77 +180,100 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:alexander.shishkin@linux.intel.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FREEMAIL_TO(0.00)[linux.intel.com,gmail.com,foss.st.com];
-	TO_DN_SOME(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:mid,intel.com:from_mime,intel.com:email,altera.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:muhammad.nazim.amirul.nazle.asmade@altera.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[jacob.e.keller@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	TO_DN_NONE(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[jacob.e.keller@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_NEQ_ENVFROM(0.00)[thorsten.blum@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[linux.dev:-];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:mid,linux.dev:from_mime,linux.dev:email]
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 772F6641689
+X-Rspamd-Queue-Id: 1D0BE642C8E
 
-Gentle ping?
-
-On Fri, May 08, 2026 at 04:47:06PM +0200, Thorsten Blum wrote:
-> The local error variable and the corresponding if check in stm_write()
-> are unnecessary. Remove them.
+On 6/4/2026 1:30 AM, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> Signed-off-by: Thorsten Blum <thorsten.blum@linux.dev>
+> Read the L3FM and L4FM bits from the RX descriptor status word (RDES2)
+> and increment the corresponding ethtool statistics counters. This allows
+> users to observe L3/L4 filter hit rates via ethtool -S.
+> 
+> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > ---
->  drivers/hwtracing/stm/core.c | 8 +-------
->  1 file changed, 1 insertion(+), 7 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h       | 2 ++
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c | 6 ++++++
+>  2 files changed, 8 insertions(+)
 > 
-> diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-> index f48c6a8a0654..edf3d69a84a9 100644
-> --- a/drivers/hwtracing/stm/core.c
-> +++ b/drivers/hwtracing/stm/core.c
-> @@ -602,17 +602,11 @@ static ssize_t notrace
->  stm_write(struct stm_device *stm, struct stm_output *output,
->  	  unsigned int chan, const char *buf, size_t count, struct stm_source_data *source)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> index 51943705a2b0..95fdf3133208 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2.h
+> @@ -429,6 +429,8 @@
+>  #define XGMAC_TDES3_VLTV		BIT(16)
+>  #define XGMAC_TDES3_VT			GENMASK(15, 0)
+>  #define XGMAC_TDES3_FL			GENMASK(14, 0)
+> +#define XGMAC_RDES2_L4FM		BIT(28)
+> +#define XGMAC_RDES2_L3FM		BIT(27)
+>  #define XGMAC_RDES2_HL			GENMASK(9, 0)
+>  #define XGMAC_RDES3_OWN			BIT(31)
+>  #define XGMAC_RDES3_CTXT		BIT(30)
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> index b5f200a87484..6719ac6e395b 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_descs.c
+> @@ -27,6 +27,7 @@ static int dwxgmac2_get_rx_status(struct stmmac_extra_stats *x,
+>  				  struct dma_desc *p)
 >  {
-> -	int err;
-> -
->  	/* stm->pdrv is serialized against policy_mutex */
->  	if (!stm->pdrv)
->  		return -ENODEV;
+>  	u32 rdes3 = le32_to_cpu(p->des3);
+> +	u32 rdes2 = le32_to_cpu(p->des2);
 >  
-> -	err = stm->pdrv->write(stm->data, output, chan, buf, count, source);
-> -	if (err < 0)
-> -		return err;
-> -
-> -	return err;
-> +	return stm->pdrv->write(stm->data, output, chan, buf, count, source);
+>  	if (unlikely(rdes3 & XGMAC_RDES3_OWN))
+>  		return dma_own;
+> @@ -37,6 +38,11 @@ static int dwxgmac2_get_rx_status(struct stmmac_extra_stats *x,
+>  	if (unlikely((rdes3 & XGMAC_RDES3_ES) && (rdes3 & XGMAC_RDES3_LD)))
+>  		return discard_frame;
+>  
+> +	if (rdes2 & XGMAC_RDES2_L3FM)
+> +		x->l3_filter_match++;
+> +	if (rdes2 & XGMAC_RDES2_L4FM)
+> +		x->l4_filter_match++;
+> +
+>  	return good_frame;
 >  }
 >  
->  static ssize_t stm_char_write(struct file *file, const char __user *buf,
+
+Right. The l3_filter_match and l4_filter_match already get reported in
+stmmac_ethtool.c
+
+Reviewed-by: Jacob Keller <jacob.e.keller@intel.com>
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
