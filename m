@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id kbnbCXLqIWonQgEAu9opvQ
+	id 5Ms8DXPqIWooQgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 23:13:22 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 23:13:23 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF09D64389D
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 23:13:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 132B96438A0
+	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 23:13:23 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=MDcxOFIl;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=Xxxgafho;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5ACDC8F275;
-	Thu,  4 Jun 2026 21:13:21 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9AC3C8F273;
+	Thu,  4 Jun 2026 21:13:22 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44C3AC8F275
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B2832C8F273
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jun 2026 21:13:20 +0000 (UTC)
+ Thu,  4 Jun 2026 21:13:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 288D74042C;
- Thu,  4 Jun 2026 21:13:19 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 685231F00898;
- Thu,  4 Jun 2026 21:13:18 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id AB9A7418EA;
+ Thu,  4 Jun 2026 21:13:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D89F1F00893;
+ Thu,  4 Jun 2026 21:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780607599;
- bh=Bvq7vOl1c1mpIND7SGq8IUzzkQicWNmeIHBCULeRYCk=;
+ s=k20260515; t=1780607600;
+ bh=R+m7Si3D+ole/8K+71lLy8KRgWcJ869l99QxME4GzlE=;
  h=In-Reply-To:References:Subject:From:To:Cc:Date;
- b=MDcxOFIlJpDBkWx4G4Fyg+NRKBS8U/9nrpTIxW6hEAlPJieSOpscifAXinZHL8Pra
- ZLcvQyU2kS2+93H6siaH+q5lJv7j+LGzr0G5gATRIramDZR8hJmQB2jAL2NvItMOwa
- yuaA6IX9likH4SSia+VKj/6U5wccC4VyPhb5GYtrdsgtf5yx6sZ2TSBmSTmvz0A5a3
- lDVeTJAPGhBGQSMQxXc0h41xsI9JXJ1l0XS3K8yxFPAVq7Gr95j40husFaFtoPFhFk
- P3oAWBSjMGDNurtTa4DUHudhMuteXxxRhDtCCMKbPzSlhMjw2A2DlG56pJARAd9sxo
- eLmhA5dVCl8aQ==
-Content-Type: multipart/mixed; boundary="===============5364940318977030226=="
+ b=XxxgafhoyrZUNrj9DMod/PAUvkNiUv2GCWyfl/7nELyGmpgFUfbbgs4IABIUR8bSV
+ iXqujyVPXhwDHm8wMNNuOC2fijPOzLM3GyTDqJ55GKlEwaU5OCgzT0eyL3IYo/5Uh9
+ Fm9ly5QIfRWXCk886bHqoT0brJZSCl3aVgQ0H2u0oVnpScy3cLraxS7bYazcgugO/N
+ W8vBcMi9ncHagU7ElqUYs3PsjcufcD6rkf84Lyxsnp28IZrbxqbcFTzernOXS7dMMc
+ 5Rbze6TGAQlswv0ANClo3hsMXoJ0ku8h9UCibajVifNobVlFPYQxYkDcn8d9GNur29
+ BggA9CObmDEjQ==
+Content-Type: multipart/mixed; boundary="===============5773208707414677654=="
 MIME-Version: 1.0
-Message-Id: <1e7ab52954b9ff584d6871c2ec234a7155b577f29128564d0d597809cafad826@mail.kernel.org>
-In-Reply-To: <20260604-kasan-v2-2-c066e627fda8@bootlin.com>
-References: <20260604-kasan-v2-2-c066e627fda8@bootlin.com>
+Message-Id: <8485a4391b9a9b744bf0f740b60ba73dec5e894a725157f9c336c0225e00a4dd@mail.kernel.org>
+In-Reply-To: <20260604-kasan-v2-4-c066e627fda8@bootlin.com>
+References: <20260604-kasan-v2-4-c066e627fda8@bootlin.com>
 From: bot+bpf-ci@kernel.org
 To: alexis.lothore@bootlin.com, ast@kernel.org, daniel@iogearbox.net,
  andrii@kernel.org, martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
@@ -50,7 +50,7 @@ To: alexis.lothore@bootlin.com, ast@kernel.org, daniel@iogearbox.net,
  dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, shuah@kernel.org,
  mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
  ihor.solodrai@linux.dev
-Date: Thu,  4 Jun 2026 21:13:18 +0000 (UTC)
+Date: Thu,  4 Jun 2026 21:13:20 +0000 (UTC)
 Cc: yonghong.song@linux.dev, thomas.petazzoni@bootlin.com, daniel@iogearbox.net,
  eddyz87@gmail.com, ebpf@linuxfoundation.org, linux-kernel@vger.kernel.org,
  ast@kernel.org, andrii@kernel.org, ihor.solodrai@linux.dev,
@@ -58,8 +58,8 @@ Cc: yonghong.song@linux.dev, thomas.petazzoni@bootlin.com, daniel@iogearbox.net,
  bpf@vger.kernel.org, bastien.curutchet@bootlin.com, clm@meta.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
  martin.lau@kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 2/8] bpf: add BPF_JIT_KASAN
-	for KASAN instrumentation of JITed programs
+Subject: Re: [Linux-stm32] [PATCH bpf-next v2 4/8] bpf,
+	x86: refactor BPF_ST management in do_jit
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -114,51 +114,109 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EF09D64389D
+X-Rspamd-Queue-Id: 132B96438A0
 
---===============5364940318977030226==
+--===============5773208707414677654==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
 
-> diff --git a/kernel/bpf/Kconfig b/kernel/bpf/Kconfig
-> index eb3de35734f0..a8e004f88b92 100644
-> --- a/kernel/bpf/Kconfig
-> +++ b/kernel/bpf/Kconfig
+> diff --git a/arch/x86/net/bpf_jit_comp.c b/arch/x86/net/bpf_jit_comp.c
+> index 0981791014eb..943a0f315cf2 100644
+> --- a/arch/x86/net/bpf_jit_comp.c
+> +++ b/arch/x86/net/bpf_jit_comp.c
+> @@ -2300,41 +2300,50 @@ static int do_jit(struct bpf_verifier_env *env, struct bpf_prog *bpf_prog, int *
+>  			EMIT_LFENCE();
+>  			break;
+>
+> -			/* ST: *(u8*)(dst_reg + off) = imm */
+>  		case BPF_ST | BPF_MEM | BPF_B:
 
 [ ... ]
 
-> @@ -101,4 +105,9 @@ config BPF_LSM
+>  		case BPF_ST | BPF_MEM | BPF_DW:
+> -			if (dst_reg == BPF_REG_PARAMS && insn->off == -8) {
+> -				/* Arg 6: store immediate in r9 register */
+> -				emit_mov_imm64(&prog, X86_REG_R9, imm32 >> 31, (u32)imm32);
+> +			switch (BPF_SIZE(insn->code)) {
+
+[ ... ]
+
+> +			case BPF_DW:
+> +				if (dst_reg == BPF_REG_PARAMS &&
+> +				    insn->off == -8) {
+> +					/* Arg 6: store immediate in r9 register */
+> +					emit_mov_imm64(&prog, X86_REG_R9,
+> +						       imm32 >> 31, (u32)imm32);
+> +					break;
+> +				}
+> +				EMIT2(add_1mod(0x48, dst_reg), 0xC7);
+>  				break;
+>  			}
+> -			EMIT2(add_1mod(0x48, dst_reg), 0xC7);
 >
->  	  If you are unsure how to answer this question, answer N.
->
-> +config BPF_JIT_KASAN
-> +	bool
-> +	depends on HAVE_EBPF_JIT_KASAN
-> +	default y if BPF_JIT && KASAN_GENERIC && KASAN_VMALLOC && VMAP_STACK
-> +
->  endmenu # "BPF subsystem"
+> -st:			insn_off = insn->off;
+> +			insn_off = insn->off;
 
-This isn't a bug, but a design concern raised on an earlier posting of
-this work doesn't look fully resolved.
+Has the scope of the Arg 6 break changed here?
 
-In the v1 (RFC) discussion, the suggestion was to not add a config knob
-at all and instead do the instrumentation inside the JIT whenever
-KASAN_GENERIC is set:
+In the original code the BPF_DW handling lived directly under the case
+label, and its break left the whole outer instruction switch:
 
-  "Let's not add more config knobs. Even this patch looks redundant.
-   Inside JIT do instrumentation when KASAN_GENERIC is set."
+	case BPF_ST | BPF_MEM | BPF_DW:
+		if (dst_reg == BPF_REG_PARAMS && insn->off == -8) {
+			/* Arg 6: store immediate in r9 register */
+			emit_mov_imm64(&prog, X86_REG_R9, imm32 >> 31, (u32)imm32);
+			break;
+		}
+		EMIT2(add_1mod(0x48, dst_reg), 0xC7);
+	st:	insn_off = insn->off;
+		...
 
-  https://lore.kernel.org/bpf/CAADnVQLj=UosnsC-4V2+mN92Fe0-kW++U+m-O9c93kk6BwiXgw@mail.gmail.com/
+So for the Arg 6 case it emitted exactly the movabs into r9 and stopped,
+never reaching the st: addressing and immediate emission.
 
-The reasoning given for keeping the internal Kconfig was that it lets
-selftests adapt their behavior without sprinkling arch and KASAN
-conditionals, and another reviewer agreed that approach was reasonable.
+After the refactor, the Arg 6 branch lives inside the inner switch on
+BPF_SIZE(), so its break only exits that inner switch:
 
-That "this patch looks redundant" objection was never explicitly
-retracted or re-acked, yet the BPF_JIT_KASAN config is retained here.
+	case BPF_DW:
+		if (dst_reg == BPF_REG_PARAMS &&
+		    insn->off == -8) {
+			emit_mov_imm64(&prog, X86_REG_R9,
+				       imm32 >> 31, (u32)imm32);
+			break;
+		}
+		EMIT2(add_1mod(0x48, dst_reg), 0xC7);
+		break;
+	}
 
-Has this design point been settled?
+	insn_off = insn->off;
+	if (dst_reg == BPF_REG_PARAMS) {
+		insn_off = outgoing_arg_base - outgoing_rsp -
+			   insn_off - 16;
+		dst_reg = BPF_REG_FP;
+	}
+	if (is_imm8(insn_off))
+		EMIT2(add_1reg(0x40, dst_reg), insn_off);
+	else
+		EMIT1_off32(add_1reg(0x80, dst_reg), insn_off);
+	EMIT(imm32, bpf_size_to_x86_bytes(BPF_SIZE(insn->code)));
+
+After emitting the movabs into r9, does control now fall through into
+the common insn_off block and emit an additional ModRM/displacement byte
+sequence plus a 4-byte immediate that do not belong to any instruction?
+
+Would those extra bytes corrupt the emitted machine code stream for the
+Arg 6 path, since dst_reg == BPF_REG_PARAMS with insn->off == -8 is a
+reachable case used to pass the 6th outgoing call argument in r9?
+
+Could the original break be preserved here, for example by breaking out
+of the outer switch (or skipping the insn_off block) once the Arg 6
+movabs has been emitted?
+
+The commit message describes this as grouping the BPF_ST instructions
+"in a single block of fall-through cases", implying no behavioral change,
+but the Arg 6 path appears to gain extra emitted bytes.
 
 
 ---
@@ -166,7 +224,7 @@ AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
 See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
 CI run summary: https://github.com/kernel-patches/bpf/actions/runs/26978380520
---===============5364940318977030226==
+--===============5773208707414677654==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -177,4 +235,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============5364940318977030226==--
+--===============5773208707414677654==--
