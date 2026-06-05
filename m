@@ -2,75 +2,68 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id wOzvFu3sImo+fQEAu9opvQ
+	id SGbvL5L+J2pf6wIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 17:36:13 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:50 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D8D6495C6
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 17:36:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D50465FAC6
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=LSb3DbXw;
+	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=CU3lwnr7;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=bootlin.com (policy=reject)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linux.dev (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 150EFC87ED6;
-	Fri,  5 Jun 2026 15:36:12 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E2A55C8F285;
+	Tue,  9 Jun 2026 11:52:49 +0000 (UTC)
+Received: from out-185.mta0.migadu.com (out-185.mta0.migadu.com
+ [91.218.175.185])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7A3D8C87ED5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B35F5C87ED5
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 15:36:11 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 91F194E40859;
- Fri,  5 Jun 2026 15:36:10 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4A1AB5FED1;
- Fri,  5 Jun 2026 15:36:10 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 3C996106A24F0; 
- Fri,  5 Jun 2026 17:35:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780673767; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=FHeuOlC/gaOtesZkFgqVr9DoEMDIdfxTclEETE4eqSU=;
- b=LSb3DbXwWwWowFJQbUezIa1BBhdJR5igSpOLdXQsCT+BMkRWsdW44ijdI9dXSrrrcI8V3I
- ecL7Zv+Q2UVM43Odjp/o2hzqvGbJH9gcvwM6bdnjCKpscXz21KdbG5a15Kc6ylGOPoMikV
- /27OcnmIj1H+3ddtxGC9cfiTRCWoqBfbWXl8ciMGadarXoTP7kfh+SkJNF+NmdT7qNf3N7
- nOUpMyUSLjBesoK1WhJDphDI8xte4Zjy9kt1XGP1BSTgKvcUlm5wSd8QHvl7H5BQGa0SY4
- 7tx4Gs7DtT2TfocD21W8eEKgMWx1a3Dd+/HcnhtEgGNrly28oFopJXpGDFJybQ==
-Message-ID: <566af63b-05a9-43f8-94e9-19af737c848a@bootlin.com>
-Date: Fri, 5 Jun 2026 17:35:47 +0200
+ Fri,  5 Jun 2026 15:47:32 +0000 (UTC)
+Message-ID: <13b87293-5237-43d3-9f91-33c13041cb43@linux.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+ t=1780674451;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=iZG4aMaH9HnROS+vLpUfnBWFNRF+eTigF60FCdnGxlg=;
+ b=CU3lwnr7dLF/lcnaKkaJnyuvAA8Nxo3qD4VS+Oc2hZ4JJFIEPLI567mvejISPJ/p18VGtg
+ Pne7bezX9KkPrqNIvoVD5gO3vtihOLj9Rk3FaLzyLWVLsLAlo0HCOMWRZcFfpweonp3GeT
+ UYGbz38W2W7kjrHxQLIZtxb6zUmHM/E=
+Date: Fri, 5 Jun 2026 08:47:19 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Alex Elder <elder@riscstar.com>, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, rmk+kernel@armlinux.org.uk, andersson@kernel.org,
- konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
- gregkh@linuxfoundation.org
-References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-4-elder@riscstar.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260605010022.968612-4-elder@riscstar.com>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: me@ziyao.cc, linux-kernel@vger.kernel.org,
- Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
- linux-stm32@st-md-mailman.stormreply.com, mohd.anwar@oss.qualcomm.com,
- weishangjuan@eswincomputing.com, daniel@iogearbox.net, chenhuacai@kernel.org,
- john.fastabend@gmail.com, siyanteng@cqsoftware.com.cn, sdf@fomichev.me,
- devicetree@vger.kernel.org, hawk@kernel.org, linux-arm-msm@vger.kernel.org,
- richardcochran@gmail.com, rohan.g.thomas@altera.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, livelycarpet87@gmail.com,
- ast@kernel.org, linux-gpio@vger.kernel.org, wens@kernel.org,
- linux-arm-kernel@lists.infradead.org, inochiama@gmail.com,
- a0987203069@gmail.com, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
- netdev@vger.kernel.org, bpf@vger.kernel.org, julianbraha@gmail.com,
- hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 03/14] net: pcs:
- pcs-xpcs-regmap: support XPCS memory-mapped MDIO bus via regmap
+Content-Language: en-GB
+To: =?UTF-8?Q?Alexis_Lothor=C3=A9_=28eBPF_Foundation=29?=
+ <alexis.lothore@bootlin.com>, Alexei Starovoitov <ast@kernel.org>,
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
+ Martin KaFai Lau <martin.lau@linux.dev>, Eduard Zingerman
+ <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+ Song Liu <song@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
+ John Fastabend <john.fastabend@gmail.com>, Thomas Gleixner
+ <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>,
+ Shuah Khan <shuah@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Ihor Solodrai <ihor.solodrai@linux.dev>
+References: <20260604-kasan-v2-0-c066e627fda8@bootlin.com>
+ <20260604-kasan-v2-8-c066e627fda8@bootlin.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Yonghong Song <yonghong.song@linux.dev>
+In-Reply-To: <20260604-kasan-v2-8-c066e627fda8@bootlin.com>
+X-Migadu-Flow: FLOW_OUT
+X-Mailman-Approved-At: Tue, 09 Jun 2026 11:52:48 +0000
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, ebpf@linuxfoundation.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ bpf@vger.kernel.org, Bastien Curutchet <bastien.curutchet@bootlin.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH bpf-next v2 8/8] selftests/bpf: add tests
+ to validate KASAN on JIT programs
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,306 +75,276 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
+	DATE_IN_PAST(1.00)[92];
+	R_DKIM_REJECT(1.00)[linux.dev:s=key1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[linux.dev : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:elder@riscstar.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:linusw@kernel.org,m:brgl@kernel.org,m:arnd@arndb.de,m:gregkh@linuxfoundation.org,m:me@ziyao.cc,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:linux-stm32@st-md-mailman.stormreply.com,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:devicetree@vger.kernel.org,m:hawk@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:ast@kernel.org,m:linux-gpio@vger.kernel.org,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.o
- rg,m:inochiama@gmail.com,m:a0987203069@gmail.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:bpf@vger.kernel.org,m:julianbraha@gmail.com,m:hkallweit1@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:conor@kernel.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[47];
+	FORGED_RECIPIENTS(0.00)[m:alexis.lothore@bootlin.com,m:ast@kernel.org,m:daniel@iogearbox.net,m:andrii@kernel.org,m:martin.lau@linux.dev,m:eddyz87@gmail.com,m:memxor@gmail.com,m:song@kernel.org,m:jolsa@kernel.org,m:john.fastabend@gmail.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:shuah@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:ihor.solodrai@linux.dev,m:thomas.petazzoni@bootlin.com,m:ebpf@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:linux-kselftest@vger.kernel.org,m:bpf@vger.kernel.org,m:bastien.curutchet@bootlin.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[bootlin.com,kernel.org,iogearbox.net,linux.dev,gmail.com,redhat.com,alien8.de,linux.intel.com,zytor.com,foss.st.com];
+	FORGED_SENDER(0.00)[yonghong.song@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[28];
 	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[maxime.chevallier@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[bootlin.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[ziyao.cc,vger.kernel.org,riscstar.com,xiaomi.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,altera.com,bp.renesas.com,lists.infradead.org];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel,dt];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[yonghong.song@linux.dev,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[linux.dev:-];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:from_mime,bootlin.com:mid,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,linux.dev:mid,linux.dev:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A6D8D6495C6
+X-Rspamd-Queue-Id: 3D50465FAC6
 
-Hi Alex,
-
-On 6/5/26 03:00, Alex Elder wrote:
-> From: Daniel Thompson <daniel@riscstar.com>
-> 
-> In some DesignWare XPCS implementatons the memory-mapped MDIO bus is
-> allocated to a register window that does not align to a page boundary.
-> This makes iomapping the registers problematic.
-> 
-> For example the Toshiba TC9564 (a PCIe Ethernet-AVB/TSN bridge) provides
-> an "eMAC" subsystem with the XPCS base address cuddled up to XGMAC
-> registers.
-> 
-> Let's introduce helpers to allow the driver that owns the eMAC to register
-> an XPCS using is regmap for the memory-mapped MDIO bus.
-> 
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  MAINTAINERS                         |   2 +
->  drivers/net/pcs/Makefile            |   4 +-
->  drivers/net/pcs/pcs-xpcs-regmap.c   | 219 ++++++++++++++++++++++++++++
->  include/linux/pcs/pcs-xpcs-regmap.h |  20 +++
->  4 files changed, 243 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/net/pcs/pcs-xpcs-regmap.c
->  create mode 100644 include/linux/pcs/pcs-xpcs-regmap.h
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index eb8cdcc76324f..2aa6ea012c848 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -25931,8 +25931,10 @@ F:	drivers/net/ethernet/synopsys/
->  SYNOPSYS DESIGNWARE ETHERNET XPCS DRIVER
->  L:	netdev@vger.kernel.org
->  S:	Orphan
-> +F:	drivers/net/pcs/pcs-xpcs-regmap.c
->  F:	drivers/net/pcs/pcs-xpcs.c
->  F:	drivers/net/pcs/pcs-xpcs.h
-> +F	include/linux/pcs/pcs-xpcs-regmap.h
->  F:	include/linux/pcs/pcs-xpcs.h
->  
->  SYNOPSYS DESIGNWARE HDMI RX CONTROLLER DRIVER
-> diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
-> index 4f7920618b900..565f1b63fce0b 100644
-> --- a/drivers/net/pcs/Makefile
-> +++ b/drivers/net/pcs/Makefile
-> @@ -1,8 +1,8 @@
->  # SPDX-License-Identifier: GPL-2.0
->  # Makefile for Linux PCS drivers
->  
-> -pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-plat.o \
-> -				   pcs-xpcs-nxp.o pcs-xpcs-wx.o
-> +pcs_xpcs-$(CONFIG_PCS_XPCS)	:= pcs-xpcs.o pcs-xpcs-nxp.o pcs-xpcs-regmap.o \
-> +				   pcs-xpcs-plat.o pcs-xpcs-wx.o
->  
->  obj-$(CONFIG_PCS_XPCS)		+= pcs_xpcs.o
->  obj-$(CONFIG_PCS_LYNX)		+= pcs-lynx.o
-> diff --git a/drivers/net/pcs/pcs-xpcs-regmap.c b/drivers/net/pcs/pcs-xpcs-regmap.c
-> new file mode 100644
-> index 0000000000000..55cd05d09c7db
-> --- /dev/null
-> +++ b/drivers/net/pcs/pcs-xpcs-regmap.c
-> @@ -0,0 +1,219 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Synopsys DesignWare XPCS regmap helpers
-> + *
-> + * Copyright (C) 2026 RISCstar Solutions.
-> + * Copyright (C) 2024 Serge Semin
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/kernel.h>
-> +#include <linux/mdio.h>
-> +#include <linux/pcs/pcs-xpcs.h>
-> +#include <linux/pcs/pcs-xpcs-regmap.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "pcs-xpcs.h"
-> +
-> +/* Page select register for the indirect MMIO CSRs access */
-> +#define DW_VR_CSR_VIEWPORT		0xff
-> +
-> +struct dw_xpcs_regmap {
-> +	struct device *dev;
-> +	struct mii_bus *bus;
-> +	struct regmap *regmap;
-> +	bool reg_indir;
-> +};
-> +
-> +static ptrdiff_t xpcs_regmap_addr_format(int dev, int reg)
-> +{
-> +	return FIELD_PREP(0x1f0000, dev) | FIELD_PREP(0xffff, reg);
-> +}
-> +
-> +static u16 xpcs_regmap_addr_page(ptrdiff_t csr)
-> +{
-> +	return FIELD_GET(0x1fff00, csr);
-> +}
-> +
-> +static ptrdiff_t xpcs_regmap_addr_offset(ptrdiff_t csr)
-> +{
-> +	return FIELD_GET(0xff, csr);
-> +}
-> +
-> +static int xpcs_regmap_read_reg_indirect(struct dw_xpcs_regmap *pxpcs, int dev,
-> +					 int reg)
-> +{
-> +	ptrdiff_t csr, ofs;
-> +	unsigned int val;
-> +	u16 page;
-> +	int res;
-> +
-> +	csr = xpcs_regmap_addr_format(dev, reg);
-> +	page = xpcs_regmap_addr_page(csr);
-> +	ofs = xpcs_regmap_addr_offset(csr);
-> +
-> +	res = regmap_write(pxpcs->regmap, DW_VR_CSR_VIEWPORT, page);
-> +	if (res < 0)
-> +		return res;
-> +
-> +	res = regmap_read(pxpcs->regmap, ofs, &val);
-> +	if (res < 0)
-> +		return res;
-> +
-> +	return val & 0xffff;
-> +}
-> +
-> +static int xpcs_regmap_write_reg_indirect(struct dw_xpcs_regmap *pxpcs, int dev,
-> +					  int reg, u16 val)
-> +{
-> +	ptrdiff_t csr, ofs;
-> +	u16 page;
-> +	int res;
-> +
-> +	csr = xpcs_regmap_addr_format(dev, reg);
-> +	page = xpcs_regmap_addr_page(csr);
-> +	ofs = xpcs_regmap_addr_offset(csr);
-> +
-> +	res = regmap_write(pxpcs->regmap, DW_VR_CSR_VIEWPORT, page);
-> +	if (res < 0)
-> +		return res;
-> +
-> +	return regmap_write(pxpcs->regmap, ofs, val);
-> +}
-> +
-> +static int xpcs_regmap_read_reg_direct(struct dw_xpcs_regmap *pxpcs, int dev,
-> +				       int reg)
-> +{
-> +	unsigned int val;
-> +	ptrdiff_t csr;
-> +	int res;
-> +
-> +	csr = xpcs_regmap_addr_format(dev, reg);
-> +	res = regmap_read(pxpcs->regmap, csr, &val);
-> +	if (res < 0)
-> +		return res;
-> +
-> +	return val & 0xffff;
-> +}
-> +
-> +static int xpcs_regmap_write_reg_direct(struct dw_xpcs_regmap *pxpcs, int dev,
-> +					int reg, u16 val)
-> +{
-> +	ptrdiff_t csr = xpcs_regmap_addr_format(dev, reg);
-> +
-> +	return regmap_write(pxpcs->regmap, csr, val);
-> +}
-> +
-> +static int xpcs_regmap_read_c22(struct mii_bus *bus, int addr, int reg)
-> +{
-> +	struct dw_xpcs_regmap *pxpcs = bus->priv;
-> +
-> +	if (addr != 0)
-> +		return -ENODEV;
-> +
-> +	if (pxpcs->reg_indir)
-> +		return xpcs_regmap_read_reg_indirect(pxpcs, MDIO_MMD_VEND2, reg);
-> +	else
-> +		return xpcs_regmap_read_reg_direct(pxpcs, MDIO_MMD_VEND2, reg);
-> +}
-> +
-> +static int xpcs_regmap_write_c22(struct mii_bus *bus, int addr, int reg, u16 val)
-> +{
-> +	struct dw_xpcs_regmap *pxpcs = bus->priv;
-> +
-> +	if (addr != 0)
-> +		return -ENODEV;
-> +
-> +	if (pxpcs->reg_indir)
-> +		return xpcs_regmap_write_reg_indirect(pxpcs, MDIO_MMD_VEND2, reg, val);
-> +	else
-> +		return xpcs_regmap_write_reg_direct(pxpcs, MDIO_MMD_VEND2, reg, val);
-> +}
-> +
-> +static int xpcs_regmap_read_c45(struct mii_bus *bus, int addr, int dev, int reg)
-> +{
-> +	struct dw_xpcs_regmap *pxpcs = bus->priv;
-> +
-> +	if (addr != 0)
-> +		return -ENODEV;
-> +
-> +	if (pxpcs->reg_indir)
-> +		return xpcs_regmap_read_reg_indirect(pxpcs, dev, reg);
-> +	else
-> +		return xpcs_regmap_read_reg_direct(pxpcs, dev, reg);
-> +}
-> +
-> +static int xpcs_regmap_write_c45(struct mii_bus *bus, int addr, int dev,
-> +				 int reg, u16 val)
-> +{
-> +	struct dw_xpcs_regmap *pxpcs = bus->priv;
-> +
-> +	if (addr != 0)
-> +		return -ENODEV;
-> +
-> +	if (pxpcs->reg_indir)
-> +		return xpcs_regmap_write_reg_indirect(pxpcs, dev, reg, val);
-> +	else
-> +		return xpcs_regmap_write_reg_direct(pxpcs, dev, reg, val);
-> +}
-> +
-> +static void devm_xpcs_regmap_destroy(void *data)
-> +{
-> +	struct dw_xpcs *xpcs = data;
-> +
-> +	xpcs_destroy(xpcs);
-> +}
-> +
-> +struct dw_xpcs *devm_xpcs_regmap_register(struct device *dev,
-> +					  const struct xpcs_regmap_config *config)
-> +{
-> +	static atomic_t id = ATOMIC_INIT(-1);
-> +	struct dw_xpcs_regmap *pxpcs;
-> +	struct dw_xpcs *xpcs;
-> +	int ret;
-> +
-> +	pxpcs = devm_kzalloc(dev, sizeof(*pxpcs), GFP_KERNEL);
-> +	if (!pxpcs)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	pxpcs->dev = dev;
-> +	pxpcs->regmap = config->regmap;
-> +	pxpcs->reg_indir = config->reg_indir;
-
-Looking at the overall series, is there any reason for this flag ?
-
-Looks like the reg_indir=false path isn't used at all in this series.
-
-Maybe just drop it and let anyone add it back should the need arise ?
-
-Maxime
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+CgpPbiA2LzQvMjYgMToyMiBQTSwgQWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24pIHdy
+b3RlOgo+IEFkZCBhIGJhc2ljIEtBU0FOIHRlc3QgcnVubmVyIHRoYXQgbG9hZHMgYW5kIHRlc3Qt
+cnVuIHByb2dyYW1zIHRoYXQgY2FuCj4gdHJpZ2dlciBtZW1vcnkgbWFuYWdlbWVudCBidWdzLiBU
+aGUgdGVzdCBjYXB0dXJlcyBrZXJuZWwgbG9ncyBhbmQgZW5zdXJlCj4gdGhhdCB0aGUgZXhwZWN0
+ZWQgS0FTQU4gc3BsYXQgaXMgZW1pdHRlZCBieSBzZWFyY2hpbmcgZm9yIHRoZQo+IGNvcnJlc3Bv
+bmRpbmcgZmlyc3QgbGluZXMgaW4gdGhlIHJlcG9ydCwgaGVuY2UgdmFsaWRhdGVkIHRoYXQgdGhl
+IG5lZWRlZAo+IGluc3RydW1lbnRhdGlvbiBoYXMgYmVlbiBpbnNlcnRlZCBieSB0aGUgSklUIGNv
+bXBpbGVyIGJlZm9yZSB0aGUKPiByZWxldmFudCBtZW1vcnkgYWNjZXNzZXMuCj4KPiBUaGUgcnVu
+bmVyIGNvdmVycyBkaWZmZXJlbnQgY2FzZXMgYW5kIHNldHRpbmdzOiBpbiB0aGUgbm9taW5hbCBj
+YXNlLCBpdAo+IHZhbGlkYXRlcyBrYXNhbiByZXBvcnRzIG9uIGJhc2ljIGluc3RydWN0aW9ucyAo
+b24gYWxsIHN1cHBvcnRlZCBhY2Nlc3Nlcwo+IHNpemVzKSBidXQgYWxzbyB3aGVuIHJlcG9ydCBf
+c2hvdWxkIG5vdF8gYmUgZW1pdHRlZCAoZWc6IGZvciBhY2Nlc3NlcyBvbgo+IHByb2dyYW0gc3Rh
+Y2spLiBUaGUgcnVubmVyIGFsc28gY29tZXMgd2l0aCBhIGZldyBzcGVjaWFsaXplZCB0ZXN0cyB0
+aGF0Cj4gYXJlIHRoZW4gbm90IGV4ZWN1dGVkIGZvciBhbGwgc2l6ZXMvbG9jYXRpb25zLiBBIGZl
+dyBvZiB0aG9zZSB0ZXN0cwo+IGRlcGVuZHMgb24gY3B1djQgKGxvYWRfYWNxdWlyZSBhbmQgc3Rv
+cmVfcmVsZWFzZSkuCj4KPiAgICAjIC4vdGVzdF9wcm9ncyAtYSBrYXNhbgo+ICAgICMxNjQvMSAg
+IGthc2FuL3N0XzFfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2NC8yICAga2FzYW4vc3RfMV9vbl9z
+dGFjazpPSwo+ICAgICMxNjQvMyAgIGthc2FuL3N0XzJfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2
+NC80ICAga2FzYW4vc3RfMl9vbl9zdGFjazpPSwo+ICAgICMxNjQvNSAgIGthc2FuL3N0XzRfbm90
+X29uX3N0YWNrOk9LCj4gICAgIzE2NC82ICAga2FzYW4vc3RfNF9vbl9zdGFjazpPSwo+ICAgICMx
+NjQvNyAgIGthc2FuL3N0Xzhfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2NC84ICAga2FzYW4vc3Rf
+OF9vbl9zdGFjazpPSwo+ICAgICMxNjQvOSAgIGthc2FuL3N0eF8xX25vdF9vbl9zdGFjazpPSwo+
+ICAgICMxNjQvMTAgIGthc2FuL3N0eF8xX29uX3N0YWNrOk9LCj4gICAgIzE2NC8xMSAga2FzYW4v
+c3R4XzJfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2NC8xMiAga2FzYW4vc3R4XzJfb25fc3RhY2s6
+T0sKPiAgICAjMTY0LzEzICBrYXNhbi9zdHhfNF9ub3Rfb25fc3RhY2s6T0sKPiAgICAjMTY0LzE0
+ICBrYXNhbi9zdHhfNF9vbl9zdGFjazpPSwo+ICAgICMxNjQvMTUgIGthc2FuL3N0eF84X25vdF9v
+bl9zdGFjazpPSwo+ICAgICMxNjQvMTYgIGthc2FuL3N0eF84X29uX3N0YWNrOk9LCj4gICAgIzE2
+NC8xNyAga2FzYW4vbGR4XzFfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2NC8xOCAga2FzYW4vbGR4
+XzFfb25fc3RhY2s6T0sKPiAgICAjMTY0LzE5ICBrYXNhbi9sZHhfMl9ub3Rfb25fc3RhY2s6T0sK
+PiAgICAjMTY0LzIwICBrYXNhbi9sZHhfMl9vbl9zdGFjazpPSwo+ICAgICMxNjQvMjEgIGthc2Fu
+L2xkeF80X25vdF9vbl9zdGFjazpPSwo+ICAgICMxNjQvMjIgIGthc2FuL2xkeF80X29uX3N0YWNr
+Ok9LCj4gICAgIzE2NC8yMyAga2FzYW4vbGR4Xzhfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2NC8y
+NCAga2FzYW4vbGR4Xzhfb25fc3RhY2s6T0sKPiAgICAjMTY0LzI1ICBrYXNhbi9zaW1wbGVfYXRv
+bWljXzRfbm90X29uX3N0YWNrOk9LCj4gICAgIzE2NC8yNiAga2FzYW4vc2ltcGxlX2F0b21pY180
+X29uX3N0YWNrOk9LCj4gICAgIzE2NC8yNyAga2FzYW4vc2ltcGxlX2F0b21pY184X25vdF9vbl9z
+dGFjazpPSwo+ICAgICMxNjQvMjggIGthc2FuL3NpbXBsZV9hdG9taWNfOF9vbl9zdGFjazpPSwo+
+ICAgICMxNjQvMjkgIGthc2FuL2xvYWRfYWNxdWlyZV8xX25vdF9vbl9zdGFjazpTS0lQCj4gICAg
+IzE2NC8zMCAga2FzYW4vbG9hZF9hY3F1aXJlXzFfb25fc3RhY2s6U0tJUAo+ICAgICMxNjQvMzEg
+IGthc2FuL2xvYWRfYWNxdWlyZV8yX25vdF9vbl9zdGFjazpTS0lQCj4gICAgIzE2NC8zMiAga2Fz
+YW4vbG9hZF9hY3F1aXJlXzJfb25fc3RhY2s6U0tJUAo+ICAgICMxNjQvMzMgIGthc2FuL2xvYWRf
+YWNxdWlyZV80X25vdF9vbl9zdGFjazpTS0lQCj4gICAgIzE2NC8zNCAga2FzYW4vbG9hZF9hY3F1
+aXJlXzRfb25fc3RhY2s6U0tJUAo+ICAgICMxNjQvMzUgIGthc2FuL2xvYWRfYWNxdWlyZV84X25v
+dF9vbl9zdGFjazpTS0lQCj4gICAgIzE2NC8zNiAga2FzYW4vbG9hZF9hY3F1aXJlXzhfb25fc3Rh
+Y2s6U0tJUAo+ICAgICMxNjQvMzcgIGthc2FuL3N0b3JlX3JlbGVhc2VfMV9ub3Rfb25fc3RhY2s6
+U0tJUAo+ICAgICMxNjQvMzggIGthc2FuL3N0b3JlX3JlbGVhc2VfMV9vbl9zdGFjazpTS0lQCj4g
+ICAgIzE2NC8zOSAga2FzYW4vc3RvcmVfcmVsZWFzZV8yX25vdF9vbl9zdGFjazpTS0lQCj4gICAg
+IzE2NC80MCAga2FzYW4vc3RvcmVfcmVsZWFzZV8yX29uX3N0YWNrOlNLSVAKPiAgICAjMTY0LzQx
+ICBrYXNhbi9zdG9yZV9yZWxlYXNlXzRfbm90X29uX3N0YWNrOlNLSVAKPiAgICAjMTY0LzQyICBr
+YXNhbi9zdG9yZV9yZWxlYXNlXzRfb25fc3RhY2s6U0tJUAo+ICAgICMxNjQvNDMgIGthc2FuL3N0
+b3JlX3JlbGVhc2VfOF9ub3Rfb25fc3RhY2s6U0tJUAo+ICAgICMxNjQvNDQgIGthc2FuL3N0b3Jl
+X3JlbGVhc2VfOF9vbl9zdGFjazpTS0lQCj4gICAgIzE2NC80NSAga2FzYW4vbGR4X3BhdGNoZWQ6
+T0sKPiAgICAjMTY0LzQ2ICBrYXNhbi9zdGFja19hbmRfbm9uX3N0YWNrOk9LCj4gICAgIzE2NCAg
+ICAga2FzYW46T0sgKFNLSVA6IDE2LzQ2KQo+ICAgIFN1bW1hcnk6IDEvMzAgUEFTU0VELCAxNiBT
+S0lQUEVELCAwIEZBSUxFRAoKT24gbXkgcWVtdSBydW4sIEkgZ290IGEgYnVuY2ggb2YgZmFpbHVy
+ZXMgbGlrZSBiZWxvdzoKCltyb290QGFyY2gtZmItdm0xIGJwZl0jIC4vdGVzdF9wcm9ncyAtbiAx
+NjQKdGVzdF9rYXNhbjpQQVNTOmFsbG9jIHRlc3QgY3R4IDAgbnNlYwpnem9wZW4gL2Jvb3QvY29u
+ZmlnLTcuMS4wLXJjNS1nZWM4NmM4MTU2YmQ2OiBObyBzdWNoIGZpbGUgb3IgZGlyZWN0b3J5CnRl
+c3Rfa2FzYW46UEFTUzpvcGVuIHByb2cgMCBuc2VjCnRlc3Rfa2FzYW46UEFTUzpmaW5kIHJuZF9o
+aTMyIHByb2cgMCBuc2VjCi4uLgpBbGwgZXJyb3IgbG9nczoKdGVzdF9rYXNhbjpQQVNTOmFsbG9j
+IHRlc3QgY3R4IDAgbnNlYwpnem9wZW4gL2Jvb3QvY29uZmlnLTcuMS4wLXJjNS1nZWM4NmM4MTU2
+YmQ2OiBObyBzdWNoIGZpbGUgb3IgZGlyZWN0b3J5CnRlc3Rfa2FzYW46UEFTUzpvcGVuIHByb2cg
+MCBuc2VjCnRlc3Rfa2FzYW46UEFTUzpmaW5kIHJuZF9oaTMyIHByb2cgMCBuc2VjCnRlc3Rfa2Fz
+YW46UEFTUzpsb2FkIHByb2cgMCBuc2VjCnRlc3Rfa2FzYW46UEFTUzpvcGVuIGtlcm5lbCBsb2dz
+IDAgbnNlYwp0ZXN0X2thc2FuOlBBU1M6Z2V0IG1hcCAwIG5zZWMKdGVzdF9rYXNhbjpQQVNTOnNl
+dCBtYXAgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmaW5k
+IHRlc3QgcHJvZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNT
+OmZldGNoIGxvYWRlZCBwcm9ncmFtIGluZm8gMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9h
+bmRfbG9jYXRpb246UEFTUzpydW4gcHJvZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2Fu
+ZF9sb2NhdGlvbjpQQVNTOnJlYWQga2VybmVsIGxvZ3MgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhf
+c2l6ZV9hbmRfbG9jYXRpb246RkFJTDpyZXBvcnQgc2hvdWxkIGJlIGdlbmVyYXRlZCB1bmV4cGVj
+dGVkIGVycm9yOiAxIChlcnJubyAxMSkKIzE2NC8xICAga2FzYW4vc3RfMV9ub3Rfb25fc3RhY2s6
+RkFJTApydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmluZCB0ZXN0IHBy
+b2cgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmZXRjaCBs
+b2FkZWQgcHJvZ3JhbSBpbmZvIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0
+aW9uOlBBU1M6cnVuIHByb2cgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRp
+b246UEFTUzpyZWFkIGtlcm5lbCBsb2dzIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5k
+X2xvY2F0aW9uOkZBSUw6cmVwb3J0IHNob3VsZCBiZSBnZW5lcmF0ZWQgdW5leHBlY3RlZCBlcnJv
+cjogMSAoZXJybm8gMTEpCiMxNjQvMyAgIGthc2FuL3N0XzJfbm90X29uX3N0YWNrOkZBSUwKcnVu
+X3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZpbmQgdGVzdCBwcm9nIDAgbnNl
+YwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmV0Y2ggbG9hZGVkIHBy
+b2dyYW0gaW5mbyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNT
+OnJ1biBwcm9nIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6
+cmVhZCBrZXJuZWwgbG9ncyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlv
+bjpGQUlMOnJlcG9ydCBzaG91bGQgYmUgZ2VuZXJhdGVkIHVuZXhwZWN0ZWQgZXJyb3I6IDEgKGVy
+cm5vIDExKQojMTY0LzUgICBrYXNhbi9zdF80X25vdF9vbl9zdGFjazpGQUlMCnJ1bl9zdWJ0ZXN0
+X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmaW5kIHRlc3QgcHJvZyAwIG5zZWMKcnVuX3N1
+YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZldGNoIGxvYWRlZCBwcm9ncmFtIGlu
+Zm8gMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpydW4gcHJv
+ZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJlYWQga2Vy
+bmVsIGxvZ3MgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246RkFJTDpy
+ZXBvcnQgc2hvdWxkIGJlIGdlbmVyYXRlZCB1bmV4cGVjdGVkIGVycm9yOiAxIChlcnJubyAxMSkK
+IzE2NC83ICAga2FzYW4vc3RfOF9ub3Rfb25fc3RhY2s6RkFJTApydW5fc3VidGVzdF93aXRoX3Np
+emVfYW5kX2xvY2F0aW9uOlBBU1M6ZmluZCB0ZXN0IHByb2cgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dp
+dGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmZXRjaCBsb2FkZWQgcHJvZ3JhbSBpbmZvIDAgbnNl
+YwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6cnVuIHByb2cgMCBuc2Vj
+CnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpyZWFkIGtlcm5lbCBsb2dz
+IDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOkZBSUw6cmVwb3J0IHNo
+b3VsZCBiZSBnZW5lcmF0ZWQgdW5leHBlY3RlZCBlcnJvcjogMSAoZXJybm8gMTEpCiMxNjQvOSAg
+IGthc2FuL3N0eF8xX25vdF9vbl9zdGFjazpGQUlMCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRf
+bG9jYXRpb246UEFTUzpmaW5kIHRlc3QgcHJvZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXpl
+X2FuZF9sb2NhdGlvbjpQQVNTOmZldGNoIGxvYWRlZCBwcm9ncmFtIGluZm8gMCBuc2VjCnJ1bl9z
+dWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpydW4gcHJvZyAwIG5zZWMKcnVuX3N1
+YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJlYWQga2VybmVsIGxvZ3MgMCBuc2Vj
+CnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246RkFJTDpyZXBvcnQgc2hvdWxkIGJl
+IGdlbmVyYXRlZCB1bmV4cGVjdGVkIGVycm9yOiAxIChlcnJubyAxMSkKIzE2NC8xMSAga2FzYW4v
+c3R4XzJfbm90X29uX3N0YWNrOkZBSUwKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlv
+bjpQQVNTOmZpbmQgdGVzdCBwcm9nIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xv
+Y2F0aW9uOlBBU1M6ZmV0Y2ggbG9hZGVkIHByb2dyYW0gaW5mbyAwIG5zZWMKcnVuX3N1YnRlc3Rf
+d2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJ1biBwcm9nIDAgbnNlYwpydW5fc3VidGVzdF93
+aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6cmVhZCBrZXJuZWwgbG9ncyAwIG5zZWMKcnVuX3N1
+YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpGQUlMOnJlcG9ydCBzaG91bGQgYmUgZ2VuZXJh
+dGVkIHVuZXhwZWN0ZWQgZXJyb3I6IDEgKGVycm5vIDExKQojMTY0LzEzICBrYXNhbi9zdHhfNF9u
+b3Rfb25fc3RhY2s6RkFJTApydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6
+ZmluZCB0ZXN0IHByb2cgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246
+UEFTUzpmZXRjaCBsb2FkZWQgcHJvZ3JhbSBpbmZvIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3Np
+emVfYW5kX2xvY2F0aW9uOlBBU1M6cnVuIHByb2cgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6
+ZV9hbmRfbG9jYXRpb246UEFTUzpyZWFkIGtlcm5lbCBsb2dzIDAgbnNlYwpydW5fc3VidGVzdF93
+aXRoX3NpemVfYW5kX2xvY2F0aW9uOkZBSUw6cmVwb3J0IHNob3VsZCBiZSBnZW5lcmF0ZWQgdW5l
+eHBlY3RlZCBlcnJvcjogMSAoZXJybm8gMTEpCiMxNjQvMTUgIGthc2FuL3N0eF84X25vdF9vbl9z
+dGFjazpGQUlMCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmaW5kIHRl
+c3QgcHJvZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZl
+dGNoIGxvYWRlZCBwcm9ncmFtIGluZm8gMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRf
+bG9jYXRpb246UEFTUzpydW4gcHJvZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9s
+b2NhdGlvbjpQQVNTOnJlYWQga2VybmVsIGxvZ3MgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6
+ZV9hbmRfbG9jYXRpb246RkFJTDpyZXBvcnQgc2hvdWxkIGJlIGdlbmVyYXRlZCB1bmV4cGVjdGVk
+IGVycm9yOiAxIChlcnJubyAxMSkKIzE2NC8xNyAga2FzYW4vbGR4XzFfbm90X29uX3N0YWNrOkZB
+SUwKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZpbmQgdGVzdCBwcm9n
+IDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmV0Y2ggbG9h
+ZGVkIHByb2dyYW0gaW5mbyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlv
+bjpQQVNTOnJ1biBwcm9nIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9u
+OlBBU1M6cmVhZCBrZXJuZWwgbG9ncyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9s
+b2NhdGlvbjpGQUlMOnJlcG9ydCBzaG91bGQgYmUgZ2VuZXJhdGVkIHVuZXhwZWN0ZWQgZXJyb3I6
+IDEgKGVycm5vIDExKQojMTY0LzE5ICBrYXNhbi9sZHhfMl9ub3Rfb25fc3RhY2s6RkFJTApydW5f
+c3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmluZCB0ZXN0IHByb2cgMCBuc2Vj
+CnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmZXRjaCBsb2FkZWQgcHJv
+Z3JhbSBpbmZvIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6
+cnVuIHByb2cgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpy
+ZWFkIGtlcm5lbCBsb2dzIDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9u
+OkZBSUw6cmVwb3J0IHNob3VsZCBiZSBnZW5lcmF0ZWQgdW5leHBlY3RlZCBlcnJvcjogMSAoZXJy
+bm8gMTEpCiMxNjQvMjEgIGthc2FuL2xkeF80X25vdF9vbl9zdGFjazpGQUlMCnJ1bl9zdWJ0ZXN0
+X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpmaW5kIHRlc3QgcHJvZyAwIG5zZWMKcnVuX3N1
+YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZldGNoIGxvYWRlZCBwcm9ncmFtIGlu
+Zm8gMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpydW4gcHJv
+ZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJlYWQga2Vy
+bmVsIGxvZ3MgMCBuc2VjCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246RkFJTDpy
+ZXBvcnQgc2hvdWxkIGJlIGdlbmVyYXRlZCB1bmV4cGVjdGVkIGVycm9yOiAxIChlcnJubyAxMSkK
+IzE2NC8yMyAga2FzYW4vbGR4Xzhfbm90X29uX3N0YWNrOkZBSUwKcnVuX3N1YnRlc3Rfd2l0aF9z
+aXplX2FuZF9sb2NhdGlvbjpQQVNTOmZpbmQgdGVzdCBwcm9nIDAgbnNlYwpydW5fc3VidGVzdF93
+aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmV0Y2ggbG9hZGVkIHByb2dyYW0gaW5mbyAwIG5z
+ZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJ1biBwcm9nIDAgbnNl
+YwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6cmVhZCBrZXJuZWwgbG9n
+cyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpGQUlMOnJlcG9ydCBz
+aG91bGQgYmUgZ2VuZXJhdGVkIHVuZXhwZWN0ZWQgZXJyb3I6IDEgKGVycm5vIDExKQojMTY0LzI1
+ICBrYXNhbi9zaW1wbGVfYXRvbWljXzRfbm90X29uX3N0YWNrOkZBSUwKcnVuX3N1YnRlc3Rfd2l0
+aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZpbmQgdGVzdCBwcm9nIDAgbnNlYwpydW5fc3VidGVz
+dF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmV0Y2ggbG9hZGVkIHByb2dyYW0gaW5mbyAw
+IG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJ1biBwcm9nIDAg
+bnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6cmVhZCBrZXJuZWwg
+bG9ncyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpGQUlMOnJlcG9y
+dCBzaG91bGQgYmUgZ2VuZXJhdGVkIHVuZXhwZWN0ZWQgZXJyb3I6IDEgKGVycm5vIDExKQojMTY0
+LzI3ICBrYXNhbi9zaW1wbGVfYXRvbWljXzhfbm90X29uX3N0YWNrOkZBSUwKcnVuX3N1YnRlc3Rf
+d2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOmZpbmQgdGVzdCBwcm9nIDAgbnNlYwpydW5fc3Vi
+dGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6ZmV0Y2ggbG9hZGVkIHByb2dyYW0gaW5m
+byAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJ1biBwcm9n
+IDAgbnNlYwpydW5fc3VidGVzdF93aXRoX3NpemVfYW5kX2xvY2F0aW9uOlBBU1M6cmVhZCBrZXJu
+ZWwgbG9ncyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpGQUlMOnJl
+cG9ydCBzaG91bGQgYmUgZ2VuZXJhdGVkIHVuZXhwZWN0ZWQgZXJyb3I6IDEgKGVycm5vIDExKQoj
+MTY0LzQ1ICBrYXNhbi9sZHhfcGF0Y2hlZDpGQUlMCnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRf
+bG9jYXRpb246UEFTUzpmaW5kIHRlc3QgcHJvZyAwIG5zZWMKcnVuX3N1YnRlc3Rfd2l0aF9zaXpl
+X2FuZF9sb2NhdGlvbjpQQVNTOmZldGNoIGxvYWRlZCBwcm9ncmFtIGluZm8gMCBuc2VjCnJ1bl9z
+dWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246UEFTUzpydW4gcHJvZyAwIG5zZWMKcnVuX3N1
+YnRlc3Rfd2l0aF9zaXplX2FuZF9sb2NhdGlvbjpQQVNTOnJlYWQga2VybmVsIGxvZ3MgMCBuc2Vj
+CnJ1bl9zdWJ0ZXN0X3dpdGhfc2l6ZV9hbmRfbG9jYXRpb246RkFJTDpyZXBvcnQgc2hvdWxkIGJl
+IGdlbmVyYXRlZCB1bmV4cGVjdGVkIGVycm9yOiAxIChlcnJubyAxMSkKIzE2NC80NiAga2FzYW4v
+c3RhY2tfYW5kX25vbl9zdGFjazpGQUlMCiMxNjQgICAgIGthc2FuOkZBSUwKCkkgY2hlY2tlZCB0
+aGUgc3VidGVzdCAxNjQvMSwKCkZvcgoKICAgICAgICAgcmV0ID0gY2hlY2tfa2FzYW5fcmVwb3J0
+X2luX2tlcm5lbF9sb2dzKGtsb2dfYnVmZmVyLCBjdHgsCiAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICB0ZXN0LT5pc193cml0ZSwgYWNjZXNzX3NpemUpOwog
+ICAgICAgICBpZiAob25fc3RhY2sgfHwgdGVzdC0+ZXhwZWN0X25vX3JlcG9ydCkKICAgICAgICAg
+ICAgICAgICBBU1NFUlRfTkVRKHJldCwgMCwgIm5vIHJlcG9ydCBzaG91bGQgYmUgZ2VuZXJhdGVk
+Iik7CiAgICAgICAgIGVsc2UKICAgICAgICAgICAgICAgICBBU1NFUlRfT0socmV0LCAicmVwb3J0
+IHNob3VsZCBiZSBnZW5lcmF0ZWQiKTsKCnRoZSByZXQgaXMgZXF1YWwgdG8gMSBhcyBrbG9nX2J1
+ZmZlciBpcyBlbXB0eS4gVGhpcyBjYXVzZWQgdGhlIGZhaWx1cmUuCgo+Cj4gU2lnbmVkLW9mZi1i
+eTogQWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24pIDxhbGV4aXMubG90aG9yZUBib290
+bGluLmNvbT4KPiAtLS0KPiBDaGFuZ2VzIGluIHYyOgo+IC0gc2ltcGxpZnkgdGVzdHMgYnkganVz
+dCBtYW51YWxseSBwb2lzb25pbmcgdGVzdCBhcmVhcyB3aXRoIGEgZGVkaWNhdGVkCj4gICAga2Z1
+bmMKPiAtIGludHJvZHVjZSBvbmUgcHJvZyBwZXIgY292ZXJlZCBpbnN0cnVjdGlvbiBmYW1pbHkK
+PiAtIG1ha2Ugc3VyZSB0aGF0IHRlc3RzIGRvIG5vdCBjb25zdW1lIGtlcm5lbCBsb2dzICh1c2Ug
+L2Rldi9rbWdzIHJhdGhlcgo+ICAgIHRoYW4ga2xvZ2N0bCkKPiAtIGFkZCB0ZXN0cyBmb3Igc3Rh
+Y2sgYWNjZXNzZXM6Cj4gICAgLSBtYXJraW5nIGNvcnJlY3RseSBzZXQgd2hlbiB0aGVyZSBhcmUg
+ZGl2ZXJnaW5nIHZlcmlmaWVyIHN0YXRlcwo+ICAgICAgbGVhZGluZyB0byBkaWZmZXJlbnQgbWVt
+b3J5IHR5cGVzCj4gICAgLSBtYXJraW5nIGtlcHQgaW4gc3luYyB3aXRoIHByb2cgd2hlbiBpdCBp
+cyBwYXRjaGVkCj4gLS0tCj4gICB0b29scy90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvcHJvZ190ZXN0
+cy9rYXNhbi5jICAgICB8IDM1NiArKysrKysrKysrKysrKysrKysrCj4gICB0b29scy90ZXN0aW5n
+L3NlbGZ0ZXN0cy9icGYvcHJvZ3Mva2FzYW4uYyAgICAgICAgICB8IDM4MiArKysrKysrKysrKysr
+KysrKysrKysKPiAgIC4uLi90ZXN0aW5nL3NlbGZ0ZXN0cy9icGYvdGVzdF9rbW9kcy9icGZfdGVz
+dG1vZC5jIHwgIDIyICsrCj4gICAzIGZpbGVzIGNoYW5nZWQsIDc2MCBpbnNlcnRpb25zKCspCj4K
+PiBkaWZmIC0tZ2l0IGEvdG9vbHMvdGVzdGluZy9zZWxmdGVzdHMvYnBmL3Byb2dfdGVzdHMva2Fz
+YW4uYyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi9wcm9nX3Rlc3RzL2thc2FuLmMKPiBu
+ZXcgZmlsZSBtb2RlIDEwMDY0NAo+IGluZGV4IDAwMDAwMDAwMDAwMC4uYWRmNjFlMjMwZWM5Cj4g
+LS0tIC9kZXYvbnVsbAo+ICsrKyBiL3Rvb2xzL3Rlc3Rpbmcvc2VsZnRlc3RzL2JwZi9wcm9nX3Rl
+c3RzL2thc2FuLmMKPiBAQCAtMCwwICsxLDM1NiBAQAo+ICsvLyBTUERYLUxpY2Vuc2UtSWRlbnRp
+ZmllcjogR1BMLTIuMCBPUiBCU0QtMy1DbGF1c2UKPiArI2luY2x1ZGUgPGJwZi9icGYuaD4KPiAr
+I2luY2x1ZGUgPGVycm5vLmg+Cj4gKyNpbmNsdWRlIDxmY250bC5oPgo+ICsjaW5jbHVkZSA8bGlu
+dXgvaWZfZXRoZXIuaD4KPiArI2luY2x1ZGUgPHVuaXN0ZC5oPgo+ICsjaW5jbHVkZSA8dGVzdF9w
+cm9ncy5oPgo+ICsjaW5jbHVkZSA8dW5wcml2X2hlbHBlcnMuaD4KPiArI2luY2x1ZGUgImthc2Fu
+LnNrZWwuaCIKPiArCj4gKyNkZWZpbmUgU1VCVEVTVF9OQU1FX01BWF9MRU4JMTI4Cj4gKyNkZWZp
+bmUgUFJPR19OQU1FX01BWF9MRU4JMTI4Cj4gKwo+ICsjZGVmaW5lIE1BWF9MT0dfU0laRQkJKDgg
+KiAxMDI0KQo+ICsjZGVmaW5lIFJFQURfQ0hVTktfU0laRQkJMjU2Cj4gKwo+ICsjZGVmaW5lIEtB
+U0FOX1BBVFRFUk5fU0xBQl9VQUYgIkJVRzogS0FTQU46IHNsYWItdXNlLWFmdGVyLWZyZWUgIiBc
+Cj4gKwkiaW4gYnBmX3Byb2dfJTAyeCUwMnglMDJ4JTAyeCUwMnglMDJ4JTAyeCUwMnhfJXMiCj4g
+KyNkZWZpbmUgS0FTQU5fUEFUVEVSTl9SRVBPUlQgIiVzIG9mIHNpemUgJWQgYXQgYWRkciIKPiAr
+Cj4gK3N0YXRpYyBjaGFyIGtsb2dfYnVmZmVyW01BWF9MT0dfU0laRV07Cj4gKwo+ICtzdHJ1Y3Qg
+dGVzdF9zcGVjIHsKPiArCWNoYXIgKnByb2dfdHlwZTsKPiArCWJvb2wgaXNfd3JpdGU7Cj4gKwli
+b29sIG9ubHlfMzJfb3JfNjQ7Cj4gKwlib29sIG5lZWRzX2xvYWRfYWNxX3N0b3JlX3JlbDsKPiAr
+CWJvb2wgc2tpcF9tdWx0aV9zaXplX3Rlc3Rpbmc7Cj4gKwlib29sIHNraXBfb25fc3RhY2tfdGVz
+dGluZzsKPiArCWludCBydW5fc2l6ZTsKPiArCWJvb2wgZXhwZWN0X25vX3JlcG9ydDsKCmV4cGVj
+dF9ub19yZXBvcnQgaXMgbm90IHNldCBpbiB0aGUgY29kZS4gVGhlIG9ubHkgdXNhZ2UgaXMgaW4K
+CiAgICAgICAgIGlmIChvbl9zdGFjayB8fCB0ZXN0LT5leHBlY3Rfbm9fcmVwb3J0KQogICAgICAg
+ICAgICAgICAgIEFTU0VSVF9ORVEocmV0LCAwLCAibm8gcmVwb3J0IHNob3VsZCBiZSBnZW5lcmF0
+ZWQiKTsKICAgICAgICAgZWxzZQogICAgICAgICAgICAgICAgIEFTU0VSVF9PSyhyZXQsICJyZXBv
+cnQgc2hvdWxkIGJlIGdlbmVyYXRlZCIpOwoKPiArCWJvb2wgcm5kX2hpMzI7Cj4gK307Cj4gKwo+
+ICtzdHJ1Y3Qga2FzYW5fd3JpdGVfdmFsIHsKPiArCV9fdTggZGF0YV8xOwo+ICsJX191MTYgZGF0
+YV8yOwo+ICsJX191MzIgZGF0YV80Owo+ICsJX191NjQgZGF0YV84Owo+ICt9Owo+ICsKPgpbLi4u
+XQoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgt
+c3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5j
+b20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8v
+bGludXgtc3RtMzIK
