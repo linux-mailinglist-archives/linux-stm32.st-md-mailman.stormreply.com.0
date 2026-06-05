@@ -2,99 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 4swNHrRsImoLXAEAu9opvQ
+	id Hyo4FrVsImoOXAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 08:29:08 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 08:29:09 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16B856457D6
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 08:29:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20F936457D9
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 08:29:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=pt1ytC3V;
+	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=Ob+mzPE7;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D3148C8F272;
-	Fri,  5 Jun 2026 06:29:07 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E4B01C8F272;
+	Fri,  5 Jun 2026 06:29:08 +0000 (UTC)
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
+ [209.85.221.44])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 544A3C349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4BA6AC8F273
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 06:29:06 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-4601949975dso205362f8f.0
+ Fri,  5 Jun 2026 06:29:08 +0000 (UTC)
+Received: by mail-wr1-f44.google.com with SMTP id
+ ffacd0b85a97d-45eec22fab7so778237f8f.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Jun 2026 23:29:06 -0700 (PDT)
+ Thu, 04 Jun 2026 23:29:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1780640946; x=1781245746;
+ d=amarulasolutions.com; s=google; t=1780640948; x=1781245748;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=4lejUpnv31Ki2j4Ud4YtaN/+X332KUHa0P0BjhrqFno=;
- b=pt1ytC3V+kd9MeQNSpprpzSa1jIymYzx0crfEdi5TuWhIbKrakibq6p6ibS5gxtMBp
- vxvsDty+lT1IgeK+CPxLeySdX3cRqzmkzoauhVaA2sX98K1BLTK3+8km+QlT9r8AuNRV
- qOpz4Nr4bcqCxRNx7m4WIVYJbpZJb6Ccwg33k=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780640946; x=1781245746;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=4lejUpnv31Ki2j4Ud4YtaN/+X332KUHa0P0BjhrqFno=;
- b=fmNQ6MMqbUnRdpS4nnNuQKaPhu1NtyPzqBVxzWYtyU5QrTUX93TQCsWt+Jm/x8sBrP
- JGcU15g12sGFIKrwNtx3EiYKoEYlLSNfAbOdHP4Ejhl8SwlfyNSEJZ/SP/1caeOXsprQ
- vDZg9N7azrrmxUiCU5em+DZKPM8cNayTGo/Ef+F753ciY6ketRf9LquVbofsTwihIDm2
- vMCZVnddJ01PDq4EG7x1Smw4IPRHxijfIQCX/LLFVNarwQqeqt56zER3mXjQtNpOlW7y
- fCP3NAmyTsQdgQQLGMmjoAV5irAqhPwUno8Zu28Qbr7e40fg5l/hGuQ4RUX8y0Kbt4Li
- oPiA==
+ bh=XAn+sgOJ//YpFHFCj3wQ7fJwCRmUnKUhDxx0gbmShJo=;
+ b=Ob+mzPE7nnPU9MgphquqCeBlMaPP5R5appOR9FXmf42XkrYCXkjIBUcndM/RJLIS1U
+ FhtWKNRpyp9T2f70y7rJTIk9inJxRseiNoUdPoKP/j8bOBFCZe5QE7qyiCF8CrKTVnd/
+ 6SOvQbG81tI3ObAXo0h0sahKCeOEMDZJ9ojxk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780640948; x=1781245748;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to;
+ bh=XAn+sgOJ//YpFHFCj3wQ7fJwCRmUnKUhDxx0gbmShJo=;
+ b=ME/BfTQMnxowCc9XiIdh9xDsIaUMV1+lZs9GI0AZNKbIrUzorcEN61srFL7RyE2eRh
+ ccgy6Me8JMyvh6lXJDs+hJ61N0c9LaeLgVoQYcOQ5mZefGJDy56n6jLyrh4bhzUIWeHY
+ UWh83u0ygfKJE7ZkrfpHY9KRqMeBG9DsNlC0MRkTmd2AFZhYJiWoIv1hsxY+hU3C3RVm
+ rq8GMz6eUdHgmRL8EaKqjqOG/z6BLQLxQNYow4ZLJ3AOjlhX/0RRAxxFhw5vt3taneFW
+ o1jxBZJ7eBdOQxZuq270djWNJEjFiMan3EIaACrV/1gc0s2ORWfiQvtfAuZuGC7N/nWl
+ UgEA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8KCqqvIjJtBwKuGuOTg8FSRKzBaPRXGuQRaR8vs55Dok0XwqyrsorqaCzOTBDsrYm/C9uUj7meQONlgA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwHwtRMczkK1Yx+mZzVy4iyx8hpHEZEHG7iyFfkgorldajSbano
- HRSWay9PjxjZKvZuFEcxIFdeKzecg+u/L/JFYzVTXUabjfcCBWHqzagLrzc2r/Uk1cY=
-X-Gm-Gg: Acq92OH/OOkR/NrLoCnEVdWdjK1NUGWk2cUQvYJGiOF8k2o/YG8wQvu4HLjhU31iTWB
- e4J/t+5YJTOOw+rl7ZoTDoLZ99rIx53H+h2SvedHT9v24A6dgBg5cL+FAvocHjjVuVWgn3cTrTI
- JxNB1+sZiX+kQtlr7AkeX+uMF1c4kIZJ3WnElm/JtfB0OHZC91FFT0TH9zPCpXqrw4e7rNIu9eB
- jX73Kaywktdd1yNy4vPzurW8ifmnFsD1MO3KX7F5SNFuQJ1WXqdIAJyELKw8w6z9+U1JPI8/30/
- /OK8g+aqwKiGKUyYdsLCQn6DESEvnCyKCPuxR5ncR8IGDBFTAmVfyYZtEGAFKB3YfCP6m8KXFLQ
- sABWWdiYatJ0EQtUDfG+0uNkzVrHK11XpGGtgS+sJqGDGZPVKGVpflqPOv/4mIfKWm8FvYZpPtl
- xWLMvqcOY9s6nYT6k8oURRRcz/LIBA2sMl8S/gu/Hu3FI7GuSlppUZEMC7f5qqcMmBscHl0gmDm
- un3fBSDPZMJUVSDYCzPJq5zF7bzSp8ZZCG89U8MscKLqLfs2iYr8Q6qXHb60ctcMbk+IalpE1ik
- hJ61V1VkbWwhSkcfNYs0URIfs2AfEVUZSlE=
-X-Received: by 2002:a05:6000:298e:10b0:45e:93ac:769e with SMTP id
- ffacd0b85a97d-460302dc502mr2224770f8f.6.1780640945279; 
- Thu, 04 Jun 2026 23:29:05 -0700 (PDT)
+ AFNElJ8EQwQiZTYtmD72YAH8iaJDmZGe90YZ/Ng5E3iP2VwLzkJTLM++yCJAD8I9MpP7bJFLzrtZRCEZT9je0g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yxf19lc/aRA4yOyBDCyiPIyKdYUcvwuHywJSlcdaRgnxXFOKx25
+ E8U32KpGn+CohCJxJGE4oUqKaVUS9+TE0XrioY3Yjaawlkg4pfcwWBcAyXMndmojfvU=
+X-Gm-Gg: Acq92OFc9ez+cbokKL3/X4lhVkQx+Soh8CmL0NDmMBjkNrWx4MdivbhzXmpUio5eojq
+ 1iNDiS+e6LbLSVDu3fpvSSs6rqDoyzXAl+8w4BqFnIumUWCtb2LjQ36gXMtfwPrAi1XJvzy1b3f
+ 9QwPGKedlZItXBNgQ/nh14i5wkUq9HwM5iW6HXcqzykgsSVU5PXb7sYLZiuxvjtwsZe/o5V8mtL
+ c1dlmlqX/V9ZspZfNxg8ObZZ5iO9g3+IMfkuAAHjFn/lDeuB1zXvY+8dzyPD7A9nwhmOcd0wpbH
+ t8/FuDr5NAs3cGA+CI2Wabw0tE+Op8sezHDYiioGBW+c1sYrZs7IRbB/BDhFbwrVLS2U8+BcfyS
+ EVDwKzNeIEOAKQbGascm2wnAycsPUTt4JOdFoZkBgTmiVCSnyQRn6EM0EzN86H9V4yrjjMDWtm5
+ HQ+rHqc+MSWGmU7CjtodQAGDITvghbYAUcji6671T5hogKsBrb33NtuJqaXkaghgoRQudYc1A9g
+ wIIGt+IVdSLPXBhVCl4ILfzwgwBkhDgXV8wxlPBtzK4+vZNAR6spgx2xMnan5lM5WpDVexJ4k/y
+ KH0GEbOx6qrAIAVheOBI7//C09OLyPa+T68=
+X-Received: by 2002:a05:600c:3f0e:b0:490:b3e7:4614 with SMTP id
+ 5b1f17b1804b1-490c25f9e55mr28705485e9.25.1780640947625; 
+ Thu, 04 Jun 2026 23:29:07 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it
  (host-82-48-44-238.retail.telecomitalia.it. [82.48.44.238])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f344148sm23022648f8f.19.2026.06.04.23.29.02
+ ffacd0b85a97d-4601f344148sm23022648f8f.19.2026.06.04.23.29.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 23:29:04 -0700 (PDT)
+ Thu, 04 Jun 2026 23:29:07 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  5 Jun 2026 08:27:28 +0200
-Message-ID: <20260605062900.368376-1-dario.binacchi@amarulasolutions.com>
+Date: Fri,  5 Jun 2026 08:27:29 +0200
+Message-ID: <20260605062900.368376-2-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260605062900.368376-1-dario.binacchi@amarulasolutions.com>
+References: <20260605062900.368376-1-dario.binacchi@amarulasolutions.com>
 MIME-Version: 1.0
-Cc: devicetree@vger.kernel.org,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>, francesco.utel@engicam.com,
- domenico.acri@engicam.com, Eric Biggers <ebiggers@kernel.org>,
- Geert Uytterhoeven <geert@linux-m68k.org>, michael@amarulasolutions.com,
- Huang Shijie <shijie@os.amperecomputing.com>,
- Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, francesco.utel@engicam.com,
+ domenico.acri@engicam.com, Conor Dooley <conor.dooley@microchip.com>,
  Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- Sven Peter <sven@kernel.org>, Michal Simek <michal.simek@amd.com>,
- linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Luca Weiss <luca.weiss@fairphone.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-amarula@amarulasolutions.com
-Subject: [Linux-stm32] [PATCH v3 00/14] arm64: support Engicam
-	MicroGEA-STM32MP257-RMM board
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH v3 01/14] dt-bindings: arm: stm32: support
+	Engicam MicroGEA-STM32MP257-RMM board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -113,23 +108,23 @@ Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[amarulasolutions.com:s=google];
 	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[amarulasolutions.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[amarulasolutions.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[amarulasolutions.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:dario.binacchi@amarulasolutions.com,m:devicetree@vger.kernel.org,m:francesco.utel@engicam.com,m:domenico.acri@engicam.com,m:conor.dooley@microchip.com,m:himanshu.bhavani@siliconsignals.io,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:michael@amarulasolutions.com,m:linux-amarula@amarulasolutions.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:devicetree@vger.kernel.org,m:bjorn.andersson@oss.qualcomm.com,m:dario.binacchi@amarulasolutions.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:florian.fainelli@broadcom.com,m:francesco.utel@engicam.com,m:domenico.acri@engicam.com,m:ebiggers@kernel.org,m:geert@linux-m68k.org,m:michael@amarulasolutions.com,m:shijie@os.amperecomputing.com,m:conor+dt@kernel.org,m:himanshu.bhavani@siliconsignals.io,m:sven@kernel.org,m:michal.simek@amd.com,m:linux-arm-kernel@lists.infradead.org,m:dmitry.baryshkov@oss.qualcomm.com,m:krzysztof.kozlowski@oss.qualcomm.com,m:mcoquelin.stm32@gmail.com,m:luca.weiss@fairphone.com,m:krzk+dt@kernel.org,m:linux-amarula@amarulasolutions.com,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[24];
 	RCVD_COUNT_THREE(0.00)[4];
-	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,meta];
 	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_SENDER(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[amarulasolutions.com:-];
@@ -138,77 +133,58 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_NEQ_ENVFROM(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,oss.qualcomm.com,amarulasolutions.com,st-md-mailman.stormreply.com,kernel.org,broadcom.com,engicam.com,linux-m68k.org,os.amperecomputing.com,siliconsignals.io,amd.com,lists.infradead.org,gmail.com,fairphone.com];
+	FREEMAIL_CC(0.00)[kernel.org,amarulasolutions.com,vger.kernel.org,engicam.com,microchip.com,siliconsignals.io,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,amarulasolutions.com:from_mime,amarulasolutions.com:mid,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,amarulasolutions.com:mid,amarulasolutions.com:from_mime,amarulasolutions.com:email,microchip.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 16B856457D6
+X-Rspamd-Queue-Id: 20F936457D9
 
-This series adds initial support for the Engicam MicroGEA-STM32MP257-RMM
-board based on the MicroGEA-STM32MP257 SoM.
+Add devicetree bindings for Engicam MicroGEA-STM32MP257-RMM board based
+on the Engicam MicroGEA-STM32MP257 SoM (System-on-Module).
 
-The support includes device tree descriptions for both the SoM and the
-carrier board, together with the required pinctrl definitions for the
-peripherals used.
+The use of an enum for a single element is justified by the future
+addition of other boards based on the same SoM.
 
-The series also updates the arm64 defconfig accordingly.
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-Changes in v3:
-- Add power-domains property in the SDMMC2 node.
-- Drop patch "arm64: defconfig: cleanup the defconfig"
+---
+
+(no changes since v2)
 
 Changes in v2:
 - Add Acked-by of Conor Dooley for patch 0/1 "dt-bindings: arm: stm32:
   support Engicam MicroGEA-STM32MP257-RMM board"
-- Add resets property to dts CAN node. Suggested by Sashiko.
-- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
-  to avoid overriding the peripheral bus clock reference defined in the base
-  SoC device tree. Suggested by Sashiko.
-- Reference the existing labeled nodes directly at the root level using
-  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
-  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
-- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
-  the clocks array in sai1b, relying strictly on the st,sync property to handle
-  internal synchronization.
 
-Dario Binacchi (14):
-  dt-bindings: arm: stm32: support Engicam MicroGEA-STM32MP257-RMM board
-  arm64: dts: st: add SDMMC2 support on stm32mp25
-  arm64: dts: st: add CAN1 support on stm32mp25
-  arm64: dts: st: add i2c1 pins for stm32mp25
-  arm64: dts: st: add ltdc pins for stm32mp25
-  arm64: dts: st: add can1 pins for stm32mp25
-  arm64: dts: st: add pwm2/pwm4 pins for stm32mp25
-  arm64: dts: st: add sai1 pins for stm32mp25
-  arm64: dts: st: add sdmmc2 pins for stm32mp25
-  arm64: dts: st: add spi1 pins for stm32mp25
-  arm64: dts: st: add usart1 pins for stm32mp25
-  arm64: dts: st: support Engicam MicroGEA-STM32MP257 SoM
-  arm64: dts: st: support Engicam MicroGEA-STM32MP257-RMM board
-  arm64: defconfig: enable configs for Engicam  MicroGEA-STM32MP257-RMM
+ Documentation/devicetree/bindings/arm/stm32/stm32.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
- .../devicetree/bindings/arm/stm32/stm32.yaml  |   7 +
- arch/arm64/boot/dts/st/Makefile               |   1 +
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 328 ++++++++++++++++++
- arch/arm64/boot/dts/st/stm32mp251.dtsi        |  16 +
- arch/arm64/boot/dts/st/stm32mp253.dtsi        |  16 +
- .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 +++++++++++++++++
- .../dts/st/stm32mp257-engicam-microgea.dtsi   |  64 ++++
- arch/arm64/configs/defconfig                  |   4 +
- 8 files changed, 755 insertions(+)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
-
+diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+index c6af3a46364f..c5ce81e3ce45 100644
+--- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
++++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
+@@ -203,6 +203,13 @@ properties:
+               - st,stm32mp257f-ev1
+           - const: st,stm32mp257
+ 
++      - description: Engicam MicroGEA STM32MP257 SoM based Boards
++        items:
++          - enum:
++              - engicam,microgea-stm32mp257-rmm
++          - const: engicam,microgea-stm32mp257
++          - const: st,stm32mp257
++
+       - description: ST STM32MP235 based Boards
+         items:
+           - enum:
 -- 
 2.43.0
 
-base-commit: ba3e43a9e601636f5edb54e259a74f96ca3b8fd8
-branch: stm32mp257d-microgea-v3
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
