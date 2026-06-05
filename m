@@ -2,79 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +RzsHAq/ImpgdAEAu9opvQ
+	id ANAPAgu/ImphdAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:20:26 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:20:27 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CC4CD6480DE
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:20:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD8376480E3
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:20:26 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=RhttshWN;
+	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=btazklUC;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9A552C8F273;
-	Fri,  5 Jun 2026 12:20:25 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAFE4C8F281;
+	Fri,  5 Jun 2026 12:20:26 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4ACC4C8F272
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDC6DC8F281
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 12:20:24 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-490b9318997so13773485e9.2
+ Fri,  5 Jun 2026 12:20:25 +0000 (UTC)
+Received: by mail-wr1-f45.google.com with SMTP id
+ ffacd0b85a97d-45fd461e4a5so1301189f8f.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Jun 2026 05:20:24 -0700 (PDT)
+ Fri, 05 Jun 2026 05:20:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1780662024; x=1781266824;
+ d=amarulasolutions.com; s=google; t=1780662025; x=1781266825;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=GanFEAB/EXFN18ke4KMogfaho+mkfI6VO/zTEp1k31k=;
- b=RhttshWNiZ4xzI/eDtuATH/7UDbszBL7+0aRebw8cEgWd+yTxFnR8lGaWSe48PvuHS
- if3Q+PgLsN1ejSa1mJL6E70SOMVSjDxtcmJeeAGEDYCl0eZKAmKurLUJlifh32zPJrDe
- q0UBEtndj3HjCajkhp4W/uKCJ+3U+QWrtlk6Q=
+ bh=9+mQ1hm0gN4dl7tUeK1zZy9BpMYpmNER+WcsKY4gIDg=;
+ b=btazklUC67fyUcmtGiw2qcaUs1bpJqp9GgskcNvGr+mau7+vqsKaEVlVrShqfqOIoc
+ qHSVn56kzTFQpmpxevQ43z11K/9IKOIY4YcpwFlKAszuqt8S8WcYfEb6uRpvx4EO1Ovv
+ BsmjIsZnQhuCgvSGuChSR20JzjLPs7GyxFAOY=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780662024; x=1781266824;
+ d=1e100.net; s=20251104; t=1780662025; x=1781266825;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=GanFEAB/EXFN18ke4KMogfaho+mkfI6VO/zTEp1k31k=;
- b=KvEH8FtZpcsAh7O0j2dqFSYSWMzd+W127bhaP2tF2kqK0LDEA/e/7f0fzHCmH1HNMf
- vDptVWzmRcvFSNouUCfNh/wwZZUm2K18oXKhpmHGj/tDo8xjapTAy2LBCDKWAnnqzHrN
- FEQV2OFU/ljnaPBg1EGHxFA2mlJKUk36fL+IkBQqkPoPQWsAM8AbM+uPgXKUmzoVJxyh
- 2kLYTk1VUTWW+IDudLDYvRZxoJtryvtF4TEscy2Lu4fwsGAUWE1KUJDk6bQPW2WPRpMk
- CnokhSSDtrX8U0VAnmiQFFuoaSwbo+VOBZ7ytMPWJVtJ8XTS7BCgxfIPoU3jIquyGEIN
- Wkvw==
+ bh=9+mQ1hm0gN4dl7tUeK1zZy9BpMYpmNER+WcsKY4gIDg=;
+ b=QXlI7s0oczVr5yNc77xh+OqVXryroMaVoDhA0UQUseQvNYsEa4ppbWN67HeyJgoVEG
+ zkl8I1Wsif/LYuYEC4D2anrHeTmvqYksn9BaGy35riAIYRveUEQbzf4r6mHjKIGp4smF
+ ex1Xy3vi+zjbjq7dlJrgDxrdPdeyqorvSq9hMIR92WpzYj3+oaR8chWDxap/6YeZmdpi
+ 3tCKlSE7ZtbpFA0rbMj3e+Y1EOCQHP6Cw/LUD5+VpLxJXAavkUqkgcmvzc5hLyNbwonA
+ b5FTkCVtfNRUfVAK487eR17wdntRWNK9osuKv024DNQlEZQ3ZP4YQWwy6+oyZ6cXJkX2
+ 6C1A==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9xDEVP+jp3d/UflOsOZmtVM2QD74DPKd6BJMqEKCqCa926GpodBRlwnQnzUQXQY0HVGp3RTygcxnYHwA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyNkD34KWrzImG1uURYg8ZRS5aLqgYnVXSvIWVjX17l0T+d7CCj
- itNs4xyE9urMxM97Jt7fhFoJjw5lYM3hP/rGaQ/CHwoSCJzLXDjqM5KiGBW9L0pFj0c=
-X-Gm-Gg: Acq92OH1zrxfuJpfCHQBtIflwcJyDKXijSbJIHrhVrVq3ui4iNTbRtZmwb4gy7/rwNp
- VdZ9G+vF/I0WOp/ytuMVyANzFISB39g4d2GyJ3hHOD6pCEQUILhNWz51SPpuVcJ1ndto4KXDiHk
- fs52ippCwukWknqCtZe66FtejjmYlGNPC5R+IlO+U2icx53zuG+0w+T/BVbqebytUWVG9gsTxAq
- cecZ5Dhj8JBp549tiuUtZa7sdNg+XOSR3kKGbQMTT4R9IhVPX/yRt3MO5Tm+hxoT76w0/hmGpNV
- m3S5IJOGgSf/rgDws4bK9WTN25aCGs749yRHAeVLBgg8GVzE5YmFvWIytVgb2GloFNXJCp9dIgF
- AnJIYXe/5eP6QIsIZqX/nxMCEM5ouKM1BYi4m+9P4+4hhcYSTf2QMsg+2coOEb+Pm6g7LSddcHE
- XenSd519MMRppey0FaOz+DQwz5qbPShn/jqRqzCGI31iFP0NFObCS0K8EFQgsmKSZYGSorZ5zZE
- N3Npm6onbWuadcR4SL+4z7uNbAv7kaJOoXCz9tu/Z6k1ZAf7BbGb75uP8lbllDOZAkf8MM5Bgkt
- GO4HJRrCncdGsZjq/NZTE6V7WKaVdX6+eUI=
-X-Received: by 2002:a05:600c:a012:b0:490:b9c3:6c49 with SMTP id
- 5b1f17b1804b1-490c2610c3bmr55729705e9.29.1780662023766; 
- Fri, 05 Jun 2026 05:20:23 -0700 (PDT)
+ AFNElJ+wkzdqMnuu4jNkodg+QSPJwP+xgjIrFBB4bkm0pdgXhGBo3sRnDROrXfFnutWrDify41hf6hKOMFFI6w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxhliGTrfTHm7PRMfy2HQYdHNDzkT73MEyU9KRkSOJRPYU84Kuq
+ +YsS6vgkWB2odx63hzrzgjzwencE4DctqhNpYTWMuC5fYze9NZpFdMc4lKLaZDCgxRs=
+X-Gm-Gg: Acq92OHtboAFbk6XlhmHWJz48RmcdQAnSDQxZq0kCy0tbB+7dVhqZ5XLaPvGFro9Rl+
+ /NzwWCL5x9WYEPEIUFGkIkZ5Mpt0vC/yAhqAhP5EyipzcklpNLxWY08YH4g8weRr0T0L5oagDU+
+ 4N6WH2piRn0gM2vv8Vl6y7J/nR0Kb+dsHhuLzSiWFZAJ+EfZd1J5WlGFvt1qIAfY4taFdzytR5q
+ xBz8AFMoD+UNr3QZfHXnHRiGL8drjKTkof8u/4w6F3IvFBGXje0HpY8QVRX9abfZday9u57lM6B
+ dlA7iS6EI6GTn+5CXAhRY/L3PDklIKj4dzvH+sYl9hd4LBvfZ5lBqExDbghkbL0+G4FCihaQkfO
+ zESfWMyovFobatYIvimg8hOA8d5emipsfKvrmWbPQGz+RpUP7uDmyY3mE8VEvd89Yd0d9VBYM21
+ knhG0swCCNhj83ohvKhB07zpo29Ot1mUvdoVwlMtG85CKnuNzcsvO2rOkiTc1irhCsMPpQ5dUmb
+ 2c0ERi6T0ohmjBvT5zoIFPzFiiCg0e4BRmqxNxBQ8jtU16TG2M/dyEbYqZ+W6+4VvJrVCyy9xx0
+ lDSQylD4OB+gHDeaHFSrvu0yqeqNFDz4Cx8=
+X-Received: by 2002:adf:e5c3:0:b0:45e:ea71:c6e1 with SMTP id
+ ffacd0b85a97d-46030643980mr4333283f8f.21.1780662025285; 
+ Fri, 05 Jun 2026 05:20:25 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it
  (host-82-48-44-238.retail.telecomitalia.it. [82.48.44.238])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2dcb13sm24785883f8f.2.2026.06.05.05.20.22
+ ffacd0b85a97d-4601f2dcb13sm24785883f8f.2.2026.06.05.05.20.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2026 05:20:23 -0700 (PDT)
+ Fri, 05 Jun 2026 05:20:24 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  5 Jun 2026 14:18:23 +0200
-Message-ID: <20260605121957.78409-13-dario.binacchi@amarulasolutions.com>
+Date: Fri,  5 Jun 2026 14:18:24 +0200
+Message-ID: <20260605121957.78409-14-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260605121957.78409-1-dario.binacchi@amarulasolutions.com>
 References: <20260605121957.78409-1-dario.binacchi@amarulasolutions.com>
@@ -86,8 +86,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 12/14] arm64: dts: st: support Engicam
-	MicroGEA-STM32MP257 SoM
+Subject: [Linux-stm32] [PATCH v4 13/14] arm64: dts: st: support Engicam
+	MicroGEA-STM32MP257-RMM board
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,48 +138,60 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,amarulasolutions.com:mid,amarulasolutions.com:from_mime,amarulasolutions.com:email,st.com:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,amarulasolutions.com:mid,amarulasolutions.com:from_mime,amarulasolutions.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CC4CD6480DE
+X-Rspamd-Queue-Id: DD8376480E3
 
-Support Engicam MicroGEA-STM32MP257 SoM with:
+Support for Engicam MicroGEA-STM32MP257-RMM board with:
 
  - 8 GB eMMC Flash
  - 2 GB LPDDR4 DRAM
+ - CAN
+ - LEDs
+ - LCD panel with touchscreen
+ - Micro SD card connector
+ - Audio codec
+ - Buzzer
 
-The SoM also provides an Ethernet MAC, but Ethernet support is not
-enabled at this stage due to a known silicon limitation documented in
-[1].
-
-This corresponds to section 2.21.2 ("ETH1 RMII mode could have CRC
-errors"), where CRC errors may occur in ETH1 RMII direct mode when
-directly connected to I/Os.
-
-The workaround requires use of the Ethernet switch (ETHSW), which
-introduces additional DT bindings and topology complexity. This is
-intended to be addressed in a separate patch series.
-
-[1] https://www.st.com/resource/en/errata_sheet/es0598-stm32mp23xx25xx-device-errata-stmicroelectronics.pdf
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
 ---
 
-Changes in v4:
-- Drop inclusion of stm32mp25xf.dtsi, we are using stm32mp257d.
+(no changes since v2)
 
-Changes in v3:
-- Fix a typo in the URL
+Changes in v2:
+- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
+  to avoid overriding the peripheral bus clock reference defined in the base
+  SoC device tree. Suggested by Sashiko.
+- Reference the existing labeled nodes directly at the root level using
+  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
+  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
+- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
+  the clocks array in sai1b, relying strictly on the st,sync property to handle
+  internal synchronization.
 
- .../dts/st/stm32mp257-engicam-microgea.dtsi   | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
+ arch/arm64/boot/dts/st/Makefile               |   1 +
+ .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 ++++++++++++++++++
+ 2 files changed, 320 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
+diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
+index 63908113ae36..386eca593c54 100644
+--- a/arch/arm64/boot/dts/st/Makefile
++++ b/arch/arm64/boot/dts/st/Makefile
+@@ -2,5 +2,6 @@
+ dtb-$(CONFIG_ARCH_STM32) += \
+ 	stm32mp215f-dk.dtb \
+ 	stm32mp235f-dk.dtb \
++	stm32mp257-engicam-microgea-rmm.dtb \
+ 	stm32mp257f-dk.dtb \
+ 	stm32mp257f-ev1.dtb
+diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
 new file mode 100644
-index 000000000000..5b4287e86def
+index 000000000000..0212c03aae1a
 --- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea.dtsi
-@@ -0,0 +1,63 @@
++++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
+@@ -0,0 +1,319 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
@@ -188,59 +200,315 @@ index 000000000000..5b4287e86def
 +
 +/dts-v1/;
 +
-+#include <dt-bindings/regulator/st,stm32mp25-regulator.h>
-+#include "stm32mp257.dtsi"
-+#include "stm32mp25-pinctrl.dtsi"
-+#include "stm32mp25xxai-pinctrl.dtsi"
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
++
++#include "stm32mp257-engicam-microgea.dtsi"
 +
 +/ {
-+	model = "Engicam MicroGEA STM32MP257 SoM";
-+	compatible = "engicam,microgea-stm32mp257", "st,stm32mp257";
++	model = "Engicam MicroGEA STM32MP257D RMM Board";
++	compatible = "engicam,microgea-stm32mp257-rmm",
++		     "engicam,microgea-stm32mp257", "st,stm32mp257";
 +
-+	memory@80000000 {
-+		device_type = "memory";
-+		reg = <0x0 0x80000000 0x0 0x80000000>;
++	aliases {
++		mmc0 = &sdmmc1;
++		mmc1 = &sdmmc2;
++		serial0 = &usart2;
++		serial1 = &usart1;
 +	};
-+};
 +
-+&scmi_regu {
-+	scmi_vddio1: regulator@0 {
++	backlight: backlight {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 100>;
++		num-interpolated-steps = <100>;
++		default-brightness-level = <85>;
++		pwms = <&pwm2 0 100000 0>;
++	};
++
++	buzzer {
++		compatible = "pwm-beeper";
++		pwms = <&pwm4 0 1000000 0>;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++
++		framebuffer {
++			compatible = "simple-framebuffer";
++			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
++			lcd-supply = <&reg_3v3>;
++			status = "disabled";
++		};
++	};
++
++	leds {
++		compatible = "gpio-leds";
++
++		led-0 {
++			gpios = <&gpioh 2 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++			status = "okay";
++		};
++
++		led-1 {
++			gpios = <&gpioh 6 GPIO_ACTIVE_HIGH>;
++			default-state = "off";
++			status = "okay";
++		};
++	};
++
++	mclk: clock-mclk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
++	};
++
++	reg_1v8: regulator-1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "1v8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++	};
++
++	reg_3v3: regulator-3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "3v3";
 +		regulator-min-microvolt = <3300000>;
 +		regulator-max-microvolt = <3300000>;
 +	};
-+	scmi_vddcore: regulator@b {
-+		reg = <VOLTD_SCMI_STPMIC2_BUCK2>;
-+		regulator-name = "vddcore";
++
++	reg_ext_pwr: regulator-ext-pwr {
++		compatible = "regulator-fixed";
++		regulator-name = "ext-pwr";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		gpio = <&gpiog 0 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-always-on;
 +	};
-+	scmi_v1v8: regulator@e {
-+		reg = <VOLTD_SCMI_STPMIC2_BUCK5>;
-+		regulator-name = "v1v8";
-+	};
-+	scmi_v3v3: regulator@10 {
-+		reg = <VOLTD_SCMI_STPMIC2_BUCK7>;
-+		regulator-name = "v3v3";
-+	};
-+	scmi_vdd3v3_usb: regulator@14 {
-+		reg = <VOLTD_SCMI_STPMIC2_LDO4>;
-+		regulator-name = "vdd3v3_usb";
++
++	sound {
++		compatible = "audio-graph-card";
++		label = "STM32MP25-RMM";
++		widgets = "Headphone", "Headphone Jack",
++			  "Microphone", "Microphone Jack";
++		routing = "Headphone Jack", "HP_OUT",
++			  "MIC_IN", "Microphone Jack",
++			  "Microphone Jack", "Mic Bias";
++		dais = <&sai1a_port &sai1b_port>;
++		status = "okay";
 +	};
 +};
 +
-+/* eMMC */
-+&sdmmc2 {
++&arm_wdt {
++	timeout-sec = <32>;
++	status = "okay";
++};
++
++&i2c1 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2c1_pins_a>;
++	pinctrl-1 = <&i2c1_sleep_pins_a>;
++	i2c-scl-rising-time-ns = <185>;
++	i2c-scl-falling-time-ns = <20>;
++	status = "okay";
++	/* spare dmas for other usage */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++
++	touchscreen@38 {
++		compatible = "edt,edt-ft5306";
++		reg = <0x38>;
++		interrupt-parent = <&gpiob>;
++		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
++		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <1280>;
++		touchscreen-size-y = <800>;
++	};
++};
++
++&i2c2 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&i2c2_pins_a>;
++	pinctrl-1 = <&i2c2_sleep_pins_a>;
++	i2c-scl-rising-time-ns = <185>;
++	i2c-scl-falling-time-ns = <20>;
++	status = "okay";
++	/* spare dmas for other usage */
++	/delete-property/dmas;
++	/delete-property/dma-names;
++
++	sgtl5000: codec@a {
++		compatible = "fsl,sgtl5000";
++		reg = <0x0a>;
++		#sound-dai-cells = <0>;
++		clocks = <&mclk>;
++
++		VDDA-supply = <&reg_3v3>;
++		VDDIO-supply = <&reg_3v3>;
++		VDDD-supply = <&reg_1v8>;
++
++		sgtl5000_port: port {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			sgtl5000_tx_endpoint: endpoint@0 {
++				reg = <0>;
++				remote-endpoint = <&sai1a_endpoint>;
++				frame-master = <&sgtl5000_tx_endpoint>;
++				bitclock-master = <&sgtl5000_tx_endpoint>;
++			};
++
++			sgtl5000_rx_endpoint: endpoint@1 {
++				reg = <1>;
++				remote-endpoint = <&sai1b_endpoint>;
++				frame-master = <&sgtl5000_rx_endpoint>;
++				bitclock-master = <&sgtl5000_rx_endpoint>;
++			};
++		};
++	};
++};
++
++&ltdc {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&ltdc_pins_a>;
++	pinctrl-1 = <&ltdc_sleep_pins_a>;
++	status = "okay";
++
++	port {
++		ltdc_out: endpoint {
++			remote-endpoint = <&panel_in>;
++		};
++	};
++};
++
++&m_can1 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&m_can1_pins_a>;
++	pinctrl-1 = <&m_can1_sleep_pins_a>;
++	status = "okay";
++};
++
++&sai1 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&sai1a_pins_a>, <&sai1b_pins_a>;
++	pinctrl-1 = <&sai1a_sleep_pins_a>, <&sai1b_sleep_pins_a>;
++	status = "okay";
++};
++
++&sai1a {
++	dma-names = "tx";
++	status = "okay";
++
++	sai1a_port: port {
++		sai1a_endpoint: endpoint {
++			remote-endpoint = <&sgtl5000_tx_endpoint>;
++			dai-format = "i2s";
++			mclk-fs = <512>;
++		};
++	};
++};
++
++&sai1b {
++	dma-names = "rx";
++	st,sync = <&sai1a 2>;
++	clocks = <&rcc CK_KER_SAI1>;
++	clock-names = "sai_ck";
++	status = "okay";
++
++	sai1b_port: port {
++		sai1b_endpoint: endpoint {
++			remote-endpoint = <&sgtl5000_rx_endpoint>;
++			dai-format = "i2s";
++			mclk-fs = <512>;
++		};
++	};
++};
++
++/* MicroSD */
++&sdmmc1 {
 +	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b4_pins_a &sdmmc2_d47_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b4_od_pins_a &sdmmc2_d47_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b4_sleep_pins_a &sdmmc2_d47_sleep_pins_a>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
++	pinctrl-0 = <&sdmmc1_b4_pins_a>;
++	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
++	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
++	broken-cd;
++	disable-wp;
 +	st,neg-edge;
-+	bus-width = <8>;
++	bus-width = <4>;
 +	vmmc-supply = <&scmi_v3v3>;
-+	vqmmc-supply = <&scmi_vddio2>;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
++	vqmmc-supply = <&scmi_vddio1>;
++	no-1-8-v;
++	status = "okay";
++};
++
++&spi1 {
++	pinctrl-names = "default", "sleep";
++	pinctrl-0 = <&spi1_pins_a>;
++	pinctrl-1 = <&spi1_sleep_pins_a>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++	cs-gpios = <&gpioh 8 GPIO_ACTIVE_HIGH>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
++	status = "okay";
++
++	display: display@0 {
++		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
++		reg = <0>;
++		vdd-supply = <&reg_3v3>;
++		spi-max-frequency = <10000000>;
++		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
++		backlight = <&backlight>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&ltdc_out>;
++			};
++		};
++	};
++};
++
++&timers2 {
++	status = "okay";
++
++	pwm2: pwm {
++		pinctrl-0 = <&pwm2_pins_a>;
++		pinctrl-1 = <&pwm2_sleep_pins_a>;
++		pinctrl-names = "default", "sleep";
++		status = "okay";
++	};
++};
++
++&timers4 {
++	status = "okay";
++
++	pwm4: pwm {
++		pinctrl-names = "default", "sleep";
++		pinctrl-0 = <&pwm4_pins_a>;
++		pinctrl-1 = <&pwm4_sleep_pins_a>;
++		status = "okay";
++	};
++};
++
++&usart1 {
++	pinctrl-names = "default", "idle", "sleep";
++	pinctrl-0 = <&usart1_pins_b>;
++	pinctrl-1 = <&usart1_idle_pins_b>;
++	pinctrl-2 = <&usart1_sleep_pins_b>;
++	/delete-property/ dmas;
++	/delete-property/ dma-names;
++	status = "okay";
++};
++
++&usart2 {
++	pinctrl-names = "default", "idle", "sleep";
++	pinctrl-0 = <&usart2_pins_a>;
++	pinctrl-1 = <&usart2_idle_pins_a>;
++	pinctrl-2 = <&usart2_sleep_pins_a>;
++	/delete-property/ dmas;
++	/delete-property/ dma-names;
 +	status = "okay";
 +};
 -- 
