@@ -2,92 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ANAPAgu/ImphdAEAu9opvQ
+	id QLsgNiHAImqjdAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:20:27 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:25:05 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD8376480E3
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:20:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 58DD0648188
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 14:25:05 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=btazklUC;
+	dkim=fail ("body hash did not verify") header.d=riscstar-com.20251104.gappssmtp.com header.s=20251104 header.b=05CxohIs;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=riscstar.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAFE4C8F281;
-	Fri,  5 Jun 2026 12:20:26 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1D8F5C8F273;
+	Fri,  5 Jun 2026 12:25:05 +0000 (UTC)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com
+ [209.85.210.46])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDC6DC8F281
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45D73C8F272
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 12:20:25 +0000 (UTC)
-Received: by mail-wr1-f45.google.com with SMTP id
- ffacd0b85a97d-45fd461e4a5so1301189f8f.0
+ Fri,  5 Jun 2026 12:25:03 +0000 (UTC)
+Received: by mail-ot1-f46.google.com with SMTP id
+ 46e09a7af769-7e6dcc22cbcso1540103a34.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Jun 2026 05:20:25 -0700 (PDT)
+ Fri, 05 Jun 2026 05:25:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1780662025; x=1781266825;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780662302; x=1781267102;
  darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to;
- bh=9+mQ1hm0gN4dl7tUeK1zZy9BpMYpmNER+WcsKY4gIDg=;
- b=btazklUC67fyUcmtGiw2qcaUs1bpJqp9GgskcNvGr+mau7+vqsKaEVlVrShqfqOIoc
- qHSVn56kzTFQpmpxevQ43z11K/9IKOIY4YcpwFlKAszuqt8S8WcYfEb6uRpvx4EO1Ovv
- BsmjIsZnQhuCgvSGuChSR20JzjLPs7GyxFAOY=
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=hOWy2W3C8F0epU9cKoqDrCPhuhX/iOel8Vt4x+uvwak=;
+ b=05CxohIsWhKrJwTyhdMziL9c4y/4I16yVsgJx4L0SdA5XiH6B0dZaNRfpgMvQu79I9
+ Z0n+MsjPJqx36tY3J+Vcf2FIO/UNMn14lriCIs11hRJxOtQ/saYDiEGP5Tc8szrtE7mI
+ Sb7npnNG+ZgBByu/l2T0X4v49JZGx8b9pOQygkZds551j1+YUij4nCisw0SSSZji3oUu
+ pb10C6Q0c+eNV19CC0Cu6Yf/YkTfUAr+LXqA3oattrxePisoQTJ9E8dujQjaF+5l5EAn
+ 1lsq9HdS9hROECexHcH5QDYl1t5KaDr06zSsuURVWuJd/omFaW28bobbzLPlo/C0rKcf
+ DNEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780662025; x=1781266825;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=9+mQ1hm0gN4dl7tUeK1zZy9BpMYpmNER+WcsKY4gIDg=;
- b=QXlI7s0oczVr5yNc77xh+OqVXryroMaVoDhA0UQUseQvNYsEa4ppbWN67HeyJgoVEG
- zkl8I1Wsif/LYuYEC4D2anrHeTmvqYksn9BaGy35riAIYRveUEQbzf4r6mHjKIGp4smF
- ex1Xy3vi+zjbjq7dlJrgDxrdPdeyqorvSq9hMIR92WpzYj3+oaR8chWDxap/6YeZmdpi
- 3tCKlSE7ZtbpFA0rbMj3e+Y1EOCQHP6Cw/LUD5+VpLxJXAavkUqkgcmvzc5hLyNbwonA
- b5FTkCVtfNRUfVAK487eR17wdntRWNK9osuKv024DNQlEZQ3ZP4YQWwy6+oyZ6cXJkX2
- 6C1A==
+ d=1e100.net; s=20251104; t=1780662302; x=1781267102;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=hOWy2W3C8F0epU9cKoqDrCPhuhX/iOel8Vt4x+uvwak=;
+ b=EHzmKlie7OonKX+YBRGDzyr7nX4OH449yQXppR02LCDH9AxyLCCHpj6MQwM4w0Stmv
+ 0vJ/mxkBeFz3M3SDQ45QXR496ZQQhjWinF7wrVYhYrImTi7AhggC7lUQmA/0T2AwaXR0
+ 2DQM5oXDhn/jsVu4hh5x86aMtxAzssOya0/hriy0jTsUSrVoLyLXxi3jP3YNVfYzhUFx
+ i7umAsrswGonz0TRgwro1PXuOqO2lfdJJXbKnR9rFYeMODvT1rAY512W4UTHtNUG6OWd
+ F5BxGgxsSo5tlqXxL4FqZN6yq+VebH7y/0jrplQLK5nstkql0vBP7RBN3zECZfbRulMz
+ i1Sw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+wkzdqMnuu4jNkodg+QSPJwP+xgjIrFBB4bkm0pdgXhGBo3sRnDROrXfFnutWrDify41hf6hKOMFFI6w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxhliGTrfTHm7PRMfy2HQYdHNDzkT73MEyU9KRkSOJRPYU84Kuq
- +YsS6vgkWB2odx63hzrzgjzwencE4DctqhNpYTWMuC5fYze9NZpFdMc4lKLaZDCgxRs=
-X-Gm-Gg: Acq92OHtboAFbk6XlhmHWJz48RmcdQAnSDQxZq0kCy0tbB+7dVhqZ5XLaPvGFro9Rl+
- /NzwWCL5x9WYEPEIUFGkIkZ5Mpt0vC/yAhqAhP5EyipzcklpNLxWY08YH4g8weRr0T0L5oagDU+
- 4N6WH2piRn0gM2vv8Vl6y7J/nR0Kb+dsHhuLzSiWFZAJ+EfZd1J5WlGFvt1qIAfY4taFdzytR5q
- xBz8AFMoD+UNr3QZfHXnHRiGL8drjKTkof8u/4w6F3IvFBGXje0HpY8QVRX9abfZday9u57lM6B
- dlA7iS6EI6GTn+5CXAhRY/L3PDklIKj4dzvH+sYl9hd4LBvfZ5lBqExDbghkbL0+G4FCihaQkfO
- zESfWMyovFobatYIvimg8hOA8d5emipsfKvrmWbPQGz+RpUP7uDmyY3mE8VEvd89Yd0d9VBYM21
- knhG0swCCNhj83ohvKhB07zpo29Ot1mUvdoVwlMtG85CKnuNzcsvO2rOkiTc1irhCsMPpQ5dUmb
- 2c0ERi6T0ohmjBvT5zoIFPzFiiCg0e4BRmqxNxBQ8jtU16TG2M/dyEbYqZ+W6+4VvJrVCyy9xx0
- lDSQylD4OB+gHDeaHFSrvu0yqeqNFDz4Cx8=
-X-Received: by 2002:adf:e5c3:0:b0:45e:ea71:c6e1 with SMTP id
- ffacd0b85a97d-46030643980mr4333283f8f.21.1780662025285; 
- Fri, 05 Jun 2026 05:20:25 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it
- (host-82-48-44-238.retail.telecomitalia.it. [82.48.44.238])
+ AFNElJ//NYqsq/Gtyizpqv/HQkhuLxERs8HdJOVg7bVx+u7r1ASS6olqQPF29eaW02GbMN2cwXTqTx1dtQqmUQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzgjjw5k/htWh7dQEQoqXRuTrZFU0/3tGvzZK5l69CMC3a+pvZq
+ 2ZVZSMIMB0W2H+EJt19e7zY2En0xoE7S7rybBQLRsWE0jIQ21pISURaE9rY76Jx997w=
+X-Gm-Gg: Acq92OEX8w9QM1SBRX3mDvQGhr/itgeAo23PzR8+s5T/oGhogZbAMzzK1tbmwAR8wVp
+ 0hdldDwgmrGm7RBvMtrZVs2o6hThYmDXJuVjRCvd4kX7yBhZYfpoUHK+6QRMKXLUU/15vQJFuh0
+ KFOa8HRSlgky9NiMiH5F7MBoE84iBz345K6/p2iFm6edrdZbvWfRm5unrzoDyboftooOOzaFa5d
+ V9MIajx1MQk0YQ8pK0/0YK3Vukdxg8/FGRQYR/t3xnqtBSQQh4r9vj0u7+XrSwjMsciQBCF2FLu
+ anZd0qTa8MzsQpnXTbBbRqmCiXEMKjZq1l9w1ksaXOVcXTUeLSsoTbPhiReAhms8hhsTAVgRbPu
+ B5833GHd3A7E9jGZt40XlVWp3k4sDeqmIiQJHUygstdRZNbFHH5bqDwPH9gUW568VGL+icCwI/v
+ zqMIhCE4Uy3FbyPfwUh9+YhyPbo69hLtFpmjI=
+X-Received: by 2002:a05:6830:6685:b0:7e6:deb1:484d with SMTP id
+ 46e09a7af769-7e70c7b1386mr1725355a34.13.1780662284484; 
+ Fri, 05 Jun 2026 05:24:44 -0700 (PDT)
+Received: from [172.22.22.234] ([73.62.185.64])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4601f2dcb13sm24785883f8f.2.2026.06.05.05.20.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 05 Jun 2026 05:20:24 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Date: Fri,  5 Jun 2026 14:18:24 +0200
-Message-ID: <20260605121957.78409-14-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260605121957.78409-1-dario.binacchi@amarulasolutions.com>
-References: <20260605121957.78409-1-dario.binacchi@amarulasolutions.com>
+ 46e09a7af769-7e6e7974f22sm5817653a34.25.2026.06.05.05.24.41
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 05 Jun 2026 05:24:44 -0700 (PDT)
+Message-ID: <bd2c09d4-462d-4392-bb3f-ca91b2f08bd7@riscstar.com>
+Date: Fri, 5 Jun 2026 07:24:40 -0500
 MIME-Version: 1.0
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- devicetree@vger.kernel.org, francesco.utel@engicam.com,
- domenico.acri@engicam.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v4 13/14] arm64: dts: st: support Engicam
-	MicroGEA-STM32MP257-RMM board
+User-Agent: Mozilla Thunderbird
+To: "Rob Herring (Arm)" <robh@kernel.org>
+References: <20260605010022.968612-1-elder@riscstar.com>
+ <20260605010022.968612-11-elder@riscstar.com>
+ <178062720108.1744752.12164392208085928081.robh@kernel.org>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <178062720108.1744752.12164392208085928081.robh@kernel.org>
+Cc: me@ziyao.cc, ast@kernel.org, a0987203069@gmail.com,
+ Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
+ edumazet@google.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, mohd.anwar@oss.qualcomm.com,
+ weishangjuan@eswincomputing.com, daniel@iogearbox.net, chenhuacai@kernel.org,
+ john.fastabend@gmail.com, maxime.chevallier@bootlin.com,
+ siyanteng@cqsoftware.com.cn, sdf@fomichev.me, kuba@kernel.org,
+ pabeni@redhat.com, konradybcio@kernel.org, devicetree@vger.kernel.org,
+ conor+dt@kernel.org, hawk@kernel.org, arnd@arndb.de, brgl@kernel.org,
+ linux-arm-msm@vger.kernel.org, richardcochran@gmail.com,
+ rohan.g.thomas@altera.com, prabhakar.mahadev-lad.rj@bp.renesas.com,
+ livelycarpet87@gmail.com, linux-gpio@vger.kernel.org,
+ rmk+kernel@armlinux.org.uk, wens@kernel.org, krzk+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, inochiama@gmail.com, linusw@kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, andrew+netdev@lunn.ch,
+ boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com, gregkh@linuxfoundation.org,
+ bpf@vger.kernel.org, julianbraha@gmail.com, andersson@kernel.org,
+ hkallweit1@gmail.com
+Subject: Re: [Linux-stm32] [PATCH net-next v2 10/14] dt-bindings: net:
+ toshiba, tc9654-dwmac: add TC9564 Ethernet bridge
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -99,420 +114,116 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[amarulasolutions.com:s=google];
+	R_DKIM_REJECT(1.00)[riscstar-com.20251104.gappssmtp.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[amarulasolutions.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[riscstar.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:dario.binacchi@amarulasolutions.com,m:devicetree@vger.kernel.org,m:francesco.utel@engicam.com,m:domenico.acri@engicam.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:michael@amarulasolutions.com,m:linux-amarula@amarulasolutions.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[kernel.org,amarulasolutions.com,vger.kernel.org,engicam.com,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[amarulasolutions.com:-];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_SENDER(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[47];
+	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:me@ziyao.cc,m:ast@kernel.org,m:a0987203069@gmail.com,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:edumazet@google.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:maxime.chevallier@bootlin.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:hawk@kernel.org,m:arnd@arndb.de,m:brgl@kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:linux-gpio@vger.kernel.org,m:rmk+kernel@armlinux.org.uk,m:wens@kernel.org,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:inochiama@gmail.com,m:linusw@kernel.org,m:linux-kernel@vger.kernel.org,m:davem@davem
+ loft.net,m:andrew+netdev@lunn.ch,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:gregkh@linuxfoundation.org,m:bpf@vger.kernel.org,m:julianbraha@gmail.com,m:andersson@kernel.org,m:hkallweit1@gmail.com,m:johnfastabend@gmail.com,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[ziyao.cc,kernel.org,gmail.com,riscstar.com,xiaomi.com,google.com,vger.kernel.org,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,bootlin.com,cqsoftware.com.cn,fomichev.me,redhat.com,arndb.de,altera.com,bp.renesas.com,armlinux.org.uk,lists.infradead.org,davemloft.net,lunn.ch,linuxfoundation.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[dario.binacchi@amarulasolutions.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,amarulasolutions.com:mid,amarulasolutions.com:from_mime,amarulasolutions.com:email]
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[riscstar.com:mid,riscstar.com:from_mime,riscstar.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: DD8376480E3
+X-Rspamd-Queue-Id: 58DD0648188
 
-Support for Engicam MicroGEA-STM32MP257-RMM board with:
+On 6/4/26 9:40 PM, Rob Herring (Arm) wrote:
+> 
+> On Thu, 04 Jun 2026 20:00:17 -0500, Alex Elder wrote:
+>> From: Daniel Thompson <daniel@riscstar.com>
+>>
+>> Add devicetree bindings for the Toshiba TC956x family of Ethernet-AVB/TSN
+>> bridges.
+>>
+>> The TC9564 contains a PCIe switch with one upstream and three downstream
+>> PCIe ports.  The third PCIe downstream port has an attached embedded PCIe
+>> endpoint, and that endpoint implements two PCIe functions.  Each internal
+>> PCIe function has a Synopsys XGMAC Ethernet interface capable of 10 Gbps
+>> operation.
+>>
+>> The TC9564 also implements an embedded GPIO controller, which exposes
+>> 10 lines externally.  Some platforms use these GPIO lines, so this
+>> GPIO controller is managed by a separate driver.  Other embedded
+>> peripherals (like a microcontroller, SRAM, and UART) are currently
+>> unused.
+>>
+>> The GPIO controller is managed by registers accessed via MMIO on an
+>> internal PCIe function's registers.
+>>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>>   .../bindings/net/toshiba,tc9564-dwmac.yaml    | 120 ++++++++++++++++++
+>>   MAINTAINERS                                   |   6 +
+>>   2 files changed, 126 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
+>>
+> 
+> My bot found errors running 'make dt_binding_check' on your patch:
 
- - 8 GB eMMC Flash
- - 2 GB LPDDR4 DRAM
- - CAN
- - LEDs
- - LCD panel with touchscreen
- - Micro SD card connector
- - Audio codec
- - Buzzer
+Thank you for this report.  After upgrading the "dtschema" package I
+also see these errors.  The "gpio" and "ethernet" properties will
+have an "unevaluatedProperties: false" constraint added in the next
+version of this series.  The name of the binding file will also be
+correct in the MAINTAINERS file.
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+					-Alex
 
----
-
-(no changes since v2)
-
-Changes in v2:
-- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
-  to avoid overriding the peripheral bus clock reference defined in the base
-  SoC device tree. Suggested by Sashiko.
-- Reference the existing labeled nodes directly at the root level using
-  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
-  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
-- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
-  the clocks array in sai1b, relying strictly on the st,sync property to handle
-  internal synchronization.
-
- arch/arm64/boot/dts/st/Makefile               |   1 +
- .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 ++++++++++++++++++
- 2 files changed, 320 insertions(+)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-
-diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-index 63908113ae36..386eca593c54 100644
---- a/arch/arm64/boot/dts/st/Makefile
-+++ b/arch/arm64/boot/dts/st/Makefile
-@@ -2,5 +2,6 @@
- dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp215f-dk.dtb \
- 	stm32mp235f-dk.dtb \
-+	stm32mp257-engicam-microgea-rmm.dtb \
- 	stm32mp257f-dk.dtb \
- 	stm32mp257f-ev1.dtb
-diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-new file mode 100644
-index 000000000000..0212c03aae1a
---- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-@@ -0,0 +1,319 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ * Copyright (C) 2026 Engicam srl
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+
-+#include "stm32mp257-engicam-microgea.dtsi"
-+
-+/ {
-+	model = "Engicam MicroGEA STM32MP257D RMM Board";
-+	compatible = "engicam,microgea-stm32mp257-rmm",
-+		     "engicam,microgea-stm32mp257", "st,stm32mp257";
-+
-+	aliases {
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
-+		serial0 = &usart2;
-+		serial1 = &usart1;
-+	};
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 100>;
-+		num-interpolated-steps = <100>;
-+		default-brightness-level = <85>;
-+		pwms = <&pwm2 0 100000 0>;
-+	};
-+
-+	buzzer {
-+		compatible = "pwm-beeper";
-+		pwms = <&pwm4 0 1000000 0>;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer {
-+			compatible = "simple-framebuffer";
-+			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
-+			lcd-supply = <&reg_3v3>;
-+			status = "disabled";
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			gpios = <&gpioh 2 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			status = "okay";
-+		};
-+
-+		led-1 {
-+			gpios = <&gpioh 6 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			status = "okay";
-+		};
-+	};
-+
-+	mclk: clock-mclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+	};
-+
-+	reg_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1v8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+
-+	reg_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	reg_ext_pwr: regulator-ext-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ext-pwr";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpiog 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	sound {
-+		compatible = "audio-graph-card";
-+		label = "STM32MP25-RMM";
-+		widgets = "Headphone", "Headphone Jack",
-+			  "Microphone", "Microphone Jack";
-+		routing = "Headphone Jack", "HP_OUT",
-+			  "MIC_IN", "Microphone Jack",
-+			  "Microphone Jack", "Mic Bias";
-+		dais = <&sai1a_port &sai1b_port>;
-+		status = "okay";
-+	};
-+};
-+
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c1_pins_a>;
-+	pinctrl-1 = <&i2c1_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	touchscreen@38 {
-+		compatible = "edt,edt-ft5306";
-+		reg = <0x38>;
-+		interrupt-parent = <&gpiob>;
-+		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
-+		touchscreen-size-x = <1280>;
-+		touchscreen-size-y = <800>;
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c2_pins_a>;
-+	pinctrl-1 = <&i2c2_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	sgtl5000: codec@a {
-+		compatible = "fsl,sgtl5000";
-+		reg = <0x0a>;
-+		#sound-dai-cells = <0>;
-+		clocks = <&mclk>;
-+
-+		VDDA-supply = <&reg_3v3>;
-+		VDDIO-supply = <&reg_3v3>;
-+		VDDD-supply = <&reg_1v8>;
-+
-+		sgtl5000_port: port {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			sgtl5000_tx_endpoint: endpoint@0 {
-+				reg = <0>;
-+				remote-endpoint = <&sai1a_endpoint>;
-+				frame-master = <&sgtl5000_tx_endpoint>;
-+				bitclock-master = <&sgtl5000_tx_endpoint>;
-+			};
-+
-+			sgtl5000_rx_endpoint: endpoint@1 {
-+				reg = <1>;
-+				remote-endpoint = <&sai1b_endpoint>;
-+				frame-master = <&sgtl5000_rx_endpoint>;
-+				bitclock-master = <&sgtl5000_rx_endpoint>;
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&ltdc_pins_a>;
-+	pinctrl-1 = <&ltdc_sleep_pins_a>;
-+	status = "okay";
-+
-+	port {
-+		ltdc_out: endpoint {
-+			remote-endpoint = <&panel_in>;
-+		};
-+	};
-+};
-+
-+&m_can1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&m_can1_pins_a>;
-+	pinctrl-1 = <&m_can1_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&sai1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&sai1a_pins_a>, <&sai1b_pins_a>;
-+	pinctrl-1 = <&sai1a_sleep_pins_a>, <&sai1b_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&sai1a {
-+	dma-names = "tx";
-+	status = "okay";
-+
-+	sai1a_port: port {
-+		sai1a_endpoint: endpoint {
-+			remote-endpoint = <&sgtl5000_tx_endpoint>;
-+			dai-format = "i2s";
-+			mclk-fs = <512>;
-+		};
-+	};
-+};
-+
-+&sai1b {
-+	dma-names = "rx";
-+	st,sync = <&sai1a 2>;
-+	clocks = <&rcc CK_KER_SAI1>;
-+	clock-names = "sai_ck";
-+	status = "okay";
-+
-+	sai1b_port: port {
-+		sai1b_endpoint: endpoint {
-+			remote-endpoint = <&sgtl5000_rx_endpoint>;
-+			dai-format = "i2s";
-+			mclk-fs = <512>;
-+		};
-+	};
-+};
-+
-+/* MicroSD */
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	broken-cd;
-+	disable-wp;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&scmi_v3v3>;
-+	vqmmc-supply = <&scmi_vddio1>;
-+	no-1-8-v;
-+	status = "okay";
-+};
-+
-+&spi1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&spi1_pins_a>;
-+	pinctrl-1 = <&spi1_sleep_pins_a>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	cs-gpios = <&gpioh 8 GPIO_ACTIVE_HIGH>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
-+	status = "okay";
-+
-+	display: display@0 {
-+		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
-+		reg = <0>;
-+		vdd-supply = <&reg_3v3>;
-+		spi-max-frequency = <10000000>;
-+		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
-+		backlight = <&backlight>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&ltdc_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&timers2 {
-+	status = "okay";
-+
-+	pwm2: pwm {
-+		pinctrl-0 = <&pwm2_pins_a>;
-+		pinctrl-1 = <&pwm2_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+};
-+
-+&timers4 {
-+	status = "okay";
-+
-+	pwm4: pwm {
-+		pinctrl-names = "default", "sleep";
-+		pinctrl-0 = <&pwm4_pins_a>;
-+		pinctrl-1 = <&pwm4_sleep_pins_a>;
-+		status = "okay";
-+	};
-+};
-+
-+&usart1 {
-+	pinctrl-names = "default", "idle", "sleep";
-+	pinctrl-0 = <&usart1_pins_b>;
-+	pinctrl-1 = <&usart1_idle_pins_b>;
-+	pinctrl-2 = <&usart1_sleep_pins_b>;
-+	/delete-property/ dmas;
-+	/delete-property/ dma-names;
-+	status = "okay";
-+};
-+
-+&usart2 {
-+	pinctrl-names = "default", "idle", "sleep";
-+	pinctrl-0 = <&usart2_pins_a>;
-+	pinctrl-1 = <&usart2_idle_pins_a>;
-+	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	/delete-property/ dmas;
-+	/delete-property/ dma-names;
-+	status = "okay";
-+};
--- 
-2.43.0
+> yamllint warnings/errors:
+> 
+> dtschema/dtc warnings/errors:
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml: gpio: Missing additionalProperties/unevaluatedProperties constraint
+> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml: ethernet: Missing additionalProperties/unevaluatedProperties constraint
+> 
+> doc reference errors (make refcheckdocs):
+> Warning: MAINTAINERS references a file that doesn't exist: Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> MAINTAINERS: Documentation/devicetree/bindings/net/toshiba,tc956x-dwmac.yaml
+> 
+> See https://patchwork.kernel.org/project/devicetree/patch/20260605010022.968612-11-elder@riscstar.com
+> 
+> The base for the series is generally the latest rc1. A different dependency
+> should be noted in *this* patch.
+> 
+> If you already ran 'make dt_binding_check' and didn't see the above
+> error(s), then make sure 'yamllint' is installed and dt-schema is up to
+> date:
+> 
+> pip3 install dtschema --upgrade
+> 
+> Please check and re-submit after running the above command yourself. Note
+> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+> your schema. However, it must be unset to test all examples with your schema.
+> 
 
 _______________________________________________
 Linux-stm32 mailing list
