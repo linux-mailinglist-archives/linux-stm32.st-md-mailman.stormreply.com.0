@@ -2,64 +2,99 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id B9SiJw7yIWotQwEAu9opvQ
+	id 3KSMIrAfImr0SgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 23:45:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 03:00:32 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 387B8643AAC
-	for <lists+linux-stm32@lfdr.de>; Thu, 04 Jun 2026 23:45:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E15A644319
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 03:00:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=RjNt1Zfl;
+	dkim=fail ("body hash did not verify") header.d=riscstar-com.20251104.gappssmtp.com header.s=20251104 header.b=eR4XNxnt;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=riscstar.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D90EFC8F272;
-	Thu,  4 Jun 2026 21:45:49 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5831C8F273;
+	Fri,  5 Jun 2026 01:00:31 +0000 (UTC)
+Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com
+ [209.85.167.179])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 06603C8F271
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2C9EEC8F272
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  4 Jun 2026 21:45:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id DC88B6001A;
- Thu,  4 Jun 2026 21:45:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 076631F00893;
- Thu,  4 Jun 2026 21:45:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780609546;
- bh=eVPQ3M4nO2cjo4ZvlqJcXIehT4M5f0oVzasV566Wey4=;
- h=In-Reply-To:References:Subject:From:To:Cc:Date;
- b=RjNt1ZflgPOa3QCB1uhADhvuCHHeOhF9pb550vZ9YhQF47A5HGMNfdXAD6wxT6o+s
- p4yLBkWFUmqeLxAf9JXAQbeSadGip4m6WTwSx2j06mVZMs9pomJwf6IfpxpYiCHg21
- IOGpNWMEzRQC8XyjgcyV0q3vxkS6BIv8fYcuoXvsYbCAXYN89OK5WhQzDzXCOs+g4Q
- xwXWWiO9by1OWL2iRaX38Y/NQ00OAFPcya0uwNOVdJwcJrhNU+tTEDOVJ1emi5GEqm
- zGBt9qCmETG8CPbSSquApDhNk7saGl8cVIPS2ZUL4J0j3LCWkl964PCyneEPHWJ89M
- XFYcOKm3Ai2jw==
-Content-Type: multipart/mixed; boundary="===============3493038701439416165=="
+ Fri,  5 Jun 2026 01:00:30 +0000 (UTC)
+Received: by mail-oi1-f179.google.com with SMTP id
+ 5614622812f47-486560db81cso1104165b6e.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 04 Jun 2026 18:00:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621229; x=1781226029;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=OqbmcXSAlAGCA27gHjydvmcFDD6CfDKTo92atFvy+XY=;
+ b=eR4XNxntGe8KeUOztzmT3MbR1MrFmNxmGbOTgMRhBgng9xzQm9wg/du0QAsexGPs6i
+ C/g2msewkXesV43phuxVMX2394/mslyD98jv+2C8PX6MtTPvp8Gt8zs2dYnO8IbYzeBT
+ xkx4frgCiFd6YkCthuUNf+cl3JO2zXyCw7z0aAOG95i+HbHkZpLmrEzy94fxCDeZuHNA
+ L+qMSbNbsSX32L/QtGEpUXXprjJyXufUgNkVx58GvVlExmXgn8netXkysE+ShCUua0AS
+ MCbTmRMDwQ0GxiWUalrLYCx7Qmf/fi/UMxPxIzuo0oIHsH+gl1epS6cEoijzLY/gExkQ
+ EajA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780621229; x=1781226029;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=OqbmcXSAlAGCA27gHjydvmcFDD6CfDKTo92atFvy+XY=;
+ b=Q1FZ6TPv87YPEZDA2/q2eGhNvOM5fIl7wguCtZ+LEW8ZCvU8kvfbvCpULY5LSNtOff
+ 9IN21e4Mw7DmdmsDkYo2h5mJlnRrFv0fDb8W+1jOVpZgHLVtDM3pYiZZA4Ap9HBX+BRe
+ dL47EWoRX4hD+qhEC9xxQjwf/dWyelVjcO5UCxkdM6WWqffox4pnepaS7jVRPgLRTn/2
+ IR5CgW+0nEZYNcMOJaLVfuJj5FRPyzeF1k3Bdks0UL0ai0wrgXe3M0O/8tBhJKqPDTzU
+ +ge0iAyfxp1h6/t7dZxAawrj+KL4qJaY5ZFUonCWpVChu93JT90WC5iSoh81bau6xpdw
+ 1OYQ==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+gCpC1z4ZumsQ1SCQB4OJg6xqZba1Pm5NTzksSmuXdJKljNgtPkh0mMJeC5XXwG+USFuFxTniaktYkkA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz7lFvrDf0ipdM6jve8TBbhoy74p2nRrh17F98ioDE5qctpFbCX
+ 6wbDlANYCa8hplnx+4ZXej3Aks9IJfGnebsK62JIGgZn4vrhPf1SRtiW+1579syrN4w=
+X-Gm-Gg: Acq92OFKThHB+ttlQTp7We6DtkHcC00yf4skLkEsh4GD3L6CZ0HSgGj/2E49H4l+s45
+ fndRHf2EErkxPZ0TWYqCDUEMMTzi/6wYHJiYk5nsXtI1e0DXBoDGHVeOyeSDHFtf/yMDW0xPp22
+ ApvT3GJfvIv22RXUaJBmfZR4AwB2m1IxYylOPAWN2uaWLBKxQDPAY0NN1DqPusmqSpyFuvpKZoo
+ aGc+RDYlzwjcu/wHD+9iXkkziMWALdLqttWodEjih9VL0/hMrGUpfnFvCX+o2AxYTSidIFMbFBe
+ uLbIKVhlgrQFmpgBZg2IQeKlkyw1CGD4y4Pt1Wp8+9O/bGvBEPJ3VVIcPD9474Jwyoe48KfThZH
+ RLnPZsekeBumhs9zhLbak6oZFMjj6H3rBoXoWbP/vbTkNmeOTo+mtNm2N26cVC6FcGOGS55r8AF
+ F1w3IEpO0SBkLcxDxxjmjfcmODn6V/TEc1k7yx0A==
+X-Received: by 2002:a05:6808:2508:b0:485:4c7a:898f with SMTP id
+ 5614622812f47-4868ddf9d5dmr723329b6e.17.1780621228591; 
+ Thu, 04 Jun 2026 18:00:28 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+ by smtp.gmail.com with ESMTPSA id
+ 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 04 Jun 2026 18:00:28 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
+ rmk+kernel@armlinux.org.uk, andersson@kernel.org, konradybcio@kernel.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
+ gregkh@linuxfoundation.org
+Date: Thu,  4 Jun 2026 20:00:07 -0500
+Message-ID: <20260605010022.968612-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.51.0
 MIME-Version: 1.0
-Message-Id: <8642178be3be8efc7f19ac4a9aa37e699f2baa82cab200909b99997068c6ae7b@mail.kernel.org>
-In-Reply-To: <20260604-kasan-v2-8-c066e627fda8@bootlin.com>
-References: <20260604-kasan-v2-8-c066e627fda8@bootlin.com>
-From: bot+bpf-ci@kernel.org
-To: alexis.lothore@bootlin.com, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, martin.lau@linux.dev, eddyz87@gmail.com, memxor@gmail.com,
- song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
- john.fastabend@gmail.com, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com, shuah@kernel.org,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- ihor.solodrai@linux.dev
-Date: Thu,  4 Jun 2026 21:45:46 +0000 (UTC)
-Cc: yonghong.song@linux.dev, thomas.petazzoni@bootlin.com, daniel@iogearbox.net,
- eddyz87@gmail.com, ebpf@linuxfoundation.org, linux-kernel@vger.kernel.org,
- ast@kernel.org, andrii@kernel.org, ihor.solodrai@linux.dev,
- alexis.lothore@bootlin.com, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, bastien.curutchet@bootlin.com, clm@meta.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- martin.lau@kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 8/8] selftests/bpf: add tests
-	to validate KASAN on JIT programs
+Cc: me@ziyao.cc, linux-kernel@vger.kernel.org, daniel@riscstar.com,
+ chenchuangyu@xiaomi.com, linux-stm32@st-md-mailman.stormreply.com,
+ mohd.anwar@oss.qualcomm.com, weishangjuan@eswincomputing.com,
+ daniel@iogearbox.net, chenhuacai@kernel.org, john.fastabend@gmail.com,
+ siyanteng@cqsoftware.com.cn, sdf@fomichev.me, devicetree@vger.kernel.org,
+ hawk@kernel.org, elder@riscstar.com, linux-arm-msm@vger.kernel.org,
+ richardcochran@gmail.com, rohan.g.thomas@altera.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, livelycarpet87@gmail.com,
+ ast@kernel.org, linux-gpio@vger.kernel.org, wens@kernel.org,
+ linux-arm-kernel@lists.infradead.org, inochiama@gmail.com,
+ a0987203069@gmail.com, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
+ netdev@vger.kernel.org, bpf@vger.kernel.org, julianbraha@gmail.com,
+ hkallweit1@gmail.com
+Subject: [Linux-stm32] [PATCH net-next v2 00/14] net: enable TC956x support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -71,194 +106,381 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.79 / 15.00];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	CTYPE_MIXED_BOGUS(1.00)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	R_DKIM_REJECT(1.00)[riscstar-com.20251104.gappssmtp.com:s=20251104];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[riscstar.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[48];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:maxime.chevallier@bootlin.com,m:rmk+kernel@armlinux.org.uk,m:andersson@kernel.org,m:konradybcio@kernel.org,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:linusw@kernel.org,m:brgl@kernel.org,m:arnd@arndb.de,m:gregkh@linuxfoundation.org,m:me@ziyao.cc,m:linux-kernel@vger.kernel.org,m:daniel@riscstar.com,m:chenchuangyu@xiaomi.com,m:linux-stm32@st-md-mailman.stormreply.com,m:mohd.anwar@oss.qualcomm.com,m:weishangjuan@eswincomputing.com,m:daniel@iogearbox.net,m:chenhuacai@kernel.org,m:john.fastabend@gmail.com,m:siyanteng@cqsoftware.com.cn,m:sdf@fomichev.me,m:devicetree@vger.kernel.org,m:hawk@kernel.org,m:elder@riscstar.com,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:rohan.g.thomas@altera.com,m:prabhakar.mahadev-lad.rj@bp.renesas.com,m:livelycarpet87@gmail.com,m:ast@kernel.org,m:linux-gpio@vger.kernel.org,m:wens@kernel.org,m:li
+ nux-arm-kernel@lists.infradead.org,m:inochiama@gmail.com,m:a0987203069@gmail.com,m:boon.khai.ng@altera.com,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:bpf@vger.kernel.org,m:julianbraha@gmail.com,m:hkallweit1@gmail.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:conor@kernel.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+,1:+,2:+];
-	FORGED_SENDER(0.00)[bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TAGGED_FROM(0.00)[bpf-ci];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[bootlin.com,kernel.org,iogearbox.net,linux.dev,gmail.com,redhat.com,alien8.de,linux.intel.com,zytor.com,foss.st.com];
-	FORGED_RECIPIENTS(0.00)[m:alexis.lothore@bootlin.com,m:ast@kernel.org,m:daniel@iogearbox.net,m:andrii@kernel.org,m:martin.lau@linux.dev,m:eddyz87@gmail.com,m:memxor@gmail.com,m:song@kernel.org,m:yonghong.song@linux.dev,m:jolsa@kernel.org,m:john.fastabend@gmail.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:shuah@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:ihor.solodrai@linux.dev,m:thomas.petazzoni@bootlin.com,m:ebpf@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:linux-kselftest@vger.kernel.org,m:bpf@vger.kernel.org,m:bastien.curutchet@bootlin.com,m:clm@meta.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:martin.lau@kernel.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_CC(0.00)[linux.dev,bootlin.com,iogearbox.net,gmail.com,linuxfoundation.org,vger.kernel.org,kernel.org,meta.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	FROM_NEQ_ENVFROM(0.00)[bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROMTLD(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[riscstar-com.20251104.gappssmtp.com:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_NONE(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCPT_COUNT_TWELVE(0.00)[38];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_NO_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[elder@riscstar.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[ziyao.cc,vger.kernel.org,riscstar.com,xiaomi.com,st-md-mailman.stormreply.com,oss.qualcomm.com,eswincomputing.com,iogearbox.net,kernel.org,gmail.com,cqsoftware.com.cn,fomichev.me,altera.com,bp.renesas.com,lists.infradead.org];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 387B8643AAC
+X-Rspamd-Queue-Id: 0E15A644319
 
---===============3493038701439416165==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+(A fairly detailed list of changes since v1 is included below.
+Because there are so many changes listed, they are not repeated
+in the individual patches that follow.  Note also that this
+series depends on two prerequisite commits, as explained below.)
 
-> diff --git a/tools/testing/selftests/bpf/prog_tests/kasan.c b/tools/testing/selftests/bpf/prog_tests/kasan.c
-> new file mode 100644
-> index 000000000000..0000000000000
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/prog_tests/kasan.c
-> @@ -0,0 +1,356 @@
+This series introduces stmmac driver support for the Toshiba TC9564
+(also known as Qualcomm QPS615).  This is an Ethernet-AVB/TSN bridge IC
+that provides a high-speed connection between a host SoC and Ethernet
+devices on a network.  It incorporates a PCIe switch, and implements
+two 10 Gbps capable Ethernet MACs (along with other IP blocks), and
+is essentially a small and highly-specialized SoC.  The TC9564 is a
+member of a family of similar chips, and the driver code uses "tc956x"
+to reflect this.
 
-[ ... ]
+TC956x chips incorporate a PCIe gen 3 switch, with one upstream and
+three downstream ports.  Its PCIe functionality is already supported
+upstream, including a power control driver that performs some early
+configuration of the PCI ports ("pci-pwrctrl-tc9563.c").
 
-> +	ctx->klog_fd = open_kernel_logs();
-> +	if (!ASSERT_OK_FD(ctx->klog_fd, "open kernel logs"))
-> +		goto destroy;
+One of the PCIe switch's downstream ports has an internal PCIe endpoint,
+which implements two PCIe functions, each of which has an Ethernet MAC
+(eMAC) subsystem. The eMAC is composed of a Synopsis Designware XGMAC
+combined with an XPCS and PMA.  Each MAC is capable of operating at
+10M/100M/1G/2.5G/5Gps and 10Gps.  The initial target platform is the
+Qualcomm RB3gen2, which supports a 10Gbps Marvell PHY on port A, and
+a 2.5Gbps Qualcomm PHY on port B.  (The Marvell PHY is not populated
+on all RB3gen2 boards, and only the 2.5 Gbps Qualcomm PHY is supported
+initially.)
 
-[ ... ]
+TC956x chips also implement several other blocks of functionality,
+including a GPIO controller, interrupt controllers (MSIGEN), I2C
+and SPI, a UART, and an Arm Cortex M3 CPU with 128KB SRAM.  The GPIO
+interface exposes several lines to manage external resets.  The
+interrupt controllers are used internally by the eMAC functions.  The
+UART, SPI, microcontroller, and SRAM are currently unused.
 
-> +	for (i = 0; i < ARRAY_SIZE(tests); i++) {
-> +		test = &tests[i];
-> +		run_subtest(ctx, test);
-> +	}
+              ----------------------------------
+              |              Host              |
+              ------+...+----------+........+---
+                    |i2c|          |  PCIe  |
+    ----------------+...+----------+........+------
+    | TC956x        |I2C|          |upstream|     |
+    |               -----        --+--------+---  |
+    |  -----  ------  -------    | PCIe switch |  |
+    |  |SPI|  |GPIO|  |reset|    |             |  |
+    |  -----  ------  |clock|    | DS3 DS2 DS1 |  |
+    |                 -------    ---++--++--++--  |
+    |  -----  ------     downstream//    \\  \\   |  downstream
+    |  |MCU|  |SRAM|    /==========/      \\  \===== PCIe port 1
+    |  -----  ------   //PCIe port 3       \\     |
+    |                  ||                   \======= downstream
+    |  ----+-----------++-----------+----         |  PCIe port 2
+    |  | M | internal PCIe endpoint | M |         |
+    |  | S |------------------------| S |  ------ |
+    |  | I |   PCIe   |  |   PCIe   | I |  |UART| |
+    |  | G |function 0|  |function 1| G |  ------ |
+    |  | E |----++----|  |----++----| E |         |
+    |  | N |  eMAC 0  |  |  eMAC 1  | N |         |
+    --------+.......+------+.....+-----------------
+            |USXGMII|      |SGMII|
+          --+.......+--  --+.....+--
+          |  ARQ113C  |  | QEP8121 |
+          |    PHY    |  |   PHY   |
+          -------------  -----------
 
-The Sashiko AI review on the RFC v1 8/8 posting raised a concern here that
-does not seem to have been addressed in v2:
+The primary objective for this series is to support the Ethernet
+functionality provided by the TC956x.  The code providing this
+support has been structured into three distinct modules.
+  - A "chip" driver, associated with the PCIe functions
+  - A driver for the GPIO controller
+  - Code enabling the TC956x-specific eMAC/MSIGEN hardware
 
-  https://lore.kernel.org/bpf/20260425065049.BEC63C2BCB0@smtp.kernel.org
+To manage the common functionality (including configuring address
+translation and controlling internal reset and clock signals), a
+"chip" driver is implemented.  The chip driver binds to PCI
+functions 0 and 1, and creates a shared data structure describing
+the common chip elements shared by the two driver instances.  PCIe
+function 1 defers probing until after PCIe function 0 has created
+this shared data structure.
 
-The original question was:
+Common/shared functionality is handled by PCIe function 0.  This
+common code uses PCIe function 0's mapped BARs to configure the
+hardware.  If the TC9564 GPIO controller is needed (i.e., defined
+in a node in devicetree), it is created as an auxiliary device
+when PCIe function 0 is probed.
 
-  KASAN operates in single-shot mode by default. After the first subtest
-  triggers a report, will subsequent reports be suppressed, causing the
-  remaining subtests to fail? Also, since BPF CI runs with panic_on_warn=1,
-  will the first KASAN splat invoke check_panic_on_warn() and immediately
-  panic the CI runner?
+Both PCIe function 0 and function 1 implement an Ethernet
+controller as well, though one or the other might be unused on
+a given platform.  If a PCIe function node defines an ethernet
+subnode in devicetree, the corresponding eMAC is enabled, and
+the PCIe function driver will create an auxiliary device to
+represent it.
 
-KASAN runs in single-shot mode by default. mm/kasan/report.c suppresses
-reports after the first one unless kasan_multi_shot is set.
+The GPIO driver is implemented separately because in some hardware
+configurations, these GPIO lines are used to manage resets for
+external Ethernet PHYs.  We describe these PHYs via devicetree,
+where the GPIO-based reset signals are defined using phandles.
 
-This loop runs roughly 50 subtests, and each one expects a fresh KASAN
-report emitted via the JIT-inserted __asan_load/__asan_store calls that go
-through kasan_report().
+The code for eMAC and MSIGEN consists of a new source file that
+populates hardware-specific details about the two MACs, and integrates
+with the existing stmmac driver.  This also required implementing some
+enhancements to the core stmmac driver, described further below.
 
-Under default single-shot KASAN, would the subtests after the first one see
-no report and fail the positive assertions?
+The version of the Synopsys MAC IP is 3.01, which is largely compatible
+with version 2.20.  The core stmmac driver required several changes to
+enable support for the TC956x.
+  - A change to dwxgmac2 support changes the interrupt mode when
+    multi_msi_en is enabled.
+  - While most support for version 3.01 simply uses the 2.20 code,
+    an erratum related to the RX ring length is implemented for
+    3.01 DMA operations.
+  - Having the PCIe device be separate from an auxiliarly device
+    implementing the eMAC required allowing a distinct DMA device
+    to be maintained for an stmmac interface.
 
-Separately, BPF CI runs with panic_on_warn=1 (config.ppc64el still sets
-panic_on_warn=1). Would the first KASAN splat reach check_panic_on_warn()
-and panic the runner?
+In addition:
+  - A new source file provides memory-mapped access to XPCS using
+    regmap.  The alignment of the TC956x MDIO registers aren't
+    suitable for using simple MMIO.
+  - Two additional XPCS changes are implemented that provides
+    support for the XPCS as implemented in the TC956x.
 
-Nothing in v2 appears to enable kasan_multi_shot or guard against
-panic_on_warn. Was this intended to be handled somewhere?
+NOTE:
+    This series is based on net-next/main, but depends on these
+    two commits found in linux-next/master:
 
-> diff --git a/tools/testing/selftests/bpf/progs/kasan.c b/tools/testing/selftests/bpf/progs/kasan.c
-> new file mode 100644
-> index 000000000000..670318a956a4
-> --- /dev/null
-> +++ b/tools/testing/selftests/bpf/progs/kasan.c
-> @@ -0,0 +1,382 @@
+	68d801eabda52 gpio: regmap: Support sparsed fixed direction
+	806e7acf7f331 gpio: regmap: Don't set a fixed direction line
+       
+					-Alex (and Daniel)
 
-[ ... ]
+This series is available here:
+  https://github.com/riscstar/linux/tree/tc956x/stmmac-v2
 
-> +SEC("tcx/ingress")
-> +int stx_on_stack(struct __sk_buff *skb)
-> +{
-> +	struct kasan_write_val val;
-> +
-> +	bpf_kfunc_kasan_poison(&val, sizeof(struct kasan_write_val));
-> +	switch (access_size) {
-> +	case 1:
-> +		val.data_1 = access_size;
-> +		break;
-> +	case 2:
-> +		val.data_2 = access_size;
-> +		break;
-> +	case 4:
-> +		val.data_4 = access_size;
-> +		break;
-> +	case 8:
-> +		val.data_8 = access_size;
-> +		break;
-> +	}
-> +	bpf_kfunc_kasan_poison(&val, sizeof(struct kasan_write_val));
+Changes between version 1 and version 2:
 
-This isn't a bug, but should this second call be
-bpf_kfunc_kasan_unpoison() rather than bpf_kfunc_kasan_poison()?
+NEW
+  - The qca808x.c PHY driver now supports enabling up to four optional
+    regulators
 
-Every other program in this file (st_on_stack, st_not_on_stack, ldx_*,
-simple_atomic_*, load_acquire_*, store_release_*) calls
-bpf_kfunc_kasan_unpoison() after the access, and stx_not_on_stack below
-repeats the same poison-twice pattern.
+GENERAL
+  - The order of patches has been rearranged a bit.  One consequence
+    is that the TOSHIBA_TC956X_PCI Kconfig symbol is now defined
+    before it's used.
 
-> +	return 0;
-> +}
+PATCH 00/12
+  - MAINTAINERS entries have been added for all new files
 
-[ ... ]
+PATCH 01/12
+  - devm_xpcs_regmap_register() now ensures the xpcs_destroy() is
+    called when the device is unbound (suggested by Sashiko).
 
-> +SEC("tcx/ingress")
-> +int stx_not_on_stack(struct __sk_buff *skb)
-> +{
+PATCH 02/12
+  - Reworked how the quirky behavior was handled.  Now:
+    - A soft reset is issued in xpcs_pre_config() *before* calling
+      xpcs_switch_interface_mode() calls txgbe_xpcs_switch_mode().
+      It does this now for an SGMII interface, not just if the
+      need-reset flag is set
+    - xpcs_switch_interface_mode() calls txgbe_xpcs_switch_mode(),
+      preserving previous behavior
+    - For other (non-Wangxun) platforms, if the XPCS supports
+      10Gbase-R, xpcs_switch_interface_mode() programs the interface
+      operating mode to use a reserved value rather than the default
 
-[ ... ]
+PATCH 03/12
+    - This change has been removed; the default_an_inband platform
+      data flag is set instead (in what was previously patch 10)
+      
+PATCH 04/12
+    - Two issues were pointed out by Sashiko, both of which were
+      problems related to DMA handling.  They were pre-existing
+      issues, and I plan to send separate patches to address
+      them.
+    - A mask local variable (to shorten a long line) is no longer
+      created.  Checkpatch no longer complains about that line.
 
-> +	bpf_kfunc_kasan_poison(val, sizeof(struct kasan_write_val));
-> +	switch (access_size) {
-> +	case 1:
-> +		val->data_1 = access_size;
-> +		break;
+PATCH 05/12
+    - The description was clarified a bit in response to a comment
+      from Andrew
 
-[ ... ]
+PATCH 06/12
+  - No comments received, no changes
 
-> +	}
-> +	bpf_kfunc_kasan_poison(val, sizeof(struct kasan_write_val));
+PATCH 07/12
+  - Sashiko suggested that exporting some symbols from the stmmac
+    core might not be desirable, and suggested using the standard
+    DMA API to accomplish the same thing.  For now we are igoring
+    this suggestion--not finding a way to do what was suggested.
 
-Same question here as in stx_on_stack: the second call is
-bpf_kfunc_kasan_poison() where the other programs use
-bpf_kfunc_kasan_unpoison().
+PATCH 08/12
+  - The description has been revised to focus on the hardware and
+    not the "node".
+  - The ASCII art (copied from below) has been incorporated into the
+    binding
+  - The file name has been changed to "toshiba,tc9564-dwmac.yaml" and
+    the $id value matches the file name
+  - Only one example is provided now
+  - The references and unevaluatedProperties have been moved later
+    in the file
+  - We no longer reference "pci-bus-common.yaml".  We are describing
+    a device, not a bridge.
+  - Subnodes have been added to represent the GPIO controller (on
+    PCIe function 0) and the Ethernet interfaces (possible on PCIe
+    functions 0 and 1).
 
-The intended store still happens while the memory is poisoned, so the
-expected KASAN report is still generated and the positive assertion still
-passes. The effect is that the leftover poison stays on the test_map slab
-value (and on the stack region for stx_on_stack) until the next subtest
-re-poisons and unpoisons the same region. Was poisoning a second time here
-intentional?
+PATCH 09/12
+  - The GPIO controller is now implemented using regmap-gpio
+  - The Kconfig entry for the GPIO driver has been updated to select
+    GPIO_REGMAP, and to define its default value as "m" unconditionally
+  - The Kconfig entry is now defined in the memory-mapped GPIO section
+  - The regmap use has been adjusted so it's clear it is MMIO-based,
+    which normally does not require error checking.
+  - We no longer call drv_get_drvdata()
 
-> +	return 0;
-> +}
+PATCH 10/12
+  - The name of the IRQ domain now includes the MAC ID (0 or 1)
+  - SP_SEL_SGMII_2500M is now named SP_SEL_2500BASEX
+  - A typo in the commit has been fixed, and the error check after creating
+    the RX IRQ mapping now checks the right pointer for an error
+  - The Kconfig entry now selects GENERIC_IRQ_CHIP
+  - The PHY interface is now taken into account in the fix_max_speed
+    callback
+  - We now check the correct pointer for an error when creating the RX
+    IRQ mappings
+  - We are not implementing a shutdown driver callback
+  - Xilin has other discussion related to WoL, which we should save
+    and use, but we're not acting on it now.
+  - In four function, Sashiko noted that a 32-bit dma_addr_t can't hold
+    TC956X_SLV00_SRC_ADDR, so the type of local variable has been changed
+    to be u64: tc956x_dma_init_rx_chan(), tc956x_dma_init_tx_chan(),
+    tc956x_desc_set_addr(), and tc956x_desc_set_sec_addr().
+  - tc956x_mac_disable() is now called if stmmac_dvr_probe() fails;
+    suggested by Sashiko.
+  - Sashiko noted the MDIO device tree node was being leaked.  This
+    has been resolved.
+  - Sashiko also pointed out that IRQ mappings were not being freed,
+    and this too is fixed.
 
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+PATCH 11/12
+  - The reset and clock functions are no longer defined inline
+  - The REFCLK clock name has been renamed REFCLKO, and a comment
+    has been added to explain it is an (unused) output clock.
+  - If the PCI device has no DT node it is reported with dev_err().
+  - <linux/bitfield.h> is now included, to avoid errors in various
+    non-Arm64 builds.
+  - The devicetree Ethernet node is no longer leaked in adev_device_add()
+    (noticed by Sashiko).
+  - The Kconfig entry now depends on ARM64 or COMPILE_TEST
+  - The Kconfig entry now selects REGMAP and REGMAP_MMIO
+  - Sashiko reported that the reference count on the PCIe slot
+    for function 0 was being leaked.  This has been fixed.
+  - Sashiko questioned whether the cleanup action to delete
+    a created device link was associated with the wrong device.
+    It was, and this has been fixed.
+  - Sashiko also suggested that the allocated PCI IRQ vector
+    was not properly getting removed.  It now is.
+  - Sashiko suggested that function 1 might proceed with probing
+    even though there was still a chance that function 0's probe
+    failed.  The platform_data pointer that function 1 uses to
+    decide it's OK to probe is now assigned later.
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/26978380520
---===============3493038701439416165==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+PATCH 12/12
+  - The PHY interrupt is now defined as a level interrupt.
+  - A typo in the PHY name has been corrected in the patch description
+
+Here is the initial version of the series.
+  https://lore.kernel.org/netdev/20260501155421.3329862-1-elder@riscstar.com/
+
+Alex Elder (3):
+  net: stmmac: dma: create a separate dma_device pointer
+  misc: tc956x_pci: add TC956x/QPS615 support
+  gpio: tc956x: add TC956x/QPS615 support
+
+Daniel Thompson (11):
+  dt-bindings: net: qca,qca808x: Add regulator properties
+  net: phy: qcom: qca808x: Add regulator management
+  net: pcs: pcs-xpcs-regmap: support XPCS memory-mapped MDIO bus via
+    regmap
+  net: pcs: xpcs: re-order xpcs_pre_config() to update after the reset
+  net: pcs: pcs-xpcs: select operating mode for 10G-baseR capable PCS
+  net: stmmac: dwxgmac2: Add multi MSI interrupt mode
+  net: stmmac: dwxgmac2: Add XGMAC 3.01a support
+  net: stmmac: dwxgmac2: export symbols for XGMAC 3.01a DMA
+  dt-bindings: net: toshiba,tc9654-dwmac: add TC9564 Ethernet bridge
+  net: stmmac: tc956x: add TC956x/QPS615 support
+  arm64: dts: qcom: qcs6490-rb3gen2: enable TC9564 with a single QCA8081
+    phy
+
+ .../devicetree/bindings/net/qca,qca808x.yaml  |  14 +
+ .../bindings/net/toshiba,tc9564-dwmac.yaml    | 120 +++
+ MAINTAINERS                                   |  12 +
+ arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts  |  48 +
+ drivers/gpio/Kconfig                          |  12 +
+ drivers/gpio/Makefile                         |   1 +
+ drivers/gpio/gpio-tc956x.c                    | 130 +++
+ drivers/misc/Kconfig                          |  12 +
+ drivers/misc/Makefile                         |   1 +
+ drivers/misc/tc956x_pci.c                     | 741 ++++++++++++++++
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |  14 +
+ drivers/net/ethernet/stmicro/stmmac/Makefile  |   2 +
+ .../net/ethernet/stmicro/stmmac/chain_mode.c  |  12 +-
+ .../ethernet/stmicro/stmmac/dwmac-tc956x.c    | 818 ++++++++++++++++++
+ .../net/ethernet/stmicro/stmmac/dwxgmac2.h    |  12 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_core.c   |   1 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_descs.c  |   1 +
+ .../ethernet/stmicro/stmmac/dwxgmac2_dma.c    |  79 +-
+ .../net/ethernet/stmicro/stmmac/ring_mode.c   |  12 +-
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |   1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |  58 +-
+ .../net/ethernet/stmicro/stmmac/stmmac_xdp.c  |   2 +-
+ drivers/net/pcs/Makefile                      |   4 +-
+ drivers/net/pcs/pcs-xpcs-regmap.c             | 219 +++++
+ drivers/net/pcs/pcs-xpcs.c                    |  93 +-
+ drivers/net/phy/qcom/qca808x.c                |  30 +
+ include/linux/pcs/pcs-xpcs-regmap.h           |  20 +
+ include/linux/stmmac.h                        |   1 +
+ include/soc/toshiba/tc956x-dwmac.h            |  84 ++
+ 29 files changed, 2478 insertions(+), 76 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/toshiba,tc9564-dwmac.yaml
+ create mode 100644 drivers/gpio/gpio-tc956x.c
+ create mode 100644 drivers/misc/tc956x_pci.c
+ create mode 100644 drivers/net/ethernet/stmicro/stmmac/dwmac-tc956x.c
+ create mode 100644 drivers/net/pcs/pcs-xpcs-regmap.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-regmap.h
+ create mode 100644 include/soc/toshiba/tc956x-dwmac.h
+
+base-commit: 07c4bca9d92e51ab6b46797a86c6ea559812351a
+-- 
+2.51.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============3493038701439416165==--
