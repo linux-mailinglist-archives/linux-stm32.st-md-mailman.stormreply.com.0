@@ -2,75 +2,75 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RTMZJbsfImr6SgEAu9opvQ
+	id fD6tJb4fImr9SgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 03:00:43 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 03:00:46 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58872644331
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 03:00:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 79A56644336
+	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 03:00:46 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=riscstar-com.20251104.gappssmtp.com header.s=20251104 header.b="tTt/dTbJ";
+	dkim=fail ("body hash did not verify") header.d=riscstar-com.20251104.gappssmtp.com header.s=20251104 header.b=UBunkTDe;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=riscstar.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2577EC8F273;
-	Fri,  5 Jun 2026 01:00:43 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 47693C8F273;
+	Fri,  5 Jun 2026 01:00:46 +0000 (UTC)
 Received: from mail-oi1-f180.google.com (mail-oi1-f180.google.com
  [209.85.167.180])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 04CF9C8F272
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2A496C8F272
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 01:00:42 +0000 (UTC)
+ Fri,  5 Jun 2026 01:00:45 +0000 (UTC)
 Received: by mail-oi1-f180.google.com with SMTP id
- 5614622812f47-4862ed6ab36so811670b6e.1
+ 5614622812f47-486118ecd5dso877003b6e.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 04 Jun 2026 18:00:41 -0700 (PDT)
+ Thu, 04 Jun 2026 18:00:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621241; x=1781226041;
+ d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780621244; x=1781226044;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=EZkK5iRkM+bFu8r36hoA1oZzT41u9/qmzwRkx8FhOsM=;
- b=tTt/dTbJ3KfObo0UVTXPyDSABK7C+oMHzUvsvrCwGSntOXdblfV1JYwJT6mXjTMIfQ
- ZXZ2SJ+oM9ScQGkoZkooI57jSfFqiC40vDqJJrTiJoQTACtBh9JuNDdPI+4jMgmMRtuT
- NcvVTkSdJyW5EwwUx1+2cdQBZmVSvPNO1ucGXndusFax4NiyM646XtXasGxM5v0WLt5v
- igvKfVdfmoPLfNrQ+dz41C6fBIPeRmBWSo1XO55UowFaK4I0EWDGXVYk3/goKcyS/v27
- +s79k8qJ4sNxbomG3cnRoTo9ud4VVzf3B98W8pCDGDSUShaDH6pIzYbqUvw0uSkUS4R0
- Anbg==
+ bh=d7RcozIfkgTb1ceMrXgVzxfNf3AdsB7YSa91tWGMELg=;
+ b=UBunkTDeeTaZvQexGPiOE45pxnqwiNF+0bh4uLzNeeH0bVj9qhGnnA9HayPP0rP1rg
+ hVvfst2k/fp3afPrTy9dAuHH30k/DMcNTZ/ZOsEJzzD2Qf0WHclMabhs9hKKOr1qm0BM
+ GAvvCSGZRDGBcPkK9yCMunWaGhVc41Xtgo+NwQJ6BGIjt+B/VsqJR+jQQIMUrbqo6KdR
+ 1mw48HzGuhRfGEtVVAeDep/nD/jWIcRUGXwpj2k0pjbgvLZYoJKDfNV9E4Izvq9/ElZK
+ B3wEpGFr44/gi7TLVZ0MBVSqf2M4y0KpYten3cVmlh4l6dP7ufoF44tPQnFMErig3HvR
+ m1mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780621241; x=1781226041;
+ d=1e100.net; s=20251104; t=1780621244; x=1781226044;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=EZkK5iRkM+bFu8r36hoA1oZzT41u9/qmzwRkx8FhOsM=;
- b=EHa0Fn6NFo9N6quePaPCXLyQcbicf/8ROkuC/u4SqQn3VF933JjHfr3y83RiOmsyct
- Y3y2MY/dkAXjd2EvLgs1jd6cWcq1/CHBVB2r9uzVEeG6PqEv94UHtVW5NM/KMQp6btuD
- jvAgo5nvzf4n8zmr1AR+l9KyT0ToVBLVp4piMtoqrw67+H/ehUSQYmlWbleM7d3QETtJ
- Vb9bhwQB5UIPqJX4zGQrcz4t+rr41Mm/HA4EdXAOiK802C9ZCrbkWCRRZL95xsCdLDO2
- eC2yUxVnBzA2WkmlipB0pU7fdEZ0UwaOrj/ajqo4mAj3gfLQGYsTQHS9/hC8/A64kVZy
- Yobw==
+ bh=d7RcozIfkgTb1ceMrXgVzxfNf3AdsB7YSa91tWGMELg=;
+ b=O84v1Nb5Yr9xSIjKiKmywbwrcSs+/+rigTygmOAVCGvCE+OVwQ4DasOlXcwajrRNX5
+ 1qt0Hm9wXxrmhYrQOmv3hMuuBM7pqKUwJMa76cmAb03uSdFAE/i4ODoLyeEh8SnattPv
+ bkEJ8MyA95VWl+gVoQzECDAdRLvVQHRg8NeKwb1nAxwnsvDdNHaJjuyipeAJhvRuJnWt
+ sAH7aAL16IUbMDEHnXPgcnN3ps/N5uwTfDLm5av2uzqJrM9KEYZdk52r9QsxRZJW9qwJ
+ ib8MNZcBUzUXn9+k6B4+k8+CAju/d3Wob7a4YoLlshTbtaY1imkDOaDxfzeOFAONrL6H
+ pfkw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+X109jieNnac3gBR46OXHaegfbdBN2hQENb6DOudYLni+Oxx70o+9VDDhv45IKc/QVvvR3NNphewR2iw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxQIXol5HNa5PXxeTUBzvF0m77To8RHDJP7LlmMC+ZNUYqS5DWJ
- 6qnGbEk99tcXviHDV3pxzQLyIg5E/Pi/6CtQyMjQCMkciJqo03GsEL/PSaQkLYwpZuk=
-X-Gm-Gg: Acq92OELxJkhiAcGBxroUp2Xu/f2kFo6x+yVEtzjv2XeFWS6cgvcpXhXN9s2kw/B4uK
- kRfrC5dBcGPATEslfsoAoM8S8ezSnXU0yz5eYGHUn4q7XJ28OuILHV2PG7ZU2d9lbQa7afWrCVB
- 9/J74O+WXyLIkaULBYZzRRxvfrUGLek3R1iZa5oMOGeAjkhMYl2qf+6cNJmivlHhD8N7GD3taqX
- 1iNP5uIwKEYXjMgVVgYfrvMPAazTsGSyjl9F4ukOPo+7KoqMR1GGSi7a/a2flXvgN7hdy7z43Ux
- Ev9D9jBSNGf2nNolXrYuClgpesirqVuG1njfFZhL3Ps6DuE78zarbh8KSykgW85bn/o8nIyPSPz
- WWJtkcjRHd8RTgAlkAshc6qHoHCddow02hbQMI4meGI6M5eutrcKc6K22/srjfMhrHNEL8FxRah
- G/KZp+k5MTyXNAs7QToEX4RVFkXxbrhF8vq/asog==
-X-Received: by 2002:a05:6808:1b0e:b0:467:5f1:fc93 with SMTP id
- 5614622812f47-4868dbe795amr869921b6e.9.1780621240655; 
- Thu, 04 Jun 2026 18:00:40 -0700 (PDT)
+ AFNElJ9rTTHEB/EPsGj7lz+8ox6GxHhb4gS2HYle7LuWwsbMJYwAvEyK0M/Hh1+WpTI15Q1zMpjBfJV7SC7oWQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yyi4ABcOKsg1htrKSL8WSOszYcQHJt3p1Drx+XOcI4gjr4ciNZk
+ Xj+BzdCFAt1Rsls4RA290sh0F0TrQboHMIu+OF7HNweRI71gKsTxIJArdQ44Vwju5Ow=
+X-Gm-Gg: Acq92OFc3xq4yYE4FOL9XHQ1SgYqxkXJZpcL89kL9NbblAuYgP1JndkldmyPimKdVYR
+ 1MFOtvPPIxY4MjvMMLdBcWV65ece3QDJYrfIrS15faJ3KfBI3Mnad2eMrBrMrqnx0vPXBfDUVTE
+ SQi63ExaUEqEyL7yacfiXMdU1IoKdOU3QmwFGYTVDBWw/xzJJzEGDbN+/MBCXrtKps8PQDlzyA3
+ fguR37wDeO6VOmWdP+uzJna3od8KZxw61WnN7wHmLsABWJu3AlLG1Z17gIsJyoRXegYRTtEjqB6
+ 0YsFA9cqyLr8Yk+hlwJ5esQ8sVONhshQ3RMdilNVhvyTQiy5XBjSIrxbxd+sZ44+mY1pCGydoj5
+ NF9nkTP9JiefFCpCADleOof9ZdazuqwtmhYJuv0KnxWFtRsoANIrFSAOIC+tiG4/aYkJlmMLdug
+ PUDGucuUZUFLEt92ZDoH1YzCsPnxGBiGGpGkFk9Q==
+X-Received: by 2002:a05:6808:a599:10b0:485:a99c:cfe3 with SMTP id
+ 5614622812f47-4868df4dd74mr546927b6e.42.1780621243759; 
+ Thu, 04 Jun 2026 18:00:43 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
  by smtp.gmail.com with ESMTPSA id
- 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.37
+ 5614622812f47-4865b6ec694sm5544631b6e.5.2026.06.04.18.00.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 04 Jun 2026 18:00:40 -0700 (PDT)
+ Thu, 04 Jun 2026 18:00:43 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com,
@@ -78,8 +78,8 @@ To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
  linusw@kernel.org, brgl@kernel.org, arnd@arndb.de,
  gregkh@linuxfoundation.org
-Date: Thu,  4 Jun 2026 20:00:11 -0500
-Message-ID: <20260605010022.968612-5-elder@riscstar.com>
+Date: Thu,  4 Jun 2026 20:00:12 -0500
+Message-ID: <20260605010022.968612-6-elder@riscstar.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260605010022.968612-1-elder@riscstar.com>
 References: <20260605010022.968612-1-elder@riscstar.com>
@@ -97,8 +97,8 @@ Cc: me@ziyao.cc, linux-kernel@vger.kernel.org,
  a0987203069@gmail.com, boon.khai.ng@altera.com, mcoquelin.stm32@gmail.com,
  netdev@vger.kernel.org, bpf@vger.kernel.org, julianbraha@gmail.com,
  hkallweit1@gmail.com
-Subject: [Linux-stm32] [PATCH net-next v2 04/14] net: pcs: xpcs: re-order
-	xpcs_pre_config() to update after the reset
+Subject: [Linux-stm32] [PATCH net-next v2 05/14] net: pcs: pcs-xpcs: select
+	operating mode for 10G-baseR capable PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -150,112 +150,96 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 58872644331
+X-Rspamd-Queue-Id: 79A56644336
 
 From: Daniel Thompson <daniel@riscstar.com>
 
-Currently, on Wangxun platforms, the XPCS is configured during the call
-to xpcs_switch_interface_mode() and, if the need_reset flag is set, the
-XPCS is reset and the configuration will be lost. This is harmless at
-present because need_reset will never actually be set on these platforms.
+Currently the XPCS found on Toshiba TC9564 (a.k.a. Qualcomm QPS615)
+is unable to operate at 2500base-X and slower with a PHY connected
+using SGMII/2500base-X (in our case a Qualcomm QCA8081).
 
-Nevertheless having xpcs_switch_interface_mode() on the wrong side of
-the reset is an obstacle for future changes where wiping out programmed
-configuration with a reset could be harmful.
+The problem arises because this XPCS supports 10Gbase-R. That means that
+the reset value of SR_XS_PCS_CTRL2:PCS_TYPE_SEL (0) is valid and this
+suppresses the modal switching based on bit 13 of SR_PMA_CTRL1 or
+SR_XS_PCS_CTRL1.
 
-Reorder xpcs_pre_config() to allow the reset can happen before we
-switch interface mode. To make this work we have to hoist the special
-case logic for SGMII into the parent function.
+A fix for this behaviour is already implemented by
+txgbe_xpcs_switch_mode() as part of the quirks for WangXun devices.
+
+Rather than introduce another quirk for TC956x let's attempt so solve
+this generically by setting SR_XS_PCS_CTRL2:PCS_TYPE_SEL to a reserved
+value when we detect the right we detect the right combination of phy
+interface and XPCS feature support.
+
+The generic strategy adopted requires the default value of PCS_TYPE_SEL
+to be 0 on devices that support 10Gbase-R. Based on TC9564 documentation
+and the logic already implemented for WangXun I believe this is likely
+to be the case for currently supported XPCS devices. Sadly I don't have
+access to generic XPCS docs to confirm. However I think the benefits
+of avoiding a cargo culted quirk outweights the risk of regression.
 
 Signed-off-by: Daniel Thompson <daniel@riscstar.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- drivers/net/pcs/pcs-xpcs.c | 56 ++++++++++++++++++++------------------
- 1 file changed, 30 insertions(+), 26 deletions(-)
+ drivers/net/pcs/pcs-xpcs.c | 39 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
 diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-index e69fa2f0a0e8d..76c04372b5b50 100644
+index 76c04372b5b50..e58103ae8dadd 100644
 --- a/drivers/net/pcs/pcs-xpcs.c
 +++ b/drivers/net/pcs/pcs-xpcs.c
-@@ -705,46 +705,50 @@ static void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
+@@ -705,10 +705,49 @@ static void xpcs_get_interfaces(struct dw_xpcs *xpcs, unsigned long *interfaces)
  static int xpcs_switch_interface_mode(struct dw_xpcs *xpcs,
  				      phy_interface_t interface)
  {
--	int ret = 0;
-+	/* Wangxun provides a full alternative implementation to handle quirks */
-+	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID)
-+		return txgbe_xpcs_switch_mode(xpcs, interface);
++	int mdio_stat2, ret;
++
+ 	/* Wangxun provides a full alternative implementation to handle quirks */
+ 	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID)
+ 		return txgbe_xpcs_switch_mode(xpcs, interface);
  
--	if (xpcs->info.pma == WX_TXGBE_XPCS_PMA_10G_ID) {
--		ret = txgbe_xpcs_switch_mode(xpcs, interface);
--	} else if (xpcs->interface != interface) {
--		if (interface == PHY_INTERFACE_MODE_SGMII)
--			xpcs->need_reset = true;
--		xpcs->interface = interface;
--	}
-+	xpcs->interface = interface;
- 
--	return ret;
-+	return 0;
- }
- 
- static void xpcs_pre_config(struct phylink_pcs *pcs, phy_interface_t interface)
- {
- 	struct dw_xpcs *xpcs = phylink_pcs_to_xpcs(pcs);
- 	const struct dw_xpcs_compat *compat;
-+	bool force_reset;
- 	int ret;
- 
++	mdio_stat2 = xpcs_read(xpcs, MDIO_MMD_PCS, MDIO_STAT2);
++	if (mdio_stat2 < 0)
++		return mdio_stat2;
++
 +	/*
-+	 * According to the XPCS datasheet, a soft reset is required to initiate
-+	 * Clause 37 auto-negotiation when the XPCS switches interface modes.
++	 * If this XPCS supports 10Gbase-R then that will be the default
++	 * operating mode. There are several interface modes where this default
++	 * is unhelpful. Change the operating mode for interfaces were we know
++	 * the default is wrong, and restore the default otherwise.
 +	 */
-+	force_reset = interface == PHY_INTERFACE_MODE_SGMII;
-+
-+	if (force_reset || xpcs->need_reset) {
-+		compat = xpcs_find_compat(xpcs, interface);
-+		if (!compat) {
-+			dev_err(&xpcs->mdiodev->dev, "unsupported interface %s\n",
-+				phy_modes(interface));
-+			return;
++	if (mdio_stat2 & MDIO_PCS_STAT2_10GBR) {
++		switch (interface) {
++		case PHY_INTERFACE_MODE_SGMII:
++		case PHY_INTERFACE_MODE_1000BASEX:
++		case PHY_INTERFACE_MODE_2500BASEX:
++			/*
++			 * Why are we writing MDIO_PCS_CTRL2_TYPE + 1? We want
++			 * the modal behaviour that comes when we pick a
++			 * reserved value. XPCS allocates extra bits to this
++			 * field and allocates values from 15 down so
++			 * MDIO_PCS_CTRL2_TYPE + 1 is the value likely to be
++			 * allocated last (and hopefully never).
++			 */
++			ret = xpcs_write(xpcs, MDIO_MMD_PCS, MDIO_CTRL2,
++					 MDIO_PCS_CTRL2_TYPE + 1);
++			if (ret < 0)
++				return ret;
++			break;
++		default:
++			ret = xpcs_write(xpcs, MDIO_MMD_PCS, MDIO_CTRL2,
++					 MDIO_PCS_CTRL2_10GBR);
++			if (ret < 0)
++				return ret;
++			break;
 +		}
-+
-+		ret = xpcs_soft_reset(xpcs, compat);
-+		if (ret) {
-+			dev_err(&xpcs->mdiodev->dev, "soft reset failed: %pe\n",
-+				ERR_PTR(ret));
-+			return;
-+		}
-+
-+		xpcs->need_reset = false;
 +	}
 +
- 	ret = xpcs_switch_interface_mode(xpcs, interface);
- 	if (ret)
- 		dev_err(&xpcs->mdiodev->dev, "switch interface failed: %pe\n",
- 			ERR_PTR(ret));
--
--	if (!xpcs->need_reset)
--		return;
--
--	compat = xpcs_find_compat(xpcs, interface);
--	if (!compat) {
--		dev_err(&xpcs->mdiodev->dev, "unsupported interface %s\n",
--			phy_modes(interface));
--		return;
--	}
--
--	ret = xpcs_soft_reset(xpcs, compat);
--	if (ret)
--		dev_err(&xpcs->mdiodev->dev, "soft reset failed: %pe\n",
--			ERR_PTR(ret));
--
--	xpcs->need_reset = false;
- }
+ 	xpcs->interface = interface;
  
- static int xpcs_config_aneg_c37_sgmii(struct dw_xpcs *xpcs,
+ 	return 0;
 -- 
 2.51.0
 
