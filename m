@@ -2,120 +2,100 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 6H47Eh6BImqvZAEAu9opvQ
+	id kSyQJ63+J2qP6wIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 09:56:14 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:53:17 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D4D8646300
-	for <lists+linux-stm32@lfdr.de>; Fri, 05 Jun 2026 09:56:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5064165FB29
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:53:17 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=foss.st.com header.s=selector2 header.b=WG4EZrAs;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b="Lp+/ZzVP";
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=foss.st.com (policy=none);
-	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0EF51C8F273;
-	Fri,  5 Jun 2026 07:56:13 +0000 (UTC)
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010044.outbound.protection.outlook.com [52.101.84.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1B856C90087;
+	Tue,  9 Jun 2026 11:53:17 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2966FC349C4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 473A9C349C4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 07:56:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QK382C3hSdOX3ONgn3RxdaITG8oTIRWQ0gc07/5Ku0DfIXcmXV5UqhAvtQsTXGOKXSL5YtQ0uV2cHEEOBEDG2LstgX2plydWUe9/G++UFp7tCeDdqSYm4sxIskLIgnqiHj6jUz6OjWZd8sCyekt6+x0hvt70BH7umNR48hZ63zlrhxYqURkr47BvulPxe93SWjX3nFiv7h9Bj3tOSu5N2A5X7XzzXtbWvtY7zzEhpY41q+vK6vZAguRvbtD09kes8s7vN8urJs35/AaUsyWK/yIaVewW7iJq7cCnAOjAflL7IOzkT/J1TBeRl71vLc4+vnO41ILzM5Mm9JrtoACkwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ONt0+xv4q9nreWmNOldmDPow1Qe2VMIgXwFfXgu/2es=;
- b=q5kCDF09S+Y+LctVpQgjhsgN8ozK2Mv+rkt5A0y1d+zQeSjHk8TMxdaeagb5mmDw7cuD3SBgaZtFxfSQPEEkoirwD+ZeSptp9CNxMbmd6cMv3vrLqOUZsALP/l036TOLpscyx15he9AQsM5g/FTUMJwzZpv+g4IbRnW0enGmSyermXR8IpAWj0CaeGUOFz4x8WblXNbMGnAz/bq+RTUUu3QF3r2Wx1Bt+cZRXXPfmuoNXVTd437N8y1dEOHssOwRAI+CNTVYbX1J7bnJEwkLVhz9LZxXDNEielQaPO96a81gQPyusK7eDLZb05fcKV9wH2azruQHhpVt41/9D1oTDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=amarulasolutions.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ONt0+xv4q9nreWmNOldmDPow1Qe2VMIgXwFfXgu/2es=;
- b=WG4EZrAs3S+7dOKfwBE7BZXh4rl2V0L/xYluEtAXd6pkKG4oK+zyXe0R8lebBu20NohdumMGF95ItkxZKaxhZbOtwkfu58my5UHwAW9HijBKJlT74jiIDXxh9PtziyVNWlibMsHweENbKhEGIk/YFE7cVEJ/TlTu3P421gAaek/VmWcEoeSK5JkS/xmKbz6l/9mTzLIAd6uDcZHoYixWm0SqY094zfD6r9M/QTZL7MpZMu9io0IJOxGtEYWkeQYQiFzuLbgactZrzScoR0rYNPW9+iR6hap5x4JPIx7tIEYTQ2WMNUvtmDxiA6KCgh9p6XKGZMbklMrLrg4Zx0zdCQ==
-Received: from DB9PR06CA0025.eurprd06.prod.outlook.com (2603:10a6:10:1db::30)
- by PAVPR10MB6789.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:2fc::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Fri, 5 Jun 2026
- 07:56:07 +0000
-Received: from DU6PEPF00009529.eurprd02.prod.outlook.com
- (2603:10a6:10:1db:cafe::83) by DB9PR06CA0025.outlook.office365.com
- (2603:10a6:10:1db::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.8 via Frontend Transport; Fri, 5
- Jun 2026 07:56:07 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- DU6PEPF00009529.mail.protection.outlook.com (10.167.8.10) with Microsoft SMTP
- Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 5 Jun 2026 07:56:07 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 5 Jun
- 2026 09:59:15 +0200
-Received: from [10.48.87.71] (10.48.87.71) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Fri, 5 Jun
- 2026 09:55:29 +0200
-Message-ID: <08a2e8ec-9dd4-4530-be04-f06b7c1137fa@foss.st.com>
-Date: Fri, 5 Jun 2026 09:55:29 +0200
+ Fri,  5 Jun 2026 07:57:24 +0000 (UTC)
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-36b903567fdso1539528a91.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 05 Jun 2026 00:57:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20251104; t=1780646243; x=1781251043;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=ypRXmfNw4AH7NGaRxQ71Nt3S+wAEO8XxXRpJWlgrK/o=;
+ b=Lp+/ZzVPD1GUtDG7bEKc+YNzCIYZs6Obc9DJErnWxAuIYVpYNWZ1PYl2rM24t0Rc07
+ fbQPah7lVQ+npe7WMOfgvgmwaPv+x5TK4zGEwdbkU1MMtOdHI6w3i7uYFJ+kq9HoWs6C
+ PgIN+Qjpwt3QCwfpu478ZB6U/bNpssNgCQWMARdY4m94kx/movMi6kOPkPPX54a+D/Pc
+ Kylx1qZnVGo7b6Fm1ySp2J4NvpkrBgS8khHdwjM1HcQhNVN3258hEu3uovV04BVE0vF9
+ b63lK9QRWc8Pnu9MNxYb47OCaczgzJR3CkunHeHP67gEYjybFG2wbUQ/wNm70EISOkzh
+ ijGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1780646243; x=1781251043;
+ h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+ :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=ypRXmfNw4AH7NGaRxQ71Nt3S+wAEO8XxXRpJWlgrK/o=;
+ b=crMWSlNfrQwa6MD+Tw3Ezgwet+yAX/mzcz/yUk0A0De2RiswPaDlvw2a98PKGr1617
+ /+Zkw2WdYzvW4Ad99GYSLhasTRxuz0MByB3mcoI6JQms0PFnr6IyseQ/Ec+/S+QlXkN8
+ tcV4EM0WI9mwVw0nu3tXtO6q7d3Ll++iTfIiGlCdBFb6lxcPiXhMJQBTq0sQRuPcwsEQ
+ ck0dnqzjpc44qYKvwb+DTaHtf0Yt3w8sBybgVziO8Mp6+I1yVqccw+CfuLOQn8hpDni7
+ gHwv9ue1n/ySyxazauwAf43pB4Ysdoyc9lDRKeTV5IDzccJhdfCnyOUtg+NiLhvpH7u/
+ m7lA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ+L0RZWTd1i2KYibSGFZh/r9mQLNF5l5g4E84phkiZ7BlJJ8wr5ffM0SOpdrRAhBboQawe0J4qbcCYU+w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy+n6BD8KBCCFmUYms9CMRwlVfqcwN51mztnD7aDKKXRHGsu9oY
+ gtOC6Dgbv+nyPgp5z2rqP6L3QtsCyKSDJodJdSrMrvVrCCMpMgdVVH1N
+X-Gm-Gg: Acq92OGMjnvR3+hQdRW4Wb2Ua6tSjnQG7YJXZTfsXWWK8YA5B69DDHyM1YPz/MMhI2C
+ wNqRg59+P8VeZ1kCICOeXsAjFYbyjS4q/jjd9tc5qcFDAxPz8e+/pF9EXSng/Syv8eyygnOUjAT
+ BedW80ylwiovGhMFm1G4bUoc1My4SykQGf7qvcXCjPdxeA1JUotiZX5XnKjKV8s7BCUAqKKMW+X
+ xUbudYBjvD4ROnMFIju1+A0CvpZg6s8NQMyUAfvv1CiVYNd9lOyf4K4GvS8H26sYR2niMk3FpRV
+ Tcan5OiqHMT/nnqbciTNU6kMBfxieEOlxC3tFXgOexiwI1ehFSxu1+NH3BodzXyRzT4QDkRttYb
+ ieffCdBxkKiBUd39UlZ4GRyTVyBFTUOQil/V9F/pf14dA+4nluvrT7LlKMM+tZLGwSQTr4MiyYp
+ Kyva1fOuWwY85qX9woT5ymsvHugLGSEGNwi3W2pyzHpiVwLyB0buklAqW5dWtoZwzMgQimLpVTF
+ A==
+X-Received: by 2002:a17:90b:3512:b0:36d:b424:4f17 with SMTP id
+ 98e67ed59e1d1-370ee82fa3cmr2367318a91.1.1780646242679; 
+ Fri, 05 Jun 2026 00:57:22 -0700 (PDT)
+Received: from u9dbb0cac493f51.ant.amazon.com ([50.35.61.175])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-37133082519sm897559a91.1.2026.06.05.00.57.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 05 Jun 2026 00:57:22 -0700 (PDT)
+From: Carlos Fangmeier <carlos.fangmeier@gmail.com>
+Date: Fri, 05 Jun 2026 00:56:35 -0700
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
- <linux-kernel@vger.kernel.org>
-References: <20260605062900.368376-1-dario.binacchi@amarulasolutions.com>
- <20260605062900.368376-14-dario.binacchi@amarulasolutions.com>
-Content-Language: en-US
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-In-Reply-To: <20260605062900.368376-14-dario.binacchi@amarulasolutions.com>
-X-Originating-IP: [10.48.87.71]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU6PEPF00009529:EE_|PAVPR10MB6789:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87ad815e-4954-4f6c-ba4e-08dec2d7e6a6
-X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|82310400026|376014|7416014|18002099003|22082099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info: 2nxnVF/mPDX0HlYd+XBzW1+IH+23On1lfI7s+nd/dBAOJpuN8yZ/PBoR44liWl8cR9JS1mYJbmKuJ4B165I0veChm6X9K+Yjz1CMZgm0RfLkO/KeJI6RWWJoiT7XN2JjRxF2Tbjof5bLLKXf4bs/8fD3YnKUq57naKVG3wz7AVAnrPwXUwvBf1+a4uf4/BgxctQspO4rUIE+L8wrFFvQEmQDdn9Hvx+ewrgAjdOdzceBJW8zRIkQgXTfPcNQ+MX97oBXu9bV/MC72j2elYQltiXZhdY60OXINihApoSmdz+mfdiXDrpQ9QtZYmxshE3QLqZ1ryayF1I5K//IILTbKk3FxuroBCbr9QYZlsSYh7whUuteKi9JKl5CgXTDp51bLaUn1mTV7zhtFU789inh59jTDGH8JeFNZA0KQICo5Zj0cbQh7TNCqAyEMNQ+TZ1Kj58Nj/End7z7jTobC4IyqAlcDeKlY03c1vYF4xY4qE0wIH0QfrprCCTc49uAKKfqpkH6zs0wcDM4aQpUojNCstOSjOFERq2bRApE42j84pHX4yaf8/Cz1OAyxpuTzHx1SAqdBMRSLX5R+4mP1ecSCj2cbZBp1W7/kenOv41iI6LOQfNe6XvwLQ+9ub3HGU0pMII30Yt6v0CuRg9SuF6hAafySVMMZcgkRxWDZrSPiAKj+YW+emGa+RlIFOXf10Im/zzbkb9/7nh2sxBe2CXrxSmNRXKJ+UQmwb4Uiirrdpo=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(82310400026)(376014)(7416014)(18002099003)(22082099003)(11063799006)(4143699003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: vE2zDxgqOqN/drdkOVyStuVflrY2shxmnT800XghACN4xBOjPtjXYESjSn6ogaqzMGYs2GG/1+dFwJ3qBbt2PSIRD+AFvJ48fijT10TMrncF0Rj+RWIYEpkTCtSda9tpgzN/6awX65OJGyc1q+1ecFw9jgkYsYHc3fdUpK1WTljvsCXJnyKFBU57iRL6Tuw/8bmtYRDTi3X3M49J84gPH3M4jlZpmUmJ3DXHbT36tdp2HFPnRstYmhIufndmGwWsKqbh6IJEmyat7uhF+RFW1zSy0wGX2p1AGEWh0+a0GKBi5mjuOezBEiPoLGE9v++UQGOkIQQQhxcDFNnL08CFnDCXlUXqUjhEQlv+JkJqdXhXyO0HUUJyo7pk8B60mL0rMHVxRvsNMp1lMfJt7BlBwcgVt9H5Z6Wp7/0L2fRq15aTIZoZ1rTM/goUzWwUG3RH
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2026 07:56:07.5517 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87ad815e-4954-4f6c-ba4e-08dec2d7e6a6
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: DU6PEPF00009529.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR10MB6789
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, francesco.utel@engicam.com,
- domenico.acri@engicam.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
- linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v3 13/14] arm64: dts: st: support Engicam
- MicroGEA-STM32MP257-RMM board
+Message-Id: <20260605-main-v1-1-aed15b1cf1af@gmail.com>
+X-B4-Tracking: v=1; b=H4sIADKBImoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDMwMT3dzEzDzdNDPLNEtTM5NEc5MkJaDSgqLUtMwKsDHRsRB+cWlSVmp
+ yCUivUm0tAMnGDJdoAAAA
+X-Change-ID: 20260604-main-f69f9564a74b
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Ong Boon Leong <boon.leong.ong@intel.com>
+X-Mailer: b4 0.15.2
+X-Mailman-Approved-At: Tue, 09 Jun 2026 11:53:15 +0000
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Carlos Fangmeier <carlos.fangmeier@gmail.com>, bpf@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] net: stmmac: prevent kernel panic during XDP
+ program and XSK pool transitions
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -127,435 +107,132 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	DATE_IN_PAST(1.00)[99];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	MIME_BASE64_TEXT(0.10)[];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	GREYLIST(0.00)[pass,meta];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	RCVD_TLS_LAST(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:dario.binacchi@amarulasolutions.com,m:linux-kernel@vger.kernel.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:francesco.utel@engicam.com,m:domenico.acri@engicam.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:michael@amarulasolutions.com,m:linux-amarula@amarulasolutions.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,amarulasolutions.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns];
-	DKIM_TRACE(0.00)[foss.st.com:-];
+	RCPT_COUNT_TWELVE(0.00)[19];
+	FORGED_RECIPIENTS(0.00)[m:ast@kernel.org,m:daniel@iogearbox.net,m:davem@davemloft.net,m:kuba@kernel.org,m:hawk@kernel.org,m:john.fastabend@gmail.com,m:sdf@fomichev.me,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:boon.leong.ong@intel.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:carlos.fangmeier@gmail.com,m:bpf@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:johnfastabend@gmail.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:carlosfangmeier@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[kernel.org,iogearbox.net,davemloft.net,gmail.com,fomichev.me,lunn.ch,google.com,redhat.com,foss.st.com,intel.com];
+	FORGED_SENDER(0.00)[carlosfangmeier@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,engicam.com,gmail.com,amarulasolutions.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	ALIAS_RESOLVED(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[carlosfangmeier@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	DKIM_TRACE(0.00)[gmail.com:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5D4D8646300
+X-Rspamd-Queue-Id: 5064165FB29
 
-Hi Dario,
-
-On 6/5/26 08:27, Dario Binacchi wrote:
-> Support for Engicam MicroGEA-STM32MP257-RMM board with:
-> 
->   - 8 GB eMMC Flash
->   - 2 GB LPDDR4 DRAM
->   - CAN
->   - LEDs
->   - LCD panel with touchscreen
->   - Micro SD card connector
->   - Audio codec
->   - Buzzer
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> 
-> ---
-> 
-> (no changes since v2)
-> 
-> Changes in v2:
-> - Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
->    to avoid overriding the peripheral bus clock reference defined in the base
->    SoC device tree. Suggested by Sashiko.
-> - Reference the existing labeled nodes directly at the root level using
->    &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
->    redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
-> - Drop the #clock-cells property from sai1a and remove the reference to sai1a from
->    the clocks array in sai1b, relying strictly on the st,sync property to handle
->    internal synchronization.
-> 
->   arch/arm64/boot/dts/st/Makefile               |   1 +
->   .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 ++++++++++++++++++
->   2 files changed, 320 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-> 
-> diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-> index 63908113ae36..386eca593c54 100644
-> --- a/arch/arm64/boot/dts/st/Makefile
-> +++ b/arch/arm64/boot/dts/st/Makefile
-> @@ -2,5 +2,6 @@
->   dtb-$(CONFIG_ARCH_STM32) += \
->   	stm32mp215f-dk.dtb \
->   	stm32mp235f-dk.dtb \
-> +	stm32mp257-engicam-microgea-rmm.dtb \
->   	stm32mp257f-dk.dtb \
->   	stm32mp257f-ev1.dtb
-> diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-> new file mode 100644
-> index 000000000000..0212c03aae1a
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-> @@ -0,0 +1,319 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> + * Copyright (C) 2026 Engicam srl
-> + */
-> +
-> +/dts-v1/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +#include <dt-bindings/input/input.h>
-> +#include <dt-bindings/leds/common.h>
-> +
-> +#include "stm32mp257-engicam-microgea.dtsi"
-> +
-> +/ {
-> +	model = "Engicam MicroGEA STM32MP257D RMM Board";
-
-If the SoC is an STM32MP257D, as mentionned in the board model, 
-stm32mp25xf.dtsi should not be included in 
-stm32mp257-engicam-microgea.dtsi (in PATCH 12).
-Unless the SoM can be fitted with any STM32MP257, in which case, when 
-stm32mp25xf.dtsi is populated, you will need to add /delete-node/ 
-statements on the board side, to remove the HW crypto support.
-
-Regards,
-Amelie
-
-> +	compatible = "engicam,microgea-stm32mp257-rmm",
-> +		     "engicam,microgea-stm32mp257", "st,stm32mp257";
-> +
-> +	aliases {
-> +		mmc0 = &sdmmc1;
-> +		mmc1 = &sdmmc2;
-> +		serial0 = &usart2;
-> +		serial1 = &usart1;
-> +	};
-> +
-> +	backlight: backlight {
-> +		compatible = "pwm-backlight";
-> +		brightness-levels = <0 100>;
-> +		num-interpolated-steps = <100>;
-> +		default-brightness-level = <85>;
-> +		pwms = <&pwm2 0 100000 0>;
-> +	};
-> +
-> +	buzzer {
-> +		compatible = "pwm-beeper";
-> +		pwms = <&pwm4 0 1000000 0>;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +		#address-cells = <2>;
-> +		#size-cells = <2>;
-> +		ranges;
-> +
-> +		framebuffer {
-> +			compatible = "simple-framebuffer";
-> +			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
-> +			lcd-supply = <&reg_3v3>;
-> +			status = "disabled";
-> +		};
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +
-> +		led-0 {
-> +			gpios = <&gpioh 2 GPIO_ACTIVE_HIGH>;
-> +			default-state = "off";
-> +			status = "okay";
-> +		};
-> +
-> +		led-1 {
-> +			gpios = <&gpioh 6 GPIO_ACTIVE_HIGH>;
-> +			default-state = "off";
-> +			status = "okay";
-> +		};
-> +	};
-> +
-> +	mclk: clock-mclk {
-> +		compatible = "fixed-clock";
-> +		#clock-cells = <0>;
-> +		clock-frequency = <24000000>;
-> +	};
-> +
-> +	reg_1v8: regulator-1v8 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "1v8";
-> +		regulator-min-microvolt = <1800000>;
-> +		regulator-max-microvolt = <1800000>;
-> +	};
-> +
-> +	reg_3v3: regulator-3v3 {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "3v3";
-> +		regulator-min-microvolt = <3300000>;
-> +		regulator-max-microvolt = <3300000>;
-> +	};
-> +
-> +	reg_ext_pwr: regulator-ext-pwr {
-> +		compatible = "regulator-fixed";
-> +		regulator-name = "ext-pwr";
-> +		regulator-min-microvolt = <5000000>;
-> +		regulator-max-microvolt = <5000000>;
-> +		gpio = <&gpiog 0 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-always-on;
-> +	};
-> +
-> +	sound {
-> +		compatible = "audio-graph-card";
-> +		label = "STM32MP25-RMM";
-> +		widgets = "Headphone", "Headphone Jack",
-> +			  "Microphone", "Microphone Jack";
-> +		routing = "Headphone Jack", "HP_OUT",
-> +			  "MIC_IN", "Microphone Jack",
-> +			  "Microphone Jack", "Mic Bias";
-> +		dais = <&sai1a_port &sai1b_port>;
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&arm_wdt {
-> +	timeout-sec = <32>;
-> +	status = "okay";
-> +};
-> +
-> +&i2c1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c1_pins_a>;
-> +	pinctrl-1 = <&i2c1_sleep_pins_a>;
-> +	i2c-scl-rising-time-ns = <185>;
-> +	i2c-scl-falling-time-ns = <20>;
-> +	status = "okay";
-> +	/* spare dmas for other usage */
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	touchscreen@38 {
-> +		compatible = "edt,edt-ft5306";
-> +		reg = <0x38>;
-> +		interrupt-parent = <&gpiob>;
-> +		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
-> +		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
-> +		touchscreen-size-x = <1280>;
-> +		touchscreen-size-y = <800>;
-> +	};
-> +};
-> +
-> +&i2c2 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&i2c2_pins_a>;
-> +	pinctrl-1 = <&i2c2_sleep_pins_a>;
-> +	i2c-scl-rising-time-ns = <185>;
-> +	i2c-scl-falling-time-ns = <20>;
-> +	status = "okay";
-> +	/* spare dmas for other usage */
-> +	/delete-property/dmas;
-> +	/delete-property/dma-names;
-> +
-> +	sgtl5000: codec@a {
-> +		compatible = "fsl,sgtl5000";
-> +		reg = <0x0a>;
-> +		#sound-dai-cells = <0>;
-> +		clocks = <&mclk>;
-> +
-> +		VDDA-supply = <&reg_3v3>;
-> +		VDDIO-supply = <&reg_3v3>;
-> +		VDDD-supply = <&reg_1v8>;
-> +
-> +		sgtl5000_port: port {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			sgtl5000_tx_endpoint: endpoint@0 {
-> +				reg = <0>;
-> +				remote-endpoint = <&sai1a_endpoint>;
-> +				frame-master = <&sgtl5000_tx_endpoint>;
-> +				bitclock-master = <&sgtl5000_tx_endpoint>;
-> +			};
-> +
-> +			sgtl5000_rx_endpoint: endpoint@1 {
-> +				reg = <1>;
-> +				remote-endpoint = <&sai1b_endpoint>;
-> +				frame-master = <&sgtl5000_rx_endpoint>;
-> +				bitclock-master = <&sgtl5000_rx_endpoint>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&ltdc {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&ltdc_pins_a>;
-> +	pinctrl-1 = <&ltdc_sleep_pins_a>;
-> +	status = "okay";
-> +
-> +	port {
-> +		ltdc_out: endpoint {
-> +			remote-endpoint = <&panel_in>;
-> +		};
-> +	};
-> +};
-> +
-> +&m_can1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&m_can1_pins_a>;
-> +	pinctrl-1 = <&m_can1_sleep_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> +&sai1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&sai1a_pins_a>, <&sai1b_pins_a>;
-> +	pinctrl-1 = <&sai1a_sleep_pins_a>, <&sai1b_sleep_pins_a>;
-> +	status = "okay";
-> +};
-> +
-> +&sai1a {
-> +	dma-names = "tx";
-> +	status = "okay";
-> +
-> +	sai1a_port: port {
-> +		sai1a_endpoint: endpoint {
-> +			remote-endpoint = <&sgtl5000_tx_endpoint>;
-> +			dai-format = "i2s";
-> +			mclk-fs = <512>;
-> +		};
-> +	};
-> +};
-> +
-> +&sai1b {
-> +	dma-names = "rx";
-> +	st,sync = <&sai1a 2>;
-> +	clocks = <&rcc CK_KER_SAI1>;
-> +	clock-names = "sai_ck";
-> +	status = "okay";
-> +
-> +	sai1b_port: port {
-> +		sai1b_endpoint: endpoint {
-> +			remote-endpoint = <&sgtl5000_rx_endpoint>;
-> +			dai-format = "i2s";
-> +			mclk-fs = <512>;
-> +		};
-> +	};
-> +};
-> +
-> +/* MicroSD */
-> +&sdmmc1 {
-> +	pinctrl-names = "default", "opendrain", "sleep";
-> +	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-> +	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-> +	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-> +	broken-cd;
-> +	disable-wp;
-> +	st,neg-edge;
-> +	bus-width = <4>;
-> +	vmmc-supply = <&scmi_v3v3>;
-> +	vqmmc-supply = <&scmi_vddio1>;
-> +	no-1-8-v;
-> +	status = "okay";
-> +};
-> +
-> +&spi1 {
-> +	pinctrl-names = "default", "sleep";
-> +	pinctrl-0 = <&spi1_pins_a>;
-> +	pinctrl-1 = <&spi1_sleep_pins_a>;
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +	cs-gpios = <&gpioh 8 GPIO_ACTIVE_HIGH>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
-> +	status = "okay";
-> +
-> +	display: display@0 {
-> +		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
-> +		reg = <0>;
-> +		vdd-supply = <&reg_3v3>;
-> +		spi-max-frequency = <10000000>;
-> +		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
-> +		backlight = <&backlight>;
-> +
-> +		port {
-> +			panel_in: endpoint {
-> +				remote-endpoint = <&ltdc_out>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&timers2 {
-> +	status = "okay";
-> +
-> +	pwm2: pwm {
-> +		pinctrl-0 = <&pwm2_pins_a>;
-> +		pinctrl-1 = <&pwm2_sleep_pins_a>;
-> +		pinctrl-names = "default", "sleep";
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&timers4 {
-> +	status = "okay";
-> +
-> +	pwm4: pwm {
-> +		pinctrl-names = "default", "sleep";
-> +		pinctrl-0 = <&pwm4_pins_a>;
-> +		pinctrl-1 = <&pwm4_sleep_pins_a>;
-> +		status = "okay";
-> +	};
-> +};
-> +
-> +&usart1 {
-> +	pinctrl-names = "default", "idle", "sleep";
-> +	pinctrl-0 = <&usart1_pins_b>;
-> +	pinctrl-1 = <&usart1_idle_pins_b>;
-> +	pinctrl-2 = <&usart1_sleep_pins_b>;
-> +	/delete-property/ dmas;
-> +	/delete-property/ dma-names;
-> +	status = "okay";
-> +};
-> +
-> +&usart2 {
-> +	pinctrl-names = "default", "idle", "sleep";
-> +	pinctrl-0 = <&usart2_pins_a>;
-> +	pinctrl-1 = <&usart2_idle_pins_a>;
-> +	pinctrl-2 = <&usart2_sleep_pins_a>;
-> +	/delete-property/ dmas;
-> +	/delete-property/ dma-names;
-> +	status = "okay";
-> +};
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+c3RtbWFjX3hkcF9zZXRfcHJvZygpIHRlYXJzIGRvd24gYW5kIHJlYnVpbGRzIGFsbCBETUEgY2hh
+bm5lbHMgdmlhCnN0bW1hY194ZHBfcmVsZWFzZSgpL3N0bW1hY194ZHBfb3BlbigpIHdpdGhvdXQg
+cGF1c2luZyB0aGUgbmV0ZGV2ClRYIHBhdGguIFNpbWlsYXJseSwgc3RtbWFjX3hkcF9lbmFibGVf
+cG9vbCgpIGFuZApzdG1tYWNfeGRwX2Rpc2FibGVfcG9vbCgpIHJlY29uZmlndXJlIGluZGl2aWR1
+YWwgcXVldWUgRE1BIHJpbmdzCndoaWxlIFRYIHJlbWFpbnMgYWN0aXZlLgoKSWYgdGhlIGtlcm5l
+bCB0cmFuc21pdHMgYSBmcmFtZSBkdXJpbmcgdGhlc2Ugd2luZG93cyDigJQgZm9yIGV4YW1wbGUg
+YW4KTUxEIHJlcG9ydCBxdWV1ZWQgYnkgdGhlIElQdjYgc3RhY2sg4oCUIHN0bW1hY194bWl0KCkg
+Y2FsbHMKZHdtYWM0X3NldF9hZGRyKCkgYWdhaW5zdCBhbiBNTUlPIHJlZ2lzdGVyIHdob3NlIG1h
+cHBpbmcgaGFzIGJlZW4KdG9ybiBkb3duLCB0cmlnZ2VyaW5nIGEgbGV2ZWwtMyB0cmFuc2xhdGlv
+biBmYXVsdDoKCiAgVW5hYmxlIHRvIGhhbmRsZSBrZXJuZWwgcGFnaW5nIHJlcXVlc3QgYXQgdmly
+dHVhbCBhZGRyZXNzIGZmZmY4MDAwODQwZWMwMDAKICBwYyA6IGR3bWFjNF9zZXRfYWRkcisweDgv
+MHgxOAogIGxyIDogc3RtbWFjX3htaXQrMHg2NGMvMHhiNjAKICBDYWxsIHRyYWNlOgogICBkd21h
+YzRfc2V0X2FkZHIrMHg4LzB4MTgKICAgZGV2X2hhcmRfc3RhcnRfeG1pdCsweGIwLzB4MjIwCiAg
+IHNjaF9kaXJlY3RfeG1pdCsweDEwOC8weDNmMAogICBfX2Rldl9xdWV1ZV94bWl0KzB4ODQ0LzB4
+ZDAwCiAgIGlwNl9maW5pc2hfb3V0cHV0MisweDJkOC8weDYxMAogICBtbGRfc2VuZHBhY2srMHgx
+ODAvMHgyZTAKICAgbWxkX2lmY193b3JrKzB4MWRjLzB4NDgwCgpUaGUgZXhpc3RpbmcgbmV0aWZf
+dHhfZGlzYWJsZSgpIGluIHN0bW1hY194ZHBfcmVsZWFzZSgpIGlzIG5vdApzdWZmaWNpZW50IGJl
+Y2F1c2Ugc3RtbWFjX3hkcF9vcGVuKCkgcmUtZW5hYmxlcyBUWCB2aWEKbmV0aWZfdHhfc3RhcnRf
+YWxsX3F1ZXVlcygpIGJlZm9yZSB0aGUgY2FsbGVyIHJlZ2FpbnMgY29udHJvbCwgbGVhdmluZwph
+IHdpbmRvdyB3aGVyZSB0aGUgZnJlc2hseSByZWJ1aWx0IHJpbmdzIGNhbiByYWNlIHdpdGggcGVu
+ZGluZyBUWCB3b3JrLgoKRml4IHRoaXMgYnkgd3JhcHBpbmcgZWFjaCByZWNvbmZpZ3VyYXRpb24g
+cGF0aCB3aXRoCm5ldGlmX3R4X2Rpc2FibGUoKS9uZXRpZl90eF93YWtlX2FsbF9xdWV1ZXMoKToK
+CiAtIHN0bW1hY194ZHBfc2V0X3Byb2coKTogaG9sZCBUWCBkaXNhYmxlZCBhY3Jvc3MgdGhlIGZ1
+bGwKICAgc3RtbWFjX3hkcF9yZWxlYXNlKCkgKyBzdG1tYWNfeGRwX29wZW4oKSBzZXF1ZW5jZSwg
+b25seSB3YWtpbmcKICAgVFggYWZ0ZXIgc3RtbWFjX3hkcF9vcGVuKCkgcmV0dXJucy4KCiAtIHN0
+bW1hY194ZHBfZW5hYmxlX3Bvb2woKTogZGlzYWJsZSBUWCBiZWZvcmUgdGVhcmluZyBkb3duIHRo
+ZQogICBxdWV1ZSwgcmUtZW5hYmxlIGFmdGVyIHRoZSBxdWV1ZSBpcyByZWJ1aWx0IGFuZCBOQVBJ
+IGlzIGFjdGl2ZS4KCiAtIHN0bW1hY194ZHBfZGlzYWJsZV9wb29sKCk6IHNhbWUgcGF0dGVybiBh
+cm91bmQgdGhlIHBvb2wgdGVhcmRvd24KICAgYW5kIHF1ZXVlIHJlYnVpbGQuCgpUZXN0ZWQgb24g
+Q29ydGV4LUE1NSAoc3RtbWFjL2R3bWFjNCwga2VybmVsIDYuNi42MCkgd2l0aCBBRl9YRFAKemVy
+by1jb3B5IGFuZCBJUHY2IGFjdGl2ZSDigJQgbm8gcGFuaWNzIG9ic2VydmVkIGFjcm9zcyByZXBl
+YXRlZApYRFAgYXR0YWNoL2RldGFjaCBhbmQgWFNLIHBvb2wgc2V0dXAvdGVhcmRvd24gY3ljbGVz
+LgoKRml4ZXM6IDEzMmMzMmVlNWJjMCAoIm5ldDogc3RtbWFjOiBBZGQgVFggdmlhIFhEUCB6ZXJv
+LWNvcHkgc29ja2V0IikKU2lnbmVkLW9mZi1ieTogQ2FybG9zIEZhbmdtZWllciA8Y2FybG9zLmZh
+bmdtZWllckBnbWFpbC5jb20+Ci0tLQogZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1t
+YWMvc3RtbWFjX3hkcC5jIHwgMTIgKysrKysrKysrKy0tCiAxIGZpbGUgY2hhbmdlZCwgMTAgaW5z
+ZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL25ldC9ldGhl
+cm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNfeGRwLmMgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9z
+dG1pY3JvL3N0bW1hYy9zdG1tYWNfeGRwLmMKaW5kZXggZDdlNGRiNzIyNGIwLi5hNjYxMWFlZTY4
+N2YgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL3N0bW1h
+Y194ZHAuYworKysgYi9kcml2ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9zdG1tYWNf
+eGRwLmMKQEAgLTM0LDYgKzM0LDcgQEAgc3RhdGljIGludCBzdG1tYWNfeGRwX2VuYWJsZV9wb29s
+KHN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdiwKIAluZWVkX3VwZGF0ZSA9IG5ldGlmX3J1bm5pbmco
+cHJpdi0+ZGV2KSAmJiBzdG1tYWNfeGRwX2lzX2VuYWJsZWQocHJpdik7CiAKIAlpZiAobmVlZF91
+cGRhdGUpIHsKKwkJbmV0aWZfdHhfZGlzYWJsZShwcml2LT5kZXYpOwogCQluYXBpX2Rpc2FibGUo
+JmNoLT5yeF9uYXBpKTsKIAkJbmFwaV9kaXNhYmxlKCZjaC0+dHhfbmFwaSk7CiAJCXN0bW1hY19k
+aXNhYmxlX3J4X3F1ZXVlKHByaXYsIHF1ZXVlKTsKQEAgLTQ2LDYgKzQ3LDcgQEAgc3RhdGljIGlu
+dCBzdG1tYWNfeGRwX2VuYWJsZV9wb29sKHN0cnVjdCBzdG1tYWNfcHJpdiAqcHJpdiwKIAkJc3Rt
+bWFjX2VuYWJsZV9yeF9xdWV1ZShwcml2LCBxdWV1ZSk7CiAJCXN0bW1hY19lbmFibGVfdHhfcXVl
+dWUocHJpdiwgcXVldWUpOwogCQluYXBpX2VuYWJsZSgmY2gtPnJ4dHhfbmFwaSk7CisJCW5ldGlm
+X3R4X3dha2VfYWxsX3F1ZXVlcyhwcml2LT5kZXYpOwogCiAJCWVyciA9IHN0bW1hY194c2tfd2Fr
+ZXVwKHByaXYtPmRldiwgcXVldWUsIFhEUF9XQUtFVVBfUlgpOwogCQlpZiAoZXJyKQpAQCAtNzIs
+NiArNzQsNyBAQCBzdGF0aWMgaW50IHN0bW1hY194ZHBfZGlzYWJsZV9wb29sKHN0cnVjdCBzdG1t
+YWNfcHJpdiAqcHJpdiwgdTE2IHF1ZXVlKQogCW5lZWRfdXBkYXRlID0gbmV0aWZfcnVubmluZyhw
+cml2LT5kZXYpICYmIHN0bW1hY194ZHBfaXNfZW5hYmxlZChwcml2KTsKIAogCWlmIChuZWVkX3Vw
+ZGF0ZSkgeworCQluZXRpZl90eF9kaXNhYmxlKHByaXYtPmRldik7CiAJCW5hcGlfZGlzYWJsZSgm
+Y2gtPnJ4dHhfbmFwaSk7CiAJCXN0bW1hY19kaXNhYmxlX3J4X3F1ZXVlKHByaXYsIHF1ZXVlKTsK
+IAkJc3RtbWFjX2Rpc2FibGVfdHhfcXVldWUocHJpdiwgcXVldWUpOwpAQCAtODcsNiArOTAsNyBA
+QCBzdGF0aWMgaW50IHN0bW1hY194ZHBfZGlzYWJsZV9wb29sKHN0cnVjdCBzdG1tYWNfcHJpdiAq
+cHJpdiwgdTE2IHF1ZXVlKQogCQlzdG1tYWNfZW5hYmxlX3R4X3F1ZXVlKHByaXYsIHF1ZXVlKTsK
+IAkJbmFwaV9lbmFibGUoJmNoLT5yeF9uYXBpKTsKIAkJbmFwaV9lbmFibGUoJmNoLT50eF9uYXBp
+KTsKKwkJbmV0aWZfdHhfd2FrZV9hbGxfcXVldWVzKHByaXYtPmRldik7CiAJfQogCiAJcmV0dXJu
+IDA7CkBAIC0xMjEsOCArMTI1LDEwIEBAIGludCBzdG1tYWNfeGRwX3NldF9wcm9nKHN0cnVjdCBz
+dG1tYWNfcHJpdiAqcHJpdiwgc3RydWN0IGJwZl9wcm9nICpwcm9nLAogCQl4ZHBfZmVhdHVyZXNf
+Y2xlYXJfcmVkaXJlY3RfdGFyZ2V0KGRldik7CiAKIAluZWVkX3VwZGF0ZSA9ICEhcHJpdi0+eGRw
+X3Byb2cgIT0gISFwcm9nOwotCWlmIChpZl9ydW5uaW5nICYmIG5lZWRfdXBkYXRlKQorCWlmIChp
+Zl9ydW5uaW5nICYmIG5lZWRfdXBkYXRlKSB7CisJCW5ldGlmX3R4X2Rpc2FibGUoZGV2KTsKIAkJ
+c3RtbWFjX3hkcF9yZWxlYXNlKGRldik7CisJfQogCiAJb2xkX3Byb2cgPSB4Y2hnKCZwcml2LT54
+ZHBfcHJvZywgcHJvZyk7CiAJaWYgKG9sZF9wcm9nKQpAQCAtMTMxLDggKzEzNywxMCBAQCBpbnQg
+c3RtbWFjX3hkcF9zZXRfcHJvZyhzdHJ1Y3Qgc3RtbWFjX3ByaXYgKnByaXYsIHN0cnVjdCBicGZf
+cHJvZyAqcHJvZywKIAkvKiBEaXNhYmxlIFJYIFNQSCBmb3IgWERQIG9wZXJhdGlvbiAqLwogCXBy
+aXYtPnNwaF9hY3RpdmUgPSBwcml2LT5zcGhfY2FwYWJsZSAmJiAhc3RtbWFjX3hkcF9pc19lbmFi
+bGVkKHByaXYpOwogCi0JaWYgKGlmX3J1bm5pbmcgJiYgbmVlZF91cGRhdGUpCisJaWYgKGlmX3J1
+bm5pbmcgJiYgbmVlZF91cGRhdGUpIHsKIAkJc3RtbWFjX3hkcF9vcGVuKGRldik7CisJCW5ldGlm
+X3R4X3dha2VfYWxsX3F1ZXVlcyhkZXYpOworCX0KIAogCWlmIChwcm9nKQogCQl4ZHBfZmVhdHVy
+ZXNfc2V0X3JlZGlyZWN0X3RhcmdldChkZXYsIGZhbHNlKTsKCi0tLQpiYXNlLWNvbW1pdDogNGFh
+Y2Y1MDllNTM3YTcxMWZhNzFiY2E5ZjIzNGU1ZWI2OTY4ODUwZQpjaGFuZ2UtaWQ6IDIwMjYwNjA0
+LW1haW4tZjY5Zjk1NjRhNzRiCgpCZXN0IHJlZ2FyZHMsCi0tICAKQ2FybG9zIEZhbmdtZWllciA8
+Y2FybG9zLmZhbmdtZWllckBnbWFpbC5jb20+CgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
+c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
+ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
