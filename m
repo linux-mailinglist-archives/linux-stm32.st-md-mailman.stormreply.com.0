@@ -2,59 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id a7W4Enl6I2qGuQEAu9opvQ
+	id J9EBO9+DI2p/uwEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 03:40:09 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 04:20:15 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C391D64C202
-	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 03:40:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5980C64C379
+	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 04:20:15 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=myUMH5mY;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=OEBeRt8v;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BA6FC87ED5;
-	Sat,  6 Jun 2026 01:40:08 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 06B1BC87ED5;
+	Sat,  6 Jun 2026 02:20:15 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EF11C01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 98008C01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  6 Jun 2026 01:40:07 +0000 (UTC)
+ Sat,  6 Jun 2026 02:20:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 576F5436C0;
- Sat,  6 Jun 2026 01:40:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DBE1F00893;
- Sat,  6 Jun 2026 01:40:06 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 493B2600BB;
+ Sat,  6 Jun 2026 02:20:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A2E1F00893;
+ Sat,  6 Jun 2026 02:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1780710006;
- bh=4L/2vxjqjL4RiGujkM/Ro9au+zwXOQvhTC3CfFNd7rc=;
+ s=k20260515; t=1780712412;
+ bh=+3bLFsnB5839EFXEZht5YnnLpYejZsji1a+GgQPr6Xs=;
  h=Subject:From:Date:References:In-Reply-To:To:Cc;
- b=myUMH5mY46MJYaBDJHER0h2NVBkakwbmfRrN40iDO58t5pJSdHfWSbFsm3RhBeeSG
- bT3gSEBqzUgCxEJA7Ki4sl+++M0Nob+pCHOIlLqvjfLpQ9PkL8OArol5KPMZYc8F8l
- GbGpjrk1Z/mubuiTDNH7rFAkeEKexTSQJ38YJTqBAeyvbZ4gVix2srIlwxfqDp68v4
- ErDNINU7pNc7Esr1SNFSruUl/WBWUb7SxlHLzCBwwN0AWxYuSNLUIrqKgtbHuzEpHw
- HcsffE4JpP40QuovURdcYoTiZ8nI8MEUk2QC1xKC5FVmcg8loKz1UI8qFq359LerE0
- kjcl0IO0Xmwog==
+ b=OEBeRt8vfZhvtrneTFV/QG9l+pY1C1nl9gOMUxhcOBiMOAB+vt1ugZttQAApXmSp9
+ PltSMnKtFDsyfeutOZMAr1Lnf20Ti38wYl4wsNFIafomRr+O0phh/dWOgYwCSk5oNz
+ ABDqPX0ioV0yQ46j90BoJ7D8FTUoyKCOQgxjFP+/GCGelCdK7qTHXQcD1y/3X2ym7N
+ dV7fVA37y0a6Pr4oI8jvvZea5d9sErxCDwpn5XXZLK9VR5m8ADzmeZjqCq43eocsDp
+ SpU9QQgMuf1hDxmBD/7hX1/DnMOMhqwTzc5nXrtzj8G4ck1GRdtiVGfQRf5/+hpKmE
+ IijSmRSY11E/g==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
  by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- 939813930A9C; Sat,  6 Jun 2026 01:40:07 +0000 (UTC)
+ 56A783930A9C; Sat,  6 Jun 2026 02:20:13 +0000 (UTC)
 MIME-Version: 1.0
 From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <178071000615.3987407.7537922881978365743.git-patchwork-notify@kernel.org>
-Date: Sat, 06 Jun 2026 01:40:06 +0000
-References: <20260603173644.24371-1-ovidiu.panait.rb@renesas.com>
-In-Reply-To: <20260603173644.24371-1-ovidiu.panait.rb@renesas.com>
-To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Cc: linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, edumazet@google.com,
- mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
- rmk+kernel@armlinux.org.uk, davem@davemloft.net,
- linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac4: Report DCB
- feature capability
+Message-Id: <178071241185.3995915.13210125850131582461.git-patchwork-notify@kernel.org>
+Date: Sat, 06 Jun 2026 02:20:11 +0000
+References: <20260604083037.24407-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+In-Reply-To: <20260604083037.24407-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+To: Nazle@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+ Asmade@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,
+ Muhammad Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, maxime.chevallier@bootlin.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, pabeni@redhat.com, rmk+kernel@armlinux.org.uk,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: xgmac: report L3/L4 filter
+ match count in ethtool stats
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,13 +82,13 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,pengutronix.de,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	TAGGED_FROM(0.00)[netdevbpf];
 	RCVD_TLS_LAST(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FORGED_RECIPIENTS(0.00)[m:ovidiu.panait.rb@renesas.com,m:linux-kernel@vger.kernel.org,m:o.rempel@pengutronix.de,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_RECIPIENTS(0.00)[m:Nazle@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,m:Asmade@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org,m:muhammad.nazim.amirul.nazle.asmade@altera.com,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -107,29 +108,30 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FROM_NO_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[renesas.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C391D64C202
+X-Rspamd-Queue-Id: 5980C64C379
 
 Hello:
 
 This patch was applied to netdev/net-next.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed,  3 Jun 2026 17:36:43 +0000 you wrote:
-> Bit 16 of the MAC HW Feature1 register reports the DCB (Data Centre
-> Bridging) feature. Read it so that dma_cap.dcben and the debugfs
-> report it accurately. Right now it is always reported as being disabled.
+On Thu,  4 Jun 2026 01:30:37 -0700 you wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac4.h     | 1 +
->  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c | 1 +
->  2 files changed, 2 insertions(+)
+> Read the L3FM and L4FM bits from the RX descriptor status word (RDES2)
+> and increment the corresponding ethtool statistics counters. This allows
+> users to observe L3/L4 filter hit rates via ethtool -S.
+> 
+> Signed-off-by: Rohan G Thomas <rohan.g.thomas@altera.com>
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> 
+> [...]
 
 Here is the summary with links:
-  - [net-next] net: stmmac: dwmac4: Report DCB feature capability
-    https://git.kernel.org/netdev/net-next/c/3a58a1b8d505
+  - net: stmmac: xgmac: report L3/L4 filter match count in ethtool stats
+    https://git.kernel.org/netdev/net-next/c/903db046d557
 
 You are awesome, thank you!
 -- 
