@@ -2,103 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id RtUaA0VaI2qjqgEAu9opvQ
+	id a7W4Enl6I2qGuQEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 01:22:45 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 03:40:09 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98FA864BCA9
-	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 01:22:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C391D64C202
+	for <lists+linux-stm32@lfdr.de>; Sat, 06 Jun 2026 03:40:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=XX3yDoI1;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=myUMH5mY;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 59400C01FB6;
-	Fri,  5 Jun 2026 23:22:44 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7BA6FC87ED5;
+	Sat,  6 Jun 2026 01:40:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 885FBCFAC40
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9EF11C01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  5 Jun 2026 23:22:42 +0000 (UTC)
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-7e71b2d527dso212686a34.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 05 Jun 2026 16:22:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1780701761; x=1781306561;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2k7U07qtwbFmbaheJUqoAwqTh+vQ4LcZsVmb0igPq1c=;
- b=XX3yDoI1Z9Dw9jPJqQNzlm9d2f8/HOi2B5EbJdzFHBeqBilt5AmbadNxogVdCvTQ36
- 00IgVm8L1v6SLs58zA5aFMJyGpGGrPzc1sTmLoqz5ZwX2CXxsBqc1wTqXflMjhL7+pIZ
- KIx7m8uyUzsmZB4XqIv+/LyegvW3YCMRrWGcPq3yhkyBdwV3P2vkobR4LKOOfcXv4bup
- wdF+vyE7KADN9BL3Z1FPhGpVsT3MvE5P/V0D3H4FYIC8DraAeeFpoYV694sKo2JDQxhE
- kTph0bgr9olLAfOmbbkBCOOO5QKfWqsGKB1HBER1ERSDmEbR7fyCrCVs/VyIWcc3XwAO
- qe+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780701761; x=1781306561;
- h=in-reply-to:references:to:from:subject:cc:message-id:date
- :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=2k7U07qtwbFmbaheJUqoAwqTh+vQ4LcZsVmb0igPq1c=;
- b=HqGgrXJYzPC9eX/jIO++WOsPH5pdoBZacBvEQjnzsZcm60PdcIOrL5KsFIcIc4u1Di
- mfSisvxhl5UUBgLrOE/LV7TCgPLpsgqrpmBZgSEvIIDfySCbzWqyQDwIdNQOeQBHVNK8
- ZUbsuA4vhnAMPC1L32Q8YlvMMtwzt6TETM+kKIV0aYp0QsCGzSoEZa4O9LsOj/rezObr
- nah6C4VppPkzag5wXMJiooojI+USxiPTKJaVtikTXJ+bfcOsHqoO1V9a9Glp52z1+q9r
- Wo+ILalHyMyklFEr6LDKKmn3UXiUhkO4wTX518MioFphp0FUfzFX96cMDbLMaBslAKSq
- i/bg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/0y0EtLi4BgQTJkrVfFDJIPP0OD0g910NgJc8yaRW/ECQ8pN24m3VoI8oOnX0q4nuZ/MgOmsnqBsvq9w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzsg98CP+JnlwxQdCp1SbSPeESwM7mSeN0S6NoZFI9SSp3yOkPo
- kAy2ew15SHqDD7dyPsqoAgrMvR0oAh0QNHUsmwUwVghb+W+eBX7qQPHM
-X-Gm-Gg: Acq92OH/Hw7c/SP/7WFeJTA9WEz/FRGk+DBWCPacSpnVF4ihcyt36YOHCB63A0CD/OG
- SnY6P9IryHynaWpxmwC/xfDzasBkybJY5LQOKAUfzhTCqydqu1wDMiFi0lhbxtFZOT4NuJUPxGG
- Q2wyOgc8OSL8RlGGEuqyv/57wR/GNyW/5nW77UJ1BiQ4/7MGFPjCc3kVLUokh8q+Kh3CVZqDy9k
- 0cf61BYEhazT9ILQCE/nOxDE19vm2epOMm1nKm0m1fNjZa4ZoV/chaVN1fSdC4fTeyaZAQX2+uz
- 92RyoJxomlXqA//6Z4Y74qIYnTF1ctoahDJHMGMjzHU4e+W05lay9J1EvUM5eraRx0HLzVD6Eg5
- +6ihsIof/9yQWaH84zHTtWL7RAT+/P4FFBcothQNuKRvlbTaQ7vtIIYxXB1l2EMbGWDT9oX4axg
- z0M+E1x/sMzmRZcZABJKunNios3+rTNMnTpdsSdRmOm/RvpZNEaN4SHLVC898tIf3/naCFD9G9K
- vY2cM6sOsLuY6M99CEfz7T7Tvew
-X-Received: by 2002:a05:6830:82bb:b0:7de:4fc6:a588 with SMTP id
- 46e09a7af769-7e70ca7b3c2mr3388171a34.23.1780701761185; 
- Fri, 05 Jun 2026 16:22:41 -0700 (PDT)
-Received: from localhost ([2a03:2880:10ff:4d::])
- by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-7e6e745fea5sm6605643a34.5.2026.06.05.16.22.39
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 05 Jun 2026 16:22:40 -0700 (PDT)
-Mime-Version: 1.0
-Date: Fri, 05 Jun 2026 16:22:39 -0700
-Message-Id: <DJ1I3B2TSXSL.AV4PS9YH714@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: =?utf-8?b?QWxleGlzIExvdGhvcsOpIChlQlBGIEZvdW5kYXRpb24p?=
- <alexis.lothore@bootlin.com>, "Alexei Starovoitov" <ast@kernel.org>,
- "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "John Fastabend"
- <john.fastabend@gmail.com>, "Thomas Gleixner" <tglx@kernel.org>, "Ingo
- Molnar" <mingo@redhat.com>, "Borislav Petkov" <bp@alien8.de>, "Dave Hansen"
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, "H. Peter Anvin"
- <hpa@zytor.com>, "Shuah Khan" <shuah@kernel.org>, "Maxime Coquelin"
- <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
- <alexandre.torgue@foss.st.com>, "Ihor Solodrai" <ihor.solodrai@linux.dev>
-X-Mailer: aerc
-References: <20260604-kasan-v2-0-c066e627fda8@bootlin.com>
- <20260604-kasan-v2-4-c066e627fda8@bootlin.com>
-In-Reply-To: <20260604-kasan-v2-4-c066e627fda8@bootlin.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, ebpf@linuxfoundation.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, Bastien Curutchet <bastien.curutchet@bootlin.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 4/8] bpf,
- x86: refactor BPF_ST management in do_jit
+ Sat,  6 Jun 2026 01:40:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 576F5436C0;
+ Sat,  6 Jun 2026 01:40:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36DBE1F00893;
+ Sat,  6 Jun 2026 01:40:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1780710006;
+ bh=4L/2vxjqjL4RiGujkM/Ro9au+zwXOQvhTC3CfFNd7rc=;
+ h=Subject:From:Date:References:In-Reply-To:To:Cc;
+ b=myUMH5mY46MJYaBDJHER0h2NVBkakwbmfRrN40iDO58t5pJSdHfWSbFsm3RhBeeSG
+ bT3gSEBqzUgCxEJA7Ki4sl+++M0Nob+pCHOIlLqvjfLpQ9PkL8OArol5KPMZYc8F8l
+ GbGpjrk1Z/mubuiTDNH7rFAkeEKexTSQJ38YJTqBAeyvbZ4gVix2srIlwxfqDp68v4
+ ErDNINU7pNc7Esr1SNFSruUl/WBWUb7SxlHLzCBwwN0AWxYuSNLUIrqKgtbHuzEpHw
+ HcsffE4JpP40QuovURdcYoTiZ8nI8MEUk2QC1xKC5FVmcg8loKz1UI8qFq359LerE0
+ kjcl0IO0Xmwog==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+ by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
+ 939813930A9C; Sat,  6 Jun 2026 01:40:07 +0000 (UTC)
+MIME-Version: 1.0
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: <178071000615.3987407.7537922881978365743.git-patchwork-notify@kernel.org>
+Date: Sat, 06 Jun 2026 01:40:06 +0000
+References: <20260603173644.24371-1-ovidiu.panait.rb@renesas.com>
+In-Reply-To: <20260603173644.24371-1-ovidiu.panait.rb@renesas.com>
+To: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Cc: linux-kernel@vger.kernel.org, o.rempel@pengutronix.de,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, edumazet@google.com,
+ mcoquelin.stm32@gmail.com, kuba@kernel.org, pabeni@redhat.com,
+ rmk+kernel@armlinux.org.uk, davem@davemloft.net,
+ linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net-next] net: stmmac: dwmac4: Report DCB
+ feature capability
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,96 +66,78 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.00 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MV_CASE(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	MIME_BASE64_TEXT(0.10)[];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	XM_UA_NO_VERSION(0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[bootlin.com,kernel.org,iogearbox.net,linux.dev,gmail.com,redhat.com,alien8.de,linux.intel.com,zytor.com,foss.st.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[29];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_RECIPIENTS(0.00)[m:alexis.lothore@bootlin.com,m:ast@kernel.org,m:daniel@iogearbox.net,m:andrii@kernel.org,m:martin.lau@linux.dev,m:eddyz87@gmail.com,m:memxor@gmail.com,m:song@kernel.org,m:yonghong.song@linux.dev,m:jolsa@kernel.org,m:john.fastabend@gmail.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:shuah@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:ihor.solodrai@linux.dev,m:thomas.petazzoni@bootlin.com,m:ebpf@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:linux-kselftest@vger.kernel.org,m:bpf@vger.kernel.org,m:bastien.curutchet@bootlin.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[vger.kernel.org,pengutronix.de,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
+	TAGGED_FROM(0.00)[netdevbpf];
+	RCVD_TLS_LAST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	FORGED_RECIPIENTS(0.00)[m:ovidiu.panait.rb@renesas.com,m:linux-kernel@vger.kernel.org,m:o.rempel@pengutronix.de,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[alexeistarovoitov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
 	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ALIAS_RESOLVED(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[patchwork-bot@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[alexeistarovoitov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	FROM_NO_DN(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[renesas.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 98FA864BCA9
+X-Rspamd-Queue-Id: C391D64C202
 
-T24gVGh1IEp1biA0LCAyMDI2IGF0IDE6MjIgUE0gUERULCBBbGV4aXMgTG90aG9yw6kgKGVCUEYg
-Rm91bmRhdGlvbikgd3JvdGU6Cj4gSW4gb3JkZXIgdG8gcHJlcGFyZSBmb3IgS0FTQU4gY2hlY2tz
-IGluc2VydGlvbiBiZWZvcmUgZXZlcnkKPiBtZW1vcnktcmVsYXRlZCBsb2FkIG9yIHN0b3JlLCBn
-cm91cCBhbGwgQlBGX1NUIGluc3RydWN0aW9ucyB0aGF0IGluZGVlZAo+IGFjY2VzcyBtZW1vcnkg
-aW4gYSBzaW5nbGUgYmxvY2sgb2YgZmFsbC10aHJvdWdoIGNhc2VzIHRvIGFsbG93Cj4gaW5zdHJ1
-bWVudGluZyB0aG9zZSBpbiBvbmUgY2FsbCwgcmF0aGVyIHRoYW4gaGF2aW5nIHRvIGluc3RydW1l
-bnQgYWxsCj4gY2FzZXMgaW5kaXZpZHVhbGx5Lgo+Cj4gU2lnbmVkLW9mZi1ieTogQWxleGlzIExv
-dGhvcsOpIChlQlBGIEZvdW5kYXRpb24pIDxhbGV4aXMubG90aG9yZUBib290bGluLmNvbT4KPiAt
-LS0KPiAgYXJjaC94ODYvbmV0L2JwZl9qaXRfY29tcC5jIHwgNTMgKysrKysrKysrKysrKysrKysr
-KysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tCj4gIDEgZmlsZSBjaGFuZ2VkLCAzMSBpbnNlcnRp
-b25zKCspLCAyMiBkZWxldGlvbnMoLSkKPgo+IGRpZmYgLS1naXQgYS9hcmNoL3g4Ni9uZXQvYnBm
-X2ppdF9jb21wLmMgYi9hcmNoL3g4Ni9uZXQvYnBmX2ppdF9jb21wLmMKPiBpbmRleCAwOTgxNzkx
-MDE0ZWIuLjk0M2EwZjMxNWNmMiAxMDA2NDQKPiAtLS0gYS9hcmNoL3g4Ni9uZXQvYnBmX2ppdF9j
-b21wLmMKPiArKysgYi9hcmNoL3g4Ni9uZXQvYnBmX2ppdF9jb21wLmMKPiBAQCAtMjMwMCw0MSAr
-MjMwMCw1MCBAQCBzdGF0aWMgaW50IGRvX2ppdChzdHJ1Y3QgYnBmX3ZlcmlmaWVyX2VudiAqZW52
-LCBzdHJ1Y3QgYnBmX3Byb2cgKmJwZl9wcm9nLCBpbnQgKgo+ICAJCQlFTUlUX0xGRU5DRSgpOwo+
-ICAJCQlicmVhazsKPiAgCj4gLQkJCS8qIFNUOiAqKHU4KikoZHN0X3JlZyArIG9mZikgPSBpbW0g
-Ki8KPiAgCQljYXNlIEJQRl9TVCB8IEJQRl9NRU0gfCBCUEZfQjoKPiAtCQkJaWYgKGlzX2VyZWco
-ZHN0X3JlZykpCj4gLQkJCQlFTUlUMigweDQxLCAweEM2KTsKPiAtCQkJZWxzZQo+IC0JCQkJRU1J
-VDEoMHhDNik7Cj4gLQkJCWdvdG8gc3Q7Cj4gIAkJY2FzZSBCUEZfU1QgfCBCUEZfTUVNIHwgQlBG
-X0g6Cj4gLQkJCWlmIChpc19lcmVnKGRzdF9yZWcpKQo+IC0JCQkJRU1JVDMoMHg2NiwgMHg0MSwg
-MHhDNyk7Cj4gLQkJCWVsc2UKPiAtCQkJCUVNSVQyKDB4NjYsIDB4QzcpOwo+IC0JCQlnb3RvIHN0
-Owo+ICAJCWNhc2UgQlBGX1NUIHwgQlBGX01FTSB8IEJQRl9XOgo+IC0JCQlpZiAoaXNfZXJlZyhk
-c3RfcmVnKSkKPiAtCQkJCUVNSVQyKDB4NDEsIDB4QzcpOwo+IC0JCQllbHNlCj4gLQkJCQlFTUlU
-MSgweEM3KTsKPiAtCQkJZ290byBzdDsKPiAgCQljYXNlIEJQRl9TVCB8IEJQRl9NRU0gfCBCUEZf
-RFc6Cj4gLQkJCWlmIChkc3RfcmVnID09IEJQRl9SRUdfUEFSQU1TICYmIGluc24tPm9mZiA9PSAt
-OCkgewo+IC0JCQkJLyogQXJnIDY6IHN0b3JlIGltbWVkaWF0ZSBpbiByOSByZWdpc3RlciAqLwo+
-IC0JCQkJZW1pdF9tb3ZfaW1tNjQoJnByb2csIFg4Nl9SRUdfUjksIGltbTMyID4+IDMxLCAodTMy
-KWltbTMyKTsKPiArCQkJc3dpdGNoIChCUEZfU0laRShpbnNuLT5jb2RlKSkgewo+ICsJCQljYXNl
-IEJQRl9COgo+ICsJCQkJaWYgKGlzX2VyZWcoZHN0X3JlZykpCj4gKwkJCQkJRU1JVDIoMHg0MSwg
-MHhDNik7Cj4gKwkJCQllbHNlCj4gKwkJCQkJRU1JVDEoMHhDNik7Cj4gKwkJCQlicmVhazsKPiAr
-CQkJY2FzZSBCUEZfSDoKPiArCQkJCWlmIChpc19lcmVnKGRzdF9yZWcpKQo+ICsJCQkJCUVNSVQz
-KDB4NjYsIDB4NDEsIDB4QzcpOwo+ICsJCQkJZWxzZQo+ICsJCQkJCUVNSVQyKDB4NjYsIDB4Qzcp
-Owo+ICsJCQkJYnJlYWs7Cj4gKwkJCWNhc2UgQlBGX1c6Cj4gKwkJCQlpZiAoaXNfZXJlZyhkc3Rf
-cmVnKSkKPiArCQkJCQlFTUlUMigweDQxLCAweEM3KTsKPiArCQkJCWVsc2UKPiArCQkJCQlFTUlU
-MSgweEM3KTsKPiArCQkJCWJyZWFrOwo+ICsJCQljYXNlIEJQRl9EVzoKPiArCQkJCWlmIChkc3Rf
-cmVnID09IEJQRl9SRUdfUEFSQU1TICYmCj4gKwkJCQkgICAgaW5zbi0+b2ZmID09IC04KSB7Cj4g
-KwkJCQkJLyogQXJnIDY6IHN0b3JlIGltbWVkaWF0ZSBpbiByOSByZWdpc3RlciAqLwo+ICsJCQkJ
-CWVtaXRfbW92X2ltbTY0KCZwcm9nLCBYODZfUkVHX1I5LAo+ICsJCQkJCQkgICAgICAgaW1tMzIg
-Pj4gMzEsICh1MzIpaW1tMzIpOwo+ICsJCQkJCWJyZWFrOwo+ICsJCQkJfQo+ICsJCQkJRU1JVDIo
-YWRkXzFtb2QoMHg0OCwgZHN0X3JlZyksIDB4QzcpOwoKbWF5YmUgaXQncyBhbiBvcHBvcnR1bml0
-eSB0byBjb3ZlciB0aGlzIGludG8gc2VwYXJhdGUgaGVscGVyIGZ1bmN0aW9uPwpXaGVuIGluZGVu
-dCByZWFjaGVzIDQgdGFicyBpdCdzIGFib3V0IHRpbWUuCl9fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1z
-dG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5z
-dG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+Hello:
+
+This patch was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed,  3 Jun 2026 17:36:43 +0000 you wrote:
+> Bit 16 of the MAC HW Feature1 register reports the DCB (Data Centre
+> Bridging) feature. Read it so that dma_cap.dcben and the debugfs
+> report it accurately. Right now it is always reported as being disabled.
+> 
+> Signed-off-by: Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4.h     | 1 +
+>  drivers/net/ethernet/stmicro/stmmac/dwmac4_dma.c | 1 +
+>  2 files changed, 2 insertions(+)
+
+Here is the summary with links:
+  - [net-next] net: stmmac: dwmac4: Report DCB feature capability
+    https://git.kernel.org/netdev/net-next/c/3a58a1b8d505
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
