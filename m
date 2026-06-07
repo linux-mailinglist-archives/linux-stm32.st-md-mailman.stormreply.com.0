@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HnDxF9muJWq8KQIAu9opvQ
+	id xIDNCBawJWrpKQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 07 Jun 2026 19:48:09 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 07 Jun 2026 19:53:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D54AE6511CB
-	for <lists+linux-stm32@lfdr.de>; Sun, 07 Jun 2026 19:48:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 847F2651203
+	for <lists+linux-stm32@lfdr.de>; Sun, 07 Jun 2026 19:53:25 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=lunn.ch header.s=20171124 header.b=PiWeJiep;
+	dkim=fail ("body hash did not verify") header.d=lunn.ch header.s=20171124 header.b=0kEo+1js;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (strict)" header.from=lunn.ch (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6D230C87ED6;
-	Sun,  7 Jun 2026 17:48:08 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2043C87ED6;
+	Sun,  7 Jun 2026 17:53:24 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 075DFC87ED2
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 747CDC87ED2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun,  7 Jun 2026 17:48:06 +0000 (UTC)
+ Sun,  7 Jun 2026 17:53:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=2xtDkA21NeZRaX1G4a6jGRcwZXTTpKAlx691TaVn4bs=; b=PiWeJiep9JIlVFLuSrzn+fzmqk
- NctgIppNAiVpisjN2sQqaFgTZDzMFgGFvXPx3TMJWJtDhr20QqM4hIG4k7mmv81noHJ8T3KG03Z7v
- S4GAQiJ+shhLynijk3+hRPi0yuJ6jRi1kKcwBqFRng9db2ilr1XkZZWxRUbS2bokyHAg=;
+ bh=RC4UpJZWJ3dXT7LKa11Eh5lvkgD8MR6nBFl7fzqu7wY=; b=0kEo+1jsZFmFPuILPU9h2Z8lK0
+ Tw3q/RsYcediV3XhUhcgz1JZyCPjTJbVqiHFhYhnrYRh5JjHvOVU4aib0LsSn1jxM9cKym+PQh0z+
+ bIovlTt9IcCUj1kEWGq/mQ6LuxQ+pbLPW6ZZ/t/TAnOA2bZRwcQwVSX+NwRlbO4jA79g=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wWHan-006UUN-T8; Sun, 07 Jun 2026 19:47:25 +0200
-Date: Sun, 7 Jun 2026 19:47:25 +0200
+ id 1wWHg4-006UW9-B8; Sun, 07 Jun 2026 19:52:52 +0200
+Date: Sun, 7 Jun 2026 19:52:52 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Alex Elder <elder@riscstar.com>
-Message-ID: <1ef2c525-e58e-4b1b-8150-4ff7d8b9a730@lunn.ch>
+Message-ID: <1225f728-8b54-44fb-bf70-94e3966359eb@lunn.ch>
 References: <20260605010022.968612-1-elder@riscstar.com>
- <20260605010022.968612-4-elder@riscstar.com>
+ <20260605010022.968612-6-elder@riscstar.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260605010022.968612-4-elder@riscstar.com>
+In-Reply-To: <20260605010022.968612-6-elder@riscstar.com>
 Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  Daniel Thompson <daniel@riscstar.com>, chenchuangyu@xiaomi.com,
  edumazet@google.com, netdev@vger.kernel.org,
@@ -60,8 +60,8 @@ Cc: me@ziyao.cc, ast@kernel.org, linux-kernel@vger.kernel.org,
  davem@davemloft.net, andrew+netdev@lunn.ch, boon.khai.ng@altera.com,
  mcoquelin.stm32@gmail.com, inochiama@gmail.com, krzk+dt@kernel.org,
  julianbraha@gmail.com, andersson@kernel.org, hkallweit1@gmail.com
-Subject: Re: [Linux-stm32] [PATCH net-next v2 03/14] net: pcs:
- pcs-xpcs-regmap: support XPCS memory-mapped MDIO bus via regmap
+Subject: Re: [Linux-stm32] [PATCH net-next v2 05/14] net: pcs: pcs-xpcs:
+ select operating mode for 10G-baseR capable PCS
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -112,24 +112,18 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:from_mime,lunn.ch:mid,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:from_mime,lunn.ch:mid,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D54AE6511CB
+X-Rspamd-Queue-Id: 847F2651203
 
-> +struct dw_xpcs *devm_xpcs_regmap_register(struct device *dev,
-> +					  const struct xpcs_regmap_config *config)
-> +{
-> +	static atomic_t id = ATOMIC_INIT(-1);
+> Rather than introduce another quirk for TC956x let's attempt so solve
+> this generically by setting SR_XS_PCS_CTRL2:PCS_TYPE_SEL to a reserved
+> value when we detect the right we detect the right combination of phy
+> interface and XPCS feature support.
 
-...
+This sentence is broken.
 
-> +	snprintf(pxpcs->bus->id, MII_BUS_ID_SIZE,
-> +		 "dwxpcs-%x", atomic_inc_return(&id));
-
-dev_name(dev) should be unique, and it also makes it easier to
-associate the PCS to the MAC when looking in /sys.
-
-	Andrew
+     Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
