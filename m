@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id FAQILjnQJmrpkwIAu9opvQ
+	id HmfpKTvQJmrqkwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 08 Jun 2026 16:22:49 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 08 Jun 2026 16:22:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5FBA06571D7
-	for <lists+linux-stm32@lfdr.de>; Mon, 08 Jun 2026 16:22:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B0246571DC
+	for <lists+linux-stm32@lfdr.de>; Mon, 08 Jun 2026 16:22:51 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=QtUjIgm2;
+	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=G59iTODi;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0741C5F1E9;
-	Mon,  8 Jun 2026 14:22:48 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
- [209.85.208.46])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EE08EC5F1E9;
+	Mon,  8 Jun 2026 14:22:50 +0000 (UTC)
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com
+ [209.85.218.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 494E3C5F1F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2E4FEC5F1F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  8 Jun 2026 14:22:47 +0000 (UTC)
-Received: by mail-ed1-f46.google.com with SMTP id
- 4fb4d7f45d1cf-691b0090cc5so2432668a12.1
+ Mon,  8 Jun 2026 14:22:49 +0000 (UTC)
+Received: by mail-ej1-f53.google.com with SMTP id
+ a640c23a62f3a-bec405a6ea5so633443566b.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 08 Jun 2026 07:22:47 -0700 (PDT)
+ Mon, 08 Jun 2026 07:22:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1780928567; x=1781533367;
+ d=amarulasolutions.com; s=google; t=1780928568; x=1781533368;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=hXhCAfGf0Dhrwl1fYtWsjCC+QRGfLFtW6oj0NY7CcVg=;
- b=QtUjIgm2dXpfLhYem26lr6QmWg2SE+YpKROy0uzw3qCbniU9Gl+neN30dwtxkACJiv
- OPa/R0SE73P7Nq+fbywpSwEwtye6R3mULWHWdVeqBHD7jeSCkk+7VQ1o0Uv3paNgt2iQ
- DAQrEKdkeBvtblaS9K1u0qEfwCNRw28cu8JSw=
+ bh=Q8e2F85Jk42cknJBTKAisusI5iJFywDQWX2RRkkLus4=;
+ b=G59iTODiPcNLMGCb6XhSDe6AvBKf2nFI8rIbNspdQZxz1G2Ac6T7egCfABeuhvU34J
+ O71jqJILG0w3cCwRCGe+1ZWTH6hVv/lWEZQkxKxjfpxOaCUCnKrbb1ReBUiXRPfSzq54
+ a5R7QsdSRabSfe/l2VWyMoqpyqmsWggmyUAGU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1780928567; x=1781533367;
+ d=1e100.net; s=20251104; t=1780928568; x=1781533368;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=hXhCAfGf0Dhrwl1fYtWsjCC+QRGfLFtW6oj0NY7CcVg=;
- b=NSgRN1sVdIY3gahiqx4cH6wqduBNdrcURSKGkySdq3tAsAcDxlRyff+g//lZ9fkIkq
- yqrELe77DyO20082/kaho9+xOLCG/0gEbdexUvKC3CFuq2QomCXkOlz8Tru/qxLxpHSX
- yNjaDHsf/0PBsxaXNPDjXbJUEhV76ehfBMTWo8WqkKavvO6b6Vni5qG+LM5yIEd0eZZO
- 87awQKcEgRC7MsFFz+hDv1i21XmngEKOQSChLwbrSFO9cE/d/bOR72bSvo0CudkzIGFp
- RjLDX5cdolrieaNVmeahw9ooHCy+vSIpVtSvgggrkg2gyZVZwXf7w4O6l6SXitFSrFCM
- Yefg==
+ bh=Q8e2F85Jk42cknJBTKAisusI5iJFywDQWX2RRkkLus4=;
+ b=pUTkBgpbt+ZzBfHIwtZKw/JikP1JDVUcTldnR4ge2MJXx/yiQ466dQvsRTQ+o/VExI
+ sORl5gFCp332+nX950QYOOw+dhadbtgXn9bpS2OonC3+J7wAUT/jZElrKKNmKrdk4ENI
+ goEiLeosurmR1iqCK3+larNSmwq72tkao2MYH0bdX/+L5sKPgXFnYCMToLMRJY8K5AG4
+ shDtxpi973nJF/o3rMjr7fhI+p5PwnW1PQaJ0efIoXCYH4fwNcw2M7Om7zxcKH9gCJvp
+ FBsnhorR5GuFFMEyuZuGqKZft0igq4y4m0viUhu/5ZhP/1ao/SoWNu3eWbWZ434Sy2vr
+ +kKA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ9bcjYPdqTDdTtmWtL/rQull1v+A09W62YBHy59h1dONkIDLKrEFskb4Qg9B+u1jMPrNwxMPXyij7fIQA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwyQr42AStYNt/opkmp32T2zrOUdAAHsNAbORzxyAdvudTiX/ax
- ++Nj84q1yEMN0A4+qcZ7TQyj4h8JflTGF5KTyAhGxyRoxL73eMHASwTw02QD0T8t5is=
-X-Gm-Gg: Acq92OG6XqVbi5WJXxtE5pL5hw2he7ohd7u5OB0NvZGh7OXCSr11JmZqw7YJOMKUVQH
- D62eKJb0hbfUONK58lZ5B17BQVpy4sBFp2ZaZS3A/nHryHpmK8cYwwPcLkfNL2IgA63pXSSKCJV
- 3KijYV7CQF+FzNYqX+yZnMc5vUDt1efW2WCoAHyL8DUj8stjBUsfYKutz0Op5K+W8BfCJw4BMHs
- Ni+qLqKPQK4SA7gkkoqolXFM2rtS/n/vOzdqWqyYjP2jve7qJrvUg8Xgw799muib8IuxcXJiWbG
- KVHy6AwtXAWhORa9rA3LxSKn2wHue87JX5li4byS94sxZYUtcYcMxoY6/m1KHQYRlwfZUkqWdrS
- POVvrLFG9xHu/sf2L+/5kDtukwcptosdXW53u8GcC90Om78iWdnR69lwxrw58YiaNLB66GPKIKh
- kgfoOiY+lDhR2VgXI/plDc5hXu9pMiB42AiMK9p17n03Mb8IvisSWd/yBWb0F6svgBlXXN/Ce22
- gSnjZb9BlO38yQUFINkYwUcMyBMcQ+l5iegSbOfXAC01qJpiSm6/VipiT4=
-X-Received: by 2002:a17:907:944e:b0:bed:a213:a89b with SMTP id
- a640c23a62f3a-bf372c31d24mr774338266b.37.1780928566673; 
- Mon, 08 Jun 2026 07:22:46 -0700 (PDT)
+ AFNElJ9AuNqJPuk49Px8k3BynHcuyQ0NZC5MUnzNM3RMaves+xkyOlKU13sOLele6kND4c33QuTZhj9TNnmEmg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzLLEOwEo5PXM26Y70V3kuf4tCnrMoQp0zcy6N77+7+u3tUiVUP
+ b6OTfCtw6wEQyJv69AD5Lnkopv3UQZ3tJl9qiuWy9U3lefYNEB46fsE+0DGvcFaHChY=
+X-Gm-Gg: Acq92OEsYdH48EfWQhmg5lljCqu60tTv9ffR7ZSTOa3sSYyuv66nLUt7DdhXEJS4z7v
+ X4luR7pozaoQDoClM3yqZeoKq+bLuSkGyiTtYV5Kwe5J6N782sxJLzpeP1arAzDStCKUZxkJACY
+ CP+dEg8dbPpuidPJM8HSMUQbpXSRittZMdMqTet2py9unOKsp5tekUTs993DwpaJMd6XWgdWR7x
+ rFh7hTM24MIqRXghdpl9Uc06bXb6O+F4RoEmlHwxz/YgknEhoB58343J9XrR42ZB018RauPubJe
+ 6MTgNT4VuWReCS6rYtJ/jPTB/tZCAts1boz5a2erDSCgtAOUvbwE0z8UfKqrmFEuuytceClkJCZ
+ Yh6348BnO0Zpkey3qQZeYBRbjBBNj8hF219/9ANueF8qTW12tiW2RmdT1mzHppdmr1Ym6VnAGlk
+ q+GaF7tPqc2jVyWMZrWMHcDBhpSBY4/kA82KpTH+4ABM6pNadJFX9y9AxJEgJ4S1mrRWKFBvF4A
+ m7mZUPIRxZuZ0TcATMtHr9pnGeoYnNiVjrOBCJpQz8VR2mFOtbi6hF38gM=
+X-Received: by 2002:a17:907:c486:b0:bee:e2a2:bddc with SMTP id
+ a640c23a62f3a-bf373a0010amr730229666b.46.1780928568461; 
+ Mon, 08 Jun 2026 07:22:48 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.42.139])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bf055307a35sm881847066b.52.2026.06.08.07.22.45
+ a640c23a62f3a-bf055307a35sm881847066b.52.2026.06.08.07.22.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 08 Jun 2026 07:22:46 -0700 (PDT)
+ Mon, 08 Jun 2026 07:22:48 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Mon,  8 Jun 2026 16:20:28 +0200
-Message-ID: <20260608142221.952245-12-dario.binacchi@amarulasolutions.com>
+Date: Mon,  8 Jun 2026 16:20:29 +0200
+Message-ID: <20260608142221.952245-13-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260608142221.952245-1-dario.binacchi@amarulasolutions.com>
 References: <20260608142221.952245-1-dario.binacchi@amarulasolutions.com>
@@ -84,7 +84,7 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 11/16] arm64: dts: st: add sdmmc2 pins for
+Subject: [Linux-stm32] [PATCH v5 12/16] arm64: dts: st: add spi1 pins for
 	stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -136,108 +136,49 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,amarulasolutions.com:email,amarulasolutions.com:mid,amarulasolutions.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email,amarulasolutions.com:email,amarulasolutions.com:mid,amarulasolutions.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5FBA06571D7
+X-Rspamd-Queue-Id: 7B0246571DC
 
-Add the sdmmc2 pins used on MicroGEA-STM32MP257-RMM board.
+Add the spi1 pins used on MicroGEA-STM32MP257-RMM board.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
 ---
 
-Changes in v5:
-- Change SDMMC2_CK pin bias from pull-up to bias-disable to
-  avoid signal integrity issues on the clock line. Suggested by Sashiko
+(no changes since v1)
 
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 80 +++++++++++++++++++
- 1 file changed, 80 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 24 +++++++++++++++++++
+ 1 file changed, 24 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index 002fbc724b9d..c816a6aece47 100644
+index c816a6aece47..4e570e2e5157 100644
 --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
 +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -622,6 +622,86 @@ pins {
+@@ -702,6 +702,30 @@ pins {
  		};
  	};
  
 +	/omit-if-no-ref/
-+	sdmmc2_b4_pins_a: sdmmc2-b4-0 {
++	spi1_pins_a: spi1-0 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('E', 13, AF12)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('E', 11, AF12)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('E', 8, AF12)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('E', 12, AF12)>, /* SDMMC2_D3 */
-+				 <STM32_PINMUX('E', 15, AF12)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
++			pinmux = <STM32_PINMUX('G', 6, AF3)>, /* SPI1_SCK */
++				 <STM32_PINMUX('I', 5, AF3)>; /* SPI1_MOSI */
 +			drive-push-pull;
-+			bias-pull-up;
++			bias-disable;
++			slew-rate = <1>;
 +		};
 +		pins2 {
-+			pinmux = <STM32_PINMUX('E', 14, AF12)>; /* SDMMC2_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
++			pinmux = <STM32_PINMUX('F', 12, AF3)>; /* SPI1_MISO */
 +			bias-disable;
 +		};
 +	};
 +
 +	/omit-if-no-ref/
-+	sdmmc2_b4_od_pins_a: sdmmc2-b4-od-0 {
++	spi1_sleep_pins_a: spi1-sleep-0 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('E', 13, AF12)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('E', 11, AF12)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('E', 8, AF12)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('E', 12, AF12)>; /* SDMMC2_D3 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+		pins2 {
-+			pinmux = <STM32_PINMUX('E', 14, AF12)>; /* SDMMC2_CK */
-+			slew-rate = <2>;
-+			drive-push-pull;
-+			bias-disable;
-+		};
-+		pins3 {
-+			pinmux = <STM32_PINMUX('E', 15, AF12)>; /* SDMMC2_CMD */
-+			slew-rate = <1>;
-+			drive-open-drain;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc2_b4_sleep_pins_a: sdmmc2-b4-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('E', 13, ANALOG)>, /* SDMMC2_D0 */
-+				 <STM32_PINMUX('E', 11, ANALOG)>, /* SDMMC2_D1 */
-+				 <STM32_PINMUX('E', 8, ANALOG)>, /* SDMMC2_D2 */
-+				 <STM32_PINMUX('E', 12, ANALOG)>, /* SDMMC2_D3 */
-+				 <STM32_PINMUX('E', 14, ANALOG)>, /* SDMMC2_CK */
-+				 <STM32_PINMUX('E', 15, ANALOG)>; /* SDMMC2_CMD */
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc2_d47_pins_a: sdmmc2-d47-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('E', 10, AF12)>, /* SDMMC2_D4 */
-+				 <STM32_PINMUX('E', 9, AF12)>, /* SDMMC2_D5 */
-+				 <STM32_PINMUX('E', 6, AF12)>, /* SDMMC2_D6 */
-+				 <STM32_PINMUX('E', 7, AF12)>; /* SDMMC2_D7 */
-+			slew-rate = <1>;
-+			drive-push-pull;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	/omit-if-no-ref/
-+	sdmmc2_d47_sleep_pins_a: sdmmc2-d47-sleep-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('E', 10, ANALOG)>, /* SDMMC2_D4 */
-+				 <STM32_PINMUX('E', 9, ANALOG)>, /* SDMMC2_D5 */
-+				 <STM32_PINMUX('E', 6, ANALOG)>, /* SDMMC2_D6 */
-+				 <STM32_PINMUX('E', 7, ANALOG)>; /* SDMMC2_D7 */
++			pinmux = <STM32_PINMUX('G', 6, ANALOG)>, /* SPI1_SCK */
++				 <STM32_PINMUX('I', 5, ANALOG)>, /* SPI1_MOSI */
++				 <STM32_PINMUX('F', 12, ANALOG)>; /* SPI1_MISO */
 +		};
 +	};
 +
