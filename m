@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id GM9pM5f+J2qE6wIAu9opvQ
+	id yRXuMJf+J2qC6wIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8A00165FAF6
+	by mail.lfdr.de (Postfix) with ESMTPS id 6677B65FAEC
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=CpXqR0D8;
+	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=id+QT9X5;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linux.dev (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1FC1C9008F;
-	Tue,  9 Jun 2026 11:52:54 +0000 (UTC)
-Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
- [95.215.58.186])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0A782C90091;
+	Tue,  9 Jun 2026 11:52:55 +0000 (UTC)
+Received: from out-187.mta1.migadu.com (out-187.mta1.migadu.com
+ [95.215.58.187])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D18DC5F1F7
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97EB6C5F1F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2026 06:28:35 +0000 (UTC)
+ Tue,  9 Jun 2026 06:40:12 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986514;
+ t=1780987210;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=smwcSwpSx3877vgkJVhF1DUcaQotbwHyv2wtpxTd7yQ=;
- b=CpXqR0D8sDUMklAOU53IFxyjHsOAHr7bre1RxmD/ICXb8vVnoTPwyiQ7PJllPlM2do2vji
- CZWIYF0tP4l5AIedEPdZwtoflwzjSpnKrsJsyiN0Col7fpwtC3VkX3UiTLeELwoG0QQZ8s
- IRkZWlzKv1ScExqwZEUL82ocOW2B5Z0=
+ bh=wTuZ/rb+QfWcokK7LysZCAzYrY5sRqAUnm+1GENZ4ls=;
+ b=id+QT9X5+V/ynpRARTKrkCjC0XHu1v1kNLdaLcMXaAcfcSS0RYW9FtMHL4Fw7sKHZNZ3EJ
+ 7kQ2nBRANwBC5bdENNCHV6lwZSTUBbqq8sLkaPOj9spm0sgjf1Cj1DxI8wPaCHIVt3GtJ7
+ Oomyi8z2WwWQWTLvMyF263FMUy80nX8=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -66,11 +66,10 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Date: Tue,  9 Jun 2026 14:25:21 +0800
-Message-ID: <20260609062526.94907-7-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
+Date: Tue,  9 Jun 2026 14:38:51 +0800
+Message-ID: <20260609063855.95710-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <20260609062526.94907-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 09 Jun 2026 11:52:48 +0000
@@ -88,8 +87,8 @@ Cc: dri-devel@lists.freedesktop.org, David Howells <dhowells@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Christian Brauner <brauner@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: [Linux-stm32] [PATCH v2 09/14] spi: stm32-qspi: Open-code message
-	transfer walk
+Subject: [Linux-stm32] [PATCH v2 10/14] spi: tegra210-quad: Open-code
+	message transfer walk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,14 +141,14 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo,linux.dev:mid,linux.dev:from_mime]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,linux.dev:mid,linux.dev:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8A00165FAF6
+X-Rspamd-Queue-Id: 6677B65FAEC
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stm32_qspi_transfer_one_message() can
+before entering the loop body. tegra_qspi_non_combined_seq_xfer() can
 consume the following transfer as part of the current operation and then
 advance the loop cursor to that entry.
 
@@ -160,25 +159,24 @@ update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/spi/spi-stm32-qspi.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/spi/spi-tegra210-quad.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
-index df1bbacec90a..27d82a578c9f 100644
---- a/drivers/spi/spi-stm32-qspi.c
-+++ b/drivers/spi/spi-stm32-qspi.c
-@@ -577,7 +577,10 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
- 
- 	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), true);
- 
+diff --git a/drivers/spi/spi-tegra210-quad.c b/drivers/spi/spi-tegra210-quad.c
+index db28dd556484..42dd5cf53c67 100644
+--- a/drivers/spi/spi-tegra210-quad.c
++++ b/drivers/spi/spi-tegra210-quad.c
+@@ -1302,7 +1302,9 @@ static int tegra_qspi_non_combined_seq_xfer(struct tegra_qspi *tqspi,
+ 	if (tqspi->soc_data->supports_tpm)
+ 		val &= ~QSPI_TPM_WAIT_POLL_EN;
+ 	tegra_qspi_writel(tqspi, val, QSPI_GLOBAL_CONFIG);
 -	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
-+	for (transfer = list_first_entry(&msg->transfers,
-+					 typeof(*transfer), transfer_list);
++	for (transfer = list_first_entry(&msg->transfers, typeof(*transfer), transfer_list);
 +	     !list_entry_is_head(transfer, &msg->transfers, transfer_list);
 +	     transfer = list_next_entry(transfer, transfer_list)) {
+ 		struct spi_transfer *xfer = transfer;
  		u8 dummy_bytes = 0;
- 
- 		memset(&op, 0, sizeof(op));
+ 		u32 cmd1;
 -- 
 2.43.0
 
