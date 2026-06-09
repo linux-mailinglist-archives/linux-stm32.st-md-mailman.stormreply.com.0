@@ -2,61 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ERSjLAy3J2oc1AIAu9opvQ
+	id OGIULQm6J2rQ1AIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 08:47:40 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 09:00:25 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38BBA65CECF
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 08:47:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50AA065D017
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 09:00:25 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=jCopkThF;
+	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=Pq26YdSo;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=intel.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DD8ADC5F1F9;
-	Tue,  9 Jun 2026 06:47:39 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D880DC8F282;
+	Tue,  9 Jun 2026 07:00:24 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6A25CC5F1F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 83481C555BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2026 06:47:36 +0000 (UTC)
+ Tue,  9 Jun 2026 07:00:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1780987658; x=1812523658;
+ t=1780988423; x=1812524423;
  h=date:from:to:cc:subject:message-id:references:
  mime-version:in-reply-to;
- bh=JtgXQ+CUhI8fqj7NEQN4vNa7+C8S/fPck+oJyjJdK2k=;
- b=jCopkThFyY+OaQW/87e7/bAyPHLGLSxhpzHWABA7TUEuyFmBqrBsvIxK
- W6ZhlsA9xtb6j58+fUHOoflVwJRsb4f+xGJQE2UlHNTam5VXocGWDp2TX
- W3WucqqoK0jQOM2AWM6Ov7KQX/MqY/PLrwiDuMyqTiyBKLU3azCT2uM+5
- eq69OzvBY4LrWll31ucdPkNGYqV/9PPDdE/PB1GWJEJruJx0wzyA/MCdK
- HFm0cRipBwXQ7ro5Sy+o7gd2WwKHjTAnRB9J3KFT5iYQ3TUaB3kJGAMfI
- YwhCUuGJYSqqlmNWNoXxFrAPjG6JA5/AWMa+vGi4Iq0gEKIJ6OeT5rXC2 w==;
-X-CSE-ConnectionGUID: uO5PhVizR66LcDl8YYNZ4g==
-X-CSE-MsgGUID: vUI+a8AiRz2YhqIfwqw+7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="81783730"
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="81783730"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
- by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 23:47:34 -0700
-X-CSE-ConnectionGUID: +shHRdOKTfGiz+VFC8i6ig==
-X-CSE-MsgGUID: c7oiHZEDR2ikmK04/uJN0A==
+ bh=2uFU5Nc5neHcjkdpq8khI2EoQ4OEWJdTXCqvSWCGdV4=;
+ b=Pq26YdSoFW1xFtn8HjTgCD1GbykUGn/pefJes58ZAwrdqiLpj09yjnL5
+ zqrxWJiUXa7rVGohakrk9Qbkew83zV83rwJz/dA6/MBw29UcLLy8hwffc
+ WXF1QM2/+aFTBEsUAZaDH/sPgsxFpTgKsk4Qu5ne7zHymwUOseORkQ2Mu
+ XJzYQyTsL512UjNst41uPOV6TxBmxdIFc2KrwzFEH5VcLc3zm4d1ANvnI
+ QIQn1+BKdK5oBjVXIddcyJvJrtDe0nxHzUuy6t0wYpdwHz7mbxsMiS1gt
+ 3Bc8ebQCjuMXLaX4djPG7NwNt1CvTmp+E214GZFdgXoZtdds5PVWNBYK6 w==;
+X-CSE-ConnectionGUID: DX1Lc2hCQpSGqdSv4bqPyw==
+X-CSE-MsgGUID: 2FArWrTFTUeCtOuSg6TnAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11811"; a="85364725"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="85364725"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+ by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 00:00:21 -0700
+X-CSE-ConnectionGUID: pCChZ3wCTI+GwpURGgDxKg==
+X-CSE-MsgGUID: Ei1KwtbHTi20oALanPWYpA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="250060711"
+X-IronPort-AV: E=Sophos;i="6.24,195,1774335600"; d="scan'208";a="249699387"
 Received: from egrumbac-mobl6.ger.corp.intel.com (HELO localhost)
  ([10.245.245.39])
- by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jun 2026 23:47:22 -0700
-Date: Tue, 9 Jun 2026 09:47:19 +0300
+ by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 09 Jun 2026 00:00:05 -0700
+Date: Tue, 9 Jun 2026 10:00:03 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Kaitao Cheng <kaitao.cheng@linux.dev>
-Message-ID: <aie299WveL1utNya@ashevche-desk.local>
+Message-ID: <aie580RAM3vCunbh@ashevche-desk.local>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <20260609062526.94907-1-kaitao.cheng@linux.dev>
+ <20260609062526.94907-2-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609062526.94907-2-kaitao.cheng@linux.dev>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 Cc: Randy Dunlap <rdunlap@infradead.org>, Peter Zijlstra <peterz@infradead.org>,
@@ -74,7 +76,7 @@ Cc: Randy Dunlap <rdunlap@infradead.org>, Peter Zijlstra <peterz@infradead.org>,
  Will Deacon <will@kernel.org>, Takashi Iwai <tiwai@suse.com>,
  Jernej Skrabec <jernej.skrabec@gmail.com>,
  Tvrtko Ursulin <tursulin@ursulin.net>, linux-spi@vger.kernel.org,
- Kaito Cheng <chengkaitao@kylinos.cn>, Ingo Molnar <mingo@redhat.com>,
+ Kaitao Cheng <chengkaitao@kylinos.cn>, Ingo Molnar <mingo@redhat.com>,
  Matthew Auld <matthew.auld@intel.com>, Waiman Long <longman@redhat.com>,
  Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Matthew Brost <matthew.brost@intel.com>,
@@ -99,8 +101,8 @@ Cc: Randy Dunlap <rdunlap@infradead.org>, Peter Zijlstra <peterz@infradead.org>,
  Thomas Zimmermann <tzimmermann@suse.de>,
  Lars Ellenberg <lars.ellenberg@linbit.com>,
  Christian Koenig <christian.koenig@amd.com>
-Subject: Re: [Linux-stm32] [PATCH v2 00/14] list: Prepare entry iterators to
- cache cursor state
+Subject: Re: [Linux-stm32] [PATCH v2 04/14] drm/i915/gt: Open-code active
+	timeline walk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,33 +153,34 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[ashevche-desk.local:mid,linux.intel.com:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,ashevche-desk.local:mid,linux.intel.com:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 38BBA65CECF
+X-Rspamd-Queue-Id: 50AA065D017
 
-On Tue, Jun 09, 2026 at 02:13:33PM +0800, Kaitao Cheng wrote:
+On Tue, Jun 09, 2026 at 02:25:16PM +0800, Kaitao Cheng wrote:
 > 
-> This series prepares for, and then updates, the list_for_each_entry()
-> family so the common entry iterators cache their next or previous cursor
-> before the loop body runs.
+> A later change will make list_for_each_entry() cache the next element
+> before entering the loop body. __intel_gt_unset_wedged() drops
+> timelines->lock while waiting on a fence and then restarts the walk from
+> the list head after the lock is reacquired.
 > 
-> The first 13 patches open-code loops that intentionally depend on the
-> old "derive the next entry from the current cursor at the end of the
-> iteration" behaviour.  These loops append work to the list being walked,
-> restart traversal after dropping a lock, skip an entry consumed by the
-> current iteration, or otherwise adjust the cursor in the loop body.
-> 
-> The final patch changes include/linux/list.h to keep a private cursor in
-> the common entry iterators while preserving the public macro interface.
-> The safe variants remain available when callers need the temporary
-> cursor explicitly or have stronger mutation requirements.
+> Keep the loop open-coded so the next timeline is selected after that
+> restart logic has run. This preserves the existing lock-drop traversal
+> semantics and prepares the code for the list iterator update.
 
-Something is really wrong with the patch series email chaining.
-Patches 3, 10, and 13 start the subthreads. Please, check your
-tools and fix them accordingly.
+...
 
-Note, `git format-patch ...` should not have this "side-effect"
-when used correctly.
+>  	spin_lock(&timelines->lock);
+> -	list_for_each_entry(tl, &timelines->active_list, link) {
+> +	for (tl = list_first_entry(&timelines->active_list, typeof(*tl), link);
+> +	     !list_entry_is_head(tl, &timelines->active_list, link);
+> +	     tl = list_next_entry(tl, link)) {
+
+Yeah, these cases should rather be converted to do {} while or while-loop.
+This will make the intention clearer and reduces the possibility that someone
+mistakenly changes these back to use list_for_each_entry().
+
+See, for example, deferred_probe_work_func() implementation.
 
 -- 
 With Best Regards,
