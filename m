@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id /IAqN5f+J2qG6wIAu9opvQ
+	id KUkRApf+J2pt6wIAu9opvQ:T4
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FCD665FAFD
+	by mail.lfdr.de (Postfix) with ESMTPS id B740865FB03
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=r9H+J3Ut;
+	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=Uf7zi2A8;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linux.dev (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5BA6FC90097;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70550C90099;
 	Tue,  9 Jun 2026 11:52:55 +0000 (UTC)
-Received: from out-174.mta0.migadu.com (out-174.mta0.migadu.com
- [91.218.175.174])
+Received: from out-188.mta0.migadu.com (out-188.mta0.migadu.com
+ [91.218.175.188])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8CCFEC5F1F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B3CCC5F1F4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2026 06:42:38 +0000 (UTC)
+ Tue,  9 Jun 2026 06:43:01 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780987356;
+ t=1780987378;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=okGbZnshQDiTOCCUcLiGWJ/vXeEA5Q7ST0C3mLZj8lI=;
- b=r9H+J3UthvdbJqCWseQmPy/6Gw04t2MD3O/3QZkG+FrfACMHjoHmAZhEA7T2/P7rXoTaRj
- flnwXmsam8NnpyHmx73y4wEmRAzWN+xVg1sMhEn7tyW9qKpEVePYA4xXwp0ikhd+ORVe1t
- m7DPL598qkuZ4CAlEebaO3UEKtTEsyk=
+ bh=aY/Q2Y4YJZOouDOZHMnVH0A77nfCK6zvU7h1qy64BMY=;
+ b=Uf7zi2A8S1Vt216no9vzZ3Kbmiu5WNcJlAjtZ2+I6gLXdoyBsFLfGuy4jDTTeA3xO1+pln
+ Ds87oWHmnpQTX0CVJXI1T2pOOcEbz3YgF0qLAuuBFcwrnzZevA48QTk2qsWUyaePK41llH
+ LokoxYxt8pU9/doCU/rEpYO3EWSrNiI=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -66,10 +66,11 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Date: Tue,  9 Jun 2026 14:41:21 +0800
-Message-ID: <20260609064122.95825-1-kaitao.cheng@linux.dev>
-In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+Date: Tue,  9 Jun 2026 14:41:22 +0800
+Message-ID: <20260609064122.95825-2-kaitao.cheng@linux.dev>
+In-Reply-To: <20260609064122.95825-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+ <20260609064122.95825-1-kaitao.cheng@linux.dev>
 MIME-Version: 1.0
 X-Migadu-Flow: FLOW_OUT
 X-Mailman-Approved-At: Tue, 09 Jun 2026 11:52:48 +0000
@@ -87,8 +88,8 @@ Cc: dri-devel@lists.freedesktop.org, David Howells <dhowells@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Christian Brauner <brauner@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: [Linux-stm32] [PATCH v2 13/14] ASoC: dapm: Open-code widget
-	invalidation walk
+Subject: [Linux-stm32] [PATCH v2 14/14] list: Cache cursors in entry
+	iterators
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,38 +144,149 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,linux.dev:mid,linux.dev:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9FCD665FAFD
+X-Rspamd-Queue-Id: B740865FB03
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-A later change will make list_for_each_entry() cache the next element
-before entering the loop body. dapm_widget_invalidate_paths() appends
-newly reached widgets to the temporary work list while walking it.
+The non-safe list_for_each_entry() family advances by deriving the next
+element from the current cursor in the loop step. If the loop body
+unlinks the current entry, the step can no longer rely on the current
+entry's list pointers.
 
-Keep the work-list walk open-coded so the next widget is looked up after
-new widgets have been appended. This preserves the existing invalidation
-traversal semantics and prepares the code for the list iterator update.
+Callers can use the _safe variants today, but those interfaces require a
+temporary cursor to be declared outside the macro. That is necessary when
+the caller actually needs the temporary cursor, but it looks redundant
+and awkward when the cursor is only there to satisfy the macro and is
+never otherwise used.
+
+Add private next and previous cursors for the common entry iterators and
+use unique internal names so callers keep the same interface. This lets
+the loop step use a cursor captured before the body runs, while callers
+that need to alter traversal state can still open-code the walk.
+
+The safe variants remain useful when the caller needs access to the
+temporary cursor or has stronger mutation requirements. Update their
+comments to steer users toward the simpler iterators when that temporary
+cursor is not needed.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- sound/soc/soc-dapm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ include/linux/list.h | 46 +++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 35 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/soc-dapm.c b/sound/soc/soc-dapm.c
-index d6192204e613..5bd921fca132 100644
---- a/sound/soc/soc-dapm.c
-+++ b/sound/soc/soc-dapm.c
-@@ -255,7 +255,9 @@ static __always_inline void dapm_widget_invalidate_paths(
- 	list_add_tail(&w->work_list, &list);
- 	w->endpoints[dir] = -1;
+diff --git a/include/linux/list.h b/include/linux/list.h
+index 09d979976b3b..9df84a56a789 100644
+--- a/include/linux/list.h
++++ b/include/linux/list.h
+@@ -809,6 +809,29 @@ static inline size_t list_count_nodes(struct list_head *head)
+ #define list_entry_is_head(pos, head, member)				\
+ 	list_is_head(&pos->member, (head))
  
--	list_for_each_entry(w, &list, work_list) {
-+	for (w = list_first_entry(&list, typeof(*w), work_list);
-+	     !list_entry_is_head(w, &list, work_list);
-+	     w = list_next_entry(w, work_list)) {
- 		snd_soc_dapm_widget_for_each_path(w, dir, p) {
- 			if (p->is_supply || !p->connect)
- 				continue;
++#define __list_for_each_entry(pos, next, head, member)			\
++	for (typeof(pos) next = list_next_entry(pos =			\
++		list_first_entry(head, typeof(*pos), member), member);	\
++	     !list_entry_is_head(pos, head, member);			\
++	     pos = next, next = list_next_entry(next, member))
++
++#define __list_for_each_entry_reverse(pos, prev, head, member)		\
++	for (typeof(pos) prev = list_prev_entry(pos =			\
++		list_last_entry(head, typeof(*pos), member), member);	\
++	     !list_entry_is_head(pos, head, member);			\
++	     pos = prev, prev = list_prev_entry(prev, member))
++
++#define __list_for_each_entry_continue(pos, next, head, member)		\
++	for (typeof(pos) next = list_next_entry(pos =			\
++		list_next_entry(pos, member), member);			\
++	     !list_entry_is_head(pos, head, member);			\
++	     pos = next, next = list_next_entry(next, member))
++
++#define __list_for_each_entry_from(pos, next, head, member)		\
++	for (typeof(pos) next = list_next_entry(pos, member);		\
++	     !list_entry_is_head(pos, head, member);			\
++	     pos = next, next = list_next_entry(next, member))
++
+ /**
+  * list_for_each_entry	-	iterate over list of given type
+  * @pos:	the type * to use as a loop cursor.
+@@ -816,9 +839,7 @@ static inline size_t list_count_nodes(struct list_head *head)
+  * @member:	the name of the list_head within the struct.
+  */
+ #define list_for_each_entry(pos, head, member)				\
+-	for (pos = list_first_entry(head, typeof(*pos), member);	\
+-	     !list_entry_is_head(pos, head, member);			\
+-	     pos = list_next_entry(pos, member))
++	__list_for_each_entry(pos, __UNIQUE_ID(next), head, member)
+ 
+ /**
+  * list_for_each_entry_reverse - iterate backwards over list of given type.
+@@ -827,9 +848,7 @@ static inline size_t list_count_nodes(struct list_head *head)
+  * @member:	the name of the list_head within the struct.
+  */
+ #define list_for_each_entry_reverse(pos, head, member)			\
+-	for (pos = list_last_entry(head, typeof(*pos), member);		\
+-	     !list_entry_is_head(pos, head, member); 			\
+-	     pos = list_prev_entry(pos, member))
++	__list_for_each_entry_reverse(pos, __UNIQUE_ID(prev), head, member)
+ 
+ /**
+  * list_prepare_entry - prepare a pos entry for use in list_for_each_entry_continue()
+@@ -852,9 +871,7 @@ static inline size_t list_count_nodes(struct list_head *head)
+  * the current position.
+  */
+ #define list_for_each_entry_continue(pos, head, member) 		\
+-	for (pos = list_next_entry(pos, member);			\
+-	     !list_entry_is_head(pos, head, member);			\
+-	     pos = list_next_entry(pos, member))
++	__list_for_each_entry_continue(pos, __UNIQUE_ID(next), head, member)
+ 
+ /**
+  * list_for_each_entry_continue_reverse - iterate backwards from the given point
+@@ -879,8 +896,7 @@ static inline size_t list_count_nodes(struct list_head *head)
+  * Iterate over list of given type, continuing from current position.
+  */
+ #define list_for_each_entry_from(pos, head, member) 			\
+-	for (; !list_entry_is_head(pos, head, member);			\
+-	     pos = list_next_entry(pos, member))
++	__list_for_each_entry_from(pos, __UNIQUE_ID(next), head, member)
+ 
+ /**
+  * list_for_each_entry_from_reverse - iterate backwards over list of given type
+@@ -901,6 +917,8 @@ static inline size_t list_count_nodes(struct list_head *head)
+  * @n:		another type * to use as temporary storage
+  * @head:	the head for your list.
+  * @member:	the name of the list_head within the struct.
++ *
++ * Prefer list_for_each_entry() unless the temporary cursor is needed.
+  */
+ #define list_for_each_entry_safe(pos, n, head, member)			\
+ 	for (pos = list_first_entry(head, typeof(*pos), member),	\
+@@ -917,6 +935,8 @@ static inline size_t list_count_nodes(struct list_head *head)
+  *
+  * Iterate over list of given type, continuing after current point,
+  * safe against removal of list entry.
++ *
++ * Prefer list_for_each_entry_continue() unless the temporary cursor is needed.
+  */
+ #define list_for_each_entry_safe_continue(pos, n, head, member) 		\
+ 	for (pos = list_next_entry(pos, member), 				\
+@@ -933,6 +953,8 @@ static inline size_t list_count_nodes(struct list_head *head)
+  *
+  * Iterate over list of given type from current point, safe against
+  * removal of list entry.
++ *
++ * Prefer list_for_each_entry_from() unless the temporary cursor is needed.
+  */
+ #define list_for_each_entry_safe_from(pos, n, head, member) 			\
+ 	for (n = list_next_entry(pos, member);					\
+@@ -948,6 +970,8 @@ static inline size_t list_count_nodes(struct list_head *head)
+  *
+  * Iterate backwards over list of given type, safe against removal
+  * of list entry.
++ *
++ * Prefer list_for_each_entry_reverse() unless the temporary cursor is needed.
+  */
+ #define list_for_each_entry_safe_reverse(pos, n, head, member)		\
+ 	for (pos = list_last_entry(head, typeof(*pos), member),		\
 -- 
 2.43.0
 
