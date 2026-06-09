@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +CNDJJf+J2p86wIAu9opvQ
+	id KUkRApf+J2pt6wIAu9opvQ:T2
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2075D65FAE6
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F11A65FAE9
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=UtZFil2Q;
+	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=NKWAMzkE;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linux.dev (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B76EEC90087;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C5850C90089;
 	Tue,  9 Jun 2026 11:52:54 +0000 (UTC)
-Received: from out-179.mta1.migadu.com (out-179.mta1.migadu.com
- [95.215.58.179])
+Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
+ [95.215.58.182])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E438BC58D7C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB328C5F1F7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2026 06:27:17 +0000 (UTC)
+ Tue,  9 Jun 2026 06:27:39 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986436;
+ t=1780986458;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=ImZshMJ6+rspWDeU8PSyvvgq3b/Nfm8OW56yaLbG3dc=;
- b=UtZFil2Qiyf1bDjOVvq/sutmRnZDzRBz0mxmZmocH7V7GJ3JZLqhNR8l1YcXQOvn7aT91+
- 3CdWLOMklrI+61UeG3BWmhHLYUDDgSi0l5QZOgmd5IAalJcZZgGNxEgjE6g9mU5olbJqo8
- QJQ9UeAjc0f/P6GAuyrqcyNXuq5/3yk=
+ bh=ZrojwXEBMB/P79bsKRHj5UlAkbCjSpysFG8D760YAYc=;
+ b=NKWAMzkED0iwSsplBCqatf8ppHySaCSLdpL/bsV2wcHhaniHEa4DrJKj5/YKEKDH5LIYJ0
+ YA+OmzUXKnTynxMf3ONQ9Pdo6L/MshQELjc7teUVMdQb+/NeGlb9xqhofXw4J1os8gDyE8
+ xGlwu4UCbTQs16gUlhpG6eFxpC8upIo=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -66,8 +66,8 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Date: Tue,  9 Jun 2026 14:25:17 +0800
-Message-ID: <20260609062526.94907-3-kaitao.cheng@linux.dev>
+Date: Tue,  9 Jun 2026 14:25:18 +0800
+Message-ID: <20260609062526.94907-4-kaitao.cheng@linux.dev>
 In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
  <20260609062526.94907-1-kaitao.cheng@linux.dev>
@@ -88,8 +88,8 @@ Cc: dri-devel@lists.freedesktop.org, David Howells <dhowells@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Christian Brauner <brauner@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: [Linux-stm32] [PATCH v2 05/14] drm/i915: Open-code DFS dependency
-	list walk
+Subject: [Linux-stm32] [PATCH v2 06/14] drm/ttm: Open-code reservation list
+	walk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -144,38 +144,39 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[linux.dev:mid,linux.dev:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 2075D65FAE6
+X-Rspamd-Queue-Id: 2F11A65FAE9
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. __i915_schedule() builds its DFS work list
-while walking it by moving newly discovered dependencies to the tail.
+before entering the loop body. ttm_eu_reserve_buffers() may move the
+current validation buffer to the duplicates list and then rewinds the
+cursor before continuing.
 
-Keep the DFS walk open-coded so the next dependency is resolved after any
-tail moves performed by the body. This preserves the existing traversal
-semantics and prepares the code for the list iterator update.
+Keep the reservation walk open-coded so the loop step uses the cursor
+selected by that duplicate handling. This preserves the existing
+traversal semantics and prepares the code for the list iterator update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/gpu/drm/i915/i915_scheduler.c | 4 +++-
+ drivers/gpu/drm/ttm/ttm_execbuf_util.c | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/i915_scheduler.c b/drivers/gpu/drm/i915/i915_scheduler.c
-index aec1342402ca..da1f60282df8 100644
---- a/drivers/gpu/drm/i915/i915_scheduler.c
-+++ b/drivers/gpu/drm/i915/i915_scheduler.c
-@@ -190,7 +190,9 @@ static void __i915_schedule(struct i915_sched_node *node,
- 	 * end result is a topological list of requests in reverse order, the
- 	 * last element in the list is the request we must execute first.
- 	 */
--	list_for_each_entry(dep, &dfs, dfs_link) {
-+	for (dep = list_first_entry(&dfs, typeof(*dep), dfs_link);
-+	     !list_entry_is_head(dep, &dfs, dfs_link);
-+	     dep = list_next_entry(dep, dfs_link)) {
- 		struct i915_sched_node *node = dep->signaler;
+diff --git a/drivers/gpu/drm/ttm/ttm_execbuf_util.c b/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+index bc7a83a9fe44..8072f07d5557 100644
+--- a/drivers/gpu/drm/ttm/ttm_execbuf_util.c
++++ b/drivers/gpu/drm/ttm/ttm_execbuf_util.c
+@@ -86,7 +86,9 @@ int ttm_eu_reserve_buffers(struct ww_acquire_ctx *ticket,
+ 	if (ticket)
+ 		ww_acquire_init(ticket, &reservation_ww_class);
  
- 		/* If we are already flying, we know we have no signalers */
+-	list_for_each_entry(entry, list, head) {
++	for (entry = list_first_entry(list, typeof(*entry), head);
++	     !list_entry_is_head(entry, list, head);
++	     entry = list_next_entry(entry, head)) {
+ 		struct ttm_buffer_object *bo = entry->bo;
+ 		unsigned int num_fences;
+ 
 -- 
 2.43.0
 
