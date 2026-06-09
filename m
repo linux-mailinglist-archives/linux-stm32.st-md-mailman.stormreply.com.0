@@ -2,68 +2,169 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id sowVNTbTJ2rV2wIAu9opvQ
+	id 50a4AgPsJ2q95AIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 10:47:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 12:33:39 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C18D65DF18
-	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 10:47:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8028A65EF7F
+	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 12:33:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=ISpERdkX;
+	dkim=fail ("body hash did not verify") header.d=amd.com header.s=selector1 header.b="L84i/HjQ";
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=bootlin.com (policy=reject)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amd.com (policy=quarantine);
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1883C8F282;
-	Tue,  9 Jun 2026 08:47:49 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 34C68C8F282;
+	Tue,  9 Jun 2026 10:33:38 +0000 (UTC)
+Received: from BN8PR05CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11011022.outbound.protection.outlook.com [52.101.57.22])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D8A83C555BE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0FEE0C555BE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2026 08:47:48 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id BC052C6344B;
- Tue,  9 Jun 2026 08:47:49 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4810A5FFC1;
- Tue,  9 Jun 2026 08:47:48 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B4163106A2AC4; 
- Tue,  9 Jun 2026 10:47:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1780994866; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=YjDdX3vciOF19PxithdDPrRHmvsQu1FVpC/1SU6RqHs=;
- b=ISpERdkX3duCHiXejPbFzvffW7F4yI9mZSAqibAXZRDOS5dhq7ubqMdN+moqHgxnQLg9Jx
- hwdzoXVU1SAANvZTq6vsCFH6SkPou/QuDLszyJnJGCnVdeB6K3ZueYWLl1rzgLpgfeOnUV
- nCRWeqc0nVSwoMk2hh6S8OrKQu7NyzzNmyugGBsRatDQur+H+PxeD2mxojrJg1SYJxPM+i
- Zt3uw97k9gKDSFAAyoOXMWF4HRHbS68V71sngePYfbVIzefB5XUJKKlmT7rgb7EyJnHVEJ
- CD3h8BarmuhxOLzK2tLJGvI+HiyjkzyCcgYZ3BAbGUrsuN2M3YepKtLuaqcrWA==
-Mime-Version: 1.0
-Date: Tue, 09 Jun 2026 10:47:36 +0200
-Message-Id: <DJ4DZHRVAV59.SPVM2QDQN0C@bootlin.com>
-From: =?utf-8?q?Alexis_Lothor=C3=A9?= <alexis.lothore@bootlin.com>
-To: <bot+bpf-ci@kernel.org>, <alexis.lothore@bootlin.com>, <ast@kernel.org>,
- <daniel@iogearbox.net>, <andrii@kernel.org>, <martin.lau@linux.dev>,
- <eddyz87@gmail.com>, <memxor@gmail.com>, <song@kernel.org>,
- <yonghong.song@linux.dev>, <jolsa@kernel.org>, <john.fastabend@gmail.com>,
- <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
- <dave.hansen@linux.intel.com>, <x86@kernel.org>, <hpa@zytor.com>,
- <shuah@kernel.org>, <mcoquelin.stm32@gmail.com>,
- <alexandre.torgue@foss.st.com>, <ihor.solodrai@linux.dev>
-X-Mailer: aerc 0.21.0-0-g5549850facc2
-References: <20260604-kasan-v2-2-c066e627fda8@bootlin.com>
- <1e7ab52954b9ff584d6871c2ec234a7155b577f29128564d0d597809cafad826@mail.kernel.org>
-In-Reply-To: <1e7ab52954b9ff584d6871c2ec234a7155b577f29128564d0d597809cafad826@mail.kernel.org>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: thomas.petazzoni@bootlin.com, ebpf@linuxfoundation.org,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- bpf@vger.kernel.org, bastien.curutchet@bootlin.com, clm@meta.com,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- martin.lau@kernel.org
-Subject: Re: [Linux-stm32] [PATCH bpf-next v2 2/8] bpf: add BPF_JIT_KASAN
- for KASAN instrumentation of JITed programs
+ Tue,  9 Jun 2026 10:33:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lCQGvJscpAqhFxeKUTvgkgchzLMuQm60tJeNW5CQ0tc3S11lK0JcBTt09Q48AaUM0iNbjWGlWoLzGz7LFw/r4b4vPaUuJe23ucwq4lPZW+o56rHRDVtPLuneLMEhcy3zHhMkk6nyIg1Mg6vswiCll60wztN9MV/3d2aQRsEX4aDrJwySWbGL7i8T6F+OncbrVJxbN2FOFBC72jTHetYOtqOmFeVTwr2uESdcrZTfk4c+djc+x5ugrkkvPEW/A5jyqFImTIjwZODkLC0X1wbnEwFQAtMmiC5Aia0xY2q0JHiPpJD36x0rqHFdSqYDoi0iLgP5HCdGWgHcZT7p5X0x/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1exUrY7Qo3lVA7JgoG0qMXXtrxWa1FvVhQ6rQaMKzl8=;
+ b=XQGGeqFNy1/0F1LsnVrBueC8BV9bJXf/QynNJQ5kirVHbI4f+g13Kl1KFVRu+hVUbxbWVg0O3j/ZDaPIsuQ94hmSHn+L6zCrMJ5DOASiwv4eHlNy+LeuPbjT4ZiiwTDIZDKffj7VJoiXTu5pblZITRj0PSwl+VdecM7mJzBquKOxCSFh/LpyEgQrhAbsegEOS7G5GEm6OfsDbR2KA/FMyhC2SVBcUgSnlAIhxwlMHXrEFC4Rodr7svH2K2fHDV/CtjBADU3yHmQs5idSYzbd0PK0IXphjsX4TqrrGR6aDOT3S9Y73Ps0Hw9lV6GG4imLI+cCXb18mPeFci/6CBpZHw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1exUrY7Qo3lVA7JgoG0qMXXtrxWa1FvVhQ6rQaMKzl8=;
+ b=L84i/HjQWvmxlqRgb7ackx5yJTz87lUy7VE6HcqY4qA8L7C81q/S27p53NsDoIGPFNa/vkBgoD7UXwpC/Tb/D1hMjxBW7HWeCjklPhfAAQzk+HqS6gg6HMzUQ//i0GVLGlsRJN8/rd2IppVHDQ4/JO9KQww3PjguQM3VRYctviA=
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SN7PR12MB7347.namprd12.prod.outlook.com (2603:10b6:806:29a::15)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.12; Tue, 9 Jun 2026
+ 10:33:30 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0092.006; Tue, 9 Jun 2026
+ 10:33:30 +0000
+Message-ID: <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
+Date: Tue, 9 Jun 2026 12:33:15 +0200
+User-Agent: Mozilla Thunderbird
+To: Kaitao Cheng <kaitao.cheng@linux.dev>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Muchun Song <muchun.song@linux.dev>,
+ Philipp Reisner <philipp.reisner@linbit.com>,
+ Lars Ellenberg <lars.ellenberg@linbit.com>,
+ =?UTF-8?Q?Christoph_B=C3=B6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ Jens Axboe <axboe@kernel.dk>, Takashi Sakamoto <o-takashi@sakamocchi.jp>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Tvrtko Ursulin
+ <tursulin@ursulin.net>, Huang Rui <ray.huang@amd.com>,
+ Eddie James <eajames@linux.ibm.com>, Mark Brown <broonie@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Laxman Dewangan <ldewangan@nvidia.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Sowjanya Komatineni <skomatineni@nvidia.com>,
+ Davidlohr Bueso <dave@stgolabs.net>, "Paul E . McKenney"
+ <paulmck@kernel.org>, Josh Triplett <josh@joshtriplett.org>,
+ Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+ Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260609061347.93688-1-kaitao.cheng@linux.dev>
+X-ClientProxiedBy: BN0PR04CA0179.namprd04.prod.outlook.com
+ (2603:10b6:408:eb::34) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SN7PR12MB7347:EE_
+X-MS-Office365-Filtering-Correlation-Id: e4ddc47c-7238-44ef-a3f7-08dec6128c8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|366016|7416014|376014|921020|18002099003|22082099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info: fJIaLgXpgcNug3LCR18J+qaYh8wIinv9We7sUHZPPLMIiCfcJWiOqIjEbcJiOx4Si0KMO3U2nofKBWObiOF7oUWce3oXb8H2lz2LWt04fqV0L83eQJl+VWBMuZfnfqmY43cPmo5rHYKjEWBW5Qd8bN+X8PKnL+driRgyGOmBH2feqgId8qPITj0ZMHLm9GA5BVLigCquZrWDuLyuZUy4Tl0Zfw77QQ44As8N2avbf1Qv4Ce46wEg0A07BT17QOsnRSPjK+iuCrRu5kOVYd+g6nfNXf9mu2KorBx9GW1ZtQ+WhuIPY1o3ye7WrnuST7PGV/3c3Y9MqxKqdFNBF+xIq0bZN87vgVa3+C3eM8R2oeCVeEtsXXj+4LAukExvhwWSbXd6IMYM1pXHdz8MTco8f8iWvblkuwjQIHCYy7sCaKTm9nn/TIJws9lvH2zxEtDXo2tHs4UunLAk9kAM93nZXNdAFQf30TvcTht4+pP5UdKya808JBnSI05wMbV4CXTbJMsfruTKg6mMJl4y3ZV6+H4KhY+hp8IYpzXHuMwDPtdLGVbiqzb39PXt7Ng0z5VGzLSkUt9+7Yjg9HXUZ6G90XpZ72RkSqJgA7HA4xAFQnS1z/Ka1MwY77PbgbV9qrj6HxRYBPAgSJp702JRomVQVvDXGoQLFEC+4b2S41XaKMIQLjGgvfPX5zl5PMg8Gimg1BG4SSfnWYM7TOv6vm7XuZLxj/GaQLWtbm3wpEHu9L1WjCiGb+sab4ecGmoTV4Lq
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(7416014)(376014)(921020)(18002099003)(22082099003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aTlRRXVMSitRcjUycDhudHowTG01Vkx3ZExmcWswL25DVnQwMFdtbDIweHNq?=
+ =?utf-8?B?Mm82SFc4em1CNU1sc2xLQy9qYTgxWFdhS2lZRjEvbHR0NUVDMm9qaVY2UHBG?=
+ =?utf-8?B?RU1CZEVjMkhNRnBLWWVPOHRHaG1qTjJLVk1GbzFUU1A5bVBDZlowaG9PcHVv?=
+ =?utf-8?B?bEU5MEZ4WjE5L05MT3lzWU0ydUFDeWdpMXlnSHkxN3VVdThVUWIzMDQ3bXgz?=
+ =?utf-8?B?VVcyNkl1UjV3U21pVGlTUEFwUHFjSTVhcUQyYThpWDhsUnFpMWVob3R6SldZ?=
+ =?utf-8?B?citoTzFEOHF1UUlYZ0Vtc2lrRU9NdG1GT1d5NElSKzY2MU9mTm1IZ21tRGpw?=
+ =?utf-8?B?ZFVNZXpMeHBodE5XL2FZVnE2VjZlbWxkZHVOd2UreStiRmtKeks2b014OVUr?=
+ =?utf-8?B?dWJ1SUt0d2dVZ1dsaVJNS2tIS3E3TUFGbC9xWWhuZmZaWmY4MGNkT1FUMzF5?=
+ =?utf-8?B?cFJ4ZC9RTjFpR2EyYXJKWGRKOHZVZk81MUxLM1pBa1FmSDVHSms4Vi9FWElu?=
+ =?utf-8?B?Szdnc1d5RndWWDJLWjFYTVI2V0pmVk03L1RGWitTdm94N2xscERwTG1OZWlD?=
+ =?utf-8?B?NExGc0htaVF6SUlNZzdzUDhTYWVDSG16MDgrangrUkVPUVpJRDRWcGVvMVlk?=
+ =?utf-8?B?U29qY2tZVGgrQVdpRGk5cWpQTUU2cVJVVENTMlU2bnB6Ym1vR0M1RXM0ZnY2?=
+ =?utf-8?B?QTVDeDhiYTR2N3F1YWRldXNsbUd1KzJoUnRFRDAwcWwvL1o5UkRnUElkZlli?=
+ =?utf-8?B?TlVqUi9ueTRMSlM1bVRiS1NvbDMzYVU5K2tQcUpZcENNTk1aY1Z0NVZJRURH?=
+ =?utf-8?B?c3N4R2dONnR6d3kyRkIvM1U2QVZPNWhzbXRrM3pEeHpac0grYktvcDY1RXFq?=
+ =?utf-8?B?bG01V2JXYUFlVm81cXNmMTg1Q0ozL2lGVld2NDJseEtYN1dycGhDWjRqUDFz?=
+ =?utf-8?B?U0l4MXV6VDRlYmxGRUppZy8wbzczSHIzeGgxdit5WEN1YVpCZlpQcVVYMy9U?=
+ =?utf-8?B?R05YZnUvenV4dDBmVk9pRXVJR0VkMDdLa3dUMTkvWGd3V3NsdHpkTGN0TnN0?=
+ =?utf-8?B?WHVGMW5GZ0F2algvaUpOMlpqTFZDdEZkblZQd1hMbnlGTHZVcDlqZEdmUUNF?=
+ =?utf-8?B?Nm9TSzBKZDEya1Fzak1EYXJWam1uSnl5eEMwYkVUWEVYaUhjNGZCemtRZTh6?=
+ =?utf-8?B?ZW9pZkxndEsyaVJQdFlvd04veEZ6UEhXb1paVlVKWXN2U3pIK0p2ck1qaXBO?=
+ =?utf-8?B?dSt5NmV3dG9NQzMrMGtkZmh6d3VQUVRVQjQ3S1VCM29yZW54RG4zd0FHeTRT?=
+ =?utf-8?B?ek83YkUwNjhqSjRsS1VqT2RtbW9WbTRJUHArTkRuZVd6UUI1ZjU4YUpKMzRu?=
+ =?utf-8?B?emVSUkdkZVk2S0kzOWFOQlByeFJBdElBRVI0cm9uYStUeW1TRCs3Nm1NYUE2?=
+ =?utf-8?B?UkhJVzNTQWNibTQwM25URUdGaVpCSXhhNVpvSndOU3ZPK25QbE5rU3Qrd09B?=
+ =?utf-8?B?anE5YnFVOWs5cGcwRlVSS2RsSlFyeHBNc1RMQTdDSTd3OVRFNWlrOHhTL1hT?=
+ =?utf-8?B?clNCZ09lbkJ0RE5qRGlEd1pvMTEyV29ic3RXcks4MGdXME5hTjZDWnJsdm1j?=
+ =?utf-8?B?MjFQS3dKZ1NJL3ByTkVPVkNqOUF0VTNZeFJzVFN2c0NZU0tLMFlkcHNuRzdP?=
+ =?utf-8?B?cVNoLy9HdGNBU04xdG1ySWV4NkF5cE1wTDM5Mi91d0JqaW5iaG52VUFPbEs5?=
+ =?utf-8?B?K1lTaWZXemFjeXMwWmxTNSs2M242M25SWlZQQUN5RVdHamJyVyt2b0FtdFlj?=
+ =?utf-8?B?SU44QUNJclVlWHBWZ2tDbFJsQ0VDekR0NkxGZUVvbjQxbmFrM0RhN1dyNUEz?=
+ =?utf-8?B?S0Q2WjVTZksrdk1BRG50M1Y5VWRmYVlZOWhiQm11OUlNQVoyQmZjbFY0OGhT?=
+ =?utf-8?B?aXRIQmthK3ZQbGxLeTFUeXdCejNSVmVnOGJmWHdwa0hkeVNDbFgrRi9Odkp5?=
+ =?utf-8?B?bmg1QjhjeitDbkh1WVBCN01IckNtU1NmR2kyYm1HQ0FIeXlHUHVVeGJ0MGhS?=
+ =?utf-8?B?bWRQOWxtam1oNm1oalNiU3ZmeFZNUkNmd0hlb1RTYXlnKzVXd29JdEJFc2NV?=
+ =?utf-8?B?VFZjRnJKN1BkSzR2QzdxT0hBaTlOQUFFNzJnRXFrNEo4dnUzcUVOZE9MalJC?=
+ =?utf-8?B?dHpUOW5TbjBydWpLbEFoNnY0dUFMcVdHbnRJYkw2alN3dGo3ZWdtQWswTVU4?=
+ =?utf-8?B?SXppaUlWYlpwT3hLbGxoVERYU1RCZWVsSlBLNEtyRno5VW52dkZPeklGUTR3?=
+ =?utf-8?Q?gYJlWein0Pm5ja/Aun?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e4ddc47c-7238-44ef-a3f7-08dec6128c8f
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jun 2026 10:33:30.4796 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: IlHMK/h8qOYTMLFlOp4FhET2Jf2km6ZN0BdmXe1dA3SfQn9bTkNiaxAb5v8XEnju
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7347
+Cc: dri-devel@lists.freedesktop.org, David Howells <dhowells@redhat.com>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ linux1394-devel@lists.sourceforge.net,
+ linux-stm32@st-md-mailman.stormreply.com, drbd-dev@lists.linbit.com,
+ Matthew Brost <matthew.brost@intel.com>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Kaito Cheng <chengkaitao@kylinos.cn>, Matthew Auld <matthew.auld@intel.com>,
+ Waiman Long <longman@redhat.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Jonas Karlman <jonas@kwiboo.se>, intel-gfx@lists.freedesktop.org,
+ linux-sound@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ Christian Brauner <brauner@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [Linux-stm32] [PATCH v2 00/14] list: Prepare entry iterators to
+ cache cursor state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -75,85 +176,126 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.89 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [5.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[amd.com : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
+	R_DKIM_REJECT(1.00)[amd.com:s=selector1];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MV_CASE(0.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_BASE64_TEXT(0.10)[];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:bot+bpf-ci@kernel.org,m:alexis.lothore@bootlin.com,m:ast@kernel.org,m:daniel@iogearbox.net,m:andrii@kernel.org,m:martin.lau@linux.dev,m:eddyz87@gmail.com,m:memxor@gmail.com,m:song@kernel.org,m:yonghong.song@linux.dev,m:jolsa@kernel.org,m:john.fastabend@gmail.com,m:tglx@kernel.org,m:mingo@redhat.com,m:bp@alien8.de,m:dave.hansen@linux.intel.com,m:x86@kernel.org,m:hpa@zytor.com,m:shuah@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:ihor.solodrai@linux.dev,m:thomas.petazzoni@bootlin.com,m:ebpf@linuxfoundation.org,m:linux-kernel@vger.kernel.org,m:linux-kselftest@vger.kernel.org,m:bpf@vger.kernel.org,m:bastien.curutchet@bootlin.com,m:clm@meta.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:martin.lau@kernel.org,m:bot@kernel.org,m:johnfastabend@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	TO_DN_NONE(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,bootlin.com,iogearbox.net,linux.dev,gmail.com,redhat.com,alien8.de,linux.intel.com,zytor.com,foss.st.com];
-	FORGED_SENDER(0.00)[alexis.lothore@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[32];
+	RCVD_COUNT_THREE(0.00)[4];
+	FREEMAIL_TO(0.00)[linux.dev,linux.intel.com,linbit.com,kernel.dk,sakamocchi.jp,intel.com,linaro.org,kernel.org,suse.de,gmail.com,ffwll.ch,ursulin.net,amd.com,linux.ibm.com,foss.st.com,nvidia.com,stgolabs.net,joshtriplett.org,infradead.org,redhat.com,perex.cz,suse.com];
 	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:kaitao.cheng@linux.dev,m:andriy.shevchenko@linux.intel.com,m:muchun.song@linux.dev,m:philipp.reisner@linbit.com,m:lars.ellenberg@linbit.com,m:christoph.boehmwalder@linbit.com,m:axboe@kernel.dk,m:o-takashi@sakamocchi.jp,m:andrzej.hajda@intel.com,m:neil.armstrong@linaro.org,m:rfoss@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:jani.nikula@linux.intel.com,m:joonas.lahtinen@linux.intel.com,m:rodrigo.vivi@intel.com,m:tursulin@ursulin.net,m:ray.huang@amd.com,m:eajames@linux.ibm.com,m:broonie@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:ldewangan@nvidia.com,m:thierry.reding@kernel.org,m:jonathanh@nvidia.com,m:skomatineni@nvidia.com,m:dave@stgolabs.net,m:paulmck@kernel.org,m:josh@joshtriplett.org,m:peterz@infradead.org,m:mingo@redhat.com,m:will@kernel.org,m:boqun@kernel.org,m:lgirdwood@gmail.com,m:perex@perex.cz,m:tiwai@suse.com,m:dri-devel@lists.freedeskt
+ op.org,m:dhowells@redhat.com,m:Laurent.pinchart@ideasonboard.com,m:linux1394-devel@lists.sourceforge.net,m:linux-stm32@st-md-mailman.stormreply.com,m:drbd-dev@lists.linbit.com,m:matthew.brost@intel.com,m:jernej.skrabec@gmail.com,m:chengkaitao@kylinos.cn,m:matthew.auld@intel.com,m:longman@redhat.com,m:luca.ceresoli@bootlin.com,m:jonas@kwiboo.se,m:intel-gfx@lists.freedesktop.org,m:linux-sound@vger.kernel.org,m:linux-block@vger.kernel.org,m:linux-tegra@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:brauner@kernel.org,m:rdunlap@infradead.org,m:linux-kernel@vger.kernel.org,m:linux-spi@vger.kernel.org,m:akpm@linux-foundation.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[alexis.lothore@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[bootlin.com:-];
-	RCVD_COUNT_FIVE(0.00)[5];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,bpf-ci];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER(0.00)[christian.koenig@amd.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_HAS_DN(0.00)[]
+	FROM_HAS_DN(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[amd.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	RCPT_COUNT_GT_50(0.00)[62];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[christian.koenig@amd.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.freedesktop.org,redhat.com,ideasonboard.com,lists.sourceforge.net,st-md-mailman.stormreply.com,lists.linbit.com,intel.com,gmail.com,kylinos.cn,bootlin.com,kwiboo.se,vger.kernel.org,lists.infradead.org,kernel.org,infradead.org,linux-foundation.org];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[kylinos.cn:email,amd.com:mid,amd.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3C18D65DF18
+X-Rspamd-Queue-Id: 8028A65EF7F
 
-T24gVGh1IEp1biA0LCAyMDI2IGF0IDExOjEzIFBNIENFU1QsIGJvdCticGYtY2kgd3JvdGU6Cj4+
-IGRpZmYgLS1naXQgYS9rZXJuZWwvYnBmL0tjb25maWcgYi9rZXJuZWwvYnBmL0tjb25maWcKPj4g
-aW5kZXggZWIzZGUzNTczNGYwLi5hOGUwMDRmODhiOTIgMTAwNjQ0Cj4+IC0tLSBhL2tlcm5lbC9i
-cGYvS2NvbmZpZwo+PiArKysgYi9rZXJuZWwvYnBmL0tjb25maWcKPgo+IFsgLi4uIF0KPgo+PiBA
-QCAtMTAxLDQgKzEwNSw5IEBAIGNvbmZpZyBCUEZfTFNNCj4+Cj4+ICAJICBJZiB5b3UgYXJlIHVu
-c3VyZSBob3cgdG8gYW5zd2VyIHRoaXMgcXVlc3Rpb24sIGFuc3dlciBOLgo+Pgo+PiArY29uZmln
-IEJQRl9KSVRfS0FTQU4KPj4gKwlib29sCj4+ICsJZGVwZW5kcyBvbiBIQVZFX0VCUEZfSklUX0tB
-U0FOCj4+ICsJZGVmYXVsdCB5IGlmIEJQRl9KSVQgJiYgS0FTQU5fR0VORVJJQyAmJiBLQVNBTl9W
-TUFMTE9DICYmIFZNQVBfU1RBQ0sKPj4gKwo+PiAgZW5kbWVudSAjICJCUEYgc3Vic3lzdGVtIgo+
-Cj4gVGhpcyBpc24ndCBhIGJ1ZywgYnV0IGEgZGVzaWduIGNvbmNlcm4gcmFpc2VkIG9uIGFuIGVh
-cmxpZXIgcG9zdGluZyBvZgo+IHRoaXMgd29yayBkb2Vzbid0IGxvb2sgZnVsbHkgcmVzb2x2ZWQu
-Cj4KPiBJbiB0aGUgdjEgKFJGQykgZGlzY3Vzc2lvbiwgdGhlIHN1Z2dlc3Rpb24gd2FzIHRvIG5v
-dCBhZGQgYSBjb25maWcga25vYgo+IGF0IGFsbCBhbmQgaW5zdGVhZCBkbyB0aGUgaW5zdHJ1bWVu
-dGF0aW9uIGluc2lkZSB0aGUgSklUIHdoZW5ldmVyCj4gS0FTQU5fR0VORVJJQyBpcyBzZXQ6Cj4K
-PiAgICJMZXQncyBub3QgYWRkIG1vcmUgY29uZmlnIGtub2JzLiBFdmVuIHRoaXMgcGF0Y2ggbG9v
-a3MgcmVkdW5kYW50Lgo+ICAgIEluc2lkZSBKSVQgZG8gaW5zdHJ1bWVudGF0aW9uIHdoZW4gS0FT
-QU5fR0VORVJJQyBpcyBzZXQuIgo+Cj4gICBodHRwczovL2xvcmUua2VybmVsLm9yZy9icGYvQ0FB
-RG5WUUxqPVVvc25zQy00VjIrbU45MkZlMC1rVysrVSttLU85Yzkza2s2QndpWGd3QG1haWwuZ21h
-aWwuY29tLwo+Cj4gVGhlIHJlYXNvbmluZyBnaXZlbiBmb3Iga2VlcGluZyB0aGUgaW50ZXJuYWwg
-S2NvbmZpZyB3YXMgdGhhdCBpdCBsZXRzCj4gc2VsZnRlc3RzIGFkYXB0IHRoZWlyIGJlaGF2aW9y
-IHdpdGhvdXQgc3ByaW5rbGluZyBhcmNoIGFuZCBLQVNBTgo+IGNvbmRpdGlvbmFscywgYW5kIGFu
-b3RoZXIgcmV2aWV3ZXIgYWdyZWVkIHRoYXQgYXBwcm9hY2ggd2FzIHJlYXNvbmFibGUuCj4KPiBU
-aGF0ICJ0aGlzIHBhdGNoIGxvb2tzIHJlZHVuZGFudCIgb2JqZWN0aW9uIHdhcyBuZXZlciBleHBs
-aWNpdGx5Cj4gcmV0cmFjdGVkIG9yIHJlLWFja2VkLCB5ZXQgdGhlIEJQRl9KSVRfS0FTQU4gY29u
-ZmlnIGlzIHJldGFpbmVkIGhlcmUuCj4KPiBIYXMgdGhpcyBkZXNpZ24gcG9pbnQgYmVlbiBzZXR0
-bGVkPwoKSSBzdGlsbCBhZHZvY2F0ZSB0byBrZWVwIHRoaXMgQlBGX0pJVF9LQVNBTiwgd2hpY2gg
-aXMgdXNlZCBsYXRlciBpbgpwYXRjaCA3LzggdG8gY2hlY2sgd2hldGhlciBrYXNhbiB0ZXN0cyBz
-aG91bGQgYmUgZXhlY3V0ZWQgb3Igbm90LgoKQWxleGlzCj4KPiAtLS0KPiBBSSByZXZpZXdlZCB5
-b3VyIHBhdGNoLiBQbGVhc2UgZml4IHRoZSBidWcgb3IgZW1haWwgcmVwbHkgd2h5IGl0J3Mgbm90
-IGEgYnVnLgo+IFNlZTogaHR0cHM6Ly9naXRodWIuY29tL2tlcm5lbC1wYXRjaGVzL3ZtdGVzdC9i
-bG9iL21hc3Rlci9jaS9jbGF1ZGUvUkVBRE1FLm1kCj4KPiBDSSBydW4gc3VtbWFyeTogaHR0cHM6
-Ly9naXRodWIuY29tL2tlcm5lbC1wYXRjaGVzL2JwZi9hY3Rpb25zL3J1bnMvMjY5NzgzODA1MjAK
-CgoKCi0tIApBbGV4aXMgTG90aG9yw6ksIEJvb3RsaW4KRW1iZWRkZWQgTGludXggYW5kIEtlcm5l
-bCBlbmdpbmVlcmluZwpodHRwczovL2Jvb3RsaW4uY29tCgpfX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4u
-c3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On 6/9/26 08:13, Kaitao Cheng wrote:
+> From: Kaito Cheng <chengkaitao@kylinos.cn>
+> 
+> This series prepares for, and then updates, the list_for_each_entry()
+> family so the common entry iterators cache their next or previous cursor
+> before the loop body runs.
+
+Why in the world would we want to do that?
+
+The safe and non-safe variants have very distinct use cases and that is completely intentional.
+
+What we could improve maybe is the documentation, from my experience an astonishing large amount of people have misconceptions about the safe variants.
+
+> The first 13 patches open-code loops that intentionally depend on the
+> old "derive the next entry from the current cursor at the end of the
+> iteration" behaviour.  These loops append work to the list being walked,
+> restart traversal after dropping a lock, skip an entry consumed by the
+> current iteration, or otherwise adjust the cursor in the loop body.
+
+Well I have to clearly reject the changes for subsystems/components I'm maintaining, that just looks horrible to me and I clearly don't see a good reason for that.
+
+Regards,
+Christian.
+
+> 
+> The final patch changes include/linux/list.h to keep a private cursor in
+> the common entry iterators while preserving the public macro interface.
+> The safe variants remain available when callers need the temporary
+> cursor explicitly or have stronger mutation requirements.
+> 
+> Changes in v2 (Muchun Song, Andy Shevchenko):
+>  - Drop the list_for_each_entry_mutable*() helpers from v1 and make the
+>    cursor change directly in the existing list_for_each_entry*() helpers.
+>  - Open-code special list walks that rely on updating the loop cursor in
+>    the body, preserving their existing traversal semantics.
+> 
+> Link to v1:
+> https://lore.kernel.org/all/20260529082149.76764-1-kaitao.cheng@linux.dev/
+> 
+> Kaitao Cheng (14):
+>   drbd: Open-code transfer log list walk
+>   firewire: core: Open-code topology list walk
+>   drm/bridge: Open-code bridge chain list walks
+>   drm/i915/gt: Open-code active timeline walk
+>   drm/i915: Open-code DFS dependency list walk
+>   drm/ttm: Open-code reservation list walk
+>   spi: fsi: Open-code message transfer walk
+>   spi: stm32-ospi: Open-code message transfer walk
+>   spi: stm32-qspi: Open-code message transfer walk
+>   spi: tegra210-quad: Open-code message transfer walk
+>   locking/locktorture: Open-code ww mutex list walk
+>   locking/ww_mutex: Open-code stress reorder list walk
+>   ASoC: dapm: Open-code widget invalidation walk
+>   list: Cache cursors in entry iterators
+> 
+>  drivers/block/drbd/drbd_debugfs.c      |  4 ++-
+>  drivers/firewire/core-topology.c       |  4 ++-
+>  drivers/gpu/drm/drm_bridge.c           |  7 ++--
+>  drivers/gpu/drm/i915/gt/intel_reset.c  |  4 ++-
+>  drivers/gpu/drm/i915/i915_scheduler.c  |  4 ++-
+>  drivers/gpu/drm/ttm/ttm_execbuf_util.c |  4 ++-
+>  drivers/spi/spi-fsi.c                  |  5 ++-
+>  drivers/spi/spi-stm32-ospi.c           |  4 ++-
+>  drivers/spi/spi-stm32-qspi.c           |  5 ++-
+>  drivers/spi/spi-tegra210-quad.c        |  4 ++-
+>  include/linux/list.h                   | 46 ++++++++++++++++++++------
+>  kernel/locking/locktorture.c           |  4 ++-
+>  kernel/locking/test-ww_mutex.c         |  4 ++-
+>  sound/soc/soc-dapm.c                   |  4 ++-
+>  14 files changed, 78 insertions(+), 25 deletions(-)
+> 
+> --
+> 2.43.0
+> 
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
