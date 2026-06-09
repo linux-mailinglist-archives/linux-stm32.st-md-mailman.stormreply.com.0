@@ -2,39 +2,39 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id U1NdK5f+J2p/6wIAu9opvQ
+	id GM9pM5f+J2qE6wIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4743165FAEA
+	by mail.lfdr.de (Postfix) with ESMTPS id 8A00165FAF6
 	for <lists+linux-stm32@lfdr.de>; Tue, 09 Jun 2026 13:52:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=isl8KKJu;
+	dkim=fail ("body hash did not verify") header.d=linux.dev header.s=key1 header.b=CpXqR0D8;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=linux.dev (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E1593C9008D;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id F1FC1C9008F;
 	Tue,  9 Jun 2026 11:52:54 +0000 (UTC)
-Received: from out-182.mta1.migadu.com (out-182.mta1.migadu.com
- [95.215.58.182])
+Received: from out-186.mta1.migadu.com (out-186.mta1.migadu.com
+ [95.215.58.186])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ADD01C5F1F9
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D18DC5F1F7
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  9 Jun 2026 06:28:18 +0000 (UTC)
+ Tue,  9 Jun 2026 06:28:35 +0000 (UTC)
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
- t=1780986497;
+ t=1780986514;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=MR1hTzP95VNUKx7/pKpDVtm2601TjwJtZ4ASjUfdk1Y=;
- b=isl8KKJuAUNED6y7PqRYss/yrCZzRxABbNH7LLFjXBudV0mEVhbPjitoJS3k0/o1vcGfft
- s62so6ieDuNj/XVJ1vkk1Q7CcR4Ey2KkfWmakHlovNnr2LJm+7oGH2kB4IAdYCBbQxOFWn
- FuuaYym3pHtVPMmNAZdGoQnflBzoQlE=
+ bh=smwcSwpSx3877vgkJVhF1DUcaQotbwHyv2wtpxTd7yQ=;
+ b=CpXqR0D8sDUMklAOU53IFxyjHsOAHr7bre1RxmD/ICXb8vVnoTPwyiQ7PJllPlM2do2vji
+ CZWIYF0tP4l5AIedEPdZwtoflwzjSpnKrsJsyiN0Col7fpwtC3VkX3UiTLeELwoG0QQZ8s
+ IRkZWlzKv1ScExqwZEUL82ocOW2B5Z0=
 From: Kaitao Cheng <kaitao.cheng@linux.dev>
 To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Muchun Song <muchun.song@linux.dev>,
@@ -66,8 +66,8 @@ To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>,
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
  Takashi Iwai <tiwai@suse.com>
-Date: Tue,  9 Jun 2026 14:25:20 +0800
-Message-ID: <20260609062526.94907-6-kaitao.cheng@linux.dev>
+Date: Tue,  9 Jun 2026 14:25:21 +0800
+Message-ID: <20260609062526.94907-7-kaitao.cheng@linux.dev>
 In-Reply-To: <20260609062526.94907-1-kaitao.cheng@linux.dev>
 References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
  <20260609062526.94907-1-kaitao.cheng@linux.dev>
@@ -88,7 +88,7 @@ Cc: dri-devel@lists.freedesktop.org, David Howells <dhowells@redhat.com>,
  linux-arm-kernel@lists.infradead.org, Christian Brauner <brauner@kernel.org>,
  Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org,
  linux-spi@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
-Subject: [Linux-stm32] [PATCH v2 08/14] spi: stm32-ospi: Open-code message
+Subject: [Linux-stm32] [PATCH v2 09/14] spi: stm32-qspi: Open-code message
 	transfer walk
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -142,14 +142,14 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,linux.dev:mid,linux.dev:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo,linux.dev:mid,linux.dev:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4743165FAEA
+X-Rspamd-Queue-Id: 8A00165FAF6
 
 From: Kaitao Cheng <chengkaitao@kylinos.cn>
 
 A later change will make list_for_each_entry() cache the next element
-before entering the loop body. stm32_ospi_transfer_one_message() can
+before entering the loop body. stm32_qspi_transfer_one_message() can
 consume the following transfer as part of the current operation and then
 advance the loop cursor to that entry.
 
@@ -160,19 +160,20 @@ update.
 
 Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 ---
- drivers/spi/spi-stm32-ospi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/spi/spi-stm32-qspi.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-stm32-ospi.c b/drivers/spi/spi-stm32-ospi.c
-index 4461c6e24b9e..4dc2b56b4c20 100644
---- a/drivers/spi/spi-stm32-ospi.c
-+++ b/drivers/spi/spi-stm32-ospi.c
-@@ -675,7 +675,9 @@ static int stm32_ospi_transfer_one_message(struct spi_controller *ctrl,
+diff --git a/drivers/spi/spi-stm32-qspi.c b/drivers/spi/spi-stm32-qspi.c
+index df1bbacec90a..27d82a578c9f 100644
+--- a/drivers/spi/spi-stm32-qspi.c
++++ b/drivers/spi/spi-stm32-qspi.c
+@@ -577,7 +577,10 @@ static int stm32_qspi_transfer_one_message(struct spi_controller *ctrl,
  
- 	gpiod_set_value_cansleep(cs_gpiod, true);
+ 	gpiod_set_value_cansleep(spi_get_csgpiod(spi, 0), true);
  
 -	list_for_each_entry(transfer, &msg->transfers, transfer_list) {
-+	for (transfer = list_first_entry(&msg->transfers, typeof(*transfer), transfer_list);
++	for (transfer = list_first_entry(&msg->transfers,
++					 typeof(*transfer), transfer_list);
 +	     !list_entry_is_head(transfer, &msg->transfers, transfer_list);
 +	     transfer = list_next_entry(transfer, transfer_list)) {
  		u8 dummy_bytes = 0;
