@@ -2,79 +2,79 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id wzlvBYfKKWqOdQMAu9opvQ
+	id n2nZFIjKKWqPdQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 22:35:19 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 22:35:20 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EE44466CCE0
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 22:35:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EDFAF66CCE7
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 22:35:19 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=GpSBGtON;
+	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=IKZP7q6Z;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=none
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FE7BC8F28C;
-	Wed, 10 Jun 2026 20:35:18 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFACFC8F294;
+	Wed, 10 Jun 2026 20:35:19 +0000 (UTC)
 Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
  [209.85.128.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3142C8F282
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 051DEC8F282
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jun 2026 20:35:16 +0000 (UTC)
+ Wed, 10 Jun 2026 20:35:18 +0000 (UTC)
 Received: by mail-wm1-f43.google.com with SMTP id
- 5b1f17b1804b1-490bb83a3f6so59040385e9.0
+ 5b1f17b1804b1-490b64c8311so79619195e9.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jun 2026 13:35:16 -0700 (PDT)
+ Wed, 10 Jun 2026 13:35:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1781123716; x=1781728516;
+ d=baylibre.com; s=google; t=1781123717; x=1781728517;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=l3Dc6zoyWnXEvMeETDcz4Z1/oT967FAbFkpJkYlcBjs=;
- b=GpSBGtONCYX2e/oZ1XQzHz1WYWX++B72XPzLp4wJ4dJD/cUEP2gCjNZUXXyJrQxZ7i
- RKxrJu4kmME/MaPt5rTnWSHseQJyEQngAbkFwGN9pkT2qqlHopyaiXNl0G4Naa5QNIQi
- pfN4QmLwjgfp3OvPADotUL3pWhM3zUBn8S7f9b9WdPfbp5Q7oLirKqelrfq8DjS0D+cd
- FNy1KM27DnfyDW8UdglM+7auoPZ7x70FY0Xmf5CXJWLHaxYRrJEUuq6g9fjjxKJtFFdP
- cp8zeI9PS5aHzdzIEUPtk8/M64/d3/XlLQEA+O/c+cwUupe9DDc7QzL/XvCKpqzcuzWE
- 2BFg==
+ :reply-to; bh=fqvGT8nRbToe2huAj1fjYmy1gzrEv650bTAoZQ7pGZY=;
+ b=IKZP7q6ZETyn6+L6/rDYAKehiLlMUpx99RWaS4JXh1C5HLgoQR+mVXOa4vr4L7/pWi
+ V5rVWGEL+0jd/jkcEnmARlXJrY2H8htWg3t8b8RhT/eM1mUYIzsLfzM3lYfGc09zd/ZL
+ ucUduJ4eYZf4rEYf8jcQfAaVs6JyFjhJUVyebO5RgI2sDyGhClCQK/JkDtVo9BjAPMJ2
+ EFQ2Ai5T4thDziGl0acwTFprgZUJBFnS9j3mRK4ForG+qAeKBIt0ZrlHDZD/arSZPtUM
+ mawONiYoPTpCU9LK3mYqZou92O6jS2MsxCrl2zmlUT2kH5vbgOCs5aIEczm5hJAT94GH
+ OniQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781123716; x=1781728516;
+ d=1e100.net; s=20251104; t=1781123717; x=1781728517;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=l3Dc6zoyWnXEvMeETDcz4Z1/oT967FAbFkpJkYlcBjs=;
- b=ikZ/bf9ZtSs3qjeraDVCcYwAGrOuCZopn/R3sKxyCoE1WavmVl8WsK3FrxjKtKUz+r
- e8da4cjg8RVSic8tXOq/kTfv7ZaaEydcxK0OPUkWF71Ya4IIUXjynR72qi2aAqnnZsSH
- hZfqfOWw7jw8MZRjc0fLEMH9ufImTz+Xb1NTEjBHp648xt95A0tkys0h37nadgXNOpPl
- WGVzRu2Cz0CJfq/8V8HOhgHpJyOxNpGiAcFmiOiDsYuX5pDfKcFcsJlg/8OhU7vU0cNQ
- sIA9AgYHmlawJIqHsS0mis9iN+iP+Lyqdy0PV9kpAF9//88yVtS0f7WrjUl0Dxjxq7xs
- Rd2w==
+ bh=fqvGT8nRbToe2huAj1fjYmy1gzrEv650bTAoZQ7pGZY=;
+ b=aiGxnsheGLytK7hDhU7s8eqaorwftjMEM7/OdsUrYe7XPSrygqGqkMQKpldNFT7+ih
+ Mx7kVWrp87WDODFQMOR/oNuepD4qfuZkPyIQcK52jFkIIjKOaxd/7IUo1NpTXHDzH8mI
+ suLEoZCQLHrySAUZ8Z8Pqk0phh1PfchSy8ZBHWZNy+cQ1DkV+jRcGKaRd9/koJJdweA3
+ O24v7BM2RZ05poJ6WVHsUVSc7AkNt+379SSRO5iShF6fBL8Xd2w8ZZulEthKQiv5kBJn
+ wPxFfTmL0WyE8dltRvAbj/fwj0oT0sdKaS0TtmcEbcGtI9xrQaMRZUis60+gGoTAT6kq
+ lQZw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ+SrX+OiY79We0xNXTeJ2tJyn8J8R5F75w46J0XHpZKxcuy9NqqKi284MVkh5vjHLBVxcM+1nd/4g6TOA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yygr1U62X8j/5eVcVvqIi0IDr9CZ3MNM6WCK5uOmHUcww3r0oui
- 7/+YMH8hiW4cHNYIVdlmM0ZgU3AE8YY2PcLz+RC1Jc9jKj1i92xRi74fXhOtg71pgwQ=
-X-Gm-Gg: Acq92OFUiM8i6FQ8168sn9uYyaBAIGgRmlssi9Cr2fbkVCtrKq5CM4cPEzVw50vctdL
- eZoKulPSV3ZHgxgak7PCsk905+8RX8x5FMbu+hIWT/xTr2kMBhnHSs/L+BcsXRDh4vzO4rSfXQ5
- P0srHOiUDKsN8gpdAaBCzgNfKJtR9/3qrO1SU1Px3RBSeQeIoF0PclFrxQEopY12cV7cizH54hF
- EdSqF4LB0cjIEPSiqKkGMktzNE9JU1OkwMy/zGbCJXpvVKlxP1hA/ffITndwpZrpJwF6b1+HqlW
- xOaVRMON4Acdgr65Sh3BdKKn6pxJ7ZVmgo2dKHbIGbPI6qUXaHIwdPpLaMrroaaiyQEH/fu04dc
- E6kxzZ9Tk/vz+aKusNqRjiBH+tQMDEe6QAtfXJ0ExvOzLKy1EHrBWZ9Lckq2U0KdXReWa/aHhtU
- WVmH8jfgsR7dPvrNwlJdMnTsQqTAm9YIKVPk2dVIT3Lw==
-X-Received: by 2002:a05:600c:620b:b0:490:b9c3:6c48 with SMTP id
- 5b1f17b1804b1-490d7234fffmr107606225e9.29.1781123716245; 
- Wed, 10 Jun 2026 13:35:16 -0700 (PDT)
+ AFNElJ9XtPGb8JNwPGzX8XMD8K3E27uFlPr+WhHEtWC8OFHhqnKUylsRBkA0VJbxTXXxoynxSB+rbWolW+I3qA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyZAxDr2LpXSFs64FvPQ0abZiM1SWVV66P6R9P79uPIEjMSCMRI
+ 2dClRiM/MiKRRIxfNuOX7plLXPRZMR82EVVjmWnyx9VvE0wvl0HYbFkx4RhOTE+U8zw=
+X-Gm-Gg: Acq92OFCQfpWzs9mPLEuUA4Tem2RxDxDUaoDA54Y827oU1NJz7HUBc4twnd2o2/IbyX
+ sU0zZy6XamIIXpxp162XY3MLa4/zUJdLXPldBEfNkjsHoSaTPGTTW2fmTK4l/U08FiVSpfnDfox
+ TJzbV/cSRZg4FI7tzSOio92tLfLIPu9OTsXDGyQ/N51WF1CIsrAs9Q3+GD67R3SwVcP/SFef4i4
+ fwdF0OB4zptbz3EroZ5zPAJXrqrBdebmiA9L1M0ovDkjHrDs6vpeZblOdPf8Fmc3PBGXi79Bd2h
+ 5b1xkNQ4Cwf+FTUadEnC0gg3ymMXTB7RgEwQNoLlL51c+2oEDgQPNPmmH9tyY46G4rYvhbGlnq9
+ nFBdCLMJc4BH2NIzqVaICBMoJjGsn6eDixr+hbVKGFw2RcPjblW02scW5+1DWxlX86XxSvrPE3G
+ AU1gmRObwR95OpkMwmxbM/vOUOh1fuKggzwi3EF/y08Q==
+X-Received: by 2002:a05:600c:35d4:b0:490:b8d3:5dcc with SMTP id
+ 5b1f17b1804b1-490c25e4634mr451218185e9.19.1781123717535; 
+ Wed, 10 Jun 2026 13:35:17 -0700 (PDT)
 Received: from [192.168.0.2] ([2a07:7e81:7daa:0:202:c9ff:fe53:eda4])
  by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-490dc4715e4sm62390975e9.0.2026.06.10.13.35.14
+ 5b1f17b1804b1-490dc4715e4sm62390975e9.0.2026.06.10.13.35.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 10 Jun 2026 13:35:15 -0700 (PDT)
+ Wed, 10 Jun 2026 13:35:17 -0700 (PDT)
 From: Angelo Dureghello <adureghello@baylibre.com>
 X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Wed, 10 Jun 2026 22:35:10 +0200
+Date: Wed, 10 Jun 2026 22:35:11 +0200
 MIME-Version: 1.0
-Message-Id: <20260610-wip-stmark2-dac-v5-5-b76b83366d5c@baylibre.com>
+Message-Id: <20260610-wip-stmark2-dac-v5-6-b76b83366d5c@baylibre.com>
 References: <20260610-wip-stmark2-dac-v5-0-b76b83366d5c@baylibre.com>
 In-Reply-To: <20260610-wip-stmark2-dac-v5-0-b76b83366d5c@baylibre.com>
 To: Greg Ungerer <gerg@linux-m68k.org>, 
@@ -89,8 +89,8 @@ Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  Greg Ungerer <gerg@uclinux.org>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v5 05/10] m68k: mcf5441x: add CCR MISCCR2
-	bitfields
+Subject: [Linux-stm32] [PATCH v5 06/10] m68k: stmark2: use ioport.h macros
+	for resources
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,56 +142,67 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo,baylibre.com:email,baylibre.com:mid,baylibre.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EE44466CCE0
+X-Rspamd-Queue-Id: EDFAF66CCE7
 
 From: Angelo Dureghello <adureghello@baylibre.com>
 
-Add CCR MISCCR2 register bitfields.
+Change resource declaration using DEFINE_RES_*() macros.
+DEFINE_DMA_RES() is for a single dma channel, not a range, so used twice.
+
+Also, some drivers assume IRQ resources are from index 1, so just to stay
+uniform, moved IRQ resource at index 1.
 
 Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
 ---
 Changes in v2:
-- add "iwyu" include for BIT and GENMASK
-- fix MCF_CCM_MISCCR2_PLL_MODE bitfield
+- none
+Changes in v3:
+- moved this patch (cleanup) before adding new resources
+- moved IRQ resource to index pos 1
+Changes in v5:
+- add linux/ioport.h include here
 ---
- arch/m68k/include/asm/m5441xsim.h | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ arch/m68k/coldfire/stmark2.c | 20 +++++---------------
+ 1 file changed, 5 insertions(+), 15 deletions(-)
 
-diff --git a/arch/m68k/include/asm/m5441xsim.h b/arch/m68k/include/asm/m5441xsim.h
-index 9ce2cbb05316..ea01c7753b7b 100644
---- a/arch/m68k/include/asm/m5441xsim.h
-+++ b/arch/m68k/include/asm/m5441xsim.h
-@@ -8,6 +8,8 @@
- #ifndef m5441xsim_h
- #define m5441xsim_h
- 
-+#include <linux/bits.h>
-+
- #define CPU_NAME		"COLDFIRE(m5441x)"
- #define CPU_INSTR_PER_JIFFY	2
- #define MCF_BUSCLK		(MCF_CLK / 2)
-@@ -145,6 +147,21 @@
- #define MCF_CCM_SBFCR		0xec090022
- #define MCF_CCM_FNACR		0xec090024
- 
-+/* Bit definitions and macros for MCF_CCM_MISCCR2 */
-+#define MCF_CCM_MISCCR2_ULPI		BIT(0)
-+#define MCF_CCM_MISCCR2_FB_HALF		BIT(1)
-+#define MCF_CCM_MISCCR2_ADC3_EN		BIT(2)
-+#define MCF_CCM_MISCCR2_ADC7_EN		BIT(3)
-+#define MCF_CCM_MISCCR2_ADC_EN		BIT(4)
-+#define MCF_CCM_MISCCR2_DAC0_SEL	BIT(5)
-+#define MCF_CCM_MISCCR2_DAC1_SEL	BIT(6)
-+#define MCF_CCM_MISCCR2_DCC_BYP		BIT(7)
-+#define MCF_CCM_MISCCR2_PLL_MODE	GENMASK(10, 8)
-+#define MCF_CCM_MISCCR2_SWT_SCR		BIT(12)
-+#define MCF_CCM_MISCCR2_RGPIO_HALF	BIT(13)
-+#define MCF_CCM_MISCCR2_DDR2_CLK	BIT(14)
-+#define MCF_CCM_MISCCR2_EXTCLK_BYP	BIT(15)
-+
- /*
-  *  UART module.
+diff --git a/arch/m68k/coldfire/stmark2.c b/arch/m68k/coldfire/stmark2.c
+index 9263b77bd09a..7eed6097f501 100644
+--- a/arch/m68k/coldfire/stmark2.c
++++ b/arch/m68k/coldfire/stmark2.c
+@@ -8,6 +8,7 @@
+  * for more details.
   */
+ 
++#include <linux/ioport.h>
+ #include <linux/platform_device.h>
+ #include <linux/mtd/partitions.h>
+ #include <linux/spi/spi.h>
+@@ -62,21 +63,10 @@ static struct fsl_dspi_platform_data dspi_spi0_info = {
+ };
+ 
+ static struct resource dspi_spi0_resource[] = {
+-	[0] = {
+-		.start = MCFDSPI_BASE0,
+-		.end   = MCFDSPI_BASE0 + 0xFF,
+-		.flags = IORESOURCE_MEM,
+-		},
+-	[1] = {
+-		.start = 12,
+-		.end   = 13,
+-		.flags = IORESOURCE_DMA,
+-	},
+-	[2] = {
+-		.start = MCF_IRQ_DSPI0,
+-		.end   = MCF_IRQ_DSPI0,
+-		.flags = IORESOURCE_IRQ,
+-	},
++	DEFINE_RES_MEM(MCFDSPI_BASE0, 0x100),
++	DEFINE_RES_IRQ(MCF_IRQ_DSPI0),
++	DEFINE_RES_DMA(12),
++	DEFINE_RES_DMA(13),
+ };
+ 
+ static u64 stmark2_dspi_mask = DMA_BIT_MASK(32);
 
 -- 
 2.54.0
