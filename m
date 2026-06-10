@@ -2,12 +2,12 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id lSR6HzgRKWqFPwMAu9opvQ
+	id nIMxJjgRKWqGPwMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 09:24:40 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 640AE6669CB
+	by mail.lfdr.de (Postfix) with ESMTPS id 808FD6669D2
 	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 09:24:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
@@ -15,23 +15,23 @@ Authentication-Results: mail.lfdr.de;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1CF82C58D7A;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 30FFAC8F292;
 	Wed, 10 Jun 2026 07:24:40 +0000 (UTC)
 Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
  (mail-sh0chn02on2127.outbound.protection.partner.outlook.cn
  [139.219.146.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79197C5A4C5
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E13AAC5A4C5
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Wed, 10 Jun 2026 07:24:37 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=eDD5ta9xuLzlOW0PywSUyiBqDfMG+hrKPlKihVmupG6/SJx01PUhTWfPcIw9j7hBiQAMJmZaHpV19vQt5Zw6dBG+epCOGvaxBBJdG+ggA8dV6TKibUcyWS/8QyvarVHPLGsmrnPIK74p56TuMziJaJTSqjnZUGzUs8pfrGeIddaHZYPGlZ9cAjvNZTISe6mUjhEH3MtdXGMRGBZHZ6MfI2SqOyU7PStZ5nCBFbf0SpW/uX6PYo1SMCBWzAvGXNKXQ9JlmJKLIrg9+ziEceQVilbY4AOpTWcfkVWsaN4haFvfGY5CGhZZ15sCIBZ8up13TJAY6OltSasp7+qfh+l65g==
+ b=cAD/92d50mV1OdE4YxhyBke1uc61jMgNeCmdlDyZcpJ3/XcQh1gwT9lvD6LNv3AwuwVygkXo8WuN2NwECZTtpE2e88THme6RD08gW92BiWL4upSeKF/i3r4kv9jM11v5O8RD37D6oSWLWGoK31WGPCG8CTv0d/IaneMfdYT3o/rckDhiCpi4X36dCOZh7nTp9vJtTnWnx2FtquWxpwk5aphiSJI47TJS50WjGaaZBrSNf0MJVAb8ZEs/eDgSbOfU8LQEXkHpd+18vkCWVKdZerRdSTz0LDlCPdAbyrLCxYNK5HFraRgA/xpCQUNO0ksTolrbQR/jnLkWxKcrMJhhYw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=InpX30kLV6j6y1pktEdVB4ByqdJlg7uYDA3SRiJYWv4=;
- b=fT5br+uFYC3r7lRB4lNby1NGNZTo+yg1MkFnLJuIHy1jESNL0+2Sa26FJT8lGa2m7cKLZ7IygOEdtdEwE/zV/gksc7qcBZBU7/IZWCKdUmJvA46cLcn7Y+xmQIEyNmm1FqERGFiUCbUskw5ap3i680C8z/+srv2+29WvBhU0eKk6k6zWGc51VAiAUfaDRrY2Lq9FhbstTtU6vc9IEAQm3HtQJFVKuBncVCqBlc0Zua/fFo6M0RGBhHIjkaP3b3RLS6C8PLCYpVI5Kj9d+B1CL7UlWEzxVrYEsnjm3wZXGEMM9lYrp3hxM+pjlMpaVYx8XeWHTmMJeAsjEkVduCLRkA==
+ bh=ksk7bStHDiq8xnZuf+4ghVRpXLCH0CmS9w4llQPfwPY=;
+ b=i9WN02zKnubiNEvaHKYZjBAr4kf4ZpAVS2srMaWmgTkYOA/ku2KkRo0H5W9PRf/QjRpIDDpT8H1TCT3+9Yns8pytjG/7fXrcVuPqNXjOglTUx8IienXAZ6hTGRvysIqZT4/bT62Z+G6wOQ0B7h2dlfRCQtC0vQsy+shzpAyoOKk/Bl3/P3OiHsqh/oo1TYtRi0sfN2vzY7XGvo2rcOCCeRZ0hdVYgzlCIPqp/rhaku1zV37vxnguJlUSNCpIv6V5ouLmYp28/664gKzQgxPSHGs/wUoy0K3+q+X/fnTwkoyTb+oYo/NKWtg5w/aad0OgpxbgMakR2XdFDP1EAXAs4Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
@@ -39,11 +39,11 @@ Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:25::15) by SHXPR01MB0512.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:1c::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 07:24:33 +0000
+ 2026 07:24:34 +0000
 Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
  ([fe80::9b99:12dc:a115:b90f]) by
  SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
- with mapi id 15.21.0092.014; Wed, 10 Jun 2026 07:24:33 +0000
+ with mapi id 15.21.0092.014; Wed, 10 Jun 2026 07:24:34 +0000
 From: Minda Chen <minda.chen@starfivetech.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S . Miller" <davem@davemloft.net>,
@@ -55,8 +55,8 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org
-Date: Wed, 10 Jun 2026 15:24:19 +0800
-Message-Id: <20260610072420.64699-6-minda.chen@starfivetech.com>
+Date: Wed, 10 Jun 2026 15:24:20 +0800
+Message-Id: <20260610072420.64699-7-minda.chen@starfivetech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260610072420.64699-1-minda.chen@starfivetech.com>
 References: <20260610072420.64699-1-minda.chen@starfivetech.com>
@@ -66,61 +66,61 @@ X-ClientProxiedBy: NT0PR01CA0003.CHNPR01.prod.partner.outlook.cn
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c7bd859-6635-4299-39ce-08dec6c1519d
+X-MS-Office365-Filtering-Correlation-Id: 0d854180-664e-4d72-6d4f-08dec6c15226
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
  ARA:13230040|23010399003|366016|1800799024|7416014|376014|52116014|22082099003|18002099003|38350700014|921020|56012099006;
-X-Microsoft-Antispam-Message-Info: OhizK9a9QWKpfD0TrbLK41fzQBC+JmpxAbeeLdGmilo00Hh+RwSNUJMHfyFfgkKxqgSSN++eYDGjUA7N1caeM2ne5WzxmxExoME7WpQI/j1DtR9q6dpav8YT7ZKgRybOl51YVSH0K29RYTB/s1MkS3NnpbR+pDLqaK9H01lQ2rtjFL1oaILa7w7pKGzhDIXJQ8n0roEMyq8yfBjKTTAfl+3ZYANErqLOQe0t9AKAi2IKkg0DHuCnHr1FychGvbt9xgZsoK4pnT1egdFtWTmoX5S1MJ2EppH3aYeo6mApXCw00rIM3ptitXD0aNifxhIPbAzE+/UbwXabbhCxpKSeOEO3aocYYKL7cC0X8LZjcTcW+i9QtYBjJmvMWSYet0WY6ip0pVe5ESpNBVlqPV9LE6DcrfySVOg1NM/JVxXUfv1a+GIUXjqrS7fj8BfGQ7tOcMumF9T6frRBvkHUlWPJrbwFAHrlq7MMEnnVzmcGvbWH0QByhyLWZeeaglSmPRILCgz05w1gtm+vUATkw3X8h3iaVRDozWPxt4csgLalv99ujt7hGSL19B7rh3ySbgJPXd7ALlA85jxUJJPeMH1JtA==
+X-Microsoft-Antispam-Message-Info: ylQpXBJfA6dTbEe91BFp+UV1i36B/rIk7Rh9G7uycru+nYm4vDltPgrqu0+IPDFGqitpMkNnKS24ngrIEctyttrCcxu+/iHe/5msKR5yj4n8uAaIf/3l92mahd11YO7t1RL4q2/AHy4DlSpJzj0rMJjUQd/3Rh4Qk0nrzdMeZN6zaQ4TUL5oZN9Fqy2Gk0O9erZ3qbrtCZ/L4baTOtt/lAhaTeCsuojjP6Xg7cc+8rj2qwfixX8wcSgSqga5+n7LlX8zzT/Waer/gn1K76toBRhl0ZHJhNrlkGwCV9tzgUN2PYQuE3yudPXaEMeY3Rm42JCIF4L1pQM/8JfnD2QfL6rYPurqs6J6OjV05Ur37yoFju40mA7b7G26kY0zpj2hl1GeT3l+LsdzjNhgI86M1zPMwV5VuyBhNeGFKNUlMJXqVT7QJvpuKaO52TB8phNa9nz9vsJwoVEEcch7J4TB+iautHy6HYkzqc+XcxWURn/miviNHWBFtxAN/d6mYouNCq/fzZvs/yizPbKlKTgTge3CQ3254zVTKCB6h4swmYWo2SGN4SxHOoceke0ok/Ys5MKTkMx1as0PznLmrhyOLA==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
  CAT:NONE;
  SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(52116014)(22082099003)(18002099003)(38350700014)(921020)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?GXhVKwehCrWR0siaDlt0oPrMAQeeJGt7SKLbdkvlS0ODPuVQNMguclL+Mjbj?=
- =?us-ascii?Q?qiSEhVWxWnAWbLyoynGildhpW/YzRBCz3Z+86Us41FhV60JsRsa6Sfujyhdn?=
- =?us-ascii?Q?RajV9Vi8EBngJu2vrnGuMQJByI4RkxyGFORxvDBU3n9P+a1ssAkOb2EQiEkO?=
- =?us-ascii?Q?RFEdkL4jv8P4II4C9RFYMs30u2KDypNliz/HhU36WM4GilBmCeyCozNo5Tyc?=
- =?us-ascii?Q?hk+eF0UBeqPjOh+uszQ1iZevmIBClxjwJ28IIw8FdT0Fp63k78Qy0uXjUsCg?=
- =?us-ascii?Q?U9bmBVUb3b4NoV/IoK2ZUbZVVGNJLpQt5ZVxL4PcbS82lLf5g3nino9X6KxF?=
- =?us-ascii?Q?Uvpc5NMoryCRoUpSw6QJTToPSCMiscFqenHYdRitIFn9TIHxs8ihBzD3nZ/D?=
- =?us-ascii?Q?p4SRjW05ZqFJe4cB2WDF62lf5bRToduk7ReUVhG01KtGJxpuCARr2WBWqb5p?=
- =?us-ascii?Q?TO4Z3aYghedK+zEPSQ9qxzvkmY3/kFkMci+Z78ltme2MaVlvPp+fi70TXFC3?=
- =?us-ascii?Q?1f+qqryw08uhIq7fg/PeIRbD3KgcI4nB0e8Jkm8GdCjHuU+JQL+OcDIdfFaS?=
- =?us-ascii?Q?RYgjaPrVBXqQNfYxz5gVsNpcwyAJIRaWoyYwueYfxVYJq05zoLWb5B2hvWJi?=
- =?us-ascii?Q?RGnk4dQQKe9XRKoAvJCwGjaxpqofkYx/y3HcTUK5dkXMRvxbzPhShRYDzevM?=
- =?us-ascii?Q?h5qB+zWnXSzXC9640Uttt0fYCYBpznWsvj1jmb4cpkNMjNlVFsv/7YpNpGSs?=
- =?us-ascii?Q?GVC1lAk2L7DvWSPJkKW1y0CdadwIKs3p99w7R7rkoXmilnsbwc4e6XvOR2gt?=
- =?us-ascii?Q?LttW3364aWbTfJm4uEaF2M8RTjPE/zzg7R2S5ekTsL15Nq/7P4jkZADdqVWs?=
- =?us-ascii?Q?07jL8X2GQSEUTX4tHFJdLmbslzEbZUxwwV2E+D3VMlqScO1fpauWJDzv/mbk?=
- =?us-ascii?Q?ktC182/me7EGZf1uijCFdiRaw5PoiOAy1LFD4rgE0bNGM+hvtMfpVuU+5qLE?=
- =?us-ascii?Q?2Vyq0+m/T7Jjzb6HUqp66AuzX9sZ+OShxH75TIQv3hz885T+GvE7gh+61d6Q?=
- =?us-ascii?Q?Ekitol7wLUCK9LNKuWL5h9Wln7OCA0rcyOYxZaGa6jxG9uD3hEwUiCTNOehD?=
- =?us-ascii?Q?VsYyNddGJG/RTfmD9v0N6iFMu86BctFPrNaDxdZMhKNR+jihAC6sVuURdMOD?=
- =?us-ascii?Q?zM3mHf5M5vp7U4r5SkrR4hWgpyQpqXyuPcTLqNOlIZn4uLgWN98b6WwtWHg2?=
- =?us-ascii?Q?kGVtzOB4m5nIK0IjEYZ8lAXfregXKOJmDXtJuhkK5SJE5m+lm2hf+3VQJT7g?=
- =?us-ascii?Q?YDRvDcTnxFD2O61S6cwe77I3nYWXhWEL0F0F4Cy/g8ZEXjv5yhPpq++NrcoF?=
- =?us-ascii?Q?YZ5PPfv0KjIb/sEQhfqlcY5BR8OXhudhBUIC6QhHPcAigyWStIl/14XNOgei?=
- =?us-ascii?Q?ZVlknH3uZiIywPZy8FFvOXeX3YpzJWIlQjip39K5stnnOunfUU4vW6ROdq+R?=
- =?us-ascii?Q?xhh9OUrT83sif/S74p9donEZbyUCoJMHNY+HMYkeY69cRQh/tJHjmbpEqbi9?=
- =?us-ascii?Q?y2M3R7sM1HRoQ9Wa94ngU0d/f8UwQWO79vFyRCZczvBsBc42ZAm8Ou4Wt6ZV?=
- =?us-ascii?Q?T5hqO4mZDZxGdmXSVThEzKmOW28Ib6uqZXoxucw6kxpp69CUtY5ZlZGrkNog?=
- =?us-ascii?Q?3jhWs/+GD+3xcA3duDp08ZKv/zRCdmNMTYZCyWw2vX1bCZo0/GFp9800RUkN?=
- =?us-ascii?Q?aNC+phaYCkVV/PyMZmFZOWCkckp+20o=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?irR4uNGnTyo+d2RV8snzIUga6j00ZuJXgUTu4Yz+i3WjOz32pHQWL09iT4UT?=
+ =?us-ascii?Q?YwKLdFcnkAmZ6hXdj0LU+RUGX4EmMJK9KZqzKutS0d3Qp9t8f2hLvssbTbCA?=
+ =?us-ascii?Q?7wI5DOioq29roIF5puO+juD5Uz2UpUz3Y8bMhzuzZ1EhidCc8CUN7RfGrRWp?=
+ =?us-ascii?Q?9nD3hu7YBZITLK5qOl+DoGtMsoVwdpHdZpTaWeCYSgbZd0l5jwYQBMQUrhWK?=
+ =?us-ascii?Q?Qt5JCnqpEUEad/I5SZtfuS0cmdx8EGMU6Swo3S0E6XXo2+HEuuYPni4ngG+N?=
+ =?us-ascii?Q?8jD37fAKLYzzs0Lh6e27yIQlMpoU4escFVf9Ed+vJdHkbITmcwwFc1CO8VY5?=
+ =?us-ascii?Q?8j3RiASW34lJiS90O6Xrgrm5hHQS7fjirKU6R+2X0bn2YDBkUckMd2lR0cP6?=
+ =?us-ascii?Q?h3PmjlHX+Y9imqJsSqU1uGOR1bP4e2lFxIFciCM84rNxZTsIMcjukDVktcvJ?=
+ =?us-ascii?Q?ZmOulnrz/o7MpKvqRXD31WMxqLEaWQorzzVwYNCX9g/TSB5DjIzTt1s/3RqC?=
+ =?us-ascii?Q?kmF/It2RDf9/OfwL735MQHqMpvrPtz/HVZq08jO4cyxlYQ509GfpPpGL9kyC?=
+ =?us-ascii?Q?DlP4YeFoBJLQI9I7K8REjejm7qIvpxf2BsH6a5RKdYAt9icNcyqMIWAMkfXg?=
+ =?us-ascii?Q?L/0vc/B5HrVArsrfAVYT7qnySz4Rb+Ral9Wj39IYBGYJoqy0wi1TudhGwOEV?=
+ =?us-ascii?Q?81lZKaQNEL2q/+rlEqxOiWDxRYhzJ6zhEiK9En4/C1FZ90CQa50pcuVyGg1g?=
+ =?us-ascii?Q?Bkkvm0CCXzJJykb1gi1VVojtcngV3o4WJmfwTQjXeh6e2ykitVLdNPqCzPRX?=
+ =?us-ascii?Q?yNiQSOKe71BBVewZG/mqIYmZSVqyi6ZAG7fmCcCrOlXmUhx4EK9RHpOnlzEH?=
+ =?us-ascii?Q?YFvdv/O6P+UqmAxY5mGUMvWXNKO3YkvVn7geiBBDjaSb1Ww92tJRfMiN4ZG6?=
+ =?us-ascii?Q?pSHtoYLneDg1mA0DWzisVJCQ5/huhagH6GwBjuUFEpEKXpugsThn+uk18xXh?=
+ =?us-ascii?Q?si+Kkd6jo+yzu/fTL7zLZnEXKGrNkYT0tY0RqrAA2o0Zt1pS7LN62UQ+dSEb?=
+ =?us-ascii?Q?mkxBv0YKrPmF5h0J7FUhCQtMgSpZOm3P1CwL8jQSC2Ebv8gtw0J4GgI8q3/0?=
+ =?us-ascii?Q?ym+HL92FwOjEOIPITYFRPQBG/cVT27VuSD8JgyBExeWvagzBKdfrUF+8Azhf?=
+ =?us-ascii?Q?OV0RzCM/qprOLeB/F4L8ZxBYGELucYlf8+9tPYcR92jNvAdC21819/7hbcz4?=
+ =?us-ascii?Q?Oly/z4A7J+XMR27cHv3jH6SXD2llcYpEUzk/Fd5SOxlnQk73B4sq0rhLZ6c8?=
+ =?us-ascii?Q?byClBIB+OIM0+5azXVGmlcrX10FShR+ltT3mp3ZJ2zpfNefQcQeAWtQxTrlL?=
+ =?us-ascii?Q?x4bIeppgsAxK8fGK5jj8JOCOHKR4Z8vvSZTCXnj1ujkQx1VcO+uEY4K02slU?=
+ =?us-ascii?Q?idY4nIIHCTG99Dh9MNwWkqlSm2pRvZ1BUaTkBEvlWlTkqPmjHZTb/8jPr3LW?=
+ =?us-ascii?Q?PHhzLem4DHuK8d7MmX5ZBd0uUB4Iu68FDdo4MSLu/ynC+ludvoTQs5t+gsHs?=
+ =?us-ascii?Q?GeEAwPaCLGljaFR5FF5q92DOALoe10QRxqqGcCVNe3Y0WkD36niNnGL0SCYu?=
+ =?us-ascii?Q?CIFksOA9vq7oclF2YPuvmMgSkfA49bOoEQSQyqbb/YleGJa3SvRcCsnuKsJZ?=
+ =?us-ascii?Q?TEATpzCaLyVkEykgbE/j73sTXzOfe6NsGzpoh0yCD9VmgJ8BN37Hffmr5lh2?=
+ =?us-ascii?Q?kJfXCZobaiH7EN/18mVqjnXgYkk98E8=3D?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c7bd859-6635-4299-39ce-08dec6c1519d
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0d854180-664e-4d72-6d4f-08dec6c15226
 X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:24:33.4471 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:24:34.3228 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yyzqIVijSGKpdwky3Y575whHm81eiMMGXe90LYcxrIcgBBn9Gryo+8FGllhP+ADKw4zSdnEpg1StaxCZ2jazalUCepu1il/dilVbLWYaTW8=
+X-MS-Exchange-CrossTenant-UserPrincipalName: ypyiRQ5wwGQQnXm2iMW5XfNK5GJicr+FTF28KP6NZTBB88A/fZHfeYrIPsXTBJA/EPIX6r2NmDSv3xhXhqwkSbJ+gGwrV/xBsJsHDxzkpZE=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0512
 Cc: devicetree@vger.kernel.org, Minda Chen <minda.chen@starfivetech.com>,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [net-next v1 5/6] net: dwmac4: Add NCSI mac speed and
-	duplex setting in NCSI case
+Subject: [Linux-stm32] [net-next v1 6/6] net: stmmac: ethtool: Do NOT call
+	phylink function in NCSI mode.
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -171,42 +171,125 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 640AE6669CB
+X-Rspamd-Queue-Id: 808FD6669D2
 
-Add dwmac4 mac speed config and duplex setting in NCSI case
-because NCSI lack of PHY, will not call stmmac_mac_link_up().
+stmmac ethtool module do not call phylink function
+while GMAC NCSI mode.
+stmmac_ethtool_get_link_ksettings() return NCSI defaut
+speed and duplex setting, except that most cases return
+-EOPNOTSUPP error code.
 
 Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
 ---
- drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 32 ++++++++++++++++++-
+ 1 file changed, 31 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-index c6fcfae27c3d..7db4c5dc1f80 100644
---- a/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/dwmac4_core.c
-@@ -46,7 +46,20 @@ static void dwmac4_core_init(struct mac_device_info *hw,
- 	u32 value;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+index 92585d27ab88..149d3b9536ce 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+@@ -322,6 +322,12 @@ static int stmmac_ethtool_get_link_ksettings(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
  
- 	value = readl(ioaddr + GMAC_CONFIG);
--	writel(value | GMAC_CORE_INIT, ioaddr + GMAC_CONFIG);
 +	if (priv->plat->use_ncsi) {
-+		/*
-+		 * In NCSI case, because lack of PHY, will NOT
-+		 * set the mac speed config and mac duplex
-+		 * in stmmac_mac_link_up(). Now set these in
-+		 * core init function.
-+		 */
-+		value |= GMAC_CORE_INIT;
-+		value &= ~priv->hw->link.speed_mask;
-+		value |= priv->hw->link.duplex | priv->hw->link.speed100;
-+		writel(value, ioaddr + GMAC_CONFIG);
-+	} else {
-+		writel(value | GMAC_CORE_INIT, ioaddr + GMAC_CONFIG);
++		cmd->base.speed = SPEED_100;
++		cmd->base.duplex = DUPLEX_FULL;
++		return 0;
 +	}
++
+ 	return phylink_ethtool_ksettings_get(priv->phylink, cmd);
+ }
  
- 	/* Configure LPI 1us counter to number of CSR clock ticks in 1us - 1 */
- 	clk_rate = clk_get_rate(priv->plat->stmmac_clk);
+@@ -331,6 +337,9 @@ stmmac_ethtool_set_link_ksettings(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (priv->plat->use_ncsi)
++		return -EOPNOTSUPP;
++
+ 	return phylink_ethtool_ksettings_set(priv->phylink, cmd);
+ }
+ 
+@@ -384,6 +393,9 @@ static int stmmac_nway_reset(struct net_device *dev)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (priv->plat->use_ncsi)
++		return -EOPNOTSUPP;
++
+ 	return phylink_ethtool_nway_reset(priv->phylink);
+ }
+ 
+@@ -424,6 +436,9 @@ stmmac_get_pauseparam(struct net_device *netdev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(netdev);
+ 
++	if (priv->plat->use_ncsi)
++		return;
++
+ 	phylink_ethtool_get_pauseparam(priv->phylink, pause);
+ }
+ 
+@@ -433,6 +448,9 @@ stmmac_set_pauseparam(struct net_device *netdev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(netdev);
+ 
++	if (priv->plat->use_ncsi)
++		return -EOPNOTSUPP;
++
+ 	return phylink_ethtool_set_pauseparam(priv->phylink, pause);
+ }
+ 
+@@ -547,7 +565,7 @@ static void stmmac_get_ethtool_stats(struct net_device *dev,
+ 					     (*(u32 *)p);
+ 			}
+ 		}
+-		if (priv->dma_cap.eee) {
++		if (priv->dma_cap.eee && !priv->plat->use_ncsi) {
+ 			int val = phylink_get_eee_err(priv->phylink);
+ 			if (val)
+ 				priv->xstats.phy_eee_wakeup_error_n = val;
+@@ -723,6 +741,9 @@ static void stmmac_get_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (priv->plat->use_ncsi)
++		return;
++
+ 	return phylink_ethtool_get_wol(priv->phylink, wol);
+ }
+ 
+@@ -730,6 +751,9 @@ static int stmmac_set_wol(struct net_device *dev, struct ethtool_wolinfo *wol)
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (priv->plat->use_ncsi)
++		return -EOPNOTSUPP;
++
+ 	return phylink_ethtool_set_wol(priv->phylink, wol);
+ }
+ 
+@@ -738,6 +762,9 @@ static int stmmac_ethtool_op_get_eee(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (priv->plat->use_ncsi)
++		return -EOPNOTSUPP;
++
+ 	return phylink_ethtool_get_eee(priv->phylink, edata);
+ }
+ 
+@@ -746,6 +773,9 @@ static int stmmac_ethtool_op_set_eee(struct net_device *dev,
+ {
+ 	struct stmmac_priv *priv = netdev_priv(dev);
+ 
++	if (priv->plat->use_ncsi)
++		return -EOPNOTSUPP;
++
+ 	return phylink_ethtool_set_eee(priv->phylink, edata);
+ }
+ 
 -- 
 2.17.1
 
