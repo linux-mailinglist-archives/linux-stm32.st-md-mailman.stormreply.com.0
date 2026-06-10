@@ -2,36 +2,36 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id AzkwKjURKWp/PwMAu9opvQ
+	id a9tgFjgRKWqCPwMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 09:24:37 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 09:24:40 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 02A436669B6
-	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 09:24:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 371FE6669C7
+	for <lists+linux-stm32@lfdr.de>; Wed, 10 Jun 2026 09:24:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=starfivetech.com (policy=quarantine);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AAF91C58D7B;
-	Wed, 10 Jun 2026 07:24:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E43AAC57A51;
+	Wed, 10 Jun 2026 07:24:39 +0000 (UTC)
 Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn
  (mail-sh0chn02on2127.outbound.protection.partner.outlook.cn
  [139.219.146.127])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F3469C5663A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6762BC5663A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 10 Jun 2026 07:24:35 +0000 (UTC)
+ Wed, 10 Jun 2026 07:24:36 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=kxFN7tjzAzEhImWILdPqsdbRUibYTAwp65aVSHgNcEDNI/0vbYg4FvuDsXrZTdVRq6ysT3ZsjHWgC6zbvv0o1yFCXraPcHgbDlBFAttIh7hQBp83fxq6tT0wjUrz4qP8wqAaSaRQbbIWO/tYg48Isaa66yez0i4tW+BxVQQDit6JyLVz8R75JqDldI7x+WK/Ysd5zZN71J9L8GAKqQaneyYdOndDEIAh3MM29o1XGLCydu9l5bcDP0y8jzcR4zLUd1WWEssRRj9qVgeUVxV4cMuwPg9lwGXQKwhweVOZoGml1CqSVAIh+l+P2nnZ8c+rgTxJnPyL90wAVBEPVN1RKA==
+ b=KdhNpgTVU5TGIZvPl6gYLo4zQIq0SLSXKzzyjkcp/IQU6yIW4h0WupJDsEXeotL7vUAtB5tgvsW2gjHIUd/iOo4qhlY2HmpJ4I4iZMJS/Qovrl7GcFc75U3Xb20y1p8AvFqqRrx0EojwwYNFnd15C7gFw0SKSjUUo4johGSvgWcdi84fiudFvH3cOZ73zoPlmEmhwAGQxVR2aQ4t0swEL3liIVAu75YsuX2S881qpJdec4wH4epaZdGDobjvKrkIJjuW50iXSxuiDJGuA5gKs3B3iyEJc08XoMDi1pis2ana4HTnNA6YIXyguUjx2/wUGg2ffe2blt0TGVSDLNGZyg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4JYXBn8J+9amx3bg18UuFn71laOFFp2Xdr4b1HpjFgY=;
- b=LZ1ev/I48sVjZD32qLbrN921EwRQ+H3UizHXKAkdtDTeWL/B0N0QZJ86023URk2ydKjTcPYPMawVfTiB/HJUkXT7i3pc17qmhId2uKR27gPq7tyrZqmPI1KLSuv5c6ztf8X6xFGNRqFIa9aFNWBBv874UssKD7Rak99p+iOvvq4zRLbDLVi9u5GV68ItRnYwOLrNkHP8EIkzr6lK1wpY3qzxTZQ/nsZ55MqOvVAndWsl76uadgFw8rek5JzwxdnR1GZpRpRPHxzLPH4DMWSuGfVF3XRNOgziqEZxDoa16uvX5KA3PCHOa39HH8noz7yiBb4CpS0M34vyHrcpyBqNlw==
+ bh=G0f/BKFV38V0X8QkT8WEHyoW3pTFU3k/0NGCYIVbDtQ=;
+ b=kGR2bnpndp5zWOdfl3uhzDKC5T4OYM9osXit75beAw2rHIfXif4dIXJexqju7vBWsx9FaJoX0BNvxsG/t6W1iCxpfju7GbJYP/Bjq3hgxo7/nUOWRV7xuAnFxvgcFgGRy66QTLm4PRCORawq1FSIHFj8VMJYVdPte8kxWXmmonIgwpmReTT9aBGgUgxKYN58zhX5BFyN2eO667szkB/PN37isIwzgCyigV7jr1tsty5jyKFCRaijBuLUZNo/WDgq2FOb92+50iUSpsDyXH8CPpOAi6pqmj9v3nw7YZ7ikSCev0KJnqnJsFQeIIAbeGCl4CGVtLo+uPdYlh6v6DL14g==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=starfivetech.com; dmarc=pass action=none
  header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
@@ -39,11 +39,11 @@ Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:25::15) by SHXPR01MB0512.CHNPR01.prod.partner.outlook.cn
  (2406:e500:c311:1c::12) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.11; Wed, 10 Jun
- 2026 07:24:30 +0000
+ 2026 07:24:31 +0000
 Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
  ([fe80::9b99:12dc:a115:b90f]) by
  SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
- with mapi id 15.21.0092.014; Wed, 10 Jun 2026 07:24:30 +0000
+ with mapi id 15.21.0092.014; Wed, 10 Jun 2026 07:24:31 +0000
 From: Minda Chen <minda.chen@starfivetech.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
  "David S . Miller" <davem@davemloft.net>,
@@ -55,8 +55,8 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor@kernel.org>, netdev@vger.kernel.org
-Date: Wed, 10 Jun 2026 15:24:16 +0800
-Message-Id: <20260610072420.64699-3-minda.chen@starfivetech.com>
+Date: Wed, 10 Jun 2026 15:24:17 +0800
+Message-Id: <20260610072420.64699-4-minda.chen@starfivetech.com>
 X-Mailer: git-send-email 2.17.1
 In-Reply-To: <20260610072420.64699-1-minda.chen@starfivetech.com>
 References: <20260610072420.64699-1-minda.chen@starfivetech.com>
@@ -66,61 +66,61 @@ X-ClientProxiedBy: NT0PR01CA0003.CHNPR01.prod.partner.outlook.cn
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SHXPR01MB0863:EE_|SHXPR01MB0512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7b4cb096-d926-4a85-745d-08dec6c14ff1
+X-MS-Office365-Filtering-Correlation-Id: 921ac0c6-6730-4976-99fb-08dec6c1507e
 X-MS-Exchange-SenderADCheck: 1
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|366016|1800799024|7416014|376014|52116014|22082099003|18002099003|38350700014|921020|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info: KdZjo5LtnpabcCzFJtUTOtufvQjbAXBDy+k+u7reDa927uXW6iRHEi8wOZv6itHYLMKigdhTMExUNj5YVz7vGDwagtzPjF2BMA8eeYRun86+ULDiL8FYk+31e+22NyljzN5N7XT4pcja1nXJ9wzsIde6at5DOje5R3+kiWrw0YqtrhX0zXoGVoen4Kp5nOBEz+DjWVAHZDnig0w74Iz7eJYFQ6A8/1lpHoudaTt0JFSN/raoZsTPmu9MOqCbboGw+RKfr0ii9ahJBQWLeEXwhi6CMe1BnGh7cpzaFRC3CG1gffo3IyzjFn7NCfWkrdqiK44xubYkBmrpsSEvaek1j+qPV5FP7ltB8rAkV3BLwbvr2aR5bXyFBwBDvFOvbRjQVoj2SoZhUuXyWdgZY9snsTB2RDFsY+dUGVDbBeLPHv+IjRGFplY2i+GNVWCc0gFf7uU6twd/jl7uQym3xrc/U4CAiqacBu5ygs2NM+6fsNnRVf6sE8M0Y7JYPGw2qDLIngSw96OyHCfSUK0qZN2Tb7a+7LByHS4oesIqnie+CBg1BQlYaXUfj8MjJ47NNiy8oHUSJCyJoIBsL88/Tn/ahw==
+ ARA:13230040|23010399003|366016|1800799024|7416014|376014|52116014|22082099003|18002099003|38350700014|921020|56012099006;
+X-Microsoft-Antispam-Message-Info: drUknxUl57k4Sb8fxrVJEo0JkqvRSFvsMtaaqywIzo8iYkdkM7f0kzJD0j/l+yRcIvy5EEzMy7L4Vt++jUIFhRiaxX8s3Cvoix6cMr43JDOy715zGuXPZAciu3PqTklf/RbcY+7S4LfY6odnLFZsVsz6jBPcXQQuWDZD4wA+eJv1RGQL5J9SnyBE15eYSC/1rpdGlKjvzW4g10h5KP75oekBH991qw5kJQjmMuoJDk63BvzsXkz5UvGxKIVoH5SAsCyDlxhDB3lsdAG+dULnh8RSCF2UQVfNzRbTBJnQRkWqygMFSbRhtE7hc68djMHCokjkAJtYIOfLXaHkVDkodxT9sSmfboI1QZRlXI4fiAZdKqIcX4Ovboy4lPhOgUaXN0hIzbckXl2nMDJWbBDPnD++LytgoLN2WCHk5yYFEY2m240SuHOGFELYCmE8HJbXNuyE2eDp61OEEhAibRuqlBk8kPcTrR/1Ct6W1HxFp6qVl+Kx9JDwvXNNr/Mwf8gO2eTwaz+/NmxelNQvQpz5rPBQOvPQmOefaw4q5QP9qhDWoUwU4i3Zwxx80wpkB94eecjKQthBNim+xuH0/hGQGQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
  CAT:NONE;
- SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(52116014)(22082099003)(18002099003)(38350700014)(921020)(6133799003)(56012099006);
+ SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(52116014)(22082099003)(18002099003)(38350700014)(921020)(56012099006);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Jori/7QTcnKfvJQQEikkxF8gL2xGKolRr+JPDUTlx5ifb4SwWBM8+8PMGDOY?=
- =?us-ascii?Q?r3V5tqH0r6pBEmS8wwzLGpvucth8gf9Eiw7Exn2acgyUmZWvvSNkZsctE6Ec?=
- =?us-ascii?Q?CrdC7ERvcYY3d1IWLT8sBlqmACTi07mR9TvNxrDQkNl99A7lK6iw14IgLHFt?=
- =?us-ascii?Q?bsFWK8me5BbF8Rk+bSVIB+w5UpfZPXTVFYgzjH8EquJFrf1JBmaazx61M1kk?=
- =?us-ascii?Q?+6IIXcfjXOfylg66cxpUOaHrIznpugzV/sUmf9AOgK20z8kWl314rP7Emiq/?=
- =?us-ascii?Q?NNhKSMlLa0UPlvpq0eUcpkHV704NMoQAzI/Rx5ESzwMU0Ma2HzQCLvxVVlU+?=
- =?us-ascii?Q?Vri5gh+qr83/YNuTWvSIUFgbf/qiSuL14wHsct7+kroz9nLzgNKfqIO5DgAZ?=
- =?us-ascii?Q?4A51zCfRJ1XZhLKDt66aG6wvpLgRxP+UmEgqP25kok/tbH1IYrB1dUflsMuq?=
- =?us-ascii?Q?NHwzD/Cl4BsoaithId0MlmxUOWeMwmBlJcRWh3ZhMrP//AF4X4YGmpbfZys1?=
- =?us-ascii?Q?hxKvrJejUe7nQMys64R7VdHQ5/f4ouVpdoOqjqYqDD0nK5BS/v91xT2CrF0S?=
- =?us-ascii?Q?m7Cx+cDQKbVXeMyvOYSo5C7HDWOZdFmLgptad/yJV091r8YoZFOMTyPIwTqp?=
- =?us-ascii?Q?5ecA3BG9UqkHNQ6MXrFqyPHCQRG0osLMmyDAQBCW4g8xDvXzchCXAbZeLNC8?=
- =?us-ascii?Q?YxRs6njYfpZCPxcDGFi8MzB98Qq1Shw+vd906F+s5iR7qWsom1mvYaXJIoAa?=
- =?us-ascii?Q?x3+NWaGrH2dOjIqzWYMEs5u3QrnRzifcMb7DHRQ5C9qCpQA4n0BshL0us/ts?=
- =?us-ascii?Q?nulmlzMIpsqqjE39WEzRD8b1aLhbJvHRcRP7DaOjvcSAAGqGhnApwiTDnIFT?=
- =?us-ascii?Q?qsX1nh2p5yji26b9rJd+hcTQiRN3tuf68JpQ9defurUF5FxnFJYhCV1TrSkw?=
- =?us-ascii?Q?ktiQm3I3+B9GtHN7y8W6n762jyUAqaYceZr4oKLW/Sybi0eDxInIvnnp073p?=
- =?us-ascii?Q?lXrCL1NvO3mgvUUxvfh2oTEBbqs8uqUQCyrpZu1cU1azneY0bAOZO0AMkv1A?=
- =?us-ascii?Q?56UIQgt2PDPBJCQ9NbDm85sxmY5K6yC7wlQ20oBXvWrD9IY0jvGkOAbWQZEn?=
- =?us-ascii?Q?1mVOUbBms+hzEZTkJALx6WRVpnOYnp29WgqWMz58v7vplW4hZP06q+1PS8ow?=
- =?us-ascii?Q?4vfNqfiMNIo2aov7F1fPX4ZmXH02cBMb3N7LblR+arF2KjNAfhSLsmaejtdB?=
- =?us-ascii?Q?ZyiT5YkCQLtv22imstFkiXrMLLPimXpuMuMF6nFopw4yRHYJIX5SQit22Px1?=
- =?us-ascii?Q?5ufd9x1hwMFOiDGG4wJbIGo4FBHTYw0RztwaMdcxMC17EKs8MdTokwzG7HRC?=
- =?us-ascii?Q?Ta/XM5zAK9gXhKSrv7ITkQetkMlJtbPQH3JpFeuytv7CAXBQppM4pmvAdp5O?=
- =?us-ascii?Q?aOaVVwchskaGNv58s0in1hM3XzQMa7pkfPuNy62VZ1M1HcXltNgCHP9LNqoL?=
- =?us-ascii?Q?YziCongCnyJbQThUsL3eFGL0aqZD1jLitCrBO0MD9sbfU5QAu1Oz0i7a9RPu?=
- =?us-ascii?Q?AC1/pTWo1b7xzhIwSzgXDeFQCEytkmwtw76xheHeCda5+B5pBp2oS7vNx7AV?=
- =?us-ascii?Q?1Fkv36Sw6+sfpuSnLlU9oIcyCgTJs1/gygeTu1GpW22nlWFIPMz3p/hJH2uj?=
- =?us-ascii?Q?WQsZYnr8ajLqlpIE2p6QNLoxKd1rm7aYcXcwzplIn7o0S9XjpnSmuCipSWs6?=
- =?us-ascii?Q?zgVokH9pKZD4Qgax4iMhkR7ZCkmpdws=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?fkBbwo+h3QUslv0vqPvZLl0Mte1LWEWg+mkONbdrdJobCEchT1Z1C3umaFuD?=
+ =?us-ascii?Q?RTfTXfuOsF/GTyvt5hJMnwD7ga1a3F7462N43Q4kG02eg6J0sHTPbMq0jGW+?=
+ =?us-ascii?Q?fvRQXqvTcV9sKvfeTw6q/zsEwEycHSBUxcZ6Q2KWwB1cyj+hEq/uG0L9vT00?=
+ =?us-ascii?Q?rOPAhnEinDDfumaNszeshX8rbc7HZit6IPK3Itj6LFc6rFGBsZkdAcgxstpZ?=
+ =?us-ascii?Q?gxmgSUmuS2fTdKDl0Q7sY1SYCw511b94gvmRKtVhtoDD9a0h7Tearv4+k6TO?=
+ =?us-ascii?Q?9pti0W607yVuq2QZVNC4kSyaa955X/0IxLxMOnChrm5VV3KbzwGz1PWeUR/C?=
+ =?us-ascii?Q?Qm6V6sFKWcUYePlIs2CtUcHdIKvW3Z0S3WuEObIMnGr+FliXJu0Up7ENdeT9?=
+ =?us-ascii?Q?eD9bisSYFIWwwLmDYSTWlyJHjl/Nxru6imjCM9+H7YI2Dy42zm8YmegVWzVK?=
+ =?us-ascii?Q?lHHreX/En5F6S0coEOxW4sxDw8vnM5hIh/V9p/qWCAscrEoIxknP/i7uqo0T?=
+ =?us-ascii?Q?8/AzKXj3vo23UhWi8eRnkuOlMyg3y3aL7UGQnPwJlx1lkCqfRXiUt+VJff3K?=
+ =?us-ascii?Q?t0/z8fZjQ7makhXxbx6GcjQnbNjHdYOKm91NziLYqf+ciGZ74YCxuIPMNNji?=
+ =?us-ascii?Q?UTX/pAVcmLKNgauITw1xrYv/Pt61mYFhmEK638wZtB3rK3kGIKmmM0Zv0WiK?=
+ =?us-ascii?Q?VqGfo8EZHQYvbtVt6c4k/WqY5INfd6lzCDrsCl3cXm2A01Z3Ji6PBevD+pYT?=
+ =?us-ascii?Q?NkSv7EHAjE70kcMe4r8xRZVMnI/UeqkepQV54KBCkb0/4S0QrSXvun5KDdHh?=
+ =?us-ascii?Q?0uv4YLHv4mXk4Afv9Yh1/jWxGqzWbmWKhaAJclmPHmqEfczR7FcrkjrEC6FM?=
+ =?us-ascii?Q?vTuR6BkpL65X29RSqRAqu1Uq/vTNf8tL1s1yk4VxRgWMea0fuQtS8OyCw1ke?=
+ =?us-ascii?Q?V2cGF275TTgjrJETOP0qLnk7uckemaIeBMxFpy13xj9T8VSN6fx+cJUVA2qY?=
+ =?us-ascii?Q?wmvpbDg+SVgGYMCUdjbMmjv2zTqCkxZUsfE454iwCk9H6GHgMFkq/lrN5Bdq?=
+ =?us-ascii?Q?fLygFY/NDw9ePbCl/Ex42u3eiOKT0Km7kgfHpZoCRSaS5XtLP5t5lNXGnaBB?=
+ =?us-ascii?Q?zlyxxOQaeHphr/KjHLwTQKBfDzUHtZ8Lrk4RmDVsGqjmIgwgq2olxGXUNnH3?=
+ =?us-ascii?Q?bzmZ236jBzhz1FXTrDpunYcJ4FIWaB4xVrWt3lbAdaEWnEJDAitmIxZxKbeF?=
+ =?us-ascii?Q?5R9/SOvJ9Y+Ty7kMXKKYf5BSKdibT2ui+9LLSv7HWAa6k8Tviopa5UI2Bggi?=
+ =?us-ascii?Q?Y0JNW8OHFywJN0c1RD9rEn0/VnVy/OrycswsbH6/Bs8DE6XgEXkc6iQUTftI?=
+ =?us-ascii?Q?z1WoeNngFRME0925sFB5N/wWk6OD/JUTc6hz6pvjtn/F2EhNJvt3RwOy8HfE?=
+ =?us-ascii?Q?cPu5fH/HSdH6xlujHaTEbwwPqEjkP8vTkgtifUrx25tOoFSea6S8wyX2hT50?=
+ =?us-ascii?Q?ElqQZVcc7DGOEym67BYWSbUCBHtkuTdMMfTXkvYP2185OGcs42d/4xECXJ1x?=
+ =?us-ascii?Q?7Xw/75feXJzYVxkuGF6WzV03Z3UYOiIpP1s98r4ocPhEaeFW74bfq29tn8I8?=
+ =?us-ascii?Q?jjD+9aioxlqMvnyJtSjb6SMfkc029Oc6aaX+dR0ssCG1Wr4jpCJcqz29j2a6?=
+ =?us-ascii?Q?4gIw3pSbH6Q10TmNI8BhNLKGR2z7Maht+14MUlbFXC4+96NBaGVocE//V3kl?=
+ =?us-ascii?Q?psPNczKCx+gsXfvSChinCRbuco0NDxc=3D?=
 X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7b4cb096-d926-4a85-745d-08dec6c14ff1
+X-MS-Exchange-CrossTenant-Network-Message-Id: 921ac0c6-6730-4976-99fb-08dec6c1507e
 X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:24:30.6490 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jun 2026 07:24:31.6040 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /gsudee+9wqQXju32n6CrFYucgUKpMSghTGkDZeh/BgGgKIfsOCa172rVx2ArveK8WAMsjkli3pbiyKyJHvELuWmQmqcjnGU5jqHwUREasY=
+X-MS-Exchange-CrossTenant-UserPrincipalName: NEZ2rBh7tujHUMWCgpvV6kIW2m/83w8EixybmacZlAH0kIgG6cuDroSCFQK0jXV8VgTujibIVN3PvvJRu1/XdLYt3cf8+21kvk5TW/QChm0=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0512
 Cc: devicetree@vger.kernel.org, Minda Chen <minda.chen@starfivetech.com>,
  linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [net-next v1 2/6] net: stmmac: Checking whether
-	priv->phylink if NULL in NCSI case
+Subject: [Linux-stm32] [net-next v1 3/6] net: stmmac: Add register NCSI
+	device support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -145,7 +145,7 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
@@ -169,357 +169,170 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
 	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 02A436669B6
+X-Rspamd-Queue-Id: 371FE6669C7
 
-In NCSI case, RMII do not connect mdio PHY, so the phylink is NULL,
-and need to checking if phylink is NULL, So add stmmac phylink
-wrapper function to checking whether phylink is NULL.
+Add stmmac register support. The register NCSI code is
+almost from faraday ftgmac100.c
 
 Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
 ---
- .../net/ethernet/stmicro/stmmac/stmmac_main.c |  55 ++++-----
- .../ethernet/stmicro/stmmac/stmmac_phylink.h  | 106 ++++++++++++++++++
- 2 files changed, 134 insertions(+), 27 deletions(-)
- create mode 100644 drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  1 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 44 +++++++++++++++++--
+ .../ethernet/stmicro/stmmac/stmmac_platform.c | 10 ++++-
+ include/linux/stmmac.h                        |  1 +
+ 4 files changed, 51 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 8ba8f03e1ce0..1df0689e22a5 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -383,6 +383,7 @@ struct stmmac_priv {
+ 	struct bpf_prog *xdp_prog;
+ 
+ 	struct devlink *devlink;
++	struct ncsi_dev *nsdev;
+ };
+ 
+ enum stmmac_state {
 diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 35da51c26248..010802389772 100644
+index 010802389772..b6af53783883 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -38,7 +38,6 @@
- #include <linux/seq_file.h>
- #endif /* CONFIG_DEBUG_FS */
- #include <linux/net_tstamp.h>
--#include <linux/phylink.h>
+@@ -41,6 +41,7 @@
  #include <linux/udp.h>
  #include <linux/bpf_trace.h>
  #include <net/devlink.h>
-@@ -49,6 +48,7 @@
- #include "stmmac_fpe.h"
- #include "stmmac.h"
- #include "stmmac_pcs.h"
-+#include "stmmac_phylink.h"
- #include "stmmac_xdp.h"
- #include <linux/reset.h>
- #include <linux/of_mdio.h>
-@@ -1323,7 +1323,7 @@ static int stmmac_init_phy(struct net_device *dev)
- 	u32 dev_flags = 0;
- 	int ret;
- 
--	if (!phylink_expects_phy(priv->phylink))
-+	if (!stmmac_phylink_expects_phy(priv->phylink))
- 		return 0;
- 
- 	if (priv->hw->xpcs &&
-@@ -3655,7 +3655,7 @@ static int stmmac_hw_setup(struct net_device *dev)
- 
- 	/* Make sure RX clock is enabled */
- 	if (priv->hw->phylink_pcs)
--		phylink_pcs_pre_init(priv->phylink, priv->hw->phylink_pcs);
-+		stmmac_phylink_pcs_pre_init(priv->phylink, priv->hw->phylink_pcs);
- 
- 	/* Note that clk_rx_i must be running for reset to complete. This
- 	 * clock may also be required when setting the MAC address.
-@@ -3663,12 +3663,12 @@ static int stmmac_hw_setup(struct net_device *dev)
- 	 * Block the receive clock stop for LPI mode at the PHY in case
- 	 * the link is established with EEE mode active.
- 	 */
--	phylink_rx_clk_stop_block(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_block(priv->phylink);
- 
- 	/* DMA initialization and SW reset */
- 	ret = stmmac_init_dma_engine(priv);
- 	if (ret < 0) {
--		phylink_rx_clk_stop_unblock(priv->phylink);
-+		stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
- 		netdev_err(priv->dev, "%s: DMA engine initialization failed\n",
- 			   __func__);
- 		return ret;
-@@ -3676,7 +3676,7 @@ static int stmmac_hw_setup(struct net_device *dev)
- 
- 	/* Copy the MAC addr into the HW  */
- 	stmmac_set_umac_addr(priv, priv->hw, dev->dev_addr, 0);
--	phylink_rx_clk_stop_unblock(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
- 
- 	/* Initialize the MAC Core */
- 	stmmac_core_init(priv, priv->hw, dev);
-@@ -3752,9 +3752,9 @@ static int stmmac_hw_setup(struct net_device *dev)
- 	/* Start the ball rolling... */
- 	stmmac_start_all_dma(priv);
- 
--	phylink_rx_clk_stop_block(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_block(priv->phylink);
- 	stmmac_set_hw_vlan_mode(priv, priv->hw);
--	phylink_rx_clk_stop_unblock(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
- 
- 	return 0;
- }
-@@ -4159,7 +4159,7 @@ static int __stmmac_open(struct net_device *dev,
- 
- 	stmmac_init_coalesce(priv);
- 
--	phylink_start(priv->phylink);
-+	stmmac_phylink_start(priv->phylink);
- 
- 	stmmac_vlan_restore(priv);
- 
-@@ -4174,7 +4174,7 @@ static int __stmmac_open(struct net_device *dev,
- 	return 0;
- 
- irq_error:
--	phylink_stop(priv->phylink);
-+	stmmac_phylink_stop(priv->phylink);
- 
- 	for (chan = 0; chan < priv->plat->tx_queues_to_use; chan++)
- 		hrtimer_cancel(&priv->dma_conf.tx_queue[chan].txtimer);
-@@ -4219,14 +4219,14 @@ static int stmmac_open(struct net_device *dev)
- 	kfree(dma_conf);
- 
- 	/* We may have called phylink_speed_down before */
--	phylink_speed_up(priv->phylink);
-+	stmmac_phylink_speed_up(priv->phylink);
- 
- 	return ret;
- 
- err_serdes:
- 	stmmac_legacy_serdes_power_down(priv);
- err_disconnect_phy:
--	phylink_disconnect_phy(priv->phylink);
-+	stmmac_phylink_disconnect_phy(priv->phylink);
- err_runtime_pm:
- 	pm_runtime_put(priv->device);
- err_dma_resources:
-@@ -4241,7 +4241,7 @@ static void __stmmac_release(struct net_device *dev)
- 	u8 chan;
- 
- 	/* Stop and disconnect the PHY */
--	phylink_stop(priv->phylink);
-+	stmmac_phylink_stop(priv->phylink);
- 
- 	stmmac_disable_all_queues(priv);
- 
-@@ -4280,12 +4280,12 @@ static int stmmac_release(struct net_device *dev)
- 	 * to its slowest speed to save power.
- 	 */
- 	if (device_may_wakeup(priv->device))
--		phylink_speed_down(priv->phylink, false);
-+		stmmac_phylink_speed_down(priv->phylink, false);
- 
- 	__stmmac_release(dev);
- 
- 	stmmac_legacy_serdes_power_down(priv);
--	phylink_disconnect_phy(priv->phylink);
-+	stmmac_phylink_disconnect_phy(priv->phylink);
- 	pm_runtime_put(priv->device);
- 
- 	return 0;
-@@ -6209,9 +6209,9 @@ static int stmmac_set_features(struct net_device *netdev,
- 	else
- 		priv->hw->hw_vlan_en = false;
- 
--	phylink_rx_clk_stop_block(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_block(priv->phylink);
- 	stmmac_set_hw_vlan_mode(priv, priv->hw);
--	phylink_rx_clk_stop_unblock(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
- 
- 	return 0;
- }
-@@ -6386,7 +6386,8 @@ static int stmmac_ioctl(struct net_device *dev, struct ifreq *rq, int cmd)
- 	case SIOCGMIIPHY:
- 	case SIOCGMIIREG:
- 	case SIOCSMIIREG:
--		ret = phylink_mii_ioctl(priv->phylink, rq, cmd);
-+		if (priv->phylink)
-+			ret = phylink_mii_ioctl(priv->phylink, rq, cmd);
- 		break;
- 	default:
- 		break;
-@@ -6480,9 +6481,9 @@ static int stmmac_set_mac_address(struct net_device *ndev, void *addr)
++#include <net/ncsi.h>
+ #include <net/page_pool/helpers.h>
+ #include <net/pkt_cls.h>
+ #include <net/xdp_sock_drv.h>
+@@ -4167,6 +4168,16 @@ static int __stmmac_open(struct net_device *dev,
  	if (ret)
- 		goto set_mac_error;
+ 		goto irq_error;
  
--	phylink_rx_clk_stop_block(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_block(priv->phylink);
- 	stmmac_set_umac_addr(priv, priv->hw, ndev->dev_addr, 0);
--	phylink_rx_clk_stop_unblock(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
++	if (priv->plat->use_ncsi) {
++		/* If using NC-SI, set our carrier on and start the stack */
++		netif_carrier_on(priv->dev);
++
++		/* Start the NCSI device */
++		ret = ncsi_start_dev(priv->nsdev);
++		if (ret)
++			goto irq_error;
++	}
++
+ 	stmmac_enable_all_queues(priv);
+ 	netif_tx_start_all_queues(priv->dev);
+ 	stmmac_enable_all_dma_irq(priv);
+@@ -4250,6 +4261,9 @@ static void __stmmac_release(struct net_device *dev)
  
- set_mac_error:
- 	pm_runtime_put(priv->device);
-@@ -8081,7 +8082,7 @@ static int __stmmac_dvr_probe(struct device *device,
+ 	netif_tx_disable(dev);
+ 
++	if (priv->plat->use_ncsi)
++		ncsi_stop_dev(priv->nsdev);
++
+ 	/* Free the IRQ lines */
+ 	stmmac_free_irq(dev, REQ_IRQ_ERR_ALL, 0);
+ 
+@@ -7795,6 +7809,15 @@ struct plat_stmmacenet_data *stmmac_plat_dat_alloc(struct device *dev)
+ }
+ EXPORT_SYMBOL_GPL(stmmac_plat_dat_alloc);
+ 
++static void stmmac_ncsi_handler(struct ncsi_dev *nd)
++{
++	if (unlikely(nd->state != ncsi_dev_state_functional))
++		return;
++
++	netdev_info(nd->dev, "NCSI interface %s\n",
++		    nd->link_up ? "up" : "down");
++}
++
+ static int __stmmac_dvr_probe(struct device *device,
+ 			      struct plat_stmmacenet_data *plat_dat,
+ 			      struct stmmac_resources *res)
+@@ -8048,10 +8071,19 @@ static int __stmmac_dvr_probe(struct device *device,
+ 	if (ret)
+ 		goto error_pcs_setup;
+ 
+-	ret = stmmac_phylink_setup(priv);
+-	if (ret) {
+-		netdev_err(ndev, "failed to setup phy (%d)\n", ret);
+-		goto error_phy_setup;
++	if (priv->plat->use_ncsi) {
++		dev_info(priv->device, "Using NCSI interface\n");
++		priv->nsdev = ncsi_register_dev(ndev, stmmac_ncsi_handler);
++		if (!priv->nsdev) {
++			ret = -ENODEV;
++			goto error_phy_setup;
++		}
++	} else {
++		ret = stmmac_phylink_setup(priv);
++		if (ret) {
++			netdev_err(ndev, "failed to setup phy (%d)\n", ret);
++			goto error_phy_setup;
++		}
+ 	}
+ 
+ 	ret = stmmac_register_devlink(priv);
+@@ -8082,6 +8114,8 @@ static int __stmmac_dvr_probe(struct device *device,
  error_netdev_register:
  	stmmac_unregister_devlink(priv);
  error_devlink_setup:
--	phylink_destroy(priv->phylink);
-+	stmmac_phylink_destroy(priv->phylink);
++	if (priv->nsdev)
++		ncsi_unregister_dev(priv->nsdev);
+ 	stmmac_phylink_destroy(priv->phylink);
  error_phy_setup:
  	stmmac_pcs_clean(ndev);
- error_pcs_setup:
-@@ -8147,7 +8148,7 @@ void stmmac_dvr_remove(struct device *dev)
- #endif
- 	stmmac_unregister_devlink(priv);
+@@ -8141,6 +8175,8 @@ void stmmac_dvr_remove(struct device *dev)
  
--	phylink_destroy(priv->phylink);
-+	stmmac_phylink_destroy(priv->phylink);
- 	if (priv->plat->stmmac_rst)
- 		reset_control_assert(priv->plat->stmmac_rst);
- 	reset_control_assert(priv->plat->stmmac_ahb_rst);
-@@ -8214,7 +8215,7 @@ int stmmac_suspend(struct device *dev)
- 	mutex_unlock(&priv->lock);
+ 	pm_runtime_get_sync(dev);
  
- 	rtnl_lock();
--	phylink_suspend(priv->phylink, !!priv->wolopts);
-+	stmmac_phylink_suspend(priv->phylink, !!priv->wolopts);
- 	rtnl_unlock();
++	if (priv->nsdev)
++		ncsi_unregister_dev(priv->nsdev);
+ 	unregister_netdev(ndev);
  
- 	if (stmmac_fpe_supported(priv))
-@@ -8314,7 +8315,7 @@ int stmmac_resume(struct device *dev)
- 	/* Prepare the PHY to resume, ensuring that its clocks which are
- 	 * necessary for the MAC DMA reset to complete are running
+ #ifdef CONFIG_DEBUG_FS
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 5cae2aa72906..483ecf06fc13 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -348,7 +348,7 @@ static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
+ 	 * described assume this is the case since there must be something
+ 	 * connected to the MAC.
  	 */
--	phylink_prepare_resume(priv->phylink);
-+	stmmac_phylink_prepare_resume(priv->phylink);
+-	legacy_mdio = !of_phy_is_fixed_link(np) && !plat->phy_node;
++	legacy_mdio = !of_phy_is_fixed_link(np) && !plat->phy_node && !plat->use_ncsi;
+ 	if (legacy_mdio)
+ 		dev_info(dev, "Deprecated MDIO bus assumption used\n");
  
- 	mutex_lock(&priv->lock);
+@@ -451,6 +451,14 @@ stmmac_probe_config_dt(struct platform_device *pdev, u8 *mac)
+ 	 * they are not converted to phylink. */
+ 	plat->phy_node = of_parse_phandle(np, "phy-handle", 0);
  
-@@ -8335,9 +8336,9 @@ int stmmac_resume(struct device *dev)
- 	stmmac_init_timestamping(priv);
++	if (of_property_read_bool(np, "snps,use-ncsi")) {
++		if (!IS_ENABLED(CONFIG_NET_NCSI)) {
++			dev_err(&pdev->dev, "NCSI stack not enabled\n");
++			return ERR_PTR(-EINVAL);
++		}
++		plat->use_ncsi = true;
++	}
++
+ 	/* Get max speed of operation from device tree */
+ 	of_property_read_u32(np, "max-speed", &plat->max_speed);
  
- 	stmmac_init_coalesce(priv);
--	phylink_rx_clk_stop_block(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_block(priv->phylink);
- 	stmmac_set_rx_mode(ndev);
--	phylink_rx_clk_stop_unblock(priv->phylink);
-+	stmmac_phylink_rx_clk_stop_unblock(priv->phylink);
- 
- 	stmmac_vlan_restore(priv);
- 
-@@ -8350,7 +8351,7 @@ int stmmac_resume(struct device *dev)
- 	 * initialised because it may bring the link up immediately in a
- 	 * workqueue thread, which will race with initialisation.
- 	 */
--	phylink_resume(priv->phylink);
-+	stmmac_phylink_resume(priv->phylink);
- 	rtnl_unlock();
- 
- 	netif_device_attach(ndev);
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h b/drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h
-new file mode 100644
-index 000000000000..046a3e91fb2a
---- /dev/null
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_phylink.h
-@@ -0,0 +1,106 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/* Copyright (c) 2026, StarFive Corporation. */
-+
-+#ifndef _STMMAC_PHYLINK_H_
-+#define _STMMAC_PHYLINK_H_
-+
-+#include <linux/phylink.h>
-+
-+#ifdef CONFIG_NET_NCSI
-+static inline bool stmmac_phylink_expects_phy(struct phylink *link)
-+{
-+	if (link)
-+		return phylink_expects_phy(link);
-+
-+	return false;
-+}
-+
-+static inline int stmmac_phylink_pcs_pre_init(struct phylink *link, struct phylink_pcs *pcs)
-+{
-+	if (link)
-+		return phylink_pcs_pre_init(link, pcs);
-+
-+	return 0;
-+}
-+
-+static inline void stmmac_phylink_start(struct phylink *link)
-+{
-+	if (link)
-+		phylink_start(link);
-+}
-+
-+static inline void stmmac_phylink_stop(struct phylink *link)
-+{
-+	if (link)
-+		phylink_stop(link);
-+}
-+
-+static inline void stmmac_phylink_speed_up(struct phylink *link)
-+{
-+	if (link)
-+		phylink_speed_up(link);
-+}
-+
-+static inline void stmmac_phylink_speed_down(struct phylink *link, bool sync)
-+{
-+	if (link)
-+		phylink_speed_down(link, sync);
-+}
-+
-+static inline void stmmac_phylink_disconnect_phy(struct phylink *link)
-+{
-+	if (link)
-+		phylink_disconnect_phy(link);
-+}
-+
-+static inline void stmmac_phylink_destroy(struct phylink *link)
-+{
-+	if (link)
-+		phylink_destroy(link);
-+}
-+
-+static inline void stmmac_phylink_suspend(struct phylink *link, bool mac_wol)
-+{
-+	if (link)
-+		phylink_suspend(link, mac_wol);
-+}
-+
-+static inline void stmmac_phylink_prepare_resume(struct phylink *link)
-+{
-+	if (link)
-+		phylink_prepare_resume(link);
-+}
-+
-+static inline void stmmac_phylink_resume(struct phylink *link)
-+{
-+	if (link)
-+		phylink_resume(link);
-+}
-+
-+static inline void stmmac_phylink_rx_clk_stop_block(struct phylink *link)
-+{
-+	if (link)
-+		phylink_rx_clk_stop_block(link);
-+}
-+
-+static inline void stmmac_phylink_rx_clk_stop_unblock(struct phylink *link)
-+{
-+	if (link)
-+		phylink_rx_clk_stop_unblock(link);
-+}
-+#else
-+#define stmmac_phylink_expects_phy		phylink_expects_phy
-+#define stmmac_phylink_pcs_pre_init		phylink_pcs_pre_init
-+#define stmmac_phylink_start			phylink_start
-+#define stmmac_phylink_stop			phylink_stop
-+#define stmmac_phylink_speed_up			phylink_speed_up
-+#define stmmac_phylink_speed_down		phylink_speed_down
-+#define stmmac_phylink_disconnect_phy		phylink_disconnect_phy
-+#define stmmac_phylink_destroy			phylink_destroy
-+#define stmmac_phylink_suspend			phylink_suspend
-+#define stmmac_phylink_prepare_resume		phylink_prepare_resume
-+#define stmmac_phylink_resume			phylink_resume
-+#define stmmac_phylink_rx_clk_stop_block	phylink_rx_clk_stop_block
-+#define stmmac_phylink_rx_clk_stop_unblock	phylink_rx_clk_stop_unblock
-+#endif /* NET_NCSI */
-+#endif /* _STMMAC_PHYLINK_H_ */
+diff --git a/include/linux/stmmac.h b/include/linux/stmmac.h
+index 4430b967abde..8c4f1b0a1a42 100644
+--- a/include/linux/stmmac.h
++++ b/include/linux/stmmac.h
+@@ -348,6 +348,7 @@ struct plat_stmmacenet_data {
+ 	int mac_port_sel_speed;
+ 	u8 vlan_fail_q;
+ 	bool provide_bus_info;
++	bool use_ncsi;
+ 	int int_snapshot_num;
+ 	int msi_mac_vec;
+ 	int msi_wol_vec;
 -- 
 2.17.1
 
