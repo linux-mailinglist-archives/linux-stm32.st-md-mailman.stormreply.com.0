@@ -2,113 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id GiA4B//+Kmp10wMAu9opvQ
+	id fm8AGl8AK2oE1AMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 20:31:27 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 20:37:19 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4C467470D
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 20:31:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 00ACD674790
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 20:37:18 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=N9KbEpoB;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=Am+kO7Mv;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=W1ZsLUAU;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=intel.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AA4DC9AE38;
-	Thu, 11 Jun 2026 18:31:26 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AD8C2C9AE38;
+	Thu, 11 Jun 2026 18:37:18 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3DA1FC424DE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4D84AC424DE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jun 2026 18:31:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1781202684; x=1812738684;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=7hFbgC9HnPzMr6oxo3wnpqIPpU8GHodGdbMFTy6e1TU=;
- b=N9KbEpoBi1q+hG6LSB+ozRlY/roAz69EXp1ynPG7CrNGBf5xQWN6blOh
- /owDRsaMoFLQMGSEmTr/yARRizeq2YnXINX06FyK0f4LKn4WuZ8MABPrZ
- zxSPiExdiMP/MFEHZEu2JbGBD0pl1o9kl8h8wjUGNPbCwvd9sMo3rXBz/
- +MBxbbQmMl5+70GktMu82UBZSEs2lYdYz028KvuVOHpavduDb1PYjvgeW
- 7YKa3eXutBTm0HwuEMK7O+Uy9wT6ubh2gWAgC+cU9sUx4T4SCU7ngLCQf
- pWtqn7OqkMc3NJKSgtIVIyP/VD5P0Atwh1cRVMkSHWwFMZSbxbUJ89H9T A==;
-X-CSE-ConnectionGUID: z/I2qGNmTbe/jm/C/7bEuw==
-X-CSE-MsgGUID: ZrcCuqRGRV2bXuN6adcRtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11813"; a="93136362"
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="93136362"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 11:31:21 -0700
-X-CSE-ConnectionGUID: 5eTY9mfpReuvZAQcDYRSJg==
-X-CSE-MsgGUID: MEeJ9TMTQhGOHh6SBSHMRQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,199,1774335600"; d="scan'208";a="276756938"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost)
- ([10.245.244.123])
- by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 11 Jun 2026 11:31:08 -0700
-Date: Thu, 11 Jun 2026 21:31:04 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Message-ID: <air-6P9ZGBbCWtGs@ashevche-desk.local>
-References: <20260609061347.93688-1-kaitao.cheng@linux.dev>
- <bd0b7393-8ccb-4d67-8bfc-18c68347122c@amd.com>
- <5152089a-2808-4fe9-b633-b03018105dd2@linux.dev>
- <6b2efdee-95b0-4306-a682-0d0466497ddb@amd.com>
- <2399841f-d834-4652-8285-4a15c7d9a9b9@linux.dev>
- <d974a2ea-6102-45ff-bf36-3b25a2404e40@amd.com>
- <ail8iNvPrJnE7p58@ashevche-desk.local>
- <92683537-8404-47fe-a4ba-160e54870f0b@amd.com>
- <aipx1goKIsk40vrF@ashevche-desk.local>
- <96f9390b-a547-442f-b0a9-99a5ba52c0e1@amd.com>
+ Thu, 11 Jun 2026 18:37:17 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65BIRnFA1433758
+ for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 11 Jun 2026 18:37:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:message-id
+ :mime-version:subject:to; s=qcppdkim1; bh=E804jMacXtWtCDDLwtWj/k
+ LWRm+8LbGO5xfXQFEkchA=; b=Am+kO7MvE2JznTUpiQv9SuQvbh0OX/Ic8+aNSd
+ t1MErlnFU5i100juIcjkAXCarM8B5S2gmabQZt68Bz/+nAwpBCPvfZ1YpK3+Q77p
+ Ew8ipyemW8UzvkMr4Zk2TMq+gCgziEX1lu/BX13+/TN2zxDxXSSN0B0kdv2le1Tm
+ PD2I1xFfrqdubBZwQNnfXlpLH1i1O9PJHRiBdH61/uJjxUAWCAyte+Xm+CBh48J2
+ BPNEQRq+5iHPnkUDfrEA2YYhNdqzcutOBfvwS+7JYrYNpdfS0WNW7aPIR7m0O4VC
+ 2Coe4tXA0ylM4rXC4zuEniYmZBn+suwAkS86dOLGGAY61mrA==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com
+ [209.85.215.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eqtb5jd8w-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Jun 2026 18:37:15 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id
+ 41be03b00d2f7-c85a366b61fso49036a12.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Thu, 11 Jun 2026 11:37:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1781203035; x=1781807835;
+ darn=st-md-mailman.stormreply.com; 
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:from:to:cc:subject:date:message-id:reply-to;
+ bh=E804jMacXtWtCDDLwtWj/kLWRm+8LbGO5xfXQFEkchA=;
+ b=W1ZsLUAUu/2dVsYivBlMSngrcaCAXuLmbCqBFLW49ctaHYgOcntQmne1iGk8qBXHTf
+ VnOCT7gComrQfHfvdXfuWCswjvCwelBfZPlDYhFrYRy3dBNhImY68BMj5sgZl7EjCYF/
+ 2db0inl2yVBaN8PbJ2M42kmBIuHo4h+drUgS/70xKZTMV2VP1u3nyPP3Rr1CjtXwB/KV
+ 6pFDU5yu9kjO15sqN0qr38FEi3X0Lq0H96BnEBssuEevPZwJOwt8NKqTptZXHrtZikqF
+ wE6M3mlFLBi6DvfA7O0Quiw8V07eHmrXUODzoo1eT5FVjdA+k2eL8ZgJ70QP9wFiTha5
+ V5Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781203035; x=1781807835;
+ h=cc:to:content-transfer-encoding:mime-version:message-id:date
+ :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=E804jMacXtWtCDDLwtWj/kLWRm+8LbGO5xfXQFEkchA=;
+ b=olvgDy5iswgwBougxuHoYVFF3CF5rUDWWaHhWpOln4glz+obN9UPIZuCH/S78YQ7JM
+ JJGVzbbgzDCzdWuA7sLJLwZXBOqHEsJouj+MOHdJxhiTnEvPuAgtz97ulsVdSk5TcDMx
+ aFCOPW/w/VK6BGeIuob3JEtRbN9TNVzowdYvltkYjl2nug0V2wcaIjp1EP47Rvx/c4ZG
+ xqcigV7DUZoIjWBySXb5S03CLPjddPdKRIBTuUf2GiIoUUr7G5GoOHnx+CKmm++JXlhD
+ Ia3lOCI5d8C1bIwV6uic+u9rbeTKpqUtfDuK91Vf7P11tXrKgkwIIQEmdWUcBInVSlVD
+ RAww==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9dWCAALCbb4IdhNWdelzRs8s4hA48sdGG1146DAroySQHn9v3QwIm3sO3lmC2khJRgjPVH7PvgSZAETw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzriB3IB22b5OD3C8hUC5OzpbsNGlZYrCwO+E9A9/+oHfoYJK3s
+ nuh3cAZazakZsVMnvdQT2IWm94XIwyY6VhXg5ZRBrKCUBPzIlqyWUFcUfIhEhz9LRqxauVdkVyB
+ rr3p5/Yxn0LFs9pXGxFJnOUad+tneSWdzEcWEV6HWcgNPq9ZkMVpL0LZfycgkZ1wjDU1eIiPEnc
+ Jk2gwsLQJCx+gAppMiFw==
+X-Gm-Gg: Acq92OFK8d1n7USt+2xQsXAEDl6gQB92hJKI3w0zoldlIRvq4wZBJ1GP+07C96s8IoA
+ KeRt6RpVjFkRZYlPxv1NJARXMswTKTOLKHZfbDi/x87KwsgZax76+w10K5ZL26ApE40eBgbRW6z
+ 0c8lRMfc+PfV6TLI9Scqegf959Oce4qbyC9SRANk24MjH+0L8oI7VRIsv5AVwcd3J+FsybbBl9m
+ mtXnBHC14UTbzopA192eMXl8B9om8lUAMtmmEc/bE7bTHr+2SCFEtnUSHeIzejh9WR4RekIFOYZ
+ DiElioF/gC6r43qMs6YutdAH8Ajh8HavcQFDy7ApnbYSyqaahOL31seQ5eGeB5O8zUKWwX3RjLH
+ 7YjwESEQIHlzeXm5jOLgpNNXulgpjMlQDPL7RZZAILMJP1/8s71c=
+X-Received: by 2002:a05:6a00:9a6:b0:842:3aee:12c0 with SMTP id
+ d2e1a72fcca58-843370762e7mr4554938b3a.23.1781203034616; 
+ Thu, 11 Jun 2026 11:37:14 -0700 (PDT)
+X-Received: by 2002:a05:6a00:9a6:b0:842:3aee:12c0 with SMTP id
+ d2e1a72fcca58-843370762e7mr4554891b3a.23.1781203034021; 
+ Thu, 11 Jun 2026 11:37:14 -0700 (PDT)
+Received: from hu-mohdayaa-hyd.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-84337bbbfacsm2555666b3a.20.2026.06.11.11.37.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 11 Jun 2026 11:37:13 -0700 (PDT)
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Date: Fri, 12 Jun 2026 00:06:56 +0530
+Message-Id: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <96f9390b-a547-442f-b0a9-99a5ba52c0e1@amd.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Muchun Song <muchun.song@linux.dev>, Peter Zijlstra <peterz@infradead.org>,
- Boqun Feng <boqun@kernel.org>,
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Eddie James <eajames@linux.ibm.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, David Howells <dhowells@redhat.com>,
- Laxman Dewangan <ldewangan@nvidia.com>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
- Will Deacon <will@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
- drbd-dev@lists.linbit.com, Simona Vetter <simona@ffwll.ch>,
- Thierry Reding <thierry.reding@kernel.org>,
- Davidlohr Bueso <dave@stgolabs.net>, Robert Foss <rfoss@kernel.org>,
- David Airlie <airlied@gmail.com>, Takashi Iwai <tiwai@suse.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Kaito Cheng <chengkaitao@kylinos.cn>,
- Ingo Molnar <mingo@redhat.com>, Kaitao Cheng <kaitao.cheng@linux.dev>,
- Waiman Long <longman@redhat.com>, Philipp Reisner <philipp.reisner@linbit.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Matthew Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- "Paul E . McKenney" <paulmck@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
- intel-gfx@lists.freedesktop.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Josh Triplett <josh@joshtriplett.org>,
- Jani Nikula <jani.nikula@linux.intel.com>, linux-block@vger.kernel.org,
- Mark Brown <broonie@kernel.org>, Maxime Ripard <mripard@kernel.org>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>, linux-tegra@vger.kernel.org,
- Jaroslav Kysela <perex@perex.cz>, linux1394-devel@lists.sourceforge.net,
- Lars Ellenberg <lars.ellenberg@linbit.com>,
- linux-arm-kernel@lists.infradead.org, Jens Axboe <axboe@kernel.dk>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Christian Brauner <brauner@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
- linux-sound@vger.kernel.org, Liam Girdwood <lgirdwood@gmail.com>,
- linux-spi@vger.kernel.org,
- Christoph =?iso-8859-1?Q?B=F6hmwalder?= <christoph.boehmwalder@linbit.com>,
- Huang Rui <ray.huang@amd.com>, Sowjanya Komatineni <skomatineni@nvidia.com>,
+X-B4-Tracking: v=1; b=H4sIAEgAK2oC/x3MwQpAQBCA4VfRnG0ZsslVeQBXSYthJ7U0Kyntu
+ 9scv8P/v+BJmDzUyQtCN3s+XASmCczWuI0UL9GQZ7nONKLylncxI12WxNGlEA1OBVZLOWmI1Sm
+ 08vMfe+jaBoYQPj4Pg6ZmAAAA
+X-Change-ID: 20260611-shikra_ethernet-11a1b318d5b6
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Takashi Sakamoto <o-takashi@sakamocchi.jp>
-Subject: Re: [Linux-stm32] [PATCH v2 00/14] list: Prepare entry iterators to
- cache cursor state
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1781203027; l=3357;
+ i=mohd.anwar@oss.qualcomm.com; s=20250907; h=from:subject:message-id;
+ bh=zOSsQzKp9Ek2NG4SPxgCoFd3tA9TdR//8RVoOu+YbLw=;
+ b=mC8YQ0sxi4GApKV3k18i5RVzeURK1818Zj96NEZXl6n//I2UQPAi66L+X+JKeTpokQCenfv4t
+ 981HGHRwgSGBYozy7hJolcaURX9DLt3h145D3F7ol68bmeUpGxMO+pe
+X-Developer-Key: i=mohd.anwar@oss.qualcomm.com; a=ed25519;
+ pk=7JNY72mz7r6hQstsamPYlUbLhQ5+W64pY4LgfSh9DJU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjExMDE4NSBTYWx0ZWRfX3c1991lU5RZ7
+ d6jZ6Ie+f8HnILGDwSRi0JR2cDK+CKSVqF32BHATR3cfEffkgLOR2uuc9MbyMOg8deh8FUV/LVh
+ VyxHi5g23hUBDz9DwsSI7tl+mZV8HVP97SqwmCQETIThozrOF5aQrG137RarwbQluFdMvWzdSux
+ XsZEEID/dXxPPVt2+FfAGzUfsBxM7962lAY4yW5uxySNXptprOvriVF0XNvkABt7YRhhgpqdvHM
+ ckNoR/lCvrYRzxvQCfe+9N2bL0EVOY0Gy2IkQ81vRO3KkX0fBDCckxHDy9QV5s3Xwo5pPQ3D0ot
+ vb3IDhB8H1YTetPL1thPJVm2KyvdGpMe7aqDcJyZcc8Q9cYzD1LNUX1FVEOsgr/6qSwPC8CjitV
+ DdLm6uh+gvjGRbeKW8W9wwUzdXmF3BdaSL26kYJqE+gxx2nUkLfvv2R/KrFKvDAtOXGmmwlH/Jw
+ pX/eAyEhG6xwNGu/5wA==
+X-Proofpoint-ORIG-GUID: aYJJps-dqbpwo8oaCKRRS-bbncRNZRuF
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjExMDE4NSBTYWx0ZWRfX+RuILD2u9dPz
+ d4FhsFTfrhmBe3xV8Ia4xiTmFnqw4TwBy+jBk2tuv4PVd4IP+JrZk6W9EsA0sHhFPGvMBUQiYUP
+ +CrEYrdeD7UFOELkVXT0sfKZNdK5uoA=
+X-Authority-Analysis: v=2.4 cv=e6g2j6p/ c=1 sm=1 tr=0 ts=6a2b005b cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=nYSQqZ2dnBPUVzQNBmkA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: aYJJps-dqbpwo8oaCKRRS-bbncRNZRuF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-11_04,2026-06-11_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 suspectscore=0 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ phishscore=0 clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606110185
+Cc: devicetree@vger.kernel.org, Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH RFC 0/9] net: stmmac: qcom-ethqos: add Shikra
+	EMAC support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -120,94 +166,124 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.49 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[andriy.shevchenko@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_THREE(0.00)[4];
-	HAS_ORG_HEADER(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:christian.koenig@amd.com,m:muchun.song@linux.dev,m:peterz@infradead.org,m:boqun@kernel.org,m:joonas.lahtinen@linux.intel.com,m:eajames@linux.ibm.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:dhowells@redhat.com,m:ldewangan@nvidia.com,m:Laurent.pinchart@ideasonboard.com,m:andrzej.hajda@intel.com,m:tursulin@ursulin.net,m:will@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:drbd-dev@lists.linbit.com,m:simona@ffwll.ch,m:thierry.reding@kernel.org,m:dave@stgolabs.net,m:rfoss@kernel.org,m:airlied@gmail.com,m:tiwai@suse.com,m:jernej.skrabec@gmail.com,m:jonathanh@nvidia.com,m:chengkaitao@kylinos.cn,m:mingo@redhat.com,m:kaitao.cheng@linux.dev,m:longman@redhat.com,m:philipp.reisner@linbit.com,m:luca.ceresoli@bootlin.com,m:matthew.auld@intel.com,m:matthew.brost@intel.com,m:tzimmermann@suse.de,m:paulmck@kernel.org,m:jonas@kwiboo.se,m:intel-gfx@lists.freedesktop.org,m:maarten.lankhorst@linux.intel.com,m:josh@joshtriplett.org,m:jani.nikula
- @linux.intel.com,m:linux-block@vger.kernel.org,m:broonie@kernel.org,m:mripard@kernel.org,m:rodrigo.vivi@intel.com,m:linux-tegra@vger.kernel.org,m:perex@perex.cz,m:linux1394-devel@lists.sourceforge.net,m:lars.ellenberg@linbit.com,m:linux-arm-kernel@lists.infradead.org,m:axboe@kernel.dk,m:neil.armstrong@linaro.org,m:brauner@kernel.org,m:rdunlap@infradead.org,m:linux-sound@vger.kernel.org,m:lgirdwood@gmail.com,m:linux-spi@vger.kernel.org,m:christoph.boehmwalder@linbit.com,m:ray.huang@amd.com,m:skomatineni@nvidia.com,m:mcoquelin.stm32@gmail.com,m:akpm@linux-foundation.org,m:o-takashi@sakamocchi.jp,m:jernejskrabec@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:richardcochran@gmail.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:devicetree@vger.kernel.org,m:mohd.anwar@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_GT_50(0.00)[61];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[linux.dev,infradead.org,kernel.org,linux.intel.com,linux.ibm.com,lists.freedesktop.org,vger.kernel.org,redhat.com,nvidia.com,ideasonboard.com,intel.com,ursulin.net,st-md-mailman.stormreply.com,lists.linbit.com,ffwll.ch,stgolabs.net,gmail.com,suse.com,kylinos.cn,linbit.com,bootlin.com,suse.de,kwiboo.se,joshtriplett.org,perex.cz,lists.sourceforge.net,lists.infradead.org,kernel.dk,linaro.org,amd.com,linux-foundation.org,sakamocchi.jp];
+	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,ashevche-desk.local:mid,linux.intel.com:from_mime,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo,qualcomm.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AD4C467470D
+X-Rspamd-Queue-Id: 00ACD674790
 
-T24gVGh1LCBKdW4gMTEsIDIwMjYgYXQgMTA6Mzk6MTRBTSArMDIwMCwgQ2hyaXN0aWFuIEvDtm5p
-ZyB3cm90ZToKPiBPbiA2LzExLzI2IDEwOjI5LCBBbmR5IFNoZXZjaGVua28gd3JvdGU6Cj4gPiBP
-biBUaHUsIEp1biAxMSwgMjAyNiBhdCAxMDowMToyNUFNICswMjAwLCBDaHJpc3RpYW4gS8O2bmln
-IHdyb3RlOgo+ID4+IE9uIDYvMTAvMjYgMTc6MDIsIEFuZHkgU2hldmNoZW5rbyB3cm90ZToKPiA+
-Pj4gT24gV2VkLCBKdW4gMTAsIDIwMjYgYXQgMTE6MTE6MzRBTSArMDIwMCwgQ2hyaXN0aWFuIEvD
-tm5pZyB3cm90ZToKPiA+Pj4+IE9uIDYvMTAvMjYgMTA6MTgsIEthaXRhbyBDaGVuZyB3cm90ZToK
-PiA+Pj4+PiDlnKggMjAyNi82LzEwIDE2OjA3LCBDaHJpc3RpYW4gS8O2bmlnIOWGmemBkzoKCi4u
-LgoKPiA+Pj4+PiBTaG91bGQgd2UgcmV2ZXJ0IHRvIHYxLCBvciBrZWVwIGxpc3RfZm9yX2VhY2hf
-ZW50cnkoKSBhbmQKPiA+Pj4+PiBsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoKSBhcyB0aGV5IGFy
-ZSwgY2xvc2UgdGhpcyB0aHJlYWQsIGFuZCBtYWtlIG5vCj4gPj4+Pj4gY2hhbmdlcz8KPiA+Pj4+
-Pgo+ID4+Pj4+IExpbmsgdG8gdjE6Cj4gPj4+Pj4gaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxs
-LzIwMjYwNTI5MDgyMTQ5Ljc2NzY0LTEta2FpdGFvLmNoZW5nQGxpbnV4LmRldi8KPiA+Pj4+Pgo+
-ID4+Pj4+IE9yIGRvIHlvdSBoYXZlIGFueSBiZXR0ZXIgc3VnZ2VzdGlvbnM/Cj4gPj4+Pgo+ID4+
-Pj4gdjEgbG9va3MgcGVyZmVjdGx5IHJlYXNvbmFibGUgdG8gbWUuCj4gPj4+Cj4gPj4+IEJ1dCB3
-aHkgbm90IGp1c3QgaGlkaW5nIHRoYXQgb25jZSBmb3IgYWxsIChpbiBjYXNlIHRoZXkgZG9uJ3Qg
-dXNlIHRoZSB0ZW1wb3JhcnkKPiA+Pj4gaXRlcmF0b3IpPyBFYXN5IHRvIGF1dG9tYXRlLCByb2J1
-c3Qg4oCUIGV2ZXJ5b25lIGlzIGhhcHB5Pwo+ID4+Cj4gPj4gQXMgZmFyIGFzIEkgY2FuIHNlZSB0
-aGF0IGlzIGFuIGV4dHJlbWVseSBiYWQgaWRlYS4KPiA+Pgo+ID4+IFRoZSBkaXN0aW5jdGlvbiBi
-ZXR3ZWVuIHRoZSB1c2UgY2FzZXMgb2YgJ2l0ZXJhdGluZyB0aGUgbGlzdCcgYW5kICdpdGVyYXRp
-bmcKPiA+PiB0aGUgbGlzdCB3aGlsZSB5b3UgbW9kaWZ5IGl0JyBpcyBjb21wbGV0ZWx5IGludGVu
-dGlvbmFsLgo+ID4gCj4gPiBXaGF0IEkgbWVhbnQgaXMgdG8ga2VlcCB0aGUgbmFtZSwganVzdCBk
-cm9wIHRoZSBwYXJhbWV0ZXIgKG1ha2UgaXQgaGlkZGVuIGFuZAo+ID4gYmVpbmcgZGVmaW5lZCBp
-bnNpZGUgbGlzdF9mb3JfZWFjaF8qX3NhZmUoKSBjYXNlcykuCj4gCj4gQWgsIHNvcnJ5IEkgd2Fz
-IHN0aWxsIHRoaW5raW5nIHRoZSBzdWdnZXN0aW9uIGlzIHRvIG1lcmdlCj4gbGlzdF9mb3JfZWFj
-aF9lbnRyeSgpIGFuZCBsaXN0X2Zvcl9lYWNoX2VudHJ5X3NhZmUoKS4KPiAKPiBJZiB0aGUgbW9k
-aWZpY2F0aW9uIGlzIGRvbmUgYWxsIGF0IG9uY2Ugb3IgaW4gc3RlcHMgZG9lc24ndCByZWFsbHkg
-bWF0dGVyIGZvcgo+IG1lIGFzIGxvbmcgYXMgdGhlIHBhdGNoIGNhbiBiZSByZS1jcmVhdGVkIHJl
-cHJvZHVjaWJsZS4KPiAKPiBCdXQgSSdtIHdvbmRlcmluZyBpZiB3ZSBjb3VsZG4ndCBpbXByb3Zl
-IHRoZSBuYW1lIGF0IHRoZSBzYW1lIHRpbWUuIFRoZQo+IF9zYWZlKCkgcG9zdGZpeCBoYXMgY2F1
-c2VkIHRvbnMgb2YgY29uZnVzaW9uIHdoZXJlIGVzcGVjaWFsbHkgYmVnaW5uZXJzCj4gdGhvdWdo
-dCB0aGF0IGl0IGlzIGEgdGhyZWFkLXNhZmUgdmFyaWFudCwgd2hpY2ggaXQgY2xlYXJseSBpc24n
-dC4KPiAKPiBUaGUgX211dGFibGUoKSBwb3N0Zml4IHNvdW5kcyBsaWtlIGEgbXVjaCBiZXR0ZXIg
-ZGVzY3JpcHRpb24gdG8gd2hhdCBoYXBwZW5zIGhlcmUuCgpJIHNlZSwgbm8gb2JqZWN0aW9ucyBm
-cm9tIG15IHNpZGUsIGJ1dCB3aXRoIHRoZSBuZXcgbmFtZSB3ZSBkb24ndCBuZWVkIHRvIGhhdmUK
-dHJlZXdpZGUgY2hhbmdlLCB0aGUgZG93bnNpZGUgdGhhdCBvbmUgc2hvdWxkIHVuZGVydGFrZSB0
-aGlzIHRvIGZpbmlzaCB0aGUgam9iLApvdGhlcndpc2Ugd2Ugd2lsbCBoYXZlIF9zYWZlKCkgYW5k
-IF9tdXRhYmxlKCkgZm9yIGEgbG9uZyB0aW1lLgoKPiA+PiBTZWUgdGhlIGJvb2wgdHlwZSBjYW4g
-YmUgaW1wbGVtZW50ZWQgYnkgaW50IGFzIHdlbGwsIGJ1dCBpdCBpcyBqdXN0IGEKPiA+PiBkaWZm
-ZXJlbnQgdXNlIGNhc2UuCj4gPiAKPiA+Pj4+IFlvdSBzaG91bGQganVzdCBpbmNsdWRlIHNvbWUg
-cGF0Y2hlcyBpbiB0aGUgc2FtZSBwYXRjaCBzZXQgdG8gYWN0dWFsbHkgdXNlCj4gPj4+PiB0aGUg
-bmV3IG1hY3Jvcy4KPiA+Pj4+Cj4gPj4+PiBJZiB5b3UgbW9kaWZ5IHRoZSBmaWxlcyB1bmRlciBk
-cml2ZXJzL2RtYS1idWYgb3IgZHJpdmVycy9ncHUvZHJtL2FtZCB0byB1c2UKPiA+Pj4+IHRoZSBu
-ZXcgbWFjcm8gSSdtIGhhcHB5IHRvIHJldmlldyB0aGF0LgoKLS0gCldpdGggQmVzdCBSZWdhcmRz
-LApBbmR5IFNoZXZjaGVua28KCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFp
-bG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20v
-bWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+(Sending this out as an RFC because we have a couple of fixes for RGMII
+handling in dwmac-qcom-ethqos, as well as a new framework to manage
+clocks required by the System NOC. If this gets into a decent shape,
+then this series will be split between patches for DT and net-next.)
+
+Hi,
+
+This series adds Gigabit Ethernet support for the Qualcomm Shikra SoC,
+which integrates two EMAC controllers based on the Synopsys GMAC IP,
+similar to previous Qualcomm platforms.
+
+Before introducing the new compatible, two generic fixes are applied to
+the driver that benefit all platforms:
+
+  - ethqos_rgmii_macro_init() is converted to void; the return value was
+    never checked and the speed validation was redundant.
+
+  - RGMII_ID mode ("rgmii-id") was incorrectly falling through to the
+    standard DLL bring-up path, which may add MAC-internal delays. The
+    fix powers down the DLL, sets DDR bypass mode, and programs the
+    IO_MACRO via a new ethqos_rgmii_id_macro_init() helper. The clock
+    rate doubling in ethqos_set_clk_tx_rate() is also corrected for
+    bypass mode.
+
+Shikra-specific additions:
+
+  - On Shikra, access to the System NOC from the EMAC is gated by three
+    dedicated clocks. The axi and axi-noc clocks are sourced from a
+    dedicated RCG (emac0_axi_clk_srcg) per EMAC instance. The
+    pcie-tile-axi-noc clock (gcc_pcie_tile_axi_sys_noc_clk) gates an
+    arbiter internal to the NOC shared by both EMAC instances and must
+    be enabled for any EMAC-to-DDR traffic to complete. Generic
+    infrastructure is introduced (ethqos_noc_clk_cfg) so future
+    platforms can declare their own sets.
+
+  - The qcom,shikra-ethqos compatible is registered.
+
+  - DTS for the SoC and three EVK boards (CQM, CQS, IQS) is included.
+    The CQM and CQS boards expose one EMAC; the IQS board exposes both.
+
+Dependencies:
+  This series is based on linux-next and depends on the core Shikra SoC
+  framework (DT, clock, regulator) being merged.
+
+Tested on the Shikra CQM-EVK, CQS-EVK, and IQS-EVK with rgmii-id mode
+at 1G/100M/10M speeds.
+
+---
+Mohd Ayaan Anwar (9):
+      dt-bindings: net: qcom,ethqos: add qcom,shikra-ethqos compatible
+      net: stmmac: qcom-ethqos: convert ethqos_rgmii_macro_init() to void
+      net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
+      net: stmmac: qcom-ethqos: add per-platform NOC clock voting
+      net: stmmac: qcom-ethqos: add Shikra EMAC support
+      arm64: dts: qcom: shikra: Add ethernet nodes
+      arm64: dts: qcom: shikra-cqm-evk: Enable ethernet0
+      arm64: dts: qcom: shikra-cqs-evk: Enable ethernet0
+      arm64: dts: qcom: shikra-iqs-evk: Enable both ethernet ports
+
+ .../devicetree/bindings/net/qcom,ethqos.yaml       |  31 ++-
+ arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts        | 119 +++++++++++
+ arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts        | 119 +++++++++++
+ arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts        | 235 +++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/shikra.dtsi               |  78 +++++++
+ .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 167 ++++++++++++++-
+ 6 files changed, 730 insertions(+), 19 deletions(-)
+---
+base-commit: 999ed3289ceea2b2808f396b4bd2f9a43dcba033
+change-id: 20260611-shikra_ethernet-11a1b318d5b6
+
+Best regards,
+-- 
+Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
