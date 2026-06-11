@@ -2,114 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id WiEVO7h4KmqrqAMAu9opvQ
+	id KyonBHGSKmqhsgMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 10:58:32 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 12:48:17 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D25FE67019A
-	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 10:58:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DA32670FA6
+	for <lists+linux-stm32@lfdr.de>; Thu, 11 Jun 2026 12:48:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=foss.st.com header.s=selector2 header.b=WddpW2zr;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=gp8xOUoJ;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=foss.st.com (policy=none);
-	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 998CBC65074;
-	Thu, 11 Jun 2026 08:58:32 +0000 (UTC)
-Received: from DB3PR0202CU003.outbound.protection.outlook.com
- (mail-northeuropeazon11010005.outbound.protection.outlook.com [52.101.84.5])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 437A3C46D45;
+	Thu, 11 Jun 2026 10:48:16 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 029A7C65073
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 65A0BC424DE
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 11 Jun 2026 08:58:31 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iw5gymM/D2EXxTgregKaDIaq5oOWg2avgaiZvCQJlB1cX8hPoyvq5U/kIWnj7b5vPGAobgAjEb27f+dHsanko0ojlVAhIhoVOlMJ+Jp0JqGAZfP4lhe8YCxgGIaCIlwVkJDGpAbfdsPrH92XnlJHr2SF8HpN/wn4k5H/8KK/m09GIS98rZJ7DJXEyYdRKQjR26fZTEY2jV4R4xJ1pLqqXa0CoT1M4x1b4/zhOqtzJ6zChRMuemXOt9deEhBHqAKgyUF8Rs624pxGOH3C4LNomZAbLU9hPc39B8mSGYo1sFWLehalL2UpeQJwGIkX3AZiP27bUxSB9/MNPvgnLMz4hA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=LkpoZYme1igCYo7RV9Ybu+kOaKS5R0NPA6Zye4F9C2I=;
- b=aYcMEbSYDGhiJbwxw4OnrG63Bbbe5UC7ZapECd+Zp/Bu21Ph9KWhVnaDz+NAphKwGf3RxQDaMNvzW9LdjoHLb6zOxV3RXG4IBgB9nNmRmeBpZfGPxowZEohZ7ynSNUpe616KLRT9YibVeKbcnR9QH5v/zH2PyBVh/9IYPaYb0sHjxOnvd9S8hT88y3EeJOctKaqfIxUufqpGR0VI0lWbCmkG8BuoT9ovIWJD5pZNSOiy5z55dioROEHxL1HCcGxK8PASUbQjXDBrVl0UFzkdjYWQqLGg9guWvg6pyJa/6YGrfxQcfCxXsU1nUZvAeKHwcjuvzOf+GecRMttBcbZs4Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=LkpoZYme1igCYo7RV9Ybu+kOaKS5R0NPA6Zye4F9C2I=;
- b=WddpW2zrPmJ9bWYFZIK5doJm7RDXKgfVmxAjSqJY5WHqfJakmT2AANw8byi1YYzVD6HQOrSM66IMYyCyhrtiFLCKg9K93erzyNLx6JOwjm4AO8PYQ8VshVV/GojesOFKTPUvPHAH+LLvcpwUQiizF7Z6xJVk7OcCnR/AyuApvTp5NTZ/dgODfGf/Jn5x/IJQ5FxGbWkb9Nil0/3pd65ScPEtQpvHFRX9OSk1kwXGDJ7kEUzLFuoRLAiZr2tPoP94UQFf5svZX50yjIAHEnH5fP7ptsvshAjLvq7mR1u6VokuvnlmsOkCBlOYycTzlOHxNvKQavej5p0AyZ9dFTJz0A==
-Received: from AS4P189CA0015.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:5d7::19)
- by AS2PR10MB7130.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:60e::6)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.17; Thu, 11 Jun
- 2026 08:58:25 +0000
-Received: from AMS1EPF0000008F.eurprd05.prod.outlook.com
- (2603:10a6:20b:5d7:cafe::a2) by AS4P189CA0015.outlook.office365.com
- (2603:10a6:20b:5d7::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.113.13 via Frontend Transport; Thu,
- 11 Jun 2026 08:58:24 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AMS1EPF0000008F.mail.protection.outlook.com (10.167.242.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.113.7 via Frontend Transport; Thu, 11 Jun 2026 08:58:24 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 11 Jun
- 2026 11:02:09 +0200
-Received: from localhost (10.48.87.71) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Thu, 11 Jun
- 2026 10:58:21 +0200
-From: Amelie Delaunay <amelie.delaunay@foss.st.com>
-Date: Thu, 11 Jun 2026 10:58:19 +0200
+ Thu, 11 Jun 2026 10:48:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 2A87E44195;
+ Thu, 11 Jun 2026 10:48:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04FB01F00893;
+ Thu, 11 Jun 2026 10:48:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781174893;
+ bh=crmNupD7hZaxlPv3WiFM5BGDGkQfFm+0iK/KcjZ0EVc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=gp8xOUoJw7DR55PdOTHPoduThWtKOCaI4yUYsuybdRvLig8x4hic9KEcJFBkqLYy3
+ eTqqGarae18Vwav/snfztbmDhU+Cxr5i6UTyDs6R0xuYfQbUwVBsV7IX1xxdAxXAf2
+ mfLjqBhyZz4AwS5Stq/9XCHGyHYfsDf5rVGsjrGGASuzlBm4BDyswgtZasxxYty/l7
+ tFq7XC72F/SS63YJqo7dvJb2GPSkHvpCAVa8f9w91cKaQ4ekZ/NfQ83hkuS2TxXhA+
+ OYFqceyOb0vPJsGcu8i/mz0xDWEZZUJNxgMq3CQmV0kf7BUGpFwqmrDN4lN1o6OB2A
+ MFl2vU6TPSBlQ==
+Date: Thu, 11 Jun 2026 11:48:00 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Angelo Dureghello <adureghello@baylibre.com>
+Message-ID: <20260611114800.009d9797@jic23-huawei>
+In-Reply-To: <20260610-wip-stmark2-dac-v5-9-b76b83366d5c@baylibre.com>
+References: <20260610-wip-stmark2-dac-v5-0-b76b83366d5c@baylibre.com>
+ <20260610-wip-stmark2-dac-v5-9-b76b83366d5c@baylibre.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 MIME-Version: 1.0
-Message-ID: <20260611-node_reordering-v1-5-7e519f2cb456@foss.st.com>
-References: <20260611-node_reordering-v1-0-7e519f2cb456@foss.st.com>
-In-Reply-To: <20260611-node_reordering-v1-0-7e519f2cb456@foss.st.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.14.3
-X-Originating-IP: [10.48.87.71]
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF0000008F:EE_|AS2PR10MB7130:EE_
-X-MS-Office365-Filtering-Correlation-Id: 3322296f-0a32-49b3-f08e-08dec797987c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|82310400026|376014|1800799024|36860700016|23010399003|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info: LiPdJxG1DjI9QruEb3nkm1YiWooUrkDhbYOgZGHzWrJrSaBCuf2hut3OT4sLatXhqxwWGrOjHXzM8dW3CDDmgUayZHq3IMbQitHtV8rYLIiaUA2s1FvPxYGG90PZBVBj/dDU512giZQ75p72T8hh3ZJHqtWF3g1aVvYBDyto+6tMLFQrJ90dps0hcMzcLSjtOn99OL38gknJiHAPPPzF3jRHFm7zLyznGQFuC/XecLbmGX2bFkXmML16+1W94jV1vmZ61p3oyFEAzLKjwiGOURZRHYEC1mkzyOBP5NoSrhN2cvBIGS52o8+aw+iCL7QSIx/BAydF3BcfAehu3XUgdAYPyff4nQ0UUSXPzZVPWyPgHPbwAyR+qMQDP/VslMJ+Iy2pSmpqSeV67MA5HHBUQopcDP+bCReY/CzNCUMqy9IfqbMV/hQLqpGLWcyIq1oMXbplSxgV1XKn+oraryPgRfrlwhsr9MLc1r3pokxWUnlGSm0GPtqnl1bbFTAafkzyEvhpIBAXShv5UObBTW85c3WVrccr9WUcwDApHga9bc3KWE3fWCqWGozzsROoLTSlxnIU4gI2HtUPwk+KSKHlEVtxkfK7kq0sTa3uZama6dpeqv4RdTXAoTcYRPJsuOsKhVhdWsMCWdzi5rFgCH8uK+FSlWJcOydQJQ2rjTZtQVKO9sagMmmH/hVwmGQRsUL5DuyhQz57DW5BMHW8kD+86CkCs9o1krtvxoDVJqbTBOs=
-X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
- IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
- SFS:(13230040)(82310400026)(376014)(1800799024)(36860700016)(23010399003)(18002099003)(22082099003)(56012099006)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: jziRpJS+FQCHREkY/q0HYGpJMEsgYQ4ekQ7TIk+zrY0y0zcHedSEI22KG51EaSYG/as9zIJuGnC37Nmzoj7AYa58ytWIm2wGUA6YKLsuzJQ6TKDTg7z4w9Sct4efDHag9r/VYp6H4MSEyAkOeCBEo25HfJQfx7LXffe11yoWRm7mHag23Dico/IaWuBXS+H5KXGvlTN/UFcZLkE9HdtpzB7OecClSo/qcfSH5GHPdiV+k403Mm/9n1uZ5awXtXkoXj59NOlGnBtSIF0R76ifqd24slpWSfnUmLPdzbyblqsCCbJL4zL1dS9k5wq+tmXlO52rX/x4EjDY1bg7KmHMM0kSkzgmd1UrOcwfVro4KFAZmjgSd6SS76QgQ6DfyD1xX95ny0M1EBbxA2rVzL1oZ+DdqggbsMbefbPrtn4hWt2/1pqKV8H95fYh549CGBqv
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Jun 2026 08:58:24.4633 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 3322296f-0a32-49b3-f08e-08dec797987c
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
- Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource: AMS1EPF0000008F.eurprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7130
-Cc: devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: [Linux-stm32] [PATCH 5/5] ARM: dts: stm32: reorder mdma1 node in
- stm32mp15*-scmi.dts
+Cc: Andy Shevchenko <andy@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Michael Turquette <mturquette@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Brian Masney <bmasney@redhat.com>,
+ Steven King <sfking@fdwdc.com>, linux-m68k@lists.linux-m68k.org,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
+ David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
+ linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v5 09/10] iio: dac: add mcf54415 DAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -126,167 +73,249 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:devicetree@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
+	RCVD_COUNT_THREE(0.00)[4];
 	GREYLIST(0.00)[pass,meta];
+	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	FORGED_RECIPIENTS(0.00)[m:adureghello@baylibre.com,m:andy@kernel.org,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mturquette@baylibre.com,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:bmasney@redhat.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:sboyd@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[amelie.delaunay@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[foss.st.com:-];
+	FREEMAIL_CC(0.00)[kernel.org,arndb.de,vger.kernel.org,baylibre.com,st-md-mailman.stormreply.com,analog.com,redhat.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
 	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[sashiko.dev:url,jic23-huawei:mid,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D25FE67019A
+X-Rspamd-Queue-Id: 8DA32670FA6
 
-In the ST board DTS files, the &label entries must be ordered
-alphanumerically.
-The nodes became misordered when mlahb was replaced by m4_rproc.
+On Wed, 10 Jun 2026 22:35:14 +0200
+Angelo Dureghello <adureghello@baylibre.com> wrote:
 
-Move mdma1 to the right place to avoid future misordering.
+> From: Angelo Dureghello <adureghello@baylibre.com>
+> 
+> Add basic version of mcf54415 DAC driver. DAC is embedded in the SoC and
+> DAC configuration registers are mapped in the internal IO address space.
+> 
+> The DAC accepts a 12-bit digital signal and creates a monotonic 12-bit
+> analog output varying from DAC_VREFL to DAC_VREFH. The DAC module
+> consists of a conversion unit, an output amplifier, and the associated
+> digital control blocks. Default register values for DAC_VREFL and DAC_VREFH
+> are respectively 0 and 0xfff, left untouched in this initial version.
+> 
+> This initial version of the driver is minimalistic, "output raw" only, to
+> be extended in the future. DMA and external sync are disabled, default mode
+> is high speed, default format is right-justified 12-bit on 16-bit word.
+> 
+> Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
+I'm lazy so didn't check earlier versions but assume the two bits
+of feedback from Sashiko are false positives:
+https://sashiko.dev/#/patchset/20260610-wip-stmark2-dac-v5-0-b76b83366d5c%40baylibre.com
 
-Signed-off-by: Amelie Delaunay <amelie.delaunay@foss.st.com>
----
- arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts | 8 ++++----
- arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts | 8 ++++----
- arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts | 8 ++++----
- arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts | 8 ++++----
- 4 files changed, 16 insertions(+), 16 deletions(-)
+The one about clock underflow if resume fails, and then devm cleanup happens later
+is a bit nasty.
 
-diff --git a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-index 847b360f02fc..53e40e2f776b 100644
---- a/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157a-dk1-scmi.dts
-@@ -51,10 +51,6 @@ &iwdg2 {
- 	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -62,6 +58,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-index 43280289759d..0790ed426ebc 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-dk2-scmi.dts
-@@ -57,10 +57,6 @@ &iwdg2 {
- 	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -68,6 +64,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-index 6f27d794d270..0a3894aff4ae 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ed1-scmi.dts
-@@ -56,10 +56,6 @@ &iwdg2 {
- 	clocks = <&rcc IWDG2>, <&scmi_clk CK_SCMI_LSI>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -67,6 +63,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
-diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-index 6ae391bffee5..c2b6efb1cbb7 100644
---- a/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-+++ b/arch/arm/boot/dts/st/stm32mp157c-ev1-scmi.dts
-@@ -61,10 +61,6 @@ &m_can1 {
- 	clocks = <&scmi_clk CK_SCMI_HSE>, <&rcc FDCAN_K>;
- };
- 
--&mdma1 {
--	resets = <&scmi_reset RST_SCMI_MDMA>;
--};
--
- &m4_rproc {
- 	/delete-property/ st,syscfg-holdboot;
- 	resets = <&scmi_reset RST_SCMI_MCU>,
-@@ -72,6 +68,10 @@ &m4_rproc {
- 	reset-names = "mcu_rst", "hold_boot";
- };
- 
-+&mdma1 {
-+	resets = <&scmi_reset RST_SCMI_MDMA>;
-+};
-+
- &optee {
- 	interrupt-parent = <&intc>;
- 	interrupts = <GIC_PPI 15 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
+I did a bit of digging and maybe it is better to just leave the clock on?
+The status dev.power.is_suspended is set to false whether or not resume succeeded
+and I believe a following suspend will not take into account that resume failed.
 
--- 
-2.43.0
+I'm not set up to poke the combinations but it might be worth trying that.
++CC common clk people who may immediately know what the right answer is.
+
+Otherwise just a few minor style comments inline.
+
+Thanks,
+
+Jonathan
+
+> ---
+> Changes in v2:
+> - remove tests from commit message, moved to patch 0
+> - remove additional blank lines
+> - remove dead code and unused definitions
+> - use regmap
+> - add limit check on raw write
+> - non functional style fixes
+> - add COMPILE_TEST to Kconfig
+> Changes in v3:
+> - add comments where needed
+> - code style changes
+> - remove unneeded variables
+> - use regmap_set_bits where possible
+> - remove macro not needed to define a single channel
+> - set up regmap to big_endian accesses for next patches that will come,
+>   that will adjust ColdFire readx/writex as standard LE (links in 0/x).
+> - add return value check on regmap calls
+> - sashiko: remove unneeded .io_port from regmap init.
+> - sashiko: add select REGMAP_MMIO in Kconfig
+> Changes in v4:
+> - remove unused includes
+> - sashiko: return "ret" as regmap_read ret value in case of error
+> - sashiko: using u32 as regmap_read value
+> - use local variable in mcf54415_dac_init() for better readability
+> - sashiko: check mcf54415_dac_init return value also in resume()
+> Changes in v5:
+> - commit syntax fixes
+> - minor code style fixes
+> - use include <linux/type.h>
+> - removed unneeded cast
+> - disable clock in case of DAC init error
+> - use unsigned int for regmap_read and GENMASK for masking 12 bits
+> - add id table to match "mcfdac" platform device name
+> ---
+>  drivers/iio/dac/Kconfig        |  11 +++
+>  drivers/iio/dac/Makefile       |   1 +
+>  drivers/iio/dac/mcf54415_dac.c | 216 +++++++++++++++++++++++++++++++++++++++++
+>  3 files changed, 228 insertions(+)
+> 
+> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+> index cd4870b65415..b1a578076188 100644
+> --- a/drivers/iio/dac/Kconfig
+> +++ b/drivers/iio/dac/Kconfig
+> @@ -516,6 +516,17 @@ config MAX5821
+>  	  Say yes here to build support for Maxim MAX5821
+>  	  10 bits DAC.
+>  
+> +config MCF54415_DAC
+> +	tristate "NXP MCF54415 DAC driver"
+> +	depends on M5441x || COMPILE_TEST
+> +	select REGMAP_MMIO
+> +	help
+> +	  Say yes here to build support for NXP MCF54415
+> +	  12bit DAC.
+
+Rewrap this.
+
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called mcf54415_dac.
+> +
+> diff --git a/drivers/iio/dac/mcf54415_dac.c b/drivers/iio/dac/mcf54415_dac.c
+> new file mode 100644
+> index 000000000000..f223aa80aabf
+> --- /dev/null
+> +++ b/drivers/iio/dac/mcf54415_dac.c
+
+> +
+> +static int mcf54415_dac_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct mcf54415_dac *info;
+> +	void __iomem *regs;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*info));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	info = iio_priv(indio_dev);
+> +
+> +	regs = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(regs))
+> +		return dev_err_probe(dev, PTR_ERR(regs), "failed to get io regs\n");
+> +
+> +	info->map = devm_regmap_init_mmio(dev, regs, &mcf54415_dac_regmap_config);
+> +	if (IS_ERR(info->map))
+> +		return PTR_ERR(info->map);
+> +
+> +	info->clk = devm_clk_get_enabled(dev, "dac");
+> +	if (IS_ERR(info->clk))
+> +		return dev_err_probe(dev, PTR_ERR(info->clk), "failed getting clock\n");
+> +
+> +	platform_set_drvdata(pdev, indio_dev);
+> +
+> +	indio_dev->name = "mcf54415";
+> +	indio_dev->info = &mcf54415_dac_iio_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = &mcf54415_dac_iio_channel;
+> +	indio_dev->num_channels = 1;
+> +
+> +	ret = mcf54415_dac_init(info);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(dev, mcf54415_dac_exit, info);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static int mcf54415_dac_suspend(struct device *dev)
+> +{
+> +	struct mcf54415_dac *info = iio_priv(dev_get_drvdata(dev));
+> +
+> +	mcf54415_dac_exit(info);
+> +	clk_disable_unprepare(info->clk);
+> +
+> +	return 0;
+> +}
+> +
+> +static int mcf54415_dac_resume(struct device *dev)
+> +{
+> +	struct mcf54415_dac *info = iio_priv(dev_get_drvdata(dev));
+> +	int ret;
+> +
+> +	ret = clk_prepare_enable(info->clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = mcf54415_dac_init(info);
+> +	if (ret) {
+> +		dev_err(dev, "could not resume device\n");
+> +		clk_disable_unprepare(info->clk);
+> +	}
+> +
+> +	return ret;
+> +}
+> +
+> +static DEFINE_SIMPLE_DEV_PM_OPS(mcf54415_dac_pm_ops,
+> +				mcf54415_dac_suspend, mcf54415_dac_resume);
+> +
+> +static const struct platform_device_id mcf54415_dac_ids[] = {
+> +	{ .name = "mcfdac", .driver_data = 0 },
+
+Don't set .driver_data if you aren't using it.  Given very strong
+preference for always using a pointer for that (rather than a numeric
+value) this line will change if you ever add support for more devices
+anyway, so no value in having that there now.
+
+> +	{ }, /* sentinel */
+	{ }
+
+No comma and I don't see value in the sentinel marking given that is
+fairly obvious.
+
+> +};
+> +
+No blank line here.  Intent is to keep the macro and the function closely
+coupled.
+
+> +MODULE_DEVICE_TABLE(platform, mcf54415_dac_ids);
+
 
 _______________________________________________
 Linux-stm32 mailing list
