@@ -2,63 +2,54 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 3xyTHM0zLGpdNgQAu9opvQ
+	id CklqL4V/LGqtRgQAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2026 18:29:01 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2026 23:52:05 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA3CB67AED4
-	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2026 18:29:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 461DD67C946
+	for <lists+linux-stm32@lfdr.de>; Fri, 12 Jun 2026 23:52:05 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=eMyYsFKV;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=COHQ8nn+;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 97EB1C8F297;
-	Fri, 12 Jun 2026 16:29:00 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFE24C8F294;
+	Fri, 12 Jun 2026 21:52:04 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 12531C58D7A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 08B68C712AA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 12 Jun 2026 16:28:58 +0000 (UTC)
+ Fri, 12 Jun 2026 21:52:02 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E674E600B0;
- Fri, 12 Jun 2026 16:28:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 721D61F00A3A;
- Fri, 12 Jun 2026 16:28:57 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id BD082400F8;
+ Fri, 12 Jun 2026 21:52:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8038E1F000E9;
+ Fri, 12 Jun 2026 21:52:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1781281737;
- bh=+YkxKUKI+ttSACYhasK/qyZ52eMUZtHTMnbDNaJgTnY=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=eMyYsFKVUI/AjLu4yjm2YPH2WCOHHt0vmajj/lYGVjak2UUxMEoPXOfcSQd6EBfR9
- aOjYNII68yBM3a4I/TCiIw3bRZKAN+l6K6VvvUqD8aN53ypgvtHXwSyKJUGBj8P0S3
- r5Z21FsWp3P5LFTPi5nbgn4RFu1fKWS8vAqAPIT8fwAmc4Oljdi8XoSaJqg32wn65u
- pAfPPEonX3LBEnxBELdEb1nRhciHC6EM5SDFFzTqOLezeUD7OxvInbS7j/0U8jF45e
- mCHqUhc167JQC28Br+UXJfsFJpOyjYK2/yr1BZX5jRJAx8qDNiG89SIj0ROK6QV0oh
- 2nIxjNmVpkwYA==
-Date: Fri, 12 Jun 2026 11:28:56 -0500
+ s=k20260515; t=1781301121;
+ bh=qkIx8q1CfZPS2O/VG2jjN8ujjCBCEKLsuaA9oPqWhZ0=;
+ h=From:To:Cc:Subject:Date;
+ b=COHQ8nn+uwEmeREHJbwM+ltA/GmYxv8zojZJDDH0O/FMsq3kOQyUyg8/pB2S2psgE
+ P6rdCYfomyFhWZyc4cVVAe1stYBHUUflYgm/MN+n9zc3I+IPpzeC/DgoOtnT4dtdv5
+ JVBLM9mFZBHZfa4xp9QoSDst0mg8yorOCHpcSr2EgzsT2C5/lDuKTjCQaW3RmJ0XVx
+ js5T56CwI4iS4eilAKlTzsop6BJwF6iAfk/xk5ANSqY5x3UFUT8DMIcUGHiT/kffd2
+ eNS6AgSaNlucRPT4BINvUY0PRbGYU03r41WKqASzYsoqd/59uqiIhcYUnZ1j8UhxpF
+ /Xl4r2Xxgd0RA==
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: lizhi2@eswincomputing.com
-Message-ID: <178128173639.1162200.4235173600332300329.robh@kernel.org>
-References: <20260610012727.848-1-lizhi2@eswincomputing.com>
- <20260610012849.874-1-lizhi2@eswincomputing.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Date: Fri, 12 Jun 2026 16:51:50 -0500
+Message-ID: <20260612215151.1886851-1-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260610012849.874-1-lizhi2@eswincomputing.com>
-Cc: edumazet@google.com, linux-riscv@lists.infradead.org,
- linux-stm32@st-md-mailman.stormreply.com, weishangjuan@eswincomputing.com,
- alex@ghiti.fr, andrew+netdev@lunn.ch, pritesh.patel@einfochips.com,
- lee@kernel.org, maxime.chevallier@bootlin.com, kuba@kernel.org,
- pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
- aou@eecs.berkeley.edu, horms@kernel.org, rmk+kernel@armlinux.org.uk,
- pjw@kernel.org, linux-arm-kernel@lists.infradead.org,
- pinkesh.vaghela@einfochips.com, linmin@eswincomputing.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- ningyu@eswincomputing.com, palmer@dabbelt.com, mcoquelin.stm32@gmail.com,
- krzk+dt@kernel.org, davem@davemloft.net
-Subject: Re: [Linux-stm32] [PATCH net-next v8 1/6] dt-bindings: ethernet:
- eswin: relax internal delay model to range-based constraints
+Cc: linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: [Linux-stm32] [PATCH] iio: stm32-dfsdm: Treat flags as booleans
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -82,64 +73,82 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:lizhi2@eswincomputing.com,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:andrew+netdev@lunn.ch,m:pritesh.patel@einfochips.com,m:lee@kernel.org,m:maxime.chevallier@bootlin.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:horms@kernel.org,m:rmk+kernel@armlinux.org.uk,m:pjw@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:ningyu@eswincomputing.com,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:andrew@lunn.ch,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,analog.com,gmail.com,foss.st.com];
 	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[28];
-	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
+	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:dlechner@baylibre.com,m:nuno.sa@analog.com,m:andy@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-iio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ALIAS_RESOLVED(0.00)[];
-	TO_DN_NONE(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[google.com,lists.infradead.org,st-md-mailman.stormreply.com,eswincomputing.com,ghiti.fr,lunn.ch,einfochips.com,kernel.org,bootlin.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,dabbelt.com,gmail.com,davemloft.net];
+	FROM_NEQ_ENVFROM(0.00)[robh@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	RCPT_COUNT_SEVEN(0.00)[10];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EA3CB67AED4
+X-Rspamd-Queue-Id: 461DD67C946
 
+The "st,adc-alt-channel" and "st,filter0-sync" properties are
+documented as boolean flags. The legacy parser read them as integer
+cells, unlike the child-node parser which already checks only for
+presence.
 
-On Wed, 10 Jun 2026 09:28:49 +0800, lizhi2@eswincomputing.com wrote:
-> From: Zhi Li <lizhi2@eswincomputing.com>
-> 
-> Relax internal delay constraints for EIC7700 Ethernet binding.
-> 
-> Replace fixed enumeration of rx-internal-delay-ps and tx-internal-delay-ps
-> with a range-based definition (0-2540 ps, 20 ps steps) to reflect actual
-> hardware capability.
-> 
-> Mark rx/tx internal delay properties as optional, as they are board-
-> specific tuning parameters rather than mandatory configuration.
-> 
-> Update the device tree example to align with the relaxed constraint model
-> and remove delay properties from the example to avoid implying they are
-> required.
-> 
-> No functional change to existing DT users.
-> 
-> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-> ---
->  .../bindings/net/eswin,eic7700-eth.yaml       | 25 ++++++++++---------
->  1 file changed, 13 insertions(+), 12 deletions(-)
-> 
+Use presence and boolean helpers so both parsers follow the binding and
+the property type checker no longer reports the flags.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Assisted-by: Codex:gpt-5-5
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ drivers/iio/adc/stm32-dfsdm-adc.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/iio/adc/stm32-dfsdm-adc.c b/drivers/iio/adc/stm32-dfsdm-adc.c
+index 9664b9bd75d4..00f05e167afc 100644
+--- a/drivers/iio/adc/stm32-dfsdm-adc.c
++++ b/drivers/iio/adc/stm32-dfsdm-adc.c
+@@ -660,11 +660,8 @@ static int stm32_dfsdm_channel_parse_of(struct stm32_dfsdm *dfsdm,
+ 	}
+ 	df_ch->src = val;
+ 
+-	ret = of_property_read_u32_index(indio_dev->dev.of_node,
+-					 "st,adc-alt-channel", chan_idx,
+-					 &df_ch->alt_si);
+-	if (ret < 0)
+-		df_ch->alt_si = 0;
++	df_ch->alt_si = of_property_present(indio_dev->dev.of_node,
++					    "st,adc-alt-channel");
+ 
+ 	return 0;
+ }
+@@ -1815,9 +1812,8 @@ static int stm32_dfsdm_adc_probe(struct platform_device *pdev)
+ 
+ 	adc->dfsdm->fl_list[adc->fl_id].ford = val;
+ 
+-	ret = of_property_read_u32(dev->of_node, "st,filter0-sync", &val);
+-	if (!ret)
+-		adc->dfsdm->fl_list[adc->fl_id].sync_mode = val;
++	adc->dfsdm->fl_list[adc->fl_id].sync_mode =
++		of_property_read_bool(dev->of_node, "st,filter0-sync");
+ 
+ 	adc->dev_data = dev_data;
+ 	ret = dev_data->init(dev, iio);
+-- 
+2.53.0
 
 _______________________________________________
 Linux-stm32 mailing list
