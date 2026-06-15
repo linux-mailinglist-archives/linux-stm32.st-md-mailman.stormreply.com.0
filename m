@@ -2,61 +2,147 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id BN7CB1uvL2oKEgUAu9opvQ
+	id VOCrFhmpL2r7EAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 09:52:59 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 09:26:17 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D91568454F
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 09:52:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DF4C06842E7
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 09:26:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
-	dmarc=none;
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
+	dkim=fail ("body hash did not verify") header.d=altera.com header.s=selector2 header.b=sratmR+D;
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=altera.com (policy=reject);
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 523CDC1A97C;
-	Mon, 15 Jun 2026 07:52:58 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8CB72C03FCA;
+	Mon, 15 Jun 2026 07:26:16 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011017.outbound.protection.outlook.com [52.101.52.17])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE77AC1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C9737C3F95E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2026 06:30:50 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-05 (Coremail) with SMTP id zQCowAAndcgTnC9qrGaTEw--.34107S2;
- Mon, 15 Jun 2026 14:30:44 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Mon, 15 Jun 2026 14:30:41 +0800
-Message-ID: <20260615063042.36397-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+ Mon, 15 Jun 2026 07:26:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hTD627tVz/YHNn1R52E+TmSkV3fQZ/O6W6Cql9OItPHRuywnJE1MB/PBaXsmVhkJM5z8f68aoqSxPduvS+xprmHME+nhrpeVVZELZ+b5nf+ITdc60e9VzUimpht06w89GXfvZe6w2Xa2y0FsRfjRM87tqqXHYdEnraT231UH5ie8WWGntdpoFUZWiPgADcvxr/x8xKki5rTukLVrpk1F1Lj1V29K8ePD78V5l8CUnVZWqJXqVrplCS+B58ZWWZ+UzGaVIzlzx6QRczT/1X7LwEJ/CyUx0k1OZWkbf3wZDds69Pw3BXv3jhYL+e/x+Dz+HQwufA4r2+GkGpZoRaatRQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xXzV7w85bD1Ev5YbVXlfjQqmMwdAV1nIusUxB53P0z4=;
+ b=ibgZzv02ycMDVH8qmqavABGfmFB+NU9qYs4nif08wDVYPnanLItV8n8hXUTYtSmUf2iThZDTWrCTILs4dRDXELYZOV7Rqqjxu1T2jUTFied9B6sedO/SisnR6mtabKw3eotwepgHfSVnQyhwYfi5i43UzLm+/lhajI4DHVYnE/QVNpGpY7RidP+jQDIDKRgFhnu1ZBhi5s5PM7dRoF0ROd7SIij0RH0MDs8Ao1BfbhpZANcQp+bFOk5KLDo7dvVQDbfBleXMmdSE8Bf9/NLUWWQw6EPT88oJc1TjPioRn2ut/dJEFx2/XJgg8o1/bVktbfz5nUWLUxTi+1nENQr46Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xXzV7w85bD1Ev5YbVXlfjQqmMwdAV1nIusUxB53P0z4=;
+ b=sratmR+DrJvjoJhUZZfXfzW9IKc6Ad8IWf9swc4+9cO9FqvDw/D+cQnLfiNPbMkB1t8nJE/r+SnUv6k7atxiqwztdLKeHyaM+NIlq0OVzHdt/T6F/cktcFYUNnhyGc/Vffl6xwt21phkG5GJZS3yBvx5vwRCNh9uIiLDtTFyIw55rtTii6beQVmzMkllj66WUbMMmG6rLAoK/X1WF3FZ/2g8wNE1JPoY18kn5tmG0grQ+oA3CZoCh4/AG4M+F3F5Njsj7qVJzl6/ZFIkChbtE7SW/0VF+MV04uCbmsnsySWipTpugOrL81V7rFKb+mYb2gt7HkSrp+JIEqpRPnV7YA==
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com (2603:10b6:a03:432::18)
+ by SA6PR03MB7878.namprd03.prod.outlook.com (2603:10b6:806:42e::19)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
+ 2026 07:26:13 +0000
+Received: from SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775]) by SJ0PR03MB6964.namprd03.prod.outlook.com
+ ([fe80::b965:bfa8:58fb:e775%6]) with mapi id 15.21.0113.015; Mon, 15 Jun 2026
+ 07:26:13 +0000
+From: "Nazle Asmade, Muhammad Nazim Amirul"
+ <muhammad.nazim.amirul.nazle.asmade@altera.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Thread-Topic: [PATCH] net: ethtool: mm: Increase FPE verification retry count
+Thread-Index: AQHc9Jbq62Y8TJUe2E+DsI48lz9PkbY28/YAgAhTW4A=
+Date: Mon, 15 Jun 2026 07:26:13 +0000
+Message-ID: <5b43bd71-98d5-46cd-abe9-3333ce048ea7@altera.com>
+References: <20260605025631.2872-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260609171750.7c5709ac@kernel.org>
+In-Reply-To: <20260609171750.7c5709ac@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SJ0PR03MB6964:EE_|SA6PR03MB7878:EE_
+x-ms-office365-filtering-correlation-id: c8c060b6-2f19-4477-cdb4-08decaaf6138
+x-ms-exchange-atpmessageproperties: SA
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|1800799024|366016|376014|7416014|23010399003|55112099003|38070700021|22082099003|18002099003|4143699003|11063799006|56012099006;
+x-microsoft-antispam-message-info: s+xhbqAQ+z5p3hchAFrqSevwUetC3RoXaJOMf0NdJsNqfB5CNVMdO5wQax4kbB5zQWSqlyizVXtR+53Q8BqwYLsmurexjcNPDO6gO2NY/9w8kSMy1JekbD1YF/UGmvwceoPVnWON4qXA7s/Y65wkM0cuETBZYbmsvSpZsbFBAHqF5sezFEGgFD+U2czQGipd8MDBdf4MmNNST297i2DHCtzE8lxbWavhze6+Ch2JZvuSRHQMQjKYOcgwxIjj4zGtkMd/qW2SKflX7GGJ79g0GjyjcbzlqMH5tMmCh/iD2mwF+9u+Nl0bjeVIPYfUIFfChUH7hnoOmtnA3VYZQYT/1mswGjwiawLwYsa5UUaB1PNbkra5Zs7zcf+5RPiMkAtgRvB88rWOXcBQUPM++vk7dBU/w1zYc2n2SB1wqX6+GbCfYLWvzjfKOD4Z32l0GjtrXZls1RLcIcL/t6xXmsUHcsl9zD+Fi4KiGv/pkfdi67HLp4seh8EvKXYWp0/6s/1r/Oc/qG1OHCh6ybMRWOLRY6CW/IZc/3tK5Sj+7AOOJUqKgAkTCwgM32hP8gUSsjKwtRsrkC7BQdI+VsGAIA0+F+YeG8/8iOlaBNp70s94iC8y8DWG5wULsXg1+KBpvEpBMW+9k+4wPPzy7IhL4RubFQP0wfg9noeKULxh/gpHeiGCo9AniLdGw0BEOrJAI5la/XUPKlsVg5Y5UNuk1i3PWR4xl99k2jEwOATgkxZRUu6t63nYPlNo74WrtrQylKPC
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ0PR03MB6964.namprd03.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(55112099003)(38070700021)(22082099003)(18002099003)(4143699003)(11063799006)(56012099006);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 2
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?U2NxUXlTeHlxS0hKaDRkK2JRYTRNajI1NFhrL2ZTeTMzV2t3V3ozaXF6SVN4?=
+ =?utf-8?B?ZW5qUEJxbUdOclBTVC9wTUFaRmNrQVA4WnBaMEx5b1dRekpFdTJBSXg4Y2ZE?=
+ =?utf-8?B?RHIrbmZidEtlWkNUR3FUa0pLZnB5cjkvMmNBbDkycWg5ZHZNRU15YjJ1UVNo?=
+ =?utf-8?B?UWwrTWlLN2lnbmY2Mm5FakEzNm45U3N1by9KeUxBVUpZRCttdDhENmdiZFVn?=
+ =?utf-8?B?YmxidThpNUoyK0g1d0w4Wmxnd1pzN0tWeHVuMU1FK2ZmYXBlNlpnaGtPV296?=
+ =?utf-8?B?VDdLaGZqb2FvbkJOd2RkUU13ZmM4REJnemM4c3BoUXZkcCtEMTU3MWVYSUVv?=
+ =?utf-8?B?MFN4cUM0VWIySld3K3UreTVESlBucDNuRjQ0T0gyM29yam5aNHNINjJ0NHVt?=
+ =?utf-8?B?VXV3OTRyb3JYdEFTcW9WaDUxbGl3SnUzZGpLenhOeVNiUlpZN2hLSGxaYWkv?=
+ =?utf-8?B?K2llYWVoVW1sZG4yMWpBd3NSTlhhSHQ0RnFydHhNYk5GRVRJWlZpWFpqQnBu?=
+ =?utf-8?B?YnFCS3RBb2RDTWtSVEpveVBCUHoxQ1lZcDB6bk1SMXoxYVJMNmkwcGlXbGNM?=
+ =?utf-8?B?akFLVjB6V2ZPMHpjYTNwWUpHb0pWcEZnRGRzTHZXVzdhTzlFTmFDYXZRRUgy?=
+ =?utf-8?B?YkFTZFBqeU5qbVhNQkVWZEVYSGk5MldyQndzYlBRQnRtdU9BcG1zeW5MTmhj?=
+ =?utf-8?B?bGsvVFFxRFhEb0lmMVpQSjROUWlVYldKVksxcXdsRTlORW1wMTY0RjJ0RlU2?=
+ =?utf-8?B?RWNjWGYvREJuNXJhTTIvdUNXOEVFNnNuSVR3REszVndxd0pVZjZNU1Jnek95?=
+ =?utf-8?B?S3hUQnIvaFhrb2E1WjNGdmM0bmd4V1dzWDJxREd5UTJaV1JUY3ppQlNRNmh5?=
+ =?utf-8?B?elp3Mk02OGU3Q2RLbzRaMzJXeUhzNFNmWGJTdS9QOHlRVXB3YjVsWTltSERp?=
+ =?utf-8?B?aXZCV3RUYVZvWlBpREcxT0lCSjRrc1Y2bWQ4dHZhNmhtR3ZaSlZyUGV1L2pp?=
+ =?utf-8?B?U0lkeFBwQUI1b2VRQzJFWFZJa2dpbytxa0dBVkF0VjBGaWVkY0pDZmpKT3Zr?=
+ =?utf-8?B?YnB2Q2sycE8yc2NxNU85THljelFZMlh0NmpOcjdhUW5HcTF5UkUzOTNYYk1K?=
+ =?utf-8?B?VzVSeS9TdjhZVmNVU1BkZlREcnFZOWNycDhTRVNpZksxMVpPYTJxSldNejg5?=
+ =?utf-8?B?dnB3VXNGTmNmMGo4SThJME1nQkEwWkN1VkluQmpNVWJpeG4zQ2l3MnJXcFlD?=
+ =?utf-8?B?L3ovTmNPd1NBVFNOZ09kWFArTVEvZElRZ2RIaUFGNDFxS2Z2MW5kZThyZVpL?=
+ =?utf-8?B?alpvQSs4UG4xQ1Y4d0Z5dkl2ay8zT041S3M3NzJsUjM3WnJ2Y3NvbTRDRGI4?=
+ =?utf-8?B?V241UTdDQ1dacXVJWHRuVXQvc1FYTzR0bkliWmlEY2ZNUTA0U2g0Rzh1dGtj?=
+ =?utf-8?B?VC9lMU56OFk3bHdFRXVKK05lblZvTlJ3U0UyTGJtNi9LbUo0RzhlUEJRaFVt?=
+ =?utf-8?B?S0Y2cjVzaXh2Yk96cTNkRHRSMmY3dUxpUXdSM0pqSkxyUUF4RmEzcGU0UEdL?=
+ =?utf-8?B?d0cwbFhudzlFQjNmUVRxbHZvWUxTUldDclZCYmdJeHpSYmtqSlNTZE5FanBG?=
+ =?utf-8?B?UGpjZTJObnJXZStndXgwVUtLRXZ1MWxXRDYyNE11emYrUW9ubEpNZnFtdnlB?=
+ =?utf-8?B?MGNKQ01XMERlcnFWbkYvQVVwZUxFcExQNEpzMndHUm9YOXZ1V3pNSmhVd2Rj?=
+ =?utf-8?B?NlNMVnI4REtNWXhKZTRFclBnTzg0WlVTaC9GckVLRWt4QVIvMm9ZdFlMMVR2?=
+ =?utf-8?B?QnVMS005V2dFZXZaYjdaMkpaWFBpanZTUmtaNHZORVdFYlBiZ1FpVXNZa3Zu?=
+ =?utf-8?B?SEswOUpWaGtTa05hcE1wNmVwdjByNXNiQ29PUmZKM0NpeFh2WjNwVkxvU0Rj?=
+ =?utf-8?B?NDUvRENuMFZqaTdUZWZjeHpsZnZKS2oxZjJlVXg0U3BMV090cWRWRVp0Undt?=
+ =?utf-8?B?TEFscmRQVndRWVowS2RNeHE2ZW5lbllYOTBvUWIyR1h3WnY5U0JKRi92NVV6?=
+ =?utf-8?B?em55dnpSaHEzQ1l0dHNJdldkVmYzYzVXZi9McmdKbm43THVUVWhtZ0o0a3BG?=
+ =?utf-8?B?eSt0VUVBUFFVSHJHYzNoYlBJMElIenRVY05DNldqY1NaMUY0eE55NGNyeFln?=
+ =?utf-8?B?aVhOd082VERHTXZGQlM0cjYvZFZLbWJXbDBrN0dQRmMxdDdOVVM5aTVFSjV2?=
+ =?utf-8?B?REl6bUxiNTF0bVdReW1xdWNYczRON2tnTDExTTIwMklKNE5OVDFHeU9ieWdN?=
+ =?utf-8?B?Q2twdlgxSTlseGN5OWVoRjVCOFladWY1N1llZWM1WVFmeHJhMTUvRXNVZFZG?=
+ =?utf-8?Q?hY6I3YjakCh5k2qiEsAl7hM4Ycy/e1HXteVcM9jeMG+g5?=
+x-ms-exchange-antispam-messagedata-1: pool2fDklnMzzQ==
+Content-ID: <8253A522175D3B4FBC66528334B02428@namprd03.prod.outlook.com>
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowAAndcgTnC9qrGaTEw--.34107S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtw1xJF15JFW5Gry8uF48JFb_yoWDuwc_W3
- Z8uFn2gr1Fqrn7tr1xtw1rZrySvFWDZw18JF13Kr42gFy3Zr15ZrWDZr1DG3WUua1jkF15
- WayDArW2ywn3CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
- 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
- cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
- ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_
- Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
- WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
- 7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
- 1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
- 42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
-X-Mailman-Approved-At: Mon, 15 Jun 2026 07:52:57 +0000
-Cc: pengpeng@iscas.ac.cn
-Subject: [Linux-stm32] [PATCH] mfd: stm32-timers: depopulate child devices
-	on populate failure
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6964.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c8c060b6-2f19-4477-cdb4-08decaaf6138
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 07:26:13.1866 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: yAgXUr2d8avPZgh++Zsqu7srCtzgedxVh4ckC4P0pUPFDE24LDDcJHc83vffOKzZxME8PeEWY3PBKDQwtKlkNrfqmNxOOmz+pMEEEKXmFttPmPhcZv7Igf4gjL9sG7BOL2CYgN0oC6WUPJQKfhD8mw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA6PR03MB7878
+Cc: "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-stm32@st-md-mailman.stormreply.com"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "maxime.chevallier@bootlin.com" <maxime.chevallier@bootlin.com>,
+ "andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+ "edumazet@google.com" <edumazet@google.com>,
+ "mcoquelin.stm32@gmail.com" <mcoquelin.stm32@gmail.com>,
+ "pabeni@redhat.com" <pabeni@redhat.com>,
+ "rmk+kernel@armlinux.org.uk" <rmk+kernel@armlinux.org.uk>,
+ "davem@davemloft.net" <davem@davemloft.net>,
+ "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>
+Subject: Re: [Linux-stm32] [PATCH] net: ethtool: mm: Increase FPE
+	verification retry count
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,76 +158,61 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Rspamd-Action: add header
+X-Spamd-Result: default: False [6.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[altera.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[altera.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[iscas.ac.cn];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FORGED_RECIPIENTS(0.00)[m:fabrice.gasnier@foss.st.com,m:lee@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org,vger.kernel.org];
-	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	GREYLIST(0.00)[pass,meta];
+	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[muhammad.nazim.amirul.nazle.asmade@altera.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:kuba@kernel.org,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,bootlin.com,lunn.ch,google.com,gmail.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[muhammad.nazim.amirul.nazle.asmade@altera.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[altera.com:-];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	R_DKIM_NA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[altera.com:email,altera.com:mid,altera.com:from_mime,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9D91568454F
+X-Rspamd-Queue-Id: DF4C06842E7
+X-Spam: Yes
 
-stm32_timers_probe() releases the timer DMA resources when
-of_platform_populate() fails, but it does not depopulate any child
-devices that were created before the failure.
+On 10/6/2026 8:17 am, Jakub Kicinski wrote:
+> On Thu,  4 Jun 2026 19:56:31 -0700
+> muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+>> The current FPE verification retry count is set to 3. However,
+>> the IEEE 802.3br standard does not specify a fixed value for this.
+>> A retry count of 3 may be insufficient when the remote device is
+>> slow to respond during link-up. Increase the retry count to 20 to
+>> improve robustness.
+> 
+> You need to CC the author / expert on this code, please repost
+> with the CC fixed.
+Reposted, Thanks Jackub!
 
-The remove path explicitly depopulates child devices before releasing
-DMA resources to avoid races with children using DMA.  Apply the same
-ordering on the populate failure path.
-
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
- drivers/mfd/stm32-timers.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
-index b3dbc02aaf79..1f0aecae83a5 100644
---- a/drivers/mfd/stm32-timers.c
-+++ b/drivers/mfd/stm32-timers.c
-@@ -329,8 +329,10 @@ static int stm32_timers_probe(struct platform_device *pdev)
- 	platform_set_drvdata(pdev, ddata);
- 
- 	ret = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
--	if (ret)
-+	if (ret) {
-+		of_platform_depopulate(&pdev->dev);
- 		stm32_timers_dma_remove(dev, ddata);
-+	}
- 
- 	return ret;
- }
--- 
-2.50.1 (Apple Git-155)
-
+https://lore.kernel.org/all/20260615072436.26128-1-muhammad.nazim.amirul.nazle.asmade@altera.com/
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
