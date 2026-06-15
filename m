@@ -2,130 +2,147 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 12rfG3xUL2pP+gQAu9opvQ
+	id PXSbHG53L2pzBAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 03:25:16 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 05:54:22 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8981682BCC
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 03:25:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 001DE68327B
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 05:54:21 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
-	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=starfivetech.com (policy=quarantine);
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=oD+3sASR;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=A3hj5785;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67875C5F1E9;
-	Mon, 15 Jun 2026 01:25:15 +0000 (UTC)
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn
- (mail-bjschn02on2128.outbound.protection.partner.outlook.cn [139.219.17.128])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 826F1C5F1E9;
+	Mon, 15 Jun 2026 03:54:21 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1BFDAC424DE
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 40885C3F95E
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2026 01:25:12 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=M9EvC2h+1pkhXnuEgUKDpI8lftRJERpGSv0Flf5riGt3yxZvMNtKwNt3QcUVIW9hzCOma0VE0R+Bahfe3/STNJvOdNPmmd4co71TBEFlFsNKqe/X/LQ8O+H5pY78F5bxgBbH32YK+gH0fnvk72NCMar66RQ/ghZbmY3jhgGWE7eBsB/N+j760jVe1oLW/KCD0WiIYj0vCtjSgfZl5F4TnrQvlumgxpHbVbGC9PkkKHulX5blmJwRM435KELYnYfUULTikOFYLwq0DpevWJLa7LpA07EIofYZT6RBP+bl0RcOiMhWCnGyWO/TIcgcRDgHBEo2PEl83nP34s6Ay7PtKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a/UWQP0DGSm6A8W1do7ZQEVppFyB01zLmnQNfo+bRJI=;
- b=gEz/q+/TeUhSgjZtjgkRPtPOkvbuCnqvxR/BbqTGuIY/wdXEsdvg9kLzP5VUEdmuTtPjKMjTv/2iAkBZXiyOoDTFp+xPiRpDhtxuhb2Q6ogjRC32ctpstjPYexvOuSXDOv/bTqM1wFwb5/p4NQk+dRrl60S+AiW/3/uOOuyA6XU0ERcYkUvqrPybQVawhrIBfeADx13tCiugQ5smBhNO11UkParjUkwEGKWdXHBacCcad9wYpDwPNYlcvodZZQBK8kDbQRSNXLmdGEy4JrU6qq/dJ9pkAvuE8Ys5Xx2Vwp7RfuzwxgJCjqzOuasCnJZbXiUMARmoCJp+rcASx+UZlA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:25::15) by SHXPR01MB0877.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:1f::16) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.113.18; Mon, 15 Jun
- 2026 01:25:08 +0000
-Received: from SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
- ([fe80::9b99:12dc:a115:b90f]) by
- SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn ([fe80::9b99:12dc:a115:b90f%3])
- with mapi id 15.21.0113.015; Mon, 15 Jun 2026 01:25:08 +0000
-From: Minda Chen <minda.chen@starfivetech.com>
+ Mon, 15 Jun 2026 03:54:18 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65F1hvZP2725833
+ for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 15 Jun 2026 03:54:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=Aj28ezwhv4TnokMoW4RbU6QQ
+ Lc/XH3Iq3Hlkkr+sF1U=; b=oD+3sASRNbigJz2LV03W9rx8BotwZ+1JfdwAXSh3
+ 4NIBVpJig6Mb/IcmtFvQAuOs2aEGkmZIHXPOUA8waMIixhnhQW69l1qbGmxCzm4W
+ aWqW64mzWU+ZISOaN4fNIehO3fBhtfNCsfXRSNtTX9ZkHOsc6LtJ++nNFKGBtczq
+ B+ZudPF5tCQxgCe96CU9aKwnz+rvIm0hV9UWimXzFwdCVqq2WASvxzlCXc+Gehza
+ 2W6s9fFP88QeirTC4wOayo0Mht/W24kqwYLlVUm1A35YoIeetD9TbYTJjXI3W0aR
+ FbKX2DxZy3te03iYfEenoUym0UVN3SzrbaeA4N0uq4Hh8A==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
+ [209.85.216.69])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4es0cgn73c-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Jun 2026 03:54:16 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id
+ 98e67ed59e1d1-36d98b6f019so3166101a91.2
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Sun, 14 Jun 2026 20:54:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1781495656; x=1782100456;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=Aj28ezwhv4TnokMoW4RbU6QQLc/XH3Iq3Hlkkr+sF1U=;
+ b=A3hj5785Axe/fc+i3KpfLSxYldfnrdvnxq5dJD2qE9w3i3p4R0B2qAf8yDm3EbzTqZ
+ NetE9QjmV4CvHrzXM12dmJj4k0SVmKCUc5gD4wgbH7geJO4iJEUmoNL/Hh0Ng+qutrNv
+ qVyoD4EV4bi0AzBqHjXAbSZ8qp1//eCS3Djol7e92n0KXH+r5gxjKKXyjdRNRZCLZGN3
+ a1LIggRjhUdxi9R+OY/XSc1WsEEElexO7IeSBsTwGrGG2AzPSAb3WDHf95njI8IOELCn
+ 8P0Gd5eZevOgU8GOE4EQAdTaottqnWTjhwHLoxg5B4N6GAslY87pbRSvZqDKaRMEz9qy
+ IbCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1781495656; x=1782100456;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Aj28ezwhv4TnokMoW4RbU6QQLc/XH3Iq3Hlkkr+sF1U=;
+ b=dQVUUMyXqmJJ2RJZNpi3YqWbkRbqfRPL+Y/Wpkp0k+mVt5Or1XWzSaaCkcWnQHXbDX
+ /o+a24JDmu8XK07WzXM5kOLAND6DBbuKHF+VPtB2Y3GfWoCwLTQSnpJml38D9v4ve+K/
+ 3TrRjkp9EIXQVaSpmkz7u31pgnItMSDS85myfwesEh5E+80OyXN8vDddjpxkzrNFN5XK
+ 7dC3fJtWRu/D7vtTpCBVPNAExKmH8KT0V3Qj6yDXEv7TOQSb3GiTjhaFVeVhfcAqOJxG
+ 3MUQFNzQBkqwKxSbRZs+Y3PtOwLW/eK3nspowblClMe0ejS0qp/HXQGXv2cYicVaVGAZ
+ mfoA==
+X-Forwarded-Encrypted: i=1;
+ AFNElJ9GOmJeorNHUadu4YrOlEItBDr4xTE0HmSMXp+zKDieWKX+6dNwIpOSIF0OGoITI4l7a44xfKrTCJ7A1w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yx4OkLzzTTVmu/jlg45DiMNE8rzKtl4gBr7yGW1Fa3ZOwrzwOjx
+ cHt0njQVhk2m3n9dZMbnHAuJPcbdYFDqEjm+G+urz1u04mtifxChGey7uZq4m9Dwhj6AUxFVpg4
+ ApNb1+qrkAJPsh7stUQ5dbIHq2Wq9pegj+JlPbfzeGbwvsm94OC0IDu/uPdEvRgDnetWIJnb+n5
+ P22Y9TiGg=
+X-Gm-Gg: Acq92OGm2XqnqA6+XMlvEWvbrPuHtmjG5DTVai9iu30W2Zf0+8HvVhT0f4/LGVJxNZk
+ Ctuspb+7iiI9NdazUXRI8HVqkSr5OHqYkZXxP6YRAjPiNazwtrYtrvGLScn9DdwkAivGJBOcus1
+ vPyW7anLZ91ReHaAB+7fXf7AAn3HiIdmFzaBkAwRvsJWcwb05ALJpaINUYmrNTrHT7IrSrPUFH1
+ WBwzAA1NINhSQj3ASu7nDYAf6u9VbMux4z95rDyyjnCsVtzKEYsMYk6KcQgOjAg9sCZNSI4XAn2
+ wK2nx4obzu2AOurSX9l5rPrvhDB651cAM98F58PgPL2TiuT1yS+16eM5E+HdLK9Dtaq5adTnTZ+
+ vo5Q+OHapWJH1KzslXEF47TGbmX9zFpg3M9w=
+X-Received: by 2002:a17:90b:5865:b0:36d:b662:708e with SMTP id
+ 98e67ed59e1d1-37a0202ecf3mr13816820a91.9.1781495656112; 
+ Sun, 14 Jun 2026 20:54:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:5865:b0:36d:b662:708e with SMTP id
+ 98e67ed59e1d1-37a0202ecf3mr13816782a91.9.1781495655578; 
+ Sun, 14 Jun 2026 20:54:15 -0700 (PDT)
+Received: from oss.qualcomm.com ([202.46.23.25])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-37a262adbe3sm10477963a91.13.2026.06.14.20.54.09
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 14 Jun 2026 20:54:15 -0700 (PDT)
+Date: Mon, 15 Jun 2026 09:24:07 +0530
+From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 To: Andrew Lunn <andrew@lunn.ch>
-Thread-Topic: [net-next v1 2/6] net: stmmac: Checking whether priv->phylink if
- NULL in NCSI case
-Thread-Index: AQHc+KotsU7CSx9q1kuYrR3iPfERvbY3dEMAgAdmAgA=
-Date: Mon, 15 Jun 2026 01:25:07 +0000
-Message-ID: <SHXPR01MB086317D16524E2E0CEE46D66E6E62@SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn>
-References: <20260610072420.64699-1-minda.chen@starfivetech.com>
- <20260610072420.64699-3-minda.chen@starfivetech.com>
- <f3a32c42-27b2-496f-b236-02c33bee1773@lunn.ch>
-In-Reply-To: <f3a32c42-27b2-496f-b236-02c33bee1773@lunn.ch>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SHXPR01MB0863:EE_|SHXPR01MB0877:EE_
-x-ms-office365-filtering-correlation-id: 53f4cca8-5fc9-4fcd-7720-08deca7cefb2
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam: BCL:0;
- ARA:13230040|366016|376014|7416014|23010399003|1800799024|56012099006|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info: rcRb6qzZvhDWUvd30Hodq7nsgaLIlFgPOdXq1m/FhM3nYWeZ98PuEB3w18LbLEZGAPUICmqZVvzr0f8Gl/2KK5YWdFT2VD0HDxKLZ5HMLJH/YRi+ewSrDAW7kskoBGZIOvcjJ8obyaTSQy8rln0kD1TmpVniD8hqAGCsfC/9i3SYkIsmqucFQLZSkMvGK3kd8sZ+c3PrqKzrILRb5YdEqE3ACkjvwUNkU7KqNxXZgwgN4vxVxw7z0I1FxlbYZNmV71/IzfflQADrcNgPf+auuKY/Y56lcAIpvUoz4l3Tnw0tzkEzGoKBgx6iTXRjFxvuzuXArfG3vZXAKTEWgqp7h/hbjbLhfD9TuZZ+umzWhDJeBCm1sdsz7cS+1fOiQvpg0Cv52AaGVsyKS4mYUn3SmH3odVvu0PbDq9QrI5Er+rNBUm1nmMsF9sBhSTVBGZ9wg3WRTlQlN7U755C6IL3FbvtEKL2RkhbNBs3axNlvZvQNFE3+8zKVVGGoTswqcThoF1ToIt/+esiYKL9uVs+HUjsUrsHTnKPRefMmcwXN9WOQeMZljWN5rJz88U1f6ePl
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn; PTR:;
- CAT:NONE;
- SFS:(13230040)(366016)(376014)(7416014)(23010399003)(1800799024)(56012099006)(4143699003)(22082099003)(18002099003)(38070700021);
- DIR:OUT; SFP:1102; 
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?hK7+qHUAvr2za3/vDTPNvZR8LreExHYL0jvADhIwYWByijrG6ZLqD0uA2ZC6?=
- =?us-ascii?Q?rwwKZPSR1CW80j+7JnMvHnTgBUPyT1xWbVx8vtTAOi3fp+vveG6e3A6n/Ez5?=
- =?us-ascii?Q?y5qYNst7Btudx0XEX28vG5xG5qa/5ugxp+SU5aP+W9xniz42T57ISRfFlezt?=
- =?us-ascii?Q?AQaao/dV6YHo7v7vMXhbqaJZkWNfmsZFPiy3EB97MyRDNth8Xzz+1nRdFXmN?=
- =?us-ascii?Q?/S94PB8dAcJPNAMQWSPoD7Dqn8xxJvwK7go/IBDzPOisMAe67x8JE/GYOGa+?=
- =?us-ascii?Q?37K6Rzdq4tfKuV66vu6oKbAy5r5GyIR0rtBl1vdmEuJt1KPsJUWlac9uUY3t?=
- =?us-ascii?Q?e6pV0c/nzszj/qklF/2ZmVf3NUSTeGKJZiRorhPaaeDHgkA4juIUSJbMuFLs?=
- =?us-ascii?Q?s+KsphA2CKFCvAoI0O8y3lkZvFwUhHbgPnyhOnLuRVZZcXst0J5CVDE9Yq5Y?=
- =?us-ascii?Q?je3gMPveonXqkXHT3+ZHIzB1sbSfNuR6ikh8KCXxVPj+UIrqzBBF1wh7oq1+?=
- =?us-ascii?Q?I4MF+FiUz2n1m2YOMLRtlFlLByAeJ7vAjOkgzlBRfQx0xPzIqtuLvOvUAO8a?=
- =?us-ascii?Q?8Y4VFno2YIy6E0W7wQryx845KTj3dw0fV22gp1QcG7ja3xF8V+rZBtJT1rAG?=
- =?us-ascii?Q?7EwAbZJyZUNYRpfclf2BKfaGFd7ZVV48mgXePHZcqY8Ro8amFgCbrFRv/4kF?=
- =?us-ascii?Q?+JwbX1ucd38C4U5dwdj80Kf7Qp/L3nULxUSM2tXnaukGo5doTfe4UjMKZ1Ak?=
- =?us-ascii?Q?cJrzLLltHMyy+OvVaohLq5FPzvlpWrPmdE+wAyjPTBmf1/M0a9d12Ee5x5Ew?=
- =?us-ascii?Q?tFIs4OFbVtUdebm33fgwmwc3l0lWxsURtc4SyQ/tnzc2LzrTwXZ3No+Brgb/?=
- =?us-ascii?Q?x7xTNy/ubBWBkkT9SwI4hQALpLRna1iGrTxA9eDofBb+fROWa9zbHW5LlOwS?=
- =?us-ascii?Q?8Zx7Nivdmw1V5BoYGibw4VJFM3S+pE3BJ/lM7UpgrIt+WYsDK1Y0or8J18Mq?=
- =?us-ascii?Q?8b/+hbCemynot8z9GgVsXnyAhxzabfvk9fNNzv5odR605C7wmJKqGUuKbSkf?=
- =?us-ascii?Q?a8Gje/PO76iqTE01A4fgdDSsWfheph/F7J/gyXexa2iywuOAxKOZ56Yo5hK4?=
- =?us-ascii?Q?zuCPSSz2WXjNMNKKe4v88zTDNEVjHtI6P+//GKZc56rltj9+ieDI5mWLYcd7?=
- =?us-ascii?Q?pApDD+fLjlh/WABNu714MWRVFX75Coa2FPmPggDzQZrpHY8305jC6nqJP8Sb?=
- =?us-ascii?Q?CaID1BcVcYPYirKXQ76y6ISu76oOJzwsCTp4C685lkE8QifcJspivibHpZpk?=
- =?us-ascii?Q?OEreOGZR8ZJm+QzZZ08aKcAmHRS3t2ueffXHmIT5yF805+xcltx4kpmHB1np?=
- =?us-ascii?Q?W6b2PTpxRELUHIG4uRa5/91bJoL77t1Ui/Wl2tKMqdmUsFQc6+/o7q9wZODZ?=
- =?us-ascii?Q?vuBttpMQiGN+8dBuKmO0pcvYrNoHCohe/JPm0r4EG2n1HA7Ej1oI2I1ZQsK/?=
- =?us-ascii?Q?f1HFwCabzOomXBbdb0hCQlYm/dD6nfeWW4fJOcsDpEAx4kgJEZPWZ+4K5jsU?=
- =?us-ascii?Q?PNLzqjVgXl2P2aq9To5fMP/CUb1GBqXuhmCfEFxx5sifgcJ6NoN4WhFmTsri?=
- =?us-ascii?Q?AT8YcG7aOhOv4gLUExRfQZNRD4b64eYcF98WyIPuclbd/wi7b0t+Dj7pH0Vi?=
- =?us-ascii?Q?OTUnhHQsVMFo67aKE+SXlu6svyzE0KENYvq4+/Fhndbck9Al7iMqG+N+C7aW?=
- =?us-ascii?Q?g5knzyUNyg=3D=3D?=
+Message-ID: <ai93X/cNWHtEQsDt@oss.qualcomm.com>
+References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
+ <20260612-shikra_ethernet-v1-3-f0f4a1d19929@oss.qualcomm.com>
+ <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SHXPR01MB0863.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: 53f4cca8-5fc9-4fcd-7720-08deca7cefb2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Jun 2026 01:25:07.8418 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IQlHREwQzw7P7T5sN26ypsVBlQtDBl6e6uIxy11gYJ82CkY3nbxySljwbqSydGctx/4h5iiBQGRaIuSgBQZ1LPs7EAL0SbsBfZBQ7Zq/HYU=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SHXPR01MB0877
-Cc: "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-stm32@st-md-mailman.stormreply.com"
- <linux-stm32@st-md-mailman.stormreply.com>,
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh+dt@kernel.org>,
+Content-Disposition: inline
+In-Reply-To: <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
+X-Proofpoint-ORIG-GUID: rvOPFfyexv8FvQEw4w3M1fFT6Zv1retH
+X-Authority-Analysis: v=2.4 cv=NPLlPU6g c=1 sm=1 tr=0 ts=6a2f7768 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=h-cV_6-i1hGX5lmYmEcA:9 a=CjuIK1q_8ugA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-GUID: rvOPFfyexv8FvQEw4w3M1fFT6Zv1retH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDAzNyBTYWx0ZWRfX4VQ/OFgXHVCY
+ yFtjN7U72/g4VWb0A4oMRykov5XC0EdaWSVuvekuApaKeq+leuVDtLHFNLir3RZP9n8oxGY/NME
+ GgqmOGS8FQzD/gzVqbntVPmzTE6Fi1A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDAzNyBTYWx0ZWRfX6sjw5hJgWwU7
+ +RdRZd0RaJc8F73wGIfc3v+4ZB9xyyA6AbkmfhzD0VDWdPjbADm1khLfbhTyDbhpz9PlQW7S/iC
+ LngewwTqwho+mGO8EtixF/05ptr0kbjt+rZBQmyQN2O4Gq+M7c481Ytj5rGubllHhaSb8jfXecj
+ Nkl7OBfjUD3k7dotRX6yKZGDt80lDOdF7SVITLMkIR/xmWauJVJNeU4zkE3a662tAfFr1UJ9qcS
+ xTxJUOhXGspAn4k8l02aVJPDS+K4HCUNSaDsv0eWB+RLdBY75hEe7tuGd2zAavFki50tlSCdAgI
+ P+TPAzuwYjNeF6NkQ1QJVzWwSOQLaBhKwJvp2AcQPdSAjGKz1HtEGuFHlTCervxihT7hsSByA/B
+ zaz24ogGT/xtlOoO1JaD63ZR9ZGocu5bUVI+6AYwvxSNMF6LZEvRVkh+XOlet2SfEEgkgN76eqP
+ iqoiUz8tpm0+j9bHdSQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_01,2026-06-12_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 suspectscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 impostorscore=0 phishscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150037
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
  Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Jose Abreu <joabreu@synopsys.com>, Conor Dooley <conor@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Jakub Kicinski <kuba@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [Linux-stm32] [net-next v1 2/6] net: stmmac: Checking whether
- priv->phylink if NULL in NCSI case
+ linux-arm-kernel@lists.infradead.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
+ Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
+Subject: Re: [Linux-stm32] [PATCH RFC 3/9] net: stmmac: qcom-ethqos: fix
+ RGMII_ID mode to use DLL bypass
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -142,86 +159,77 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[starfivetech.com : SPF not aligned (relaxed), No valid DKIM,quarantine];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:devicetree@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:robh+dt@kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:joabreu@synopsys.com,m:conor@kernel.org,m:mcoquelin.stm32@gmail.com,m:peppe.cavallaro@st.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-kernel@vger.kernel.org,m:robh@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[minda.chen@starfivetech.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[20];
 	MIME_TRACE(0.00)[0:+];
-	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,armlinux.org.uk,lunn.ch,google.com,lists.infradead.org,redhat.com,davemloft.net];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
+	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	TO_DN_EQ_ADDR_SOME(0.00)[];
-	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,armlinux.org.uk,kernel.org,lunn.ch,google.com,synopsys.com,gmail.com,st.com,redhat.com,davemloft.net];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[minda.chen@starfivetech.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	ARC_NA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:andersson@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:davem@davemloft.net,m:linux-kernel@vger.kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	R_DKIM_NA(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[]
+	RCVD_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B8981682BCC
+X-Rspamd-Queue-Id: 001DE68327B
 
+Hello Andrew,
+On Thu, Jun 11, 2026 at 10:54:37PM +0200, Andrew Lunn wrote:
+> On Fri, Jun 12, 2026 at 12:06:59AM +0530, Mohd Ayaan Anwar wrote:
+> > When "rgmii-id" is selected the PHY supplies both TX and RX delays, so
+> > the MAC must not add its own.  The driver currently falls through to the
+> > generic DLL initialisation path which programs it to add a delay.
+> > 
+> > Power down the DLL and set DDR bypass mode for RGMII_ID, then program
+> > the IO_MACRO via a new ethqos_rgmii_id_macro_init() helper.  Also fix
+> > ethqos_set_clk_tx_rate() to not double the clock rate in bypass mode at
+> > 100M/10M, and remove RGMII_ID from the phase-shift suppression in
+> > ethqos_rgmii_macro_init() since RGMII_ID no longer reaches that path.
+> 
+> I'm curious how this works at the moment? Do no boards make use of
+> RGMII ID? Are all current boards broken?
 
+Searching through the DTS, I found that we have two boards using "rgmii"
+(qcs404-evb-4000.dts and sa8155-adp.dts) and another board using
+"rgmii-txid" (sa8540p-ride.dts). No board which uses RGMII ID.
 
-> 
-> > +static inline bool stmmac_phylink_expects_phy(struct phylink *link) {
-> > +	if (link)
-> > +		return phylink_expects_phy(link);
-> > +
-> > +	return false;
-> > +}
-> > +
-> > +static inline int stmmac_phylink_pcs_pre_init(struct phylink *link,
-> > +struct phylink_pcs *pcs) {
-> > +	if (link)
-> > +		return phylink_pcs_pre_init(link, pcs);
-> > +
-> > +	return 0;
-> > +}
-> > +
-> > +static inline void stmmac_phylink_start(struct phylink *link) {
-> > +	if (link)
-> > +		phylink_start(link);
-> > +}
-> > +
-> > +static inline void stmmac_phylink_stop(struct phylink *link) {
-> > +	if (link)
-> > +		phylink_stop(link);
-> > +}
-> 
-> Please take a step back and think about the Linux big picture architecture.
-> 
-> What is stmmac specific here? If you were to add NCSI support to another driver
-> which uses phylink, would it need to replicate all this?
-> 
-> When you consider how the MAC is configured, does it need to know it is
-> connected to an NCSI? Can the MAC tell the difference between NSCI, fixed-link,
-> a PHY or an SFP? Or does the MAC just need to know RGMII, the link is up, send
-> frames?
-> 
-> Please look at adding generic support for NSCI in phylink, and see if the existing
-> phylink mac ops covers everything needed for configuring the MAC.
-> 
-> 	Andrew
+I don't think any of these boards have extra long wires which would add
+PCB level delay. They are against the netdev definitions for "rgmii" and
+"rgmii-txid".
 
-Thanks. I will try to use fix-PHY link.
+But the first two boards should still be working fine since the current
+driver programs the IO_MACRO to add the delay when operating in RGMII
+mode. I am not sure about the last board. I went through the different
+versions of the ETHQOS programming guide, and it should reliably support
+either only MAC side Rx/Tx delay -or- bypass mode (no MAC side delay),
+with each having different clock requirements.
+
+	Ayaan
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
