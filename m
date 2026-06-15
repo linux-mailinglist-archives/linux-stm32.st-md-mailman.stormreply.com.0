@@ -2,131 +2,154 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id cROVM/vfL2pCIQUAu9opvQ
+	id V5wEFFvsL2pnJAUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 13:20:27 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 14:13:15 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F363685AE1
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 13:20:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CF15B6860AB
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 14:13:14 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=NoFvce5H;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=YlKeDzal;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=CMAqVhj+;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=none;
-	arc=reject ("signature check failed: fail, {[1] = sig:google.com:reject}")
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 164D0C030CD;
-	Mon, 15 Jun 2026 11:20:27 +0000 (UTC)
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com
- [209.85.218.44])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87600C0A472;
+	Mon, 15 Jun 2026 12:13:14 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 311B9C36B2A
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6C491C36B2A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2026 11:20:24 +0000 (UTC)
-Received: by mail-ej1-f44.google.com with SMTP id
- a640c23a62f3a-beb1bee8c16so351693466b.0
+ Mon, 15 Jun 2026 12:13:13 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 65FAoNua3956032
+ for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 15 Jun 2026 12:13:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 6pmdA4NzH1jhT7/XCJQKYN+fSOrkQss8V4mYUPNsLc8=; b=YlKeDzalYkJqdoSe
+ fGINnHiA8B1eAOMBeKM0mFKgS8Ze8pG9f4SrSLvvrdp3K57AXT/9H9fzje7Sglbu
+ U33VTKhIujWwAUM6irCLHZhmnQQC7zusCQRDI63d2nlmn2j5TgguG5Lkw5Uok/Cm
+ fgbvo8GZljUdavF2/2wbYpytbjei+Noe2L52oHgRaYABN0S6sL1LsyaqmGReCEo/
+ GboBI9PwPM4kI+IkVMt/zH3ExF2EhfKNc3e1HnYAq3AFg2aJqs+r4jRQZ1H4e6y0
+ sV+orMcgtuQwF1gec3r1yOnPJ3UDig5Ezp5+okw0S2cmOSx09wjGvXshWJqwYoXt
+ Pak2fQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eter00k3j-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2026 04:20:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1781522424; cv=none;
- d=google.com; s=arc-20240605;
- b=WNrJDnG0fhYnjqFLVyqa9eB+nBCmIuQdhxDoJDIJDUhsn2j6Oq8thmHTUJNjoqia/n
- QoHeWPMsrGZO94DdaLm8QbMmCZ2H4qWujbTNn+R2U5+jQJZgmOgV2H63SIJXQErnJdHv
- HT7yvjczj5uevVqhPOgkPzSnrSPxeihfyYka27shrJrZTdt7Ei6sqGZJd5db/quhHRP3
- 28aXk6Gb2HwHeSi5eKqkhl6a0ethR8jZXEvzcH069nhLHc2hvvxQpoaPi+3fwyz0zQO5
- xsJTEwBF6Kg11nwgQl9TMLH2DPOZVLncP90x+6zWkFaDBwQ6R9qWFJL5rkIZUkhymn9j
- 2FEA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20240605; 
- h=cc:to:subject:message-id:date:in-reply-to:mime-version:references
- :mail-followup-to:from:dkim-signature;
- bh=6mqHKqlBvXA+4paxQcgIh7H4kij3XKYmw9YFuF/cKw8=;
- fh=jqPt27uSDiZx10wGI1ewhfJs/P5Iw3rH84aCQW+tur0=;
- b=fT93G4j4f3YMb0XuDobVYLs36XwGXrOCeo9QJqPIySHneb4uMIovTRgl3a1020lKzm
- ia4vps9C1yCQZgWzlp2VofSIjX75ixMgGWIdG8J/txxWlW9cj1SL1cNakhxkRkiv/L9G
- pOEjWk+o1FWj8ybKkHlhBDiE828ArE16PtvrhumAUgEt0GGdqzzGBa40vQJZj4YinAou
- 5ZMSETRbgyP3pkyklNgeRp9m4GysQQYWLJjAOqpwTw3C1b4YF2IGZiUTdt22vBD9AhHp
- Z190fanKlQH4FbbCmg8aujVGaLVvFThoUoHmuP6Nk2oy6sEmbeu2TiO0XjpoApePuRPM
- Ck7Q==; darn=st-md-mailman.stormreply.com
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+ Mon, 15 Jun 2026 12:13:11 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id
+ d75a77b69052e-51759082206so9157441cf.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 15 Jun 2026 05:13:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1781522424; x=1782127224;
+ d=oss.qualcomm.com; s=google; t=1781525590; x=1782130390;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:subject:message-id:date:in-reply-to:mime-version:references
- :mail-followup-to:from:from:to:cc:subject:date:message-id:reply-to;
- bh=6mqHKqlBvXA+4paxQcgIh7H4kij3XKYmw9YFuF/cKw8=;
- b=NoFvce5HoqHJ4F/ipfungZJrl/p+8Uk7PE8tOH1RptyBtxpPjp2DqjNctScLcJBpzd
- ufwowciv9SDPFhHASKDreZKdPiUJiwIejcFR/yFihe4Cy79Rv1nrdmpWQlr2yEbuDCd4
- c1HsptgbkNhGJaABx63fXi9y1cvGM7FoFgY+UggU7e2r0oUeGz8XZKzgUhy75gbLHtyC
- paAC58LjS5yCkTSBUvkPR7ksOHIkYKgQHu60sWBy6ZZRFGfpty/Dgu67/sZ3P+4Gdjxw
- WtggoL1NbxuDlLl9GxJ60fePhWa8ZjhWk75FuCew1L2gcymo/QRMlhQ68lFUsrWnsrbX
- 5XpA==
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=6pmdA4NzH1jhT7/XCJQKYN+fSOrkQss8V4mYUPNsLc8=;
+ b=CMAqVhj+T0DkoxfUdxFQ/c+mrtMEb5rNdlhxwFSLvEtl5M5ig619NRd5t2Va1prlfd
+ iF8OO5BpTYeSpq8/i/GltIbqzRP0QSSphseso+xietBsIfpnCaye2hv78eFs/iBIWA/l
+ eSVtv/67fW/BKVtelZhQ9/CiOiWzE7p3P5aEOFNRrByGR6iWdQAlJogHYRIduan6ah81
+ MiQE4RNFbZd39pcOxXzICKejAoDhxJtwjAmjkNzHTRM5mNJxik6BOUIplgXzXwbvYYSF
+ C0IQgkphEBj82+5/nVWPcP3b85wVz5M3kN+NpFbWqNcPCPzogVaedWwaq4UIqPE4V8l8
+ 71Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781522424; x=1782127224;
- h=cc:to:subject:message-id:date:in-reply-to:mime-version:references
- :mail-followup-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to;
- bh=6mqHKqlBvXA+4paxQcgIh7H4kij3XKYmw9YFuF/cKw8=;
- b=IypX620n7zfgkZNwoWB0YdCsoKoBeXzaspHnP2wmltIDkZTCllWDdqXv8fLR3bjkdq
- ly19XwKK14kCI+71uBULIv7uo0o6ul4paK1UToH3toaBJ9E3hHvtdXbyNZBGw4QFrhjl
- Y57+xPj33Jhe38oRcHU/D3X77psIkrgluMt1a4kblotrpXAsJTGY6mDjvqOMLMuHAukl
- OjGENcDVijyxj0bIEAz7kptts6ztj2vJ+4HexBIZOjkgnd1gwRCJJwiQJG7LP6Qg/lUA
- pFUcd04f+o9guuNXLFb5FeTgTjuh6lsF/q4M3/iSt3rkoTfP3iEZ2h9y/5FVA2jSweeJ
- NswA==
+ d=1e100.net; s=20251104; t=1781525590; x=1782130390;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=6pmdA4NzH1jhT7/XCJQKYN+fSOrkQss8V4mYUPNsLc8=;
+ b=tB809iuVmrkiXr0m82YhQbjDygzRNT377tJMQJDswjRG1Wb05FqKu3MheRDD7epYEW
+ OGJdbRW5QCixSK9+NEBsue7BP+SwDjpfNZex3Jj/2mI1xU1SiXvGOMbZtXmTVsAkIuuW
+ gEOiJBPXK2n2J6widW1zDoF6sm1l1+Kvbh72266jLQkYODMS8Vpttd3ZVJvBthmdxvkf
+ 0SqvKpBizLTqXU2Gp5TjyfvCzl6uBxsIcknKA0EjwKaDDux2WA3I3yLjmLo+A+DBJJAD
+ UP5tlzFcG7ufuo30oaurOM6c4/5x6msH0HZVOfMYoxCxjBwmVIIQ4nspa9W/Zzq2me/r
+ En5Q==
 X-Forwarded-Encrypted: i=1;
- AFNElJ//f8QPib84VdmOlsrU99Y908/q7nkWqynnpCCBEZFO1mxBKKtyescsTkQrLEbwu2ofnRC/xW+EeH8FxA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yyt2rvNoezK713ZiKb13v4ylc/mQMjEHSUqw4Rr07+RevquvSgE
- ZBINLS+ZjtQQNhqAioKgQUk5RFJsQoS8uIF5Bmm6WUXhkMjySpV2C+GfN2d6dl48e400ZNnCb+x
- HCbWOlBfYkejnLuxXVdS+v1AOnDsO5adjF3vqre6LEg==
-X-Gm-Gg: Acq92OFRAutoqhg7OFmAmFA68Ek2dWfjoa3oyuOPrsQ8ZU151iY1U5DIrWFL/Yrqi66
- 5WxNSmvN9w1tsizLcRDypLuQwKNpX9/83qj8XBrlA/hxRSdq7Egjcia6t/19WPqxHSK/zC2iSBj
- prLthB+eSrPon+UGvgiedXQjLHmZEgihZ+AYv8biMRP1f5WKKqLZb9P7BdCal8Uap++yETPsJVZ
- g1MEQQv3D22dZpi2TLgEYEA4nIexLY4cwLQUVMbh6xPvEYMRZo8c2TMuZzLDAcvPxk7EKgHghxe
- aaCHox3HNghlYKOis2dWAu2nZn6Dp/CHz9sX
-X-Received: by 2002:a17:907:7342:b0:bf2:6d61:3268 with SMTP id
- a640c23a62f3a-bfe2a713a05mr372243766b.23.1781522424173; Mon, 15 Jun 2026
- 04:20:24 -0700 (PDT)
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 15 Jun 2026 20:20:21 +0900
-Received: from 753933720722 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 15 Jun 2026 20:20:21 +0900
-From: Angelo Dureghello <adureghello@baylibre.com>
-Mail-Followup-To: Jonathan Cameron <jic23@kernel.org>, 
- Angelo Dureghello <adureghello@baylibre.com>,
- Greg Ungerer <gerg@linux-m68k.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, Steven King <sfking@fdwdc.com>,
- Arnd Bergmann <arnd@arndb.de>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- David Lechner <dlechner@baylibre.com>,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Greg Ungerer <gerg@uclinux.org>,
- linux-m68k@lists.linux-m68k.org, 
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org, 
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney@redhat.com>
-References: <20260610-wip-stmark2-dac-v5-0-b76b83366d5c@baylibre.com>
- <20260610-wip-stmark2-dac-v5-9-b76b83366d5c@baylibre.com>
- <20260611114800.009d9797@jic23-huawei>
+ AFNElJ9v2Ob4O+YuEu3KzAjojhNOmhU0KWg7YhQRg093ZoIQdQS3Sl7KLdHmt6Utb33AjA64sUcb3iv/FGRVzw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz+DtLDp4g0ygF5jEk9xDpgeQlWKLks3FDdV73gJXgvwgNdItcU
+ Wn7a7Fuz1sbaWokpSMXiFD0Il4kdiWMtHUsDg4LyRnOdFEdov/Yj8DOT5DZPBHwcsmmn4k/BRBd
+ vQkN5EkryR9VChFrkb98qlQAgW9v4zS6Gju4wvAjp+uKnOT1g6XNn7Ay5A6ygIs+4GEGgJPTiuB
+ 05klnxbyg=
+X-Gm-Gg: Acq92OGUEQAqoxTQROuNMtLepanu8cbA7EJK9875vP9yJ4RTqiZu+KRWvIeuctJKd3t
+ bySh9m3NBz0ZGp0zrwVoO5aX23h7Z6Bd1eOLe84VJdS3uxi5MkWrB+5h5riuYtNtCtXj4dCWLvY
+ y/HqFIHUKAsG4uVE24/WYsIxZfymZI5/6UltAZ8KzIBBdjThqsxLp/NTCRoOEmkV9ajw9b0IK62
+ sIOvy54c0ZzeznAyXOl0P37W3Ai/y9I2Dt94vuTW1PUAFy0cIK+Qq0bRns6uCPkKN9E/8rCQUl0
+ YGtVMUO8C7jxL40mPL+Xf7Cw1//R1iEe+bOQQouGF5drErJaNwbw2zIg7fUEY6mr9lz+QqaIjnA
+ js43x3VFB4c+6TOk6azf7iYLgOqWgk8TReIFKWymn2iMiNw==
+X-Received: by 2002:ac8:598e:0:b0:517:62f4:e3d1 with SMTP id
+ d75a77b69052e-517fde8985amr129458421cf.2.1781525590133; 
+ Mon, 15 Jun 2026 05:13:10 -0700 (PDT)
+X-Received: by 2002:ac8:598e:0:b0:517:62f4:e3d1 with SMTP id
+ d75a77b69052e-517fde8985amr129458051cf.2.1781525589661; 
+ Mon, 15 Jun 2026 05:13:09 -0700 (PDT)
+Received: from [192.168.120.170] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ a640c23a62f3a-bfdb4423439sm459791666b.2.2026.06.15.05.13.06
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 15 Jun 2026 05:13:08 -0700 (PDT)
+Message-ID: <45d7faac-7c0f-4f89-808e-06129e8420e4@oss.qualcomm.com>
+Date: Mon, 15 Jun 2026 14:13:05 +0200
 MIME-Version: 1.0
-In-Reply-To: <20260611114800.009d9797@jic23-huawei>
-Date: Mon, 15 Jun 2026 20:20:21 +0900
-X-Gm-Features: AVVi8CcVAgC1MKZdgPIabfG_bEsJqD-RTAVk9pERfc6y7h_8h9norD6F9V9jiEU
-Message-ID: <CALSJ-wC9Rsq6WJ_=X87R74jPrg2Y+=L8m0wRRp=1zvN5vSOw6A@mail.gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>,
- Angelo Dureghello <adureghello@baylibre.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- Michael Turquette <mturquette@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
- Brian Masney <bmasney@redhat.com>, Steven King <sfking@fdwdc.com>,
- linux-m68k@lists.linux-m68k.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Greg Ungerer <gerg@uclinux.org>,
- David Lechner <dlechner@baylibre.com>, Greg Ungerer <gerg@linux-m68k.org>,
- linux-arm-kernel@lists.infradead.org, Stephen Boyd <sboyd@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v5 09/10] iio: dac: add mcf54415 DAC
+User-Agent: Mozilla Thunderbird
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Richard Cochran <richardcochran@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Russell King <linux@armlinux.org.uk>
+References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
+ <20260612-shikra_ethernet-v1-4-f0f4a1d19929@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260612-shikra_ethernet-v1-4-f0f4a1d19929@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: X9E93LzeF7OIxvvS0pJc9wn0xIY--UF1
+X-Proofpoint-GUID: X9E93LzeF7OIxvvS0pJc9wn0xIY--UF1
+X-Authority-Analysis: v=2.4 cv=UPzt2ify c=1 sm=1 tr=0 ts=6a2fec57 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=dCDc4JseV86iyfNbYEQA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDEyOSBTYWx0ZWRfX6QoGGQ3EXfFv
+ wmPVp7M2j2hj5s6L7G3o6JLHJk18EfegPU8PS7VHDbRwi785ya2jC2yXSLTav/0IaCCHIgVfvbs
+ tFNBd7PtE41zuMBu+rOnBBHFgVevQWkXAZpQwS37DKbuI/fXzTgmO9fIGv1frCDo6ANguuQPuos
+ O0G1ebBjMs4fvr4waYYDVkdrsmSUjLNLX8aeVuviivPFXFgxhLva1iaPlFMciYDraPowUVAqEgW
+ nqICohypC7JBvdrQBwgia+dyHscp5qlU5Lfnoq7TW4iuf+8jPq+lHs2iaRvmJIJtJq2KR//4t2d
+ SrvxS7xbd63FJNPhPwEoUUUaHzBaLK2LQ2UBNO5PV+7Q2fkyRf2lcKmwu87CbSzq/0l1rOhNfSI
+ PdxjfLnw9Rbw4FfKkUDc1fE4MziaMWR1W3ZHQtz+7Ue55KdIBOJ++i1TKKgjrWG/u2ZyXafY49F
+ vo9hOoc41IlNSsw/nQA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDEyOSBTYWx0ZWRfX9tyt1A1Bc7nZ
+ ZErTgEIlfZPSZuGJQ2DphFliMiKFEWBkRolloOnUW5pDcrXE9VvXD1d3TR9I7OxBtfygc6Pta21
+ pYCAAEIFSvyOdpkkIiPhQVBizGgiINM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-15_03,2026-06-15_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606150129
+Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH RFC 4/9] net: stmmac: qcom-ethqos: add
+ per-platform NOC clock voting
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -143,99 +166,57 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.29 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[baylibre.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:google.com:reject}];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[baylibre.com];
-	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:andy@kernel.org,m:adureghello@baylibre.com,m:arnd@arndb.de,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:mturquette@baylibre.com,m:linux-stm32@st-md-mailman.stormreply.com,m:nuno.sa@analog.com,m:bmasney@redhat.com,m:sfking@fdwdc.com,m:linux-m68k@lists.linux-m68k.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:gerg@uclinux.org,m:dlechner@baylibre.com,m:gerg@linux-m68k.org,m:linux-arm-kernel@lists.infradead.org,m:sboyd@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[baylibre.com:-];
+	RCPT_COUNT_TWELVE(0.00)[21];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:mohd.anwar@oss.qualcomm.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:richardcochran@gmail.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
+	RCVD_COUNT_FIVE(0.00)[6];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,baylibre.com,arndb.de,vger.kernel.org,st-md-mailman.stormreply.com,analog.com,redhat.com,fdwdc.com,lists.linux-m68k.org,linux-m68k.org,gmail.com,uclinux.org,lists.infradead.org];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,sashiko.dev:url,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5F363685AE1
+X-Rspamd-Queue-Id: CF15B6860AB
 
-Hi Jonathan,
+On 6/11/26 8:37 PM, Mohd Ayaan Anwar wrote:
+> Some SoCs gate the EMAC's path to the System NOC behind dedicated clocks
+> that must be enabled before the DMA can reach memory.  Add
+> ethqos_noc_clk_cfg and the corresponding fields in the driver-data and
+> runtime structs so each compatible can declare its own set with per-clock
+> rates.  The clocks are acquired during probe and enabled/disabled
+> alongside the existing link clock in ethqos_clks_config().
 
-On Thu, Jun 11, 2026 at 11:48:00AM +0100, Jonathan Cameron wrote:
-> On Wed, 10 Jun 2026 22:35:14 +0200
-> Angelo Dureghello <adureghello@baylibre.com> wrote:
->
-> > From: Angelo Dureghello <adureghello@baylibre.com>
-> >
-> > Add basic version of mcf54415 DAC driver. DAC is embedded in the SoC and
-> > DAC configuration registers are mapped in the internal IO address space.
-> >
-> > The DAC accepts a 12-bit digital signal and creates a monotonic 12-bit
-> > analog output varying from DAC_VREFL to DAC_VREFH. The DAC module
-> > consists of a conversion unit, an output amplifier, and the associated
-> > digital control blocks. Default register values for DAC_VREFL and DAC_VREFH
-> > are respectively 0 and 0xfff, left untouched in this initial version.
-> >
-> > This initial version of the driver is minimalistic, "output raw" only, to
-> > be extended in the future. DMA and external sync are disabled, default mode
-> > is high speed, default format is right-justified 12-bit on 16-bit word.
-> >
-> > Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
-> I'm lazy so didn't check earlier versions but assume the two bits
-> of feedback from Sashiko are false positives:
-> https://sashiko.dev/#/patchset/20260610-wip-stmark2-dac-v5-0-b76b83366d5c%40baylibre.com
->
-> The one about clock underflow if resume fails, and then devm cleanup happens later
-> is a bit nasty.
->
-> I did a bit of digging and maybe it is better to just leave the clock on?
-> The status dev.power.is_suspended is set to false whether or not resume succeeded
-> and I believe a following suspend will not take into account that resume failed.
->
-> I'm not set up to poke the combinations but it might be worth trying that.
-> +CC common clk people who may immediately know what the right answer is.
->
+Sounds like we should use an OPP table instead, we can't just do 
+set_rate() on qcom, as that will not propagate the required perf
+state to the clock controller's supplier power domain (i.e. VDDCX)
 
-was about testing this, there are no bus faults on read/write of registers
-with clock disabled, nor warnings in dmesg on double disable.
-
-Anyway, i see now from arch Kconfig that is not possible to have CONFIG_PM
-for this specifig CPU (with MMU, PM is force-disabled), so would remove pm_ops.
-Ok ?
-
-Will fix all other things you pointyed out in v6.
-
-> Otherwise just a few minor style comments inline.
->
-> Thanks,
->
-> Jonathan
->
-
-thanks,
-regards,
-angelo
+Konrad
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
