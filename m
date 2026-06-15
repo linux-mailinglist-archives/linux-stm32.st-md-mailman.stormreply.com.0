@@ -2,151 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 9mlvGBZ/L2rzBQUAu9opvQ
+	id BN7CB1uvL2oKEgUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 06:27:02 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 09:52:59 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E320F68340A
-	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 06:27:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9D91568454F
+	for <lists+linux-stm32@lfdr.de>; Mon, 15 Jun 2026 09:52:58 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=mcdVhBPb;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=aIo3akq7;
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
+	dkim=none;
+	dmarc=none;
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9B107C5F1E9;
-	Mon, 15 Jun 2026 04:27:01 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 523CDC1A97C;
+	Mon, 15 Jun 2026 07:52:58 +0000 (UTC)
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 28388C1A97C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CE77AC1A97C
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2026 04:26:59 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65F1khV03309045
- for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 15 Jun 2026 04:26:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=ius7qSkqzXV/plY/PfxR7AWe
- MN4ainKUgEjXPW/93NE=; b=mcdVhBPbSKzQTqHys85yFccY/q1MdqJ6b4igU7DM
- RsQVUFzjWaEDez45O/afLn/nED+puAwousbBXTdh0ZGnVKUhUh8WkYqT6TVh9PK7
- BsrkRIuTk4MYRuiKAUAzm4FuJs7kAr/H8eMt2cjJnbck9DuGouPGuxDP5i3SAG6p
- 7bxs5Sxfseek8aNwedw38AJW93R7bI3oOxU8+Y+tgd8ga9nWmnE82xgJllnkn9jM
- VP2a/G6taB+giFNN5sJJd4/KHlqxw0YeE7+RDcH42DlWxYAFuCEaCRZPvRWon4kD
- RMx1b/Tr3/RaYwK0X7w3RGg6gPFr5kmmmjdvdp4hAJYnSg==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eryc6wgqe-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 15 Jun 2026 04:26:58 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2c0c272e532so30504675ad.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 14 Jun 2026 21:26:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781497618; x=1782102418;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=ius7qSkqzXV/plY/PfxR7AWeMN4ainKUgEjXPW/93NE=;
- b=aIo3akq7ul3YV5zqKUbVbqrTuSM4fw+BX8idjV2D2ojT+NBXn98cIEjnQfrFhXiIJN
- zIivbS1H7SQlzVXVNJWkWPmtFWExw65aOxiiHIi7H8mQA+KdCmE7OFJGfBu3XAbuUHtL
- coImKdCxmjgMYJOMbxFqc+jI+0AXt4S7jtWHqNBnYbV+tUU9g/dEVTEWXcGhXYMRuB9u
- 5RBvDjujKZjE0GhParcGdnVO89Muo+nHKd27x9iFMZl2RMPx1dqjBmM8T/ylJVIRqNI9
- GAgjXnTbnC3Nq4lhDn3isPsF4751f0PZmkNTBtFzoUwjjzv0rU47+bsc9XpxjKKZn8GM
- 1Zmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781497618; x=1782102418;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=ius7qSkqzXV/plY/PfxR7AWeMN4ainKUgEjXPW/93NE=;
- b=Tk58kHFiuulrLGx3p1s2858iw9n2LddjLzwKZe3rUumxuC7CgxJIyLpK/gu7RMmmXt
- AHBrHhSMi6jzB4DHbE9WDfvtkzOieeuSh22LPy/qbAdemPlk0+UhFo1MTplrA6Z6B0tY
- gt5luzD9UZKX7qklEdVOG7GhnJopP9rRuRFksx/WKDDvjNPKm6qtO138PWY4XPDfhenT
- 5Fa/xBT4dJPPSWdtCMxIGOOXlkt+NYc+d2ndZwCFQQ8L00i7U2j3tIEp1K8eYp8FqMP/
- u085zteEmGy+tTw2ZMeqfETxSGcyf5+SU02/x1jm9eK96fA0P5WiImgEvdf0E62hKBzT
- 57+Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/I0/gybQILufJV1zZzPCPEEbkQnf8xYXPmKHpKK6KcNNC+iQEuScrM3MmHJKwDBpuM3EKDCYX1UP+cuA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxL0FXWSCzEjI022pumE3v6CbL5i6v3i+IVFQweuBXUOflzGw3V
- 7To0nVhHFbiu8qLSms6kcdwF/JpWfvG1zd6vpf16xUAdawccCe1x8+YbR5cw6zKgQAtYxXf2f/y
- nX1HQCQZ5CA6Kb8Cf4HnmTNRex7R2VQpIHGXfA9HZ8uwyNS4BO7agWjSw72bzM7TYSMzf7tTKv+
- p7iDrIKZU=
-X-Gm-Gg: Acq92OEkK3ogA0nhtyx1+U3mfidFDTtOWhcOXT5hyHwJigV44NMwkyzePMwIqJoDcmW
- QOEkYDvPID/L29WtAn2r7f35mBcDw+XX+/AFZAO7VZLMQ6nAAvAMxzDGnVXDr4dvwl5kw8WTDYw
- jBzWl8D1QgWbfJrnoPhq64+CswyGn1xZzNMS30t6YMd+pjH+UwsvVESnJWdB1J3JKwH6Ql9FZl0
- 29nBOM+Q+K2elbb3WOQ7npV9Y+EgHBVDl3YWWQYfFy72+zYCYJNfRl2vAXErLWuRi/OFiV5J3vO
- R4DGsB76yP0EfoeYsZNHh59FBuay3VkJdzTsruosv8urgLlgtT+E4R+DurexDgBcjJ/xumwHyWg
- sJp+weN5nyyEmGsO9UpTU6K8CT8jDUtm4Lq0=
-X-Received: by 2002:a17:902:da8c:b0:2ba:7881:948d with SMTP id
- d9443c01a7336-2c664148a6fmr98607115ad.1.1781497617751; 
- Sun, 14 Jun 2026 21:26:57 -0700 (PDT)
-X-Received: by 2002:a17:902:da8c:b0:2ba:7881:948d with SMTP id
- d9443c01a7336-2c664148a6fmr98606755ad.1.1781497617294; 
- Sun, 14 Jun 2026 21:26:57 -0700 (PDT)
-Received: from oss.qualcomm.com ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2c4327ac80asm77208425ad.39.2026.06.14.21.26.51
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 14 Jun 2026 21:26:56 -0700 (PDT)
-Date: Mon, 15 Jun 2026 09:56:49 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
+ Mon, 15 Jun 2026 06:30:50 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.140])
+ by APP-05 (Coremail) with SMTP id zQCowAAndcgTnC9qrGaTEw--.34107S2;
+ Mon, 15 Jun 2026 14:30:44 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, Lee Jones <lee@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Russell King <linux@armlinux.org.uk>
-Message-ID: <ai9/CWh9oRpYvHfA@oss.qualcomm.com>
-References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
- <20260612-shikra_ethernet-v1-6-f0f4a1d19929@oss.qualcomm.com>
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Mon, 15 Jun 2026 14:30:41 +0800
+Message-ID: <20260615063042.36397-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260612-shikra_ethernet-v1-6-f0f4a1d19929@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE1MDA0MSBTYWx0ZWRfX0NIK5lQl/vJa
- ZqCQlqn8kYVVIVuLFvIOg4Zmvr2k+zkDhU6x7XBqFKZuD2uJMVe7pLOvufG53P1qmobiLijFLfk
- QMbqsQev8rl2qTUpMeG02tYAn57jnJE=
-X-Authority-Analysis: v=2.4 cv=Oop/DS/t c=1 sm=1 tr=0 ts=6a2f7f12 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=ppQq2EeoAVl_dUmsFbgA:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: b3aD-inOj7lJb8Ly0b1yNsP69EURdgjX
-X-Proofpoint-ORIG-GUID: b3aD-inOj7lJb8Ly0b1yNsP69EURdgjX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE1MDA0MSBTYWx0ZWRfX+/GnyqFiJoPp
- 8Ihies1DoozmYhnYhyRwv3IlVphIlY2JPSnGIDsp3PTAqOAEOVF5/cbVmNd/7RI55UdxGXAq6Mw
- DNkDBb+deFVFKnGFpQUFxH1YsOvbXVDCiT4sagqqbCXputuPFabh+I8vUel9Z4jZpWKJXf3g2cB
- +i2mleyjHM4cgnSLIHvPgfchiGVploS1q4Zuxct0WRue5b2B71Nw/bstQWK7nVJ/nTZYbCwQsQk
- b4OmoRQ81YiLeFUIfg3y8PcEzP3zERraFb4FKttYrCPjldMsvCPfqUkifVYz76hjxX9fMB4kIer
- nC3SxVU/2ewZQAWtPrMQM66a+O5zVE9wKkRT1zuY/bm/ZUgbJa0YoPtjLNuyw8GOmz2ejAQjKJN
- 3c0TwUs6j+6Fww1sBIqaOBeTRPwPb8q6A1y7owrBiNABIA5Qv+f74Be47UeX0ATs5BcVh9RyNBe
- 6mwg/Zsa7ixxfMEuh/g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-15_01,2026-06-12_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 impostorscore=0 lowpriorityscore=0
- clxscore=1015 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606040000
- definitions=main-2606150041
-Cc: devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH RFC 6/9] arm64: dts: qcom: shikra: Add
-	ethernet nodes
+X-CM-TRANSID: zQCowAAndcgTnC9qrGaTEw--.34107S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtw1xJF15JFW5Gry8uF48JFb_yoWDuwc_W3
+ Z8uFn2gr1Fqrn7tr1xtw1rZrySvFWDZw18JF13Kr42gFy3Zr15ZrWDZr1DG3WUua1jkF15
+ WayDArW2ywn3CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+ Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s
+ 1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0
+ cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8Jw
+ ACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_
+ Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxV
+ WUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI
+ 7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r
+ 1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI
+ 42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
+X-Originating-IP: [111.196.245.140]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+X-Mailman-Approved-At: Mon, 15 Jun 2026 07:52:57 +0000
+Cc: pengpeng@iscas.ac.cn
+Subject: [Linux-stm32] [PATCH] mfd: stm32-timers: depopulate child devices
+	on populate failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -163,62 +73,75 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[20];
+	DMARC_NA(0.00)[iscas.ac.cn];
+	RCVD_TLS_LAST(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:fabrice.gasnier@foss.st.com,m:lee@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org,vger.kernel.org];
+	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:richardcochran@gmail.com,m:andersson@kernel.org,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux@armlinux.org.uk,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	MISSING_XM_UA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[mohd.anwar@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: E320F68340A
+X-Rspamd-Queue-Id: 9D91568454F
 
-On Fri, Jun 12, 2026 at 12:07:02AM +0530, Mohd Ayaan Anwar wrote:
-> +			clocks = <&gcc GCC_EMAC0_AXI_CLK>,
-> +				 <&gcc GCC_EMAC0_AHB_CLK>,
-> +				 <&gcc GCC_EMAC0_PTP_CLK>,
-> +				 <&gcc GCC_EMAC0_RGMII_CLK>,
-> +				 <&gcc GCC_EMAC0_AXI_CLK>,
-> +				 <&gcc GCC_EMAC0_AXI_SYS_NOC_CLK>,
-> +				 <&gcc GCC_PCIE_TILE_AXI_SYS_NOC_CLK>;
-> +			clock-names = "stmmaceth", "pclk", "ptp_ref", "rgmii",
-> +				      "axi", "axi-noc", "pcie-tile-axi-noc";
-> +
+stm32_timers_probe() releases the timer DMA resources when
+of_platform_populate() fails, but it does not depopulate any child
+devices that were created before the failure.
 
-I now realize that having GCC_EMAC0_AXI_CLK for both "stmmaceth" and
-"axi" clocks is probably wrong. I will remove "axi" and have the glue
-driver enable and set rates for "stmmaceth", "axi-noc" and
-"pcie-tile-axi-noc" to ungate DDR access.
+The remove path explicitly depopulates child devices before releasing
+DMA resources to avoid races with children using DMA.  Apply the same
+ordering on the populate failure path.
 
-	Ayaan
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/mfd/stm32-timers.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mfd/stm32-timers.c b/drivers/mfd/stm32-timers.c
+index b3dbc02aaf79..1f0aecae83a5 100644
+--- a/drivers/mfd/stm32-timers.c
++++ b/drivers/mfd/stm32-timers.c
+@@ -329,8 +329,10 @@ static int stm32_timers_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, ddata);
+ 
+ 	ret = of_platform_populate(pdev->dev.of_node, NULL, NULL, &pdev->dev);
+-	if (ret)
++	if (ret) {
++		of_platform_depopulate(&pdev->dev);
+ 		stm32_timers_dma_remove(dev, ddata);
++	}
+ 
+ 	return ret;
+ }
+-- 
+2.50.1 (Apple Git-155)
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
