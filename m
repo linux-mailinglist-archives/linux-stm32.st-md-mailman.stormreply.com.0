@@ -2,158 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id KQ0vIVpaMWrihgUAu9opvQ
+	id AIpUB8FoMWqtigUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2026 16:14:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2026 17:16:17 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E31C069052F
-	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2026 16:14:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 949CC690DF4
+	for <lists+linux-stm32@lfdr.de>; Tue, 16 Jun 2026 17:16:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=QAM1kyVT;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=P8Vj2FBZ;
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
+	dkim=none;
+	dmarc=none;
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CA08C8F290;
-	Tue, 16 Jun 2026 14:14:49 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3AB79C8F26F;
+	Tue, 16 Jun 2026 15:16:16 +0000 (UTC)
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+ (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2FD00C712B4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E450DC712B4
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2026 14:14:47 +0000 (UTC)
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65GE0FOv3364990
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 16 Jun 2026 14:14:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 0hAx854ISARB3ER/A8NJSDIfIV15g1Oji8K44z4BCu0=; b=QAM1kyVTARUAiUx1
- HwN+Rt6ZPoLOrdawDoHFv7Fqdc32iTUYp39m0XzMLGHkpcqd0xkq3fZgHcaemSmN
- ANGPium+D5z1xual38fwaYY0vF/sHhoJ6Qglc3O7zImBcQbIu6aPNpiFueoVY7Wk
- OhvRw2QYbY6ukTECrhwTWbCr+mxQjrvSgMWy9VEz44c4mV8SVxkLqacih9//O6nh
- GDzAvqhArXNn/Sg28e/MY+SsHZ0p2+409jVroHjrIULgFyj+hZFtPLzQY3RkPkRL
- sO9NSscH/uSIWI3FrcEPfDskndnhaRb5hwOjaUv+7ogTIeycvXbhZwIvFzaQBNQr
- N/5jHA==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com
- [209.85.217.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4etx8kav72-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2026 14:14:46 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id
- ada2fe7eead31-6cf9fa331ddso188293137.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 16 Jun 2026 07:14:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1781619285; x=1782224085;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:to:cc:subject:date:message-id:reply-to;
- bh=0hAx854ISARB3ER/A8NJSDIfIV15g1Oji8K44z4BCu0=;
- b=P8Vj2FBZ8N/bH2LvR7uVwKvMfaPkcLmCAxIk0PaC4kIEyi5fTwZL0j5UOJA11JZUBc
- XBiAna1CbIJhtXlNFnMCA05sRtNWl0JspzIIF/kJ40t4dOiU7cNOxTlSKivVnSZ+dQig
- IkxVHnQuokVB+al6gkNx9AiO4oxRhzcrxKzxPMNcR/V51rDxU4sI3ImG8J3oFDDn2XSM
- 1MzyNhO0K+ARPTBmK5cEj92Xt74f0YFquAcdHpRIpYnEEvnkJPrqDM0sZjCVmCNnCJgs
- unUOZDTcLAY61CmxFgfmasjZFO0dhQvslkCu9FueVy1eu3ZFGv8IWlOFuFkNSDF56LrE
- EyAw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781619285; x=1782224085;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=0hAx854ISARB3ER/A8NJSDIfIV15g1Oji8K44z4BCu0=;
- b=SO62FKsbjqpcv152T9fLd44XSsBzbYCWcMjwb0srp4Hiqsg7k1iZOa/rn3miNph+4/
- fKff+NXCWL2Uel93l2X8blIiFKmXsKdexMWCYZOW5hADKcwvSz2LzsTWq9+kskHh3PHQ
- UNb2khCcBbKVYa33BdaiRUVjU/Tf0ZTsSS3wUHcgy1zZHWELGuUijUOUWddQSjlLcV5T
- KiFZibq5BlbLKIWxqaHzX960/Hgk06m6PMb54Pw8HWW98JDpxcufwnml8ftAhZuAfrpp
- /qfQVKEeeOyP5eGDJAxPYtY1pANfhr5/NehOpBe0etwgoD4Rq6HcZE6mVVV5wgmbEq8V
- nKhQ==
-X-Forwarded-Encrypted: i=1;
- AFNElJ9Zu5NJAVQxclC4MxHis1T4CgzKeZMDH/IMtDq/Ql0azW1oerQn+pZTT1ksB2Fqha75NccBo1DHrBOVeQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzt6sjCdTfcW9p+gPDtw0dQfTnVIhuxVVk3nU85Ft1e71GTpo7J
- qAyoXQKHtGbTbAtsJNx4CIf6R2LmTm8HbjIvgRcOpNQ3Mq+9sKLP7ImYc8zlTJb8zH4l9vKL11b
- R0fAerZGV+s0JAQNx8tPWx+b625y/6v05AAZWfNMX3s28sSluIKGMJkS1y8rxrC5xA+EhnOvtwX
- Fw1FSG81U=
-X-Gm-Gg: Acq92OEm0Y7Pgarz/QoyLEstweUojy6xO7TcdsyEDhOCeN/UpcNXPRdlIpYaRcAawku
- qqM8ED3+Od/ER1pzOCKhJN31Ub/6bHaPt1hcgIJh7LPXJsSagXwrLQ+Q+VHtjnMdAiK4gjmDRKs
- blAeTahMNAoCc1PHQVQ9jVOkW/MrwDcxVF8QOG8wSpkHemV8GtM6xQTBg0dV70bAd7O6sO2R49G
- YBCGNSeoINTv2XIy5MG+Lq4UltDehxn9h5bRy4pAbxCgvmIMy1MjNArFUK4MqzVaKZEJTOmCJEI
- RFmUHGaFM0jeC+XjbXYMY/KXGSOfzZAxAZILODdRR30+eagjnnUau80P1fp3sdXx8pxrK9Xghz7
- 5E3uqbDIkJOTlOD4fQQ5Ci7G/pJWxQbDqrtre3z7FimzvYg==
-X-Received: by 2002:a05:6102:510b:b0:631:4d32:a86 with SMTP id
- ada2fe7eead31-71e88e3f21emr2770726137.7.1781619285164; 
- Tue, 16 Jun 2026 07:14:45 -0700 (PDT)
-X-Received: by 2002:a05:6102:510b:b0:631:4d32:a86 with SMTP id
- ada2fe7eead31-71e88e3f21emr2770699137.7.1781619284575; 
- Tue, 16 Jun 2026 07:14:44 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-bfdb7b6d8c2sm638601966b.38.2026.06.16.07.14.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 16 Jun 2026 07:14:43 -0700 (PDT)
-Message-ID: <50f7eb11-7bac-4d45-9e0a-b209f7e8e9f6@oss.qualcomm.com>
-Date: Tue, 16 Jun 2026 16:14:39 +0200
+ Tue, 16 Jun 2026 15:16:14 +0000 (UTC)
+Received: from localhost.localdomain (unknown [111.196.245.140])
+ by APP-03 (Coremail) with SMTP id rQCowAAH7OK7aDFqCiDxFA--.41914S2;
+ Tue, 16 Jun 2026 23:16:11 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Gatien Chevallier <gatien.chevallier@foss.st.com>
+Date: Tue, 16 Jun 2026 23:16:04 +0800
+Message-ID: <20260616151604.10548-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Andrew Lunn <andrew@lunn.ch>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Eric Chanudet <echanude@redhat.com>, Lucas Karpinski <lkarpins@redhat.com>,
- Andrew Halaney <ahalaney@redhat.com>
-References: <20260612-shikra_ethernet-v1-0-f0f4a1d19929@oss.qualcomm.com>
- <20260612-shikra_ethernet-v1-3-f0f4a1d19929@oss.qualcomm.com>
- <42355330-c22a-4fce-98ab-dc22b321ff16@lunn.ch>
- <ai93X/cNWHtEQsDt@oss.qualcomm.com>
- <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <82705420-771d-41bf-a4d9-ed94dff86ff0@lunn.ch>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjE2MDE0NSBTYWx0ZWRfXxSspL1eDfL3C
- 3V+S2H8tIKOBSBwH0Oz75XyJch8/6oP1t1MMUNqQ0x5WEs93kBJboKdfMoPORHc5NVSYH0Ozwxv
- XlXl4tG+n1qnm3JdwluIho1povkG6D0lvMFGvJmjjhdH0nOJltMj6DdUaOnPnKMVr+ukio1dajz
- S4/GGbBtDhgcIwewx5BKnlAGVVZz8T+fNRp5nr+XH4P2lHQNr4+OWptLX7zW0AIRTlQ0vH9Hibj
- jTZL8SrPo9SoOX+BPR3QVwcrxjZhnXCq4mqJPWyV7sBFumxO077aQRi2IfXqqcSUITHdC/XkvIy
- XuE2C3BdAZHgo0q+aRoUPSGl5GEkZNmzNcot3VKkChs83wrroNMdMT8NmiT2mcB8TuJBqWH42U6
- BuPPfxui6198Drgs8cArPKafesVIcRSjTxUMEsmoyozOBQui1Nd+VfdofO8O/NQ44LbVDjlhy+t
- tSDkvAf8IGnqBM3G+vQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjE2MDE0NSBTYWx0ZWRfX7UM+ModOV397
- PGSaNrsmRVG1K/VnFrNetTmFacUd0t6gNrKYRt8Anxyzkpb/FLp9Ht2Q554KT0g4NGGUlyvhPzl
- grjKiNzwPxl6KCSr8ClLbn/SdhDA6Gs=
-X-Proofpoint-ORIG-GUID: j9rd0pXZg4QThyu7iJ7aV8DcqxZr1yvY
-X-Authority-Analysis: v=2.4 cv=dZawG3Xe c=1 sm=1 tr=0 ts=6a315a56 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=RaRby332RutXx2QLMF0A:9 a=QEXdDO2ut3YA:10 a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-GUID: j9rd0pXZg4QThyu7iJ7aV8DcqxZr1yvY
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-16_04,2026-06-15_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- phishscore=0 priorityscore=1501 malwarescore=0 bulkscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606040000 definitions=main-2606160145
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Richard Cochran <richardcochran@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, Russell King <linux@armlinux.org.uk>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- linux-arm-kernel@lists.infradead.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
- Jakub Kicinski <kuba@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, linux-kernel@vger.kernel.org
-Subject: Re: [Linux-stm32] [PATCH RFC 3/9] net: stmmac: qcom-ethqos: fix
- RGMII_ID mode to use DLL bypass
+X-CM-TRANSID: rQCowAAH7OK7aDFqCiDxFA--.41914S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr15JryxZr4xur1rtw17trb_yoW8CF47pa
+ n5Cr9xGr40yw43AFZxAF10qr9aqrZ7XrnxWryxu348uF4Syr10k3y5XrWY9FWUJa48Kayk
+ XF45t34UZr1DCr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+ AVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+ v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
+ c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
+ 0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
+ MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUeTmhDU
+ UUU
+X-Originating-IP: [111.196.245.140]
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Cc: linux-kernel@vger.kernel.org, Pengpeng Hou <pengpeng@iscas.ac.cn>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH] bus: stm32_rifsc: clean up debugfs file with
+	device state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -170,79 +71,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,armlinux.org.uk,lunn.ch,google.com,lists.infradead.org,redhat.com,davemloft.net];
-	RCPT_COUNT_TWELVE(0.00)[26];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:mohd.anwar@oss.qualcomm.com,m:bjorn.andersson@oss.qualcomm.com,m:bartosz.golaszewski@oss.qualcomm.com,m:echanude@redhat.com,m:lkarpins@redhat.com,m:ahalaney@redhat.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:richardcochran@gmail.com,m:andersson@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelin.stm32@gmail.com,m:netdev@vger.kernel.org,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:davem@davemloft.net,m:linux-kernel@vger.kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_TLS_LAST(0.00)[];
+	DMARC_NA(0.00)[iscas.ac.cn];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:gatien.chevallier@foss.st.com,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	TO_DN_SOME(0.00)[];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,iscas.ac.cn,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	R_DKIM_NA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:email,iscas.ac.cn:mid,iscas.ac.cn:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: E31C069052F
+X-Rspamd-Queue-Id: 949CC690DF4
 
-On 6/15/26 6:48 PM, Andrew Lunn wrote:
-> On Mon, Jun 15, 2026 at 09:24:07AM +0530, Mohd Ayaan Anwar wrote:
->> Hello Andrew,
->> On Thu, Jun 11, 2026 at 10:54:37PM +0200, Andrew Lunn wrote:
->>> On Fri, Jun 12, 2026 at 12:06:59AM +0530, Mohd Ayaan Anwar wrote:
->>>> When "rgmii-id" is selected the PHY supplies both TX and RX delays, so
->>>> the MAC must not add its own.  The driver currently falls through to the
->>>> generic DLL initialisation path which programs it to add a delay.
->>>>
->>>> Power down the DLL and set DDR bypass mode for RGMII_ID, then program
->>>> the IO_MACRO via a new ethqos_rgmii_id_macro_init() helper.  Also fix
->>>> ethqos_set_clk_tx_rate() to not double the clock rate in bypass mode at
->>>> 100M/10M, and remove RGMII_ID from the phase-shift suppression in
->>>> ethqos_rgmii_macro_init() since RGMII_ID no longer reaches that path.
->>>
->>> I'm curious how this works at the moment? Do no boards make use of
->>> RGMII ID? Are all current boards broken?
->>
->> Searching through the DTS, I found that we have two boards using "rgmii"
->> (qcs404-evb-4000.dts and sa8155-adp.dts) and another board using
->> "rgmii-txid" (sa8540p-ride.dts). No board which uses RGMII ID.
-> 
-> So this causes problems. We cannot break existing boards, yet it would
-> be good to fix the current broken behaviour.
+stm32_rifsc_register_debugfs() creates a debugfs file whose private data
+is devm-allocated RIFSC debug state. If a later probe step fails, or if
+the device is removed, that debugfs file can outlive the private data it
+dereferences.
 
-These are a funny bunch.. QCS404 is a stuck in a perpetual cycle of
-"no one has the hardware" and "someone has the hw but zero interest or
-time". I think we've considered it for removal at one point..
+Keep the created dentry and register a devm cleanup action so the file is
+removed before the RIFSC state is released.
 
-I'm not sure to what degree the two SA8xxx boards are used. They
-may have been stuck in some sort of a limbo. Maybe Bjorn knows?
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/bus/stm32_rifsc.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
 
-Also +Cc some of the folks that contributed to them in the past
+diff --git a/drivers/bus/stm32_rifsc.c b/drivers/bus/stm32_rifsc.c
+index 19d10379dcef..3877198e6eb9 100644
+--- a/drivers/bus/stm32_rifsc.c
++++ b/drivers/bus/stm32_rifsc.c
+@@ -602,11 +602,17 @@ static int stm32_rifsc_conf_dump_show(struct seq_file *s, void *data)
+ }
+ DEFINE_SHOW_ATTRIBUTE(stm32_rifsc_conf_dump);
+ 
++static void stm32_rifsc_remove_debugfs(void *data)
++{
++	debugfs_remove(data);
++}
++
+ static int stm32_rifsc_register_debugfs(struct stm32_firewall_controller *rifsc_controller,
+ 					u32 nb_risup, u32 nb_rimu, u32 nb_risal)
+ {
+ 	struct rifsc_dbg_private *rifsc_priv;
+ 	struct dentry *root = NULL;
++	struct dentry *file;
+ 
+ 	rifsc_priv = devm_kzalloc(rifsc_controller->dev, sizeof(*rifsc_priv), GFP_KERNEL);
+ 	if (!rifsc_priv)
+@@ -625,9 +631,13 @@ static int stm32_rifsc_register_debugfs(struct stm32_firewall_controller *rifsc_
+ 	if (IS_ERR(root))
+ 		return PTR_ERR(root);
+ 
+-	debugfs_create_file("rifsc", 0444, root, rifsc_priv, &stm32_rifsc_conf_dump_fops);
++	file = debugfs_create_file("rifsc", 0444, root, rifsc_priv,
++				   &stm32_rifsc_conf_dump_fops);
++	if (IS_ERR(file))
++		return PTR_ERR(file);
+ 
+-	return 0;
++	return devm_add_action_or_reset(rifsc_controller->dev,
++					stm32_rifsc_remove_debugfs, file);
+ }
+ #endif /* defined(CONFIG_DEBUG_FS) */
+ 
+-- 
+2.43.0
 
-Konrad
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
