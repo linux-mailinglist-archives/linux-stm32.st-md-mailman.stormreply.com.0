@@ -2,88 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id sElfB7OYM2r8DwYAu9opvQ
+	id wCBUJnQJM2r08gUAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 09:05:23 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jun 2026 22:54:12 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFA5469DF8B
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 09:05:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A5A869C6E3
+	for <lists+linux-stm32@lfdr.de>; Wed, 17 Jun 2026 22:54:12 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=jqNxp32Q;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=djxb4RDr;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5AFB1C8F291;
-	Thu, 18 Jun 2026 07:05:22 +0000 (UTC)
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C2D4EC8F291;
+	Wed, 17 Jun 2026 20:54:11 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BCB4CC712AA
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 43429C712AA
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Jun 2026 18:22:09 +0000 (UTC)
-Received: by mail-dl1-f43.google.com with SMTP id
- a92af1059eb24-13810b63a1aso198348c88.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 17 Jun 2026 11:22:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781720528; x=1782325328;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:from:to:cc:subject:date:message-id:reply-to;
- bh=HQIkf5SvJGerJpzJyK7LEUA5xTlZO86ZcJ/z+85FafM=;
- b=jqNxp32QxfTRl6QNSiir8dvtbnoQB/qQEe4mDuQX2iXf6x675v0iaioGpgm6ofDP0w
- rv1u0BQ3x8kb1k+pXB4NXoC2cVsdkJO1AjrF4fvsxnUvTbgxBsUffv/G9PvcASm9jC51
- 2rqEAxx5vZhnRpAbLKeaFEKWPNE1TAicp8ow+l/f8XVT2ZjjVqT5FdwWqEuhZuiHL0xR
- DpE4FfE3oUGPuyJo0178wWg77CiEIXo6jdUi+TIWWLuAiLn3lw0DE5P7DOy/dz5ykxVv
- s7LK8MsvlQuiCKVSWqS5j2Ph9Wyy190rWq1kyAk3V4efXs+XqwTJurV1dIPXKdjn/ayS
- cJJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781720528; x=1782325328;
- h=content-transfer-encoding:mime-version:message-id:date:subject:to
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=HQIkf5SvJGerJpzJyK7LEUA5xTlZO86ZcJ/z+85FafM=;
- b=QsJWkiMQvVWZ56v2asV97bULozpKQhB8KjbQ0i0of+np0rk5boyNw7OTQmU8v84e6a
- R0a5Zyg6SnypQyXCVAwdODBRNVq1ljXa09nweKt+qNXZVLuXwYUgcLSiHdhw4dYoflw7
- BbegIlJIhMfyNnBrMkNZhHfgMgo6Pe9LuDR9l0O+TW+sEQMxN/f+mPRLy/zZHD+KaIOV
- GzjDSBKmxRYauAFhdtwVl7efumCCarL1UYW5JCI9E37XbXMHMkDPRcnJiBzXqcehUIrr
- zWkS11KyF6M3k81UyXHLyULrfjtbgQNiNw3gU9Ad8LZIneEK1bl4uY/5F6F795HjeJ9O
- x/jg==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+58Vs7/Sw7+Qkr2iGiqD8EOhyi9rmZ17vvT8VhfMuhpzx5LF2x0rE4aZFHASsYXQ9BMFW7pcxtF2/Y7g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzVw5fFBB2EKOYADqyPIjCa4jofgOYvsuRdU2Ao1EHyaBZm3NBp
- QQKkODaxFPluRrOd19gh4cH7GRkBjz8Y5dqX3hTkoZDIMgpZQcT8JjwB
-X-Gm-Gg: Acq92OFZ2IaVm06UYP4XBj+BQAelCfdSjSb5lpMePqddTIy3ZEOI3Ab7BfSkgiOGCVr
- Qp9XFjwZKLvjnjYh5AFxLzfm3GUfZTvfVv7K/yp7uxJFoB5d4S2wN4M9LXX8NNDJixUyUCqlSrQ
- lvfdMmFlgaAJPxEXmt9f5Pe4NsPioAxOJ9Zja4Gi9nAFh8tCaRZfds0+3W0/YOngiXb3ciizbXQ
- ozz6W9gRsEoIHc4YkE77UEKEZ97ONNfRnL95/JvMleG6XMUTX0kD/3nZ4jIeELqLfDPRd8TG4ow
- OjiVeNQDLs9FDpyilDkPFM5eFTSX7a1VG0AcVtMW9L30eJjTcaqfARvq2/NctblPKREqzQ1EEwX
- jNqoRiBp8hEi/ZwbRKv6oYlqhToCL6U248cvqjgDhKL8OwcfrYgeteuOgDYMvNc55Mv4CJhEcw4
- y2fAi3hKLkfqHmQiizZNq7uOLUA13jSQGd
-X-Received: by 2002:a05:7022:4390:b0:139:86cf:c305 with SMTP id
- a92af1059eb24-1398f66b777mr2273424c88.3.1781720527835; 
- Wed, 17 Jun 2026 11:22:07 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net
- ([2001:da8:e000:1206:1886:6b7a:3e78:272c])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1384b964862sm17359988c88.10.2026.06.17.11.22.05
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 17 Jun 2026 11:22:07 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Patrice Chotard <patrice.chotard@foss.st.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Thu, 18 Jun 2026 02:22:02 +0800
-Message-ID: <20260617182202.961843-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+ Wed, 17 Jun 2026 20:54:10 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 2EE7B6001D;
+ Wed, 17 Jun 2026 20:54:09 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 412D51F000E9;
+ Wed, 17 Jun 2026 20:54:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781729648;
+ bh=yI7oWojBBWCFZtT5GkeyArJgGoTs0Iz+VhD0IZ6tAKI=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=djxb4RDrAOu/bmeS3G3q6kZTONzLdub/v3XZ89XiXHCBOzxwATOUPjT4qECXrAI56
+ Ya1wiMu1Vt7fRvp1K/PlEeoJW1cTkZ71S5HdpYAx15KXUR0wKbzrkM9YfDXY/vEKcR
+ 4AZt7u/WdJM0zPEdE5zAfudRpdKVDyVXtZrKfC4fnuChVldPp0ofY14Rcw5RDX6zKf
+ VIytAwUMoq7mEu0S+DEZ5CbUZnB7xqJ0xmWUQcFKBRakMEmPiWEf8bR5kePKfS8qXo
+ ISTz3SYznNKs02+YwNdn/8JIvoBF0UhKDOTuMQCZyY/aitBGP1bW3is3i1EKkc5za3
+ H7KFZf93vQC3w==
+Date: Wed, 17 Jun 2026 13:54:07 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Jacob Keller <jacob.e.keller@intel.com>
+Message-ID: <20260617135407.6ff54e27@kernel.org>
+In-Reply-To: <31630db0-85cb-421b-8ebe-bbae07521533@intel.com>
+References: <20260615-dwmac-loongson1-v1-1-cbcf5bc01d9b@gmail.com>
+ <31630db0-85cb-421b-8ebe-bbae07521533@intel.com>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 18 Jun 2026 07:05:21 +0000
-Subject: [Linux-stm32] [PATCH] memory: stm32_omm: initialize ret in
-	stm32_omm_set_amcr
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, linux-mips@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ keguang.zhang@gmail.com, "David
+ S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: loongson1: Use
+	dev_err_probe()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -100,70 +69,55 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:patrice.chotard@foss.st.com,m:krzk@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	ARC_NA(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[ruoyuw560@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	GREYLIST(0.00)[pass,meta];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,redhat.com,davemloft.net,lists.infradead.org];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FORGED_RECIPIENTS(0.00)[m:jacob.e.keller@intel.com,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-mips@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:pabeni@redhat.com,m:keguang.zhang@gmail.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:keguangzhang@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[ruoyuw560@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[7];
-	TAGGED_RCPT(0.00)[linux-stm32];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[kuba@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AFA5469DF8B
+X-Rspamd-Queue-Id: 2A5A869C6E3
 
-stm32_omm_set_amcr() returns ret after checking whether the AMCR value
-matches the device tree description. On the normal matching path ret is
-not otherwise assigned, so initialize it to 0 before the checks.
+On Tue, 16 Jun 2026 16:42:18 -0700 Jacob Keller wrote:
+> I'd probably also argue this may go against the desired goals of
+> net-next with only wanting such cleanups when in the context of other
+> larger work. Of course that decision ultimately belongs to the maintainers.
 
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
----
- drivers/memory/stm32_omm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
-index 5d06623f3f689..2a1af229d2444 100644
---- a/drivers/memory/stm32_omm.c
-+++ b/drivers/memory/stm32_omm.c
-@@ -47,7 +47,7 @@ static int stm32_omm_set_amcr(struct device *dev, bool set)
- 	struct device_node *node;
- 	struct resource res, res1;
- 	unsigned int syscon_args[2];
--	int ret, idx;
-+	int ret = 0, idx;
- 	unsigned int i, amcr, read_amcr;
- 
- 	for (i = 0; i < omm->nb_child; i++) {
+Yes, feeding const EINVAL into dev_err_probe() is pretty pointless
+so if this helps it's just by "saving" 2 LoC. I'm not sure it's worth
+it even in context of larger work, let along by itself.
 -- 
-2.51.0
-
+pw-bot: reject
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
