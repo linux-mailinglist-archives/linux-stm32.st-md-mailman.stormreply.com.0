@@ -2,95 +2,90 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id jsZZKYiaM2p/EAYAu9opvQ
+	id XRvJBZbUM2rjGwYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 09:13:12 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 13:20:54 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39F6069E027
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 09:13:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 80C6669FB6A
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 13:20:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=B94JaEpx;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=lDJjZJYJ;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DC7EFC8F26E;
-	Thu, 18 Jun 2026 07:13:11 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2FEDFC8F294;
+	Thu, 18 Jun 2026 11:20:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4B04BC7A830
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BD96EC6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2026 07:13:10 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-37cab825ec9so527200a91.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2026 00:13:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1781766789; x=1782371589;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=KU/eD8zFijZYAE4C8J5GszRlhYqC9pFtYnLR1rm99qs=;
- b=B94JaEpx9PerS5rb3s2B4FzWJ6Ds0SN4S7e3hnBlNDpZwFwCUGttHgdAhmKKNMsSKN
- I+qQ/KBDFX5WaAwwctwqHrkS+8S747414fxht/fc/rmhywrBBImMW+O11aJtcKA1HtN1
- WGH+UsDIJLAX2Xn5T+BBN24YJZ/DQz7QjpYxhpw6sPmdXlFd5NhnnB0VJW4yUA9xhwpt
- kWKxSTXUONgETJiXaXCgAdSidpDJZYlJCXHeUGtGPyMWThjM+oUCpV4FyEn2jS9/SxgQ
- 1xDAQBF5Ihoo4ZNwpPwldzNy2shJywwqCkWogvxb5k0nyQIkHC6/dTHHMcKl+5ux25B+
- QGnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781766789; x=1782371589;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=KU/eD8zFijZYAE4C8J5GszRlhYqC9pFtYnLR1rm99qs=;
- b=cPICJmn2mSSybqPdUg7pdpSNmDdp21gTX8sz7lq+gMOm5sx3lhpp5dvMl3aeT1iFfO
- 7Wt6oyPmipUajiPErOrZbzymIXjY7KXCAuVNxIJSMaL/AL8UXa82afwOOlBhe6pzQszc
- rpF70bMs/GvSei4jVWGkSOYzQurcGQN8K79U3ijXrNkI94wZUOmh68IhYSsIYa2/xLhy
- Q1g7QTwWELUDQAMITf6P0vT7UsyTYReE55HLCxgk/HZwTJceKg1+dsnoLbjC+tB8TMNI
- 42mNlwy78towEnHaxAhoBh2PzjMgOkkw69sjbittki5EnIKmKyNvqtf3Wbwy5aXjsRfl
- bELw==
-X-Forwarded-Encrypted: i=1;
- AFNElJ+oKHGaDYTLGcpbcVGDdIjoaPXeVjdLGcJUVn51cGm72cCQy4fF5WyFuBSIyrd0Qc6U6W0WMagDx/aWoQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxY9b/sVA3wk+2/nNNvpdaafJuY7L1ve7TANu53znWjD2/76JBZ
- MQcFroF8FqItAlybp1D7lV8bo9a9KrohOrOaZOJosinW+1GWVJ9vXSVe
-X-Gm-Gg: Acq92OGKRqnQLZpbmE93qdPjFflTfwztDC1VhHoXYlHIMA5gOvX2UyUDBXsfslJQRr1
- 5XiLpLCzQqEdZwmOvL/P5tl9ridnBz8JfG3U+tqZClphApLp0m70emCwDoyyy1CiR8dykFOJ+sM
- 7LHoam0vFkiWY9NE/+FsCAvz1hIrEhJ36KzxwPxjnwSQ+H/lB67EnzajYIeiwW69ZDMfrYDs10q
- TbA+mRUBG4JMvYWNyytzSoKMjZ+mr7r/cNcq92kwfXDbBKZWZhX4ihUPBmv2AI5wM03Ee6M2hQB
- zZntkvhkMIwE8iGvIjdUBKK7wWBd8jgMF7OnTLG1XbyZB+3c0LuXoxE4/81b1z0LKaGKrehaEg9
- UC9E0GZZetkv3VpAc6pISeEBM4N87hF7GERX1LGH4h7WDMfkh5AWk7n1ygxAEQkp4
-X-Received: by 2002:a05:6a20:c991:b0:3b4:65ac:e2e3 with SMTP id
- adf61e73a8af0-3b9e5b2381dmr3247768637.5.1781766788479; 
- Thu, 18 Jun 2026 00:13:08 -0700 (PDT)
-Received: from localhost ([2001:da8:7001:11::cb])
- by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-c889356266dsm3221211a12.6.2026.06.18.00.13.07
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2026 00:13:08 -0700 (PDT)
-Date: Thu, 18 Jun 2026 15:12:58 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Yixun Lan <dlan@kernel.org>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
-Message-ID: <ajOZnO_dFg20VnEc@inochi.infowork>
-References: <20260618064143.1102179-1-inochiama@gmail.com>
- <9b39829d-92b4-4ffa-be0b-b2b0f857f58e@bootlin.com>
+ Thu, 18 Jun 2026 11:20:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 599C14026C;
+ Thu, 18 Jun 2026 11:20:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7D51F000E9;
+ Thu, 18 Jun 2026 11:20:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781781650;
+ bh=on2p7v01JMLQEd/mSi9ZWJJJ8bOMuh6PkCqEPxyESE4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=lDJjZJYJ44Uudg+UUCLEZ5y/sv+9qsCPzXEK/SlWqYFGHdqWrKYDhJ4GlvtafSPeG
+ BkI9mR7gXaoUCd4fEyAkAOCIb6hs7ZVVEZxps+vtBfvMuGWrZ+g8P46pmqYV9yzIX7
+ lDScLN3sjh5PcMVWfKktO2MLuQTjps9HxV3GWvOMA69qTMUNK+3zZ6+0hv4oo/XNzL
+ DYxycW66o0SD0Q/+o9gPry+0FHF0e5kJQCNDSyN1ihKq5/tmrs+qsvdpnHSogWO5sP
+ 2rL8P9jMCTf9/vdXIynUS0O3GRdllKsChiOnpuT+MC4LBV5F17k1ryXsmIVt8EmV58
+ ERuEDJonnxdFw==
+Date: Thu, 18 Jun 2026 13:20:47 +0200
+From: Maxime Ripard <mripard@kernel.org>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Message-ID: <20260618-terrestrial-abiding-tamarin-01befc@houat>
+References: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <9b39829d-92b4-4ffa-be0b-b2b0f857f58e@bootlin.com>
-Cc: Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, Longbin Li <looong.bin@gmail.com>,
- linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: dwmac-spacemit: Fix
- wrong ctrl register definition
+In-Reply-To: <20260608-drm-no-more-bridge-reset-v2-0-0a91018bf886@kernel.org>
+Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Frank Li <Frank.Li@nxp.com>,
+ dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
+ Paul Cercueil <paul@crapouillou.net>, Biju Das <biju.das.jz@bp.renesas.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Marek Szyprowski <m.szyprowski@samsung.com>, linux-renesas-soc@vger.kernel.org,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ linux-rockchip@lists.infradead.org, Kevin Hilman <khilman@baylibre.com>,
+ =?utf-8?B?TWHDrXJh?= Canal <mcanal@igalia.com>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Sandy Huang <hjc@rock-chips.com>, Jagan Teki <jagan@amarulasolutions.com>,
+ Jerome Brunet <jbrunet@baylibre.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Liu Ying <victor.liu@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Inki Dae <inki.dae@samsung.com>,
+ linux-mediatek@lists.infradead.org,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
+ Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Yannick Fertre <yannick.fertre@foss.st.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Douglas Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
+ Phong LE <ple@baylibre.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Andy Yan <andy.yan@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>
+Subject: Re: [Linux-stm32] [PATCH v2 00/78] drm/bridge: Convert all reset
+ users to create_state
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,108 +97,113 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============9218454334221965426=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [3.19 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:maxime.chevallier@bootlin.com,m:inochiama@gmail.com,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dlan@kernel.org,m:rmk+kernel@armlinux.org.uk,m:dlan@gentoo.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:looong.bin@gmail.com,m:linux-riscv@lists.infradead.org,m:spacemit@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,m:looongbin@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	FREEMAIL_TO(0.00)[bootlin.com,gmail.com,lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,foss.st.com,armlinux.org.uk];
-	ARC_NA(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[19];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[intel.com,linaro.org,kernel.org,ideasonboard.com,kwiboo.se,gmail.com,bootlin.com,linux.intel.com,suse.de,ffwll.ch];
+	FORGED_SENDER(0.00)[mripard@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrzej.hajda@intel.com,m:neil.armstrong@linaro.org,m:rfoss@kernel.org,m:Laurent.pinchart@ideasonboard.com,m:jonas@kwiboo.se,m:jernej.skrabec@gmail.com,m:luca.ceresoli@bootlin.com,m:maarten.lankhorst@linux.intel.com,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:imx@lists.linux.dev,m:heiko@sntech.de,m:geert+renesas@glider.be,m:tomi.valkeinen@ideasonboard.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:paul@crapouillou.net,m:biju.das.jz@bp.renesas.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:m.szyprowski@samsung.com,m:linux-renesas-soc@vger.kernel.org,m:laurent.pinchart+renesas@ideasonboard.com,m:linux-rockchip@lists.infradead.org,m:khilman@baylibre.com,m:mcanal@igalia.com,m:magnus.damm@gmail.com,m:martin.blumenstingl@googlemail.com,m:hjc@rock-chips.com,m:jagan@amarulasolutions.com,m:jbrunet@baylibre.com,m:chunkuang.hu@kernel.org,m:kernel@pengutronix.de,m:victor.liu@nxp.com,m:s.h
+ auer@pengutronix.de,m:inki.dae@samsung.com,m:linux-mediatek@lists.infradead.org,m:tomi.valkeinen+renesas@ideasonboard.com,m:matthias.bgg@gmail.com,m:linux-amlogic@lists.infradead.org,m:michal.simek@amd.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:mcoquelin.stm32@gmail.com,m:lumag@kernel.org,m:yannick.fertre@foss.st.com,m:dave.stevenson@raspberrypi.com,m:dianders@chromium.org,m:linux-kernel@vger.kernel.org,m:ple@baylibre.com,m:kieran.bingham+renesas@ideasonboard.com,m:zhengxingda@iscas.ac.cn,m:p.zabel@pengutronix.de,m:kernel-list@raspberrypi.com,m:andy.yan@rock-chips.com,m:jyri.sarha@iki.fi,m:jernejskrabec@gmail.com,m:geert@glider.be,m:laurent.pinchart@ideasonboard.com,m:magnusdamm@gmail.com,m:martinblumenstingl@gmail.com,m:matthiasbgg@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[lists.linux.dev,sntech.de,glider.be,ideasonboard.com,nxp.com,lists.freedesktop.org,vger.kernel.org,crapouillou.net,bp.renesas.com,gmail.com,st-md-mailman.stormreply.com,samsung.com,lists.infradead.org,baylibre.com,igalia.com,googlemail.com,rock-chips.com,amarulasolutions.com,kernel.org,pengutronix.de,amd.com,collabora.com,foss.st.com,raspberrypi.com,chromium.org,iscas.ac.cn,iki.fi];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[gentoo.org,vger.kernel.org,gmail.com,lists.infradead.org,lists.linux.dev,st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[58];
+	ALIAS_RESOLVED(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[mripard@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,houat:mid,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 39F6069E027
+X-Rspamd-Queue-Id: 80C6669FB6A
 
-On Thu, Jun 18, 2026 at 09:03:21AM +0200, Maxime Chevallier wrote:
-> Hi Inochi,
-> 
-> On 6/18/26 08:41, Inochi Amaoto wrote:
-> > There register layout of the phy ctrl register has something wrong,
-> > fix it to match the right layout
-> > 
-> > Fixes: 30f0ba420ed3 ("net: stmmac: Add glue layer for Spacemit K3 SoC")
-> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> > ---
-> >  .../net/ethernet/stmicro/stmmac/dwmac-spacemit.c    | 13 ++++++++-----
-> >  1 file changed, 8 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-> > index 223754cc5c79..6feffaa3ef3a 100644
-> > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-> > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-> > @@ -18,10 +18,12 @@
-> >  #include "stmmac_platform.h"
-> >  
-> >  /* ctrl register bits */
-> > -#define CTRL_PHY_INTF_RGMII		BIT(3)
-> > -#define CTRL_PHY_INTF_MII		BIT(4)
-> > -#define CTRL_WAKE_IRQ_EN		BIT(9)
-> > -#define CTRL_PHY_IRQ_EN			BIT(12)
-> > +#define CTRL_PHY_INTF_MODE		GENMASK(4, 3)
-> > +#define CTRL_PHY_INTF_RMII		FIELD_PREP(CTRL_PHY_INTF_MODE, 0)
-> > +#define CTRL_PHY_INTF_RGMII		FIELD_PREP(CTRL_PHY_INTF_MODE, 1)
-> > +#define CTRL_PHY_INTF_MII		FIELD_PREP(CTRL_PHY_INTF_MODE, 3)
-> > +#define CTRL_PHY_IRQ_EN			BIT(9)
-> > +#define CTRL_WAKE_IRQ_EN		BIT(12)
-> 
-> Looks like you're fixing 2 things there :
-> 
->  -> Wake on Lan probably didn't work before, as the wake irq was apparently wrong.
 
-I guess the vendor firmware and uboot may do something for it, 
-but the irq is wrong actually.
+--===============9218454334221965426==
+Content-Type: multipart/signed; micalg=pgp-sha384;
+	protocol="application/pgp-signature"; boundary="ozjpmz32viqzzrdv"
+Content-Disposition: inline
 
->  -> The MII mode selection apparently also changes, but maybe you don't have a
->     MII board around to test this ?
-> 
 
-Actually, the only board of the K3 is the pico-itx board, and it only has
-a RGMII phy. I even doube the spacemit vendor has not tested the MII phy
-well....
+--ozjpmz32viqzzrdv
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 00/78] drm/bridge: Convert all reset users to
+ create_state
+MIME-Version: 1.0
 
-> Is it possible you address these issues independently (i.e. split this in 2 patches) ?
-> That way, if we ever revert one, we won't re-break the other thing that was broken.
-> 
-> 
+Hi,
 
-Yes, it is fine for me to split it. I will send it in a few days.
+On Mon, Jun 08, 2026 at 04:35:42PM +0200, Maxime Ripard wrote:
+> Hi,=20
+>=20
+> All the bridges use reset to create a blank state only and don't use it
+> to reset the hardware at all. This is what the new atomic_create_state
+> is exactly supposed to be doing, so we can convert all existing bridge
+> users to it, and remove the reset hook and helpers.
+>=20
+> Let me know what you think,
+> Maxime=20
+>=20
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 
-Regards,
-Inochi
+FTR, Thomas on IRC yesterday[1] added
+Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
+
+Unless another review shows up, I intend to merge this tomorrow
+
+Maxime
+
+1: https://oftc.catirclogs.org/dri-devel/2026-06-17#35422999;
+
+--ozjpmz32viqzzrdv
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCajPUigAKCRAnX84Zoj2+
+dk0JAX0RbkGWPGoPi2IhEx+Ot7RE2mv5pF2NW5NdvgyvbZjvKNkWJ3WWtN4N+yZb
+Ll4R1c0BgNqzNQmnFhM4Nh5uf+0aPC7FMvJmkSeQcUNUGNIKHOukmjyX3PgrtUcT
+RE+nxMSDvw==
+=eAVV
+-----END PGP SIGNATURE-----
+
+--ozjpmz32viqzzrdv--
+
+--===============9218454334221965426==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============9218454334221965426==--
