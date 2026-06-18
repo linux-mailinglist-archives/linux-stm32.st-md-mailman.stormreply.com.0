@@ -2,86 +2,81 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 8QgJDFddNGo+WAYAu9opvQ
+	id uw/WBFhdNGo/WAYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 23:04:23 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 23:04:24 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF5A16A2B60
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 23:04:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AD5276A2B65
+	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 23:04:23 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=L18kI8I7;
+	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=bOXVgHhq;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=none
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4C801C9AE31;
-	Thu, 18 Jun 2026 21:04:22 +0000 (UTC)
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com
- [209.85.167.51])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6E2BEC9AE4C;
+	Thu, 18 Jun 2026 21:04:23 +0000 (UTC)
+Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com
+ [209.85.208.179])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5D5FBC7C7CB
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D240FC7C7CB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2026 21:04:20 +0000 (UTC)
-Received: by mail-lf1-f51.google.com with SMTP id
- 2adb3069b0e04-5ad583dc38eso5799e87.3
+ Thu, 18 Jun 2026 21:04:21 +0000 (UTC)
+Received: by mail-lj1-f179.google.com with SMTP id
+ 38308e7fff4ca-39975111d57so9396971fa.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2026 14:04:20 -0700 (PDT)
+ Thu, 18 Jun 2026 14:04:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1781816659; x=1782421459;
+ d=baylibre.com; s=google; t=1781816661; x=1782421461;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=E9z0pIRRQq0JjZLgtfI21RJrv64iSxf66JeOGPUHps0=;
- b=L18kI8I7Jo+olAqi9bc5mMfZm10L2rlLOuSR65+7z1ApTSI/RBAp8mSR2/WaheIs25
- TuYJ2DDf/QT5iL4uwz0L5PJGkMYDOT4Nxvf27O/KdZ28qmKgPvD5wQermdRvRhf6UrO3
- 1YQoGRG2KgC5qWRCHVya1Bf2O2DFTBwIkVxxomAKZx/Cfq56eYidg/28VUIeu4NOj1gQ
- XjyGIL6NnkVGlvAf/2xWJjW69G4L6KW/rNIQn3K3ONZQXhQ5CiIgVKALluutyvTY+jjl
- c4/cBiOq4kLMRxbSvir/MpGOUeednJT63dTk3YNqdC7t4PjnfcoUptkPwbHJZM7L/IIt
- vdRQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=YHTc2d1gfZfmsv6g60s61hpLDdJiCapvFvPkETN2gak=;
+ b=bOXVgHhqZML+RlT/YVvaKYR8mR/2uQYJwTtrEw7X15lObZTGLLp6tM7bkLAVKMCBvC
+ 1T15kQpGu6be5vtSB46icG2CTj7l9V5+qId9eeL+jdk4m4viSX/Ju/t3HiLhERvRwn2m
+ lzrDndIrAH15pbQHuPZkRw+TWArF3uA1fSOug3Pvubvmvqn+i6gLu8J9ZMakmbxfEpKU
+ kBHv607tYArI8KrITOyfOHE+dS0dcxLx3tI7Xr5lnMJ+KmJJOxK/HjYVfbqWeRq7kaHq
+ xGF888qGUUEOoSDqlHaub+/fyxW3NU8tG3e2/yq89QQuvyPhPZmgzY8ziMiBSJtqad41
+ VQsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781816659; x=1782421459;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=E9z0pIRRQq0JjZLgtfI21RJrv64iSxf66JeOGPUHps0=;
- b=LTDb6Nr97QaNicljieFz+9hH4OkfGAGRTGPVRU2JfBiMSGALEXhD+Du5I7q4hsv4D6
- 3DW2lsqNlLpXbkstZncZdOJYSrUNgneXB/1LQg00kwd7+D55/hHXr7KEnE38o5HffNJw
- NuJ4KsY5qp2yc2Zz5rFNkbN0NA7LOqYi7+TZ5VkZ96L6AOVW8HC5sFhx0sijqOl2e83M
- qaamA/uwg+sKPlWsjH3njocYP+56BabXWd9yPcPNVi4lsqWYb3Sf0zYMzyiUWmYUt0P7
- l+4P6ykpml1zceMHSUOp+Jjczy9hOcPYYvgWqe1gNmTsd9UA22zQRkxHv8Tna1Kd8Ifm
- HWWQ==
+ d=1e100.net; s=20251104; t=1781816661; x=1782421461;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=YHTc2d1gfZfmsv6g60s61hpLDdJiCapvFvPkETN2gak=;
+ b=bjjFlRpPoMT2p7lQb0GJd5gJDPr+F8SUs+OT8KuukroYrpIbetyr5Pn5Fr0TzFy2SH
+ 0HLzAY5J1+zEYwtH12iQI98EqARbS0DySH2nEG8oqcllhowETmS+8X4Auv9cAWDXeKSw
+ RmjOBD19aIKLdqxCW12ScyHQWbO6w24lq8pQZuUf92L90CXk5vgu893LMO6kbmrn3ZPj
+ tQTOjYVKzOHTP+jPzsV7PJWCfA4iE09ktXC4s4zihZ0p+OfHW0i8u29weEdNtSrU2CXA
+ PO/pxCX3P4/Fdsu1TGAI6tEVKZezoATCQRYtZRIx/Huo/MNMd+hC+H+I8Cv/Ms0vDTLP
+ C1gA==
 X-Forwarded-Encrypted: i=1;
- AFNElJ8qYIdmLiCjqsfms8xmX/t0pUaMrKvQhjyfFydZ9KHoyAy25DOvJaj7nimQuWJvM01pzVw/NiT9WbAYBg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz3xDrg1ZcFRix6FoFxYMY11rItXOGktCR7tqDqQ7ePvm6baE0M
- XPIq2zwcufC8CiWQ8FOOsQKovzBvTMAgTGdKbxzBkJNoc109bBo4EymyQvzZzt95tdY=
-X-Gm-Gg: AfdE7cle1JSe88oPYFQgtAp69Q/E0S2eK9rJM54v+ihtZK9KSewxZo0jABB32hz6z2y
- EIXaOXSlPT1pKA/leegYlnWXhpYEAtxzu+mg/6xTOziw0dT6ySps7VsccCO99oED1MUEe+vGf61
- 8IM0vIqJHmtzLdtX0GvvQUnmvs/FR6oDOl8mxkVGMy6EMgSCOdPTCr9O7sswoRvr/i2WPKBgKy6
- 6LRNDhP8fAHCzGQaHRFHjO9jG4HS4ukPKjvofTIB9qZJF12+MUneHAahBIHTQxKh3GiqdCKXQNf
- mT+5+Hn/vB0aJ0daiOHKUuSVQYWWmnx10+gd3bcyPnqtgVpi0zjE29Al4P8vOdNmBHRcaDoMOJu
- mvyGgWt0HkHh+M+B3yPrKhlLI7DV1tdJP202bhgxQzBW/40D/s4IcLNGSNH0M9OrNaERjkiYmt/
- 6MNz08Ym9IUorIpaZ/4nuV
-X-Received: by 2002:a05:6512:8013:20b0:5aa:b6a:738e with SMTP id
- 2adb3069b0e04-5ad57715b49mr98736e87.44.1781816659260; 
- Thu, 18 Jun 2026 14:04:19 -0700 (PDT)
+ AFNElJ+F9BOBZwSbY9gSpRnT5XSNW/4yhHBck9CbVmjZWPZjW7k7ZcjIed+PncmfqhDvbwnfiYJVOD3DW3xdsw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yztv01MgClH+dJ/tKlCx7u2vZGeyx8aVlja6faDK/5m9OPVs92c
+ L5epG5/sekWGhUjF6yXco6tezN2MRb6XeyNg0TAtJqsuQdYL2KcXEw0bCBxsoefhSn4=
+X-Gm-Gg: AfdE7ck9KL5Shi3ELeY4t03eZAhq/LzFqJB38iIo9gjtGSrIE96kJiK/829P6yqsTxq
+ vxJkcHkrVeJhRqc9cD5T356NfsbEJbMcYSKAGp7im46BgVU9hb/JuoYcgflDkfvKfm0WBlFno29
+ gA/forPtqVRI1bjqK8lORrLRpNSWAt3nM3AJs2tLx3uCAnr2uTQa/qAQR14MqNw7NSZMVn4N55O
+ vp7vMFppL0NtTNqDaieDi1KkNYzBYeJ5lud0qE1MsXw6JwcNrpaBaEYuu8UyFWQpfdobhS2GQOD
+ 8hczF6uOst3yOCfdjTAzq0C/kxmRCJEYjelO6giuNjbfLwAruaGQI601nFuOGfBxokJV0w+fklM
+ 4Eha/sDADv++bkGJCFomJdKLDm2QBRDhaXY9IVooZA4SEdMmMACpduFq+mnjM7PIWMObpyf7yrS
+ m1nTJKRtGsbhsU9zh3KpzQ
+X-Received: by 2002:a05:6512:2526:b0:5aa:7aba:2a5f with SMTP id
+ 2adb3069b0e04-5ad5627b4edmr302039e87.6.1781816660782; 
+ Thu, 18 Jun 2026 14:04:20 -0700 (PDT)
 Received: from [192.168.0.2] ([2a07:7e81:7daa:0:202:c9ff:fe53:eda4])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ad57493145sm108586e87.69.2026.06.18.14.04.17
+ 2adb3069b0e04-5ad57493145sm108586e87.69.2026.06.18.14.04.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2026 14:04:18 -0700 (PDT)
+ Thu, 18 Jun 2026 14:04:20 -0700 (PDT)
 From: Angelo Dureghello <adureghello@baylibre.com>
 X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Thu, 18 Jun 2026 23:04:14 +0200
-Message-Id: <20260618-wip-stmark2-dac-v6-0-48761dbb96d7@baylibre.com>
+Date: Thu, 18 Jun 2026 23:04:15 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XRy07DMBAF0F+pvMZo/JokXfEfiMX4RQ20qZwQq
- Kr8O05YFKgrlleae64ln9kQcgoD227OLIcpDak/lIB3G+Z2dHgOPPmSmQSJoBXwj3Tkw7in/Cq
- 5J8cbQIi6877TkZXWMYeYPlfx8ek7D+/2JbhxYZaLXRrGPp/WyUkud7f1SXLgQVFssXUaSDxYO
- r0lm8O96/eLtlaNUPVqdJ6CAReNoN/V5W2Tuqwb0NeEKgQYqUlEJ5y6tS5lvSrQBiCvDGFTWRf
- /rItCtI12Ckl3AnyF0D8IJa4JXYgmoCGrpTC+RpgLgaLyA6YQtkHbKoXojftDzPP8Ben+oGRFA
- gAA
-X-Change-ID: 20260430-wip-stmark2-dac-7060f49dd94f
+Message-Id: <20260618-wip-stmark2-dac-v6-1-48761dbb96d7@baylibre.com>
+References: <20260618-wip-stmark2-dac-v6-0-48761dbb96d7@baylibre.com>
+In-Reply-To: <20260618-wip-stmark2-dac-v6-0-48761dbb96d7@baylibre.com>
 To: Jonathan Cameron <jic23@kernel.org>, 
  David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -93,7 +88,7 @@ X-Mailer: b4 0.15.2
 Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 0/2] add mcf54415 DAC driver
+Subject: [Linux-stm32] [PATCH v6 1/2] iio: dac: add mcf54415 DAC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -105,28 +100,27 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [3.29 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[baylibre.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
 	DMARC_NA(0.00)[baylibre.com];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:dlechner@baylibre.com,m:nuno.sa@analog.com,m:andy@kernel.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:adureghello@baylibre.com,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-m68k@lists.linux-m68k.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,analog.com,linux-m68k.org,gmail.com,foss.st.com];
 	FORGED_SENDER(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:dlechner@baylibre.com,m:nuno.sa@analog.com,m:andy@kernel.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:adureghello@baylibre.com,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-m68k@lists.linux-m68k.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -144,69 +138,298 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,kernel-space.org:email,baylibre.com:email,baylibre.com:mid,baylibre.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: AF5A16A2B60
+X-Rspamd-Queue-Id: AD5276A2B65
 
-VGhpcyBwYXRjaHNldCBhZGRzIGEgbWluaW1hbGlzdGljIERBQyBkcml2ZXIgZm9yIHRoZSBOWFAg
-bWNmNTQ0MTUvNi83LzgKYnVpbHRpbiBEQUNzLgoKQ3VycmVudGx5IHRoZSBkcml2ZXIgZW5hYmxl
-cyB0aGUgcmF3IHdyaXRlIG9ubHkuIEZlYXR1cmUgYXMgZG1hLCBzeW5jLCBvcgpmb3JtYXQgYXJl
-IG5vdCBzdXBvcHJ0ZWQgZm9yIHRoaXMgdmVyc2lvbi4KCkFkZGl0aW9uYWwgb3B0aW9ucyBzdXBw
-b2VydGVkIGJ5IHRoZSBEQUMgbW9kdWxlIHdpbGwgYmUgYWRkZWQgdG8gdGhlIGRyaXZlcgpsYXRl
-ciBvbiwgYXMgbmVlZGVkLgoKVGhlIHNhbWUgcGF0Y2hzZXQgcHJlcGFyZXMgdGhlIG02OGsvY29s
-ZGZpcmUgYXJjaGl0ZWN0dXJlIHRvIHN1cHBvcnQKdGhlIGRyaXZlci4KCkJlbG93IHNvbWUgYmFz
-aWMgdGVzdHMgZG9uZSBvbiBzdG1hcmsyIG1jZjU0NDE1LWJhc2VkIGJvYXJkLCB2b2x0YWdlIGNo
-ZWNrCm9uIERBQzAgYW5kIERBQzE6Cgp+ICMgY2QgL3N5cy9idXMvaWlvL2RldmljZXMvaWlvOmRl
-dmljZTAvCi9zeXMvYnVzL2lpby9kZXZpY2VzL2lpbzpkZXZpY2UwICMgbHMKbmFtZSAgICAgICAg
-ICAgICAgIG91dF92b2x0YWdlX3NjYWxlICB1ZXZlbnQKb3V0X3ZvbHRhZ2VfcmF3ICAgIHN1YnN5
-c3RlbQovc3lzL2J1cy9paW8vZGV2aWNlcy9paW86ZGV2aWNlMCAjIGNhdCBuYW1lCm1jZjU0NDE1
-Ci9zeXMvYnVzL2lpby9kZXZpY2VzL2lpbzpkZXZpY2UwICMgZWNobyA0MDk1ID4gb3V0X3ZvbHRh
-Z2VfcmF3IAovc3lzL2J1cy9paW8vZGV2aWNlcy9paW86ZGV2aWNlMCAjIGVjaG8gMjA0OCA+IG91
-dF92b2x0YWdlX3JhdyAKL3N5cy9idXMvaWlvL2RldmljZXMvaWlvOmRldmljZTAgIyBlY2hvIDQw
-OTYgPiBvdXRfdm9sdGFnZV9yYXcgCnNoOiB3cml0ZSBlcnJvcjogSW52YWxpZCBhcmd1bWVudAov
-c3lzL2J1cy9paW8vZGV2aWNlcy9paW86ZGV2aWNlMCAjIGNhdCBvdXRfdm9sdGFnZV9yYXcgCjIw
-NDgKL3N5cy9idXMvaWlvL2RldmljZXMvaWlvOmRldmljZTAgIyAKClNhbWUgYmVoYXZpb3IgZm9y
-IC9zeXMvYnVzL2lpby9kZXZpY2VzL2lpbzpkZXZpY2UxLgoKR2VuZXJhdGVkIGEgc2luZSB3YXZl
-IGJ5IHNoZWxsIHNjcmlwdCwgc2luZSBzaGFwZSBpcyBnb29kLgoKaXMgYWN0dWFsbHkgaW4gcHJv
-Z3Jlc3M6CgpOb3RlOiB0aGlzIHBhdGNoc2V0IGRlcGVuZHMgb24gbWV3IG1jZl9yZWFkL21jZl93
-cml0ZSBpbXBsZW1lbnRhdGlvbiB0aGF0Ckxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2xp
-bnV4LW02OGsvMjA5ZDA2NTMtNjM4Ni00YjY0LTllMTUtZTM1OGY4NDQ1M2FiQGFwcC5mYXN0bWFp
-bC5jb20vVC8jdApMaW5rOiBodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51eC1tNjhrLzIwMjYw
-NTA2MTQyNjQ0LjMyMzQyNzAtMi1nZXJnQGtlcm5lbC5vcmcvCi0tLQpDaGFuZ2VzIGluIHY2Ogot
-IFJlbW92ZWQgcGF0Y2hlcyAxIHRvIDgsIGFscmVhZHkgcHVzaGVkIGluIG02OGtub21tdSBmb3It
-bmV4dCBieQogIEdyZWcgVW5nZXJlciA8Z2VyZ0BsaW51eC1tNjhrLm9yZz4KLSBrZWVwaW5nIGNo
-YW5nZWxvZyBpbiBlYWNoIHNpbmdsZSBwYXRjaCwgd2hlcmUgYW55Ci0gTGluayB0byB2NTogaHR0
-cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIwMjYwNjEwLXdpcC1zdG1hcmsyLWRhYy12NS0wLWI3NmI4
-MzM2NmQ1Y0BiYXlsaWJyZS5jb20KCkNoYW5nZXMgaW4gdjU6Ci0ga2VlcGluZyBjaGFuZ2Vsb2cg
-aW4gZWFjaCBzaW5nbGUgcGF0Y2gsIHdoZXJlIGFueQotIExpbmsgdG8gdjQ6IGh0dHBzOi8vcGF0
-Y2gubXNnaWQubGluay8yMDI2MDUzMS13aXAtc3RtYXJrMi1kYWMtdjQtMC03ZTY1YWI0MjE1ZGRA
-YmF5bGlicmUuY29tCgpDaGFuZ2VzIGluIHY0OgotIGtlZXBpbmcgY2hhbmdlbG9nIGluIGVhY2gg
-c2luZ2xlIHBhdGNoLCB3aGVyZSBhbnkKLSBMaW5rIHRvIHYzOiBodHRwczovL3BhdGNoLm1zZ2lk
-LmxpbmsvMjAyNjA1MjItd2lwLXN0bWFyazItZGFjLXYzLTAtMTZiZTBhZDM1YTY3QGJheWxpYnJl
-LmNvbQoKQ2hhbmdlcyBpbiB2MzoKLSBrZWVwaW5nIGNoYW5nZWxvZyBpbiBlYWNoIHNpbmdsZSBw
-YXRjaCwgd2hlcmUgYW55Ci0gTGluayB0byB2MjogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIw
-MjYwNTEzLXdpcC1zdG1hcmsyLWRhYy12Mi0wLWZjZGFlNTBjZjUxYUBiYXlsaWJyZS5jb20KCkNo
-YW5nZXMgaW4gdjI6Ci0ga2VlcGluZyBjaGFuZ2Vsb2cgaW4gZWFjaCBzaW5nbGUgcGF0Y2gsIHdo
-ZXJlIGFueQotIExpbmsgdG8gdjE6IGh0dHBzOi8vcGF0Y2gubXNnaWQubGluay8yMDI2MDUwNC13
-aXAtc3RtYXJrMi1kYWMtdjEtMC04NzRjMzZhNDkxMGRAYmF5bGlicmUuY29tCgpUbzogSm9uYXRo
-YW4gQ2FtZXJvbiA8amljMjNAa2VybmVsLm9yZz4KVG86IERhdmlkIExlY2huZXIgPGRsZWNobmVy
-QGJheWxpYnJlLmNvbT4KVG86IE51bm8gU8OhIDxudW5vLnNhQGFuYWxvZy5jb20+ClRvOiBBbmR5
-IFNoZXZjaGVua28gPGFuZHlAa2VybmVsLm9yZz4KVG86IEdlZXJ0IFV5dHRlcmhvZXZlbiA8Z2Vl
-cnRAbGludXgtbTY4ay5vcmc+ClRvOiBNYXhpbWUgQ29xdWVsaW4gPG1jb3F1ZWxpbi5zdG0zMkBn
-bWFpbC5jb20+ClRvOiBBbGV4YW5kcmUgVG9yZ3VlIDxhbGV4YW5kcmUudG9yZ3VlQGZvc3Muc3Qu
-Y29tPgpDYzogbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZwpDYzogbGludXgtaWlvQHZnZXIu
-a2VybmVsLm9yZwpDYzogbGludXgtbTY4a0BsaXN0cy5saW51eC1tNjhrLm9yZwpDYzogbGludXgt
-c3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpDYzogbGludXgtYXJtLWtlcm5lbEBs
-aXN0cy5pbmZyYWRlYWQub3JnCgotLS0KQW5nZWxvIER1cmVnaGVsbG8gKDIpOgogICAgICBpaW86
-IGRhYzogYWRkIG1jZjU0NDE1IERBQwogICAgICBtNjhrOiBkZWZjb25maWc6IHVwZGF0ZSBzdG1h
-cmsyIGRlZmNvbmZpZwoKIGFyY2gvbTY4ay9jb25maWdzL3N0bWFyazJfZGVmY29uZmlnIHwgICAy
-ICsKIGRyaXZlcnMvaWlvL2RhYy9LY29uZmlnICAgICAgICAgICAgIHwgIDExICsrKwogZHJpdmVy
-cy9paW8vZGFjL01ha2VmaWxlICAgICAgICAgICAgfCAgIDEgKwogZHJpdmVycy9paW8vZGFjL21j
-ZjU0NDE1X2RhYy5jICAgICAgfCAxODMgKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysr
-KysrCiA0IGZpbGVzIGNoYW5nZWQsIDE5NyBpbnNlcnRpb25zKCspCi0tLQpiYXNlLWNvbW1pdDog
-ZDQzYzc2YjFmZDg1Y2Y2ZjlhNTMxNDVlZDM5N2QxMGU3NmY5OTIxMwpjaGFuZ2UtaWQ6IDIwMjYw
-NDMwLXdpcC1zdG1hcmsyLWRhYy03MDYwZjQ5ZGQ5NGYKCkJlc3QgcmVnYXJkcywKLS0gIApBbmdl
-bG8gRHVyZWdoZWxsbyA8YWR1cmVnaGVsbG9AYmF5bGlicmUuY29tPgoKX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0
-CkxpbnV4LXN0bTMyQHN0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1t
-YWlsbWFuLnN0b3JtcmVwbHkuY29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+From: Angelo Dureghello <adureghello@baylibre.com>
+
+Add basic version of mcf54415 DAC driver. DAC is embedded in the SoC and
+DAC configuration registers are mapped in the internal IO address space.
+
+The DAC accepts a 12-bit digital signal and creates a monotonic 12-bit
+analog output varying from DAC_VREFL to DAC_VREFH. The DAC module
+consists of a conversion unit, an output amplifier, and the associated
+digital control blocks. Default register values for DAC_VREFL and DAC_VREFH
+are respectively 0 and 0xfff, left untouched in this initial version.
+
+This initial version of the driver is minimalistic, "output raw" only, to
+be extended in the future. DMA and external sync are disabled, default mode
+is high speed, default format is right-justified 12-bit on 16-bit word.
+
+Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
+---
+Changes in v2:
+- remove tests from commit message, moved to patch 0
+- remove additional blank lines
+- remove dead code and unused definitions
+- use regmap
+- add limit check on raw write
+- non functional style fixes
+- add COMPILE_TEST to Kconfig
+Changes in v3:
+- add comments where needed
+- code style changes
+- remove unneeded variables
+- use regmap_set_bits where possible
+- remove macro not needed to define a single channel
+- set up regmap to big_endian accesses for next patches that will come,
+  that will adjust ColdFire readx/writex as standard LE (links in 0/x).
+- add return value check on regmap calls
+- sashiko: remove unneeded .io_port from regmap init.
+- sashiko: add select REGMAP_MMIO in Kconfig
+Changes in v4:
+- remove unused includes
+- sashiko: return "ret" as regmap_read ret value in case of error
+- sashiko: using u32 as regmap_read value
+- use local variable in mcf54415_dac_init() for better readability
+- sashiko: check mcf54415_dac_init return value also in resume()
+Changes in v5:
+- commit syntax fixes
+- minor code style fixes
+- use include <linux/type.h>
+- removed unneeded cast
+- disable clock in case of DAC init error
+- use unsigned int for regmap_read and GENMASK for masking 12 bits
+- add id table to match "mcfdac" platform device name
+Changes in v6:
+- removed pm ops, can't be tested for mcf54415 with mmu enabled
+- Kconfig desc line rewrap
+- minor coding style fixes
+---
+ drivers/iio/dac/Kconfig        |  11 +++
+ drivers/iio/dac/Makefile       |   1 +
+ drivers/iio/dac/mcf54415_dac.c | 183 +++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 195 insertions(+)
+
+diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
+index cd4870b65415..b23078c8986a 100644
+--- a/drivers/iio/dac/Kconfig
++++ b/drivers/iio/dac/Kconfig
+@@ -516,6 +516,17 @@ config MAX5821
+ 	  Say yes here to build support for Maxim MAX5821
+ 	  10 bits DAC.
+ 
++config MCF54415_DAC
++	tristate "NXP MCF54415 DAC driver"
++	depends on M5441x || COMPILE_TEST
++	select REGMAP_MMIO
++	help
++	  Say yes here if you want to build support for NXP ColdFire
++	  MCF54415/6/7/8 12-bit DAC module.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called mcf54415_dac.
++
+ config MCP4725
+ 	tristate "MCP4725/6 DAC driver"
+ 	depends on I2C
+diff --git a/drivers/iio/dac/Makefile b/drivers/iio/dac/Makefile
+index 2a80bbf4e80a..1cb93e83d0eb 100644
+--- a/drivers/iio/dac/Makefile
++++ b/drivers/iio/dac/Makefile
+@@ -51,6 +51,7 @@ obj-$(CONFIG_MAX517) += max517.o
+ obj-$(CONFIG_MAX22007) += max22007.o
+ obj-$(CONFIG_MAX5522) += max5522.o
+ obj-$(CONFIG_MAX5821) += max5821.o
++obj-$(CONFIG_MCF54415_DAC) += mcf54415_dac.o
+ obj-$(CONFIG_MCP4725) += mcp4725.o
+ obj-$(CONFIG_MCP4728) += mcp4728.o
+ obj-$(CONFIG_MCP47FEB02) += mcp47feb02.o
+diff --git a/drivers/iio/dac/mcf54415_dac.c b/drivers/iio/dac/mcf54415_dac.c
+new file mode 100644
+index 000000000000..986c4c6ac727
+--- /dev/null
++++ b/drivers/iio/dac/mcf54415_dac.c
+@@ -0,0 +1,183 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * NXP mcf54415 DAC driver
++ *
++ * Copyright 2026 BayLibre - adureghello@baylibre.com
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/err.h>
++#include <linux/io.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/types.h>
++
++#include <linux/iio/iio.h>
++
++#define MCF54415_DAC_CR			0x00
++#define MCF54415_DAC_CR_PDN		BIT(0)
++#define MCF54415_DAC_CR_HSLS		BIT(6)
++#define MCF54415_DAC_CR_WMLVL		GENMASK(9, 8)
++#define MCF54415_DAC_CR_FILT		BIT(12)
++
++#define MCF54415_DAC_DATA		0x02
++
++struct mcf54415_dac {
++	struct regmap *map;
++	struct clk *clk;
++};
++
++static const struct regmap_config mcf54415_dac_regmap_config = {
++	.reg_bits = 16,
++	.reg_stride = 2,
++	.val_bits = 16,
++	.max_register = 0x0c, /* DACX_FILTCNT,  R.M. Table 30-2 */
++	.val_format_endian = REGMAP_ENDIAN_BIG,
++	.reg_format_endian = REGMAP_ENDIAN_BIG,
++};
++
++static int mcf54415_dac_init(struct mcf54415_dac *info)
++{
++	u16 val = MCF54415_DAC_CR_FILT | FIELD_PREP(MCF54415_DAC_CR_WMLVL, 1);
++	int ret;
++
++	/* Fixed defaults and enable DAC (bit 0 set to 0) */
++	ret = regmap_write(info->map, MCF54415_DAC_CR, val);
++	if (ret)
++		return ret;
++
++	/* DAC is ready after 12us, from RM table 40-3  */
++	fsleep(12);
++
++	return 0;
++}
++
++static void mcf54415_dac_exit(void *data)
++{
++	struct mcf54415_dac *info = data;
++
++	regmap_set_bits(info->map, MCF54415_DAC_CR, MCF54415_DAC_CR_PDN);
++}
++
++static const struct iio_chan_spec mcf54415_dac_iio_channel = {
++	.type = IIO_VOLTAGE,
++	.output = 1,
++	.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
++	.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),
++};
++
++static int mcf54415_read_raw(struct iio_dev *indio_dev,
++			     struct iio_chan_spec const *chan,
++			     int *val, int *val2, long mask)
++{
++	struct mcf54415_dac *info = iio_priv(indio_dev);
++	unsigned int reg;
++	int ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		ret = regmap_read(info->map, MCF54415_DAC_DATA, &reg);
++		if (ret)
++			return ret;
++		*val = reg & GENMASK(11, 0);
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		/* Reference voltage as per ColdFire datasheet is 3.3V */
++		*val = 3300 /* mV */;
++		*val2 = 12;
++		return IIO_VAL_FRACTIONAL_LOG2;
++	default:
++		return -EINVAL;
++	}
++}
++
++static int mcf54415_write_raw(struct iio_dev *indio_dev,
++			      struct iio_chan_spec const *chan,
++			      int val, int val2, long mask)
++{
++	struct mcf54415_dac *info = iio_priv(indio_dev);
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		/* Check based on RM 30.3.2 (DACn_DATA) reg. resolution */
++		if (val < 0 || val > 4095)
++			return -EINVAL;
++		return regmap_write(info->map, MCF54415_DAC_DATA, val);
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info mcf54415_dac_iio_info = {
++	.read_raw = &mcf54415_read_raw,
++	.write_raw = &mcf54415_write_raw,
++};
++
++static int mcf54415_dac_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct iio_dev *indio_dev;
++	struct mcf54415_dac *info;
++	void __iomem *regs;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*info));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	info = iio_priv(indio_dev);
++
++	regs = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(regs))
++		return dev_err_probe(dev, PTR_ERR(regs), "failed to get io regs\n");
++
++	info->map = devm_regmap_init_mmio(dev, regs, &mcf54415_dac_regmap_config);
++	if (IS_ERR(info->map))
++		return PTR_ERR(info->map);
++
++	info->clk = devm_clk_get_enabled(dev, "dac");
++	if (IS_ERR(info->clk))
++		return dev_err_probe(dev, PTR_ERR(info->clk), "failed getting clock\n");
++
++	platform_set_drvdata(pdev, indio_dev);
++
++	indio_dev->name = "mcf54415";
++	indio_dev->info = &mcf54415_dac_iio_info;
++	indio_dev->modes = INDIO_DIRECT_MODE;
++	indio_dev->channels = &mcf54415_dac_iio_channel;
++	indio_dev->num_channels = 1;
++
++	ret = mcf54415_dac_init(info);
++	if (ret)
++		return ret;
++
++	ret = devm_add_action_or_reset(dev, mcf54415_dac_exit, info);
++	if (ret)
++		return ret;
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static const struct platform_device_id mcf54415_dac_ids[] = {
++	{ .name = "mcfdac" },
++	{ }
++};
++MODULE_DEVICE_TABLE(platform, mcf54415_dac_ids);
++
++static struct platform_driver mcf54415_dac_driver = {
++	.driver = {
++		.name = "mcf54415_dac",
++	},
++	.probe = mcf54415_dac_probe,
++	.id_table = mcf54415_dac_ids,
++};
++module_platform_driver(mcf54415_dac_driver);
++
++MODULE_AUTHOR("Angelo Dureghello <angelo@kernel-space.org>");
++MODULE_DESCRIPTION("NXP MCF54415 DAC driver");
++MODULE_LICENSE("GPL");
+
+-- 
+2.54.0
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
