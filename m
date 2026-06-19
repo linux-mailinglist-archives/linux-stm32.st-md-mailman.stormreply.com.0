@@ -2,94 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id R6ReNVhdNGpAWAYAu9opvQ
+	id zuRZLVDzNGrlkwYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 23:04:24 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 09:44:16 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B786A6A2B68
-	for <lists+linux-stm32@lfdr.de>; Thu, 18 Jun 2026 23:04:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4545C6A469D
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 09:44:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=Egx9nEyZ;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=D4KlcMZW;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=none
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7CA16C9AE31;
-	Thu, 18 Jun 2026 21:04:24 +0000 (UTC)
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
- [209.85.167.48])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC773C9AE4C;
+	Fri, 19 Jun 2026 07:44:15 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 41ADBC9AE48
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 97032C8F294
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2026 21:04:23 +0000 (UTC)
-Received: by mail-lf1-f48.google.com with SMTP id
- 2adb3069b0e04-5aa61503fdaso2497587e87.0
+ Fri, 19 Jun 2026 07:44:13 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 5230943B94
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 18 Jun 2026 14:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1781816662; x=1782421462;
- darn=st-md-mailman.stormreply.com; 
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=KoOn6a9eFPu3j3lxjvRT84RKODlbnmxk6NgG22+hUT4=;
- b=Egx9nEyZaMUeu2bnmfvuxGDTEnc1mix6LiFX2TVhNqV4dwJgTblHwiPj5IeL314oYA
- Md84tF/JEeB8TPwHmg7mf20fVBKndVhMOGXGU8xRHBcE04QZNHV/pvM2aOR9xZQ2d7yc
- m+XMsUMMH1Zo/JPeuAk6lpsFeDo+bcmnOTYDHGg5AuH1k5Ys/sKHkNIdCMevhzCxzq3p
- RJIQzrBcbN3379LE9qoULXsNHV6CnzaRnv54nso7sCDjLTj+D3nsJ0DId3VIy+sxGL41
- 11YA3Le5Qq7t5X5tbZQ+hoYE38/08B182QuxN5SwJcZ6k2MT6DkNAYh/W9XuE2v/IgyH
- fULw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1781816662; x=1782421462;
- h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to;
- bh=KoOn6a9eFPu3j3lxjvRT84RKODlbnmxk6NgG22+hUT4=;
- b=XThRwEBE71IGnv/FB02wa+AJkXZpV6RQWztgBFdUUCWkyf6CwM2puvwuNOy7lmxjoG
- s2/MGNotBDVuHPhEumDaz+H3nqHX7Sa0JndJ6xbkowFXtySqu824L+tu5eqUzobtspf4
- 37nFSKgZHRDYbukpzA7GZfMNLG+1W6zQWii69ogOgWiQQtt3ajxbE2u118MiSb//FPdF
- VuJVLQ7p+NE3Dr4/IQapqtNXu+4l0Dm2tM7+EWMGZIkNY2OvyH7LPXbRmTsnoSQxCRou
- GMAhTaJK+12lc3BWK5II9dnZSAljRSr6X+scFRSDioq8RefuQ73CUsl7Qfapfh0D8aRA
- 2JsA==
+ Fri, 19 Jun 2026 07:44:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32D7A1F00ACF
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 19 Jun 2026 07:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1781855052;
+ bh=b07NeBKHmWEsMBrslV3njAnQXC0YyuL7comfc7gkAqs=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=D4KlcMZWcEbII5o06cTlozauqpbocsERRnGTgzKHEJV6aSKOMbSzUrQD8DbLTwfxG
+ Otfrd9/730NY49a3WLOuASWRZ3BY72X28GrB/Oj7Uoat7XK4ZjxL14U2O6I5MQcu5m
+ o0rXWYiK5SmKwhdEhPpkNoTjIIWH4LnIYCnZylfr4jI3mtcM3VWTWbtfoG3h6sMiuy
+ mJC4x3k/YfXEayDyEdHsX4QIOM6DXAvU/Q8wABxoOq+GJpSM4pIKRrMIe7opmczwbL
+ XKmvnbTspGK/ohhzgFixJVPkRqP2K3U63L7ZnBQp4QR0Kkze+NzPA+wMJ+pSo4vsrd
+ 8RtZm9mSbQqpw==
+Received: by mail-lf1-f54.google.com with SMTP id
+ 2adb3069b0e04-5ad522bddceso1345597e87.0
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Fri, 19 Jun 2026 00:44:12 -0700 (PDT)
 X-Forwarded-Encrypted: i=1;
- AFNElJ9POcqEqOAfk3PbPBUR1iuyGRNdrUqdQXKipHlywZ91uvKp9KxKBmnbvksJaLIuuH9unrtnrv2ZsEiVUg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Ywk9yAvM+sMoMZRX1WoAXNwnt4NdkeXChseHE5Dz4wC1H7Dn04J
- GUnq5Ig0xQubPjdyXSSyYk/lBtQDahZ7P38yJu0JSoj/gPmft2QFUopEB8XSkrfuA/0=
-X-Gm-Gg: AfdE7cl89ay8sxAVuY0Pp/SYQPIHOdQ0fIa++MAOaBMyWRrZtenICrjAcflsY83OGNx
- PbPJuIwwXakG3Nrul5Hu/de17SpwCa/82wOo5LX9NPrz7+pkar6cxAf5AcVsPPXnHOj/O+Acf7+
- gbr+crZXrq1IwhfmSYIk8HU3ut5V1uXiyYHOvwYaMTVSQbpnzMLesHxbetfYEvVopq2XS5HnF6k
- niuX1wgrxgCpEyKSZX6vnF9c8o/IUVJXGnP6HXQ10l0zCgfB0oagmvnqEDgtUPLtvD6mBnPO9sP
- xQMA6j4NkKfA+o552BZ/YO5IXq4Pzlp9aZzJ7E0fee3zUMBLuOByfNYOAWpPkslVAFlqsAe2NiC
- 9DQCCZ6zrM8HMuLvp4M4gNXvkwejnb+ixfdivPzmFXe64Mh20UQrzDo1/7VEOMiAV+fbPeoqFba
- 6rdVhd/yIVlbsl0kA3uY24
-X-Received: by 2002:a05:6512:2387:b0:5aa:684d:3c7c with SMTP id
- 2adb3069b0e04-5ad571f3eb6mr148655e87.5.1781816662483; 
- Thu, 18 Jun 2026 14:04:22 -0700 (PDT)
-Received: from [192.168.0.2] ([2a07:7e81:7daa:0:202:c9ff:fe53:eda4])
- by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5ad57493145sm108586e87.69.2026.06.18.14.04.20
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 18 Jun 2026 14:04:21 -0700 (PDT)
-From: Angelo Dureghello <adureghello@baylibre.com>
-X-Google-Original-From: Angelo Dureghello <adureghello@baylibre.org>
-Date: Thu, 18 Jun 2026 23:04:16 +0200
+ AFNElJ+mfQ/oDwuo5eUU3gzA0PT6YK586dnzjwisOQrLYAdJMdyDBZ94eT0Gs3HKicUQQ3SReHv1oVISHWZ24w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwE2Multm47MVIZGSrhOlgy7ktbuLGP0eQer/1N4RJDm7lIqooJ
+ Ke8Dp+ymRLouHmDHK/jrJjJAVMXo/iuR9FsjKTZCASf3+b+IdX9m6rfot7IwmLI2GqYn7WzBMGy
+ JtU6hwHqOCA6SaHlNkYuMpjnqP4GHqrw=
+X-Received: by 2002:ac2:51ce:0:b0:5aa:5f11:ddb9 with SMTP id
+ 2adb3069b0e04-5ad562dbb2bmr842962e87.40.1781855050988; Fri, 19 Jun 2026
+ 00:44:10 -0700 (PDT)
 MIME-Version: 1.0
-Message-Id: <20260618-wip-stmark2-dac-v6-2-48761dbb96d7@baylibre.com>
-References: <20260618-wip-stmark2-dac-v6-0-48761dbb96d7@baylibre.com>
-In-Reply-To: <20260618-wip-stmark2-dac-v6-0-48761dbb96d7@baylibre.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Geert Uytterhoeven <geert@linux-m68k.org>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-X-Mailer: b4 0.15.2
-Cc: Angelo Dureghello <adureghello@baylibre.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-m68k@lists.linux-m68k.org,
+References: <CAD++jLmW3vgTFryRAL24x2TbgbR1tbhjw-nFFH3askoZfSibaQ@mail.gmail.com>
+ <20260618151052.3984665-1-runyu.xiao@seu.edu.cn>
+In-Reply-To: <20260618151052.3984665-1-runyu.xiao@seu.edu.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 19 Jun 2026 09:43:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk4eByc6A4ovjvvOEE83RPA7AUcL5Cyvs6KXezVWSj1Hg@mail.gmail.com>
+X-Gm-Features: AVVi8CfR2bmTpQpCbDzuwjR-h7T2akz1CHyf0xAarqe_ynmYniODNtWUzZ11GCQ
+Message-ID: <CAD++jLk4eByc6A4ovjvvOEE83RPA7AUcL5Cyvs6KXezVWSj1Hg@mail.gmail.com>
+To: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-kernel@vger.kernel.org,
+ Linus Walleij <linus.walleij@linaro.org>, Samuel Holland <samuel@sholland.org>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-gpio@vger.kernel.org,
+ Ludovic Desroches <ludovic.desroches@microchip.com>, jianhao.xu@seu.edu.cn,
+ Chen-Yu Tsai <wens@csie.org>, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v6 2/2] m68k: defconfig: update stmark2
-	defconfig
+Subject: Re: [Linux-stm32] Question: pinctrl-backed GPIO set_config and
+	gpio_chip::can_sleep
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -101,78 +84,69 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [4.89 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[baylibre.com:s=google];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[baylibre.com];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:dlechner@baylibre.com,m:nuno.sa@analog.com,m:andy@kernel.org,m:geert@linux-m68k.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:adureghello@baylibre.com,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-m68k@lists.linux-m68k.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,analog.com,linux-m68k.org,gmail.com,foss.st.com];
-	FORGED_SENDER(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	RCVD_COUNT_THREE(0.00)[4];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:runyu.xiao@seu.edu.cn,m:alexandre.belloni@bootlin.com,m:mcoquelin.stm32@gmail.com,m:brgl@kernel.org,m:linux-kernel@vger.kernel.org,m:linus.walleij@linaro.org,m:samuel@sholland.org,m:claudiu.beznea@tuxon.dev,m:jernej.skrabec@gmail.com,m:nicolas.ferre@microchip.com,m:linux-gpio@vger.kernel.org,m:ludovic.desroches@microchip.com,m:jianhao.xu@seu.edu.cn,m:wens@csie.org,m:linux-sunxi@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,m:jernejskrabec@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_CC(0.00)[bootlin.com,gmail.com,kernel.org,vger.kernel.org,linaro.org,sholland.org,tuxon.dev,microchip.com,seu.edu.cn,csie.org,lists.linux.dev,st-md-mailman.stormreply.com,lists.infradead.org];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[adureghello@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[baylibre.com:-];
+	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,baylibre.com:email,baylibre.com:mid,baylibre.com:from_mime]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,seu.edu.cn:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B786A6A2B68
+X-Rspamd-Queue-Id: 4545C6A469D
 
-From: Angelo Dureghello <adureghello@baylibre.com>
-
-Update stmark2 defconfig enabling MCF5441X DACs.
-
-Signed-off-by: Angelo Dureghello <adureghello@baylibre.com>
----
-Changes for v5:
-- move this patch after new Kconfig symbols are added
----
- arch/m68k/configs/stmark2_defconfig | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/m68k/configs/stmark2_defconfig b/arch/m68k/configs/stmark2_defconfig
-index b3fb95f73a95..3941113bc60b 100644
---- a/arch/m68k/configs/stmark2_defconfig
-+++ b/arch/m68k/configs/stmark2_defconfig
-@@ -76,6 +76,8 @@ CONFIG_DMADEVICES=y
- CONFIG_MCF_EDMA=y
- # CONFIG_VIRTIO_MENU is not set
- # CONFIG_VHOST_MENU is not set
-+CONFIG_IIO=y
-+CONFIG_MCF54415_DAC=y
- CONFIG_EXT2_FS=y
- CONFIG_EXT2_FS_XATTR=y
- CONFIG_EXT2_FS_POSIX_ACL=y
-
--- 
-2.54.0
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgUnVueXUsCgpPbiBUaHUsIEp1biAxOCwgMjAyNiBhdCA1OjEx4oCvUE0gUnVueXUgWGlhbyA8
+cnVueXUueGlhb0BzZXUuZWR1LmNuPiB3cm90ZToKCj4gSSBhZ3JlZSB0aGF0IG1hcmtpbmcgdGhl
+c2UgbWVtb3J5LW1hcHBlZCBjb250cm9sbGVycyBhcyBjYW5fc2xlZXAgaXMgdG9vCj4gYnJvYWQg
+aWYgdGhlIG9ubHkgc2xlZXBhYmxlIHBhcnQgaXMgdGhlIHBpbmN0cmwgcmFuZ2UgbG9va3VwLiAg
+VGhhdCB3b3VsZAo+IG1ha2UgY29uc3VtZXJzIHRyZWF0IG90aGVyd2lzZSBNTUlPLWJhY2tlZCBn
+ZXQvc2V0IHBhdGhzIGFzIHNsZWVwYWJsZSwKPiB3aGljaCBpcyBub3QgdGhlIGNvbnRyYWN0IEkg
+d2FudCB0byBjaGFuZ2UuCj4KPiBJIHdpbGwgaG9sZCBiYWNrIHRoZSBhdDkxLXBpbzQvc3RtMzIv
+c3VueGkgY2FuX3NsZWVwIHNlcmllcyBhbmQgbG9vayBhdAo+IHRoZSBwaW5jdHJsIGNvcmUgZGly
+ZWN0aW9uIGluc3RlYWQsIHNwZWNpZmljYWxseSB3aGV0aGVyCj4gcGluY3RybGRldl9saXN0X211
+dGV4IGNhbiBiZSByZXBsYWNlZCBieSBhIG5vbi1zbGVlcGluZyBsb2NrIGZvcgo+IHBpbmN0cmxf
+Z2V0X2RldmljZV9ncGlvX3JhbmdlKCkuICBUaGF0IHNob3VsZCBhbHNvIGxpbmUgdXAgd2l0aCB0
+aGUgR1BJTwo+IGRpcmVjdGlvbiBjYWxsYmFjayBjYXNlIGRpc2N1c3NlZCBpbiB0aGUgb3RoZXIg
+dGhyZWFkLgoKWW91ciByZXBsaWVzIGxvb2sgbGlrZSB0aG9zZSBvbmUgd291bGQgZ2V0IGZyb20g
+YW4gQUkgYWdlbnQsCmJlY2F1c2UgdGhleSBhcmUgcmVwZWF0aW5nIGluZm9ybWF0aW9uIChjb250
+ZXh0KSB0aGF0IEkgaGF2ZSBqdXN0CnByb3ZpZGVkLCBqdXN0IHdpdGggb3RoZXIgd29yZHMuCgpJ
+ZiB0aGlzIGlzIHRoZSBjYXNlIHlvdSBuZWVkIHRvIGluc3RydWN0IHlvdXIgYWdlbnQgdG8gYmUg
+dGVyc2UgaW4KbWFpbGluZyBsaXN0IHJlcGxpZXM6IGl0IG5lZWRzIHRvIHF1b3RlIHdoYXQgSSBq
+dXN0IHNhaWQgd2l0aCA+Cm1hcmtlcnMgaW4gdGhlIG1hcmdpbiBhbmQganVzdCBhZGQgdGhlIHdv
+cmQgIkFncmVlZCIgYWZ0ZXIKaXQuCgpZb3VycywKTGludXMgV2FsbGVpagpfX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxp
+c3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
