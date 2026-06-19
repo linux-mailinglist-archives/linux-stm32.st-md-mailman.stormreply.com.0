@@ -2,60 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id hxonM2FHNWpHrAYAu9opvQ
+	id rAwFO6t3NWqRxAYAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 15:42:57 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 19:08:59 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 56B9F6A626D
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 15:42:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 64FAB6A73AF
+	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 19:08:59 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=2OHXR1Qw;
+	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=GtrXlAr8;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=bootlin.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DAB5BC9AE48;
-	Fri, 19 Jun 2026 13:42:56 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E786CC9AE39;
+	Fri, 19 Jun 2026 17:08:58 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 414BAC055F4
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00668C8F263
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jun 2026 13:42:55 +0000 (UTC)
+ Fri, 19 Jun 2026 17:08:56 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 8B1B7C06CDC;
- Fri, 19 Jun 2026 13:43:00 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 23E064E42FD1;
+ Fri, 19 Jun 2026 17:08:56 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id A0BA6601AD;
- Fri, 19 Jun 2026 13:42:54 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id D0853601B9;
+ Fri, 19 Jun 2026 17:08:55 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id E9861106C88A8; 
- Fri, 19 Jun 2026 15:42:31 +0200 (CEST)
+ with ESMTPSA id ABDCB106C81BC; 
+ Fri, 19 Jun 2026 19:08:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781876571; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1781888933; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=17i6oa0M6UmVrMWmDG7cWGhbnxl14z0/BIWH4Fd9A3Y=;
- b=2OHXR1QwtCE+m9KORcKStlkcA6ag+ntrhh38YC8FuWi4Ivanof2kMKZSiDIi8KDy/rJyOy
- d9n5jfH4IyN51n8RfW5VcLV8ajZhRXvgOa5R+0d6jYOJlGpRQ8Ei+7ncYisPtX154p/itA
- +FVS4408GK6t2mbJW4PGkgW8pjPtp0vASGX+Kfy16/0IwPEQZfEFJaECutzX09avkZUJFd
- QP6TokojrSOrCy+kB+ysimzb7jkt7bgeZJOi91eLy/pgdjhtdRh6ocFi/X0UOYZD7EK78Z
- Hch7VJW8YQWSdBwSR/Bp3d6ZAidfHERZnrYDFVzmEH+M4z5scGH6fREi9mAoVw==
+ bh=mRl+p8NKZ4Uqi2DbJxfA0N/bImQMn69IfQP2gWfdIn0=;
+ b=GtrXlAr82THdxC+x0ULzqK2LukzejYV/HHoWOhy0rnLT9OCpYYx7DI0Ca2otXI9MC6rt/O
+ PsvsTGMeYR1QQyMhXODXb0bsnVpo8b1AJ5+BgWuRE1TXpWDRyaaCCbnZP5H1KaZxDHKOq8
+ LO9lu7HAld9YGGFAMtt1mZ3JVL+4nqR9ev+P20IAsV/TdprJ6Y3Ojqy3AdzA+jesc0ToOp
+ juIU32H7fFGeN2OVgc7cbk8rehCcARkdf3oE9Mh7qI0ISz6SprChxJjgB103aMMhEs3RCn
+ air8p6ZpJxAcff89Au6uOVPjVLW7KZvMw6SPD2Zm3W+p1HNv5XsA8iGWnatxuQ==
 Mime-Version: 1.0
-Date: Fri, 19 Jun 2026 15:42:30 +0200
-Message-Id: <DJD2IQSFENH4.337VSFOU7OJ29@bootlin.com>
-To: "Maxime Ripard" <mripard@kernel.org>, "Andrzej Hajda"
- <andrzej.hajda@intel.com>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Robert Foss" <rfoss@kernel.org>, "Laurent Pinchart"
- <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman" <jonas@kwiboo.se>,
- "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Luca Ceresoli"
- <luca.ceresoli@bootlin.com>, "Maarten Lankhorst"
- <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
+Date: Fri, 19 Jun 2026 19:08:35 +0200
+Message-Id: <DJD6WITJWQHS.1XR1LK4S8N5H5@bootlin.com>
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil
+ Armstrong" <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>,
+ "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
+ <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
  <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
  <simona@ffwll.ch>
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 X-Mailer: aerc 0.21.0
 References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
-In-Reply-To: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
+ <DJD2IQSFENH4.337VSFOU7OJ29@bootlin.com>
+In-Reply-To: <DJD2IQSFENH4.337VSFOU7OJ29@bootlin.com>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>, Geert
  Uytterhoeven <geert+renesas@glider.be>,
@@ -120,21 +120,22 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FROM_NEQ_ENVFROM(0.00)[luca.ceresoli@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:mripard@kernel.org,m:andrzej.hajda@intel.com,m:neil.armstrong@linaro.org,m:rfoss@kernel.org,m:Laurent.pinchart@ideasonboard.com,m:jonas@kwiboo.se,m:jernej.skrabec@gmail.com,m:luca.ceresoli@bootlin.com,m:maarten.lankhorst@linux.intel.com,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:imx@lists.linux.dev,m:heiko@sntech.de,m:geert+renesas@glider.be,m:tomi.valkeinen@ideasonboard.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:paul@crapouillou.net,m:biju.das.jz@bp.renesas.com,m:laurent.pinchart@ideasonboard.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:m.szyprowski@samsung.com,m:linux-renesas-soc@vger.kernel.org,m:laurent.pinchart+renesas@ideasonboard.com,m:linux-rockchip@lists.infradead.org,m:khilman@baylibre.com,m:mcanal@igalia.com,m:magnus.damm@gmail.com,m:martin.blumenstingl@googlemail.com,m:hjc@rock-chips.com,m:jagan@amarulasolutions.com,m:jbrunet@baylibre.com,m:chunkuang.hu@kern
+	FORGED_RECIPIENTS(0.00)[m:luca.ceresoli@bootlin.com,m:mripard@kernel.org,m:andrzej.hajda@intel.com,m:neil.armstrong@linaro.org,m:rfoss@kernel.org,m:Laurent.pinchart@ideasonboard.com,m:jonas@kwiboo.se,m:jernej.skrabec@gmail.com,m:maarten.lankhorst@linux.intel.com,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:imx@lists.linux.dev,m:heiko@sntech.de,m:geert+renesas@glider.be,m:tomi.valkeinen@ideasonboard.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:paul@crapouillou.net,m:biju.das.jz@bp.renesas.com,m:laurent.pinchart@ideasonboard.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:m.szyprowski@samsung.com,m:linux-renesas-soc@vger.kernel.org,m:laurent.pinchart+renesas@ideasonboard.com,m:linux-rockchip@lists.infradead.org,m:khilman@baylibre.com,m:mcanal@igalia.com,m:magnus.damm@gmail.com,m:martin.blumenstingl@googlemail.com,m:hjc@rock-chips.com,m:jagan@amarulasolutions.com,m:jbrunet@baylibre.com,m:chunkuang.hu@kern
  el.org,m:kernel@pengutronix.de,m:victor.liu@nxp.com,m:s.hauer@pengutronix.de,m:inki.dae@samsung.com,m:linux-mediatek@lists.infradead.org,m:tomi.valkeinen+renesas@ideasonboard.com,m:matthias.bgg@gmail.com,m:linux-amlogic@lists.infradead.org,m:michal.simek@amd.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:mcoquelin.stm32@gmail.com,m:lumag@kernel.org,m:yannick.fertre@foss.st.com,m:dave.stevenson@raspberrypi.com,m:dianders@chromium.org,m:linux-kernel@vger.kernel.org,m:ple@baylibre.com,m:kieran.bingham+renesas@ideasonboard.com,m:zhengxingda@iscas.ac.cn,m:p.zabel@pengutronix.de,m:kernel-list@raspberrypi.com,m:andy.yan@rock-chips.com,m:jyri.sarha@iki.fi,m:jernejskrabec@gmail.com,m:geert@glider.be,m:magnusdamm@gmail.com,m:martinblumenstingl@gmail.com,s:lists@lfdr.de];
-	FREEMAIL_TO(0.00)[kernel.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,gmail.com,bootlin.com,linux.intel.com,suse.de,ffwll.ch];
-	RCVD_TLS_LAST(0.00)[];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[bootlin.com,kernel.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,gmail.com,linux.intel.com,suse.de,ffwll.ch];
+	FROM_HAS_DN(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
 	FORGED_SENDER(0.00)[luca.ceresoli@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[luca.ceresoli@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	DKIM_TRACE(0.00)[bootlin.com:-];
-	RCVD_COUNT_FIVE(0.00)[5];
+	FORGED_SENDER_FORWARDING(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCPT_COUNT_GT_50(0.00)[60];
@@ -146,25 +147,29 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	FROM_HAS_DN(0.00)[]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,bootlin.com:email,bootlin.com:url,bootlin.com:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 56B9F6A626D
+X-Rspamd-Queue-Id: 64FAB6A73AF
 
-On Fri Jun 19, 2026 at 2:24 PM CEST, Maxime Ripard wrote:
-> Hi,
+On Fri Jun 19, 2026 at 3:42 PM CEST, Luca Ceresoli wrote:
+> On Fri Jun 19, 2026 at 2:24 PM CEST, Maxime Ripard wrote:
+>> Hi,
+>>
+>> All the bridges use reset to create a blank state only and don't use it
+>> to reset the hardware at all. This is what the new atomic_create_state
+>> is exactly supposed to be doing, so we can convert all existing bridge
+>> users to it, and remove the reset hook and helpers.
+>>
+>> Let me know what you think,
+>> Maxime
+>>
+>> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 >
-> All the bridges use reset to create a blank state only and don't use it
-> to reset the hardware at all. This is what the new atomic_create_state
-> is exactly supposed to be doing, so we can convert all existing bridge
-> users to it, and remove the reset hook and helpers.
->
-> Let me know what you think,
-> Maxime
->
-> Signed-off-by: Maxime Ripard <mripard@kernel.org>
+> Whole series:
+> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-Whole series:
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+And now also:
+Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # imx8mp + sn65dsi84 + bridge hotplug
 
 --
 Luca Ceresoli, Bootlin
