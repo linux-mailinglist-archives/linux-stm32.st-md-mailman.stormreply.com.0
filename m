@@ -2,91 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 8xTVIFniN2rGVAcAu9opvQ
+	id tfBXEIXzN2qJVwcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Jun 2026 15:08:41 +0200
+	for <lists+linux-stm32@lfdr.de>; Sun, 21 Jun 2026 16:21:57 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C29B6AAD70
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Jun 2026 15:08:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CD9C6AB09D
+	for <lists+linux-stm32@lfdr.de>; Sun, 21 Jun 2026 16:21:56 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=D0xuTLIZ;
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
+	dkim=none;
+	dmarc=fail reason="SPF not aligned (relaxed), No valid DKIM" header.from=goodmis.org (policy=none);
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C9141C8F28C;
-	Sun, 21 Jun 2026 13:08:40 +0000 (UTC)
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com
- [209.85.128.181])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 45D5CC8F28C;
+	Sun, 21 Jun 2026 14:21:56 +0000 (UTC)
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com
+ [216.40.44.15])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4F56AC3F95E
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB1F4C5A4DF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Jun 2026 13:08:39 +0000 (UTC)
-Received: by mail-yw1-f181.google.com with SMTP id
- 00721157ae682-8000e21f014so34813717b3.2
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Jun 2026 06:08:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782047318; x=1782652118;
- darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
- bh=JelQF+PgdiILboeOL52+qm2l/XNW/EjjD3ktKV3cKe4=;
- b=D0xuTLIZH8R1tp1/bk4IU5ao0FZmVTqeskkzLrpWbAZ1zSNJWF42WKtLclHsWADzUZ
- LoUHdAzqpq9NsScyziQR/M/CxBXxMDypLpgSr/H6oOao9cm1IsjgZAYmLvt58fWcq14m
- YzQcA7QMKw5AboGEV19Z1Z16lqgUWkTvxXbAIs3iNuLkRnKRCup2FTuCPIMv76/A3Hk0
- UUA8u3tR6tszUwUn/BnyJ0ywIuKxFF34gQJINcyoal3vsqicu1m2SgeDOhpSZnvIAmZ9
- pARDW/uJhR5/b67UFXVZQBd2/UHU+3Q3UWw05ecm64aX6U6Re55J/iAVwGSNCb2REBUG
- K4fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782047318; x=1782652118;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=JelQF+PgdiILboeOL52+qm2l/XNW/EjjD3ktKV3cKe4=;
- b=fO0FnPHnrV1aQ6MnrSLJ8FpKVo7shRxTQWd5BmUXeQN5dXHfLsaYpWXL9gWpWwcW6J
- 07T+YSXd8s7nPsYxOXblYv5A/VTHTjA+cC7ijfrwNZSeLWzOfrbUDlbveQwIFWNGg7O/
- QehGe17zjMAyi1nmaKEpnGzTqkCFuBMC3a9q6R1KYPVQwY7PARLzgNWSS5IiLJXBznHa
- QcvH+wM0fzIilO3rkrMerEazIqwnMDkNmoEvRg3sMPfCFBXfh+W2ahJu7XyYa9/mbAES
- 6r+qQWAZMhmFVS3ytSJiuHJpNPftuJTL8mBKdVLYsXaNnPzTO2HR7Ct3q7Rs/0svSSl+
- IjRg==
-X-Forwarded-Encrypted: i=1;
- AHgh+Rq6KQcSa2D7wmjeCsuo80mOcdsLSxWpU8dDqMae0stXhxBDbikbL6IU7OSDq6LTapT9r11/I/nCZqFK9A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxxqbiLoYOSBfYEchrz7fOmUJUMRCK00RYsp4oyYXvlB5av8NCn
- sOXDZdL+KbYVfzRlYDxrqfxuFbrWxdkFI9e5k35lwx8bf/olm/z8W/tR
-X-Gm-Gg: AfdE7cl15MC2LMBdmD+5m0zPxU2Oy/mMwJGtCAfWHmJnVqFOuXqMbrRGNoz65cMoRs3
- QXjDQRn4Eh+YaKixoHka1YISW91u0Bp6FKwOo3NKcdNKY19XMhUifgeUQ0KutYkAFm7fPK5vvPc
- kvzMRztALfLFYZaWckHyOgoG5QP+cEtoolMfOpTRjR4I9+8l09KF1wsXFauTM7wObVOVYazc1c8
- ifb4ukq0lmoK51YtZ4fHRs1+RdnYfJdafDhpqBo7YSvZxcn1Jv3gLfNIWOyz+I+0p8IM10dPyQ/
- xMb0H/9VLOjzf8MLFs0XtjZkfMy9qFI1xQxl9ZK865lM8ZgJc6+uy/HT4fwFxWGQc+g7/nO7pm2
- SUi/MXF4eJOrcB+2ljJbm1Am+3XcsmBUAHPmIDrVaWAcmqmcZPuogMXwN2+DDyk+vAxzRuhH3N6
- XHYkD/nQUICC/aph/QS7anW9ml2hpd/m0ntD4=
-X-Received: by 2002:a05:690c:6881:b0:7fd:5297:28da with SMTP id
- 00721157ae682-80139103c73mr119142517b3.49.1782047317965; 
- Sun, 21 Jun 2026 06:08:37 -0700 (PDT)
-Received: from localhost (user-24-214-85-55.knology.net. [24.214.85.55])
- by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8025cf693f8sm20544597b3.15.2026.06.21.06.08.37
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 21 Jun 2026 06:08:37 -0700 (PDT)
-From: Yury Norov <yury.norov@gmail.com>
-X-Google-Original-From: Yury Norov <ynorov@nvidia.com>
-Date: Sun, 21 Jun 2026 09:08:37 -0400
-To: Steven Rostedt <rostedt@kernel.org>
-Message-ID: <ajfiVTlCIVlqW3sh@yury>
+ Sun, 21 Jun 2026 14:21:54 +0000 (UTC)
+Received: from omf19.hostedemail.com (lb01a-stub [10.200.18.249])
+ by unirelay07.hostedemail.com (Postfix) with ESMTP id 36393166CE4;
+ Sun, 21 Jun 2026 14:21:51 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by
+ omf19.hostedemail.com (Postfix) with ESMTPA id 1169420026; 
+ Sun, 21 Jun 2026 14:21:46 +0000 (UTC)
+Date: Sun, 21 Jun 2026 14:24:07 +0100
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Yury Norov <yury.norov@gmail.com>, Steven Rostedt <rostedt@kernel.org>
+User-Agent: K-9 Mail for Android
+In-Reply-To: <ajfiVTlCIVlqW3sh@yury>
 References: <20260621093430.264983361@kernel.org>
- <20260621093811.007634476@kernel.org>
+ <20260621093811.007634476@kernel.org> <ajfiVTlCIVlqW3sh@yury>
+Message-ID: <C4ED8F5F-042B-43B6-B17A-7C3E2743E48F@goodmis.org>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20260621093811.007634476@kernel.org>
+X-Stat-Signature: m5id8uysanmtioempn6emsnsdgs5phht
+X-Spam-Status: No, score=0.80
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19WinE5LWQa8HzvFNjRdlGwYann5/w38N8=
+X-HE-Tag: 1782051706-894210
+X-HE-Meta: U2FsdGVkX183C80JzklQEIa+kgNTjJZOknF6vAmyswd98TyGVgTRC8SyVWsz19w9BPwppSUtPiaeZPJXrIQbsy98gLBfQ1cJQl7yzp34fic0gzv0s9hrB6mxeJXqinMntnlfXe73gJIH/D2pt50tZwbP93X5621Z+n1JPgBDPeg2Qqz5v4YTHrFVzIaZ3VcUXUAKuj/7BGAd4D8VuUGw+dkVUMzvtoZoN/seDFwcReGQTYquH+YMzJ815xl7wR46FpiJ9+THR6XRxVuJCVh6iJAhD/ahytYNQMcMNmgFRXblBTPxbXFH63lW5Djcit4yMB+uNazqknvOnTkAw3vbLAB4CMkaAooU09WOrb4dRD5m5BQTaIQKdR+GIKMYTEwoPVIlbOYXwm+XOsikcSvwWkIxSgSJzlVeOeQCU6+wcUsByy327CPzOKFxszsj4v/QYc8SsHkTU40=
 Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org,
  linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
  Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
  dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
- John Ogness <john.ogness@linutronix.de>, linux-rdma@vger.kernel.org,
- linux-ext4@vger.kernel.org, Masami Hiramatsu <mhiramat@kernel.org>,
- Yury Norov <yury.norov@gmail.com>, linux-kbuild@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-ext4@vger.kernel.org,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ John Ogness <john.ogness@linutronix.de>, linux-kbuild@vger.kernel.org,
  intel-gfx@lists.freedesktop.org,
  Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
  linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
@@ -112,140 +76,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.89 / 15.00];
+X-Spamd-Result: default: False [2.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
-	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[goodmis.org : SPF not aligned (relaxed), No valid DKIM,none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_FROM(0.00)[gmail.com];
+	FREEMAIL_TO(0.00)[gmail.com,kernel.org];
+	FORGED_SENDER(0.00)[rostedt@goodmis.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[26];
+	FORGED_RECIPIENTS(0.00)[m:yury.norov@gmail.com,m:rostedt@kernel.org,m:mark.rutland@arm.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:peterz@infradead.org,m:bigeasy@linutronix.de,m:dri-devel@lists.freedesktop.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-rdma@vger.kernel.org,m:linux-ext4@vger.kernel.org,m:mhiramat@kernel.org,m:john.ogness@linutronix.de,m:linux-kbuild@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:mathieu.desnoyers@efficios.com,m:linux-arm-kernel@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:torvalds@linux-foundation.org,m:linux-usb@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:julia.lawall@inria.fr,m:tglx@kernel.org,m:akpm@linux-foundation.org,m:linux-trace-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:yurynorov@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:rostedt@kernel.org,m:mark.rutland@arm.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:peterz@infradead.org,m:bigeasy@linutronix.de,m:dri-devel@lists.freedesktop.org,m:linux-stm32@st-md-mailman.stormreply.com,m:john.ogness@linutronix.de,m:linux-rdma@vger.kernel.org,m:linux-ext4@vger.kernel.org,m:mhiramat@kernel.org,m:yury.norov@gmail.com,m:linux-kbuild@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:mathieu.desnoyers@efficios.com,m:linux-arm-kernel@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:torvalds@linux-foundation.org,m:linux-usb@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:julia.lawall@inria.fr,m:tglx@kernel.org,m:akpm@linux-foundation.org,m:linux-trace-kernel@vger.kernel.org,m:linuxppc-dev@lists.ozlabs.org,m:yurynorov@gmail.com,s:lists@lfdr.de];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[yurynorov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[yurynorov@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[arm.com,vger.kernel.org,infradead.org,linutronix.de,lists.freedesktop.org,st-md-mailman.stormreply.com,kernel.org,gmail.com,efficios.com,lists.infradead.org,linux-foundation.org,inria.fr,lists.ozlabs.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[rostedt@goodmis.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	MISSING_XM_UA(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo,yury:mid]
+	R_DKIM_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email,goodmis.org:email,goodmis.org:mid,goodmis.org:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1C29B6AAD70
+X-Rspamd-Queue-Id: 8CD9C6AB09D
 
-On Sun, Jun 21, 2026 at 05:34:31AM -0400, Steven Rostedt wrote:
-> From: Steven Rostedt <rostedt@goodmis.org>
+
+
+On June 21, 2026 2:08:37 PM GMT+01:00, Yury Norov <yury.norov@gmail.com> wrote:
+>On Sun, Jun 21, 2026 at 05:34:31AM -0400, Steven Rostedt wrote:
+>> From: Steven Rostedt <rostedt@goodmis.org>
+>> 
+>> In order to remove the include to trace_printk.h from kernel.h the tracing
+>> control prototypes need to be moved back into kernel.h. That's because
+>
+>Please don't. Instead, you can split them out to trace_control.h, and
+>include where needed. I actually have a prototype for it, FYI:
+>
+>https://github.com/norov/linux/tree/trace_pritk3
+>
+
+Sure, I have no problem adding another header for this.
+
+>> they are used in other common header files like rcu.h. There's no point in
+>> removing trace_printk.h from kernel.h if it just gets added back to other
+>> common headers.
+>> 
+>> Prototypes are very cheap for the compiler and should not be an issue.
+>
+>It's not about cost, it's about mess. kernel.h is included everywhere.
+>Is that API needed everywhere? No, it's needed in literally 10 files.
+>So, no place in kernel.h.
 > 
-> In order to remove the include to trace_printk.h from kernel.h the tracing
-> control prototypes need to be moved back into kernel.h. That's because
 
-Please don't. Instead, you can split them out to trace_control.h, and
-include where needed. I actually have a prototype for it, FYI:
+Well one of those files is rcu.h which is also pretty much included everywhere. But OK.
 
-https://github.com/norov/linux/tree/trace_pritk3
+-- Steve 
 
-> they are used in other common header files like rcu.h. There's no point in
-> removing trace_printk.h from kernel.h if it just gets added back to other
-> common headers.
-> 
-> Prototypes are very cheap for the compiler and should not be an issue.
 
-It's not about cost, it's about mess. kernel.h is included everywhere.
-Is that API needed everywhere? No, it's needed in literally 10 files.
-So, no place in kernel.h.
- 
-> Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-> ---
->  include/linux/kernel.h       | 18 ++++++++++++++++++
->  include/linux/trace_printk.h | 17 -----------------
->  2 files changed, 18 insertions(+), 17 deletions(-)
-> 
-> diff --git a/include/linux/kernel.h b/include/linux/kernel.h
-> index e5570a16cbb1..c3c68128827c 100644
-> --- a/include/linux/kernel.h
-> +++ b/include/linux/kernel.h
-> @@ -194,4 +194,22 @@ extern enum system_states system_state;
->  # define REBUILD_DUE_TO_DYNAMIC_FTRACE
->  #endif
->  
-> +#ifdef CONFIG_TRACING
-> +void tracing_on(void);
-> +void tracing_off(void);
-> +int tracing_is_on(void);
-> +void tracing_snapshot(void);
-> +void tracing_snapshot_alloc(void);
-> +void tracing_start(void);
-> +void tracing_stop(void);
-> +#else
-> +static inline void tracing_start(void) { }
-> +static inline void tracing_stop(void) { }
-> +static inline void tracing_on(void) { }
-> +static inline void tracing_off(void) { }
-> +static inline int tracing_is_on(void) { return 0; }
-> +static inline void tracing_snapshot(void) { }
-> +static inline void tracing_snapshot_alloc(void) { }
-> +#endif
-> +
->  #endif
-> diff --git a/include/linux/trace_printk.h b/include/linux/trace_printk.h
-> index 3d54f440dccf..879fed0805fd 100644
-> --- a/include/linux/trace_printk.h
-> +++ b/include/linux/trace_printk.h
-> @@ -35,15 +35,6 @@ enum ftrace_dump_mode {
->  };
->  
->  #ifdef CONFIG_TRACING
-> -void tracing_on(void);
-> -void tracing_off(void);
-> -int tracing_is_on(void);
-> -void tracing_snapshot(void);
-> -void tracing_snapshot_alloc(void);
-> -
-> -extern void tracing_start(void);
-> -extern void tracing_stop(void);
-> -
->  static inline __printf(1, 2)
->  void ____trace_printk_check_format(const char *fmt, ...)
->  {
-> @@ -176,16 +167,8 @@ __ftrace_vprintk(unsigned long ip, const char *fmt, va_list ap);
->  
->  extern void ftrace_dump(enum ftrace_dump_mode oops_dump_mode);
->  #else
-> -static inline void tracing_start(void) { }
-> -static inline void tracing_stop(void) { }
->  static inline void trace_dump_stack(int skip) { }
->  
-> -static inline void tracing_on(void) { }
-> -static inline void tracing_off(void) { }
-> -static inline int tracing_is_on(void) { return 0; }
-> -static inline void tracing_snapshot(void) { }
-> -static inline void tracing_snapshot_alloc(void) { }
-> -
->  static inline __printf(1, 2)
->  int trace_printk(const char *fmt, ...)
->  {
-> -- 
-> 2.53.0
-> 
+>> 
+>> 2.53.0
+>> 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
