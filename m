@@ -2,97 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id rAwFO6t3NWqRxAYAu9opvQ
+	id axevHyLNOGoxiQcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 19:08:59 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jun 2026 07:50:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64FAB6A73AF
-	for <lists+linux-stm32@lfdr.de>; Fri, 19 Jun 2026 19:08:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E52416ACD36
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jun 2026 07:50:25 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=GtrXlAr8;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=CPvoIDGL;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=bootlin.com (policy=reject)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E786CC9AE39;
-	Fri, 19 Jun 2026 17:08:58 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 82A20C9AE52;
+	Mon, 22 Jun 2026 05:50:25 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 00668C8F263
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E13A6C5A4DF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 19 Jun 2026 17:08:56 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 23E064E42FD1;
- Fri, 19 Jun 2026 17:08:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D0853601B9;
- Fri, 19 Jun 2026 17:08:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id ABDCB106C81BC; 
- Fri, 19 Jun 2026 19:08:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1781888933; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=mRl+p8NKZ4Uqi2DbJxfA0N/bImQMn69IfQP2gWfdIn0=;
- b=GtrXlAr82THdxC+x0ULzqK2LukzejYV/HHoWOhy0rnLT9OCpYYx7DI0Ca2otXI9MC6rt/O
- PsvsTGMeYR1QQyMhXODXb0bsnVpo8b1AJ5+BgWuRE1TXpWDRyaaCCbnZP5H1KaZxDHKOq8
- LO9lu7HAld9YGGFAMtt1mZ3JVL+4nqR9ev+P20IAsV/TdprJ6Y3Ojqy3AdzA+jesc0ToOp
- juIU32H7fFGeN2OVgc7cbk8rehCcARkdf3oE9Mh7qI0ISz6SprChxJjgB103aMMhEs3RCn
- air8p6ZpJxAcff89Au6uOVPjVLW7KZvMw6SPD2Zm3W+p1HNv5XsA8iGWnatxuQ==
-Mime-Version: 1.0
-Date: Fri, 19 Jun 2026 19:08:35 +0200
-Message-Id: <DJD6WITJWQHS.1XR1LK4S8N5H5@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Andrzej Hajda" <andrzej.hajda@intel.com>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, "Robert Foss" <rfoss@kernel.org>,
- "Laurent Pinchart" <Laurent.pinchart@ideasonboard.com>, "Jonas Karlman"
- <jonas@kwiboo.se>, "Jernej Skrabec" <jernej.skrabec@gmail.com>, "Maarten
- Lankhorst" <maarten.lankhorst@linux.intel.com>, "Thomas Zimmermann"
- <tzimmermann@suse.de>, "David Airlie" <airlied@gmail.com>, "Simona Vetter"
- <simona@ffwll.ch>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260619-drm-no-more-bridge-reset-v3-0-ff399263111b@kernel.org>
- <DJD2IQSFENH4.337VSFOU7OJ29@bootlin.com>
-In-Reply-To: <DJD2IQSFENH4.337VSFOU7OJ29@bootlin.com>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: imx@lists.linux.dev, Heiko Stuebner <heiko@sntech.de>, Geert
- Uytterhoeven <geert+renesas@glider.be>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Frank Li <Frank.Li@nxp.com>,
- dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
- Paul Cercueil <paul@crapouillou.net>, Biju Das <biju.das.jz@bp.renesas.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Marek Szyprowski <m.szyprowski@samsung.com>, linux-renesas-soc@vger.kernel.org,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
- linux-rockchip@lists.infradead.org, Kevin Hilman <khilman@baylibre.com>,
- =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Magnus Damm <magnus.damm@gmail.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Sandy
- Huang <hjc@rock-chips.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Chun-Kuang Hu <chunkuang.hu@kernel.org>,
- Pengutronix
- Kernel Team <kernel@pengutronix.de>, Liu Ying <victor.liu@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>, Inki Dae <inki.dae@samsung.com>,
- linux-mediatek@lists.infradead.org,
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Yannick
- Fertre <yannick.fertre@foss.st.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>, Douglas
- Anderson <dianders@chromium.org>, linux-kernel@vger.kernel.org,
- Phong LE <ple@baylibre.com>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Andy Yan <andy.yan@rock-chips.com>, Jyri Sarha <jyri.sarha@iki.fi>
-Subject: Re: [Linux-stm32] [PATCH v3 00/78] drm/bridge: Convert all reset
- users to create_state
+ Sun, 21 Jun 2026 09:37:53 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 99C0F60051;
+ Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EEE1F000E9;
+ Sun, 21 Jun 2026 09:37:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1782034672;
+ bh=3PM2SwKGUgQ1Wfor83rkZsilDOPTMWeMgpO7Hmp6Coc=;
+ h=Date:From:To:Cc:Subject;
+ b=CPvoIDGL14sCX5ylLaYUAhDC9lMcMiJh12IJzutGSGQKhhN/j3P7fMe1lw15m5Roc
+ tHpoEk8Aby4R7yyQzmUbl4hKAdLn06DdHEiYs3o1201v2up+FU7xKvnepQ/nPPwDCI
+ WFkQeLslfQ8Kj6y7aV8P00hG40B3FZDEvni22GswCCp3bAgMXKZfMgiJsONy+BOgVi
+ k0p/zCAiBS0MY4A0IhU6SDokj6lXppltL7JA3pcuCP15DKxW8Mk4X/xfQ3c3P97y2z
+ c5uOUbqO06EeOjVenm17mc5XrEaYLlP7aug5hC/9nFo5DtP/NtxZmsipMAfim8Ib+w
+ nCbGOugNardpA==
+Received: from rostedt by gandalf with local (Exim 4.99.3)
+ (envelope-from <rostedt@kernel.org>) id 1wbEd0-00000001qTd-46mY;
+ Sun, 21 Jun 2026 05:38:10 -0400
+Message-ID: <20260621093430.264983361@kernel.org>
+User-Agent: quilt/0.69
+Date: Sun, 21 Jun 2026 05:34:30 -0400
+From: Steven Rostedt <rostedt@kernel.org>
+To: linux-kernel@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org
+X-Mailman-Approved-At: Mon, 22 Jun 2026 05:50:24 +0000
+Cc: Mark Rutland <mark.rutland@arm.com>, kvm@vger.kernel.org,
+ linux-doc@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ dri-devel@lists.freedesktop.org, linux-stm32@st-md-mailman.stormreply.com,
+ John Ogness <john.ogness@linutronix.de>, linux-rdma@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>,
+ Yury Norov <yury.norov@gmail.com>, linux-kbuild@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-arm-kernel@lists.infradead.org, linux-nfs@vger.kernel.org,
+ Linus Torvalds <torvalds@linux-foundation.org>, linux-usb@vger.kernel.org,
+ Julia Lawall <julia.lawall@inria.fr>, Masami Hiramatsu <mhiramat@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, linuxppc-dev@lists.ozlabs.org
+Subject: [Linux-stm32] [PATCH 0/2] tracing: Move trace_printk.h out of
+	kernel.h
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,77 +73,88 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.79 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[bootlin.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MV_CASE(0.50)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:luca.ceresoli@bootlin.com,m:mripard@kernel.org,m:andrzej.hajda@intel.com,m:neil.armstrong@linaro.org,m:rfoss@kernel.org,m:Laurent.pinchart@ideasonboard.com,m:jonas@kwiboo.se,m:jernej.skrabec@gmail.com,m:maarten.lankhorst@linux.intel.com,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:imx@lists.linux.dev,m:heiko@sntech.de,m:geert+renesas@glider.be,m:tomi.valkeinen@ideasonboard.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:paul@crapouillou.net,m:biju.das.jz@bp.renesas.com,m:laurent.pinchart@ideasonboard.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:m.szyprowski@samsung.com,m:linux-renesas-soc@vger.kernel.org,m:laurent.pinchart+renesas@ideasonboard.com,m:linux-rockchip@lists.infradead.org,m:khilman@baylibre.com,m:mcanal@igalia.com,m:magnus.damm@gmail.com,m:martin.blumenstingl@googlemail.com,m:hjc@rock-chips.com,m:jagan@amarulasolutions.com,m:jbrunet@baylibre.com,m:chunkuang.hu@kern
- el.org,m:kernel@pengutronix.de,m:victor.liu@nxp.com,m:s.hauer@pengutronix.de,m:inki.dae@samsung.com,m:linux-mediatek@lists.infradead.org,m:tomi.valkeinen+renesas@ideasonboard.com,m:matthias.bgg@gmail.com,m:linux-amlogic@lists.infradead.org,m:michal.simek@amd.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:mcoquelin.stm32@gmail.com,m:lumag@kernel.org,m:yannick.fertre@foss.st.com,m:dave.stevenson@raspberrypi.com,m:dianders@chromium.org,m:linux-kernel@vger.kernel.org,m:ple@baylibre.com,m:kieran.bingham+renesas@ideasonboard.com,m:zhengxingda@iscas.ac.cn,m:p.zabel@pengutronix.de,m:kernel-list@raspberrypi.com,m:andy.yan@rock-chips.com,m:jyri.sarha@iki.fi,m:jernejskrabec@gmail.com,m:geert@glider.be,m:magnusdamm@gmail.com,m:martinblumenstingl@gmail.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	FREEMAIL_TO(0.00)[bootlin.com,kernel.org,intel.com,linaro.org,ideasonboard.com,kwiboo.se,gmail.com,linux.intel.com,suse.de,ffwll.ch];
-	FROM_HAS_DN(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FORGED_SENDER(0.00)[luca.ceresoli@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
+	DKIM_TRACE(0.00)[kernel.org:-];
+	FREEMAIL_CC(0.00)[arm.com,vger.kernel.org,infradead.org,linutronix.de,lists.freedesktop.org,st-md-mailman.stormreply.com,kernel.org,gmail.com,efficios.com,lists.infradead.org,linux-foundation.org,inria.fr,lists.ozlabs.org];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[luca.ceresoli@bootlin.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[bootlin.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[60];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[lists.linux.dev,sntech.de,glider.be,ideasonboard.com,nxp.com,lists.freedesktop.org,vger.kernel.org,crapouillou.net,bp.renesas.com,gmail.com,st-md-mailman.stormreply.com,samsung.com,lists.infradead.org,baylibre.com,igalia.com,googlemail.com,rock-chips.com,amarulasolutions.com,kernel.org,pengutronix.de,amd.com,collabora.com,foss.st.com,raspberrypi.com,chromium.org,iscas.ac.cn,iki.fi];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[rostedt@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_RECIPIENTS(0.00)[m:linux-kernel@vger.kernel.org,m:linux-trace-kernel@vger.kernel.org,m:mark.rutland@arm.com,m:kvm@vger.kernel.org,m:linux-doc@vger.kernel.org,m:peterz@infradead.org,m:bigeasy@linutronix.de,m:dri-devel@lists.freedesktop.org,m:linux-stm32@st-md-mailman.stormreply.com,m:john.ogness@linutronix.de,m:linux-rdma@vger.kernel.org,m:linux-ext4@vger.kernel.org,m:tglx@kernel.org,m:yury.norov@gmail.com,m:linux-kbuild@vger.kernel.org,m:intel-gfx@lists.freedesktop.org,m:mathieu.desnoyers@efficios.com,m:linux-arm-kernel@lists.infradead.org,m:linux-nfs@vger.kernel.org,m:torvalds@linux-foundation.org,m:linux-usb@vger.kernel.org,m:julia.lawall@inria.fr,m:mhiramat@kernel.org,m:akpm@linux-foundation.org,m:linuxppc-dev@lists.ozlabs.org,m:yurynorov@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,bootlin.com:email,bootlin.com:url,bootlin.com:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	FORGED_SENDER_FORWARDING(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_NEQ_ENVFROM(0.00)[rostedt@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[25];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	MID_RHS_MATCH_FROM(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 64FAB6A73AF
+X-Rspamd-Queue-Id: E52416ACD36
 
-On Fri Jun 19, 2026 at 3:42 PM CEST, Luca Ceresoli wrote:
-> On Fri Jun 19, 2026 at 2:24 PM CEST, Maxime Ripard wrote:
->> Hi,
->>
->> All the bridges use reset to create a blank state only and don't use it
->> to reset the hardware at all. This is what the new atomic_create_state
->> is exactly supposed to be doing, so we can convert all existing bridge
->> users to it, and remove the reset hook and helpers.
->>
->> Let me know what you think,
->> Maxime
->>
->> Signed-off-by: Maxime Ripard <mripard@kernel.org>
->
-> Whole series:
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+There's been complaints about trace_printk() being defined in kernel.h as it
+can increase the compilation time. As it is only used by some developers for
+debugging purposes, it should not be in kernel.h causing lots of wasted CPU
+cycles for those that do not ever care about it.
 
-And now also:
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com> # imx8mp + sn65dsi84 + bridge hotplug
+Instead, add a CONFIG_TRACE_PRINTK_DEBUGGING option that developers that do
+use it can set and not have to always remember to add #include <linux/trace_printk.h>
+to the files they add trace_printk() while debugging. It also means that
+those that do not have that config set will not have to worry about wasted
+CPU cycles as it is only include in the CFLAGS when the option is set, and
+its completely ignored otherwise.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Steven Rostedt (2):
+      tracing: Move non-trace_printk prototypes back to kernel.h
+      tracing: Add CONFIG_TRACE_PRINTK_DEBUGGING to clean up kernel.h
+
+----
+ .../driver_development_debugging_guide.rst         |  2 +-
+ Makefile                                           |  5 +++++
+ arch/powerpc/kvm/book3s_xics.c                     |  1 +
+ drivers/gpu/drm/i915/gt/intel_gtt.h                |  1 +
+ drivers/gpu/drm/i915/i915_gem.h                    |  1 +
+ drivers/hwtracing/stm/dummy_stm.c                  |  4 ++++
+ drivers/infiniband/hw/hfi1/trace_dbg.h             |  1 +
+ drivers/usb/early/xhci-dbc.c                       |  1 +
+ fs/ext4/inline.c                                   |  1 +
+ include/linux/kernel.h                             | 19 ++++++++++++++++++-
+ include/linux/sunrpc/debug.h                       |  1 +
+ include/linux/trace_printk.h                       | 22 +++-------------------
+ kernel/trace/Kconfig                               | 10 ++++++++++
+ kernel/trace/ring_buffer_benchmark.c               |  1 +
+ kernel/trace/trace.h                               |  1 +
+ samples/fprobe/fprobe_example.c                    |  1 +
+ samples/ftrace/ftrace-direct-modify.c              |  1 +
+ samples/ftrace/ftrace-direct-multi-modify.c        |  1 +
+ samples/ftrace/ftrace-direct-multi.c               |  2 +-
+ samples/ftrace/ftrace-direct-too.c                 |  2 +-
+ samples/ftrace/ftrace-direct.c                     |  2 +-
+ 21 files changed, 56 insertions(+), 24 deletions(-)
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
