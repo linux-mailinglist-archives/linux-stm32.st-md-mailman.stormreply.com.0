@@ -2,57 +2,63 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id SlmeFd/wN2pTVwcAu9opvQ
+	id XcZuEu6bOGrTeQcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Jun 2026 16:10:39 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jun 2026 04:20:30 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D731D6AB081
-	for <lists+linux-stm32@lfdr.de>; Sun, 21 Jun 2026 16:10:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85D216AC0B7
+	for <lists+linux-stm32@lfdr.de>; Mon, 22 Jun 2026 04:20:29 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b="Z+Rj/Zkb";
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
+	dkim=none;
+	dmarc=none;
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8B2E1C9AE2F;
-	Sun, 21 Jun 2026 14:10:38 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 66B2FC5A4DB
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3A206C9AE2F;
+	Mon, 22 Jun 2026 02:20:29 +0000 (UTC)
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net
+ [13.75.44.102])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id EFCF3C5A4DF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 21 Jun 2026 14:10:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2352842DF8;
- Sun, 21 Jun 2026 14:10:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5FFE1F000E9;
- Sun, 21 Jun 2026 14:10:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782051036;
- bh=d71ItCVHJbPlKwUm7p+uxHBTSKf+Z391+seM8dThinc=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References;
- b=Z+Rj/Zkb+B11kl2Pjd8dX3zMa/T2jM5TuHUNgXfmJVAV5u+V61XjACMgnjs4QpmGS
- JFvb6z3hIQuj/Wk3Nq4e9upAh+GQSEbYnojVaNfulmtePQEhvzOJYorT25JJBWdzk2
- /PeOaC1QEF/OeX+QQzc17jaLcKag4ubNdy7KwJP4ZNT9ZN+LjaMQitRGtY45ij/x7m
- GgCRmM6bc2AQi9DCRd8ZjFQRq04QQIhAxw86fiqcBT95dZZOJYHvfCK9ohiXLvXzcm
- IZlwp7ChPoht84jVxZt1qatZaWrRozR4MMiPbjiQv3ksD4TxeFWTbNyFwPlc5+XGcJ
- 0MrUL5Rqgcjxg==
-Date: Sun, 21 Jun 2026 15:10:26 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Message-ID: <20260621151026.69714694@jic23-huawei>
-In-Reply-To: <ai1dhJWb9vKqxEEe@ashevche-desk.local>
-References: <20260612215151.1886851-1-robh@kernel.org>
- <ai1dhJWb9vKqxEEe@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+ Mon, 22 Jun 2026 02:20:27 +0000 (UTC)
+Received: from lizhi2$eswincomputing.com ( [10.11.96.26] ) by
+ ajax-webmail-app1 (Coremail) ; Mon, 22 Jun 2026 10:19:50 +0800 (GMT+08:00)
+X-Originating-IP: [10.11.96.26]
+Date: Mon, 22 Jun 2026 10:19:50 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5p2O5b+X?= <lizhi2@eswincomputing.com>
+To: "Andrew Lunn" <andrew@lunn.ch>
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.2-cmXT6 build
+ 20241203(6b039d88) Copyright (c) 2002-2026 www.mailtech.cn
+ mispb-72143050-eaf5-4703-89e0-86624513b4ce-eswincomputing.com
+In-Reply-To: <30229cfe-b395-4d0f-81ef-eb780ac26599@lunn.ch>
+References: <20260610012727.848-1-lizhi2@eswincomputing.com>
+ <20260610012937.911-1-lizhi2@eswincomputing.com>
+ <eaa645fc-be06-4a15-8c2f-6e82129c4715@bootlin.com>
+ <30229cfe-b395-4d0f-81ef-eb780ac26599@lunn.ch>
 MIME-Version: 1.0
-Cc: Andy Shevchenko <andy@kernel.org>, "Rob Herring \(Arm\)" <robh@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- David Lechner <dlechner@baylibre.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH] iio: stm32-dfsdm: Treat flags as booleans
+Message-ID: <512b77d5.993b.19eed207fc9.Coremail.lizhi2@eswincomputing.com>
+X-Coremail-Locale: en_US
+X-CM-TRANSID: TAJkCgDHW3DHmzhqEvksAA--.8326W
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/1tbiAgEGDGo4EpcWfAACs2
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+ CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+ daVFxhVjvjDU=
+Cc: edumazet@google.com, linux-riscv@lists.infradead.org,
+ linux-stm32@st-md-mailman.stormreply.com, robh@kernel.org,
+ pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com, alex@ghiti.fr,
+ ningyu@eswincomputing.com, lee@kernel.org,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, kuba@kernel.org,
+ pabeni@redhat.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ aou@eecs.berkeley.edu, horms@kernel.org, rmk+kernel@armlinux.org.uk,
+ krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ pinkesh.vaghela@einfochips.com, linmin@eswincomputing.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch,
+ palmer@dabbelt.com, mcoquelin.stm32@gmail.com, pjw@kernel.org,
+ davem@davemloft.net
+Subject: Re: [Linux-stm32] [PATCH net-next v8 3/6] net: stmmac: eic7700:
+ make RGMII delay properties optional
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,96 +75,127 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [2.99 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
-	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	RCVD_COUNT_THREE(0.00)[3];
+	DMARC_NA(0.00)[eswincomputing.com];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andriy.shevchenko@intel.com,m:andy@kernel.org,m:robh@kernel.org,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:nuno.sa@analog.com,m:mcoquelin.stm32@gmail.com,m:dlechner@baylibre.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:edumazet@google.com,m:linux-riscv@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:pritesh.patel@einfochips.com,m:weishangjuan@eswincomputing.com,m:alex@ghiti.fr,m:ningyu@eswincomputing.com,m:lee@kernel.org,m:maxime.chevallier@bootlin.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:aou@eecs.berkeley.edu,m:horms@kernel.org,m:rmk+kernel@armlinux.org.uk,m:krzk+dt@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:pinkesh.vaghela@einfochips.com,m:linmin@eswincomputing.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:palmer@dabbelt.com,m:mcoquelin.stm32@gmail.com,m:pjw@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:krzk@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[29];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
+	HAS_X_PRIO_THREE(0.00)[3];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ALIAS_RESOLVED(0.00)[];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[jic23@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,analog.com,gmail.com,baylibre.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	RCPT_COUNT_SEVEN(0.00)[10];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[lizhi2@eswincomputing.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[google.com,lists.infradead.org,st-md-mailman.stormreply.com,kernel.org,einfochips.com,eswincomputing.com,ghiti.fr,bootlin.com,redhat.com,vger.kernel.org,eecs.berkeley.edu,armlinux.org.uk,lunn.ch,dabbelt.com,gmail.com,davemloft.net];
+	HAS_XOIP(0.00)[];
+	R_DKIM_NA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[jic23-huawei:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D731D6AB081
+X-Rspamd-Queue-Id: 85D216AC0B7
 
-On Sat, 13 Jun 2026 16:39:16 +0300
-Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> On Fri, Jun 12, 2026 at 04:51:50PM -0500, Rob Herring (Arm) wrote:
-> > The "st,adc-alt-channel" and "st,filter0-sync" properties are
-> > documented as boolean flags. The legacy parser read them as integer
-> > cells, unlike the child-node parser which already checks only for
-> > presence.
+
+
+> -----Original Messages-----
+> From: "Andrew Lunn" <andrew@lunn.ch>
+> Send time:Saturday, 13/06/2026 15:48:46
+> To: "Maxime Chevallier" <maxime.chevallier@bootlin.com>
+> Cc: lizhi2@eswincomputing.com, devicetree@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, rmk+kernel@armlinux.org.uk, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, linux-riscv@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, ningyu@eswincomputing.com, linmin@eswincomputing.com, pinkesh.vaghela@einfochips.com, pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com, horms@kernel.org, lee@kernel.org
+> Subject: Re: [PATCH net-next v8 3/6] net: stmmac: eic7700: make RGMII delay properties optional
+> 
+> On Wed, Jun 10, 2026 at 10:26:50AM +0200, Maxime Chevallier wrote:
+> > Hi,
 > > 
-> > Use presence and boolean helpers so both parsers follow the binding and
-> > the property type checker no longer reports the flags.  
+> > On 6/10/26 03:29, lizhi2@eswincomputing.com wrote:
+> > > From: Zhi Li <lizhi2@eswincomputing.com>
+> > > 
+> > > Make rx-internal-delay-ps and tx-internal-delay-ps optional in the
+> > > EIC7700 DWMAC driver.
+> > > 
+> > > The driver previously required both properties to be present and would
+> > > fail probe when they were missing. This restricts valid hardware
+> > > configurations where RGMII timing is instead provided by the PHY or
+> > > board design.
+> > > 
+> > > Update the driver to treat missing delay properties as zero delay,
+> > > allowing systems without explicit MAC-side delay tuning to operate
+> > > correctly.
+> > > 
+> > > This aligns the driver behavior with the updated device tree binding
+> > > and provides a safe default configuration when MAC-side delay
+> > > programming is not required.
+> > > 
+> > > Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+> > > ---
+> > >  drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c | 6 ------
+> > >  1 file changed, 6 deletions(-)
+> > > 
+> > > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+> > > index 4ac979d874d6..ec99b597aeaf 100644
+> > > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+> > > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-eic7700.c
+> > > @@ -165,9 +165,6 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
+> > >  		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_RX_ADJ_DELAY;
+> > >  		dwc_priv->eth_clk_dly_param |=
+> > >  				 FIELD_PREP(EIC7700_ETH_RX_ADJ_DELAY, val);
+> > > -	} else {
+> > > -		return dev_err_probe(&pdev->dev, -EINVAL,
+> > > -			"missing required property rx-internal-delay-ps\n");
+> > >  	}
+> > >  
+> > >  	/* Read tx-internal-delay-ps and update tx_clk delay */
+> > > @@ -187,9 +184,6 @@ static int eic7700_dwmac_probe(struct platform_device *pdev)
+> > >  		dwc_priv->eth_clk_dly_param &= ~EIC7700_ETH_TX_ADJ_DELAY;
+> > >  		dwc_priv->eth_clk_dly_param |=
+> > >  				 FIELD_PREP(EIC7700_ETH_TX_ADJ_DELAY, val);
+> > > -	} else {
+> > > -		return dev_err_probe(&pdev->dev, -EINVAL,
+> > > -			"missing required property tx-internal-delay-ps\n");
+> > >  	}
+> > 
+> > I think then you need to handle RGMII, RGMII_ID, RGMII_RXID and RGMII_TXID,
+> > by using default delays for these (usually around 2ns), as here all delays
+> > will be set to 0, regardless of the RGMII mode in use.
 > 
-> For the patch
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> No. By default, the MAC adds 0ns delay, and passes the phy-mode to the
+> PHY. It will then add the 2ns delay. It is possible to use the
+> tx-internal-delay-ps and rx-internal-delay-ps in the MAC to add small
+> tuning delays, but not the full 2ns.
 > 
-> However one interesting remark below.
+> https://elixir.bootlin.com/linux/v6.15/source/Documentation/devicetree/bindings/net/ethernet-controller.yaml#L287
 > 
-> ...
-> 
-> > -	ret = of_property_read_u32_index(indio_dev->dev.of_node,
-> > -					 "st,adc-alt-channel", chan_idx,
-> > -					 &df_ch->alt_si);  
-> 
-> > +	df_ch->alt_si = of_property_present(indio_dev->dev.of_node,  
-> 
-> I believe it still has another (serious?) issue. We usually don't use indio_dev
-> for device properties. It's not a device that is described in DT.
-> It seems the only driver in IIO that does that. Note, I haven't conducted any
-> deeper research, it might be (however I'm quite in doubt) that this is correct
-> use and one device registers a few indio_dev:s.
 
-It is curious.  The registration sequence in this driver is complex, but I'm not
-seeing anything that sets the fwnode for the struct iio_dev->dev before calling
-the init() callbacks that end up in this code.  It is set later by iio_device_register()
-(iirc that has something to do with consumers turning up later).
+Thanks for the earlier discussion and for helping clarify the eth0
+design.
 
-St folk could you take a look at this and see what we are missing
-if it does currently work?
+I'm preparing a v9 of the series. The next revision will address the
+issues reported by Sashiko review, mainly DT binding schema and DTS
+warnings.
 
-For now I'll apply this patch but might need to drop it if a fix clashes
-with it.
+Before I post v9, I'd like to check whether you have any concerns or
+suggestions regarding the driver changes.
 
 Thanks,
-
-Jonathan
-
-
-
-> 
-> > +					    "st,adc-alt-channel");  
-> 
-
+Zhi
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
