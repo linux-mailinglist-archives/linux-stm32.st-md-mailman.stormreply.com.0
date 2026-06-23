@@ -2,82 +2,118 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id O4CzICpUOmr36AcAu9opvQ
+	id n9R2Al5VOmpP6QcAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 11:38:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 11:43:58 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CC6A6B5DDD
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 11:38:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 893DE6B5E31
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 11:43:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=bDC7i9JK;
+	dkim=fail ("body hash did not verify") header.d=foss.st.com header.s=selector2 header.b=GQyioHy+;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=foss.st.com (policy=none);
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B4838C8F272;
-	Tue, 23 Jun 2026 09:38:49 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45])
- (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 33520C8F263;
+	Tue, 23 Jun 2026 09:43:57 +0000 (UTC)
+Received: from DU2PR03CU002.outbound.protection.outlook.com
+ (mail-northeuropeazon11011023.outbound.protection.outlook.com [52.101.65.23])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C882FC7BF8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CCEC2C7A834
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jun 2026 09:38:48 +0000 (UTC)
-Received: by mail-ed1-f45.google.com with SMTP id
- 4fb4d7f45d1cf-6870ad8072eso739874a12.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jun 2026 02:38:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782207528; x=1782812328;
- darn=st-md-mailman.stormreply.com; 
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :from:to:cc:subject:date:message-id:reply-to;
- bh=SGC4x0qSqXZMMrxbR1onNL1/9AO9MYtn1caz5Hfjgvs=;
- b=bDC7i9JKIzi5nYu1qVvSEmXEyMZsfNl8Fak28Kai0+SwpHlBXKJ3oX9YLbuCqdWSZq
- Nq7AB1DW27zhi/MHx5jIt1FzqwpzDnccTcQT4eopEZAFR47Bwa454BLf3FA4xSuMRbTo
- dqr0Pb+D5HqSdig3ZGU+bST8mcOKnwCBxZ20X8aJNE0CDv7ksKPKBagUI8M6Qf9MmutK
- Yw4tK091zoTLssqtok53etheAGEY71d/YxMAXmd3+/dj5atXeA0cPEE7/E8MnBbISL9G
- lBX2CgJcabZ8U3ORZqzwvwLXHipTqSMX1gy9Jh+ICrToUL+2TJfYSLdAomW/aivlwCgs
- vVqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782207528; x=1782812328;
- h=content-disposition:mime-version:message-id:subject:cc:to:from:date
- :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=SGC4x0qSqXZMMrxbR1onNL1/9AO9MYtn1caz5Hfjgvs=;
- b=DslGI8ePCWiFVnCrqK2pOiSZeIMHht+qrhpExlICcy/ccod4kf90EXQVf01U4tALUw
- utt7gerHDOO3ep+5lG8bh2Wn6zK0zBm74Su4J48lHhpH6+12Fxkn9H/+COFhnM9lz/Vo
- jjCHIX6Ibvjs6aq1zTvx38uYNrJYNZUdc4RGXXljJE83gFNkEWaOog3B5k/4LtUUyTi+
- cM6zfX1R8V8C6cWotyFVG7jFsERdn9sJEjZr0g39brb5i8yF6x798mP6BYwAnV2+4KNJ
- 35I5AC16VG/gZtaIu9NALmPydeiuHvmffJKKiRdSrmWhEO0Ik+Nj3BwjtgA6sMp9HfuF
- 690Q==
-X-Forwarded-Encrypted: i=1;
- AFNElJ/Zhxb9h9hehK2matT2qBTCstDx+S8XkkjEyfrh5lmqUVkJKrLc2UUH3qkqRlA8yDlkvSqsTvN9A393xg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw4i4p0dKW4UoMcKMtsyUcPD6IiCfswkW9AMwmGgIu2mj02zZi1
- Ay8xXHV7A1Xg0md9GGciUxOVfsjcj8vPvAAfu1XgriZgnMpca9+d/hVb
-X-Gm-Gg: AfdE7cnT3mGaEUoXztNrsP/HYSJTqJQr2MUeaiZOKNY2uav9ek8kxx4GViOKT0AbvRB
- 1UjIDwmoEx//YcbZMvRo/GQYHi5RXI/Tyh1SwNH7qTqcZCUl0GtSqBJcfD21C/rEYU0wRX63KEf
- qSf1XEd10R/XoBAOMzu2lmSdalewBOuGyqs0B4dnzPXI5nPhQWtNYjXV6uTQ/11ln0+n8kmF/37
- aPOCjNNMce25t3hv2/CIbkXS+bTv74v5JiRMNCps2xNza7xx6MCzJlY8w0JCLY60nNEqbWfcN4r
- iv4ATi1DsnuA0GQbrsnk2VnOd/ftIkrT43osreEDY2/2cDLiFk+eRR35tIJHAZJ5HEZnRHUMAz7
- xnpRyavIYFcMUbdiuKeUe5u5ubjGtIpYJ0RWHVUpkT3CPpyIZ+x37w1xC3DMeYPX+57w3ST8mcd
- sX0wl9ETlaTuZLzrEZaq8=
-X-Received: by 2002:aa7:d70f:0:b0:68f:9fd9:435a with SMTP id
- 4fb4d7f45d1cf-697d46111f2mr1053795a12.17.1782207527831; 
- Tue, 23 Jun 2026 02:38:47 -0700 (PDT)
-Received: from localhost ([196.207.164.177]) by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6977be4b9f6sm4215334a12.22.2026.06.23.02.38.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 23 Jun 2026 02:38:45 -0700 (PDT)
-Date: Tue, 23 Jun 2026 12:38:42 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Joakim Zhang <qiangqing.zhang@nxp.com>
-Message-ID: <ajpUIqyVSsWMY30x@stanley.mountain>
+ Tue, 23 Jun 2026 09:43:54 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nlInPGPB+ZfxRDfBWkJ34xZ5aMK66Za2SdFfBM20lfQh7kL0IkLf/vJQPdjmtgG7xfUt9tvZBSu9epmCUjgRm16ufr7+482I1owC3HNujNGQqDH8y7cfFskxWUqpRx6XKDGFmRccLk1B8z4YbKVfe0gbfQqsdfWYT8E7HylWbEXMt2AW5PGx5QYC4VbbDe46qOWOh+AJowo7v9MtmR8JDk0Rs5Voul1OhCLWCYkfXRT7sjvO67pxBz6ufWFGsEnSFyJscqOMRdGfWJjpXKZJvfP7JLqP0VPd5+0R2xNr3JdzEsKlNY9pRD+RtOOaDbJ+LqddqEybWvwCzZGMASr0dg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fzwEa75SVblGykfagU1zVBLhxmcBKPZum3qY/q9Q3pE=;
+ b=e5KcQHP7NY3d/Y8i+3RFLhs7MlmcrspFP8dYm2ClsGF51ngEe2JS0hYnMHk8JvwSWICt1WUZR5A0V4rpW8xfBhzjQ+VwJ4DKNBIq31lXyNmFwvu7JNXsmbKYq865ZZwWWnkbMhs7TbNyMEod7vvMrme9gAaiWXto+XBLehz9AtQ7+W9UUaOsyAlB86aOlda6pbhOv8QFq7Cwq95mL5J9DxeOwHXPDxIzBRwnlTcfomnMUQz+PpS8x1kmwH3YcEEYwO61bgSE0YWlyXYtTQMjn7bkf0ueusgaSXlJyDcXS2TGIITz4FWCHdQIcM+R8v0vEJKOX/38WL8oT5yaZHXvuw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fzwEa75SVblGykfagU1zVBLhxmcBKPZum3qY/q9Q3pE=;
+ b=GQyioHy+c1A4xRDtR4HXv7otANck9wU7ttfGPQo9ALvWGuVSlq1WhkWQ5hivAawnUn0qQDK50Mbosqe8pulQZsQiQ0F2WOeGgA+rI0hHFNysiLs+sFMqoXV8WLoibmEpyW/1k/7ebjaZyn66kZZuFHMRn0drIBz5RYO54LSlWWbOse0gSwJkNUR3SnwC1kHbSyI9E60VSDKGv14xODHP6xPrFxYVaAiUEIIqhbTshdzJIxpjWUt300597K48Y/aicKK5cJAxJEUzO19c3cAD5pKXgT+dq8kVIwja8TN5oXo4HGEaKOEuL1QmzgkI0reLtMfAQwoyvGBsMUQD8e7Eaw==
+Received: from CW1P302CA0027.GBRP302.PROD.OUTLOOK.COM (2603:10a6:400:297::15)
+ by AM0PR10MB3587.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:144::7)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.139.20; Tue, 23 Jun
+ 2026 09:43:52 +0000
+Received: from AM1PEPF000252DA.eurprd07.prod.outlook.com
+ (2603:10a6:400:297:cafe::4b) by CW1P302CA0027.outlook.office365.com
+ (2603:10a6:400:297::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Tue, 23
+ Jun 2026 09:43:52 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ AM1PEPF000252DA.mail.protection.outlook.com (10.167.16.52) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.159.10 via Frontend Transport; Tue, 23 Jun 2026 09:43:52 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 23 Jun
+ 2026 11:48:31 +0200
+Received: from [10.48.87.64] (10.48.87.64) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 23 Jun
+ 2026 11:43:51 +0200
+Message-ID: <46fce99d-9dd5-435b-95cd-86ed4771aa83@foss.st.com>
+Date: Tue, 23 Jun 2026 11:43:49 +0200
 MIME-Version: 1.0
-Content-Disposition: inline
-Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [bug report] net: stmmac: fix dma physical address of
- descriptor when display ring
+User-Agent: Mozilla Thunderbird
+To: Jonathan Cameron <jic23@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>
+References: <20260612215151.1886851-1-robh@kernel.org>
+ <ai1dhJWb9vKqxEEe@ashevche-desk.local> <20260621151026.69714694@jic23-huawei>
+Content-Language: en-US
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <20260621151026.69714694@jic23-huawei>
+X-Originating-IP: [10.48.87.64]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM1PEPF000252DA:EE_|AM0PR10MB3587:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb799532-a9d2-4ac0-1d61-08ded10bef4f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|7416014|376014|36860700016|23010399003|82310400026|1800799024|6133799003|56012099006|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: uTgiYrW5OMUhs76rdxWHgh8vqjeDQbgJ85zYMhglDPz6nC+zFow7ah7JFHMjk3Cvw9CADuKshjfqEE0p9AWiYj8rpyNI2ihkimT0M4X04WX2DnKIzM9X711qQNw+NCGTmGNA17V2BmyD4DBHuRTsf67IyQ5L3YiiOIHqD3yf7IXJwofESlk9kLtjomki4c5to4lVMIiwZbtkpviUfiim4FUDjQ0JGGG4fs6AYGlfT+WVuaH3rHExrNJKxFtQTrPng0uoDNkJy4kb4VIpy9HIR0hSFyJCrcVmfWz0BUcxfjbxIUvaQkOZI3DpK67jKh40qUCcA6ssm8G5gJQPYy9xPZZyW+/w75Mc7siSbm+BNuhVukQ+7Cz153yi0c5fWeCS/2MpZJrRD4+KYLXQPfUh4Tvc5CbTHgbccR4Li0bmZ0dpkVGq9EDWzlaXem95U3IGbWRSU+ut39hgd2XLy4byQTq3yF6mz7920W1uI2ZVz0ytUq3ekehA8Hpj7zUAVWshO3CLmbbYxOPxvzt+kWDvswBQSjSZeKEDXuztAE2DfIboD2kVplS8XTeFINnm3AOOuFDcC5BylmXqS/uxuxebDsLZ31zrVhk9IQJXItcYfpZhf2suXh85ZoBpmIZMnlYrud4B+ae/Jwneiix428ofeBm2at0NdgiVdeDcUq7KFmJpCYFOe2eB57NR8hFycBVEvrsat0Mk1iR04f0Ec20FNg==
+X-Forefront-Antispam-Report: CIP:164.130.1.59; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(7416014)(376014)(36860700016)(23010399003)(82310400026)(1800799024)(6133799003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: eYFI6jQmZ7osDd8wtC/j+X1GK/PhcCscAawF6J0uyab6o8gxPTYBmfv2FBw6AZ9cYqqPTwUBj/KIoUTM+IXS8oqjQYHUUcOOG9gyisg14Qh+v+sqgch7/5yO3Cm1NOgHbwjHez99ZTkW74x2OYLRG9yerAvxiiAX6CCJrqVZLxSPv6zCNgJA+wO2Dg/LfFQ5R2tS+jRFBmdmNyqFJ4uYewLxH47qxzGJbxaYgLjxPne4iTdZ0UE6ua/Z8lm/Q9luRpfrQr8GCxGny8CorU64l86Sx3MBT31+b0wo2khEPJ24j19YrHqDMJYHO+BFFZLwHZWQ8SllXJBTvqRVDErj/B8LUQms2WtZKnwzZHiVYdI3SBTMK8yuEzJhL0WZZp70HrO64oIp3IafJikDa8ED6FV5ar4rvvIX/AJB439X27gg+x9DaXUimpTI8LwlMHxj
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 23 Jun 2026 09:43:52.2098 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb799532-a9d2-4ac0-1d61-08ded10bef4f
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.59];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: AM1PEPF000252DA.eurprd07.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3587
+Cc: Andy Shevchenko <andy@kernel.org>, "Rob Herring \(Arm\)" <robh@kernel.org>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Lechner <dlechner@baylibre.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] iio: stm32-dfsdm: Treat flags as booleans
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,136 +125,128 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.89 / 15.00];
-	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
+X-Spamd-Result: default: False [4.39 / 15.00];
+	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:qiangqing.zhang@nxp.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,s:lists@lfdr.de];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_SENDER(0.00)[error27@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,stormreply.com:url,stormreply.com:email];
+	GREYLIST(0.00)[pass,meta];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_FROM(0.00)[gmail.com];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	FROM_HAS_DN(0.00)[];
-	DKIM_TRACE(0.00)[gmail.com:-];
+	FORGED_RECIPIENTS(0.00)[m:jic23@kernel.org,m:andriy.shevchenko@intel.com,m:andy@kernel.org,m:robh@kernel.org,m:linux-iio@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:nuno.sa@analog.com,m:mcoquelin.stm32@gmail.com,m:dlechner@baylibre.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[error27@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[olivier.moysan@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,analog.com,gmail.com,baylibre.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olivier.moysan@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	ALIAS_RESOLVED(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_THREE(0.00)[3];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo,stanley.mountain:mid]
+	TAGGED_RCPT(0.00)[linux-stm32];
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0CC6A6B5DDD
+X-Rspamd-Queue-Id: 893DE6B5E31
 
-Hello Joakim Zhang,
+Hi Andy, Jonathan,
 
-Commit bfaf91ca848e ("net: stmmac: fix dma physical address of
-descriptor when display ring") from Feb 25, 2021 (linux-next), leads
-to the following Smatch static checker warning:
+Sorry for the late answer.
 
-	drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c:431 dwmac4_display_ring()
-	warn: duplicate check 'desc_size == 32' (previous on line 418)
+On 6/21/26 16:10, Jonathan Cameron wrote:
+> On Sat, 13 Jun 2026 16:39:16 +0300
+> Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
+> 
+>> On Fri, Jun 12, 2026 at 04:51:50PM -0500, Rob Herring (Arm) wrote:
+>>> The "st,adc-alt-channel" and "st,filter0-sync" properties are
+>>> documented as boolean flags. The legacy parser read them as integer
+>>> cells, unlike the child-node parser which already checks only for
+>>> presence.
+>>>
+>>> Use presence and boolean helpers so both parsers follow the binding and
+>>> the property type checker no longer reports the flags.
+>>
+>> For the patch
+>> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+>>
+>> However one interesting remark below.
+>>
+>> ...
+>>
+>>> -	ret = of_property_read_u32_index(indio_dev->dev.of_node,
+>>> -					 "st,adc-alt-channel", chan_idx,
+>>> -					 &df_ch->alt_si);
+>>
+>>> +	df_ch->alt_si = of_property_present(indio_dev->dev.of_node,
+>>
+>> I believe it still has another (serious?) issue. We usually don't use indio_dev
+>> for device properties. It's not a device that is described in DT.
+>> It seems the only driver in IIO that does that. Note, I haven't conducted any
+>> deeper research, it might be (however I'm quite in doubt) that this is correct
+>> use and one device registers a few indio_dev:s.
+> 
+> It is curious.  The registration sequence in this driver is complex, but I'm not
+> seeing anything that sets the fwnode for the struct iio_dev->dev before calling
+> the init() callbacks that end up in this code.  It is set later by iio_device_register()
+> (iirc that has something to do with consumers turning up later).
+> 
+> St folk could you take a look at this and see what we are missing
+> if it does currently work?
+> 
+> For now I'll apply this patch but might need to drop it if a fix clashes
+> with it.
+> 
+> Thanks,
+> 
+> Jonathan
+> 
+> 
 
-drivers/net/ethernet/stmicro/stmmac/dwmac4_descs.c
-    399 static void dwmac4_display_ring(void *head, unsigned int size, bool rx,
-    400                                 dma_addr_t dma_rx_phy, unsigned int desc_size)
-    401 {
-    402         dma_addr_t dma_addr;
-    403         int i;
-    404 
-    405         pr_info("%s descriptor ring:\n", rx ? "RX" : "TX");
-    406 
-    407         if (desc_size == sizeof(struct dma_desc)) {
-    408                 struct dma_desc *p = (struct dma_desc *)head;
-    409 
-    410                 for (i = 0; i < size; i++) {
-    411                         dma_addr = dma_rx_phy + i * sizeof(*p);
-    412                         pr_info("%03d [%pad]: 0x%x 0x%x 0x%x 0x%x\n",
-    413                                 i, &dma_addr,
-    414                                 le32_to_cpu(p->des0), le32_to_cpu(p->des1),
-    415                                 le32_to_cpu(p->des2), le32_to_cpu(p->des3));
-    416                         p++;
-    417                 }
-    418         } else if (desc_size == sizeof(struct dma_extended_desc)) {
-    419                 struct dma_extended_desc *extp = (struct dma_extended_desc *)head;
-    420 
-    421                 for (i = 0; i < size; i++) {
-    422                         dma_addr = dma_rx_phy + i * sizeof(*extp);
-    423                         pr_info("%03d [%pad]: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
-    424                                 i, &dma_addr,
-    425                                 le32_to_cpu(extp->basic.des0), le32_to_cpu(extp->basic.des1),
-    426                                 le32_to_cpu(extp->basic.des2), le32_to_cpu(extp->basic.des3),
-    427                                 le32_to_cpu(extp->des4), le32_to_cpu(extp->des5),
-    428                                 le32_to_cpu(extp->des6), le32_to_cpu(extp->des7));
-    429                         extp++;
-    430                 }
---> 431         } else if (desc_size == sizeof(struct dma_edesc)) {
+I confirm that the current legacy path is functional
+(With the st,adc-alt-channel property fix applied)
 
-The dma_extended_desc and dma_edesc structs are the same size but
-just the basic info is at the start vs at the end.  This code is
-quite old, but I think maybe we changed the Kconfig so now it's showing
-up as a static checker warning?
+It currently works because the driver initializes np from dev->of_node 
+in probe, and that value is then used in init callbacks.
 
-/* Extended descriptor structure (e.g. >= databook 3.50a) */
-struct dma_extended_desc {
-	struct dma_desc basic;	/* Basic descriptors */
-	__le32 des4;	/* Extended Status */
-	__le32 des5;	/* Reserved */
-	__le32 des6;	/* Tx/Rx Timestamp Low */
-	__le32 des7;	/* Tx/Rx Timestamp High */
-};
+I agree that this approach is not robust, as it depends on 
+initialization sequencing and on using an IIO object that is not the DT 
+owner object. I will prepare a patch to use the DT device directly as 
+the single source for DT properties.
 
-/* Enhanced descriptor for TBS */
-struct dma_edesc {
-	__le32 des4;
-	__le32 des5;
-	__le32 des6;
-	__le32 des7;
-	struct dma_desc basic;
-};
+I also suggest keeping a fallback path for st,adc-alt-channel so we do 
+not break legacy DTs that have not yet migrated to the new binding.
+I prepare this also.
 
-    432                 struct dma_edesc *ep = dma_desc_to_edesc(head);
-    433 
-    434                 for (i = 0; i < size; i++) {
-    435                         dma_addr = dma_rx_phy + i * sizeof(*ep);
-    436                         pr_info("%03d [%pad]: 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x 0x%x\n",
-    437                                 i, &dma_addr,
-    438                                 le32_to_cpu(ep->des4), le32_to_cpu(ep->des5),
-    439                                 le32_to_cpu(ep->des6), le32_to_cpu(ep->des7),
-    440                                 le32_to_cpu(ep->basic.des0), le32_to_cpu(ep->basic.des1),
-    441                                 le32_to_cpu(ep->basic.des2), le32_to_cpu(ep->basic.des3));
-    442                         ep++;
-    443                 }
-    444         } else {
-    445                 pr_err("unsupported descriptor!");
-    446         }
-    447 }
+BRs
+Olivier
 
-This email is a free service from the Smatch-CI project [smatch.sf.net].
+> 
+>>
+>>> +					    "st,adc-alt-channel");
+>>
+> 
+> 
 
-regards,
-dan carpenter
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
