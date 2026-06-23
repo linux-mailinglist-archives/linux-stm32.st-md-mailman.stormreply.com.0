@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id LVjCDCe6OmqfFAgAu9opvQ
+	id tAfTFUq6Omq2FAgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 18:53:59 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 18:54:34 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC13A6B8E37
-	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 18:53:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C3A886B8E4F
+	for <lists+linux-stm32@lfdr.de>; Tue, 23 Jun 2026 18:54:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=XYQ+4qmb;
+	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=aVAhQo1D;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=bootlin.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 65530C9AE46;
-	Tue, 23 Jun 2026 16:53:58 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 7AA1DC9AE4F;
+	Tue, 23 Jun 2026 16:54:33 +0000 (UTC)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4152BC6C856
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 85C05C3F944
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 23 Jun 2026 16:53:57 +0000 (UTC)
+ Tue, 23 Jun 2026 16:54:32 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 31747C6B397;
- Tue, 23 Jun 2026 16:54:04 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id D2D66C6B397;
+ Tue, 23 Jun 2026 16:54:39 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6AF8A601C2;
- Tue, 23 Jun 2026 16:53:56 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3FB72601C2;
+ Tue, 23 Jun 2026 16:54:32 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id BEDE3106C8382; 
- Tue, 23 Jun 2026 18:53:49 +0200 (CEST)
+ with ESMTPSA id A4181106C8382; 
+ Tue, 23 Jun 2026 18:54:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1782233635; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1782233671; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=z14O1Oxv2MwpgYnEYsps2OBdWGQ1E7SU6CsxbrKj0vc=;
- b=XYQ+4qmbXXeldrcn9HdaF60+1YlbI4oqajGsTyoZ3GOmFLAk8mbo9eEIGW387IITgwp/hh
- sqIzohPg5uC0vvhiKcYRo8zkzFRQsYknDD2eT7TO+scjLzEFnPc8LPi/gNX20DcCygj/2L
- DkZW5Jz6kME6LbEAxUP9N2MtjWGNdnSLCfDgqr9VZAl1LxqjihK2+PgWtmsctPyufJta+Z
- QaT31nsU1MLJNsHy7rVPnN4FCwhnegT/9XFBInRwmknfuZicE6kKrdYCYFuDLg9kfMDUkX
- j3K43D2pE51iCCQbjxEOjIFe9DKSg7BNrxq57syQNtK0zTAmUq9APdcO9jHM9Q==
-Message-ID: <12bb1713-d620-4db4-b240-fbc911be5ea3@bootlin.com>
-Date: Tue, 23 Jun 2026 18:53:48 +0200
+ bh=V0GuOlYRzJM4pDQWpmA6usQcahnlbuw1Vm/ChjlY/AI=;
+ b=aVAhQo1Dl8B067G6c6X1YlKSceYxNORBwII2/tFPIRcS3+FcEBJ9ix/7L1fpUQ3e74MNjA
+ iWV4EKuSIDPyTGlSiuvg76b0/1onRG+MJFEDF0ZrHf2ePk28OJArBYcUMIZhmUuQRd/DD3
+ wsq50D8mKAob+JsOdHGnJFiBQRfJ4A7yLmvl/pVbISU2has5sBS8ZvNra9M0vKwoKVF3Tq
+ rWFrp+kRbHaYwKygVplxYTDreeAm3B7FAf+0Pi8SAjC65WqFVpXpMpeOU2SRqLAx+Kl+mu
+ 4yTMA9wtb1o5+lcslnUa9EvsU6oHd1l6P3M9u8trBHvenKcQkuYqGurScb7yRg==
+Message-ID: <143145af-5846-4a7b-9953-33c51b1dbef3@bootlin.com>
+Date: Tue, 23 Jun 2026 18:54:28 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -51,17 +51,17 @@ To: Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>, Yixun Lan
  <dlan@kernel.org>, "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 References: <20260623074637.503864-1-inochiama@gmail.com>
- <20260623074637.503864-2-inochiama@gmail.com>
+ <20260623074637.503864-3-inochiama@gmail.com>
 Content-Language: en-US
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260623074637.503864-2-inochiama@gmail.com>
+In-Reply-To: <20260623074637.503864-3-inochiama@gmail.com>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: Yixun Lan <dlan@gentoo.org>, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, Longbin Li <looong.bin@gmail.com>,
  linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net v2 1/2] net: stmmac: dwmac-spacemit:
- Fix wrong phy interface definition
+Subject: Re: [Linux-stm32] [PATCH net v2 2/2] net: stmmac: dwmac-spacemit:
+ Fix wrong irq definition
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -84,7 +84,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	R_DKIM_REJECT(1.00)[bootlin.com:s=dkim];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -114,69 +114,42 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,bootlin.com:mid,bootlin.com:from_mime,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:email,bootlin.com:mid,bootlin.com:from_mime,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BC13A6B8E37
+X-Rspamd-Queue-Id: C3A886B8E4F
 
-Hello,
+Hi,
 
 On 6/23/26 09:46, Inochi Amaoto wrote:
-> The current MII interface register definition from the vendor is wrong,
-> use the right number for the macro. Also, correct the interface mask
-> in spacemit_set_phy_intf_sel() so it can update the register with the
-> right number
+> The current irq definition of the wake irq and the lpi irq
+> is wrong, replace them with the right number and name.
 > 
 > Fixes: 30f0ba420ed3 ("net: stmmac: Add glue layer for Spacemit K3 SoC")
 > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-> index 223754cc5c79..3bfb6d49be6c 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
-> @@ -18,8 +18,10 @@
->  #include "stmmac_platform.h"
->  
->  /* ctrl register bits */
-> -#define CTRL_PHY_INTF_RGMII		BIT(3)
-> -#define CTRL_PHY_INTF_MII		BIT(4)
-> +#define CTRL_PHY_INTF_MODE		GENMASK(4, 3)
-> +#define CTRL_PHY_INTF_RMII		FIELD_PREP(CTRL_PHY_INTF_MODE, 0)
-> +#define CTRL_PHY_INTF_RGMII		FIELD_PREP(CTRL_PHY_INTF_MODE, 1)
-> +#define CTRL_PHY_INTF_MII		FIELD_PREP(CTRL_PHY_INTF_MODE, 3)
->  #define CTRL_WAKE_IRQ_EN		BIT(9)
->  #define CTRL_PHY_IRQ_EN			BIT(12)
->  
-> @@ -118,7 +120,7 @@ static void spacemit_get_interfaces(struct stmmac_priv *priv, void *bsp_priv,
->  
->  static int spacemit_set_phy_intf_sel(void *bsp_priv, u8 phy_intf_sel)
->  {
-> -	unsigned int mask = CTRL_PHY_INTF_MII | CTRL_PHY_INTF_RGMII;
-> +	unsigned int mask = CTRL_PHY_INTF_MODE;
->  	struct spacmit_dwmac *dwmac = bsp_priv;
->  	unsigned int val = 0;
->  
-> @@ -128,6 +130,7 @@ static int spacemit_set_phy_intf_sel(void *bsp_priv, u8 phy_intf_sel)
->  		break;
->  
->  	case PHY_INTF_SEL_RMII:
-> +		val = CTRL_PHY_INTF_RMII;
-
-This isn't strictly-speaking necessary as this is 0 and val is already 0, maybe
-compilers can figure it out and this leaves us with more self-documenting code ?
-
-So I'm ok with that personally,
 
 Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
 Maxime
 
-
->  		break;
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+> index 3bfb6d49be6c..322bdf167a4a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-spacemit.c
+> @@ -22,8 +22,8 @@
+>  #define CTRL_PHY_INTF_RMII		FIELD_PREP(CTRL_PHY_INTF_MODE, 0)
+>  #define CTRL_PHY_INTF_RGMII		FIELD_PREP(CTRL_PHY_INTF_MODE, 1)
+>  #define CTRL_PHY_INTF_MII		FIELD_PREP(CTRL_PHY_INTF_MODE, 3)
+> -#define CTRL_WAKE_IRQ_EN		BIT(9)
+> -#define CTRL_PHY_IRQ_EN			BIT(12)
+> +#define CTRL_LPI_IRQ_EN			BIT(9)
+> +#define CTRL_WAKE_IRQ_EN		BIT(12)
 >  
->  	case PHY_INTF_SEL_RGMII:
+>  /* dline register bits */
+>  #define RGMII_RX_DLINE_EN		BIT(0)
 
 _______________________________________________
 Linux-stm32 mailing list
