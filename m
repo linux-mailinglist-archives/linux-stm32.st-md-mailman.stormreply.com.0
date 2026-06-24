@@ -2,62 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id IafmJ1rsO2q4fQgAu9opvQ
+	id +Rm4GU76O2oBhQgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2026 16:40:26 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2026 17:39:58 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A50D6BF36F
-	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2026 16:40:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A24926BFB9A
+	for <lists+linux-stm32@lfdr.de>; Wed, 24 Jun 2026 17:39:57 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
-	dmarc=none;
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
+	dkim=fail ("body hash did not verify") header.d=lunn.ch header.s=20171124 header.b=ePY2ywc1;
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	dmarc=fail reason="SPF not aligned (strict)" header.from=lunn.ch (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CCC16C57B41;
-	Wed, 24 Jun 2026 14:40:25 +0000 (UTC)
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B33EC57B41;
+	Wed, 24 Jun 2026 15:39:57 +0000 (UTC)
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CC4F3C56600
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5FBF9C2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2026 14:40:23 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-05 (Coremail) with SMTP id zQCowAA3j9JQ7Dtq2XIHFQ--.947S2;
- Wed, 24 Jun 2026 22:40:17 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Date: Wed, 24 Jun 2026 22:40:15 +0800
-Message-ID: <20260624144015.63929-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+ Wed, 24 Jun 2026 15:39:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+ s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+ References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+ Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+ Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+ bh=yHAPNcQ5EKyi7n1ik7WzWF+RwYT1Afv+h7uAsSVT37U=; b=ePY2ywc1fQl0LEsKtNKvYMHLoq
+ puhjGDFNEGFC4FwqspAIfys1IPAcHKK1DeRyboD+Jd/8E1mWjL4XTkueom1bn3nUD7DhacZv31AUP
+ SWTDPYLfX5jLbXN2TpZKB6UrFPgcqZ9o6tWnkQkEb29+dbQgSnS5omx9mK9GPQBqAr8I=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+ (envelope-from <andrew@lunn.ch>)
+ id 1wcPhP-0096s7-BA; Wed, 24 Jun 2026 17:39:35 +0200
+Date: Wed, 24 Jun 2026 17:39:35 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Yanan He <grumpycat921013@gmail.com>
+Message-ID: <bb50eb6a-561b-4e48-b8ed-2ed5a17b6a1c@lunn.ch>
+References: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
+ <20260624-rv1126-alientek-dlrv1126-v1-4-5aef608a3f64@gmail.com>
 MIME-Version: 1.0
-X-CM-TRANSID: zQCowAA3j9JQ7Dtq2XIHFQ--.947S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFW8XFWfCr15ZF4kWF4Durg_yoW8ZrWxpF
- 4akaykGw4Ig34Syr4jq3WjqF1YgF93ta9rCrWkX3yI9wn09Fy3GryrKFy5Za9xKFn5A3WU
- ZFsrtFW5CF4Y9F7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
- 6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
- 6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
- 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
- W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1l
- IxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUgXocUUU
- UU=
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
-Cc: linux-kernel@vger.kernel.org, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
- linux-media@vger.kernel.org
-Subject: [Linux-stm32] [PATCH] media: cec: stm32: return an error when
-	log-address wait times out
+Content-Disposition: inline
+In-Reply-To: <20260624-rv1126-alientek-dlrv1126-v1-4-5aef608a3f64@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ David Wu <david.wu@rock-chips.com>, Jakub Kicinski <kuba@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 4/7] net: stmmac: dwmac-rk: Enable refout
+	clock for RGMII
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -69,83 +64,87 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
+	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DMARC_NA(0.00)[iscas.ac.cn];
-	FORGED_RECIPIENTS(0.00)[m:hverkuil@kernel.org,m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-media@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[kernel.org,gmail.com,foss.st.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[18];
+	FORGED_RECIPIENTS(0.00)[m:grumpycat921013@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:heiko@sntech.de,m:devicetree@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:david.wu@rock-chips.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[lunn.ch:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ALIAS_RESOLVED(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[9];
-	R_DKIM_NA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[kernel.org,sntech.de,vger.kernel.org,lists.infradead.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,rock-chips.com,redhat.com,davemloft.net];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:email,iscas.ac.cn:mid,iscas.ac.cn:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 2A50D6BF36F
+X-Rspamd-Queue-Id: A24926BFB9A
 
-c3RtMzJfY2VjX2FkYXBfbG9nX2FkZHIoKSB3YWl0cyBmb3IgVFhTT00gdG8gY2xlYXIgYmVmb3Jl
-IGRpc2FibGluZyBDRUMKYW5kIHVwZGF0aW5nIHRoZSBsb2dpY2FsIGFkZHJlc3MgcmVnaXN0ZXJz
-LiBUaGUgd2FpdCByZXN1bHQgaXMgaWdub3JlZCwKc28gYSB0aW1lb3V0IGNhbiBzdGlsbCBiZSBy
-ZXBvcnRlZCBhcyBhIHN1Y2Nlc3NmdWwgbG9naWNhbCBhZGRyZXNzCnVwZGF0ZS4KClJldHVybiB0
-aGUgcG9sbGluZyBlcnJvciBiZWZvcmUgdG91Y2hpbmcgdGhlIGFkZHJlc3MgcmVnaXN0ZXJzLiBD
-b21wdXRlCnRoZSBhZGRyZXNzIG1hc2sgb25seSBmb3IgdmFsaWQgbG9naWNhbCBhZGRyZXNzZXMg
-c28gdGhlIGludmFsaWQtYWRkcmVzcwpwYXRoIGRvZXMgbm90IGV2YWx1YXRlIGEgc2hpZnQgYmFz
-ZWQgb24gQ0VDX0xPR19BRERSX0lOVkFMSUQuCgpTaWduZWQtb2ZmLWJ5OiBQZW5ncGVuZyBIb3Ug
-PHBlbmdwZW5nQGlzY2FzLmFjLmNuPgotLS0KIGRyaXZlcnMvbWVkaWEvY2VjL3BsYXRmb3JtL3N0
-bTMyL3N0bTMyLWNlYy5jIHwgMTQgKysrKysrKysrKy0tLS0KIDEgZmlsZSBjaGFuZ2VkLCAxMCBp
-bnNlcnRpb25zKCspLCA0IGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEv
-Y2VjL3BsYXRmb3JtL3N0bTMyL3N0bTMyLWNlYy5jIGIvZHJpdmVycy9tZWRpYS9jZWMvcGxhdGZv
-cm0vc3RtMzIvc3RtMzItY2VjLmMKaW5kZXggMWVjMGNlY2UwLi44MjcwOWI1ZWMgMTAwNjQ0Ci0t
-LSBhL2RyaXZlcnMvbWVkaWEvY2VjL3BsYXRmb3JtL3N0bTMyL3N0bTMyLWNlYy5jCisrKyBiL2Ry
-aXZlcnMvbWVkaWEvY2VjL3BsYXRmb3JtL3N0bTMyL3N0bTMyLWNlYy5jCkBAIC0xOTMsMTggKzE5
-MywyNCBAQCBzdGF0aWMgaW50IHN0bTMyX2NlY19hZGFwX2VuYWJsZShzdHJ1Y3QgY2VjX2FkYXB0
-ZXIgKmFkYXAsIGJvb2wgZW5hYmxlKQogc3RhdGljIGludCBzdG0zMl9jZWNfYWRhcF9sb2dfYWRk
-cihzdHJ1Y3QgY2VjX2FkYXB0ZXIgKmFkYXAsIHU4IGxvZ2ljYWxfYWRkcikKIHsKIAlzdHJ1Y3Qg
-c3RtMzJfY2VjICpjZWMgPSBhZGFwLT5wcml2OwotCXUzMiBvYXIgPSAoMSA8PCBsb2dpY2FsX2Fk
-ZHIpIDw8IDE2OwogCXUzMiB2YWw7CisJaW50IHJldDsKIAogCS8qIFBvbGwgZXZlcnkgMTAwwrVz
-IHRoZSByZWdpc3RlciBDRUNfQ1IgdG8gd2FpdCBlbmQgb2YgdHJhbnNtaXNzaW9uICovCi0JcmVn
-bWFwX3JlYWRfcG9sbF90aW1lb3V0KGNlYy0+cmVnbWFwLCBDRUNfQ1IsIHZhbCwgISh2YWwgJiBU
-WFNPTSksCi0JCQkJIDEwMCwgQ0VDX1hGRVJfVElNRU9VVF9NUyAqIDEwMDApOworCXJldCA9IHJl
-Z21hcF9yZWFkX3BvbGxfdGltZW91dChjZWMtPnJlZ21hcCwgQ0VDX0NSLCB2YWwsICEodmFsICYg
-VFhTT00pLAorCQkJCSAgICAgICAxMDAsIENFQ19YRkVSX1RJTUVPVVRfTVMgKiAxMDAwKTsKKwlp
-ZiAocmV0KQorCQlyZXR1cm4gcmV0OworCiAJcmVnbWFwX3VwZGF0ZV9iaXRzKGNlYy0+cmVnbWFw
-LCBDRUNfQ1IsIENFQ0VOLCAwKTsKIAotCWlmIChsb2dpY2FsX2FkZHIgPT0gQ0VDX0xPR19BRERS
-X0lOVkFMSUQpCi0JCXJlZ21hcF91cGRhdGVfYml0cyhjZWMtPnJlZ21hcCwgQ0VDX0NGR1IsIE9B
-UiwgMCk7Ci0JZWxzZQorCWlmIChsb2dpY2FsX2FkZHIgPT0gQ0VDX0xPR19BRERSX0lOVkFMSUQp
-IHsKKwkJcmVnbWFwX3VwZGF0ZV9iaXRzKGNlYy0+cmVnbWFwLCBDRUNfQ0ZHUiwgT0FSLCAwKTsK
-Kwl9IGVsc2UgeworCQl1MzIgb2FyID0gQklUKGxvZ2ljYWxfYWRkcikgPDwgMTY7CisKIAkJcmVn
-bWFwX3VwZGF0ZV9iaXRzKGNlYy0+cmVnbWFwLCBDRUNfQ0ZHUiwgb2FyLCBvYXIpOworCX0KIAog
-CXJlZ21hcF91cGRhdGVfYml0cyhjZWMtPnJlZ21hcCwgQ0VDX0NSLCBDRUNFTiwgQ0VDRU4pOwog
-Ci0tIAoyLjUwLjEgKEFwcGxlIEdpdC0xNTUpCgpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWlsaW5nIGxpc3QKTGludXgtc3RtMzJA
-c3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczovL3N0LW1kLW1haWxtYW4uc3Rvcm1y
-ZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0zMgo=
+On Wed, Jun 24, 2026 at 04:44:41PM +0800, Yanan He wrote:
+> Some Rockchip GMAC integrations use clk_mac_refout as an external PHY
+> reference clock even when the MAC is configured for RGMII.
+> 
+> RV1126 boards can route CLK_GMAC_ETHERNET_OUT to the external PHY as a
+> 25 MHz reference clock. If the driver does not acquire and enable this
+> clock in RGMII mode, the common clock framework may disable it as unused
+> and the PHY can lose its reference clock.
+> 
+> Enable the refout clock handling for RGMII in addition to RMII.
+> 
+> Signed-off-by: Yanan He <grumpycat921013@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> index 8d7042e68926..f6fdc0c5b475 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> @@ -1112,7 +1112,8 @@ static int rk_gmac_clk_init(struct plat_stmmacenet_data *plat)
+>  	bsp_priv->clk_enabled = false;
+>  
+>  	bsp_priv->num_clks = ARRAY_SIZE(rk_clocks);
+> -	if (phy_iface == PHY_INTERFACE_MODE_RMII)
+> +	if (phy_iface == PHY_INTERFACE_MODE_RMII ||
+> +	    phy_iface == PHY_INTERFACE_MODE_RGMII)
+
+Apart from Heiko commenting that this patch is completely wrong, there
+are 4 RGMII modes, not one. You should of used
+phy_interface_mode_is_rgmii().
+
+    Andrew
+
+---
+pw-bot: cr
+ 
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
