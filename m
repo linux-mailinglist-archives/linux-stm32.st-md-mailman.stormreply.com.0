@@ -2,78 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id fR8sIdfNPGr/sQgAu9opvQ
+	id WW/cH9fNPGr+sQgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jun 2026 08:42:31 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 60AB46C3190
+	by mail.lfdr.de (Postfix) with ESMTPS id 613696C3192
 	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jun 2026 08:42:31 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b="U/LcBtNo";
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=ikIMGTZp;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D0FDCC9AE40;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DE2D5C9AE44;
 	Thu, 25 Jun 2026 06:42:30 +0000 (UTC)
-Received: from mail-pj1-f66.google.com (mail-pj1-f66.google.com
- [209.85.216.66])
+Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
+ [209.85.216.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C3FC8C6C856
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 004C1C6C856
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2026 08:47:12 +0000 (UTC)
-Received: by mail-pj1-f66.google.com with SMTP id
- 98e67ed59e1d1-36d8b644473so630085a91.3
+ Wed, 24 Jun 2026 08:47:19 +0000 (UTC)
+Received: by mail-pj1-f68.google.com with SMTP id
+ 98e67ed59e1d1-36b95eb4bb4so536012a91.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2026 01:47:12 -0700 (PDT)
+ Wed, 24 Jun 2026 01:47:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782290831; x=1782895631;
+ d=gmail.com; s=20251104; t=1782290838; x=1782895638;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=LLcfgRgcRG6+Y1GgVHrol+2NxklkD2AbD5mhAFMMnog=;
- b=U/LcBtNo45CukPsdXB/PKiEb+BTmALUW8q7eFFr+ICu60hp3GvVvSoRyXbEduOWrQ5
- 52T9ipR/4/dRybEna1+vIzzbksb+/KnETuoIZir9ZATZaHZBupJ5L7ZbOZ6hAwdrh5sl
- XnM2N/X4bWbTlX02IZiLEuT9HoQEJtfVpxGcNaJuupGqOgCWDiF8P8kws94i+jHRymJ4
- u/BO62L7LSZFqLphmuqTBQyjHPLefZODu41MfthGm8ivuZcO8GWoQWl0Xe+chc/fBd9Q
- MfnQfBU7aNYRg8t6asHdM9Dh8OVHk7s0nlBtw4LtesSnqR5v9mjOkeqzzXuIFDQKMdNr
- SnOA==
+ :reply-to; bh=/4o4WYSufJQ01exYcxPhmyweb253Pa1dolXAna3IPCA=;
+ b=ikIMGTZp5ke2gm76/6l0WNvpwu8cSy+WZoA9D6xhA50HfCGChLSKXhvk49+xYdsKsG
+ lF4nh3uGj0kkVkevZI7JBEbdN3YdaM54WoS7K0uHnTf/RnW8pdxPTESpI8Vu27deT0/+
+ KbzUh15/IPu5iOc+FrxmnNAnbQsLXvEIAsg8+RNJxemjaxLo2/GIF0HaMuzEQn+2iHUl
+ npE9hOj8kjuvom5QfnUV2sD1qSbgupe04+8unF+gm7HhMQ+0qdeCB9mY8RgqC1PDYau1
+ jafc1DG2gMG4owMKS+t+6WQ8LEHWdbuc+kzYTwsD4D/f1FrIiDs2czvYzBWDkC2/zumc
+ aW8g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782290831; x=1782895631;
+ d=1e100.net; s=20251104; t=1782290838; x=1782895638;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=LLcfgRgcRG6+Y1GgVHrol+2NxklkD2AbD5mhAFMMnog=;
- b=gHJDoZQsqaFqmfzMjwwui6il2M7ZoSaaZdzHFffSRWiPAqd2eICWoZDj435g8LQyHX
- LL9llyDvpQ6wHfV2aF43KD8XzSW20qASbmPMMmQjHV5MmZnvAK99JV9fytDEWD4xt0qc
- Cvsytenzm5TBxJ77q/PLrILsKqxuMAxYO6vhpvsHmpmjlHVkioS30mxDdSiEVt7YYCNl
- mSxv//vqKOHV+xm1tmdt37EixSWFbAnG5IJuireUJnkDWllv2VRWgl6iCkFzMuUxQLTg
- veiTtyyvdN60mhX90XQwXQMOUTBeOwcl7AbirRQBnyr/RNB/S5TOdGNWVJXtlDookike
- YQJA==
+ bh=/4o4WYSufJQ01exYcxPhmyweb253Pa1dolXAna3IPCA=;
+ b=cSk+WemveUyaVM1tnWty6ZoPhNEtYcmxLu+yusGs0eDHbjDCs6AXU75p6UwlpU3jUr
+ By61hGiEMAHl5ovJLqePYOp6ecEbqmut8rxElTf9/tAui8FVjHUQJEr+py6+3CyzHY30
+ nQnhiTdNPSXJQR72wWls6+OApUdHPyIkM8Ft9FlhYTbMcNHrC/9yNjtrqwb31qKwv+KU
+ J6qOj28QcvU6KkVsnW2P4vd+WaJdtEDDpEIvVT8am6bwcMVVwDDIMy1YfAPosTnQY8ZG
+ We6RHm8OgIJ4rbjppGex0y9MFSQx+DNbybdoR8/iBKLomrH8iRsVPNEqs2lp29/9Md+q
+ sRmg==
 X-Forwarded-Encrypted: i=1;
- AHgh+Ro7ajqBOcrQVJYMW4wFLz8lybV1qtMhLKy+2CzQonEuQXRRXihtD8P0QUPAoK3TEUk8wDnmCy5HwVD9ZQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YymUr2eTc5MsDWMcGuOc2e/KntyDEIv1xcdnf4x4GUJpGSuTxYs
- MB7Icg/QaEYH5KXmc4ZBK6kSHRlEmTidgqonD7cu4UFNKTNam1ihESmKT4PaLQJ42xg=
-X-Gm-Gg: AfdE7cnlDfSH02mR3INiP9e5f9hCGFuiPmXWWaxkgQxWU867TLXMLcb3g1jhPe9e+R5
- K+JbY/w3Fa5gT6mCYdTR5grxAXp8Gw23V2uG0rz26RPCiTJYRp78LQhhFzdLEERvIgwkXmSrbMG
- bWBtqO8g61pEZ6CPUs/i4mvd/QVSjQwXCITxRp21/WlH3Zxjg8hXPRnXP5vUUo7CdNMGP87GKoo
- aNZm4HdEEOgYX+2l3vjqBqQ7UHkSG6ikHFF2l2pQtQBo5AALUnnX5GZYX99HCZF8RXaB6XDFlUN
- LWHmbzOPms1SDBE7IuFF1uM2bGmb3JiEKWt4QkKQhqccwHLLOVJTdZZnNSt8W3xabnm347K01EP
- 3eczvNtYR+xdnym85yhDlz1gyYjWtAGcMgNFLO1EsERlE+OxeRd2rgrVXPtoAuZXSBcb6kjbhgT
- 9ulpQ/4ftNnq6heqjmOC1VkvC6
-X-Received: by 2002:a17:90b:48d1:b0:36d:8e6f:8d9e with SMTP id
- 98e67ed59e1d1-37de428c345mr2433707a91.20.1782290831423; 
- Wed, 24 Jun 2026 01:47:11 -0700 (PDT)
+ AHgh+Rq7SpLpy7L89sDgxrblN3khgMi/BWWMAzVWoWImWtr0+xn2anVN4V0/a7BHNfOUgrxqtVNmnu7uLcJnLg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxTZ5IQSLgb7XcIan4TBsyOn3+Ju+ezvPN0XNEq020401FJXX8S
+ nv4w+2RnzydWLDiachrKl82bz+2lto3bLgymbPn0W4XjamShJlAY5PSa
+X-Gm-Gg: AfdE7cltJRuNkft11XliVv9a9TlI4XcMsLVu9Ci/ta0uPK9PMwrHECoc5qo+Fvm/YWL
+ OqDHhN0LRR86vP3b6YPlnfr8EKjnUH5jTZnt2wySi23FwlqP8wlVDSllm72Tj8TqfrhFKnNfuMo
+ A1q+mWI01LClJKpB/4+UnopE4Xjz3RR64cbC0zyjHTGUIX1Ow1AgsIciuk0yl/YlkbiRCZoM7i1
+ CRvF56AexmeQd9wRD+Jl8hY7msjZwze1TIY59E5FdYTVMPzx3kmqFHenCaQSlrVLPZbWPYmvK5X
+ eZcRlqy6TRU0pLWLO4kDoBolyOu4jcO4A4lPQzys6rwMueb7dtwrAv9+03NJqArGSy2I6i9yCOO
+ NMX6mJ9IhrvfYrihM1eB4Tm9E3pqJoqjNWy8wWy1WXS4wEOpzSNpeAgz3zReq5ojG0KaDbMhwdY
+ jdD/ziH/654RetTcarLcQsF6Di
+X-Received: by 2002:a17:90b:3dc3:b0:36d:f28b:72e0 with SMTP id
+ 98e67ed59e1d1-37de42395bamr2280839a91.12.1782290838541; 
+ Wed, 24 Jun 2026 01:47:18 -0700 (PDT)
 Received: from [192.168.1.101] ([218.194.36.79])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.47.04
+ 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.47.11
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 01:47:10 -0700 (PDT)
+ Wed, 24 Jun 2026 01:47:17 -0700 (PDT)
 From: Yanan He <grumpycat921013@gmail.com>
-Date: Wed, 24 Jun 2026 16:44:42 +0800
+Date: Wed, 24 Jun 2026 16:44:43 +0800
 MIME-Version: 1.0
-Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-5-5aef608a3f64@gmail.com>
+Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-6-5aef608a3f64@gmail.com>
 References: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
 In-Reply-To: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -85,11 +85,11 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=1157;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=2080;
  i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=8EosIzzR7UzOFP/v55N37uL3TxX8W4lq/3WtMuwfnjU=;
- b=r1c6yrCwcpidwG3sbm7w7O+CAbkpEjmxfvytGLFSVdZDGbuxcpNNDG74XoG4SVu6zMjqBnqL6
- vaYbrNImRDfBTvTqOkFFkTzjjQ6aTtP18tsj4zv/DrAte13JPeV4nRW
+ bh=8DnGaGhGF2q1/a03FB7kpaA8OczPo2IgyWm3JdknUfY=;
+ b=YrCE91tKnr6J0OxbIju8J9llVy/eKVFyENAfkCGsxf50FuzCPU5lW0+qINNmUO0ziOrxg/4bN
+ 2UxDIGsPfkWB7A5GzEjXLLSyplZa5jrmv1yvPfGxXM2WoonVvpq4CIt
 X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
  pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 X-Mailman-Approved-At: Thu, 25 Jun 2026 06:42:29 +0000
@@ -97,8 +97,7 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Yanan He <grumpycat921013@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 5/7] ARM: dts: rockchip: Add RV1126 GMAC
-	refout clock
+Subject: [Linux-stm32] [PATCH 6/7] ARM: dts: rockchip: Add RV1126 I2C5
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -151,34 +150,72 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 60AB46C3190
+X-Rspamd-Queue-Id: 613696C3192
 
-This clock can be routed to an external Ethernet PHY as its reference
-clock. Boards using this clock need the clock to be described so the
-dwmac-rk driver can acquire and keep it enabled.
+The controller is present in the SoC and can be used by boards for
+external peripherals, such as an RTC on the Alientek DLRV1126 carrier
+board.
 
 Signed-off-by: Yanan He <grumpycat921013@gmail.com>
 ---
- arch/arm/boot/dts/rockchip/rv1126.dtsi | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi | 10 ++++++++++
+ arch/arm/boot/dts/rockchip/rv1126.dtsi         | 15 +++++++++++++++
+ 2 files changed, 25 insertions(+)
 
+diff --git a/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi b/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi
+index 35ef6732281f..1d883b80aed4 100644
+--- a/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi
++++ b/arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi
+@@ -123,6 +123,16 @@ i2c3m2_xfer: i2c3m2-xfer {
+ 				<1 RK_PD7 3 &pcfg_pull_none>;
+ 		};
+ 	};
++	i2c5 {
++		/omit-if-no-ref/
++		i2c5m0_xfer: i2c5m0-xfer {
++			rockchip,pins =
++				/* i2c5_scl_m0 */
++				<2 RK_PA5 7 &pcfg_pull_none_drv_level_0_smt>,
++				/* i2c5_sda_m0 */
++				<2 RK_PB3 7 &pcfg_pull_none_drv_level_0_smt>;
++		};
++	};
+ 	i2s0 {
+ 		i2s0m0_lrck_tx: i2s0m0-lrck-tx {
+ 			rockchip,pins =
 diff --git a/arch/arm/boot/dts/rockchip/rv1126.dtsi b/arch/arm/boot/dts/rockchip/rv1126.dtsi
-index d6e8b63daa42..5b1ee06dc035 100644
+index 5b1ee06dc035..483576de841e 100644
 --- a/arch/arm/boot/dts/rockchip/rv1126.dtsi
 +++ b/arch/arm/boot/dts/rockchip/rv1126.dtsi
-@@ -624,10 +624,11 @@ gmac: ethernet@ffc40000 {
- 		rockchip,grf = <&grf>;
- 		clocks = <&cru CLK_GMAC_SRC>, <&cru CLK_GMAC_TX_RX>,
- 			 <&cru CLK_GMAC_TX_RX>, <&cru CLK_GMAC_REF>,
-+			 <&cru CLK_GMAC_ETHERNET_OUT>,
- 			 <&cru ACLK_GMAC>, <&cru PCLK_GMAC>,
- 			 <&cru CLK_GMAC_TX_RX>, <&cru CLK_GMAC_PTPREF>;
- 		clock-names = "stmmaceth", "mac_clk_rx",
--			      "mac_clk_tx", "clk_mac_ref",
-+			      "mac_clk_tx", "clk_mac_ref", "clk_mac_refout",
- 			      "aclk_mac", "pclk_mac",
- 			      "clk_mac_speed", "ptp_ref";
- 		resets = <&cru SRST_GMAC_A>;
+@@ -23,6 +23,7 @@ aliases {
+ 		i2c0 = &i2c0;
+ 		i2c2 = &i2c2;
+ 		i2c3 = &i2c3;
++		i2c5 = &i2c5;
+ 		serial0 = &uart0;
+ 		serial1 = &uart1;
+ 		serial2 = &uart2;
+@@ -400,6 +401,20 @@ i2c3: i2c@ff520000 {
+ 		status = "disabled";
+ 	};
+ 
++	i2c5: i2c@ff540000 {
++		compatible = "rockchip,rv1126-i2c", "rockchip,rk3399-i2c";
++		reg = <0xff540000 0x1000>;
++		interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>;
++		clocks = <&cru CLK_I2C5>, <&cru PCLK_I2C5>;
++		clock-names = "i2c", "pclk";
++		pinctrl-names = "default";
++		pinctrl-0 = <&i2c5m0_xfer>;
++		rockchip,grf = <&pmugrf>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		status = "disabled";
++	};
++
+ 	pwm8: pwm@ff550000 {
+ 		compatible = "rockchip,rv1126-pwm", "rockchip,rk3328-pwm";
+ 		reg = <0xff550000 0x10>;
 
 -- 
 2.54.0
