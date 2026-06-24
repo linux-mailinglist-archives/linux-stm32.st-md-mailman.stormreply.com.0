@@ -2,78 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 9e5jDNfNPGr4sQgAu9opvQ
+	id OoVOD9fNPGr6sQgAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jun 2026 08:42:31 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C16F16C317F
+	by mail.lfdr.de (Postfix) with ESMTPS id F17146C3180
 	for <lists+linux-stm32@lfdr.de>; Thu, 25 Jun 2026 08:42:30 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=rC5mJeHV;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=FC61CnJx;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6F23EC5F1F7;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8AB63C7C7CB;
 	Thu, 25 Jun 2026 06:42:30 +0000 (UTC)
 Received: from mail-pj1-f68.google.com (mail-pj1-f68.google.com
  [209.85.216.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 48F8EC87ED0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DE1DBC87ED0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2026 08:46:45 +0000 (UTC)
+ Wed, 24 Jun 2026 08:46:51 +0000 (UTC)
 Received: by mail-pj1-f68.google.com with SMTP id
- 98e67ed59e1d1-37d55e8d3e3so460796a91.0
+ 98e67ed59e1d1-37c6cd1ac98so713867a91.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 24 Jun 2026 01:46:45 -0700 (PDT)
+ Wed, 24 Jun 2026 01:46:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1782290804; x=1782895604;
+ d=gmail.com; s=20251104; t=1782290810; x=1782895610;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=80huAu9bkh6KHgzBZGFLSxb8JVOVhcXYtQUMYEe1cbA=;
- b=rC5mJeHVb1mojMPmWF/YecEvcaUD8NTnQZppSR4ewaXFSKw8usWZPO1uNwqTwIuOk2
- f4NZbshH+bM4jBCw1r8oeYe6xtVgySnp43xn/2cbWiJehJv+dyJVVU5CVoiHQSqN+LLl
- KA0Js9TiwVSlLKzyuYKZGhByB2dpw4Z0AcIARKNf59ZUo9TvbJMNFDBlLWgK5SJOplUj
- ShpHYNs4rRFLPzI7LYCyi0BGWLiZh7lIaUoE3/wVArH9XGb2kZ52840mGAZzQ1c9oY5W
- bPoAWtuusaaLhp6B2Nl8MSXPMxpc43y9qhM5wAkmlU0TTC4qdEnuWFmsa9eYh/d0zY9X
- zlag==
+ :reply-to; bh=nE3XF9TJ3rEGOneChwFEqNNIrveo5+lTJId+Q3nPPQA=;
+ b=FC61CnJxOrWGK/9CBgB1Ko5D4jQXOun90TvCeL9S4PR/MF2Pfr7jtDlqRP1Rfaiwpb
+ vPVLFEHTkWb1bW0LiAbN7Vw/9asntychFNuwjIdniVcXQn7Y8fyZ2BewaZ/JE1k9qOAL
+ lDO632Jb+o57qHW4sq0VMd6Hs0zv7ZimJp3P+IK4PZP2nJJhT80JJ9rmQ2fgGqRFMik/
+ 8s7uM5MT79SzA+/KGydRr9vMyd7DmLvE7AzPsuroJ4cpJYZESz7aSWcO5pyyJggRRx4I
+ KE1zpt6DZJcmKvFTu2UYGU/bUEHPwyc98/UgpOQeR8bIqThuT34EcTru5ILNc2ZeAMaG
+ 6e6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782290804; x=1782895604;
+ d=1e100.net; s=20251104; t=1782290810; x=1782895610;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=80huAu9bkh6KHgzBZGFLSxb8JVOVhcXYtQUMYEe1cbA=;
- b=pfP/yPb7aoSqR7Tu78Cwt2nACtGojlB4aeYLyXwo35rrhATf/GJJGINHt61Wtmm2LE
- zBuUEmxvuZhvZZ+tYnM1q19fVpMktMBirXIjRNDn+Zrkon3EQ6apCFlS3B3s788Kj2VL
- 2z9hvP/iE9LxbDidFvvhvf4o9M5MFO9kIX9ndYXCYQUwXzdQ+g8wf1HPqLZmyEfde4q5
- eWyARByUHc/PTO/VEcr+Wd3tYdpxwjRn8o1bthTuxkLcY3eatozhHGMTZ6mC0tfESG8n
- OYjlmrkkK+ugS1Hy6Haq79o2VPNsrIXDxdrAVYgkRiZLljVcNOIL3bHNAAeodIc2zCxb
- tMgQ==
+ bh=nE3XF9TJ3rEGOneChwFEqNNIrveo5+lTJId+Q3nPPQA=;
+ b=ei7r5wKcipv3DCRPqYB1xFY3ZK8R56Muo/RrI1myMAxhl0XoE3FAB4n8OVws5zU2VC
+ UqLWzucb2uxOaXPbMG/6abqEgQ1q8i/OJMLBDLJkYFo/fsJsXORix2aQJhpOZnb8rwf1
+ B/mkL9nWVVZyaOE4O4+LglhKdLNLDLMn7NM5uTtuhBg8ZVlTOZ950WECHndEGuqT7DsP
+ aJkVxkoCbg3RPsprRHpJhwPPX0F2kQ5oLuAgaJ5oZP9ZqfF6sKcLNMiyPrzOvuJkB7pj
+ xxEFe2gFdRNF0JkNhULXzvjhPqFXs+cS7JMjXsNk8ueyqRlyxCsUNyuSCRan8YeHU57i
+ Accg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqKgzAXNP51zpKDFGb4If6XasEpq2c5Qq7X8TgQE8IcFz6MnFZpkxsdtsMYyM4qQfbjkPYdjV6QQg9jpQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxXSzj3KVs9voCpTSa/EMaUD95QPp7OUMfHPH+vta5xuHc9z4FD
- wALR2XWGC+P33hyE0WzZ2yU063xufkdfrNnM3VsfOUp0oSJXzGYFK0L/
-X-Gm-Gg: AfdE7cn488E7V3rifoJHK9Ey70CVPp9HnFxGcU0TbBaFVOEyBkBVBJZPoFkA9oJQGW3
- GJMKKwDWCE+Ngf81v1CGPmnf9+dIFlBDKHFWH1sz6i7AaxElBP3xAGdmmBUAhONmBC9LngcurPZ
- zp8+twdRauHwJ2cDZrpFj8HCzTAusw3hyNAV5W0+GP90I46DmStyAiIPuQWlINU8P8ntXNtvQnk
- gZP53hv9nfTJUAqOaaYeJdKm1VCvRLQlyT0ZvejPBU0Dq4u6gNHnIdr8geaOo7w80fkfY41gHPV
- MNxjadQ7CVF0j0TBEWRLLU6SHKJ8G/qjY0caprNCPXhmioNpU5PXSeaLVDUA2rnNeIvYxnFsRfA
- gOvhIsFI9CwYVQbMA4+6xmJ93pL0JeUjpWtTPmMVcBn0uIoJ2J+XN4BayHnUXSEj/sQNJ7c4Nni
- x0pEDn46t6d9m7xocto2hvtBQv2cTUDuE1efw=
-X-Received: by 2002:a17:90b:3d8f:b0:37d:9874:935f with SMTP id
- 98e67ed59e1d1-37dcd701ea1mr6306406a91.11.1782290803441; 
- Wed, 24 Jun 2026 01:46:43 -0700 (PDT)
+ AHgh+RqguNjxIU17MTROITiYFUNNFdB3BrFzYlh6+5S1P4plOXMFQReLvIHSPcwKH4WC7g/yQlYZpGiAZq2huQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzjdvZiI019MsCxxT1kqjuYy/5Av3h4XSZ5+BiqZnhzE8a+qysd
+ VpiCVr8IX30a3yo1eprN7E9SfwC7qawt8Gezb1R/oC5VWke1HF1l49zJ
+X-Gm-Gg: AfdE7ckb4uuTMk9twLn4FWjjCT5s7/G80P6eBnC2D8OPBakBbwMT1UPRa6E8A0dP6iz
+ AdNtFZw/jLVajFcOp1Md8bFtWnXgOMWUvE4Wzo9uqrV/SDTr7bSWmq5d+n0Y4F4lSADdgNlxJec
+ FFhzAkjbvJqnpTcCUAr7SiHOI+Bh+/f3a2Uz9k7vZg7lLo2ipCEB18vSvDnlj0Ci59UXkhi0cGB
+ WvJl2V+r3RIkhul9crLhquFO0QxNqpeq5q1uZPkyBAeiwROJ3ajfWui5LyY3xCDQj5M3YqrYtyJ
+ sOGgiAlIBsvB7OTCgNaHAPDi9/CcGWPlVoIFYCiSk26USWavP/OkRHAoMQGfQB4JxRv6F5a4Z1E
+ MjtwmCJ+JMs/7Ld76LX38Kik5FgN2pKrmzuRE4v7hU1Tvb7StgeozUoXZA56szGtQoax3jn954V
+ KFMIOJVO/izzCkSStcwUZm3R/F
+X-Received: by 2002:a17:90b:278b:b0:37c:6975:2e3d with SMTP id
+ 98e67ed59e1d1-37dd0d3de38mr6759149a91.8.1782290810525; 
+ Wed, 24 Jun 2026 01:46:50 -0700 (PDT)
 Received: from [192.168.1.101] ([218.194.36.79])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.46.36
+ 98e67ed59e1d1-37de3d152f4sm2138146a91.14.2026.06.24.01.46.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 24 Jun 2026 01:46:42 -0700 (PDT)
+ Wed, 24 Jun 2026 01:46:50 -0700 (PDT)
 From: Yanan He <grumpycat921013@gmail.com>
-Date: Wed, 24 Jun 2026 16:44:38 +0800
+Date: Wed, 24 Jun 2026 16:44:39 +0800
 MIME-Version: 1.0
-Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-1-5aef608a3f64@gmail.com>
+Message-Id: <20260624-rv1126-alientek-dlrv1126-v1-2-5aef608a3f64@gmail.com>
 References: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
 In-Reply-To: <20260624-rv1126-alientek-dlrv1126-v1-0-5aef608a3f64@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -85,11 +85,11 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=883;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782290789; l=1084;
  i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=Jsh+4vP/f+Y7qzRXW4NmYmHJSetmziSvku7ESza+DQU=;
- b=Z9Lt///3m84yBAmd5Rx6elPweLgGZVP5itDksYZtTAsSRkl/mztlr90ckF6yRI06aMkezej95
- wSJvTw1mqiAB++WxygtHTIGc9+5JEekbHz0QDhcyHEO0zxJqsmdeR9j
+ bh=hEAydHqntdYMnlyAwKWZtU7FCzzrJfeB5kFdTHg3eh8=;
+ b=LQo6M34edM3nvXNVY+lWG19FP/SsEWFUfLZegDFVnSHuVJWMtsEo9BN8H+BQsQz7HVsHAPF9k
+ ntrv/WOTO4JAdqu8mcEVaIdImKoX5QNJcMKn9i+mijaj9U60D4syALM
 X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
  pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 X-Mailman-Approved-At: Thu, 25 Jun 2026 06:42:29 +0000
@@ -97,7 +97,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Yanan He <grumpycat921013@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/7] dt-bindings: vendor-prefixes: add alientek
+Subject: [Linux-stm32] [PATCH 2/7] dt-bindings: arm: rockchip: Add Alientek
+	DLRV1126
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -150,30 +151,34 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TO_DN_SOME(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C16F16C317F
+X-Rspamd-Queue-Id: F17146C3180
 
-Add a vendor prefix for Alientek, a board and module vendor used by the
-ATK-DLRV1126 board.
+The board consists of a DLRV1126 carrier board and a CLRV1126F core
+module based on the Rockchip RV1126 SoC.
 
-Link: https://en.alientek.com
 Signed-off-by: Yanan He <grumpycat921013@gmail.com>
 ---
- Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 28784d66ae7b..a23508a61373 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -88,6 +88,8 @@ patternProperties:
-     description: ALFA Network Inc.
-   "^algoltek,.*":
-     description: AlgolTek, Inc.
-+  "^alientek,.*":
-+    description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
-   "^allegro,.*":
-     description: Allegro DVT
-   "^allegromicro,.*":
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 1a9dde18626d..9058f2a461d5 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -162,6 +162,13 @@ properties:
+           - const: coolpi,pi-4b
+           - const: rockchip,rk3588s
+ 
++      - description: Alientek CLRV1126F SoM based boards
++        items:
++          - enum:
++              - alientek,dlrv1126
++          - const: alientek,clrv1126f
++          - const: rockchip,rv1126
++
+       - description: Edgeble Neural Compute Module 2(Neu2) SoM based boards
+         items:
+           - const: edgeble,neural-compute-module-2-io   # Edgeble Neural Compute Module 2 IO Board
 
 -- 
 2.54.0
