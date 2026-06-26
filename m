@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id mg+PGuZ0Pmq5GQkAu9opvQ
+	id E4+SGg91PmrHGQkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:47:34 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:48:15 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF8276CD203
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:47:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFFFC6CD22E
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:48:14 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b="cfxGAN/j";
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=c1nHVby4;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A1CC8C597BF;
-	Fri, 26 Jun 2026 12:47:33 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC95BC597BF;
+	Fri, 26 Jun 2026 12:48:14 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C094C424DD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id B888DC424DD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jun 2026 12:47:32 +0000 (UTC)
+ Fri, 26 Jun 2026 12:48:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 62A73600AE;
- Fri, 26 Jun 2026 12:47:31 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71D421F000E9;
- Fri, 26 Jun 2026 12:47:30 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D86E16020F;
+ Fri, 26 Jun 2026 12:48:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7ABE1F000E9;
+ Fri, 26 Jun 2026 12:48:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782478051;
- bh=gcyGrresjTTPmNzfpyIyHzXr15imrzLhXIY91GPffew=;
+ s=k20260515; t=1782478092;
+ bh=v4y2stLxJY7uDBiTbKNkCgVELhkFZRy7m3W4tRJdf+E=;
  h=Date:From:To:Subject:In-Reply-To:References:Cc;
- b=cfxGAN/jcCri326WXf34xWET6jX2QyOm4MN8pOKcqeKKkNBjEv6dqSXeKvaCEjiqQ
- xMUnaQaNuIQ/CQpLmGf1YlXqiGM0E0hqnbxoXWt1LrQHDTq2J3OIjNE3S2u9Xn/5ix
- oK+DP1AL9NHLm/+ebKyBGxhWgla2EUstpziga4oibOgZCkFVMReghKfhD46XkJseIF
- 4XVC8j4IST/6OWvdETIEQ6EjrbCmQnuVJeZuoqmH1cmfRtKD2cnh8CooWMpcUWm9DM
- tqoCryTCxfyH5x8StBEipzh+MB2ezInl6ba2yu/4cYIqDp4Gf/3f7LbllTeUaSycd1
- 37NkVCXO7+daQ==
-Message-ID: <f183d0ba167f71e0555814f7447f46e0@kernel.org>
-Date: Fri, 26 Jun 2026 12:47:28 +0000
+ b=c1nHVby4VzRMzYi1WtQ/1/FW3ad4AR7RuNig6IMp0LM3ATUWQciaqWn60HmhO2Mvx
+ cNEqkAHm18Hvnr+k13yWAhq+yWo1uNw3hHWs3Q8x1TMAn1T5q4A954G06yoTZ/xqv7
+ lRQaMyVCNzPQM45PccrZMMHmAIAiMKXOnHAYfj6tLYr6w+/gjiQcRXuiPq4vQPbvJZ
+ cLkFy6mqvFRYiquJKKOAOxqBTRMC3VrfNBzcr08WK3a7LEXgOXrYKDLUf/GU7q1FJs
+ LJqnxBYj30rKVQA7A4J67kU/ZHMfl/2PT7/+94GYQY7CBjUcCvqoe/B9jXAyzpvIl0
+ O2OBomnk1cP5w==
+Message-ID: <c5dc7d7db15a943d1b902469d79f4eb2@kernel.org>
+Date: Fri, 26 Jun 2026 12:48:10 +0000
 From: "Maxime Ripard" <mripard@kernel.org>
 To: "Albert Esteve" <aesteve@redhat.com>
-In-Reply-To: <20260626-drm_refcount_wiring-v1-1-cca1a7b3bdef@redhat.com>
-References: <20260626-drm_refcount_wiring-v1-1-cca1a7b3bdef@redhat.com>
+In-Reply-To: <20260626-drm_refcount_wiring-v1-2-cca1a7b3bdef@redhat.com>
+References: <20260626-drm_refcount_wiring-v1-2-cca1a7b3bdef@redhat.com>
 Cc: imx@lists.linux.dev, Sascha Hauer <s.hauer@pengutronix.de>, Alim
  Akhtar <alim.akhtar@samsung.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Frank
@@ -87,8 +87,8 @@ Cc: imx@lists.linux.dev, Sascha Hauer <s.hauer@pengutronix.de>, Alim
  Lucas Stach <l.stach@pengutronix.de>, Jyri
  Sarha <jyri.sarha@iki.fi>, Yannick Fertre <yannick.fertre@foss.st.com>, Laurent
  Pinchart <Laurent.pinchart@ideasonboard.com>
-Subject: Re: [Linux-stm32] [PATCH 1/5] drm/panel: have drm_panel_add/remove
- manage a list reference
+Subject: Re: [Linux-stm32] [PATCH 2/5] drm/bridge/panel: hold a reference to
+ the wrapped panel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -107,23 +107,23 @@ Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:aesteve@redhat.com,m:imx@lists.linux.dev,m:s.hauer@pengutronix.de,m:alim.akhtar@samsung.com,m:geert+renesas@glider.be,m:tomi.valkeinen@ideasonboard.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:paul@crapouillou.net,m:linux-tegra@vger.kernel.org,m:krzk@kernel.org,m:andrzej.hajda@intel.com,m:airlied@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:heiko@sntech.de,m:marex@denx.de,m:rgallaispou@gmail.com,m:thierry.reding@kernel.org,m:linux-samsung-soc@vger.kernel.org,m:rfoss@kernel.org,m:samuel@sholland.org,m:festevam@gmail.com,m:paulk@sys-base.io,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:jonathanh@nvidia.com,m:peter.griffin@linaro.org,m:linux-rockchip@lists.infradead.org,m:hjc@rock-chips.com,m:jagan@amarulasolutions.com,m:m.szyprowski@samsung.com,m:luca.ceresoli@bootlin.com,m:linux-sunxi@lists.linux.dev,m:simona@ffwll.ch,m:mperttunen@nvidia.com,m:kernel@pengutronix.de,m:jonas@kwiboo.se,m:alison.wang@
+ nxp.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:inki.dae@samsung.com,m:laurent.pinchart+renesas@ideasonboard.com,m:stefan@agner.ch,m:laurentiu.palcu@oss.nxp.com,m:biju.das.jz@bp.renesas.com,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:tzimmermann@suse.de,m:jingoohan1@gmail.com,m:linusw@kernel.org,m:sw0312.kim@samsung.com,m:linux-mips@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:jesszhan0024@gmail.com,m:kyungmin.park@samsung.com,m:kieran.bingham+renesas@ideasonboard.com,m:philippe.cornu@foss.st.com,m:mcoquelin.stm32@gmail.com,m:andy.yan@rock-chips.com,m:l.stach@pengutronix.de,m:jyri.sarha@iki.fi,m:yannick.fertre@foss.st.com,m:Laurent.pinchart@ideasonboard.com,m:geert@glider.be,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
 	FREEMAIL_CC(0.00)[lists.linux.dev,pengutronix.de,samsung.com,glider.be,ideasonboard.com,nxp.com,lists.freedesktop.org,vger.kernel.org,crapouillou.net,kernel.org,intel.com,gmail.com,st-md-mailman.stormreply.com,sntech.de,denx.de,sholland.org,sys-base.io,nvidia.com,linaro.org,lists.infradead.org,rock-chips.com,amarulasolutions.com,bootlin.com,ffwll.ch,kwiboo.se,linux.intel.com,agner.ch,oss.nxp.com,bp.renesas.com,suse.de,foss.st.com,iki.fi];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:aesteve@redhat.com,m:imx@lists.linux.dev,m:s.hauer@pengutronix.de,m:alim.akhtar@samsung.com,m:geert+renesas@glider.be,m:tomi.valkeinen@ideasonboard.com,m:Frank.Li@nxp.com,m:dri-devel@lists.freedesktop.org,m:linux-kernel@vger.kernel.org,m:paul@crapouillou.net,m:linux-tegra@vger.kernel.org,m:krzk@kernel.org,m:andrzej.hajda@intel.com,m:airlied@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:heiko@sntech.de,m:marex@denx.de,m:rgallaispou@gmail.com,m:thierry.reding@kernel.org,m:linux-samsung-soc@vger.kernel.org,m:rfoss@kernel.org,m:samuel@sholland.org,m:festevam@gmail.com,m:paulk@sys-base.io,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:jonathanh@nvidia.com,m:peter.griffin@linaro.org,m:linux-rockchip@lists.infradead.org,m:hjc@rock-chips.com,m:jagan@amarulasolutions.com,m:m.szyprowski@samsung.com,m:luca.ceresoli@bootlin.com,m:linux-sunxi@lists.linux.dev,m:simona@ffwll.ch,m:mperttunen@nvidia.com,m:kernel@pengutronix.de,m:jonas@kwiboo.se,m:alison.wang@
- nxp.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:inki.dae@samsung.com,m:laurent.pinchart+renesas@ideasonboard.com,m:stefan@agner.ch,m:laurentiu.palcu@oss.nxp.com,m:biju.das.jz@bp.renesas.com,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:tzimmermann@suse.de,m:jingoohan1@gmail.com,m:linusw@kernel.org,m:sw0312.kim@samsung.com,m:linux-mips@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:jesszhan0024@gmail.com,m:kyungmin.park@samsung.com,m:kieran.bingham+renesas@ideasonboard.com,m:philippe.cornu@foss.st.com,m:mcoquelin.stm32@gmail.com,m:andy.yan@rock-chips.com,m:l.stach@pengutronix.de,m:jyri.sarha@iki.fi,m:yannick.fertre@foss.st.com,m:Laurent.pinchart@ideasonboard.com,m:geert@glider.be,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[4];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER(0.00)[mripard@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
@@ -142,16 +142,16 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EF8276CD203
+X-Rspamd-Queue-Id: EFFFC6CD22E
 
-On Fri, 26 Jun 2026 14:03:23 +0200, Albert Esteve wrote:
-> The global panel_list holds raw pointers to drm_panel objects.
-> Nothing prevents a panel from being freed while it is still linked
-> in the list: if a driver's probe calls drm_panel_add() and then
-> fails at a later step, panel->list remains in panel_list. Any
-> subsequent call to of_drm_find_panel() that iterates the list will
+On Fri, 26 Jun 2026 14:03:24 +0200, Albert Esteve wrote:
+> drm_panel_bridge_add_typed() stores a pointer to the drm_panel it
+> wraps, but never acquires a reference to it. If the panel device
+> goes away while a panel_bridge still exists, the dangling pointer can
+> be dereferenced through panel_bridge->panel.
+> 
 > 
 > [ ... ]
 
