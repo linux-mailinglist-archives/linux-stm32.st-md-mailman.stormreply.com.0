@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id W44tJJARQmq+zgkAu9opvQ
+	id LK13JpARQmq9zgkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 08:32:48 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 114D46D659C
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CEA66D659B
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 08:32:47 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=redhat.com header.s=mimecast20190719 header.b=FHVzGkmy;
+	dkim=fail ("body hash did not verify") header.d=redhat.com header.s=mimecast20190719 header.b=XcYrOw8c;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=redhat.com (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9BCCEC5A4C4;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFB2EC5F1F7;
 	Mon, 29 Jun 2026 06:25:44 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D92AC424DD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09009C5A4C0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jun 2026 12:04:16 +0000 (UTC)
+ Fri, 26 Jun 2026 12:04:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782475455;
+ s=mimecast20190719; t=1782475471;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=FViDxx5winIJTx4A1LSm96AlpSugjn0hoKixmZIIAiQ=;
- b=FHVzGkmy/Fhr7TjyR/evgZq1nKIt2Nn1wEQ+L/2o7AxCXKepSWDcyQfxKuupHqYSPws4tb
- KIlRWaBAlE+xd5V7AE92AhhSKsC1iZYuLD8amok19iW8j7KgfG0hMdGDr5hp2Dq6KAQcep
- fRvpvCxZ03Us+uyIAayffs0jiZz9MD0=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ bh=IoiLuEs0fQtrDpOnJCVPBtcdDOUnvxJak86sNNFtqns=;
+ b=XcYrOw8c6rovGmK+WC9uHfzAvUEtxv8kFubOF/BXC7DNukmHAr5K+G6akc0EOBE907qsJt
+ AYPoliBrMt5lc+Lu+nebx/kX4d6xF04ULkn6mgBQWGGluLP2B/Whcd2PqPAX4tMzD6GPA/
+ 5T5VQ8iRHk8JGdmdsnwQ+D1sCh+h5mY=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-595-7c2vqhWPPASsVPMehKOiHA-1; Fri,
- 26 Jun 2026 08:04:09 -0400
-X-MC-Unique: 7c2vqhWPPASsVPMehKOiHA-1
-X-Mimecast-MFC-AGG-ID: 7c2vqhWPPASsVPMehKOiHA_1782475446
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-133-obkrNjJXOfaQH_y9u4g-bw-1; Fri,
+ 26 Jun 2026 08:04:29 -0400
+X-MC-Unique: obkrNjJXOfaQH_y9u4g-bw-1
+X-Mimecast-MFC-AGG-ID: obkrNjJXOfaQH_y9u4g-bw_1782475467
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E7CBA19560AD; Fri, 26 Jun 2026 12:04:05 +0000 (UTC)
+ by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id E00D5195604C; Fri, 26 Jun 2026 12:04:25 +0000 (UTC)
 Received: from [192.168.1.153] (headnet04.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.116])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 4AAFA18005B6; Fri, 26 Jun 2026 12:03:49 +0000 (UTC)
+ id ABA2618005B0; Fri, 26 Jun 2026 12:04:06 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 26 Jun 2026 14:03:23 +0200
+Date: Fri, 26 Jun 2026 14:03:24 +0200
 MIME-Version: 1.0
-Message-Id: <20260626-drm_refcount_wiring-v1-1-cca1a7b3bdef@redhat.com>
+Message-Id: <20260626-drm_refcount_wiring-v1-2-cca1a7b3bdef@redhat.com>
 References: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
 In-Reply-To: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -99,25 +99,25 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Thierry Reding <thierry.reding@kernel.org>, 
  Mikko Perttunen <mperttunen@nvidia.com>, 
  Jonathan Hunter <jonathanh@nvidia.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782475410; l=1528;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782475410; l=2189;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=orKWqDgf+p3yKjBR7Y3rK+A3gtMJHSHsy3pz0IxqEa8=;
- b=lP43AsH/FBUNAw+g/vAGxmj6wle77hMQ+FEg934iAODxrHenTnoOgZ4wiFXO/xT0AQViPwIHO
- J92o4leGVQ0A3rA3e6xzgaxeW87HR9Tc8kvHmKBq2DTk8fvIcTt9gLP
+ bh=k0Fp+8sQr3zfg5u2HHCF4cWKSffOLMXWCbveTegHWXU=;
+ b=KRKEPwGIFR+fYjRsq4WpccAKc6oAuWaZ3suxw8Sgu5kRbJ0u4ST8AVVBZZ+YsbxFZk3NnrCwV
+ M9fcWkBozA3C3IvwVpPUaw76p6L3npppMomWLgUB+8td46HP2LrfqmC
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: AGFLIDeMETuSgnFuQcIIIVt5E2elVK3XS_Sv3xuY_Ow_1782475446
+X-Mimecast-MFC-PROC-ID: 8f25fidIB8HOKt9lbVYo4aHpNX9V1NmQ-vRiDwfOsSU_1782475467
 X-Mimecast-Originator: redhat.com
-X-Mailman-Approved-At: Mon, 29 Jun 2026 06:25:42 +0000
+X-Mailman-Approved-At: Mon, 29 Jun 2026 06:25:43 +0000
 Cc: imx@lists.linux.dev, Albert Esteve <aesteve@redhat.com>,
  linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, linux-mips@vger.kernel.org,
  linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/5] drm/panel: have drm_panel_add/remove
- manage a list reference
+Subject: [Linux-stm32] [PATCH 2/5] drm/bridge/panel: hold a reference to the
+ wrapped panel
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -172,46 +172,71 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 114D46D659C
+X-Rspamd-Queue-Id: 0CEA66D659B
 
-The global panel_list holds raw pointers to drm_panel objects.
-Nothing prevents a panel from being freed while it is still linked
-in the list: if a driver's probe calls drm_panel_add() and then
-fails at a later step, panel->list remains in panel_list. Any
-subsequent call to of_drm_find_panel() that iterates the list will
-dereference freed memory.
+drm_panel_bridge_add_typed() stores a pointer to the drm_panel it
+wraps, but never acquires a reference to it. If the panel device
+goes away while a panel_bridge still exists, the dangling pointer can
+be dereferenced through panel_bridge->panel.
 
-Have drm_panel_add() acquire a reference via drm_panel_get() before
-inserting the panel into the list, and have drm_panel_remove() drop
-it via drm_panel_put() after removing the panel from the list. The
-global registry now holds a counted reference for as long as the
-panel is listed, ensuring the object outlives any concurrent lookup.
+Acquire a reference in drm_panel_bridge_add_typed() with drm_panel_get()
+and release it in each teardown path.
 
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/gpu/drm/drm_panel.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/bridge/panel.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 2c5649e433dfb..545fe93dc28fe 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -81,6 +81,7 @@ static void drm_panel_init(struct drm_panel *panel, struct device *dev,
-  */
- void drm_panel_add(struct drm_panel *panel)
+diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
+index 4978ec98a0828..6b98ad19508df 100644
+--- a/drivers/gpu/drm/bridge/panel.c
++++ b/drivers/gpu/drm/bridge/panel.c
+@@ -294,7 +294,7 @@ struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
+ 		return (void *)panel_bridge;
+ 
+ 	panel_bridge->connector_type = connector_type;
+-	panel_bridge->panel = panel;
++	panel_bridge->panel = drm_panel_get(panel);
+ 
+ 	panel_bridge->bridge.of_node = panel->dev->of_node;
+ 	panel_bridge->bridge.ops = DRM_BRIDGE_OP_MODES;
+@@ -316,6 +316,7 @@ EXPORT_SYMBOL(drm_panel_bridge_add_typed);
+ void drm_panel_bridge_remove(struct drm_bridge *bridge)
  {
-+	drm_panel_get(panel);
- 	mutex_lock(&panel_lock);
- 	list_add_tail(&panel->list, &panel_list);
- 	mutex_unlock(&panel_lock);
-@@ -98,6 +99,7 @@ void drm_panel_remove(struct drm_panel *panel)
- 	mutex_lock(&panel_lock);
- 	list_del_init(&panel->list);
- 	mutex_unlock(&panel_lock);
+ 	struct panel_bridge *panel_bridge;
++	struct drm_panel *panel;
+ 
+ 	if (!bridge)
+ 		return;
+@@ -326,10 +327,12 @@ void drm_panel_bridge_remove(struct drm_bridge *bridge)
+ 	}
+ 
+ 	panel_bridge = drm_bridge_to_panel_bridge(bridge);
++	panel = panel_bridge->panel;
+ 
+ 	drm_bridge_remove(bridge);
+ 	/* TODO remove this after reworking panel_bridge lifetime */
+-	devm_drm_put_bridge(panel_bridge->panel->dev, bridge);
++	devm_drm_put_bridge(panel->dev, bridge);
 +	drm_panel_put(panel);
  }
- EXPORT_SYMBOL(drm_panel_remove);
+ EXPORT_SYMBOL(drm_panel_bridge_remove);
  
+@@ -357,11 +360,14 @@ EXPORT_SYMBOL(drm_panel_bridge_set_orientation);
+ static void devm_drm_panel_bridge_release(struct device *dev, void *res)
+ {
+ 	struct drm_bridge *bridge = *(struct drm_bridge **)res;
++	struct panel_bridge *panel_bridge;
+ 
+ 	if (!bridge)
+ 		return;
+ 
++	panel_bridge = drm_bridge_to_panel_bridge(bridge);
+ 	drm_bridge_remove(bridge);
++	drm_panel_put(panel_bridge->panel);
+ }
+ 
+ /**
 
 -- 
 2.54.0
