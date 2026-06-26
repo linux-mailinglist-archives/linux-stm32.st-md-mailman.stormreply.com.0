@@ -2,49 +2,49 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id IKd2OEV2PmoYGgkAu9opvQ
+	id JTokHMp3PmqYGgkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:53:25 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:59:54 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 860676CD300
-	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:53:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 054906CD3DF
+	for <lists+linux-stm32@lfdr.de>; Fri, 26 Jun 2026 14:59:54 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=jA+1blRY;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=SUXMgmgW;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3519AC597BF;
-	Fri, 26 Jun 2026 12:53:25 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A471CC597BF;
+	Fri, 26 Jun 2026 12:59:53 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 15463C424DD
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BE6EC424DD
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jun 2026 12:53:23 +0000 (UTC)
+ Fri, 26 Jun 2026 12:59:52 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id C6BD340844;
- Fri, 26 Jun 2026 12:53:22 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12BC71F000E9;
- Fri, 26 Jun 2026 12:53:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3E51843849;
+ Fri, 26 Jun 2026 12:59:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8032F1F000E9;
+ Fri, 26 Jun 2026 12:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782478402;
- bh=4vW/ykol/caEyEWxjwNOEBg0s6JIz+ZkHwDVW8nFj8o=;
+ s=k20260515; t=1782478791;
+ bh=iuAhpilzZ82xLPk+JSQEUu87jLlBPaxS3Zm76C7j3bE=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=jA+1blRY/22zkn1IuV2vFG0t4ZR472agS+Rcx+5z16VdxoF71huJ1Hl8bsMp3pwie
- s3HtkJ3Tl3y1I0/1g6RacpyGU35B53xSHrcaW2t/QElscs05clIdKsmtyr19KKKovm
- j2vyJcgBgpzWNrcDG19JsgBHlP34lXUQWsnc+h2WSFpQYvkLvk59Qjivmjj2UMHGU9
- 2DAUYqmMHyTPI+NuAt0myou2eD4nJXGhda3uP6TH4lDTBl4kKy1F3g2geT40+z506u
- Vnogil5g4ai7oWWmwQeBbyrByU0zgFU0TRYPzYi5U+cc1hPuhhDyMuLKxFHdF8pOoa
- rE4v4BY+yF7Ng==
-Date: Fri, 26 Jun 2026 14:53:20 +0200
+ b=SUXMgmgWimGLbzlNMZ7wcG+1j38gd4fRHDIlDqaegwcqfVuQgLYX8VuUJtvM15vYp
+ jX12ep+d309u8bLQbPbyAdBvJmd8GAsRPjPQZkY4YwXDX5gr9XzTy4IoAL7jcTI2rV
+ 8MTxA1z++Ku+mxv+86TWL/aJ6xmEhLbsBHRnhMPe0NgKiyIhsLVeyivZGTUIIikGnb
+ y3xB6TtxeLHebb/RguAspWG9yWJwnaIq7UkWwS/TVbfgzD/kJBZNxTlsLf/tTqaRX3
+ 91ZGmQgom/jibidOew2L8xqAHAtkawCvVu8yAOpBH0ClZXAOWEuwCJJPHM/LEHesNi
+ Azxjd24IvLvoA==
+Date: Fri, 26 Jun 2026 14:59:48 +0200
 From: Maxime Ripard <mripard@kernel.org>
 To: Albert Esteve <aesteve@redhat.com>
-Message-ID: <20260626-manipulative-rainbow-rhino-d73b65@houat>
+Message-ID: <20260626-ivory-tarantula-of-valor-af0e2a@houat>
 References: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
- <20260626-drm_refcount_wiring-v1-4-cca1a7b3bdef@redhat.com>
+ <20260626-drm_refcount_wiring-v1-5-cca1a7b3bdef@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20260626-drm_refcount_wiring-v1-4-cca1a7b3bdef@redhat.com>
+In-Reply-To: <20260626-drm_refcount_wiring-v1-5-cca1a7b3bdef@redhat.com>
 Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Geert Uytterhoeven <geert+renesas@glider.be>,
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Frank Li <Frank.Li@nxp.com>,
@@ -84,8 +84,8 @@ Cc: imx@lists.linux.dev, Heiko =?utf-8?Q?St=C3=BCbner?= <heiko@sntech.de>,
  Paul Kocialkowski <paulk@sys-base.io>, Jyri Sarha <jyri.sarha@iki.fi>,
  Yannick Fertre <yannick.fertre@foss.st.com>,
  Lucas Stach <l.stach@pengutronix.de>
-Subject: Re: [Linux-stm32] [PATCH 4/5] drm/bridge: release panel reference
- on all lookup exit paths
+Subject: Re: [Linux-stm32] [PATCH 5/5] drm: release panel reference after
+ panel bridge creation
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -97,7 +97,7 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============8857495930461162960=="
+Content-Type: multipart/mixed; boundary="===============8513366460017412957=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
@@ -137,72 +137,69 @@ X-Spamd-Result: default: False [3.19 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,houat:mid,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[houat:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 860676CD300
+X-Rspamd-Queue-Id: 054906CD3DF
 
 
---===============8857495930461162960==
+--===============8513366460017412957==
 Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="dvioag5mayzeljeh"
+	protocol="application/pgp-signature"; boundary="hx5apeednlr6fj2q"
 Content-Disposition: inline
 
 
---dvioag5mayzeljeh
+--hx5apeednlr6fj2q
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/5] drm/bridge: release panel reference on all lookup
- exit paths
+Subject: Re: [PATCH 5/5] drm: release panel reference after panel bridge
+ creation
 MIME-Version: 1.0
 
-On Fri, Jun 26, 2026 at 02:03:26PM +0200, Albert Esteve wrote:
+On Fri, Jun 26, 2026 at 02:03:27PM +0200, Albert Esteve wrote:
 > of_drm_find_panel() and drm_of_find_panel_or_bridge() now return a
-> counted reference that the caller must release with drm_panel_put().
+> counted reference. In drivers that immediately wrap the panel in a
+> bridge via devm_drm_panel_bridge_add() or equivalent, the bridge
+> acquires its own reference, so the caller's lookup reference must be
+> released right afterwards.
 >=20
-> For bridge drivers that immediately wrap the panel in a panel_bridge
-> (which acquires its own reference), release the lookup reference right
-> after the bridge creation call.
->=20
-> For analogix-anx6345, which stores the panel for direct use, release
-> the reference in the i2c remove path.
->=20
-> For platform drivers using analogix_dp_core with a component lifecycle
-> (exynos_dp, rockchip analogix_dp), release the lookup reference in the
-> platform remove() function. The panel_bridge created during bind() holds
-> a separate reference that devm cleanup releases after remove() returns.
->=20
-> Also fix devm_drm_of_get_bridge() and drmm_of_get_bridge() in
-> bridge/panel.c itself: both call drm_of_find_panel_or_bridge() and
-> then pass the panel to devm/drmm_panel_bridge_add(), which acquires
-> its own reference via drm_panel_bridge_add_typed(). The lookup
-> reference was never released; add drm_panel_put() after each bridge
-> creation call.
+> Also handle the cases where a panel is found but cannot be used,
+> dropping the reference immediately in those paths.
 >=20
 > Assisted-by: Claude:claude-opus-4-6
 > Signed-off-by: Albert Esteve <aesteve@redhat.com>
 
-I think this one should be either split into one patch per driver, or
-merged with the of_drm_find_panel patch. I'm still not quite sure which
-would be the best, maybe the latter?
+drm_of_find_panel_or_bridge() does indeed return a refcounted pointer
+now, but afaik the doc wasn't updated to reflect that.
+
+More importantly, I feel like with both of_drm_find_panel and
+drm_of_find_panel_or_bridge we update a path that is considered legacy
+anyway now, and we should rather focus on providing a safe alternative.
+
+But none of the functions you updated are unsafe, so it won't be more
+unsafe, or provide any illusion of safety to the caller. Idk.
+
+Either way, this should all be on its way out if Luca creates a bridge
+for every panel, and we'll consolidate on bridges only, so maybe it's
+not such a big deal to merge this patch.
 
 Maxime
 
---dvioag5mayzeljeh
+--hx5apeednlr6fj2q
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj52PwAKCRAnX84Zoj2+
-dqkkAX416HMzwlmhKIK9kObtiXs7aRAKA/jKzZZr7wPHQO6/uyzY73TP2QyyShFE
-RjZRFDwBgJ2jRvQKam/G1wYDKDB/X9IryTeMbNEHvQrSIgH4XGYNKJ2sIqCmRRJm
-MAR2IQBH8A==
-=+EN8
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCaj53xAAKCRAnX84Zoj2+
+dsH4AX98DVuJ2nWYEJlnvBoa7TLPQIxJp+N3SqD7GpI68AgQPx9+XXIRd6eD3iVF
+E+I0SeQBgPnPf10X5ME+9qUOY4BE8jXvhoS7IaHARK1hueut9qHTwNXhFYoQyHlo
+Wk/+lJPV9A==
+=+ukr
 -----END PGP SIGNATURE-----
 
---dvioag5mayzeljeh--
+--hx5apeednlr6fj2q--
 
---===============8857495930461162960==
+--===============8513366460017412957==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -213,4 +210,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
---===============8857495930461162960==--
+--===============8513366460017412957==--
