@@ -2,57 +2,57 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id LK13JpARQmq9zgkAu9opvQ
+	id KYmSL5ARQmq/zgkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 08:32:48 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CEA66D659B
-	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 08:32:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9892F6D65A5
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 08:32:48 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=redhat.com header.s=mimecast20190719 header.b=XcYrOw8c;
+	dkim=fail ("body hash did not verify") header.d=redhat.com header.s=mimecast20190719 header.b=OWKsr9Nr;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=redhat.com (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AFB2EC5F1F7;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CE543C87EDE;
 	Mon, 29 Jun 2026 06:25:44 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
  (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 09009C5A4C0
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 50EFFC5A4DF
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 26 Jun 2026 12:04:31 +0000 (UTC)
+ Fri, 26 Jun 2026 12:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1782475471;
+ s=mimecast20190719; t=1782475494;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
  content-transfer-encoding:content-transfer-encoding:
  in-reply-to:in-reply-to:references:references;
- bh=IoiLuEs0fQtrDpOnJCVPBtcdDOUnvxJak86sNNFtqns=;
- b=XcYrOw8c6rovGmK+WC9uHfzAvUEtxv8kFubOF/BXC7DNukmHAr5K+G6akc0EOBE907qsJt
- AYPoliBrMt5lc+Lu+nebx/kX4d6xF04ULkn6mgBQWGGluLP2B/Whcd2PqPAX4tMzD6GPA/
- 5T5VQ8iRHk8JGdmdsnwQ+D1sCh+h5mY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ bh=tAXt9BpJq2YIR4eaVSRC7C34o5liCLbDvfRHWn5C0ys=;
+ b=OWKsr9Nry6UfmoBr05POUQinuXS1EEegxY3e0nEZDOrUJlrz02rD5WDqDufdnkSMJLUnz0
+ bFn21KEHCpK5sptExNxl7dt/9JI5m4f+v2NCCd3/Bd5u4Mz9FAIm/fJq624ZJMqXev4Vdy
+ enph0lnu73FDN4z43GcjTFWpDgGEMu8=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-133-obkrNjJXOfaQH_y9u4g-bw-1; Fri,
- 26 Jun 2026 08:04:29 -0400
-X-MC-Unique: obkrNjJXOfaQH_y9u4g-bw-1
-X-Mimecast-MFC-AGG-ID: obkrNjJXOfaQH_y9u4g-bw_1782475467
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-639-G2zlNTvQMl24BS8r5DdFsw-1; Fri,
+ 26 Jun 2026 08:04:49 -0400
+X-MC-Unique: G2zlNTvQMl24BS8r5DdFsw-1
+X-Mimecast-MFC-AGG-ID: G2zlNTvQMl24BS8r5DdFsw_1782475486
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id E00D5195604C; Fri, 26 Jun 2026 12:04:25 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id DA244180AE0E; Fri, 26 Jun 2026 12:04:45 +0000 (UTC)
 Received: from [192.168.1.153] (headnet04.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.116])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id ABA2618005B0; Fri, 26 Jun 2026 12:04:06 +0000 (UTC)
+ id 6643118005B1; Fri, 26 Jun 2026 12:04:26 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Fri, 26 Jun 2026 14:03:24 +0200
+Date: Fri, 26 Jun 2026 14:03:25 +0200
 MIME-Version: 1.0
-Message-Id: <20260626-drm_refcount_wiring-v1-2-cca1a7b3bdef@redhat.com>
+Message-Id: <20260626-drm_refcount_wiring-v1-3-cca1a7b3bdef@redhat.com>
 References: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
 In-Reply-To: <20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -99,15 +99,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Thierry Reding <thierry.reding@kernel.org>, 
  Mikko Perttunen <mperttunen@nvidia.com>, 
  Jonathan Hunter <jonathanh@nvidia.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782475410; l=2189;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782475410; l=3606;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=k0Fp+8sQr3zfg5u2HHCF4cWKSffOLMXWCbveTegHWXU=;
- b=KRKEPwGIFR+fYjRsq4WpccAKc6oAuWaZ3suxw8Sgu5kRbJ0u4ST8AVVBZZ+YsbxFZk3NnrCwV
- M9fcWkBozA3C3IvwVpPUaw76p6L3npppMomWLgUB+8td46HP2LrfqmC
+ bh=RQvWf2cmmOjDppG6XHJdIYzhop10IpGk0cqKF1/LF20=;
+ b=8W4ovjLmvfzm95lBgOYTjqgTr37+/SUy6z65QeUY1DlWACyNlGh9CVciNc0EOMA4rxo+vhk6F
+ nJQflgDdg2KBtgX+1gkj9BX1jBOVslRJjljQ/ZPAFhjR23p1/0zbIA9
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: 8f25fidIB8HOKt9lbVYo4aHpNX9V1NmQ-vRiDwfOsSU_1782475467
+X-Mimecast-MFC-PROC-ID: wsuA1kCe8LYfmQKMoheZdGXDQO7Ty8Tc3MMr0GQ9hmA_1782475486
 X-Mimecast-Originator: redhat.com
 X-Mailman-Approved-At: Mon, 29 Jun 2026 06:25:43 +0000
 Cc: imx@lists.linux.dev, Albert Esteve <aesteve@redhat.com>,
@@ -116,8 +116,8 @@ Cc: imx@lists.linux.dev, Albert Esteve <aesteve@redhat.com>,
  linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 2/5] drm/bridge/panel: hold a reference to the
- wrapped panel
+Subject: [Linux-stm32] [PATCH 3/5] drm/panel: make *find_panel*() return a
+ counted reference
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,7 +141,7 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	DATE_IN_PAST(1.00)[66];
 	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -149,11 +149,11 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	MIME_TRACE(0.00)[0:+];
 	TO_DN_SOME(0.00)[];
 	GREYLIST(0.00)[pass,body];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[aesteve@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS(0.00)[m:neil.armstrong@linaro.org,m:jesszhan0024@gmail.com,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:tzimmermann@suse.de,m:airlied@gmail.com,m:simona@ffwll.ch,m:andrzej.hajda@intel.com,m:rfoss@kernel.org,m:Laurent.pinchart@ideasonboard.com,m:jonas@kwiboo.se,m:jernej.skrabec@gmail.com,m:luca.ceresoli@bootlin.com,m:inki.dae@samsung.com,m:jagan@amarulasolutions.com,m:m.szyprowski@samsung.com,m:laurentiu.palcu@oss.nxp.com,m:l.stach@pengutronix.de,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:paul@crapouillou.net,m:linusw@kernel.org,m:marex@denx.de,m:stefan@agner.ch,m:tomi.valkeinen@ideasonboard.com,m:laurent.pinchart+renesas@ideasonboard.com,m:kieran.bingham+renesas@ideasonboard.com,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:biju.das.jz@bp.renesas.com,m:hjc@rock-chips.com,m:heiko@sntech.de,m:andy.yan@rock-chips.com,m:yannick.fertre@foss.st.com,m:raphael.gallais-pou@foss.st.com,m:philippe.cornu@foss.
  st.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:wens@kernel.org,m:samuel@sholland.org,m:jyri.sarha@iki.fi,m:jingoohan1@gmail.com,m:sw0312.kim@samsung.com,m:kyungmin.park@samsung.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:alison.wang@nxp.com,m:paulk@sys-base.io,m:alain.volmat@foss.st.com,m:rgallaispou@gmail.com,m:thierry.reding@kernel.org,m:mperttunen@nvidia.com,m:jonathanh@nvidia.com,m:imx@lists.linux.dev,m:aesteve@redhat.com,m:linux-samsung-soc@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:dri-devel@lists.freedesktop.org,m:linux-mips@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-tegra@vger.kernel.org,m:linux-sunxi@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:jernejskrabec@gmail.com,m:laurent.pinchart@ideasonboard.com,m:kieran.bingham@ideasonboard.com,m:geert@glider.be,m:magnusdamm@gmail.com,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[aesteve@redhat.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FREEMAIL_TO(0.00)[linaro.org,gmail.com,linux.intel.com,kernel.org,suse.de,ffwll.ch,intel.com,ideasonboard.com,kwiboo.se,bootlin.com,samsung.com,amarulasolutions.com,oss.nxp.com,pengutronix.de,nxp.com,crapouillou.net,denx.de,agner.ch,glider.be,bp.renesas.com,rock-chips.com,sntech.de,foss.st.com,sholland.org,iki.fi,sys-base.io,nvidia.com];
 	DKIM_TRACE(0.00)[redhat.com:-];
 	FROM_HAS_DN(0.00)[];
@@ -170,73 +170,95 @@ X-Spamd-Result: default: False [5.79 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0CEA66D659B
+X-Rspamd-Queue-Id: 9892F6D65A5
 
-drm_panel_bridge_add_typed() stores a pointer to the drm_panel it
-wraps, but never acquires a reference to it. If the panel device
-goes away while a panel_bridge still exists, the dangling pointer can
-be dereferenced through panel_bridge->panel.
+Callers of of_drm_find_panel() receive a pointer with no reference
+held, creating a window where the panel device can be unregistered
+and freed between the lookup and first use (e.g., drm_panel_prepare()).
 
-Acquire a reference in drm_panel_bridge_add_typed() with drm_panel_get()
-and release it in each teardown path.
+find_panel_by_fwnode() is the fwnode counterpart of of_drm_find_panel().
+drm_panel_add_follower() worked around the missing panel kref by calling
+get_device() on the panel's underlying struct device. However, get_device()
+only prevents the device kobject from being freed. It does not prevent the
+panel's kzalloc()'d container memory from being released when the kref
+reaches zero.
+
+Fix both lookup functions by acquiring a reference with drm_panel_get()
+before returning, under panel_lock. Callers are now responsible for calling
+drm_panel_put() when they no longer need the pointer.
 
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
- drivers/gpu/drm/bridge/panel.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_panel.c | 22 +++++++++++++++++-----
+ 1 file changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/panel.c b/drivers/gpu/drm/bridge/panel.c
-index 4978ec98a0828..6b98ad19508df 100644
---- a/drivers/gpu/drm/bridge/panel.c
-+++ b/drivers/gpu/drm/bridge/panel.c
-@@ -294,7 +294,7 @@ struct drm_bridge *drm_panel_bridge_add_typed(struct drm_panel *panel,
- 		return (void *)panel_bridge;
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index 545fe93dc28fe..a00ae98ed0956 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -458,14 +458,17 @@ EXPORT_SYMBOL(__devm_drm_panel_alloc);
  
- 	panel_bridge->connector_type = connector_type;
--	panel_bridge->panel = panel;
-+	panel_bridge->panel = drm_panel_get(panel);
+ #ifdef CONFIG_OF
+ /**
+- * of_drm_find_panel - look up a panel using a device tree node
++ * of_drm_find_panel - look up and reference a panel by device tree node
+  * @np: device tree node of the panel
+  *
+  * Searches the set of registered panels for one that matches the given device
+- * tree node. If a matching panel is found, return a pointer to it.
++ * tree node. If a matching panel is found, the panel's reference count is
++ * incremented before returning a pointer to it. The caller must call
++ * drm_panel_put() when it no longer needs the panel pointer.
+  *
+- * Return: A pointer to the panel registered for the specified device tree
+- * node or an ERR_PTR() if no panel matching the device tree node can be found.
++ * Return: A reference-counted pointer to the panel registered for the specified
++ * device tree node or an ERR_PTR() if no panel matching the device tree node
++ * can be found.
+  *
+  * Possible error codes returned by this function:
+  *
+@@ -484,6 +487,7 @@ struct drm_panel *of_drm_find_panel(const struct device_node *np)
  
- 	panel_bridge->bridge.of_node = panel->dev->of_node;
- 	panel_bridge->bridge.ops = DRM_BRIDGE_OP_MODES;
-@@ -316,6 +316,7 @@ EXPORT_SYMBOL(drm_panel_bridge_add_typed);
- void drm_panel_bridge_remove(struct drm_bridge *bridge)
+ 	list_for_each_entry(panel, &panel_list, list) {
+ 		if (panel->dev->of_node == np) {
++			drm_panel_get(panel);
+ 			mutex_unlock(&panel_lock);
+ 			return panel;
+ 		}
+@@ -538,7 +542,13 @@ int of_drm_get_panel_orientation(const struct device_node *np,
+ EXPORT_SYMBOL(of_drm_get_panel_orientation);
+ #endif
+ 
+-/* Find panel by fwnode. This should be identical to of_drm_find_panel(). */
++/*
++ * Find panel by fwnode, returning a counted reference.
++ *
++ * Behaves identically to of_drm_find_panel(). On success the returned
++ * pointer has been passed through drm_panel_get(); the caller must call
++ * drm_panel_put() when done with it.
++ */
+ static struct drm_panel *find_panel_by_fwnode(const struct fwnode_handle *fwnode)
  {
- 	struct panel_bridge *panel_bridge;
-+	struct drm_panel *panel;
+ 	struct drm_panel *panel;
+@@ -550,6 +560,7 @@ static struct drm_panel *find_panel_by_fwnode(const struct fwnode_handle *fwnode
  
- 	if (!bridge)
- 		return;
-@@ -326,10 +327,12 @@ void drm_panel_bridge_remove(struct drm_bridge *bridge)
- 	}
+ 	list_for_each_entry(panel, &panel_list, list) {
+ 		if (dev_fwnode(panel->dev) == fwnode) {
++			drm_panel_get(panel);
+ 			mutex_unlock(&panel_lock);
+ 			return panel;
+ 		}
+@@ -686,6 +697,7 @@ void drm_panel_remove_follower(struct drm_panel_follower *follower)
+ 	mutex_unlock(&panel->follower_lock);
  
- 	panel_bridge = drm_bridge_to_panel_bridge(bridge);
-+	panel = panel_bridge->panel;
- 
- 	drm_bridge_remove(bridge);
- 	/* TODO remove this after reworking panel_bridge lifetime */
--	devm_drm_put_bridge(panel_bridge->panel->dev, bridge);
-+	devm_drm_put_bridge(panel->dev, bridge);
+ 	put_device(panel->dev);
 +	drm_panel_put(panel);
  }
- EXPORT_SYMBOL(drm_panel_bridge_remove);
+ EXPORT_SYMBOL(drm_panel_remove_follower);
  
-@@ -357,11 +360,14 @@ EXPORT_SYMBOL(drm_panel_bridge_set_orientation);
- static void devm_drm_panel_bridge_release(struct device *dev, void *res)
- {
- 	struct drm_bridge *bridge = *(struct drm_bridge **)res;
-+	struct panel_bridge *panel_bridge;
- 
- 	if (!bridge)
- 		return;
- 
-+	panel_bridge = drm_bridge_to_panel_bridge(bridge);
- 	drm_bridge_remove(bridge);
-+	drm_panel_put(panel_bridge->panel);
- }
- 
- /**
 
 -- 
 2.54.0
