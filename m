@@ -2,65 +2,60 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id bKCFEK7BP2rbXwkAu9opvQ
+	id iN1jGOVSQmo24wkAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jun 2026 14:27:26 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 13:11:33 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213CC6D1ECE
-	for <lists+linux-stm32@lfdr.de>; Sat, 27 Jun 2026 14:27:25 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7EBE6D93B5
+	for <lists+linux-stm32@lfdr.de>; Mon, 29 Jun 2026 13:11:32 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=163.com header.s=s110527 header.b=nlfRSI7t;
+	dkim=fail ("body hash did not verify") header.d=codethink.co.uk header.s=imap5-20230908 header.b="5jj+/jM8";
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=163.com (policy=none)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=codethink.co.uk (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BB852C597BF;
-	Sat, 27 Jun 2026 12:27:24 +0000 (UTC)
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 564E8C0693D;
+	Mon, 29 Jun 2026 11:11:32 +0000 (UTC)
+Received: from imap5.colo.codethink.co.uk (imap5.colo.codethink.co.uk
+ [78.40.148.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E7B95C57B41
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3D904C424DB
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 27 Jun 2026 12:27:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
- s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=ob
- +Wv9rtj1ilAQNd+VQ7h5QgRYhVXXlg29EFqwYLSKM=; b=nlfRSI7tj78YruV6Bo
- tnp9env0ql4rGkN6TIjgStqBDakkENjxnigh4pAk3kgoVMVjCUS4p66+DfiX8CQe
- O6gbhddGCRmBUt3ZRLKKUFRwqibzuR8PWF3z3H2AJF0H0IrU+pY/WbIesMg1Hk4i
- oEQWUu4QkdXq0W88kXzA79yLI=
-Received: from 4CV529F122.company.local (unknown [])
- by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id
- _____wD39_9AwT9qK5mFGA--.3634S2; 
- Sat, 27 Jun 2026 20:25:48 +0800 (CST)
-From: Ding Hui <dinghui1111@163.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Ding Hui <dinghui@lixiang.com>,
- netdev@vger.kernel.org (open list:STMMAC ETHERNET DRIVER),
- linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32
- ARCHITECTURE), 
- linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE), 
- linux-kernel@vger.kernel.org (open list)
-Date: Sat, 27 Jun 2026 20:25:30 +0800
-Message-Id: <20260627122533.1165324-1-dinghui1111@163.com>
-X-Mailer: git-send-email 2.34.1
+ Mon, 29 Jun 2026 11:11:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=codethink.co.uk; s=imap5-20230908; h=Sender:Content-Transfer-Encoding:
+ In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:
+ Reply-To; bh=jPAvt4qaBDMoIurCHx70ouodE4Ai1NaWhHP67n45SmU=; b=5jj+/jM8kzonl4B7
+ XJdz4oWYE8E8yYUtrOmNyccKZxdT86dDo5mmb/lELsNfM2q4/9lPJrbgSPCbq0l9hhS/Ic4FNhWRm
+ CQ6tIi760AvxADxXVzgVttzly7dQbzSaSYCD7FRCXlXSxXSHpT4dNMMDMaSLeJa/acNYBioYmMAlt
+ 9tnhVQdD6TMQPgAj/PWazeEsVbgwCjdVNB2VcaOFtnRASUZCr9YwJ1Hicjf0p13qPTK3q65+dZ1to
+ cACsKcRR+VVeoNZpIZhKOtE4YIlvukMcAo9NQQzktprBzN+uVg9Y918AEDVoFXuIAXEE4t3paW22/
+ +fbV6rq/AHfYOFXDyw==;
+Received: from [167.98.27.226] (helo=[10.35.6.194])
+ by imap5.colo.codethink.co.uk with esmtpsa  (Exim 4.94.2 #2 (Debian))
+ id 1we9tN-000PL2-9D; Mon, 29 Jun 2026 12:11:09 +0100
+Message-ID: <74e05f3d-39a6-4a4c-8bc3-d4f23a54ef69@codethink.co.uk>
+Date: Mon, 29 Jun 2026 12:11:08 +0100
 MIME-Version: 1.0
-X-CM-TRANSID: _____wD39_9AwT9qK5mFGA--.3634S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWfJw4DKrWxKr1kKFWfJw15twb_yoWkAF18pF
- Wayw4qkryDJrsxGw48Jw48uFyYyay5AFW3Ww4xXwsI9w4akrnavF1SyFWYvasrCFW0vw4k
- tF4DCa9rCF1UZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jR38nUUUUU=
-X-Originating-IP: [220.248.55.70]
-X-CM-SenderInfo: pglqwx1xlriiqr6rljoofrz/xtbC9A7tGmo-wU6OVwAA3O
-Cc: xiasanbo@lixiang.com, liuxuanjun@lixiang.com, yangchen11@lixiang.com
-Subject: [Linux-stm32] [PATCH v4] net: stmmac: fix fatal bus error on resume
-	by reinitializing RX buffers
+User-Agent: Mozilla Thunderbird
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Jakub Kicinski <kuba@kernel.org>
+References: <20260622143707.497198-1-ben.dooks@codethink.co.uk>
+ <b375d36c-112e-4662-b538-fd10fa927ecc@bootlin.com>
+ <20260624192205.4485cd61@kernel.org>
+ <2a92fd9d-42b3-4564-b784-ec504d4d82b8@bootlin.com>
+Content-Language: en-GB
+From: Ben Dooks <ben.dooks@codethink.co.uk>
+Organization: Codethink Limited.
+In-Reply-To: <2a92fd9d-42b3-4564-b784-ec504d4d82b8@bootlin.com>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Eric Dumazet <edumazet@google.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH] net: stmmac: fix missed le32_to_cpu()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -72,343 +67,89 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.39 / 15.00];
+X-Spamd-Result: default: False [4.89 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[codethink.co.uk : SPF not aligned (relaxed),reject,sampled_out];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	R_DKIM_REJECT(1.00)[163.com:s=s110527];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[codethink.co.uk:s=imap5-20230908];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	MAILLIST(-0.20)[mailman];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[163.com : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[lunn.ch,davemloft.net,google.com,kernel.org,redhat.com,gmail.com,foss.st.com,armlinux.org.uk,bootlin.com,lixiang.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_RECIPIENTS(0.00)[m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:dinghui@lixiang.com,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:xiasanbo@lixiang.com,m:liuxuanjun@lixiang.com,m:yangchen11@lixiang.com,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
-	FORGED_SENDER(0.00)[dinghui1111@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FREEMAIL_FROM(0.00)[163.com];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[12];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[163.com:-];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[dinghui1111@163.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
-	HAS_XOIP(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	HAS_ORG_HEADER(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER(0.00)[ben.dooks@codethink.co.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FORGED_RECIPIENTS(0.00)[m:maxime.chevallier@bootlin.com,m:kuba@kernel.org,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:pabeni@redhat.com,m:rmk+kernel@armlinux.org.uk,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:rmk@armlinux.org.uk,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,redhat.com,armlinux.org.uk,davemloft.net,lists.infradead.org];
+	ARC_NA(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ben.dooks@codethink.co.uk,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[codethink.co.uk:-];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lixiang.com:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[codethink.co.uk:mid,codethink.co.uk:email,codethink.co.uk:url,codethink.co.uk:from_mime,stormreply.com:url,stormreply.com:email,marc.info:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 213CC6D1ECE
+X-Rspamd-Queue-Id: A7EBE6D93B5
 
-From: Ding Hui <dinghui@lixiang.com>
-
-On suspend, stmmac_suspend() calls stmmac_disable_all_queues() which
-stops the RX NAPI, but the RX DMA engine may still be running for a
-short window before stmmac_stop_all_dma() takes effect. During that
-window the hardware can write incoming frames into the buffers pointed
-to by the RX descriptors and write back the descriptors (clearing the
-OWN bit and overwriting RDES0/1/2 with status/timestamp data). Because
-NAPI is already disabled, the driver never refills these descriptors,
-so the RX ring is left in a "consumed but not refilled" state with
-stale content in the descriptor buffer-address fields.
-
-On resume, stmmac_clear_descriptors() only re-arms the OWN bit and
-does not repopulate the RX buffer address fields. When the DMA is
-restarted it dereferences these stale addresses and triggers a fatal
-bus error (not kernel panic, just a Fatal Bus Error interrupt and
-RX DMA engine halts).
-
-Fix this by introducing stmmac_reinit_rx_descriptors(), called from
-stmmac_resume() immediately after stmmac_clear_descriptors(). The
-helper iterates every RX descriptor slot and re-programs its buffer
-address fields:
-
- - For normal (page_pool) queues: restore RDES0/1 from buf->addr and
-   RDES2 from buf->sec_addr. The DMA mapping has remained valid across
-   suspend/resume because no pages were freed. Slots left NULL by a
-   prior GFP_ATOMIC failure in stmmac_rx_refill() before suspend
-   are re-allocated here with GFP_KERNEL;
-   -ENOMEM is returned and resume is aborted if allocation fails.
-   The slots with null buffer are unacceptable, because they will
-   cause a DMA suspend dead lock problem by the condition of
-   Current Descriptor Pointer == Descriptor Tail Pointer.
-
- - For AF_XDP zero-copy queues: restore the DMA address from
-   xsk_buff_xdp_get_dma(buf->xdp). Slots with no xdp buffer
-   (e.g. TX-only socket, empty fill ring) attempt xsk_buff_alloc()
-   first; on failure the descriptor is zeroed so the DMA engine skips
-   the slot safely via an RBU event.
-
- - For chain mode: call stmmac_mode_init() to rebuild the des3 next-
-   descriptor pointer chain, which hardware may have overwritten with
-   a PTP timestamp value (as noted in chain_mode.c:refill_desc3()).
-
-After reprogramming all address fields, a final pass restores OWN=1
-on every valid slot. This is necessary because set_sec_addr and
-chain-mode init unconditionally overwrite des3 (clearing the OWN bit
-set by stmmac_clear_descriptors()), and must run after all address
-writes are complete.
-
-Also fix stmmac_init_rx_buffers() to actually use its gfp_t flags
-parameter instead of the hardcoded GFP_ATOMIC | __GFP_NOWARN.
-
-Signed-off-by: Ding Hui <dinghui@lixiang.com>
-
----
-Changes in v4:
-- Just add description for return value of 'stmmac_reinit_rx_descriptors'.
-- Link to v3:
-  https://lore.kernel.org/netdev/20260604144557.3175399-1-dinghui1111@163.com/
-
-Changes in v3:
-- Re-allocate page_pool NULL slots (from prior GFP_ATOMIC failures)
-  with GFP_KERNEL in stmmac_reinit_rx_descriptors(); return -ENOMEM and
-  abort resume.
-- For XSK NULL slots, attempt xsk_buff_alloc() first; fall back to
-  stmmac_clear_desc() only when allocation fails.
-- Add a re-arm loop at the end of stmmac_reinit_rx_descriptors() to
-  restore OWN=1 on all valid slots, since set_sec_addr and
-  chain-mode init both write des3 unconditionally.
-- stmmac_reinit_rx_descriptors() now returns int; stmmac_resume()
-  checks the return value and propagates -ENOMEM with mutex/rtnl cleanup.
-- Fix stmmac_init_rx_buffers() to use its flags parameter instead of
-  hardcoded GFP_ATOMIC | __GFP_NOWARN.
-  (884d2b845477 ("net: stmmac: Add GFP_DMA32 for rx buffers if no 64
-  capability"))
-- Run stmmac_reinit_rx_descriptors() after stmmac_clear_descriptors()
-  so that stmmac_clear_desc() on XSK NULL slots overrides the OWN
-  bit set by stmmac_clear_descriptors().
-- Update commit message.
-- Link to v2:
-  https://lore.kernel.org/netdev/20260526022620.501229-1-dinghui1111@163.com/
-
-Changes in v2:
-- Introducing stmmac_reinit_rx_descriptors() to reinitializing rx
-  buffers without any allocation.
-- Modify commit log.
-- Link to v1:
-  https://lore.kernel.org/netdev/20260515053856.2310369-1-dinghui1111@163.com/
----
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 164 +++++++++++++++++-
- 1 file changed, 163 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 3591755ea30b..c82f3d5dbd43 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -1660,7 +1660,7 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv,
- {
- 	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
- 	struct stmmac_rx_buffer *buf = &rx_q->buf_pool[i];
--	gfp_t gfp = (GFP_ATOMIC | __GFP_NOWARN);
-+	gfp_t gfp = flags;
- 
- 	if (priv->dma_cap.host_dma_width <= 32)
- 		gfp |= GFP_DMA32;
-@@ -1693,6 +1693,148 @@ static int stmmac_init_rx_buffers(struct stmmac_priv *priv,
- 	return 0;
- }
- 
-+/**
-+ * stmmac_reinit_rx_descriptors - re-program RX descriptor buffer addresses
-+ *				   after stmmac_clear_descriptors()
-+ * @priv: driver private structure
-+ * @dma_conf: structure holding the dma data
-+ * @queue: RX queue index
-+ *
-+ * Description: Called in the resume path after stmmac_clear_descriptors()
-+ * has re-armed the OWN bit on every descriptor.  Walk buf_pool[] and
-+ * re-program the buffer-address fields of every RX descriptor from the
-+ * buffers that are already attached to the queue.  Slots whose page was
-+ * never allocated (GFP_ATOMIC failure before suspend) are re-allocated
-+ * here with GFP_KERNEL; the resume path is in process context.
-+ *
-+ * Between suspend and resume the hardware may have written back status/
-+ * length information into the descriptor address fields (RDESx are reused
-+ * for status on completion for GMAC4/XGMAC), so the address fields must be
-+ * repopulated before the DMA is restarted.
-+ *
-+ * For XSK slots that have no xdp buffer at suspend time (TX-only socket,
-+ * empty fill ring for Rx), xsk_buff_alloc() is attempted but does not
-+ * return an error on failure because we can't identify a real TX-only
-+ * socket from an alloc error (same as stmmac_alloc_rx_buffers_zc() in
-+ * __init_dma_rx_desc_rings); on failure the descriptor is zeroed so the DMA
-+ * engine skips the slot safely.
-+ *
-+ * To avoid the DMA stall after resume in non-XSK mode, this function
-+ * re-allocates pages for NULL slots using GFP_KERNEL (the resume path runs
-+ * in process context). If allocation fails, -%ENOMEM is returned immediately
-+ * and the resume is aborted; the caller should report the error.
-+ *
-+ * This helper must be called after stmmac_clear_descriptors() and before
-+ * stmmac_hw_setup() in stmmac_resume() because we need to wipe the OWN bit
-+ * set in stmmac_clear_descriptors() for NULL slots in XSK mode.
-+ *
-+ * Returns: 0 on success, or a negative errno on allocation failure in
-+ * non-XSK mode (e.g. -%ENOMEM).
-+ */
-+static int stmmac_reinit_rx_descriptors(struct stmmac_priv *priv,
-+					struct stmmac_dma_conf *dma_conf,
-+					u32 queue)
-+{
-+	struct stmmac_rx_queue *rx_q = &dma_conf->rx_queue[queue];
-+	struct stmmac_rx_buffer *buf;
-+	struct dma_desc *p;
-+	int i;
-+
-+	if (rx_q->xsk_pool) {
-+		for (i = 0; i < dma_conf->dma_rx_size; i++) {
-+			buf = &rx_q->buf_pool[i];
-+			p = stmmac_get_rx_desc(priv, rx_q, i);
-+
-+			/* The XSK pool may not be fully populated (e.g.
-+			 * xdpsock TX-only, empty fill ring).  Try to refill
-+			 * from the pool; on failure zero the descriptor so the
-+			 * DMA engine skips this slot safely.
-+			 */
-+			if (!buf->xdp) {
-+				buf->xdp = xsk_buff_alloc(rx_q->xsk_pool);
-+				if (!buf->xdp) {
-+					stmmac_clear_desc(priv, p);
-+					continue;
-+				}
-+			}
-+
-+			stmmac_set_desc_addr(priv, p,
-+					     xsk_buff_xdp_get_dma(buf->xdp));
-+			stmmac_set_desc_sec_addr(priv, p, 0, false);
-+		}
-+	} else {
-+		for (i = 0; i < dma_conf->dma_rx_size; i++) {
-+			buf = &rx_q->buf_pool[i];
-+			p = stmmac_get_rx_desc(priv, rx_q, i);
-+
-+			/* buf->page can be NULL when stmmac_rx_refill() hit a
-+			 * GFP_ATOMIC failure before suspend and left the slot
-+			 * without a buffer. The resume path runs in process
-+			 * context, so re-allocate with GFP_KERNEL. Allocation
-+			 * failure aborts the resume.
-+			 */
-+			if (!buf->page) {
-+				int err;
-+
-+				err = stmmac_init_rx_buffers(priv, dma_conf, p,
-+							     i, GFP_KERNEL,
-+							     queue);
-+				if (err)
-+					return err;
-+				/* stmmac_init_rx_buffers() already programmed
-+				 * the descriptor; skip the reprogramming below.
-+				 */
-+				continue;
-+			}
-+
-+			stmmac_set_desc_addr(priv, p, buf->addr);
-+			stmmac_set_desc_sec_addr(priv, p, buf->sec_addr,
-+						 priv->sph_active &&
-+						 buf->sec_page);
-+
-+			if (dma_conf->dma_buf_sz == BUF_SIZE_16KiB)
-+				stmmac_init_desc3(priv, p);
-+		}
-+	}
-+
-+	/* Chain mode: re-link descriptor 'next' pointers. This is
-+	 * allocation-free; it just rewrites the per-descriptor next
-+	 * field which may have been clobbered by HW writeback.
-+	 */
-+	if (priv->descriptor_mode == STMMAC_CHAIN_MODE) {
-+		void *des = priv->extend_desc ? (void *)rx_q->dma_erx
-+					      : (void *)rx_q->dma_rx;
-+
-+		stmmac_mode_init(priv, des, rx_q->dma_rx_phy,
-+				 dma_conf->dma_rx_size, priv->extend_desc);
-+	}
-+
-+	/* Re-arm OWN=1 on every valid slot.
-+	 *
-+	 * Two address-programming helpers write des3 unconditionally and
-+	 * therefore clear the OWN bit that stmmac_clear_descriptors() set:
-+	 *
-+	 *  - stmmac_desc_ops.set_sec_addr (called by stmmac_set_desc_sec_addr()):
-+	 *    writes des3 with upper_32_bits(addr).
-+	 *
-+	 *  - stmmac_mode_ops.init() (called by stmmac_mode_init() above): writes
-+	 *    des3 with the next-descriptor physical address.
-+	 *
-+	 * A single pass over valid slots restores OWN=1 after all descriptor
-+	 * fields have been written.  NULL slots are left with OWN=0 for XSK mode
-+	 * so the Rx DMA engine stalls safely.
-+	 */
-+	for (i = 0; i < dma_conf->dma_rx_size; i++) {
-+		buf = &rx_q->buf_pool[i];
-+		p = stmmac_get_rx_desc(priv, rx_q, i);
-+
-+		if (rx_q->xsk_pool ? !!buf->xdp : !!buf->page)
-+			stmmac_set_rx_owner(priv, p, false);
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * stmmac_free_rx_buffer - free RX dma buffers
-  * @priv: private structure
-@@ -8272,6 +8414,7 @@ int stmmac_resume(struct device *dev)
- {
- 	struct net_device *ndev = dev_get_drvdata(dev);
- 	struct stmmac_priv *priv = netdev_priv(ndev);
-+	u32 queue;
- 	int ret;
- 
- 	if (priv->plat->resume) {
-@@ -8321,6 +8464,25 @@ int stmmac_resume(struct device *dev)
- 	stmmac_free_tx_skbufs(priv);
- 	stmmac_clear_descriptors(priv, &priv->dma_conf);
- 
-+	/* Re-program the RX descriptor buffer-address fields.  Slots that
-+	 * had no page at suspend time (GFP_ATOMIC failure) are re-allocated
-+	 * here with GFP_KERNEL; XSK slots without an xdp buffer are refilled
-+	 * from the pool if possible.  Any unrecoverable allocation failure
-+	 * is reported so the resume can be aborted cleanly.
-+	 */
-+	for (queue = 0; queue < priv->plat->rx_queues_to_use; queue++) {
-+		ret = stmmac_reinit_rx_descriptors(priv, &priv->dma_conf,
-+						   queue);
-+		if (ret) {
-+			netdev_err(priv->dev,
-+				   "%s: rx desc reinit failed on queue %u\n",
-+				   __func__, queue);
-+			mutex_unlock(&priv->lock);
-+			rtnl_unlock();
-+			return ret;
-+		}
-+	}
-+
- 	ret = stmmac_hw_setup(ndev);
- 	if (ret < 0) {
- 		netdev_err(priv->dev, "%s: Hw setup failed\n", __func__);
--- 
-2.34.1
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+T24gMjUvMDYvMjAyNiAwODowNywgTWF4aW1lIENoZXZhbGxpZXIgd3JvdGU6Cj4gCj4gCj4gT24g
+Ni8yNS8yNiAwNDoyMiwgSmFrdWIgS2ljaW5za2kgd3JvdGU6Cj4+IE9uIE1vbiwgMjIgSnVuIDIw
+MjYgMTk6NTE6MzkgKzAyMDAgTWF4aW1lIENoZXZhbGxpZXIgd3JvdGU6Cj4+PiBIaSBCZW4sCj4+
+Pgo+Pj4gT24gNi8yMi8yNiAxNjozNywgQmVuIERvb2tzIHdyb3RlOgo+Pj4+IFRoZSBwcmludCBp
+biBuZGVzY19kaXNwbGF5X3JpbmcoKSBzZW5kcyB0aGUgZGVzMiBhbmQgZGVzMwo+Pj4+IHRvIHRo
+ZSBwcl9pbmZvKCkgd2l0aG91dCBwYXNzaW5nIHRoZW0gdGhyb3VnaCB0aGUgcmVsZXZhbnQKPj4+
+PiBjb252ZXJzaW9uIHRvIGNwdSBvcmRlci4KPj4+Pgo+Pj4+IEZpeCB0aGUgKHByb3RvdHlwZSkg
+c3BhcnNlIHdhcm5pbmdzIGJ5IHVzaW5nIGxlMzJfdG9fY3B1KCk6Cj4+Pj4gZHJpdmVycy9uZXQv
+ZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvbm9ybV9kZXNjLmM6MjU4OjE3OiB3YXJuaW5nOiBpbmNv
+cnJlY3QgdHlwZSBpbiBhcmd1bWVudCA2IChkaWZmZXJlbnQgYmFzZSB0eXBlcykKPj4+PiBkcml2
+ZXJzL25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9ub3JtX2Rlc2MuYzoyNTg6MTc6ICAgIGV4
+cGVjdGVkIHVuc2lnbmVkIGludAo+Pj4+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3Rt
+bWFjL25vcm1fZGVzYy5jOjI1ODoxNzogICAgZ290IHJlc3RyaWN0ZWQgX19sZTMyIFt1c2VydHlw
+ZV0gZGVzMgo+Pj4+IGRyaXZlcnMvbmV0L2V0aGVybmV0L3N0bWljcm8vc3RtbWFjL25vcm1fZGVz
+Yy5jOjI1ODoxNzogd2FybmluZzogaW5jb3JyZWN0IHR5cGUgaW4gYXJndW1lbnQgNyAoZGlmZmVy
+ZW50IGJhc2UgdHlwZXMpCj4+Pj4gZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMv
+bm9ybV9kZXNjLmM6MjU4OjE3OiAgICBleHBlY3RlZCB1bnNpZ25lZCBpbnQKPj4+PiBkcml2ZXJz
+L25ldC9ldGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9ub3JtX2Rlc2MuYzoyNTg6MTc6ICAgIGdvdCBy
+ZXN0cmljdGVkIF9fbGUzMiBbdXNlcnR5cGVdIGRlczMKPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6
+IEJlbiBEb29rcyA8YmVuLmRvb2tzQGNvZGV0aGluay5jby51az4KPj4+Cj4+PiBJIGFncmVlIG9u
+IHRoZSBwcmluY2lwbGUsIGJ1dCB0aGlzIGlzbid0IGEgZml4IHNvIHRoaXMnbGwgaGF2ZSB0byB3
+YWl0Cj4+PiB1bnRpbCBuZXQtbmV4dCByZS1vcGVucyA6KQo+Pgo+PiBIdW1wZiwgd2h5IGFyZSB3
+ZSBub3Qgc2VlaW5nIHRoaXMgb24geDg2IGFsbG1vZGNvbmZpZyA/IPCfpJTvuI8KPj4KPj4gJCBt
+YWtlIEM9MSBXPTEgZHJpdmVycy9uZXQvZXRoZXJuZXQvc3RtaWNyby9zdG1tYWMvbm9ybV9kZXNj
+Lm8KPj4gICAgREVTQ0VORCBvYmp0b29sCj4+ICAgIENDIFtNXSAgZHJpdmVycy9uZXQvZXRoZXJu
+ZXQvc3RtaWNyby9zdG1tYWMvbm9ybV9kZXNjLm8KPj4gICAgQ0hFQ0sgICBkcml2ZXJzL25ldC9l
+dGhlcm5ldC9zdG1pY3JvL3N0bW1hYy9ub3JtX2Rlc2MuYwo+PiAkCj4gCj4gSGVoIGdvb2QgcG9p
+bnQgaW5kZWVkICEKPiAgICAKPj4+PiBGaXggdGhlIChwcm90b3R5cGUpIHNwYXJzZSB3YXJuaW5n
+cyBieSB1c2luZyBsZTMyX3RvX2NwdSgpOgo+IAo+IEJlbiwgd2hhdCdzIHRoaXMgInByb3RvdHlw
+ZSIgc3BhcnNlID8gYSBjdXN0b20gdG9vbCBvZiB5b3VycyB0aGF0Cj4geW91IHVzZWQgdG8gZmlu
+ZCB0aGF0ID8KCkkgaGF2ZSBhbiBSRkMgdG8gYWRkIHZhcmlhZGljIGFuZCB0aHVzIGFsc28gcHJp
+bnRmL3NjYW5mIGZvcm1hdHRpbmcKdG8gc3BhcnNlLiBUaGlzIGlzIHdhaXRpbmcgb24gcmV2aWV3
+IGFmdGVyIHRoZSBvcmlnaW5hbCBnb3QgcmUtd29ya2VkCnRvIGFkZCBzY2FuZiBhbmQgYSBmZXcg
+b3RoZXIgYnVnLWZpeGVkIGFuZCBzaHVmZmxlcy4KClJlZjogaHR0cHM6Ly9tYXJjLmluZm8vP2w9
+bGludXgtc3BhcnNlJm09MTc4MTg1Mjc0NjAwNjc5Jnc9MgoKCi0tIApCZW4gRG9va3MJCQkJaHR0
+cDovL3d3dy5jb2RldGhpbmsuY28udWsvClNlbmlvciBFbmdpbmVlcgkJCQlDb2RldGhpbmsgLSBQ
+cm92aWRpbmcgR2VuaXVzCgpodHRwczovL3d3dy5jb2RldGhpbmsuY28udWsvcHJpdmFjeS5odG1s
+Cl9fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0
+bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0zMkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29t
+Cmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xp
+bnV4LXN0bTMyCg==
