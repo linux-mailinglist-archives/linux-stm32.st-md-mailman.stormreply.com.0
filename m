@@ -2,155 +2,121 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id eQeIHSHOQ2rdigoAu9opvQ
+	id u1+NI1/qQ2r/lQoAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jun 2026 16:09:37 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jun 2026 18:10:07 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 025226E53ED
-	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jun 2026 16:09:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE5FF6E646D
+	for <lists+linux-stm32@lfdr.de>; Tue, 30 Jun 2026 18:10:06 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b="l+ZGPTR/";
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=LqSlGDpX;
+	dkim=fail ("body hash did not verify") header.d=foss.st.com header.s=selector2 header.b=B8q6TtSA;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=foss.st.com (policy=none);
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B1248C8F263;
-	Tue, 30 Jun 2026 14:09:36 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 70B62C7A832;
+	Tue, 30 Jun 2026 16:10:06 +0000 (UTC)
+Received: from GVXPR05CU001.outbound.protection.outlook.com
+ (mail-swedencentralazon11013031.outbound.protection.outlook.com
+ [52.101.83.31])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8B0E5C7A832
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D3876C7A830
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jun 2026 14:09:34 +0000 (UTC)
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 65U9muBV1604757
- for <linux-stm32@st-md-mailman.stormreply.com>; Tue, 30 Jun 2026 14:09:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Cq/+IEZrDwJouA9RSiTyjXYgqRvfyJwMH0J3p6H0hvo=; b=l+ZGPTR/vmlcOdho
- OUfrMpbjEUKfVs9bvMHEcwv6H4b39fhh1wPo8Dm7jgzukwZl/PSbgsaLZaMbzy1q
- ITBLEm5XdUUIN0mCuUOTCB7l7Ud8iuA4d19qSvbcDdTySF0RHqxCfRI7LlxFCclY
- 0EffM3nelQKouYnkvfVvUDP4xJQKR8H7bSwkj6FYluvSQny+v5SzX21ZTjUMPMR+
- v5XhSEA6kQ35BepHizcN307Txcn12IBPKnU7+7xsX603GaJ8XSpOCZGZSyqd5Xhh
- 2RTf4hC8Emv9RIawxllPdEslvboyos5lszxELdnMOugQX3nfKgPQomvfgZ4sXLPa
- iNlckA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com
- [209.85.217.72])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f43vfk2cg-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jun 2026 14:09:29 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id
- ada2fe7eead31-734f7d8bb37so441043137.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jun 2026 07:09:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782828553; x=1783433353;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=Cq/+IEZrDwJouA9RSiTyjXYgqRvfyJwMH0J3p6H0hvo=;
- b=LqSlGDpXyIwrL008xrcVwKkx9swNlXHkDr7AqGIl1MW4u9WXd1pULJx47sVmiRVHl5
- 7PBRoCBvZGw+WSPuArnYvwA6kMz+lK4hoL/0TWaed4MyKhh8TXwcGKhOoKOY9cK2VHg8
- H/h4ffw8+2WNPbIMLIdgceSD2ZAJ4Uzx+UWnLsAVkkTV99l31CmDgaXNPvLRu1fDIQjV
- x+AsU5R6DQkSNibA2keQIFRhIcbpeUW8cVWFd3xywL2neG18oUHn6BXvc3uBFKoa9Vbp
- I9wQIuBqGcH47rAC8Mgmy21CGwLtMJqj2CYt144iMmkTjKGAM1qqxbuhuULbMnU3UIu7
- lKbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782828553; x=1783433353;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Cq/+IEZrDwJouA9RSiTyjXYgqRvfyJwMH0J3p6H0hvo=;
- b=S7Mcy2f28KCn+mVb0VdX/qVmZeghAsNdez6pAMBy4LXD8glsADSk1lXj77MmFFRw+3
- lx0Qc4jpETZ5IYQfkGQTMJvbAHh/sF90x1xZ4JAIDYhAu9dgzaoH2sjEhb9/6cR4+ieU
- S3+Y7yU1sIRHYG4EY2HC6LKuIWvqh7MEbJxpKg7ya0lWi4JukE9HxS8QUthkvsmuQnPU
- kVUeBKUMAVy9Vtr/Iqt2Vh8+nOLKnX+WPH/R3aDHxDyQZLYCZ11hNGS1wSafkXCWStEx
- z3uOa7+V6p85PN0c6qsChjeXHsDiR5QGwqKz9r5MmQ6OBtn0CFGmvDhHz1wqegDcJHuN
- nIPg==
-X-Forwarded-Encrypted: i=1;
- AHgh+RqzfrUD048pj96FWNIg3zddCegAy1vPMOXjfmovkHkhGZDFiTu3i+1j2ybX2NjZwzPgkAORqvX3TMpngA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YypQLZbwv0oZZTt1WKl1GPjCysXktDSG9bMdwgdYhB/ncXj3OyV
- k88AIIx/Eog84BdjWh8mUDRyni05LYvrXgSUgljbz8CkoRv2q0XSLJ0/yGtOB+MNKiLUUNe/g26
- IXa5kDewWBqJsYG/Y5HsA/Q8KLzhITTRbus9vNGd1nIsIlbdI33qAwmrlNIzwzGcRzDKSK43ump
- HkKP4kha8=
-X-Gm-Gg: AfdE7clZlJrFMgI871Sqod0HR9jTh0jjLCJnDFCqCUE4OwQ2RJWRK/7LSa48cjh3TRH
- tOEi864rBOqDDLuJg+RczUstzq/cU34lQCHKHxlfAfGxWmFeCfKQRvOIw2lNyURE0+NYrNXKml2
- N2XkbE9VYCQVRJHQgb+WuwHcJaqtJEzCWXtQeI8SjbPUS7WIb93aEQBRm+zja+lymI3z4jTfyHk
- iWW0zFW/AeZO0jO0u546PZKd+lqzyZst1/I5a6G1aR+mwcERq5dLkOZS7FGrz3YFvJPJJjdMNAk
- 8xs8WtBOofIQMoHogE7qqxMXspKSN2e45HYBpzbD96vQp/B39fjQgJ7B63CeBxMuJg5EpjEbRfu
- c5DxYEVOEfYacrT+4psRmSFHMn5hf9g3XlgU=
-X-Received: by 2002:a05:6102:8081:b0:72f:6669:286a with SMTP id
- ada2fe7eead31-73a363e653fmr674937137.2.1782828553181; 
- Tue, 30 Jun 2026 07:09:13 -0700 (PDT)
-X-Received: by 2002:a05:6102:8081:b0:72f:6669:286a with SMTP id
- ada2fe7eead31-73a363e653fmr674926137.2.1782828552777; 
- Tue, 30 Jun 2026 07:09:12 -0700 (PDT)
-Received: from [192.168.120.170] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c1288f0cc1esm135860766b.41.2026.06.30.07.09.09
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 30 Jun 2026 07:09:11 -0700 (PDT)
-Message-ID: <197684ce-e0c0-41ee-ae1b-c9b31a7f6411@oss.qualcomm.com>
-Date: Tue, 30 Jun 2026 16:09:08 +0200
+ Tue, 30 Jun 2026 16:10:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=bp2ctQSj9U3eoHcw/gn1vy+k1d20uinsOAUfC1K0WdfWoqHuTLJCMpYPpLzUAzfJKQ3DZR7pU1Ew/MAc0vbkwS01bM5sAqbc+8NxEkW4BqFWAmI+eXk6G8DHBxVyw1cQkY9DOB3cntQcTg+2l2QMtFBaRGHsEzMHr+pvOdhSddYWuppkwIY3ilJmKNTkpcu3uniaCPGZolHW/gWlfvdcKlPhuKksR2JdtXZfythBzdiRzk+D3Uah4NCpvPBffHD91YIB8h0BkejGhhnKWzLXGGEzAoonieYwQoIt6Qre9+Ba2H0vyK+WdA9DoLTy39UVTdLbGRq02JGLbNDKPp6lBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uA/WkjUE/FemZ1IA2BzsjbrVinKkgL4t9m+WhhbzRVg=;
+ b=QMPmc8ONvSl3Syj30lWp7K8GnMZCJqp+0wD6u2cLucHDr0ABTmpbPVgeQ7Tvxf0YFR7HzR6gDRcWiqi4HvS2NWgTOpmKlnUR5j/Ek3jzuGscdKpu07iPOLQNpGXJ/3W2Njkq9UVwCeajFRQMoVpcbQWccgBJGyNy0hNyg9nnVN4OTDXN3XHl8GqXdrXvDSfEiINxVCtUhqUjmwM1e/kMavN4ImQmn0DOrzFvMXLZPvKklanoSOUioR3j/WY7U0EtyiMCbBB6zJ49v2dwi7O1QSW5NT8af1HnHd1wfNXtMjn1p1gRuXpToO7KZAU0OvbiGxry1RCmD7yRDdxtaVVmnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=amarulasolutions.com
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uA/WkjUE/FemZ1IA2BzsjbrVinKkgL4t9m+WhhbzRVg=;
+ b=B8q6TtSAZf0VDJqIRnpkzW//pGudgR8fe2nO+8hT3Vumyn7bppvc53z9K5ry5FHBAFmPLLbMKx1JOTtYN60RnzHwXC7lq7AMhS73JTxuHlPqd6VRvvy/2jKIMFp5Vj5YhZIITA8rOnM8WZ3AEzT4AXCY8MjGlnQkCq2l5Zf0dxpFOL/xUoJAV4YLqzPD+/0nQjXXYEYNqu6zYUVtqxnrXYF2tP7ldFBC4UEYeVTLQgEY7Zj2Ky76Ip+gidZnps8LBNd9NpziAeziJhOvdbbtwpflZ/BpnTlndCWMKjsagfVqsUl9eRQR+x8s3FE1MzuRFyOtogJ9DDHblL2g2TbdOQ==
+Received: from DUZPR01CA0268.eurprd01.prod.exchangelabs.com
+ (2603:10a6:10:4b9::16) by PA2PR10MB8409.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:425::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.159.19; Tue, 30 Jun
+ 2026 16:10:01 +0000
+Received: from DU2PEPF00028D08.eurprd03.prod.outlook.com
+ (2603:10a6:10:4b9:cafe::1) by DUZPR01CA0268.outlook.office365.com
+ (2603:10a6:10:4b9::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.159.19 via Frontend Transport; Tue,
+ 30 Jun 2026 16:10:01 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ DU2PEPF00028D08.mail.protection.outlook.com (10.167.242.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.181.6 via Frontend Transport; Tue, 30 Jun 2026 16:10:01 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 30 Jun
+ 2026 18:14:16 +0200
+Received: from [10.252.21.21] (10.252.21.21) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 30 Jun
+ 2026 18:09:59 +0200
+Message-ID: <47285b1f-b99c-46b3-b386-5e900f4dce47@foss.st.com>
+Date: Tue, 30 Jun 2026 18:09:59 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-References: <20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com>
- <20260609-b4-eliza_mm_cc_v6-v6-7-17df09e5940c@oss.qualcomm.com>
+To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+ <linux-kernel@vger.kernel.org>
+References: <20260630092628.1695560-1-dario.binacchi@amarulasolutions.com>
+ <20260630092628.1695560-11-dario.binacchi@amarulasolutions.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260609-b4-eliza_mm_cc_v6-v6-7-17df09e5940c@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: cH6zS_WMaWkcZU6VZXMDFFAPVzalFq08
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjMwMDEzMiBTYWx0ZWRfX2FHkvcETL/jx
- GAKmiN4rApNSK1U2+KvSbKCGvoU8QdxFCtBJeytg1fQeoxJktrMPARP0RvjIuRvv5O3E7wKhqTj
- yEZpCHdyjJIl+nt+EaAl/5hZEcT2dOj1LClMYCyUd2LOh/CvrpJ5FLLrbp+uj95G7h9VTtAO/+S
- NfIpCsFe7T/WfqRbMO1LEPaFtywtv0bDE7E5foj3URZbHUE+UbiKZfGPB+tnTwneHYNGYfdEGSs
- T9xXOW2Ypy8Xyr+JTMu8k9D5X5VoxDKLDOVIHmmoHGeN7mYiVbcj93BJwK43KWc1evGhVeROiwk
- ONFhVUdkT6Dqel+MEaAA8Q7GEKt5w2xzsalQ8n1n1apAXScDIpOZ5dXdZrYOxuav5QjyL/hZZ74
- QDLBTWl3pelqjUgXoL0cFFtfgbePGkIq48obCoE/F5Xi87Y67dnPWW2CU1HMtsHHos5HU0n5WUT
- jLzdeOoLDevM/aeGrAA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNjMwMDEzMiBTYWx0ZWRfX/+lF3ZyalBXf
- /SRtd/cKfKu98sZciv4QzKwB0gwxBqW1BgGN9V9R/DfsRKBRIOXmlvNXqDRSJAUCltlXJpgHBZY
- OOCxffHWeJQIjsJcdNFtLqQb5rd1jDY=
-X-Proofpoint-GUID: cH6zS_WMaWkcZU6VZXMDFFAPVzalFq08
-X-Authority-Analysis: v=2.4 cv=PcXPQChd c=1 sm=1 tr=0 ts=6a43ce1b cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=6vCOFkJVGQXElGg4amEA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-30_03,2026-06-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- adultscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2606300132
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
- Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
+From: Olivier MOYSAN <olivier.moysan@foss.st.com>
+In-Reply-To: <20260630092628.1695560-11-dario.binacchi@amarulasolutions.com>
+X-Originating-IP: [10.252.21.21]
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF00028D08:EE_|PA2PR10MB8409:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f495fe6-40c7-4ad1-0c2e-08ded6c20a1f
+X-LD-Processed: 75e027c9-20d5-47d5-b82f-77d7cd041e8f,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|23010399003|376014|7416014|1800799024|82310400026|4143699003|56012099006|11063799006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info: RwxQGxgwrdU7nA6xEZxDqwtWHPc6G0y2hU0hcl77g+kCv7BvoCVhl9o7kriBlD87b1OWa0dN13C7/7rk2EgQjggZJIbxYSomvgGKz+47CcRBqf7bS/DL98aXFGuvBOvmgs+i325IWMEIxy28N71P5Xy7ANUEdGhUkgdc2Ofy7Ix9FYqJxZCGMcMs/syEiZqcwC1l58CCf0T9hYIm6Z9mZK7KQ0mdsejAcZFzAWhCj08UcVP/5pMJcq9PjAo9LDZghq6ZnYD52fZc0VgC7tdaV0yU+1jw/u+wcmk5sXaA/kNoPESDGzUB4t7JMebN0T5NTXg5139lF4cfC8A1pJFoqHcNqK7XM0AQY4LUij8BKCgpttIgZVcpzfOgmr37/LdfNvKfVwDwpyVSx3ek22h/1VPqpZrwcuKrEXkejFAuXajOPPC+QgZSfEBLkqCp0mshK+PaJYvpBro1LumSSQOK8wYDBaD4VHMKasCo1y3+r4Rj4gP+mFh5VaQZG2Hd8wlvGuq4/aI1daNfCTjdO3Xt1rp2mRZaB1UOe2BQ4714ugt2KTkcL2EALYN/SOYd89gdmZU+T4eGgSYnEU33CBSxY9olzaN4fj17iWo0290sbOlMGJwdwvAuEZ5cVPqXpwFR8BFtsKjLOxbTC2Tnc8MXN687q9NXvw+B4jBhycwHbfduQCKa85zdipV3vcHpwQZ5o/vbwLs2QHG+FEPSr15ETg==
+X-Forefront-Antispam-Report: CIP:164.130.1.60; CTRY:IT; LANG:en; SCL:1; SRV:;
+ IPV:CAL; SFV:NSPM; H:smtpO365.st.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(23010399003)(376014)(7416014)(1800799024)(82310400026)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: gAf4/ZZFU/r3p8xbqY6BQ2MjNCFGX1fzSPCqLlBSXm91vR/gOG/4qT/yY+tEFcyYRKO9g7lrHRjl5IKa+5xj0b8GBEVJ3ZfqJkaCjEC2yGOGs9pbqE4Zg9QeUhvM8C/6HYSr2oU2xk2jwewsO9bNsyLDPnLAZUwK4lRPYYxwjBh1oq51WSj9kobu3oKpSQPdUiVaMqXzSawsvBWFR0FiXcrpT5IxwKubnKp6GiwO+7OHR2GZIeNwGaJzWIeyCMe+ZbHD78AwEfqUITOLWu1+uHzkm/Li+ofo7905Ad8vuPwT/OTnUMMXtvtONfYDn6Rj8FZHWGTZZ0SCVVCug6s27zRZ/rZpAcnffl7VvSfEBzfNqVzr/R/Ft7EusE8D0iDkEKS3vW3FgFxb3GdT83m5RvAUgf03gkcgYroQmHCvH0VQwlzi1NUYvxWokvT1kx92
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jun 2026 16:10:01.3795 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f495fe6-40c7-4ad1-0c2e-08ded6c20a1f
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f; Ip=[164.130.1.60];
+ Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource: DU2PEPF00028D08.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR10MB8409
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, francesco.utel@engicam.com,
+ domenico.acri@engicam.com, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
+ linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH v6 7/7] arm64: dts: qcom: eliza: Add
- support for MM clock controllers
+Subject: Re: [Linux-stm32] [PATCH v6 10/16] arm64: dts: st: add sai1 pins
+ for stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -162,62 +128,123 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.29 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
+	R_DKIM_REJECT(1.00)[foss.st.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[foss.st.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[22];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:bmasney@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:luca.weiss@fairphone.com,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dmitry.baryshkov@oss.qualcomm.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:dario.binacchi@amarulasolutions.com,m:linux-kernel@vger.kernel.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:devicetree@vger.kernel.org,m:francesco.utel@engicam.com,m:domenico.acri@engicam.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:michael@amarulasolutions.com,m:linux-amarula@amarulasolutions.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	FORGED_SENDER(0.00)[olivier.moysan@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
 	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,baylibre.com,redhat.com,fairphone.com,gmail.com,foss.st.com];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[6];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[foss.st.com:-];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	HAS_XOIP(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[olivier.moysan@foss.st.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[kernel.org,vger.kernel.org,engicam.com,gmail.com,amarulasolutions.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	ALIAS_RESOLVED(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	MID_RHS_MATCH_FROM(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stormreply.com:url,stormreply.com:email]
+	RCVD_COUNT_SEVEN(0.00)[7]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 025226E53ED
+X-Rspamd-Queue-Id: BE5FF6E646D
 
-On 6/9/26 5:02 PM, Taniya Das wrote:
-> Add the device nodes for the multimedia clock controllers (cambistmclkcc,
-> camcc, videocc, gpucc) for Qualcomm Eliza SoC.
+Hi Dario,
+
+On 6/30/26 11:24, Dario Binacchi wrote:
+> Add the sai1 pins used on MicroGEA-STM32MP257-RMM board.
 > 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 > ---
+> 
+> (no changes since v1)
+> 
+>   arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 45 +++++++++++++++++++
+>   1 file changed, 45 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+> index 695c9d771853..002fbc724b9d 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
+> @@ -520,6 +520,51 @@ pins {
+>   		};
+>   	};
+>   
+> +	/omit-if-no-ref/
+> +	sai1a_pins_a: sai1a-0 {
+> +		pins1 {
+> +			pinmux = <STM32_PINMUX('D', 9, AF3)>, /* SAI1_SD_A */
+> +				 <STM32_PINMUX('D', 8, AF3)>, /* SAI1_FS_A */
+> +				 <STM32_PINMUX('D', 10, AF3)>; /* SAI1_SCK_A */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <1>;
+> +		};
+> +		pins2 {
+> +			pinmux = <STM32_PINMUX('D', 11, AF3)>; /* SAI1_MCLK_A */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <2>;
+> +		};
+> +	};
+> +
+> +	/omit-if-no-ref/
+> +	sai1a_sleep_pins_a: sai1a-sleep-0 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('D', 9, ANALOG)>, /* SAI1_SD_A */
+> +				 <STM32_PINMUX('D', 8, ANALOG)>, /* SAI1_FS_A */
+> +				 <STM32_PINMUX('D', 10, ANALOG)>, /* SAI1_SCK_A */
+> +				 <STM32_PINMUX('D', 11, ANALOG)>; /* SAI1_MCLK_A */
+> +		};
+> +	};
+> +
+> +	/omit-if-no-ref/
+> +	sai1b_pins_a: sai1b-0 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('D', 4, AF4)>; /* SAI1_SD_B */
+> +			bias-disable;
+> +			drive-push-pull;
+> +			slew-rate = <0>;
+> +		};
+> +	};
+> +
+> +	/omit-if-no-ref/
+> +	sai1b_sleep_pins_a: sai1b-sleep-0 {
+> +		pins {
+> +			pinmux = <STM32_PINMUX('D', 4, ANALOG)>; /* SAI1_SD_B */
+> +		};
+> +	};
+> +
+>   	/omit-if-no-ref/
+>   	sdmmc1_b4_pins_a: sdmmc1-b4-0 {
+>   		pins1 {
 
-Almost all of these nodes lack power-domains, meaning the
-aggregated performance state requests will not be translated
-into RPMH requests
+You can add Reviewed-by: Olivier Moysan <olivier.moysan@foss.st.com>
 
-Konrad
+Thanks & Regards
+Olivier
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
