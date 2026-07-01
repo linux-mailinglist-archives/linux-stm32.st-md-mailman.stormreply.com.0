@@ -2,107 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xTEsKTuuRGq3ywoAu9opvQ
+	id HNiiGj6uRGq4ywoAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:47 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:50 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 359366EA16C
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4F7356EA171
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=TgOpehFS;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=Cl3dArPR;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=OGYpZSjf;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=OIQU0wef;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DA080C7C7CB;
-	Wed,  1 Jul 2026 06:05:46 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17A50C8F265;
+	Wed,  1 Jul 2026 06:05:50 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E24ACC712A3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDB89C712A3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2026 06:05:44 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ Wed,  1 Jul 2026 06:05:48 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6615lZ12154312
- for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 1 Jul 2026 06:05:43 GMT
+ 6615m6O0126942
+ for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 1 Jul 2026 06:05:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=GDA5R3uG6L2cQs5Nts3tPd
- 1DDLvHEkLmpFRRWHiKAnE=; b=TgOpehFSirBOwgqhrNU6IADbzS1zwQ1x7tSXqV
- HmvvXJpBhziOrT6RoVlllfyVufO9LXOrLrQIP8SesZkhgIufh8Vkr5uth1L+MpfK
- 1JWBf9N4ShzOftLsgl6LGIyC0ytMYssEYiTv4YUEsIiJVGHIoLXFI67Bcf0vmVVw
- n8GIWq813WRTX9HAK6y2QesZq8JtXFW1UYPLZ/ytpULLv3AruREn/TEME3yZ0bbd
- 9JjHjj+6L+xyltlVmQGTxi+CSnMGHFXkLJKeljs14EmhyOXfV2ZOHMy1Y1OVfrtd
- 7kcokOBcia50USMYjlFmGzvHBE4dTyrkTXDAjcb2X6nwtKww==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4j912nhm-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ WYlZ2aPEpqh61K7tMl0TS4HBIg4YZJn9Z3vmihGIy1Y=; b=OGYpZSjfrf7TJ7cE
+ sWtNhxXmpDySRu6KWbyUJzxh5PZhTje+QJwFSIN1nqt+vvhpH6VrSs7ny1UnMfSY
+ qEG6y0Lj5oCHJpJvbaAfVriZ1vSLD07vp3vpf5IFCWqnAL4vcEJkHBHfBCCTimbx
+ j4bnKlNzJuxzJW3zK8Y2RKYqkM14iNF41Igp49gMlDMTCIzIZOsMoPAPXYPHiND9
+ h30ywhOEd0I2GrLu65N6+nU7PJAN7Cc379OiVDhmbPh1IZzSOdv0XqDzmWto/drl
+ BSYlnkmRvrGYGbe5Dsu3rL8rrRNabIC+xRw5Z1aXAV4edNn32ZgeIbNpslEc+fxK
+ d4cGUA==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
+ [209.85.210.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4fc0bmc0-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 01 Jul 2026 06:05:42 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-847a225cd91so335873b3a.2
+ Wed, 01 Jul 2026 06:05:47 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id
+ d2e1a72fcca58-847a483ea41so472437b3a.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jun 2026 23:05:42 -0700 (PDT)
+ Tue, 30 Jun 2026 23:05:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782885942; x=1783490742;
+ d=oss.qualcomm.com; s=google; t=1782885947; x=1783490747;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=GDA5R3uG6L2cQs5Nts3tPd1DDLvHEkLmpFRRWHiKAnE=;
- b=Cl3dArPRiF1Lfk8Ai32z2jgLcUX2K23oEo+d4bAtlw3mGtDpWoas7AJngABPSkHScb
- iWB+4xBPrw+G3mcdft/fyW7qKCrmUZloGRiDVExyKgDkPUk6pfC2hnNDwk/PFbuaYS4P
- CHRYUGKn9zl10+1CwGL07/RFDTt1zUD5SEXDGoeDtUaT/ZjEJVhcvfrDpJQQmMeccUKT
- vVcnwzfoik4SSEQRKldFBuZYD47pZrkaimnYq2WrI02aUQlkgBNubuHa9bWB30IGeTwN
- zCXqbWYKglscjo8Up3Z05yC1wi8vYTM4mLj8MCaJ2IOG6SrcrIJ7ScW+7f4Mvp7VTmQC
- jNuA==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+ :reply-to; bh=WYlZ2aPEpqh61K7tMl0TS4HBIg4YZJn9Z3vmihGIy1Y=;
+ b=OIQU0wefbVuLR29BODI44M1DqD13yVM1ODbBYMQAseH9bzNAstl2K6J9Ab3SJsxVRF
+ hQVctGytUViWdm1QXINgiiRofE6Le68mLMpDn6ATy4vm4USjLfDPBvquHSW0sX6xL2xz
+ mLAFNuSZxvHo8TJQw1igBOPw7b3NgFWJKelEIrpldRcb74QbeSYf5cdnMBGVJ/guQ7Fa
+ Mdi63Qp5chwxlRhcjuQ7sVHYaSw0ZJibSc4aTWutSOdW+byJjmuvN8Tp3qiIG5aNdEx7
+ HGVCpyvu3jVHbeEaEkqspGOVkaJKmN7Suu3D8FwB3xVv7GiJKTv5tqrHVZXDI4RhlDBH
+ QUhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782885942; x=1783490742;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GDA5R3uG6L2cQs5Nts3tPd1DDLvHEkLmpFRRWHiKAnE=;
- b=VmRJJAA73FDLzacqT8UpG7RgS9uCm8fBxJQQuyoBdNMDHP59IzbLV7GsgawYRnb7nE
- LXNzjdmPFdqKTUkVH174JxoNhti10+ecm+B0GTKaAVyG6nFQyaQxF8xVbwVNMXPqGksH
- NIhz4jZAMaAWUPVhS2jJzvU9gPH2QjCfYvEyd3atwM9VJtxcAfHRR1dad9SGKO5fvRmc
- QjOHVJQJo0pmMVeWFGmYfutxchNEGjtpeyVASRvYs7RaUWdytvsRNxhvZxrYwXlCCb+n
- eO+6ndVSM9WSdm0iBK6wTZHihFvzbjSjoq4bujkgBzXfivl66hA5zqlyd0XBvFF5iUwu
- szFg==
+ d=1e100.net; s=20251104; t=1782885947; x=1783490747;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+ :cc:subject:date:message-id:reply-to;
+ bh=WYlZ2aPEpqh61K7tMl0TS4HBIg4YZJn9Z3vmihGIy1Y=;
+ b=EVcHIlB4UrN/oHBQBlXmXhbwgvi5Wf/2yH0mlYviUZDiX9TapQjD79hqnynPbtbr8A
+ jpsrsfZbwcVzSmQa8WVir0JcjVOBPz1IK5sVOjDQNwtGzioxvsMaWWjjzxV3odVwQBDs
+ vYElT0Ot7v2134lU9jel+SIWUzYo6heeE7LrL4n8gf6TaeadbyK4hT6RgqIOwTcs6/Ty
+ KwQhsVoXdD8mSgFLrkcIqHzOabPv/eTVNvEGYEseBTnSGLLy0f2fjgMuqbEraI3UnGeW
+ HgK6jKBdNhNBMcb8aB1mmaDsuicd2FSP4FGGtrWSuOvpNlNhXKgwVx9f6I/OkeRgI39r
+ QWww==
 X-Forwarded-Encrypted: i=1;
- AHgh+RqAvE/7e6Qt2865fNGnM254CvZzlzq6Ax0Z4u9JaUUu9HsBDZUiQSsT0n+bu3SlpoAoR5T2TKkg9Im6hg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwUu0+SSHqUZ5PlO5haqpY5ydhonv9WD1UbXvdHtmV0olqCdrpr
- znuvSnddcuJBAHHazlEjDWM5/wMsSf8VhXunPI7lOVOlmot9fBuILCJTPiM/WH19bk+FkqtuxJ/
- G+igW4WMRapyznMiYmiZRzdAdmBT5kbiWQHDL3e2kqKPjulqIo7g56Mh8R84Rg78HUxG6H5xtLF
- K7PKF54qk=
-X-Gm-Gg: AfdE7ckaOHWYHmEoFDpDTqqLWdLCeMGruRWPBocyYq+Q7Y05sYZIk1ACcX0WRogB8Kf
- rGURSSC+0jEgyyFj2d78BiThmmN0PrLKL78DtT/YKMj6VQ0maQg0ewefBOIfu1DH+DJdj6IVz0J
- zEHEePQ5ZciM2FfYAADGp/RTBtsxDoC3RfZ6LisOzzOneiqlNi4dx0PlYZqrSL+KyDkExchpgwd
- d3A5Yh7UU6oouJWw6aT+wcyXf8nesadid127ijOa+m1zoz2XwI2fn6EjnFF3N3me0kDL9Rs4kOC
- ubrIITDytKEnti80tvC+yuizLBkUEU0FeEyqefNoEAamg6Zh2NczUtTeecCoP85P9PzzKmvjJEI
- 10fq2/Ph67e62A1on/xMyDo77HwpsPraupyyMZBRMgakr17ZonVKzLku1ljCkf0jy+Z8UCcxb6A
+ AHgh+RrQyBUAuQ6ONkAoYGgyfD7aIlKjSWnvF6b+EEYn1rNjCXQtOBMKOY5edT+yXNXCP4rWzM7aLy0jI8WD7w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz/4LQve7PsdO9vdoL8zv4JR5iVLBy18C7JqYKwWgc648NytCtn
+ CqDHWvoJNmx72KtgiftMoa6aj2euGkojYPilp3fY193ggusKvUOKML4NAX90OVwFfgzY8c0Dh3s
+ 3gPrJ/M9+Hxp18ct1yVgnnr42LJ+3R8u744DRyM5Yf/FsUUrsBnsdmgRx5Xn5siqs3pFGx8Eank
+ XcUnyf34fmEjKTIbKu7g==
+X-Gm-Gg: AfdE7cnhjVDED6uWUtYUzLCqHEWs+Q4DGbs/znG1m2F00u5ooLngNCV1JNhqOvTFb2l
+ +TztGE0rfTljXgiCTwl1n0+2N9TqSpBOkGLtgh77H7Tfd4Pl7PwY8g2Vm+nZ3tf3U96oI8dhKeN
+ ZMWw2Qp3VAkt3wyJtsFXyq+O8lQNHxtaUbwuusL2NT6d/HnZoONXDXaOR1ETenu9jt3rhWTw498
+ m2N8fc//0OTcCq1ynNFsvVEG4Sv6wmtTQ6Os3sQ0xB7gvje39rDevY7rVAlHiuzkdgzsb+IDMMg
+ IXpgfyh+q9RlivTMzPe/QziiQnWdehD9/iyhlk8XaiGYsZRtnp8sActP/HeMM2ZNwrWcVhYVibx
+ O3be004OzlIu9sxqKB4mG/n1UYVpnAZ3vZhdof9AwdmqSYg+u+gPxj0z3FHkTMY6rpNBty7zV9g
  ==
-X-Received: by 2002:a05:6a00:b53:b0:847:9b9b:8981 with SMTP id
- d2e1a72fcca58-847c08c536fmr192389b3a.33.1782885941984; 
- Tue, 30 Jun 2026 23:05:41 -0700 (PDT)
-X-Received: by 2002:a05:6a00:b53:b0:847:9b9b:8981 with SMTP id
- d2e1a72fcca58-847c08c536fmr192347b3a.33.1782885941484; 
- Tue, 30 Jun 2026 23:05:41 -0700 (PDT)
+X-Received: by 2002:a05:6a00:f8b:b0:847:9223:9726 with SMTP id
+ d2e1a72fcca58-847a82d9976mr3848071b3a.18.1782885946584; 
+ Tue, 30 Jun 2026 23:05:46 -0700 (PDT)
+X-Received: by 2002:a05:6a00:f8b:b0:847:9223:9726 with SMTP id
+ d2e1a72fcca58-847a82d9976mr3848034b3a.18.1782885946032; 
+ Tue, 30 Jun 2026 23:05:46 -0700 (PDT)
 Received: from jiegan-gv.ap.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847a02cc6f2sm3317658b3a.30.2026.06.30.23.05.37
+ d2e1a72fcca58-847a02cc6f2sm3317658b3a.30.2026.06.30.23.05.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 23:05:41 -0700 (PDT)
+ Tue, 30 Jun 2026 23:05:45 -0700 (PDT)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Wed, 01 Jul 2026 14:05:01 +0800
-Message-Id: <20260701-fix-clock-refcount-unbalance-v1-0-321dc63c1f90@oss.qualcomm.com>
+Date: Wed, 01 Jul 2026 14:05:02 +0800
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAA+uRGoC/x3MQQqDMBBA0avIrB1IVJLSqxQX6TjaoTIpiSmCe
- HeDyweff0DmJJzh2RyQ+C9ZolbYtgH6BF0YZaqGznTOeGNxlh1pjfTFxDPFohsWfYc1KDGyp8F
- 527vwcFAXv9rIfu9f43leXO3KYG4AAAA=
+Message-Id: <20260701-fix-clock-refcount-unbalance-v1-1-321dc63c1f90@oss.qualcomm.com>
+References: <20260701-fix-clock-refcount-unbalance-v1-0-321dc63c1f90@oss.qualcomm.com>
+In-Reply-To: <20260701-fix-clock-refcount-unbalance-v1-0-321dc63c1f90@oss.qualcomm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
  James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
  Alexander Shishkin <alexander.shishkin@linux.intel.com>,
@@ -113,45 +113,45 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782885936; l=5432;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782885936; l=5885;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=r4JcLkKmJUVUxNqFU0mbjS/4HaA9P0NCxNsscjdtOfk=;
- b=lpymk6EebR+Xl+a53YBsH6KMKgGXRRXPrp5wevlBOx/rGVMqPAdJa9W3HvSBrJjHqcJPBJqOG
- W5eRKSsLsHQD2EFa2Nmd9DWdt2VeL5vbx/qBYJ/PkP8ojIgudISRARw
+ bh=eJfKlRK7k9b2kNcHtsJFOIUyVkQIXxfWWJmLMAk9pP0=;
+ b=Ye3wjloLtfaNwOhrDBxIAdR1lVKRG4RSSV8jrcF2pU1QurgJEaGMXy5PRPwap01Uvx873zQ5h
+ 0XQ5KqPViSnAKt22bDp9kttNW9m3iCQbiK7pRRkqJ5cG0o+oVPQQjaT
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-ORIG-GUID: nz0VzZl_Ztbqprn1oaygacO4N48DYLnk
-X-Authority-Analysis: v=2.4 cv=ftfsol4f c=1 sm=1 tr=0 ts=6a44ae36 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA2MCBTYWx0ZWRfXwVcNXCsWB+yC
+ YmL8DBAOWPGri4YFYoS4MWnJqRZ8FLXoqQ8NLSsNAjtsjt+MPEFHlq7/UcP0C7WFBktlg5UrvLD
+ TRUSd4ORm+ndUA/JkM16bA9xMQUJKXCbXBEfGSsja3oVGVwHk1T4/aGXPsdQt+8w+3zqz+IYx7n
+ 19aSQn4PTxNQxaS+vAbciMsfyjhpVkXt/79BzHo4Nh85Wy/CwDC8cpqNdOBhe/jVP5o5ikXBYWM
+ kBIAyLM0Ck8bfpgkz0xCgfqFDsWsJO3WePootZJUD0njeqsb5gGduWfk6yYoqPbnqcxmgL3kV48
+ ZPUu9ONO21M/LUYEFB1N2zmYVeEBPLlHm4ThdrABIAcqNABxhbRqXWsXbPg0hyYUX1Nkee1LX09
+ ZmbA3HoNhustIo0SP7qGJD5P9m+exaaC+qek8UFT6czSllchfAomwby0nya/v1eLPuYu1Vw93vm
+ bPtYgDx0RjYS/gHYHfQ==
+X-Proofpoint-GUID: 3jzH70v6b7zORXgumGsGXGoEPSvZjz3x
+X-Proofpoint-ORIG-GUID: 3jzH70v6b7zORXgumGsGXGoEPSvZjz3x
+X-Authority-Analysis: v=2.4 cv=Ivkutr/g c=1 sm=1 tr=0 ts=6a44ae3b cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
  a=EUspDBNiAAAA:8 a=4U_dmyjyNprtKVz-Sb4A:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: nz0VzZl_Ztbqprn1oaygacO4N48DYLnk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA1OSBTYWx0ZWRfXzVy+MMS3vShU
- AZu9YLjU2+gMuK2C9X2CXhiLUk6KbiIJrit8fw4PNPJjBfc1t0Zi+w//7gSOq5iTQSTezcve/Zf
- uUkcesJGKn0tZeBCZQfLfN1Dv3GtRWE9hADCRYLHhC0H7kXapU4F3COOXRo/amzIHnmHp/JPxZN
- oyS4Rb1ugMC4zvuz+ghxZOxogwg4whblwJTzPDlgfJ2bl73gwhPGYO7IWxW0La9q3cj7tkijXZm
- lU7CTh4zA2Iax+pqaHnQLFWGnbjMS8lX4ZiG2RkYi6LKioMxiRwp+uXZs0TnPpJrxCqG7PPaUYY
- ueJ8PEtOMlFyUpI2irkP++dFPze9b/2GYvz9io/KOX5h4V2wGTmLwe7LaLs4zTxffSDMYoWHzrQ
- T7aVApM20HbJ54K0LZzq6HedIJH6R5nDJIOb2Upmj8thw1H0sPcaF9Uiz1G9ieBPxHQnif65+L6
- ISS4ulbU44UTQtOKiIQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA1OSBTYWx0ZWRfX3JKoyNkv9+qN
- B7yiTQne1l/pGmfbz6skvmqst1GGgqH+cVzbCKW+EggRWicSsgsbzOhIpiCd+/0YyU3jSz36Ofv
- KX+rY4dLf+CijShu8SPxGEnCFZ/GlIw=
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA2MCBTYWx0ZWRfX2+4u+B9kxE9C
+ gx/i2WSrMu35s6stzbN/US6m+LtQ08R3tFwWj2Az01F2ICoZovRIe01t2Tv5DQGArew/ed1Boge
+ jOrHh+QcRVMTnsl7i2+m6uq/VSE6x8s=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-01_01,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0 suspectscore=0
+ phishscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010059
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010060
 Cc: coresight@lists.linaro.org, Jie Gan <jie.gan@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 0/2] fix clock refcount imbalance for all
- Coresight platform drivers
+Subject: [Linux-stm32] [PATCH 1/2] coresight: Fix clock refcount imbalance
+ on platform remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -174,7 +174,7 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -202,11 +202,9 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,qualcomm.com:email,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 359366EA16C
-
-Found a clock imbalance issue when remove the CTCU module.
+X-Rspamd-Queue-Id: 4F7356EA171
 
 coresight_get_enable_clocks() enables the programming clock and the
 optional AT clock through devm_clk_get_optional_enabled(), which also
@@ -223,59 +221,13 @@ enable refcount.
 Resume the device with pm_runtime_get_sync() before pm_runtime_disable()
 so the clocks are enabled again and balance the devm-managed disable.
 
-Calltrace:
+This affects all CoreSight platform drivers that obtain their clocks
+through coresight_get_enable_clocks(): catu, cpu-debug, ctcu, etm4x,
+funnel, replicator, stm, tmc and tpiu.
 
-[  194.074015] ------------[ cut here ]------------
-[  194.078779] qdss already disabled
-[  194.082210] WARNING: drivers/clk/clk.c:1188 at clk_core_disable+0x238/0x240, CPU#4: rmmod/508
-[  194.090976] Modules linked in: coresight_ctcu(-) snd_soc_hdmi_codec snd_soc_core snd_compress snd_pcm_dmaengine snd_pcm snd_timer snd soundcore 8021q garp mrp phy_qcom_edp stp af_alg llc anx7625 typec pci_pwrctrl_pwrseq hci_uart qcom_iris v4l2_mem2mem btqca btbcm qcom_pon videobuf2_dma_contig rtc_pm8xxx nvmem_qcom_spmi_sdam qcom_spmi_temp_alarm videobuf2_memops qrtr videobuf2_v4l2 bluetooth msm qcom_stats pwrseq_qcom_wcn ubwc_config videodev ocmem ecdh_generic drm_gpuvm videobuf2_common drm_exec gpu_sched qcom_q6v5_pas kpp marvell videocc_sa8775p camcc_sa8775p ecc drm_dp_aux_bus dispcc0_sa8775p spi_geni_qcom i2c_qcom_geni llcc_qcom mc qcom_refgen_regulator phy_qcom_snps_femto_v2 phy_qcom_qmp_usb icc_bwmon phy_qcom_sgmii_eth dwmac_qcom_ethqos qcom_pil_info gpucc_sa8775p qcom_q6v5 stmmac_platform stmmac ufs_qcom qcom_sysmon drm_display_helper qcom_common pcs_xpcs phylink cec qcom_glink_smem qcrypto drm_client_lib mdt_loader dispcc1_sa8775p qmi_helpers phy_qcom_qmp_ufs libdes qcom_ic
- e display_connector phy_qcom_qmp_pcie
-[  194.091130]  qcom_wdt qcomtee nvmem_reboot_mode icc_osm_l3 qcom_rng drm_kms_helper cfg80211 rfkill socinfo fuse drm backlight stm_p_basic
-[  194.196124] CPU: 4 UID: 0 PID: 508 Comm: rmmod Not tainted 7.1.0-next-20260623-00008-ga4671328ba36 #831 PREEMPT
-[  194.206566] Hardware name: Qualcomm SA8775P Ride (DT)
-[  194.211771] pstate: 604000c5 (nZCv daIF +PAN -UAO -TCO -DIT -SSBS BTYPE=--)
-[  194.218938] pc : clk_core_disable+0x238/0x240
-[  194.223426] lr : clk_core_disable+0x238/0x240
-[  194.227908] sp : ffff8000889fbb40
-[  194.231327] x29: ffff8000889fbb40 x28: ffff0000972eb580 x27: 0000000000000000
-[  194.238662] x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
-[  194.245995] x23: ffffd181d3de4620 x22: ffff8000889fbc28 x21: ffff000082382810
-[  194.253322] x20: ffff000082334a00 x19: ffff000082334a00 x18: 0000000000000006
-[  194.260658] x17: ffffd181d293fb18 x16: ffffd181d295c3c8 x15: ffff8000889fb550
-[  194.267991] x14: 0000000000000000 x13: ffffd181d4eea620 x12: 00000000000004cf
-[  194.275346] x11: 0000000000000e6d x10: ffffd181d4f42620 x9 : ffffd181d4eea620
-[  194.282676] x8 : 3fffffffffffefff x7 : ffffd181d4f42620 x6 : bffffffffffff000
-[  194.290007] x5 : ffff000ead974248 x4 : 0000000000000000 x3 : ffff2e8cd9611000
-[  194.297338] x2 : 0000000000000000 x1 : 0000000000000000 x0 : ffff0000972eb580
-[  194.304671] Call trace:
-[  194.307199]  clk_core_disable+0x238/0x240 (P)
-[  194.311687]  clk_disable+0x30/0x4c
-[  194.315192]  clk_disable_unprepare+0x18/0x30
-[  194.319596]  devm_clk_release+0x24/0x3c
-[  194.323578]  dr_node_release+0x1c/0x28
-[  194.327466]  release_nodes+0x5c/0x90
-[  194.331147]  devres_release_all+0x90/0x104
-[  194.335364]  device_unbind_cleanup+0x2c/0x84
-[  194.339762]  device_release_driver_internal+0x200/0x23c
-[  194.345153]  driver_detach+0x4c/0x94
-[  194.348835]  bus_remove_driver+0x6c/0xbc
-[  194.352872]  driver_unregister+0x30/0x60
-[  194.356914]  platform_driver_unregister+0x14/0x20
-[  194.361753]  ctcu_driver_exit+0x18/0xdf8 [coresight_ctcu]
-[  194.367308]  __arm64_sys_delete_module+0x1bc/0x298
-[  194.372240]  invoke_syscall+0x54/0x10c
-[  194.376114]  el0_svc_common.constprop.0+0xc0/0xe0
-[  194.380956]  do_el0_svc+0x1c/0x28
-[  194.384374]  el0_svc+0x54/0x3a0
-[  194.387626]  el0t_64_sync_handler+0xa0/0xe4
-[  194.391951]  el0t_64_sync+0x198/0x19c
-
+Fixes: 1abc1b212eff ("coresight: Appropriately disable programming clocks")
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
-Jie Gan (2):
-      coresight: Fix clock refcount imbalance on platform remove
-      coresight: tnoc: Fix clock refcount imbalance on platform remove
-
  drivers/hwtracing/coresight/coresight-catu.c       | 1 +
  drivers/hwtracing/coresight/coresight-cpu-debug.c  | 1 +
  drivers/hwtracing/coresight/coresight-ctcu-core.c  | 1 +
@@ -284,16 +236,120 @@ Jie Gan (2):
  drivers/hwtracing/coresight/coresight-replicator.c | 1 +
  drivers/hwtracing/coresight/coresight-stm.c        | 1 +
  drivers/hwtracing/coresight/coresight-tmc-core.c   | 1 +
- drivers/hwtracing/coresight/coresight-tnoc.c       | 1 +
  drivers/hwtracing/coresight/coresight-tpiu.c       | 1 +
- 10 files changed, 10 insertions(+)
----
-base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
-change-id: 20260701-fix-clock-refcount-unbalance-e7c467136a86
+ 9 files changed, 9 insertions(+)
 
-Best regards,
+diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
+index ad8dafea7d2f..f7e501e6cbd7 100644
+--- a/drivers/hwtracing/coresight/coresight-catu.c
++++ b/drivers/hwtracing/coresight/coresight-catu.c
+@@ -647,6 +647,7 @@ static void catu_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	__catu_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
+index 3a806c1d50ea..f7efae5b5ce5 100644
+--- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
++++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
+@@ -711,6 +711,7 @@ static void debug_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	__debug_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
+index 9043cad42f01..9b6da29d9735 100644
+--- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
++++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
+@@ -266,6 +266,7 @@ static void ctcu_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	ctcu_remove(pdev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+index 14bb31bd6a0b..147761024c0f 100644
+--- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
++++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
+@@ -2416,6 +2416,7 @@ static void etm4_remove_platform_dev(struct platform_device *pdev)
+ 
+ 	if (drvdata)
+ 		etm4_remove_dev(drvdata);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
+index 0abc11f0690c..4c5b94640e6a 100644
+--- a/drivers/hwtracing/coresight/coresight-funnel.c
++++ b/drivers/hwtracing/coresight/coresight-funnel.c
+@@ -334,6 +334,7 @@ static void funnel_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	funnel_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
+index 2f382de357ee..2d765f1f73b3 100644
+--- a/drivers/hwtracing/coresight/coresight-replicator.c
++++ b/drivers/hwtracing/coresight/coresight-replicator.c
+@@ -313,6 +313,7 @@ static void replicator_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	replicator_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
+index 4e860519a73f..a653f1eebeca 100644
+--- a/drivers/hwtracing/coresight/coresight-stm.c
++++ b/drivers/hwtracing/coresight/coresight-stm.c
+@@ -1026,6 +1026,7 @@ static void stm_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	__stm_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
+index bc5a133ada3e..c9cf486873e2 100644
+--- a/drivers/hwtracing/coresight/coresight-tmc-core.c
++++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
+@@ -989,6 +989,7 @@ static void tmc_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	__tmc_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
+index 7b029d2eb389..72ac93749be1 100644
+--- a/drivers/hwtracing/coresight/coresight-tpiu.c
++++ b/drivers/hwtracing/coresight/coresight-tpiu.c
+@@ -286,6 +286,7 @@ static void tpiu_platform_remove(struct platform_device *pdev)
+ 		return;
+ 
+ 	__tpiu_remove(&pdev->dev);
++	pm_runtime_get_sync(&pdev->dev);
+ 	pm_runtime_disable(&pdev->dev);
+ }
+ 
+
 -- 
-Jie Gan <jie.gan@oss.qualcomm.com>
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
