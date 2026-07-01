@@ -2,105 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id HNiiGj6uRGq4ywoAu9opvQ
+	id TQAVI0OuRGq9ywoAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:55 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F7356EA171
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59A2E6EA179
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 08:05:55 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=OGYpZSjf;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=OIQU0wef;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=PVsHKBLx;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=hawNaT28;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 17A50C8F265;
-	Wed,  1 Jul 2026 06:05:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 26967C7C7CB;
+	Wed,  1 Jul 2026 06:05:55 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DDB89C712A3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 79F3CC712A3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2026 06:05:48 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+ Wed,  1 Jul 2026 06:05:53 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6615m6O0126942
- for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 1 Jul 2026 06:05:47 GMT
+ 6615lOkq133226
+ for <linux-stm32@st-md-mailman.stormreply.com>; Wed, 1 Jul 2026 06:05:52 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- WYlZ2aPEpqh61K7tMl0TS4HBIg4YZJn9Z3vmihGIy1Y=; b=OGYpZSjfrf7TJ7cE
- sWtNhxXmpDySRu6KWbyUJzxh5PZhTje+QJwFSIN1nqt+vvhpH6VrSs7ny1UnMfSY
- qEG6y0Lj5oCHJpJvbaAfVriZ1vSLD07vp3vpf5IFCWqnAL4vcEJkHBHfBCCTimbx
- j4bnKlNzJuxzJW3zK8Y2RKYqkM14iNF41Igp49gMlDMTCIzIZOsMoPAPXYPHiND9
- h30ywhOEd0I2GrLu65N6+nU7PJAN7Cc379OiVDhmbPh1IZzSOdv0XqDzmWto/drl
- BSYlnkmRvrGYGbe5Dsu3rL8rrRNabIC+xRw5Z1aXAV4edNn32ZgeIbNpslEc+fxK
- d4cGUA==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com
- [209.85.210.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4fc0bmc0-1
+ 3hzOvvQKWdguYtkPt+A8OQtsnHMjfxs8678kX7F8cLE=; b=PVsHKBLxQM+zMQde
+ pQQfduVNwjXCTfsMXMLExDZzFsdxaNB1XpfVT+/Tl8JTpaP7xSAPkawxAz26bnU8
+ p9C9HhcPINArAGEPmQLppk5w6p8OwuDr9TL12mVHQ15FVUILo5S07OHlhDpNfGNY
+ /SmA1wqARsyjSpQp8B+F/AidHBYorsm/09Cy/HX5NW/U5Oqj4KnI+2KbJsdg9FGF
+ m2Vw/1lLJGJ0qdloWvxY9B8gzyBtyawIam58eJ7WpSZTXiRzH+qMp95piLp2DByl
+ XzvLko4W+ZJ0Jtp6WgytLTxnQwpOcimIYssWMdcFDVHBKOUT50IK8BlKHg8oPNzN
+ GElFXQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f4rsy0yjx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 01 Jul 2026 06:05:47 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id
- d2e1a72fcca58-847a483ea41so472437b3a.0
+ Wed, 01 Jul 2026 06:05:52 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-c9d5a5b63c5so212394a12.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 30 Jun 2026 23:05:47 -0700 (PDT)
+ Tue, 30 Jun 2026 23:05:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1782885947; x=1783490747;
+ d=oss.qualcomm.com; s=google; t=1782885951; x=1783490751;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=WYlZ2aPEpqh61K7tMl0TS4HBIg4YZJn9Z3vmihGIy1Y=;
- b=OIQU0wefbVuLR29BODI44M1DqD13yVM1ODbBYMQAseH9bzNAstl2K6J9Ab3SJsxVRF
- hQVctGytUViWdm1QXINgiiRofE6Le68mLMpDn6ATy4vm4USjLfDPBvquHSW0sX6xL2xz
- mLAFNuSZxvHo8TJQw1igBOPw7b3NgFWJKelEIrpldRcb74QbeSYf5cdnMBGVJ/guQ7Fa
- Mdi63Qp5chwxlRhcjuQ7sVHYaSw0ZJibSc4aTWutSOdW+byJjmuvN8Tp3qiIG5aNdEx7
- HGVCpyvu3jVHbeEaEkqspGOVkaJKmN7Suu3D8FwB3xVv7GiJKTv5tqrHVZXDI4RhlDBH
- QUhg==
+ :reply-to; bh=3hzOvvQKWdguYtkPt+A8OQtsnHMjfxs8678kX7F8cLE=;
+ b=hawNaT28NJtyw8Tt4UcFWy6Y11zP2NLc7XwHLAGslC6R28w/Shc9U6Jwa+ClkIX4cb
+ Pmeo+qV9bAWw5MSwjqo7zCkZt4zGwfcqH845f6S2bSJcAG5jiU6Wks7AfH7hklw/Cnlw
+ CqcWu35itgRmNahoMxLXVurgKHe3tD5f5wURx0K/ztONAvB2Pj/EZB6R5d0yEsjY2ptY
+ hTmpTKgRq346S8yizS7hY8gVjZsB1icEemUhC2IsJzHPSa2psEDizwgtMtdS0cUfdzZZ
+ nonbVit9Jx4BJDbKWu2PjZvynPtO+6qi014mwb2rOX+hUxs2UpCd16b8j6fQXshE/ABD
+ mL1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1782885947; x=1783490747;
+ d=1e100.net; s=20251104; t=1782885951; x=1783490751;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=WYlZ2aPEpqh61K7tMl0TS4HBIg4YZJn9Z3vmihGIy1Y=;
- b=EVcHIlB4UrN/oHBQBlXmXhbwgvi5Wf/2yH0mlYviUZDiX9TapQjD79hqnynPbtbr8A
- jpsrsfZbwcVzSmQa8WVir0JcjVOBPz1IK5sVOjDQNwtGzioxvsMaWWjjzxV3odVwQBDs
- vYElT0Ot7v2134lU9jel+SIWUzYo6heeE7LrL4n8gf6TaeadbyK4hT6RgqIOwTcs6/Ty
- KwQhsVoXdD8mSgFLrkcIqHzOabPv/eTVNvEGYEseBTnSGLLy0f2fjgMuqbEraI3UnGeW
- HgK6jKBdNhNBMcb8aB1mmaDsuicd2FSP4FGGtrWSuOvpNlNhXKgwVx9f6I/OkeRgI39r
- QWww==
+ bh=3hzOvvQKWdguYtkPt+A8OQtsnHMjfxs8678kX7F8cLE=;
+ b=UOtq3Z5T0KkKJ78nNDJCNiOlOByAw5K5V1tiw95a5rVgxf7OWOwpuU6i+s9i7hVfqQ
+ MtE+mnIlpMrGTiwgpkn2p39fsISNevUuyW3NvPGnL4bgUutik3p9hrADfv6jWVt3574N
+ jnd0M2HFGKUsNgy0IQbc8udykq7V/9rCBhxPvNjdiDSH8l7F2LL7nWAYXrmlGufUKooW
+ 4udLVWjsKeN85wD8Q6FzghSZXUrkmymlZD0aTObpsXoNXbWX1fRo5IWFi/4cLso1I349
+ Io33ZA1byN5nNiI93TGVv0WrlneShUd9QS+Nk6swKDyt6F1/OU7WDyO92lswiQhDb/RC
+ XYDw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrQyBUAuQ6ONkAoYGgyfD7aIlKjSWnvF6b+EEYn1rNjCXQtOBMKOY5edT+yXNXCP4rWzM7aLy0jI8WD7w==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz/4LQve7PsdO9vdoL8zv4JR5iVLBy18C7JqYKwWgc648NytCtn
- CqDHWvoJNmx72KtgiftMoa6aj2euGkojYPilp3fY193ggusKvUOKML4NAX90OVwFfgzY8c0Dh3s
- 3gPrJ/M9+Hxp18ct1yVgnnr42LJ+3R8u744DRyM5Yf/FsUUrsBnsdmgRx5Xn5siqs3pFGx8Eank
- XcUnyf34fmEjKTIbKu7g==
-X-Gm-Gg: AfdE7cnhjVDED6uWUtYUzLCqHEWs+Q4DGbs/znG1m2F00u5ooLngNCV1JNhqOvTFb2l
- +TztGE0rfTljXgiCTwl1n0+2N9TqSpBOkGLtgh77H7Tfd4Pl7PwY8g2Vm+nZ3tf3U96oI8dhKeN
- ZMWw2Qp3VAkt3wyJtsFXyq+O8lQNHxtaUbwuusL2NT6d/HnZoONXDXaOR1ETenu9jt3rhWTw498
- m2N8fc//0OTcCq1ynNFsvVEG4Sv6wmtTQ6Os3sQ0xB7gvje39rDevY7rVAlHiuzkdgzsb+IDMMg
- IXpgfyh+q9RlivTMzPe/QziiQnWdehD9/iyhlk8XaiGYsZRtnp8sActP/HeMM2ZNwrWcVhYVibx
- O3be004OzlIu9sxqKB4mG/n1UYVpnAZ3vZhdof9AwdmqSYg+u+gPxj0z3FHkTMY6rpNBty7zV9g
+ AFNElJ/BMMXIvXITM3+0Hq1JjqHk8Kev/Uljpp++iMFwixdUlraW0DN7m1seNMCGp+MLRjHGVSrWtjoV7ugl0A==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxkVDuwucAd15zPb0GbYpYJOmh3xbL/8kkaTmEWqW37GDgaSaIP
+ t7uPB9wJYF0yUEBZNhV8TEDd6g+nzrAsDkB65PskJJ/Xp9DSnzFkeuw2SVl4o9fz7E7DZtgBMM5
+ NHQ5cSH/4qiwEIKhYHoIYR8drc0spvYVFrjDOHGuvnZsJiyn7moBPbdGtW1HMZoP7iYioAQlvJ5
+ eJfMEfj/M=
+X-Gm-Gg: AfdE7cnoOsdm6/O1UILd7W/cDxnCYpLje9X54B3T+k4DuafY+nyLbSNRFSDsFJfYLDX
+ joYsLQ1aNLbaV7QrGhwzS9Ku6qmRU6GJErpGgLy9mk/TlkEH3yUEKRlTgmLNWiQdyyRjrN1tVOS
+ 6q9DYJUVtE7UWswjFxV8x4RiTJ3tWZ4svwb/mKXkvc6kRUMJAp/3mr9QLkg0OrtgEc9TmP3DP9U
+ 6kP+CT7V3Y4weLe4epddvziXY0dhCjABdhX5VXf4lTPszUb4UEoHRlZGhBv4zlDIrrYZqImT300
+ AuH7xpWG9kiNBtwdgsdgsppWeEBQZ/UNg18N/FQ9ZkOwcPB5k6Ldce356ABYzVnV17flad4ENkX
+ yDdAo0q9w/06Jjb0o7+MSXuPzcL3j5CFvplIgkP8FuwQfZ79bpwRm0pkPYDMMMYAgo0ZIheuOcw
  ==
-X-Received: by 2002:a05:6a00:f8b:b0:847:9223:9726 with SMTP id
- d2e1a72fcca58-847a82d9976mr3848071b3a.18.1782885946584; 
- Tue, 30 Jun 2026 23:05:46 -0700 (PDT)
-X-Received: by 2002:a05:6a00:f8b:b0:847:9223:9726 with SMTP id
- d2e1a72fcca58-847a82d9976mr3848034b3a.18.1782885946032; 
- Tue, 30 Jun 2026 23:05:46 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d96:b0:842:4982:82a with SMTP id
+ d2e1a72fcca58-847c08af565mr183075b3a.45.1782885951136; 
+ Tue, 30 Jun 2026 23:05:51 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2d96:b0:842:4982:82a with SMTP id
+ d2e1a72fcca58-847c08af565mr183048b3a.45.1782885950658; 
+ Tue, 30 Jun 2026 23:05:50 -0700 (PDT)
 Received: from jiegan-gv.ap.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847a02cc6f2sm3317658b3a.30.2026.06.30.23.05.41
+ d2e1a72fcca58-847a02cc6f2sm3317658b3a.30.2026.06.30.23.05.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 30 Jun 2026 23:05:45 -0700 (PDT)
+ Tue, 30 Jun 2026 23:05:50 -0700 (PDT)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Wed, 01 Jul 2026 14:05:02 +0800
+Date: Wed, 01 Jul 2026 14:05:03 +0800
 MIME-Version: 1.0
-Message-Id: <20260701-fix-clock-refcount-unbalance-v1-1-321dc63c1f90@oss.qualcomm.com>
+Message-Id: <20260701-fix-clock-refcount-unbalance-v1-2-321dc63c1f90@oss.qualcomm.com>
 References: <20260701-fix-clock-refcount-unbalance-v1-0-321dc63c1f90@oss.qualcomm.com>
 In-Reply-To: <20260701-fix-clock-refcount-unbalance-v1-0-321dc63c1f90@oss.qualcomm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
@@ -113,45 +113,45 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1782885936; l=5885;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1782885937; l=1478;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=eJfKlRK7k9b2kNcHtsJFOIUyVkQIXxfWWJmLMAk9pP0=;
- b=Ye3wjloLtfaNwOhrDBxIAdR1lVKRG4RSSV8jrcF2pU1QurgJEaGMXy5PRPwap01Uvx873zQ5h
- 0XQ5KqPViSnAKt22bDp9kttNW9m3iCQbiK7pRRkqJ5cG0o+oVPQQjaT
+ bh=NCCuaWYH56yc4jsljXsw5WSLi4PnaOm05c4E0yC9dIc=;
+ b=xIWQ1o/Enc3LrxgE+zJBk+Rq2NAbYnrCtsgpWAbMHgw9Q/m2Yolfn4OfKYdQgoB459di45I0T
+ xveurW8Df8GDxHms5/6I2vPiBmPd/tUExKAOFXO4ddefJo/7hVne1Jy
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA2MCBTYWx0ZWRfXwVcNXCsWB+yC
- YmL8DBAOWPGri4YFYoS4MWnJqRZ8FLXoqQ8NLSsNAjtsjt+MPEFHlq7/UcP0C7WFBktlg5UrvLD
- TRUSd4ORm+ndUA/JkM16bA9xMQUJKXCbXBEfGSsja3oVGVwHk1T4/aGXPsdQt+8w+3zqz+IYx7n
- 19aSQn4PTxNQxaS+vAbciMsfyjhpVkXt/79BzHo4Nh85Wy/CwDC8cpqNdOBhe/jVP5o5ikXBYWM
- kBIAyLM0Ck8bfpgkz0xCgfqFDsWsJO3WePootZJUD0njeqsb5gGduWfk6yYoqPbnqcxmgL3kV48
- ZPUu9ONO21M/LUYEFB1N2zmYVeEBPLlHm4ThdrABIAcqNABxhbRqXWsXbPg0hyYUX1Nkee1LX09
- ZmbA3HoNhustIo0SP7qGJD5P9m+exaaC+qek8UFT6czSllchfAomwby0nya/v1eLPuYu1Vw93vm
- bPtYgDx0RjYS/gHYHfQ==
-X-Proofpoint-GUID: 3jzH70v6b7zORXgumGsGXGoEPSvZjz3x
-X-Proofpoint-ORIG-GUID: 3jzH70v6b7zORXgumGsGXGoEPSvZjz3x
-X-Authority-Analysis: v=2.4 cv=Ivkutr/g c=1 sm=1 tr=0 ts=6a44ae3b cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-GUID: 0aXuqJ7Xjw_8w0susaJi2DmuHsvChz-D
+X-Authority-Analysis: v=2.4 cv=fLgJG5ae c=1 sm=1 tr=0 ts=6a44ae40 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=4U_dmyjyNprtKVz-Sb4A:9 a=QEXdDO2ut3YA:10
- a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA2MCBTYWx0ZWRfX2+4u+B9kxE9C
- gx/i2WSrMu35s6stzbN/US6m+LtQ08R3tFwWj2Az01F2ICoZovRIe01t2Tv5DQGArew/ed1Boge
- jOrHh+QcRVMTnsl7i2+m6uq/VSE6x8s=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=4fW1H2bpnNfDCpRz6dIA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzAxMDA1OSBTYWx0ZWRfX8umWVF2uHVV6
+ 6lVPQyq5RjgnE2gkh+7jqA1P1KjWMQqaWQEKuKcXZX1hrpQ6ojH6lZ7DKNoL89cq1Dp3wjgCu+k
+ InnTVz2QKlPgBxGa5sQT4bpZLQojRRI6yKPYLgOJvV0hczaLdCz8JZarswXMujmPtb5mePFvJ9C
+ Lw+31md9TBXk9lL5epnct3nkuv8JQlHJI6h3tCTobQvzpq1wlzLzaG4Oi5yyH+31+guZ0bRPbPm
+ kbQRgi9vp3nRlreJ5/KmCbGcZpoq5pkXIAszMMl4Y3dR9HUbX7mGrsTtT67dC6QyVEPW8KZCpYX
+ dyWqNB/ULngRGM8vtN+juMlD4dAsE0p2YkYnUxtO+aNOhk556TY8O2cpCQD807uZScAXTWovd13
+ njnMXN9Nhj8TioT09FFmo+vLzAyY7EyLXqKQyln9p+A0v8vL7w4Uh6uahCB1fKwy6dFTmH60adi
+ HKAvLSmfFYX4yyDLuQQ==
+X-Proofpoint-ORIG-GUID: 0aXuqJ7Xjw_8w0susaJi2DmuHsvChz-D
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzAxMDA1OSBTYWx0ZWRfX3Ajq1pHLYSCY
+ yW656GH2Q26SVUy+YrleRgfI4DOy+IdkBj3vrAyU19gQak//dWcRKaHy0d6kKpUdtXc7nzMffZB
+ e1HSEToskAVvgRaiLFHM63ui9DwlSOA=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-07-01_01,2026-06-26_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 priorityscore=1501 impostorscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ impostorscore=0 phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010060
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607010059
 Cc: coresight@lists.linaro.org, Jie Gan <jie.gan@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH 1/2] coresight: Fix clock refcount imbalance
- on platform remove
+Subject: [Linux-stm32] [PATCH 2/2] coresight: tnoc: Fix clock refcount
+ imbalance on platform remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -204,145 +204,36 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,qualcomm.com:email,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4F7356EA171
+X-Rspamd-Queue-Id: 59A2E6EA179
 
-coresight_get_enable_clocks() enables the programming clock and the
-optional AT clock through devm_clk_get_optional_enabled(), which also
-registers a devm action to call clk_disable_unprepare() when the driver
-detaches.
+coresight_get_enable_clocks() enables the programming clock through
+devm_clk_get_optional_enabled(), which also registers a devm action to
+call clk_disable_unprepare() when the driver detaches.
 
 After probe, pm_runtime_put() allows the device to suspend and the
-runtime suspend callback disables the same clocks. During remove the
+runtime suspend callback disables the same clock. During remove the
 device is left runtime suspended, so pm_runtime_disable() freezes it
-with the clocks already disabled. The devm cleanup that runs afterwards
+with the clock already disabled. The devm cleanup that runs afterwards
 calls clk_disable_unprepare() a second time, underflowing the clock
 enable refcount.
 
 Resume the device with pm_runtime_get_sync() before pm_runtime_disable()
-so the clocks are enabled again and balance the devm-managed disable.
+so the clock is enabled again and balances the devm-managed disable.
 
-This affects all CoreSight platform drivers that obtain their clocks
-through coresight_get_enable_clocks(): catu, cpu-debug, ctcu, etm4x,
-funnel, replicator, stm, tmc and tpiu.
-
-Fixes: 1abc1b212eff ("coresight: Appropriately disable programming clocks")
+Fixes: 5799dee92dc2 ("coresight-tnoc: add platform driver to support Interconnect TNOC")
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- drivers/hwtracing/coresight/coresight-catu.c       | 1 +
- drivers/hwtracing/coresight/coresight-cpu-debug.c  | 1 +
- drivers/hwtracing/coresight/coresight-ctcu-core.c  | 1 +
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 1 +
- drivers/hwtracing/coresight/coresight-funnel.c     | 1 +
- drivers/hwtracing/coresight/coresight-replicator.c | 1 +
- drivers/hwtracing/coresight/coresight-stm.c        | 1 +
- drivers/hwtracing/coresight/coresight-tmc-core.c   | 1 +
- drivers/hwtracing/coresight/coresight-tpiu.c       | 1 +
- 9 files changed, 9 insertions(+)
+ drivers/hwtracing/coresight/coresight-tnoc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
-index ad8dafea7d2f..f7e501e6cbd7 100644
---- a/drivers/hwtracing/coresight/coresight-catu.c
-+++ b/drivers/hwtracing/coresight/coresight-catu.c
-@@ -647,6 +647,7 @@ static void catu_platform_remove(struct platform_device *pdev)
- 		return;
+diff --git a/drivers/hwtracing/coresight/coresight-tnoc.c b/drivers/hwtracing/coresight/coresight-tnoc.c
+index 9e8de4323d28..a4ac0eb02248 100644
+--- a/drivers/hwtracing/coresight/coresight-tnoc.c
++++ b/drivers/hwtracing/coresight/coresight-tnoc.c
+@@ -300,6 +300,7 @@ static void itnoc_remove(struct platform_device *pdev)
+ 	struct trace_noc_drvdata *drvdata = platform_get_drvdata(pdev);
  
- 	__catu_remove(&pdev->dev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 3a806c1d50ea..f7efae5b5ce5 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -711,6 +711,7 @@ static void debug_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	__debug_remove(&pdev->dev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-index 9043cad42f01..9b6da29d9735 100644
---- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
-+++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-@@ -266,6 +266,7 @@ static void ctcu_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	ctcu_remove(pdev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 14bb31bd6a0b..147761024c0f 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -2416,6 +2416,7 @@ static void etm4_remove_platform_dev(struct platform_device *pdev)
- 
- 	if (drvdata)
- 		etm4_remove_dev(drvdata);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-index 0abc11f0690c..4c5b94640e6a 100644
---- a/drivers/hwtracing/coresight/coresight-funnel.c
-+++ b/drivers/hwtracing/coresight/coresight-funnel.c
-@@ -334,6 +334,7 @@ static void funnel_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	funnel_remove(&pdev->dev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-index 2f382de357ee..2d765f1f73b3 100644
---- a/drivers/hwtracing/coresight/coresight-replicator.c
-+++ b/drivers/hwtracing/coresight/coresight-replicator.c
-@@ -313,6 +313,7 @@ static void replicator_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	replicator_remove(&pdev->dev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-index 4e860519a73f..a653f1eebeca 100644
---- a/drivers/hwtracing/coresight/coresight-stm.c
-+++ b/drivers/hwtracing/coresight/coresight-stm.c
-@@ -1026,6 +1026,7 @@ static void stm_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	__stm_remove(&pdev->dev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-index bc5a133ada3e..c9cf486873e2 100644
---- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-+++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-@@ -989,6 +989,7 @@ static void tmc_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	__tmc_remove(&pdev->dev);
-+	pm_runtime_get_sync(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- }
- 
-diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-index 7b029d2eb389..72ac93749be1 100644
---- a/drivers/hwtracing/coresight/coresight-tpiu.c
-+++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-@@ -286,6 +286,7 @@ static void tpiu_platform_remove(struct platform_device *pdev)
- 		return;
- 
- 	__tpiu_remove(&pdev->dev);
+ 	coresight_unregister(drvdata->csdev);
 +	pm_runtime_get_sync(&pdev->dev);
  	pm_runtime_disable(&pdev->dev);
  }
