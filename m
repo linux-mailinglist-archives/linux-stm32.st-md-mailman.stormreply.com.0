@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id l4e/NSMGRWoS5QoAu9opvQ
+	id 7jnDNCUGRWoU5QoAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 14:20:51 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 14:20:53 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B64816ED315
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 14:20:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B98306ED31D
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 14:20:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=collabora.com header.s=mail header.b=Z0SLQdhS;
+	dkim=fail ("body hash did not verify") header.d=collabora.com header.s=mail header.b=dHDcqsed;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=collabora.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 74276C8F265;
-	Wed,  1 Jul 2026 12:20:51 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 87052C8F265;
+	Wed,  1 Jul 2026 12:20:53 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 89866C8F272
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7B1B6C8F272
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2026 12:20:49 +0000 (UTC)
+ Wed,  1 Jul 2026 12:20:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1782908449;
- bh=wgHgcm8xmrhSZqBKw4j7YQgDPCGbEX4RDBXbqihHAaY=;
+ s=mail; t=1782908450;
+ bh=D8xSYkpIyl50Azpbz1Ovm3/ITMW8MoCD/TiEbkzX/jw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
- b=Z0SLQdhSwyJDbeiKvQ+HrIpTUxzjvAh0AcbNdueDIZSowjEUHOYjSYGxglQmEumKU
- KPSvzcVFxC0eFa6W+31sk7e3oWPUQM5zsYoh+h7tLjjxf95WIyt6utg/hWq9YmjqFG
- QvCNvCCYWffKv8ESM+vDbZtK+WWSCC5Vedq3t5QMNysXlxERskkI4Y7qnhpLaJOEiO
- ePcbSt60kXV72W4i39Q54yZQkqBXHfqBwAX37QLO5Jx8zSjjnDEEjDHb8UDD5HLiaq
- /KTLPKC7aMMka9VzSWl3/TYLfAL1P/oBdEO5/CNnzufbLu4RsluuEFixa382hfSP+8
- zyBpU2nwIjF6w==
+ b=dHDcqsedFd/kZVRR/4ve7GtOgmycdE7Op4ya+bnevyvQ4lEMNiPk8jVTkC7ZgK2dB
+ Qf6PS8wvdQMpISu4N7Kx8hUhWl3ngEECh95NDu7LdsRdiynLKL0Qfx0aOrQxGVv1T+
+ zg5UmZRT7D0qozy4TVFPr+tGn8uHAAmUH9mzCVCZNVeAok8t+7/XgGIAXdNStFFHWs
+ DKKPwvTdEDXCGzP/ZUM0aMow6xmbg0NGKwHR37z9LFQ70L5HMa/guK9XMTJb97dGJB
+ FHcJczU+HF6PBSSTlbF4KoDX3npb9AWdoulnD/x3pxJEVO98UvYOEHRNgCPqNxQfra
+ RDfs0mhzLLisQ==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: kholk11)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 25B3817E0CF4;
- Wed,  1 Jul 2026 14:20:48 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id 54A5817E0CA2;
+ Wed,  1 Jul 2026 14:20:49 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: chunkuang.hu@kernel.org
-Date: Wed,  1 Jul 2026 14:20:39 +0200
-Message-ID: <20260701122043.19612-3-angelogioacchino.delregno@collabora.com>
+Date: Wed,  1 Jul 2026 14:20:40 +0200
+Message-ID: <20260701122043.19612-4-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
 References: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
@@ -58,8 +58,8 @@ Cc: justin.yeh@mediatek.com, dri-devel@lists.freedesktop.org,
  mcoquelin.stm32@gmail.com, tzimmermann@suse.de, linux-kernel@vger.kernel.org,
  p.zabel@pengutronix.de, jason-jh.lin@mediatek.com, djakov@kernel.org,
  krzk+dt@kernel.org
-Subject: [Linux-stm32] [PATCH 2/6] dt-bindings: soc: mediatek: mutex: Allow
-	#trigger-source-cells
+Subject: [Linux-stm32] [PATCH 3/6] dt-bindings: display: mediatek: Allow
+	trigger-sources on relevant HW
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,41 +110,320 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:email,collabora.com:mid,collabora.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,collabora.com:email,collabora.com:mid,collabora.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B64816ED315
+X-Rspamd-Queue-Id: B98306ED31D
 
-This hardware controls trigger sources, and there's even a generic
-binding just for that: allow #trigger-source-cells in MuteX, so
-that this is allowed to provide triggers to external HW.
+Most of the MediaTek Display Controller hardware sub-IPs need a
+specific (and reserved to them) MuteX trigger.
+
+Since now MuteX is a trigger source, allow specifying trigger
+sources in all of the display IPs that support one.
 
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- .../devicetree/bindings/soc/mediatek/mediatek,mutex.yaml      | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../devicetree/bindings/display/mediatek/mediatek,aal.yaml     | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,ccorr.yaml   | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,color.yaml   | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,dither.yaml  | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,dp.yaml      | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,dpi.yaml     | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,dsc.yaml     | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,dsi.yaml     | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,ethdr.yaml   | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,gamma.yaml   | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,merge.yaml   | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,od.yaml      | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml  | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,ovl.yaml     | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,padding.yaml | 3 +++
+ .../bindings/display/mediatek/mediatek,postmask.yaml           | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,rdma.yaml    | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,split.yaml   | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,ufoe.yaml    | 3 +++
+ .../devicetree/bindings/display/mediatek/mediatek,wdma.yaml    | 3 +++
+ 20 files changed, 60 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-index 1ba086ad749d..429ea149068e 100644
---- a/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-+++ b/Documentation/devicetree/bindings/soc/mediatek/mediatek,mutex.yaml
-@@ -57,6 +57,9 @@ properties:
-     items:
-       - description: MUTEX Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
+index 4bbea72b292a..41d60a3d8007 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,aal.yaml
+@@ -55,6 +55,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
  
-+  '#trigger-source-cells':
-+    const: 1
++  trigger-sources:
++    maxItems: 1
 +
-   mediatek,gce-events:
+   clocks:
+     items:
+       - description: AAL Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
+index 5c5068128d0c..e148aa57b1b9 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ccorr.yaml
+@@ -47,6 +47,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: CCORR Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
+index 5564f4063317..7c0985d0f9ea 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,color.yaml
+@@ -57,6 +57,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: COLOR Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+index 891c95be15b9..85a1746965b9 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dither.yaml
+@@ -45,6 +45,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: DITHER Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
+index 3a752a99949a..d8cfac0326ba 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dp.yaml
+@@ -42,6 +42,9 @@ properties:
+   power-domains:
+     maxItems: 1
+ 
++  trigger-sources:
++    maxItems: 1
++
+   interrupts:
+     maxItems: 1
+ 
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
+index eb4f276e8dc4..f5be6c1e4b0e 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dpi.yaml
+@@ -109,6 +109,9 @@ properties:
+     items:
+       - const: dpi
+ 
++  trigger-sources:
++    maxItems: 1
++
+ required:
+   - compatible
+   - reg
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
+index c8b3e86943e4..4863db6aba6e 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsc.yaml
+@@ -43,6 +43,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   mediatek,gce-client-reg:
      description:
-       The event id which is mapping to the specific hardware event signal
-@@ -119,6 +122,7 @@ examples:
-             interrupts = <GIC_SPI 169 IRQ_TYPE_LEVEL_LOW>;
-             power-domains = <&spm MT8173_POWER_DOMAIN_MM>;
-             clocks = <&mmsys CLK_MM_MUTEX_32K>;
-+            #trigger-source-cells = <1>;
-             mediatek,gce-events = <CMDQ_EVENT_MUTEX0_STREAM_EOF>,
-                                   <CMDQ_EVENT_MUTEX1_STREAM_EOF>;
-         };
+       The register of client driver can be configured by gce with 4 arguments
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+index b5cdfe0eaca4..a9793b274070 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,dsi.yaml
+@@ -73,6 +73,9 @@ properties:
+     items:
+       - const: dphy
+ 
++  trigger-sources:
++    maxItems: 1
++
+   port:
+     $ref: /schemas/graph.yaml#/properties/port
+     description:
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.yaml
+index 98db47894eeb..89370690ee71 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ethdr.yaml
+@@ -100,6 +100,9 @@ properties:
+       - const: gfx_fe1_async
+       - const: vdo_be_async
+ 
++  trigger-sources:
++    maxItems: 1
++
+   mediatek,gce-client-reg:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     minItems: 1
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+index ec1054bb06d4..4d06085e6014 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,gamma.yaml
+@@ -54,6 +54,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: GAMMA Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
+index 3798a25402d3..656df51335b5 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,merge.yaml
+@@ -47,6 +47,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     minItems: 1
+     maxItems: 2
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
+index 930c088a722a..c912ae2493c3 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,od.yaml
+@@ -60,6 +60,9 @@ properties:
+       - port@0
+       - port@1
+ 
++  trigger-sources:
++    maxItems: 1
++
+   mediatek,gce-client-reg:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     description: describes how to locate the GCE client register
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
+index ac0d924a451b..326223b36112 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl-2l.yaml
+@@ -40,6 +40,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: OVL-2L Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+index 4df5c7b410c6..dc200068d617 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ovl.yaml
+@@ -61,6 +61,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: OVL Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,padding.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,padding.yaml
+index 86787866ced0..9dac0319dd60 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,padding.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,padding.yaml
+@@ -34,6 +34,9 @@ properties:
+   power-domains:
+     maxItems: 1
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: Padding's clocks
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
+index fb6fe4742624..caef5194371f 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,postmask.yaml
+@@ -40,6 +40,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: POSTMASK Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+index d914c06640df..13deb7c87ee6 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,rdma.yaml
+@@ -60,6 +60,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: RDMA Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
+index 4b6ff546757e..7307a50fa30f 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,split.yaml
+@@ -40,6 +40,9 @@ properties:
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+     maxItems: 1
+ 
++  trigger-sources:
++    maxItems: 1
++
+   mediatek,gce-client-reg:
+     description:
+       The register of display function block to be set by gce. There are 4 arguments,
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
+index 036a66ed42e7..31e0863dd815 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,ufoe.yaml
+@@ -39,6 +39,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: UFOe Clock
+diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+index c3ed867d058d..3e6b346baa11 100644
+--- a/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
++++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,wdma.yaml
+@@ -45,6 +45,9 @@ properties:
+       the power controller specified by phandle. See
+       Documentation/devicetree/bindings/power/power-domain.yaml for details.
+ 
++  trigger-sources:
++    maxItems: 1
++
+   clocks:
+     items:
+       - description: WDMA Clock
 -- 
 2.54.0
 
