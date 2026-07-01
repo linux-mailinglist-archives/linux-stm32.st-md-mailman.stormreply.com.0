@@ -2,103 +2,61 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 9SkrJk/uRGq/3QoAu9opvQ
+	id yEKTByIGRWoO5QoAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 12:39:11 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 14:20:50 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 262046EC411
-	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 12:39:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C30B6ED309
+	for <lists+linux-stm32@lfdr.de>; Wed, 01 Jul 2026 14:20:49 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=CvmIMQlp;
+	dkim=fail ("body hash did not verify") header.d=collabora.com header.s=mail header.b=UdHzJ3oK;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=collabora.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D209FC8F262;
-	Wed,  1 Jul 2026 10:39:10 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 574C0C8F265;
+	Wed,  1 Jul 2026 12:20:49 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CD7DFC712A3
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C7E01C712B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2026 10:39:09 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 852C643E0E
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2026 10:39:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2D11F01559
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  1 Jul 2026 10:39:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782902348;
- bh=q4Mw1ewD/jb3yXkm243uxaRWKqoUXL01sdFnsTQHgvY=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=CvmIMQlpDPun8oKUF6snfTgD5R960tQ39+Ad7gri+Glzo8M3xcUmIR/X/ChVXo/NM
- LoBkt8GTKKxOJnKW8icgGzjR+KTlrxKeiu1OZOpzSQ9BahiOOvwcXZ6Uz2w8/KYIqt
- 5VJj7HSvLi0ub+uEPGKsvoJQROh/cFbWhe+FazUqVutSc5DVw944YTwxbbd7aZB3z4
- 2JWwgkQM538t/UZSdLP8CHDFRFmJw/hlH1T3TwFf1xJSvK8HsTtarZ2Y0umGA0QNZc
- v4REPnfaTuzUCQABmQV4nHd2lj6bZ8npdl9tiDVtlygmu9uuzv8Jy9bVpHCYrzBRSQ
- +5m7bRYHZ8lOA==
-Received: by mail-lf1-f47.google.com with SMTP id
- 2adb3069b0e04-5aebba706b3so448598e87.0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 01 Jul 2026 03:39:08 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrcvywwlYXUBxZLnQNHlPEuAl1pikuIPjLW8SZdnrUNJX8MUYLcwF0vpl+XGD7ZSLV3lnV/akKCU9e9VA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxLW2obiI/hBzscgceQGMnhOB+wH9I3Fhc+RmESejCm7n1aH+D3
- O/hE7VnK42NcecgtcB36wqYBwJVAc2HkWLBFifKwQUIhw7M/FfiN3+dLMn3+5lJ7+YfG2Jdg6gl
- nGDkIAweDLLuGc9Ba310gVKGUI8SAbgqSxc5bWQwvIg==
-X-Received: by 2002:ac2:568a:0:b0:5ae:9fb4:6740 with SMTP id
- 2adb3069b0e04-5aec742dcbemr246886e87.46.1782902347033; Wed, 01 Jul 2026
- 03:39:07 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 1 Jul 2026 05:39:04 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 1 Jul 2026 05:39:04 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAMRc=MfgAB8bc6PD-6jw_KR0uNBfH+PO2XtCeL1SUF2nCiT0xg@mail.gmail.com>
+ Wed,  1 Jul 2026 12:20:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1782908446;
+ bh=m6sJ153mTEtGqqARntkJHomU856d72WMcKy3EMNBfdA=;
+ h=From:To:Cc:Subject:Date:From;
+ b=UdHzJ3oKReCUM8CMjgYobeK2cYD0xqTaw9zVy9oOW3jjlQ8dli3+zy7x6/FrKbNIC
+ F6DKQVvkx8hl8FMqpY7/7MNEpwFaEVOu+XvIFD13MRWW9hGQ30sRRZf2faShcOZNTP
+ 6uZdv4d2uYiO0PKtTI7QQF58ZuT1hIK1MGl9uqbAPr4h2mFz6FwBjzLtbycO+Xh1Qe
+ zI2xEsMa1XUDENfAEOWl3tUuFbQr6sczfbOixO6NQ1lJqRZFQcjZNe2TugkBhQw0h3
+ SEHLwpCkJBG8XMMDbCar3ZE7CT/31SzfVT9rVc9fvOIMmdw6wq2rnVwLvy46dWmMxZ
+ NoBlTHgqlhLhA==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested) (Authenticated sender: kholk11)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id BC1D817E0857;
+ Wed,  1 Jul 2026 14:20:45 +0200 (CEST)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: chunkuang.hu@kernel.org
+Date: Wed,  1 Jul 2026 14:20:37 +0200
+Message-ID: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
+X-Mailer: git-send-email 2.54.0
 MIME-Version: 1.0
-References: <20260629-qcom-sa8255p-emac-v11-0-1b7fb95b51f9@oss.qualcomm.com>
- <20260629-qcom-sa8255p-emac-v11-1-1b7fb95b51f9@oss.qualcomm.com>
- <CAMuHMdXen+E-Ai51aWBa_KV9W8Fz2cQPpT-FG_kQ7akhrrYa_A@mail.gmail.com>
- <CAMRc=Me3jaZXiXa1sFXr=8Do4sCd+XN1pKTcWC8-0j78SjCkKA@mail.gmail.com>
- <CAMuHMdVUBgG0EFB16OxHisbxx-sBvDKvBPNZdpyDnmBrnX4ptQ@mail.gmail.com>
- <akOZFIowVvprnAMf@vaman>
- <CAMRc=MfgAB8bc6PD-6jw_KR0uNBfH+PO2XtCeL1SUF2nCiT0xg@mail.gmail.com>
-Date: Wed, 1 Jul 2026 05:39:04 -0500
-X-Gmail-Original-Message-ID: <CAMRc=MfA3OuuUUb063hAaN-0Byt=ToEf+uLtcR2DoqED6dZ+Nw@mail.gmail.com>
-X-Gm-Features: AVVi8CdM4YB1YNAKK21RhumfGngKAr8KUFWynreeOPd7b_5_r_J6FsxJ2sTmC58
-Message-ID: <CAMRc=MfA3OuuUUb063hAaN-0Byt=ToEf+uLtcR2DoqED6dZ+Nw@mail.gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: imx@lists.linux.dev, s32@nxp.com, Radu Rendec <rrendec@redhat.com>,
- linux-kernel@vger.kernel.org, Eric Dumazet <edumazet@google.com>,
- linux-amlogic@lists.infradead.org, linux-riscv@lists.infradead.org,
- Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
- Jerome Brunet <jbrunet@baylibre.com>, Rob Herring <robh@kernel.org>,
- Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Kevin Hilman <khilman@baylibre.com>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Magnus Damm <magnus.damm@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-rockchip@lists.infradead.org, Geert Uytterhoeven <geert@linux-m68k.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-sunxi@lists.linux.dev,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, Jan Petrous <jan.petrous@oss.nxp.com>,
- Maxime Ripard <mripard@kernel.org>, linux-mips@vger.kernel.org,
- Drew Fustini <dfustini@tenstorrent.com>, sophgo@lists.linux.dev,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>, Chen-Yu Tsai <wens@kernel.org>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>, netdev@vger.kernel.org,
- Bjorn Andersson <andersson@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
- Christophe Roullier <christophe.roullier@foss.st.com>,
- linux-renesas-soc@vger.kernel.org, Andrew Lunn <andrew+netdev@lunn.ch>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
- "David S. Miller" <davem@davemloft.net>
-Subject: Re: [Linux-stm32] [PATCH net-next v11 1/7] dt-bindings: phy:
- document the serdes PHY on sa8255p
+Cc: justin.yeh@mediatek.com, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com, airlied@gmail.com,
+ linux-stm32@st-md-mailman.stormreply.com, simona@ffwll.ch, robh@kernel.org,
+ ck.hu@mediatek.com, devicetree@vger.kernel.org, conor+dt@kernel.org,
+ jitao.shi@mediatek.com, andi.shyti@kernel.org,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, broonie@kernel.org,
+ linux-mediatek@lists.infradead.org, matthias.bgg@gmail.com,
+ linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com,
+ mcoquelin.stm32@gmail.com, tzimmermann@suse.de, linux-kernel@vger.kernel.org,
+ p.zabel@pengutronix.de, jason-jh.lin@mediatek.com, djakov@kernel.org,
+ krzk+dt@kernel.org
+Subject: [Linux-stm32] [PATCH 0/6] MediaTek MMSYS/Mute-X new-style part 1
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -115,76 +73,146 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[collabora.com:s=mail];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[collabora.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[lists.linux.dev,nxp.com,redhat.com,vger.kernel.org,google.com,lists.infradead.org,gmail.com,st-md-mailman.stormreply.com,baylibre.com,kernel.org,oss.qualcomm.com,bootlin.com,linux-m68k.org,oss.nxp.com,tenstorrent.com,st.com,linaro.org,foss.st.com,lunn.ch,davemloft.net];
-	RCPT_COUNT_TWELVE(0.00)[47];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[brgl@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:chunkuang.hu@kernel.org,m:justin.yeh@mediatek.com,m:dri-devel@lists.freedesktop.org,m:kernel@collabora.com,m:airlied@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:simona@ffwll.ch,m:robh@kernel.org,m:ck.hu@mediatek.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:jitao.shi@mediatek.com,m:andi.shyti@kernel.org,m:maarten.lankhorst@linux.intel.com,m:mripard@kernel.org,m:broonie@kernel.org,m:linux-mediatek@lists.infradead.org,m:matthias.bgg@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:mcoquelin.stm32@gmail.com,m:tzimmermann@suse.de,m:linux-kernel@vger.kernel.org,m:p.zabel@pengutronix.de,m:jason-jh.lin@mediatek.com,m:djakov@kernel.org,m:krzk+dt@kernel.org,m:conor@kernel.org,m:matthiasbgg@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[mediatek.com,lists.freedesktop.org,collabora.com,gmail.com,st-md-mailman.stormreply.com,ffwll.ch,kernel.org,vger.kernel.org,linux.intel.com,lists.infradead.org,suse.de,pengutronix.de];
+	FORGED_SENDER(0.00)[angelogioacchino.delregno@collabora.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[27];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:brgl@kernel.org,m:imx@lists.linux.dev,m:s32@nxp.com,m:rrendec@redhat.com,m:linux-kernel@vger.kernel.org,m:edumazet@google.com,m:linux-amlogic@lists.infradead.org,m:linux-riscv@lists.infradead.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:jbrunet@baylibre.com,m:robh@kernel.org,m:mohd.anwar@oss.qualcomm.com,m:romain.gantois@bootlin.com,m:khilman@baylibre.com,m:bartosz.golaszewski@oss.qualcomm.com,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:linux-rockchip@lists.infradead.org,m:geert@linux-m68k.org,m:kuba@kernel.org,m:pabeni@redhat.com,m:konradybcio@kernel.org,m:linux-sunxi@lists.linux.dev,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:linux-arm-msm@vger.kernel.org,m:jan.petrous@oss.nxp.com,m:mripard@kernel.org,m:linux-mips@vger.kernel.org,m:dfustini@tenstorrent.com,m:sophgo@lists.linux.dev,m:peppe.cavallaro@st.com,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:netdev@vger.kernel.org
- ,m:andersson@kernel.org,m:bartosz.golaszewski@linaro.org,m:christophe.roullier@foss.st.com,m:linux-renesas-soc@vger.kernel.org,m:andrew+netdev@lunn.ch,m:vkoul@kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:shawnguo@kernel.org,m:davem@davemloft.net,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[collabora.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TO_DN_NONE(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[brgl@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[angelogioacchino.delregno@collabora.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt,netdev];
-	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:mid,collabora.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 262046EC411
+X-Rspamd-Queue-Id: 9C30B6ED309
 
-On Tue, 30 Jun 2026 15:44:16 +0200, Bartosz Golaszewski <brgl@kernel.org> said:
-> On Tue, 30 Jun 2026 12:23:16 +0200, Vinod Koul <vkoul@kernel.org> said:
->> On 29-06-26, 16:51, Geert Uytterhoeven wrote:
->>> > Russell King asked me to put the PHY logic for SCMI pm domains into the PHY
->>> > driver instead of the MAC driver where it was previously. Instead of cramming
->>> > both HLOS and firmware handling into the same driver, I figured it makes more
->>> > sense to have a dedicated, cleaner driver as the two share very little code (if
->>> > any).
->>>
->>> I think you are mixing up DT bindings and driver implementation?
->>
->> Should the bindings change if we have different driver and firmware
->> implementations? Isn't binding supposed to be agnostic of
->> implementations..?
->>
->
-> The way sa8255p implements SCMI is with SMC exclusively but - since even base
-> support is not yet upstream -  maybe it would be possible to expose SCMI clocks
-> like some platforms do and reuse the same binding.
->
-> Would it make sense?
->
-> Bart
->
+This series part 1 of a huge restructuring of the entire multimedia
+part of MediaTek SoCs, especially mediatek-drm, and contains only a
+set of changes that don't require any simultaneous updates in the
+mediatek-drm driver.
 
-Scratch that. The firmware on sa8255p does not expose SCMI clock protocol, we
-can only use devfs with this PHY so it's either the same binding document with
-different properties depending on compatible or two separate bindings. I prefer
-the latter because it's cleaner.
+This adds support for correctly advertising the MediaTek Mute-X IP
+as a source of trigger signals (because that's what it is), hence
+for adding #trigger-source-cells in the Mute-X devicetree node and
+for specifying a Mute-X trigger-source in all of the MTK Display
+Controller components supporting or requiring one, as previously
+it was kind of hacked up as a static array in the Mute-X driver,
+for both MDP and DISP components, which is, well, depending on the
+point of view, actually wrong.
 
-Bartosz
+Moreover, this goes on with the first part for a rework of MediaTek
+MMSYS, which is a requirement for the upcoming huge restructuring
+of the mediatek-drm driver; this starts adding boilerplate required
+for setting up MMSYS entries with decoupling of "component type" to
+"component instance number".
+
+As of now, all of the components in MediaTek DRM, hence also in the
+MMSYS driver, are thrown in a catch-all enumeration that does not
+make any distinction between Type-Instance relationship, and it is
+like so (mock-up names ahead):
+
+DISPLAY_DITHER0
+DISPLAY_DITHER1
+DISPLAY_DSI0
+DISPLAY_DSI1
+
+... and so on.
+
+Since the number of components is now becoming uncontrollably large,
+the catch-all enumeration poses a big issue as the mediatek-drm driver
+is allocating a huge array that will be only half full (optimistically,
+because usually it's way less than half full) and with repeated ops
+assignment for each and every instance of the very same Sub-IP,
+effectively treating every instance of a Sub-IP like it is completely
+different from one another (for example, like DSI0 and DSI1 are as
+different as DITHER0 and DSI1).
+
+This has to change. It had to change months ago, but now it has become
+not only a maintenance burden, but also a... (sorry) big mess.
+
+And well, that... especially looking forward to add support for newer
+SoCs, using even more components in one pipeline, and using different
+and newer components (of new types...), making the catch-all enum to
+grow of another ~20 entries or more.
+
+So, this is PART 1 of this huge restructuring, which will impact many
+drivers, including soc/mediatek's mutex and mmsys, most of drm/mediatek
+and, in the future, also media/mediatek/mtk-mdp3 (and eventually its
+firmwareless implementation which, for components handling, will be
+as complicated as mediatek-drm and, without this restructuring, would
+be yet another boulder).
+
+AngeloGioacchino Del Regno (6):
+  dt-bindings: soc: mediatek: mutex: Improve title and description
+  dt-bindings: soc: mediatek: mutex: Allow #trigger-source-cells
+  dt-bindings: display: mediatek: Allow trigger-sources on relevant HW
+  soc: mediatek: mtk-mutex: Add new functions to add/remove triggers
+  soc: mediatek: mtk-mmsys: Rework routes to specify component ID
+  soc: mediatek: mtk-mmsys: Use MMSYS_ROUTE() in default routing table
+
+ .../display/mediatek/mediatek,aal.yaml        |   3 +
+ .../display/mediatek/mediatek,ccorr.yaml      |   3 +
+ .../display/mediatek/mediatek,color.yaml      |   3 +
+ .../display/mediatek/mediatek,dither.yaml     |   3 +
+ .../display/mediatek/mediatek,dp.yaml         |   3 +
+ .../display/mediatek/mediatek,dpi.yaml        |   3 +
+ .../display/mediatek/mediatek,dsc.yaml        |   3 +
+ .../display/mediatek/mediatek,dsi.yaml        |   3 +
+ .../display/mediatek/mediatek,ethdr.yaml      |   3 +
+ .../display/mediatek/mediatek,gamma.yaml      |   3 +
+ .../display/mediatek/mediatek,merge.yaml      |   3 +
+ .../display/mediatek/mediatek,od.yaml         |   3 +
+ .../display/mediatek/mediatek,ovl-2l.yaml     |   3 +
+ .../display/mediatek/mediatek,ovl.yaml        |   3 +
+ .../display/mediatek/mediatek,padding.yaml    |   3 +
+ .../display/mediatek/mediatek,postmask.yaml   |   3 +
+ .../display/mediatek/mediatek,rdma.yaml       |   3 +
+ .../display/mediatek/mediatek,split.yaml      |   3 +
+ .../display/mediatek/mediatek,ufoe.yaml       |   3 +
+ .../display/mediatek/mediatek,wdma.yaml       |   3 +
+ .../bindings/soc/mediatek/mediatek,mutex.yaml |  21 +-
+ drivers/soc/mediatek/mt6893-mmsys.h           |  34 +-
+ drivers/soc/mediatek/mt8167-mmsys.h           |  21 +-
+ drivers/soc/mediatek/mt8173-mmsys.h           |  28 +-
+ drivers/soc/mediatek/mt8183-mmsys.h           |  14 +-
+ drivers/soc/mediatek/mt8186-mmsys.h           |  22 +-
+ drivers/soc/mediatek/mt8188-mmsys.h           |  78 ++---
+ drivers/soc/mediatek/mt8192-mmsys.h           |  20 +-
+ drivers/soc/mediatek/mt8195-mmsys.h           | 181 +++++------
+ drivers/soc/mediatek/mt8365-mmsys.h           |  20 +-
+ drivers/soc/mediatek/mtk-mmsys.h              | 299 ++++++++----------
+ drivers/soc/mediatek/mtk-mutex.c              |  60 ++++
+ include/linux/soc/mediatek/mtk-mutex.h        |   6 +
+ 33 files changed, 474 insertions(+), 390 deletions(-)
+
+-- 
+2.54.0
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
