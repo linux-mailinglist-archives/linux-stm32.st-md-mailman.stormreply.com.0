@@ -2,50 +2,50 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Cfm+EeAYRmqTJwsAu9opvQ
+	id NsxeN4YaRmo/KAsAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 02 Jul 2026 09:53:04 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 02 Jul 2026 10:00:06 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DA766F46DC
-	for <lists+linux-stm32@lfdr.de>; Thu, 02 Jul 2026 09:53:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 737C56F4842
+	for <lists+linux-stm32@lfdr.de>; Thu, 02 Jul 2026 10:00:06 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=env7wj8w;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=nfGzv4gN;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4AB22C8F265;
-	Thu,  2 Jul 2026 07:53:03 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 23310C8F262;
+	Thu,  2 Jul 2026 08:00:06 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 2F58DC6C856
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 99577C8F262
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  2 Jul 2026 07:53:01 +0000 (UTC)
+ Thu,  2 Jul 2026 08:00:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 250AE60120;
- Thu,  2 Jul 2026 07:53:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A267B1F000E9;
- Thu,  2 Jul 2026 07:52:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id A86CE6001D;
+ Thu,  2 Jul 2026 08:00:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0887B1F00A3A;
+ Thu,  2 Jul 2026 08:00:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1782978779;
- bh=RggIXQChyrd9PGRMbf+vMro4+L7wE747ABQYOAEiDL0=;
+ s=k20260515; t=1782979203;
+ bh=Q4PYqXEPA9CrErHqa91ZJaH1kjYdbpYUf9UuYq6zkao=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=env7wj8wcJfIuCtiqo2vta7nC186527y80FragjdAc/RxQ5ScaDRP4J4T3DllIWsE
- y/oCXXrMyyA10nC8qPxYSwd9jLj272kw1s9l2jnzrnuCSuw9xezvcyfbUTosfMLlrt
- S0RLngLUyu20SuO6o4/xwJ1cmZzVnqkogmrOauVjic58rC30njyzut0demB8x2BXFK
- J1t65ElN9x8747Pzzi0vsBEeTaC/dP3bearigkZWFXVZ/G1n9vct3IIDoW5etiX7B6
- sS1h3pACCRoAzYaNqxDHEiq5ouMcX7h+rD6WjrFR+K2TVYP+60La/bQVogr1LPx8bX
- uucpi7VH4ZLIw==
-Date: Thu, 2 Jul 2026 09:52:56 +0200
+ b=nfGzv4gNN7z2ExxL240I0Gbl0zh0l+AvOBpM02Qw2GF2kbT+rsa/Vpf47GM/Dsbvs
+ UeNAX/nLxswRSgVjAeQSARnGkcKkTVWYs5wLRXsJmUrk/ou6ScpCE4GB5V5iAkNt/m
+ yzLoV+IFhj2neMYJ8INuEBG3r+7hNipm3lx9Iw/oobb/o+ZczRu586hbxyJ1B6eAyk
+ g5loD7xSWUUxW/omAGX/kRXhcO9NV8FpW1dsnMJbs8IKZFLDR5P1PTMiev8LE6N84t
+ +sf+TltQ/ErSy0kh+aJqpJZypkRjhycPmQsb+WLHfB0rzBj97I3NgadJDPcYFIL5T1
+ ImX2zueWK4vWQ==
+Date: Thu, 2 Jul 2026 09:59:59 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Message-ID: <20260702-congenial-honest-platypus-39d90a@quoll>
+Message-ID: <20260702-authentic-dugong-of-whirlwind-ac3e3a@quoll>
 References: <20260701122043.19612-1-angelogioacchino.delregno@collabora.com>
- <20260701122043.19612-2-angelogioacchino.delregno@collabora.com>
+ <20260701122043.19612-4-angelogioacchino.delregno@collabora.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260701122043.19612-2-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260701122043.19612-4-angelogioacchino.delregno@collabora.com>
 Cc: devicetree@vger.kernel.org, justin.yeh@mediatek.com,
  dri-devel@lists.freedesktop.org, kernel@collabora.com, airlied@gmail.com,
  linux-stm32@st-md-mailman.stormreply.com, andi.shyti@kernel.org,
@@ -56,8 +56,8 @@ Cc: devicetree@vger.kernel.org, justin.yeh@mediatek.com,
  linux-arm-kernel@lists.infradead.org, mcoquelin.stm32@gmail.com,
  jason-jh.lin@mediatek.com, linux-kernel@vger.kernel.org, tzimmermann@suse.de,
  djakov@kernel.org, krzk+dt@kernel.org
-Subject: Re: [Linux-stm32] [PATCH 1/6] dt-bindings: soc: mediatek: mutex:
- Improve title and description
+Subject: Re: [Linux-stm32] [PATCH 3/6] dt-bindings: display: mediatek: Allow
+ trigger-sources on relevant HW
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -109,35 +109,18 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,quoll:mid,collabora.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[quoll:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,qualcomm.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9DA766F46DC
+X-Rspamd-Queue-Id: 737C56F4842
 
-On Wed, Jul 01, 2026 at 02:20:38PM +0200, AngeloGioacchino Del Regno wrote:
-> Improve both the title and the description of this hardware to
-> disambiguate its functionality from a hardware mutex and/or from
-> a hwspinlock.
+On Wed, Jul 01, 2026 at 02:20:40PM +0200, AngeloGioacchino Del Regno wrote:
+> Most of the MediaTek Display Controller hardware sub-IPs need a
+> specific (and reserved to them) MuteX trigger.
 > 
-> Though in datasheets this is called "DISP_MUTEX", the meaning is
-> is "Mute-X" (where "X" means "any hardware trigger signal") really
-> as this is what this piece of hardware does: muting or unmuting of
-> signals in each sub-IP of the display or other multimedia related
-> controllers.
-> 
-> Based on that, also clarify the description text, as to make sure
-> that the information is actually accurate.
-> 
-> While at it, also avoid forcing literal blocks in the description
-> as there is nothing in there needing that (no ascii graph or other
-> stuff that needs a literal block anyway), and add myself in the
-> list of maintainers.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  .../bindings/soc/mediatek/mediatek,mutex.yaml   | 17 ++++++++++-------
->  1 file changed, 10 insertions(+), 7 deletions(-)
+> Since now MuteX is a trigger source, allow specifying trigger
+> sources in all of the display IPs that support one.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
