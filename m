@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 33XsCPtbR2rHWwAAu9opvQ
+	id 1sA4Cf1bR2rIWwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:39 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:41 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id EEB086FF393
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0850B6FF397
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=ae5KQlRR;
+	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=CEfWD2W4;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BD764C8F285;
-	Fri,  3 Jul 2026 06:51:38 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB30BC8F285;
+	Fri,  3 Jul 2026 06:51:40 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+ [209.85.208.43])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id C79AEC7A834
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 048F6C7A834
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jul 2026 06:51:37 +0000 (UTC)
-Received: by mail-ej1-f42.google.com with SMTP id
- a640c23a62f3a-c0c15bd6b8fso16519466b.0
+ Fri,  3 Jul 2026 06:51:40 +0000 (UTC)
+Received: by mail-ed1-f43.google.com with SMTP id
+ 4fb4d7f45d1cf-68bd9fce347so442526a12.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 02 Jul 2026 23:51:37 -0700 (PDT)
+ Thu, 02 Jul 2026 23:51:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1783061497; x=1783666297;
+ d=amarulasolutions.com; s=google; t=1783061499; x=1783666299;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=kjf+9zwLvFnbMj2uY67jnA57NYs5qvgfofKcphxJQbw=;
- b=ae5KQlRR1AT9xux5vQQk4ohWcorZLsUWbNVYNrjm/8aLanTqT3SXLmPHrbJoUyfNr0
- Nbo5DYS1hY9+fs6xOMewejzSYmY41ym5I0doYmL+6Xmr4SbgZEb0sn2VxZZxwYMQMuGF
- uJB+bOpvRRaQeRxV6PFTJbCRQjrq6JvPDbnvw=
+ :message-id:reply-to;
+ bh=fAmctwTyX9ptfNTsOcFrY+BzuI2WSByIHEJFFIRpN/Y=;
+ b=CEfWD2W4prLjKARgi5/X8QQfqXsUVqc9gxGK93isyKa+zPqs3hMljJGcwiW5VD/Ahe
+ qrehTC0XbShF0+bIZekADnMjDenaJRbg3vBsthN4NKUVrzK7Z/dpCD9ky+TpwSuXu81G
+ 4F+0a7xN43ittBCsgsnnEsX/gd20WFtfDTqZg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783061497; x=1783666297;
+ d=1e100.net; s=20251104; t=1783061499; x=1783666299;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=kjf+9zwLvFnbMj2uY67jnA57NYs5qvgfofKcphxJQbw=;
- b=owtMAC9qB8XE14169Zfa9i7MgSZTogtFfdCqaf32fYSBqr7HS5ZHu39DU7/39PZbDN
- uHAHISJBfSBHW0RqF/LOdaR1XgYzMjhGgTeaDyv40Ugwb3j77dPOpvChHDSfGKATgt3p
- TEE+wBw2ZetWECVoywNSKLL5wJ7UjVMtCVrYGM/v2a7sZr+0P2ITF+mib2DVwu5zjmh6
- yD2kWkhwIwgxZcYFhYFhrMcnLl/JPgTo8coC1zPwzpLWMHJ54cnfRJ7gAEUTaJwFnePL
- Xn8YYBCr7vBkgcr1FSprhBAg/BBDGWmEVE5ALtBs6Gn8quIwk9f7JgfMDfT0cLUE7VYD
- MAUA==
+ :to:cc:subject:date:message-id:reply-to;
+ bh=fAmctwTyX9ptfNTsOcFrY+BzuI2WSByIHEJFFIRpN/Y=;
+ b=BRYxE4qOTDtPY7yluHc/hjCcAgmsmKBkfs0uxPUZxOPV87+ghCQ7Rk3nHjWdeIuuEm
+ MB2Rs+zIproEShPHIrFXdM/gUr+78vuvM8TTfX6dSTtEQwQkzXmO0rz7rIqCxSnKp7Jo
+ fyv25gx1zCGriuGJtDHzSL772nrS/AVo6PBi9lrugLWsHnjElkfNrGCopCdWBMN+GKbF
+ BNF0fpcjp1q1+rDWAwWmdxNMWJpc2pi02Mu7QSONqvdwkqZSL11obWX24J1gWqx+XpN5
+ ku+oJBxXzu2Ud+DXKso3tLlBCAf1MF0Qk8wYUjpQWqNafzvQL0x+SDxBLRC8nq6F/mH7
+ lEEA==
 X-Forwarded-Encrypted: i=1;
- AHgh+Robe5sHQe97oOnIx5ANLyw+pGClUKNKaCTc0FsUjriV202IkMdQzAPg4ExKk6Tzucxsgs8VqJk1B2je5A==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxPSoUzYGSZy0CvKbcQxN7NQV0PJVdyrFPWIw3m+8dSOWktWdlr
- LKB8KQyqIby6+PXXkgsvlfJkWfwLjELgV3SxySySNPnOCyiD5xmveCpiFzPpeOkD3uo=
-X-Gm-Gg: AfdE7cmQ10iBT055e+PLknzijm+SpH2VpZ6cZnfRP1UJsixpt+gA7fJjenSCoJSnkER
- aGXoxtBWoPCIkvgdzaZjU1/fOn3FRZKm5I/BYPl2FqK7Z+0p4f4cqIcXjop+wHnNuyZCAjTZ4L3
- wXMU9jo4J0bH58R5TMJsKF6wduoP8RdCjEkEwFWTkNtsRsPoiq6ZYr6Znz/Dx5D/ppp92YFowsm
- fUog6290geW/fLzFzNjKFOG35CH1VOuvqcwb1MrkmjeVMcRQlifIHHVPr6UupKEBh+pxlRJxZIM
- M5PZKXAeVTZ8JLmxvu3FxeKuwB5HWLxDom9G/VqL9QwPLMuVLGOt5axvAsfr2q2asauGQCq0c9U
- /dr+fZJeKs+tn5qosI4X9v4DlsHL2C59SfEUeih5dMQYA3qMJG0dNUItMaPtQuysxnhpMWZ/xn/
- h59UQ7DbBuyc5WPufhITGO/Tya4/FFf/hX+S/z3+gB15rxoE6gPTWBUlAUgZ0j0Olf6QPCpdK5V
- zW3F3yOOW+ktjvSJ/EGxw==
-X-Received: by 2002:a17:906:2091:b0:c12:4c5b:f170 with SMTP id
- a640c23a62f3a-c12ae898b32mr296340666b.62.1783061497131; 
- Thu, 02 Jul 2026 23:51:37 -0700 (PDT)
+ AHgh+RrAf+76s2ppS+QMgubp4fWj/2cN3wFFZWIMS/MXGY5ixniY5NJCtS6/5zA39y0gin8N/JqvQRylfy5h5w==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz3pb0y2+BCvH4iYddnJhqFTZTZC4SdA6WM/xczG3PyXLdeElNM
+ t2OMfbreNo2QgkB2J9hPJvLxPLZ5FB3DZde31Al56nkUO5tQ1k73U2Nm7QYyCtT1Trk=
+X-Gm-Gg: AfdE7clLMEQ5J/XFZo+v51ZoIHLlU1RMSZyuPLdv58nKAJ2++jpsBpk1oiZWz6bOtv0
+ Y0RhJpI7+iZszaTXHyhIUSN21H8DevEVAIKmKPbeCu5J0ERiaO/bvNQBzgcmEMKf9v4PhOxLrWv
+ RIXYqVgjioxPtQmqgLE3W/xvrpta0H4JGVhel9/cs74vpqw1u2CGSqTXcVqddH1we+88stEguXJ
+ 8boG3+rTS3x+RG9ZHZ5P3zXy39DlQ6oDTXNx8ya2MIXj8a+MPbGDnCIiJzUjL5TE7uZJXLwuC6b
+ GSaJx8SWgTxy9eeK5R9s3CAxmqdOJYK4rr3VqBsVbWe/9oRXQHlPHBefYKhwUFFVKGlP0xIH/0+
+ e7jzcUL1pE6eiDPqDze7tkcVhU7XNUZKKccpc5u3pr7vmQFRUbb/dZvp8+OtQINKjSqt8AzSXGT
+ yYdcoWLLBlNvoChZvKoJ6lWYPK6Mz3XaRRiO6uqtCA5RQQZEWdDXF44G30T2dw04/An/EN7Hsmz
+ slNRgoMioc=
+X-Received: by 2002:a17:906:bc81:b0:c12:9eb2:8093 with SMTP id
+ a640c23a62f3a-c12aa175d30mr282735066b.53.1783061499463; 
+ Thu, 02 Jul 2026 23:51:39 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.43.95])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.51.34
+ a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.51.37
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 23:51:36 -0700 (PDT)
+ Thu, 02 Jul 2026 23:51:38 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  3 Jul 2026 08:48:53 +0200
-Message-ID: <20260703065110.1433283-4-dario.binacchi@amarulasolutions.com>
+Date: Fri,  3 Jul 2026 08:48:54 +0200
+Message-ID: <20260703065110.1433283-5-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
 References: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
@@ -84,8 +84,8 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 03/16] arm64: dts: st: add power-domains to
-	sdmmc1 on stm32mp251
+Subject: [Linux-stm32] [PATCH v7 04/16] arm64: dts: st: add SDMMC2 support
+	on stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -138,36 +138,49 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: EEB086FF393
+X-Rspamd-Queue-Id: 0850B6FF397
 
-The sdmmc1 node was introduced early in the SoC bring-up before power
-domains were systematically mapped. Add the missing power-domains
-property to align it with the rest of the peripheral nodes.
+The SDMMC2 controller supports SD cards, eMMC memories and SDIO devices.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
 ---
 
-(no changes since v5)
+(no changes since v3)
 
-Changes in v5:
-- Added in version 5. Suggested by Sashiko.
+Changes in v3:
+- Add power-domains property. Suggested by Sashiko.
 
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 9c63fdb5a885..ae36d703532c 100644
+index ae36d703532c..44938c036e30 100644
 --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
 +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1664,6 +1664,7 @@ sdmmc1: mmc@48220000 {
- 				cap-mmc-highspeed;
- 				max-frequency = <120000000>;
- 				access-controllers = <&rifsc 76>;
-+				power-domains = <&CLUSTER_PD>;
+@@ -1668,6 +1668,22 @@ sdmmc1: mmc@48220000 {
  				status = "disabled";
  			};
  
++			sdmmc2: mmc@48230000 {
++				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
++				arm,primecell-periphid = <0x00353180>;
++				reg = <0x48230000 0x400>, <0x44230800 0x8>;
++				interrupts = <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&rcc CK_KER_SDMMC2>;
++				clock-names = "apb_pclk";
++				resets = <&rcc SDMMC2_R>;
++				cap-sd-highspeed;
++				cap-mmc-highspeed;
++				max-frequency = <120000000>;
++				access-controllers = <&rifsc 77>;
++				power-domains = <&CLUSTER_PD>;
++				status = "disabled";
++			};
++
+ 			ethernet1: ethernet@482c0000 {
+ 				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
+ 				reg = <0x482c0000 0x4000>;
 -- 
 2.43.0
 
