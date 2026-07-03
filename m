@@ -2,61 +2,55 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id t6I0LLVbR2q0WwAAu9opvQ
+	id xlYqMgBpR2qOXwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:50:29 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 09:47:12 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9E1556FF367
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:50:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D092D6FFB66
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 09:47:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=none;
-	dmarc=none;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=XDQnTspI;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5EBE1C8F286;
-	Fri,  3 Jul 2026 06:50:28 +0000 (UTC)
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
- (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6EDA4C8F285;
+	Fri,  3 Jul 2026 07:47:08 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6DA3FC0F02D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 90E51C36B0B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jul 2026 06:50:26 +0000 (UTC)
-Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-01 (Coremail) with SMTP id qwCowACXM8yqW0dqqpWABA--.2367S2;
- Fri, 03 Jul 2026 14:50:18 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Lee Jones <lee@kernel.org>
-Date: Fri,  3 Jul 2026 14:50:16 +0800
-Message-ID: <20260703065016.97181-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260701214250.GD2108533@google.com>
+ Fri,  3 Jul 2026 07:47:07 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 49E8E4334D;
+ Fri,  3 Jul 2026 07:47:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1F631F000E9;
+ Fri,  3 Jul 2026 07:47:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783064826;
+ bh=VYkuNdTognQIs2j+ybtTEz5f3IFZB3kjG5rBVAxVSaM=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=XDQnTspIWcNXp/iZYRnAdTmyF2+BZNOIsb2B0d6w5ZGv6rTiLrS06GVstEJsx2H+z
+ Gh1WrKQnTkmAaLbBhn90LC+oQvA8JigS9iZYvP33VMNde1iU7EaEtVXwNLol/UTtPt
+ +ltMHM3ngQKV9+5hT5hsQNDTtkF8cYOpEB0mpiMlMTloJCM6PFXxMTQEzTtQakqrGP
+ /ZUEWYaHzzeVIkGuOqt8rF5dB1QjLVIGmK7KTDvxkltjk3HlzWg2CDtwyY5hFA7g53
+ Fu+TFtzYMUhDrf7FtRWTl6EGc0aqGTTRz80jpUo8QGM9zbI8bCkX00JDUwU7N4QMK7
+ 9ocyd5BaU9jUg==
+Date: Fri, 3 Jul 2026 08:47:01 +0100
+From: Lee Jones <lee@kernel.org>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Message-ID: <20260703074701.GE2108533@google.com>
 References: <20260615063042.36397-1-pengpeng@iscas.ac.cn>
  <20260701214250.GD2108533@google.com>
+ <20260703065016.97181-1-pengpeng@iscas.ac.cn>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowACXM8yqW0dqqpWABA--.2367S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GFyrCF17ur1kCF1rXr47Jwb_yoWDuFc_Wr
- n0vF9Fkw1xtwnrtrs5ta1SgrZrX3yUZr1UJrW8JwsFq34rWrsxuryDArnxCa48CanFgrs8
- GanFy3ya9398ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbcAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
- 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
- A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
- Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
- 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
- jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
- 1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
- 6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
- 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
- WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
- IxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUYCJmUUUUU
-X-Originating-IP: [111.196.245.140]
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
-Cc: linux-kernel@vger.kernel.org, Pengpeng Hou <pengpeng@iscas.ac.cn>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+Content-Disposition: inline
+In-Reply-To: <20260703065016.97181-1-pengpeng@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] [PATCH] mfd: stm32-timers: depopulate child
-	devices on populate failure
+ devices on populate failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -73,68 +67,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [4.79 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	DMARC_NA(0.00)[iscas.ac.cn];
-	MIME_TRACE(0.00)[0:+];
-	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:pengpeng@iscas.ac.cn,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[lee@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	TO_DN_SOME(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS(0.00)[m:lee@kernel.org,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	HAS_XOIP(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,iscas.ac.cn,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	R_DKIM_NA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[lee@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCPT_COUNT_FIVE(0.00)[6]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 9E1556FF367
+X-Rspamd-Queue-Id: D092D6FFB66
 
-Hi Lee,
+On Fri, 03 Jul 2026, Pengpeng Hou wrote:
 
-Thanks for taking a look.
+> Hi Lee,
+> 
+> Thanks for taking a look.
+> 
+> I checked devm_of_platform_populate(), but I don't think it covers this
+> particular failure path on its own.
+> 
+> devm_of_platform_populate() only installs the devres cleanup after
+> of_platform_populate() has returned success.  If of_platform_populate()
+> returns an error after creating some earlier children, the helper just
+> frees its devres record and those partial children are not depopulated.
+> 
+> For stm32-timers, I think we still need the explicit ordering used by
+> remove: depopulate children before stm32_timers_dma_remove().  The child
+> drivers get the parent drvdata, and the PWM child can call the parent
+> stm32_timers_dma_burst_read() helper, so releasing the parent DMA
+> channels while partially-created children remain would keep the same
+> ordering problem the remove path avoids.
+> 
+> I agree the inline unwind is not the clearest form.  I can send a v2
+> using a normal goto unwind label and a short comment explaining the
+> partial-populate case, unless you prefer a different shape.
 
-I checked devm_of_platform_populate(), but I don't think it covers this
-particular failure path on its own.
+I'm not concerned about where in the file the call sits.  Calls like
+this that fail usually do so cleanly.  I think this deserves a wider
+piece of work that ensures that of_platform_populate() doesn't leave
+dangling resources when it fails.
 
-devm_of_platform_populate() only installs the devres cleanup after
-of_platform_populate() has returned success.  If of_platform_populate()
-returns an error after creating some earlier children, the helper just
-frees its devres record and those partial children are not depopulated.
+Also, why doesn't every call to of_platform_populate() have this?
 
-For stm32-timers, I think we still need the explicit ordering used by
-remove: depopulate children before stm32_timers_dma_remove().  The child
-drivers get the parent drvdata, and the PWM child can call the parent
-stm32_timers_dma_burst_read() helper, so releasing the parent DMA
-channels while partially-created children remain would keep the same
-ordering problem the remove path avoids.
-
-I agree the inline unwind is not the clearest form.  I can send a v2
-using a normal goto unwind label and a short comment explaining the
-partial-populate case, unless you prefer a different shape.
-
-Thanks,
-Pengpeng
-
+-- 
+Lee Jones
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
