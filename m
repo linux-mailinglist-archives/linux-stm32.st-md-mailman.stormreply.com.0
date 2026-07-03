@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id pDAOHgVcR2rPWwAAu9opvQ
+	id umxMHgdcR2rQWwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:49 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51FDB6FF3AF
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FEEA6FF3B2
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:51:51 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=B+jepXDN;
+	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=iOWDq54Z;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 20F49C8F285;
-	Fri,  3 Jul 2026 06:51:49 +0000 (UTC)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com
- [209.85.218.45])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2E0F9C8F285;
+	Fri,  3 Jul 2026 06:51:51 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4476FC0F02D
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4AA91C8F28A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jul 2026 06:51:47 +0000 (UTC)
-Received: by mail-ej1-f45.google.com with SMTP id
- a640c23a62f3a-c126f9c9567so20652166b.1
+ Fri,  3 Jul 2026 06:51:49 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-698acd36d67so509451a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 02 Jul 2026 23:51:47 -0700 (PDT)
+ Thu, 02 Jul 2026 23:51:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1783061507; x=1783666307;
+ d=amarulasolutions.com; s=google; t=1783061509; x=1783666309;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to;
- bh=10sYi/tVtIvvMUUKo7OG02Z+QG9MfHpevI/v5pXPRvs=;
- b=B+jepXDNzAFPV9cZGs9oMmcqeZqlIcQMVtaktt7tjcTvG+bf6OtqRnpbx2mWku0JLL
- BVHxZ/w9YkqPaaCsV3qcuhumQENnXS6OXfOuXc2QI1tyl/S4eaJB/SdzTpN4e52D0BnO
- QiHlpNfbLlzRmBP+SBHLBJP4xDjAyFwNjREoE=
+ bh=Mf08+e18iQyaBCmXia6is7dzqtiU26q8LvKBSudwg7A=;
+ b=iOWDq54ZI2dQR608wx3uKQC88/jxSwWK/UR+TIJ4FtPnrDV5+0+IhovITHsS1OqZZ/
+ Ay/PJCoe5vO/FbBdchr5017Wh8eW07dFCEsx7zL4jXXM1u0qbQjaXPsJPXrfzifrOzVa
+ 9CVOn/cMfKB3AbSY4WEbx+UUEW3l5gDWhlwMM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783061507; x=1783666307;
+ d=1e100.net; s=20251104; t=1783061509; x=1783666309;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to;
- bh=10sYi/tVtIvvMUUKo7OG02Z+QG9MfHpevI/v5pXPRvs=;
- b=dA3v63NApyPSOfAWx+tORkLrTN1iZ42CoMJ7fZoHvMiIU2qy+8mRV5uLZyejAb+0fs
- LYsMqeW6eZ68kWM53d/J+LBIfQbj0zVplBjnRYUfoXvGuaPve3ielgjtmM/xZkMTSJlh
- Y6FBobZosoLuibmV/ChVbtbq2pVftmQAUWplJQ6oBP2EntNkJ+9shx8yvEbEOkS4iRxh
- G599PPMMToZfZrOZQEmurQs5oDDbZs5FuJjhC6RsezQvnGyil+tjHG0x+23J6Nl7JSM9
- 9jF+fHd1Ix9KcyvqiS0AaUmFgFQJe7BkzQpk6khzcOnziAf4pu57lyJhY2qAI+I0ccDc
- dy1w==
+ bh=Mf08+e18iQyaBCmXia6is7dzqtiU26q8LvKBSudwg7A=;
+ b=G2UDFSDvNhW/bF+GM0sFWkE4tUgnME4xeGs2C2HAWN8X3JWzckx0EvNq7JIAmTUVdm
+ BSamifagw32p94LT+D52DhN0mDbiQ9yLCXMSa37mugoXKowgXp9KJhp7cpusUbV+zQyV
+ IIsHoltKacdaWwDnxzx6Gs6uItsJ1ohIcKtm4jLy9cg1ZjQX+1B2I7wRwHFOLkxAVoUO
+ u1vcFeMSUuqkAyr3bfjIW3NiNrMwZsPS4rSDmn9L3fnqlU5peVZhA0RorzRgHmWXLC/9
+ c6wO7MYjlHp7ORWDtwjRhXu8q1xFWRRJar2AX7ZnVfE/XpEPJEkG9Ct6AMOpCKPiz8uH
+ jmhA==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoWdse6wPw/7DBSDVwWoo+eZ9N647duTm7nkgvWTRHzW8i0Fmo77Y9OoeZAb2pUskyqiMfddQ07y8lCAA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwvmsYLw5EeS//uY+HUXSwAIWsmRaUXBs007KrTdkKdR9hVGMvK
- fLWCOB1C66LXmTWOAuL1xKHtWbpSTU5OedAnjbX0gLGwVykYoZbqfDkJFfAgMFfnb6s=
-X-Gm-Gg: AfdE7cmf8VEl7UqHB7bohpA95BZxn9fMdr42JOAAsq0Fr2xEw9CY04Mtyax3hq/wHdB
- MSZN3Q7cNkyfVE+Jtb59wFABuk1ZjRbHgJ+DpHyD7FOA/M8rKBIZd47eb01D2SviMQ+gizoahNT
- 5qtGDJ2jqLDL5nAdpi66+ThBXkSjvnFb0KIPVA8b2j4s08gPJHy2wwH3XJX3m/HnvRH//GfzOkW
- YDy1815RWd/dCY6+ZW6mgX1ilVlcX2zcpGa1zOBMQzb2vm1OaE3167nCuV/k+zHTMWrEbPlWgRD
- EMHnRyXuB1F5AyMQo55j/ESIpuhQQ7xbqdj4Tlj1wNlmEUFjE+W4bpl0UiKQoleiFM8Kej5s8iI
- 5UH1XLY/Oy6KbpTuLBWFjliJ7/DFCMQNcfUhgFKQQw9sSufVZKQr1QqtZvkI2nXpK8pwnb/ktMc
- iEM5sUlT7rgvGteq/QLDKgVNHBujbLOpsFOdTlxnn4lP+NxqIdQmHr63UoxHAzJiUpHP8WmSEzo
- 7v7Dn4lgk0=
-X-Received: by 2002:a17:906:d0da:b0:c12:64c6:bd7 with SMTP id
- a640c23a62f3a-c12a9e053e3mr308332766b.21.1783061506627; 
- Thu, 02 Jul 2026 23:51:46 -0700 (PDT)
+ AHgh+RpsteyOB7w8bRfOkxEvMETHWXtDbDA0WvZoO5DILnxifXUPEUM+Ayjd4MJx/RmMvkb2wrtnOYeJpjrdIw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YyOagXBFObBtMejXYA63CYg7dKdGyHXGZIrmndh3qSrpDmgTQDI
+ Cci+tBaEMtX3UN0YR+I6fJRfHpZ0Jq7MdRz5KdXZH1L2xETDjSeIjFT47w0IvcksHv4=
+X-Gm-Gg: AfdE7clTo0GHiAbgjwCnbtSmkHifmI2CRP4Hsch221j7J89S5NVD4W/fCnfnzwQBw5E
+ Ch714QlXVzSz/IZmzbaf42A+ldGn9BqMNl6LadnqZzVIYyvha16LCkxvwaoolnW9ONAhStUCMqO
+ GUVpRESePZrwUdovVA2Tv10VmhJOOS9ZMmf3/L1Tb8heO/O9+w9yGjRFsHUTT+vRds1c/1sWONG
+ oCH4yuzPxWcmYAqdgELtX+Pvyj6YL8PAN8Dh1ict5XYYVMxsEOFDVbCY98dlwnw7lCoZYD3SoNK
+ sDhu31sj/1tKkekP2Wx9CSbX6Ji9bKiOcAu8wGa06Z9u0P0uLbQQ8aYw4MUjzwyw+Eo5kgPWV7Z
+ fdT8hE3NJlMnN7lpxAYYgQSkXCiIWnOrE+uYlHIzChlPk+MTPDs/Mb0lBMdKM2+CmrY5A2vZ8Lr
+ oBj3XlUjOcQPaw2/Td9I2o8KvCAeq8kDnYiwgA46sfme6ee4iJc8vgqdNNqSJx5qMRxm8TW7mhn
+ gfpi6O7D+7sDcKBGLRFLQ==
+X-Received: by 2002:a17:906:f5a2:b0:c12:b563:ed5c with SMTP id
+ a640c23a62f3a-c12b5640b5cmr258111166b.1.1783061508737; 
+ Thu, 02 Jul 2026 23:51:48 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.43.95])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.51.44
+ a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.51.46
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 23:51:45 -0700 (PDT)
+ Thu, 02 Jul 2026 23:51:48 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  3 Jul 2026 08:48:57 +0200
-Message-ID: <20260703065110.1433283-8-dario.binacchi@amarulasolutions.com>
+Date: Fri,  3 Jul 2026 08:48:58 +0200
+Message-ID: <20260703065110.1433283-9-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
 References: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
@@ -84,7 +84,7 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 07/16] arm64: dts: st: add ltdc pins for
+Subject: [Linux-stm32] [PATCH v7 08/16] arm64: dts: st: add can1 pins for
 	stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -138,99 +138,45 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 51FDB6FF3AF
+X-Rspamd-Queue-Id: 5FEEA6FF3B2
 
-Add the LTDC pins used on MicroGEA-STM32MP257-RMM board.
+Add the can1 pins used on MicroGEA-STM32MP257-RMM board.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
 ---
 
-(no changes since v5)
+(no changes since v1)
 
-Changes in v5:
-- Increase slew-rate to <1> to support the 27 MHz pixel clock and
-  prevent timing violations. Suggested by Sashiko
-
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 71 +++++++++++++++++++
- 1 file changed, 71 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 22 +++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index db485b9ed904..50f454630cf2 100644
+index 50f454630cf2..6482dd47e977 100644
 --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
 +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -260,6 +260,77 @@ pins {
+@@ -331,6 +331,28 @@ pins {
  		};
  	};
  
 +	/omit-if-no-ref/
-+	ltdc_pins_a: ltdc-0 {
-+		pins {
-+			pinmux = <STM32_PINMUX('C',  6, AF14)>, /* LCD_CLK */
-+				 <STM32_PINMUX('G',  2, AF13)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('G',  1, AF13)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('C',  5, AF14)>, /* LCD_DE */
-+				 <STM32_PINMUX('H',  4, AF10)>, /* LCD_R0 */
-+				 <STM32_PINMUX('F',  7, AF13)>, /* LCD_R1 */
-+				 <STM32_PINMUX('C', 11, AF13)>, /* LCD_R2 */
-+				 <STM32_PINMUX('A',  1, AF11)>, /* LCD_R3 */
-+				 <STM32_PINMUX('B', 15, AF13)>, /* LCD_R4 */
-+				 <STM32_PINMUX('G',  3, AF13)>, /* LCD_R5 */
-+				 <STM32_PINMUX('A', 10, AF12)>, /* LCD_R6 */
-+				 <STM32_PINMUX('G',  7, AF13)>, /* LCD_R7 */
-+				 <STM32_PINMUX('F',  8, AF13)>, /* LCD_G0 */
-+				 <STM32_PINMUX('H',  5, AF10)>, /* LCD_G1 */
-+				 <STM32_PINMUX('C',  9, AF13)>, /* LCD_G2 */
-+				 <STM32_PINMUX('C', 10, AF13)>, /* LCD_G3 */
-+				 <STM32_PINMUX('A',  6, AF10)>, /* LCD_G4 */
-+				 <STM32_PINMUX('G', 11, AF13)>, /* LCD_G5 */
-+				 <STM32_PINMUX('G', 12, AF13)>, /* LCD_G6 */
-+				 <STM32_PINMUX('A',  9, AF12)>, /* LCD_G7 */
-+				 <STM32_PINMUX('F',  6, AF13)>, /* LCD_B0 */
-+				 <STM32_PINMUX('A',  3, AF11)>, /* LCD_B1 */
-+				 <STM32_PINMUX('G', 15, AF13)>, /* LCD_B2 */
-+				 <STM32_PINMUX('I',  0, AF13)>, /* LCD_B3 */
-+				 <STM32_PINMUX('I',  1, AF13)>, /* LCD_B4 */
-+				 <STM32_PINMUX('A',  7, AF10)>, /* LCD_B5 */
-+				 <STM32_PINMUX('F',  5, AF13)>, /* LCD_B6 */
-+				 <STM32_PINMUX('I',  4, AF13)>; /* LCD_B7 */
-+			bias-disable;
-+			drive-push-pull;
++	m_can1_pins_a: m-can1-0 {
++		pins1 {
++			pinmux = <STM32_PINMUX('B', 9, AF7)>; /* CAN1_TX */
 +			slew-rate = <1>;
++			drive-push-pull;
++			bias-disable;
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('B', 11, AF7)>; /* CAN1_RX */
++			bias-disable;
 +		};
 +	};
 +
 +	/omit-if-no-ref/
-+	ltdc_sleep_pins_a: ltdc-sleep-0 {
++	m_can1_sleep_pins_a: m-can1-sleep-0 {
 +		pins {
-+			pinmux = <STM32_PINMUX('C',  6, ANALOG)>, /* LCD_CLK */
-+				 <STM32_PINMUX('G',  2, ANALOG)>, /* LCD_HSYNC */
-+				 <STM32_PINMUX('G',  1, ANALOG)>, /* LCD_VSYNC */
-+				 <STM32_PINMUX('C',  5, ANALOG)>, /* LCD_DE */
-+				 <STM32_PINMUX('H',  4, ANALOG)>, /* LCD_R0 */
-+				 <STM32_PINMUX('F',  7, ANALOG)>, /* LCD_R1 */
-+				 <STM32_PINMUX('C', 11, ANALOG)>, /* LCD_R2 */
-+				 <STM32_PINMUX('A',  1, ANALOG)>, /* LCD_R3 */
-+				 <STM32_PINMUX('B', 15, ANALOG)>, /* LCD_R4 */
-+				 <STM32_PINMUX('G',  3, ANALOG)>, /* LCD_R5 */
-+				 <STM32_PINMUX('A', 10, ANALOG)>, /* LCD_R6 */
-+				 <STM32_PINMUX('G',  7, ANALOG)>, /* LCD_R7 */
-+				 <STM32_PINMUX('F',  8, ANALOG)>, /* LCD_G0 */
-+				 <STM32_PINMUX('H',  5, ANALOG)>, /* LCD_G1 */
-+				 <STM32_PINMUX('C',  9, ANALOG)>, /* LCD_G2 */
-+				 <STM32_PINMUX('C', 10, ANALOG)>, /* LCD_G3 */
-+				 <STM32_PINMUX('A',  6, ANALOG)>, /* LCD_G4 */
-+				 <STM32_PINMUX('G', 11, ANALOG)>, /* LCD_G5 */
-+				 <STM32_PINMUX('G', 12, ANALOG)>, /* LCD_G6 */
-+				 <STM32_PINMUX('A',  9, ANALOG)>, /* LCD_G7 */
-+				 <STM32_PINMUX('F',  6, ANALOG)>, /* LCD_B0 */
-+				 <STM32_PINMUX('A',  3, ANALOG)>, /* LCD_B1 */
-+				 <STM32_PINMUX('G', 15, ANALOG)>, /* LCD_B2 */
-+				 <STM32_PINMUX('I',  0, ANALOG)>, /* LCD_B3 */
-+				 <STM32_PINMUX('I',  1, ANALOG)>, /* LCD_B4 */
-+				 <STM32_PINMUX('A',  7, ANALOG)>, /* LCD_B5 */
-+				 <STM32_PINMUX('F',  5, ANALOG)>, /* LCD_B6 */
-+				 <STM32_PINMUX('I',  4, ANALOG)>; /* LCD_B7 */
++			pinmux = <STM32_PINMUX('B', 9, ANALOG)>, /* CAN1_TX */
++				 <STM32_PINMUX('B', 11, ANALOG)>; /* CAN1_RX */
 +		};
 +	};
 +
