@@ -2,77 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id uLlcNiFcR2rXWwAAu9opvQ
+	id FM47AilcR2rZWwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:52:17 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:52:25 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0F5C6FF3C6
-	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:52:17 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E13756FF3CE
+	for <lists+linux-stm32@lfdr.de>; Fri, 03 Jul 2026 08:52:24 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=CNFhP3L3;
+	dkim=fail ("body hash did not verify") header.d=amarulasolutions.com header.s=google header.b=UHmk9kpH;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=amarulasolutions.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8FDEBC8F285;
-	Fri,  3 Jul 2026 06:52:17 +0000 (UTC)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com
- [209.85.218.47])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id AF2A4C8F286;
+	Fri,  3 Jul 2026 06:52:24 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 620EFC8F285
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A5025C8F28A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri,  3 Jul 2026 06:52:16 +0000 (UTC)
-Received: by mail-ej1-f47.google.com with SMTP id
- a640c23a62f3a-c124c3c876aso26266466b.1
+ Fri,  3 Jul 2026 06:52:22 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-c029505b389so199052666b.1
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 02 Jul 2026 23:52:16 -0700 (PDT)
+ Thu, 02 Jul 2026 23:52:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=amarulasolutions.com; s=google; t=1783061536; x=1783666336;
+ d=amarulasolutions.com; s=google; t=1783061542; x=1783666342;
  darn=st-md-mailman.stormreply.com; 
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Q8e2F85Jk42cknJBTKAisusI5iJFywDQWX2RRkkLus4=;
- b=CNFhP3L3CO5ilyafHSLmkJuLUUB+9SsCpCzojT0SOMJKWRM6EEicBfK2Zd5XZANr+v
- LRgO80Sj4aZyJf9j/gvfEW3CXqNVTMQfrL+YQLOupIjSPBBUgXp/xCO0+R+De25jwj1n
- vRFl260/vVUj5JavW0pumYT9Y/kTULZwFNJiA=
+ :message-id:reply-to;
+ bh=W4P3RDq+QoFIrungFJ6qmguRlrjE9G4sn4ESNQyuys8=;
+ b=UHmk9kpHbX35Mp8Lp1TIn6YklF1ao+9s2KJPZ+xe7En+639KhxlFMYzZRy11Mjc3Wp
+ 3Vxm1keRlJynVFlatvi0cYhwymCq6fsGxPZcPxiBwXAu13kJBsaMJbKYBtaws6sFuwqC
+ UGYj7ZHaNk/My8274LC1v8KJ/epCBSqn/5pVU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783061536; x=1783666336;
+ d=1e100.net; s=20251104; t=1783061542; x=1783666342;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=Q8e2F85Jk42cknJBTKAisusI5iJFywDQWX2RRkkLus4=;
- b=fl2jl4t1E9tUAmtM6lUW9x/LKHvk4GnT9kgXei8rOPTk7fRAoSYJ/NZN26jMNFaLB3
- Kr75Ehu5eearJQkICR1g305AlkOjaU0jvhE0Xmgm90JhwCwWRYNIRUas7DLH64QCijiW
- 2fnj2VpXr7wQtLlOXxLobl+zdsR9rt9E64311kXlH1UA5ZO8IXfRjk3pW/yIJ+P3Loqe
- MbMArZ+MLstgrBbbRQ7oMnmhs12HpbiNzUYPIWQ+eU0RugFdKpXjN11VFyEuMb1prnur
- URNw1zzwk8Sf0kBOgkJ3BFgba7bH4U7u7GYdVDSW9P9/K8yiy/CBr/4VgF5/b7mYarMz
- BeIw==
+ :to:cc:subject:date:message-id:reply-to;
+ bh=W4P3RDq+QoFIrungFJ6qmguRlrjE9G4sn4ESNQyuys8=;
+ b=q7Z9cr8bAMmRHCPNOh8cxRpUYxF6URGaphRUGK1OcwXNdFswGaglsgFvaa0iyDzBcP
+ SO7dXeM/Evt37jmhWs2H73v63PGiXSj6AocBXx1DY3lbRMOYSG/MTbsEq2zlUL1oLtBK
+ yWo4rSTKDAdLViQQNPvaaEAQ33qL+as3SjE3UsJxQco4q7A15KtA0uoolD2JBmZ/35gz
+ r/FPrFLS5CbiMiY59e7yOb00PeW3xn/sAI8qcPkMjAhWiSmwm/OpOvaqh0LJOTy5PoSX
+ opDolh6CL72bN5xlx69DMKKcBY9+nHoHu/7Ytl4L75n8OcCeI6zDGKfB8ina7vyeD+50
+ 9mfg==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoO78HDJ8lGxQOw3AxG2pmAHRwwHFqHsP8AtXuBaEB0MJ7QmdAR7cOxl7RPh59RWSyrtqf2M25CCqWVDA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzFpz0TrCt0uT/4+6N6bWgBfdoaXD4enigQzCL9gXnP+NgPJAOJ
- bZyh4V47rYw4IKqm1i2JM7msHatCvv+uI5BThGm+23w7FW7Mi1Tc8STweZvBewTc2FQ=
-X-Gm-Gg: AfdE7cm/UcFl1KhFQqWM2r73c4YWHXRv47sUwhmU+LrzNA/9PEQb/OGcEourl7nR/6B
- wq7VHWtvRu2E3to3U7KM4nvbJdF9ucD1nwc2xrktwvsG+tIkjFIpEsnWlGKSbRGf+v4VsZYu2rS
- omM/SsWtchCWNVlq9tRCgGfvqE8Y5qbcSFrjxy2pxijqo0kOw6O60XkCLfhb0ZrxdRARe4jMgYE
- 0O4qXNzR3Ih65M/azMxlAKsMdVmXRB6KZGbN79BgN4/nZvV4m39SR56GWtLFgL2wyzWjX95DkIr
- rJ049kn/gNDHnTx1+pqhG8JSD3om8uuWhwFGRAEmunhbbaoIwXY/YqNIlKfhaDl4BY0FlDrk8GJ
- Qmpd2IxI5Tp8ErdTTGHaIequGW7umUSSbwBdY5HekUZJESNriOcd0/VrT9jj9x2XYMggaM76Tkw
- CQgWsHxR9bsBt52CDv/SRHW7bu2UR3XcwlN4kyyFVN/Hp8M6ydo227vc2wbGOTptYQ7/UfTswns
- D9ylHd2Nnc=
-X-Received: by 2002:a17:907:1c21:b0:c12:7b3f:6c15 with SMTP id
- a640c23a62f3a-c12ae8ef9c9mr438232066b.62.1783061535590; 
- Thu, 02 Jul 2026 23:52:15 -0700 (PDT)
+ AHgh+RqSsWGCB5jYJNgjgPtu+qWPjBmYMBLmanoLm1BRof7bYn1UG9F5q6ij2c6nT08ZxyNu91I+o8Sx67NplQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz0Gz1FxgzSD50CjTdDJYFl3L162/LgFMmfjyioJ4eVchn5Pb5p
+ ufkDaWc9qPgK4EVU+4KfkEDaS7UE57KycHh3nsnpR2boUZMfcfG8N5/4WrcKsfPzz/s=
+X-Gm-Gg: AfdE7ckpGZ2k5BYL4jdKyVh3//xdP3GMY9lhLFBXdYQ0PxbT2zORqxwy0rqB2t9XiMO
+ ZuX28q5VnsWk30+6/ank7vRVknuX4lvfX3u8eBLr8QV8ci9eDqomxXTT0vOp2cJi2a0dsleRX66
+ 1wHDW/CGY/dHLF8idr5DWEG/souptTHL4HaJN9RZrfjPlPliPK6NLg0C185h99DZCGSubdhcLVY
+ 1GWAcFIQ0yiR/epQD5hFeqqFWRxcy+9GbbA9jP4KBEAJHK02cYua3lET4RGO5icZX1iQaTIiRPk
+ RZdXtdsbdQrQEKnuhe0VeT1JTN78J84htiLDom3huD+k/VIcWZpoBDYrzycyioZycKQoj0dTqa1
+ eUJCd6lWmYJQ72Dxp6NSQj8mMTapojWzoMTngfTxIhFKp/4eKEr3FGu7wPMef92v+BRsqLm95kl
+ BQ0Rz6HUBig4paSGSF2NxnnwleRcOmM9sa1NkdEuON5x/tKVR+cST95pgbsH3Dju7qbsz7DY9Cm
+ n90vO2D0Rq+hxyyVMsCLA==
+X-Received: by 2002:a17:907:808:b0:c12:9bee:3b86 with SMTP id
+ a640c23a62f3a-c12c9de19cfmr147004466b.4.1783061537641; 
+ Thu, 02 Jul 2026 23:52:17 -0700 (PDT)
 Received: from dario-ThinkPad-P14s-Gen-5.. ([2.196.43.95])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.52.13
+ a640c23a62f3a-c12b62c4695sm235462866b.44.2026.07.02.23.52.15
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 02 Jul 2026 23:52:14 -0700 (PDT)
+ Thu, 02 Jul 2026 23:52:16 -0700 (PDT)
 From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 To: linux-kernel@vger.kernel.org
-Date: Fri,  3 Jul 2026 08:49:02 +0200
-Message-ID: <20260703065110.1433283-13-dario.binacchi@amarulasolutions.com>
+Date: Fri,  3 Jul 2026 08:49:03 +0200
+Message-ID: <20260703065110.1433283-14-dario.binacchi@amarulasolutions.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
 References: <20260703065110.1433283-1-dario.binacchi@amarulasolutions.com>
@@ -84,7 +84,7 @@ Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, michael@amarulasolutions.com,
  linux-amarula@amarulasolutions.com, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 12/16] arm64: dts: st: add spi1 pins for
+Subject: [Linux-stm32] [PATCH v7 13/16] arm64: dts: st: add usart1 pins for
 	stm32mp25
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -138,52 +138,61 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,amarulasolutions.com:from_mime,amarulasolutions.com:email,amarulasolutions.com:mid]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C0F5C6FF3C6
+X-Rspamd-Queue-Id: E13756FF3CE
 
-Add the spi1 pins used on MicroGEA-STM32MP257-RMM board.
+Add the usart1 pins used on MicroGEA-STM32MP257-RMM board.
 
 Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 ---
 
 (no changes since v1)
 
- arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 24 +++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi | 33 +++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-index c816a6aece47..4e570e2e5157 100644
+index 4e570e2e5157..d515e44832d7 100644
 --- a/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
 +++ b/arch/arm64/boot/dts/st/stm32mp25-pinctrl.dtsi
-@@ -702,6 +702,30 @@ pins {
+@@ -766,6 +766,39 @@ pins {
  		};
  	};
  
 +	/omit-if-no-ref/
-+	spi1_pins_a: spi1-0 {
++	usart1_pins_b: usart1-1 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('G', 6, AF3)>, /* SPI1_SCK */
-+				 <STM32_PINMUX('I', 5, AF3)>; /* SPI1_MOSI */
-+			drive-push-pull;
++			pinmux = <STM32_PINMUX('B', 8, AF6)>; /* USART1_TX */
 +			bias-disable;
-+			slew-rate = <1>;
++			drive-push-pull;
++			slew-rate = <0>;
 +		};
 +		pins2 {
-+			pinmux = <STM32_PINMUX('F', 12, AF3)>; /* SPI1_MISO */
++			pinmux = <STM32_PINMUX('B', 10, AF6)>; /* USART1_RX */
 +			bias-disable;
 +		};
 +	};
 +
 +	/omit-if-no-ref/
-+	spi1_sleep_pins_a: spi1-sleep-0 {
++	usart1_idle_pins_b: usart1-idle-1 {
 +		pins1 {
-+			pinmux = <STM32_PINMUX('G', 6, ANALOG)>, /* SPI1_SCK */
-+				 <STM32_PINMUX('I', 5, ANALOG)>, /* SPI1_MOSI */
-+				 <STM32_PINMUX('F', 12, ANALOG)>; /* SPI1_MISO */
++			pinmux = <STM32_PINMUX('B', 8, ANALOG)>; /* USART1_TX */
++		};
++		pins2 {
++			pinmux = <STM32_PINMUX('B', 10, AF6)>; /* USART1_RX */
++			bias-disable;
++		};
++	};
++
++	/omit-if-no-ref/
++	usart1_sleep_pins_b: usart1-sleep-1 {
++		pins {
++			pinmux = <STM32_PINMUX('B', 8, ANALOG)>, /* USART1_TX */
++				 <STM32_PINMUX('B', 10, ANALOG)>; /* USART1_RX */
 +		};
 +	};
 +
  	/omit-if-no-ref/
- 	spi3_pins_a: spi3-0 {
+ 	usart2_pins_a: usart2-0 {
  		pins1 {
 -- 
 2.43.0
