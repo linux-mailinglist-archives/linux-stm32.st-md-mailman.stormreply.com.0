@@ -2,29 +2,29 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id UahlEGGzSGoKswAAu9opvQ
+	id yRL1CJ+zSGoQswAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 04 Jul 2026 09:16:49 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 04 Jul 2026 09:17:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BD522706E89
-	for <lists+linux-stm32@lfdr.de>; Sat, 04 Jul 2026 09:16:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A7A03706E99
+	for <lists+linux-stm32@lfdr.de>; Sat, 04 Jul 2026 09:17:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
 	dkim=none;
 	dmarc=none;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 57BBEC7A831;
-	Sat,  4 Jul 2026 07:16:48 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 73A68C7A834;
+	Sat,  4 Jul 2026 07:17:50 +0000 (UTC)
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
  (using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DC102C1A979
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 44CF4C14548
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat,  4 Jul 2026 07:16:46 +0000 (UTC)
+ Sat,  4 Jul 2026 07:17:47 +0000 (UTC)
 Received: from localhost.localdomain (unknown [111.196.245.140])
- by APP-01 (Coremail) with SMTP id qwCowADHZc5Ys0hqLqegBA--.11598S2;
- Sat, 04 Jul 2026 15:16:40 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowAAHocmWs0hqF6ugBA--.11681S2;
+ Sat, 04 Jul 2026 15:17:43 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
  Alain Volmat <alain.volmat@foss.st.com>,
@@ -33,14 +33,14 @@ To: Hugues Fruchet <hugues.fruchet@foss.st.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  linux-media@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat,  4 Jul 2026 15:16:38 +0800
-Message-ID: <20260704071638.30125-1-pengpeng@iscas.ac.cn>
+Date: Sat,  4 Jul 2026 15:17:40 +0800
+Message-ID: <20260704071740.37531-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowADHZc5Ys0hqLqegBA--.11598S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF1xCrWxtFW3Cr17Cry7trb_yoWDWFc_Gr
- 4fZFW7WF4xtr9rKa17tFn3ZryS9FWUW3W8Za9aqa12qa4j9w1UWry2vr9xZ3yUAr1Ikay8
- GFn5WFyfCr9I9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+X-CM-TRANSID: qwCowAAHocmWs0hqF6ugBA--.11681S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKryfCr4UCw1kKrW7AF48Xrb_yoWkXrc_Gr
+ 4SvFW7Wa1rtr9rKa12kF15ZrySgF90g3W8JwsYqan2qryIvr1DXryUur9xXayUAr1Ivayr
+ tF1FgFy3uF9aqjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
  9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
  6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
  A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
@@ -57,8 +57,8 @@ X-Coremail-Antispam: 1UD129KBjvdXoWrtF1xCrWxtFW3Cr17Cry7trb_yoWDWFc_Gr
 X-Originating-IP: [111.196.245.140]
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [Linux-stm32] [PATCH] media: stm32: dcmi: Propagate runtime resume
-	errors
+Subject: [Linux-stm32] [PATCH] media: stm32: dcmipp: Propagate runtime
+	resume errors
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -81,19 +81,19 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	DMARC_NA(0.00)[iscas.ac.cn];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
 	FORGED_RECIPIENTS(0.00)[m:hugues.fruchet@foss.st.com,m:alain.volmat@foss.st.com,m:mchehab@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:linux-media@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:pengpeng@iscas.ac.cn,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	TO_DN_SOME(0.00)[];
 	SUSPICIOUS_AUTH_ORIGIN(0.00)[];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[pengpeng@iscas.ac.cn,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
@@ -108,27 +108,27 @@ X-Spamd-Result: default: False [3.29 / 15.00];
 	R_DKIM_NA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:from_mime,iscas.ac.cn:email,iscas.ac.cn:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[iscas.ac.cn:from_mime,iscas.ac.cn:email,iscas.ac.cn:mid,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BD522706E89
+X-Rspamd-Queue-Id: A7A03706E99
 
-dcmi_runtime_resume() returns clock enable failures, but dcmi_resume()
-currently ignores the result of pm_runtime_force_resume() and always
-returns success.
+dcmipp_runtime_resume() can fail while preparing the device clocks, but
+dcmipp_resume() currently ignores the result of
+pm_runtime_force_resume() and always returns success.
 
 Return the pm_runtime_force_resume() result so system resume does not
 hide a failed runtime resume.
 
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/media/platform/st/stm32/stm32-dcmi.c | 4 +---
+ drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmi.c b/drivers/media/platform/st/stm32/stm32-dcmi.c
-index eeb0199864dd..b1f9af8edf6e 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmi.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmi.c
-@@ -2273,9 +2273,7 @@ static int dcmi_resume(struct device *dev)
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+index 49398d077764..516334541b2c 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+@@ -649,9 +649,7 @@ static int dcmipp_resume(struct device *dev)
  	pinctrl_pm_select_default_state(dev);
  
  	/* clock enable */
@@ -138,7 +138,7 @@ index eeb0199864dd..b1f9af8edf6e 100644
 +	return pm_runtime_force_resume(dev);
  }
  
- static const struct dev_pm_ops dcmi_pm_ops = {
+ static const struct dev_pm_ops dcmipp_pm_ops = {
 -- 
 2.43.0
 
