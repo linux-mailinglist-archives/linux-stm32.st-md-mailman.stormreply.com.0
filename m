@@ -2,156 +2,157 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xRplBfmLS2oMVQEAu9opvQ
+	id bT8WG32oS2pLYAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 13:05:29 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 15:07:09 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 805CE70FA1A
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 13:05:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E9C76711069
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 15:07:08 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=Buo4F5Qh;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=intel.com (policy=none);
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=QbOWvfYY;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=Qy115Im0;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject);
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2826DC8F274;
-	Mon,  6 Jul 2026 11:05:28 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9FA27C8F273;
+	Mon,  6 Jul 2026 13:07:08 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id DB518C7A835
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9F6FBC6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2026 11:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783335926; x=1814871926;
- h=date:from:to:cc:subject:message-id:references:
- in-reply-to:mime-version;
- bh=Vea9aKfgtIdJDBHoVJ0/hbV60MhqfMyd5usDnLAHHIQ=;
- b=Buo4F5QhvEzFFPfERhiTw/4IQchAM8IHUhrrRlibbFQgoLLBfs1YO6jR
- qQ4m7RN6q0n5KYbsZOLMEH3Xl471sZymDUDv3eBUZMMwcl1CIakHtzLNH
- 1cnSl6WXcuFu7rPiyGc2yCvi8L9b9Xurnv6YqVpk1ng7eXMkueg7gSOGN
- bFyR3Pum7iAhu+7eph/mQQIWtZpTTatLBCdbSNeJaNEa5ASnKjsmWYIMc
- ffoLcg2mzc8+onVREjxVJ1JOOsMTTPaes8gahEkstWiRvb7nTPwBOwW9n
- +wHmXOHAaZ9/Wjo0Qw0ZnpNyOOgDkBIIiQaGAuCau6grHoy4B4utcvpJi A==;
-X-CSE-ConnectionGUID: 1W9OMHeaThyHAskwLpQQBA==
-X-CSE-MsgGUID: sw6g4fFMQHGXUXusUnGkKA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11838"; a="83739902"
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="83739902"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 04:05:08 -0700
-X-CSE-ConnectionGUID: yOUggHXiSailNPkufWL9Sg==
-X-CSE-MsgGUID: jqLHyJ0iT7CMsdmgQ+XQUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,149,1779174000"; d="scan'208";a="251940539"
-Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
- by orviesa006.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 06 Jul 2026 04:05:09 -0700
-Received: from ORSMSX902.amr.corp.intel.com (10.22.229.24) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 6 Jul 2026 04:05:08 -0700
-Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
- ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Mon, 6 Jul 2026 04:05:08 -0700
-Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.4) by
- edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Mon, 6 Jul 2026 04:05:02 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=kcJyGyaeioZvYCkdUTG+52X5sVbPbfeCp5ah0LQYcY6E7o2Q1RRCI1FXWCmtipH35dI1v5QjEahq641swhRNKjw9pNzti+To/2mvwhHv46Fwh7KwO/3nsPhK3Js86SY8Lqd2iIrxCELXbYosuqveiBcCwISeGJ2QGwc7Glq/uuItJmpa6jTVcFwG+1vkR3VHGuAdXXP3bsS9nEnw4CuFIsH2bqlgGucjWtqLEWGpIHGJQyaWsyg/ftwbfgdZWxwqq9ld9hGcnPm83cieSlta/9tMhsqj4ECWrrJDUmOc013wKu5wMRV+LMq46yFCnrJXr58Y4lc/MKMuhSX1MJlL7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=epa0vJJidq0ww5QhtViOImDVlOSy+3BH6YJkYdTe8n4=;
- b=jtvkO64wJbD7Cx4ujoojvuSQA01mmdKc7gETvxrIbXZv1YPbPWOFoiGvrI2cghV7YT5N2iTIGcHyTrlqkGjQd8IK5B5uC6wD5a+g8LmcOxmtK8t/hnpsaPRsSB3yoxju1QTqrrN/YiiHJu1cfDCNT/5qsjZG8Ufb1omDWOMSGritpOut0hWKBbbT/1Qpps4fMGieHlRHziu68GhjP5kb9TOkt+zEE8mrOzzcYJR4rXAxjldqMXQUSfwJmQNwq71ad7BF+aC4EqukZ+9NQJNwX7LqxN7QW0U8EZ39+/mMBT4sKKCZE11swSJ977iTs/ci5BuT9W32V1YrzhqR6XSwEg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from DM4SPRMB0045.namprd11.prod.outlook.com (2603:10b6:8:6e::21) by
- SN7PR11MB6653.namprd11.prod.outlook.com (2603:10b6:806:26f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.9; Mon, 6 Jul 2026
- 11:04:57 +0000
-Received: from DM4SPRMB0045.namprd11.prod.outlook.com
- ([fe80::b630:ca9c:20e1:f485]) by DM4SPRMB0045.namprd11.prod.outlook.com
- ([fe80::b630:ca9c:20e1:f485%6]) with mapi id 15.21.0181.008; Mon, 6 Jul 2026
- 11:04:57 +0000
-Date: Mon, 6 Jul 2026 13:04:44 +0200
-From: Maciej Fijalkowski <maciej.fijalkowski@intel.com>
-To: Johan Alvarado <contact@c127.dev>
-Message-ID: <akuLzI9GVGn4eI1j@boxer>
-References: <0100019f35ea26e0-42ad009c-01ab-4a8f-b126-fa65fbacae5c-000000@email.amazonses.com>
-Content-Disposition: inline
-In-Reply-To: <0100019f35ea26e0-42ad009c-01ab-4a8f-b126-fa65fbacae5c-000000@email.amazonses.com>
-X-ClientProxiedBy: WA2P291CA0004.POLP291.PROD.OUTLOOK.COM
- (2603:10a6:1d0:1e::8) To DM4SPRMB0045.namprd11.prod.outlook.com
- (2603:10b6:8:6e::21)
+ Mon,  6 Jul 2026 13:07:06 +0000 (UTC)
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 666AxCZ0238118
+ for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 6 Jul 2026 13:07:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ +aJEqe/aUkEC3wO10Vna7LP2Zs+q/5u3K1GL2ugMtcM=; b=QbOWvfYYxMOrrPp8
+ bcZMRh5+gVIjxIia+4jGtN2gxG6/HBu+g2SD5G4FQiPmmCaZXxIuaxA17qiHd9FY
+ JRMWrQCauBJjo0JgYhxypmj3yRmPWA3hDSD9tWsz7XIR77upkB0J+SsOrzvCRmhJ
+ SlhobXzeowDnyvqIfgf3DuDSC53V6bKAf64nWQ23M4oSk6D2Sjdxakos63QbA+bL
+ 2J5WHHhpOPLcZl3/ruCBunw/xfgrnU+PPFzcdVn/iZHkW4+P/wKT8Vs1Me9IJjl6
+ XFMYCfVPI2bjhGBGcfAnSVRSd5uhcnTaLDixCEPfrrm0/fYPG0BruYyAhcDWPjj2
+ XVvYLQ==
+Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com
+ [209.85.221.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f88t892yu-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 06 Jul 2026 13:07:04 +0000 (GMT)
+Received: by mail-vk1-f199.google.com with SMTP id
+ 71dfb90a1353d-5bdcef5085eso113807e0c.3
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Mon, 06 Jul 2026 06:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1783343224; x=1783948024;
+ darn=st-md-mailman.stormreply.com; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=+aJEqe/aUkEC3wO10Vna7LP2Zs+q/5u3K1GL2ugMtcM=;
+ b=Qy115Im0lpddkn7wL5Sr3RdH9YA9piRujvGxtXwcqO7tWFVFV3emP1QFObD5f/Wm9w
+ t/AsTznTZDYkkr1StZNsCrCMwZSMZLNK9ET1ikzstYhJ3/EBV5dtZKkyjD+hv5KyNkE7
+ aOrrocT+7YgL9ann5v6NEMYZ9jHUHR70v74jXcQMf7b3RqvtObxfLRRokv2Qb+43zw2X
+ CntQ6QPE/r1vs2OJZUpfPv8l6edLAIpAbpHjUFfvSg1J4lId1YFVlGbyWj4fKeNqoUwO
+ M24nWr6Kv8NmsnIvgn21VjNW0YU5AQzXMwWj6TJuvIsbm3F+3pqwL8hwVQqiQiUf+RWs
+ iWLg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1783343224; x=1783948024;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+aJEqe/aUkEC3wO10Vna7LP2Zs+q/5u3K1GL2ugMtcM=;
+ b=HJqoXDRd1UM4juxT9EiBiqArYTABLkyn9sxzp0M7u7WBIiztlzkK8VzYg/OVm9FQTw
+ tNfXdH9fFLw6RWkg9ZfHQeFd5BeSCd2ACbdciFsF2kS3GC/laLFStu4ERhprOgvBknPU
+ KxWkmHNc2KFROie4LCO2S/3oxKhVCLlL+lS9TV3TCQnuSU0ZBlYrpN7mSfYDIFtv+SjY
+ 7l5SKlXWC2rGnGWDkjwbR7RVaT3Tws1f5haAJyZzQgfnWz/Et24yn2J1VInW0+pp0E6P
+ oeBYcFgIipBtgT5CbG0aoj9bL7WcTl08pAap/joatgMGc/ZoCcJ3UNJixmprrd+QHMqO
+ Nc7w==
+X-Forwarded-Encrypted: i=1;
+ AHgh+Rp3tCiOuEvMoQt7bJILmTAiD2AolyLa1+DPRYYQtTpCkQ3m0KALU014ZWXJGI0vhTYq0GUqKgemSfROiw==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxBkbaDv1hNT3ZcHMrqYCq4uIcFo9ZnO5ERBR35XMVzpi9pHabO
+ 1NRIxoZ0Sc5PZ0JVzKlVDHjuOqc70us6uJkth0LIhh36UHgdt02xJ5c0GhczZYadWF/vlnzVdU/
+ CZC4ucKKHgDXNzJRqOwrve5suCPePTshDvqPojax30HOkq7RuOwXZh6v+N1h/jg4i6wtnoX/lKi
+ BcSXD3oRE=
+X-Gm-Gg: AfdE7cnQzhrPUBLiACfcr3i9qpSQuFxh4Jlk+I27dTw/aRZ3mbtxcoJSYtLru22q/xo
+ 2x8nKyHLL91geA3nSa3ykIae7zBpLo61/mlfZnD0FSWVaHC2whWIxK2PpMHW8WpXjMyCRZ8iqFW
+ t2IA1fU9oYschh6Ar54y5ZDL5ehZFbPqv5DMigpVr+zuaPX8hNCvyr1UIVe3hXGMR5kKS5f70ax
+ GZXSA6ZInQsJTREvK4Rs6dzoSWgUyWTcgBGrQBJ8TOIXQ8OuwLxpSaK8wDtpll/KI5IMlM6XLmH
+ qAlwX4gu0Ay/hVv46xOdeSuJLVCrYwQQUxWL7ug0jUJBCbeOwYfwFbdVpl+xv/ePjK8ZUSWOjFM
+ cbv9Ja4IaRtt7vVN3SBMLGcONeJFY62uEeFU=
+X-Received: by 2002:a05:6102:1625:b0:740:178:770f with SMTP id
+ ada2fe7eead31-742079e8eb2mr1233297137.7.1783343223700; 
+ Mon, 06 Jul 2026 06:07:03 -0700 (PDT)
+X-Received: by 2002:a05:6102:1625:b0:740:178:770f with SMTP id
+ ada2fe7eead31-742079e8eb2mr1233219137.7.1783343222369; 
+ Mon, 06 Jul 2026 06:07:02 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-69a19db05ecsm3945114a12.28.2026.07.06.06.06.59
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 06 Jul 2026 06:07:01 -0700 (PDT)
+Message-ID: <a1542303-8a71-4387-8651-fc4f127fdfb1@oss.qualcomm.com>
+Date: Mon, 6 Jul 2026 15:06:58 +0200
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4SPRMB0045:EE_|SN7PR11MB6653:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05151773-3593-44aa-d10c-08dedb4e6a58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|376014|7416014|1800799024|366016|18002099003|3023799007|56012099006|11063799006|22082099003;
-X-Microsoft-Antispam-Message-Info: Gn5XcbMshqc6wZ8EMZUrprV9f3baRWPjn3GRcutxjp3UJi2B3zdLdmWv/rihZSRsMJprIFZlsSisv5LoWYey8IoSrL6ZzKMADGgbyquE1Y1fYpXcRiwv2v64v+Xo3qgJIQw1ZWjwUC3EVlj37XbRXBDNQAmOecyuLgHhGkJV2P5x0sI/ugC2/4ENdoQsgJpRhR0Mw1MoyKYJ0hAzZzCFlCrEClOwEgdpoJXS+sL3kgcNXNH33DpADSZX+5MqUUPmoHfgQLrtwiGEdJJkF/+vIpPGWIh+UMF6wmC96gXf+jTVuBNUcKdHOzvoeeINs19U3agLZzlF5s28VK2kbszVpBUF3C/fs8fr6I1SXhra+lIXU+v2QY6bd5VoqLTDovRcFUZPWOec1wxUalFmSd6rSUG2P9TjKzKgoBZnvMzmjnlnUq9/T626knhWCWbTl1xlmGT5tmZ3SOXxReAk5jziO2D8btgdDJuYCQ+Idt3eWxPYMYyMkZ6EOtq2dqHDC0dJRbUZVcqQwi8QX/Elw8JTaowx+EWyIJevVSng/2lrI5dLgulG38RqaXP4COM1gR8Dvgu6Qci1CdrtJ2bF7o6Ef0SA7PO71bvjeFgBOgTpH+raXpfajE0RqnS6CmavRn3A+86wtqVTFBdfrEvteje5U6K/OaitDJWCTWhnKymH100=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM4SPRMB0045.namprd11.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(376014)(7416014)(1800799024)(366016)(18002099003)(3023799007)(56012099006)(11063799006)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VMTzLuLLjH+q3I8JErtMAR3Hc5UibQmKj88aRXlrM9mgdm9CqTI0z/Mk91jK?=
- =?us-ascii?Q?x4hIWKiHakid/vUf5w/tKgnVJxQ5NbSUO/GfvzHd494OcJMrLa+I+Wr1gb+3?=
- =?us-ascii?Q?D+1DCxn1n3YWU18X3JXJLIVSgkDOLSwsnscDCOmvM3NFkj/HVBqM87JPAFo2?=
- =?us-ascii?Q?krYUDWFrQhN6g0SQsfyNRYzjDvFn34vDgRYjIR1uZKN4p37Dc3KXsCFjw4y7?=
- =?us-ascii?Q?/1E+lNt8bB60mfBhAQJjapFpxGQgcddBMMTZsbRymTRwNrOgpi6o8kAb9HTD?=
- =?us-ascii?Q?qpd+/1et+4R7W+D8326heNH/8PjbDNBNXvQOrV9KBgbAzP4YNawTb2IxDR1v?=
- =?us-ascii?Q?wHKHfnYxrhuqF2b34pPUhQuuE1WvPAKypYi329iWM+SnKYYBCLTuHcFwMveL?=
- =?us-ascii?Q?by7uG+f+qVAFcoa1s8u7BqpvK+BNSOn1id2qzggWaJaAktoGt1FFRSXxobo3?=
- =?us-ascii?Q?hEof/Vy1znV1egOVW0s/1eSlytdWzZ4Kch+weEAcHljVGm0+tAodJG/kS+w4?=
- =?us-ascii?Q?fjhi0lrLTcXaChEpQb0lRDnOys5N9wWHqV5WlitP5GOC4Fth2u2cc0Quo+Gv?=
- =?us-ascii?Q?Y2gIsfWlN3N9wlfwsTPYw4K8+t7sTYiZseiGd0jGhjD1xP4smNlr36qf6fah?=
- =?us-ascii?Q?8mIIeyWjHzpX1MJWVvxluyrJrhuPkw5L6Ia1y7JqHHJU31Ht2DYsFLZVapS/?=
- =?us-ascii?Q?z8aj9Mt4fpiU0qI/WUcluOBq3338GplTcTvIyFnJUIgrIn6CLwxPJzTmdhVL?=
- =?us-ascii?Q?21OrLhVF+NJ824OcrsmejS8BIDubBCxT9jeOMZVboSEVF1sYdj81shRvzXVi?=
- =?us-ascii?Q?8GhyP3cXF7GIjCmEqAGqJh/fYaIliRminNI7nN+PTXuIBuos8BBu49zib4XD?=
- =?us-ascii?Q?8f/aqJY8FRTHZ4jse7zUM4rxiq2zqh3BynAcWM/znYSxK5yvrqKqVkgO0zIg?=
- =?us-ascii?Q?toxWXGTAMRi0YccuemKndWFJYGeDfiprYf/9WJGwFgw2vZANL0lY9V64tXy3?=
- =?us-ascii?Q?KSzy6Vh1/Vazk+H11AHYY/8yH/OVAYT0RLcb9gLUGf8tc7+m8RBv56HUKZOl?=
- =?us-ascii?Q?T5tabak8UphtTJgTroO++WdpCC0vQW7H/JDa9kQNzyEAAnQqZNmxxms6cEgK?=
- =?us-ascii?Q?A5UR9g+B8rdcHNTIzfu8HNph8HA9SDS5l+r2Ar8ZTDLBoNPKwVK4jZVRALA5?=
- =?us-ascii?Q?UlQ4IN+IftNfjF/J39kuF8DAWfasGmHTHVvtsfN6gkwCA7EZ1OI+xKrM/glm?=
- =?us-ascii?Q?k/8Q8oJlcHwpmCLmDVDNUogmYDeTzF+V+aJfptluZWBVeBSQqBa7FFB3ZRby?=
- =?us-ascii?Q?Nr5kfpwuBAaKb03xOv8GT8lq7Kq+3eXvOLrPZ2mkW2w6RC0n0AKdYS7P6LB8?=
- =?us-ascii?Q?ZSBTNdZTiSSResGWcMKxQC41jMLW7n5hy474XtV8tJgoa57uqYBNPJenP7v4?=
- =?us-ascii?Q?jaofqKP5U/4pARAHskTwJV50TfD+t4058kqU4DmlawztWRXsmFjxVd8WnLm4?=
- =?us-ascii?Q?rkE3hXxM9/hb/w9h3e1xkVtLIVg3VcRJj9jXxO59jYuTwCzXSrFzVtXVuzpr?=
- =?us-ascii?Q?Az5OGsUNZ/ylymSClHhQHEPK/Jqdc5kLZlMAbCJdSGm22G62gTLEP4lfVpvv?=
- =?us-ascii?Q?xE8M4KttJnpmH94ZaeYOon5q2UdXfvroEt1m5UsfmlTowII/jP1PmSPm1Nk+?=
- =?us-ascii?Q?4i7yI+sOobXGXQ5ACbkTZpdXFRfgSONJvq4aWcVk9i6Bwi9OgXuLOcG6rbnQ?=
- =?us-ascii?Q?TlYDkpMkAopE5IVfeUMr43boDjU/Apc=3D?=
-X-Exchange-RoutingPolicyChecked: BMcXMh3QixlNGzlUUga9MP3jlwunFjkOUDvb8pr3AB1/kxFqZOf1+G1dhkgFASjogK97GDng5xM6PMTdLLGpI760EKXnZLY+GCbDklsQOZe1OJzQKtk93XgCQ3EfftzwtUJ0uxa5xuY86Md0sz+wCR5Px6ZrzQ66jw7kT7XLGbR+mqDv/62dbnIwfG/iuqwASNgNpXphS2KmGAmRctkL3HxzYYDFHIkwlRIeFBCD8EzszK4rAbzs26fGj9quZCdh9RF82rtpYbWo8jaOBtSIc+AqrEBxudhA3ZpzN9fa5/qMUn2oi5kUTXkcLJhOwM47cc5YPcIlWzb3VwarDiPqJA==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05151773-3593-44aa-d10c-08dedb4e6a58
-X-MS-Exchange-CrossTenant-AuthSource: DM4SPRMB0045.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 11:04:57.2088 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: C36HxHYe7dt9ct1kfSKzxjBF+bs4ILYd8wH7MI0paksppCmj9tjzP8J1fOUWHnJNaVyR+KDsRQr72EYEFT+pplXtA/gOTA0jEXOB6STujFs=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR11MB6653
-X-OriginatorOrg: intel.com
-Cc: Jose.Abreu@synopsys.com, linux-kernel@vger.kernel.org, pavel@ucw.cz,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, pabeni@redhat.com, davem@davemloft.net,
+User-Agent: Mozilla Thunderbird
+To: Taniya Das <taniya.das@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+References: <20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com>
+ <20260609-b4-eliza_mm_cc_v6-v6-7-17df09e5940c@oss.qualcomm.com>
+ <197684ce-e0c0-41ee-ae1b-c9b31a7f6411@oss.qualcomm.com>
+ <7eaa8b9a-ba8b-4d07-92c4-3a965ad58708@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <7eaa8b9a-ba8b-4d07-92c4-3a965ad58708@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDEzMyBTYWx0ZWRfX+UFHxmM4Ldc0
+ fPz6ya1u873w+k2LjsjCEDTR9+fcQQoUdUAnTgWnmhnIqR9sksQFFdCw28AqZgkpfUnmUKvZ50t
+ fM4ntKV+YY1UWcSbulhXMM9iFZqLbwo=
+X-Proofpoint-GUID: vG5pqsnLZdq1o7vaEzy44MCy5Azkpd7J
+X-Authority-Analysis: v=2.4 cv=C6zZDwP+ c=1 sm=1 tr=0 ts=6a4ba878 cx=c_pps
+ a=+D9SDfe9YZWTjADjLiQY5g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=uHYfjYNGAha-st8cwW0A:9 a=QEXdDO2ut3YA:10
+ a=vmgOmaN-Xu0dpDh8OwbV:22
+X-Proofpoint-ORIG-GUID: vG5pqsnLZdq1o7vaEzy44MCy5Azkpd7J
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDEzMyBTYWx0ZWRfXy9TNQvEas+wk
+ WrR4Fb8YbfEzKCHKp3Dslj4xmfqS+A+H/QmGEP17u6UibobWjNgwwbCvoxGJ1JKfu0250xuBQGI
+ qlC5ra/fV7glsD7NcnZXWqFifZ/3J6zbPEfsTcHttCq2lNdS2+Gc00p9Tq3BcrEc8PBxSLQctRS
+ SwiOk2VG9kIP59JNMIu2/aSTU5Jl82U857E3DgEy5QJDLR/I0YQCP80MK0GZ3+5TPtZxc/V4+lX
+ PvymO+Xh5ZhdynvsUHLh+Hc250zKYMOFfcq1qqGDCjGOC0sQ1ACbvcc/5s/E1subb7NC5EpUuw9
+ /nBJ9yKy3iJr5Cu9Il+i7zm9BdFI/x5WJYxI8ojIx1poSRphRU11D+qcFEz0P7uZRk/G/swh1qd
+ RWw5f9FQmOc/aroNP8JTAzbFV+BFCj2TLtBq3g9LHLZnh5SVIKJTSVGM6FL/jsbHL0rTC9Iq5/5
+ /XNA+fs5SUJuZUJKtTw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-06_01,2026-07-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 clxscore=1015 spamscore=0 adultscore=0
+ bulkscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607060133
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+ Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net] net: stmmac: raise TX completion
- interrupt at the end of an xmit burst
+Subject: Re: [Linux-stm32] [PATCH v6 7/7] arm64: dts: qcom: eliza: Add
+ support for MM clock controllers
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,159 +169,78 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.89 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
-	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
-	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[maciej.fijalkowski@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORGED_RECIPIENTS(0.00)[m:contact@c127.dev,m:Jose.Abreu@synopsys.com,m:linux-kernel@vger.kernel.org,m:pavel@ucw.cz,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER_MAILLIST(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:from_mime,c127.dev:email,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns];
-	DKIM_TRACE(0.00)[intel.com:-];
-	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[maciej.fijalkowski@intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[synopsys.com,vger.kernel.org,ucw.cz,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[22];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:bmasney@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:luca.weiss@fairphone.com,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dmitry.baryshkov@oss.qualcomm.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_TO(0.00)[oss.qualcomm.com,kernel.org,baylibre.com,redhat.com,fairphone.com,gmail.com,foss.st.com];
+	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_COUNT_SEVEN(0.00)[9]
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[6];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[konrad.dybcio@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[qualcomm.com:email,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 805CE70FA1A
+X-Rspamd-Queue-Id: E9C76711069
 
-On Mon, Jul 06, 2026 at 05:32:45AM +0000, Johan Alvarado wrote:
-> The TX mitigation logic only sets the Interrupt on Completion bit once
-> every tx_coal_frames descriptors (STMMAC_TX_FRAMES = 25), with the
-> tx_coal_timer hrtimer (STMMAC_COAL_TX_TIMER = 5000 us) as the only
-> fallback. TX skbs are freed exclusively from the TX completion path,
-> so any flow that keeps fewer than 25 frames in flight has all of its
-> skbs held for up to 5 ms after transmission.
+On 7/6/26 7:28 AM, Taniya Das wrote:
 > 
-> Paced flows never queue enough frames to reach the frame threshold:
-> TCP Small Queues caps the amount of unfreed data at roughly two pacing
-> intervals worth, which at moderate pacing rates is only a couple of
-> packets. Every small burst then stalls until the coalesce timer fires,
-> and throughput collapses to approximately tsq_limit / tx_coal_timer
-> regardless of link capacity.
 > 
-> This is easily reproducible with BBR, which paces its output and thus
-> keeps only a few frames in flight at a time. On a YT6801
-> (dwmac-motorcomm) equipped Orange Pi 5 Pro, a BBR upload over a ~23 ms
-> RTT path is capped at 5.24 Mbit/s, while CUBIC reaches 207 Mbit/s on
-> the same path. BBR measures the stalled send rate as the path
-> bandwidth and locks its estimate near the floor, so the connection
-> never recovers. Lowering the coalesce settings with ethtool -C
-> (tx-usecs 100 tx-frames 1) lifts the same transfer to 447 Mbit/s,
-> confirming the mechanism.
+> On 6/30/2026 7:39 PM, Konrad Dybcio wrote:
+>> On 6/9/26 5:02 PM, Taniya Das wrote:
+>>> Add the device nodes for the multimedia clock controllers (cambistmclkcc,
+>>> camcc, videocc, gpucc) for Qualcomm Eliza SoC.
+>>>
+>>> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>>> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+>>> ---
+>>
+>> Almost all of these nodes lack power-domains, meaning the
+>> aggregated performance state requests will not be translated
+>> into RPMH requests
+>>
 > 
-> Fix this by setting the IC bit on the last descriptor of every xmit
-> burst, i.e. whenever netdev_xmit_more() reports that no further frames
-> are pending in the current dequeue batch. Frame-based coalescing still
-> applies within a burst, bulk traffic keeps batching through qdisc bulk
-> dequeue and NAPI polling, and the coalesce timer becomes a pure
-> fallback instead of the primary completion mechanism for lightly
-> queued flows.
-> 
-> tx-frames 0 keeps its meaning of timer-based mitigation only.
-> 
-> Fixes: da2024510031 ("net: stmmac: Tune-up default coalesce settings")
-> Signed-off-by: Johan Alvarado <contact@c127.dev>
-> ---
-> Notes for reviewers (not for the changelog):
-> 
-> Tested on an Orange Pi 5 Pro (RK3588, Motorcomm YT6801 PCIe GbE via
-> dwmac-motorcomm), iperf3 upload to a public server over a ~23 ms RTT
-> path, coalesce settings left at their shipped values (tx-usecs 5000,
-> tx-frames 25):
-> 
->   before, BBR:    5.24 Mbit/s (cwnd pinned, bw estimate ~6 Mbit/s)
->   before, CUBIC:  207 Mbit/s
->   after,  BBR:    447 Mbit/s
-> 
-> Interrupt overhead stays sane: ~3.3k NIC IRQs/s total at 447 Mbit/s
-> (~38 kpps), i.e. roughly 12 packets per interrupt, since qdisc bulk
-> dequeue plus NAPI polling still coalesce within bursts.
-> 
-> The 5000 us STMMAC_COAL_TX_TIMER value postdates the tagged commit
-> (it was 1000 us back then); the stall mechanism is the same, only the
-> throughput ceiling differs, hence the Fixes tag on the frame-count
-> change.
-> 
-> The XSK/XDP TX paths keep their frame-count-only IC logic: there is
-> no skb/TSQ backpressure on those paths, and netdev_xmit_more() is not
-> meaningful outside ndo_start_xmit.
-> 
-> The same completion starvation was reported by Pavel Machek in 2016
-> (UDP burst pauses, back then a 40 ms low-res timer):
-> https://lore.kernel.org/netdev/20161123105125.GA26394@amd/
-> His patch disabling TX coalescing entirely was rejected in favour of
-> "a real solution":
-> https://lore.kernel.org/netdev/20161205122711.GA30774@amd/
+> Konrad, all the clock controllers are on CX, similar to Milos and does
+> not have any special voltage requirement for the clock controller.
+> It is okay to not map the power domains here.
 
-Very messy thread. To reiterate - does tx coalescing do any good in this
-driver?
+I don't like repeating this every two weeks, but each consumer core
+may need a specific corner for operating at a given frequency and 
+the way that is conveyed upstream is via a hierarchical structure of
+pmdomains, where the root of the tree is provided by the rpmhpd
+driver
 
-I did some digging and seems there was a rework of coalescing in 2018 and
-then some more polishing happened in 2023 (net: stmmac: improve TX timer
-arm logic).
+If the connection here is lacking, every requirement specific in the
+OPP table or in the IP node via required-opps goes to /dev/null and
+RPMH may do something between aggregating to a lower state (because
+there's some other node voting on it by pure coincidence) or shutting
+the rail off (because there's no votes whatshoever)
 
-> The subsequent hrtimer conversion fixed the timer resolution but kept
-> the timer as the only completion mechanism for lightly queued flows;
-
-Wouldn't your change imply that tx coalescing could be dropped altogether?
-I do agree that each single batch of tx descs should be signalled with ic
-bit at the end.
-
-
-> this patch adds the missing burst-end interrupt.
-> 
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 2a0d7eff88d3..ddf4ac03538d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -4626,6 +4626,8 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
->  		set_ic = true;
->  	else if (!priv->tx_coal_frames[queue])
->  		set_ic = false;
-> +	else if (!netdev_xmit_more())
-> +		set_ic = true;
->  	else if (tx_packets > priv->tx_coal_frames[queue])
->  		set_ic = true;
->  	else if ((tx_q->tx_count_frames %
-> @@ -4910,6 +4912,8 @@ static netdev_tx_t stmmac_xmit(struct sk_buff *skb, struct net_device *dev)
->  		set_ic = true;
->  	else if (!priv->tx_coal_frames[queue])
->  		set_ic = false;
-> +	else if (!netdev_xmit_more())
-> +		set_ic = true;
->  	else if (tx_packets > priv->tx_coal_frames[queue])
->  		set_ic = true;
->  	else if ((tx_q->tx_count_frames %
-> -- 
-> 2.55.0
-> 
-> 
+Konrad
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
