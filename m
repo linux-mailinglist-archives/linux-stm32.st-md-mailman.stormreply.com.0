@@ -2,183 +2,159 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id c3BcBqu7TGqBowEAu9opvQ
+	id aNNOCpVnS2ptQwEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 10:41:15 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 10:30:13 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C0D71939B
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 10:41:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7044070E1AE
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 10:30:12 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=jm0Kg9lS;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=d2N5NGTO;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject);
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
+	dkim=fail ("body hash did not verify") header.d=cirrus.com header.s=PODMain02222019 header.b=Ug92nUoD;
+	dkim=fail ("body hash did not verify") header.d=cirrus4.onmicrosoft.com header.s=selector2-cirrus4-onmicrosoft-com header.b=vV2Rc0ZV;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=cirrus.com (policy=reject);
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D2D49C8F264;
-	Tue,  7 Jul 2026 08:41:09 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 18C72C8F27F;
+	Mon,  6 Jul 2026 08:30:12 +0000 (UTC)
+Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com
+ [67.231.152.168])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D711C7A835
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E8F6CC7A836
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2026 08:28:23 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66641Zbw3614039
- for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 6 Jul 2026 08:28:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- XAhBIVcIgoBMwzdmQI01e6U2QYtMrrtbbOHKP8KiZ8E=; b=jm0Kg9lSibJvV8Yi
- 8hdJzAn4zgpP2byZ5O4vxPHA667bXVLXHofUt568kB49iHxnfwvFhctaInLtCjCZ
- sjNHRodxgeyEI+K4Sh5SeEFuH+eYubHtMfiWH/bAUEFyu7LxqpBoChobn1qyHVpZ
- 1rLLI4FJJqj/Yk953HEONXVBT+N6ylBmW+SjTQeQEVhfTmxCK8O9BG8vaRt3Exir
- JXmS8JQhSMmJuTk8SMinF8d+mY+jVTVBRkY8NqkZa2/Ot0bSxasJBedLFZ9P4/jy
- oIqrv4PZJHfl9zhVgr7IHFht7qp40w3MPq61gyA4heu2IH0hVtB6bY7pBm7HdH1D
- jKj/ig==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f6srvnbcf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jul 2026 08:28:22 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id
- 6a1803df08f44-8eac2620cb0so37352906d6.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jul 2026 01:28:22 -0700 (PDT)
+ Mon,  6 Jul 2026 08:30:10 +0000 (UTC)
+Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
+ by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6666TAMi1108462; Mon, 6 Jul 2026 03:29:47 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
+ :content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=
+ PODMain02222019; bh=pEGA8sqEQmpr7ce475w53LZXTYzccOgS3tca+HjTAm8=; b=
+ Ug92nUoDn8wqyDQR/4GWkj10R5cwkIwAGYMQrVpoKNaQMYCB6rR+fu/As1uc/oXn
+ W1jCTEGyRhE98kGbif6YR5XaS7WSypkwgvpOyA22yv51nG7cSfQ3kZIa7MWapOr/
+ b3YOVK5mWKLi6d9H0RIJ5TdXVCQHeNzrnsPVuEkOsoxAbqBY6692xBb1/7xvmP9m
+ Tex37tWCLWgPDUML7ErIYKLkAGYH4zJVPdUwHszbkRO7a94tQH6mlIjGGxvk8uRl
+ qRuBaKrEHAQ7PMBr5ecFt8e0Nouucgt5OMOKCAV+6kAb3QSy12qrcoW9aCbsEAb1
+ bv+T+V68JCNXgW4eOuzr2g==
+Received: from bl2pr02cu003.outbound.protection.outlook.com
+ (mail-eastusazon11021122.outbound.protection.outlook.com [52.101.52.122])
+ by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4f6xkjj1yj-1
+ (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+ Mon, 06 Jul 2026 03:29:47 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T54CHcZ+piSfcJQjpgXvMcjG7Eq1SLXa6yd44yu+dBQ2kSdWz77Ojs09vXxOT4hYX3oFizRLXzMzOu05vflFPyKliMU6lJGbqrYWJkfXDR3sFTP5QzquePImQytAipXBSwX8N2HF9p2BiFP8+Eb1LH03BB565qhNn8yAAoWxpt++rxt60Yl/tmeW5nz9RZDvzkB74NNe2Jl8DiM6Nd9whXLaOl6X4DJKZllLI8Nx2RFZyOBPW6SlXXy1TNwy8KxGqXeT918uPooG6v8buGMFivzzZySTmQbWJw+Llob8mR4CiFPiDRq8bUaKzblBbQDaDq+xIzSWnhXgajT2KpSkzQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pd8pbdGYHeOsaltoQpMgwfrZAkKLezxglNYqROm5IhI=;
+ b=sHoaCxYNcvbSlSRVZL28VDhRb2vQqVRNixErHUKYY3Is9KQ7MIQXLPJ6bE0qWkdxD46UmAuSuy/nVP5FhmSyllhq5VeYWU/3bm7IQcZGtfDjRVHgAUYPP4imbetRuj1h0+BTm5BzfozuTdfaM6mFzDzADXpZKwolOGkzWJAsfs99SZ+HmM7qivUmmbAG0AmpGwjpi8BFa3kIyd4C9i+1aRLohRhivBXdQV05FyT65cJUNz5A6vio1vZiepLecSplQl1oO9XoEDjEviT35kY74qRPKMLkr2TY7VIlDI1Fze8ZpIbDo013LbLf6Qsao9CpV0zmrm9Eg5IJPWrof96IBA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 84.19.233.75) smtp.rcpttodomain=baylibre.com
+ smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=opensource.cirrus.com; dkim=none (message not
+ signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783326501; x=1783931301;
- darn=st-md-mailman.stormreply.com; 
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=XAhBIVcIgoBMwzdmQI01e6U2QYtMrrtbbOHKP8KiZ8E=;
- b=d2N5NGTOvev3WQ+oUnHeMatk/VVV+tInfzueHQX4SIKa0GJLtRemi5W5F0Ha/ssnFx
- nxgzXGyI+oluwOfyuha0ov8glnUBeo+AhRaFv7EV1hLjnSiu8k5LS40rYzos88oBgwSI
- b1X2F6n0ExjoxTP++LFX3b18WX8awtN33qXct8z3U37eitQkjeFg0UJHNRRIXwz6nY70
- CEJ2zqZcK5j+O25oy9rsZIvvl5qr0d1QCXtHfa+BL51aaPUQw8LgV/GSNkMPP/BpHB8a
- bCPNC68OMX3+1cW5moH6ZcpaZxC5hIwry1GlW4tO3ciOYfXVGi9vmyeMszNeXubM9oec
- vMXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783326501; x=1783931301;
- h=content-transfer-encoding:content-type:in-reply-to:from:references
- :cc:to:content-language:subject:user-agent:mime-version:date
- :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=XAhBIVcIgoBMwzdmQI01e6U2QYtMrrtbbOHKP8KiZ8E=;
- b=f5yrpPCXw/cC7+x7vmxScQhOpCHxihLQirB38P4a2nuLWX9rimu1bBK5d3zIO11mQq
- k3VlxB/TXlnoBrYUx3mAYmP+hQUPYUwlsM7CNnlWOq07Atx88oKNUwAD9aB0+w2eeNCj
- 1IzEbv+RDJGuWvZGpeMCYWvDcUzb8xx3nHPXRf4+GkJQ2Z6obMmK5nvdVhA2u2TW4eAR
- IuiOaO9c6L7i4L3/ga9Uqkt6lYdq/m9vsUMek7siuUF6p1s3O+ugouBa6bV/zF8w97oL
- i3JuE7rYAd2UDM8XAfzRVRAs3nS9XzjOpdv6cgyj5xMcIpa7ES/kayOxJG4OXZnQybXx
- 9ckw==
-X-Forwarded-Encrypted: i=1;
- AHgh+RrkbbmVcwZCRNC7r9Zo2fc02TLULBsgQOLrD2lK0XZzKUZHcevA1sM+ayaTF8pAnMeJwX3TnzN5KVWtgA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyNxywiPtfzMJmkvN2iWHO4C8woLOFAImVITudj3QZG3IDU2ROb
- 4KMl+IDCLOpijNomvONhv6xyb03eOFHGyBShkB0aGKwsiC7Hxg15waNkOpUk7DknYFi6lQa8AEC
- fQXOCkGzh1R8N2TDAmQ9qgebtVCuKAivqx+0lkmKO0c8Wp2pVdz3tmSVJn190DeRlUxF7q+376G
- Jb+Ww3j3s=
-X-Gm-Gg: AfdE7cmxydHtWAzDzgFT8zQG4IIz7D3Pbros0x8XOCsjzfRpqnOYNYeZlcfeQOyhu6p
- a4cBMv4Bsrs/iii5AUwrCSXopq48Eq1CJoLsIlTdxAdnQJQjE3oep0Cv3LPypcjOg7ikBiWU/6W
- bNtmMMxhKOs/EcCYF6Za0jsbFOcTPpfPrB6wo8317TjGXG1t1dEFVePNgUM962adEDHXISzLhml
- a07IGr7BVR/4kAr6GDi2bK89IBNupJUrcW6DbgbWFWfAILj50DKs3sgDrJ4/0izRlOZQSyPx74I
- Wwv3SruWY+PRp7pwEPUVC9W0HZNUly2Satz59naON9Jv6faK7f/h0yq41ytI3sNZRIhWyhmKE7J
- OtNBA5LS3ROto079z5Wm+NFYz5iZTgGqKgQ3zQfSKAFFhVzXhh7LZ1aNBzhlbMg==
-X-Received: by 2002:a05:620a:2b84:b0:92e:47d4:b485 with SMTP id
- af79cd13be357-92e9a4ed0e1mr1294191985a.62.1783326501617; 
- Mon, 06 Jul 2026 01:28:21 -0700 (PDT)
-X-Received: by 2002:a05:620a:2b84:b0:92e:47d4:b485 with SMTP id
- af79cd13be357-92e9a4ed0e1mr1294189385a.62.1783326501174; 
- Mon, 06 Jul 2026 01:28:21 -0700 (PDT)
-Received: from [192.168.69.219] (88-187-86-199.subs.proxad.net.
- [88.187.86.199]) by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c12b62907absm677939066b.33.2026.07.06.01.28.17
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 06 Jul 2026 01:28:20 -0700 (PDT)
-Message-ID: <bc697542-b1e2-41c2-af36-b708ca4aad5c@oss.qualcomm.com>
-Date: Mon, 6 Jul 2026 10:28:16 +0200
+ d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pd8pbdGYHeOsaltoQpMgwfrZAkKLezxglNYqROm5IhI=;
+ b=vV2Rc0ZVakNDvgI+GlQHBBL8g05/mmoSVCNg0WV94hl4MG83Wg4AyEMQ/FOp9eBE3YL63AD8iovdsbzhZrCkphj13EZ4UlOSuDROzFa3AqPOHTIwgeJINzo61lYhFv3m0sa1kyh+49aMwkoygJAigUTrQE0SdD0/g990+yty530=
+Received: from SJ0P220CA0017.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:41b::27)
+ by BLAPR19MB4420.namprd19.prod.outlook.com (2603:10b6:208:285::13)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.13; Mon, 6 Jul
+ 2026 08:29:43 +0000
+Received: from SJ1PEPF000026C7.namprd04.prod.outlook.com
+ (2603:10b6:a03:41b:cafe::6a) by SJ0P220CA0017.outlook.office365.com
+ (2603:10b6:a03:41b::27) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.13 via Frontend Transport; Mon, 6
+ Jul 2026 08:29:43 +0000
+X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
+ smtp.mailfrom=opensource.cirrus.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
+Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
+ opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
+Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
+ SJ1PEPF000026C7.mail.protection.outlook.com (10.167.244.104) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.181.6
+ via Frontend Transport; Mon, 6 Jul 2026 08:29:42 +0000
+Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com
+ [198.61.86.93])
+ by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id CF759406541;
+ Mon,  6 Jul 2026 08:29:40 +0000 (UTC)
+Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
+ by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id A56B2820244;
+ Mon,  6 Jul 2026 08:29:40 +0000 (UTC)
+Date: Mon, 6 Jul 2026 09:29:39 +0100
+From: Charles Keepax <ckeepax@opensource.cirrus.com>
+To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>
+Message-ID: <aktnc2e9rIzG4lo4@opensource.cirrus.com>
+References: <cover.1783003256.git.u.kleine-koenig@baylibre.com>
+ <f83c8292e7e3ba9425792591fb136d4ae1468215.1783003256.git.u.kleine-koenig@baylibre.com>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>, Chen Wang <chen.wang@linux.dev>
-References: <cover.1783263835.git.ukleinek@kernel.org>
- <20de6cd60c2938aad2d21397b92742849418ab1b.1783263835.git.ukleinek@kernel.org>
- <973f3d6f-6ff4-4685-9c9f-b07987f74d98@linux.dev> <aktWoIfY_DdO6gb4@monoceros>
-From: =?UTF-8?Q?Philippe_Mathieu-Daud=C3=A9?= <philmd@oss.qualcomm.com>
-In-Reply-To: <aktWoIfY_DdO6gb4@monoceros>
-X-Authority-Analysis: v=2.4 cv=TcamcxQh c=1 sm=1 tr=0 ts=6a4b6726 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=4s3hRJSeHn4rkQlkrse1kQ==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=M51BFTxLslgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=8pif782wAAAA:8 a=IpJZQVW2AAAA:8 a=TiEZW8bMWLlPbLH3YMsA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=1HOtulTD9v-eNWfpl4qZ:22 a=IawgGOuG5U0WyFbmm1f5:22
-X-Proofpoint-ORIG-GUID: moNPfPaB3TO5bwchuxUw_1dqdSj_1-16
-X-Proofpoint-GUID: moNPfPaB3TO5bwchuxUw_1dqdSj_1-16
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA4MyBTYWx0ZWRfX01VDYg9b/uEr
- rHPKb8ksKv+ceIX/FH5PGdMTDxSqLKif5N74Ut8XY1xZBkvmqGFk2CXPYaWcYt10EdBgwotO0/c
- /FA/LXviTuM3C3UTVraFHyK5IXC5b2BwUsv9JwpKKohpBGUJg3UhWqUQSVKXT2sM8CFCUpnx5kP
- UWJ67kasd+Bj8mZJO7LvMMI/BQgw9Amdz2hLjPtC1C69qfL50fx78TETv62LJKPVz+Ostiu7Fkq
- EyRUk9zq8+ZAIXXsxl61AjuA/9rrauRKJaq0MZX974yxCv1d9JAm6vVoZ0B/BGLaMI6F/WlWqPU
- ubrzhFG4LZfIUvpKUN4QzyLIaVcc2kGh+0xoeYH1MtCkOGCi+Uhg2FOEGSXzYf0J4Ml144KCfpN
- Wxfz6rHZn1WBJklKDqya4/eoJW9JmV3CcrYKJ7x9ihaAgvCVOtNvI1aCCdvl7Xwc1tGVB6lh8fY
- ttE30539p07sGPaEvcw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA4MyBTYWx0ZWRfXyZSS9Q93govN
- z6uZ6J+jMVCDLcQe3qmzI2fKIuvrkZWPDHBA4g0HhtZ0SOQuMpH2PDhb1jYOSf4kNhv+UTpkHc7
- rz/YNZhnRPtXH2ln9H/+qAUpg73l3yQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-07-05_02,2026-07-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
- impostorscore=0 adultscore=0 clxscore=1011 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607060083
-X-Mailman-Approved-At: Tue, 07 Jul 2026 08:41:09 +0000
-Cc: Sean Anderson <sean.anderson@linux.dev>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Michael Walle <mwalle@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>, imx@lists.linux.dev,
- Frank Li <Frank.Li@nxp.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>,
- Paul Cercueil <paul@crapouillou.net>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Alim Akhtar <alim.akhtar@samsung.com>, Guenter Roeck <groeck@chromium.org>,
- Janne Grunau <j@jannau.net>, Michal Simek <michal.simek@amd.com>,
- Fabio Estevam <festevam@gmail.com>, linux-riscv@lists.infradead.org,
- linux-kernel@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>,
- Hammer Hsieh <hammerh0314@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Kevin Hilman <khilman@baylibre.com>, Magnus Damm <magnus.damm@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com,
- Peter Griffin <peter.griffin@linaro.org>, linux-rockchip@lists.infradead.org,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Orson Zhai <orsonzhai@gmail.com>, linux-mips@vger.kernel.org,
- linux-sunxi@lists.linux.dev, Piotr Wojtaszczyk <piotr.wojtaszczyk@timesys.com>,
- linux-pwm@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- chrome-platform@lists.linux.dev,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Ray Jui <rjui@broadcom.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Vladimir Zapolskiy <vz@mleia.com>, linux-mediatek@lists.infradead.org,
- linux-rpi-kernel@lists.infradead.org,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>, linux-amlogic@lists.infradead.org,
- Sven Peter <sven@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Benson Leung <bleung@chromium.org>, linux-arm-kernel@lists.infradead.org,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Scott Branden <sbranden@broadcom.com>, Inochi Amaoto <inochiama@gmail.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Samuel Holland <samuel.holland@sifive.com>, linux-renesas-soc@vger.kernel.org,
- Alexey Charkov <alchark@gmail.com>, asahi@lists.linux.dev,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Paul Walmsley <pjw@kernel.org>,
- Neal Gompa <neal@gompa.dev>, sophgo@lists.linux.dev,
- Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: Re: [Linux-stm32] [PATCH v1 4/5] pwm: Unify coding style of
-	of_device_id arrays
+Content-Disposition: inline
+In-Reply-To: <f83c8292e7e3ba9425792591fb136d4ae1468215.1783003256.git.u.kleine-koenig@baylibre.com>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C7:EE_|BLAPR19MB4420:EE_
+X-MS-Office365-Filtering-Correlation-Id: 051c5700-d149-41a5-5c17-08dedb38bab8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|82310400026|23010399003|7416014|376014|61400799027|22082099003|18002099003|16102099003|11063799006|5023799004|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info: ZulTDJmnJThYSVKVCcU6JfT2S3InoniS1qp837lxUGhDdhZyrHB0/GOU9M1YH3qCCGLZ4LANJ36dpkLRvLxkBgefxKUXtBOgy1mDowUEg0BK+DQTAkp4nzExzNn7nKFSIiPs8akBLtGLf2bj+HV90DAVpFNXephbRSueqIFgJBE5XXpynDxFHnBImmH3+xSxiQ0xR+cUzuW5iSx9K44cEhHsJXWNOpKGQyZWG+/Ru7LAELbWioWoeNt0biBf4oFBAKFGzcfInx0BSFSfReAHp72SXdLjTWSUiyVEock+ubRalhTngum1cZcB1rJrkyYuFEZsA3+upGse/3I2LXk8FqJnVu3GpElZWv1rr0LLGTcXwrkMMpr0Hbl1NMvldz07gOBVSCYhsphERbIjJ+YKctl04t+CC+GgqVf/zOksKdHlmSiZLWyBQr39FE6ume3MK4GJfmjnK0Ct1WwEw3OTYMnKuoZ79HahfgsqRcnwNsWCkdYTQlKtNnUpW0IxALT2ZRdh4KQhmSuf/oxIfbWJBB/e1EKj5ZuhHEYjjS32VtoRyL59hV/q8VNR9qtQImO+9ySOwKVkPLlrF1gSzO4D5h7HvcsPXt2P6co5qNmtEvvCjKy0/lDd1cNjgxaWUcGoLsu2b3rUbTnb3nUKJrla9WsoSVN5qOyLqmAPwGgZIQUr0AUjnaB8+rrktnc+R1TZ+D2A1ECpylqcBH63mvNZ7Q==
+X-Forefront-Antispam-Report: CIP:84.19.233.75; CTRY:GB; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:edirelay1.ad.cirrus.com; PTR:InfoDomainNonexistent;
+ CAT:NONE;
+ SFS:(13230040)(36860700016)(82310400026)(23010399003)(7416014)(376014)(61400799027)(22082099003)(18002099003)(16102099003)(11063799006)(5023799004)(4143699003)(56012099006);
+ DIR:OUT; SFP:1102; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: +Orm3ZAQfaMUsPgMQGgjoBfXmdUFWgK1ebl1FIWqXAcEgIeOU3KqVyq8YUjxOMSzHD8PWDM9cOgOgetVOTCr9ehdDew+J5/o90qlM644IsjnmQNM1jkd0ttB4kK4/hCt3+2NMXPQxh7qqvOqpU7cwloxwkGxYEgI94/droJoTSWWbBc1BHQHcLeGzk6XujvzdBqqbFlrk6cSNxfUnpVMqT8iZTl7hpi7XSkrACy95MRCyEstZeAa5bAZMmcj9cE3xziq5j1RQNxHJ7tYvkfNxPXPygbkOzgXSYfTKVrqhWRkwOXv2wl4+E4/4+1KxKg1ak5lfRERXzD+aVVbPX8uORQBfxKIkCTl7C7L4lAJirCXeXs+15x8BATbtkeVGezdgt2fE7CUHr/Y+IO651GcORgxzGw4C2OgrwKs6DzNla3za6NwRzheq++L6UL5ofFX
+X-Exchange-RoutingPolicyChecked: XMgNMAD5uAJUdXrsz83vqyPTttgOgAakwXGdWVzE0KmL8XLPGyBFA24QjorChYn/niAMLaH0GicDUI961Q8jaElRw0hPtthuSl15xPoBz9pw5bO8FgrG8vdzQzb1MJKeHwpOEqn85Ct9Btqc7PEWxMViZAUCycR3eq5+s4MIKdmul2NuL1G64qbnYs1RUf1VPYQMdoAzE83RJPjvCT6L1t46MmyNwhjRhCc6geDEG+L5s4jrSErCyGIXelNS6B6V6njD3VlVzIo0/cHmyqcSGkyVnNK+Li+iBQ7JcGoim9hAKFsTt6AdieEYCcYWhKfB6UxpSCt1q8VNVt7djKaNhw==
+X-OriginatorOrg: opensource.cirrus.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jul 2026 08:29:42.7261 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 051c5700-d149-41a5-5c17-08dedb38bab8
+X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8; Ip=[84.19.233.75];
+ Helo=[edirelay1.ad.cirrus.com]
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-SJ1PEPF000026C7.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR19MB4420
+X-Proofpoint-ORIG-GUID: 1Fs3NGouqAPotpPZf9nF3-4xqed3Bb0e
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA2MDA4NCBTYWx0ZWRfX7/UyWIxn2zbA
+ +lBJte4QdJIJgL9LeF0ajCPfx2YIpYRYjDqFk0ZyI0UADY42ob4qu2rEKLRNyqxTM0hbGWW5cNe
+ 7J6kXX02ZAio36c0nZXYWdS5zhbVrzw=
+X-Authority-Analysis: v=2.4 cv=YYiNIQRf c=1 sm=1 tr=0 ts=6a4b677b cx=c_pps
+ a=83jsKCSeZiZisq1MDa3xoA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=8nJEP1OIZ-IA:10 a=RAioF0-LDSMA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
+ a=IpJZQVW2AAAA:8 a=w1d2syhTAAAA:8 a=3eKTm6C_KWxbsUWaNMQA:9 a=3ZKOabzyN94A:10
+ a=wPNLvfGTeEIA:10 a=IawgGOuG5U0WyFbmm1f5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA2MDA4NCBTYWx0ZWRfXxTdXH7Z/Oz8L
+ vq37QcCrA5nfROYVB4rmDcQSA2HkFHfQToNnQDSjxlgDQtk2dq+LRbqgC19jfs1U7MT8E6Jl/pH
+ AVxfFVno5FJA4GwFYJX08LkMcUYMCw5hI3F1KkXa31tz/hlhCxdI9YzGVE1/gvIoveZLqqYukZK
+ Q8otPmzT52aSJ+Sr9RyHgD3K7t4yUKgdWFcNSm5yWgmTXR6LJLSBI0/QUvTt9mO8+9nFRlwWAz+
+ XVCFewlqsLTH9O0uTurZT9oRGaM5FqtourE5L+Ca16C3RgBlPi95jEsMmBQWpzvhI2kw5FN+8Ou
+ lH6ojreJTBYlEDy1nDP+D23dhjpp8oZogoRB0lLsV6wE28bR+vQiYEBdlZT+s/7ROE0xEm8oU6G
+ WmfO+ADiUtqhqNtx/78qLca8Y+GEWI075BYWtKL6YkDmAQqdb9M/p3iQ79m9U+JUY/NLsygY4dM
+ 7Cm+s672/0Ssyn40NNg==
+X-Proofpoint-GUID: 1Fs3NGouqAPotpPZf9nF3-4xqed3Bb0e
+X-Proofpoint-Spam-Reason: safe
+Cc: James Ogletree <jogletre@opensource.cirrus.com>,
+ Support Opensource <support.opensource@diasemi.com>, Tom Rix <trix@redhat.com>,
+ Lee Jones <lee@kernel.org>, linux-stm32@st-md-mailman.stormreply.com,
+ linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, patches@opensource.cirrus.com,
+ Fred Treven <fred.treven@cirrus.com>, Ben Bright <ben.bright@cirrus.com>,
+ Xu Yilun <yilun.xu@intel.com>, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH v1 2/3] mfd: Initialize spi_device_id
+ arrays using member names
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -190,71 +166,81 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: add header
-X-Spamd-Result: default: False [6.39 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[qualcomm.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [6.29 / 15.00];
+	DMARC_POLICY_REJECT(2.00)[cirrus.com : SPF not aligned (relaxed),reject];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[qualcomm.com:s=qcppdkim1,oss.qualcomm.com:s=google];
-	DATE_IN_PAST(1.00)[24];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[cirrus.com:s=PODMain02222019,cirrus4.onmicrosoft.com:s=selector2-cirrus4-onmicrosoft-com];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:u.kleine-koenig@baylibre.com,m:chen.wang@linux.dev,m:sean.anderson@linux.dev,m:alexandre.belloni@bootlin.com,m:mwalle@kernel.org,m:heiko@sntech.de,m:geert+renesas@glider.be,m:imx@lists.linux.dev,m:Frank.Li@nxp.com,m:claudiu.beznea@tuxon.dev,m:paul@crapouillou.net,m:jernej.skrabec@gmail.com,m:alim.akhtar@samsung.com,m:groeck@chromium.org,m:j@jannau.net,m:michal.simek@amd.com,m:festevam@gmail.com,m:linux-riscv@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:jbrunet@baylibre.com,m:hammerh0314@gmail.com,m:linux-samsung-soc@vger.kernel.org,m:florian.fainelli@broadcom.com,m:khilman@baylibre.com,m:magnus.damm@gmail.com,m:krzk@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:peter.griffin@linaro.org,m:linux-rockchip@lists.infradead.org,m:bcm-kernel-feedback-list@broadcom.com,m:orsonzhai@gmail.com,m:linux-mips@vger.kernel.org,m:linux-sunxi@lists.linux.dev,m:piotr.wojtaszczyk@timesys.com,m:linux-pwm@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:chrome-pla
- tform@lists.linux.dev,m:martin.blumenstingl@googlemail.com,m:rjui@broadcom.com,m:s.hauer@pengutronix.de,m:vz@mleia.com,m:linux-mediatek@lists.infradead.org,m:linux-rpi-kernel@lists.infradead.org,m:baolin.wang@linux.alibaba.com,m:matthias.bgg@gmail.com,m:linux-amlogic@lists.infradead.org,m:sven@kernel.org,m:wens@kernel.org,m:bleung@chromium.org,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:neil.armstrong@linaro.org,m:sbranden@broadcom.com,m:inochiama@gmail.com,m:nicolas.ferre@microchip.com,m:samuel.holland@sifive.com,m:linux-renesas-soc@vger.kernel.org,m:alchark@gmail.com,m:asahi@lists.linux.dev,m:kernel@pengutronix.de,m:zhang.lyra@gmail.com,m:pjw@kernel.org,m:neal@gompa.dev,m:sophgo@lists.linux.dev,m:nobuhiro.iwamatsu.x90@mail.toshiba,m:geert@glider.be,m:jernejskrabec@gmail.com,m:magnusdamm@gmail.com,s:lists@lfdr.de];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_SENDER(0.00)[philmd@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[philmd@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[linux.dev,bootlin.com,kernel.org,sntech.de,glider.be,lists.linux.dev,nxp.com,tuxon.dev,crapouillou.net,gmail.com,samsung.com,chromium.org,jannau.net,amd.com,lists.infradead.org,vger.kernel.org,baylibre.com,broadcom.com,st-md-mailman.stormreply.com,linaro.org,timesys.com,googlemail.com,pengutronix.de,mleia.com,linux.alibaba.com,collabora.com,microchip.com,sifive.com,gompa.dev,mail.toshiba];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[65];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCVD_COUNT_FIVE(0.00)[6];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	FORGED_SENDER(0.00)[ckeepax@opensource.cirrus.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:u.kleine-koenig@baylibre.com,m:jogletre@opensource.cirrus.com,m:support.opensource@diasemi.com,m:trix@redhat.com,m:lee@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-sound@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:rf@opensource.cirrus.com,m:mcoquelin.stm32@gmail.com,m:patches@opensource.cirrus.com,m:fred.treven@cirrus.com,m:ben.bright@cirrus.com,m:yilun.xu@intel.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_CC(0.00)[opensource.cirrus.com,diasemi.com,redhat.com,kernel.org,st-md-mailman.stormreply.com,vger.kernel.org,gmail.com,cirrus.com,intel.com,lists.infradead.org];
+	GREYLIST(0.00)[pass,meta];
+	DKIM_TRACE(0.00)[cirrus.com:-,cirrus4.onmicrosoft.com:-];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email];
+	TO_DN_SOME(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ALIAS_RESOLVED(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[ckeepax@opensource.cirrus.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stormreply.com:url,stormreply.com:email,wikipedia.org:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_SEVEN(0.00)[9]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 23C0D71939B
+X-Rspamd-Queue-Id: 7044070E1AE
 X-Spam: Yes
 
-SGkgVXdlLAoKT24gNi83LzI2IDA5OjE5LCBVd2UgS2xlaW5lLUvDg8K2bmlnIChUaGUgQ2FwYWJs
-ZSBIdWIpIHdyb3RlOgo+IEhlbGxvIENoZW4sCj4gCj4gT24gTW9uLCBKdWwgMDYsIDIwMjYgYXQg
-MDg6MzM6NDdBTSArMDgwMCwgQ2hlbiBXYW5nIHdyb3RlOgo+PiBPbiA3LzUvMjAyNiAxMToxNCBQ
-TSwgVXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yikgd3JvdGU6Cj4+PiAgICAtIFVz
-ZSBhIHNpbmdsZSBzcGFjZSBpbiBhIG9mX2RldmljZV9pZCBhcnJheSB0ZXJtaW5hdG9yOyBBIHNp
-bmdsZSBzcGFjZQo+Pj4gICAgICBhZnRlciB0aGUgb3BlbmluZyB7IGFuZCBiZWZvcmUgdGhlIGNs
-b3NpbmcgfSBpbiBub24tZW1wdHkKPj4+ICAgICAgaW5pdGlhbGl6ZXJzOwo+Pj4gICAgLSBObyBj
-b21tYSBhZnRlciBhbiBhcnJheSB0ZXJtaW5hdG9yOwo+Pj4gICAgLSBBbHNvIG5vIHRyYWlsaW5n
-IGNvbW1hIGFmdGVyIGEgbmFtZWQgaW5pdGlhbGl6ZXIgaWZmIHRoZQo+PiBpZmYgLT4gaWYKPiAK
-PiBUaGlzIGlzIGFjdHVhbGx5IGludGVuZGVkLiBpZmYgPSAiaWYgYW5kIG9ubHkgaWYiLCBzZWUg
-ZS5nLgo+IGh0dHBzOi8vZW4ud2lraXBlZGlhLm9yZy93aWtpL0lmX2FuZF9vbmx5X2lmIC4KCkkg
-YWdyZWUgdGhpcyBzY2llbnRpZmljIGlkaW9tYXRpYyBleHByZXNzaW9uIGlzIG5vdCB3ZWxsIGtu
-b3duCmJ5IG5vbi1uYXRpdmUgRW5nbGlzaCBzcGVha2VycywgYW5kIHVzaW5nIHRoZSBleHBhbmRl
-ZCBmb3JtIGlzCmp1c3Qgc2ltcGxlciB0byByZXZpZXcgKHRoaW5raW5nIGF0IG5vbi1uYXRpdmUg
-RW5nbGlzaCBzcGVha2VyCnJlYWRpbmcgeW91ciBjb21taXQgaW4gdGhlIGZ1dHVyZSkuCgo+IAo+
-Pj4gICAgICBjbG9zaW5nIH0gaXMgb24gdGhlIHNhbWUgbGluZTsKPj4+Cj4+PiBTaWduZWQtb2Zm
-LWJ5OiBVd2UgS2xlaW5lLUvDtm5pZyAoVGhlIENhcGFibGUgSHViKSA8dS5rbGVpbmUta29lbmln
-QGJheWxpYnJlLmNvbT4KPj4KPj4gWy4uLi4uLl0KCl9fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fCkxpbnV4LXN0bTMyIG1haWxpbmcgbGlzdApMaW51eC1zdG0z
-MkBzdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHkuY29tCmh0dHBzOi8vc3QtbWQtbWFpbG1hbi5zdG9y
-bXJlcGx5LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2xpbnV4LXN0bTMyCg==
+On Thu, Jul 02, 2026 at 04:53:40PM +0200, Uwe Kleine-K=F6nig (The Capable H=
+ub) wrote:
+> While being less compact, using named initializers allows to more easily
+> see which members of the structs are assigned which value without having
+> to lookup the declaration of the struct. And it's also more robust
+> against changes to the struct definition.
+> =
+
+> The mentioned robustness is relevant for a planned change to struct
+> spi_device_id that replaces .driver_data by an anonymous union.
+> =
+
+> Also adapt spacing and usage of commas to the most common style.
+> =
+
+> This patch doesn't modify the compiled array, only its representation
+> in source form benefits.
+> =
+
+> Signed-off-by: Uwe Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@bayl=
+ibre.com>
+> ---
+
+Cirrus/Wolfson bits all look good to me:
+
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+
+Thanks,
+Charles
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
