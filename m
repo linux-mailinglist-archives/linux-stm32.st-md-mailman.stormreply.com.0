@@ -2,78 +2,78 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id LODWMyNyS2pERgEAu9opvQ
+	id 33ZINityS2pGRgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:15 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:23 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82D6370E80D
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 900BB70E817
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:23 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=lC3m49dv;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=K7HI9kg0;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4FFDBC8F293;
-	Mon,  6 Jul 2026 09:15:15 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5FB84C8F274;
+	Mon,  6 Jul 2026 09:15:23 +0000 (UTC)
 Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
  [209.85.210.194])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id BBD60C6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 45621C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2026 09:15:13 +0000 (UTC)
+ Mon,  6 Jul 2026 09:15:22 +0000 (UTC)
 Received: by mail-pf1-f194.google.com with SMTP id
- d2e1a72fcca58-847aa193d98so2246611b3a.3
+ d2e1a72fcca58-847d1e9db22so3069586b3a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jul 2026 02:15:13 -0700 (PDT)
+ Mon, 06 Jul 2026 02:15:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783329312; x=1783934112;
+ d=gmail.com; s=20251104; t=1783329321; x=1783934121;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to; bh=nE3XF9TJ3rEGOneChwFEqNNIrveo5+lTJId+Q3nPPQA=;
- b=lC3m49dvBqQTPMutcpMF0Qq8r5cTjl+eqNSewST7/f5uXvnpnRQziXdSpHU/c0t+mz
- XZDC6D5D5mUIH+DAGprxuHygJXsl0b+yyoe6GW5mPe3u1ZKJXW6aAIdranrxDFArs/kh
- +YORWHSApBxRr5WVB77w/KFJiwNcif4drAQQ9krV53SheIF2FAgmEqRhv3+nrtJKafCY
- 1ML9iM81YQLDge2X6UORjwVysEDg83JlT4omquNlvLmeOoyHVtVcWc6YJCNRKhzITGJ2
- 1zmxIOrtH0N+lSBOQ/7+P+1nafkP4NLG/XFk2RkUWtYMIvI1rK8D4Q5jFHEkqCF6J8Yk
- 52/w==
+ :reply-to; bh=PO7sRlb4LngBB0NhQzK1DjshH0p/tRvHLng9mNY0Vj8=;
+ b=K7HI9kg00n1bAqIFGarFnCN0JyYomnWB+SIInpdMHa6vI377s/3+z1xQAneKx5ykkY
+ 2n0rzwsi68DgutCCrqiSTXoUTKXF+5uwbHMiMXKTkqIqiyd2hBZsLXghAXHeHuGzCEnl
+ Wc3N4eLKLiIyPbAkB4zt3XagCptDlSX96UK0B9ZApS755z4ixS4cTRCf2wGRpZmU+oPo
+ WPvgTijpfYZRcr9cK/CwvhnqETZBDw03szHPpGuYb4HQIYFZm9Mniah6brUkTE+QWqhH
+ 5dY9f90zPcjpvbSL05/tOfo/W71IYukScm2mlhYdEePE8/imcOfMFOM4XBtXeuJVVFWD
+ p+kA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783329312; x=1783934112;
+ d=1e100.net; s=20251104; t=1783329321; x=1783934121;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
  :cc:subject:date:message-id:reply-to;
- bh=nE3XF9TJ3rEGOneChwFEqNNIrveo5+lTJId+Q3nPPQA=;
- b=HdtuNiqWiRX+/wrwas3KcllqoOlCzoyYEsnvJI9rBt6GpNd7uqmjyoKInX4B1ibhLV
- Ggx1MtiKGSYdC7gKCR7TxPCqsed3niSqvpY1obCXOClV7oGedo8YcYnY8T0qVkfLD6iG
- dtQbnVUgkdltlT3YkNnd0RxsJMByoEEfFe3TjQal4wtUKv+lRVJYMtgvXkU+p3WeNEHJ
- VUrarHn01MMhlB+ee2ioEXJjksjaWAF4M3Uf0i+syLDqZJHQCnuTitIEmn9XdE1LtBpZ
- yUGy6fIKDDXLZK70c0jKvfsE1lKLp4VVu6EfDw/0fnn+ngRcA/ms1xCv61F2w5c0Rohx
- 1CSA==
+ bh=PO7sRlb4LngBB0NhQzK1DjshH0p/tRvHLng9mNY0Vj8=;
+ b=koIvE3cA/a93bNzpy+Atu2q9DWo0m9tMN3zf25FbV0r966iAIhSZzPH+EA6xXEXSnI
+ 6cu8ZDTp9TlwVlj+YVqXMc5IEYGNjAolzqtQd4/rZ7OSqyyaXTLsMihSg9TJ8Arbj7FA
+ LRpQ+aIqxXuK1DGTNTT+Q4GJFBvzjBh16yepin1APmzAs4EbsHy6SILZcXvhgGQxE6K2
+ Pz9SDwS2W/1Vzv9kDO75au12+bnZW7QiSNB7PYUtVPLyrwEEqQmC6XnTdkGek15eOwAm
+ WJGNCQC6bNTdYg8tMBpiot1OZ+rki2q/Y54XEHRIXPIXTJ6XzWfy7pTFzgZth+6F/07g
+ jEKQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoYV9L6vO+9UdIXqycWJDpl4pdPUzapjnW91q883Ocbol1I1c0ezAS2DkMukmDlK9mPeYdSsodfXcqbJQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyMt+b6kuwB+430vn+hsyh56lnsxzi4A4N49E9R/y/MmEz4Lemj
- Z8RcZ6rYU3C37r+cTPBgg0B4Nex/5kjq4Fx3cP+1TSwj6apEqt747NA7
-X-Gm-Gg: AfdE7clHe+Ew17QFnl+DhQD2OflrCHa4KRUE94mQStxVMt8mGJkw9KxO9CRjUSQ6TWC
- 4xPfC19KKRXusk1TILlZ77cHBEpWg23RxBzF0/D3OIL2zLbXQMD45+uusMrRgbH1aJ7uza391gu
- ICZZhSWxWu1ff5+BHNuLAxmxdjE6w9aSUvsDm5eTqDcxfGpQxWmVDPuNsVEDS8mP9jHwK5L6QLI
- qjqIU6phv7zrohT5utzGP67dCrTR4Hux88NQGuP0c5FLAMOusP91zwKKU0Rgy7Blq7D5XXbffQ4
- ZAv7z7WAxK2znPXTTFQ4C9ZGDYsLophaQbUrcSMQ4PHUhzUQ+BNCz9XnI2dakMlXIJqkfvYTFPK
- 865IrQJfTJVsXopwsdQfJ5mjTpWo8ubW7CakMzzW6g2Z440UGjh4sIcMcuvTR7323XvKVNZbyEg
- QFf96l6L0sC/egLbqW7WUOYBS+
-X-Received: by 2002:a05:6a00:744c:b0:848:19f4:3b52 with SMTP id
- d2e1a72fcca58-84819f45421mr1984897b3a.38.1783329312352; 
- Mon, 06 Jul 2026 02:15:12 -0700 (PDT)
+ AHgh+RrX2jfR8OkBOCm2EmBNymt+k5zSlU/isG40drdxjJ5Lr7PLkpcji6S7aAMM+OgT8P0Pg67XBHtZWAm0jg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YxTHvTcnn3Ho1OjjX1n8vcMdN3rM5tHuvZRQPoqP6bEQUq548x0
+ 0H8XX3Tvto0lufPCNUdRerNK4RaqOhIz+kGckEl1QgVa/F99vvPjW82U
+X-Gm-Gg: AfdE7ckHjlGPlwzSOZowMOOcHenzUdc2rxKfQLkLSXGQRWr47Rq5xdWmgoXjJyfhhxx
+ 4+y/K6jy3SJE0ea+UdUBYXhbdFIHb78/FMzRgWkIQikhx/5blS6i8+XckKwNvsjAr6FuepKw/sY
+ PH0X6GTrjNiod7SNsWeKzJLaBNSRJOrPPdJe8sFvhsRyxJV6GpXUcGQz0S4tT3hUeIE5EpZ2D7a
+ L+4N2n6rXELutpSmmZAz+B2tT9ja/hkvjSdn5tZCg13qrOLSsjX5pqGJX2g0qA4W8sIUz/RUV9t
+ qIGxFTRzTgFsgFTUjTIeV3P6x+qH3gZ8JpVx0gnZ8UGEOs8beIhwjEsvR14KYUxfCt6ip5EqphM
+ YkIQydbfJwP/KRUo4WjThpDDR7PBsTJfchfNGrMmiDFO2W83WxOZm/gmQcfafXgrblBFbfN7Hz/
+ l0X0QUva808V9weMqypdU7rhxh
+X-Received: by 2002:a05:6a00:bd0c:b0:847:77f0:72af with SMTP id
+ d2e1a72fcca58-847f6ecb888mr7926803b3a.40.1783329320787; 
+ Mon, 06 Jul 2026 02:15:20 -0700 (PDT)
 Received: from [192.168.1.101] ([218.194.36.79])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6db29d1sm3445963b3a.53.2026.07.06.02.15.04
+ d2e1a72fcca58-847f6db29d1sm3445963b3a.53.2026.07.06.02.15.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 02:15:11 -0700 (PDT)
+ Mon, 06 Jul 2026 02:15:20 -0700 (PDT)
 From: Yanan He <grumpycat921013@gmail.com>
-Date: Mon, 06 Jul 2026 17:14:42 +0800
+Date: Mon, 06 Jul 2026 17:14:43 +0800
 MIME-Version: 1.0
-Message-Id: <20260706-rv1126-alientek-dlrv1126-v2-2-ff3176ca362b@gmail.com>
+Message-Id: <20260706-rv1126-alientek-dlrv1126-v2-3-ff3176ca362b@gmail.com>
 References: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
 In-Reply-To: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -88,19 +88,19 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Heiner Kallweit <hkallweit1@gmail.com>, 
  Russell King <linux@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783329286; l=1084;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783329287; l=1439;
  i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=hEAydHqntdYMnlyAwKWZtU7FCzzrJfeB5kFdTHg3eh8=;
- b=oUIvb0p8xJrOQfktVGkGTJAbXV6vKYwxR7zox/cjJFvRifrU/XZQte3H1tZqxq8jemi+Qu5h5
- kI0XpBCrB7QBLc9+7DAvO63iyOniB4dnpGDfjDqMs9cydUzegylaX06
+ bh=SlNqGmETJ9Q8UAkQSzGcvlMdwkMGS8oYl0+UlW2dAag=;
+ b=y6ylHRmWgT7jI86bC726VoaKX+LpK4637earqAkTGSrc4CX0YqwDp1WW/spDefa3DoiAUsZOh
+ Vi4pQJYhQAiAYpVdofljX7KHjKSc3kOcTx5ju2ZdGCW3K/esm48DEaL
 X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
  pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Yanan He <grumpycat921013@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 2/5] dt-bindings: arm: rockchip: Add
-	Alientek DLRV1126
+Subject: [Linux-stm32] [PATCH v2 3/5] net: phy: motorcomm: Enable optional
+ clock for YT8531
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -152,36 +152,53 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,motor-comm.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 82D6370E80D
+X-Rspamd-Queue-Id: 900BB70E817
 
-The board consists of a DLRV1126 carrier board and a CLRV1126F core
-module based on the Rockchip RV1126 SoC.
+Some boards feed the YT8531 PHY from an SoC-provided external
+reference clock described by the common ethernet-phy "clocks" property.
+
+Enable the optional PHY clock during probe so boards can model this
+clock as a PHY input instead of keeping the clock alive from the MAC
+driver.
+
+This is needed on the Alientek DLRV1126, where the PHY reference clock
+is provided by CLK_GMAC_ETHERNET_OUT.
 
 Signed-off-by: Yanan He <grumpycat921013@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/rockchip.yaml | 7 +++++++
+ drivers/net/phy/motorcomm.c | 7 +++++++
  1 file changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
-index 1a9dde18626d..9058f2a461d5 100644
---- a/Documentation/devicetree/bindings/arm/rockchip.yaml
-+++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
-@@ -162,6 +162,13 @@ properties:
-           - const: coolpi,pi-4b
-           - const: rockchip,rk3588s
+diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
+index 5071605a1a11..3396a38cfc0f 100644
+--- a/drivers/net/phy/motorcomm.c
++++ b/drivers/net/phy/motorcomm.c
+@@ -6,6 +6,7 @@
+  * Author: Frank <Frank.Sae@motor-comm.com>
+  */
  
-+      - description: Alientek CLRV1126F SoM based boards
-+        items:
-+          - enum:
-+              - alientek,dlrv1126
-+          - const: alientek,clrv1126f
-+          - const: rockchip,rv1126
++#include <linux/clk.h>
+ #include <linux/etherdevice.h>
+ #include <linux/kernel.h>
+ #include <linux/module.h>
+@@ -1180,9 +1181,15 @@ static int yt8521_probe(struct phy_device *phydev)
+ static int yt8531_probe(struct phy_device *phydev)
+ {
+ 	struct device *dev = &phydev->mdio.dev;
++	struct clk *clk;
+ 	u16 mask, val;
+ 	u32 freq;
+ 
++	clk = devm_clk_get_optional_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return dev_err_probe(dev, PTR_ERR(clk),
++				     "failed to get and enable PHY clock\n");
 +
-       - description: Edgeble Neural Compute Module 2(Neu2) SoM based boards
-         items:
-           - const: edgeble,neural-compute-module-2-io   # Edgeble Neural Compute Module 2 IO Board
+ 	if (device_property_read_u32(dev, "motorcomm,clk-out-frequency-hz", &freq))
+ 		freq = YTPHY_DTS_OUTPUT_CLK_DIS;
+ 
 
 -- 
 2.54.0
