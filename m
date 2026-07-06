@@ -2,82 +2,82 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id yNRwNxRyS2o/RgEAu9opvQ
+	id uko3MBtyS2pARgEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:00 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:07 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D67770E800
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6275870E805
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 11:15:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=g+BmzcVt;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=R1ek9JvQ;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1EAF0C8F293;
-	Mon,  6 Jul 2026 09:15:00 +0000 (UTC)
-Received: from mail-pf1-f194.google.com (mail-pf1-f194.google.com
- [209.85.210.194])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2F4F5C8F293;
+	Mon,  6 Jul 2026 09:15:07 +0000 (UTC)
+Received: from mail-pf1-f196.google.com (mail-pf1-f196.google.com
+ [209.85.210.196])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 7C6CEC6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 968A6C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2026 09:14:58 +0000 (UTC)
-Received: by mail-pf1-f194.google.com with SMTP id
- d2e1a72fcca58-8478fe07f65so2854579b3a.0
+ Mon,  6 Jul 2026 09:15:05 +0000 (UTC)
+Received: by mail-pf1-f196.google.com with SMTP id
+ d2e1a72fcca58-84536ecfc5bso2790862b3a.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 06 Jul 2026 02:14:58 -0700 (PDT)
+ Mon, 06 Jul 2026 02:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783329297; x=1783934097;
+ d=gmail.com; s=20251104; t=1783329304; x=1783934104;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:from:to:cc:subject:date:message-id:reply-to;
- bh=lr2T/VNgeTFspDjmoHod2aovQh7y4rJk7xKdeAYkRu0=;
- b=g+BmzcVtOLW6REK5CD3IA1BNqKcRL6S3IiOdfw1fmgZa4nj4alg60QbVbMqPNsvrE6
- hQbpcokhM0Cq7LeLQIsEzZ91cVyLSO7ZK6q9yd7IZsLDZNIzLGeQSlro+Pn8USVJd929
- b9DkGk3ra6gdr2EKyZ8pBM0b114tAQglnwcokZXULnriTfjwf0s2ivTXeF8U2ZmiXMEm
- otViQOkdBVzvz1ote1bOAvR02kmckG5nBXjT1wv3qidbU2ND1SpPS+AE80gcghumkpbe
- 0oDYAHQtigaUGO9oIC0e6VmNlky+T/RNtWhk7RkT5xF3Cqd2F0+X9M61qIM4DabvbKwy
- Vneg==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=MLyPjG5C5L4PyonbjPrLAmmPBiN4HQfMBWtrcgyX/W0=;
+ b=R1ek9JvQOgdiY39f2KkUZRLYUhmgdLsBDLF6JujXClfnhjYikgrHX58okD7O0YL+a5
+ CX6s9rNcGQC0v//ScLdgxwAUcIM0Yozm+G0PP0/Cml1hQrkAArtwvPRJCuklC3jYR9lT
+ AAVsM+kn51+eild+us10D+PZClMYT2AFnYO5/hFOw5+M17lm8RYLoVxCFy5a8BrOoAvR
+ mOJYA2ZZI7qGZsfjep/QT7EKIrq8KBZH+bhJ2RAjhO5hgp33lhPUCRJEiy2xuV3rt7aS
+ T2dsL0vv58Pzr7Dy06Bp42mnkX1ZuJTs18hq4AC1QMOyiOY2oDeS2T2oc1R/dev6/+Aw
+ 4nnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783329297; x=1783934097;
- h=cc:to:content-transfer-encoding:mime-version:message-id:date
- :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=lr2T/VNgeTFspDjmoHod2aovQh7y4rJk7xKdeAYkRu0=;
- b=WurnWQDY9HR2R4R4dLuF28CoeIUxB21E2P4fIhgZupKt4cuf/0az0OlhBAjCempHDc
- 0p6dL3fY4XB1zTdiUxpvF6mIe9qbkewCb+fVpsHn+EFMuFwEhnr5zLHOzw04k7I8Z01W
- HESAykqk0383X/4qcgIgJzG70qrbtqa67S3oHfOi/6o8MRNvQwaWi/zgU0d6i5jjQKJ6
- bdo6KRPycGTOkep2t9N12jC5WzHNQUawKDE/RXlt4YQxZ70rVYGkf00Z8aTPXOISOp7/
- /3hJZThwmwhh5zgFFE1sSjaxit/jZH1U/I46btQxbr38mnIHTqmmbs15Jtb/gX2qEGyJ
- F55w==
+ d=1e100.net; s=20251104; t=1783329304; x=1783934104;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=MLyPjG5C5L4PyonbjPrLAmmPBiN4HQfMBWtrcgyX/W0=;
+ b=FB5hwCes7BetJ1BADLZoFTKFo0sCElFYHAX5QpQEdQCZMwmbC51H+Y/c/mfHsbHJV8
+ IkjfxjgiQS4YClU/wLzNT72kX0NKXLrI2WP6granBg32imJYLn5+bwOe2rlJXXhE8nOU
+ ty7K0jOl10AbEu7SpAvbDqb4eyQdzAWOpKxUXParM1ox7B+nknW5ue09L/7UO970ItOX
+ /2lHwEWp2yoPoIkTnDG/4vVzhOk7fJPcKiRhUn+AKpA2E8n33ypKtPfskBIi1YML1GOm
+ Nn6M7/Ga7csPplVhXk6xispVNx2KBleRLMVDNqvUpd630Q4s8Hu1Y09aY/gInB886LWq
+ S5PQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+Rr9mSIUcqpUm3wPVLybFaNbDHJ+DPraqenCrGUEr/o53ND5tZkg37/koODAJVHTlj5gTS4CNWniPqV9rg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YzNx7wQ0FC8vTRlmFY6LgoKBgs0AtHMhf8b+dUkCSrbihP1cV1s
- eIow5XvgQobRCaX9XtIXyM1W/q6fdowgZcextGYwr5d1eu9k7QTlXav7
-X-Gm-Gg: AfdE7clM7rfv4Q21y3yPPF+uo2nKAxkUJJ1ct6rj1/+1YvzoySm5ilPiN+IMhScwuUM
- f5S1TcXbKDz3IvS0U5+XCCX+68qNR85dwPnf0XjWU0msoq8ffeuv4Wn+g5kkASK7nVBvQawuL3G
- uvQSnEfOwj6TWXrhdOsuPMqmF5IW+ct7II5FquJD+yzaLxCknLIh6BWmlC/59MqrMpagAco6utO
- wM0qZpEFtVa+H5Ftxn50jiBEk5aU5y+HiQYiCIbMGvUuKw73s5vBqvXnlptQzxD4r8p1ouFcW8A
- Yao3IS6Yp+0hjaSiCuWs8dsOzfoFZbQV0Fs+TNqDuMMETSg3WEN0tDOllwzDKS9vvC0+lYSFR9L
- uxJ+YVX9yzCxmfGn9Y66yS+yL0xb6kV71MzBkGhL6H1diwTq+dG0FwA6qriQywczBZqex2PaAor
- QpgsZwFCS8e/eCz728ylnMP3Dn
-X-Received: by 2002:a05:6a00:928f:b0:842:80c5:c420 with SMTP id
- d2e1a72fcca58-847f6ef68camr8193652b3a.40.1783329295132; 
- Mon, 06 Jul 2026 02:14:55 -0700 (PDT)
+ AHgh+Rp+zsmwhmUOkSyj1ktQjnHHMFmZX+zuSSzXq0yxHZ3T4NzOUyYVnenHjlndMvRMUVEyRVSvXMb9LZBSrQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwnKog9Y2mB4cSUxL6UUwtAL735bR4avmZn2L9JgvfCLI65qXiC
+ qOmcaQXQHTQ+99oW4ZkV4+KAKj6kU+QafYk+kwXHr4sv8dgfPYEDamsY
+X-Gm-Gg: AfdE7cmqmB3HeFGp1K3iAV+PAVer5J7nq/0NDflM8CN//1YntxhgFpPlw3te2JpT0r9
+ IaZkguZEGHt3Qgo5kXFwYfHCKl0fWBt/T7tz8UqaqBwRNA0i+rQMbkcq+DzSJU4cit1ezVijm9+
+ cJQLhTTT7QOIRKVzbibJAQc+LyowXohobtLQK55N7ltXO7ypnX8lrIV7LYOS00EzeZVQCMoN5kZ
+ WPjmeGTgsKe93I4TtePha3Ut4Hg7ZEVQU4X7gxHk1/tsLsMTkselcz1bAwfdIaB/OJk40tDFTZS
+ gkZsKF5wr2ZW9/AtrSVdpusjA6r75n9WeyW9J+dnQCV5XHi55L4ox8sbiYDYTEj9bshPS5U/LHK
+ S8zS4zrkhj5XD2G30Ne+rVX638oAQn+/MXpZVcyDIxfepN8IySPPQiyu8Mdv/WtcReECw6OKvVS
+ kWXuvwbZjl7AnutjXZJg6at5sU
+X-Received: by 2002:a05:6a00:928d:b0:846:c7f4:74d with SMTP id
+ d2e1a72fcca58-847f6f4dc63mr9274624b3a.41.1783329304103; 
+ Mon, 06 Jul 2026 02:15:04 -0700 (PDT)
 Received: from [192.168.1.101] ([218.194.36.79])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-847f6db29d1sm3445963b3a.53.2026.07.06.02.14.47
+ d2e1a72fcca58-847f6db29d1sm3445963b3a.53.2026.07.06.02.14.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 06 Jul 2026 02:14:54 -0700 (PDT)
+ Mon, 06 Jul 2026 02:15:03 -0700 (PDT)
 From: Yanan He <grumpycat921013@gmail.com>
-Date: Mon, 06 Jul 2026 17:14:40 +0800
-Message-Id: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
+Date: Mon, 06 Jul 2026 17:14:41 +0800
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
- vPSU3UzU4B8JSMDIzMDM0ML3aIyQ0MjM93EnMzUvJLUbN2UHKhIiqVJYlJKcpqFqYWBElB7QVF
- qWmYF2OjoWAi/uDQpKzW5BGSeUm0tAHxpGmR8AAAA
-X-Change-ID: 20260618-rv1126-alientek-dlrv1126-d94abdcf8580
+Message-Id: <20260706-rv1126-alientek-dlrv1126-v2-1-ff3176ca362b@gmail.com>
+References: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
+In-Reply-To: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -90,19 +90,19 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Heiner Kallweit <hkallweit1@gmail.com>, 
  Russell King <linux@armlinux.org.uk>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783329286; l=2237;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783329286; l=883;
  i=grumpycat921013@gmail.com; s=20260618; h=from:subject:message-id;
- bh=cLIYaTp8BMdNpvmeNN9IHEGffrelsNbt22peLlfH/xI=;
- b=n9ZjERAhzjx2V7crs7HJzpo3tqAmQ8t8NqGgffNufU3uJAKs2gRa4YnXgybLrwGB6BscbMpTf
- 6R7McTRg+88CmER536i37fi+k30MyFTlhzIpbLcmMPD4KH0VhdznWAN
+ bh=mcE6Yk5jQAt+Yt1V2EfWURtYiAgr7yrD8IJBZ/7gloY=;
+ b=BxvGMeEMOJIcDK1cuZcQyswYfSolbuWRu2T2E+i4BOAKIXIhu8SvtnBgIthxgHZ8eezTIYref
+ jRshprlBawRB4rPkB+L3GtuaunnK7RYifBztV8pZ/pbn8jfugmoNo2I
 X-Developer-Key: i=grumpycat921013@gmail.com; a=ed25519;
  pk=oWrY8KwXIunZWlYBV76NG2A3V4p1bJ+aD45Mr56ErTw=
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Yanan He <grumpycat921013@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 0/5] ARM: rockchip: rv1126: Add support for
- Alientek ATK-DLRV1126
+Subject: [Linux-stm32] [PATCH v2 1/5] dt-bindings: vendor-prefixes: add
+	alientek
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -124,7 +124,7 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
@@ -132,8 +132,8 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:heiko@sntech.de,m:andrew+netdev@lunn.ch,m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:david.wu@rock-chips.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:Frank.Sae@motor-comm.com,m:andrew@lunn.ch,m:hkallweit1@gmail.com,m:linux@armlinux.org.uk,m:devicetree@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:grumpycat921013@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:krzk@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[grumpycat921013@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[grumpycat921013@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	FREEMAIL_TO(0.00)[kernel.org,sntech.de,lunn.ch,davemloft.net,google.com,redhat.com,rock-chips.com,gmail.com,foss.st.com,motor-comm.com,armlinux.org.uk];
 	RCPT_COUNT_TWELVE(0.00)[23];
@@ -156,57 +156,33 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 6D67770E800
+X-Rspamd-Queue-Id: 6275870E805
 
-The ATK-DLRV1126 board consists of a CLRV1126F core module and a
-DLRV1126 carrier board. The core module contains the Rockchip RV1126
-SoC, eMMC and RK809 PMIC. The carrier board provides Gigabit Ethernet,
-SD card, AP6212 WiFi and Bluetooth, PCF8563 RTC, ADC keys, GPIO LEDs and
-audio connectors.
+Add a vendor prefix for Alientek, a board and module vendor used by the
+ATK-DLRV1126 board.
 
-This series adds the Alientek vendor prefix and board compatible, updates
-the Motorcomm PHY driver to consume an optional external PHY reference
-clock, adds missing RV1126 SoC description pieces, and finally adds the
-CLRV1126F core module and DLRV1126 carrier board device trees.
-
-The board was tested with Ethernet/NFS boot, eMMC, SD card, SDIO WiFi
-enumeration, Bluetooth LE scanning, RTC, ADC keys, GPIO LEDs and RK809
-audio card registration.
-
-Changes in v2:
-- Model CLK_GMAC_ETHERNET_OUT as an external PHY clock consumed by the
-  YT8531 PHY instead of keeping it alive from dwmac-rk.
-- Add optional clock enable support to the YT8531 path in the Motorcomm
-  PHY driver.
-- Use phy-mode = "rgmii-id" for the Alientek DLRV1126 GMAC.
-- Keep the PHY reference clock in the ethernet-phy node, following the
-  rk3588-tiger.dtsi pattern.
-
+Link: https://en.alientek.com
 Signed-off-by: Yanan He <grumpycat921013@gmail.com>
 ---
-Yanan He (5):
-      dt-bindings: vendor-prefixes: add alientek
-      dt-bindings: arm: rockchip: Add Alientek DLRV1126
-      net: phy: motorcomm: Enable optional clock for YT8531
-      ARM: dts: rockchip: Add RV1126 I2C5
-      ARM: dts: rockchip: Add Alientek DLRV1126
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
- .../devicetree/bindings/arm/rockchip.yaml          |   7 +
- .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
- arch/arm/boot/dts/rockchip/Makefile                |   1 +
- .../dts/rockchip/rv1126-alientek-clrv1126f.dtsi    | 277 +++++++++++++++++++++
- .../boot/dts/rockchip/rv1126-alientek-dlrv1126.dts | 256 +++++++++++++++++++
- arch/arm/boot/dts/rockchip/rv1126-pinctrl.dtsi     |  10 +
- arch/arm/boot/dts/rockchip/rv1126.dtsi             |  15 ++
- drivers/net/phy/motorcomm.c                        |   7 +
- 8 files changed, 575 insertions(+)
----
-base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
-change-id: 20260618-rv1126-alientek-dlrv1126-d94abdcf8580
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 396044f368e7..914d5a8fd628 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -88,6 +88,8 @@ patternProperties:
+     description: ALFA Network Inc.
+   "^algoltek,.*":
+     description: AlgolTek, Inc.
++  "^alientek,.*":
++    description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
+   "^allegro,.*":
+     description: Allegro DVT
+   "^allegromicro,.*":
 
-Best regards,
---  
-Yanan He <grumpycat921013@gmail.com>
+-- 
+2.54.0
 
 _______________________________________________
 Linux-stm32 mailing list
