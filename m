@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id vy94BCXCS2oYZwEAu9opvQ
+	id A0FGB2fCS2o8ZwEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 16:56:37 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 16:57:43 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8223971240C
-	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 16:56:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 96FEF712465
+	for <lists+linux-stm32@lfdr.de>; Mon, 06 Jul 2026 16:57:42 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=lunn.ch header.s=20171124 header.b=VK25B0Fe;
+	dkim=fail ("body hash did not verify") header.d=lunn.ch header.s=20171124 header.b=SDjUcqLQ;
 	dmarc=fail reason="SPF not aligned (strict)" header.from=lunn.ch (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 327C5C8F264;
-	Mon,  6 Jul 2026 14:56:36 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 63AD4C8F273;
+	Mon,  6 Jul 2026 14:57:42 +0000 (UTC)
 Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EA302C7A837
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ACB5DC7A835
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon,  6 Jul 2026 14:56:34 +0000 (UTC)
+ Mon,  6 Jul 2026 14:57:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
  s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
  References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
  Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
  Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
- bh=w8joU4cXK6hN478uM2nlCnYfVvF9AwmMn0E7W8AlcPE=; b=VK25B0FevkFnnIvRkDNCtDbhAy
- HMXuMOvcMQCq6b+613/bHU+SkZmKvaQWrxrv/dYSKlXOo17Qlxei+WkUqvC2DvgESt+oMN26iQTsM
- do1Ta9iXF6SLwqa1KSoIYnvolhGzOf64nLdXZ6Q30RvPnLqs/XZ7zPQ9Mxbf7dCpY5Q0=;
+ bh=ADaEzG5k+SdavN1eHzHBe+2hNmvFIXHsmoacs5qvmYM=; b=SDjUcqLQVM9+ct2Tl1Dpp6lmbL
+ r+rH8J3EJnI1wsdMkIvrWsN6Hd84jsKsX82Di6Dltnfoi44kSgm2E+6LZDs4pui2lepL0ljcUQEbo
+ Ul4664ULpjAbaZIUX28xkaPTqUiYo7MtfhFIxPjdRANKyyjAyLVsB8ssBN/viQm9bN1E=;
 Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
  (envelope-from <andrew@lunn.ch>)
- id 1wgkk3-00B0Vt-9k; Mon, 06 Jul 2026 16:56:15 +0200
-Date: Mon, 6 Jul 2026 16:56:15 +0200
+ id 1wgklE-00B0Wp-Ny; Mon, 06 Jul 2026 16:57:28 +0200
+Date: Mon, 6 Jul 2026 16:57:28 +0200
 From: Andrew Lunn <andrew@lunn.ch>
 To: Yanan He <grumpycat921013@gmail.com>
-Message-ID: <ea703e8d-e11f-4f0d-bd23-060a4c9ac988@lunn.ch>
+Message-ID: <e73a58e4-f9d2-46ea-8124-730f67936aee@lunn.ch>
 References: <20260706-rv1126-alientek-dlrv1126-v2-0-ff3176ca362b@gmail.com>
  <20260706-rv1126-alientek-dlrv1126-v2-3-ff3176ca362b@gmail.com>
 MIME-Version: 1.0
@@ -76,17 +76,17 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	R_DKIM_REJECT(1.00)[lunn.ch:s=20171124];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[lunn.ch : SPF not aligned (strict),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
+	FORGED_RECIPIENTS(0.00)[m:grumpycat921013@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:heiko@sntech.de,m:devicetree@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:Frank.Sae@motor-comm.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:david.wu@rock-chips.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
 	FREEMAIL_TO(0.00)[gmail.com];
 	FORGED_SENDER(0.00)[andrew@lunn.ch,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[21];
-	FORGED_RECIPIENTS(0.00)[m:grumpycat921013@gmail.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:heiko@sntech.de,m:devicetree@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux@armlinux.org.uk,m:Frank.Sae@motor-comm.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:david.wu@rock-chips.com,m:kuba@kernel.org,m:krzk+dt@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:hkallweit1@gmail.com,m:conor@kernel.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	RCVD_COUNT_THREE(0.00)[3];
 	MIME_TRACE(0.00)[0:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -105,9 +105,9 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:from_mime,lunn.ch:email,lunn.ch:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[lunn.ch:mid,lunn.ch:from_mime,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 8223971240C
+X-Rspamd-Queue-Id: 96FEF712465
 
 On Mon, Jul 06, 2026 at 05:14:43PM +0800, Yanan He wrote:
 > Some boards feed the YT8531 PHY from an SoC-provided external
@@ -122,9 +122,11 @@ On Mon, Jul 06, 2026 at 05:14:43PM +0800, Yanan He wrote:
 > 
 > Signed-off-by: Yanan He <grumpycat921013@gmail.com>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Please separate this out and post to netdev.
 
-    Andrew
+https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
+
+	Andrew
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
