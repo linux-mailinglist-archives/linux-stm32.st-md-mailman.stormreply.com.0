@@ -2,47 +2,47 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id t78DFau7TGqJowEAu9opvQ
+	id gpAxFau7TGqKowEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 10:41:15 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 743BF7193A0
+	by mail.lfdr.de (Postfix) with ESMTPS id EB90E7193A1
 	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 10:41:11 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=collabora.com header.s=mail header.b=EbIy0yCM;
+	dkim=fail ("body hash did not verify") header.d=collabora.com header.s=mail header.b=doda2EoV;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=collabora.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E304C8F29F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3255FC9AE30;
 	Tue,  7 Jul 2026 08:41:11 +0000 (UTC)
 Received: from bali.collaboradmins.com (bali.collaboradmins.com
  [148.251.105.195])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EBF30C7A836
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3B354C8F275
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 08:21:37 +0000 (UTC)
+ Tue,  7 Jul 2026 08:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1783412497;
- bh=rn+h6E9crTmTz6FeyLcR9ekRM3gKcnx7ZytFNlkAdFc=;
+ s=mail; t=1783412498;
+ bh=297HFzkz6sVk4zIF49E7x3OB7iSwN5HM9tWtJK1lYoM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
- b=EbIy0yCM6Xjop0S4NBqYIiw0/0tuGqyG3AscIjPdYcY3CVVPRyAfRQelLfNHdMb3U
- PwHKglb7kKyTcuMnQ5n/QqUgmqnPXeDrdcWHxVaXbPRXu+fWGR6+Hq2pB92GjjFi2D
- yTpz7CBsz6rfAzWYBMUMroljwAqTrGqxHD4rcl10PH9kNqk+ZkjfCdk/b3biicR7lo
- oQHJ+8n7M9G2vnwGSZJluyXIBfQ2iHI2ZNq/jJWJ9mC0iSeLIua7ZReYQvRtqP3zPe
- aYKC5eSB+Gaaj73+w7OXL79EzfCVndW4tdTw5Dvj116uAWikmNVmjU1QfVCWjhzSIE
- ET2OkGpfciTRw==
+ b=doda2EoVN2sz4TOkZhF1eEOo4Wm10EpkEyR9LU3KXh7EL7flfuETaSHihIw79mtet
+ +ek+OdEuyoDoOYjHPDKxYw+9D/0xJxBEvbbLttbDWBFPVE1lnMRNnaAH+YOu38b8mZ
+ 08qCWlu4F71+NkFQ6R4m/7qU59Zn/sxnJMEzG76ZMwVZZqgSNgR5zsWtZchbm+gVJu
+ R7O/fJlswVbb3nkeRjC00m4oef/6BOL3P3rUPSWagFRpH4IPNyfe4vkcE3idSLrZvg
+ tl8iMubeUghhIzK6o1jzPWdclS/iyRMIAUXTm+oBNhWX/OJgXtNr/1k+gY/CY7tmSP
+ Wp8RjPhCl7oeA==
 Received: from yukiji.home (unknown [100.64.0.131])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
  (No client certificate requested) (Authenticated sender: laeyraud)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 52BAA17E0CDE;
- Tue, 07 Jul 2026 10:21:36 +0200 (CEST)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id A405B17E05D3;
+ Tue, 07 Jul 2026 10:21:37 +0200 (CEST)
 From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Tue, 07 Jul 2026 10:21:20 +0200
+Date: Tue, 07 Jul 2026 10:21:21 +0200
 MIME-Version: 1.0
-Message-Id: <20260707-dwmac-mediatek-mt8189-v1-2-17f345eaaca3@collabora.com>
+Message-Id: <20260707-dwmac-mediatek-mt8189-v1-3-17f345eaaca3@collabora.com>
 References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
 In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>, 
@@ -57,11 +57,11 @@ To: Andrew Lunn <andrew+netdev@lunn.ch>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783412493; l=4145;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783412493; l=4942;
  i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=rn+h6E9crTmTz6FeyLcR9ekRM3gKcnx7ZytFNlkAdFc=;
- b=UAKb+wXQKcB5/p4YdbNOyXQMoqNpBez8ppGNqQFLQwt7dFu9sOpqg4ZbVLWJX8QB5LvXt8Ad8
- ZzvlmwEgXqYBnqGtrwTQMw3CKw1C668o7ow0K71CtHub0CvBM6pbdm1
+ bh=297HFzkz6sVk4zIF49E7x3OB7iSwN5HM9tWtJK1lYoM=;
+ b=9xWmgQ8+4B+/axCW0JPbLQ9cf+MzgwJmIxuBmpWzy/o++Vv7ZG4O61ikmRnMSsvoAEfJVjQcV
+ ONpxT1462dkDJCXLKXEjYhntjJw+FnoGma5deoG7YJ0leJylqrD7UMg
 X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
  pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 X-Mailman-Approved-At: Tue, 07 Jul 2026 08:41:09 +0000
@@ -70,8 +70,8 @@ Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  rmk+kernel@armlinux.org.uk, linux-mediatek@lists.infradead.org,
  Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>, kernel@collabora.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net-next 2/6] net: stmmac: mediatek: add
- PERI_ETH_CTRLx register offset in platform data
+Subject: [Linux-stm32] [PATCH net-next 3/6] net: stmmac: mediatek: rename
+ MT2712 and MT8195 variant methods
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -121,122 +121,143 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev,dt,kernel];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,collabora.com:from_mime,collabora.com:email,collabora.com:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[collabora.com:from_mime,collabora.com:email,collabora.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 743BF7193A0
+X-Rspamd-Queue-Id: EB90E7193A1
 
-In preparation of newer SoC support, that use like MT8195 the Ethernet
-control registers from the peripheral configuration syscon but at a
-different base offset, add a new base offset in the variant platform
-data to access the PERI_ETH_CTRLx registers and use it in implemented
-methods.
+In preparation of newer SoC support, rename MT2712 and MT8195 variant
+methods and sub functions to more generic names.
 
 Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
- .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 28 +++++++++++++++-------
- 1 file changed, 20 insertions(+), 8 deletions(-)
+ .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 32 +++++++++++-----------
+ 1 file changed, 16 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-index 30ae0dba7fff..0cabab4fd89a 100644
+index 0cabab4fd89a..28e87990b0a1 100644
 --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
 +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
-@@ -37,7 +37,9 @@
- #define ETH_FINE_DLY_RXC	BIT(0)
- 
- /* Peri Configuration register for mt8195 */
--#define MT8195_PERI_ETH_CTRL0		0xFD0
-+#define MT8195_PERI_ETH_CTRL_BASE	0xFD0
-+
-+#define MT8195_PERI_ETH_CTRL0		0x0
- #define MT8195_RMII_CLK_SRC_INTERNAL	BIT(28)
- #define MT8195_RMII_CLK_SRC_RXC		BIT(27)
- #define MT8195_ETH_INTF_SEL		GENMASK(26, 24)
-@@ -47,7 +49,7 @@
- #define MT8195_DLY_GTXC_ENABLE		BIT(5)
- #define MT8195_DLY_GTXC_STAGES		GENMASK(4, 0)
- 
--#define MT8195_PERI_ETH_CTRL1		0xFD4
-+#define MT8195_PERI_ETH_CTRL1		0x4
- #define MT8195_DLY_RXC_INV		BIT(25)
- #define MT8195_DLY_RXC_ENABLE		BIT(18)
- #define MT8195_DLY_RXC_STAGES		GENMASK(17, 13)
-@@ -55,7 +57,7 @@
- #define MT8195_DLY_TXC_ENABLE		BIT(5)
- #define MT8195_DLY_TXC_STAGES		GENMASK(4, 0)
- 
--#define MT8195_PERI_ETH_CTRL2		0xFD8
-+#define MT8195_PERI_ETH_CTRL2		0x8
- #define MT8195_DLY_RMII_RXC_INV		BIT(25)
- #define MT8195_DLY_RMII_RXC_ENABLE	BIT(18)
- #define MT8195_DLY_RMII_RXC_STAGES	GENMASK(17, 13)
-@@ -95,6 +97,7 @@ struct mediatek_dwmac_variant {
- 
- 	u32 rx_delay_max;
- 	u32 tx_delay_max;
-+	u32 peri_eth_ctrl_offset;
- 	u8 dma_bit_mask;
+@@ -110,7 +110,7 @@ static const char * const mt8195_dwmac_clk_l[] = {
+ 	"axi", "apb", "mac_cg", "mac_main", "ptp_ref"
  };
  
-@@ -277,6 +280,7 @@ static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
+-static int mt2712_set_interface(struct mediatek_dwmac_plat_data *plat,
++static int set_phy_interface_v1(struct mediatek_dwmac_plat_data *plat,
  				u8 phy_intf_sel)
  {
- 	u32 intf_val = FIELD_PREP(MT8195_ETH_INTF_SEL, phy_intf_sel);
-+	u32 reg_offset = plat->variant->peri_eth_ctrl_offset;
+ 	u32 intf_val = phy_intf_sel;
+@@ -127,7 +127,7 @@ static int mt2712_set_interface(struct mediatek_dwmac_plat_data *plat,
+ 	return 0;
+ }
  
- 	if (phy_intf_sel == PHY_INTF_SEL_RMII) {
- 		if (plat->rmii_clk_from_mac)
-@@ -288,7 +292,9 @@ static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
- 	/* MT8195 only support external PHY */
- 	intf_val |= MT8195_EXT_PHY_MODE;
+-static void mt2712_delay_ps2stage(struct mediatek_dwmac_plat_data *plat)
++static void delay_ps2stage_v1(struct mediatek_dwmac_plat_data *plat)
+ {
+ 	struct mac_delay_struct *mac_delay = &plat->mac_delay;
  
--	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL0, intf_val);
-+	regmap_write(plat->peri_regmap,
-+		     reg_offset + MT8195_PERI_ETH_CTRL0,
-+		     intf_val);
+@@ -152,7 +152,7 @@ static void mt2712_delay_ps2stage(struct mediatek_dwmac_plat_data *plat)
+ 	}
+ }
+ 
+-static void mt2712_delay_stage2ps(struct mediatek_dwmac_plat_data *plat)
++static void delay_stage2ps_v1(struct mediatek_dwmac_plat_data *plat)
+ {
+ 	struct mac_delay_struct *mac_delay = &plat->mac_delay;
+ 
+@@ -177,12 +177,12 @@ static void mt2712_delay_stage2ps(struct mediatek_dwmac_plat_data *plat)
+ 	}
+ }
+ 
+-static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
++static int set_delay_v1(struct mediatek_dwmac_plat_data *plat)
+ {
+ 	struct mac_delay_struct *mac_delay = &plat->mac_delay;
+ 	u32 delay_val = 0, fine_val = 0;
+ 
+-	mt2712_delay_ps2stage(plat);
++	delay_ps2stage_v1(plat);
+ 
+ 	switch (plat->phy_mode) {
+ 	case PHY_INTERFACE_MODE_MII:
+@@ -261,14 +261,14 @@ static int mt2712_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 	regmap_write(plat->peri_regmap, PERI_ETH_DLY, delay_val);
+ 	regmap_write(plat->peri_regmap, PERI_ETH_DLY_FINE, fine_val);
+ 
+-	mt2712_delay_stage2ps(plat);
++	delay_stage2ps_v1(plat);
  
  	return 0;
  }
-@@ -313,8 +319,9 @@ static void mt8195_delay_stage2ps(struct mediatek_dwmac_plat_data *plat)
  
- static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
- {
--	struct mac_delay_struct *mac_delay = &plat->mac_delay;
- 	u32 gtxc_delay_val = 0, delay_val = 0, rmii_delay_val = 0;
-+	struct mac_delay_struct *mac_delay = &plat->mac_delay;
-+	u32 reg_offset = plat->variant->peri_eth_ctrl_offset;
- 
- 	mt8195_delay_ps2stage(plat);
- 
-@@ -399,14 +406,18 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
- 	}
- 
- 	regmap_update_bits(plat->peri_regmap,
--			   MT8195_PERI_ETH_CTRL0,
-+			   reg_offset + MT8195_PERI_ETH_CTRL0,
- 			   MT8195_RGMII_TXC_PHASE_CTRL |
- 			   MT8195_DLY_GTXC_INV |
- 			   MT8195_DLY_GTXC_ENABLE |
- 			   MT8195_DLY_GTXC_STAGES,
- 			   gtxc_delay_val);
--	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL1, delay_val);
--	regmap_write(plat->peri_regmap, MT8195_PERI_ETH_CTRL2, rmii_delay_val);
-+	regmap_write(plat->peri_regmap,
-+		     reg_offset + MT8195_PERI_ETH_CTRL1,
-+		     delay_val);
-+	regmap_write(plat->peri_regmap,
-+		     reg_offset + MT8195_PERI_ETH_CTRL2,
-+		     rmii_delay_val);
- 
- 	mt8195_delay_stage2ps(plat);
- 
-@@ -421,6 +432,7 @@ static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
- 	.rx_delay_max = 9280,
- 	.tx_delay_max = 9280,
- 	.dma_bit_mask = 35,
-+	.peri_eth_ctrl_offset = MT8195_PERI_ETH_CTRL_BASE,
+ static const struct mediatek_dwmac_variant mt2712_gmac_variant = {
+-		.dwmac_set_phy_interface = mt2712_set_interface,
+-		.dwmac_set_delay = mt2712_set_delay,
++		.dwmac_set_phy_interface = set_phy_interface_v1,
++		.dwmac_set_delay = set_delay_v1,
+ 		.clk_list = mt2712_dwmac_clk_l,
+ 		.num_clks = ARRAY_SIZE(mt2712_dwmac_clk_l),
+ 		.rx_delay_max = 17600,
+@@ -276,7 +276,7 @@ static const struct mediatek_dwmac_variant mt2712_gmac_variant = {
+ 		.dma_bit_mask = 33,
  };
  
- static int mediatek_dwmac_config_dt(struct mediatek_dwmac_plat_data *plat)
+-static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
++static int set_phy_interface_v2(struct mediatek_dwmac_plat_data *plat,
+ 				u8 phy_intf_sel)
+ {
+ 	u32 intf_val = FIELD_PREP(MT8195_ETH_INTF_SEL, phy_intf_sel);
+@@ -299,7 +299,7 @@ static int mt8195_set_interface(struct mediatek_dwmac_plat_data *plat,
+ 	return 0;
+ }
+ 
+-static void mt8195_delay_ps2stage(struct mediatek_dwmac_plat_data *plat)
++static void delay_ps2stage_v2(struct mediatek_dwmac_plat_data *plat)
+ {
+ 	struct mac_delay_struct *mac_delay = &plat->mac_delay;
+ 
+@@ -308,7 +308,7 @@ static void mt8195_delay_ps2stage(struct mediatek_dwmac_plat_data *plat)
+ 	mac_delay->rx_delay /= 290;
+ }
+ 
+-static void mt8195_delay_stage2ps(struct mediatek_dwmac_plat_data *plat)
++static void delay_stage2ps_v2(struct mediatek_dwmac_plat_data *plat)
+ {
+ 	struct mac_delay_struct *mac_delay = &plat->mac_delay;
+ 
+@@ -317,13 +317,13 @@ static void mt8195_delay_stage2ps(struct mediatek_dwmac_plat_data *plat)
+ 	mac_delay->rx_delay *= 290;
+ }
+ 
+-static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
++static int set_delay_v2(struct mediatek_dwmac_plat_data *plat)
+ {
+ 	u32 gtxc_delay_val = 0, delay_val = 0, rmii_delay_val = 0;
+ 	struct mac_delay_struct *mac_delay = &plat->mac_delay;
+ 	u32 reg_offset = plat->variant->peri_eth_ctrl_offset;
+ 
+-	mt8195_delay_ps2stage(plat);
++	delay_ps2stage_v2(plat);
+ 
+ 	switch (plat->phy_mode) {
+ 	case PHY_INTERFACE_MODE_MII:
+@@ -419,14 +419,14 @@ static int mt8195_set_delay(struct mediatek_dwmac_plat_data *plat)
+ 		     reg_offset + MT8195_PERI_ETH_CTRL2,
+ 		     rmii_delay_val);
+ 
+-	mt8195_delay_stage2ps(plat);
++	delay_stage2ps_v2(plat);
+ 
+ 	return 0;
+ }
+ 
+ static const struct mediatek_dwmac_variant mt8195_gmac_variant = {
+-	.dwmac_set_phy_interface = mt8195_set_interface,
+-	.dwmac_set_delay = mt8195_set_delay,
++	.dwmac_set_phy_interface = set_phy_interface_v2,
++	.dwmac_set_delay = set_delay_v2,
+ 	.clk_list = mt8195_dwmac_clk_l,
+ 	.num_clks = ARRAY_SIZE(mt8195_dwmac_clk_l),
+ 	.rx_delay_max = 9280,
 
 -- 
 2.55.0
