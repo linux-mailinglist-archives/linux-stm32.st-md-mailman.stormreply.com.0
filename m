@@ -2,46 +2,46 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +g0BJAK/TGpipAEAu9opvQ
+	id pcgFE0/BTGrbpAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 10:55:30 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 11:05:19 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id F10F0719693
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 10:55:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B26607197E6
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 11:05:18 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b="b/VO1cmq";
+	dkim=fail ("body hash did not verify") header.d=bootlin.com header.s=dkim header.b=tfJBErtW;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=bootlin.com (policy=reject);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9AE7CC8F271;
-	Tue,  7 Jul 2026 08:55:29 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6CD30C8F264;
+	Tue,  7 Jul 2026 09:05:18 +0000 (UTC)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E4131C6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id ECE50C7A837
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 08:55:28 +0000 (UTC)
+ Tue,  7 Jul 2026 09:05:16 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 70BDFC8F1E8;
- Tue,  7 Jul 2026 08:55:41 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id CB5E6C8F1E8;
+ Tue,  7 Jul 2026 09:05:29 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 01A19601A3;
- Tue,  7 Jul 2026 08:55:28 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5580B601A3;
+ Tue,  7 Jul 2026 09:05:16 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0C9BA11BC10CC; 
- Tue,  7 Jul 2026 10:55:18 +0200 (CEST)
+ with ESMTPSA id 097F311BC1136; 
+ Tue,  7 Jul 2026 11:05:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1783414526; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1783415115; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:content-language:in-reply-to:references;
- bh=ARJtStOd24SeMWn03WDpYKksjNNKhxE1nVOumgSWP60=;
- b=b/VO1cmq/Czd+9zsONRk1F/8fNp1QhwKz8ivy0AO00vPAXxiD76Bc/4MxdJT/ex0s+1aLF
- cVUHDrc08l23sld4CMhIhm2y4E4gkkFKPoTKJbDbt3Z8m/K3iw6DJSg7GkqvQT2Htq4gz6
- xPgBrCDeDlCJX/Ym+qSs315h42bTU2V03cK3G6fljAuBJeEaHm9NRll9Dkov2z4l9wO6Bw
- TSSGBtocNor6F1+COt/mMABpv3e4ku3NJWSOeMoSoDvwM4FazT/fxWTA/txj6Q4tX9cGMl
- ZPQGtcNr3alezZ+mPXtZaorON0rtaB3igCSBjXLGiAj9K+FZ3At2aAMNEhf4Rw==
-Message-ID: <f416b487-5bac-4391-aead-61fd4d2f16ae@bootlin.com>
-Date: Tue, 7 Jul 2026 10:55:17 +0200
+ bh=XBeM8FpMwD3pKufhetzZqJBiCZzgpSkF0FmvSwNMHYc=;
+ b=tfJBErtWIOOK6XwhgohMEmN6kP0kMYICUQVd/LcoQiS2XsF6PT9MIlZe+fH08AFMP3i5Hb
+ HkSRb9JyRhXNE3zc4IlsOwTTjOBEOn6bo8r8kegmQFvdCLmJfZ+pJG0XYnvEb4DXbnlhri
+ v9dBaC7ZkZ6unqYXJyzg3YJChvJOncjmIL6W4ZH0QbyP0DKP2FsUCJZNTvhICHUVBERXzO
+ ovYKlGAffZyHWCoesT6uDt2C3+aMAJ88JKnaJ07HBoOfT/V9FSpuoAt5zq9x6Qrx9BKfOW
+ 00ivLLF45LxeApvxGmxgmes9ymYMN6XiCqyOZ7TvOG3+Mazs69pHFSJKeIt49Q==
+Message-ID: <5dbd217b-8df5-42cd-9197-36e0fb91ffe7@bootlin.com>
+Date: Tue, 7 Jul 2026 11:05:07 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
@@ -57,17 +57,17 @@ To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>
 References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
- <20260707-dwmac-mediatek-mt8189-v1-2-17f345eaaca3@collabora.com>
+ <20260707-dwmac-mediatek-mt8189-v1-3-17f345eaaca3@collabora.com>
 From: Maxime Chevallier <maxime.chevallier@bootlin.com>
 Content-Language: en-US
-In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-2-17f345eaaca3@collabora.com>
+In-Reply-To: <20260707-dwmac-mediatek-mt8189-v1-3-17f345eaaca3@collabora.com>
 X-Last-TLS-Session-Version: TLSv1.3
 Cc: devicetree@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, rmk+kernel@armlinux.org.uk,
  linux-mediatek@lists.infradead.org, kernel@collabora.com,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net-next 2/6] net: stmmac: mediatek: add
- PERI_ETH_CTRLx register offset in platform data
+Subject: Re: [Linux-stm32] [PATCH net-next 3/6] net: stmmac: mediatek:
+ rename MT2712 and MT8195 variant methods
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -119,22 +119,41 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:from_mime,bootlin.com:email,bootlin.com:mid,collabora.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[bootlin.com:mid,bootlin.com:from_mime,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,collabora.com:email,stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: F10F0719693
+X-Rspamd-Queue-Id: B26607197E6
 
-Hi,
+
 
 On 7/7/26 10:21, Louis-Alexis Eyraud wrote:
-> In preparation of newer SoC support, that use like MT8195 the Ethernet
-> control registers from the peripheral configuration syscon but at a
-> different base offset, add a new base offset in the variant platform
-> data to access the PERI_ETH_CTRLx registers and use it in implemented
-> methods.
+> In preparation of newer SoC support, rename MT2712 and MT8195 variant
+> methods and sub functions to more generic names.
 > 
 > Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+> ---
+>  .../net/ethernet/stmicro/stmmac/dwmac-mediatek.c   | 32 +++++++++++-----------
+>  1 file changed, 16 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> index 0cabab4fd89a..28e87990b0a1 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-mediatek.c
+> @@ -110,7 +110,7 @@ static const char * const mt8195_dwmac_clk_l[] = {
+>  	"axi", "apb", "mac_cg", "mac_main", "ptp_ref"
+>  };
+>  
+> -static int mt2712_set_interface(struct mediatek_dwmac_plat_data *plat,
+> +static int set_phy_interface_v1(struct mediatek_dwmac_plat_data *plat,
+>  				u8 phy_intf_sel)
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+What does this naming of "v1 / v2" refer to ?
+
+I personally don't find it much better than the current one prefixed by the SoC
+name. You still end-up using registers that have the "MT8195_" prefix in their
+names in the 'v2' variants of these functions, so it still sound SoC-family specific :)
+
+I'd say you can keep the original names as-is, or if you really want a rename,
+maybe use the mt81xx_ prefix for MT8195 and MT8189 ?
 
 Maxime
 _______________________________________________
