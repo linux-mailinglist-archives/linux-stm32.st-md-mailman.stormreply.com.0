@@ -2,68 +2,71 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id DMHuA1M6TWpwxAEAu9opvQ
+	id hwrtBVM6TWpyxAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 19:41:39 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83F6671E5A1
+	by mail.lfdr.de (Postfix) with ESMTPS id A515371E5A2
 	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 19:41:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b="L/Y3F9RT";
+	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=cFbFWmrZ;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=samsung.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 345B2C7C7E8;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4CB92C8F275;
 	Tue,  7 Jul 2026 17:41:38 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AB47DC7A837
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AD65FC7C7E8
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  7 Jul 2026 17:41:36 +0000 (UTC)
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260707174135euoutp016e2a174c1a3388b16f3c7fb59b1e8e8f~AEsZXR2gK0163701637euoutp01W
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260707174136euoutp020e79fad75f2cded434c41ffa159938d5~AEsZ5FIlj2061020610euoutp02Z
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 17:41:35 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260707174135euoutp016e2a174c1a3388b16f3c7fb59b1e8e8f~AEsZXR2gK0163701637euoutp01W
+ Tue,  7 Jul 2026 17:41:36 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260707174136euoutp020e79fad75f2cded434c41ffa159938d5~AEsZ5FIlj2061020610euoutp02Z
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1783446095;
- bh=Q5JM7bNL+vvD39sKvHstP3GgCnVUZ9CKB+B+yeWlQEg=;
- h=From:To:Cc:Subject:Date:References:From;
- b=L/Y3F9RTlHLo98VkCsSuh+UtR71ATMVFANv9mPj2yDBHZrlpg6+aRld7uyr/joUN6
- v0g+wmPShDE3aSnGD9TvS7mUCx6NsMP/sPQ/Gmz9rN47FQvmvwmBu74VwRhRc8Wnt6
- ehtqLK3NID0EkXo+RsrvbYXXtq1HcjYzsVMDipk8=
+ s=mail20170921; t=1783446096;
+ bh=2uqhzatz7NlDzESa9PUCo71vFC+Z9fG5K7FS6DttHiE=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=cFbFWmrZMKBqTlKeU7OTiwH7GnvgN+5xUCa3/BWttM+6oWP9X+WD0ZCCka4eDWnqL
+ rEvD4xrGAcdPF/xByYBb3G6XFUqRxELaJEY9V2vJ1A3niLLvUB8rQoz6thM3iXRHlL
+ zD3vwiKEND2gF03UmNxp14VHlWylEQcwQANpsgXg=
 Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260707174134eucas1p2d88b2b6007e833f02ef6497b388374ef~AEsYmDoRO2783027830eucas1p2n;
- Tue,  7 Jul 2026 17:41:34 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260707174135eucas1p1386ed6bc3c44c1a4e927a0a8bae8fd27~AEsZYmV6x1385013850eucas1p1Q;
+ Tue,  7 Jul 2026 17:41:35 +0000 (GMT)
 Received: from AMDC4843.eu.corp.samsungelectronics.net (unknown
  [106.120.77.61]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260707174133eusmtip1f584699ca9032f159ed4a173781ce399~AEsX6Tayo1541815418eusmtip1L;
- Tue,  7 Jul 2026 17:41:33 +0000 (GMT)
+ 20260707174134eusmtip1c78c3c4b343d56ce01467ae68af74883~AEsYqzfhO1143211432eusmtip1D;
+ Tue,  7 Jul 2026 17:41:34 +0000 (GMT)
 From: Jakub Raczynski <j.raczynski@samsung.com>
 To: netdev@vger.kernel.org
-Date: Tue,  7 Jul 2026 19:41:13 +0200
-Message-Id: <20260707174115.1264466-1-j.raczynski@samsung.com>
+Date: Tue,  7 Jul 2026 19:41:14 +0200
+Message-Id: <20260707174115.1264466-2-j.raczynski@samsung.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260707174115.1264466-1-j.raczynski@samsung.com>
 MIME-Version: 1.0
-X-CMS-MailID: 20260707174134eucas1p2d88b2b6007e833f02ef6497b388374ef
+X-CMS-MailID: 20260707174135eucas1p1386ed6bc3c44c1a4e927a0a8bae8fd27
 X-Msg-Generator: CA
-X-RootMTR: 20260707174134eucas1p2d88b2b6007e833f02ef6497b388374ef
+X-RootMTR: 20260707174135eucas1p1386ed6bc3c44c1a4e927a0a8bae8fd27
 X-EPHeader: CA
-X-CMS-RootMailID: 20260707174134eucas1p2d88b2b6007e833f02ef6497b388374ef
-References: <CGME20260707174134eucas1p2d88b2b6007e833f02ef6497b388374ef@eucas1p2.samsung.com>
-Cc: Jakub Raczynski <j.raczynski@samsung.com>, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- k.domagalski@samsung.com, k.tegowski@samsung.com, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net 0/2] net/stmmac: Secure against failures
- of DMA memory allocation
+X-CMS-RootMailID: 20260707174135eucas1p1386ed6bc3c44c1a4e927a0a8bae8fd27
+References: <20260707174115.1264466-1-j.raczynski@samsung.com>
+ <CGME20260707174135eucas1p1386ed6bc3c44c1a4e927a0a8bae8fd27@eucas1p1.samsung.com>
+Cc: Jakub Raczynski <j.raczynski@samsung.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ andrew+netdev@lunn.ch, edumazet@google.com, mcoquelin.stm32@gmail.com,
+ kuba@kernel.org, k.domagalski@samsung.com, k.tegowski@samsung.com,
+ pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: [Linux-stm32] [PATCH net v2 1/2] net/stmmac: Set Rx queue page_pool
+ to NULL when freeing DMA resources
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -86,20 +89,20 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	R_DKIM_REJECT(1.00)[samsung.com:s=mail20170921];
 	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	DMARC_POLICY_SOFTFAIL(0.10)[samsung.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[13];
+	RCPT_COUNT_TWELVE(0.00)[14];
 	GREYLIST(0.00)[pass,meta];
 	RCVD_TLS_LAST(0.00)[];
 	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[samsung.com,vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
-	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:j.raczynski@samsung.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:k.domagalski@samsung.com,m:k.tegowski@samsung.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_CC(0.00)[samsung.com,bootlin.com,vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
+	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:j.raczynski@samsung.com,m:maxime.chevallier@bootlin.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:k.domagalski@samsung.com,m:k.tegowski@samsung.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
@@ -114,39 +117,49 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,bootlin.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 83F6671E5A1
+X-Rspamd-Queue-Id: A515371E5A2
 
-This series fixing two possible issues related to fails of
-__alloc_dma_rx_desc_resources(). Original issue from 1st patch is related to
-page_pool that has happened in testing env, while second was requested by
-Sashiko to have similar change for DMA allocation. 
-To have complete fix for all failures of __alloc_dma_rx_desc_resources(),
-merge two fixes into series.
+When freeing RX descriptor resources, there is standard clearing of
+descriptor page_pool via page_pool_destroy() which does destroy
+page but does not set its pointer to NULL, which must be done by driver
+calling this function.
+It is not done in __free_dma_rx_desc_resources() when stopping interface,
+which is generally not an issue, because __alloc_dma_rx_desc_resources() does
+setup this regardless of previous state.
+But above is true assuming reinitialization is successful.
 
+In case of failure of page_pool_create() in __alloc_dma_rx_desc_resources(),
+all non-NULL pages will be freed, including those already cleared.
+So there is possible kernel panic due to wrong paging request at address.
+
+Fix this by assigning NULL to page_pool pointer on free.
+Also remove NULL check as page_pool_destroy() does check for NULL param.
+
+Fixes: da5ec7f22a0f1 ("net: stmmac: refactor stmmac_init_rx_buffers for stmmac_reinit_rx_buffers")
+Signed-off-by: Yashwant Varur <yashwant.v@samsung.com>
+Signed-off-by: Jakub Raczynski <j.raczynski@samsung.com>
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 ---
-Note:
-1st patch "Set Rx queue page_pool to NULL when freeing DMA resources" is
-set to v2 while this series is v1. I know this is inconsistent, but this
-series is not v2 and would be even more confusing.
-Hopefully that doesn't break some CI, as second patch is v1.
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Link to original:
-https://lore.kernel.org/netdev/20260630100953.747868-1-j.raczynski@samsung.com/
-
-Changes in v2 (in first patch):
-- Added reviewed by Maxime
-- Dropped null check as page_pool_destroy() does provide that
-- Modified comment to reflect that
-
-Jakub Raczynski (2):
-  net/stmmac: Set Rx queue page_pool to NULL when freeing DMA resources
-  net/stmmac: Prevent dma queue NULL free on allocation failure
-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 20 +++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 2a0d7eff88d3..3098971e0b66 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -2172,8 +2172,8 @@ static void __free_dma_rx_desc_resources(struct stmmac_priv *priv,
+ 		xdp_rxq_info_unreg(&rx_q->xdp_rxq);
+ 
+ 	kfree(rx_q->buf_pool);
+-	if (rx_q->page_pool)
+-		page_pool_destroy(rx_q->page_pool);
++	page_pool_destroy(rx_q->page_pool);
++	rx_q->page_pool = NULL;
+ }
+ 
+ static void free_dma_rx_desc_resources(struct stmmac_priv *priv,
 -- 
 2.34.1
 
