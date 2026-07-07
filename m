@@ -2,68 +2,70 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id iVsPLlU7TWqYxAEAu9opvQ
+	id TyAeHlY7TWqZxAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 19:45:57 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 19:45:58 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F41271E5F8
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 19:45:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5BF2271E5FB
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 19:45:58 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b="se/0Ogn5";
+	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=vS115uFR;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=samsung.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E754C7A836;
-	Tue,  7 Jul 2026 17:45:57 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 2905DC7A836;
+	Tue,  7 Jul 2026 17:45:58 +0000 (UTC)
 Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
  [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 922C0C01FB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D5B7FC01FB6
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  7 Jul 2026 17:45:56 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
  by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260707174556euoutp027e8d7fce9749fea57d596f3617dc068f~AEwMMvEn91975119751euoutp02w
+ 20260707174556euoutp0291b29b75ff9428718e2a9e402f93245f~AEwMiQj2T2060220602euoutp02p
  for <linux-stm32@st-md-mailman.stormreply.com>;
  Tue,  7 Jul 2026 17:45:56 +0000 (GMT)
 DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260707174556euoutp027e8d7fce9749fea57d596f3617dc068f~AEwMMvEn91975119751euoutp02w
+ 20260707174556euoutp0291b29b75ff9428718e2a9e402f93245f~AEwMiQj2T2060220602euoutp02p
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
  s=mail20170921; t=1783446356;
- bh=WgQu9L7j9OBb7t7iHJoxCQB38xuGz728zo4Ep+7BnWw=;
- h=From:To:Cc:Subject:Date:References:From;
- b=se/0Ogn5oNOEXZQx8AQFkm4+U8AuS8l9SYu8JX+QgNIu7r5Ro3bB3qFMtm1RQs6iX
- R6U51xqYZZPvumwdzPupFz9o8j8Wt3agUP3fj7gRsAmtpnGt03TZf5toMoWG5sEZVq
- pUwKhk3umqPCqnZTzhg80tY+3Ylrd0DecKa5Bl0c=
+ bh=EouyGj5sjPo+B4PHzNf53hocta38XiCJlMuSXmrEmIA=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+ b=vS115uFRSA9jV+Q2D5fuZY7+w6Rjcc+W6YeD6PNNC3CVtcfRF431uRrj3+M9swFe1
+ Ae9pPmdRxYoXVUX2lRIEOA6RePzwAhFE8sGYYpt9P5fWQAljiRIbAtq9rXFVg6rayM
+ Kat5FZ0lyVtB7lSfUVBQEcONyZaPIeF8N+K+Wc2w=
 Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260707174555eucas1p231d122ef4cc791f59dd36cb78378954c~AEwLZVOtI2928229282eucas1p24;
- Tue,  7 Jul 2026 17:45:55 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260707174556eucas1p141142a61e5669032194f9eedf6393895~AEwMImIM00456104561eucas1p18;
+ Tue,  7 Jul 2026 17:45:56 +0000 (GMT)
 Received: from AMDC4843.eu.corp.samsungelectronics.net (unknown
  [106.120.77.61]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260707174554eusmtip2eb6f48a3c36fb6ce749dd9fd23dd9ab7~AEwKvfykK1463414634eusmtip2Q;
- Tue,  7 Jul 2026 17:45:54 +0000 (GMT)
+ 20260707174555eusmtip23cbd0982b060a2d218f86b6508de3608~AEwLe3I761463414634eusmtip2R;
+ Tue,  7 Jul 2026 17:45:55 +0000 (GMT)
 From: Jakub Raczynski <j.raczynski@samsung.com>
 To: netdev@vger.kernel.org
-Date: Tue,  7 Jul 2026 19:45:49 +0200
-Message-Id: <20260707174551.1264558-1-j.raczynski@samsung.com>
+Date: Tue,  7 Jul 2026 19:45:50 +0200
+Message-Id: <20260707174551.1264558-2-j.raczynski@samsung.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260707174551.1264558-1-j.raczynski@samsung.com>
 MIME-Version: 1.0
-X-CMS-MailID: 20260707174555eucas1p231d122ef4cc791f59dd36cb78378954c
+X-CMS-MailID: 20260707174556eucas1p141142a61e5669032194f9eedf6393895
 X-Msg-Generator: CA
-X-RootMTR: 20260707174555eucas1p231d122ef4cc791f59dd36cb78378954c
+X-RootMTR: 20260707174556eucas1p141142a61e5669032194f9eedf6393895
 X-EPHeader: CA
-X-CMS-RootMailID: 20260707174555eucas1p231d122ef4cc791f59dd36cb78378954c
-References: <CGME20260707174555eucas1p231d122ef4cc791f59dd36cb78378954c@eucas1p2.samsung.com>
+X-CMS-RootMailID: 20260707174556eucas1p141142a61e5669032194f9eedf6393895
+References: <20260707174551.1264558-1-j.raczynski@samsung.com>
+ <CGME20260707174556eucas1p141142a61e5669032194f9eedf6393895@eucas1p1.samsung.com>
 Cc: Jakub Raczynski <j.raczynski@samsung.com>, linux-kernel@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
  edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
  k.domagalski@samsung.com, k.tegowski@samsung.com, pabeni@redhat.com,
  davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH net v3 0/2] net/stmmac: Fix panic during
- interface shutdown & apply STMMAC_DOWN flag
+Subject: [Linux-stm32] [PATCH net v3 1/2] net/stmmac: Check for STMMAC_DOWN
+ flag in all XDP paths
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -96,8 +98,8 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	RCPT_COUNT_TWELVE(0.00)[13];
 	GREYLIST(0.00)[pass,meta];
 	RCVD_TLS_LAST(0.00)[];
-	ARC_NA(0.00)[];
 	FORGED_SENDER(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	FREEMAIL_CC(0.00)[samsung.com,vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org];
 	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:j.raczynski@samsung.com,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:k.domagalski@samsung.com,m:k.tegowski@samsung.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
@@ -114,59 +116,62 @@ X-Spamd-Result: default: False [4.39 / 15.00];
 	ALIAS_RESOLVED(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,samsung.com:mid,samsung.com:from_mime,stormreply.com:url,stormreply.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,samsung.com:from_mime,samsung.com:email,samsung.com:mid,stormreply.com:url,stormreply.com:email]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 4F41271E5F8
+X-Rspamd-Queue-Id: 5BF2271E5FB
 
-When testing interface shutdown during XDP operation using stmmac driver,
-we have encountered kernel panics, either poison overwritten or wrong
-memory access, caused by XDP processing data after shutting down NAPI.
+Currently STMMAC_DOWN flag is only set/cleared by stmmac_reset_subtask(),
+to notify driver to stop processing of TX/RX frames. One of these processing
+paths is for XDP, but it is only ever checked in stmmac_xdp_xmit(), which
+leaves all other XDP paths vulnerable to processing data while interface is
+restarting.
 
-To fix this problem:
-- Add STMMAC_DOWN handling to all XDP paths
-- Change location of synchronize_rcu() to proper place
-- Apply STMMAC_DOWN flag on interface open()/release().
-  This flag is used for XDP only and does improve handling in edge cases
+Make verification of STMMAC_DOWN flag consistent by applying check to
+all XDP paths.
 
-Proper order of ensuring proper XDP shutdown is already present in functions
-from stmmac_xdp.c during xdp_disable_pool(), since XDP can still have
-data with NAPI disabled, as disabling NAPI does not ensure XDP finish.
-synchronize_rcu() must be executed after IRQ's & DMA channels are disabled to
-flush data.
-
+Fixes: 8b278a5b69a22 ("net: stmmac: Add support for XDP_REDIRECT action")
+Co-developed-by: Chang-Sub Lee <cs0617.lee@samsung.com>
+Signed-off-by: Chang-Sub Lee <cs0617.lee@samsung.com>
+Signed-off-by: Jakub Raczynski <j.raczynski@samsung.com>
 ---
-Changes in v3:
-- Discard almost all changes from v2.
-  This was a mistake as napi_disable() does ensure napi_synchronize() and
-  it didn't fix anything in the end.
-- Return STMMAC_DOWN flag set/clear
-- Create new function that executes synchronize_rcu() and call it from
-  proper places
-- Remove synchronize_rcu() from stmmac_disable_all_queues()
-- Remove barren stmmac_disable_all_queues() and replace it with
-  __stmmac_disable_all_queues()
-- Fix memory leak in STMMAC_DOWN handling in modified XDP paths
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Split patch into two: one for XDP paths and second for general fix
-- Change commit messages & title
-- Fix all cases of NAPI release, not only XDP, via modyfying
-  stmmac_disable_all_queues() instead of separate later call
-- Drop setting/clearing of STMMAC_DOWN flag in release()/open()
-
-Link to v2:
-https://lore.kernel.org/all/20260601163258.554300-3-j.raczynski@samsung.com
-Link to v1:
-https://lore.kernel.org/all/20260511165045.3091475-1-j.raczynski@samsung.com
-
-
-Jakub Raczynski (2):
-  net/stmmac: Check for STMMAC_DOWN flag in all XDP paths
-  net/stmmac: Fix free-after-use panic when interface goes does with XDP
-
- .../net/ethernet/stmicro/stmmac/stmmac_main.c | 40 ++++++++++++++-----
- 1 file changed, 31 insertions(+), 9 deletions(-)
-
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 2a0d7eff88d3..b9ffff001baf 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5260,12 +5260,18 @@ static int stmmac_xdp_xmit_back(struct stmmac_priv *priv,
+ 				struct xdp_buff *xdp)
+ {
+ 	bool zc = !!(xdp->rxq->mem.type == MEM_TYPE_XSK_BUFF_POOL);
+-	struct xdp_frame *xdpf = xdp_convert_buff_to_frame(xdp);
++	struct xdp_frame *xdpf;
+ 	int cpu = smp_processor_id();
+ 	struct netdev_queue *nq;
+ 	int queue;
+ 	int res;
+ 
++	if (unlikely(test_bit(STMMAC_DOWN, &priv->state))) {
++		xsk_buff_free(xdp);
++		return STMMAC_XSK_CONSUMED;
++	}
++
++	xdpf = xdp_convert_buff_to_frame(xdp);
+ 	if (unlikely(!xdpf))
+ 		return STMMAC_XDP_CONSUMED;
+ 
+@@ -5310,7 +5316,9 @@ static int __stmmac_xdp_run_prog(struct stmmac_priv *priv,
+ 		res = stmmac_xdp_xmit_back(priv, xdp);
+ 		break;
+ 	case XDP_REDIRECT:
+-		if (xdp_do_redirect(priv->dev, xdp, prog) < 0)
++		if (unlikely(test_bit(STMMAC_DOWN, &priv->state)))
++			res = STMMAC_XDP_CONSUMED;
++		else if (xdp_do_redirect(priv->dev, xdp, prog) < 0)
+ 			res = STMMAC_XDP_CONSUMED;
+ 		else
+ 			res = STMMAC_XDP_REDIRECT;
 -- 
 2.34.1
 
