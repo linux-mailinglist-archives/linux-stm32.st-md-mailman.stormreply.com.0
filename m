@@ -2,65 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id glR4OBJsTWojzwEAu9opvQ
+	id epXVE4hzTWob0QEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 23:13:54 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 23:45:44 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B322571FB15
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 23:13:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B1571FD4E
+	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 23:45:42 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=g+Ed3nNy;
+	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=J5Ql4lP1;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=samsung.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 67C55C8F264;
-	Tue,  7 Jul 2026 21:13:53 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69F9FC8F264;
+	Tue,  7 Jul 2026 21:45:42 +0000 (UTC)
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
+ [210.118.77.12])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 46E39C6C859
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26FD7C7A836
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 21:13:52 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260707211351euoutp01466f112c9126c5dbe46c955a3a2a68fc~AHlujqoMV2240622406euoutp01L
+ Tue,  7 Jul 2026 21:45:40 +0000 (UTC)
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260707214540euoutp02baf6ab0782ec1a47e0d35799c2c130a0~AIBgXGZX42884728847euoutp02q
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 21:13:51 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260707211351euoutp01466f112c9126c5dbe46c955a3a2a68fc~AHlujqoMV2240622406euoutp01L
+ Tue,  7 Jul 2026 21:45:40 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
+ 20260707214540euoutp02baf6ab0782ec1a47e0d35799c2c130a0~AIBgXGZX42884728847euoutp02q
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1783458831;
- bh=f6dDVyB9psyNYoQa6fpOddWiAy4i5cRkpJCqDed3Ch0=;
+ s=mail20170921; t=1783460740;
+ bh=64yZTokUOKWEi1l5XEMnLoTKVKqtdorCaDPLUUg5R/0=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=g+Ed3nNyo5M80NkQfw4jAOTolFRfSoCAZrGKYdeQZ5srfwWVfaMd4reXeEstc1Azb
- b8L6XWcV9buiqK5GEAIf8XG0g+VolaZoBhzREGML5sQnoI+Cba6uTW/I6hsTE7c679
- gDI+2R5xkDNpwOoBSX5x36ODkRHE/2Cmwm/zxymY=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+ b=J5Ql4lP1oiFXtQYiTzFXBmfxUjrzpzyZIpRJNeQHBONwrncCno0MOBr6cc0EmYxlu
+ qF5E54SFmmGhCpalWIiWVKmoAGz/OtSGDc+SJJDY3j4GJwLNwxWljxwjafpp1QFsxE
+ 4Fs1fvxkC4wf13bezU9LBhFtgTzqgDUb5ayosdMk=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
  eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1~AHlt4_tXc2809828098eucas1p2g;
- Tue,  7 Jul 2026 21:13:50 +0000 (GMT)
+ 20260707214538eucas1p2b46a6831dbed600dab30756a0078711f~AIBeoMkm10868008680eucas1p29;
+ Tue,  7 Jul 2026 21:45:38 +0000 (GMT)
 Received: from AMDC4622.eu.corp.samsungelectronics.net (unknown
- [106.120.77.34]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260707211349eusmtip17f0e062b7abdf62ff97e46a43741acb5~AHlsxBQqi0242002420eusmtip1L;
- Tue,  7 Jul 2026 21:13:49 +0000 (GMT)
-Date: Tue, 7 Jul 2026 23:13:46 +0200
+ [106.120.77.34]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20260707214537eusmtip272eee7641a70a5f1694e39ef6326faf4~AIBd7L2FY0322003220eusmtip2Y;
+ Tue,  7 Jul 2026 21:45:37 +0000 (GMT)
+Date: Tue, 7 Jul 2026 23:45:34 +0200
 From: Jakub Raczynski <j.raczynski@samsung.com>
 To: Stefan Agner <stefan@agner.ch>
-Message-ID: <ak1rseUKTWFKzBib@AMDC4622.eu.corp.samsungelectronics.net>
+Message-ID: <ak1zfkNN4akdKrRQ@AMDC4622.eu.corp.samsungelectronics.net>
 MIME-Version: 1.0
-In-Reply-To: <20260707195425.405989-1-stefan@agner.ch>
-X-CMS-MailID: 20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1
+In-Reply-To: <ak1rseUKTWFKzBib@AMDC4622.eu.corp.samsungelectronics.net>
+X-CMS-MailID: 20260707214538eucas1p2b46a6831dbed600dab30756a0078711f
 X-Msg-Generator: CA
 Content-Type: multipart/mixed;
- boundary="----z0KHaxdBtqrNA0Il2CW.z4n_bpDWqNzZNiGZPVyhi_2U0Kf4=_8fd81_"
+ boundary="----086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_"
 X-RootMTR: 20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1
 X-EPHeader: CA
 X-CMS-RootMailID: 20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1
 References: <message-id-of-your-v1-mail>
  <20260707195425.405989-1-stefan@agner.ch>
  <CGME20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1@eucas1p2.samsung.com>
+ <ak1rseUKTWFKzBib@AMDC4622.eu.corp.samsungelectronics.net>
 Cc: regressions@lists.linux.dev, netdev@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com, "Russell King
  \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
@@ -119,68 +120,31 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[samsung.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[samsung.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B322571FB15
+X-Rspamd-Queue-Id: B4B1571FD4E
 
-------z0KHaxdBtqrNA0Il2CW.z4n_bpDWqNzZNiGZPVyhi_2U0Kf4=_8fd81_
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
 
-Please read
-https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
-in this case 'don’t repost your patches within one 24h period'
+On Tue, Jul 07, 2026 at 11:13:46PM +0200, Jakub Raczynski wrote:
+> - This change is actually broken - in previous patch rtnl_lock() was asserted
+>   by dev_ioctl(), but in this version it is not asserted anywhere and will
+>   trigger WARN_ONCE().
 
-Because:
-- you have two patches now processing and no changes requested yet,
-  nor did you get AI review that is currently employed
-  https://patchwork.kernel.org/project/netdevbpf/patch/20260707195425.405989-1-stefan@agner.ch/
-  and
-  https://patchwork.kernel.org/project/netdevbpf/patch/20260707162146.73823-1-stefan@agner.ch/
-- This change is actually broken - in previous patch rtnl_lock() was asserted
-  by dev_ioctl(), but in this version it is not asserted anywhere and will
-  trigger WARN_ONCE().
-- Full tests within an hour is possible, but no need to rush patches
-- Please spend time reviewing patches, as I spent few minutes to make sure
-  you (or rather Fable AI) is correct that rtnl_lock() was asserted, so my
-  review would be accurate (previous patch was ok, this is not).
-- Please respond yourself to comments, take time to understand codebase.
-  I would prefer not getting copy-paste answer from AI,
-  we have Sashiko review for that.
-- Missing link to previous thread, shown below
-- Moving code to other lines does not justify dropping "Assisted by AI"
-
-I am not maintainer, just random reviewer. Some maintainer will give input
-surely soon.
-
-But rule of thumb, do not repost patches till your patch gets
-'Changes requested' in patchwork or like 2 weeks have passed
-(maybe during vacation even longer, as currently there are >600 patches
-pending review).
-
-On Tue, Jul 07, 2026 at 09:54:25PM +0200, Stefan Agner wrote:
-> Changes in v2:
-> - Move the PHY resume from stmmac_change_mtu() into __stmmac_open() so
->   that it also counters the PHY suspend caused by __stmmac_release()
->   (suggested by Andrew Lunn), placed before stmmac_reset_queues_param()
->   to match the ordering used in stmmac_resume()
-
-Missing link to previous thread
-
-> 
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
+Ok, as I looked again, I am wrong again, ndo_open() does hold rtnl_lock
+already. So from this point it is good. Relocking would create deadlock,
+so I take that part of comment back.
 
 BR
-Jakub Raczynski 
+Jakub Raczynski
 
-------z0KHaxdBtqrNA0Il2CW.z4n_bpDWqNzZNiGZPVyhi_2U0Kf4=_8fd81_
+------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_
 Content-Type: text/plain; charset="utf-8"
 
 
-------z0KHaxdBtqrNA0Il2CW.z4n_bpDWqNzZNiGZPVyhi_2U0Kf4=_8fd81_
+------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -191,4 +155,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
-------z0KHaxdBtqrNA0Il2CW.z4n_bpDWqNzZNiGZPVyhi_2U0Kf4=_8fd81_--
+------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_--
