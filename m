@@ -2,73 +2,66 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id hWg9Ks/7TWrNBAIAu9opvQ
+	id qGymBscDTmq4BgIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 09:27:11 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 10:01:11 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B5857229FB
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 09:27:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 89079722E53
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 10:01:09 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b="C8KSUpY/";
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=samsung.com (policy=none);
+	dkim=fail ("body hash did not verify") header.d=ew.tq-group.com header.s=default2602 header.b=k8JGePCW;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=ew.tq-group.com (policy=quarantine);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id DBB95C8F274;
-	Wed,  8 Jul 2026 07:27:10 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 3DBA3C8F274;
+	Wed,  8 Jul 2026 08:01:09 +0000 (UTC)
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 603A9C1A979
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F287DC712B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 07:27:09 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260708072708euoutp01ee108455f1cb4f293a37afbe6b876d95~AP9MeCZFN0211302113euoutp01I
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 07:27:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260708072708euoutp01ee108455f1cb4f293a37afbe6b876d95~AP9MeCZFN0211302113euoutp01I
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1783495628;
- bh=AAT0vxHvZGnQFghigS3BsjoKQVyxGb6u1tpbTaYnWoA=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=C8KSUpY/JfVGmDRu7STwuADaSziCHaNIIg1/sjBVa/o2LhIGB2vi/x8rLiSD37/+P
- AsJTC2cxhc9t7lo1v9hzAt5Wbf5vAiBxaBUMYDdJYBxwHVSlg8iYZiuKIVnnITnGV5
- uWFPg3H7vc9UzQq6aaST3GlttX+WpMuJlX4wjFVc=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260708072707eucas1p2dce9de593df0be3855839c4f41f61f2c~AP9Lj3STQ0421304213eucas1p2m;
- Wed,  8 Jul 2026 07:27:07 +0000 (GMT)
-Received: from AMDC4622.eu.corp.samsungelectronics.net (unknown
- [106.120.77.34]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260708072706eusmtip1a9d4958030b6902d17d42dbb46221419~AP9KjxNiX1151911519eusmtip1i;
- Wed,  8 Jul 2026 07:27:06 +0000 (GMT)
-Date: Wed, 8 Jul 2026 09:27:06 +0200
-From: Jakub Raczynski <j.raczynski@samsung.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Message-ID: <ak37yhQjA32gI0kr@AMDC4622.eu.corp.samsungelectronics.net>
+ Wed,  8 Jul 2026 08:01:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+ MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+ :Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+ Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+ bh=ZORe/+VwOmTKCnEN5Tm3BfvX4hAqdI2noG2Lc0f2jfY=; b=k8JGePCWEmP9lewiLETUuZkBzQ
+ CWE/AxtZe1AN3MG+/zZ6MoVwMbbNJTDpsssebY9AQnnjKsvwEoKq+2tstg/ItaopZe8i0KyzZ1nQ1
+ K4FJA0A4SQJ/QSg0B30NIT2jcfyNDXk8FDc4SczxBbfHqgPWBMM6+EN4kHpzteI+8Wcjy+w2P/nB8
+ IiU4upvt4Hr++wiiCezCOcZzC/NB5r9AUhOgL16fq3qv/KZ7r0VpNnf33QHVvIbZa1LpiQ2QQ2M9d
+ d0hK2OR63mQohnqWI3o2aJ7aQdRSwUSopZjcsakaMuGgkBMibqMB1YPaFr+zh3AHY9KllbOd4uSZp
+ LTnyClRg==;
+Received: from sslproxy07.your-server.de ([78.47.199.104])
+ by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96.2) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1whNDE-00086x-1w; Wed, 08 Jul 2026 10:00:56 +0200
+Received: from localhost ([127.0.0.1])
+ by sslproxy07.your-server.de with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+ (Exim 4.96) (envelope-from <alexander.stein@ew.tq-group.com>)
+ id 1whNDE-000Pap-30; Wed, 08 Jul 2026 10:00:56 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Stefan Agner <stefan@agner.ch>
+Date: Wed, 08 Jul 2026 10:00:55 +0200
+Message-ID: <5162542.mvXUDI8C0e@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260707195425.405989-1-stefan@agner.ch>
+References: <20260707195425.405989-1-stefan@agner.ch>
 MIME-Version: 1.0
-In-Reply-To: <ee504cab-b1da-4584-8693-70ed5cd943c7@lunn.ch>
-X-CMS-MailID: 20260708072707eucas1p2dce9de593df0be3855839c4f41f61f2c
-X-Msg-Generator: CA
-Content-Type: multipart/mixed;
- boundary="----FoLMw5K6Fe9t5vMBf.HRV6LBdzA_42JMttv_zc4dtfIAKr8-=_130f8b_"
-X-RootMTR: 20260707174439eucas1p153ea592df5c1c7a50e947022a80a1056
-X-EPHeader: CA
-X-CMS-RootMailID: 20260707174439eucas1p153ea592df5c1c7a50e947022a80a1056
-References: <20260707174431.1264520-1-j.raczynski@samsung.com>
- <CGME20260707174439eucas1p153ea592df5c1c7a50e947022a80a1056@eucas1p1.samsung.com>
- <20260707174431.1264520-3-j.raczynski@samsung.com>
- <ee504cab-b1da-4584-8693-70ed5cd943c7@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
- edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
- k.domagalski@samsung.com, k.tegowski@samsung.com, pabeni@redhat.com,
- davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 2/2] net/stmmac: Verify provided DTS
-	AXI setup
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28054/Wed Jul  8 08:24:53 2026)
+Cc: regressions@lists.linux.dev, netdev@vger.kernel.org,
+ Stefan Agner <stefan@agner.ch>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ "Russell King \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org,
+ Ovidiu Panait <ovidiu.panait.rb@renesas.com>
+Subject: [Linux-stm32] Re: [PATCH net v2] net: stmmac: resume PHY before
+ hardware setup when opening the interface
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,118 +73,154 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [5.29 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[ew.tq-group.com : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[samsung.com:s=mail20170921];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[ew.tq-group.com:s=default2602];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[samsung.com : SPF not aligned (relaxed),none];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:k.domagalski@samsung.com,m:k.tegowski@samsung.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,samsung.com,redhat.com,davemloft.net,lists.infradead.org];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+];
-	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:davem@davemloft.net,m:edumazet@google.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:andrew+netdev@lunn.ch,m:stefan@agner.ch,m:regressions@lists.linux.dev,m:netdev@vger.kernel.org,m:maxime.chevallier@bootlin.com,m:rmk+kernel@armlinux.org.uk,m:mcoquelin.stm32@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:andrew@lunn.ch,m:rmk@armlinux.org.uk,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	HAS_ORG_HEADER(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[samsung.com:-];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_SENDER(0.00)[alexander.stein@ew.tq-group.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_CC(0.00)[lists.linux.dev,vger.kernel.org,agner.ch,bootlin.com,armlinux.org.uk,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org,renesas.com];
+	ARC_NA(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[alexander.stein@ew.tq-group.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[ew.tq-group.com:-];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
-	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	RCPT_COUNT_TWELVE(0.00)[15];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	MISSING_XM_UA(0.00)[];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[AMDC4622.eu.corp.samsungelectronics.net:mid,samsung.com:from_mime,stormreply.com:url,stormreply.com:email]
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3B5857229FB
+X-Rspamd-Queue-Id: 89079722E53
 
-------FoLMw5K6Fe9t5vMBf.HRV6LBdzA_42JMttv_zc4dtfIAKr8-=_130f8b_
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
+Hi Stefan,
 
-On Tue, Jul 07, 2026 at 09:04:00PM +0200, Andrew Lunn wrote:
-> On Tue, Jul 07, 2026 at 07:44:31PM +0200, Jakub Raczynski wrote:
-> > During parsing of AXI setup, there are few issues:
-> > - 'axi_blen' array is uninitialized value on stack without zero-init stack
-> >   configured. This can result in random AXI burst length config if
-> >   DTS config provides shorter array than AXI_BLEN.
-> 
-> What does the DT blinding say about the length? Is it allowed to be
-> short?
-> 
-> Are we talking about:
-> 
->       snps,blen:
->         $ref: /schemas/types.yaml#/definitions/uint32-array
->         description:
->           this is a vector of supported burst length.
->         minItems: 7
->         maxItems: 7
-> 
-> So it should be 7. Are there any in kernel DT blobs which don't pass
-> 7? Can we just error out when it is not 7?
+thanks for the patch.
 
-Erroring would be fine, as wrong amount will pass.
-Same as previous answer, I start to agree more and more that code should give
-more errors rather silent fix stuff.
-This is mostly Sashiko complaining but I have seen this being incorrect in
-some internal forks.
-But, as a code is currently written, this does not have to be 7 and
-documentation is merely a suggestions. I doubt wrong DTS would pass to
-mainline linux so it is merely 'internal' fix.
+Am Dienstag, 7. Juli 2026, 21:54:25 CEST schrieb Stefan Agner:
+> Since the referenced commit, changing the MTU on a running interface no
+> longer disconnects and reconnects the PHY; __stmmac_release() merely
+> stops phylink, which also suspends the PHY (BMCR power-down) when WoL
+> is not enabled. __stmmac_open() then performs the DMA software reset in
+> stmmac_hw_setup() before phylink_start() resumes the PHY again.
+> =
 
-> 
-> > - In case of failed memory allocation for AXI and error, there is no handling
-> >   of that. Fix it by checking if AXI config is error and return if so,
-> >   as this can only lack of memory. No AXI config, although is probably
-> >   wrong in most cases, is not treated as error, as generic config is mostly
-> >   provided in drivers.
-> 
-> This seems like a different fix. Maybe put it into a patch of its own.
-> 
+> IEEE 802.3 22.2.4.1.5 allows a PHY to stop its receive clock while
+> powered down, and stmmac requires a running receive clock for the DMA
+> software reset to complete (the phylink config sets mac_requires_rxc).
+> On such setups, e.g. the RK3566-based Home Assistant Green with an
+> RTL8211F-VD PHY in RGMII mode, any runtime MTU change now times out and
+> leaves the interface dead:
+> =
 
-Got that.
+>   rk_gmac-dwmac fe010000.ethernet end0: Failed to reset the dma
+>   rk_gmac-dwmac fe010000.ethernet end0: stmmac_hw_setup: DMA engine initi=
+alization failed
+>   rk_gmac-dwmac fe010000.ethernet end0: __stmmac_open: Hw setup failed
+>   rk_gmac-dwmac fe010000.ethernet end0: failed reopening the interface af=
+ter MTU change
+> =
 
-> > Fixes: afea03656add ("stmmac: rework DMA bus setting and introduce new platform AXI structure")
-> 
-> Again, does this bother anybody? At least axi_blen issue seems to be
-> that the DT blob is broken, so i doubt it actually does. Are there
-> reports of memory allocation error and resulting Opps.
-> 
+> In the field this is triggered by NetworkManager applying an MTU while
+> activating the connection, breaking networking entirely.
+> =
 
-Only internal and quickly fixed. No public reports.
+> Resume the PHY in __stmmac_open() before the hardware setup, making it
+> the counterpart of the phylink_stop() in __stmmac_release(), like
+> stmmac_resume() already does for the same reason. phylink_start() also
+> resumes the PHY, but only after stmmac_hw_setup(), and it cannot be
+> moved before the hardware setup since it may bring the link up
+> immediately from a workqueue, racing with the initialization (see the
+> comment in stmmac_resume()). For the regular ndo_open path the PHY has
+> just been attached and is not suspended, in which case
+> phylink_prepare_resume() does nothing.
+> =
 
-BR
-Jakub Raczynski
+> Fixes: db299a0c09e9 ("net: stmmac: move PHY handling out of __stmmac_open=
+()/release()")
+> Link: https://github.com/home-assistant/operating-system/issues/4858
+> Signed-off-by: Stefan Agner <stefan@agner.ch>
 
-------FoLMw5K6Fe9t5vMBf.HRV6LBdzA_42JMttv_zc4dtfIAKr8-=_130f8b_
-Content-Type: text/plain; charset="utf-8"
+FWIW imx8mp based platforms (TQMa8MPxL in my case) are also affected, see [=
+1].
+
+This patch fixes the problem here as well, so:
+Tested-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+
+[1] https://lore.kernel.org/all/8409022.LvFx2qVVIh@steina-w/
+
+> ---
+> Changes in v2:
+> - Move the PHY resume from stmmac_change_mtu() into __stmmac_open() so
+>   that it also counters the PHY suspend caused by __stmmac_release()
+>   (suggested by Andrew Lunn), placed before stmmac_reset_queues_param()
+>   to match the ordering used in stmmac_resume()
+> =
+
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> =
+
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4147,6 +4147,15 @@
+>  			dma_conf->tx_queue[i].tbs =3D priv->dma_conf.tx_queue[i].tbs;
+>  	memcpy(&priv->dma_conf, dma_conf, sizeof(*dma_conf));
+>  =
+
+> +	/* The PHY is suspended when the interface is reopened without
+> +	 * disconnecting the PHY, e.g. on MTU change. IEEE 802.3 allows PHYs
+> +	 * to stop their receive clock while powered down, but the DMA
+> +	 * software reset in stmmac_hw_setup() requires a running receive
+> +	 * clock, and phylink_start() below resumes the PHY only after the
+> +	 * hardware setup. Resume a suspended PHY here first.
+> +	 */
+> +	phylink_prepare_resume(priv->phylink);
+> +
+>  	stmmac_reset_queues_param(priv);
+>  =
+
+>  	ret =3D stmmac_hw_setup(dev);
+> =
 
 
-------FoLMw5K6Fe9t5vMBf.HRV6LBdzA_42JMttv_zc4dtfIAKr8-=_130f8b_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+-- =
+
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
-------FoLMw5K6Fe9t5vMBf.HRV6LBdzA_42JMttv_zc4dtfIAKr8-=_130f8b_--
