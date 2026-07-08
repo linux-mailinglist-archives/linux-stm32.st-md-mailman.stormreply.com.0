@@ -2,77 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id epXVE4hzTWob0QEAu9opvQ
+	id eX76EMH5TWonBAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 23:45:44 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 09:18:25 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4B1571FD4E
-	for <lists+linux-stm32@lfdr.de>; Tue, 07 Jul 2026 23:45:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9CE727228D5
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 09:18:24 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=J5Ql4lP1;
+	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=dqgy0tx6;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=samsung.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 69F9FC8F264;
-	Tue,  7 Jul 2026 21:45:42 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 4B049C8F274;
+	Wed,  8 Jul 2026 07:18:24 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
  (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 26FD7C7A836
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 8319EC712B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 21:45:40 +0000 (UTC)
+ Wed,  8 Jul 2026 07:18:22 +0000 (UTC)
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260707214540euoutp02baf6ab0782ec1a47e0d35799c2c130a0~AIBgXGZX42884728847euoutp02q
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20260708071821euoutp015b399f85459962cafceac66a45691571~AP1hyFfT72193321933euoutp010
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue,  7 Jul 2026 21:45:40 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20260707214540euoutp02baf6ab0782ec1a47e0d35799c2c130a0~AIBgXGZX42884728847euoutp02q
+ Wed,  8 Jul 2026 07:18:21 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20260708071821euoutp015b399f85459962cafceac66a45691571~AP1hyFfT72193321933euoutp010
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1783460740;
- bh=64yZTokUOKWEi1l5XEMnLoTKVKqtdorCaDPLUUg5R/0=;
+ s=mail20170921; t=1783495101;
+ bh=NtEIand9GnbkU6Gmk6cHJc/OJJrgfSZv10wVu3h9OTs=;
  h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=J5Ql4lP1oiFXtQYiTzFXBmfxUjrzpzyZIpRJNeQHBONwrncCno0MOBr6cc0EmYxlu
- qF5E54SFmmGhCpalWIiWVKmoAGz/OtSGDc+SJJDY3j4GJwLNwxWljxwjafpp1QFsxE
- 4Fs1fvxkC4wf13bezU9LBhFtgTzqgDUb5ayosdMk=
+ b=dqgy0tx6XfSS9ZQOmJv6oBqEiBm18HkmXtHwlF7mqVY+2G9fPOU4A7YwzY/BuPI+g
+ R2WivM4MbVng3qen7ibHCFcwIDme3asMvIy6ZRahvtdLWQdQiAzRV3Yw0KMzd8X8Sr
+ plnn1GtrAunRxeJ1NVIECjQgsaLmaU30x+99Ef3c=
 Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20260707214538eucas1p2b46a6831dbed600dab30756a0078711f~AIBeoMkm10868008680eucas1p29;
- Tue,  7 Jul 2026 21:45:38 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20260708071821eucas1p1781d839e4c171db030e3cc100140a18b~AP1hX0Igg1688916889eucas1p1b;
+ Wed,  8 Jul 2026 07:18:21 +0000 (GMT)
 Received: from AMDC4622.eu.corp.samsungelectronics.net (unknown
  [106.120.77.34]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20260707214537eusmtip272eee7641a70a5f1694e39ef6326faf4~AIBd7L2FY0322003220eusmtip2Y;
- Tue,  7 Jul 2026 21:45:37 +0000 (GMT)
-Date: Tue, 7 Jul 2026 23:45:34 +0200
+ 20260708071820eusmtip236a9c2dfa6bc4bffa3c1d0aa81ba9c6d~AP1gt38kQ3160531605eusmtip2G;
+ Wed,  8 Jul 2026 07:18:20 +0000 (GMT)
+Date: Wed, 8 Jul 2026 09:18:17 +0200
 From: Jakub Raczynski <j.raczynski@samsung.com>
-To: Stefan Agner <stefan@agner.ch>
-Message-ID: <ak1zfkNN4akdKrRQ@AMDC4622.eu.corp.samsungelectronics.net>
+To: Andrew Lunn <andrew@lunn.ch>
+Message-ID: <ak35uSDb8YGJDixt@AMDC4622.eu.corp.samsungelectronics.net>
 MIME-Version: 1.0
-In-Reply-To: <ak1rseUKTWFKzBib@AMDC4622.eu.corp.samsungelectronics.net>
-X-CMS-MailID: 20260707214538eucas1p2b46a6831dbed600dab30756a0078711f
+In-Reply-To: <d4fb7a9f-c0bb-4ced-8428-14bd2aa66d85@lunn.ch>
+X-CMS-MailID: 20260708071821eucas1p1781d839e4c171db030e3cc100140a18b
 X-Msg-Generator: CA
 Content-Type: multipart/mixed;
- boundary="----086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_"
-X-RootMTR: 20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1
+ boundary="----eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_131043_"
+X-RootMTR: 20260707174438eucas1p132b5c02ceed2493cc7de98ab28c390ee
 X-EPHeader: CA
-X-CMS-RootMailID: 20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1
-References: <message-id-of-your-v1-mail>
- <20260707195425.405989-1-stefan@agner.ch>
- <CGME20260707211350eucas1p2c7d585a2f5cdcfdc3f1d9f7bcb1759e1@eucas1p2.samsung.com>
- <ak1rseUKTWFKzBib@AMDC4622.eu.corp.samsungelectronics.net>
-Cc: regressions@lists.linux.dev, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com, "Russell King
- \(Oracle\)" <rmk+kernel@armlinux.org.uk>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, Eric Dumazet <edumazet@google.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, "David S. Miller" <davem@davemloft.net>,
- linux-arm-kernel@lists.infradead.org,
- Ovidiu Panait <ovidiu.panait.rb@renesas.com>
-Subject: Re: [Linux-stm32] [PATCH net v2] net: stmmac: resume PHY before
- hardware setup when opening the interface
+X-CMS-RootMailID: 20260707174438eucas1p132b5c02ceed2493cc7de98ab28c390ee
+References: <20260707174431.1264520-1-j.raczynski@samsung.com>
+ <CGME20260707174438eucas1p132b5c02ceed2493cc7de98ab28c390ee@eucas1p1.samsung.com>
+ <20260707174431.1264520-2-j.raczynski@samsung.com>
+ <d4fb7a9f-c0bb-4ced-8428-14bd2aa66d85@lunn.ch>
+Cc: linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, andrew+netdev@lunn.ch,
+ edumazet@google.com, mcoquelin.stm32@gmail.com, kuba@kernel.org,
+ k.domagalski@samsung.com, k.tegowski@samsung.com, pabeni@redhat.com,
+ davem@davemloft.net, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH net 1/2] net/stmmac: Protect against zero
+ queue DTS config
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -98,10 +94,10 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:stefan@agner.ch,m:regressions@lists.linux.dev,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:rmk+kernel@armlinux.org.uk,m:maxime.chevallier@bootlin.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:ovidiu.panait.rb@renesas.com,m:rmk@armlinux.org.uk,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:linux-kernel@vger.kernel.org,m:netdev@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:k.domagalski@samsung.com,m:k.tegowski@samsung.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[14];
-	FREEMAIL_CC(0.00)[lists.linux.dev,vger.kernel.org,st-md-mailman.stormreply.com,armlinux.org.uk,bootlin.com,lunn.ch,google.com,gmail.com,kernel.org,redhat.com,davemloft.net,lists.infradead.org,renesas.com];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,gmail.com,kernel.org,samsung.com,redhat.com,davemloft.net,lists.infradead.org];
 	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+];
 	ARC_NA(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
@@ -115,36 +111,75 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	FROM_NEQ_ENVFROM(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,kernel,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[samsung.com:from_mime,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[samsung.com:from_mime,AMDC4622.eu.corp.samsungelectronics.net:mid]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B4B1571FD4E
+X-Rspamd-Queue-Id: 9CE727228D5
 
-------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_
+------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_131043_
 Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
 
-On Tue, Jul 07, 2026 at 11:13:46PM +0200, Jakub Raczynski wrote:
-> - This change is actually broken - in previous patch rtnl_lock() was asserted
->   by dev_ioctl(), but in this version it is not asserted anywhere and will
->   trigger WARN_ONCE().
+On Tue, Jul 07, 2026 at 08:57:28PM +0200, Andrew Lunn wrote:
+> On Tue, Jul 07, 2026 at 07:44:30PM +0200, Jakub Raczynski wrote:
+> > Commit 8a7bca6de6de protected against inputing number of tx/rx_queues_to_use
+> > over kernel supported limit in DTS config. AI review mentioned that we also
+> > should protect against zero queue input, because this would cause issues
+> > down the line. Missing config is not an issue as stmmac_plat_dat_alloc()
+> > does apply '1' by default.
+> > 
+> > Fix this by adding check for zero queues input during DTS parsing
+> > 
+> > Fixes: 8a7bca6de6de ("net/stmmac: Apply MTL_MAX queue limit if config missing")
+> 
+> I'm not sure a Fixes: is justified here. Does this bother somebody? As
+> far as i understand, for this to actually do something the system is
+> broken anyway?
 
-Ok, as I looked again, I am wrong again, ndo_open() does hold rtnl_lock
-already. So from this point it is good. Relocking would create deadlock,
-so I take that part of comment back.
+Yes, more below
+
+> 
+> >  	if (!of_property_read_u32(rx_node, "snps,rx-queues-to-use", &value)) {
+> >  		if (value > MTL_MAX_RX_QUEUES)
+> >  			value = MTL_MAX_RX_QUEUES;
+> > +		else if (value == 0)
+> > +			value = 1;
+> 
+> If the DT is broken, don't we want it to be fixed? -EINVAL would make
+> it obvious.
+> 
+>     Andrew
+>
+
+EINVAL would be better, I agree.
+
+Mentioned patch changed U8_MAX -> MTL_MAX_RX_QUEUES (and TX), because
+inputing more just panicked kernel and there was already verification for
+that, so it was fixed by silent fix of incorrect value.
+We triggered this while were testing XGMAC hardware that supports 16 queues
+(current driver limit is 8). Original fix having EINVAL would also be good.
+
+Inputing 0 is much less honest mistake but rather some testing how kernel
+handles other/incorrect values. So at the very least, this should not be able
+to panic kernel. But as above, I agree EINVAL actually would fit better here,
+that will be for V2, and so it would for original 8a7bca6de6de.
+
+Whether it justifies Fixes or not, I am not sure, it is real possibility to
+trigger panic if system has dynamic DTS loading (CONFIG_OF_OVERLAY) on
+system with wrong permissions.
 
 BR
 Jakub Raczynski
 
-------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_
+------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_131043_
 Content-Type: text/plain; charset="utf-8"
 
 
-------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_
+------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_131043_
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -155,4 +190,4 @@ Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
 
-------086pkQbFtnoS7HLFmBecfPu9Cf9WQCmSNse4hrMKP7AYRkCa=_12ee25_--
+------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_131043_--
