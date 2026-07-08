@@ -2,122 +2,77 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id Kiq7FOI1Tmo0IgIAu9opvQ
+	id V4ZXIm82TmpxJAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 13:34:58 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 13:37:19 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBF7B7259ED
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 13:34:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EBDF725EB7
+	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 13:37:19 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=M1CE+4V+;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=intel.com (policy=none);
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
+	dkim=fail ("body hash did not verify") header.d=collabora.com header.s=zohomail header.b=SgpZaz1L;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=collabora.com (policy=none);
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	arc=reject ("signature check failed: fail, {[1] = sig:zohomail.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F43DC8F271;
-	Wed,  8 Jul 2026 11:34:57 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C11A4C8F271;
+	Wed,  8 Jul 2026 11:37:18 +0000 (UTC)
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com
+ [136.143.188.12])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A552CC7C7E8
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E1E91C712B2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 11:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1783510496; x=1815046496;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=AGYgMg5Ug10S/wSIeCwDKP9iDkCMyr/A63ihhHSiwRU=;
- b=M1CE+4V+aRj9eyAF9zWp7KYK5617WyIXScm0SIyTx6nP5DBUq9qxLlFl
- JUKN8ZXZlTreUdDDRSUqGw86rHe+/C7ld4zNi3qatR+pKGtK8y0meD4pT
- SaeY49fvjv5/ViBxQ6jHVxwn9rG4hozPKWy82ockvUeXmywEDkScdOjss
- V+BxK4Bv5TWctr7p0Q+3e9/KSxJQ9vun8q+eCqMYKJkep0S7kpBoBNymH
- T1jTTY2qbtJl4vWPVR/9tOTcAtbc03ouvx8J63IvFWSx4EbshHH6OUWV+
- XqYxuIWnoz7GQIijo++bHkdCYANJhRmVJJmk352c/6whCERzLGWO0llRy A==;
-X-CSE-ConnectionGUID: 9TKx3EmvSl2EVc9Fz+r8vA==
-X-CSE-MsgGUID: IuxB6c0wRVKc44Sr4qofzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11840"; a="109714190"
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="109714190"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 04:34:53 -0700
-X-CSE-ConnectionGUID: 9piD6cfVSWie6SfgMzvaFQ==
-X-CSE-MsgGUID: Nlf/R1UvSVO9P8OFz8tYnQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,153,1779174000"; d="scan'208";a="278642571"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.100])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 Jul 2026 04:34:35 -0700
-Date: Wed, 8 Jul 2026 14:34:33 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Message-ID: <ak41yQp3x78s4Fmx@ashevche-desk.local>
-References: <cover.1783507945.git.u.kleine-koenig@baylibre.com>
+ Wed,  8 Jul 2026 11:37:16 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1783510592; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=fiM838OSJXxgoJdBoSWbg9eOpW3CqgvOWxKDidB7HrEtGzON8fr84bpH54/eWTMokKJGeHDcDC3nnYVk4PXKtWKRZ8YuoHs69TJbi8n1og/TFEs+dgzdDAJ2+0DE/KcqDXEHYoeEU9AYTGFqDed3+FOib+ScgGx/A8oJGBRFiak=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1783510592;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=gcY7T0lP5le5CCNf+zhfFY+iI1N5QvSyJZnptU0Oys8=; 
+ b=Gb1vx0D3oEAGSswxky62uf/lSq8w8KZrVtlO0xcj6NALwgSI8elGNHJix84Q3+ITAfHFzoZc9fEBQyukiWVOJkdmrVr0HuZauE7AYvG2itYZUaKYdFplRrq4EReb8NcMpzEkeZeiDqIab3npvRk3Fr2+SKleQLi0R6yMI711yaI=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
+ dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1783510592; 
+ s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
+ h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+ bh=gcY7T0lP5le5CCNf+zhfFY+iI1N5QvSyJZnptU0Oys8=;
+ b=SgpZaz1LyvYikKA5/5BCe443LYNenKVSqHw4XguZa+HpuQiaQYXH8hvKhF1ve3KN
+ ZZoSo3RXdwCGd6wE8gqO29opjDcsyyTT+lqZyJ5l1iegYaA+7VTNePrzVIX43pIzAZs
+ LmElpjbQ+VBGQ+Mc7vZhhZGbSXxNb2Y7Y6gzMLQI=
+Received: by mx.zohomail.com with SMTPS id 1783510588746822.2863328296761;
+ Wed, 8 Jul 2026 04:36:28 -0700 (PDT)
+Message-ID: <8304b0a704c8db697767584b8c34388f07ba401d.camel@collabora.com>
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Date: Wed, 08 Jul 2026 13:36:21 +0200
+In-Reply-To: <b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch>
+References: <20260707-dwmac-mediatek-mt8189-v1-0-17f345eaaca3@collabora.com>
+ <20260707-dwmac-mediatek-mt8189-v1-1-17f345eaaca3@collabora.com>
+ <b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch>
+Organization: Collabora Ltd
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <cover.1783507945.git.u.kleine-koenig@baylibre.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Vasut <marek.vasut+renesas@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
- Sudeep Holla <sudeep.holla@kernel.org>, Sven Peter <sven@kernel.org>,
- linux-omap@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
- Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- David Rhodes <david.rhodes@cirrus.com>, Guenter Roeck <groeck@chromium.org>,
- chrome-platform@lists.linux.dev, Chunyan Zhang <zhang.lyra@gmail.com>,
- Lee Jones <lee@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>, linux-arm-msm@vger.kernel.org,
- Roger Quadros <rogerq@kernel.org>, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, Chen-Yu Tsai <wens@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Richard <thomas.richard@bootlin.com>,
- Samuel Holland <samuel@sholland.org>, linux-renesas-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>, imx@lists.linux.dev,
- =?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
- Tom Rix <trix@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Qunqin Zhao <zhaoqunqin@loongson.cn>,
- Krzysztof Kozlowski <krzk@kernel.org>, Fred Treven <fred.treven@cirrus.com>,
- Fabio Estevam <festevam@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andreas Kemnade <andreas@kemnade.info>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Orson Zhai <orsonzhai@gmail.com>, Ray Jui <rjui@broadcom.com>,
- Tim Harvey <tharvey@gateworks.com>,
- Jonathan =?iso-8859-1?Q?Neusch=E4fer?= <j.neuschaefer@gmx.net>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Benson Leung <bleung@chromium.org>, Samuel Kayode <samkay014@gmail.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Andreas Werner <andreas.werner@men.de>, Linus Walleij <linusw@kernel.org>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
- Zha Qipeng <qipeng.zha@intel.com>, Neal Gompa <neal@gompa.dev>,
- Xu Yilun <yilun.xu@intel.com>, Tony Lindgren <tony@atomide.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Peter Tyser <ptyser@xes-inc.com>,
- Janne Grunau <j@jannau.net>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Saravanan Sekar <sravanhome@gmail.com>, mfd@lists.linux.dev,
+X-ZohoMailClient: External
+Cc: Eric Dumazet <edumazet@google.com>, kernel@collabora.com,
+ linux-stm32@st-md-mailman.stormreply.com, Rob Herring <robh@kernel.org>,
+ maxime.chevallier@bootlin.com, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>, Biao Huang <biao.huang@mediatek.com>,
+ Richard Cochran <richardcochran@gmail.com>, rmk+kernel@armlinux.org.uk,
  linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
+ linux-arm-kernel@lists.infradead.org,
  AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- James Ogletree <jogletre@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Colin Foster <colin.foster@in-advantage.com>,
- Ben Bright <ben.bright@cirrus.com>, linux@ew.tq-group.com
-Subject: Re: [Linux-stm32] [PATCH v2 00/23] mfd: Use named initializers for
- arrays of *_device_data
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Andrew Lunn <andrew+netdev@lunn.ch>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
+Subject: Re: [Linux-stm32] [PATCH net-next 1/6] dt-bindings: net:
+ mediatek-dwmac: add support for MT8189 SoC
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -129,93 +84,74 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.49 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:zohomail.com:reject}];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[collabora.com:s=zohomail];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
+	DMARC_POLICY_SOFTFAIL(0.10)[collabora.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
-	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
-	FORGED_RECIPIENTS(0.00)[m:u.kleine-koenig@baylibre.com,m:geert+renesas@glider.be,m:alim.akhtar@samsung.com,m:linux-stm32@st-md-mailman.stormreply.com,m:marek.vasut+renesas@gmail.com,m:linux-samsung-soc@vger.kernel.org,m:aaro.koskinen@iki.fi,m:khilman@baylibre.com,m:cw00.choi@samsung.com,m:luca.ceresoli@bootlin.com,m:linux-sunxi@lists.linux.dev,m:s.hauer@pengutronix.de,m:linux-sound@vger.kernel.org,m:sudeep.holla@kernel.org,m:sven@kernel.org,m:linux-omap@vger.kernel.org,m:andy@kernel.org,m:sbranden@broadcom.com,m:linux-kernel@vger.kernel.org,m:linux-crypto@vger.kernel.org,m:kernel@pengutronix.de,m:alexandre.belloni@bootlin.com,m:david.rhodes@cirrus.com,m:groeck@chromium.org,m:chrome-platform@lists.linux.dev,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:magnus.damm@gmail.com,m:ckeepax@opensource.cirrus.com,m:michael.hennerich@analog.com,m:mazziesaccount@gmail.com,m:linux-arm-msm@vger.kernel.org,m:rogerq@kernel.org,m:linux-rpi-kernel@lists.infradead.org,m:linux-amlogic@lists.infradead.org,
- m:wens@kernel.org,m:mika.westerberg@linux.intel.com,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:thomas.richard@bootlin.com,m:samuel@sholland.org,m:linux-renesas-soc@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:mathieu.dubois-briand@bootlin.com,m:imx@lists.linux.dev,m:andre.draszik@linaro.org,m:trix@redhat.com,m:lpieralisi@kernel.org,m:Frank.Li@nxp.com,m:zhaoqunqin@loongson.cn,m:krzk@kernel.org,m:fred.treven@cirrus.com,m:festevam@gmail.com,m:jernej.skrabec@gmail.com,m:andreas@kemnade.info,m:bcm-kernel-feedback-list@broadcom.com,m:orsonzhai@gmail.com,m:rjui@broadcom.com,m:tharvey@gateworks.com,m:j.neuschaefer@gmx.net,m:rf@opensource.cirrus.com,m:baolin.wang@linux.alibaba.com,m:bleung@chromium.org,m:samkay014@gmail.com,m:support.opensource@diasemi.com,m:andreas.werner@men.de,m:linusw@kernel.org,m:claudiu.beznea@tuxon.dev,m:asahi@lists.linux.dev,m:qipeng.zha@intel.com,m:neal@gompa.dev,m:yilun.xu@intel.com,m:tony@atomide.com,m:liviu.dudau@arm.com,m:ptyser@xes-in
- c.com,m:j@jannau.net,m:florian.fainelli@broadcom.com,m:peter.griffin@linaro.org,m:sravanhome@gmail.com,m:mfd@lists.linux.dev,m:linux-mediatek@lists.infradead.org,m:matthias.bgg@gmail.com,m:angelogioacchino.delregno@collabora.com,m:jogletre@opensource.cirrus.com,m:patches@opensource.cirrus.com,m:nicolas.ferre@microchip.com,m:colin.foster@in-advantage.com,m:ben.bright@cirrus.com,m:linux@ew.tq-group.com,m:geert@glider.be,m:marekvasut@gmail.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:edumazet@google.com,m:kernel@collabora.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:maxime.chevallier@bootlin.com,m:kuba@kernel.org,m:pabeni@redhat.com,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:biao.huang@mediatek.com,m:richardcochran@gmail.com,m:rmk+kernel@armlinux.org.uk,m:linux-mediatek@lists.infradead.org,m:matthias.bgg@gmail.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:andrew+netdev@lunn.ch,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:davem@davemloft.net,m:conor@kernel.org,m:rmk@armlinux.org.uk,m:matthiasbgg@gmail.com,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	GREYLIST(0.00)[pass,meta];
 	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[glider.be,samsung.com,st-md-mailman.stormreply.com,gmail.com,vger.kernel.org,iki.fi,baylibre.com,bootlin.com,lists.linux.dev,pengutronix.de,kernel.org,broadcom.com,cirrus.com,chromium.org,opensource.cirrus.com,analog.com,lists.infradead.org,linux.intel.com,linaro.org,sholland.org,redhat.com,nxp.com,loongson.cn,kemnade.info,gateworks.com,gmx.net,linux.alibaba.com,diasemi.com,men.de,tuxon.dev,intel.com,gompa.dev,atomide.com,arm.com,xes-inc.com,jannau.net,collabora.com,microchip.com,in-advantage.com,ew.tq-group.com];
+	RCVD_COUNT_THREE(0.00)[3];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[andriy.shevchenko@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[louisalexis.eyraud@collabora.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	HAS_ORG_HEADER(0.00)[];
-	DKIM_TRACE(0.00)[intel.com:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[collabora.com:-];
+	RCPT_COUNT_TWELVE(0.00)[23];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[louisalexis.eyraud@collabora.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_GT_50(0.00)[89];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
+	FREEMAIL_CC(0.00)[google.com,collabora.com,st-md-mailman.stormreply.com,kernel.org,bootlin.com,redhat.com,vger.kernel.org,mediatek.com,gmail.com,armlinux.org.uk,lists.infradead.org,lunn.ch,davemloft.net];
 	ALIAS_RESOLVED(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	ARC_NA(0.00)[]
+	TAGGED_RCPT(0.00)[linux-stm32,dt,kernel,netdev];
+	TO_DN_SOME(0.00)[]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: DBF7B7259ED
+X-Rspamd-Queue-Id: 0EBDF725EB7
 
-On Wed, Jul 08, 2026 at 01:15:07PM +0200, Uwe Kleine-K=F6nig (The Capable H=
-ub) wrote:
-> Hello,
-> =
-
-> this series superseeds my previous patch "[PATCH v1] mfd: Use named
-> initializers for arrays of i2c_device_data"
-> (https://lore.kernel.org/lkml/20260515095839.4005460-2-u.kleine-koenig@ba=
-ylibre.com)
-> that Lee asked me to rebase and also the series "[PATCH v1 0/3] mfd:
-> Initialize spi_device_id arrays using member names"
-> (https://lore.kernel.org/lkml/cover.1783003256.git.u.kleine-koenig@baylib=
-re.com).
-> =
-
-> The objective for this series is to prepare mfd for changing
-> of_device_id etc to make driver_data a union, see
-> https://lore.kernel.org/all/cover.1780048925.git.u.kleine-koenig@baylibre=
-.com/
-> for the idea behind it.
-> =
-
-> This series is based on yesterday's next/master and it does the
-> restructuring not only for i2c and spi (as the two series mentioned
-> above), but for all *_device_id structures that I intend to modify with
-> a union that affect mfd. So (I hope) this is the only patch series
-> affecting mfd for this quest.
-> =
-
-> I don't care much about the last few patches unifying the coding style.
-> I think it's a good opportunity to do that, but if you don't like them,
-> just don't apply these.
-
-The patches bring inconsistency (or still leave it) with the terminator sty=
-le
-in both I=B2C and ACPI ID tables. Can you revisit that?
-
--- =
-
-With Best Regards,
-Andy Shevchenko
-
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+SGkgQW5kcmV3LAoKT24gVHVlLCAyMDI2LTA3LTA3IGF0IDE0OjQyICswMjAwLCBBbmRyZXcgTHVu
+biB3cm90ZToKPiA+ICvCoCAtIGlmOgo+ID4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiA+ICvC
+oMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWlu
+czoKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGVudW06Cj4gPiArwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgLSBtZWRpYXRlayxtdDgxODktZ21hYwo+ID4gK8KgwqDCoCB0aGVuOgo+ID4g
+K8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiA+ICvCoMKgwqDCoMKgwqDCoCBjbG9ja3M6Cj4gPiAr
+wqDCoMKgwqDCoMKgwqDCoMKgIGl0ZW1zOgo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLSBk
+ZXNjcmlwdGlvbjogTUFDIE1haW4gY2xvY2sKPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIC0g
+ZGVzY3JpcHRpb246IFBUUCBjbG9jawo+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqAgLSBkZXNj
+cmlwdGlvbjogUk1JSSByZWZlcmVuY2UgY2xvY2sgcHJvdmlkZWQgYnkgTUFDCj4gCj4gU2luY2Ug
+dGhpcyBpcyBhIE1BQywgaXQgc291bmRzIGxpa2UgaXQgaXMgY29uc3VtaW5nIGl0cyBvd24gY2xv
+Y2s/CgpJbiB0aGUgZHJpdmVyIChbMV0pLCB0aGlzIGNsb2NrIGlzIGRlc2NyaWJlZCBhcyBiZWlu
+ZyBvbmx5IHVzZWQgYW5kCm5lZWRlZCBpbiBSTUlJIHdoZW4gTUFDIHByb3ZpZGVzIHRoZSByZWZl
+cmVuY2UgY2xvY2ssIGFuZCB1c2VsZXNzCm90aGVyd2lzZSAoUkdNSUkvTUlJIG9yIFJNSUkgd2hl
+biBQSFkgcHJvdmlkZXMgdGhlIHJlZmVyZW5jZSBjbG9jaykuCgpJdHMgdXNlIGFuZCBjb25maWd1
+cmF0aW9uIGFsc28gZGVwZW5kcyBvbiB0aGUgIm1lZGlhdGVrLHJtaWktY2xrLWZyb20tCm1hYyIg
+dmVuZG9yIHByb3BlcnR5IChbMl0pIHByZXNlbmNlIGluIGRldmljZXRyZWUuCgpEbyB5b3Ugd2lz
+aCB0aGlzIGNsb2NrIGRlc2NyaXB0aW9uIGJlIHJld29yZGVkIGluIHRoZSBkdC1iaW5kaW5ncyBm
+b3IKYm90aCBvY2N1cnJlbmNlcz8KClsxXToKaHR0cHM6Ly9naXQua2VybmVsLm9yZy9wdWIvc2Nt
+L2xpbnV4L2tlcm5lbC9naXQvbmV4dC9saW51eC1uZXh0LmdpdC90cmVlL2RyaXZlcnMvbmV0L2V0
+aGVybmV0L3N0bWljcm8vc3RtbWFjL2R3bWFjLW1lZGlhdGVrLmMjbjQ4MApbMl06Cmh0dHBzOi8v
+Z2l0Lmtlcm5lbC5vcmcvcHViL3NjbS9saW51eC9rZXJuZWwvZ2l0L25leHQvbGludXgtbmV4dC5n
+aXQvdHJlZS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L21lZGlhdGVrLWR3
+bWFjLnlhbWwjbjEwOAoKUmVnYXJkcywKTG91aXMtQWxleGlzCj4gCj4gCUFuZHJldwpfX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1zdG0zMiBtYWls
+aW5nIGxpc3QKTGludXgtc3RtMzJAc3QtbWQtbWFpbG1hbi5zdG9ybXJlcGx5LmNvbQpodHRwczov
+L3N0LW1kLW1haWxtYW4uc3Rvcm1yZXBseS5jb20vbWFpbG1hbi9saXN0aW5mby9saW51eC1zdG0z
+Mgo=
