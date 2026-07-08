@@ -2,72 +2,73 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id B0zkDjKwTmrMSQIAu9opvQ
+	id ygtbI8nYTmpTVQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 22:16:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 01:10:01 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6FB872A25E
-	for <lists+linux-stm32@lfdr.de>; Wed, 08 Jul 2026 22:16:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0863C72B0BE
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 01:10:01 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=samsung.com header.s=mail20170921 header.b=uXNcoISC;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=samsung.com (policy=none);
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b="ZqLGG/La";
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 9026DC7A832;
-	Wed,  8 Jul 2026 20:16:49 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- (using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5A24C57B78;
+	Wed,  8 Jul 2026 23:10:00 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 32B6FC56600
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9A30C1A979
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 20:16:48 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20260708201647euoutp01fcc5d4090cd1917a0481e995649b6ef7~AadMGGZaQ2576025760euoutp01K
+ Wed,  8 Jul 2026 23:09:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 845BB43E0A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 20:16:47 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20260708201647euoutp01fcc5d4090cd1917a0481e995649b6ef7~AadMGGZaQ2576025760euoutp01K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1783541807;
- bh=RYx5u+5FGWCJdyvt6JytRXDJ/jVT6gVVxpgW5mLqOwE=;
- h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
- b=uXNcoISCsD7Metr8ZkJ1mZrZ0T1+I81OIj5dF7xW5GCScFcnJuPA3pY34RFG8NXFv
- ThYeAHT5X5Fpq4YBNTebOyA1WHeOZG+W3TGjgpTNToX4HsKgV3zFGBtIfJpcbNRJ4n
- 2MPZ0U7Vj2uPVH1h75Z9KQ1hm1h4Yj8vixQcvhos=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20260708201646eucas1p1dff8fa3d9a443180852126f72f1cb3a1~AadLmuqnh2208022080eucas1p1H;
- Wed,  8 Jul 2026 20:16:46 +0000 (GMT)
-Received: from AMDC4622.eu.corp.samsungelectronics.net (unknown
- [106.120.77.34]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20260708201645eusmtip15a406be522cc4e7c4578748b4c2e0a3f~AadKo4mXv0367403674eusmtip1M;
- Wed,  8 Jul 2026 20:16:45 +0000 (GMT)
-Date: Wed, 8 Jul 2026 22:16:45 +0200
-From: Jakub Raczynski <j.raczynski@samsung.com>
-To: netdev@vger.kernel.org
-Message-ID: <ak6wLcK1xCXZf4mS@AMDC4622.eu.corp.samsungelectronics.net>
+ Wed,  8 Jul 2026 23:09:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6961F1F00AC4
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed,  8 Jul 2026 23:09:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1783552198;
+ bh=LR60eLgUfNNIz6B0v46FKwzAtiy9XGoPTayqxcAz4UQ=;
+ h=References:In-Reply-To:From:Date:Subject:To:Cc;
+ b=ZqLGG/LaE2yyMqM5XS0hIvwyGP4VAC2nYijzaQlQfIaDqC4xDUQr93yEZe96t90jy
+ VymKJ+2dNoXJ0R90xBkWS3du9UT3kY79XAn6bzUKknfEpUTxnHM6QE7X2l+BB0xYbo
+ cwLCu/lnPGJjQS3pil9w7fjr6vJN/rv+nWiHl6vwGXiVOcVBJ0Sg0UuLfA7DpObG8X
+ 3dtK6Nb/81VPz7HN1L7VIbbeezTa9yQCWAGc/Bb0heQOcjAxtvPDGvlr4CsC+tQDDf
+ XQ9VtCE1WQQ5Sx8FsNYcHIPYNyyrcoAuBxDyDOZ8Y0d+4eXb8TBqQwXlD7MHuq2KVY
+ /XVaqMZw9G9iw==
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-5aec139da7eso380536e87.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Wed, 08 Jul 2026 16:09:58 -0700 (PDT)
+X-Forwarded-Encrypted: i=1;
+ AHgh+RrVYnNZ9L3zqzhGi7B27c9PbFPfV+fzj29CuMK96jOxpZVBFsfDu5A48jNWRPTjSDamUUgQDtkA0MDaeg==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yz2kGV+EVigWelSa/c8Qho6X1lcKv4V5j5rNy/cq3oBnNnLLOAT
+ rU1+SUuefvqm3kare22bEwJ0F8+jNrSAMa3QTlQtUj+clKJIgWI90QCV60D0HJzZm4fai+G/r0h
+ 8L1Z+khniprE9FijMnwY8YTaaIxvrKR0=
+X-Received: by 2002:ac2:4f08:0:b0:5ae:b5d7:7844 with SMTP id
+ 2adb3069b0e04-5b016d1b33fmr49718e87.5.1783552197150; Wed, 08 Jul 2026
+ 16:09:57 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20260707174115.1264466-3-j.raczynski@samsung.com>
-X-CMS-MailID: 20260708201646eucas1p1dff8fa3d9a443180852126f72f1cb3a1
-X-Msg-Generator: CA
-Content-Type: multipart/mixed;
- boundary="----eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_13ad66_"
-X-RootMTR: 20260707174136eucas1p2dca8fd11dc7642c913eb03bcdf5aa276
-X-EPHeader: CA
-X-CMS-RootMailID: 20260707174136eucas1p2dca8fd11dc7642c913eb03bcdf5aa276
-References: <20260707174115.1264466-1-j.raczynski@samsung.com>
- <CGME20260707174136eucas1p2dca8fd11dc7642c913eb03bcdf5aa276@eucas1p2.samsung.com>
- <20260707174115.1264466-3-j.raczynski@samsung.com>
-Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- andrew+netdev@lunn.ch, edumazet@google.com,
- Sashiko AI <sashiko-bot@kernel.org>, mcoquelin.stm32@gmail.com,
- kuba@kernel.org, k.domagalski@samsung.com, k.tegowski@samsung.com,
- pabeni@redhat.com, davem@davemloft.net, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH net 2/2] net/stmmac: Prevent dma queue
- NULL free on allocation failure
+References: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
+In-Reply-To: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 9 Jul 2026 01:09:43 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=tBRFXzqa6gXNnZ3-DRUMvs=waSdDvq5h5MPHAQoheqw@mail.gmail.com>
+X-Gm-Features: AUfX_mwW-7N7MmlP00AndlWeAaBl8FEBrFYJNUhifSWGKsGcvxauySd-Uj-hISw
+Message-ID: <CAD++jL=tBRFXzqa6gXNnZ3-DRUMvs=waSdDvq5h5MPHAQoheqw@mail.gmail.com>
+To: Frank.Li@oss.nxp.com
+Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, devicetree@vger.kernel.org,
+ Sascha Hauer <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>,
+ Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
+Subject: Re: [Linux-stm32] [PATCH 0/3] ARM: dts: imx: cleanup st,
+ stmpe touch screen related CHECK_DTB warings
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -79,88 +80,59 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.39 / 15.00];
+X-Spamd-Result: default: False [4.89 / 15.00];
+	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[samsung.com:s=mail20170921];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
-	DMARC_POLICY_SOFTFAIL(0.10)[samsung.com : SPF not aligned (relaxed),none];
-	MIME_GOOD(-0.10)[multipart/mixed,text/plain];
+	MIME_GOOD(-0.10)[text/plain];
+	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:netdev@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:sashiko-bot@kernel.org,m:mcoquelin.stm32@gmail.com,m:kuba@kernel.org,m:k.domagalski@samsung.com,m:k.tegowski@samsung.com,m:pabeni@redhat.com,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FREEMAIL_CC(0.00)[vger.kernel.org,st-md-mailman.stormreply.com,lunn.ch,google.com,kernel.org,gmail.com,samsung.com,redhat.com,davemloft.net,lists.infradead.org];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:+];
-	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_TWELVE(0.00)[15];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[samsung.com:-];
+	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:Frank.Li@oss.nxp.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:devicetree@vger.kernel.org,m:s.hauer@pengutronix.de,m:lee@kernel.org,m:Frank.Li@nxp.com,m:linux-kernel@vger.kernel.org,m:imx@lists.linux.dev,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
+	FREEMAIL_CC(0.00)[kernel.org,pengutronix.de,vger.kernel.org,nxp.com,lists.linux.dev,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	DKIM_TRACE(0.00)[kernel.org:-];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TO_DN_SOME(0.00)[];
 	RCVD_COUNT_FIVE(0.00)[5];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[j.raczynski@samsung.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,netdev];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,samsung.com:from_mime,samsung.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,AMDC4622.eu.corp.samsungelectronics.net:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C6FB872A25E
+X-Rspamd-Queue-Id: 0863C72B0BE
 
-------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_13ad66_
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-
-On Tue, Jul 07, 2026 at 07:41:15PM +0200, Jakub Raczynski wrote:
-> During allocation of RX/TX descriptor resources and its DMA,
-> there is verification of failed dma_alloc_coherent() due to lack of memory.
-> In case of that failure, all allocated resources are freed instantly after,
-> but there are no checks for dma_free_coherent() whether previous step has
-> failed.
-> This will generally result in panic due to freeing NULL address.
-> 
-> Fix it by adding NULL verification of memory that is to be freed.
-> 
-> Theoretically code should also set address of pointed memory to zero when
-> freeing, but currently the only path of invalid address is non intialized zero,
-> and there is no case possible of double-free of same memory.
-> 
-> Fixes: e73b19baa3b1c ("net: stmmac: simplify DMA descriptor allocation/init/freeing")
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Signed-off-by: Jakub Raczynski <j.raczynski@samsung.com>
-> ---
-
-Sashiko AI gave review that has valid point, patch needs changes.
-Please drop it.
-
---
-pw-bot: cr
-
-------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_13ad66_
-Content-Type: text/plain; charset="utf-8"
-
-
-------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_13ad66_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
-_______________________________________________
-Linux-stm32 mailing list
-Linux-stm32@st-md-mailman.stormreply.com
-https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
-------eLQjSWLrXY9-oLo2Anxe58pGrKtOPid212nTY8jU3vRtfcwP=_13ad66_--
+T24gV2VkLCBKdWwgOCwgMjAyNiBhdCA5OjQ54oCvUE0gPEZyYW5rLkxpQG9zcy5ueHAuY29tPiB3
+cm90ZToKCj4gY2xlYW51cCBzdCxzdG1wZSB0b3VjaCBzY3JlZW4gcmVsYXRlZCBDSEVDS19EVEIg
+d2FyaW5ncy4KPgo+IFNpZ25lZC1vZmYtYnk6IEZyYW5rIExpIDxGcmFuay5MaUBueHAuY29tPgo+
+IC0tLQo+IEZyYW5rIExpICgzKToKPiAgICAgICBkdC1iaW5kaW5nczogbWZkOiBzdCxzdG1wZTog
+YWRkIGRlcHJlY2F0ZWQgcHJvcGVydGllcwo+ICAgICAgIGR0LWJpbmRpbmdzOiBtZmQ6IHN0LHN0
+bXBlOiBsZXQgaW50ZXJydXB0IHByb3BlcnR5IG9wdGlvbmFsCj4gICAgICAgQVJNOiBkdHM6IGlt
+eDogcmVtb3ZlIHVuZG9jdW1lbnQgcHJvcGVydGllcyBvZiBzdCxzdG1wZSoKClRob3NlIGxvb2sg
+T0sgSSB0aGluazoKUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWogPGxpbnVzd0BrZXJuZWwub3Jn
+PgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
+LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
+Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
