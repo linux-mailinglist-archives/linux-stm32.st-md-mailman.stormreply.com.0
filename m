@@ -2,105 +2,105 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 1rwzJLFjT2oofwIAu9opvQ
+	id v3DcJLFjT2opfwIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 11:02:41 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE88772EA0A
+	by mail.lfdr.de (Postfix) with ESMTPS id DAD1872EA0B
 	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 11:02:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=eCga41p1;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=QP4zc+IU;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=e8drr8S6;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=X6JRSTnI;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6BDFCC9AE2F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 85CFBC9AE31;
 	Thu,  9 Jul 2026 09:02:40 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAC9FC7A833
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 0CF60C56600
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu,  9 Jul 2026 06:25:47 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ Thu,  9 Jul 2026 06:25:58 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66961CTY933499
- for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 9 Jul 2026 06:25:46 GMT
+ 66960G99887925
+ for <linux-stm32@st-md-mailman.stormreply.com>; Thu, 9 Jul 2026 06:25:58 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- Mr/c6JHynGsswndL259fRuQJwMr/ocAoxfWbLWGTSg4=; b=eCga41p1wSaTnZyE
- z8hbPW2QC3jtrskzsNyEIVI9/1yQiwqXo7Z/VJzc9LaCMQXaBHcihK+f8r+N2yhR
- sT9NAbYz2HQh1lgI/YY8djiBfU1/6vRazEhnOA5xrYvKE2G28TG4Mt8AujabjRY+
- 1LiH6LUOH08PBaPxxLNTJ0Z5qmwXyq4RSQM51T5YwGg9yphTSLIs0RY5OPHCXprH
- o21S78RV6rhfCVLr1zyPr5R/xkbuoqp0T5TkFPK1TzlwgCMcWfcaJZQvpd1Tq1n7
- robAYxr3paWdWPWHZxQhe0TZrZnXyJYYaKviOP1xAV9AQBqoz0Nby02DjPcjR/O6
- 3IbAHw==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
- [209.85.214.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9ug6j7hk-1
+ XkS0qjbBMR4bx7I0LwF03G25ZO0lBo870NfALSlDjq4=; b=e8drr8S6L/NQmGEG
+ +01bhR+Y+IVDfJc99E+U3BaaxSi87bNGogUvMwHI6OjC/MlcteROsVg0tpt15Uic
+ iK7VAiITAy4z0uDp3HZWFOV2k5QK6nBh7kDZzgPdwnpYFX3XI7qsHgUjQMLQHz/b
+ ArxVvks6Si/rwNIEsKdmhTEBMMftGG58nWCOrOC7m5YtsD8UPMf4wa6h/zpOn6Kd
+ XbmkXSpQPgXLJi6Ze7mkyXtmKBrEK6GaSw+IjuFVvDI6wB+AbUcmvtRZ3VfEDc9A
+ VWwcv7sjdTl0XE/dAh+qpiKbWJNYGFKX7u0XdpCpAfmQJM92BbfBXbaGUpe46D53
+ TDOQVw==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
+ [209.85.215.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4f9rq332b3-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Jul 2026 06:25:46 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id
- d9443c01a7336-2cce14a21faso12342965ad.0
+ Thu, 09 Jul 2026 06:25:57 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id
+ 41be03b00d2f7-c85798977dcso2412744a12.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Jul 2026 23:25:46 -0700 (PDT)
+ Wed, 08 Jul 2026 23:25:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783578345; x=1784183145;
+ d=oss.qualcomm.com; s=google; t=1783578357; x=1784183157;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=Mr/c6JHynGsswndL259fRuQJwMr/ocAoxfWbLWGTSg4=;
- b=QP4zc+IU+PRkdlDJcXnjhUPbTFSxjp/7ke0na9YVIQW88jdUckYdn7orpqKImUrfJQ
- wMlABtyJopXls30nejRz+D9UvX+rJlrBGwCscQbcUPue2juiwNKQyKRxNowhMVxqq3D/
- W52UbFQmFcgcUkCsX61WMvF2TZkpD0nJpqL8qdfjA3zJZe+x+TKwmNkJUi+SZV+kbjuZ
- fvz/wvp+Q1R6+x/OzRHPhPT4IpKMvOHrPzT9y4rq4hZpeQII9sRq3p5PYJb8QXONdPXG
- MUzKzPP0GvvO3rP8mxCSxW6kzG49/mN+5cHuRRC2Xf4welH5dk6wLLPY3tZC9wDVrqNt
- 8RMw==
+ bh=XkS0qjbBMR4bx7I0LwF03G25ZO0lBo870NfALSlDjq4=;
+ b=X6JRSTnIyoZYvTzorGnYLd4A1z236vEgrCkd1liz2y3+I0XfqM2MJUOKhDde5Uc4FI
+ FRXZHOW0Cu+LqcIhwn35rp8oyLE3MpjaogH7P1RYWrKO5nkO0+7ooY7dVPO95xu0D4Xy
+ c73P3FsRJLXCdHYOcyUZPRNa2pw4NebGbsOEiwkpMW1d37f7MFBjYDy3zXMSut13go96
+ pr2oRdLz/cz3iOyol01UG0zVTxWYM7PSJFYQbzr5TPKKZk/ddl/KF7RfBX+UzYP6WIeQ
+ d7pYhkksR/XnrFnNgmjtTn0ufKEl42OrZe2KI28+DXJQVJjOff1WJAM6srg00KqSlH7U
+ KGSg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783578345; x=1784183145;
+ d=1e100.net; s=20251104; t=1783578357; x=1784183157;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=Mr/c6JHynGsswndL259fRuQJwMr/ocAoxfWbLWGTSg4=;
- b=cW1t5twSOiINfWKt85+mNcE262QswSN0CnieCBlCBsyDQgBiN8oPogcZV1RDD+N2VP
- vME+mrc1FkCgtS5XfUF0Ac9mAmskrBIuNn0dlYUVQWSngK+TMD3TZ0P2aKWo72YPPxSB
- HwOGqvtGWTWJVc/FsBn5zWWOAvzWK82cf4UvE+U7RFjou54xC/SMo+ggG1Xq3UhmQ8B8
- 2+29judT8kCJXiWNnRv4zBr3sqfAO+rq+sUa9KZxtIH7cnlq3gAdHqD3uZBZyfONo/QK
- hbkTVvNgOmyRAL8EDMkZeVCOwTi1eB1z3m8tJsZ+Fq8q89hBRm1tWSR5GHW2kpPdAa0A
- DlhA==
+ bh=XkS0qjbBMR4bx7I0LwF03G25ZO0lBo870NfALSlDjq4=;
+ b=fAXYRLyVIUjQUXfy4FOYkXSLC4TiCxYvyGezOymgJAjVzIm+IuV/dr+5IsqE71utCe
+ dXehAhQkNLOj68tZGSBRp9xBIDkGcKBg+r7yDxI2xC4ITPSE1gPh95evOOfRAJAKIlXz
+ G6A4AJN2ueMxMbFuP+f8lLMe+VGm6qLfH9kgETSvSUCmOM1RIZpP8jS6hfU1C5o5hcmx
+ NqYDVsUVx6PwycStscWmj3ZZpPg9rcBFon+VJMcuEmM1pd7x2WE/rU7f6tzBQpwPm11i
+ zxX4cO9GJRItadvHJ7KJ1EV2Mk0KLukBy+Wrv0kdnrINM4RVV6BE8DPuJZKD3VYf8DrG
+ DOJw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpQxh+a9sbg9baSW8zCmCKDB33dlcCfoigbZhb/NBWDWkicBeDt8sJb3MUI9ihq3VVPsF2uyO8VMSPDvA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YwmCLviqVr92zFfBzujDZUoMpsfIb76h86NnPi6TcVe12dG7GwN
- XbLPvVedIRJUUu+A1tCe82TgMXrrz1ZiZxd+TLLbeKsNwHI+r93gM9mMCF6fc+2tYxFVmu9BI3a
- GKy9PxCEMcXCmvreE0plBQrikDEA+14ChxGePsFl668KoVVadbeRq84Cnbf2zq8/sqv7jQAc5Rf
- PWxeW5bbI=
-X-Gm-Gg: AfdE7clo6NF/jNNt6rdjuuX+QZX4/UgmhwPzrqBTWPVQY+JIQOztHD0yy5Bc4bqskgQ
- XR89VmYweC4KTFOxUghGqWNPTtt6i5+pg21zdzLQf3gK9EJaytkMsqTSQBn/Fikr+waqfsVjbFm
- eDEc/+cdzFs0Xya3Q3JoqmsY/74JUWlkzx0qvB5z6Et6Vj6D9E41d9RNVEGiJep4tX8QqbMwMJx
- 5yh9gBmCRTChtEY7IKUa1PIMfbCAAkFx139M6b41IQODLtybMiBzRx2S1G/rmcpbICkKScqyf1m
- +iuZ1n+zOoIiDbppogXx3UqawhSWkmcuZgmyKHCwWW4VT8qu/0pDBwVXesuuLnuR+MFeKuHHSf8
- VMVm5rLyOpYqwD8+dvY6f6/pMuPaVbP8nXyyy753BTzS2
-X-Received: by 2002:a17:902:f652:b0:2b0:badc:c9cf with SMTP id
- d9443c01a7336-2cdd8a9701fmr13907705ad.13.1783578345136; 
- Wed, 08 Jul 2026 23:25:45 -0700 (PDT)
-X-Received: by 2002:a17:902:f652:b0:2b0:badc:c9cf with SMTP id
- d9443c01a7336-2cdd8a9701fmr13907415ad.13.1783578344460; 
- Wed, 08 Jul 2026 23:25:44 -0700 (PDT)
+ AHgh+RqoZTloHdwRMMsCl39BAXHrgUbHgnLgxyR7OUZFaS1RgqQQKEmfcns7MslUzoStMcau68YM4XoqMxuHhA==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzUJEJu+Rj/zGva3+HqaQCXdPcvl0FMQjG53pkAq0njzQVD9kwf
+ JreRM0p1UY8nAIGC28iutvl6ty2ROU1JqpQEGHL3PsSle9EX4slAv/+1oLPoPKIzoSwHXEcWRMn
+ GfBQmA0SFwAb55vQkAoX665xy0AzYsAMy8keig/GoTaV6w5gtDF5isyIb1O37Cdn4WHiFdReDn1
+ 8VJwAoQb0=
+X-Gm-Gg: AfdE7cnv61bGoWrVmqe3mqtDcg0MZtzkl9KZ7aq9AJOnWHwYjJ1sPvKTgE3sEAg+fOq
+ KqUJOYz4kfZ5F7IBA5/ZlmP1c0hSr/e2RT1N+rIbWUJ5qBx9N3JvnCHnToD1l84kywx6rOIFm3i
+ tosVX9rAhJS5oxjC0ppBq00o2IQuLuk1HACAeW7BdLLbpnA1l7mx4W8191/4bIG4YeSHQ2NEMge
+ c1pf5VJjDLfCaK6FlZpv4XcxceKDzdg4I+CL87mo0rsmuoct3/FrYIkK2Hl7BUiCnHWHZQ0hEie
+ M4fWbZGXs4qBi2PB2dnzqrfwp6Ag9DfJ4zOZl11geipB8ngo4/pNhVqpunegIFt1IPhj8wcgpf/
+ XippHi7l/CeUKjLcv+p9KE0ba+HBx2H4FuIQQcuaHp6/z
+X-Received: by 2002:a17:902:daca:b0:2ca:c4a5:84bb with SMTP id
+ d9443c01a7336-2ccea3a737fmr61764075ad.38.1783578356714; 
+ Wed, 08 Jul 2026 23:25:56 -0700 (PDT)
+X-Received: by 2002:a17:902:daca:b0:2ca:c4a5:84bb with SMTP id
+ d9443c01a7336-2ccea3a737fmr61763605ad.38.1783578356098; 
+ Wed, 08 Jul 2026 23:25:56 -0700 (PDT)
 Received: from hu-ptalari-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2ccc9bf74cbsm37986405ad.18.2026.07.08.23.25.33
+ d9443c01a7336-2ccc9bf74cbsm37986405ad.18.2026.07.08.23.25.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 08 Jul 2026 23:25:44 -0700 (PDT)
+ Wed, 08 Jul 2026 23:25:55 -0700 (PDT)
 From: Praveen Talari <praveen.talari@oss.qualcomm.com>
-Date: Thu, 09 Jul 2026 11:55:13 +0530
+Date: Thu, 09 Jul 2026 11:55:14 +0530
 MIME-Version: 1.0
-Message-Id: <20260709-add_return_check_for_uart_change_pm-v1-1-e85c6ffa8ec4@oss.qualcomm.com>
+Message-Id: <20260709-add_return_check_for_uart_change_pm-v1-2-e85c6ffa8ec4@oss.qualcomm.com>
 References: <20260709-add_return_check_for_uart_change_pm-v1-0-e85c6ffa8ec4@oss.qualcomm.com>
 In-Reply-To: <20260709-add_return_check_for_uart_change_pm-v1-0-e85c6ffa8ec4@oss.qualcomm.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -129,40 +129,41 @@ To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
  bjorn.andersson@oss.qualcomm.com,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783578321; l=10746;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783578321; l=7834;
  i=praveen.talari@oss.qualcomm.com; s=20251114; h=from:subject:message-id;
- bh=EVgeSBR2jCHn71Glh5lSeXqBNQ4Lp10YdxPes7kiwZ4=;
- b=04K+FA05dgAPsjdbtbwvkkTnr1RJndSAo0fpFo9UCHtlTA/CCZFQpKhBhQgjikHiSzJ3631Ch
- ghnsVnKCGOpALEgACK/qk6Q0sASwqVcDS7VZ4PYAGinvtCyryB9OB/r
+ bh=b2izFxn+4IiiyKp9j0s8vQoNlL/tiuR3/hHtBJpHypk=;
+ b=DiGW1ZUts1Plz+MKuKKnKr4MwFWfW5eunK8R4MyGl0ZMAS/6fAayulfFs5o4Ae/dAXTYeNVbK
+ +fgruC+Vge8B91yUCFVVeTpTzyXxnoAKhIaokLIyV6nwlSzhKWExJ8e
 X-Developer-Key: i=praveen.talari@oss.qualcomm.com; a=ed25519;
  pk=NGK/88fjyHXgfhIKwag7+uIytOmyOypvZ/hDFaYPEss=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA1OCBTYWx0ZWRfX/yWIMttHaQ8o
- TNiaPLtVT/sIedzf1u3pwJNALCTmUQnRobOk3ZBYGNljTzsOM/M9OyKnt3YlzX7t1JGBkxD97uV
- h2wQiggk+Ws5QoHpFsSXTdIx7DJw8Yc=
-X-Proofpoint-GUID: yr8pda40aW8Y4jz9rR63dkkEf_-XBZsP
-X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a4f3eea cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-ORIG-GUID: u2jmRJ1TEXXMrUm_4svi6FrPtAkU_ibl
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA1OCBTYWx0ZWRfXzLFjw1jcsNQ0
+ 06GtS7572Z+xhTNIewCntG1FkOpVpH4gWq5eDX7xG+79NRdSKW5xEGCSngaQdVMB4rxVmJkFI3+
+ LE0MUF3rJLgxJTMiI2of+O4rw2M64Q3OHJe3BZi8qDNV2XZ/A18uDMNcuC/Z00wuzvh4yd+BPTt
+ tjr8LrziIu+q9IQodyNPESavGvH9APWnkiDJpHCln/pLRC0z9Hd3XZTfF0f5I1c4m1Iqh3oPLbj
+ 0w0W8EL1Q3q8cNJdrYES+2Xqao/Q+PSjUlONOF3Q6HmatcKLyGeFVsDcOz7w0mR+Mza+2wuQCYh
+ cje1gLWhIMPkdHAhCjphNXhpV9R7OjBljZ+Yxf5etWm6dHB4VykhSKJPQ5byQzjjZZKNCCcNieS
+ 8aRqS3f+Rc7DDOryInmwGUx7dIS/bKfAs2EW9ESsaU+mLlIIRLEjhzzj2PsPbwzJqGJIZjmeRLX
+ DmPdhvYjQeOOBBr9ifA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzA5MDA1OCBTYWx0ZWRfXyP3xC7pdaV/j
+ UOT8NCNx8DYoM7aLTsgs1d5+MEnD+5T0XH1PdVmmM8OrEsLcrTqBdKPCBUdK2OErC8U7fXbj86D
+ MkyARMwt4rcBOfNiny3F39/rdrRJaRU=
+X-Authority-Analysis: v=2.4 cv=PYPPQChd c=1 sm=1 tr=0 ts=6a4f3ef5 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=EUspDBNiAAAA:8 a=og5nFkg25Al2bjqVsRcA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: yr8pda40aW8Y4jz9rR63dkkEf_-XBZsP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzA5MDA1OCBTYWx0ZWRfXwNjidWrdZeM0
- t30ric9xyxOhTt0i1K6V9QeE8K50RR53UayuXH26+PfoAhxwEjxcLboazA9dmHNnePuC65c3C6l
- 9x6ENlws0Sd7EkL0OFFXVjEb+D73raDiVo8PNNx6vOCbKGy/qmTkyZCLxmeV9ppUVQ50eGx2Xmh
- fXvdAVJnKSaxgNN1fmLeAPR5vNkbSZqtqBkk9v/CLyS3DEZExLlREfb6nhP0PIQUFTxF4G1azwy
- vbCv5CMnitx74PrJy8Y7gz/drFEjOrlIRBAV3c4VQ/yf4NK5cWw7plU0DT84hAixGRxMLCqgaoM
- Ej35tKA7QTVqe/YFd3qAbf5y1AUUJgbY4URr8uuu9ne+qlU/7LX1HpNE8wwXribdL7807JtVV4Y
- 3IEhxB3GUy+G3JS+Yb6QSkGlgrlRm7Do7sJtJ1og4gG5pzXjHwMMb61wYsGNhgEwR1Y/+gsGTpo
- 6ddApTBaSpoe8yf5Ptw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=MdvWXRze9gsMBWCGvMoA:9 a=QEXdDO2ut3YA:10
+ a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-GUID: u2jmRJ1TEXXMrUm_4svi6FrPtAkU_ibl
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-09_01,2026-07-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1011 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607090058
+ priorityscore=1501 phishscore=0 lowpriorityscore=0 impostorscore=0
+ malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607090058
 X-Mailman-Approved-At: Thu, 09 Jul 2026 09:02:39 +0000
 Cc: linux-samsung-soc@vger.kernel.org, aniket.randive@oss.qualcomm.com,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -172,8 +173,8 @@ Cc: linux-samsung-soc@vger.kernel.org, aniket.randive@oss.qualcomm.com,
  linux-serial@vger.kernel.org, Praveen Talari <praveen.talari@oss.qualcomm.com>,
  linux-omap@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH 1/6] tty: serial: change uart_ops.pm callback
-	to return int
+Subject: [Linux-stm32] [PATCH 2/6] serial: 8250: update .pm callbacks to
+	return int
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -225,307 +226,218 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[uart_ops.pm:url,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,qualcomm.com:email,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,uart_port.pm:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[uart_ops.pm:url,oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,qualcomm.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,uart_port.pm:url]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BE88772EA0A
+X-Rspamd-Queue-Id: DAD1872EA0B
 
-The uart_ops.pm callback is currently declared void, causing
-uart_change_pm() to silently discard any error from a driver's power
-management implementation. Worse, state->pm_state is unconditionally
-updated even when the hardware transition failed, causing the serial core
-to track a power state that does not reflect reality. Subsequent calls to
-uart_change_pm() will then see the (stale) state as matching and skip the
-callback entirely, leaving the hardware stuck in the wrong state with no
-further recovery attempt.
+The uart_ops.pm and uart_port.pm callback signatures have been changed
+from void to int. Update all 8250 .pm implementations to match.
 
-Change the uart_ops.pm callback signature from void to int. Update
-uart_change_pm() to propagate the driver's return value and only commit
-state->pm_state on success, preserving consistency between software state
-and hardware state across all transitions.
+serial8250_do_pm() is the core 8250 power management helper, exported
+for use by sub-drivers. Change its return type from void to int and
+update its declaration in include/linux/serial_8250.h accordingly.
+serial8250_do_pm() always returns 0.
 
-Update all call sites in serial_core.c:
+serial8250_pm() is the uart_ops.pm entry point for the 8250 driver. It
+delegates to a per-port pm function stored in uart_port.pm or falls back
+to serial8250_do_pm(). Both paths are called for their side effects and
+the function returns 0.
 
-  uart_port_startup(): propagate the error so that port open fails
-  cleanly if the hardware cannot be powered on, rather than proceeding
-  to call ops->startup() on an unpowered port.
+The remaining sub-driver callbacks perform their PM work through
+platform-specific helpers (clocks, runtime PM, GPIO) and currently have
+no error paths of their own. Update them to return 0 to satisfy the new
+signature; individual error propagation can be added per-driver as
+needed.
 
-  uart_suspend_port(): return the error directly so the PM framework
-  is aware of the failed transition and can react accordingly.
+  8250_exar: exar_pm()
+  8250_mtk:  mtk8250_do_pm()
+  8250_omap: omap_8250_pm()
+  8250_pxa:  serial_pxa_pm()
 
-  uart_resume_port(): propagate on both the console-resume and the
-  suspended-port-restore paths so a failed power-on is not hidden
-  from the PM core.
-
-  uart_configure_port(): log and return early if power-on fails at
-  probe time; log a warning if power-down fails after configuration,
-  since the port is already registered at that point.
-
-  uart_tty_port_shutdown(), uart_hangup(): log via dev_err() since
-  these are void paths where propagation is not meaningful; teardown
-  continues regardless.
-
-  uart_line_info(): skip the modem-control status read if power-on
-  fails to avoid accessing an unpowered port; log a warning if the
-  original power state cannot be restored afterward.
-
-  uart_poll_init(): propagate the power-on error; log a warning if
-  the saved power state cannot be restored after a failed poll init.
-
-Also update the uart_port.pm field (used by 8250 sub-drivers that
-install a per-port pm function pointer directly) and its kernel-doc to
-the new int-returning signature.
-
-No functional change for any existing driver since all current .pm
-implementations will be updated to return 0.
+No functional change intended.
 
 Signed-off-by: Praveen Talari <praveen.talari@oss.qualcomm.com>
 ---
- drivers/tty/serial/serial_core.c | 89 ++++++++++++++++++++++++++++------------
- include/linux/serial_core.h      | 10 +++--
- 2 files changed, 69 insertions(+), 30 deletions(-)
+ drivers/tty/serial/8250/8250_dw.c   | 3 ++-
+ drivers/tty/serial/8250/8250_exar.c | 4 +++-
+ drivers/tty/serial/8250/8250_mtk.c  | 4 +++-
+ drivers/tty/serial/8250/8250_omap.c | 6 ++++--
+ drivers/tty/serial/8250/8250_port.c | 9 ++++++---
+ drivers/tty/serial/8250/8250_pxa.c  | 6 ++++--
+ include/linux/serial_8250.h         | 6 +++---
+ 7 files changed, 25 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index a530ad372b43..e624a67a9395 100644
---- a/drivers/tty/serial/serial_core.c
-+++ b/drivers/tty/serial/serial_core.c
-@@ -52,8 +52,8 @@ static struct lock_class_key port_lock_key;
-  */
- #define RS485_MAX_RTS_DELAY	100 /* msecs */
- 
--static void uart_change_pm(struct uart_state *state,
--			   enum uart_pm_state pm_state);
-+static int uart_change_pm(struct uart_state *state,
-+			  enum uart_pm_state pm_state);
- 
- static void uart_port_shutdown(struct tty_port *port);
- 
-@@ -312,7 +312,9 @@ static int uart_port_startup(struct tty_struct *tty, struct uart_state *state,
- 	/*
- 	 * Make sure the device is in D0 state.
- 	 */
--	uart_change_pm(state, UART_PM_STATE_ON);
-+	retval = uart_change_pm(state, UART_PM_STATE_ON);
-+	if (retval)
-+		return retval;
- 
- 	retval = uart_alloc_xmit_buf(&state->port);
- 	if (retval)
-@@ -1741,7 +1743,8 @@ static void uart_tty_port_shutdown(struct tty_port *port)
- 
- 	uart_free_xmit_buf(port);
- 
--	uart_change_pm(state, UART_PM_STATE_OFF);
-+	if (uart_change_pm(state, UART_PM_STATE_OFF))
-+		dev_err(uport->dev, "failed to set power state off on shutdown\n");
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 5fba913f3301..7d5fa11d685f 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -458,7 +458,7 @@ static int dw8250_handle_irq(struct uart_port *p)
+ 	return 1;
  }
  
- static void uart_wait_until_sent(struct tty_struct *tty, int timeout)
-@@ -1831,8 +1834,13 @@ static void uart_hangup(struct tty_struct *tty)
- 			port->count = 0;
- 		tty_port_set_active(port, false);
- 		tty_port_tty_set(port, NULL);
--		if (uport && !uart_console(uport))
--			uart_change_pm(state, UART_PM_STATE_OFF);
-+		if (uport && !uart_console(uport)) {
-+			int ret = uart_change_pm(state, UART_PM_STATE_OFF);
-+
-+			if (ret)
-+				dev_err(uport->dev,
-+					"failed to set power state off on hangup\n");
-+		}
- 		wake_up_interruptible(&port->open_wait);
- 		wake_up_interruptible(&port->delta_msr_wait);
- 	}
-@@ -1994,12 +2002,17 @@ static void uart_line_info(struct seq_file *m, struct uart_state *state)
- 
- 	if (capable(CAP_SYS_ADMIN)) {
- 		pm_state = state->pm_state;
--		if (pm_state != UART_PM_STATE_ON)
--			uart_change_pm(state, UART_PM_STATE_ON);
-+		if (pm_state != UART_PM_STATE_ON) {
-+			if (uart_change_pm(state, UART_PM_STATE_ON))
-+				goto line_info_end;
-+		}
- 		scoped_guard(uart_port_lock_irq, uport)
- 			status = uport->ops->get_mctrl(uport);
--		if (pm_state != UART_PM_STATE_ON)
--			uart_change_pm(state, pm_state);
-+		if (pm_state != UART_PM_STATE_ON) {
-+			if (uart_change_pm(state, pm_state))
-+				dev_err(uport->dev,
-+					"failed to restore power state after line info\n");
-+		}
- 
- 		seq_printf(m, " tx:%u rx:%u",
- 				uport->icount.tx, uport->icount.rx);
-@@ -2036,6 +2049,7 @@ static void uart_line_info(struct seq_file *m, struct uart_state *state)
- 
- 		seq_puts(m, stat_buf);
- 	}
-+line_info_end:
- 	seq_putc(m, '\n');
- #undef STATBIT
- #undef INFOBIT
-@@ -2265,17 +2279,24 @@ EXPORT_SYMBOL_GPL(uart_set_options);
-  * @pm_state: new state
-  *
-  * Locking: port->mutex has to be held
-+ *
-+ * Returns 0 on success, negative error code on failure.
-  */
--static void uart_change_pm(struct uart_state *state,
--			   enum uart_pm_state pm_state)
-+static int uart_change_pm(struct uart_state *state,
-+			  enum uart_pm_state pm_state)
+-static void
++static int
+ dw8250_do_pm(struct uart_port *port, unsigned int state, unsigned int old)
  {
- 	struct uart_port *port = uart_port_check(state);
+ 	if (!state)
+@@ -468,6 +468,7 @@ dw8250_do_pm(struct uart_port *port, unsigned int state, unsigned int old)
  
- 	if (state->pm_state != pm_state) {
--		if (port && port->ops->pm)
--			port->ops->pm(port, pm_state, state->pm_state);
-+		if (port && port->ops->pm) {
-+			int ret = port->ops->pm(port, pm_state, state->pm_state);
-+
-+			if (ret)
-+				return ret;
-+		}
- 		state->pm_state = pm_state;
- 	}
+ 	if (state)
+ 		pm_runtime_put_sync_suspend(port->dev);
 +	return 0;
  }
  
- struct uart_match {
-@@ -2364,9 +2385,7 @@ int uart_suspend_port(struct uart_driver *drv, struct uart_port *uport)
- 	if (uart_console(uport))
- 		console_suspend(uport->cons);
+ static void dw8250_set_termios(struct uart_port *p, struct ktermios *termios,
+diff --git a/drivers/tty/serial/8250/8250_exar.c b/drivers/tty/serial/8250/8250_exar.c
+index c682c0d0dffa..0d0026ea155f 100644
+--- a/drivers/tty/serial/8250/8250_exar.c
++++ b/drivers/tty/serial/8250/8250_exar.c
+@@ -419,7 +419,7 @@ static const struct serial_rs485 generic_rs485_supported = {
+ 	.flags = SER_RS485_ENABLED | SER_RS485_RTS_ON_SEND,
+ };
  
--	uart_change_pm(state, UART_PM_STATE_OFF);
--
--	return 0;
-+	return uart_change_pm(state, UART_PM_STATE_OFF);
- }
- EXPORT_SYMBOL(uart_suspend_port);
- 
-@@ -2408,8 +2427,12 @@ int uart_resume_port(struct uart_driver *drv, struct uart_port *uport)
- 		if (port->tty && termios.c_cflag == 0)
- 			termios = port->tty->termios;
- 
--		if (console_suspend_enabled)
--			uart_change_pm(state, UART_PM_STATE_ON);
-+		if (console_suspend_enabled) {
-+			int ret = uart_change_pm(state, UART_PM_STATE_ON);
+-static void exar_pm(struct uart_port *port, unsigned int state, unsigned int old)
++static int exar_pm(struct uart_port *port, unsigned int state, unsigned int old)
+ {
+ 	/*
+ 	 * Exar UARTs have a SLEEP register that enables or disables each UART
+@@ -428,6 +428,8 @@ static void exar_pm(struct uart_port *port, unsigned int state, unsigned int old
+ 	 * the UART channel may only write to the corresponding bit.
+ 	 */
+ 	serial_port_out(port, UART_EXAR_SLEEP, state ? 0xff : 0);
 +
-+			if (ret)
-+				return ret;
-+		}
- 		uport->ops->set_termios(uport, &termios, NULL);
- 		if (!console_suspend_enabled && uport->ops->start_rx) {
- 			guard(uart_port_lock_irq)(uport);
-@@ -2423,7 +2446,9 @@ int uart_resume_port(struct uart_driver *drv, struct uart_port *uport)
- 		const struct uart_ops *ops = uport->ops;
- 		int ret;
- 
--		uart_change_pm(state, UART_PM_STATE_ON);
-+		ret = uart_change_pm(state, UART_PM_STATE_ON);
-+		if (ret)
-+			return ret;
- 		scoped_guard(uart_port_lock_irq, uport)
- 			if (!(uport->rs485.flags & SER_RS485_ENABLED))
- 				ops->set_mctrl(uport, 0);
-@@ -2541,7 +2566,12 @@ uart_configure_port(struct uart_driver *drv, struct uart_state *state,
- 			console_lock();
- 
- 		/* Power up port for set_mctrl() */
--		uart_change_pm(state, UART_PM_STATE_ON);
-+		if (uart_change_pm(state, UART_PM_STATE_ON)) {
-+			dev_err(port->dev, "failed to power up port\n");
-+			if (uart_console(port))
-+				console_unlock();
-+			return;
-+		}
- 
- 		/*
- 		 * Ensure that the modem control lines are de-activated.
-@@ -2578,8 +2608,10 @@ uart_configure_port(struct uart_driver *drv, struct uart_state *state,
- 		 * Power down all ports by default, except the
- 		 * console if we have one.
- 		 */
--		if (!uart_console(port))
--			uart_change_pm(state, UART_PM_STATE_OFF);
-+		if (!uart_console(port)) {
-+			if (uart_change_pm(state, UART_PM_STATE_OFF))
-+				dev_err(port->dev, "failed to power down port\n");
-+		}
- 	}
++	return 0;
  }
  
-@@ -2608,7 +2640,9 @@ static int uart_poll_init(struct tty_driver *driver, int line, char *options)
- 		return -1;
- 
- 	pm_state = state->pm_state;
--	uart_change_pm(state, UART_PM_STATE_ON);
-+	ret = uart_change_pm(state, UART_PM_STATE_ON);
-+	if (ret)
-+		return ret;
- 
- 	if (port->ops->poll_init) {
- 		/*
-@@ -2626,8 +2660,11 @@ static int uart_poll_init(struct tty_driver *driver, int line, char *options)
- 		console_list_unlock();
- 	}
- 
--	if (ret)
--		uart_change_pm(state, pm_state);
-+	if (ret) {
-+		if (uart_change_pm(state, pm_state))
-+			dev_err(port->dev,
-+				"failed to restore power state after poll init failure\n");
-+	}
- 
- 	return ret;
+ /*
+diff --git a/drivers/tty/serial/8250/8250_mtk.c b/drivers/tty/serial/8250/8250_mtk.c
+index e6a56cf54ae0..9184b1eeddd7 100644
+--- a/drivers/tty/serial/8250/8250_mtk.c
++++ b/drivers/tty/serial/8250/8250_mtk.c
+@@ -452,7 +452,7 @@ static int __maybe_unused mtk8250_runtime_resume(struct device *dev)
+ 	return 0;
  }
-diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
-index bdc214386e4a..c82839028220 100644
---- a/include/linux/serial_core.h
-+++ b/include/linux/serial_core.h
-@@ -269,8 +269,8 @@ struct gpio_desc;
-  *
-  *	Locking: caller holds tty_port->mutex
-  *
-- * @pm: ``void ()(struct uart_port *port, unsigned int state,
-- *		 unsigned int oldstate)``
-+ * @pm: ``int ()(struct uart_port *port, unsigned int state,
-+ *		unsigned int oldstate)``
-  *
-  *	Perform any power management related activities on the specified @port.
-  *	@state indicates the new state (defined by enum uart_pm_state),
-@@ -282,6 +282,8 @@ struct gpio_desc;
-  *	closed, except when the @port is also the system console. This will
-  *	occur even if %CONFIG_PM is not set.
-  *
-+ *	Returns 0 on success, negative error code on failure.
-+ *
-  *	Locking: none.
-  *	Interrupts: caller dependent.
-  *
-@@ -391,7 +393,7 @@ struct uart_ops {
- 	void		(*set_termios)(struct uart_port *, struct ktermios *new,
- 				       const struct ktermios *old);
- 	void		(*set_ldisc)(struct uart_port *, struct ktermios *);
+ 
+-static void
++static int
+ mtk8250_do_pm(struct uart_port *port, unsigned int state, unsigned int old)
+ {
+ 	if (!state)
+@@ -462,6 +462,8 @@ mtk8250_do_pm(struct uart_port *port, unsigned int state, unsigned int old)
+ 
+ 	if (state)
+ 		pm_runtime_put_sync_suspend(port->dev);
++
++	return 0;
+ }
+ 
+ #ifdef CONFIG_SERIAL_8250_DMA
+diff --git a/drivers/tty/serial/8250/8250_omap.c b/drivers/tty/serial/8250/8250_omap.c
+index c552c6b9a037..8f099afd6ff8 100644
+--- a/drivers/tty/serial/8250/8250_omap.c
++++ b/drivers/tty/serial/8250/8250_omap.c
+@@ -527,8 +527,8 @@ static void omap_8250_set_termios(struct uart_port *port,
+ }
+ 
+ /* same as 8250 except that we may have extra flow bits set in EFR */
+-static void omap_8250_pm(struct uart_port *port, unsigned int state,
+-			 unsigned int oldstate)
++static int omap_8250_pm(struct uart_port *port, unsigned int state,
++			unsigned int oldstate)
+ {
+ 	struct uart_8250_port *up = up_to_u8250p(port);
+ 	u8 efr;
+@@ -546,6 +546,8 @@ static void omap_8250_pm(struct uart_port *port, unsigned int state,
+ 	serial_out(up, UART_LCR, UART_LCR_CONF_MODE_B);
+ 	serial_out(up, UART_EFR, efr);
+ 	serial_out(up, UART_LCR, 0);
++
++	return 0;
+ }
+ 
+ static void omap_serial_fill_features_erratas(struct uart_8250_port *up,
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/8250_port.c
+index 630deb7dd344..315e0a2fcc14 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -2848,16 +2848,18 @@ serial8250_set_ldisc(struct uart_port *port, struct ktermios *termios)
+ 		serial8250_do_set_ldisc(port, termios);
+ }
+ 
+-void serial8250_do_pm(struct uart_port *port, unsigned int state,
+-		      unsigned int oldstate)
++int serial8250_do_pm(struct uart_port *port, unsigned int state,
++		     unsigned int oldstate)
+ {
+ 	struct uart_8250_port *p = up_to_u8250p(port);
+ 
+ 	serial8250_set_sleep(p, state != 0);
++
++	return 0;
+ }
+ EXPORT_SYMBOL(serial8250_do_pm);
+ 
+-static void
++static int
+ serial8250_pm(struct uart_port *port, unsigned int state,
+ 	      unsigned int oldstate)
+ {
+@@ -2865,6 +2867,7 @@ serial8250_pm(struct uart_port *port, unsigned int state,
+ 		port->pm(port, state, oldstate);
+ 	else
+ 		serial8250_do_pm(port, state, oldstate);
++	return 0;
+ }
+ 
+ static unsigned int serial8250_port_size(struct uart_8250_port *pt)
+diff --git a/drivers/tty/serial/8250/8250_pxa.c b/drivers/tty/serial/8250/8250_pxa.c
+index 6dd0190b4843..02f0037e0a31 100644
+--- a/drivers/tty/serial/8250/8250_pxa.c
++++ b/drivers/tty/serial/8250/8250_pxa.c
+@@ -76,8 +76,8 @@ static void serial_pxa_dl_write(struct uart_8250_port *up, u32 value)
+ }
+ 
+ 
+-static void serial_pxa_pm(struct uart_port *port, unsigned int state,
+-	      unsigned int oldstate)
++static int serial_pxa_pm(struct uart_port *port, unsigned int state,
++			 unsigned int oldstate)
+ {
+ 	struct pxa8250_data *data = port->private_data;
+ 
+@@ -85,6 +85,8 @@ static void serial_pxa_pm(struct uart_port *port, unsigned int state,
+ 		clk_prepare_enable(data->clk);
+ 	else
+ 		clk_disable_unprepare(data->clk);
++
++	return 0;
+ }
+ 
+ static int serial_pxa_probe(struct platform_device *pdev)
+diff --git a/include/linux/serial_8250.h b/include/linux/serial_8250.h
+index a95b2d143d24..12916189c20c 100644
+--- a/include/linux/serial_8250.h
++++ b/include/linux/serial_8250.h
+@@ -57,7 +57,7 @@ struct plat_serial8250_port {
+ 				     struct ktermios *);
+ 	unsigned int	(*get_mctrl)(struct uart_port *);
+ 	int		(*handle_irq)(struct uart_port *);
 -	void		(*pm)(struct uart_port *, unsigned int state,
 +	int		(*pm)(struct uart_port *port, unsigned int state,
- 			      unsigned int oldstate);
- 	const char	*(*type)(struct uart_port *);
- 	void		(*release_port)(struct uart_port *);
-@@ -464,7 +466,7 @@ struct uart_port {
- 	void			(*throttle)(struct uart_port *port);
- 	void			(*unthrottle)(struct uart_port *port);
- 	int			(*handle_irq)(struct uart_port *);
--	void			(*pm)(struct uart_port *, unsigned int state,
-+	int			(*pm)(struct uart_port *port, unsigned int state,
- 				      unsigned int old);
- 	void			(*handle_break)(struct uart_port *);
- 	int			(*rs485_config)(struct uart_port *,
+ 			      unsigned old);
+ 	void		(*handle_break)(struct uart_port *);
+ };
+@@ -189,8 +189,8 @@ void serial8250_do_set_ldisc(struct uart_port *port, struct ktermios *termios);
+ unsigned int serial8250_do_get_mctrl(struct uart_port *port);
+ int serial8250_do_startup(struct uart_port *port);
+ void serial8250_do_shutdown(struct uart_port *port);
+-void serial8250_do_pm(struct uart_port *port, unsigned int state,
+-		      unsigned int oldstate);
++int serial8250_do_pm(struct uart_port *port, unsigned int state,
++		     unsigned int oldstate);
+ void serial8250_do_set_mctrl(struct uart_port *port, unsigned int mctrl);
+ void serial8250_do_set_divisor(struct uart_port *port, unsigned int baud,
+ 			       unsigned int quot);
 
 -- 
 2.34.1
