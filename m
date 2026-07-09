@@ -2,73 +2,165 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ygtbI8nYTmpTVQIAu9opvQ
+	id 3qBiFA4IT2qHZQIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 01:10:01 +0200
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 04:31:42 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0863C72B0BE
-	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 01:10:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 937C672BF38
+	for <lists+linux-stm32@lfdr.de>; Thu, 09 Jul 2026 04:31:41 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b="ZqLGG/La";
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine);
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
+	dkim=fail ("body hash did not verify") header.d=vivo.com header.s=selector2 header.b="KwFXQ/xV";
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=vivo.com (policy=quarantine);
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id B5A24C57B78;
-	Wed,  8 Jul 2026 23:10:00 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 41723C57B78;
+	Thu,  9 Jul 2026 02:31:41 +0000 (UTC)
+Received: from SEYPR02CU001.outbound.protection.outlook.com
+ (mail-koreacentralazon11013019.outbound.protection.outlook.com
+ [40.107.44.19])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D9A30C1A979
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 4E090C1A979
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 23:09:59 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 845BB43E0A
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 23:09:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6961F1F00AC4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed,  8 Jul 2026 23:09:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783552198;
- bh=LR60eLgUfNNIz6B0v46FKwzAtiy9XGoPTayqxcAz4UQ=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=ZqLGG/LaE2yyMqM5XS0hIvwyGP4VAC2nYijzaQlQfIaDqC4xDUQr93yEZe96t90jy
- VymKJ+2dNoXJ0R90xBkWS3du9UT3kY79XAn6bzUKknfEpUTxnHM6QE7X2l+BB0xYbo
- cwLCu/lnPGJjQS3pil9w7fjr6vJN/rv+nWiHl6vwGXiVOcVBJ0Sg0UuLfA7DpObG8X
- 3dtK6Nb/81VPz7HN1L7VIbbeezTa9yQCWAGc/Bb0heQOcjAxtvPDGvlr4CsC+tQDDf
- XQ9VtCE1WQQ5Sx8FsNYcHIPYNyyrcoAuBxDyDOZ8Y0d+4eXb8TBqQwXlD7MHuq2KVY
- /XVaqMZw9G9iw==
-Received: by mail-lf1-f45.google.com with SMTP id
- 2adb3069b0e04-5aec139da7eso380536e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 08 Jul 2026 16:09:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RrVYnNZ9L3zqzhGi7B27c9PbFPfV+fzj29CuMK96jOxpZVBFsfDu5A48jNWRPTjSDamUUgQDtkA0MDaeg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz2kGV+EVigWelSa/c8Qho6X1lcKv4V5j5rNy/cq3oBnNnLLOAT
- rU1+SUuefvqm3kare22bEwJ0F8+jNrSAMa3QTlQtUj+clKJIgWI90QCV60D0HJzZm4fai+G/r0h
- 8L1Z+khniprE9FijMnwY8YTaaIxvrKR0=
-X-Received: by 2002:ac2:4f08:0:b0:5ae:b5d7:7844 with SMTP id
- 2adb3069b0e04-5b016d1b33fmr49718e87.5.1783552197150; Wed, 08 Jul 2026
- 16:09:57 -0700 (PDT)
-MIME-Version: 1.0
-References: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
-In-Reply-To: <20260708-dts-stmpe-v1-0-1f51d15bb358@nxp.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 9 Jul 2026 01:09:43 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=tBRFXzqa6gXNnZ3-DRUMvs=waSdDvq5h5MPHAQoheqw@mail.gmail.com>
-X-Gm-Features: AUfX_mwW-7N7MmlP00AndlWeAaBl8FEBrFYJNUhifSWGKsGcvxauySd-Uj-hISw
-Message-ID: <CAD++jL=tBRFXzqa6gXNnZ3-DRUMvs=waSdDvq5h5MPHAQoheqw@mail.gmail.com>
-To: Frank.Li@oss.nxp.com
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, devicetree@vger.kernel.org,
- Sascha Hauer <s.hauer@pengutronix.de>, Lee Jones <lee@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+ Thu,  9 Jul 2026 02:31:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qHu5emWwIc+uGdLMCWmtc+HuliYBqFQFj69Eb/6qip/xiZIhjPJcoivwGM6/E45cIQQMhcypwwvdUMIcLZKdGKaoB6jMwtCAHYw/fs4+53IM+cLDOEWjkfYUvs/iVPA0HGtGhmVIgUwXj8AnL+2udtEhSPH8wniQr0mGPNI+Jast+ovKwI8XQG5o40SB4wRIW2SSLGgGUYqFxXsphSIDuhjQSOHAI2v7EDhpIQk3/46YPVGX+3dfmNIAxT6Se/SWUd4s6CgROFNAKzbo6Av4Pd0kdJsn9/hiTSFVsfbRSw0pbFU5c4FKcauzZz/nalWucMGD2oEZpTvix58+iFEmvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Zb15SH/XYFa+RyS0cTGgR/gZagBNPGGjTMJKmIURz8M=;
+ b=xtSAF7ki0R7RdTyVNixnHBgVXyiFOtg4Wk+qbVQjzlIc6yqTM0JLgBye52Q+YLPH2pe6DekT8hj0FiXF27nDZvO6mcZlqkep3v5KI4xX1YeMAP+Z+U2vQOPc7+lOUkIdXaWAVU5EOIstFWYJA3YYcvG0DGFWukPVZsOejZw3fvce7kGM4s9SlI8j7j2LckqFFhfzwpqtQ7aemEVCGtcMvPDkDZf9hHjzzxe0CSRuOKZ3XpAIzrE7L00btSa9d9yYSN88142UiFAiPV5TdSbinP0KuX6Zrkdzh+3oAIMRsx2dv0jXBSxKENYnBQlJmB2Zbauhoy6Ax9bP5dGb6lalQQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Zb15SH/XYFa+RyS0cTGgR/gZagBNPGGjTMJKmIURz8M=;
+ b=KwFXQ/xVozptnhlCLkFe+wIw8eifW3MDFgXMgUgzoA1tU1ReYPmC6D/8adYynMvVeDEwa7iRT8ZPAxTLv5L/H3lkXtLz1of3gA+zOZuESdkLh2HPTggQpmF4IpOS3uClYI/iVBxSdTsdQvB1zp0TK9ZcVjFrCrS/qZi18LzVubRZFk1KY0imE8N0XRDTfX7w2hr0mRL4cuGZ0A8JHgaVvbzjmhLtX+7gk5zhAFDYdLnL0G8CsfguMVZxBqi5zYaEnA7DOoh883TL4yftoM7zxreInxXSu/bi8mTo2lQEw6fHhBlZ2sZnsq7h7yWk4byuEf+tqAd7HiJZs8bU7fq7Wg==
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
+ by KUZPR06MB8800.apcprd06.prod.outlook.com (2603:1096:d10:c7::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.11; Thu, 9 Jul
+ 2026 02:31:35 +0000
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0181.014; Thu, 9 Jul 2026
+ 02:31:34 +0000
+From: Pan Chuang <panchuang@vivo.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>,
+ Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+ Miquel Raynal <miquel.raynal@bootlin.com>,
+ Markus Mayer <mmayer@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ zhanghongchen <zhanghongchen@loongson.cn>,
+ Yinbo Zhu <zhuyinbo@loongson.cn>, Amit Kucheria <amitk@kernel.org>,
+ Thara Gopinath <thara.gopinath@gmail.com>,
+ =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ John Madieu <john.madieu.xa@bp.renesas.com>,
+ Heiko Stuebner <heiko@sntech.de>,
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Fabio Estevam <festevam@gmail.com>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 0/3] ARM: dts: imx: cleanup st,
- stmpe touch screen related CHECK_DTB warings
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ Pan Chuang <panchuang@vivo.com>, Laura Nao <laura.nao@collabora.com>,
+ Mason Chang <mason-cw.chang@mediatek.com>, Fei Shao <fshao@chromium.org>,
+ Frank Wunderlich <frank-w@public-files.de>,
+ Jiapeng Chong <jiapeng.chong@linux.alibaba.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ "Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>,
+ linux-pm@vger.kernel.org (open list:THERMAL),
+ linux-kernel@vger.kernel.org (open list),
+ linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM7XXX ARM
+ ARCHITECTURE), 
+ imx@lists.linux.dev (open list:ARM/FREESCALE IMX / MXC ARM ARCHITECTURE),
+ linux-arm-msm@vger.kernel.org (open list:QUALCOMM TSENS THERMAL DRIVER),
+ linux-renesas-soc@vger.kernel.org (open list:RENESAS R-CAR THERMAL DRIVERS),
+ linux-rockchip@lists.infradead.org (open list:ARM/Rockchip SoC support),
+ linux-samsung-soc@vger.kernel.org (open list:SAMSUNG THERMAL DRIVER),
+ linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32
+ ARCHITECTURE), 
+ linux-tegra@vger.kernel.org (open list:TEGRA ARCHITECTURE SUPPORT),
+ linux-mediatek@lists.infradead.org (moderated list:ARM/Mediatek SoC
+ support:Keyword:mediatek)
+Date: Thu,  9 Jul 2026 10:30:03 +0800
+Message-Id: <20260709023048.599150-1-panchuang@vivo.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: TPYP295CA0019.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::14) To SEZPR06MB5832.apcprd06.prod.outlook.com
+ (2603:1096:101:c8::12)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KUZPR06MB8800:EE_
+X-MS-Office365-Filtering-Correlation-Id: 70fb9282-7ee3-421d-4ce6-08dedd6231bb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|52116014|23010399003|366016|1800799024|7416014|376014|38350700014|921020|18002099003|11063799006|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info: 6etLwCHUEWhmfC31D/Bu8QoyAGLR6iL1slE3kRDmYMOlGHhf3zB8PKFtf5+LC/RoQo3o2vspywARwBPknKqsAMv5/toUka3eJGCIh+EoZSQEGmN1Jug5EbVlfaPGRie+cSwuzh9vGI/booIw1LKcFquoTPIn+rku0G0GqXU6PJLlNN3Px1i08P5jKmrETRvISRmi7+H5J7pvW1PxofYRjKFun/T3AgvADk2fJyxeVJtPdu3XD+gbliUBrRHccg7cfSiPn7EcPrz2LZUyduRdgbWCdqiWzb1s0twg3dxkDyTJCF1faJeR6RjaojvT0BlQJyCxqKG3O1kRGWdlWWZnINVF9NJFrx0ndfYhliVDN9FZu87UFx2W9foaxtEP0jzXZDQqotOswge7x0vObC1YHAhlW5NJZSEpIIIL83JjcO1evYaURywCme18NxU0XJzYRxZisncnZkjj31+AJtk/sILkARtCrRRbHm9It2urggNYpsUD3hsWBbt8mIMvYovJ5xl/rsxSu8EWl5YoNATxqG5mtXKBsfmQ6I9YH9CPWliIHqnYgvLfBUj5ZnLDZsiD/2MA8FuZgZ0fcY+FDGjpbj8KYOMtbO7QErFvbewLPmM1WipG2TdaMTzUFKMdnu2Gv45v1VNjLPKab4IvfMPXX6fexzLk6SYWdKO22zypoG9imL5zDwFtWMVZ7uMCleKp+KHmQw6PMjyBs825ARhFHgQBoaNM8s0/fXkI8y4ryXU=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(52116014)(23010399003)(366016)(1800799024)(7416014)(376014)(38350700014)(921020)(18002099003)(11063799006)(56012099006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?nLU2s9FefGR5lZlr/WpM/N1cHMI4MOnLXQSGkAnzYUixx89gYPn4qpM4aTkz?=
+ =?us-ascii?Q?YWud6ZFpIeBNAO4uKP5nJ+8sEeGtrDFxv+XkRWQa/pG9R4E6O9xFTkwLApD5?=
+ =?us-ascii?Q?nWhIBhHnwLZY0pIvqsqPE6EjwJtIWoDeIN7c+1lat0DY+EREf5mdWKFS8xbC?=
+ =?us-ascii?Q?MvMfQloj4iCuLe1DYG7hq5kwptcyq9CDnm+QD7R80p10lQdRY0LHRBxx1meD?=
+ =?us-ascii?Q?EzHjknX5y2H2EwANrebn7/zPHimqcbUyqRo7wZTELexW6uf3pYvnnw+Vbptj?=
+ =?us-ascii?Q?7IedyeKme5xf/2Vk66qT0UEcpayTl+PdCw6MAq6Sm+FAoFa7WZyMnQL5FbKe?=
+ =?us-ascii?Q?+GyB+yNWE9RrO8wEtNYAbmhT32ceZ7ilM2+wUsfwbC9bw4rYLqOejejhL9BK?=
+ =?us-ascii?Q?nc1Li1351CaDu3wfaYJWiR6dqpPHokheeaToDQHwXuLB0+gRFQnGjH/LUEFw?=
+ =?us-ascii?Q?jY5D5NMva6b0sf9Z0fhsMYpMr/NYuAs3YJTSwtaxrrHPZvWlz8jcSgigo67i?=
+ =?us-ascii?Q?GxNshuHtP4DHfnx8ujL6OcwJ19pxIokKpTny1U8g3DH0xMvGPCcVup6se7r3?=
+ =?us-ascii?Q?7uGvExkIu+MpZR9jIarqXxBl0+LZHmLqdU9lrAuh8yNshcqF/wBNX3hyFZH3?=
+ =?us-ascii?Q?dz4s9Z04uL3G2aWZCXiHtym2Tqa+Mnshi68C74cfPG+g0QqBJbXqOcMfHWs0?=
+ =?us-ascii?Q?3cyzfO3cMIXkH5gJeactkMGn/CYydqo5qVzghAjMH9oJyaiK4NpPwnN5tqpc?=
+ =?us-ascii?Q?fmFiyeZxDygFK3f20iyOI2tJt+cCd0jbvFq/zU0J0B9r3JIolZBAVTljgRlB?=
+ =?us-ascii?Q?5EtMW09spAvevNikDidRCsLw8OtwpSnud4HYqiE/Sn1ObWZQ+AMS0cU1W4w6?=
+ =?us-ascii?Q?JWj/cgKrLxjwt366NAufQCU5Z6inru56dIBsBWJN6FdLYZAlcrhfH+Y0//47?=
+ =?us-ascii?Q?qqrcLfLTLtqPAK8oa/mdW8i8SpE8SEnk3fYw1EQR6NjAoO2PXJcPYGjIQXbP?=
+ =?us-ascii?Q?7oPp2SGrS0/0Bf7CUKqdeo/Ek0YJwBKWJ2Z776YQa+E9I5DZRSgVmE9DrVzE?=
+ =?us-ascii?Q?se2wjdwsmg+Y2di04qbXxAbGdO3QF7s4m1FTyNPWm1NmfDnZannl8NMy93fx?=
+ =?us-ascii?Q?LUeBCQFljrsYi5PXvjkJXU73JUKjwIywIVcVY31fc3+l/RQp4FsmdOD6hDWq?=
+ =?us-ascii?Q?x5G30OzAOvqlfw5UO1n8hA9awSITgr6Nl3Rf9sgp6bWBf2qLyyO3S6giNhw1?=
+ =?us-ascii?Q?w6zaDTDam6EWHErEfs3YAUotZKmcQ+QK0jm/Xss2eSJI76l2t/cd3PI/nIt3?=
+ =?us-ascii?Q?lViEBnAyKpJdhDu31p9XAAxa7omXozms8li6znxWahXqYmJW3xDdF0DnAvOk?=
+ =?us-ascii?Q?xsJoUS0/JPFJXbAQJj2ukD2SAXHpOrWe+a+SJ1pKcpwDV5kvInjJtG+VWdrv?=
+ =?us-ascii?Q?yS5Q++dY/GzXWbfTqpIRwgTyHMpkPbexaIdCkI1aGDhZsA2AaPctjeXwzUSG?=
+ =?us-ascii?Q?z6LCkK9qLJ1hVl+1ywT1c2S2WMf1I6kvd25y3BUE0xkyu0jmJbzDbQm1YD3s?=
+ =?us-ascii?Q?L65e3Z0XBZkq0CVtl7NWzL5Oehmn+Zw6rsNH4avYsMCeigDfcB4d6ifHuYOV?=
+ =?us-ascii?Q?GwR7eL+uXpRcr37V10erNYnBfiJUDB70MJpZTAkJVBaiPUd9dWRaIo4MpMRq?=
+ =?us-ascii?Q?BhNzTP+UNxzxExIjrFfB8Ika+iXJwR/cl3VKgFGn89eiI+VLgaAllYMr4+vx?=
+ =?us-ascii?Q?i/+or4t1nA=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 70fb9282-7ee3-421d-4ce6-08dedd6231bb
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Jul 2026 02:31:34.7865 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DVhgkewTd2EN/hIfgnq+yD75CFZFnXJmCw8ddwRZLcc/GekWLNki6edKlLUpUmotdedMVsXx6nTaxfXo8bZQmQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR06MB8800
+Subject: [Linux-stm32] [PATCH 00/18] thermal/drivers: Remove redundant error
+	messages on IRQ request failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -80,59 +172,113 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.89 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Rspamd-Action: add header
+X-Spamd-Result: default: False [6.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[vivo.com : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_REJECT(1.00)[vivo.com:s=selector2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[15];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:Frank.Li@oss.nxp.com,m:robh@kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:devicetree@vger.kernel.org,m:s.hauer@pengutronix.de,m:lee@kernel.org,m:Frank.Li@nxp.com,m:linux-kernel@vger.kernel.org,m:imx@lists.linux.dev,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:rafael@kernel.org,m:daniel.lezcano@kernel.org,m:rui.zhang@intel.com,m:lukasz.luba@arm.com,m:miquel.raynal@bootlin.com,m:mmayer@broadcom.com,m:bcm-kernel-feedback-list@broadcom.com,m:florian.fainelli@broadcom.com,m:Frank.Li@nxp.com,m:s.hauer@pengutronix.de,m:kernel@pengutronix.de,m:festevam@gmail.com,m:zhanghongchen@loongson.cn,m:zhuyinbo@loongson.cn,m:amitk@kernel.org,m:thara.gopinath@gmail.com,m:niklas.soderlund@ragnatech.se,m:geert+renesas@glider.be,m:magnus.damm@gmail.com,m:john.madieu.xa@bp.renesas.com,m:heiko@sntech.de,m:bzolnier@gmail.com,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:alim.akhtar@samsung.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:thierry.reding@kernel.org,m:jonathanh@nvidia.com,m:matthias.bgg@gmail.com,m:angelogioacchino.delregno@collabora.com,m:srinivas.pandruvada@linux.intel.com,m:panchuang@vivo.com,m:laura.nao@collabora.com,m:mason-cw.chang@mediatek.com,m:fshao@chromium.org,m:frank-w@public-files.de,m:jiapeng.
+ chong@linux.alibaba.com,m:andriy.shevchenko@linux.intel.com,m:jirislaby@kernel.org,m:clamor95@gmail.com,m:linux-pm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:imx@lists.linux.dev,m:linux-arm-msm@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:linux-rockchip@lists.infradead.org,m:linux-samsung-soc@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-tegra@vger.kernel.org,m:linux-mediatek@lists.infradead.org,m:tharagopinath@gmail.com,m:geert@glider.be,m:magnusdamm@gmail.com,m:mcoquelinstm32@gmail.com,m:matthiasbgg@gmail.com,s:lists@lfdr.de];
 	GREYLIST(0.00)[pass,meta];
-	FREEMAIL_CC(0.00)[kernel.org,pengutronix.de,vger.kernel.org,nxp.com,lists.linux.dev,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[kernel.org,intel.com,arm.com,bootlin.com,broadcom.com,nxp.com,pengutronix.de,gmail.com,loongson.cn,ragnatech.se,glider.be,bp.renesas.com,sntech.de,linaro.org,samsung.com,foss.st.com,nvidia.com,collabora.com,linux.intel.com,vivo.com,mediatek.com,chromium.org,public-files.de,linux.alibaba.com,vger.kernel.org,lists.infradead.org,lists.linux.dev,st-md-mailman.stormreply.com];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER(0.00)[panchuang@vivo.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCVD_COUNT_FIVE(0.00)[5];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[vivo.com:-];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	MISSING_XM_UA(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[panchuang@vivo.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[52];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[vivo.com:mid,vivo.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 0863C72B0BE
+X-Rspamd-Queue-Id: 937C672BF38
+X-Spam: Yes
 
-T24gV2VkLCBKdWwgOCwgMjAyNiBhdCA5OjQ54oCvUE0gPEZyYW5rLkxpQG9zcy5ueHAuY29tPiB3
-cm90ZToKCj4gY2xlYW51cCBzdCxzdG1wZSB0b3VjaCBzY3JlZW4gcmVsYXRlZCBDSEVDS19EVEIg
-d2FyaW5ncy4KPgo+IFNpZ25lZC1vZmYtYnk6IEZyYW5rIExpIDxGcmFuay5MaUBueHAuY29tPgo+
-IC0tLQo+IEZyYW5rIExpICgzKToKPiAgICAgICBkdC1iaW5kaW5nczogbWZkOiBzdCxzdG1wZTog
-YWRkIGRlcHJlY2F0ZWQgcHJvcGVydGllcwo+ICAgICAgIGR0LWJpbmRpbmdzOiBtZmQ6IHN0LHN0
-bXBlOiBsZXQgaW50ZXJydXB0IHByb3BlcnR5IG9wdGlvbmFsCj4gICAgICAgQVJNOiBkdHM6IGlt
-eDogcmVtb3ZlIHVuZG9jdW1lbnQgcHJvcGVydGllcyBvZiBzdCxzdG1wZSoKClRob3NlIGxvb2sg
-T0sgSSB0aGluazoKUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWogPGxpbnVzd0BrZXJuZWwub3Jn
-PgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+Commit 55b48e23f5c4b6f5ca9b7ab09599b17dcf501c10 ("genirq/devres: Add
+error handling in devm_request_*_irq()") added automatic error
+logging to devm_request_threaded_irq() and
+devm_request_any_context_irq() via the new devm_request_result() 
+helper, which prints device name, IRQ number, handler functions, and
+error code on failure.
+
+Since devm_request_irq() is a static inline wrapper around
+devm_request_threaded_irq(), it also benefits from this automatic
+logging.
+
+Remove the now-redundant dev_err() and dev_err_probe() calls in
+thermal drivers that follow these devm_request_*_irq() functions, as
+the core now provides more detailed diagnostic information on failure.
+
+Pan Chuang (18):
+  thermal/drivers/airoha: Remove redundant dev_err()
+  thermal/drivers/armada: Remove redundant dev_err()
+  thermal/drivers/db8500: Remove redundant dev_err()
+  thermal/drivers/hisi: Remove redundant dev_err()
+  thermal/drivers/imx: Remove redundant dev_err()
+  thermal/drivers/loongson2: Remove redundant dev_err_probe()
+  thermal/drivers/max77620: Remove redundant dev_err()
+  thermal/drivers/rockchip: Remove redundant dev_err_probe()
+  thermal/drivers/brcmstb_thermal: Remove redundant dev_err_probe()
+  thermal: intel: int340x: Remove redundant dev_err()
+  thermal/drivers/intel/bxt_pmic: Remove redundant dev_err()
+  thermal/drivers/mediatek/lvts_thermal: Remove redundant dev_err()
+  thermal/drivers/qcom: Remove redundant dev_err()
+  thermal/drivers/renesas: Remove redundant dev_err()
+  thermal/drivers/exynos: Remove redundant dev_err()
+  thermal/drivers/st: Remove redundant dev_err()
+  thermal/drivers/tegra: Remove redundant dev_err() and dev_err_probe()
+  thermal/drivers/imx91: Remove redundant dev_err_probe()
+
+ drivers/thermal/airoha_thermal.c                          | 4 +---
+ drivers/thermal/armada_thermal.c                          | 5 +----
+ drivers/thermal/broadcom/brcmstb_thermal.c                | 3 +--
+ drivers/thermal/db8500_thermal.c                          | 8 ++------
+ drivers/thermal/hisi_thermal.c                            | 4 +---
+ drivers/thermal/imx91_thermal.c                           | 2 +-
+ drivers/thermal/imx_thermal.c                             | 4 +---
+ .../intel/int340x_thermal/processor_thermal_device_pci.c  | 8 ++------
+ drivers/thermal/intel/intel_bxt_pmic_thermal.c            | 4 +---
+ drivers/thermal/loongson2_thermal.c                       | 2 +-
+ drivers/thermal/max77620_thermal.c                        | 8 ++------
+ drivers/thermal/mediatek/lvts_thermal.c                   | 2 +-
+ drivers/thermal/qcom/lmh.c                                | 1 -
+ drivers/thermal/qcom/tsens.c                              | 5 +----
+ drivers/thermal/renesas/rcar_thermal.c                    | 4 +---
+ drivers/thermal/renesas/rzg3e_thermal.c                   | 4 +---
+ drivers/thermal/rockchip_thermal.c                        | 3 +--
+ drivers/thermal/samsung/exynos_tmu.c                      | 4 +---
+ drivers/thermal/st/st_thermal_memmap.c                    | 4 +---
+ drivers/thermal/st/stm_thermal.c                          | 5 +----
+ drivers/thermal/tegra/soctherm.c                          | 8 ++------
+ drivers/thermal/tegra/tegra30-tsensor.c                   | 3 +--
+ 22 files changed, 25 insertions(+), 70 deletions(-)
+
+-- 
+2.34.1
+
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
