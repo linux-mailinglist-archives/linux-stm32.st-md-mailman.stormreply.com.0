@@ -2,107 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id vWfrB6tHUGoVwAIAu9opvQ
+	id TnQNCa5HUGoYwAIAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 03:15:23 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 03:15:26 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2BF27367B6
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 03:15:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EFB4B7367BE
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 03:15:25 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=nnVS1p25;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=iwJYfvq7;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=k5qf5ez9;
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=ZyRhuVs0;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 95AFFC8F271;
-	Fri, 10 Jul 2026 01:15:22 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BC586C8F274;
+	Fri, 10 Jul 2026 01:15:25 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id D7C0DC7BF8B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CDB2FC7BF8B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jul 2026 01:15:20 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ Fri, 10 Jul 2026 01:15:24 +0000 (UTC)
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 669HWrQT2563427
- for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 10 Jul 2026 01:15:19 GMT
+ 669HXEdn2420608
+ for <linux-stm32@st-md-mailman.stormreply.com>; Fri, 10 Jul 2026 01:15:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- SNRPETvOBrdTccDym8kPa39iz5LMbvC8/K3rZA2zfJg=; b=nnVS1p25ngrUHNqW
- 3dm6x+WHBvo0xmK/JYy4HazK7nIa1HZ6Y9r+S0Y8J2Etw6/x7+v3AAKeevLQjVb/
- vrmcbKbSjFMos3M5lx82N3ld9xuq0wfAO7RxQGhagm96TpmcJWknYtdSNvgNPNK9
- l7AWEuysmys1BSfuqMFxns1v+DwUzTVGt//yd/PQh+Lr5Jo/F9i37cwTtqWFJHQ1
- jYeVW/zzioRXHXuxjDwEhWx4pQRP8lVEYgrzXU5VIUO5XspH9bJHhYO+uubojI3o
- qe4TyM1H+KAitlAJC2g6O6bqCxp17XsQdNfCUNvcnAPRbs6AA0oPNqMtM8WbhLT6
- /sHClA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4faeg3j4w3-1
+ G1wqDBsI3yCT2sfldRRfx2gkru7XASPgr4zytRr1nM0=; b=k5qf5ez9Yeo9+Ix/
+ lr5RbW2d7gVVZ95E/fpmLKVdreoGXqKAm+4B+nVE6cgC5c/eqI3pCuCvpi4ztC2E
+ DIhx4aSYMhx9lmV/L2mnDLrO5cYPT4d2xw2kcbeE31RHI04xlP2tzvXAFi/Q4342
+ UbtEh+y/Prm44t67mdYGqDZ4uOCNurMIv3tTYFtBZrQ+zAbzg3E9YbwBzRhSknI2
+ SbXRnl2Wpz7obqBqpYOVjlXsukrv7ZbCkp7p53W3oYlSccNoGnGni8vZ8N00TgW8
+ cZTI4KsRRxkQDv6IGQ+mv/zByRR4u5GY+NAUny1VRWBckb6fvfXDm1N1nedmnSeY
+ GKVYGw==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fadvjaajx-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jul 2026 01:15:18 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id
- 41be03b00d2f7-c891ed872ddso551569a12.2
+ Fri, 10 Jul 2026 01:15:23 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id
+ d9443c01a7336-2cc86a9ef97so6604225ad.3
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Thu, 09 Jul 2026 18:15:18 -0700 (PDT)
+ Thu, 09 Jul 2026 18:15:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783646118; x=1784250918;
+ d=oss.qualcomm.com; s=google; t=1783646123; x=1784250923;
  darn=st-md-mailman.stormreply.com; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=SNRPETvOBrdTccDym8kPa39iz5LMbvC8/K3rZA2zfJg=;
- b=iwJYfvq7z8Mv/Ve9aujYJB+gDxA0hRSWtdaKyEr2Lmt+ygtqfO4Y0PTzX9vq/Q9w9I
- mC9HabKKNyZ/Pydhq7ZOhl00i5jw9N8fxhZDvT0isZNNb0WePP/13qoR2/eD5HZXfb6D
- M3KPl+kU8wwh3GT4zKpapaWYzCYo2YuFC9y5SDRw3SeBQpooWeuItV+ulgQpegRWeVEq
- n6WnXwH42pxFWNULWJ8eJv3/Z7uT8g3lPuopaDTr9PUNDsxXi/PdsOc8UpT3RXZNJldH
- qCroUQdutC5li8J8s9mgzvID7IksdeFcoEu0/J5zMnYGNymQnKEa7B1oQ8yAX2EvNw/S
- OSsQ==
+ bh=G1wqDBsI3yCT2sfldRRfx2gkru7XASPgr4zytRr1nM0=;
+ b=ZyRhuVs0U7NmlwntZbZfIiCJo9Q2TxZ/M/VfolWOtAwL5b5fiVHfLKELFmSFPoXUMf
+ 16UAXbi0oLVCU6WxZ3P1r7VaJfp5UWAu7kD2c++Q7EdIOr1ZyOT89edVbwDbiivK5OoR
+ GnQY9jIqYiaeYiBB763y7p5TEGwq1kEGizzA/8BKB7YOEMNKeDoJ0FuMTe38XkcbC+0M
+ Mjx2Qh8lhfMvAuOXYiLScFF5tcUahUfAGliwP15LBvipFz+xACahT+e+kPO3Btd7aCWg
+ C5ZKGnizSpwoN724/1kmh+Dd+5lCfLqQkE1ChgGKGlGLRFuStJJzIAs52HGcVsqy29mD
+ 0oCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783646118; x=1784250918;
+ d=1e100.net; s=20251104; t=1783646123; x=1784250923;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=SNRPETvOBrdTccDym8kPa39iz5LMbvC8/K3rZA2zfJg=;
- b=rp3xs8ARLdhzACwtk5uKw/IhZDsPVnmfGC5wbay5J6WiXIjmveMRTjlJeSpkoTKd0X
- oIiHGCXwnOh0zXE/Q+fpfL3ceofT5b4juNsUJHUsNaO9VlVPC8kx/+mjJ9xkdieU8Gok
- oHZvCzN0MuckDWvnXW6mRN83CqwxudbMizOPjAxzoUzE+BuHNPbyJjX44eQ8oxjjuyWT
- /0GBq6vAKWnODS9EPztuKlkAMSGmMNOSSsJN3d8wH2pPLqt0+Rmc3at5BDybx38sNXuy
- c5JX/45Bva9c72H9UwFGfppVA3K/tHtEqNlvLBWb7k4W3YnKPrdxwbnt3IGwzHlIi+Qy
- 8lrA==
+ bh=G1wqDBsI3yCT2sfldRRfx2gkru7XASPgr4zytRr1nM0=;
+ b=ML5H0zE+xCezV3deNKcyPicfUP0gA2LkKwXCqLx5F7KPhnFHNVs+yWZ/iGqHcJ/aoL
+ w3DeN0hG+cnfqLcdRPoV80lKRB1U6DolwHlOZA/Azk4N2zyOmKcBDbiN5tAcX3TwYMYd
+ XfVg+5relxY9kFHwHjWPZ9BBuAhPIO7/Ppy1Q7KHTsF8db5SelmXOwc9WM3mGf3gZCtJ
+ MFzr5EJk4vu1huGKJMMk03hzfJT04mvGFK7B6g3k57UC/aReR2kVAoHzjnJVrqRu/g81
+ ii2OEGXI0tZkQubvDimNAapQJjo9ih+VNi3gyPT3YlPDXVIHZCNjXyvJf3I3Sijap1IE
+ blSQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RrAUtaXfzJmkSCZky6CgodIlIQDaaxoZR7WjCcCm5LYe/HfagMepjZkJSW8oF+a/JMKuUSp6bbW232Sqw==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YxsuiPfgHz6Cex/emOn0UFRgiAHmPNZpucN8uBoV9dLsaaUOyyS
- Xnb57fZuJuHo/MmaI5liSfl8Xg3v8QY+PCLlZwa5dCZZPkLE80VCd4q4Zoteypk4FyQ4DupIh+q
- hPaqAFb/BuLRJnmsn467B63vREED9byT7VTDKiCDWVhIh8MOoGS/qYH5IIvflO82Csp3K1WF9lA
- gocHhh7DA=
-X-Gm-Gg: AfdE7cmxrYLjg2/QvX2uUMe3e6tK6qyQGUIHmoTTq/copQQBsn+y1dbvA6ujMxSgcPM
- qvQfrfELFEuW4qgu4hcRFaAseTVlzeADz5sSW8pzvdji7l/dvTdPAZwk/KJigQ/AsoaTYfXBddd
- L0g/ORJCIpW0FmzdnbRpGEsftQUA9qAbMoQdEThSNyxWRKgaKDQdQ+ON1vY/IH3gQn5UKEBG6e/
- W/tFCQezxj337cZas0KvlYFV+CajORTYfAhTdGDsnuqezQ43uYdT8r85d2+O0t6q4XUVf1sb6NF
- jb8qSfStRSXq/+e2Qq6gXbJv4DJprbjldEow2jbJNQHpcxd0k7NwTby+tAAxhaC/AgYHaBI4qN3
- qjkY5GcBZnx0JKgAl1+43EzbA/ZyOUdRkQ047f2kmC17wCk79MXs62Na/4CmY30rqxe41+4iJMg
+ AHgh+Rq8zpirl9h4k/9uJlnl8ZyyHdytxrXPlm+F+EYZdmRXHjpalb/XgIC4p8JT8kqh3g8ZNkBNATEz50BY3g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy5tEoVqmGQEOG+Oeb5Ph+A21wpBHrxvaj8DTDSE45U8EJQmBCZ
+ tTPF2Ug8YQw43Hc/uOKWkO8aVqX0hTnlHx0EB+vNVWAc82aakgj1hoZGrr359ABpjFrnNOPYDqP
+ ehZc8IynWALmUL6iRvD4JvHhbn0naxo1inCvUysbMQUcoGVWbx6fuBWK3dTXH35iegRmROaEz94
+ pmannn7x0=
+X-Gm-Gg: AfdE7ckkAMnrnCkYNcU3a1qIB5fN0EQ80m3EJmOUYG4/55kMhPRxNjljtOnVrIqFflw
+ QK7y02/dL5hIBTlbOQgXPc7gltocuct02Kvj1vJYawfMNcXx9tMR/JDbn+koFIXPzFC9QKAXbHd
+ 7MI88+CroyZXficDISdLo/17+hYgYKV/A7gj+aP5W0byDg+felQouNUjwfqfoLJ98LTF8MfXOHu
+ fQUxrbs9IXkQUUzj/SWheNdTyjcirjHBBrMQZu+UUOq6mBR9GhoW6OuRaZ8eLJytGzuRcvDQVZi
+ hOT2wcCa2+lYCkJreE7oiDwhQ4J9OkKISy1Y1jvzsdVOhkaBPGo1+P09iutntcgn1OhzoVZCKKy
+ 2AO3cnzYra1GKDlGNdX/9kSwSddlKISt/VZrl3UDlgD6qeeUzXMnhf4UIFD+X/ffycbZfVowWAA
  ==
-X-Received: by 2002:a05:6a21:497:b0:3bf:b182:94b with SMTP id
- adf61e73a8af0-3c0bc8c4f4cmr11531100637.6.1783646118019; 
- Thu, 09 Jul 2026 18:15:18 -0700 (PDT)
-X-Received: by 2002:a05:6a21:497:b0:3bf:b182:94b with SMTP id
- adf61e73a8af0-3c0bc8c4f4cmr11531052637.6.1783646117407; 
- Thu, 09 Jul 2026 18:15:17 -0700 (PDT)
+X-Received: by 2002:a05:6a21:682:b0:3bf:b50f:71bb with SMTP id
+ adf61e73a8af0-3c0bc9acb33mr10934170637.27.1783646122612; 
+ Thu, 09 Jul 2026 18:15:22 -0700 (PDT)
+X-Received: by 2002:a05:6a21:682:b0:3bf:b50f:71bb with SMTP id
+ adf61e73a8af0-3c0bc9acb33mr10934141637.27.1783646122195; 
+ Thu, 09 Jul 2026 18:15:22 -0700 (PDT)
 Received: from jiegan-gv.ap.qualcomm.com
  (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
  by smtp.gmail.com with ESMTPSA id
- 41be03b00d2f7-ca5b31628c1sm4431251a12.19.2026.07.09.18.15.12
+ 41be03b00d2f7-ca5b31628c1sm4431251a12.19.2026.07.09.18.15.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 09 Jul 2026 18:15:16 -0700 (PDT)
+ Thu, 09 Jul 2026 18:15:21 -0700 (PDT)
 From: Jie Gan <jie.gan@oss.qualcomm.com>
-Date: Fri, 10 Jul 2026 09:14:47 +0800
+Date: Fri, 10 Jul 2026 09:14:48 +0800
 MIME-Version: 1.0
-Message-Id: <20260710-fix-clock-refcount-unbalance-v3-1-a37a1fb17981@oss.qualcomm.com>
+Message-Id: <20260710-fix-clock-refcount-unbalance-v3-2-a37a1fb17981@oss.qualcomm.com>
 References: <20260710-fix-clock-refcount-unbalance-v3-0-a37a1fb17981@oss.qualcomm.com>
 In-Reply-To: <20260710-fix-clock-refcount-unbalance-v3-0-a37a1fb17981@oss.qualcomm.com>
 To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
@@ -115,44 +115,45 @@ To: Suzuki K Poulose <suzuki.poulose@arm.com>, Mike Leach <mike.leach@arm.com>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783646107; l=9543;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783646108; l=2017;
  i=jie.gan@oss.qualcomm.com; s=20250909; h=from:subject:message-id;
- bh=CaRcTvjJkzeu56Wpzri+PpTT/TNFxhgZxAMVCjmhO6A=;
- b=vAZYENsx4qUWBBBCeTvVmUT4isF/K64l25/OABZ6PLWQNFqIRsqm4g4hB1SBWoT4zy3ZaNO2q
- hM3dlTJNPAfBZOMwSJ4c5FDzuGgj23S1+SiXGK9OczVGCO9mePbup3N
+ bh=zgpWTKXkYjMR3KQnvwavCbiRuaPSJpMbJdyDurbvDAY=;
+ b=NAXkJc33uJVwLgYrVrmkafvT+Ldln/C52l3qKRuXu/BorYNKmlaYr0W9YEkPolki/ROMN11hg
+ 3D50TwOMEsqAa7LRtLjnBPZw2Tn22TpO/4pFo3vq0w3rk2wQfqdf/Ix
 X-Developer-Key: i=jie.gan@oss.qualcomm.com; a=ed25519;
  pk=3LxxUZRPCNkvPDlWOvXfJNqNO4SfGdy3eghMb8puHuk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDAwOSBTYWx0ZWRfX2z6ZBzvbbbf6
- uONFLQv9MSP7Z9Ed+HBcWiIPD17FYVMtcvFYdZ8auvd1z3MLt4xg6we6Qy26+RkoO3IpfuRbcMM
- zFJKN07Uq/hgI+ECZECXsGlztfdAtp9gbb6bjKFZDSJ3E71u2/4WT+UbmjBcgN7OEv3xyym0kIb
- ShpVzV0hq1kspn9kX8nL8kVd066LcknGLRstttEOQJ7oLUaZuWBFvl4R1ydfbuEP6lhp0U1aaEL
- TtjLdXwLZmwJPYPdPNmS8lrZ+PHqmNKBLWuiwuzI0Ab2tTrCZ3Q/PC+z53GLA54gGXjtWfnw4Q/
- ceHFxR5fCT7PCtDQjvKZgenLuwHEpg/W5GPRYe7SfjYpSducgshosa9AuLJ8RrB2wVszIhMDHCl
- qtO7kA7CGfy8iIkj48V0av9gr2FnTu8bqaIS+tEq9CCMCfaZy1p64ejsvvgN4abAwLdRFqhTY0A
- rTm1To1XEV5hcZLch1w==
-X-Authority-Analysis: v=2.4 cv=ZcMt8MVA c=1 sm=1 tr=0 ts=6a5047a6 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEwMDAwOSBTYWx0ZWRfX2UsO6hrsJQ2P
+ fgCsvoq3TmptdC/UwvH4nqtBLprqD7mezCyUZaHWTBbLbRplnAB2i3rSatS0Mtoc3x4834JAEvS
+ MPuK7jDEH0cD6iNYhAjfVA0lhDeHQQJKtxvv6KPquRPgC4z/s/eVH4x89GXmkt5UX4Yh8E9EY+n
+ qZI8qsOVfy3sWgfl8xsrYQ/MarsjC2bqN5e1fHxxtrw59NhAoNkAPmtTDKr8OA14bYLBtHEVL+X
+ 0uex/muJNUhp1cxo4AyQ6v2dCXrBywHqUWlNtxe1RKHaM1oFNjoDlkpyKW8J/G97e5hgGYW3Hjg
+ xjHk+xBPpjn4ThgXs5drPtng5gUXrOpr2A9LMNAkchp6D59EbbRhnUhIiOnhJmdZOiTDK527TnX
+ 3J0BZiS9LcxSorYz3LkJlx+Rfj5brbZ1S0f5D1/eEGaQZ535/KtrTMxHiy6uwRMIVsfVMfxAQYQ
+ adiViG6MFnrLoT4X5mw==
+X-Authority-Analysis: v=2.4 cv=WpIb99fv c=1 sm=1 tr=0 ts=6a5047ab cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=RgdK3QP1sc-eABpqATIA:9 a=QEXdDO2ut3YA:10
- a=x9snwWr2DeNwDh03kgHS:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDAwOSBTYWx0ZWRfX+AhtCi8PZ9rT
- 0R8p4v5ZgLb9h0+4DDrwvAPrRjT2Mq9e6SH0pAJo0E4knFwwGxllmc1ZAN77S8jmSU7TXVWyXgO
- cCdAHvOeg4AGt8116+pop0Jg2jfyUv4=
-X-Proofpoint-GUID: sH1AfFFD42ofCRVclG9eBdOQxpu-tzJz
-X-Proofpoint-ORIG-GUID: sH1AfFFD42ofCRVclG9eBdOQxpu-tzJz
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=pvfjB89pdnN9FuMUozkA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=a-qgeE7W1pNrGK8U0ZQC:22
+X-Proofpoint-GUID: whHQKhPdXqXxoeR2YI3RPd4heI6PVCvh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEwMDAwOSBTYWx0ZWRfX64K3gHRhLhfM
+ v21sJRFDD3/AKQuCS29qwzOaTzbvkR5AcvFv4iSdy8McGJ6ZaqeB3Mbd9vYS1yj40f+MDbbzdMV
+ 68ojTKqbC5TM0h0CTaeAfI0f4mmTrbM=
+X-Proofpoint-ORIG-GUID: whHQKhPdXqXxoeR2YI3RPd4heI6PVCvh
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-09_04,2026-07-09_04,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607100009
+ priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1015 malwarescore=0 phishscore=0 spamscore=0 bulkscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607100009
 Cc: coresight@lists.linaro.org, Jie Gan <jie.gan@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-stm32@st-md-mailman.stormreply.com
-Subject: [Linux-stm32] [PATCH v3 1/2] coresight: Fix clock refcount
+Subject: [Linux-stm32] [PATCH v3 2/2] coresight: tnoc: Fix clock refcount
  imbalance on platform remove
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
@@ -183,10 +184,10 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	RCPT_COUNT_TWELVE(0.00)[16];
 	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
+	FORGED_SENDER(0.00)[jie.gan@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	RCVD_TLS_LAST(0.00)[];
 	FORGED_RECIPIENTS(0.00)[m:suzuki.poulose@arm.com,m:mike.leach@arm.com,m:james.clark@linaro.org,m:leo.yan@arm.com,m:alexander.shishkin@linux.intel.com,m:anshuman.khandual@arm.com,m:yeoreum.yun@arm.com,m:yuanfang.zhang@oss.qualcomm.com,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:tingwei.zhang@oss.qualcomm.com,m:coresight@lists.linaro.org,m:jie.gan@oss.qualcomm.com,m:linux-kernel@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:linux-stm32@st-md-mailman.stormreply.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORGED_SENDER(0.00)[jie.gan@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
 	GREYLIST(0.00)[pass,meta];
 	FREEMAIL_TO(0.00)[arm.com,linaro.org,linux.intel.com,oss.qualcomm.com,gmail.com,foss.st.com];
 	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
@@ -206,141 +207,39 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:mid,oss.qualcomm.com:from_mime,stormreply.com:url,stormreply.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: D2BF27367B6
+X-Rspamd-Queue-Id: EFB4B7367BE
 
-coresight_get_enable_clocks() enables the programming clock and the
-optional AT clock through devm_clk_get_optional_enabled(), which also
-registers a devm action to call clk_disable_unprepare() when the driver
-detaches.
+coresight_get_enable_clocks() enables the programming clock through
+devm_clk_get_optional_enabled(), which also registers a devm action to
+call clk_disable_unprepare() when the driver detaches.
 
 After probe, pm_runtime_put() allows the device to suspend and the
-runtime suspend callback disables the same clocks. During remove the
-device is left runtime suspended, so pm_runtime_disable() freezes it
-with the clocks already disabled. The devm cleanup that runs afterwards
-calls clk_disable_unprepare() a second time, underflowing the clock
-enable refcount.
+runtime suspend callback disables the clock. During remove the device is
+left runtime suspended, so pm_runtime_disable() freezes it with the
+clock already disabled. The devm cleanup that runs afterwards calls
+clk_disable_unprepare() a second time, underflowing the clock enable
+refcount.
 
 Resume the device with pm_runtime_get_sync() before tearing it down so
-the clocks are enabled again and balance the devm-managed disable. Then
+the clock is enabled again and balances the devm-managed disable. Then
 pm_runtime_set_suspended() and pm_runtime_put_noidle() leave the device
 in a coherent runtime PM state (suspended, usage count balanced) once
-the devm action has disabled the clocks.
-
-This affects all CoreSight platform drivers that obtain their clocks
-through coresight_get_enable_clocks(): catu, cpu-debug, ctcu, etm4x,
-funnel, replicator, stm, tmc and tpiu.
+the devm action has disabled the clock.
 
 Fixes: 1abc1b212eff ("coresight: Appropriately disable programming clocks")
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
 Reviewed-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 ---
- drivers/hwtracing/coresight/coresight-catu.c       |  8 ++++++++
- drivers/hwtracing/coresight/coresight-cpu-debug.c  |  8 ++++++++
- drivers/hwtracing/coresight/coresight-ctcu-core.c  |  8 ++++++++
- drivers/hwtracing/coresight/coresight-etm4x-core.c | 13 +++++++++++--
- drivers/hwtracing/coresight/coresight-funnel.c     |  8 ++++++++
- drivers/hwtracing/coresight/coresight-replicator.c |  8 ++++++++
- drivers/hwtracing/coresight/coresight-stm.c        |  8 ++++++++
- drivers/hwtracing/coresight/coresight-tmc-core.c   |  8 ++++++++
- drivers/hwtracing/coresight/coresight-tpiu.c       |  8 ++++++++
- 9 files changed, 75 insertions(+), 2 deletions(-)
+ drivers/hwtracing/coresight/coresight-tnoc.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/hwtracing/coresight/coresight-catu.c b/drivers/hwtracing/coresight/coresight-catu.c
-index ad8dafea7d2f..b72fa7f4bdeb 100644
---- a/drivers/hwtracing/coresight/coresight-catu.c
-+++ b/drivers/hwtracing/coresight/coresight-catu.c
-@@ -646,8 +646,16 @@ static void catu_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	__catu_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- #ifdef CONFIG_PM
-diff --git a/drivers/hwtracing/coresight/coresight-cpu-debug.c b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-index 3a806c1d50ea..87b39874461e 100644
---- a/drivers/hwtracing/coresight/coresight-cpu-debug.c
-+++ b/drivers/hwtracing/coresight/coresight-cpu-debug.c
-@@ -710,8 +710,16 @@ static void debug_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	__debug_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- #ifdef CONFIG_ACPI
-diff --git a/drivers/hwtracing/coresight/coresight-ctcu-core.c b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-index 9043cad42f01..e0e33e3ca5bf 100644
---- a/drivers/hwtracing/coresight/coresight-ctcu-core.c
-+++ b/drivers/hwtracing/coresight/coresight-ctcu-core.c
-@@ -265,8 +265,16 @@ static void ctcu_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	ctcu_remove(pdev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- #ifdef CONFIG_PM
-diff --git a/drivers/hwtracing/coresight/coresight-etm4x-core.c b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-index 14bb31bd6a0b..dd5d26717f15 100644
---- a/drivers/hwtracing/coresight/coresight-etm4x-core.c
-+++ b/drivers/hwtracing/coresight/coresight-etm4x-core.c
-@@ -2414,9 +2414,18 @@ static void etm4_remove_platform_dev(struct platform_device *pdev)
+diff --git a/drivers/hwtracing/coresight/coresight-tnoc.c b/drivers/hwtracing/coresight/coresight-tnoc.c
+index 9e8de4323d28..eddfdcbaa3ec 100644
+--- a/drivers/hwtracing/coresight/coresight-tnoc.c
++++ b/drivers/hwtracing/coresight/coresight-tnoc.c
+@@ -299,8 +299,16 @@ static void itnoc_remove(struct platform_device *pdev)
  {
- 	struct etmv4_drvdata *drvdata = dev_get_drvdata(&pdev->dev);
- 
--	if (drvdata)
--		etm4_remove_dev(drvdata);
-+	if (WARN_ON(!drvdata))
-+		return;
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
-+	etm4_remove_dev(drvdata);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- static const struct amba_id etm4_ids[] = {
-diff --git a/drivers/hwtracing/coresight/coresight-funnel.c b/drivers/hwtracing/coresight/coresight-funnel.c
-index 0abc11f0690c..d69cd66e8394 100644
---- a/drivers/hwtracing/coresight/coresight-funnel.c
-+++ b/drivers/hwtracing/coresight/coresight-funnel.c
-@@ -333,8 +333,16 @@ static void funnel_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
+ 	struct trace_noc_drvdata *drvdata = platform_get_drvdata(pdev);
  
 +	/*
 +	 * Resume the device so its clocks are enabled again, balancing the
@@ -348,97 +247,13 @@ index 0abc11f0690c..d69cd66e8394 100644
 +	 * Then mark it suspended and drop the usage count taken here.
 +	 */
 +	pm_runtime_get_sync(&pdev->dev);
- 	funnel_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- static const struct of_device_id funnel_match[] = {
-diff --git a/drivers/hwtracing/coresight/coresight-replicator.c b/drivers/hwtracing/coresight/coresight-replicator.c
-index 2f382de357ee..1df01deb2f69 100644
---- a/drivers/hwtracing/coresight/coresight-replicator.c
-+++ b/drivers/hwtracing/coresight/coresight-replicator.c
-@@ -312,8 +312,16 @@ static void replicator_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	replicator_remove(&pdev->dev);
+ 	coresight_unregister(drvdata->csdev);
  	pm_runtime_disable(&pdev->dev);
 +	pm_runtime_set_suspended(&pdev->dev);
 +	pm_runtime_put_noidle(&pdev->dev);
  }
  
  #ifdef CONFIG_PM
-diff --git a/drivers/hwtracing/coresight/coresight-stm.c b/drivers/hwtracing/coresight/coresight-stm.c
-index 4e860519a73f..a75b1c56a867 100644
---- a/drivers/hwtracing/coresight/coresight-stm.c
-+++ b/drivers/hwtracing/coresight/coresight-stm.c
-@@ -1025,8 +1025,16 @@ static void stm_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	__stm_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- #ifdef CONFIG_ACPI
-diff --git a/drivers/hwtracing/coresight/coresight-tmc-core.c b/drivers/hwtracing/coresight/coresight-tmc-core.c
-index bc5a133ada3e..ed40bfea32f9 100644
---- a/drivers/hwtracing/coresight/coresight-tmc-core.c
-+++ b/drivers/hwtracing/coresight/coresight-tmc-core.c
-@@ -988,8 +988,16 @@ static void tmc_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	__tmc_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- #ifdef CONFIG_PM
-diff --git a/drivers/hwtracing/coresight/coresight-tpiu.c b/drivers/hwtracing/coresight/coresight-tpiu.c
-index 7b029d2eb389..775507d0bb36 100644
---- a/drivers/hwtracing/coresight/coresight-tpiu.c
-+++ b/drivers/hwtracing/coresight/coresight-tpiu.c
-@@ -285,8 +285,16 @@ static void tpiu_platform_remove(struct platform_device *pdev)
- 	if (WARN_ON(!drvdata))
- 		return;
- 
-+	/*
-+	 * Resume the device so its clocks are enabled again, balancing the
-+	 * clk_disable_unprepare() that devm runs when the driver detaches.
-+	 * Then mark it suspended and drop the usage count taken here.
-+	 */
-+	pm_runtime_get_sync(&pdev->dev);
- 	__tpiu_remove(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_set_suspended(&pdev->dev);
-+	pm_runtime_put_noidle(&pdev->dev);
- }
- 
- #ifdef CONFIG_ACPI
 
 -- 
 2.34.1
