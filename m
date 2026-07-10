@@ -2,125 +2,133 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id AQEpNgFMUWo+CAMAu9opvQ
+	id TORZB4lfUWqXDQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 21:46:09 +0200
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 23:09:29 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64A1173DE9A
-	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 21:46:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A33A73EA3C
+	for <lists+linux-stm32@lfdr.de>; Fri, 10 Jul 2026 23:09:28 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=HkSsEg0f;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine);
-	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
+	dkim=fail ("body hash did not verify") header.d=NXP1.onmicrosoft.com header.s=selector1-NXP1-onmicrosoft-com header.b=CRxRQaHS;
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=nxp.com (policy=none);
+	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 19CAAC7A833;
-	Fri, 10 Jul 2026 19:46:09 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 55084C8F273;
+	Fri, 10 Jul 2026 21:09:28 +0000 (UTC)
+Received: from AS8PR04CU009.outbound.protection.outlook.com
+ (mail-westeuropeazon11011040.outbound.protection.outlook.com [52.101.70.40])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 91520C58D7C
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 1FD96C6C859
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jul 2026 19:46:07 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 52BF743EFE
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jul 2026 19:46:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35FCD1F00AC4
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jul 2026 19:46:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783712766;
- bh=sZDwGaUkGBLrMyNSIpb3kLYEJV1iPNS+5Pn9t9xv6aE=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=HkSsEg0fbPswpwBbq7msyQoTQ/fzpUpBAWCJeyoo47JBrl1F4fLCAocKnijbpM/p6
- GDbOtWqNLNjYAx3W000zcCbmXpLxeTYg1+fMSzkuksy7ydBzM8bj7gC6WXw6wQdRD6
- vVdMHXz0K1GVFdtb/usTM0mXhAL+ZZsfcP7DWwsuADXRD4a5scfpg85ktfSdSrmGEW
- RX91BEivy4ThHjiAFPD10y6OZy6KCaoROgurcEirnNXtZytmK4+Y7XIXkAVzwQgQnS
- tWsz1C57JTWtsEG565sIfsiTVX1EO3rFjDmmROr8HMl9MVJMK0AKwMlgTnovI0C4jj
- cqjPm+xX37wIg==
-Received: by mail-lf1-f42.google.com with SMTP id
- 2adb3069b0e04-5aeae350e0aso1544549e87.1
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Fri, 10 Jul 2026 12:46:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+Ron3HL/CuUCd9tu665YT547kuViJYWpYLwMMJI7RVXXNAqGMtVBLCSA0IyOLoEJpemys1CR1cww8Z5lvQ==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yw8pX9oVDRBp1D9+nNvXRM51CbHlyfxFrntMdoAaPRAKABW/sdI
- qS3OtgH8gCcs0apGGRKOEsF6r3XBVgvrPvy9vGunoYIVqmtFKawFsW7n9ggBwI6vSL7unhGnohY
- B1C1RRbXHVWVw9wHTXMl5ZlCn6p55CtY=
-X-Received: by 2002:a05:6512:32cf:b0:5ae:b792:7f1e with SMTP id
- 2adb3069b0e04-5b0236a3891mr89821e87.30.1783712764308; Fri, 10 Jul 2026
- 12:46:04 -0700 (PDT)
+ Fri, 10 Jul 2026 21:09:26 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mcusBZqd9sHVe8dwEN/CctMepvfS8yNhfkI0S0aaXraCwsBVRqQI//nW1UwLnjNNTFu6TNkn3KJeP7asCVgR27VVv3VHRcU7+4hLkH0eghePDT79IZavY4QFzxW1fIN1sex1bp7K9F0OC6qEHVjL0/uFQhTpOw3udkVRx17B5cepWmIhVFAp5qrti7f69NStpVS8ztkvm5BSnHYL9K3q7Vu9MiPxJzUpd/KpTeqkSiOrmeKqaLIkLRw1zDZwaWS8IF8DJCd0SCQ4SAIwIkuDz+/QsC8Y1uOmBJeTOjV26IJVYx1KNn6pjf8o+FzeLVOOUS6fVzeFl1+IRvQXcAW/pA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=UQ6iqvoMgSKA8njIldwfk5dhfCpW1ru5Wmn6M0680rY=;
+ b=DQ0WUO6T5YmGn58RmuePx8+SCPQ00zQMBXWkRX7GvkN41jyyJCdOMXi3AA3QqgLrGaJhjPZSdEaC5ob+U3kRXanjbYM76lKkp1Nq3BiAieR0IpC7kcnn5lsR0hT1wssaMlhSvi5HuTDYfpf56aCk+thzru3ROkfam52mk2iv7+m58jCDlROuayT/9wl9LDMsgw0xmA5lQBZwFkMANYbNBImXJ50i+WSAP3E9Wmg66j/BcE8p7lXYACkckfOwtHWkUHyR7puRN5fORkb5cifvN0CqtysRIkSc3YCHKrcLRt2Ucgn2EyOAi4gtFQN6cFQGqhARiOqJzuOy0h3rybDFsA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=UQ6iqvoMgSKA8njIldwfk5dhfCpW1ru5Wmn6M0680rY=;
+ b=CRxRQaHSUPoMi+Xsb8p1VAwKrv1pn6Fn6/rlFKecpgJk5yxD+C8COhXdkPdmvPD2COSuR1kTCqGxQZaSv2py+K1GrRbVsRzgaMxZhNxDVa5gOELvATtUIjmvaLZtkrE2LTJlqyV4F/jcEyQJqVJ4SMkyc64qKboilX/9rht4riEQ+cwcsS91yL2CgMu1oxEqMzxIwYIaiwx2jAzEOzZmEVufq9S6lKcx2J/wPSJVT0DBEK5+yBQODEg44Fzo+UlMDuTptayn+k8mfADJQha/6JOFDgb28aGkhRSrNUoTdKKSYBYqRk0Md2N2qqIbOO7DnIx0AjSld1ID0Fc60h0RIA==
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PAXPR04MB9375.eurprd04.prod.outlook.com (2603:10a6:102:2b3::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.181.15; Fri, 10 Jul
+ 2026 21:09:24 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0159.007; Fri, 10 Jul 2026
+ 21:09:24 +0000
+Date: Fri, 10 Jul 2026 16:09:12 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+Message-ID: <alFfeOFz2UA7hAbK@SMW015318>
+References: <20260710-mathieu-uboot-dts-import-v1-0-ffe0210e50c9@bootlin.com>
+ <20260710-mathieu-uboot-dts-import-v1-1-ffe0210e50c9@bootlin.com>
+Content-Disposition: inline
+In-Reply-To: <20260710-mathieu-uboot-dts-import-v1-1-ffe0210e50c9@bootlin.com>
+X-ClientProxiedBy: PH7PR02CA0007.namprd02.prod.outlook.com
+ (2603:10b6:510:33d::13) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 MIME-Version: 1.0
-References: <cover.1783615311.git.u.kleine-koenig@baylibre.com>
-In-Reply-To: <cover.1783615311.git.u.kleine-koenig@baylibre.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 10 Jul 2026 21:45:51 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkJthrzmVCDE=BopUDMECBpMtPOpCJ9S0CKWRg--Zfz3A@mail.gmail.com>
-X-Gm-Features: AUfX_mx_vh7ziiGHTkkaiMBQb1TjjZ8vahBxzqeJira0tID9YqDdR27A_6wUme0
-Message-ID: <CAD++jLkJthrzmVCDE=BopUDMECBpMtPOpCJ9S0CKWRg--Zfz3A@mail.gmail.com>
-To: =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?=
- <u.kleine-koenig@baylibre.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- Marek Vasut <marek.vasut+renesas@gmail.com>, linux-samsung-soc@vger.kernel.org,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>,
- Chanwoo Choi <cw00.choi@samsung.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, linux-sunxi@lists.linux.dev,
- Sascha Hauer <s.hauer@pengutronix.de>, linux-sound@vger.kernel.org,
- Sudeep Holla <sudeep.holla@kernel.org>, Sven Peter <sven@kernel.org>,
- linux-omap@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
- Scott Branden <sbranden@broadcom.com>, linux-kernel@vger.kernel.org,
- linux-crypto@vger.kernel.org, Pengutronix Kernel Team <kernel@pengutronix.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- David Rhodes <david.rhodes@cirrus.com>, Guenter Roeck <groeck@chromium.org>,
- chrome-platform@lists.linux.dev, Chunyan Zhang <zhang.lyra@gmail.com>,
- Lee Jones <lee@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- linux-rockchip@lists.infradead.org,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Michael Hennerich <michael.hennerich@analog.com>,
- Matti Vaittinen <mazziesaccount@gmail.com>, linux-arm-msm@vger.kernel.org,
- Roger Quadros <rogerq@kernel.org>, linux-rpi-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, Chen-Yu Tsai <wens@kernel.org>,
- Mika Westerberg <mika.westerberg@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Thomas Richard <thomas.richard@bootlin.com>,
- Samuel Holland <samuel@sholland.org>, linux-renesas-soc@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>, imx@lists.linux.dev,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tom Rix <trix@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Qunqin Zhao <zhaoqunqin@loongson.cn>,
- Krzysztof Kozlowski <krzk@kernel.org>, Fred Treven <fred.treven@cirrus.com>,
- Fabio Estevam <festevam@gmail.com>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Andreas Kemnade <andreas@kemnade.info>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
- Orson Zhai <orsonzhai@gmail.com>, Ray Jui <rjui@broadcom.com>,
- Tim Harvey <tharvey@gateworks.com>,
- =?UTF-8?Q?Jonathan_Neusch=C3=A4fer?= <j.neuschaefer@gmx.net>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Benson Leung <bleung@chromium.org>, Samuel Kayode <samkay014@gmail.com>,
- Support Opensource <support.opensource@diasemi.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, asahi@lists.linux.dev,
- Zha Qipeng <qipeng.zha@intel.com>, Neal Gompa <neal@gompa.dev>,
- Xu Yilun <yilun.xu@intel.com>, Tony Lindgren <tony@atomide.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Peter Tyser <ptyser@xes-inc.com>,
- Janne Grunau <j@jannau.net>, Florian Fainelli <florian.fainelli@broadcom.com>,
- Peter Griffin <peter.griffin@linaro.org>,
- Saravanan Sekar <sravanhome@gmail.com>, mfd@lists.linux.dev,
- linux-mediatek@lists.infradead.org, Matthias Brugger <matthias.bgg@gmail.com>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- James Ogletree <jogletre@opensource.cirrus.com>, patches@opensource.cirrus.com,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Colin Foster <colin.foster@in-advantage.com>,
- Ben Bright <ben.bright@cirrus.com>, linux@ew.tq-group.com
-Subject: Re: [Linux-stm32] [PATCH v3 00/23] mfd: Use named initializers for
-	arrays of *_device_data
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PAXPR04MB9375:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7992953-0b39-4c42-b3fa-08dedec784a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|23010399003|7416014|366016|1800799024|19092799006|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: DgleR1dEoffZGnYGWvLtsb6e8+KF1k+76IfXsvYpYCUBvoA+/gNU4bEKeqiXC/AF3uO9Mh7/57FFGl5V2GyrQFp8S0XJn/lLfJ0BSBbvUUcDN+WYGNO/v3JfUL31ah0D7LEJ4iaGu/H4THIts8WbhYxHNKYjbLRIAVjUbyGHSOWJjgz+Lxm56NhaYFLPwWtLXT+cyUtpc6iC5TDoVJyPm+Lyd2WHRPWlm8rNuxbqTcqYo9FM9H6CgnKeNpn5ajTyrVXe9DOdKO1lBAqQ7FjjznuWtLAdVWF9ccdSnueFh59iJOe4fMyVLluBBFhY9fGARjTn8ysXrqyW5QSB3N92Kp6yGkaOF+u7NfDW9eNn6sbw9SpzsfS338OuFhObJb6bfWGXL2MMvGrp9MJKxBAVXJTap5Hv281SNWbVfkSbbtTcMgOU3EKtJL0Nq6JYKWU4QIv1rYQa0Ouayp/kTdLTfPFtSjpmdWZ1MR0GUnX7aoZ7eV/roznOBmxMAqJpnBwr4rB258UyswfFfTvCT7m0uf52ZRgGWTipBjUSkxTz/Ihbc8FKWE/mT36btlYWFzXaVYt53orhLoczxElO7NulumqQ9eLIfBjqDOiEEQ1dly+DbMEHbySHVgASnpWsYeaf3XD62lw80YeHCzr8TUjVKpFOVOSMSZMdou+qYQzZVMg=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:GV2PR04MB11799.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(23010399003)(7416014)(366016)(1800799024)(19092799006)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?vMkMvUjV78IT0PTEmqPWxmEQIshwD9C4CY2ORd+IMhPlVpMD0ter0ylG9Pca?=
+ =?us-ascii?Q?j6/pBzgXzEZNpdjfWhWgbSbcdNx9DeOFc7rsjAt1+4BPySSFaZmysHWC/tuW?=
+ =?us-ascii?Q?mDXmtX2Zu7+mGBuJI+k6VRUTV5J1jCKMc6qUTzflTRXBiL/yOT2xniR3U9Ng?=
+ =?us-ascii?Q?VKeJZzAD3EQuJOxorKKAnv7t9VyfXJgK2hm0UABbgRegjKX9ZPvMks6yfM56?=
+ =?us-ascii?Q?SrtncF7uSn1p6AbQQs8Fd07yZ09NRck9FcxCUs/rNfuWsu1Y8jcnCCk+X6Hy?=
+ =?us-ascii?Q?7SekQihb2/4zMnjri+kiweQsj2lVXNBI/YxcdZoxPOLuBtwtwShJUZVlV60a?=
+ =?us-ascii?Q?kF3ncj+UBiQLkFZ3Q0fyZExoRIJGHcYjzGuf4PY1qr5xOZu28BmAbmixUzk4?=
+ =?us-ascii?Q?mvewnLgCyfW2ft6GtzJah1ONI3SQIQcFXUssx7rG9S02otm9W61fiCMxgLAJ?=
+ =?us-ascii?Q?UmJlfEluoQyBi3MKImzZapQtfjTlN+B01iJljh+9DKKdwn6JHfbSE9aYvrRX?=
+ =?us-ascii?Q?SFPXePAT+xpRV1Nqf/mfwvlKUtn5+04hIx6+khBmbZKVB0MbHUDrBW0xZmwz?=
+ =?us-ascii?Q?QrP+VHG439dHkwlG3GGKeVn9/XnmXHQkp0thQbYXFFT4uhSzvNNLBgPxYpKE?=
+ =?us-ascii?Q?c7uPYUXqxTJugZ6HEEFLlmf+GRzaSxxcK7LyMieEaQptyqTnG9lvaJPdzBvW?=
+ =?us-ascii?Q?9ZHSaAZXxsWIF1WPAkqrEPrlqQ/9dRWg4G1mfrvc1yipeUwqo8JINlNHtkbn?=
+ =?us-ascii?Q?VPbUlEqzZvvx/+U289+kmY1WS6cDTayX5gGZ8bdkXxH5gsnGPjxO3dc/JG2/?=
+ =?us-ascii?Q?hgmSR1aRCjkDYYoZXMuqEGOPMfPl2Df+JnHzl+g6IKwOEjXSyAm3odZEcolP?=
+ =?us-ascii?Q?JTT1l7ikQhfzyJfBk3suuuqFeP8JoXYLUi8ccjOjYPa9kfyRNl9CCOv9qxqR?=
+ =?us-ascii?Q?2XMyF5uyBi2r7xhMjCLpkFox8ue0/hblgB7KabOSwE5N8WvRDDUCRUUJrXu7?=
+ =?us-ascii?Q?Fx0MTqoXjIB3rALSRpD6XfuLX+08O/jBDr2C1E/u6vZ+ZLhwRTIl+n1JnV5g?=
+ =?us-ascii?Q?qY/Fo0AUyfl+znEx4pFN67by1wGiQURrWW+5AT00XwNnS1oaFAkCM+EBbUND?=
+ =?us-ascii?Q?0wNo2VaqmapxDBmYicgSIn3zxoGZXmyNptf9uVyCN2k/5CcTyqbERjXLdefK?=
+ =?us-ascii?Q?Jk8g6uNKOY89u3kQLb2YJy9atmDpYA1OQ6R409MMeHdfrE7dhAo+SPkB0eg4?=
+ =?us-ascii?Q?tqQxNa//M0F3VVFaj0gi2EjGk9AQYJ4hivP94AHDk/Ou26hVY5ra/gNoUt09?=
+ =?us-ascii?Q?Ygjwi2XPxXDD9WSrI1X28m9D/1LeUCQhocnnK1g7br6jhBfDTLxe6FDtsiYe?=
+ =?us-ascii?Q?AHIa7b9ysYxL6ZrIUhXdZYrB9e6F+DRJd631O9fQ6FfwEo4ZFm4PJ+hegJhI?=
+ =?us-ascii?Q?fA9iT1FuefRiDPwJQLCP8LsdT97vuDvMU1zvmJqvLzdziTvgMZmpU1ryf2rZ?=
+ =?us-ascii?Q?/ebVhtD5XoMplCQ+YeC/g0azN+hlNTGdh1P/A9H8vXKHCT4GiTkTI1HpkSBK?=
+ =?us-ascii?Q?+9iU/j5XXip36PSuM0NSViYxdKif9IpqZoGBze7gaI8LhCCkWcb+W9k9RsLc?=
+ =?us-ascii?Q?qwYq3DTfhmrw53hzj6MuBcYHQrhVOq19F5pzU6LbhDsx9ueL/7gMqmETiBsA?=
+ =?us-ascii?Q?sANCdAM7r1bRknkh7Lc++IxfqVr1RkjK1UHZ5ibPUo0uRpSlUaeJkQomXjbL?=
+ =?us-ascii?Q?Qpn4+bRfhlxd5ZVPRMwTGxYGeA4TDBdaxKwkkYvzgoG60grAK4Jb?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7992953-0b39-4c42-b3fa-08dedec784a5
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Jul 2026 21:09:24.2587 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: d0Txg4TyT0RmUNZQ112XyRZ5xCmdv0SsL1prYLz3/gPRDzo+QgjHcCJLLjssJWODYYepVWMigK9CEWXJJp6lQ3Pm2iMi5Kv88dkXGWftvvafjk0dtddnTA0ARRu35lBJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9375
+Cc: imx@lists.linux.dev, Tomer Maimon <tmaimon77@gmail.com>,
+ Frank Li <Frank.Li@nxp.com>, Tali Perry <tali.perry1@gmail.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Fabio Estevam <festevam@gmail.com>, linux-stm32@st-md-mailman.stormreply.com,
+ Rob Herring <robh@kernel.org>, Benjamin Fair <benjaminfair@google.com>,
+ openbmc@lists.ozlabs.org, Wei Xu <xuwei5@hisilicon.com>,
+ Nancy Yuen <yuenn@google.com>, Peter Robinson <pbrobinson@gmail.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>, Tom Rini <trini@konsulko.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, linux-arm-kernel@lists.infradead.org,
+ Avi Fishman <avifishman70@gmail.com>, Patrick Venture <venture@google.com>,
+ linux-kernel@vger.kernel.org, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH 1/5] arm64: dts: freescale: Import optee
+ node from u-boot device trees
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -132,59 +140,281 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
 X-Spamd-Result: default: False [4.89 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
 	SUSPICIOUS_RECIPS(1.50)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
+	R_DKIM_REJECT(1.00)[NXP1.onmicrosoft.com:s=selector1-NXP1-onmicrosoft-com];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
-	MIME_BASE64_TEXT(0.10)[];
+	DMARC_POLICY_SOFTFAIL(0.10)[nxp.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
-	FORGED_RECIPIENTS(0.00)[m:u.kleine-koenig@baylibre.com,m:heiko@sntech.de,m:geert+renesas@glider.be,m:alim.akhtar@samsung.com,m:linux-stm32@st-md-mailman.stormreply.com,m:marek.vasut+renesas@gmail.com,m:linux-samsung-soc@vger.kernel.org,m:aaro.koskinen@iki.fi,m:khilman@baylibre.com,m:cw00.choi@samsung.com,m:luca.ceresoli@bootlin.com,m:linux-sunxi@lists.linux.dev,m:s.hauer@pengutronix.de,m:linux-sound@vger.kernel.org,m:sudeep.holla@kernel.org,m:sven@kernel.org,m:linux-omap@vger.kernel.org,m:andy@kernel.org,m:sbranden@broadcom.com,m:linux-kernel@vger.kernel.org,m:linux-crypto@vger.kernel.org,m:kernel@pengutronix.de,m:alexandre.belloni@bootlin.com,m:david.rhodes@cirrus.com,m:groeck@chromium.org,m:chrome-platform@lists.linux.dev,m:zhang.lyra@gmail.com,m:lee@kernel.org,m:magnus.damm@gmail.com,m:linux-rockchip@lists.infradead.org,m:ckeepax@opensource.cirrus.com,m:michael.hennerich@analog.com,m:mazziesaccount@gmail.com,m:linux-arm-msm@vger.kernel.org,m:rogerq@kernel.org,m:linux-rpi-kernel@l
- ists.infradead.org,m:linux-amlogic@lists.infradead.org,m:wens@kernel.org,m:mika.westerberg@linux.intel.com,m:linux-arm-kernel@lists.infradead.org,m:neil.armstrong@linaro.org,m:thomas.richard@bootlin.com,m:samuel@sholland.org,m:linux-renesas-soc@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:mathieu.dubois-briand@bootlin.com,m:imx@lists.linux.dev,m:andre.draszik@linaro.org,m:trix@redhat.com,m:lpieralisi@kernel.org,m:Frank.Li@nxp.com,m:zhaoqunqin@loongson.cn,m:krzk@kernel.org,m:fred.treven@cirrus.com,m:festevam@gmail.com,m:jernej.skrabec@gmail.com,m:andreas@kemnade.info,m:bcm-kernel-feedback-list@broadcom.com,m:orsonzhai@gmail.com,m:rjui@broadcom.com,m:tharvey@gateworks.com,m:j.neuschaefer@gmx.net,m:rf@opensource.cirrus.com,m:baolin.wang@linux.alibaba.com,m:bleung@chromium.org,m:samkay014@gmail.com,m:support.opensource@diasemi.com,m:claudiu.beznea@tuxon.dev,m:asahi@lists.linux.dev,m:qipeng.zha@intel.com,m:neal@gompa.dev,m:yilun.xu@intel.com,m:tony@atomide.com,m:liviu.dudau@arm.com,m:pt
- yser@xes-inc.com,m:j@jannau.net,m:florian.fainelli@broadcom.com,m:peter.griffin@linaro.org,m:sravanhome@gmail.com,m:mfd@lists.linux.dev,m:linux-mediatek@lists.infradead.org,m:matthias.bgg@gmail.com,m:andriy.shevchenko@linux.intel.com,m:angelogioacchino.delregno@collabora.com,m:jogletre@opensource.cirrus.com,m:patches@opensource.cirrus.com,m:nicolas.ferre@microchip.com,m:colin.foster@in-advantage.com,m:ben.bright@cirrus.com,m:linux@ew.tq-group.com,m:geert@glider.be,m:marekvasut@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_CC(0.00)[sntech.de,glider.be,samsung.com,st-md-mailman.stormreply.com,gmail.com,vger.kernel.org,iki.fi,baylibre.com,bootlin.com,lists.linux.dev,pengutronix.de,kernel.org,broadcom.com,cirrus.com,chromium.org,lists.infradead.org,opensource.cirrus.com,analog.com,linux.intel.com,linaro.org,sholland.org,redhat.com,nxp.com,loongson.cn,kemnade.info,gateworks.com,gmx.net,linux.alibaba.com,diasemi.com,tuxon.dev,intel.com,gompa.dev,atomide.com,arm.com,xes-inc.com,jannau.net,collabora.com,microchip.com,in-advantage.com,ew.tq-group.com];
-	FORGED_SENDER(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	ARC_NA(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
+	RCVD_COUNT_THREE(0.00)[4];
+	FORGED_RECIPIENTS(0.00)[m:mathieu.dubois-briand@bootlin.com,m:imx@lists.linux.dev,m:tmaimon77@gmail.com,m:Frank.Li@nxp.com,m:tali.perry1@gmail.com,m:thomas.petazzoni@bootlin.com,m:festevam@gmail.com,m:linux-stm32@st-md-mailman.stormreply.com,m:robh@kernel.org,m:benjaminfair@google.com,m:openbmc@lists.ozlabs.org,m:xuwei5@hisilicon.com,m:yuenn@google.com,m:pbrobinson@gmail.com,m:andrew@codeconstruct.com.au,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:kernel@pengutronix.de,m:trini@konsulko.com,m:s.hauer@pengutronix.de,m:linux-arm-kernel@lists.infradead.org,m:avifishman70@gmail.com,m:venture@google.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:taliperry1@gmail.com,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,m:krzk@kernel.org,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[Frank.li@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[26];
+	GREYLIST(0.00)[pass,meta];
+	MIME_TRACE(0.00)[0:+];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,nxp.com,bootlin.com,st-md-mailman.stormreply.com,kernel.org,google.com,lists.ozlabs.org,hisilicon.com,codeconstruct.com.au,vger.kernel.org,pengutronix.de,konsulko.com,lists.infradead.org];
+	DKIM_TRACE(0.00)[NXP1.onmicrosoft.com:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_GT_50(0.00)[90];
-	RCVD_COUNT_FIVE(0.00)[5];
-	FROM_NEQ_ENVFROM(0.00)[linusw@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	MISSING_XM_UA(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[Frank.li@oss.nxp.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	REDIRECTOR_URL(0.00)[aka.ms];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	FORGED_SENDER_MAILLIST(0.00)[]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[aka.ms:url,bootlin.com:email,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo,oss.nxp.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 64A1173DE9A
+X-Rspamd-Queue-Id: 9A33A73EA3C
 
-T24gVGh1LCBKdWwgOSwgMjAyNiBhdCA2OjU54oCvUE0gVXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBD
-YXBhYmxlIEh1YikKPHUua2xlaW5lLWtvZW5pZ0BiYXlsaWJyZS5jb20+IHdyb3RlOgoKPiBUaGUg
-b2JqZWN0aXZlIGZvciB0aGlzIHNlcmllcyBpcyB0byBwcmVwYXJlIG1mZCBmb3IgY2hhbmdpbmcK
-PiBvZl9kZXZpY2VfaWQgYW5kIHRoZSBvdGhlcnMgdG8gbWFrZSBkcml2ZXJfZGF0YSBhIHVuaW9u
-LCBzZWUKPiBodHRwczovL2xvcmUua2VybmVsLm9yZy9hbGwvY292ZXIuMTc4MDA0ODkyNS5naXQu
-dS5rbGVpbmUta29lbmlnQGJheWxpYnJlLmNvbS8KPiBmb3IgdGhlIGlkZWEgYmVoaW5kIGl0LgoK
-VGhlIHNlcmllczoKUmV2aWV3ZWQtYnk6IExpbnVzIFdhbGxlaWogPGxpbnVzd0BrZXJuZWwub3Jn
-PgoKWW91cnMsCkxpbnVzIFdhbGxlaWoKX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX18KTGludXgtc3RtMzIgbWFpbGluZyBsaXN0CkxpbnV4LXN0bTMyQHN0LW1k
-LW1haWxtYW4uc3Rvcm1yZXBseS5jb20KaHR0cHM6Ly9zdC1tZC1tYWlsbWFuLnN0b3JtcmVwbHku
-Y29tL21haWxtYW4vbGlzdGluZm8vbGludXgtc3RtMzIK
+On Fri, Jul 10, 2026 at 05:31:34PM +0200, Mathieu Dubois-Briand wrote:
+> [You don't often get email from mathieu.dubois-briand@bootlin.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> U-Boot is importing kernel device trees for these platforms, but adding
+> a firmware node to enable communication with OP-TEE. Importing
+> changes here will allow to remove these additions in U-Boot.
+>
+> Signed-off-by: Mathieu Dubois-Briand <mathieu.dubois-briand@bootlin.com>
+> ---
+>  arch/arm64/boot/dts/freescale/imx8mm.dtsi                | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx8mn.dtsi                | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx8mp.dtsi                | 7 +++++++
+
+Please split soc dts change to new patch.
+
+Frank
+
+>  arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts        | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts       | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts   | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts        | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts          | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts   | 7 +++++++
+>  arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 7 +++++++
+>  11 files changed, 77 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm.dtsi b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
+> index 5cf2998d396d..4a55464e8a6f 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mm.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
+> @@ -233,6 +233,13 @@ timer {
+>                 arm,no-tick-in-suspend;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         thermal_zones: thermal-zones {
+>                 cpu-thermal {
+>                         polling-delay-passive = <250>;
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mn.dtsi b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
+> index 79b169b07c4f..c3b4560ec9b4 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mn.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
+> @@ -265,6 +265,13 @@ timer {
+>                 arm,no-tick-in-suspend;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         soc: soc@0 {
+>                 compatible = "fsl,imx8mn-soc", "simple-bus";
+>                 #address-cells = <1>;
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> index 5ce2825182fd..285b98384255 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+> @@ -404,6 +404,13 @@ timer {
+>                 arm,no-tick-in-suspend;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         soc: soc@0 {
+>                 compatible = "fsl,imx8mp-soc", "simple-bus";
+>                 #address-cells = <1>;
+> diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> index 5716febb5a50..c7050bafacae 100644
+> --- a/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx91-11x11-evk.dts
+> @@ -110,6 +110,13 @@ linux,cma {
+>                 };
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         sound-wm8962 {
+>                 compatible = "fsl,imx-audio-wm8962";
+>                 model = "wm8962-audio";
+> diff --git a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
+> index c25561574d3f..c0156921414f 100644
+> --- a/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx91-11x11-frdm.dts
+> @@ -152,6 +152,13 @@ linux,cma {
+>                 };
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         soc@0 {
+>                 bootph-all;
+>                 bootph-pre-ram;
+> diff --git a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
+> index 022e9c6841ef..62b6eff013f1 100644
+> --- a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin.dts
+> @@ -35,6 +35,13 @@ chosen {
+>                 stdout-path = &lpuart1;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         flexcan1_tc: can-phy0 {
+>                 /* TI SN65HVD234D CAN-CC 1MBit/s */
+>                 compatible = "ti,tcan1043";
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
+> index c6db9c85f2ac..0bea169d7029 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-evk.dts
+> @@ -42,6 +42,13 @@ reg_usdhc3_vmmc: regulator-usdhc3 {
+>                 enable-active-high;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         usdhc3_pwrseq: usdhc3_pwrseq {
+>                 compatible = "mmc-pwrseq-simple";
+>                 reset-gpios = <&pcal6524 12 GPIO_ACTIVE_LOW>;
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
+> index 01c11c517986..6b99c0594125 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-9x9-qsb.dts
+> @@ -147,6 +147,13 @@ reg_usdhc3_vmmc: regulator-usdhc3 {
+>                 enable-active-high;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         sound-bt-sco {
+>                 compatible = "simple-audio-card";
+>                 simple-audio-card,name = "bt-sco-audio";
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
+> index 4620c070f4d7..b8fa0cda33b2 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-kontron-bl-osm-s.dts
+> @@ -62,6 +62,13 @@ reg_vcc_panel: regulator-vcc-panel {
+>                 regulator-min-microvolt = <3300000>;
+>                 regulator-name = "VCC_PANEL";
+>         };
+> +
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+>  };
+>
+>  &eqos { /* Second ethernet (OSM-S ETH_B) */
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
+> index d929aa9ff255..e96b8437f922 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin.dts
+> @@ -36,6 +36,13 @@ chosen {
+>                 stdout-path = &lpuart1;
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         flexcan1_tc: can-phy0 {
+>                 compatible = "ti,tcan1043";
+>                 #phy-cells = <0>;
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> index 409c7e74ffe3..20eaabc23b49 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> @@ -125,6 +125,13 @@ ele_reserved: ele-reserved@87de0000 {
+>                 };
+>         };
+>
+> +       firmware {
+> +               optee: optee {
+> +                       compatible = "linaro,optee-tz";
+> +                       method = "smc";
+> +               };
+> +       };
+> +
+>         gpio-keys {
+>                 compatible = "gpio-keys";
+>
+>
+> --
+> 2.47.3
+>
+>
+_______________________________________________
+Linux-stm32 mailing list
+Linux-stm32@st-md-mailman.stormreply.com
+https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
