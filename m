@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id xwmdBj+vUmpFSQMAu9opvQ
+	id pPW+DEGvUmpHSQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:51 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:53 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id E75C2742DEA
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 06FBD742DED
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:53 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b="OKYLE/VV";
+	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b=ZGujiJqR;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=nabladev.com (policy=reject);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A69DFC9AE53;
-	Sat, 11 Jul 2026 21:01:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id BDA1CC9AE52;
+	Sat, 11 Jul 2026 21:01:52 +0000 (UTC)
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BFA1C7A835
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 446D5C7A835
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jul 2026 21:01:49 +0000 (UTC)
+ Sat, 11 Jul 2026 21:01:50 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4C983119826; Sat, 11 Jul 2026 23:01:48 +0200 (CEST)
+ with ESMTPSA id 17FF6119847; Sat, 11 Jul 2026 23:01:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1783803708; h=from:subject:date:message-id:to:cc:mime-version:
+ s=dkim; t=1783803709; h=from:subject:date:message-id:to:cc:mime-version:
  content-transfer-encoding:in-reply-to:references;
- bh=IQ/2jO9kY86PBveaA7H07jnCAULpl2h71VwR4VV58eY=;
- b=OKYLE/VVcOkNBDQn2Yd4FgbE+2flqHj5p4DN0VcY+B4XF0gEyGkfvODqgGNUlrT9QqzxQU
- 0hqzG2VUxj4bbpUNS1cXmLtvaaGZ2r5ZSNy1XSsB1O7/dlGSpHP/24m7f7EZfC0G9zaLVW
- GmlJYO2VqdTqEiMzZhKQukhXp2McDoiV2khX766HzS+uDeE+kLp6SGaXky8M53Vqkb45oJ
- 8s1Ackks7Tyoi8KCVyOXXKJYYykLVPocsGjGZirKcGf4vQgbanMpt739gsn2AQ0MfpRI3t
- E4ymYcHNTo5aiAzli4NpwtlkIU2hGT8tGxFO/X0fYYvTDkgjUnm/PjrY7UwTVg==
+ bh=PxOheComZsT6yxnkUvSnvmdiUDv7GpiTTASR486Q+Ko=;
+ b=ZGujiJqR+iMIpvYV6aLG0wtsmR4mSSle4HsUHt63FFCrKFzLt6F8NQyRhWR9Ckx49tFkwZ
+ nQqWcr0HNqI/divQFP2crS9XkXAExBw18sYM6qRf9Ghne7fvcdLY3Yj2xmKsYg6g+TOVLi
+ VxXaxewRYVlDgf3a+V+3/f87sO0t0nnoYNfXX9tyGfAeKd35HaPkvuMHBJf5VGHUUMFo37
+ N2BNPIfbEjtN2Q3eMjSjhaYlYI+8Cl8oXcdyeCaW/1kfmFslzQXiFBiLk8JxmA7SLLl22g
+ Z0DmvBxmFpQehs4n0g9tnxRWUcMv8VQ8kCsimm20k/d/5FlJUY5cyT77g5fxFQ==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sat, 11 Jul 2026 22:59:31 +0200
-Message-ID: <20260711210131.236025-3-marex@nabladev.com>
+Date: Sat, 11 Jul 2026 22:59:32 +0200
+Message-ID: <20260711210131.236025-4-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260711210131.236025-1-marex@nabladev.com>
 References: <20260711210131.236025-1-marex@nabladev.com>
@@ -48,8 +48,8 @@ Cc: Marek Vasut <marex@nabladev.com>, Conor Dooley <conor+dt@kernel.org>,
  linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  kernel@dh-electronics.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Rob Herring <robh@kernel.org>
-Subject: [Linux-stm32] [PATCH 02/10] dt-bindings: gpio: pca95xx: Document
-	Kinetic KTS1622
+Subject: [Linux-stm32] [PATCH 03/10] arm64: dts: st: Fix SDMMC1 indent on
+	stm32mp231
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,14 +102,10 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: E75C2742DEA
+X-Rspamd-Queue-Id: 06FBD742DED
 X-Spam: Yes
 
-The Kinetic Technologies KTS1622 is a 16-bit general-purpose I/O
-expander via the I2C bus for microcontrollers when additional I/Os
-are needed while keeping interconnections to the minimum. Datasheet
-comparison suggests that it is compatible with TCAL6416, add the
-compatible string and TCAL6416 as a fallback compatible.
+Drop bogus space. No functional change.
 
 Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
@@ -126,23 +122,22 @@ Cc: linux-gpio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 ---
- Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-index 4f955f855e1ab..4631388a7d914 100644
---- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-+++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-@@ -22,6 +22,9 @@ properties:
-       - items:
-           - const: diodes,pi4ioe5v6534q
-           - const: nxp,pcal6534
-+      - items:
-+          - const: kinetic,kts1622
-+          - const: ti,tcal6416
-       - items:
-           - enum:
-               - exar,xra1202
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index 9e1d240888ff2..a9de9fc5eb411 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -720,7 +720,7 @@ sdmmc1: mmc@48220000 {
+ 				reg = <0x48220000 0x400>, <0x44230400 0x8>;
+ 				arm,primecell-periphid = <0x00353180>;
+ 				interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>;
+-				clocks = <&rcc CK_KER_SDMMC1 >;
++				clocks = <&rcc CK_KER_SDMMC1>;
+ 				clock-names = "apb_pclk";
+ 				resets = <&rcc SDMMC1_R>;
+ 				cap-sd-highspeed;
 -- 
 2.53.0
 
