@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id faseNz6vUmpESQMAu9opvQ
+	id xwmdBj+vUmpFSQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:50 +0200
+	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id C40EF742DE5
+	by mail.lfdr.de (Postfix) with ESMTPS id E75C2742DEA
 	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b=LHmh6EZp;
+	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b="OKYLE/VV";
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=nabladev.com (policy=reject);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 8F577C9AE4F;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id A69DFC9AE53;
 	Sat, 11 Jul 2026 21:01:50 +0000 (UTC)
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9CA18C7A835
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 6BFA1C7A835
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jul 2026 21:01:48 +0000 (UTC)
+ Sat, 11 Jul 2026 21:01:49 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 5581A119823; Sat, 11 Jul 2026 23:01:47 +0200 (CEST)
+ with ESMTPSA id 4C983119826; Sat, 11 Jul 2026 23:01:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1783803707; h=from:subject:date:message-id:to:cc:mime-version:
+ s=dkim; t=1783803708; h=from:subject:date:message-id:to:cc:mime-version:
  content-transfer-encoding:in-reply-to:references;
- bh=2eerO83FR9XLVJDLYJUhN9olbnCS8UH6ub1IdYOkeRY=;
- b=LHmh6EZpP36TorzqAJRec9nu4MuXA3Ib02qlFKHh/CKqDTtfKCvwv1lpmJ4Gf+pc0/ndjN
- sRLAkTQgtn0xPJCBpr+6GrTQwPqi0LWqUly8VpB0RQ831jGPwBOmGjFqB8/YTgA/Wxmna2
- HGYYA5tvT7YjeHaPfqn0Q2lbxcMjDU3GFy58uXcj88X7j4A0aRdKt+fNQIosw3hIPNKT5F
- 4jpV+lYTd9uFrntsOMEp8+8Rbc4avOG1lRpdzumtxc7o19IUaxQ3JBekob0it8QbOvDzXg
- l03Oekbdw4dzgaKSKYAJ878xaIPJTn0A5fVWkLS4oFGqD+Plt0RlK+47d72Ccg==
+ bh=IQ/2jO9kY86PBveaA7H07jnCAULpl2h71VwR4VV58eY=;
+ b=OKYLE/VVcOkNBDQn2Yd4FgbE+2flqHj5p4DN0VcY+B4XF0gEyGkfvODqgGNUlrT9QqzxQU
+ 0hqzG2VUxj4bbpUNS1cXmLtvaaGZ2r5ZSNy1XSsB1O7/dlGSpHP/24m7f7EZfC0G9zaLVW
+ GmlJYO2VqdTqEiMzZhKQukhXp2McDoiV2khX766HzS+uDeE+kLp6SGaXky8M53Vqkb45oJ
+ 8s1Ackks7Tyoi8KCVyOXXKJYYykLVPocsGjGZirKcGf4vQgbanMpt739gsn2AQ0MfpRI3t
+ E4ymYcHNTo5aiAzli4NpwtlkIU2hGT8tGxFO/X0fYYvTDkgjUnm/PjrY7UwTVg==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sat, 11 Jul 2026 22:59:30 +0200
-Message-ID: <20260711210131.236025-2-marex@nabladev.com>
+Date: Sat, 11 Jul 2026 22:59:31 +0200
+Message-ID: <20260711210131.236025-3-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260711210131.236025-1-marex@nabladev.com>
 References: <20260711210131.236025-1-marex@nabladev.com>
@@ -48,8 +48,8 @@ Cc: Marek Vasut <marex@nabladev.com>, Conor Dooley <conor+dt@kernel.org>,
  linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  kernel@dh-electronics.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Rob Herring <robh@kernel.org>
-Subject: [Linux-stm32] [PATCH 01/10] dt-bindings: arm: stm32: Document
-	STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC
+Subject: [Linux-stm32] [PATCH 02/10] dt-bindings: gpio: pca95xx: Document
+	Kinetic KTS1622
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,31 +102,14 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: C40EF742DE5
+X-Rspamd-Queue-Id: E75C2742DEA
 X-Spam: Yes
 
-This stm32mp25xx-dhcos-bb board is a stack of DHCOS SoM based on
-STM32MP25xx SoC (1200MHz / crypto capabilities) populated on SoM
-Breakout Board, the stm32mp255c-dhcos-dhsbc is the SoM populated
-on DHSBC carrier board. The stm32mp23xx-dhcos-bb is a stack with
-STM32MP23xx SoC.
-
-The SoM contains the following peripherals:
-- STPMIC (power delivery)
-- 4GiB LPDDR4 memory
-- eMMC and SDIO WiFi module
-
-The Breakout Board carrier board contains the following peripherals:
-- USB-C peripheral port, power supply plug
-
-The DHSBC carrier board contains the following peripherals:
-- Two RGMII Ethernet ports
-- MicroSD slot
-- LVDS connector
-- MIPI CSI2 connector
-- USB-A Host port, USB-C power supply plug
-- USB-C / DP port
-- Expansion connector
+The Kinetic Technologies KTS1622 is a 16-bit general-purpose I/O
+expander via the I2C bus for microcontrollers when additional I/Os
+are needed while keeping interconnections to the minimum. Datasheet
+comparison suggests that it is compatible with TCAL6416, add the
+compatible string and TCAL6416 as a fallback compatible.
 
 Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
@@ -143,45 +126,23 @@ Cc: linux-gpio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 ---
- .../devicetree/bindings/arm/stm32/stm32.yaml   | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-index c6af3a46364fc..2045dc2e54a60 100644
---- a/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-+++ b/Documentation/devicetree/bindings/arm/stm32/stm32.yaml
-@@ -196,6 +196,18 @@ properties:
-           - const: ultratronik,stm32mp157c-ultra-fly-sbc
-           - const: st,stm32mp157
- 
-+      - description: DH STM32MP251 DHCOS SoM based Boards
-+        items:
-+          - const: dh,stm32mp251a-dhcos-bb
-+          - const: dh,stm32mp251a-dhcos-som
-+          - const: st,stm32mp251
-+
-+      - description: DH STM32MP255 DHCOS SoM based Boards
-+        items:
-+          - const: dh,stm32mp255c-dhcos-dhsbc
-+          - const: dh,stm32mp255c-dhcos-som
-+          - const: st,stm32mp255
-+
-       - description: ST STM32MP257 based Boards
-         items:
+diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+index 4f955f855e1ab..4631388a7d914 100644
+--- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
++++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+@@ -22,6 +22,9 @@ properties:
+       - items:
+           - const: diodes,pi4ioe5v6534q
+           - const: nxp,pcal6534
++      - items:
++          - const: kinetic,kts1622
++          - const: ti,tcal6416
+       - items:
            - enum:
-@@ -203,6 +215,12 @@ properties:
-               - st,stm32mp257f-ev1
-           - const: st,stm32mp257
- 
-+      - description: DH STM32MP231 DHCOS SoM based Boards
-+        items:
-+          - const: dh,stm32mp231a-dhcos-bb
-+          - const: dh,stm32mp231a-dhcos-som
-+          - const: st,stm32mp231
-+
-       - description: ST STM32MP235 based Boards
-         items:
-           - enum:
+               - exar,xra1202
 -- 
 2.53.0
 
