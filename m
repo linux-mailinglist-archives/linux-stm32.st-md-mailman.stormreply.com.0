@@ -2,41 +2,41 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id BHERHEKvUmpLSQMAu9opvQ
+	id VHlVKEKvUmpMSQMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
 	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:54 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 424A8742DFA
+	by mail.lfdr.de (Postfix) with ESMTPS id 86FAC742DFD
 	for <lists+linux-stm32@lfdr.de>; Sat, 11 Jul 2026 23:01:54 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b=RdIv06CH;
+	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b=JIKUv9Qw;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=nabladev.com (policy=reject);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0E9F1C9AE52;
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 53714C9AE54;
 	Sat, 11 Jul 2026 21:01:54 +0000 (UTC)
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id A80FCC7A835
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 9D5D3C9AE59
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sat, 11 Jul 2026 21:01:52 +0000 (UTC)
+ Sat, 11 Jul 2026 21:01:53 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AD60C11984A; Sat, 11 Jul 2026 23:01:51 +0200 (CEST)
+ with ESMTPSA id 800B111984D; Sat, 11 Jul 2026 23:01:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1783803712; h=from:subject:date:message-id:to:cc:mime-version:
+ s=dkim; t=1783803713; h=from:subject:date:message-id:to:cc:mime-version:
  content-transfer-encoding:in-reply-to:references;
- bh=t0igColYo8lf+okIQ7LIWkFdSL6QQu6yk+YXD+uc4qQ=;
- b=RdIv06CHjXkGHg4lVtdHGd5P8wnNDCQNQba4sFYO5e/XXVW8O90bcJup672QCDCHUf+okz
- qULDII9zXOPSHtSr3wDsDqKeAyHTjHHQ5uzTmksq9KEOye3IujAebG0CRYj6Y1y+5Qx779
- kv96adXO+pg1q1Ho4vLzRCmhGVHW2Hqo9zvuznTnhMoSzL+812Q8ndYsSqXHxPvwR16EXD
- S6EzENnzBLiQSmc3gWVVYM6o00KzOFyr0EFWUoijAz2PFzgL9dlWQlH06s0xn2hqz/P+pq
- CPzQNsDnAkzi7K3u318VAuXkLAgN9oTLM8lRy0EHxSFYAT0DNcUf2wyr/j3HPg==
+ bh=FKsUHHGH/SII730m2DtTgjJ0hYE983TDVtK6awQQBNM=;
+ b=JIKUv9Qw6FRXnOuL5Z1N+Hy8bYD1Z+NiLmyTYNl1GUVcJdd2tSeMmXf7fbZY06mb1MF+IS
+ y2r4YDPj8veMp0iLkufZW4q1uoje0dwSGugrb0O4jBfXNXB8ur7QbaCL0rWWPfWu/ZR3Y6
+ s1mOujyzLb2OgFVP4dnPoJmduWxZEAEpcLwPW/m4RqWTcGFiaz+klVCp8pgjU2Ie2JHkMo
+ +6rane4Dqv8lqAZOqIEhr4v16p65f3ujNwa0fdhnQGsizxpiyLE3BkB1nLZmoZSjvWCijt
+ vMY7lNhFqS1WNdf200ipRTenl3enjVxwXyE2RVJ6WgXAUZCTc2g5Hsjadwjw2Q==
 From: Marek Vasut <marex@nabladev.com>
 To: linux-arm-kernel@lists.infradead.org
-Date: Sat, 11 Jul 2026 22:59:35 +0200
-Message-ID: <20260711210131.236025-7-marex@nabladev.com>
+Date: Sat, 11 Jul 2026 22:59:36 +0200
+Message-ID: <20260711210131.236025-8-marex@nabladev.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260711210131.236025-1-marex@nabladev.com>
 References: <20260711210131.236025-1-marex@nabladev.com>
@@ -48,8 +48,8 @@ Cc: Marek Vasut <marex@nabladev.com>, Conor Dooley <conor+dt@kernel.org>,
  linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
  kernel@dh-electronics.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Rob Herring <robh@kernel.org>
-Subject: [Linux-stm32] [PATCH 06/10] arm64: dts: st: Add SDMMC2 and SDMMC3
-	nodes on stm32mp251
+Subject: [Linux-stm32] [PATCH 07/10] arm64: dts: st: Add OMM node on
+	stm32mp231
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -102,10 +102,11 @@ X-Spamd-Result: default: False [6.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 424A8742DFA
+X-Rspamd-Queue-Id: 86FAC742DFD
 X-Spam: Yes
 
-Add DT nodes for the remaining SDMMC controllers 2 and 3.
+Add Octo Memory Manager (OMM) entry on stm32mp231 and its two
+OSPI instance.
 
 Signed-off-by: Marek Vasut <marex@nabladev.com>
 ---
@@ -122,50 +123,74 @@ Cc: linux-gpio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
 Cc: linux-stm32@st-md-mailman.stormreply.com
 ---
- arch/arm64/boot/dts/st/stm32mp251.dtsi | 30 ++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ arch/arm64/boot/dts/st/stm32mp231.dtsi | 54 ++++++++++++++++++++++++++
+ 1 file changed, 54 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-index 66f3f83b8731f..6e985f115b195 100644
---- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
-+++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
-@@ -1667,6 +1667,36 @@ sdmmc1: mmc@48220000 {
- 				status = "disabled";
- 			};
+diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+index d70812f094142..4505fc0e3b537 100644
+--- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
+@@ -222,6 +222,60 @@ hpdma3: dma-controller@40420000 {
+ 			#dma-cells = <3>;
+ 		};
  
-+			sdmmc2: mmc@48230000 {
-+				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
-+				arm,primecell-periphid = <0x00353180>;
-+				reg = <0x48230000 0x400>, <0x44230800 0x8>;
-+				interrupts = <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_SDMMC2>;
-+				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC2_R>;
-+				cap-sd-highspeed;
-+				cap-mmc-highspeed;
-+				max-frequency = <166000000>;
-+				access-controllers = <&rifsc 77>;
++		ommanager: ommanager@40500000 {
++			compatible = "st,stm32mp25-omm";
++			reg = <0x40500000 0x400>, <0x60000000 0x10000000>;
++			reg-names = "regs", "memory_map";
++			ranges = <0 0 0x40430000 0x400>,
++				 <1 0 0x40440000 0x400>;
++			clocks = <&rcc CK_BUS_OSPIIOM>,
++				 <&scmi_clk CK_SCMI_OSPI1>,
++				 <&scmi_clk CK_SCMI_OSPI2>;
++			clock-names = "omm", "ospi1", "ospi2";
++			resets = <&rcc OSPIIOM_R>,
++				 <&scmi_reset RST_SCMI_OSPI1>,
++				 <&scmi_reset RST_SCMI_OSPI2>;
++			reset-names = "omm", "ospi1", "ospi2";
++			access-controllers = <&rifsc 111>;
++			power-domains = <&cluster_pd>;
++			#address-cells = <2>;
++			#size-cells = <1>;
++			st,syscfg-amcr = <&syscfg 0x2c00 0x7>;
++			status = "disabled";
++
++			ospi1: spi@0 {
++				compatible = "st,stm32mp25-ospi";
++				reg = <0 0 0x400>;
++				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
++				dmas = <&hpdma 2 0x62 0x3121>,
++				       <&hpdma 2 0x42 0x3112>;
++				dma-names = "tx", "rx";
++				clocks = <&scmi_clk CK_SCMI_OSPI1>;
++				resets = <&scmi_reset RST_SCMI_OSPI1>,
++					 <&scmi_reset RST_SCMI_OSPI1DLL>;
++				access-controllers = <&rifsc 74>;
++				power-domains = <&cluster_pd>;
++				st,syscfg-dlyb = <&syscfg 0x1000>;
 +				status = "disabled";
 +			};
 +
-+			sdmmc3: mmc@48240000 {
-+				compatible = "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
-+				arm,primecell-periphid = <0x00353180>;
-+				reg = <0x48240000 0x400>, <0x44230c00 0x8>;
-+				interrupts = <GIC_SPI 214 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&rcc CK_KER_SDMMC3>;
-+				clock-names = "apb_pclk";
-+				resets = <&rcc SDMMC3_R>;
-+				cap-sd-highspeed;
-+				cap-mmc-highspeed;
-+				max-frequency = <166000000>;
-+				access-controllers = <&rifsc 78>;
++			ospi2: spi@1 {
++				compatible = "st,stm32mp25-ospi";
++				reg = <1 0 0x400>;
++				interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
++				dmas = <&hpdma 3 0x62 0x3121>,
++				       <&hpdma 3 0x42 0x3112>;
++				dma-names = "tx", "rx";
++				clocks = <&scmi_clk CK_SCMI_OSPI2>;
++				resets = <&scmi_reset RST_SCMI_OSPI2>,
++					 <&scmi_reset RST_SCMI_OSPI2DLL>;
++				access-controllers = <&rifsc 75>;
++				power-domains = <&cluster_pd>;
++				st,syscfg-dlyb = <&syscfg 0x1400>;
 +				status = "disabled";
 +			};
++		};
 +
- 			ethernet1: ethernet@482c0000 {
- 				compatible = "st,stm32mp25-dwmac", "snps,dwmac-5.20";
- 				reg = <0x482c0000 0x4000>;
+ 		rifsc: bus@42080000 {
+ 			compatible = "st,stm32mp25-rifsc", "simple-bus";
+ 			reg = <0x42080000 0x1000>;
 -- 
 2.53.0
 
