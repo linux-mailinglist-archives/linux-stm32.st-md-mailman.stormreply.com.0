@@ -2,94 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id BDPmJqwVVGqEhwMAu9opvQ
+	id GiwxKhIWVGqghwMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 00:31:08 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 00:32:50 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 24CFB7462CD
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 00:31:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FC897462EA
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 00:32:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=XyAg9BNc;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=lXh78jh6;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id CB1D2C8F271;
-	Sun, 12 Jul 2026 22:31:07 +0000 (UTC)
-Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com
- [209.85.210.182])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 0109AC8F271;
+	Sun, 12 Jul 2026 22:32:50 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 623F9C7A833
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 61AE0C7BF8B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jul 2026 22:31:05 +0000 (UTC)
-Received: by mail-pf1-f182.google.com with SMTP id
- d2e1a72fcca58-8454160043aso2436679b3a.3
+ Sun, 12 Jul 2026 22:32:48 +0000 (UTC)
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-38759bcd877so1998393a91.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Sun, 12 Jul 2026 15:31:05 -0700 (PDT)
+ Sun, 12 Jul 2026 15:32:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20251104; t=1783895464; x=1784500264;
+ d=gmail.com; s=20251104; t=1783895567; x=1784500367;
  darn=st-md-mailman.stormreply.com; 
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=m0aMkvFlpD7qcpmPu98mFfzTGpFjwWgjgBJW3Blyf0I=;
- b=XyAg9BNc6jM1wXZquTI3V+V9kO0iFmE4e3bKzaIwEVs8K3G6zZaVVUOANxUi5jtX1g
- 68XRJcyPx5/+//pEfLvaRVUUcLfSccB8R3/OWDHF+er0RXl+2yqjO2nTvUjDTZB25SgH
- +w/yrovRRIQ5yxe5OZY3N3MA5mvY0sfck30jwkjKM0eEV4xPZgilEPKkoSo0LP+mKJUq
- abjdDA52P+ZiLVzcSSBnOX9NXnL6C8wXIS51ekgcdBBbO2dW2H4wNn1dAR0tEG9uWdgo
- BIuXBV+cyQj3nSq5jD3SPomYiYqaQ9xhN4pOYAc3RrkOcbwmpP5WBgjfPsJHr6dXHYpp
- NqQg==
+ bh=2kQZPoHSijeo1tUSaMcbyM3cWe1NTKRtsDQpKGYRUEs=;
+ b=lXh78jh6RTSYVTJ15qHx78wy/onm/JQuHksmv4AsEhxTsBg3l97w+RoEeefkr4w3Q6
+ MeVircihXHPxVrfTjmhGrylN/hizPEi11IZ8fZJr43p1Gk6b6hpzH/Gs+AugFQsUZ2Wy
+ pQqI4D1yGFNK9jr428GNTlBbuhb2uIiCQ6qqi/K2p7jkgkhWq204Nt1fNBENURP+Djgw
+ IcpRNYMHXQYIkwB+vvwzbDHr04S9UeO3MK77rSf0WuqPmaqmgnSOI+ItjXWXc9KIpfYs
+ PxQzbNgad1aejpXEeR/JIOtPn7nX8nXbzzpIeUi/2IhU1+W7qrHf/FjuodDU6bHJ9per
+ H31A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783895464; x=1784500264;
+ d=1e100.net; s=20251104; t=1783895567; x=1784500367;
  h=in-reply-to:content-disposition:content-type:mime-version
  :references:message-id:subject:cc:to:from:date:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=m0aMkvFlpD7qcpmPu98mFfzTGpFjwWgjgBJW3Blyf0I=;
- b=Hc2NsYEadeyb7NcIfrGGNAwsE63w2ndIvjs2rOmu7eGu4AsNfMNQNthN8KJT5pJVMz
- VEoVIPI60mFpenqzl61bwKeEaYKctbKod3NuwPIjqpYkRCn9V9eAQrJ7EUXFjxYAyymk
- ovrpgTBJPrwSIrxgsVzsG+0ebL4/PqBJH5VYukFN7ok26nm6l/LVoaI3V7BT7VxONN+f
- dOKgOXEid/7vZFqby/aawiuecLEZRtJ6vI4zxS8DSk6RvemFdxQREXD6SSow9YJFP8fY
- luDBK+XohXoOGU7h9VfTzEkCfa8+CDUmkoYbfeM31qig8vFjnuyjgcoOukbhAxBPFOGc
- iKVg==
+ bh=2kQZPoHSijeo1tUSaMcbyM3cWe1NTKRtsDQpKGYRUEs=;
+ b=pkXrC/iksYshHtVlktzUZWNwA4riAXBjAZf01MUOAlzgsxO9uJ3CxdJnP9dke6xDZt
+ pPKwBeVW1Jm1gp8S+zLhHkpj8wj7ir69X+3VvCE/BXV74Qa+br6T4h61nZWUDzNaJVEx
+ FGGZmBfWKvv6q3VwCOe3Tjbvxz9MfJMb2AC/UMuutMYKgO6oitxz8bjcknTCgwRDByEr
+ iolZ1byPYrqYTCvRtRNDkVKyP97YA8ujQuC5CzoEZ66waIol3hUc4aZWv6Pxlc7IaoXD
+ /lFDKHLdju+vQvdEmkvPEP2X9HrBnd2JdUeIK9DcJ+vFLdhNbFFqcWZ8ko5KnwhUEpbN
+ lZWQ==
 X-Forwarded-Encrypted: i=1;
- AHgh+RpiWtLb+eGFzeHseyG59o6sw+iPCsPnNHcPNAEkE2hqwPClB2/V+ygDJud6B3f/TG42tvGXpaC6YqhzWg==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyUaST/fb6PmN1YsCClMTalRl5tNeKGHxbT+NybVZxYUtmAMkgA
- j4u4dclD6Q75T99Cm8PpB9wd695hIOiLfTw4HGdv+xjBxF8MCds6UAlL
-X-Gm-Gg: AfdE7cmyREO/02OGVel42ddTPV1t/i9vIeIUc8vDm3iiGHYKR570RU5ROuKkQ9w3RAa
- 84462gxRabqe2asCPZDC8AgIAIMl/7Sp3hSfLIOz9YXQRVNDHqQYa85s8G7DZC99XozmZojB5z2
- tdySZIPydmBceffJoUcoXTEiA5V/yY3JtTLnG7fgX+o7oAkLrHQUgBO5AAdelu75lYnP2vkbTT0
- CiTxriobhN+zg2/X7OyarFA+0hfZtY4V9AHIe1U1xohyi2xUukh0n9Ma4jNc/YhXLMUc+JLnb+1
- 0XdPI6hwm+ApbQJx1KFeRTzApHbMYZ/jkjOKrMXkWf0U9nI6byBYNCOvXEB9JxKVf43ZMzqB9Vc
- 8Bci0FQLhQxNPDzrrKp7wlnhOKMLNVg7/FO9v8oxcp8NYpKYMWe4vrVkHvHlKMRa5
-X-Received: by 2002:a05:6a00:3e24:b0:847:86b0:888c with SMTP id
- d2e1a72fcca58-8488971d94bmr6700212b3a.48.1783895463640; 
- Sun, 12 Jul 2026 15:31:03 -0700 (PDT)
+ AHgh+RpzLn9hUbMJFNe73hKQRPImKkZgOdCSJvCby80qCppVd5XLeGHG+jgWYVboQ9PfEWRt8e3rLa4zyuNBoQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yy6yAErXndI9QPx+ST4MHgtRy9jFZ0wnZrbQ+RTUIXJXee85tXy
+ xOBJAX3zBoqCAevEpRteP0XkNF0XirL6HchkWdaOyeHb3aXWN0DSJNjj
+X-Gm-Gg: AfdE7ckzwv1mUUnNOtBeetoRItO14c347IZtpp8SYeympMwlH2NDfnZi1kcIg6FijqN
+ 8vlTB6/4YnJ79uBYAs2DcSZzUK9jmlDU48Fb4iZp/AYEoENzjaZ2UbReDpeaa46Efd20x0k2ku/
+ Hk6ICs1ksOMVDQmaGTNHavslaETl/GA+siDjHZ/eQpRKPibcm4i17MX68PLuoV/8TUa4HWmvfDy
+ 6biiNzWQ0I4ma71Fl3rYOIonYjYnSX6lGzSxLmXUN86cHXw70JSiT411agBsWvWj2riJ0O/xdY/
+ gmYB769S1bjzXQqoNhdc5rOdL8H29SOM9XJxgGCAv7f9JXCCJmhdvYC1q2bIv6m68JTV+rFxH5n
+ CadBSa8Qs7B+z/XAOMMICsBlyD0khBwKUl4eenBDcxeoTfLQBrq58lOkl8I9ac1U/
+X-Received: by 2002:a17:90a:da86:b0:387:e0bb:5800 with SMTP id
+ 98e67ed59e1d1-38dc7ba7310mr5970904a91.39.1783895566751; 
+ Sun, 12 Jul 2026 15:32:46 -0700 (PDT)
 Received: from localhost ([2001:da8:7001:11::cb])
  by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-84a3b8d3310sm345744b3a.40.2026.07.12.15.31.02
+ 5a478bee46e88-311747f7293sm61166210eec.3.2026.07.12.15.32.45
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 12 Jul 2026 15:31:03 -0700 (PDT)
-Date: Mon, 13 Jul 2026 06:30:19 +0800
+ Sun, 12 Jul 2026 15:32:46 -0700 (PDT)
+Date: Mon, 13 Jul 2026 06:32:02 +0800
 From: Inochi Amaoto <inochiama@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Message-ID: <alQVRx2vCWnqCDEs@inochi.infowork>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ Inochi Amaoto <inochiama@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ Eric Dumazet <edumazet@google.com>, "David S. Miller" <davem@davemloft.net>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Yixun Lan <dlan@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Message-ID: <alQVg3QqoIdwGEmR@inochi.infowork>
 References: <20260712045233.800748-1-inochiama@gmail.com>
  <bc78469c-3f45-4234-88b0-49f050d651db@bootlin.com>
- <8689bf7d-e00d-4097-bd3c-4d7d7844d1d2@lunn.ch>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <8689bf7d-e00d-4097-bd3c-4d7d7844d1d2@lunn.ch>
-Cc: linux-kernel@vger.kernel.org, E Shattow <e@freeshell.de>,
- Inochi Amaoto <inochiama@gmail.com>, Han Gao <gaohan@iscas.ac.cn>,
- linux-stm32@st-md-mailman.stormreply.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, Yixun Lan <dlan@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, linux-riscv@lists.infradead.org,
- Paolo Abeni <pabeni@redhat.com>, spacemit@lists.linux.dev,
- "David S. Miller" <davem@davemloft.net>, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <bc78469c-3f45-4234-88b0-49f050d651db@bootlin.com>
+Cc: E Shattow <e@freeshell.de>, netdev@vger.kernel.org,
+ Han Gao <gaohan@iscas.ac.cn>, linux-kernel@vger.kernel.org,
+ linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
 Subject: Re: [Linux-stm32] Failed to reinit phy of spacemit-dwmac when
 	reset-gpio is present
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
@@ -113,64 +112,89 @@ X-Spamd-Result: default: False [3.39 / 15.00];
 	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
 	HAS_LIST_UNSUB(-0.01)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:maxime.chevallier@bootlin.com,m:inochiama@gmail.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:davem@davemloft.net,m:kuba@kernel.org,m:pabeni@redhat.com,m:dlan@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:e@freeshell.de,m:netdev@vger.kernel.org,m:gaohan@iscas.ac.cn,m:linux-kernel@vger.kernel.org,m:linux-riscv@lists.infradead.org,m:spacemit@lists.linux.dev,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:andrew@lunn.ch,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andrew@lunn.ch,m:maxime.chevallier@bootlin.com,m:linux-kernel@vger.kernel.org,m:e@freeshell.de,m:inochiama@gmail.com,m:gaohan@iscas.ac.cn,m:linux-stm32@st-md-mailman.stormreply.com,m:andrew+netdev@lunn.ch,m:edumazet@google.com,m:netdev@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:dlan@kernel.org,m:kuba@kernel.org,m:linux-riscv@lists.infradead.org,m:pabeni@redhat.com,m:spacemit@lists.linux.dev,m:davem@davemloft.net,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FREEMAIL_TO(0.00)[bootlin.com,gmail.com,lunn.ch,google.com,davemloft.net,kernel.org,redhat.com,foss.st.com];
 	FORGED_SENDER(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FREEMAIL_FROM(0.00)[gmail.com];
 	ARC_NA(0.00)[];
 	RCPT_COUNT_TWELVE(0.00)[18];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	MIME_TRACE(0.00)[0:+];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[gmail.com:-];
-	TO_DN_SOME(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ALIAS_RESOLVED(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[vger.kernel.org,freeshell.de,gmail.com,iscas.ac.cn,st-md-mailman.stormreply.com,lunn.ch,google.com,kernel.org,lists.infradead.org,redhat.com,lists.linux.dev,davemloft.net];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[inochiama@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,netdev];
 	MISSING_XM_UA(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:url,stormreply.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,inochi.infowork:mid]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 24CFB7462CD
+X-Rspamd-Queue-Id: 3FC897462EA
 
-On Sun, Jul 12, 2026 at 03:49:43PM +0200, Andrew Lunn wrote:
-> > > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > > @@ -196,7 +196,8 @@ &eth0 {
-> > > 
-> > >  	mdio {
-> > >  		phy0: phy@1 {
-> > > -			compatible = "ethernet-phy-ieee802.3-c22";
-> > > +			compatible = "ethernet-phy-id001c.c916",
-> > > +				     "ethernet-phy-ieee802.3-c22";
+On Sun, Jul 12, 2026 at 10:55:51AM +0200, Maxime Chevallier wrote:
+> Hi Inochi,
+> 
+> On 7/12/26 06:52, Inochi Amaoto wrote:
+> > TL;DR:
 > > 
-> > Indeed that's merely a workaround :(
+> > The DWMAC on Spacemit K3 is failled to register phy after the reload
+> > the driver module (rmmod then insmod). Because the reset-gpio is
+> > asserted while unloading the driver and is not desserted before reading
+> > the c22 id, which leads to a fault.
 > 
-> Despite is being a workaround, there has not been much progress on a
-> generic framework for dealing with clocks, resets, regulators etc,
-> before probing PHYs. So this is probably what you want to do.
+> You're not the first one facing this type of issues, this is a long standing
+> source of issues. The problem is partially hidden by the fact that often times
+> the bootloader deals with the PHY reset (like the case you're facing)
 > 
->        Andrew
+> Take a look at these discussions :
+> 
+> https://lore.kernel.org/netdev/cover.1761732347.git.buday.csaba@prolan.hu/
+> 
+> and maybe more intersting, Russell suggested an approach on how we could potentially
+> address this here :
+> 
+> https://lore.kernel.org/all/aTBeVTlsElGXUCSN@shell.armlinux.org.uk/
+> 
+> 
 
-OK, I think I should accept the fact and let this workaround
-solve the problem.
+Yeah, I have found these links, but it is something more than I want,
+so I think I should deal with this carefully. I will have a try if I
+have enough time, but currently I will send this workaround to dlan
+to solve the problem....
 
 Regards,
 Inochi
+
+
+> > ---
+> > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> > @@ -196,7 +196,8 @@ &eth0 {
+> > 
+> >  	mdio {
+> >  		phy0: phy@1 {
+> > -			compatible = "ethernet-phy-ieee802.3-c22";
+> > +			compatible = "ethernet-phy-id001c.c916",
+> > +				     "ethernet-phy-ieee802.3-c22";
+> 
+> Indeed that's merely a workaround :(
+> 
+> Maxime
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
