@@ -2,57 +2,94 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id MVGTDU90VWpzogAAu9opvQ
+	id rXNqEkPKVGp7TgAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 01:27:11 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 13:21:39 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF08474FB27
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 01:27:10 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B9A3D74A4C5
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 13:21:38 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=nabladev.com header.s=dkim header.b=fUzXAIaS;
+	dkim=fail ("body hash did not verify") header.d=intel.com header.s=Intel header.b=Lj2kwDTD;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=nabladev.com (policy=reject)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=intel.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99395CA8E50;
-	Mon, 13 Jul 2026 23:27:10 +0000 (UTC)
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 58254C8F275;
+	Mon, 13 Jul 2026 11:21:38 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id EB254C7BF97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51DB6C7A83B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 23:27:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 6C4A21199D6; Tue, 14 Jul 2026 01:27:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
- s=dkim; t=1783985228;
- h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:content-language:in-reply-to:references;
- bh=wkoq468eULIdSiAa93TheBL4sQoUuAbGk8pmYh3mGOs=;
- b=fUzXAIaSuCh0oLPMva5wnofUcYh/u51JZN3FvET/4kCQJLdmKG3HlfRe7x0gCpHXzOogRX
- 15xvwUwAu3zbyLZto9isihoLwjwkb3NsO1R0qxFLsyYTYHBzioOy82PKkquo5O0nahn8ia
- /H6Rhz37FuMchcDLUMZKCm78dZuZp3a/6dFdrGjlXUpyrFNvpFAlp3Khnekk8F4HLRFJwf
- 54kSvAOTIHjuSJJx+bMJwzLVMqsvgs/1Z2qXyJOEPOUoxHlDiTCD88rkTel5SrMQ9Yh9gu
- vWg1bBFNXt2UWeqGaaLN//bfhV/n6PxulHNZCRcl71tBhwPzVLoQYoXPvc+wgg==
-Message-ID: <47178bf9-1fc7-4585-aa17-37ec07152b01@nabladev.com>
-Date: Mon, 13 Jul 2026 12:33:02 +0200
+ Mon, 13 Jul 2026 11:21:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1783941697; x=1815477697;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=qjNurRQVSwJBiieOW9ThoUFB9rqOdoEiG35XLbhQwBc=;
+ b=Lj2kwDTD1DSvIdonGO5OCt93nUtDibfaatcwOJEym0fG4r+9rzFnI1gg
+ 6roiuoqZckcE5Si4zbonp2GT/nSv94QhQd+0ifbKp1sPt1SXj/M/95mnv
+ n/LIyxqmYwHTij7pFp1t+CvTyFTRl8R0ztc1CsuwpUE06wXnLyAE1ATch
+ Ve13NtG8b+rKtShcqwcAsilAkCcBUmunsVoF3Mc9v91jRnTlaKxL8DLNC
+ udQOIZ/iZQqp1CI10CfeGs3So/O9fFk6C+q3SqesXM/NLJU4gYhPrdEv1
+ M3lsyvx+jFJZrozcvkU2fF+3ESGsITR/Tqa7ArAj0UyadUU6nvb7EAaEh g==;
+X-CSE-ConnectionGUID: LPwP7iikQ9im7UN2tOiYhw==
+X-CSE-MsgGUID: cICZCIyNSSeTn23geJD2WQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11841"; a="88372075"
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="88372075"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+ by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:21:35 -0700
+X-CSE-ConnectionGUID: FC1GeEyzSPKWMBYtZ/N88w==
+X-CSE-MsgGUID: 3GNUYWrFTM6f6PsT20OzmA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,154,1779174000"; d="scan'208";a="253788205"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.88])
+ by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 13 Jul 2026 04:21:26 -0700
+Date: Mon, 13 Jul 2026 14:21:24 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Tony Lindgren <tony.lindgren@linux.intel.com>
+Message-ID: <alTKNEk97jkVGfML@ashevche-desk.local>
+References: <20260709-add_return_check_for_uart_change_pm-v1-0-e85c6ffa8ec4@oss.qualcomm.com>
+ <ak9OPNcVAhkfxHvZ@ashevche-desk.local>
+ <20260710043746.GM30058@atomide.com>
+ <alSv8BPCOiyKvOI2@tlindgre-MOBL1>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Bartosz Golaszewski <brgl@kernel.org>
-References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-3-marex@nabladev.com>
- <CAMRc=Mds7FAg=e-JGWxK=9vn5A0sdYDhpZ7Wvo3eCKV1tyNpKw@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <CAMRc=Mds7FAg=e-JGWxK=9vn5A0sdYDhpZ7Wvo3eCKV1tyNpKw@mail.gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
-Cc: devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Rob Herring <robh@kernel.org>, Linus Walleij <linusw@kernel.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- kernel@dh-electronics.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 02/10] dt-bindings: gpio: pca95xx:
- Document Kinetic KTS1622
+Content-Disposition: inline
+In-Reply-To: <alSv8BPCOiyKvOI2@tlindgre-MOBL1>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Tony Lindgren <tony@atomide.com>, bjorn.andersson@oss.qualcomm.com,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+ Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+ chandana.chiluveru@oss.qualcomm.com, Alim Akhtar <alim.akhtar@samsung.com>,
+ Peter Korsgaard <jacmet@sunsite.dk>, Jiri Slaby <jirislaby@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-samsung-soc@vger.kernel.org,
+ aniket.randive@oss.qualcomm.com, Aaro Koskinen <aaro.koskinen@iki.fi>,
+ Chunyan Zhang <zhang.lyra@gmail.com>, Janusz Krzysztofik <jmkrzyszt@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Praveen Talari <praveen.talari@oss.qualcomm.com>, linux-serial@vger.kernel.org,
+ Orson Zhai <orsonzhai@gmail.com>, linux-mips@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ Matthias Brugger <matthias.bgg@gmail.com>, linux-omap@vger.kernel.org,
+ Michal Simek <michal.simek@amd.com>,
+ Richard Genoud <richard.genoud@bootlin.com>,
+ linux-arm-kernel@lists.infradead.org,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>, linux-kernel@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Subject: Re: [Linux-stm32] [PATCH 0/6] tty: serial: propagate errors from
+ uart_ops.pm callback
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -64,127 +101,79 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.99 / 15.00];
-	DMARC_POLICY_REJECT(2.00)[nabladev.com : SPF not aligned (relaxed),reject];
+X-Spamd-Result: default: False [3.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[nabladev.com:s=dkim];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
+	R_DKIM_REJECT(1.00)[intel.com:s=Intel];
+	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[intel.com : SPF not aligned (relaxed),none];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	GREYLIST(0.00)[pass,meta];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:brgl@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:robh@kernel.org,m:linusw@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:kernel@dh-electronics.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
 	RCVD_TLS_LAST(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
+	RCVD_COUNT_THREE(0.00)[4];
 	ARC_NA(0.00)[];
-	FORGED_SENDER(0.00)[marex@nabladev.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
+	FORGED_SENDER(0.00)[andriy.shevchenko@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[39];
+	FORGED_RECIPIENTS(0.00)[m:tony.lindgren@linux.intel.com,m:alexandre.belloni@bootlin.com,m:tony@atomide.com,m:bjorn.andersson@oss.qualcomm.com,m:claudiu.beznea@tuxon.dev,m:mukesh.savaliya@oss.qualcomm.com,m:chandana.chiluveru@oss.qualcomm.com,m:alim.akhtar@samsung.com,m:jacmet@sunsite.dk,m:jirislaby@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-samsung-soc@vger.kernel.org,m:aniket.randive@oss.qualcomm.com,m:aaro.koskinen@iki.fi,m:zhang.lyra@gmail.com,m:jmkrzyszt@gmail.com,m:linux@armlinux.org.uk,m:krzk@kernel.org,m:peter.griffin@linaro.org,m:praveen.talari@oss.qualcomm.com,m:linux-serial@vger.kernel.org,m:orsonzhai@gmail.com,m:linux-mips@vger.kernel.org,m:linux-arm-msm@vger.kernel.org,m:linux-mediatek@lists.infradead.org,m:baolin.wang@linux.alibaba.com,m:ilpo.jarvinen@linux.intel.com,m:matthias.bgg@gmail.com,m:linux-omap@vger.kernel.org,m:michal.simek@amd.com,m:richard.genoud@bootlin.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,
+ m:konrad.dybcio@oss.qualcomm.com,m:tsbogend@alpha.franken.de,m:gregkh@linuxfoundation.org,m:nicolas.ferre@microchip.com,m:linux-kernel@vger.kernel.org,m:mcoquelin.stm32@gmail.com,m:zhanglyra@gmail.com,m:matthiasbgg@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	MIME_TRACE(0.00)[0:+];
+	HAS_ORG_HEADER(0.00)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[marex@nabladev.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	DKIM_TRACE(0.00)[nabladev.com:-];
+	FREEMAIL_CC(0.00)[bootlin.com,atomide.com,oss.qualcomm.com,tuxon.dev,samsung.com,sunsite.dk,kernel.org,st-md-mailman.stormreply.com,vger.kernel.org,iki.fi,gmail.com,armlinux.org.uk,linaro.org,lists.infradead.org,linux.alibaba.com,linux.intel.com,amd.com,collabora.com,alpha.franken.de,linuxfoundation.org,microchip.com];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	RCPT_COUNT_SEVEN(0.00)[11];
-	MID_RHS_MATCH_FROM(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
 	FORGED_SENDER_FORWARDING(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[andriy.shevchenko@linux.intel.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	DKIM_TRACE(0.00)[intel.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,dh-electronics.com:email,nabladev.com:from_mime,nabladev.com:email,nabladev.com:mid,st.com:email,infradead.org:email]
+	MISSING_XM_UA(0.00)[];
+	ALIAS_RESOLVED(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[intel.com:email,ashevche-desk.local:mid,linux.intel.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CF08474FB27
+X-Rspamd-Queue-Id: B9A3D74A4C5
 
-On 7/13/26 10:36 AM, Bartosz Golaszewski wrote:
-> On Sat, 11 Jul 2026 22:59:31 +0200, Marek Vasut <marex@nabladev.com> said:
->> The Kinetic Technologies KTS1622 is a 16-bit general-purpose I/O
->> expander via the I2C bus for microcontrollers when additional I/Os
->> are needed while keeping interconnections to the minimum. Datasheet
->> comparison suggests that it is compatible with TCAL6416, add the
->> compatible string and TCAL6416 as a fallback compatible.
->>
->> Signed-off-by: Marek Vasut <marex@nabladev.com>
->> ---
->> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
->> Cc: Bartosz Golaszewski <brgl@kernel.org>
->> Cc: Conor Dooley <conor+dt@kernel.org>
->> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> Cc: Linus Walleij <linusw@kernel.org>
->> Cc: Rob Herring <robh@kernel.org>
->> Cc: devicetree@vger.kernel.org
->> Cc: kernel@dh-electronics.com
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-gpio@vger.kernel.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-stm32@st-md-mailman.stormreply.com
->> ---
->>   Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
->> index 4f955f855e1ab..4631388a7d914 100644
->> --- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
->> +++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
->> @@ -22,6 +22,9 @@ properties:
->>         - items:
->>             - const: diodes,pi4ioe5v6534q
->>             - const: nxp,pcal6534
->> +      - items:
->> +          - const: kinetic,kts1622
->> +          - const: ti,tcal6416
->>         - items:
->>             - enum:
->>                 - exar,xra1202
->> --
->> 2.53.0
->>
->>
+On Mon, Jul 13, 2026 at 12:29:20PM +0300, Tony Lindgren wrote:
+> On Fri, Jul 10, 2026 at 07:37:46AM +0300, Tony Lindgren wrote:
+> > * Andy Shevchenko <andriy.shevchenko@linux.intel.com> [260709 10:38]:
+> > > Note, that Tony (you have him in the Cc list) did a lot for some corner cases
+> > > with that and we still have them IIRC. Tony, do you know what is the state of
+> > > affairs with runtime PM for UART?
+> > 
+> > The RX side of things should work for hardware that can wake up to an incoming
+> > event. Linux for sure needs more work to properly handle the various corner case
+> > TX wake-up of a PM runtime idled UART. I'm mostly offline until Monday though,
+> > will check my notes for more details next week.
 > 
-> I applied this. I would have sent a b4 notification but got this instead:
+> For the TX side handling, my understanding is that at least uart_update_mctrl()
+> needs to call PM runtime resume and put autosuspend. And we should assume
+> uart_update_mctrl() can sleep to resume the PM runtime suspended serial port.
 > 
-> $ b4 ty -all
-> Auto-thankanating commits in gpio/for-next
-> Found 9 of your commits since 1.week
-> Calculating patch hashes, may take a moment...
->    Located: [PATCH 00/10] arm64: dts: st: Add support for DH
-> electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and
-> DHSBC
-> ---
-> Generating 1 thank-you letters
->    Writing: ./marex_nabladev_com_patch_00_10_arm64_dts_st_add_support_for_dh_electronics_stm32mp23xx_stm32mp25xx_dhcos_som_and_breakout_board_and_dhsbc.thanks
-> Traceback (most recent call last):
->    File "/usr/bin/b4", line 8, in <module>
->      sys.exit(cmd())
->               ~~~^^
->    File "/usr/lib/python3/dist-packages/b4/command.py", line 417, in cmd
->      cmdargs.func(cmdargs)
->      ~~~~~~~~~~~~^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/command.py", line 113, in cmd_ty
->      b4.ty.main(cmdargs)
->      ~~~~~~~~~~^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/ty.py", line 681, in main
->      auto_thankanator(cmdargs)
->      ~~~~~~~~~~~~~~~~^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/ty.py", line 386, in auto_thankanator
->      send_messages(applied, wantbranch, cmdargs)
->      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
->    File "/usr/lib/python3/dist-packages/b4/ty.py", line 452, in send_messages
->      with open(outfile, 'wb') as fh:
->           ~~~~^^^^^^^^^^^^^^^
-> OSError: [Errno 36] File name too long:
-> './marex_nabladev_com_patch_00_10_arm64_dts_st_add_support_for_dh_electronics_stm32mp23xx_stm32mp25xx_dhcos_som_and_breakout_board_and_dhsbc.thanks'
-B4 bug ?
+> For drivers, the callers of uport->ops->get/set_mctrl() should be updated
+> to use uart_update_mctrl() where possible. And the remaining ones that cannot
+> sleep should be fixed so they can sleep or have PM runtime disabled.
+> 
+> Anybody have better ideas?
+
+I don't, but the above sounds like a plan. Is it a big task? I can help with
+something in that area, perhaps Ilpo also would be able to participate.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
