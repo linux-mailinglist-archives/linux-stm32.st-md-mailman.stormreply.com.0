@@ -2,122 +2,173 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id ZX7JDx70VGqqhwAAu9opvQ
+	id g3+CMa70VGrUhwAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:20:14 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:22:38 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F25374C4BA
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:20:13 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D16574C538
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:22:33 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=lechnology.com header.s=default header.b=kPRts+KY;
+	dkim=temperror ("DNS error when getting key") header.d=arndb.de header.s=fm1 header.b=L51VZSt3;
+	dkim=fail ("body hash did not verify") header.d=messagingengine.com header.s=fm2 header.b="n qVoMSy";
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=none
+	dmarc=temperror reason="SPF/DKIM temp error" header.from=arndb.de (policy=temperror)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id D1781C8F275;
-	Mon, 13 Jul 2026 14:20:12 +0000 (UTC)
-Received: from galaxy.gendns.com (galaxy.gendns.com [66.235.175.158])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E9DEC8F275;
+	Mon, 13 Jul 2026 14:22:33 +0000 (UTC)
+Received: from fhigh-b2-smtp.messagingengine.com
+ (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+ (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 54189C87EB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 53F54C58D77
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 14:20:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- d=lechnology.com; s=default; h=Content-Transfer-Encoding:Content-Type:
- In-Reply-To:From:References:To:Subject:MIME-Version:Date:Message-ID:Sender:
- Reply-To:Cc:Content-ID:Content-Description:Resent-Date:Resent-From:
- Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
- List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
- bh=INl0jiwqDhGPDETixMKefTqug/oQonC2CS+nvIV3PMw=; b=kPRts+KYZ26uj+aJUVDbW7uRza
- +0I25symShHRG3ruTSswL+FzNtvluFi5NQsWI1E8OXGFttK+9GxIdozY4NeQTVAsP1WxAwYayp9ob
- Hg6Mdizci/iITZz4u3rn6aRLLdLz9DhiSSH6S67qzrL/D6fTfeTVAgGINn2kP9Ll2gEygQnrsymaF
- ugdGgnph3xdTbOD6X/0pbpoY+1ls3AyZetYdg/vG32hKD7/jDETDQTy/ChVnKH8lmjlxFn0Rc8PSr
- QOKCcnuEmoz0/XR9H+qKMDWFxEu70o3qIZyJeAlbNpKJ8wIgmDX52z6IjL3f+BUKV+cWj5PwUrc/Q
- BDA/zUPA==;
-Received: from ip98-183-112-25.ok.ok.cox.net ([98.183.112.25]:52858
- helo=[192.168.1.142])
- by galaxy.gendns.com with essmtpa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
- (Exim 4.99.4) (envelope-from <david@lechnology.com>)
- id 1wjHVy-00000009aEK-0hNn; Mon, 13 Jul 2026 10:20:09 -0400
-Message-ID: <1e330026-cd09-48d5-9478-4cff59f521e0@lechnology.com>
-Date: Mon, 13 Jul 2026 09:20:07 -0500
+ Mon, 13 Jul 2026 14:22:31 +0000 (UTC)
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 447597A0071;
+ Mon, 13 Jul 2026 10:22:29 -0400 (EDT)
+Received: from phl-imap-05 ([10.202.2.95])
+ by phl-compute-04.internal (MEProxy); Mon, 13 Jul 2026 10:22:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+ :cc:content-transfer-encoding:content-type:content-type:date
+ :date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to; s=fm1; t=1783952549;
+ x=1784038949; bh=CU2l/l+grvYULNyVB/JOkonr04ETPKXJ4oV6oaYMGmQ=; b=
+ L51VZSt3D0sQZJ86eoW8TsSiS8ndpbFjh1AzuSbpFef1lFXTImKnhKGwnqu4atjm
+ vD3gpcyxTFIxm3Xqc7LZVle6bYKzTiA5qTv1FXVHHXBi8Pt+8hUDWY0kxrfD3cnb
+ zpIypaARxo0b/yD6XT5RYv4nji6H8Dk8yuvb17833RBryUvU+5mrKZo525IxqkcX
+ waBzznApG32gmMdicRWNraHjfpKGEqh+Nxqw3QXktd4GHQ61X88lLRfYmmGi3b/p
+ FFELTNvB5QomRZzkGouMwCq3PpgpBAOrTcPNgZdF+zWVTM3TnDDc2PcBMPELDhSW
+ LjW3YRpc8Uadb6v8kwkqfA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:content-type:date:date:feedback-id:feedback-id
+ :from:from:in-reply-to:in-reply-to:message-id:mime-version
+ :references:reply-to:subject:subject:to:to:x-me-proxy
+ :x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1783952549; x=
+ 1784038949; bh=CU2l/l+grvYULNyVB/JOkonr04ETPKXJ4oV6oaYMGmQ=; b=n
+ qVoMSyDbNfi1FdT/UDr2Pmtq0c4QEagBtoHOn31ROZm3wzlAhgwX/9OK/4j+VYse
+ 95mSIso//1Ve6Hhsw+vv/qte/MKWAaknKjjU9+4OR5TgA5i8dCf/sY3f+WzZP9W/
+ 2sFYMBj0f7booKL21Zi5CjAGJ71BWPU8FbEGZfFccfDTyJQ9GFeMHoUttMv1ojxE
+ BJ0VWes/Cnly+PkwWN9kOmiI9n2FSPVArbSUJ/S+viJbPr2fwLHik6yAtpkL/5/D
+ g8kfHXEYWCL2Iq9p6QByH0Qq3Nkjlrek09CJCElXk6g19faE0oNOtHTqzuZx66Wy
+ ZQHTkhTBayQKPYDAY6rkw==
+X-ME-Sender: <xms:ovRUajBIsXUgDABx0NEfhe7XgaVGldrd2Ka8482OnxT3TUjXZlfhsg>
+ <xme:ovRUakWwJWs7-0TirTG1dAFOwv1XVAKt4OLw7b1d_zepvDu25PgHBdOQNYAeXNfJc
+ 6wLyyIPLvQC3_XNkuXvAmuz7BJezLZAZekhexUWrR99ZsDSqQQ0Bw>
+X-ME-Proxy-Cause: dmFkZTFqcwJE5anyfqiojVjksH5tB/3nDJOMgzaL4MffLvJCdssvyH+hKOtcXcDpBqa4sv
+ cTYGFVIOBQ9UuPNtXjB/V0Zqrjq2GMtsrV6GHk75lf46Ay7h6x7q+TmQuo3PrHDoreROk7
+ Rcv07HJ99rDqBInAKHe1BXoCwJ/z97EBkHOElbk9m5jcVnoI2AuqwN+DxJ8VYZMDJTKbuq
+ M5pgR8hSmdmg78onYSbwY9by5uzfaixHwRa+qRiG31tv9lA6cPC3l1yBm+kPz8idmp7iP9
+ zUWHqoKULz7Tzlx7EPCTQfbjmU4/FQCEi+d6ReWBh5D0rKurgS52grVfEKaF3lHstByRaJ
+ tRJjC5lZYI7v6OxRHVK0FjPjCseguZPND9Q8O6Ey+Z2RrbOA8yFYmFfpixuIaAtbA7jjn7
+ dCMDQMpWFsOI+nUF0+NB+EpLBTqmVXFJ17eEH6JoqDVoxGGDNvXsHvIGsEm26de4dNleKM
+ cjJZYp2Ov8juw5ckS/s8lvL8GH050Q93ZvsHaQpOaHb1EIpwdVN0EZ7sOz4HSRbNIOCFSc
+ /GjrJJJUIincyR2Zr2HVRr9MssT1yPnhNiRJZwybvWfRtNur9hFstqQBWjImsPzEA81ynM
+ DeOv+MiLUy/uRo3eXwLuqJHUFYwqKN4xlwrtnXT7OI0rzXM3VqxQIJO9yr8A
+X-ME-Proxy: <xmx:ovRUatfkPdirTgbKSaNUuFYpZUVi-yf6Jy3zt2hjYoVKF7RQTOzd8g>
+ <xmx:ovRUatCE0Bv0VvBTLq0LIFG-5IA8R6k-PFMd6sSE0NfitEs32Zq8vA>
+ <xmx:ovRUaoSWQJ0la1mNQ3pta5ssq090yuqSHS37h8M_CWd7Ln8wk_EOZA>
+ <xmx:ovRUaoJ4jP15A00r9YjOT0Ixaowe-VBEseQM5fypr7gUM_SB677qSg>
+ <xmx:pfRUanEiFrJI2pBYWuIeiVy1rvQeLM-iFP9W4UBxSWImEVlJkqzN0FjA>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+ id DC870182007E; Mon, 13 Jul 2026 10:22:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Pan Chuang <panchuang@vivo.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- William Breathitt Gray <wbg@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Vignesh Raghavendra <vigneshr@ti.com>, Julien Panis <jpanis@baylibre.com>,
- "open list:COUNTER SUBSYSTEM" <linux-iio@vger.kernel.org>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-stm32@st-md-mailman.stormreply.com>,
- "moderated list:ARM/STM32 ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>,
- "open list:TI ENHANCED CAPTURE (eCAP) DRIVER" <linux-omap@vger.kernel.org>
-References: <20260713131005.306069-1-panchuang@vivo.com>
-Content-Language: en-US
-From: David Lechner <david@lechnology.com>
-Autocrypt: addr=david@lechnology.com; keydata=
- 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
-In-Reply-To: <20260713131005.306069-1-panchuang@vivo.com>
-X-AntiAbuse: This header was added to track abuse,
- please include it with any abuse report
-X-AntiAbuse: Primary Hostname - galaxy.gendns.com
-X-AntiAbuse: Original Domain - st-md-mailman.stormreply.com
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - lechnology.com
-X-Get-Message-Sender-Via: galaxy.gendns.com: authenticated_id:
- davidmain+lechnology.com/only user confirmed/virtual account not confirmed
-X-Authenticated-Sender: galaxy.gendns.com: davidmain@lechnology.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-Subject: Re: [Linux-stm32] [PATCH] counter: Remove redundant
-	dev_err()/dev_err_probe()
+X-ThreadId: ARmmoW1aQeCk
+Date: Mon, 13 Jul 2026 16:22:05 +0200
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Fernando Fernandez Mancera" <fmancera@suse.de>,
+ Netdev <netdev@vger.kernel.org>
+Message-Id: <713178ff-0fb2-4f1b-90bc-9841cd42c20e@app.fastmail.com>
+In-Reply-To: <2256daf4-d03c-4a57-9d72-7a388d823f18@suse.de>
+References: <20260712013941.4570-1-fmancera@suse.de>
+ <20260712013941.4570-2-fmancera@suse.de>
+ <12ffac6a-649a-4e4a-8d12-0b48171e1d95@app.fastmail.com>
+ <2256daf4-d03c-4a57-9d72-7a388d823f18@suse.de>
+Cc: linux-sctp@vger.kernel.org, Tony Lu <tonylu@linux.alibaba.com>,
+ Christoph Hellwig <hch@lst.de>, Eelco Chaudron <echaudro@redhat.com>,
+ Xin Long <lucien.xin@gmail.com>, Geliang Tang <geliang@kernel.org>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Eric Biggers <ebiggers@kernel.org>, Nilesh Javali <njavali@marvell.com>,
+ Bhargava Marreddy <bhargava.marreddy@broadcom.com>,
+ Arend van Spriel <arend.vanspriel@broadcom.com>, Phil Sutter <phil@nwl.cc>,
+ Jiri Pirko <jiri@resnulli.us>, Vikas Gupta <vikas.gupta@broadcom.com>,
+ Aaron Conole <aconole@redhat.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Petr Machata <petrm@nvidia.com>, Christian Brauner <brauner@kernel.org>,
+ Saurav Kashyap <skashyap@marvell.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ b.a.t.m.a.n@lists.open-mesh.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-kernel@vger.kernel.org, Varun Prakash <varun@chelsio.com>,
+ GR-QLogic-Storage-Upstream@marvell.com, Wen Gu <guwen@linux.alibaba.com>,
+ linux-fsdevel@vger.kernel.org, Elad Nachman <enachman@marvell.com>,
+ Rajashekar Hudumula <rajashekar.hudumula@broadcom.com>,
+ Trond Myklebust <trondmy@kernel.org>, linux-wireless@vger.kernel.org,
+ Sidraya Jayagond <sidraya@linux.ibm.com>,
+ "James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
+ Eric Dumazet <edumazet@google.com>, target-devel@vger.kernel.org,
+ Anthony L Nguyen <anthony.l.nguyen@intel.com>, dev@openvswitch.org,
+ linux-s390@vger.kernel.org, Kuniyuki Iwashima <kuniyu@google.com>,
+ Leon Romanovsky <leon@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ Ilya Maximets <i.maximets@ovn.org>, Mat Martineau <martineau@kernel.org>,
+ Julian Anastasov <ja@ssi.bg>, coreteam@netfilter.org,
+ Antonio Quartulli <antonio@mandelbit.com>, netfilter-devel@vger.kernel.org,
+ Olga Kornievskaia <okorniev@redhat.com>, Ido Schimmel <idosch@nvidia.com>,
+ Wenjia Zhang <wenjia@linux.ibm.com>, Nicolai Buchwitz <nb@tipi-net.de>,
+ Chen-Yu Tsai <wens@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ Julian Braha <julianbraha@gmail.com>, Florian Westphal <fw@strlen.de>,
+ brcm80211@lists.linux.dev, Tariq Toukan <tariqt@nvidia.com>,
+ Jon Maloy <jmaloy@redhat.com>, Anna Schumaker <anna@kernel.org>,
+ Chuck Lever <cel@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Miri Korenblit <miriam.rachel.korenblit@intel.com>,
+ Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+ Nikolay Aleksandrov <razor@blackwall.org>, Javed Hasan <jhasan@marvell.com>,
+ Dmitry Safonov <0x7f454c46@gmail.com>, linux-nvme@lists.infradead.org,
+ "open list:NETRONOME ETHERNET DRIVERS" <oss-drivers@corigine.com>,
+ Marc Dionne <marc.dionne@auristor.com>, linux-afs@lists.infradead.org,
+ Sven Eckelmann <sven@narfation.org>, lvs-devel@vger.kernel.org,
+ Sagi Grimberg <sagi@grimberg.me>, linux-rdma@vger.kernel.org,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>,
+ Yanteng Si <siyanteng@cqsoftware.com.cn>, Yao Zi <me@ziyao.cc>,
+ NeilBrown <neil@brown.name>, Paolo Abeni <pabeni@redhat.com>,
+ Pablo Neira Ayuso <pablo@netfilter.org>,
+ "open list:ETHERNET BRIDGE" <bridge@lists.linux.dev>,
+ Jamal Hadi Salim <jhs@mojatatu.com>, Russell King <rmk+kernel@armlinux.org.uk>,
+ Keith Busch <kbusch@kernel.org>, Allison Henderson <achender@kernel.org>,
+ mptcp@lists.linux.dev, linux-nfs@vger.kernel.org,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Inochi Amaoto <inochiama@gmail.com>, Jeff Layton <jlayton@kernel.org>,
+ Joey Lu <a0987203069@gmail.com>, Edward Cree <ecree.xilinx@gmail.com>,
+ "D. Wythe" <alibuda@linux.alibaba.com>,
+ Qingfang Deng <qingfang.deng@linux.dev>,
+ Manish Rangankar <mrangankar@marvell.com>,
+ "David S . Miller" <davem@davemloft.net>, Jan Kara <jack@suse.cz>,
+ Mark Bloch <mbloch@nvidia.com>, Justin Chen <justin.chen@broadcom.com>,
+ David Howells <dhowells@redhat.com>, Matthieu Baerts <matttbe@kernel.org>,
+ Ard Biesheuvel <ardb@kernel.org>,
+ Steffen Klassert <steffen.klassert@secunet.com>,
+ Marek Lindner <marek.lindner@mailbox.org>, rds-devel@oss.oracle.com,
+ Shangjuan Wei <weishangjuan@eswincomputing.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Florian Fainelli <florian.fainelli@broadcom.com>, linux-net-drivers@amd.com,
+ Dai Ngo <Dai.Ngo@oracle.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Dust Li <dust.li@linux.alibaba.com>,
+ "intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+ Mahanta Jambigi <mjambigi@linux.ibm.com>, Jakub Kicinski <kuba@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Simon Horman <horms@kernel.org>, "Lad,
+ Prabhakar" <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Tom Talpey <tom@talpey.com>, Alyssa Ross <hi@alyssa.is>,
+ Jens Axboe <axboe@kernel.dk>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ brcm80211-dev-list.pdl@broadcom.com, linux-scsi@vger.kernel.org,
+ Simon Wunderlich <sw@simonwunderlich.de>, David Ahern <dsahern@kernel.org>,
+ "open list:TIPC NETWORK LAYER" <tipc-discussion@lists.sourceforge.net>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Saeed Mahameed <saeedm@nvidia.com>
+Subject: Re: [Linux-stm32] [PATCH 01/13 RFC net-next] net: ipv4: introduce
+ CONFIG_IPV4 to decouple the IPv4 stack
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -134,55 +185,97 @@ Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [3.29 / 15.00];
+X-Spamd-Result: default: False [3.30 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[lechnology.com:s=default];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
+	R_DKIM_REJECT(1.00)[messagingengine.com:s=fm2];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MIME_GOOD(-0.10)[text/plain];
+	XM_UA_NO_VERSION(0.01)[];
 	HAS_LIST_UNSUB(-0.01)[];
-	HAS_X_AS(0.00)[davidmain@lechnology.com];
-	FORGED_RECIPIENTS(0.00)[m:panchuang@vivo.com,m:fabrice.gasnier@foss.st.com,m:wbg@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:vigneshr@ti.com,m:jpanis@baylibre.com,m:linux-iio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:linux-omap@vger.kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	DMARC_NA(0.00)[lechnology.com];
-	RCVD_COUNT_THREE(0.00)[3];
-	FREEMAIL_TO(0.00)[vivo.com,foss.st.com,kernel.org,gmail.com,ti.com,baylibre.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
-	HAS_X_GMSV(0.00)[davidmain+lechnology.com/only user confirmed/virtual account not confirmed];
-	FORGED_SENDER(0.00)[david@lechnology.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[12];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[vger.kernel.org,linux.alibaba.com,lst.de,redhat.com,gmail.com,kernel.org,bootlin.com,marvell.com,broadcom.com,nwl.cc,resnulli.us,zeniv.linux.org.uk,nvidia.com,linuxfoundation.org,lists.open-mesh.org,st-md-mailman.stormreply.com,chelsio.com,linux.ibm.com,hansenpartnership.com,google.com,intel.com,openvswitch.org,lunn.ch,ovn.org,ssi.bg,netfilter.org,mandelbit.com,tipi-net.de,lists.infradead.org,strlen.de,lists.linux.dev,blackwall.org,corigine.com,auristor.com,narfation.org,grimberg.me,cqsoftware.com.cn,ziyao.cc,brown.name,mojatatu.com,armlinux.org.uk,oracle.com,linux.dev,davemloft.net,suse.cz,secunet.com,mailbox.org,oss.oracle.com,eswincomputing.com,gondor.apana.org.au,amd.com,ziepe.ca,lists.osuosl.org,bp.renesas.com,talpey.com,alyssa.is,kernel.dk,simonwunderlich.de,lists.sourceforge.net,sipsolutions.net];
 	RCVD_TLS_LAST(0.00)[];
-	FROM_HAS_DN(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	ALIAS_RESOLVED(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[david@lechnology.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	TO_DN_ALL(0.00)[];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_SENDER(0.00)[arnd@arndb.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:fmancera@suse.de,m:netdev@vger.kernel.org,m:linux-sctp@vger.kernel.org,m:tonylu@linux.alibaba.com,m:hch@lst.de,m:echaudro@redhat.com,m:lucien.xin@gmail.com,m:geliang@kernel.org,m:maxime.chevallier@bootlin.com,m:ebiggers@kernel.org,m:njavali@marvell.com,m:bhargava.marreddy@broadcom.com,m:arend.vanspriel@broadcom.com,m:phil@nwl.cc,m:jiri@resnulli.us,m:vikas.gupta@broadcom.com,m:aconole@redhat.com,m:viro@zeniv.linux.org.uk,m:petrm@nvidia.com,m:brauner@kernel.org,m:skashyap@marvell.com,m:gregkh@linuxfoundation.org,m:b.a.t.m.a.n@lists.open-mesh.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:varun@chelsio.com,m:GR-QLogic-Storage-Upstream@marvell.com,m:guwen@linux.alibaba.com,m:linux-fsdevel@vger.kernel.org,m:enachman@marvell.com,m:rajashekar.hudumula@broadcom.com,m:trondmy@kernel.org,m:linux-wireless@vger.kernel.org,m:sidraya@linux.ibm.com,m:James.Bottomley@hansenpartnership.com,m:edumazet@google.com,m:target-devel@vger.kernel.org
+ ,m:anthony.l.nguyen@intel.com,m:dev@openvswitch.org,m:linux-s390@vger.kernel.org,m:kuniyu@google.com,m:leon@kernel.org,m:andrew+netdev@lunn.ch,m:i.maximets@ovn.org,m:martineau@kernel.org,m:ja@ssi.bg,m:coreteam@netfilter.org,m:antonio@mandelbit.com,m:netfilter-devel@vger.kernel.org,m:okorniev@redhat.com,m:idosch@nvidia.com,m:wenjia@linux.ibm.com,m:nb@tipi-net.de,m:wens@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:julianbraha@gmail.com,m:fw@strlen.de,m:brcm80211@lists.linux.dev,m:tariqt@nvidia.com,m:jmaloy@redhat.com,m:anna@kernel.org,m:cel@kernel.org,m:hkallweit1@gmail.com,m:miriam.rachel.korenblit@intel.com,m:marcelo.leitner@gmail.com,m:razor@blackwall.org,m:jhasan@marvell.com,m:0x7f454c46@gmail.com,m:linux-nvme@lists.infradead.org,m:oss-drivers@corigine.com,m:marc.dionne@auristor.com,m:linux-afs@lists.infradead.org,m:sven@narfation.org,m:lvs-devel@vger.kernel.org,m:sagi@grimberg.me,m:linux-rdma@vger.kernel.org,m:przemyslaw.kitszel@intel.com,m:krzk@kernel.org,m:siyanteng@cqso
+ ftware.com.cn,m:me@ziyao.cc,m:neil@brown.name,m:pabeni@redhat.com,m:pablo@netfilter.org,m:bridge@lists.linux.dev,m:jhs@mojatatu.com,m:rmk+kernel@armlinux.org.uk,m:kbusch@kernel.org,m:achender@kernel.org,m:mptcp@lists.linux.dev,m:linux-nfs@vger.kernel.org,m:martin.petersen@oracle.com,m:inochiama@gmail.com,m:jlayton@kernel.org,m:a0987203069@gmail.com,m:ecree.xilinx@gmail.com,m:alibuda@linux.alibaba.com,m:qingfang.deng@linux.dev,m:mrangankar@marvell.com,m:davem@davemloft.net,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+];
+	TO_DN_EQ_ADDR_SOME(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	DKIM_TRACE(0.00)[arndb.de:?,messagingengine.com:-];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	HAS_X_SOURCE(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32];
-	DKIM_TRACE(0.00)[lechnology.com:-];
-	HAS_X_ANTIABUSE(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vivo.com:email,lechnology.com:from_mime,lechnology.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
+	ARC_NA(0.00)[];
+	RCVD_COUNT_FIVE(0.00)[5];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[arnd@arndb.de,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	RCPT_COUNT_GT_50(0.00)[133];
+	DMARC_DNSFAIL(0.00)[arndb.de : SPF/DKIM temp error,none];
+	R_DKIM_TEMPFAIL(0.00)[arndb.de:s=fm1];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,netdev,kernel];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,app.fastmail.com:mid]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 3F25374C4BA
+X-Rspamd-Queue-Id: 5D16574C538
 
-On 7/13/26 8:10 AM, Pan Chuang wrote:
-> Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-> devm_request_*_irq()"), devm_request_irq() and devm_request_threaded_irq()
-> automatically log detailed error messages on failure. Remove the
-> now-redundant driver-specific dev_err() and dev_err_probe() calls.
-> 
-> Signed-off-by: Pan Chuang <panchuang@vivo.com>
-> ---
-Seems OK, but probably be should be split into one patch per driver.
+On Mon, Jul 13, 2026, at 16:00, Fernando Fernandez Mancera wrote:
+> On 7/12/26 1:01 PM, Arnd Bergmann wrote:
+>> On Sun, Jul 12, 2026, at 03:38, Fernando Fernandez Mancera wrote:
+>>> Historically, the IPv4 protocol has been linked to the core INET
+>>> subsystem. Because shared infrastructure like the TCP/UDP engine,
+>>> routing or INET hashtables live inside net/ipv4/, it has been impossible
+>>> to compile a kernel with only IPv6 support.
+>>>
+>>> This patch introduces the CONFIG_IPV4 Kconfig symbol, which is set to
+>>> 'def_bool y' for now. This does not allow to completely disable the
+>>> IPv4 stack yet but it lays the necessary build-system work for that
+>>> goal.
+>> 
+>> I expect this will cause additional (trivial) build regression in the
+>> next step when randconfig builds run into obscure corner cases, either
+>> with INET=y IPV4=n IPV6=y or with INET=y IPV4=n IPV6=n.
+>> 
+>> I can probably give your patch (with IPV4 visible or disabled) an
+>> early go on the randconfig tree to find these more quickly.
+>> If I run into regressions, should I just add more 'depends on IPV4',
+>> or do you have other plans?
+>> 
+>
+> Yes, I have a job running randconfig and verifying nothing breaks. If 
+> something breaks and it isn't core networking stack I would just make 
+> the Kconfig symbol depend on IPv4.
+>
+> Then later we will have more time to write a dedicate patch so it does 
+> not depend on IPv4.
+
+Ok
+
+>> Should we have some logic to ensure that at least one of IPV4 or
+>> IPV6 is enabled? I think this would work
+>> 
+>> config IPV4
+>>        bool "The IPv4 protocol" if IPV6
+>>        default INET
+>> 
+>> which only allows turning IPV4 off if IPV6 has enabled.
+>> 
+>
+> I do wonder, should we? I mean, I didn't try it off but I don't see why 
+> we should not allow a pure L2 system..
+
+I expected a pure L2 system to be CONFIG_ETHERNET=y CONFIG_INET=n.
+
+Which user-visible parts of CONFIG_INET would you want keep working
+when both v4 and v6 are disabled?
+
+     Arnd
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
