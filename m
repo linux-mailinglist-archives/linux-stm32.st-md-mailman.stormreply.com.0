@@ -2,108 +2,107 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id S8RjMgb8VGqNiQAAu9opvQ
+	id +0IqNg/8VGqSiQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:53:58 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:54:07 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F33574C9FC
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:53:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 70E4E74CA11
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 16:54:07 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b=kUvUi8+z;
-	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=VqN7p+7U;
+	dkim=fail ("body hash did not verify") header.d=qualcomm.com header.s=qcppdkim1 header.b="Nt8P/dPq";
+	dkim=fail ("body hash did not verify") header.d=oss.qualcomm.com header.s=google header.b=BK6fuQVX;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=qualcomm.com (policy=reject)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 289BCC7BF97;
-	Mon, 13 Jul 2026 14:53:58 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 39653C7BF97;
+	Mon, 13 Jul 2026 14:54:07 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E02F0C7A83B
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5110DC7A83B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 14:53:56 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ Mon, 13 Jul 2026 14:54:05 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 66DCDkQ21398831
- for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 13 Jul 2026 14:53:55 GMT
+ 66DCE4AK1561473
+ for <linux-stm32@st-md-mailman.stormreply.com>; Mon, 13 Jul 2026 14:54:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=Ez7YUef5mEFU+Crqyi0ygT
- IsVaTvNiD4a2c1lC/wGGs=; b=kUvUi8+z+4Crdv2DjL0RBFoT4EI8da8zVwmh5A
- b+iQjsWGrAURFvKsdvjeiQfPpKQRc2RSEQmZQMHeqmF0Uz8g5/p0NWD/FL1CAfz/
- JvRzjXg7N+acVhR1CLFJi2Bw5tf1348oVXtasYPzhlAvOC6LNsfCwvktq++z4gVq
- sXgZzqZ/nBZTXSzP2972s31YOeXTQfmSMIE8zMpM5/pqnMf3V5mpQtAIucT4P2cM
- 4qmOhzrgvRlyr1d5DMtoJasVBog9jXyTnJUZZZkTX0L9MCvo0Mw/R75vjlGEsgwP
- ZLDeT//F+rCVNb2pO71qD+wOFq+ozCeFSB8w18Hjb/Kjs/0g==
-Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
- [209.85.161.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcwu4s52x-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 3CJJ/eHOj/g9LLGw/rjTjsJLWXJTAnetYTrtihNqHnU=; b=Nt8P/dPqInMsrXpi
+ dlCDBMJQJzffvCbFXu8HxvCWfhNW7plselH09h1PpRF9ze7K24Nnok8hJOLAC86q
+ XJ8ig9cfD9EUAlEDbpNidNqBua279ln77PStvNLQNrJAdOl6dBeCiXd59DJ+LPiX
+ c77ipG65tx9+a2lgegLm/CRtblHxV5KK45yb5zUO4t5NngOfghrxluqSO/ZVF4ol
+ ctlAXd+oncuPTfLvseM/tQPmljH8c8uh+8Dj4q8MJstnYmCJGFBR1THnZYzByzZ2
+ Ihd5JEjkF7jOwehekW6pq3y0M94WIEhczJmDyQPNsl9a1YEGO8k9JPubq0up3zYV
+ JSDbRA==
+Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
+ [209.85.160.70])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fcjn3b402-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 14:53:55 +0000 (GMT)
-Received: by mail-oo1-f69.google.com with SMTP id
- 006d021491bc7-6a18f3aba30so4501270eaf.1
+ Mon, 13 Jul 2026 14:54:03 +0000 (GMT)
+Received: by mail-oa1-f70.google.com with SMTP id
+ 586e51a60fabf-455ce0bc783so1143398fac.2
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 07:53:55 -0700 (PDT)
+ Mon, 13 Jul 2026 07:54:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1783954435; x=1784559235;
+ d=oss.qualcomm.com; s=google; t=1783954443; x=1784559243;
  darn=st-md-mailman.stormreply.com; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=Ez7YUef5mEFU+Crqyi0ygTIsVaTvNiD4a2c1lC/wGGs=;
- b=VqN7p+7U9Dv+4wU2d5kSI6ffLKPzzH5gQSBxyExhAxJiC7ZW+wqcsl0c1/mqKBBuj8
- Q9FZOmuY/26NRpeUkcSOSb3x7p/o2hnpW3TvXfOwK2rel2owghLyC1yPRvHvwmx4Jmql
- GKlHSWfXClKrgldy2KT1LIKzAsmKtYkTfeU5JkYfNjz2RgtBYsaKmB3P0Kic7Ok65Krm
- JVZsghHRBHKzlnU0lDCT41hPfHiQouQ38b7Umg/O+sx2cXrOA2AwGNm4kv4CjsaXZ7ux
- tak1LY3sKIaZOsN1jofmcfxSfR/0TOQL8WPuDEDVe0/UzH9J+/NtN4KkwpmiOFD+74z7
- umEQ==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3CJJ/eHOj/g9LLGw/rjTjsJLWXJTAnetYTrtihNqHnU=;
+ b=BK6fuQVXw5Z1jNN/nfkDlg7HMIR7KTGuYjREVgY5ZlCoPMTLcdyYs5mOib/U9G+ybd
+ TwZGfYcZfHvnoLz2IvvGwVfn9UN5tvtCHO0n9W9RIF4kxy0rB6+qOZcRf5XSiC79fjDq
+ TUQ3g/Qw0TIGJLCsuDfl6B75rLN3a6quiIb4NI8BH4dYcapviALaHJeuoMc9thIZaZux
+ s/SEw60Q5FveVZ1/1RYpvxxojOtzytn7pVjhfb8TfygYZ0f65wDqISyPLEnUHfDN2nVQ
+ 3DrPFL3ASpeIm0Ocp6Awh9Fp8SDaHTPQIUz86QdH3yVc3fQJYh/BfKmIJYcrDwZSOnlp
+ 8giQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1783954435; x=1784559235;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=Ez7YUef5mEFU+Crqyi0ygTIsVaTvNiD4a2c1lC/wGGs=;
- b=SfU8/TUoSU/qqpUJP9/GbnbOumvppVMfvVZ2O1A8uKTsTRsln1+x7UiOG17npYy1k8
- CpVXBA7sgFvagkQuKMt+9PRfBkFIWdOmEbMIXdLtgo2eXRC6n7Hw1YCl9aAgQ4VqxIw2
- OYQcY+lZK1ManMH/vvA05z76u6ukE6TOxU8pxo6hdbiIMaiZnaLsWbY4+GNV7yKUllZR
- TCyuvNzYnx+AXqcI/sOlZ/C74SJu0G1VbqqtWGGjq6I9r2K1KPzMLXPbcGvDgO83XDaZ
- 9LT1OHb0P1MRkYDNR96EAwElGcBqKj/1eIzdFPkCtgLcTk6D8hZFpjtBPuT38Bt34p7E
- wqmQ==
+ d=1e100.net; s=20251104; t=1783954443; x=1784559243;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=3CJJ/eHOj/g9LLGw/rjTjsJLWXJTAnetYTrtihNqHnU=;
+ b=nkhAZvRmyipJmPGAqfcOEp8dxsTxNBXYUtTt1eaRuz9YV43LsLeZoRYXfV0ZJXlyzT
+ B9/tv6op/vpMZAyNcj7tKEXcIHynjXqU4l5GA8fE/Z5qZzWtp1DoT33Qx1dunmN3bn12
+ BNC7CagV52qfjnKmy5ichSslxj/rKl51ExW5h2mnrkIYK0tncao4T7gPamZaFl46i2LF
+ 70bc8thPutjEkL1OlXXI2YkvPHSKO4KoQKxt/ZR0DoGUA3OEkAqg6CPPKJx1v7Y+c4gr
+ Y39es4DhZYaAyvaQdNSphQOx6J+CXzbN7LKZj2OiTNhjP/9U+fPWKHmsqHmM0g5ehJSd
+ kxiw==
 X-Forwarded-Encrypted: i=1;
- AFNElJ/eZP5t28RSdJL506GFSCRR9epo/gcOGluMj2QmB2Si64AZ6/YyXd17SGXffsZzlBOyq8q3Yvh7/NCw3Q==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0YyzM8wkzZD3Q5Kg0QFDwl2E4Gib3lvDbnLOHkjzY5I0w7JKaZZb
- xTFkV7n4UI0fb/CrScQxUF8BaWnoBRQH17A6Ltlxp6O+jPG9jUjUXZAkpiQheWfHxtKuUgthyip
- dyjTInckrNK4YPoslIOr7FIK+F8jl3zj/BS13I+xH3En9p1KFgjCGE5PuoAXzqSxSnCCiKL5MKw
- DiEA/kg2ZIkLXG4Ds=
-X-Gm-Gg: AfdE7ckVLiFOdVhrcd7uS09K+jj4PbGs56ZXOAb3XkH4RP5Didwnq5xDcoZTT3aqmZj
- XTPOckDOE9FJnnQy9871/ScomAaDXY+52AhlofOrEm79nFvOtvn5pFA4QNwpBP7qHAGHY/LliRs
- UNX/W0uBGPQjjUF5dmYThLgr0Nwgyo/ggOrkFVDqdpLepoKemfvMp8lMSclsKeP5e5wBiS4sskN
- c2X9v5CpOyf8dgcScvqO11yP+gwFkaf4yVqIHvBKOqHxUm/DlFHtEbwpDnNENLLYggOcBi6PIBD
- IoKsn7Kp9qFNmevwmNOj5X06KWVdDNkFFJZonP3pNPq2NggTUbe7sTPZ4qsEhXMCkJbDdwhkuhm
- UOR/Yb2omtnA23m0c8PoQTZZ7+UxgX/1kIv4=
-X-Received: by 2002:a05:6820:83db:20b0:6a2:b8bb:cb88 with SMTP id
- 006d021491bc7-6a39a5c509emr3590805eaf.17.1783954434701; 
- Mon, 13 Jul 2026 07:53:54 -0700 (PDT)
-X-Received: by 2002:a05:6820:83db:20b0:6a2:b8bb:cb88 with SMTP id
- 006d021491bc7-6a39a5c509emr3590770eaf.17.1783954434194; 
- Mon, 13 Jul 2026 07:53:54 -0700 (PDT)
+ AFNElJ/qKpVq0JAAYgVoZrBEXuYI22oCUQfCJ1HUmxBytpXuMStf5vkk41I/9YaPLPERybMvUke3FIgXSTOpeQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YwjOWCXk3DN8NcKTyBZubRWzpRj9jsJbT8deHTZHNmMfBOihuBc
+ ZnE9ZFHO8ehghd7CViddaWscfpMFKEJcPvuL/mVjfNvJWWe1RpkoE7jpKApkp52Q5M8Z6COUkrJ
+ A68TlPt6DkKol97ZoKnEMVBIHN8p1nIHTMxcauupB4oTp+KeBpovtzXY5s/VPABVZHgPWtAa2FR
+ NbZsF3KP0QNj/qGjs=
+X-Gm-Gg: AfdE7ckydpzbT+5jrg+22EY96Hl/ySylln7nwRwzSk5Djz4cOfXX8L1HlGr/OXmZDjr
+ fYbtYBN2zG8kyvBA45YvGLS31szdLYZBYxr+HKXpxzT99E4Ols7Bipuf2BHXvQ8o1Xwo0srRuZE
+ +Hs4W+Ix2elc+EngOKjnkqUfC2z2icfRUrjAraPpjEio+FZkiFajGMCGfGhuzxXH8GUdE7lDCZh
+ RKCcCf7+CEXJJKJncSbK66xQwVT/ywXeeXbWLg+yoWxq877hxtwzvB1xt5jpdKttnxzMQqNeBXD
+ jGVNPOQuDXaNtYDRefr/Ubl8eb3veINtNfobA8q+5MOxUxZcyGkqS/hfvpBZqHFlBHJoYKTokLm
+ atedtc3YQjWkwcC8hRpRnySXBeNqj14DP88w=
+X-Received: by 2002:a05:6820:5710:10b0:6a3:7701:660c with SMTP id
+ 006d021491bc7-6a39a5c80camr3402667eaf.20.1783954442873; 
+ Mon, 13 Jul 2026 07:54:02 -0700 (PDT)
+X-Received: by 2002:a05:6820:5710:10b0:6a3:7701:660c with SMTP id
+ 006d021491bc7-6a39a5c80camr3402630eaf.20.1783954442465; 
+ Mon, 13 Jul 2026 07:54:02 -0700 (PDT)
 Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- 006d021491bc7-6a38e9bc8casm6728746eaf.2.2026.07.13.07.53.46
+ 006d021491bc7-6a38e9bc8casm6728746eaf.2.2026.07.13.07.53.54
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Jul 2026 07:53:53 -0700 (PDT)
+ Mon, 13 Jul 2026 07:54:02 -0700 (PDT)
 From: Taniya Das <taniya.das@oss.qualcomm.com>
-Date: Mon, 13 Jul 2026 20:23:38 +0530
-Message-Id: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
+Date: Mon, 13 Jul 2026 20:23:39 +0530
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAPP7VGoC/32NUQ6CMBBEr0L225KKpVi+vIchpC6LbEKptkpUw
- t2tHMBkMsmbZGYWiBSYItTZAoFmjuynBNUuAxzsdCXBXWIoZKGllkZclKCRP7Z1rkVsZy20Qjy
- UnbLaHCH1boF6fm2b5ybxwPHhw3u7mPUv/beWJMW+6nppqDRK4snHmN+fdkTvXJ4MmnVdv9RGP
- wC5AAAA
-X-Change-ID: 20260609-b4-eliza_mm_cc_v6-64cc35d4a698
+Message-Id: <20260713-b4-eliza_mm_cc_v6-v7-1-4d91bcef50eb@oss.qualcomm.com>
+References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
+In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
  Michael Turquette <mturquette@baylibre.com>,
  Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
@@ -114,31 +113,31 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Alexandre Torgue <alexandre.torgue@foss.st.com>,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15-dev-aa3f6
-X-Authority-Analysis: v=2.4 cv=FMErAeos c=1 sm=1 tr=0 ts=6a54fc03 cx=c_pps
- a=lVi5GcDxkcJcfCmEjVJoaw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE1NSBTYWx0ZWRfX83MtTfKAcmIn
+ +ILDz5uj7sA1FsH/6ZqBQaNPc42tp2FW7FccyBRn1ZRrBRz9kA8BeHZW0xGmsyVxirm0a961vZV
+ lQvBhd6v0cwGjMpkJpzZ5ZhL8fDXaFe0WudlmaIEJ9/Eo8aW4OIfAUzHobE94EQ5tYzOPgxN0+a
+ zGqDyEGPFo8J7dorQYicbkzbZN/eZqkAlB7zDgrv3RcJKFhrutqOhqYIpVy8tts8G3doOMxwqMq
+ E2o9a9nTLMXcJctp66c9/ZZ4lgsMWAn1VLHk2p8Uv/l/rXtoxDXOu/5tfOSBmuljEMiPK1E65rw
+ ktUuR6gQXj5Zl84+2C3iRS8ZfW3oNG+5rFZtihJUtgjQWIDErJHZoxsFU/JHDMrYR79M1202oO+
+ +EcLS2wn1NlQUTmlPNBrQqzhRUYt2K7kOh6K7OVj5y+q6Tg5gJSKVLJg8VoqEJS6/56CRAMRk0j
+ g/IDIQT07eQwco3ot8w==
+X-Proofpoint-ORIG-GUID: BxvUEjG2-ygWXuAI55WVVHE7mi-23BHJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE1NSBTYWx0ZWRfX3bl4WyuHG2oA
+ 1ICFe0ujWApJaHY5BWHZNFkBGGT4fhFp5zyLgGn0lRcUTjUnIBfF2QIkiRUcNDDnLky/fjjXgBa
+ I1dN4vj/YmeZQRvDYvuJdDGh00izT7k=
+X-Proofpoint-GUID: BxvUEjG2-ygWXuAI55WVVHE7mi-23BHJ
+X-Authority-Analysis: v=2.4 cv=aaJRWxot c=1 sm=1 tr=0 ts=6a54fc0b cx=c_pps
+ a=nSjmGuzVYOmhOUYzIAhsAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y_ikFBnX2WV78VM4M2oA:9 a=QEXdDO2ut3YA:10
- a=rBiNkAWo9uy_4UTK5NWh:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzEzMDE1NSBTYWx0ZWRfX/Q7eQtBgfPXm
- eOdkE/CSRw0bndtzd40kZEM9PhT3xOJAFJ3vY0r214ejRXEtzH/bAP/HNQSDVKRaTgN2Xz+fwHW
- wiool5WYOp6sJlKTCKPYoM/VAE1uKHw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzEzMDE1NSBTYWx0ZWRfXx2SCx1P0cSe9
- HljYo7rkCoqqCVXslKndIxwUD348polClo0M+Nsb51qWpd8wt7ou5CboirXHJa1ggyeMUkXS3YD
- GC9PwqOziLtwjYVme0iBVOqC8ElSWniklDpR1bu0LixjJhKKrUyY6pwuGFTbCmftz8s0UeqaseN
- 3m8pNrCedu3zDAkpkNGa9NFVpzka05J23DsSRL8hsInW4q7LkpPjJ01AgrhnIAiguWeqJCEVVXT
- jKjhdKtt0+CKdTZ6waKm2Kx3DHxjNpdgLnU377L2srvq2Y8QgupuWv32ZOrDCRNSpSRd4/7DkKJ
- UW3Er3HjWLcSlGeXqAtcRPeP07ICqyppBZ1AZQu6lPvjJKkItEZOiZ46fXo4GkPMXGabDPNSUxD
- tNj+S5sQ42lsoTYDFYqJVBgPg0+zcvaZ/r7EJku0+cd+br+HFH4jIAscqPPDpQATWdzfJnYu8Bo
- eLsek/ozMz6r/PV7VJQ==
-X-Proofpoint-ORIG-GUID: 2DBWOapOvurLTJR0TfJRbbuDnICFj_sY
-X-Proofpoint-GUID: 2DBWOapOvurLTJR0TfJRbbuDnICFj_sY
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=90z41mPHMHFWLCXoM8oA:9 a=QEXdDO2ut3YA:10
+ a=1zu1i0D7hVQfj8NKfPKu:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-13_03,2026-07-10_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- suspectscore=0 priorityscore=1501 phishscore=0 spamscore=0 lowpriorityscore=0
+ priorityscore=1501 phishscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ adultscore=0 malwarescore=0 spamscore=0 suspectscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607130155
 Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
@@ -146,12 +145,11 @@ Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
  Imran Shaik <imran.shaik@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
  Taniya Das <taniya.das@oss.qualcomm.com>,
  Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>, linux-clk@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v7 00/10] Add support for Video, Camera,
- Graphics clock controllers on Eliza
+Subject: [Linux-stm32] [PATCH v7 01/10] dt-bindings: clock: qcom,
+ milos-camcc: Add missing power-domains support
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -179,12 +177,12 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
 	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[25];
+	RCPT_COUNT_TWELVE(0.00)[24];
 	MIME_TRACE(0.00)[0:+];
-	FORGED_SENDER(0.00)[taniya.das@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCVD_TLS_LAST(0.00)[];
-	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:bmasney@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:luca.weiss@fairphone.com,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:krzysztof.kozlowski@oss.qualcomm.com,m:taniya.das@oss.qualcomm.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	ARC_NA(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	FORGED_RECIPIENTS(0.00)[m:andersson@kernel.org,m:mturquette@baylibre.com,m:sboyd@kernel.org,m:bmasney@redhat.com,m:robh@kernel.org,m:krzk+dt@kernel.org,m:conor+dt@kernel.org,m:luca.weiss@fairphone.com,m:konradybcio@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:dmitry.baryshkov@oss.qualcomm.com,m:konrad.dybcio@oss.qualcomm.com,m:devicetree@vger.kernel.org,m:ajit.pandey@oss.qualcomm.com,m:imran.shaik@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:linux-kernel@vger.kernel.org,m:krzk@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:taniya.das@oss.qualcomm.com,m:jagadeesh.kona@oss.qualcomm.com,m:linux-clk@vger.kernel.org,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORGED_SENDER(0.00)[taniya.das@oss.qualcomm.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	GREYLIST(0.00)[pass,meta];
 	FREEMAIL_TO(0.00)[kernel.org,baylibre.com,redhat.com,fairphone.com,gmail.com,foss.st.com,oss.qualcomm.com];
 	DKIM_TRACE(0.00)[qualcomm.com:-,oss.qualcomm.com:-];
@@ -202,100 +200,75 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	FORGED_SENDER_MAILLIST(0.00)[];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[oss.qualcomm.com:from_mime,oss.qualcomm.com:mid,qualcomm.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,qualcomm.com:email,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,oss.qualcomm.com:from_mime,oss.qualcomm.com:mid]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 5F33574C9FC
+X-Rspamd-Queue-Id: 70E4E74CA11
 
-Add driver for Eliza SoC camera, graphics and Video clock controllers.
-The camera clock controller supports the cambist clock controller and
-the regular camera clock controller.
+The Milos camera clock controller requires the CX and MX power
+domains, along with their performance state votes, to be enabled
+before the clock controller can be accessed.
 
-Eliza camcc and videocc are on CX and MX rails and doesn't have MMCX
-and MXC rails dependency. Add explicit power-domain voting for Milos
-which are required. Hence extended the Milos camcc & videocc
-documentation bindings for Eliza.
+Document the 'power-domains' and 'required-opps' properties and add
+them to the required properties list and example. Since these
+properties become required for the already-documented qcom,milos-camcc
+compatible, this is an ABI break for any devicetree using this binding
+without specifying them.
 
-The patches have been tested on Qualcomm Eliza MTP board.
-
-Changes in v7:
-   - Add missing 'power-domains' and 'required-opps' properties to the
-     Milos camcc and videocc dt-bindings, and the corresponding device
-     tree nodes, since the Eliza bindings extend the Milos ones. [Konrad]
-   - Update the camcc, videocc driver to 'use_rpm' flag for Eliza.
-   - Add the RB-by tags from patchset v6.
-   - Link to v6: https://lore.kernel.org/r/20260609-b4-eliza_mm_cc_v6-v6-0-17df09e5940c@oss.qualcomm.com
-
-Changes in v6:
-  - Update device tree to latest linux-next.
-  - Update commit text for no ABI breakage for VideoCC and CAMCC
-    binding [Krzysztof]
-  - Added the RB-by from patchset v5.
-  - Link to v5: https://lore.kernel.org/r/20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com
-
-Changes in v5:
-- Taken care of comments from v3, v4.
-- Update milos-videocc and milos-camcc bindings to add '#power-domain-cells'
-  as required property in bindings.
-- Remove duplicate clock 'gpu_cc_gpu_smmu_vote_clk' from driver and
-  bindings.
-- Add '#power-domain-cells' for 'camcc' and 'cambistmclkcc' device node.
-- Link to v4: https://lore.kernel.org/r/20260513-eliza_mm_cc_v2-v4-0-e61b5434e8d9@oss.qualcomm.com
-
-Changes in v4:
-- Update the clock ordering for camcc and cambistmclkcc in milos.dtsi.
-- Link to v3: https://lore.kernel.org/r/20260513-eliza_mm_cc_v2-v3-0-b59c370dc281@oss.qualcomm.com
-
-Changes in v3:
-- Dropped new documentation bindings & extended Milos documentation bindings for Eliza videocc & camcc.
-- Dropped the defconfig patch and included the drivers as m from Kconfig itself.
-- Update the header inclusion in the milos.dtsi.
-- Link to v2: https://lore.kernel.org/r/20260409-eliza_mm_cc_v2-v2-0-bc0c6dd77bc5@oss.qualcomm.com
-
-Changes in v2:
- - rebased the patches on the latest linux-next.
- - Add new bindings for Video and Camcc.
- - Remove commented code in GPUCC (limiter code).
- - Add device nodes for the corresponding clock controllers.
- - Add RB-by tags for VideoCC and CamCC/Cambistmclk from v1.
- - Link to v1: https://lore.kernel.org/r/20260317-eliza_mm_clock_controllers_v1-v1-0-4696eeda8cfb@oss.qualcomm.com
-
+Fixes: dbb9d53b7197 ("dt-bindings: clock: qcom: document the Milos Camera Clock Controller")
 Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 ---
-Taniya Das (10):
-      dt-bindings: clock: qcom,milos-camcc: Add missing power-domains support
-      dt-bindings: clock: qcom,milos-videocc: Add missing power-domains support
-      arm64: dts: qcom: milos: Add power-domains for camcc and videocc
-      dt-bindings: clock: qcom: Add video clock controller on Qualcomm Eliza SoC
-      dt-bindings: clock: qcom: document the Eliza GPU Clock Controller
-      dt-bindings: clock: qcom: Add support for CAMCC for Eliza
-      clk: qcom: videocc: Add video clock controller driver for Eliza
-      clk: qcom: gpucc: Add GPU Clock Controller driver for Eliza
-      clk: qcom: camcc: Add support for camera clock controller for Eliza
-      arm64: dts: qcom: eliza: Add support for MM clock controllers
+ .../devicetree/bindings/clock/qcom,milos-camcc.yaml   | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
- .../bindings/clock/qcom,milos-camcc.yaml           |   31 +-
- .../bindings/clock/qcom,milos-videocc.yaml         |   29 +-
- .../bindings/clock/qcom,sm8450-gpucc.yaml          |    3 +
- arch/arm64/boot/dts/qcom/eliza.dtsi                |   76 +
- arch/arm64/boot/dts/qcom/milos.dtsi                |   10 +
- drivers/clk/qcom/Kconfig                           |   31 +
- drivers/clk/qcom/Makefile                          |    3 +
- drivers/clk/qcom/cambistmclkcc-eliza.c             |  465 ++++
- drivers/clk/qcom/camcc-eliza.c                     | 2804 ++++++++++++++++++++
- drivers/clk/qcom/gpucc-eliza.c                     |  607 +++++
- drivers/clk/qcom/videocc-eliza.c                   |  405 +++
- .../dt-bindings/clock/qcom,eliza-cambistmclkcc.h   |   32 +
- include/dt-bindings/clock/qcom,eliza-camcc.h       |  151 ++
- include/dt-bindings/clock/qcom,eliza-gpucc.h       |   51 +
- include/dt-bindings/clock/qcom,eliza-videocc.h     |   37 +
- 15 files changed, 4731 insertions(+), 4 deletions(-)
----
-base-commit: a87737435cfa134f9cdcc696ba3080759d04cf72
-change-id: 20260609-b4-eliza_mm_cc_v6-64cc35d4a698
+diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+index f63149ecf3e1b98e60dba27093737ec84b66a899..2295e7627ec9feb6a67f3ca952e6192a31cce593 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+@@ -25,9 +25,21 @@ properties:
+       - description: Sleep clock source
+       - description: Camera AHB clock from GCC
+ 
++  power-domains:
++    items:
++      - description: CX power domain
++      - description: MX power domain
++
++  required-opps:
++    items:
++      - description: CX performance point
++      - description: MX performance point
++
+ required:
+   - compatible
+   - clocks
++  - power-domains
++  - required-opps
+ 
+ allOf:
+   - $ref: qcom,gcc.yaml#
+@@ -37,12 +49,19 @@ unevaluatedProperties: false
+ examples:
+   - |
+     #include <dt-bindings/clock/qcom,milos-gcc.h>
++    #include <dt-bindings/power/qcom,rpmhpd.h>
+     clock-controller@adb0000 {
+         compatible = "qcom,milos-camcc";
+         reg = <0x0adb0000 0x40000>;
+         clocks = <&bi_tcxo_div2>,
+                  <&sleep_clk>,
+                  <&gcc GCC_CAMERA_AHB_CLK>;
++
++        power-domains = <&rpmhpd RPMHPD_CX>,
++                        <&rpmhpd RPMHPD_MX>;
++        required-opps = <&rpmhpd_opp_low_svs>,
++                        <&rpmhpd_opp_low_svs>;
++
+         #clock-cells = <1>;
+         #reset-cells = <1>;
+         #power-domain-cells = <1>;
 
-Best regards,
 -- 
-Taniya Das <taniya.das@oss.qualcomm.com>
+2.34.1
 
 _______________________________________________
 Linux-stm32 mailing list
