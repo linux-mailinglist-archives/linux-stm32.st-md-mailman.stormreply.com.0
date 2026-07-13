@@ -2,58 +2,58 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id BoaoCp+YVGo7oAMAu9opvQ
+	id g+21FPOYVGpLoAMAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 09:49:51 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 09:51:15 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9A9B7485C7
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 09:49:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D127E7485FB
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 09:51:14 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=LYJfhOg+;
+	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=Yyjr5rgx;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine);
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 78EE4C5A4C4;
-	Mon, 13 Jul 2026 07:49:50 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 99F4CC5A4C4;
+	Mon, 13 Jul 2026 07:51:14 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
  (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 51F22C57B68
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id AAC7BC57B68
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 07:49:49 +0000 (UTC)
+ Mon, 13 Jul 2026 07:51:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 32EB040378;
- Mon, 13 Jul 2026 07:49:48 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93831F00A3A;
- Mon, 13 Jul 2026 07:49:46 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 69A2941804;
+ Mon, 13 Jul 2026 07:51:12 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6BEC1F000E9;
+ Mon, 13 Jul 2026 07:51:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1783928988;
- bh=Rfmhg39OXz6idRUtZ/yz7s9wg55pQ2awUJp2Z5oo0Mk=;
+ s=k20260515; t=1783929072;
+ bh=8FIFnPA4i8Uh9sav+OYDKSxMFjPguw66anaA/6adj9k=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=LYJfhOg+WG9R3Wi4cJ985Q6VWKdmpp6ETkmF7dw1JK/JxoCfh+SG5Ly8oVGTdiQFh
- qpjr+atMbSqd5m6rvKffRbwcEn6xOm9UmhJF1Dh0GZa1mJKkmt+1I+wdlOQDAIOpSw
- BGEUYyrRt9p+TP8nyz5ywrSN6xbdaBvbv4sQCeIyYT7E72IxDkWnDTp/YrxPq4m7vf
- R7n3ew/n3AhHglHjjbOdJCau7HRYXjdSfAzvn8dLZr9RhR+PaGpSzEMZGci+EeOi5F
- S9olo6B8ALjZgUmg4IViN9D3avBE6CtpS5KDYsd3FaQYSijmweOyahEwTNAfYuZAXt
- bpxm+fQoubt4A==
-Date: Mon, 13 Jul 2026 09:49:43 +0200
+ b=Yyjr5rgxqGJLd4ab7WgiQ5BvmtH2qbg3TVLqR69cerg2tskgRThP731oNyfPPMcDd
+ kE7/22nb1dwDakw5xZPhIP25qwp1tAPiYh0XlqLdb3PKU+xKVFUenWnD5Ma2BwaEMr
+ aNzISpYVj+OP1cmTxrrSHN4U4jwseMxsH8ntgg0PPoyR/9jbeLKM8+ux4sb0G1GUGs
+ WR2tgF7+0nyFlN661jajZULEn8S6TNcXMF+PtLv2f36Up5Leh2255oXMxGr8UAkMH9
+ PmCv+3X8EGck8a0niArjVXBw7tt3sT1VH0eWIPEybI4XRIfC3xd11FouBAnmEraFv4
+ mus9RceepRfPg==
+Date: Mon, 13 Jul 2026 09:51:08 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Marek Vasut <marex@nabladev.com>
-Message-ID: <20260713-literate-influential-kagu-59fcd5@quoll>
+Message-ID: <20260713-rousing-transparent-mongrel-ee18c3@quoll>
 References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-3-marex@nabladev.com>
+ <20260711210131.236025-11-marex@nabladev.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <20260711210131.236025-3-marex@nabladev.com>
+In-Reply-To: <20260711210131.236025-11-marex@nabladev.com>
 Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
  Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
  linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
  devicetree@vger.kernel.org, kernel@dh-electronics.com,
  Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 02/10] dt-bindings: gpio: pca95xx:
- Document Kinetic KTS1622
+Subject: Re: [Linux-stm32] [PATCH 10/10] MAINTAINERS: Add DH electronics
+ DHCOS SoM entry and fix email address
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -104,24 +104,48 @@ X-Spamd-Result: default: False [5.29 / 15.00];
 	TAGGED_RCPT(0.00)[linux-stm32,dt];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[quoll:mid,qualcomm.com:email,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,bootlin.com:url,stormreply.com:url,stormreply.com:email,nabladev.com:email]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: A9A9B7485C7
+X-Rspamd-Queue-Id: D127E7485FB
 
-On Sat, Jul 11, 2026 at 10:59:31PM +0200, Marek Vasut wrote:
-> The Kinetic Technologies KTS1622 is a 16-bit general-purpose I/O
-> expander via the I2C bus for microcontrollers when additional I/Os
-> are needed while keeping interconnections to the minimum. Datasheet
-> comparison suggests that it is compatible with TCAL6416, add the
-> compatible string and TCAL6416 as a fallback compatible.
-
-Your commit msgs feel too early wrapped.
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
-
+On Sat, Jul 11, 2026 at 10:59:39PM +0200, Marek Vasut wrote:
+> Add another SoM type N: match and update email address to an
+> up to date one in the process.
 > 
 > Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+> Cc: Bartosz Golaszewski <brgl@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Linus Walleij <linusw@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: devicetree@vger.kernel.org
+> Cc: kernel@dh-electronics.com
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-gpio@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-stm32@st-md-mailman.stormreply.com
+> ---
+>  MAINTAINERS | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8729cea57c3dd..3532d425e41f1 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -7518,11 +7518,12 @@ F:	drivers/iio/chemical/sen0322.c
+>  
+>  DH ELECTRONICS DHSOM SOM AND BOARD SUPPORT
+>  M:	Christoph Niedermaier <cniedermaier@dh-electronics.com>
+> -M:	Marek Vasut <marex@denx.de>
+> +M:	Marek Vasut <marex@nabladev.com>
+>  L:	kernel@dh-electronics.com
+>  S:	Maintained
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Commit is fine, but, assuming old address stops working, please send a
+patch changing address in other MAINTAINERS entry + mailmap entry, and
+in all of dt-bindings (one patch for DT is enough)
 
 Best regards,
 Krzysztof
