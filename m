@@ -2,61 +2,59 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id GeB5EMXRVGoLfQAAu9opvQ
+	id 5dZaA9nRVGoTfQAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 13:53:41 +0200
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 13:54:01 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id B220C74A8E4
-	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 13:53:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 95DA174A8FA
+	for <lists+linux-stm32@lfdr.de>; Mon, 13 Jul 2026 13:54:00 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=redhat.com header.s=mimecast20190719 header.b=fSd9ZxJ7;
+	dkim=fail ("body hash did not verify") header.d=redhat.com header.s=mimecast20190719 header.b=cdLTVFYC;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=redhat.com (policy=quarantine)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 56EC8C8F273;
-	Mon, 13 Jul 2026 11:53:40 +0000 (UTC)
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6AEACC8F273;
+	Mon, 13 Jul 2026 11:54:00 +0000 (UTC)
 Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.129.124])
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id E0AD1C7A83B
+ (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 731E8C7A831
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Mon, 13 Jul 2026 11:53:39 +0000 (UTC)
+ Mon, 13 Jul 2026 11:53:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1783943618;
+ s=mimecast20190719; t=1783943638;
  h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
  to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding;
- bh=B54XxYOgQOiIEJK7sD0ym83+/MGWSHFF64vmz3jQu+o=;
- b=fSd9ZxJ7pl0oUIh0uLHO94WxiwwE+pRchAq1QR7AcCigIvCcN1AcirOWC83pKFiQHrgZrw
- /n5JTfjySBCiMdh6Wj4hAwU7yznhmtMbx+xOsW3PwlE32WEllHjJzp3uwTFt2fEcphJCbg
- YV4R98XHjObWbP+MQ4H+uh1ukb03L9s=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=NgFyIB4g392Dy+EScJnc+J4AoTxCRcd30Z9klgkdRhQ=;
+ b=cdLTVFYCtJ1Fhg4a+pTSsPyZ1/LAKeL01wLYTGr6nUAgeD4KsyLXSOqYQ8SFsuiOhX9Sh/
+ FSUT4Poy8kgoIF8C3BgWabX6+iXsQKRLVijLQ2DE2h1N90rS8U3Yyz4asfVjwVRxc6NfW3
+ LxmqHPNrsutxZblUBdQ8bm6KdsK5ymM=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-683-bgn6vNdQMXKCtlKJV9hlOQ-1; Mon,
- 13 Jul 2026 07:53:37 -0400
-X-MC-Unique: bgn6vNdQMXKCtlKJV9hlOQ-1
-X-Mimecast-MFC-AGG-ID: bgn6vNdQMXKCtlKJV9hlOQ_1783943615
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-648-iun2YU6jNKqoXgjYKzzttQ-1; Mon,
+ 13 Jul 2026 07:53:54 -0400
+X-MC-Unique: iun2YU6jNKqoXgjYKzzttQ-1
+X-Mimecast-MFC-AGG-ID: iun2YU6jNKqoXgjYKzzttQ_1783943632
 Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com
  (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id CA63319560BC; Mon, 13 Jul 2026 11:53:33 +0000 (UTC)
+ by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
+ id 5CD9218052DD; Mon, 13 Jul 2026 11:53:51 +0000 (UTC)
 Received: from [192.168.1.153] (headnet04.pony-001.prod.iad2.dc.redhat.com
  [10.2.32.116])
  by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS
- id 0CB6118005A0; Mon, 13 Jul 2026 11:53:14 +0000 (UTC)
+ id 55C011800595; Mon, 13 Jul 2026 11:53:33 +0000 (UTC)
 From: Albert Esteve <aesteve@redhat.com>
-Date: Mon, 13 Jul 2026 13:53:03 +0200
-Message-Id: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
+Date: Mon, 13 Jul 2026 13:53:04 +0200
 MIME-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NzQ6CMBCEX8Xs2Zq2/DR68j0MIaVdYA+0ZouoI
- by7Fa8ev8nMNyskZMIEl8MKjAsliiGDPh7AjTYMKMhnBi11LStVCM9Ty9i7+Ahz+ySmMIgSKzS
- VwbMsDeTlPRfotVtvTeaR0hz5vZ8s6pv+fLWu//oWJaRwzipruqLz2F8Z/Wjnk4sTNNu2fQCw2
- Q5NtwAAAA==
-X-Change-ID: 20260513-drm_refcount_wiring-4e5e757e9047
+Message-Id: <20260713-drm_refcount_wiring-v2-1-d3bb61f4bd4d@redhat.com>
+References: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
+In-Reply-To: <20260713-drm_refcount_wiring-v2-0-d3bb61f4bd4d@redhat.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -101,15 +99,15 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
  Thierry Reding <thierry.reding@kernel.org>, 
  Mikko Perttunen <mperttunen@nvidia.com>, 
  Jonathan Hunter <jonathanh@nvidia.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1783943594; l=5435;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1783943594; l=1577;
  i=aesteve@redhat.com; s=20260303; h=from:subject:message-id;
- bh=SRtXo7qoSqgK5l+umf1rMmWNg22khBPItUlyntwmvA0=;
- b=krKLhcYOsELwWzp4Mkmstg1CoAIW+2iQNP5Bx9vPTWdaJHFoUApmueGaj5CJ94aMN2hbmSM4Z
- i48STMH6Q1GA5qfKEcIhF79Cp9o+131NV2sOs0w0IemF64ja2dO5wAc
+ bh=7ETe8CFt5XKIiFSTBOPt7a6t1tvKKB7JNYwUpYEimh4=;
+ b=lgm6WYGzEa5cY2/2dWmhsWCYfvwJ+EQT45NMlusojBnvAwrv8eT+DunBt732/G3xFam8iaDGy
+ rmYQIHe7THDAErVwIMiHtj2DyMaLCAlPiETerk/jH2KwMY2hPaPFqe3
 X-Developer-Key: i=aesteve@redhat.com; a=ed25519;
  pk=YSFz6sOHd2L45+Fr8DIvHTi6lSIjhLZ5T+rkxspJt1s=
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
-X-Mimecast-MFC-PROC-ID: 8obvSYOIiAQFCrmvDAUUgXsRbZyHlsgttHQ1ZBf0qss_1783943615
+X-Mimecast-MFC-PROC-ID: IkxB0od89gX9z5Dgd6xdocHt8zTRE2o6vokXhcbb8OU_1783943632
 X-Mimecast-Originator: redhat.com
 Cc: imx@lists.linux.dev, Albert Esteve <aesteve@redhat.com>,
  linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -117,8 +115,8 @@ Cc: imx@lists.linux.dev, Albert Esteve <aesteve@redhat.com>,
  linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-tegra@vger.kernel.org, linux-sunxi@lists.linux.dev,
  linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: [Linux-stm32] [PATCH v2 0/5] drm/panel: refcounting panel lookups
-	and references
+Subject: [Linux-stm32] [PATCH v2 1/5] drm/panel: have drm_panel_add/remove
+ manage a list reference
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -141,7 +139,7 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_DKIM_REJECT(1.00)[redhat.com:s=mimecast20190719];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89:c];
 	MAILLIST(-0.20)[mailman];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
@@ -170,112 +168,52 @@ X-Spamd-Result: default: False [4.79 / 15.00];
 	MID_RHS_MATCH_FROM(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stm-ict-prod-mailman-01.stormreply.prv:helo,stormreply.com:email,stormreply.com:url,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: B220C74A8E4
+X-Rspamd-Queue-Id: 95DA174A8FA
 
-The drm_panel subsystem provides kref-based reference counting [1]
-(drm_panel_get/put) but almost nothing in the tree actually uses it.
-This results in a systemic use-after-free pattern throughout the codebase.
+The global panel_list holds raw pointers to drm_panel objects.
+Nothing prevents a panel from being freed while it is still linked
+in the list: if a driver's probe calls drm_panel_add() and then
+fails at a later step, panel->list remains in panel_list. Any
+subsequent call to of_drm_find_panel() that iterates the list will
+dereference freed memory.
 
-This series aims to close all those issues.
+Have drm_panel_add() acquire a reference via drm_panel_get() before
+inserting the panel into the list, and have drm_panel_remove() drop
+it via drm_panel_put() after removing the panel from the list. The
+global registry now holds a counted reference for as long as the
+panel is listed, ensuring the object outlives any concurrent lookup.
 
-Patches 1-2: fix the infrastructure. drm_panel_add/remove now keep
-a counted reference for the list entry. drm_panel_bridge_add_typed()
-now holds a counted reference for the lifetime of the panel_bridge.
-
-Patch 3: change the semantics of of_drm_find_panel(). It now acquires
-a reference before returning, under panel_lock. All in-tree callers
-of of_drm_find_panel() and drm_of_find_panel_or_bridge() are updated.
-Two patterns are common in these fixes:
-
-- Bridge-wrapping: the panel is passed to devm_drm_panel_bridge_add()
-  or equivalent, which acquires its own reference. The caller (including
-  devm_drm_of_get_bridge() and drmm_of_get_bridge()) releases its lookup
-  reference immediately after.
-- Store-and-use: the panel pointer is kept in a driver struct and
-  used directly for the device lifetime. The reference is released in the
-  remove/unbind path, or via devm_add_action_or_reset() where no explicit
-  teardown function exists.
-
-Patch 4: extend the same fix to find_panel_by_fwnode(), a static helper
-used internally by drm_panel_add_follower(). Since it has no external
-callers, the fix is self-contained: drm_panel_remove_follower() is
-updated to call drm_panel_put() to balance the reference.
-
-Patch 5: update a remaining batch of drivers calling of_drm_find_panel()
-or drm_of_find_panel_or_bridge() to release the reference after wrapping
-the panel in a bridge or on error paths.
-
-In order to catch all places in the tree that required releasing the
-reference, the search was assisted by an AI model. Specifically, a
-Coccinelle script was designed by the agent to address the trivial changes
-(not included in the series). Although a few required manual fixes, with goto
-labels or bracket additions. Additionally, the model helped to discern implicit
-teardown paths that were addressed with devm_add_action_or_reset() calls.
-Thus, these commits have the Assisted-by label following the project guidelines.
-
-No functional change is intended for any driver. The reference
-counting only affects object lifetime; panel operations are unaffected.
-
-[1] https://lore.kernel.org/all/20250331-b4-panel-refcounting-v4-0-dad50c60c6c9@redhat.com/
-
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
 Signed-off-by: Albert Esteve <aesteve@redhat.com>
 ---
-Changes in v2:
-- Squash of_drm_find_panel() API change with its caller fixes
-- Split find_panel_by_fwnode() into its own commit
-- Update kernel-doc for drm_of_find_panel_or_bridge()
-- Link to v1: https://lore.kernel.org/r/20260626-drm_refcount_wiring-v1-0-cca1a7b3bdef@redhat.com
+ drivers/gpu/drm/drm_panel.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
----
-Albert Esteve (5):
-      drm/panel: have drm_panel_add/remove manage a list reference
-      drm/bridge/panel: hold a reference to the wrapped panel
-      drm/panel: of_drm_find_panel() return a counted reference
-      drm/panel: find_panel_by_fwnode() return a counted reference
-      drm: release panel reference after panel bridge creation
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index 2c5649e433dfb..545fe93dc28fe 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -81,6 +81,7 @@ static void drm_panel_init(struct drm_panel *panel, struct device *dev,
+  */
+ void drm_panel_add(struct drm_panel *panel)
+ {
++	drm_panel_get(panel);
+ 	mutex_lock(&panel_lock);
+ 	list_add_tail(&panel->list, &panel_list);
+ 	mutex_unlock(&panel_lock);
+@@ -98,6 +99,7 @@ void drm_panel_remove(struct drm_panel *panel)
+ 	mutex_lock(&panel_lock);
+ 	list_del_init(&panel->list);
+ 	mutex_unlock(&panel_lock);
++	drm_panel_put(panel);
+ }
+ EXPORT_SYMBOL(drm_panel_remove);
+ 
 
- drivers/gpu/drm/bridge/analogix/analogix-anx6345.c |  3 +++
- drivers/gpu/drm/bridge/panel.c                     | 18 ++++++++++++----
- drivers/gpu/drm/drm_of.c                           |  3 ++-
- drivers/gpu/drm/drm_panel.c                        | 24 +++++++++++++++++-----
- drivers/gpu/drm/exynos/exynos_dp.c                 | 10 +++++++++
- drivers/gpu/drm/exynos/exynos_drm_dpi.c            |  3 +++
- drivers/gpu/drm/fsl-dcu/fsl_dcu_drm_rgb.c          | 18 ++++++++++++++++
- drivers/gpu/drm/imx/dcss/dcss-kms.c                |  3 +++
- drivers/gpu/drm/ingenic/ingenic-drm-drv.c          |  4 +++-
- drivers/gpu/drm/logicvc/logicvc_interface.c        | 12 +++++++++++
- drivers/gpu/drm/mcde/mcde_drv.c                    |  1 +
- drivers/gpu/drm/mcde/mcde_dsi.c                    |  1 +
- drivers/gpu/drm/mxsfb/mxsfb_drv.c                  |  1 +
- drivers/gpu/drm/omapdrm/dss/output.c               |  1 +
- drivers/gpu/drm/pl111/pl111_drv.c                  |  1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c  |  1 +
- drivers/gpu/drm/renesas/rcar-du/rcar_lvds.c        |  1 +
- drivers/gpu/drm/renesas/rz-du/rzg2l_du_encoder.c   |  1 +
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c    | 11 ++++++++++
- drivers/gpu/drm/rockchip/rockchip_lvds.c           |  1 +
- drivers/gpu/drm/rockchip/rockchip_rgb.c            |  1 +
- drivers/gpu/drm/sti/sti_dvo.c                      |  3 +++
- drivers/gpu/drm/stm/ltdc.c                         |  1 +
- drivers/gpu/drm/stm/lvds.c                         |  3 +++
- drivers/gpu/drm/sun4i/sun4i_lvds.c                 | 13 ++++++++++++
- drivers/gpu/drm/sun4i/sun4i_rgb.c                  | 13 ++++++++++++
- drivers/gpu/drm/sun4i/sun4i_tcon.c                 |  2 ++
- drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c             |  2 ++
- drivers/gpu/drm/tegra/dsi.c                        |  1 +
- drivers/gpu/drm/tegra/output.c                     |  3 +++
- drivers/gpu/drm/tidss/tidss_kms.c                  | 16 ++++++++++-----
- drivers/gpu/drm/tve200/tve200_drv.c                |  1 +
- 32 files changed, 161 insertions(+), 16 deletions(-)
----
-base-commit: 502d801f0ab03e4f32f9a33d203154ce84887921
-change-id: 20260513-drm_refcount_wiring-4e5e757e9047
-
-Best regards,
 -- 
-Albert Esteve <aesteve@redhat.com>
+2.54.0
 
 _______________________________________________
 Linux-stm32 mailing list
