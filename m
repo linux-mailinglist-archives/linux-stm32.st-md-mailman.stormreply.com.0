@@ -2,96 +2,103 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id 2sVXFD4mVmpc0AAAu9opvQ
+	id /JZtISQrVmpX0gAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 14:06:22 +0200
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 14:27:16 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAF0275443B
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 14:06:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1971A754857
+	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 14:27:16 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=JALI0fxf;
+	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=cfe0XJPe;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
+	dmarc=none
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 6FA36CA8E4A;
-	Tue, 14 Jul 2026 12:06:21 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C131ECA8E4C;
+	Tue, 14 Jul 2026 12:27:15 +0000 (UTC)
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
+ [209.85.128.53])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F1772C87EB6
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B72DC7BF97
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2026 12:06:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A0A8B411D9;
- Tue, 14 Jul 2026 12:06:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985521F000E9;
- Tue, 14 Jul 2026 12:06:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784030778;
- bh=zXjAh2537yo9G5vWAgQyYke6ki6Lnw1UTZmZWsxbjhc=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JALI0fxfqvUbwOcumUkWMdf9+m8l9v/z9X4lZj/ehsLJwp7ooqiwniR8gwMwjlGX4
- KQm5hPhANenPfd2Bwl7Lw10CTxhcLtoJlVyhmsg2A4CH0cM2OlgloQDORZXOtineLC
- LSXy7jBY23Sl0ZuCS3XZeGNWqADdOIypDvJINA7+5rlsAPvHLK4n6INGqXPYHq43z0
- TChJyIoFjVyZF6bcTAaSLXrQYMnVCU5gag1jLCsHntMDSLG6NIQt9Oy31Q263sVXSw
- 1vNiRk46Ol5RAtKDAakIkefOUYXtHCPa0UXek/BlAs8NXTFuLNcB3vZN6MkZkKKMuD
- FpfTkmjJaiaEg==
-Date: Tue, 14 Jul 2026 17:36:14 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Message-ID: <alYmNl--mxMK1-86@vaman>
-References: <20260709135846.97972-1-panchuang@vivo.com>
- <ak-vkQ8g_ePdY15f@shikoro>
+ Tue, 14 Jul 2026 12:27:14 +0000 (UTC)
+Received: by mail-wm1-f53.google.com with SMTP id
+ 5b1f17b1804b1-493ae59eca6so5231665e9.1
+ for <linux-stm32@st-md-mailman.stormreply.com>;
+ Tue, 14 Jul 2026 05:27:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=baylibre.com; s=google; t=1784032033; x=1784636833;
+ darn=st-md-mailman.stormreply.com; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
+ b=cfe0XJPesvY7IifSW+9TNbLdxwMDSQADTR5FElXPQ7xR0+KjVOEPv5Rkz+NUizFBIt
+ 95Ci4ZcSmtZGwzI0YHGrDgVvM6Kz07hz+HH7/Kph2FJLPO5FJvyqjnAVRh43P4AAWkys
+ a64PYC1SeT6eNR7N65Seew3ND1RJUngRylSNEwrqMe467u+DWlaw2uGwVoNniumM5IIV
+ rJJgFKH1XEpiojTnwn6eQ70M4DhWjh5VJpjcNokxd4jSrYIJTiKha+0evruPhVaLhQyB
+ bMnw6IlPLmPdGv2QW/pypF33K2NR7VKXtpnhKtJk6sAvwtmodJeQ9AZwqAzN7HNJfLgj
+ P4sw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20251104; t=1784032033; x=1784636833;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
+ b=cQ32EfexyluA4p0vJPo648YbS6mA53xruDcSKp4sRu1/VQgoYv8b8Ueyi456QRVOAv
+ zX4UP8uGbi0aD1Mtn6NSJ7rxdKKB2j2odTvQXdkBkZWVWhIYF9j/85h+vJXzWxBsBPg/
+ MecndO0bYOGm/90UspwVpVTYy+Pi97QLHzgcxgfzfERrpEtJZqThtqNM76HNPxB0TQAE
+ ECrEkcIHy/X8j5ph8RNAOcWjAUQWKIXq6yjQvCFqV3fP5Vaxubn4Oo5uiannnNZQ4Lo8
+ uy0HXZVNOiiOZyxXSMWfWOniCrQyXycZo6GOVewt6sswrWRGAhdl8ydLDwZrCX8/bwIt
+ Ejvw==
+X-Forwarded-Encrypted: i=1;
+ AHgh+RoU/9WjXKNQ9rMpxdCdiwVj5biy6tkEJDqGnT1L+BM+aLEfEnvv5S0qKgg9sEv5IXIjwPi4jq9q/6rK+g==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0Yzp8y6gVAQHfJWTOqkks/C8UggLd0gzt3k+wW9xlA9uRsSYqkct
+ MtNzoUnizKNa6GdgqOCf1+Pjn/9bVaQ7sj1EXLtLcsBAuEhc79luBhIfwvO/6gxwFSM=
+X-Gm-Gg: AfdE7clEQyfBRfBlbEeLFd5x4uS7jmcDAtTjfGG2d9tXDYxqdHytBbmCAhCnDYGyULF
+ aeHKhaf8v9VBmoS/xFwrwM2yWrsJUBajBPogkAu5/SV6gZPna0YBGbB9aQ4iZoKU3v/W6puOYJS
+ nwtizhb6Ag2K+NyDDQ0kt3aEqOyW9VMNZ99Vk/uWGOM/0W4dZc3TVL9qaZQCjiNVUqzwjoJvK4E
+ usYQ8mwQB5ehdebPqpOSxpQNlGSnUoGLiQmJqNiTBqlJSIZG/3tEMSlAwklZJdg0D+5NmaxURn7
+ SrstwoKvNjTvxuMhJ6gvmk3tk3w41Ek4gx66y5IhylWW1c9a7RLv/WuvQSkUw3IFkvSRUq09rlC
+ 4lZKWTA/xjIDfqUpfNKYuy5ojmkbVO/knckKnrpcTFxJZ7K/Yl39kTQJHdFJ37u79FH3zsHYmhn
+ uWZWzvG4JBMApV9qd9B9vCDSlrHKNOsgRY/mYxUFiCAk2gCzH414wDn+j5knVMj6QvFgTcjQmCx
+ 8SseOgg+nJsypzKqr27eKb9sA==
+X-Received: by 2002:a05:600c:310f:b0:493:ee3a:f05b with SMTP id
+ 5b1f17b1804b1-493f87d7fcdmr131894065e9.7.1784032033466; 
+ Tue, 14 Jul 2026 05:27:13 -0700 (PDT)
+Received: from localhost
+ (p200300f65f47db04b44a80421173aa03.dip0.t-ipconnect.de.
+ [2003:f6:5f47:db04:b44a:8042:1173:aa03])
+ by smtp.gmail.com with UTF8SMTPSA id
+ 5b1f17b1804b1-49508732395sm71538925e9.5.2026.07.14.05.27.12
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 14 Jul 2026 05:27:12 -0700 (PDT)
+Date: Tue, 14 Jul 2026 14:27:11 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Message-ID: <alYq2J6hd06g9XyC@monoceros>
+References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
+ <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <ak-vkQ8g_ePdY15f@shikoro>
-Cc: "open list:FREESCALE eDMA DRIVER" <imx@lists.linux.dev>,
- Miaoqian Lin <linmq006@gmail.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>, Kees Cook <kees@kernel.org>,
- Frank Li <Frank.Li@nxp.com>,
- "open list:MIPS/LOONGSON1 ARCHITECTURE" <linux-mips@vger.kernel.org>,
- Biju Das <biju.das.jz@bp.renesas.com>, Laxman Dewangan <ldewangan@nvidia.com>,
- "open list:SIFIVE DRIVERS" <linux-riscv@lists.infradead.org>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- "moderated list:STM32 DMA DRIVERS" <linux-stm32@st-md-mailman.stormreply.com>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
- Chunyan Zhang <zhang.lyra@gmail.com>, Magnus Damm <magnus.damm@gmail.com>,
- Jernej Skrabec <jernej.skrabec@gmail.com>, Jon Hunter <jonathanh@nvidia.com>,
- John Madieu <john.madieu.xa@bp.renesas.com>, Orson Zhai <orsonzhai@gmail.com>,
- Keguang Zhang <keguang.zhang@gmail.com>,
- Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
- "open list:TEGRA ARCHITECTURE SUPPORT" <linux-tegra@vger.kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- "open list:ARM/QUALCOMM MAILING LIST" <linux-arm-msm@vger.kernel.org>,
- Sean Wang <sean.wang@mediatek.com>,
- "moderated list:ARM/ACTIONS SEMI ARCHITECTURE"
- <linux-actions@lists.infradead.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
- "moderated list:MEDIATEK DMA DRIVER" <linux-mediatek@lists.infradead.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Matthias Brugger <matthias.bgg@gmail.com>,
- Jyothi Kumar Seerapu <quic_jseerapu@quicinc.com>,
- Chen-Yu Tsai <wens@kernel.org>,
- "moderated list:MEDIATEK DMA DRIVER" <linux-arm-kernel@lists.infradead.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Imran Shaik <imran.shaik@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
+ Conor Dooley <conor+dt@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+ Brian Masney <bmasney@redhat.com>, linux-arm-kernel@lists.infradead.org,
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>, Pan Chuang <panchuang@vivo.com>,
- open list <linux-kernel@vger.kernel.org>,
- Thomas Andreatta <thomasandreatta2000@gmail.com>,
- Samuel Holland <samuel.holland@sifive.com>,
- "open list:ARM/RISC-V/RENESAS ARCHITECTURE"
- <linux-renesas-soc@vger.kernel.org>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Masami Hiramatsu <mhiramat@kernel.org>,
+ Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Stephen Boyd <sboyd@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
+ Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- "open list:FREESCALE eDMA DRIVER" <dmaengine@vger.kernel.org>,
- Paul Walmsley <pjw@kernel.org>,
- "open list:ARM/Allwinner sunXi SoC support" <linux-sunxi@lists.linux.dev>,
- Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
- Daniel Mack <daniel@zonque.org>
-Subject: Re: [Linux-stm32] [PATCH 00/26] dmaengine: Remove redundant error
- messages on IRQ request failure
+ Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [Linux-stm32] [PATCH v7 07/10] clk: qcom: videocc: Add video
+ clock controller driver for Eliza
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -103,107 +110,103 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/mixed; boundary="===============4689965334692527180=="
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [5.29 / 15.00];
+X-Spamd-Result: default: False [1.69 / 15.00];
+	SIGNED_PGP(-2.00)[];
 	SUSPICIOUS_RECIPS(1.50)[];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	R_DKIM_REJECT(1.00)[baylibre.com:s=google];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
 	MID_RHS_NOT_FQDN(0.50)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
 	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	MAILLIST(-0.20)[mailman];
-	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	TO_DN_ALL(0.00)[];
-	RCVD_COUNT_THREE(0.00)[4];
+	RECEIVED_HELO_LOCALHOST(0.00)[];
 	RCVD_TLS_LAST(0.00)[];
-	GREYLIST(0.00)[pass,meta];
-	MIME_TRACE(0.00)[0:+];
-	FORGED_RECIPIENTS(0.00)[m:wsa+renesas@sang-engineering.com,m:imx@lists.linux.dev,m:linmq006@gmail.com,m:vigneshr@ti.com,m:geert+renesas@glider.be,m:kees@kernel.org,m:Frank.Li@nxp.com,m:linux-mips@vger.kernel.org,m:biju.das.jz@bp.renesas.com,m:ldewangan@nvidia.com,m:linux-riscv@lists.infradead.org,m:robert.jarzmik@free.fr,m:linux-stm32@st-md-mailman.stormreply.com,m:claudiu.beznea.uj@bp.renesas.com,m:thierry.reding@kernel.org,m:hayashi.kunihiko@socionext.com,m:zhang.lyra@gmail.com,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:jonathanh@nvidia.com,m:john.madieu.xa@bp.renesas.com,m:orsonzhai@gmail.com,m:keguang.zhang@gmail.com,m:cosmin-gabriel.tanislav.xa@renesas.com,m:linux-tegra@vger.kernel.org,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:sean.wang@mediatek.com,m:linux-actions@lists.infradead.org,m:haojian.zhuang@gmail.com,m:linux-mediatek@lists.infradead.org,m:baolin.wang@linux.alibaba.com,m:matthias.bgg@gmail.com,m:quic_jseerapu@quicinc.com,m:wens@kernel.org,m:linux-a
- rm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:dmitry.baryshkov@oss.qualcomm.com,m:andersson@kernel.org,m:panchuang@vivo.com,m:linux-kernel@vger.kernel.org,m:thomasandreatta2000@gmail.com,m:samuel.holland@sifive.com,m:linux-renesas-soc@vger.kernel.org,m:zhengxingda@iscas.ac.cn,m:mhiramat@kernel.org,m:mcoquelin.stm32@gmail.com,m:dmaengine@vger.kernel.org,m:pjw@kernel.org,m:linux-sunxi@lists.linux.dev,m:afaerber@suse.de,m:daniel@zonque.org,m:wsa@sang-engineering.com,m:geert@glider.be,m:zhanglyra@gmail.com,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,m:keguangzhang@gmail.com,m:haojianzhuang@gmail.com,m:matthiasbgg@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER(0.00)[vkoul@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCVD_COUNT_THREE(0.00)[4];
+	DMARC_NA(0.00)[baylibre.com];
+	FORGED_SENDER(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	RCPT_COUNT_TWELVE(0.00)[23];
+	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:mturquette@baylibre.com,m:linux-clk@vger.kernel.org,m:robh@kernel.org,m:imran.shaik@oss.qualcomm.com,m:krzk@kernel.org,m:luca.weiss@fairphone.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:konrad.dybcio@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:bmasney@redhat.com,m:linux-arm-kernel@lists.infradead.org,m:dmitry.baryshkov@oss.qualcomm.com,m:ajit.pandey@oss.qualcomm.com,m:sboyd@kernel.org,m:andersson@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:jagadeesh.kona@oss.qualcomm.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
 	ARC_NA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCPT_COUNT_GT_50(0.00)[52];
-	ALIAS_RESOLVED(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[vkoul@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,ti.com,glider.be,kernel.org,nxp.com,vger.kernel.org,bp.renesas.com,nvidia.com,lists.infradead.org,free.fr,st-md-mailman.stormreply.com,socionext.com,renesas.com,mediatek.com,linux.alibaba.com,quicinc.com,collabora.com,oss.qualcomm.com,vivo.com,sifive.com,iscas.ac.cn,suse.de,zonque.org];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,renesas];
+	DKIM_TRACE(0.00)[baylibre.com:-];
+	TO_DN_SOME(0.00)[];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[baylibre.com,vger.kernel.org,kernel.org,oss.qualcomm.com,fairphone.com,redhat.com,lists.infradead.org,st-md-mailman.stormreply.com,gmail.com];
+	ALIAS_RESOLVED(0.00)[];
+	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vaman:mid]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[monoceros:mid,stormreply.com:email,stormreply.com:url,baylibre.com:from_mime]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: CAF0275443B
+X-Rspamd-Queue-Id: 1971A754857
 
-On 09-07-26, 16:26, Wolfram Sang wrote:
-> On Thu, Jul 09, 2026 at 09:58:04PM +0800, Pan Chuang wrote:
-> > Commit 55b48e23f5c4b6f5ca9b7ab09599b17dcf501c10 ("genirq/devres: Add
-> > error handling in devm_request_*_irq()") added automatic error logging
-> > to devm_request_threaded_irq() and devm_request_any_context_irq() via
-> > the new devm_request_result() helper. The helper prints device name,
-> > IRQ number, handler functions, and error code on failure.
-> > 
-> > Since devm_request_irq() is a static inline wrapper around
-> > devm_request_threaded_irq(), it also benefits from this automatic
-> > logging.
-> > 
-> > This series removes the now-redundant dev_err() and dev_err_probe() calls
-> > in dmaengine drivers that follow these devm_request_*_irq() functions,
-> > as the core now provides more detailed diagnostic information on failure.
-> > 
-> > Pan Chuang (26):
-> >   dmaengine: fsl-edma-main: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: fsl-qdma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: loongson-loongson1-apb-dma: Remove redundant
-> >     dev_err()/dev_err_probe()
-> >   dmaengine: mediatek-mtk-cqdma: Remove redundant
-> >     dev_err()/dev_err_probe()
-> >   dmaengine: mediatek-mtk-hsdma: Remove redundant
-> >     dev_err()/dev_err_probe()
-> >   dmaengine: mmp_pdma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: moxart-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: owl-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: pxa_dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: qcom-gpi: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sf-pdma-sf-pdma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sh-rcar-dmac: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sh-rz-dmac: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sh-shdmac: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sh-usb-dmac: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sprd-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: st_fdma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: stm32-stm32-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: stm32-stm32-dma3: Remove redundant
-> >     dev_err()/dev_err_probe()
-> >   dmaengine: stm32-stm32-mdma: Remove redundant
-> >     dev_err()/dev_err_probe()
-> >   dmaengine: sun4i-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: sun6i-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: tegra20-apb-dma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: ti-edma: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: uniphier-xdmac: Remove redundant dev_err()/dev_err_probe()
-> >   dmaengine: xgene-dma: Remove redundant dev_err()/dev_err_probe()
-> 
-> One patch per subsystem for such trivial changes, please.
 
-Yes pretty please
+--===============4689965334692527180==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ebx5plxbs5ed2t4p"
+Content-Disposition: inline
 
--- 
-~Vinod
+
+--ebx5plxbs5ed2t4p
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v7 07/10] clk: qcom: videocc: Add video clock controller
+ driver for Eliza
+MIME-Version: 1.0
+
+Hello,
+
+On Mon, Jul 13, 2026 at 08:23:45PM +0530, Taniya Das wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/platform_device.h>
+
+Please rely on <linux/platform_device.h> to provide of_device_id and
+drop the include for <linux/mod_devicetable.h>. The latter header is
+going away soon.
+
+Best regards
+Uwe
+
+--ebx5plxbs5ed2t4p
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKx0ACgkQj4D7WH0S
+/k73NQf/T09jaRmPJhz4l6/RUqCHwddXVzILSJXm5JaBiJDO0DMQ7ba66QjYb4dl
+QI1n/Dhb09P32uDl6jsczhMK61GxspOgLrFR2hBJzih+s41bXQ7uPoTac0gcaxYW
+7ldbJEM2KWQqFfrv8evU5objg4VkaDip0n9ci9nt6BgjQpYrjjX2clnDM/0zDdp+
+J8Dm1K+VIcHnIuhNQqi0ptZUQ7G6eoC2c6bWlZ6aaZm8kmv+yuRaMgI+u78AEzgG
+aSj02assVonsMuBMLKWJt55XzGBjwDCaWmUdfxbvs8kPIqtPeP6z5JFX/FcChP14
+2tr6zJZjaXuLYoEM5CwI84TE9YnOXQ==
+=/t+O
+-----END PGP SIGNATURE-----
+
+--ebx5plxbs5ed2t4p--
+
+--===============4689965334692527180==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
+
+--===============4689965334692527180==--
