@@ -2,138 +2,137 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id +sznHHIsV2qyGwEAu9opvQ
+	id QWIyOlIuV2o5HAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 08:45:06 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 08:53:06 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC48275B30A
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 08:45:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 695BC75B401
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 08:53:06 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=vivo.com header.s=selector2 header.b=h34pInHa;
+	dkim=fail ("body hash did not verify") header.d=vivo.com header.s=selector2 header.b=hZJfuEgl;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
 	dmarc=fail reason="SPF not aligned (relaxed)" header.from=vivo.com (policy=quarantine);
 	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 77D18C57A51;
-	Wed, 15 Jul 2026 06:45:05 +0000 (UTC)
-Received: from TYDPR03CU002.outbound.protection.outlook.com
- (mail-japaneastazon11013030.outbound.protection.outlook.com [52.101.127.30])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 1E75CC57A51;
+	Wed, 15 Jul 2026 06:53:06 +0000 (UTC)
+Received: from TYPPR03CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11012068.outbound.protection.outlook.com [52.101.126.68])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 3A234C14549
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id E9255C14549
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jul 2026 06:45:04 +0000 (UTC)
+ Wed, 15 Jul 2026 06:53:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n1/6Z3VoJIXc/UuF229/0tDEru66wok/Fr/6Q2rXXK4pBiOaoBKfBMqyLUTvQ5j0g8+HRXsM34lOfUAZ/9KOhgBo+YvNRrq2PEI72XSu5kwo1DYNYo2VLxMTMQYEAUjHzn/X2+uWASk0vtADuoOsUoGoNxCJSuI+5qvm5mSZ3e4FnLQX3fU4ds7LLXx+M3o/3Uxsc0htT9mxvsM2rxd0EZtx8uoXkR93EBYHLbty0Cs4A5DrcrX9PBlJyxFg+6B05BefFr4vzYvfEmd305VDBBBBQKm+QIqWZApgdzB++dj5r106rt8Cof20Cpz7FcwJupQGpH6Rs03x0ty3szrMJA==
+ b=pGDseWPa8cIFXRok5Q4bthKWr5hu364j8KrqcrvqsVoGiZQBwxN10/q7d4suRBHHOFJbOoYnQPPWA1Lyk6wL0yDQqwvanPELEcurTrDTTQz5HIL3JAf+0J9B2/vfQn7dMAXXqLKs6MNM8A0gIhjAh/SA1bGvWQSji2WR6wVSR98/jS1Cr37nY0OC+9jUS6seX9cWJiEj1n0Oud5NrQCYwD/O9O345BedgFboxo3Rz9OZ17OsPPf4CdGY0RsIKvroPcNVZB/LPKjKS7fJBbGX3ZlwkWPmq5G6yEZhKPUxoxpaAcd+8tyLrOyQ5+Ibc1hwW2YyKglSMwdCjrvnsjYH1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=/YFeYk5xw3Boy/uxWkTtMdNPJjZVZwbmeuLoGuj3ujw=;
- b=L9+LsQFgZ8u0XGwgOlt6saJwJQFM5aLMgY0Hk8XlrQWNV2Ce/1bfwXRD0xuGO1A2OXLSilAsIRSIrPhdnDvX37Y9DJSw2NsJ7a+dLhK2nnJ7Xt+vqBaNEFK6OPw/4pSAHzg88FVXs5JOKnWiwemJEZqghfXu07GhtrrBScLvA4wmT3hG8Uq94MoZtJzpYRZMiR0Q3cGngHcicH7Y+MkE91Tww62rZAl2tdybG2+2DJ3r8eFJMk5oCtTE6jcTIn07+6qQi56A0UZtoUmgbHHYDzGlcXTz38DZpw9HCXMeW9s4m0nqI4F0sUSlb2QokyLWf3LYaSkAQwX1VfEwwT68ow==
+ bh=Jt4a6BVHgLriTp6UUkMfXDJZcYuE8QtiklPfJZ5KkFo=;
+ b=aRt84hpF4Or730y6uyunviNZ7Rvw24N/ZLfEdI/7nYkc0egV0dx7slfgUJo3mBVmLJW1MsSBcI4mXaZLGfbOMiwwD7vcrT9cHXBZsKodjS8U4Fl2nB8KvXmrTaQ76MvnVN9PX6WbHpe7AfiCuI8PZ1KORHg9AP9DMZPzcGZxBLQss60dNhuTrcgIBjFKjr0IigyAOfXCppY3X3/OX0Rqlo2q1HwiPZbuGlLDYnYiaPqsgF2UMlpzzVjMazh1MbvKtJGv5Tis1ZHQ4zO0h83dUb5j7G0myrqwhpAwueQWn9CxPk6WAoaLwuphoozI2Q01Yjs5U40ojjeP3y/5BrFDkA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
  dkim=pass header.d=vivo.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=/YFeYk5xw3Boy/uxWkTtMdNPJjZVZwbmeuLoGuj3ujw=;
- b=h34pInHaiepLDLqZECA43/EhYdisi8vD/eFRPLK5buu6hFdhlR0GZ6++DYoCSokJalHJZeGJqLlek0f/J7m7CYnlJT5tDG5XgubvFGQ//Q6tL4kB3dMHZOH3/GOrfAoXFi4gy41sYI1QEEMoACM7tjG0caDFw7eFdHD/qMcsAMbZ65x64MG1KqhmciPibRinXIyxuvxI6yEazaQI1coQrPvuMuoCFgaKg5+4PfBWHKrU81Vt+ELdOVewv064uDpPOs0EDvqlQMqeNdSXwHWum1eORpDq9AcU2oLpudfi6NcdAmFQg+e01MHUh4yykWX7Wrz/Hxvs4yvn3NlSKh51HA==
+ bh=Jt4a6BVHgLriTp6UUkMfXDJZcYuE8QtiklPfJZ5KkFo=;
+ b=hZJfuEgldLxKIqnvuy9JwQ9L3SlfmrjD8dSR1QGvWNMdTM2+6bu4OK320roVE5zXj0mZA3O4z/H8zsXrO2BsOF/5o00PE9oZEnEejbbehpTS2Z8KVJbrMPXZxrAs0lUxOFMugRwYsEil00v4F99LHt0g2Mu+a63HjooLJt8ZpXWatNF5fcyJb3bTyH2CyKveV00tmjWviZVD/Osgl4XpkRzzrRVVJ9i5IK4NF5s1w7YYeARemnqAadLiHQ7yt/lkkooT2MIK+6l5gDLH0d157fh+hTgXCJ5w5Qu1SDyi2QPj5JbQG++ceNLzXhzT4CtSzQtLWjDTA+BQArU/+xHiFQ==
 Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
- by KUZPR06MB8991.apcprd06.prod.outlook.com (2603:1096:d10:88::8) with
+ by KUZPR06MB8025.apcprd06.prod.outlook.com (2603:1096:d10:4b::6) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.11; Wed, 15 Jul
- 2026 06:44:58 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.202.19; Wed, 15 Jul
+ 2026 06:52:59 +0000
 Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
  ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
  ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
- 06:44:58 +0000
+ 06:52:59 +0000
 From: Pan Chuang <panchuang@vivo.com>
-To: vkoul@kernel.org
-Date: Wed, 15 Jul 2026 14:44:43 +0800
-Message-Id: <20260715064443.525836-1-panchuang@vivo.com>
+To: wsa+renesas@sang-engineering.com
+Date: Wed, 15 Jul 2026 14:52:48 +0800
+Message-Id: <20260715065248.564211-1-panchuang@vivo.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <alYmNl--mxMK1-86@vaman>
-References: <alYmNl--mxMK1-86@vaman>
-X-ClientProxiedBy: TPYP295CA0042.TWNP295.PROD.OUTLOOK.COM
- (2603:1096:7d0:7::20) To SEZPR06MB5832.apcprd06.prod.outlook.com
+In-Reply-To: <ak9MldvSmaDyJn42@shikoro>
+References: <ak9MldvSmaDyJn42@shikoro>
+X-ClientProxiedBy: SE2P216CA0113.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c9::17) To SEZPR06MB5832.apcprd06.prod.outlook.com
  (2603:1096:101:c8::12)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KUZPR06MB8991:EE_
-X-MS-Office365-Filtering-Correlation-Id: fbc5fe82-180b-4eea-939c-08dee23c9625
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|KUZPR06MB8025:EE_
+X-MS-Office365-Filtering-Correlation-Id: dd127d35-3bcb-45ce-a171-08dee23db4c6
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|7416014|376014|52116014|1800799024|366016|38350700014|6133799003|56012099006|11063799006|22082099003|18002099003|41080700001;
-X-Microsoft-Antispam-Message-Info: WYVFUGViK+AT6BFkkPqTRL8TgunUVYUvcmKa9R1UGcC8OuYQ/2Z1OdZS+tH9DVdv/a489oc9t9gx65if2FHp03cWAZWw6BgDnsMdMCGbi03vIU4bbFDzGktwFv0U6q5If/nmQUTBLlMpavxqgpfZ6bX6Z0KIQqiLTsCsioATcQ0Yp5v4M0iTRggz/jlGgvV4OPdfkVXnxbw3lEuwCHHU1J+1GN0Rg2zRslEqQeC0mwKNYv/fuqgKWOcVy4Dvkgrv5R0Xsfa9d6bPlT85TGm0WEvUQCKCbPgwwXRVT3EKjP6svoLlIDIGkISK5h2g9JZ8xzMOP74uSElmvkS/r+6HRqgceVTg8E5bC2S7z2fRdp41vX9eCYBPZh2slybArkvO8Bn0YQxraCSO+HwpQVPhVBQzmh4OF87dCV8pJKyvARhQCzKtUKjx5lkZE/cK8lpxDNzWsX0Gq0H6+nguZlZx1IMJb/OYLMFBoVDmSR1zf1GhCC2G3eRYxIW3VsSf6yZps7evsXVnywmBercgifvUK42Jd8GlrjZo1E89+BDf3/VP//HEV5w/K1BEtvaI9MKMQ6pPzd2c9Fsd6wHbZFFEDOHzSYG3Fgf/zihBT3qAaWtFGp6kfBEbTeUcVFq63EnqlkQCkGFm37Xq6AcQW9TuHvPRyHzjOQUNKFj3XHtpBIWndx9N6m/laiDR6mhg4R1XXj8WFSZHFnKTFUozQ/rpy/48o0ivaSmOItRC/9KvN//HnB2OSOpsJfRUGn7AQeTN
+ ARA:13230040|376014|7416014|52116014|366016|1800799024|23010399003|38350700014|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: QrT28/4+OdI4Etz4nGUYIkUst/HskiHodApxnhmNvZgy8HkIVhPEcL4BuFkAmzw62CfXObL6nCW9IxU17Iccaw17HpXcZxliBC8uQZR2ZhuTZXDbJUPTxBM+Z37vT1OKnascENBU9xV1E+ZCL6/FuUCtkV2l1MuZaJhLZxviGl/7bcLwO0r06lozco3QvgKc7SIKn1JKg833j+lrG1LsC2VoisZc3tyzTcelaeNXwqB5tfjTv6OnFdBGmORW4A5ObHIaYC2fTFgGyrmMjBYm4LVLIwNRAMN709fLIfdAmJOSSCATJnTPN3XmdXcHvlSelfAPbKq9yXk3OjFiFfQkPykxcrlc+yRauaPPQz49hqvvqRTttD7PVY52y9fC5eQ/sTeswx1sRtAfMLymYnSRQR1GMmpR90BZJJpTkCtAOzHTM3ePR4P67OcD/RSpWS4S5W5rTnmLb9Yn9M3V1NfOPJXWuSkhCtEMQtjyWgpk/S4AroVSsFAzJngLb8uvglIWGQk1AR6aWQtMo8mKCQZxwIfQ7efprmeRJT7QpNE90KbtdnzNf5EAfTQFNKGoWVPeS/w0mA71LONNL+kxSp7D8VR1TM6HajDpI8cxVB0uqAAeLRTYK22fThJqSTsrYHL5LcgyJZ+cwErk9Ovrc4W2N0GO/AzIIZyf+dRis/yCOJdNHCLmjxTiEbL6Ygoy4168qxmI3w8WqCeld3BsFFcgMV2X4khzF8SoR7qhzXzsivc=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(7416014)(376014)(52116014)(1800799024)(366016)(38350700014)(6133799003)(56012099006)(11063799006)(22082099003)(18002099003)(41080700001);
+ SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(23010399003)(38350700014)(18002099003)(22082099003)(56012099006)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XX7d341lm0+hgQrKIp9/x9htYftyMTv5vZIOSom1XPuqtAw0vS6LILbpzaoV?=
- =?us-ascii?Q?j4In7qk7HasidjUHtvwZo/Ou8ZzMM7ibeXM8U5Lyv2GmrSEFNF6wZjgFRinj?=
- =?us-ascii?Q?xHPoJn/EenXJ4TmqsjmDPje4Vu3Es3Nv4HlYoTZ7UH0JyddTqx7aKjnGN9iR?=
- =?us-ascii?Q?Od8XCMoxR8/m7X/jTSf49L1j6lO/RBGPVRLNNWWJ57HWcYS6u8DO+71KXeoS?=
- =?us-ascii?Q?Kxchz1CEvP1f3qP+EMHVpzutKIkk1AVcXoqSy6+yG8sNl+GInBheb0xQhoL/?=
- =?us-ascii?Q?FXTl0BGHVTpjgpK2WyllcJIyC4yhw6ArgW+g6c7rkN3UgGaGxuBn3N/wThvO?=
- =?us-ascii?Q?JMTK3mIB11/Stjs2tswxFIAApbHKHZkAoLV4e39FJSxiCf5Y2fvkvmEhXmLG?=
- =?us-ascii?Q?MNnOAJd/DLT2B7QpvGETM6T9YtHTWgTP4tKLNKvlfR4/rPcL8lsZoA3RgFWI?=
- =?us-ascii?Q?70mg1q8ZEjoCQmn4ub5lalvXtSKiRtHAR5CQmGb9mqJ6tVvGOG+APEh/fETn?=
- =?us-ascii?Q?vlFAk2Y2tdDrm4zw0xtYgDOZuaq1M3Dw6BayVQ2w4AF7JFay6gdhAv7PsiT7?=
- =?us-ascii?Q?rkz+gWgSLaLvX9El3bSiQKdNoCTqVkU8ZQIO2Z1Po5fHZ6yzE0MTGgyNpgq8?=
- =?us-ascii?Q?FHyerwpCCE9KafITNVU8BE+xVceZ+bF1wFbBHmshWBKqfMm2GwhDiRXrN+nw?=
- =?us-ascii?Q?rLPcK8aM5MzwJoFeti17wXxwsgl0QmQt3sYaK/kaYu2N0dXNJ9fYZQRHYwF4?=
- =?us-ascii?Q?nfIhVT+0xyvvwUEQYc/WCavQnIEDX7h4kTuOV4UKQQrC04qvvsgY+/VP49bT?=
- =?us-ascii?Q?cEyy0s55/xt79oU2QWrind8HNcMd54szhis+YJh2vwhnsd2eTMDnUfG18MUN?=
- =?us-ascii?Q?oP6kBCDBk4E+v/+5v2p3w1SGCu2G0DF5JEXP1X02oCyDw0DBvqO6aZXakU6V?=
- =?us-ascii?Q?fJTkAqXI1Irh/ZMK80CIY1zHQRuxZHc2xNvMZ4MNJFXLFZnPqUmypaSboPfj?=
- =?us-ascii?Q?6ln0a4ZXeewlC5ZJtpvJ49WDCQ/sBZz9cLlPWl6Yjwu0ULUMjv2UlZHaBfCu?=
- =?us-ascii?Q?HrFcdl/4bQLSLB+A8BXLPYUGAKPamCctDPHG4UhtRA1FYtaO13V/kzDQfJkn?=
- =?us-ascii?Q?842rolaL/OSM7d6GrKHXPSyTgTBWbQgt11rlMba75ZXLACmoWnfrDuSKKUZE?=
- =?us-ascii?Q?VG0lBxMwRwnNNi6/5pVTsb5YGhbEx3cycv3S4W/boQeI1TZgReKWzZwFPzeD?=
- =?us-ascii?Q?G96r4CYgl1NMzoIBfc7ybzMGUuEbOmyslbcH1sofvF51jgV7R11DGCjK/zz1?=
- =?us-ascii?Q?3ve6NtsfCceGHs9FogujGBu7OLt7MLx33CeNA/U0OgTA4KAMDRR37zSJJaY4?=
- =?us-ascii?Q?7keYajo57njgq2VmXLWiz+DnJBrFgyFABSOVMpWzIXmrrSf3jvH19eu3UXzS?=
- =?us-ascii?Q?ul70UHnw9GA22eduMlZUsjB5W3qUU8/6rKupBQqGQzqz3po53sfw9Bais+/u?=
- =?us-ascii?Q?5fn9TGd437kGQmR5bi+RDtOZ+5aJyDCCjYCRQcS1O9rmJxtNuxFxY9yFjvTX?=
- =?us-ascii?Q?C0M3Fja+a6Nd3iMNUOikfV+lRrXxwtb4hGtJL6npZEtD81JwPLcJItYgxOj8?=
- =?us-ascii?Q?lM/8sTUpGnj/agT6ggU2XliFj419UFcRsM45JYAp7YZ9XSurQb6eiTZAlduM?=
- =?us-ascii?Q?AguyDZePmuxAG/z35nfDTGiXW5hTvQI2jMErqDU87ux9aOEiSs5D5iPtJaV+?=
- =?us-ascii?Q?UsvLz0J13g=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?pgFUuHitPzGyG8Utc3kVLM9fc7LMPqiDC+cO9/J8YnI92/Oz+qlRcnw/KCiS?=
+ =?us-ascii?Q?+bfdEb3MS9HHMoOOXDey9aJ5EWcKTCp2VYMLKvBL3Z861ll4UOoxCBGZ1Lbl?=
+ =?us-ascii?Q?POfeZ0/uMW0zSJXSLPi8jX0jcIrLzGtSFgLgOnrvqJ0d5+ZLg7T833JQ/1kk?=
+ =?us-ascii?Q?rW9rHh9KUqIOXaHTQ540O3zU0XQZuJGxK13qTyMTrzx+2ECoUUZGDcZvVo1K?=
+ =?us-ascii?Q?S6B1poSjgQpi07YxXYTIy8BZ7g5LW7/MXWfPxUuz94bq5IOoh9g4j6YHMGLa?=
+ =?us-ascii?Q?36JKIIodCU36FrDWdSF4ESFBfuFWdDPY38eSynqo49EtdCzhPwuS97gaDk6y?=
+ =?us-ascii?Q?FY0xKPx4PK8pm+8lYjmQtsKciltFh9e2BTA37G+WJI2W+emvkxL9+G162wm2?=
+ =?us-ascii?Q?Xp7tTeN0egpsVuWc1al4mGyQBWBiX2KGourm88m0+jaGvNrlvPvcjfdPMo55?=
+ =?us-ascii?Q?cE5WDeqHx6VP02nxOWD7viFgzxF1SKfYNTHSTQtEONigjPZ6o1oWnvQUYetX?=
+ =?us-ascii?Q?bbk2LMHh/UDxOFKGt2HYNr+LVcbajrTEBnjy6rthMBnJ9Crr+1JDWYNzHTTH?=
+ =?us-ascii?Q?dv1kmys4C9bllmHt2Ad5jgWJ/SP8+aeLnsv8/lfXZ2C8m8B35kb/eDHjt5rR?=
+ =?us-ascii?Q?l9b6U+2dz6efGCwEalGNxhK+xjMtHc6YnIOmMO1cbVomZMadm5z5nmo8pR4J?=
+ =?us-ascii?Q?BHKMj4Po2dZYtUCcL2GFOOT7vOvVTOcUxkB9Pfb1J55nS1pG9ftnPtH1a0LC?=
+ =?us-ascii?Q?A0e5JAKaL+DTdHgbzuCkFhhnSUsCiIDrGOXIsAzMFlF9/kfs1gU+mrapWFjG?=
+ =?us-ascii?Q?ZYE5/YbYnek2gS65ccY18C/r1P7aqSRTx216BA84VFZb2mbdZXfBEpHuxokW?=
+ =?us-ascii?Q?Gr+sjYPIA52PQ6jDTgA3p3bMuUFhbtQhuHBeVURSFEH+J39iDKMVqKvJMyPc?=
+ =?us-ascii?Q?ImzXlzCm1iYza0Oud4VN2BuPxklAlj19XItZWTYdR/5s2wIQxhhmg8CBcPZf?=
+ =?us-ascii?Q?KJqB5IOVOtC6h0snxunyVGevkexT2a8f4RDC3BhQPedOORZsrxi8q71Qv3Bf?=
+ =?us-ascii?Q?Pcfi4K9xDIz8M5ezErVA7OvLMGw0ZeE12zWfiHjl3w13q6wZcUoJp9pWPWD/?=
+ =?us-ascii?Q?opYRApEA3R3pPn6cFFWDO6PbN+DOpoZUDe7jA9g6T0QI8ZNxd09ZJGOttDW/?=
+ =?us-ascii?Q?IO7XRh3nXeKfikKTaWMRSetXvC38EhzFbWxoi5DisqA8pt08y9uefQwJeA5V?=
+ =?us-ascii?Q?cg9BFNvzHVoGhWtIC055R/Ln88DXKAyJJkCXcMW/MvIGqSASdWskrwE7F/ZY?=
+ =?us-ascii?Q?146ePReeGI7rDuAJaRTwG6nt5nnvjtGs4jsF4LW+uv2y48ZrzGufdtVtOUx3?=
+ =?us-ascii?Q?LBqtHRgfagKeMqMMZHqx54G5GWwZs2dLiPToyf8+mNzk6KgGgPrHBo4N0C6n?=
+ =?us-ascii?Q?u9/gHiee816KcEcNvd2+DmXvdhmSMUKawnQIw8f+AO6dIr+2uthG9Fi7L4pb?=
+ =?us-ascii?Q?QnC4ErzuNNBZCRn3kRU1J22vG9TON4WS71vpN+MXVkm+iYY+m99M4+pccvkm?=
+ =?us-ascii?Q?7lwBmfpiSlEsBYirT1gVE19gfRtQrz9L3YOWrt67B0hygBcyag9QvWceb+sW?=
+ =?us-ascii?Q?0HKFbuQs2h3rp8LZk4+P2a+DK2O3BQZAzC22keB1gk73efSE0ml1YSlbIbNx?=
+ =?us-ascii?Q?yz3KOBv57E16ZnPZNck4d/XAoALyXIvMWvCH8oe2w+fD+qtjbWPQmAejHvpt?=
+ =?us-ascii?Q?vSvWzIt0FA=3D=3D?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fbc5fe82-180b-4eea-939c-08dee23c9625
+X-MS-Exchange-CrossTenant-Network-Message-Id: dd127d35-3bcb-45ce-a171-08dee23db4c6
 X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 06:44:58.0134 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 06:52:58.9363 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IV1eCzCAFMOqLCkkSyOqdg4aBiGm3bqN16cYaZK3pY2/atV4o+JJKB2hQqnKR7xOETHjwRL0kbbzqvHpOlo6yw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR06MB8991
-Cc: imx@lists.linux.dev, linmq006@gmail.com, claudiu.beznea.uj@bp.renesas.com,
- geert+renesas@glider.be, kees@kernel.org, Frank.Li@nxp.com,
- linux-mips@vger.kernel.org, linux-tegra@vger.kernel.org, ldewangan@nvidia.com,
- linux-riscv@lists.infradead.org, samuel.holland@sifive.com,
- robert.jarzmik@free.fr, linux-stm32@st-md-mailman.stormreply.com,
- vigneshr@ti.com, thierry.reding@kernel.org, hayashi.kunihiko@socionext.com,
- zhang.lyra@gmail.com, magnus.damm@gmail.com, jernej.skrabec@gmail.com,
- jonathanh@nvidia.com, john.madieu.xa@bp.renesas.com, matthias.bgg@gmail.com,
- orsonzhai@gmail.com, keguang.zhang@gmail.com, linux-sunxi@lists.linux.dev,
- mhiramat@kernel.org, mani@kernel.org, linux-arm-msm@vger.kernel.org,
- sean.wang@mediatek.com, linux-actions@lists.infradead.org,
- haojian.zhuang@gmail.com, linux-mediatek@lists.infradead.org,
- baolin.wang@linux.alibaba.com, biju.das.jz@bp.renesas.com,
- quic_jseerapu@quicinc.com, wens@kernel.org,
- linux-arm-kernel@lists.infradead.org, angelogioacchino.delregno@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, wsa+renesas@sang-engineering.com,
- andersson@kernel.org, panchuang@vivo.com, linux-kernel@vger.kernel.org,
- thomasandreatta2000@gmail.com, linux-renesas-soc@vger.kernel.org,
- zhengxingda@iscas.ac.cn, cosmin-gabriel.tanislav.xa@renesas.com,
- mcoquelin.stm32@gmail.com, dmaengine@vger.kernel.org, pjw@kernel.org,
- afaerber@suse.de, daniel@zonque.org
-Subject: Re: [Linux-stm32] [PATCH 00/26] dmaengine: Remove redundant
-	dev_err()/dev_err_probe() calls
+X-MS-Exchange-CrossTenant-UserPrincipalName: LcysCyivOyx7sIoh6Sa5nLo/TMmuDdkTngUJhcniphVIvPzELXC5/xte+rYOfQf/fBrTbk7v8yjbJwo01XDfmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KUZPR06MB8025
+Cc: imx@lists.linux.dev, heiko@sntech.de, bzolnier@gmail.com,
+ fshao@chromium.org, amitk@kernel.org, Frank.Li@nxp.com, matthias.bgg@gmail.com,
+ laura.nao@collabora.com, zhuyinbo@loongson.cn, alim.akhtar@samsung.com,
+ miquel.raynal@bootlin.com, srinivas.pandruvada@linux.intel.com,
+ jirislaby@kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ rafael@kernel.org, jiapeng.chong@linux.alibaba.com,
+ mason-cw.chang@mediatek.com, linux-samsung-soc@vger.kernel.org,
+ geert+renesas@glider.be, florian.fainelli@broadcom.com, festevam@gmail.com,
+ linux-pm@vger.kernel.org, magnus.damm@gmail.com, krzk@kernel.org,
+ jonathanh@nvidia.com, john.madieu.xa@bp.renesas.com,
+ linux-rockchip@lists.infradead.org, bcm-kernel-feedback-list@broadcom.com,
+ rui.zhang@intel.com, thara.gopinath@gmail.com, mcoquelin.stm32@gmail.com,
+ frank-w@public-files.de, linux-arm-msm@vger.kernel.org, s.hauer@pengutronix.de,
+ thierry.reding@kernel.org, linux-mediatek@lists.infradead.org,
+ mmayer@broadcom.com, daniel.lezcano@kernel.org, linux-tegra@vger.kernel.org,
+ andriy.shevchenko@linux.intel.com, linux-arm-kernel@lists.infradead.org,
+ angelogioacchino.delregno@collabora.com, peter.griffin@linaro.org,
+ zhanghongchen@loongson.cn, clamor95@gmail.com, panchuang@vivo.com,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ kernel@pengutronix.de, niklas.soderlund@ragnatech.se, lukasz.luba@arm.com
+Subject: Re: [Linux-stm32] [PATCH 00/18] thermal/drivers: Remove redundant
+	error messages on IRQ request failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -168,8 +167,8 @@ X-Spamd-Result: default: False [6.79 / 15.00];
 	RCVD_COUNT_THREE(0.00)[4];
 	FORGED_SENDER(0.00)[panchuang@vivo.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
 	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:vkoul@kernel.org,m:imx@lists.linux.dev,m:linmq006@gmail.com,m:claudiu.beznea.uj@bp.renesas.com,m:geert+renesas@glider.be,m:kees@kernel.org,m:Frank.Li@nxp.com,m:linux-mips@vger.kernel.org,m:linux-tegra@vger.kernel.org,m:ldewangan@nvidia.com,m:linux-riscv@lists.infradead.org,m:samuel.holland@sifive.com,m:robert.jarzmik@free.fr,m:linux-stm32@st-md-mailman.stormreply.com,m:vigneshr@ti.com,m:thierry.reding@kernel.org,m:hayashi.kunihiko@socionext.com,m:zhang.lyra@gmail.com,m:magnus.damm@gmail.com,m:jernej.skrabec@gmail.com,m:jonathanh@nvidia.com,m:john.madieu.xa@bp.renesas.com,m:matthias.bgg@gmail.com,m:orsonzhai@gmail.com,m:keguang.zhang@gmail.com,m:linux-sunxi@lists.linux.dev,m:mhiramat@kernel.org,m:mani@kernel.org,m:linux-arm-msm@vger.kernel.org,m:sean.wang@mediatek.com,m:linux-actions@lists.infradead.org,m:haojian.zhuang@gmail.com,m:linux-mediatek@lists.infradead.org,m:baolin.wang@linux.alibaba.com,m:biju.das.jz@bp.renesas.com,m:quic_jseerapu@quicinc.com,m:we
- ns@kernel.org,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:dmitry.baryshkov@oss.qualcomm.com,m:wsa+renesas@sang-engineering.com,m:andersson@kernel.org,m:panchuang@vivo.com,m:linux-kernel@vger.kernel.org,m:thomasandreatta2000@gmail.com,m:linux-renesas-soc@vger.kernel.org,m:zhengxingda@iscas.ac.cn,m:cosmin-gabriel.tanislav.xa@renesas.com,m:mcoquelin.stm32@gmail.com,m:dmaengine@vger.kernel.org,m:pjw@kernel.org,m:afaerber@suse.de,m:daniel@zonque.org,m:geert@glider.be,m:zhanglyra@gmail.com,m:magnusdamm@gmail.com,m:jernejskrabec@gmail.com,m:matthiasbgg@gmail.com,m:keguangzhang@gmail.com,m:haojianzhuang@gmail.com,m:wsa@sang-engineering.com,s:lists@lfdr.de];
+	FORGED_RECIPIENTS(0.00)[m:wsa+renesas@sang-engineering.com,m:imx@lists.linux.dev,m:heiko@sntech.de,m:bzolnier@gmail.com,m:fshao@chromium.org,m:amitk@kernel.org,m:Frank.Li@nxp.com,m:matthias.bgg@gmail.com,m:laura.nao@collabora.com,m:zhuyinbo@loongson.cn,m:alim.akhtar@samsung.com,m:miquel.raynal@bootlin.com,m:srinivas.pandruvada@linux.intel.com,m:jirislaby@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:rafael@kernel.org,m:jiapeng.chong@linux.alibaba.com,m:mason-cw.chang@mediatek.com,m:linux-samsung-soc@vger.kernel.org,m:geert+renesas@glider.be,m:florian.fainelli@broadcom.com,m:festevam@gmail.com,m:linux-pm@vger.kernel.org,m:magnus.damm@gmail.com,m:krzk@kernel.org,m:jonathanh@nvidia.com,m:john.madieu.xa@bp.renesas.com,m:linux-rockchip@lists.infradead.org,m:bcm-kernel-feedback-list@broadcom.com,m:rui.zhang@intel.com,m:thara.gopinath@gmail.com,m:mcoquelin.stm32@gmail.com,m:frank-w@public-files.de,m:linux-arm-msm@vger.kernel.org,m:s.hauer@pengutronix.de,m:thierry.reding@kernel.or
+ g,m:linux-mediatek@lists.infradead.org,m:mmayer@broadcom.com,m:daniel.lezcano@kernel.org,m:linux-tegra@vger.kernel.org,m:andriy.shevchenko@linux.intel.com,m:linux-arm-kernel@lists.infradead.org,m:angelogioacchino.delregno@collabora.com,m:peter.griffin@linaro.org,m:zhanghongchen@loongson.cn,m:clamor95@gmail.com,m:panchuang@vivo.com,m:linux-kernel@vger.kernel.org,m:linux-renesas-soc@vger.kernel.org,m:kernel@pengutronix.de,m:niklas.soderlund@ragnatech.se,m:lukasz.luba@arm.com,m:wsa@sang-engineering.com,m:matthiasbgg@gmail.com,m:geert@glider.be,m:magnusdamm@gmail.com,m:tharagopinath@gmail.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FROM_HAS_DN(0.00)[];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	DKIM_TRACE(0.00)[vivo.com:-];
@@ -177,71 +176,23 @@ X-Spamd-Result: default: False [6.79 / 15.00];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	FORGED_SENDER_FORWARDING(0.00)[];
 	FROM_NEQ_ENVFROM(0.00)[panchuang@vivo.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	FREEMAIL_CC(0.00)[lists.linux.dev,gmail.com,bp.renesas.com,glider.be,kernel.org,nxp.com,vger.kernel.org,nvidia.com,lists.infradead.org,sifive.com,free.fr,st-md-mailman.stormreply.com,ti.com,socionext.com,mediatek.com,linux.alibaba.com,quicinc.com,collabora.com,oss.qualcomm.com,sang-engineering.com,vivo.com,iscas.ac.cn,renesas.com,suse.de,zonque.org];
-	RCPT_COUNT_GT_50(0.00)[53];
+	FREEMAIL_CC(0.00)[lists.linux.dev,sntech.de,gmail.com,chromium.org,kernel.org,nxp.com,collabora.com,loongson.cn,samsung.com,bootlin.com,linux.intel.com,st-md-mailman.stormreply.com,linux.alibaba.com,mediatek.com,vger.kernel.org,glider.be,broadcom.com,nvidia.com,bp.renesas.com,lists.infradead.org,intel.com,public-files.de,pengutronix.de,linaro.org,vivo.com,ragnatech.se,arm.com];
+	RCPT_COUNT_GT_50(0.00)[52];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
 	MIME_TRACE(0.00)[0:+];
 	ALIAS_RESOLVED(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	TAGGED_RCPT(0.00)[linux-stm32,renesas];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[vivo.com:from_mime,vivo.com:mid,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp,stm-ict-prod-mailman-01.stormreply.prv:helo]
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo,st-md-mailman.stormreply.com:rdns,st-md-mailman.stormreply.com:from_smtp]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: BC48275B30A
+X-Rspamd-Queue-Id: 695BC75B401
 X-Spam: Yes
 
-On 2026-07-14 20:06, Vinod Koul wrote:
-> On 09-07-26, 16:26, Wolfram Sang wrote:
->> On Thu, Jul 09, 2026 at 09:58:04PM +0800, Pan Chuang wrote:
->>> Commit 55b48e23f5c4b6f5ca9b7ab09599b17dcf501c10 ("genirq/devres: Add
->>> error handling in devm_request_*_irq()") added automatic error logging
->>> to devm_request_threaded_irq() and devm_request_any_context_irq() via
->>> the new devm_request_result() helper. The helper prints device name,
->>> IRQ number, handler functions, and error code on failure.
->>>
->>> Since devm_request_irq() is a static inline wrapper around
->>> devm_request_threaded_irq(), it also benefits from this automatic
->>> logging.
->>>
->>> This series removes the now-redundant dev_err() and dev_err_probe() calls
->>> in dmaengine drivers that follow these devm_request_*_irq() functions,
->>> as the core now provides more detailed diagnostic information on failure.
->>>
->>> Pan Chuang (26):
->>>   dmaengine: fsl-edma-main: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: fsl-qdma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: loongson-loongson1-apb-dma: Remove redundant
->>>     dev_err()/dev_err_probe()
->>>   dmaengine: mediatek-mtk-cqdma: Remove redundant
->>>     dev_err()/dev_err_probe()
->>>   dmaengine: mediatek-mtk-hsdma: Remove redundant
->>>     dev_err()/dev_err_probe()
->>>   dmaengine: mmp_pdma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: moxart-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: owl-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: pxa_dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: qcom-gpi: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sf-pdma-sf-pdma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sh-rcar-dmac: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sh-rz-dmac: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sh-shdmac: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sh-usb-dmac: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sprd-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: st_fdma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: stm32-stm32-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: stm32-stm32-dma3: Remove redundant
->>>     dev_err()/dev_err_probe()
->>>   dmaengine: stm32-stm32-mdma: Remove redundant
->>>     dev_err()/dev_err_probe()
->>>   dmaengine: sun4i-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: sun6i-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: tegra20-apb-dma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: ti-edma: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: uniphier-xdmac: Remove redundant dev_err()/dev_err_probe()
->>>   dmaengine: xgene-dma: Remove redundant dev_err()/dev_err_probe()
->>
->> One patch per subsystem for such trivial changes, please.
+On 2026/7/9 15:24, Wolfram Sang wrote:
 >
-> Yes pretty please
+>> all of these 18 are just one commit, no?
+>
+> I think so, too.
 >
 Thanks, I'll merge them in v2.
 
