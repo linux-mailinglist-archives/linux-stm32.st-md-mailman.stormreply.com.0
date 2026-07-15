@@ -2,103 +2,93 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id /JZtISQrVmpX0gAAu9opvQ
+	id onVTOjzuVmpxDAEAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 14:27:16 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 04:19:40 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1971A754857
-	for <lists+linux-stm32@lfdr.de>; Tue, 14 Jul 2026 14:27:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73DB375A088
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 04:19:40 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=baylibre.com header.s=google header.b=cfe0XJPe;
+	dkim=fail ("body hash did not verify") header.d=gmail.com header.s=20251104 header.b=ihZcenMz;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=none
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=gmail.com (policy=none)
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id C131ECA8E4C;
-	Tue, 14 Jul 2026 12:27:15 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53])
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 207A3C1A979;
+	Wed, 15 Jul 2026 02:19:40 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 5B72DC7BF97
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id CAF5DC2909A
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2026 12:27:14 +0000 (UTC)
-Received: by mail-wm1-f53.google.com with SMTP id
- 5b1f17b1804b1-493ae59eca6so5231665e9.1
+ Wed, 15 Jul 2026 02:19:37 +0000 (UTC)
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-2cabc0a1ab6so59412155ad.0
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Tue, 14 Jul 2026 05:27:14 -0700 (PDT)
+ Tue, 14 Jul 2026 19:19:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1784032033; x=1784636833;
+ d=gmail.com; s=20251104; t=1784081976; x=1784686776;
  darn=st-md-mailman.stormreply.com; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
- b=cfe0XJPesvY7IifSW+9TNbLdxwMDSQADTR5FElXPQ7xR0+KjVOEPv5Rkz+NUizFBIt
- 95Ci4ZcSmtZGwzI0YHGrDgVvM6Kz07hz+HH7/Kph2FJLPO5FJvyqjnAVRh43P4AAWkys
- a64PYC1SeT6eNR7N65Seew3ND1RJUngRylSNEwrqMe467u+DWlaw2uGwVoNniumM5IIV
- rJJgFKH1XEpiojTnwn6eQ70M4DhWjh5VJpjcNokxd4jSrYIJTiKha+0evruPhVaLhQyB
- bMnw6IlPLmPdGv2QW/pypF33K2NR7VKXtpnhKtJk6sAvwtmodJeQ9AZwqAzN7HNJfLgj
- P4sw==
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=3+A/CsOvZ5kwNPw68MEUIBx9OhApXOPeGcI1WPKSM0g=;
+ b=ihZcenMzUk+R7hwhxifNKfu5FuJF7LZxWf4d78kPYsmQCboZPFVXA0lnWSaJTydhGc
+ gCPFlrpymlri00z9kEopppfGWGsfkk/mA1AHFujmj6i72+VH8NDmJp06spOUYseTKpow
+ yS4d3FJL6fGSIJIXGulkKR2sHhPpzdUEs7xcnujk4RGELdqO8QV3uSutZD385ZooDwcZ
+ UlPxSGRqhVfuwT09xx3VOOpIvKr71Nos/wS0PAA2AtD0leuRWGU+KPBOyGmm3Y3/xwwA
+ 3k3hEj6rlT7n4gL9vI8SAt2DavvGokA5Ex+DxsDSkzdYwLtuIg5OILj9+1R77wakl5I8
+ mBOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20251104; t=1784032033; x=1784636833;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=ZSey80JFPh9lTWD+sSqyuQsIg2D7fhxscYbJM8DP7gA=;
- b=cQ32EfexyluA4p0vJPo648YbS6mA53xruDcSKp4sRu1/VQgoYv8b8Ueyi456QRVOAv
- zX4UP8uGbi0aD1Mtn6NSJ7rxdKKB2j2odTvQXdkBkZWVWhIYF9j/85h+vJXzWxBsBPg/
- MecndO0bYOGm/90UspwVpVTYy+Pi97QLHzgcxgfzfERrpEtJZqThtqNM76HNPxB0TQAE
- ECrEkcIHy/X8j5ph8RNAOcWjAUQWKIXq6yjQvCFqV3fP5Vaxubn4Oo5uiannnNZQ4Lo8
- uy0HXZVNOiiOZyxXSMWfWOniCrQyXycZo6GOVewt6sswrWRGAhdl8ydLDwZrCX8/bwIt
- Ejvw==
+ d=1e100.net; s=20251104; t=1784081976; x=1784686776;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=3+A/CsOvZ5kwNPw68MEUIBx9OhApXOPeGcI1WPKSM0g=;
+ b=P1n0NO5olZDLlGIFx5bdxL/9OenUcWhzAUoOLwwxFI81aeoSQuLiPjrqVCyacUtOmg
+ JURfqHYXa9ptaRkUrOGho+AxPtaASZQ8zf4RcuZFQpitql3vH9NuDaY7g7QMnTlOSz5l
+ mx2gkL/sT8c6NW7PCwzLOrmYxhfCgWxVgNhTtp7NylTyOd+Gtg6Kw/enCVKOz14dYXKq
+ aRAjbsxOltAYggYYsELZAd/eN9UsTfEeOYFBoEF5OHwlg3Ku6aHSgz9RgAPpWQvXs002
+ n8W5+OXxIGmvnqgXIpatxDNrtFQRL7bNARVbgsTV13rcjrocRBHJO0nT8BfLSIcAd/Wm
+ aPhw==
 X-Forwarded-Encrypted: i=1;
- AHgh+RoU/9WjXKNQ9rMpxdCdiwVj5biy6tkEJDqGnT1L+BM+aLEfEnvv5S0qKgg9sEv5IXIjwPi4jq9q/6rK+g==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yzp8y6gVAQHfJWTOqkks/C8UggLd0gzt3k+wW9xlA9uRsSYqkct
- MtNzoUnizKNa6GdgqOCf1+Pjn/9bVaQ7sj1EXLtLcsBAuEhc79luBhIfwvO/6gxwFSM=
-X-Gm-Gg: AfdE7clEQyfBRfBlbEeLFd5x4uS7jmcDAtTjfGG2d9tXDYxqdHytBbmCAhCnDYGyULF
- aeHKhaf8v9VBmoS/xFwrwM2yWrsJUBajBPogkAu5/SV6gZPna0YBGbB9aQ4iZoKU3v/W6puOYJS
- nwtizhb6Ag2K+NyDDQ0kt3aEqOyW9VMNZ99Vk/uWGOM/0W4dZc3TVL9qaZQCjiNVUqzwjoJvK4E
- usYQ8mwQB5ehdebPqpOSxpQNlGSnUoGLiQmJqNiTBqlJSIZG/3tEMSlAwklZJdg0D+5NmaxURn7
- SrstwoKvNjTvxuMhJ6gvmk3tk3w41Ek4gx66y5IhylWW1c9a7RLv/WuvQSkUw3IFkvSRUq09rlC
- 4lZKWTA/xjIDfqUpfNKYuy5ojmkbVO/knckKnrpcTFxJZ7K/Yl39kTQJHdFJ37u79FH3zsHYmhn
- uWZWzvG4JBMApV9qd9B9vCDSlrHKNOsgRY/mYxUFiCAk2gCzH414wDn+j5knVMj6QvFgTcjQmCx
- 8SseOgg+nJsypzKqr27eKb9sA==
-X-Received: by 2002:a05:600c:310f:b0:493:ee3a:f05b with SMTP id
- 5b1f17b1804b1-493f87d7fcdmr131894065e9.7.1784032033466; 
- Tue, 14 Jul 2026 05:27:13 -0700 (PDT)
-Received: from localhost
- (p200300f65f47db04b44a80421173aa03.dip0.t-ipconnect.de.
- [2003:f6:5f47:db04:b44a:8042:1173:aa03])
- by smtp.gmail.com with UTF8SMTPSA id
- 5b1f17b1804b1-49508732395sm71538925e9.5.2026.07.14.05.27.12
+ AHgh+RoNbnpe/QzpiTW/m/yWgU1I/cg/nB189FdQ7AgB4iD8oIgr05bfG1Ul0XLEJpIOdtDkkAdFqTejNlARiQ==@st-md-mailman.stormreply.com
+X-Gm-Message-State: AOJu0YzgJ9ss/ZMSRelUuTsBTlRi8W9QxvJiGq0hVxph4P9Fn9V458x/
+ jBMf5DBxJM/lzuZFihBh7EuOg2DDTKOspju/AtMPs/xNi0ryFIJkEwwp
+X-Gm-Gg: AfdE7ck6rLUoLKBYbJsBMgzut5nj9FUBEtju/R6lhnzqmiCo70eQHxEhCHBph3QaNBf
+ B59jIdaoNt8/HWsbw2mgKgCGCbxd2WFsHTGyYlZub5Jg8CMfNtEdU16khGqgL+FkoDrpDkT6At3
+ D1P8ZMkbgKwjPMpR7Rb8NiA6SATaQmUOB1qeHDPfUyHX+kV2Zvz0AfCzqqu5wBDmzli6xfOEi8q
+ CmgSF0pWUZUWMFgJp3XT0UI4ScQYdPsYZ+aCyFYpUjdfIb2I7Dma6tvuhchlEsp3teQwM3EhyDI
+ S9vwar99XnNMm5In+iNNGPg2VlgS/zfX/tf3yJJenSMeOlz6f4AGtMRjwmheJgHpKDhs1ivklfy
+ FsElE0ErQtSPJzNbEZwO5oj47GjwBQtUs8lUY2fd++23cgTKCOUJ3YEAjs2Pu5kyDpUF1bodfL7
+ IP9jnc194B0mLw8R5MDspM+B33pSjdT18TQ+Iemspmj1F9c+HxpoWtiw94adOuXkK4yoIm9+6yG
+ J2HxzlV//Iy3ZiopvviaYqMAiTfnA6qReQkjI3DdDUV6lYmZC++3yHe/1l2659r2A==
+X-Received: by 2002:a05:6a20:3d92:b0:3c0:9c1a:893e with SMTP id
+ adf61e73a8af0-3c34d8c599fmr6957139637.70.1784081976192; 
+ Tue, 14 Jul 2026 19:19:36 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e34])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-ca7f626fb78sm8653754a12.13.2026.07.14.19.19.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 14 Jul 2026 05:27:12 -0700 (PDT)
-Date: Tue, 14 Jul 2026 14:27:11 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>
-Message-ID: <alYq2J6hd06g9XyC@monoceros>
-References: <20260713-b4-eliza_mm_cc_v6-v7-0-4d91bcef50eb@oss.qualcomm.com>
- <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
+ Tue, 14 Jul 2026 19:19:35 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-rtc@vger.kernel.org
+Date: Tue, 14 Jul 2026 19:19:33 -0700
+Message-ID: <20260715021933.1551663-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 MIME-Version: 1.0
-In-Reply-To: <20260713-b4-eliza_mm_cc_v6-v7-7-4d91bcef50eb@oss.qualcomm.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, linux-clk@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Imran Shaik <imran.shaik@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Luca Weiss <luca.weiss@fairphone.com>,
- Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- Brian Masney <bmasney@redhat.com>, linux-arm-kernel@lists.infradead.org,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Ajit Pandey <ajit.pandey@oss.qualcomm.com>, Stephen Boyd <sboyd@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-kernel@vger.kernel.org,
- Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ "open list:CLANG/LLVM BUILD SUPPORT:Keyword:b?i:clang|llvmb"
+ <llvm@lists.linux.dev>, Nick Desaulniers <ndesaulniers@google.com>,
+ open list <linux-kernel@vger.kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>, Bill Wendling <morbo@google.com>,
  Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>
-Subject: Re: [Linux-stm32] [PATCH v7 07/10] clk: qcom: videocc: Add video
- clock controller driver for Eliza
+ Justin Stitt <justinstitt@google.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE"
+ <linux-stm32@st-md-mailman.stormreply.com>,
+ "moderated list:ARM/STM32 ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>
+Subject: [Linux-stm32] [PATCH] rtc: stmp3xxx: use
+	devm_platform_ioremap_resource()
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -110,103 +100,115 @@ List-Post: <mailto:linux-stm32@st-md-mailman.stormreply.com>
 List-Help: <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=help>
 List-Subscribe: <https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32>, 
  <mailto:linux-stm32-request@st-md-mailman.stormreply.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============4689965334692527180=="
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
 X-Rspamd-Action: no action
-X-Spamd-Result: default: False [1.69 / 15.00];
-	SIGNED_PGP(-2.00)[];
+X-Spamd-Result: default: False [4.39 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
-	R_DKIM_REJECT(1.00)[baylibre.com:s=google];
+	R_DKIM_REJECT(1.00)[gmail.com:s=20251104];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	MID_RHS_NOT_FQDN(0.50)[];
+	MID_CONTAINS_FROM(1.00)[];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
-	MIME_GOOD(-0.20)[multipart/mixed,multipart/signed,text/plain];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
+	DMARC_POLICY_SOFTFAIL(0.10)[gmail.com : SPF not aligned (relaxed),none];
+	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	RECEIVED_HELO_LOCALHOST(0.00)[];
+	MIME_TRACE(0.00)[0:+];
 	RCVD_TLS_LAST(0.00)[];
 	RCVD_COUNT_THREE(0.00)[4];
-	DMARC_NA(0.00)[baylibre.com];
-	FORGED_SENDER(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	RCPT_COUNT_TWELVE(0.00)[23];
-	FORGED_RECIPIENTS(0.00)[m:taniya.das@oss.qualcomm.com,m:mturquette@baylibre.com,m:linux-clk@vger.kernel.org,m:robh@kernel.org,m:imran.shaik@oss.qualcomm.com,m:krzk@kernel.org,m:luca.weiss@fairphone.com,m:konradybcio@kernel.org,m:devicetree@vger.kernel.org,m:conor+dt@kernel.org,m:konrad.dybcio@oss.qualcomm.com,m:linux-arm-msm@vger.kernel.org,m:bmasney@redhat.com,m:linux-arm-kernel@lists.infradead.org,m:dmitry.baryshkov@oss.qualcomm.com,m:ajit.pandey@oss.qualcomm.com,m:sboyd@kernel.org,m:andersson@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-kernel@vger.kernel.org,m:jagadeesh.kona@oss.qualcomm.com,m:mcoquelin.stm32@gmail.com,m:krzk+dt@kernel.org,m:conor@kernel.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
-	MIME_TRACE(0.00)[0:+,1:+,2:+,3:~,4:+];
-	ARC_NA(0.00)[];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_SENDER_MAILLIST(0.00)[];
-	DKIM_TRACE(0.00)[baylibre.com:-];
+	FREEMAIL_FROM(0.00)[gmail.com];
 	TO_DN_SOME(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
-	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FROM_NEQ_ENVFROM(0.00)[u.kleine-koenig@baylibre.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_CC(0.00)[bootlin.com,lists.linux.dev,google.com,vger.kernel.org,kernel.org,gmail.com,st-md-mailman.stormreply.com,lists.infradead.org];
+	FORGED_SENDER(0.00)[rosenp@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_RECIPIENTS(0.00)[m:linux-rtc@vger.kernel.org,m:alexandre.belloni@bootlin.com,m:llvm@lists.linux.dev,m:ndesaulniers@google.com,m:linux-kernel@vger.kernel.org,m:nathan@kernel.org,m:morbo@google.com,m:mcoquelin.stm32@gmail.com,m:justinstitt@google.com,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	ARC_NA(0.00)[];
+	GREYLIST(0.00)[pass,meta];
 	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[baylibre.com,vger.kernel.org,kernel.org,oss.qualcomm.com,fairphone.com,redhat.com,lists.infradead.org,st-md-mailman.stormreply.com,gmail.com];
+	DKIM_TRACE(0.00)[gmail.com:-];
+	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
 	ALIAS_RESOLVED(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[rosenp@gmail.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FORGED_SENDER_MAILLIST(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[11];
+	TAGGED_RCPT(0.00)[linux-stm32];
 	FORGED_RECIPIENTS_MAILLIST(0.00)[];
 	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	MISSING_XM_UA(0.00)[];
 	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[monoceros:mid,stormreply.com:email,stormreply.com:url,baylibre.com:from_mime]
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[stormreply.com:email,stormreply.com:url,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 1971A754857
+X-Rspamd-Queue-Id: 73DB375A088
 
+Replace the open-coded platform_get_resource() plus devm_ioremap()
+sequence with a single devm_platform_ioremap_resource() call, which folds
+the resource lookup and mapping into one step and returns an ERR_PTR on
+failure, checked with IS_ERR() and propagated via PTR_ERR().
 
---===============4689965334692527180==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ebx5plxbs5ed2t4p"
-Content-Disposition: inline
+Move the mapping ahead of the devm_kzalloc() so that an error or deferred
+probe is handled before the rtc_data allocation, avoiding needless work.
 
+The fsl,stmp3xxx-rtc nodes in imx23.dtsi (reg = <0x8005c000 0x2000>) and
+imx28.dtsi (reg = <0x80056000 0x2000>) each provide a single
+non-overlapping IORESOURCE_MEM window, so the region reservation now
+performed by devm_platform_ioremap_resource() introduces no conflict.
 
---ebx5plxbs5ed2t4p
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH v7 07/10] clk: qcom: videocc: Add video clock controller
- driver for Eliza
-MIME-Version: 1.0
+Built for ARM (mxs_defconfig + CONFIG_RTC_DRV_STMP) with LLVM=1;
+drivers/rtc/rtc-stmp3xxx.o compiles cleanly.
 
-Hello,
+Assisted-by: opencode:hy3-free
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/rtc/rtc-stmp3xxx.c | 19 ++++++-------------
+ 1 file changed, 6 insertions(+), 13 deletions(-)
 
-On Mon, Jul 13, 2026 at 08:23:45PM +0530, Taniya Das wrote:
-> +#include <linux/mod_devicetable.h>
-> [...]
-> +#include <linux/platform_device.h>
-
-Please rely on <linux/platform_device.h> to provide of_device_id and
-drop the include for <linux/mod_devicetable.h>. The latter header is
-going away soon.
-
-Best regards
-Uwe
-
---ebx5plxbs5ed2t4p
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmpWKx0ACgkQj4D7WH0S
-/k73NQf/T09jaRmPJhz4l6/RUqCHwddXVzILSJXm5JaBiJDO0DMQ7ba66QjYb4dl
-QI1n/Dhb09P32uDl6jsczhMK61GxspOgLrFR2hBJzih+s41bXQ7uPoTac0gcaxYW
-7ldbJEM2KWQqFfrv8evU5objg4VkaDip0n9ci9nt6BgjQpYrjjX2clnDM/0zDdp+
-J8Dm1K+VIcHnIuhNQqi0ptZUQ7G6eoC2c6bWlZ6aaZm8kmv+yuRaMgI+u78AEzgG
-aSj02assVonsMuBMLKWJt55XzGBjwDCaWmUdfxbvs8kPIqtPeP6z5JFX/FcChP14
-2tr6zJZjaXuLYoEM5CwI84TE9YnOXQ==
-=/t+O
------END PGP SIGNATURE-----
-
---ebx5plxbs5ed2t4p--
-
---===============4689965334692527180==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+diff --git a/drivers/rtc/rtc-stmp3xxx.c b/drivers/rtc/rtc-stmp3xxx.c
+index 7afcd14aeee5..05f128ccf827 100644
+--- a/drivers/rtc/rtc-stmp3xxx.c
++++ b/drivers/rtc/rtc-stmp3xxx.c
+@@ -245,28 +245,21 @@ static void stmp3xxx_rtc_remove(struct platform_device *pdev)
+ static int stmp3xxx_rtc_probe(struct platform_device *pdev)
+ {
+ 	struct stmp3xxx_rtc_data *rtc_data;
+-	struct resource *r;
++	void __iomem *io;
+ 	u32 rtc_stat;
+ 	u32 pers0_set, pers0_clr;
+ 	u32 crystalfreq = 0;
+ 	int err;
+ 
++	io = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(io))
++		return PTR_ERR(io);
++
+ 	rtc_data = devm_kzalloc(&pdev->dev, sizeof(*rtc_data), GFP_KERNEL);
+ 	if (!rtc_data)
+ 		return -ENOMEM;
+ 
+-	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+-	if (!r) {
+-		dev_err(&pdev->dev, "failed to get resource\n");
+-		return -ENXIO;
+-	}
+-
+-	rtc_data->io = devm_ioremap(&pdev->dev, r->start, resource_size(r));
+-	if (!rtc_data->io) {
+-		dev_err(&pdev->dev, "ioremap failed\n");
+-		return -EIO;
+-	}
+-
++	rtc_data->io = io;
+ 	rtc_data->irq_alarm = platform_get_irq(pdev, 0);
+ 
+ 	rtc_stat = readl(rtc_data->io + STMP3XXX_RTC_STAT);
+-- 
+2.55.0
 
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
 https://st-md-mailman.stormreply.com/mailman/listinfo/linux-stm32
-
---===============4689965334692527180==--
