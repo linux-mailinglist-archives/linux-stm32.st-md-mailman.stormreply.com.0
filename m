@@ -2,78 +2,127 @@ Return-Path: <linux-stm32-bounces@st-md-mailman.stormreply.com>
 Delivered-To: lists+linux-stm32@lfdr.de
 Received: from mail.lfdr.de
 	by mail.lfdr.de with LMTP
-	id rmt7N2hCV2oJIQEAu9opvQ
+	id DF/zFzuQV2qSXAAAu9opvQ
 	(envelope-from <linux-stm32-bounces@st-md-mailman.stormreply.com>)
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 10:18:48 +0200
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 15:50:51 +0200
 X-Original-To: lists+linux-stm32@lfdr.de
 Received: from stm-ict-prod-mailman-01.stormreply.prv (st-md-mailman.stormreply.com [52.209.6.89])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69FB875BCD1
-	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 10:18:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BE9D475EFD0
+	for <lists+linux-stm32@lfdr.de>; Wed, 15 Jul 2026 15:50:50 +0200 (CEST)
 Authentication-Results: mail.lfdr.de;
-	dkim=fail ("body hash did not verify") header.d=kernel.org header.s=k20260515 header.b=Y+vkypAF;
+	dkim=fail ("body hash did not verify") header.d=vivo.com header.s=selector2 header.b=B+9HWO8W;
 	spf=pass (mail.lfdr.de: domain of linux-stm32-bounces@st-md-mailman.stormreply.com designates 52.209.6.89 as permitted sender) smtp.mailfrom=linux-stm32-bounces@st-md-mailman.stormreply.com;
-	dmarc=fail reason="SPF not aligned (relaxed)" header.from=kernel.org (policy=quarantine)
+	dmarc=fail reason="SPF not aligned (relaxed)" header.from=vivo.com (policy=quarantine);
+	arc=reject ("signature check failed: fail, {[1] = sig:microsoft.com:reject}")
 Received: from ip-172-31-3-47.eu-west-1.compute.internal (localhost [127.0.0.1])
-	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 08AA3C58D7B;
-	Wed, 15 Jul 2026 08:18:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- (using TLSv1.2 with cipher ADH-AES256-GCM-SHA384 (256/256 bits))
+	by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTP id 5D853C8F274;
+	Wed, 15 Jul 2026 13:50:50 +0000 (UTC)
+Received: from OS8PR02CU002.outbound.protection.outlook.com
+ (mail-japanwestazon11012046.outbound.protection.outlook.com [40.107.75.46])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id 96EB6C57A51
+ by stm-ict-prod-mailman-01.stormreply.prv (Postfix) with ESMTPS id F187CC7A83B
  for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jul 2026 08:18:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 782CF601E0
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jul 2026 08:18:45 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294681F00ACF
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jul 2026 08:18:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1784103525;
- bh=8hGVZh4PoHLjhUPeUZDk7YT9r2Csoy+q60RG1t1sPcs=;
- h=From:In-Reply-To:References:Date:Subject:To:Cc;
- b=Y+vkypAFF2VaKmeNBsJM168DosyIXULOV/1fpLuzsTul1sgGvXaBR4KZ6xOeIC+2j
- Ci+eiuoe5uMuHswoUkQiT4cMDUrKyJHoTFFQmF37me/jk2bry6CyrZbFe4/+NfwFcX
- SG7ighaYJUwUSjtA22Qc2YIC4pFU+ExRU41dvQRVxxFMEEaWzAjIETlABGoFhH67vD
- hcmZwvOC5bee6CUqAe029xw9LtrSlXAKvUsDYQycVXhHx0+E6TaxSvcfjZ5xskzofp
- L3QcfMeKA0I8rSRy0J4LVEzwZYEL7usUigDcxEmdjKlPkyB9vRYGbpTIPLxVrXraLs
- 6i7e19kgfMjHw==
-Received: by mail-lj1-f176.google.com with SMTP id
- 38308e7fff4ca-39ca0a30148so40756571fa.3
- for <linux-stm32@st-md-mailman.stormreply.com>;
- Wed, 15 Jul 2026 01:18:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AHgh+RpEKdy1UV/B8CeyU9y9XMkuRK+i6FsH0hh22/mJtcM2lk9lCPqhITA2GxTr2QMfRWm6eIoA8JuLH+jECA==@st-md-mailman.stormreply.com
-X-Gm-Message-State: AOJu0Yz9Vm20Kc4Lz7lurXlNQSOVau4m3b/yBiPQ6oXXnNR+p6RdJFpz
- w0AHFt0Uk6DrSU4Sd+LTt+dqgNHLv+h/YwrE+xNevdPlvxzPZnSvVwvCMpdTAP3psJaHlsDBO6N
- GXeaB0x3o7grjiMo95nS8KSXDoW+QCROrWGa0eOYysw==
-X-Received: by 2002:a2e:a58f:0:b0:39c:7919:fcf1 with SMTP id
- 38308e7fff4ca-39db6d81975mr4644921fa.33.1784103523816; Wed, 15 Jul 2026
- 01:18:43 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 01:18:41 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 15 Jul 2026 01:18:41 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260711210131.236025-3-marex@nabladev.com>
+ Wed, 15 Jul 2026 13:50:48 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rhg92KCR1F3Z24btjoUy/GsxCHijjhazg8xvIFeVDfz3ADV7YYouc0SCmEd8piNPfuG3cGT/7WUCnLTQdPxoVmw0dKwFiRwpOyMe/Gf0thoniPipTpTkRWVgMwGLvhPkYWSJUW1Pzye8aTTKVmDhAUkjbHOJsOgCd7R0739dKMxsCvj1pBw2hs7h5EjEwLA8gTG41LXR0F2Zho5aangRfQftO314RBAdbJSYXZnH2aT2SgtYTvFilOSnodw1yS3ctS1QE31BrGKr9scdbxMYZwJlIHQmwq6dF5kjSUWMx5euDQDuXy13PMqoN3EUm9rUH0Jtszrc2VyNVF6KwBqjmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vlMmABHURfgFO/daGhOyDVSFyXjuWEBaxvTIUoqfyqk=;
+ b=r9bn0jWDQn61UiuulCyf5mv0f3I/fKamu1J2Px9wvwB4pamJ2EEVNK3s+50olamdfDpYgm8JDOQ0lKvQSGtYQU+DyY4V2Hpv0HpVS1wvxoNBCHQd+YZE2iUMXAC6dEQoI5+evFTS4vdIpQlbWzA0bEZ9AA9tH6KybSiNNYaiJBua1ZRvMGXLlZBWSvo0A9sYutKR09Fp4B9BMIn3ukcg8pCz88E/Gy0zjzlKoU2eDxq7yMH66ijIRFd8phGf9QCnDyOeoRMvX5CFsQDQ0y1NeXquGawBYWAtQWdVZkRFFNM4J7si7hsGht3EwpFj605cPfchvgMkLddOkE5T+h4JOw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vivo.com; dmarc=pass action=none header.from=vivo.com;
+ dkim=pass header.d=vivo.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vivo.com; s=selector2; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vlMmABHURfgFO/daGhOyDVSFyXjuWEBaxvTIUoqfyqk=;
+ b=B+9HWO8WN4fyw9iefG+O7hBGAwvA8PPVQM5hxV07VVRAbtHqmNizOHZ4cxnMZ3cSdy2v6AhtQSJ44i5vUW5wgW+DsGstE3aFLJQpGnIF/6MNSjVFsPeJZEAdXnILdZZtyoPtelArEKYQx47LmRcHRJPHt6gyXiAzeAKkXgFEPdKxyjqC+r49TyjcEPB+tzmZrXgsYFEY5Pqef3+0oSKY/paHBK42b2rkFJkffA6CWi1bbkA1tZlxF+MpeUxHPi9+utE7LBoaBBFztiLBtVfIjRVxqLUfMuGMUxaaead960SlNFH6l96XAzWM9S6lLi5es0IlMSnEBdCQScs1rq4nzQ==
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com (2603:1096:101:c8::12)
+ by SI3PR06MB8658.apcprd06.prod.outlook.com (2603:1096:4:2a7::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.10; Wed, 15 Jul
+ 2026 13:50:44 +0000
+Received: from SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b]) by SEZPR06MB5832.apcprd06.prod.outlook.com
+ ([fe80::f98:5e32:4ccb:d07b%6]) with mapi id 15.21.0223.008; Wed, 15 Jul 2026
+ 13:50:44 +0000
+From: Pan Chuang <panchuang@vivo.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+ William Breathitt Gray <wbg@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Vignesh Raghavendra <vigneshr@ti.com>, Julien Panis <jpanis@baylibre.com>,
+ David Lechner <david@lechnology.com>,
+ linux-iio@vger.kernel.org (open list:COUNTER SUBSYSTEM),
+ linux-stm32@st-md-mailman.stormreply.com (moderated list:ARM/STM32
+ ARCHITECTURE), 
+ linux-arm-kernel@lists.infradead.org (moderated list:ARM/STM32 ARCHITECTURE), 
+ linux-kernel@vger.kernel.org (open list),
+ linux-omap@vger.kernel.org (open list:TI ENHANCED CAPTURE (eCAP) DRIVER)
+Date: Wed, 15 Jul 2026 21:50:27 +0800
+Message-Id: <20260715135030.326290-1-panchuang@vivo.com>
+X-Mailer: git-send-email 2.34.1
+X-ClientProxiedBy: TPYP295CA0019.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:a::14) To SEZPR06MB5832.apcprd06.prod.outlook.com
+ (2603:1096:101:c8::12)
 MIME-Version: 1.0
-References: <20260711210131.236025-1-marex@nabladev.com>
- <20260711210131.236025-3-marex@nabladev.com>
-Date: Wed, 15 Jul 2026 01:18:41 -0700
-X-Gmail-Original-Message-ID: <CAMRc=McWngnxX1TE7jj+4hr25PN6o4rZGW+Jm2CivXtzA53CwA@mail.gmail.com>
-X-Gm-Features: AUfX_mwKBsfMiGTO8O5kdCZA1clS20B1ees3zGV3oL0u74_c0uWhHuUReKtAFA8
-Message-ID: <CAMRc=McWngnxX1TE7jj+4hr25PN6o4rZGW+Jm2CivXtzA53CwA@mail.gmail.com>
-To: Marek Vasut <marex@nabladev.com>, 
- Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-Cc: Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@dh-electronics.com,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-stm32@st-md-mailman.stormreply.com, linux-arm-kernel@lists.infradead.org
-Subject: Re: [Linux-stm32] [PATCH 02/10] dt-bindings: gpio: pca95xx:
-	Document Kinetic KTS1622
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5832:EE_|SI3PR06MB8658:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb65c303-0a63-46cc-8245-08dee27810d5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|7416014|52116014|366016|6133799003|56012099006|11063799006|38350700014|921020|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info: OEPzfhHfjqVVs3upOUpY0l5DRAJwn5w8z7t412HhAoqqPbNFXeighqAda3mkEez2BpgG76YjQKw+WW8Xln9kjyCtCnykZJJT2mMPRW9A2E38lbqa7Tdh3jOCDZK+wrD30B/fFjnCU1dz5T84yr5wjrjAKarwbtrSO1VoO5DYNcejMJ44mlMh1xZc5dkUATalWSccYK9xLfXKfqoU12yknNgShjV/87YoG8WWA0dkgUNOEguaPhLurXfTV9GJfFUiCqDzimFMGSi0za45cbe6NYmXB2UMgB8O+nLRzCn6lKHB6FBaaPfJ5zAZYkPJ4AhIe3PTnLnS3sHJWXQ7xmyxOxspbh/sXdlpVBCglAh2IRUK4k3Uu2HvmWkM1hjCLrH1ICxyLKNAgvyNbDwr9XGGp0ymxeHiupsqu89wOP08StR76p0alSU1ZtWU9fYTU3sF9e4jcCyMxx5H9MK66uXdWKFyvYw5aHdO0EO6BgVVr7GyouK0NY3qkvZ3mMUtUbp6Vu8Qbd9+0eeO47peazus61ljYbW+smgeuKqfKJwFHY0Dq1Tq6UyjoTYdjIYmG5HesASeLjAzD9mMRJlRSiOI6HXNzZ6MH+DN5YJM2oRHm4+/nXWm45OEV/TeITS/JArwYG1GtCVjsvaArCk0pntbRFUr1gwV1fBcoy1boDRRVl+HEmDSwmgYdu5fW0uyiHS0iFlZd0qMepJb8hrG7coBsCX2N+wqE7PRtO32oqxuuX5akIyto0ITIeXK5qvK4jBn
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5832.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(7416014)(52116014)(366016)(6133799003)(56012099006)(11063799006)(38350700014)(921020)(10067099003)(18002099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?gXMNFWjNA849YJfLfW9RWa/QZfGlo4FgssxusWtxlIkEuG/2orcMnQrauWIo?=
+ =?us-ascii?Q?O90cdqEovnQ1/BLMt2HRQeuLVEBVpJI9fdWxqiIurYFDQQ752iemxU7wr3p3?=
+ =?us-ascii?Q?qgNfSd5BHxbA7HCevi3ySGmS6+nhQC8UW7cifI7Zja99gO+YfM5Lo3m1Tb+j?=
+ =?us-ascii?Q?sx2YXnMTErJRJeQjC48lRbXn74li0L9xS4OIqOpGsPMhMya4q8Y6w/bIX5RK?=
+ =?us-ascii?Q?VUboZuYpn7806q4R7xjQr1kLDsmsRop03RSyM1BNVUb0lhwdHn5OK1iBwtfq?=
+ =?us-ascii?Q?0jDBlAYQToW9l+AzDVAzAdQEvsHqA1qq/yNNTzvr1log/58VDNjBbEGPpTFq?=
+ =?us-ascii?Q?wkyB3R0iBWVB5sxXx4rDBJ3weqJ0LXEw2VCtNXop0AxjtMUtAm8xnMl9fdlm?=
+ =?us-ascii?Q?fzh0GWny6mXEWXptTL12tHdp1S93hYG8FbWP2TMzzoavG34FCWW/ALdQhYFN?=
+ =?us-ascii?Q?k2ybffXU1g+9eYk0w/0B3C1E29VTMH6VQVLf3L0iLpDJrDweylX2ykwr+pgh?=
+ =?us-ascii?Q?2JKxe6IEI2XHMH9ddxjEr1XNGmg9aVKrBmNqDUI/IIOuIyIJYqdkd1+PVFBP?=
+ =?us-ascii?Q?TJBWF4Zhw2FMxFMBNIANtk1FumAa0pMYtHr4QMV72W+IbEgTAoXlUTc4y0qX?=
+ =?us-ascii?Q?T9QHIB10FVxe0b7Oa7RxkFqkIjb45fmSRsx+Mm+i26p7utTC77IQa1IOPXq2?=
+ =?us-ascii?Q?BeFIv7u1JHT+u/IdFA7pfd+aP0Y0e11ySpDM/nl+9cyu1BT8XZgAty3Z5n2y?=
+ =?us-ascii?Q?T3JWGb99EQVZpdrH1zgS6qk/QpAhHfTEaOOToxtRETxXAwIHJaLrm3YACi8J?=
+ =?us-ascii?Q?sKqtHGUtWyS1Mm68BEOmrFLdsF8mea7o6e6mTNm8x7JS5/KzFe/5BkC7DlLS?=
+ =?us-ascii?Q?ieKHgw5TiXakUyHEBpvTySQfnHALxEU12lzfrKbsM4doRg97Smm2q4qiZCJ1?=
+ =?us-ascii?Q?PjiumvtyiohvenGhLLB6eZOWaVgf6sA0CX4u180kEv84BJx4bjz4UuJGIWej?=
+ =?us-ascii?Q?0+hjV5GiQpZHWQWQFajZ1WPIahYBM6oDqJOZFYsHUEVsGEUQK69jSoymIDpm?=
+ =?us-ascii?Q?6mtWabCGvePxy9uN3pVVibWig/YqevCeLMD+8p4hMayyRbnPc7GQUShSFKnw?=
+ =?us-ascii?Q?Le/L61OIDMVa0a/nTRwSyszk5HVXeo5SBrsI4KcoCxitNdHM/WyKP1nCKkYs?=
+ =?us-ascii?Q?YDJVbSDxhOB+J5EKb+jYAZJKFiukGbSgTe9K/mK5ZarTiexxp3524vlT/qAt?=
+ =?us-ascii?Q?SL/A/PbMhkq77fNnGbJKSx/zyYX6wQoez/cWsZID1qMZpTeYojQnhcTrXAZm?=
+ =?us-ascii?Q?q1uBR9apWLDAhme6/g6fMc9VHH+MG5HhfWitrdYcsahPShjbG2+qa5ANZM3Q?=
+ =?us-ascii?Q?c+mnqRv4hPN1zQOzvTF8dg1QUJI3LCQuN/6pesqGrjqS5rPsW4w08FJ4w39t?=
+ =?us-ascii?Q?8rBQ0k8PSVEGDbkiwtCuT/pGVPSMOlrtBGJYbfiy5KJ6vHOsn1H0fHUXVsJn?=
+ =?us-ascii?Q?L6QhsvlPYqdIffK2lqu9BVX+C7/SOFNRvKVFxYnWeSF1UTzYBHZAKIRjhetp?=
+ =?us-ascii?Q?jK+kjMDjFwQqwMKsiem+njThbuWV1F8dVnmECBU6MHXOnnqjm4eGtoYJyILE?=
+ =?us-ascii?Q?C3Us4KtkKMuoxbo5AITnxJWAel13PRTEQZpF+VRTTO15KUVMzHpJsDmSQTES?=
+ =?us-ascii?Q?2juheK26sZiZdfrIGF9YHkoz6IirfGj25ww06fFZOpSuFTnlK8puh8mbUW5F?=
+ =?us-ascii?Q?rmQCpFK1Jw=3D=3D?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb65c303-0a63-46cc-8245-08dee27810d5
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5832.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Jul 2026 13:50:44.3315 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: RBqmf1z+JkWTxpHWFtVEto1chqMfuB9W79WNK1CLJ6d8fBfYWQ5Ns/o239M7RQ2uHuOscupKNU1BCHCIiRnzqw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI3PR06MB8658
+Cc: Pan Chuang <panchuang@vivo.com>
+Subject: [Linux-stm32] [PATCH 0/3] counter: Remove redundant error messages
+	on IRQ request failure
 X-BeenThere: linux-stm32@st-md-mailman.stormreply.com
 X-Mailman-Version: 2.1.15
 Precedence: list
@@ -89,129 +138,75 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-stm32-bounces@st-md-mailman.stormreply.com
 Sender: "Linux-stm32" <linux-stm32-bounces@st-md-mailman.stormreply.com>
-X-Rspamd-Action: no action
-X-Spamd-Result: default: False [4.79 / 15.00];
-	DMARC_POLICY_QUARANTINE(1.50)[kernel.org : SPF not aligned (relaxed),quarantine];
+X-Spamd-Result: default: False [6.79 / 15.00];
 	SUSPICIOUS_RECIPS(1.50)[];
+	DMARC_POLICY_QUARANTINE(1.50)[vivo.com : SPF not aligned (relaxed),quarantine];
 	HFILTER_HELO_IP_A(1.00)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_DKIM_REJECT(1.00)[kernel.org:s=k20260515];
+	R_DKIM_REJECT(1.00)[vivo.com:s=selector2];
+	MID_CONTAINS_FROM(1.00)[];
+	ARC_REJECT(1.00)[signature check failed: fail, {[1] = sig:microsoft.com:reject}];
 	HFILTER_HELO_NORES_A_OR_MX(0.30)[stm-ict-prod-mailman-01.stormreply.prv];
-	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MAILLIST(-0.20)[mailman];
+	R_SPF_ALLOW(-0.20)[+ip4:52.209.6.89];
 	MIME_GOOD(-0.10)[text/plain];
 	HAS_LIST_UNSUB(-0.01)[];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_TRACE(0.00)[kernel.org:-];
-	RCPT_COUNT_TWELVE(0.00)[13];
-	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[4];
 	RCVD_TLS_LAST(0.00)[];
-	FORGED_SENDER(0.00)[brgl@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
-	GREYLIST(0.00)[pass,meta];
-	FORGED_RECIPIENTS(0.00)[m:marex@nabladev.com,m:konstantin@linuxfoundation.org,m:robh@kernel.org,m:conor+dt@kernel.org,m:brgl@kernel.org,m:linusw@kernel.org,m:linux-kernel@vger.kernel.org,m:linux-gpio@vger.kernel.org,m:devicetree@vger.kernel.org,m:kernel@dh-electronics.com,m:krzk+dt@kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:conor@kernel.org,m:krzk@kernel.org,s:lists@lfdr.de];
-	FORGED_RECIPIENTS_MAILLIST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[mail.gmail.com:mid,nabladev.com:email,dh-electronics.com:email];
-	MISSING_XM_UA(0.00)[];
-	FORGED_SENDER_FORWARDING(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[13];
+	FORGED_RECIPIENTS(0.00)[m:fabrice.gasnier@foss.st.com,m:wbg@kernel.org,m:mcoquelin.stm32@gmail.com,m:alexandre.torgue@foss.st.com,m:vigneshr@ti.com,m:jpanis@baylibre.com,m:david@lechnology.com,m:linux-iio@vger.kernel.org,m:linux-stm32@st-md-mailman.stormreply.com,m:linux-arm-kernel@lists.infradead.org,m:linux-kernel@vger.kernel.org,m:linux-omap@vger.kernel.org,m:panchuang@vivo.com,m:mcoquelinstm32@gmail.com,s:lists@lfdr.de];
 	FORGED_SENDER_MAILLIST(0.00)[];
-	FROM_NEQ_ENVFROM(0.00)[brgl@kernel.org,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	FREEMAIL_TO(0.00)[foss.st.com,kernel.org,gmail.com,ti.com,baylibre.com,lechnology.com,vger.kernel.org,st-md-mailman.stormreply.com,lists.infradead.org];
+	FORGED_SENDER(0.00)[panchuang@vivo.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[52.209.6.89:from];
+	FORWARDED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
+	GREYLIST(0.00)[pass,meta];
 	FROM_HAS_DN(0.00)[];
-	TO_DN_SOME(0.00)[];
+	DKIM_TRACE(0.00)[vivo.com:-];
 	PREVIOUSLY_DELIVERED(0.00)[linux-stm32@st-md-mailman.stormreply.com];
-	FORGED_RECIPIENTS_FORWARDING(0.00)[];
-	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
 	ALIAS_RESOLVED(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TAGGED_RCPT(0.00)[linux-stm32,dt];
-	RCVD_COUNT_SEVEN(0.00)[7]
+	FORGED_SENDER_FORWARDING(0.00)[];
+	FROM_NEQ_ENVFROM(0.00)[panchuang@vivo.com,linux-stm32-bounces@st-md-mailman.stormreply.com];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[40.107.75.46:received,2603:1096:101:c8::12:received];
+	TAGGED_RCPT(0.00)[linux-stm32];
+	FORGED_RECIPIENTS_FORWARDING(0.00)[];
+	FORGED_RECIPIENTS_MAILLIST(0.00)[];
+	ASN(0.00)[asn:16509, ipnet:52.208.0.0/13, country:US];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[st-md-mailman.stormreply.com:from_smtp,st-md-mailman.stormreply.com:rdns,vivo.com:from_mime,vivo.com:mid,stm-ict-prod-mailman-01.stormreply.prv:helo]
 X-Rspamd-Server: lfdr
-X-Rspamd-Queue-Id: 69FB875BCD1
+X-Rspamd-Queue-Id: BE9D475EFD0
+X-Rspamd-Action: add header
+X-Spam: Yes
 
-On Sat, 11 Jul 2026 22:59:31 +0200, Marek Vasut <marex@nabladev.com> said:
-> The Kinetic Technologies KTS1622 is a 16-bit general-purpose I/O
-> expander via the I2C bus for microcontrollers when additional I/Os
-> are needed while keeping interconnections to the minimum. Datasheet
-> comparison suggests that it is compatible with TCAL6416, add the
-> compatible string and TCAL6416 as a fallback compatible.
->
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Bartosz Golaszewski <brgl@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Linus Walleij <linusw@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-gpio@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
->  Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 3 +++
->  1 file changed, 3 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-> index 4f955f855e1ab..4631388a7d914 100644
-> --- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
-> @@ -22,6 +22,9 @@ properties:
->        - items:
->            - const: diodes,pi4ioe5v6534q
->            - const: nxp,pcal6534
-> +      - items:
-> +          - const: kinetic,kts1622
-> +          - const: ti,tcal6416
->        - items:
->            - enum:
->                - exar,xra1202
-> --
-> 2.53.0
->
->
+Commit 55b48e23f5c4 ("genirq/devres: Add error handling in
+devm_request_*_irq()") added automatic error logging to
+devm_request_threaded_irq() and devm_request_any_context_irq()
+via the new devm_request_result() helper, which prints device
+name, IRQ number, handler functions, and error code on failure.
 
-Hi Konstantin!
+Since devm_request_irq() is a static inline wrapper around
+devm_request_threaded_irq(), it also benefits from this
+automatic logging.
 
-I applied this patch with b4 and tried to generate the .thanks email. It failed
-like so:
+Remove the now-redundant dev_err() and dev_err_probe() calls
+in counter drivers that follow these devm_request_*_irq()
+functions, as the core now provides more detailed diagnostic
+information on failure.
 
-$ b4 ty -all
-Auto-thankanating commits in gpio/for-next
-Found 9 of your commits since 1.week
-Calculating patch hashes, may take a moment...
-  Located: [PATCH 00/10] arm64: dts: st: Add support for DH
-electronics STM32MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and
-DHSBC
----
-Generating 1 thank-you letters
-  Writing: ./marex_nabladev_com_patch_00_10_arm64_dts_st_add_support_for_dh_electronics_stm32mp23xx_stm32mp25xx_dhcos_som_and_breakout_board_and_dhsbc.thanks
-Traceback (most recent call last):
-  File "/usr/bin/b4", line 8, in <module>
-    sys.exit(cmd())
-             ~~~^^
-  File "/usr/lib/python3/dist-packages/b4/command.py", line 417, in cmd
-    cmdargs.func(cmdargs)
-    ~~~~~~~~~~~~^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/b4/command.py", line 113, in cmd_ty
-    b4.ty.main(cmdargs)
-    ~~~~~~~~~~^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/b4/ty.py", line 681, in main
-    auto_thankanator(cmdargs)
-    ~~~~~~~~~~~~~~~~^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/b4/ty.py", line 386, in auto_thankanator
-    send_messages(applied, wantbranch, cmdargs)
-    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/usr/lib/python3/dist-packages/b4/ty.py", line 452, in send_messages
-    with open(outfile, 'wb') as fh:
-         ~~~~^^^^^^^^^^^^^^^
-OSError: [Errno 36] File name too long:
-'./marex_nabladev_com_patch_00_10_arm64_dts_st_add_support_for_dh_electronics_stm32mp23xx_stm32mp25xx_dhcos_som_and_breakout_board_and_dhsbc.thanks'
+Pan Chuang (3):
+  counter: stm32-timer-cnt: Remove redundant dev_err()
+  counter: ti-ecap-capture: Remove redundant dev_err_probe()
+  counter: ti-eqep: Remove redundant dev_err_probe()
 
-The name is under the 255 byte limit, is this a b4 bug/limitation?
+ drivers/counter/stm32-timer-cnt.c | 10 ++--------
+ drivers/counter/ti-ecap-capture.c |  2 +-
+ drivers/counter/ti-eqep.c         |  2 +-
+ 3 files changed, 4 insertions(+), 10 deletions(-)
 
-Thanks,
-Bart
+-- 
+2.34.1
+
 _______________________________________________
 Linux-stm32 mailing list
 Linux-stm32@st-md-mailman.stormreply.com
